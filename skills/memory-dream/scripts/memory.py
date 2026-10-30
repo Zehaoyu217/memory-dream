@@ -882,7 +882,14 @@ def dream(args, root):
     e2, a2 = vocab_texts(root)
     wr(dd / "graph.json", g)
     wr(root / "INDEX.md", index_md(g, now))
-    pending = sum(1 for _ in pend.glob("*.prompt.md")) if pend.exists() else 0
+    todo_list = sorted(p for p in pend.glob("*.prompt.md")) if pend.exists() else []
+    todo_list = [p for p in todo_list if not (pend / (p.name[:-len(".prompt.md")] + ".json")).exists()]
+    pending = len(todo_list)
+    if pending:  # the dreamer may have no way to list files: name them
+        wr(pend / "TODO.md", "# pending prompts: answer each with <same name>.json\n"
+           + "".join(f"{p.resolve()}\n" for p in todo_list))
+    elif (pend / "TODO.md").exists():
+        (pend / "TODO.md").unlink()
     wr(dd / "manifest.json", {"v": V, "files": cur, "former": former, "vsig": vsig(e2, a2),
                               "seen": sorted(fold(e["id"]) for e in g["entities"]),
                               "queue": [[r["a"], r["b"]] for r in g["review"]],
@@ -903,7 +910,8 @@ def dream(args, root):
     out += (" · " + " ".join(f"{c}×{n}" for c, n in sorted(codes.items()))) if codes else ""
     print(out)
     if pending:
-        print(f"{pending} prompts in {pend}: run the memory-dreamer subagent, then memory.py dream again")
+        print(f"{pending} prompts listed in {pend / 'TODO.md'}: run the memory-dreamer subagent, "
+              "then memory.py dream again")
 
 
 def gists(root, g, cmd, pend, st, now, j):
@@ -1177,7 +1185,7 @@ def trace(args, root):
         return
     def kids(c):
         out = []
-        for r in (v.in_r[c] if args.down else v.out_r[c]):
+        for r in sorted(v.in_r[c] if args.down else v.out_r[c], key=lambda r: (r["type"], fold(r["s"] + r["o"]))):
             if rels and r["type"] not in rels:
                 continue
             other = r["s"] if args.down else r["o"]
