@@ -1,0 +1,546 @@
+#!/usr/bin/env python3
+"""Acceptance tests A1–A20 (spec §13) on the churn-2026 fixture, with the deterministic fake dreamer.
+
+  python3 tests/acceptance.py            # all
+  python3 tests/acceptance.py A6 A15     # some
+Real-model runs (A3, A10, A18 with Haiku) and the A21 agent eval are in tests/real_model.py and eval/.
+"""
+import importlib.util
+import json
+import os
+import random
+import shutil
+import subprocess
+import sys
+import tempfile
+import time
+import traceback
+from collections import Counter
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
+MEM = HERE.parent / "skills/memory-dream/scripts/memory.py"
+FIX = HERE / "fixture/memory"
+FAKE = f"{sys.executable} {HERE / 'fake_dreamer.py'}"
+_spec = importlib.util.spec_from_file_location("memory", MEM)
+mem = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(mem)
+sys.path.insert(0, str(HERE))
+import fake_dreamer as fake  # noqa: E402
+from truth import convergence  # noqa: E402
+
+P = "churn-2026/"
+
+
+class World:
+    def __init__(self, fixture=True):
+        self.dir = Path(tempfile.mkdtemp(prefix="memdream-"))
+        self.root = self.dir / "memory"
+        if fixture:
+            shutil.copytree(FIX, self.root)
+        else:
+            self.root.mkdir()
+        self.log = self.dir / "calls.log"
+        self.env = {k: v for k, v in os.environ.items() if not k.startswith(("MEMORY_", "FAKE_"))}
+        self.env["FAKE_LOG"] = str(self.log)
+
+    def run(self, *args, model=True, env=None):
+        e = dict(self.env, **(env or {}))
+        if model:
+            e["MEMORY_LLM"] = FAKE
+        r = subprocess.run([sys.executable, str(MEM), "--root", str(self.root), *args],
+                           capture_output=True, text=True, env=e)
+        assert r.returncode == 0, f"{args}: exit {r.returncode}\n{r.stderr}"
+        return r.stdout
+
+    def calls(self, kind=None):
+        rows = [ln.split() for ln in self.log.read_text().splitlines()] if self.log.exists() else []
+        return [r for r in rows if kind is None or r[0] == kind]
+
+    def graph(self):
+        """What where/trace see right now (fresh rescan, in memory)."""
+        return mem.load(self.root)[0]
+
+    def text(self, rel):
+        return (self.root / rel).read_text()
+
+    def inject(self, answers):
+        p = self.dir / "inject.json"
+        p.write_text(json.dumps({k: v if isinstance(v, str) else json.dumps(v) for k, v in answers.items()}))
+        self.env["FAKE_INJECT"] = str(p)
+
+    def oracle(self, stem):
+        rel = P + stem + ".md"
+        return fake.extraction(rel, self.text(rel))
+
+
+def ents(g):
+    return {e["id"]: e for e in g["entities"]}
+
+
+def rels(g):
+    return {(r["s"], r["type"], r["o"]): r for r in g["relations"]}
+
+
+def codes(g):
+    return Counter(c["code"] for c in g["checks"])
+
+
+def note(g, rel):
+    return next(n for n in g["notes"] if n["path"] == rel)
+
+
+# ---------- tests ----------
+
+def A1():
+    w = World(fixture=False)
+    out = w.run("dream")
+    for f in ("INDEX.md", "EDGES.md", "ALIASES.md", "_dream/graph.json"):
+        assert (w.root / f).exists(), f
+    assert w.text("EDGES.md") == mem.EDGES_SEED and w.text("ALIASES.md") == mem.ALIASES_HEAD
+    assert "0 notes" in out
+    return out.strip()
+
+
+def A2():
+    w = World()
+    out = w.run("dream", model=False)
+    g = w.graph()
+    assert codes(g)["C5"] == 30, codes(g)
+    want = set()
+    for p in w.root.rglob("*.md"):
+        rel = p.relative_to(w.root).as_posix()
+        if rel.split("/")[0] in ("_dream",) or p.name in mem.SKIP:
+            continue
+        fm = mem.parse_note(p.read_text())[0]
+        want |= {(rel, P + v + ".md", k) for k in ("from", "supersedes") for v in mem.fm_list(fm.get(k))}
+    got = {(e["src"], e["dst"], e["rel"]) for e in g["edges"] if e["rel"] != "refs"}
+    assert got == want, (got ^ want)
+    sup = {n["id"]: [Path(x).stem for x in n["superseded_by"]] for n in g["notes"] if n["superseded_by"]}
+    assert sup == {"feat-velocity-v2": ["feat-velocity-v3"], "churn-xgb-v2": ["churn-xgb-v3"]}, sup
+    t = w.run("trace", "churn-xgb-v3", model=False)
+    for s in ("from feat-velocity-v3.md", "from dec-velocity-v3.md", "from post-period-leak.md", "supersedes churn-xgb-v2.md"):
+        assert s in t, s
+    wh = w.run("where", "leak", model=False)
+    assert "post-period-leak.md:5" in wh and "unindexed" in wh, wh
+    return f"{out.splitlines()[0]} · {len(got)} lineage edges · C5={codes(g)['C5']}"
+
+
+def A3():
+    w = World()
+    o1 = w.run("dream")
+    x = w.calls("extract")
+    assert len(x) == 30 and len({r[1] for r in x}) == 30, len(x)
+    n = len(w.calls())
+    o2 = w.run("dream")
+    assert len(w.calls()) == n and "0 indexed (0 calls)" in o2, o2
+    g = w.graph()
+    assert all(n["indexed"] for n in g["notes"]) and not codes(g)["C4"], codes(g)
+    return f"{o1.strip()} || {o2.strip()}"
+
+
+def A4():
+    w = World()
+    w.run("dream")
+    g0, n = w.graph(), len(w.calls())
+    moves = {P + s + ".md": P + "archive/" + s + ".md" for s in
+             ("exp-011-baseline", "q-tier-cutoffs", "exp-015-tenure", "finding-new-accounts", "leak-hypothesis")}
+    moves.update({P + "exp-014.md": P + "exp-014-xgb-velocity.md", P + "dec-risk-tiers.md": P + "dec-risk-tier-cuts.md"})
+    for a, b in moves.items():
+        (w.root / b).parent.mkdir(parents=True, exist_ok=True)
+        os.rename(w.root / a, w.root / b)
+    g1 = w.graph()
+    out = w.run("dream")
+    assert len(w.calls()) == n, "calls after move"
+    assert "7 moved" in out and not codes(g1)["C2"], (out, codes(g1))
+    back = {b: a for a, b in moves.items()}
+
+    def norm(g):
+        s = json.dumps({k: g[k] for k in ("notes", "entities", "relations", "edges", "proposed", "review")}, sort_keys=True)
+        for b, a in sorted(back.items(), key=lambda z: -len(z[0])):
+            s = s.replace(b, a)
+        g = json.loads(s)
+        for nn in g["notes"]:
+            nn["id"] = Path(nn["path"]).stem
+        g["notes"].sort(key=lambda z: z["path"])
+        g["entities"] = sorted(({**e, "mentions": sorted(e["mentions"], key=lambda m: m["path"])} for e in g["entities"]),
+                               key=lambda e: e["id"])
+        for r in g["relations"]:
+            r["evidence"].sort()
+        g["edges"].sort(key=lambda e: (e["src"], e["dst"], e["rel"]))
+        return g
+    assert norm(g0) == norm(w.graph()), "graph differs beyond paths"
+    t = w.run("trace", "leak-hypothesis")
+    assert "from churn-2026/exp-014-xgb-velocity.md" in t, t
+    return f"{out.strip()} · from: exp-014 resolves to the renamed note · graph identical modulo paths"
+
+
+def A5():
+    w = World()
+    w.run("dream")
+    n = len(w.calls("extract"))
+    rel = P + "churn-xgb-v3.md"
+    (w.root / rel).write_text(w.text(rel) + "Retrain due 2026-11-30.\n")
+    g = w.graph()
+    assert not note(g, rel)["indexed"]
+    assert not any(m["path"] == rel for e in g["entities"] for m in e["mentions"])
+    assert not any(ev.startswith(rel + ":") for r in g["relations"] for ev in r["evidence"])
+    wh = w.run("where", "churn-xgb-v3")
+    assert "unindexed" in wh and rel in wh.split("unindexed", 1)[1], wh
+    w.run("dream")
+    assert len(w.calls("extract")) == n + 1
+    return "edited note dropped from graph until dream; grep fallback lists it; exactly 1 call"
+
+
+def A6():
+    w = World()
+    w.run("dream")
+    g0, n = w.graph(), len(w.calls())
+    rel = P + "dec-risk-tiers.md"
+    pointed = [e["id"] for e in g0["entities"] if e["headline"] == rel]
+    assert "offers.tier_matrix" in ents(g0) and pointed
+    os.remove(w.root / rel)
+    g = w.graph()
+    blob = json.dumps({k: g[k] for k in ("notes", "entities", "relations", "edges")})
+    assert rel not in blob and "offers.tier_matrix" not in ents(g)
+    moved = {k: ents(g)[k]["headline"] for k in pointed if k in ents(g)}
+    assert moved and all(h and h != rel for h in moved.values()), moved
+    c2 = [c["msg"] for c in g["checks"] if c["code"] == "C2"]
+    assert len(c2) == 2, c2
+    out = w.run("where", "risk", "tier") + w.run("trace", "dec-retrain-cadence") + w.run("trace", "churn-xgb-v2", "-e", "--down")
+    assert "dec-risk-tiers" not in out, out
+    assert len(w.calls()) == n
+    d = w.run("dream")
+    assert len(w.calls()) == n and "1 deleted" in d
+    return f"headlines moved {moved} · C2×{len(c2)} · 0 calls"
+
+
+def A7():
+    w = World()
+    w.run("dream")
+    rel = P + "exp-014.md"
+    orig = w.text(rel)
+    (w.root / rel).write_text(orig + "Re-run planned.\n")
+    w.run("dream")
+    n = len(w.calls("extract"))
+    (w.root / rel).write_text(orig)
+    out = w.run("dream")
+    assert len(w.calls("extract")) == n, "revert cost a call"
+    return out.strip()
+
+
+def A8():
+    w = World()
+    a = w.oracle("exp-019-recall")
+    a["entities"].append({"id": "churn-dashboard", "type": "tool", "as": ["the churn dashboard"]})
+    b = w.oracle("churn-xgb-v3")
+    b["relations"].append({"s": "churn-xgb-v3", "type": "uses", "o": "holdout-2025q4", "quote": "tuned weekly on holdout-2025q4"})
+    c = w.oracle("exp-017-leak-check")
+    c["summary"] = "AUC falls 0.81→0.71 once post-period days are removed."
+    w.inject({"exp-019-recall": a, "churn-xgb-v3": b, "exp-017-leak-check": c})
+    w.run("dream")
+    g = w.graph()
+    assert codes(g)["C4"] == 3, [c for c in g["checks"] if c["code"] == "C4"]
+    assert "churn-dashboard" not in ents(g)
+    assert ("churn-xgb-v3", "uses", "holdout-2025q4") not in rels(g)
+    n = note(g, P + "exp-017-leak-check.md")
+    assert n["summary"] == n["title"]
+    return "fabricated surface, absent quote, ungrounded number: all dropped · C4=3 · summary → title"
+
+
+def A9():
+    w = World()
+    a, b = w.oracle("exp-019-recall"), w.oracle("exp-017-leak-check")
+    w.inject({"exp-019-recall": "Sure! Here is the JSON:\n" + json.dumps(a) + "\nHope that helps.",
+              "exp-017-leak-check": "```json\n" + json.dumps(b, indent=2) + "\n```",
+              "leak-hypothesis": "{\"kind\": \"question\", \"summary\": oops"})
+    w.run("dream")
+    g = w.graph()
+    assert note(g, P + "exp-019-recall.md")["indexed"] and note(g, P + "exp-017-leak-check.md")["indexed"]
+    assert not note(g, P + "leak-hypothesis.md")["indexed"]
+    c3 = [c["msg"] for c in g["checks"] if c["code"] == "C3"]
+    tries = [r for r in w.calls("extract") if r[1] == P + "leak-hypothesis.md"]
+    assert len(c3) == 1 and len(tries) == 2, (c3, tries)
+    return "prose- and fence-wrapped answers parsed; invalid JSON retried once → C3"
+
+
+def answer_pending(w):
+    """Play the memory-dreamer subagent with the fake: answer every prompt without a .json."""
+    pend, n = w.root / "_dream" / "pending", 0
+    for pp in sorted(pend.glob("*.prompt.md")):
+        pj = pend / (pp.name[:-len(".prompt.md")] + ".json")
+        if not pj.exists():
+            r = subprocess.run(FAKE.split(), input=pp.read_text(), capture_output=True, text=True, env=w.env)
+            pj.write_text(r.stdout)
+            n += 1
+    return n
+
+
+def A10():
+    w = World()
+    outs = [w.run("dream", model=False)]
+    rounds = 0
+    while list((w.root / "_dream" / "pending").glob("*.prompt.md")) and rounds < 4:
+        answer_pending(w)
+        outs.append(w.run("dream", model=False))
+        rounds += 1
+    g = w.graph()
+    assert all(n["indexed"] for n in g["notes"]) and not codes(g)["C3"], codes(g)
+    assert "fitted-on" in w.text("EDGES.md") and "risk-tier" in w.text("ALIASES.md"), "review not applied"
+    assert not list((w.root / "_dream" / "pending").iterdir())
+    return f"{rounds} dreamer rounds · " + " | ".join(o.splitlines()[0] for o in outs)
+
+
+def A11():
+    w = World()
+    w.run("dream")
+    g = w.graph()
+    types = Counter(r["type"] for r in g["relations"])
+    for t in ("uses", "trained-on", "evaluated-on", "owned-by"):
+        assert types[t], t
+    for r in g["relations"]:
+        for ev in r["evidence"]:
+            rel, line = ev.rsplit(":", 1)
+            assert 1 <= int(line) <= len(w.text(rel).split("\n")), ev
+    t = w.run("trace", "cards.txn_daily", "--down")
+    for x in ("feat-velocity-v2", "feat-velocity-v3", "feat-utilization-v1", "churn-xgb-v2", "churn-xgb-v3"):
+        assert x in t, x
+    return f"relation types {dict(types)} · trace --down lists features and models"
+
+
+def A12():
+    w = World()
+    p = w.dir / "review.json"
+    p.write_text(json.dumps({"types": {"fitted-on": "maybe later"}}))
+    w.run("dream", env={"FAKE_REVIEW": str(p)})
+    g = w.graph()
+    c7 = [c["msg"] for c in g["checks"] if c["code"] == "C7"]
+    assert any(m.startswith("type fitted-on? ×2") for m in c7), c7
+    live = [r for r in g["relations"] if r["type"] == "fitted-on"]
+    assert len(live) == 2 and not any(r["canon"] for r in live)
+    assert "fitted-on?" in w.run("where", "logreg-baseline")
+    n = len(w.calls("extract"))
+    w.run("dream")
+    assert "fitted-on" in next(ln for ln in w.text("EDGES.md").split("\n") if ln.startswith("- trained-on"))
+    g = w.graph()
+    assert not any(r["type"] == "fitted-on" for r in g["relations"])
+    assert ("logreg-baseline", "trained-on", "cards.churn_labels") in rels(g)
+    assert len(w.calls("extract")) == n
+    return "fitted-on? ×2 live, review → alias trained-on appended to EDGES.md, relabelled with 0 extraction calls"
+
+
+def A13():
+    w = World()
+    w.run("dream")
+    r = rels(w.graph()).get(("feat-velocity-v2", "uses", "cards.txn_daily"))
+    assert r and P + "txn-backfill.md:6" in r["evidence"], r
+    return f"feat-velocity-v2 uses cards.txn_daily, evidence {r['evidence']}"
+
+
+def A14():
+    w = World()
+    w.run("dream")
+    n = len(w.calls())
+    lines = w.text("EDGES.md").split("\n")
+    tr = next(ln for ln in lines if ln.startswith("- trained-on"))
+    aka = tr.split("aka:", 1)[1].strip()
+    lines = [ln + ", trained-on, " + aka if ln.startswith("- uses:") else ln for ln in lines if ln != tr]
+    (w.root / "EDGES.md").write_text("\n".join(lines))
+    g = w.graph()
+    assert not any(r["type"] == "trained-on" for r in g["relations"])
+    assert ("churn-xgb-v3", "uses", "cards.churn_labels") in rels(g)
+    w.run("dream")
+    assert len(w.calls()) == n
+    return "trained-on folded into uses by hand: every trained-on relation reads uses, 0 calls"
+
+
+def A15():
+    w = World()
+    a = w.oracle("q-churn-drivers")
+    for e in a["entities"]:
+        if e["id"] == "cards.txn_daily":
+            e["id"] = "Cards.TXN_daily"
+    w.inject({"q-churn-drivers": a})
+    w.env["FAKE_SAVE"] = str(w.dir / "prompts")
+    w.run("dream")
+    g = w.graph()
+    E = ents(g)
+    assert {"Cards.TXN_daily", "txn-table"} <= set(E["cards.txn_daily"]["aka"]), E["cards.txn_daily"]["aka"]
+    assert "feat-velocity-v2" in E and "feat-velocity-v3" in E
+    v2v3 = {n["name"] for n in E["feat-velocity-v2"]["names"]} & {n["name"] for n in E["feat-velocity-v3"]["names"]}
+    assert "velocity features" in v2v3
+    reviews = sorted((w.dir / "prompts").glob("*-review.txt"))
+    assert len(reviews) == 1
+    rv = reviews[0].read_text()
+    assert "- risk-tier-cutoffs / risk-tier-cuts:" in rv or "- risk-tier-cuts / risk-tier-cutoffs:" in rv, rv
+    assert "feat-velocity-v2 / feat-velocity-v3" not in rv and "txn" not in rv.split("ENTITY PAIRS", 1)[1]
+    assert "risk-tier" in w.text("ALIASES.md")
+    w.run("dream")
+    assert len(list((w.dir / "prompts").glob("*-review.txt"))) == 1, "asked again"
+    return "case fold + surface rule merged for free; v2/v3 never asked; risk-tier asked once → ALIASES.md"
+
+
+def A16():
+    w = World()
+    a = w.oracle("ds-txn-2025q4")
+    a["entities"] = [e for e in a["entities"] if e["id"] != "cards.txn_daily"] + \
+        [{"id": "ds-txn", "type": "dataset", "as": ["Q4-2025 snapshot"]}]
+    a["relations"] = [{"s": "ds-txn", "type": "owned-by", "o": "data-eng-cards", "quote": "Owned by data-eng-cards"}]
+    w.inject({"ds-txn-2025q4": a})
+    w.run("dream")
+    assert "ds-txn" in ents(w.graph())
+    n = len(w.calls())
+    (w.root / "ALIASES.md").write_text(w.text("ALIASES.md") + "- cards.txn_daily = ds-txn\n")
+    g = w.graph()
+    E = ents(g)
+    assert "ds-txn" not in E and "ds-txn" in E["cards.txn_daily"]["aka"]
+    r = rels(g)[("cards.txn_daily", "owned-by", "data-eng-cards")]
+    assert P + "ds-txn-2025q4.md:5" in r["evidence"]
+    assert any(m["path"] == P + "ds-txn-2025q4.md" for m in E["cards.txn_daily"]["mentions"])
+    w.run("dream")
+    assert len(w.calls()) == n
+    return "hand alias moved ds-txn's relations and pointers onto cards.txn_daily, 0 calls"
+
+
+def A17():
+    w = World()
+    w.run("dream")
+    wh = w.run("where", "feat-velocity-v2")
+    assert "headline churn-2026/post-period-leak.md" in wh, wh
+    n = len(w.calls())
+    os.remove(w.root / (P + "post-period-leak.md"))
+    g = w.graph()
+    e = ents(g)["feat-velocity-v2"]
+    notes = {x["path"]: x for x in g["notes"]}
+    live = [(m["path"] and notes[m["path"]]["line"] in m["lines"], notes[m["path"]]["kind"] in ("finding", "decision"),
+             notes[m["path"]]["updated"], m["path"]) for m in e["mentions"] if not notes[m["path"]]["superseded_by"]]
+    want = max(live)[3]
+    assert e["headline"] == want == P + "feat-velocity-v3.md", (e["headline"], want)
+    assert len(w.calls()) == n
+    return f"headline post-period-leak → {want} after deletion, 0 calls"
+
+
+def A18():
+    w = World()
+    w.run("dream")
+    c = convergence(w.graph())
+    return f"fake dreamer: {c['ids_for_true']} ids for {c['true_found']} true entities (ratio {c['ratio']})"
+
+
+def A19():
+    d = Path(tempfile.mkdtemp(prefix="memdream-perf-"))
+    root = d / "memory"
+    rnd = random.Random(7)
+    words = "churn txn velocity util limit score tier label holdout recall auc spend merchant fraud risk offer " \
+            "cohort tenure balance payment cash travel grocery fuel online branch mobile email call retention".split()
+    ids = sorted({f"{rnd.choice(words)}-{rnd.choice(words)}-{rnd.choice(words)}" for _ in range(2600)})[:2000]
+    types = ["dataset", "feature", "model", "metric", "segment", "concept"]
+    etype = {i: rnd.choice(types) for i in ids}
+    (root / "_dream" / "notes").mkdir(parents=True)
+    alias_lines = []
+    for k in range(1000):
+        proj = f"proj-{k % 20:02d}"
+        mine = [ids[(2 * k) % 2000], ids[(2 * k + 1) % 2000]] + rnd.sample(ids, 4)
+        body = f"---\nupdated: 2026-{1 + k % 9:02d}-{1 + k % 27:02d}\n---\n# Note {k}: {mine[0]} drives {mine[1]}\n" + \
+            "\n".join(f"Line about `{e}` and its use, {k}.{j}." for j, e in enumerate(mine)) + "\n"
+        p = root / proj / f"note-{k:04d}.md"
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text(body)
+        h = mem.hashlib.sha256(p.read_bytes()).hexdigest()
+        rec = {"kind": "finding", "summary": f"Note {k}", "refs": [], "dropped": {}, "path": p.relative_to(root).as_posix(),
+               "sha": h, "entities": [{"id": e, "type": etype[e], "as": [e], "lines": [5 + j]} for j, e in enumerate(mine)],
+               "relations": [{"s": mine[0], "type": rnd.choice(["uses", "feeds", "fitted-on", "trained-on"]), "o": mine[i],
+                              "quote": mine[i], "line": 5 + i} for i in (1, 2, 3)]}
+        (root / "_dream" / "notes" / f"{h[:12]}.json").write_text(json.dumps(rec))
+    for k in range(0, 200, 2):
+        alias_lines.append(f"- {ids[k]} = {ids[k + 1]}")
+    (root / "ALIASES.md").write_text(mem.ALIASES_HEAD + "\n".join(alias_lines) + "\n")
+    (root / "EDGES.md").write_text(mem.EDGES_SEED)
+    man = {}
+    cur, former, _, _ = mem.scan(root, man)
+    et, at = mem.vocab_texts(root)
+    t0 = time.perf_counter()
+    g = mem.build(root, {"seen": [mem.fold(i) for i in ids]}, cur, former, et, at)
+    t_merge = time.perf_counter() - t0
+    E = {e["id"]: e for e in g["entities"]}
+    alines, nots, _ = mem.parse_aliases(at)
+    occ = [(n["path"], e) for n in g["notes"] for e in rd_ext(root, n["sha"])["entities"]]
+    _, _, gkeys = mem.merge_entities(occ, alines, nots)
+    new = rnd.sample(list(E), 200)
+    t0 = time.perf_counter()
+    pairs = mem.candidates(E, new, gkeys, nots)
+    t_cand = time.perf_counter() - t0
+    env = {k: v for k, v in os.environ.items() if not k.startswith("MEMORY_")}
+    subprocess.run([sys.executable, str(MEM), "--root", str(root), "dream"], capture_output=True, env=env, check=True)
+    t0 = time.perf_counter()
+    subprocess.run([sys.executable, str(MEM), "--root", str(root), "where", ids[10]], capture_output=True, env=env, check=True)
+    t_where = time.perf_counter() - t0
+    edit = root / "proj-03" / "note-0003.md"
+    edit.write_text(edit.read_text() + "edited\n")
+    t0 = time.perf_counter()
+    subprocess.run([sys.executable, str(MEM), "--root", str(root), "where", ids[10]], capture_output=True, env=env, check=True)
+    t_where_stale = time.perf_counter() - t0
+    shutil.rmtree(d)
+    assert len(g["notes"]) == 1000 and len(E) >= 1900, (len(g["notes"]), len(E))
+    assert t_merge < 1 and t_where < 0.5 and t_cand < 2, (t_merge, t_where, t_cand)
+    return (f"1000 notes, {len(E)} entities, {len(g['relations'])} relations: merge {t_merge:.2f}s · where {t_where:.2f}s "
+            f"(after an edit, re-merge in memory: {t_where_stale:.2f}s) · review candidates for 200 new ids {t_cand:.2f}s "
+            f"({len(pairs)} pairs)")
+
+
+def rd_ext(root, sha12):
+    return json.loads((root / "_dream" / "notes" / f"{sha12}.json").read_text())
+
+
+def A20():
+    w = World()
+    w.run("dream")
+    g0 = w.graph()
+    due = {e["id"] for e in g0["entities"] if len(e["mentions"]) >= 3}
+    out = w.run("dream", "--gists")
+    g = w.graph()
+    have = {e["id"] for e in g["entities"] if e["gist"]}
+    assert len(w.calls("gist")) == len(due) and have == due, (len(w.calls("gist")), due ^ have)
+    for e in g["entities"]:
+        if e["gist"]:
+            assert mem.nums(e["gist"]) <= set().union(*(mem.nums(w.text(m["path"])) for m in e["mentions"]))
+    keys = json.loads((w.root / "_dream/entities/auc.json").read_text())["key"]
+    assert "not-a-note" not in keys
+    n = len(w.calls())
+    w.run("dream", "--gists")
+    assert len(w.calls()) == n, "rerun cost calls"
+    cited = next(e for e in g["entities"] if e["gist"] and len(e["mentions"]) >= 4)
+    os.remove(w.root / cited["mentions"][0]["path"])
+    assert ents(w.graph())[cited["id"]]["gist"] is None
+    w2 = World()
+    w2.run("dream")
+    w2.run("dream", "--gists", env={"FAKE_GIST_BAD": "1"})
+    assert not any(e["gist"] for e in w2.graph()["entities"]), "ungrounded gist kept"
+    return f"{len(due)} gists for entities in ≥3 notes · ungrounded numbers dropped · rerun 0 calls · deletion hides the gist · {out.strip()}"
+
+
+TESTS = [A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20]
+
+
+def main():
+    want = set(sys.argv[1:])
+    results, failed = [], 0
+    for t in TESTS:
+        if want and t.__name__ not in want:
+            continue
+        t0 = time.perf_counter()
+        try:
+            detail, ok = t(), True
+        except Exception as e:  # noqa: BLE001
+            detail, ok = f"{type(e).__name__}: {e}\n{traceback.format_exc(limit=3)}", False
+            failed += 1
+        dt_ = time.perf_counter() - t0
+        print(f"{'PASS' if ok else 'FAIL'} {t.__name__} ({dt_:.1f}s) {detail}")
+        results.append({"id": t.__name__, "pass": ok, "detail": detail, "secs": round(dt_, 1)})
+    (HERE / "acceptance.json").write_text(json.dumps(results, indent=1, ensure_ascii=False))
+    print(f"{len(results) - failed}/{len(results)} passed")
+    sys.exit(1 if failed else 0)
+
+
+if __name__ == "__main__":
+    main()
