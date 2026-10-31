@@ -375,11 +375,11 @@ def edit_aliases(text, a, b, same, lead=None):
 FILEISH = re.compile(r"\.(py|sql|ipynb|csv|parquet|json|md)$|notebook|^nb-|-script$")
 
 
-def merge_entities(occ, alines, nots, homes=None):
+def merge_entities(occ, alines, nots, homes=None, stats=None):
     """Entity groups as one union-find: ALIASES lines, folded-id equality, the surface-form rule.
     An entity is kept when it has a home (a note whose slug is its id), is mentioned in >= 2 notes, or is
     named in ALIASES.md; files and notebooks are not entities (grep finds them)."""
-    homes = homes or {}
+    homes, st = homes or {}, stats if stats is not None else Counter()
     par, mem, explicit = {}, {}, set()
 
     def find(x):
@@ -399,9 +399,13 @@ def merge_entities(occ, alines, nots, homes=None):
                 for y in mem[rb]:
                     p = frozenset((x, y))
                     if p in nots or (versions(x, y) and p not in explicit):
+                        st["refused_" + ("not_line" if p in nots else "versions")] += 1
                         return
         par[rb] = ra
         mem[ra] |= mem.pop(rb)
+
+    def roots():
+        return len({find(k) for k in raw})
 
     raw, surf, typ = defaultdict(Counter), defaultdict(Counter), defaultdict(Counter)
     ment = defaultdict(lambda: defaultdict(set))
@@ -412,6 +416,7 @@ def merge_entities(occ, alines, nots, homes=None):
         for a in e["as"]:
             surf[k][a] += 1
         ment[k][path] |= set(e["lines"])
+    st["mentions"], st["ids_as_written"], st["after_folding"] = len(occ), sum(len(v) for v in raw.values()), len(raw)
     lead = {}
     for li, ids in enumerate(alines):
         fs = [fold(i) for i in ids]
@@ -419,6 +424,7 @@ def merge_entities(occ, alines, nots, homes=None):
         for f in fs:
             lead.setdefault(f, (li, ids[0]))
             join(fs[0], f, force=True)
+    st["after_aliases_md"] = roots()
     sf_index = defaultdict(set)
     for k in raw:
         find(k)
@@ -429,6 +435,7 @@ def merge_entities(occ, alines, nots, homes=None):
         others = users - {k}
         if len(users) <= 3 and len(others) == 1:
             join(k, next(iter(others)))
+    st["after_surface_rule"] = roots()
     groups = defaultdict(list)
     for k in raw:
         groups[find(k)].append(k)
@@ -454,8 +461,13 @@ def merge_entities(occ, alines, nots, homes=None):
         projects = Counter(p.split("/")[0] for p in mm)
         home = min((h for k in ks for h in homes.get(k, [])), default=None,
                    key=lambda h: (-projects[h.split("/")[0]], h))
-        if FILEISH.search(fold(c)) or not (home or len(mm) >= 2 or led):
+        if FILEISH.search(fold(c)):
+            st["dropped_file_like"] += 1
             continue
+        if not (home or len(mm) >= 2 or led):
+            st["dropped_one_note"] += 1
+            continue
+        st["kept_with_home" if home else "kept_in_2plus_notes" if len(mm) >= 2 else "kept_by_aliases_md"] += 1
         ents[c] = {"id": c, "type": min(tc, key=lambda t: (-tc[t], t)), "home": home,
                    "aka": sorted({r for k in ks for r in raw[k]} - {c}),
                    "names": [{"name": a, "n": n} for a, n in sorted(names.items(), key=lambda z: (-z[1], z[0]))],
@@ -583,7 +595,8 @@ def build(root, man, cur, former, et, at, xs=None, now=None):
     for rel, n in notes.items():
         if n["project"] != "log":
             homes[fold(n["id"])].append(rel)
-    ents, cmap, gkeys = merge_entities(occ, alines, nots, homes)
+    dedup = Counter()
+    ents, cmap, gkeys = merge_entities(occ, alines, nots, homes, dedup)
     rels, props = {}, {}
     for rel in notes:
         for r in (aux[rel]["x"] or {}).get("relations", []):
@@ -633,6 +646,7 @@ def build(root, man, cur, former, et, at, xs=None, now=None):
             "entities": [ents[c] for c in sorted(ents, key=fold)],
             "relations": sorted(rels.values(), key=lambda r: (fold(r["s"]), r["type"], fold(r["o"]))),
             "edges": edges, "proposed": proposed, "review": [{"a": a, "b": b} for a, b in pairs],
+            "dedup": dict(dedup),
             "checks": [{"code": c, "msg": m} for c, m in sorted(checks, key=lambda z: z[0])]}
 
 
@@ -924,6 +938,15 @@ class View:
 
 def check(args, root):
     g, _ = load(root)
+    d = g.get("dedup") or {}
+    if d:
+        print(f"dedup: {d.get('mentions', 0)} entity mentions · {d.get('ids_as_written', 0)} ids as written → "
+              f"{d.get('after_folding', 0)} after folding → {d.get('after_aliases_md', 0)} after ALIASES.md → "
+              f"{d.get('after_surface_rule', 0)} after the surface rule · kept {len(g['entities'])} "
+              f"({d.get('kept_with_home', 0)} with a home note, {d.get('kept_in_2plus_notes', 0)} in 2+ notes, "
+              f"{d.get('kept_by_aliases_md', 0)} by ALIASES.md) · dropped {d.get('dropped_one_note', 0)} one-note, "
+              f"{d.get('dropped_file_like', 0)} file-like · refused {d.get('refused_versions', 0)} version merges, "
+              f"{d.get('refused_not_line', 0)} by not: lines")
     by = defaultdict(list)
     for c in g["checks"]:
         by[c["code"]].append(c["msg"])

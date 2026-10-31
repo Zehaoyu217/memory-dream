@@ -88,6 +88,47 @@ Answer-number recall stays at 0.97. The agent-level results of round 2 still sta
 - **Where input tokens go:** much of each call's input is Claude Code's own prompt. A direct API
   call would be smaller (not measured).
 
+## What one memory costs to save and to keep (measured inside the full 1,677-note bank)
+
+| operation | model calls | cost | time |
+|---|---|---|---|
+| agent writes a note | none (part of its own turn) | ~150 output tokens of the session's model (notes average ~100 tokens) | — |
+| `dream` indexes a new or edited note | 1 Haiku call | **$0.0020** (7.0k in / 2.3k out); $0.0013 in a small memory | 9.9 s, parallel |
+| move, rename, delete a note | 0 | $0 | — |
+| edit EDGES.md or ALIASES.md | 0 | $0 | — |
+| dedup merge, graph, viewer | 0 | $0 | ~0.1 s per 1,000 notes |
+| vocabulary review (only when something is queued) | ≤ 1 per `dream` | $0.0026 (28 pairs + 1 type) to $0.0066 (30 pairs + 34 types) | 8–34 s |
+| re-index everything (`--all`) | 1 per note | ~$3.3 for 1,677 notes | ~25 min at `-j 10` |
+
+At 20 new notes a day that is about $0.04 a day: about $1 a month for indexing and review. The
+known-entity list that prevents duplicate ids is about 1.4k of the ~7k input tokens, roughly 8% of
+the per-note cost.
+
+## What dedup did on the 56× bank (`memory.py check`, `eval/dedup_report.py`)
+
+| stage | count | change |
+|---|---|---|
+| entity mentions extracted | 10,005 | |
+| ids as written | 2,397 | |
+| after spelling folding | 2,382 | 15 merged |
+| after ALIASES.md lines from the review | 2,369 | 13 merged |
+| after the surface-form rule | 2,267 | 102 merged |
+| kept | 1,545 | 941 with a home note, 604 in 2+ notes |
+| dropped by the keep rules | 722 | 684 one-note, 38 file-like |
+
+The review also wrote 46 `not:` lines.
+
+Merge quality, by hand:
+- **Spelling folds:** 8 of 8 sampled are right.
+- **Surface rule:** about 10 of 15 sampled are right. Others are lossy: `psi = feature-psi = score-psi`,
+  `churn-rate = churn`, `recovery-rate = net-recovery`.
+- **Review merges:** about 9 of 12 are right. One is wrong: `control-group = randomised-control`, a
+  distinction the corrections notes depend on.
+
+The free surface rule and the Haiku reviewer both merge more eagerly than "when unsure, keep apart"
+allows. Neither affects answers much (`ask` greps text), but the merges show up as aliases and in
+the viewer.
+
 ## Is the 8-type vocabulary enough? (`eval/type_coverage.py`, `eval/question_relations.py`)
 
 - **What Haiku writes when free to invent** (5,196 relation instances on the 56× bank, old open
