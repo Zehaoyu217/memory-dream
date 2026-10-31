@@ -95,8 +95,9 @@ def note(g, rel):
 def A1():
     w = World(fixture=False)
     out = w.run("dream")
-    for f in ("INDEX.md", "EDGES.md", "ALIASES.md", "_dream/graph.json"):
+    for f in ("EDGES.md", "ALIASES.md", "_dream/graph.json", "_dream/graph.html"):
         assert (w.root / f).exists(), f
+    assert not (w.root / "INDEX.md").exists()
     assert w.text("EDGES.md") == mem.EDGES_SEED and w.text("ALIASES.md") == mem.ALIASES_HEAD
     assert "0 notes" in out
     return out.strip()
@@ -118,12 +119,10 @@ def A2():
     assert got == want, (got ^ want)
     sup = {n["id"]: [Path(x).stem for x in n["superseded_by"]] for n in g["notes"] if n["superseded_by"]}
     assert sup == {"feat-velocity-v2": ["feat-velocity-v3"], "churn-xgb-v2": ["churn-xgb-v3"]}, sup
-    t = w.run("trace", "churn-xgb-v3", model=False)
-    for s in ("from feat-velocity-v3.md", "from dec-velocity-v3.md", "from post-period-leak.md", "supersedes churn-xgb-v2.md"):
-        assert s in t, s
-    wh = w.run("where", "leak", model=False)
-    assert "post-period-leak.md:5" in wh and "unindexed" in wh, wh
-    return f"{out.splitlines()[0]} · {len(got)} lineage edges · C5={codes(g)['C5']}"
+    a = w.run("ask", "what came of exp-014?", "why was the velocity feature rebuilt?", model=False)
+    for s_ in ("churn-2026/exp-014.md", "churn-2026/churn-xgb-v2.md", "SUPERSEDED → churn-xgb-v3", "post-period-leak.md"):
+        assert s_ in a, s_
+    return f"{out.splitlines()[0]} · {len(got)} lineage edges · C5={codes(g)['C5']} · ask answers from lineage + grep"
 
 
 def A3():
@@ -156,10 +155,10 @@ def A4():
     back = {b: a for a, b in moves.items()}
 
     def norm(g):
-        s = json.dumps({k: g[k] for k in ("notes", "entities", "relations", "edges", "proposed", "review")}, sort_keys=True)
+        s_ = json.dumps({k: g[k] for k in ("notes", "entities", "relations", "edges", "proposed", "review")}, sort_keys=True)
         for b, a in sorted(back.items(), key=lambda z: -len(z[0])):
-            s = s.replace(b, a)
-        g = json.loads(s)
+            s_ = s_.replace(b, a)
+        g = json.loads(s_)
         for nn in g["notes"]:
             nn["id"] = Path(nn["path"]).stem
         g["notes"].sort(key=lambda z: z["path"])
@@ -170,8 +169,8 @@ def A4():
         g["edges"].sort(key=lambda e: (e["src"], e["dst"], e["rel"]))
         return g
     assert norm(g0) == norm(w.graph()), "graph differs beyond paths"
-    t = w.run("trace", "leak-hypothesis")
-    assert "from churn-2026/exp-014-xgb-velocity.md" in t, t
+    edges = {(e["src"], e["dst"], e["rel"]) for e in w.graph()["edges"]}
+    assert (P + "archive/leak-hypothesis.md", P + "exp-014-xgb-velocity.md", "from") in edges
     return f"{out.strip()} · from: exp-014 resolves to the renamed note · graph identical modulo paths"
 
 
@@ -185,11 +184,11 @@ def A5():
     assert not note(g, rel)["indexed"]
     assert not any(m["path"] == rel for e in g["entities"] for m in e["mentions"])
     assert not any(ev.startswith(rel + ":") for r in g["relations"] for ev in r["evidence"])
-    wh = w.run("where", "churn-xgb-v3")
-    assert "unindexed" in wh and rel in wh.split("unindexed", 1)[1], wh
+    a = w.run("ask", "when is the churn-xgb-v3 retrain due?")
+    assert rel in a and "2026-11-30" in a, a
     w.run("dream")
     assert len(w.calls("extract")) == n + 1
-    return "edited note dropped from graph until dream; grep fallback lists it; exactly 1 call"
+    return "edited note dropped from the graph until dream, still found by ask (grep); exactly 1 call"
 
 
 def A6():
@@ -198,17 +197,16 @@ def A6():
     g0, n = w.graph(), len(w.calls())
     rel = P + "dec-risk-tiers.md"
     pointed = [e["id"] for e in g0["entities"] if e["headline"] == rel]
-    assert "offers.tier_matrix" in ents(g0) and pointed
+    assert pointed
     os.remove(w.root / rel)
     g = w.graph()
     blob = json.dumps({k: g[k] for k in ("notes", "entities", "relations", "edges")})
-    assert rel not in blob and "offers.tier_matrix" not in ents(g)
+    assert rel not in blob
     moved = {k: ents(g)[k]["headline"] for k in pointed if k in ents(g)}
     assert moved and all(h and h != rel for h in moved.values()), moved
     c2 = [c["msg"] for c in g["checks"] if c["code"] == "C2"]
     assert len(c2) == 2, c2
-    out = w.run("where", "risk", "tier") + w.run("trace", "dec-retrain-cadence") + w.run("trace", "churn-xgb-v2", "-e", "--down")
-    assert "dec-risk-tiers" not in out, out
+    assert "dec-risk-tiers" not in w.run("ask", "what are the risk tier cutoffs?")
     assert len(w.calls()) == n
     d = w.run("dream")
     assert len(w.calls()) == n and "1 deleted" in d
@@ -235,17 +233,13 @@ def A8():
     a["entities"].append({"id": "churn-dashboard", "type": "tool", "as": ["the churn dashboard"]})
     b = w.oracle("churn-xgb-v3")
     b["relations"].append({"s": "churn-xgb-v3", "type": "uses", "o": "holdout-2025q4", "quote": "tuned weekly on holdout-2025q4"})
-    c = w.oracle("exp-017-leak-check")
-    c["summary"] = "AUC falls 0.81→0.71 once post-period days are removed."
-    w.inject({"exp-019-recall": a, "churn-xgb-v3": b, "exp-017-leak-check": c})
+    w.inject({"exp-019-recall": a, "churn-xgb-v3": b})
     w.run("dream")
     g = w.graph()
-    assert codes(g)["C4"] == 3, [c for c in g["checks"] if c["code"] == "C4"]
+    assert codes(g)["C4"] == 2, [c for c in g["checks"] if c["code"] == "C4"]
     assert "churn-dashboard" not in ents(g)
     assert ("churn-xgb-v3", "uses", "holdout-2025q4") not in rels(g)
-    n = note(g, P + "exp-017-leak-check.md")
-    assert n["summary"] == n["title"]
-    return "fabricated surface, absent quote, ungrounded number: all dropped · C4=3 · summary → title"
+    return "fabricated surface and absent quote both dropped · C4=2"
 
 
 def A9():
@@ -298,35 +292,35 @@ def A11():
     types = Counter(r["type"] for r in g["relations"])
     for t in ("uses", "trained-on", "evaluated-on", "owned-by"):
         assert types[t], t
+    assert set(types) <= set(mem.parse_edges(mem.EDGES_SEED)[0]), types
     for r in g["relations"]:
         for ev in r["evidence"]:
             rel, line = ev.rsplit(":", 1)
             assert 1 <= int(line) <= len(w.text(rel).split("\n")), ev
-    t = w.run("trace", "cards.txn_daily", "--down")
+    users = {r["s"] for r in g["relations"] if r["o"] == "cards.txn_daily"}
+    users |= {r["s"] for r in g["relations"] if r["o"] in users}
     for x in ("feat-velocity-v2", "feat-velocity-v3", "feat-utilization-v1", "churn-xgb-v2", "churn-xgb-v3"):
-        assert x in t, x
-    return f"relation types {dict(types)} · trace --down lists features and models"
+        assert x in users, x
+    return f"relation types {dict(types)} · two hops up from cards.txn_daily reach the features and models"
 
 
 def A12():
     w = World()
     p = w.dir / "review.json"
-    p.write_text(json.dumps({"types": {"fitted-on": "maybe later"}}))
+    p.write_text(json.dumps({"types": {"learned-from": "maybe later"}}))
     w.run("dream", env={"FAKE_REVIEW": str(p)})
     g = w.graph()
     c7 = [c["msg"] for c in g["checks"] if c["code"] == "C7"]
-    assert any(m.startswith("type fitted-on? ×2") for m in c7), c7
-    live = [r for r in g["relations"] if r["type"] == "fitted-on"]
-    assert len(live) == 2 and not any(r["canon"] for r in live)
-    assert "fitted-on?" in w.run("where", "logreg-baseline")
+    assert any("unknown relation type learned-from ×3" in m for m in c7), c7
+    assert not any(r["type"] == "learned-from" for r in g["relations"]), "closed vocabulary shows unknown types"
     n = len(w.calls("extract"))
     w.run("dream")
-    assert "fitted-on" in next(ln for ln in w.text("EDGES.md").split("\n") if ln.startswith("- trained-on"))
+    assert "learned-from" in next(ln for ln in w.text("EDGES.md").split("\n") if ln.startswith("- trained-on"))
+    assert sum(1 for ln in w.text("EDGES.md").split("\n") if ln.startswith("- ")) == 8, "review added a type"
     g = w.graph()
-    assert not any(r["type"] == "fitted-on" for r in g["relations"])
-    assert ("logreg-baseline", "trained-on", "cards.churn_labels") in rels(g)
+    assert ("churn-xgb-v2", "trained-on", "cards.churn_labels") in rels(g)
     assert len(w.calls("extract")) == n
-    return "fitted-on? ×2 live, review → alias trained-on appended to EDGES.md, relabelled with 0 extraction calls"
+    return "learned-from ×3 held back (closed), review mapped it onto trained-on, relabelled with 0 extraction calls, still 8 types"
 
 
 def A13():
@@ -388,7 +382,7 @@ def A16():
     a["relations"] = [{"s": "ds-txn", "type": "owned-by", "o": "data-eng-cards", "quote": "Owned by data-eng-cards"}]
     w.inject({"ds-txn-2025q4": a})
     w.run("dream")
-    assert "ds-txn" in ents(w.graph())
+    assert "ds-txn" not in ents(w.graph()), "a one-note entity with no home is not an entity"
     n = len(w.calls())
     (w.root / "ALIASES.md").write_text(w.text("ALIASES.md") + "- cards.txn_daily = ds-txn\n")
     g = w.graph()
@@ -405,19 +399,19 @@ def A16():
 def A17():
     w = World()
     w.run("dream")
-    wh = w.run("where", "feat-velocity-v2")
-    assert "headline churn-2026/post-period-leak.md" in wh, wh
+    assert ents(w.graph())["feat-velocity-v2"]["headline"] == P + "post-period-leak.md"
     n = len(w.calls())
     os.remove(w.root / (P + "post-period-leak.md"))
     g = w.graph()
     e = ents(g)["feat-velocity-v2"]
     notes = {x["path"]: x for x in g["notes"]}
-    live = [(m["path"] and notes[m["path"]]["line"] in m["lines"], notes[m["path"]]["kind"] in ("finding", "decision"),
+    live = [(notes[m["path"]]["line"] in m["lines"], notes[m["path"]]["kind"] in ("finding", "decision"),
              notes[m["path"]]["updated"], m["path"]) for m in e["mentions"] if not notes[m["path"]]["superseded_by"]]
     want = max(live)[3]
     assert e["headline"] == want == P + "feat-velocity-v3.md", (e["headline"], want)
+    assert e["home"] == P + "feat-velocity-v2.md"
     assert len(w.calls()) == n
-    return f"headline post-period-leak → {want} after deletion, 0 calls"
+    return f"headline post-period-leak → {want} after deletion, 0 calls · home note feat-velocity-v2.md"
 
 
 def A18():
@@ -473,17 +467,17 @@ def A19():
     env = {k: v for k, v in os.environ.items() if not k.startswith("MEMORY_")}
     subprocess.run([sys.executable, str(MEM), "--root", str(root), "dream"], capture_output=True, env=env, check=True)
     t0 = time.perf_counter()
-    subprocess.run([sys.executable, str(MEM), "--root", str(root), "where", ids[10]], capture_output=True, env=env, check=True)
+    subprocess.run([sys.executable, str(MEM), "--root", str(root), "ask", f"what do we know about {ids[10]}?"], capture_output=True, env=env, check=True)
     t_where = time.perf_counter() - t0
     edit = root / "proj-03" / "note-0003.md"
     edit.write_text(edit.read_text() + "edited\n")
     t0 = time.perf_counter()
-    subprocess.run([sys.executable, str(MEM), "--root", str(root), "where", ids[10]], capture_output=True, env=env, check=True)
+    subprocess.run([sys.executable, str(MEM), "--root", str(root), "ask", f"what do we know about {ids[10]}?"], capture_output=True, env=env, check=True)
     t_where_stale = time.perf_counter() - t0
     shutil.rmtree(d)
-    assert len(g["notes"]) == 1000 and len(E) >= 1900, (len(g["notes"]), len(E))
-    assert t_merge < 1 and t_where < 0.5 and t_cand < 2, (t_merge, t_where, t_cand)
-    return (f"1000 notes, {len(E)} entities, {len(g['relations'])} relations: merge {t_merge:.2f}s · where {t_where:.2f}s "
+    assert len(g["notes"]) == 1000 and len(E) >= 1500, (len(g["notes"]), len(E))
+    assert t_merge < 1 and t_where < 0.8 and t_cand < 2, (t_merge, t_where, t_cand)
+    return (f"1000 notes, {len(E)} entities, {len(g['relations'])} relations: merge {t_merge:.2f}s · ask {t_where:.2f}s "
             f"(after an edit, re-merge in memory: {t_where_stale:.2f}s) · review candidates for 200 new ids {t_cand:.2f}s "
             f"({len(pairs)} pairs)")
 
@@ -493,30 +487,23 @@ def rd_ext(root, sha12):
 
 
 def A20():
+    """Vocabulary and identity: closed relation types, entity homes, no one-note or file entities."""
     w = World()
+    a = w.oracle("exp-014")
+    a["entities"] += [{"id": "nb/exp014_xgb.ipynb", "type": "tool", "as": ["nb/exp014_xgb.ipynb"]},
+                      {"id": "vel-ratio-30-90", "type": "feature", "as": ["vel_ratio_30_90"]}]
+    a["relations"].append({"s": "xgboost", "type": "zorbs", "o": "holdout-2025q4", "quote": "Model: XGBoost"})
+    w.inject({"exp-014": a})
     w.run("dream")
-    g0 = w.graph()
-    due = {e["id"] for e in g0["entities"] if len(e["mentions"]) >= 3}
-    out = w.run("dream", "--gists")
     g = w.graph()
-    have = {e["id"] for e in g["entities"] if e["gist"]}
-    assert len(w.calls("gist")) == len(due) and have == due, (len(w.calls("gist")), due ^ have)
-    for e in g["entities"]:
-        if e["gist"]:
-            assert mem.nums(e["gist"]) <= set().union(*(mem.nums(w.text(m["path"])) for m in e["mentions"]))
-    keys = json.loads((w.root / "_dream/entities/auc.json").read_text())["key"]
-    assert "not-a-note" not in keys
-    n = len(w.calls())
-    w.run("dream", "--gists")
-    assert len(w.calls()) == n, "rerun cost calls"
-    cited = next(e for e in g["entities"] if e["gist"] and len(e["mentions"]) >= 4)
-    os.remove(w.root / cited["mentions"][0]["path"])
-    assert ents(w.graph())[cited["id"]]["gist"] is None
-    w2 = World()
-    w2.run("dream")
-    w2.run("dream", "--gists", env={"FAKE_GIST_BAD": "1"})
-    assert not any(e["gist"] for e in w2.graph()["entities"]), "ungrounded gist kept"
-    return f"{len(due)} gists for entities in ≥3 notes · ungrounded numbers dropped · rerun 0 calls · deletion hides the gist · {out.strip()}"
+    E = ents(g)
+    assert "nb/exp014_xgb.ipynb" not in E and "vel-ratio-30-90" not in E
+    assert not any(r["type"] == "zorbs" for r in g["relations"])
+    assert any("rarer unknown relation types dropped" in c["msg"] for c in g["checks"])
+    homes = {e["id"]: e["home"] for e in g["entities"] if e["home"]}
+    assert homes.get("feat-velocity-v3") == P + "feat-velocity-v3.md" and homes.get("churn-xgb-v3") == P + "churn-xgb-v3.md"
+    assert all(len(e["mentions"]) >= 2 or e["home"] for e in g["entities"])
+    return f"{len(E)} entities, {len(homes)} with a home note; files, one-note ids and unknown types left out"
 
 
 TESTS = [A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20]

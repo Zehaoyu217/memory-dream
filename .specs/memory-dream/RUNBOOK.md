@@ -18,15 +18,32 @@ upward from the cwd, then `./memory`.
 ```bash
 M="python3 .claude/skills/memory-dream/scripts/memory.py"
 $M ask "what came of exp-014?" "who owns cards.txn_daily?"   # answering: grep + memory, every question in one call
-$M grep -i -e velocity -e leak    # plain grep over the notes, hits grouped per note with lineage headers
-$M viz                            # memory/_dream/graph.html: overview, explorer, health (#note=<path>, #health)
-$M where cards.txn_daily          # entities, headline, relations, notes with path:line
-$M where -p churn-2026            # project overview
-$M trace churn-xgb-v3             # lineage: what it built on (--down: what built on it)
-$M trace cards.txn_daily --down   # entity relations: what depends on it (-e when a note shares the name)
+$M viz                            # memory/_dream/graph.html (dream refreshes it): overview, explorer, health
 $M log "backfill running" -p churn-2026
 $M check                          # every warning C1–C8 in full
+grep -rn velocity memory/ --exclude-dir=_dream                 # plain grep stays first-class
 ```
+
+Viewer deep links: `graph.html#note=<path>`, `#entity=<id>`, `#health`.
+
+## Entities and the relation vocabulary
+
+- Relation types are closed: the 8 in EDGES.md, plus their aliases (`~` = read in reverse) and a
+  `drop:` list. The dreamer may use only those. Anything else is held back at merge and counted
+  (C7), and a type used 3 or more times goes to the review. The review may only map it onto a
+  listed type or drop it; new types come from you editing EDGES.md. Editing EDGES.md costs 0 calls,
+  since everything relabels at the next merge.
+- An entity is kept when it has a home note (a note whose slug is its id, e.g. the model's own
+  note), is mentioned in 2 or more notes, or is named in ALIASES.md. Files, notebooks, columns and
+  note ids are not entities; grep finds them.
+- Identity: `.`, `_`, `-`, spaces and case don't distinguish ids (`cards.txn_daily` =
+  `cards-txn-daily`).
+- A free rule merges an id that exactly one other entity writes as a surface form. Ids that differ
+  only in digits (versions) never merge.
+- Two entities with different home notes are never queued for review. Other look-alikes are asked
+  once, and the answer lands in ALIASES.md as `- a = b` or `not: a / b`.
+- Lineage between notes (`from:`, `supersedes:`, and note ids written in a body) is not a relation:
+  it needs no model and no vocabulary.
 
 ## Dream (index new or changed notes)
 
@@ -45,8 +62,9 @@ File mode (no command): `dream` writes prompts to `memory/_dream/pending/` and l
 `pending/TODO.md`; run the `memory-dreamer` subagent; run `dream` again. A review prompt can
 appear on the second pass, so loop until `dream` reports 0 pending (normally 2 rounds).
 
-Other flags: `--review` forces the vocabulary review, `--gists` writes entity gists (entities in
-≥ 3 notes), `--all` re-indexes everything (after changing the dreamer model).
+Other flags: `--review` forces the vocabulary review, `--all` re-indexes everything (after changing
+the dreamer model). Indexing is optional for answering: `ask` works on raw notes (grep plus lineage);
+the index adds aliases, typed relations and the viewer's entity views.
 
 ## Tests
 

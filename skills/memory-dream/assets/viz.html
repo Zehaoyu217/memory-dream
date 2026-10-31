@@ -235,9 +235,10 @@
           const out = g.relations.filter(r => r.s === e.id), inn = g.relations.filter(r => r.o === e.id);
           box.replaceChildren(DP.el('div', { class: 'path' }, `entity · ${e.type}`), DP.el('div', { class: 'title' }, e.id),
             DP.el('dl', {}, ...row('also called', e.aka.concat(e.names.slice(0, 5).map(n => `"${n.name}"`))),
+              ...row('defined in', e.home ? [nlink(e.home)] : []),
               ...row('headline', e.headline ? [nlink(e.headline)] : []),
-              ...row('depends on', out.map(r => DP.el('span', {}, `${r.type}${r.canon ? '' : '?'} `, elink(r.o)))),
-              ...row('used by', inn.map(r => DP.el('span', {}, elink(r.s), ` ${r.type}${r.canon ? '' : '?'}`))),
+              ...row('depends on', out.map(r => DP.el('span', {}, `${r.type} `, elink(r.o)))),
+              ...row('used by', inn.map(r => DP.el('span', {}, elink(r.s), ` ${r.type}`))),
               ...row('mentioned in', e.mentions.map(m => nlink(m.path)))));
           return;
         }
@@ -268,19 +269,19 @@
     (function () {
       const g = DP.read('data-graph'), cols = document.querySelector('#health .cols');
       const notes = Object.fromEntries(g.notes.map(n => [n.path, n]));
-      const NAMES = { C1: 'ambiguous lineage', C2: 'lineage target not found', C3: 'dreamer failed', C4: 'grounding dropped', C5: 'not indexed yet', C6: 'no # line', C7: 'vocabulary pending', C8: 'unparseable vocabulary line' };
+      const NAMES = { C1: 'ambiguous lineage', C2: 'lineage target not found', C3: 'dreamer failed', C4: 'grounding dropped', C5: 'not indexed yet', C6: 'no # line', C7: 'vocabulary awaiting review', C8: 'unparseable vocabulary line' };
       const block = (title, items) => DP.el('div', {}, DP.el('h3', {}, `${title} (${items.length})`), DP.el('ul', {}, ...(items.length ? items.slice(0, 400) : [DP.el('li', { class: 'muted' }, 'none')])));
       const sel = p => DP.el('span', { class: 'link', onclick: () => document.dispatchEvent(new CustomEvent('dp:select', { detail: { note: p } })) }, notes[p] ? notes[p].id : p);
       const byCode = {};
       g.checks.forEach(c => (byCode[c.code] ||= []).push(c));
-      const warnItems = Object.keys(byCode).sort().filter(c => c !== 'C5').flatMap(c => byCode[c].map(x => DP.el('li', {}, DP.el('span', { class: 'code' }, c), x.msg)));
+      const warnItems = Object.keys(byCode).sort().filter(c => c !== 'C5' && c !== 'C4').flatMap(c => byCode[c].map(x => DP.el('li', {}, DP.el('span', { class: 'code' }, c), x.msg)));
       const chains = g.notes.filter(n => n.superseded_by.length).map(n => DP.el('li', {}, sel(n.path), ' → ', ...n.superseded_by.flatMap((p, i) => i ? [', ', sel(p)] : [sel(p)]), DP.el('span', { class: 'muted' }, `  ${n.project}`)));
       const linked = new Set(g.edges.flatMap(e => [e.src, e.dst]));
       const orphans = g.notes.filter(n => !linked.has(n.path) && n.kind !== 'log').map(n => DP.el('li', {}, sel(n.path), DP.el('span', { class: 'muted' }, `  ${n.project} · ${n.kind}`)));
-      const queue = g.review.map(r => DP.el('li', {}, `${r.a} / ${r.b}`)).concat(g.proposed.map(p => DP.el('li', {}, DP.el('span', { class: 'code' }, 'type'), `${p.type}? ×${p.uses} — ${p.def}`)));
+      const queue = g.review.map(r => DP.el('li', {}, `${r.a} / ${r.b}`)).concat(g.proposed.map(p => DP.el('li', {}, DP.el('span', { class: 'code' }, 'type'), `${p.type} ×${p.uses} — ${p.examples[0] || ''}`)));
       const summary = Object.keys(byCode).sort().map(c => DP.el('li', {}, DP.el('span', { class: 'code' }, c), `${NAMES[c] || ''}: ${byCode[c].length}`));
-      cols.append(block('Warnings by code', summary), block('Warnings', warnItems), block('Superseded → current', chains),
-        block('Unlinked notes (no from:, no successors, no refs)', orphans), block('Review queue and proposed types', queue));
+      cols.append(block('Warnings by code', summary), block('Warnings to act on (C4 and C5 are counts only)', warnItems), block('Superseded → current', chains),
+        block('Unlinked notes (no from:, no successors, no refs)', orphans), block('Review queue: entity pairs and unknown relation types', queue));
     })();
   </script>
 </section>

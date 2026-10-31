@@ -1,8 +1,8 @@
 # memory-dream
 
-Project memory for data-science agents: notes in `memory/` are the truth; a cheap model ("the dreamer")
-indexes them into a pointer graph of entities, relations and lineage; `memory.py where | trace` answers
-from it. Stdlib Python, markdown + JSON.
+Project memory for data-science agents: notes in `memory/` are the truth; `memory.py ask` answers by
+grep plus a thin layer of lineage and names; an optional cheap model ("the dreamer") adds entities and
+typed relations for aliases and the viewer (`memory.py viz`). Stdlib Python, markdown + JSON.
 
 - `skills/memory-dream/` — the skill: `SKILL.md`, `scripts/memory.py`, `agents/memory-dreamer.md`
 - `.specs/memory-dream/` — `build-spec.md` (v0.4), `RUNBOOK.md`, `RESULTS.md`

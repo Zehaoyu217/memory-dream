@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 """Deterministic stand-in for the dreamer model, for the churn-2026 fixture.
 
-Prompt on stdin, JSON on stdout, like `claude -p`. Answers extraction, review and gist prompts
+Prompt on stdin, JSON on stdout, like `claude -p`. Answers extraction and review prompts
 from a hand-written oracle. Knobs (env):
   FAKE_LOG     append one line per call: "<kind> <note path or ->"
   FAKE_INJECT  JSON file {note stem: raw answer text} returned verbatim instead of the oracle
   FAKE_REVIEW  JSON file {"types": {...}, "entities": {...}} overriding review answers
-  FAKE_GIST_BAD=1  gists cite a number that is in no note
   FAKE_SAVE    directory: save every prompt there (NNN-<kind>.txt)
 """
 import json
@@ -53,13 +52,13 @@ NOTE = {  # stem → kind, extra entities, excluded global ids, relations (s, ty
                             "rel": [("feat-utilization-v1", "uses", "cards.txn_daily",
                                      "feat-utilization-v1 uses `balance` and `credit_limit` from `cards.txn_daily`")]},
     "exp-011-baseline": {"kind": "experiment", "rel": [
-        ("logreg-baseline", "fitted-on", "cards.churn_labels", "logreg-baseline, fit on `cards.churn_labels`", "model X was fit on dataset Y"),
+        ("logreg-baseline", "learned-from", "cards.churn_labels", "logreg-baseline, fit on `cards.churn_labels`"),
         ("logreg-baseline", "evaluated-on", "holdout-2025q4", "AUC 0.71, recall@10 0.29 on holdout-2025q4")]},
     "exp-014": {"kind": "experiment", "extra": [V2]},
     "churn-xgb-v2": {"kind": "model", "rel": [
         ("churn-xgb-v2", "uses", "feat-velocity-v2", "churn-xgb-v2 uses feat-velocity-v2"),
         ("churn-xgb-v2", "uses", "feat-utilization-v1", "feat-velocity-v2 and feat-utilization-v1"),
-        ("churn-xgb-v2", "fitted-on", "cards.churn_labels", "fit on `cards.churn_labels`", "model X was fit on dataset Y"),
+        ("churn-xgb-v2", "learned-from", "cards.churn_labels", "fit on `cards.churn_labels`"),
         ("churn-xgb-v2", "evaluated-on", "holdout-2025q4", "Evaluated on holdout-2025q4"),
         ("churn-xgb-v2", "writes", "cards.churn_scores", "Scores written nightly to `cards.churn_scores`")]},
     "q-tier-cutoffs": {"kind": "question"},
@@ -82,7 +81,7 @@ NOTE = {  # stem → kind, extra entities, excluded global ids, relations (s, ty
     "churn-xgb-v3": {"kind": "model", "rel": [
         ("churn-xgb-v3", "uses", "feat-velocity-v3", "churn-xgb-v3 uses feat-velocity-v3"),
         ("churn-xgb-v3", "uses", "feat-utilization-v1", "feat-velocity-v3 and feat-utilization-v1"),
-        ("churn-xgb-v3", "trained-on", "cards.churn_labels", "Trained on `cards.churn_labels`"),
+        ("churn-xgb-v3", "learned-from", "cards.churn_labels", "Trained on `cards.churn_labels`"),
         ("churn-xgb-v3", "evaluated-on", "holdout-2025q4", "Evaluated on holdout-2025q4"),
         ("churn-xgb-v3", "replaces", "churn-xgb-v2", "replaces churn-xgb-v2")]},
     "exp-019-recall": {"kind": "experiment", "rel": [("churn-xgb-v3", "evaluated-on", "holdout-2025q4", "Re-scored holdout-2025q4")]},
@@ -90,10 +89,10 @@ NOTE = {  # stem → kind, extra entities, excluded global ids, relations (s, ty
                      "extra": [("txn-table", "dataset", ["txn table", "cards.txn_daily"]), V2],
                      "rel": [("txn-table", "feeds", "feat-velocity-v2", "The txn table feeds the velocity features")]},
     "dec-retrain-cadence": {"kind": "decision", "refs": ["q-recalibrate-tiers"], "rel": [
-        ("churn-xgb-v3", "fit-on", "cards.churn_labels", "Monthly retrain on the latest 9 observation months of")]},
+        ("churn-xgb-v3", "learned-from", "cards.churn_labels", "Monthly retrain on the latest 9 observation months of")]},
     "q-recalibrate-tiers": {"kind": "question"},
 }
-REVIEW_TYPES = {"fitted-on": "alias trained-on"}
+REVIEW_TYPES = {"learned-from": "alias trained-on"}
 SAME = {frozenset(("risk-tier-cuts", "risk-tier-cutoffs"))}
 
 
@@ -123,22 +122,14 @@ def extraction(path, text):
 
 def review(prompt):
     over = json.load(open(os.environ["FAKE_REVIEW"])) if os.environ.get("FAKE_REVIEW") else {}
-    sec = prompt.split("PROPOSED TYPES", 1)[1].split("ENTITY PAIRS", 1)
-    types = {m: REVIEW_TYPES.get(m, "new") for m in re.findall(r"^- ([\w.-]+): ", sec[0], re.M)}
+    sec = prompt.split("UNKNOWN TYPES", 1)[1].split("ENTITY PAIRS", 1)
+    types = {m: REVIEW_TYPES.get(m, "drop") for m in re.findall(r"^- ([\w.-]+): ", sec[0], re.M)}
     ents = {}
     for a, b in re.findall(r"^- (\S+) / (\S+):", sec[1], re.M):
         ents[f"{a} / {b}"] = "same" if frozenset((a, b)) in SAME else "different"
     types.update(over.get("types", {}))
     ents.update(over.get("entities", {}))
     return {"types": types, "entities": ents}
-
-
-def gist(prompt):
-    eid = re.search(r"^ENTITY (\S+)", prompt, re.M).group(1)
-    rows = re.findall(r"^- (\S+) · (\S+) · \d+: (.*)$", prompt, re.M)
-    n = next((m for _, _, t in rows for m in re.findall(r"\d+\.\d+", t)), "")
-    bad = " and 999.9" if os.environ.get("FAKE_GIST_BAD") else ""
-    return {"gist": f"{eid}: first figure {n}{bad}".strip(), "key": [r[0] for r in rows[:2]] + ["not-a-note"]}
 
 
 def main():
@@ -152,7 +143,7 @@ def main():
     elif prompt.startswith("You keep the vocabulary"):
         kind, path, out = "review", "-", json.dumps(review(prompt))
     else:
-        kind, path, out = "gist", "-", json.dumps(gist(prompt))
+        kind, path, out = "other", "-", "{}"
     if os.environ.get("FAKE_SAVE"):
         d = os.environ["FAKE_SAVE"]
         os.makedirs(d, exist_ok=True)

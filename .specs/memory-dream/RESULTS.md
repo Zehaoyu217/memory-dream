@@ -2,6 +2,69 @@
 
 2026-10-30 · built from the "Memory" email spec (`build-spec.md`) · macOS, Python 3.9.6, Claude Code 2.1.314.
 
+# Round 3 — refined: drop what didn't help, curate entities and the relation vocabulary
+
+## What was dropped, and the evidence
+
+In the 9 round-2 memory-agent runs (33 tool calls), agents used `memory.py ask` 9 times (once per
+run), shell `cat` 20 times and shell `grep` 17 times. They used `where`, `trace`,
+`memory.py grep`, INDEX.md and SKILL.md 0 times. So all of these went:
+
+| dropped | why |
+|---|---|
+| `where`, `trace` | replaced by `ask` for answering, and by the viewer for browsing |
+| `memory.py grep` | agents use native grep |
+| INDEX.md | never read; `dream` now writes `_dream/graph.html` |
+| gists (`--gists`), dreamer summaries | used by nothing |
+| open relation vocabulary, and the review's "new type" answer | grew EDGES.md from 7 to 185 types |
+| 300-entity KNOWN list | about 9k-token prompts; now this project's entities ≤ 80 plus shared ≤ 20 |
+
+`memory.py`: 1,610 → 1,276 lines. Verbs: `ask`, `dream`, `viz`, `check`, `log`. A1–A20 were
+rewritten for the refined design and all 20 pass. A20 now tests vocabulary and identity in place of
+gists.
+
+## How entities and the relation vocabulary are kept
+
+- **Relations: a closed vocabulary of 8 types** in EDGES.md: uses, produces, part-of, trained-on,
+  evaluated-on, measured-by, replaces, owned-by.
+  - Each type has aliases (`~` = read in reverse), and there is a `drop:` list. Both were grown from
+    the 508 type names Haiku actually wrote on the 56× bank.
+  - The dreamer may use only these. Anything else is held back at merge and counted (C7).
+  - A type used 3 or more times goes to the review, which may only answer `alias T`, `alias ~T` or
+    `drop`. New types come from a human editing EDGES.md.
+  - The review prompt names what to drop: claims (lifts, beats, improves), note-to-note links
+    (answers, led-to, basis-for) and conversations (asked-by), and "when unsure, drop".
+- **Entities: kept only when they mean something across notes.**
+  - An entity is kept when it has a home note (a note whose slug is its id, e.g. the model's own
+    note), is mentioned in 2 or more notes, or is named in ALIASES.md.
+  - Files, notebooks, columns and note ids are not entities; grep finds them.
+  - Ids fold `.`, `_`, `-`, spaces and case (`cards.txn_daily` = `cards-txn-daily`).
+- **Dedup:** folding and the surface-form rule are free. Versions never merge. Two entities with
+  different home notes are never queued for review. Other look-alikes are asked once, and the
+  answer lands in ALIASES.md (`- a = b` or `not: a / b`).
+- **Lineage stays separate:** `from:`, `supersedes:`, and note ids written in a body link notes with
+  no model and no vocabulary.
+
+## Effect on the 56× bank (same Haiku extractions; re-merged with 0 extraction calls)
+
+| | before | after |
+|---|---|---|
+| relation types | 508 written, 185 in EDGES.md | 8 |
+| relations in the graph | 4,559 | 3,166 |
+| entities | 2,276 | 1,545 (941 tied to their home note) |
+| entities that link nothing (one note, no home) | 873 | 0 |
+| files and notebooks as entities | 51 | ~7 (name heuristics) |
+| unknown types awaiting review | 323 | 0, after one review call ($0.0066): 3 mapped, the rest dropped |
+| entity pairs awaiting review | 147 | 28 |
+
+Retrieval is unchanged within noise. `ask` gold-note recall:
+- small bank: 0.927 → 0.915
+- 56×, indexed: 0.879 → 0.878
+- 56×, no index: 0.892 → 0.892
+
+Answer-number recall stays at 0.97. The agent-level results of round 2 still stand: the read path
+(`ask`) is the same.
+
 # Round 2 — a thin layer on grep, tested at 1× and 56×
 
 ## Verdict
