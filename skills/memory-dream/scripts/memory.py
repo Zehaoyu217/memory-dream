@@ -14,12 +14,14 @@ import argparse
 import bisect
 import datetime as dt
 import difflib
+import functools
 import hashlib
 import json
 import math
 import os
 import posixpath
 import re
+import sqlite3
 import subprocess
 import sys
 from collections import Counter, defaultdict
@@ -95,9 +97,14 @@ If unsure whether two entities are the same thing, answer different. Versions (v
 
 # ---------- small helpers ----------
 
+@functools.lru_cache(maxsize=1 << 20)
+def _fold(s):
+    return re.sub(r"[\s_.-]+", "-", s.strip().lower())
+
+
 def fold(s):
     """Identity key: case, spaces, `_`, `.` and `-` don't distinguish (cards.txn_daily = cards-txn-daily)."""
-    return re.sub(r"[\s_.-]+", "-", str(s).strip().lower())
+    return _fold(s if isinstance(s, str) else str(s))
 
 
 def versions(a, b):
@@ -230,6 +237,17 @@ def parse_note(text):
             title, tline = ln[2:].strip(), k + 1
         links += re.findall(r"\[\[([^\]|#]+)", re.sub(r"`[^`]*`", "", ln))
     return fm, title, tline, links
+
+
+SLUG = re.compile(r"(?<![\w/-])([a-z][a-z0-9]*(?:-[a-z0-9]+)+)(?![\w-])")
+
+
+def note_facts(text):
+    """What the graph needs from a note's text: frontmatter lineage and dates, the `# ` line, links, body slugs."""
+    fm, title, tline, links = parse_note(text)
+    return {"fm": {k: fm[k] for k in ("from", "supersedes", "type", "updated") if k in fm}, "title": title,
+            "line": tline, "links": links,
+            "ids": sorted(set(SLUG.findall(text.lower().split("\n", tline)[-1]))) if tline else []}
 
 
 def fm_list(v):
@@ -429,7 +447,8 @@ def merge_entities(occ, alines, nots, homes=None, stats=None):
         for f in fs:
             lead.setdefault(f, (li, ids[0]))
             join(fs[0], f, force=True)
-    st["after_aliases_md"] = roots()
+    if stats is not None:  # counting groups costs a pass over every id
+        st["after_aliases_md"] = roots()
     sf_index = defaultdict(set)
     for k in raw:
         find(k)
@@ -440,7 +459,8 @@ def merge_entities(occ, alines, nots, homes=None, stats=None):
         others = users - {k}
         if len(users) <= 3 and len(others) == 1:
             join(k, next(iter(others)))
-    st["after_surface_rule"] = roots()
+    if stats is not None:
+        st["after_surface_rule"] = roots()
     groups = defaultdict(list)
     for k in raw:
         groups[find(k)].append(k)
@@ -517,17 +537,14 @@ def decided(a, b, gkeys, nots):
     return any(frozenset((x, y)) in nots for x in gkeys.get(a, {fold(a)}) for y in gkeys.get(b, {fold(b)}))
 
 
-def build(root, man, cur, former, et, at, xs=None, now=None):
-    """The graph = union of current notes' cached subgraphs, renamed by EDGES.md and ALIASES.md."""
-    now = now or dt.datetime.now()
-    types, alias, drop, _, bad_e = parse_edges(et)
-    alines, nots, bad_a = parse_aliases(at)
-    checks = [("C8", f"EDGES.md:{i}: {s}") for i, s in bad_e] + [("C8", f"ALIASES.md:{i}: {s}") for i, s in bad_a]
+def notes_part(root, man, cur, former, xs=None, facts=None):
+    """The half of the graph that the vocabulary does not touch: notes, lineage edges, note warnings."""
+    checks = []
     notes, aux, by_stem = {}, {}, defaultdict(list)
     for rel in sorted(cur):
         h = cur[rel]["sha"]
-        text = read(root / rel)
-        fm, title, tline, links = parse_note(text)
+        f = facts[rel] if facts is not None and rel in facts else note_facts(read(root / rel))
+        fm, title, tline, links = f["fm"], f["title"], f["line"], f["links"]
         x = xs.get(h[:12]) if xs is not None else rd(root / "_dream" / "notes" / f"{h[:12]}.json")
         up = fm.get("updated", "")
         stem_date = re.match(r"\d{4}-\d\d-\d\d$", posixpath.basename(rel)[:-3])  # log/YYYY-MM-DD.md
@@ -538,9 +555,7 @@ def build(root, man, cur, former, et, at, xs=None, now=None):
                       "line": tline,
                       "kind": (fm.get("type") or (x or {}).get("kind") or ("log" if proj == "log" else "note")).lower(),
                       "superseded_by": [], "updated": up, "sha": h[:12], "indexed": bool(x)}
-        aux[rel] = {"fm": fm, "links": links, "x": x, "mt": cur[rel]["mtime"],
-                    "ids": set(re.findall(r"(?<![\w/-])([a-z][a-z0-9]*(?:-[a-z0-9]+)+)(?![\w-])", text.lower().split("\n", tline)[-1]))
-                    if tline else set()}
+        aux[rel] = {"fm": fm, "links": links, "x": x, "mt": cur[rel]["mtime"], "ids": set(f["ids"])}
         by_stem[notes[rel]["id"]].append(rel)
         if not title:
             checks.append(("C6", f"{rel}: no '# ' line"))
@@ -594,6 +609,19 @@ def build(root, man, cur, former, et, at, xs=None, now=None):
     for e in edges:
         if e["rel"] == "supersedes":
             notes[e["dst"]]["superseded_by"].append(e["src"])
+    return {"notes": notes, "aux": aux, "edges": edges, "checks": checks}
+
+
+def build(root, man, cur, former, et, at, xs=None, now=None, facts=None, base=None):
+    """The graph = union of current notes' cached subgraphs, renamed by EDGES.md and ALIASES.md. `base` reuses the
+    note half (notes_part) when only the vocabulary changed."""
+    now = now or dt.datetime.now()
+    types, alias, drop, _, bad_e = parse_edges(et)
+    alines, nots, bad_a = parse_aliases(at)
+    checks = [("C8", f"EDGES.md:{i}: {s}") for i, s in bad_e] + [("C8", f"ALIASES.md:{i}: {s}") for i, s in bad_a]
+    base = base or notes_part(root, man, cur, former, xs, facts)
+    notes, aux, edges = base["notes"], base["aux"], base["edges"]
+    checks += base["checks"]
 
     occ = [(rel, e) for rel in notes if aux[rel]["x"] for e in aux[rel]["x"].get("entities", [])]
     homes = defaultdict(list)  # a note whose slug is an entity's id is that entity's home
@@ -671,14 +699,33 @@ def load(root):
     et, at = vocab_texts(root)
     same = {p: f["sha"] for p, f in cur.items()} == {p: f["sha"] for p, f in man.get("files", {}).items()}
     if same and man.get("vsig") == vsig(et, at):
-        g = rd(root / "_dream" / "graph.json")
+        g = rd(root / "_dream" / "graph.json") or read_index(root / "_dream")
         if g and g.get("v") == V:
             return g, former
     elif len(cur) > WIDE:  # rebuilding takes minutes here: patch the last graph for what changed since the dream
-        g = rd(root / "_dream" / "graph.json")
+        g = rd(root / "_dream" / "graph.json") or read_index(root / "_dream")
         if g and g.get("v") == V:
             return patch(root, g, man, cur), former
     return build(root, man, cur, former, et, at), former
+
+
+def fresh_note(root, rel, cur, stems):
+    """A note changed since the last dream: its record and its from:/supersedes: edges, from its text alone."""
+    fm, title, tline, _ = parse_note(read(root / rel))
+    up = fm.get("updated", "")
+    proj = rel.split("/")[0] if "/" in rel else ""
+    n = {"path": rel, "id": posixpath.basename(rel)[:-3], "project": proj, "title": title, "line": tline,
+         "kind": (fm.get("type") or ("log" if proj == "log" else "note")).lower(), "superseded_by": [],
+         "updated": up[:10] if re.match(r"\d{4}-\d\d-\d\d", up) else
+         dt.date.fromtimestamp(cur[rel]["mtime"] / 1e9).isoformat(), "sha": cur[rel]["sha"][:12], "indexed": False}
+    edges = []
+    for kind in ("from", "supersedes"):
+        for v in fm_list(fm.get(kind)):
+            c = stems.get(posixpath.basename(re.sub(r"^\[\[|\]\]$|\.md$", "", v.strip())), [])
+            mine = [x for x in c if x.split("/")[0] == rel.split("/")[0]]
+            if (mine or c) and sorted(mine or c)[0] != rel:
+                edges.append({"src": rel, "dst": sorted(mine or c)[0], "rel": kind})
+    return n, edges
 
 
 def patch(root, g, man, cur):
@@ -690,24 +737,11 @@ def patch(root, g, man, cur):
     stems = defaultdict(list)
     for p in cur:
         stems[posixpath.basename(p)[:-3]].append(p)
-    for rel in changed:
-        fm, title, tline, _ = parse_note(read(root / rel))
-        up = fm.get("updated", "")
-        proj = rel.split("/")[0] if "/" in rel else ""
-        notes[rel] = {"path": rel, "id": posixpath.basename(rel)[:-3], "project": proj, "title": title, "line": tline,
-                      "kind": (fm.get("type") or ("log" if proj == "log" else "note")).lower(), "superseded_by": [],
-                      "updated": up[:10] if re.match(r"\d{4}-\d\d-\d\d", up) else
-                      dt.date.fromtimestamp(cur[rel]["mtime"] / 1e9).isoformat(), "sha": cur[rel]["sha"][:12], "indexed": False}
     ch = set(changed)
     edges = [e for e in g["edges"] if e["src"] not in ch and e["src"] in notes and e["dst"] in notes]
     for rel in changed:
-        fm = parse_note(read(root / rel))[0]
-        for kind in ("from", "supersedes"):
-            for v in fm_list(fm.get(kind)):
-                c = stems.get(posixpath.basename(re.sub(r"^\[\[|\]\]$|\.md$", "", v.strip())), [])
-                mine = [x for x in c if x.split("/")[0] == rel.split("/")[0]]
-                if (mine or c) and sorted(mine or c)[0] != rel:
-                    edges.append({"src": rel, "dst": sorted(mine or c)[0], "rel": kind})
+        notes[rel], es = fresh_note(root, rel, cur, stems)
+        edges += es
     for n in notes.values():
         n["superseded_by"] = []
     for e in edges:
@@ -717,6 +751,127 @@ def patch(root, g, man, cur):
         for e in g["entities"]:
             e["mentions"] = [m for m in e["mentions"] if m["path"] in notes]
     return {**g, "notes": [notes[p] for p in sorted(notes)], "edges": edges}
+
+
+# ---------- dream caches and the index ----------
+
+def extraction_files(dd):
+    """{sha12: mtime_ns} of the extraction files in _dream/notes/."""
+    if not (dd / "notes").is_dir():
+        return {}
+    with os.scandir(dd / "notes") as it:
+        return {e.name[:-5]: e.stat().st_mtime_ns for e in it if e.name.endswith(".json")}
+
+
+class Store:
+    """dream's caches in _dream/store.db: parsed note facts by path, extractions by content hash (the files in
+    _dream/notes/ stay the source; a row is used only while its file's mtime matches)."""
+    def __init__(self, dd):
+        self.dd = dd
+        self.db = sqlite3.connect(dd / "store.db")
+        self.db.executescript("CREATE TABLE IF NOT EXISTS facts(path TEXT PRIMARY KEY, sha TEXT, rec TEXT);"
+                              "CREATE TABLE IF NOT EXISTS x(sha TEXT PRIMARY KEY, mt INTEGER, rec TEXT);")
+
+    def facts(self, root, cur):
+        have = {p: (h, r) for p, h, r in self.db.execute("SELECT path, sha, rec FROM facts")}
+        out, new = {}, []
+        for rel, f in cur.items():
+            h, r = have.get(rel, (None, None))
+            if h == f["sha"]:
+                out[rel] = json.loads(r)
+            else:
+                out[rel] = note_facts(read(root / rel))
+                new.append((rel, f["sha"], json.dumps(out[rel])))
+        with self.db:
+            self.db.executemany("INSERT OR REPLACE INTO facts VALUES (?,?,?)", new)
+            self.db.executemany("DELETE FROM facts WHERE path=?", [(q,) for q in have if q not in cur])
+        return out
+
+    def extractions(self, shas):
+        files = extraction_files(self.dd)
+        have = {h: (mt, r) for h, mt, r in self.db.execute("SELECT sha, mt, rec FROM x")}
+        xs, add = {}, []
+        for h in shas:
+            if h not in files:
+                continue
+            mt, r = have.get(h, (None, None))
+            x = json.loads(r) if mt == files[h] else rd(self.dd / "notes" / f"{h}.json")
+            if x:
+                xs[h] = x
+                if mt != files[h]:
+                    add.append((h, files[h], json.dumps(x)))
+        with self.db:
+            self.db.executemany("INSERT OR REPLACE INTO x VALUES (?,?,?)", add)
+            self.db.executemany("DELETE FROM x WHERE sha=?", [(h,) for h in have if h not in xs])
+        return xs
+
+    def put(self, h, x):
+        with self.db:
+            self.db.execute("INSERT OR REPLACE INTO x VALUES (?,?,?)",
+                            (h, (self.dd / "notes" / f"{h}.json").stat().st_mtime_ns, json.dumps(x)))
+
+
+def write_index(dd, g):
+    """The graph as SQLite (_dream/index.db): `ask` on a big memory reads only the rows a question needs."""
+    tmp = dd / "index.db.tmp"
+    if tmp.exists():
+        tmp.unlink()
+    db = sqlite3.connect(tmp)
+    db.executescript("""PRAGMA journal_mode=OFF; PRAGMA synchronous=OFF;
+        CREATE TABLE meta(k TEXT PRIMARY KEY, v TEXT);
+        CREATE TABLE notes(path TEXT PRIMARY KEY, id TEXT, area TEXT, title TEXT, line INT, kind TEXT, updated TEXT,
+                           sha TEXT, indexed INT, sup TEXT);
+        CREATE TABLE edges(src TEXT, dst TEXT, rel TEXT);
+        CREATE TABLE ents(id TEXT PRIMARY KEY, type TEXT, home TEXT, headline TEXT, aka TEXT, names TEXT);
+        CREATE TABLE ment(eid TEXT, path TEXT, lines TEXT);
+        CREATE TABLE names(k TEXT, eid TEXT);
+        CREATE TABLE rels(s TEXT, type TEXT, o TEXT, ev TEXT);
+        CREATE TABLE checks(code TEXT, msg TEXT);""")
+    with db:
+        db.executemany("INSERT INTO meta VALUES (?,?)", [(k, json.dumps(g[k])) for k in ("v", "built", "proposed", "review", "dedup")])
+        db.executemany("INSERT INTO notes VALUES (?,?,?,?,?,?,?,?,?,?)",
+                       ((n["path"], n["id"], n["project"], n["title"], n["line"], n["kind"], n["updated"], n["sha"],
+                         int(n["indexed"]), json.dumps(n["superseded_by"])) for n in g["notes"]))
+        db.executemany("INSERT INTO edges VALUES (?,?,?)", ((e["src"], e["dst"], e["rel"]) for e in g["edges"]))
+        db.executemany("INSERT INTO ents VALUES (?,?,?,?,?,?)", ((e["id"], e["type"], e["home"], e["headline"],
+                                                                 json.dumps(e["aka"]), json.dumps(e["names"])) for e in g["entities"]))
+        db.executemany("INSERT INTO ment VALUES (?,?,?)",
+                       ((e["id"], m["path"], json.dumps(m["lines"])) for e in g["entities"] for m in e["mentions"]))
+        db.executemany("INSERT INTO names VALUES (?,?)", ((k, e["id"]) for e in g["entities"] for k in
+                                                          {fold(x) for x in [e["id"], *e["aka"], *(n["name"] for n in e["names"])] if len(x) >= 3}))
+        db.executemany("INSERT INTO rels VALUES (?,?,?,?)", ((r["s"], r["type"], r["o"], json.dumps(r["evidence"])) for r in g["relations"]))
+        db.executemany("INSERT INTO checks VALUES (?,?)", ((c["code"], c["msg"]) for c in g["checks"]))
+    db.executescript("CREATE INDEX e_src ON edges(src); CREATE INDEX e_dst ON edges(dst); CREATE INDEX m_eid ON ment(eid);"
+                     "CREATE INDEX n_k ON names(k); CREATE INDEX r_s ON rels(s); CREATE INDEX r_o ON rels(o);")
+    db.close()
+    tmp.replace(dd / "index.db")
+
+
+def index_db(dd):
+    p = dd / "index.db"
+    return sqlite3.connect(f"file:{p}?mode=ro", uri=True) if p.exists() else None
+
+
+def read_index(dd):
+    """The whole graph back from index.db (check, viz and tests on big memories; ask reads rows instead)."""
+    db = index_db(dd)
+    if not db:
+        return None
+    meta = {k: json.loads(v) for k, v in db.execute("SELECT k, v FROM meta")}
+    ment = defaultdict(list)
+    for eid, p, ls in db.execute("SELECT eid, path, lines FROM ment ORDER BY rowid"):
+        ment[eid].append({"path": p, "lines": json.loads(ls)})
+    g = {**meta,
+         "notes": [{"path": p, "id": i, "project": a, "title": t, "line": ln, "kind": k, "superseded_by": json.loads(sup),
+                    "updated": u, "sha": h, "indexed": bool(x)}
+                   for p, i, a, t, ln, k, u, h, x, sup in db.execute("SELECT * FROM notes ORDER BY rowid")],
+         "entities": [{"id": i, "type": t, "home": h, "aka": json.loads(a), "names": json.loads(nm), "headline": hl,
+                       "mentions": ment[i]} for i, t, h, hl, a, nm in db.execute("SELECT * FROM ents ORDER BY rowid")],
+         "relations": [{"s": s_, "type": t, "o": o, "evidence": json.loads(ev)} for s_, t, o, ev in db.execute("SELECT * FROM rels ORDER BY rowid")],
+         "edges": [{"src": a, "dst": b, "rel": r} for a, b, r in db.execute("SELECT * FROM edges ORDER BY rowid")],
+         "checks": [{"code": c, "msg": m} for c, m in db.execute("SELECT * FROM checks ORDER BY rowid")]}
+    db.close()
+    return g
 
 
 # ---------- dream ----------
@@ -772,12 +927,20 @@ def dream(args, root):
     man = rd(dd / "manifest.json", {}) or {}
     cur, former, moved, deleted = scan(root, man)
     cmd = args.cmd or os.environ.get("MEMORY_LLM")
+    if (not args.all and not args.review and man.get("v") == V and man.get("unindexed") == 0 and not man.get("due")
+            and {p: f["sha"] for p, f in cur.items()} == {p: f["sha"] for p, f in man.get("files", {}).items()}
+            and man.get("vsig") == vsig(*vocab_texts(root)) and (dd / "index.db").exists() and (dd / "graph.html").exists()
+            and not any(pend.glob("*.json")) and {f["sha"][:12] + ".json" for f in cur.values()} <= set(os.listdir(dd / "notes"))):
+        print(f"dream: {len(cur)} notes · 0 indexed (0 calls) · nothing new since {man.get('dreamed', '?')}")
+        return
     failed, attempts = man.get("failed", {}), man.get("attempts", {})
     st = Counter()
     by_sha = {}
     for rel in sorted(cur):
         by_sha.setdefault(cur[rel]["sha"][:12], rel)
-    xs = {h: x for h in by_sha for x in [rd(dd / "notes" / f"{h}.json")] if x}
+    store = Store(dd)
+    facts = store.facts(root, cur)
+    xs = store.extractions(by_sha)
     et, at = vocab_texts(root)
     _, _, _, tlines, _ = parse_edges(et)
     alines, nots, _ = parse_aliases(at)
@@ -792,7 +955,7 @@ def dream(args, root):
         return merge_entities(occ, alines, nots, homes)[0]
 
     def upd(rel):
-        u = parse_note(read(root / rel))[0].get("updated", "")
+        u = facts[rel]["fm"].get("updated", "")
         return u if re.match(r"\d{4}-\d\d-\d\d", u) else dt.date.fromtimestamp(cur[rel]["mtime"] / 1e9).isoformat()
 
     todo = [h for h in by_sha if args.all or h not in xs]
@@ -809,6 +972,7 @@ def dream(args, root):
         rec = ground(ans, text)
         rec.update(path=rel, sha=cur[rel]["sha"], model=cmd or "file", indexed_at=now.isoformat(timespec="seconds"))
         wr(dd / "notes" / f"{h}.json", rec)
+        store.put(h, rec)
         xs[h] = rec
         failed.pop(h, None)
         attempts.pop(h, None)
@@ -817,8 +981,11 @@ def dream(args, root):
     if cmd:  # command mode: waves of -j parallel calls, KNOWN refreshed between waves
         j = max(1, args.j)
         with ThreadPoolExecutor(j) as ex:
+            ents = None
             for w in range(0, len(todo), j):
-                wave, ents = todo[w:w + j], Known(entities_now())
+                if ents is None or len(cur) <= WIDE or w // j % 10 == 0:
+                    ents = Known(entities_now())
+                wave = todo[w:w + j]
                 for h, (obj, n) in zip(wave, ex.map(lambda h: call_model(cmd, prompt_for(h, ents)), wave)):
                     st["calls"] += n
                     if obj is None:
@@ -842,7 +1009,7 @@ def dream(args, root):
                 (pend / f"{h}.prompt.md").unlink() if (pend / f"{h}.prompt.md").exists() else None
             else:
                 attempts[h] = attempts.get(h, 0) + 1
-        ents = Known(entities_now())
+        ents = Known(entities_now()) if any(h not in xs or args.all for h in todo) else None
         for h in todo:
             if h in xs and not args.all:
                 continue
@@ -852,9 +1019,12 @@ def dream(args, root):
             if not (k in by_sha or k == "review"):
                 pp.unlink()
 
-    def graph():
+    base = {}
+
+    def graph():  # after a review only the vocabulary changed: the note half is reused
         e2, a2 = vocab_texts(root)
-        return build(root, {**man, "failed": failed}, cur, former, e2, a2, xs=xs, now=now)
+        base.update(base or notes_part(root, {**man, "failed": failed}, cur, former, xs, facts))
+        return build(root, {**man, "failed": failed}, cur, former, e2, a2, xs=xs, now=now, facts=facts, base=base)
 
     g = graph()
     review = {"pairs": 0, "types": 0, "calls": 0, "aliases": 0, "mapped": 0}
@@ -947,8 +1117,13 @@ def dream(args, root):
             f.unlink()
             refs.pop(h, None)
     e2, a2 = vocab_texts(root)
-    wr(dd / "graph.json", g)
-    write_viz(root, g, dd / "graph.html")
+    if len(cur) > WIDE:  # big: no 380 MB graph.json; an overview page and one page per area
+        (dd / "graph.json").unlink() if (dd / "graph.json").exists() else None
+        write_viz_big(root, g, dd)
+    else:
+        wr(dd / "graph.json", g)
+        write_viz(root, g, dd / "graph.html")
+    write_index(dd, g)
     old_index = root / "INDEX.md"  # earlier versions generated it; the viewer replaces it
     if old_index.exists() and read(old_index).startswith("# memory · "):
         old_index.unlink()
@@ -964,7 +1139,9 @@ def dream(args, root):
                               "seen": sorted(fold(e["id"]) for e in g["entities"]),
                               "queue": [[r["a"], r["b"]] for r in g["review"]],
                               "failed": failed, "attempts": attempts, "refs": refs,
-                              "dreamed": now.isoformat(timespec="seconds")})
+                              "dreamed": now.isoformat(timespec="seconds"),
+                              "unindexed": sum(1 for n in g["notes"] if not n["indexed"]),
+                              "due": bool(cmd and (g["proposed"] or g["review"]))})
     codes = Counter(c["code"] for c in g["checks"] if c["code"] != "C5")
     out = f"dream: {len(cur)} notes · {st['indexed']} indexed ({st['calls']} calls)"
     if review["pairs"] or review["types"]:
@@ -985,9 +1162,22 @@ def dream(args, root):
 
 # ---------- retrieval ----------
 
+class Lazy(dict):
+    """A dict that fills a missing key from a function and keeps it."""
+    def __init__(self, fn):
+        super().__init__()
+        self.fn = fn
+
+    def __missing__(self, k):
+        v = self[k] = self.fn(k)
+        return v
+
+
 class View:
+    """The graph in memory, for ask on small memories."""
     def __init__(self, g):
         self.g = g
+        self._names = None
         self.notes = {n["path"]: n for n in g["notes"]}
         self.ents = {e["id"]: e for e in g["entities"]}
         self.out_r, self.in_r = defaultdict(list), defaultdict(list)
@@ -998,6 +1188,98 @@ class View:
         for e in g["edges"]:
             self.frm[e["src"]].append(e)
             self.down[e["dst"]].append(e)
+
+    def name_map(self):
+        if self._names is None:
+            self._names = defaultdict(set)  # folded name → entity ids, for alias expansion
+            for e in self.g["entities"]:
+                for x in [e["id"], *e["aka"], *(n["name"] for n in e["names"])]:
+                    if len(x) >= 3:
+                        self._names[fold(x)].add(e["id"])
+        return self._names
+
+    def names_of(self, k):
+        return self.name_map().get(k, set())
+
+    def multi_names(self, low):
+        """Entity names of 2-3 words that the question spells out."""
+        lw = " " + low.replace("-", " ") + " "
+        return [(nm, ids) for nm, ids in self.name_map().items()
+                if 2 <= len(nm.replace("-", " ").split()) <= 3 and f" {nm.replace('-', ' ')} " in lw]
+
+
+class DbView:
+    """index.db for ask on big memories: every note's row, everything else read when a question needs it. Notes
+    changed since the dream are read from their text (lineage now; entities at the next dream)."""
+    def __init__(self, root, man, cur):
+        db = self.db = index_db(root / "_dream")
+        self.notes = {p: {"path": p, "id": i, "project": a, "title": t, "line": ln, "kind": k, "updated": u,
+                          "superseded_by": json.loads(sup)}
+                      for p, i, a, t, ln, k, u, sup in db.execute(
+                          "SELECT path, id, area, title, line, kind, updated, sup FROM notes")}
+        old = {p: f["sha"] for p, f in man.get("files", {}).items()}
+        changed = {p for p in cur if old.get(p) != cur[p]["sha"]}
+        gone = {p for p in self.notes if p not in cur}
+        for p in gone:
+            del self.notes[p]
+        mine, added = {}, defaultdict(list)
+        if changed:
+            stems = defaultdict(list)
+            for p in cur:
+                stems[posixpath.basename(p)[:-3]].append(p)
+            for rel in changed:
+                self.notes[rel], mine[rel] = fresh_note(root, rel, cur, stems)
+                for e in mine[rel]:
+                    added[e["dst"]].append(e)
+            for n in self.notes.values():
+                if changed.intersection(n["superseded_by"]):
+                    n["superseded_by"] = [x for x in n["superseded_by"] if x not in changed]
+            for rel, es in mine.items():
+                for e in es:
+                    if e["rel"] == "supersedes" and e["dst"] in self.notes:
+                        self.notes[e["dst"]]["superseded_by"].append(rel)
+        skip = changed | gone
+        E = lambda rows: [{"src": a, "dst": b, "rel": r} for a, b, r in rows]  # noqa: E731
+        self.frm = Lazy(lambda p: mine[p] if p in mine else [e for e in E(db.execute(
+            "SELECT src, dst, rel FROM edges WHERE src=?", (p,))) if e["dst"] in self.notes and p not in skip])
+        self.down = Lazy(lambda p: [e for e in E(db.execute("SELECT src, dst, rel FROM edges WHERE dst=?", (p,)))
+                                    if e["src"] not in skip] + added[p])
+        R = lambda rows: [{"s": a, "type": t, "o": b, "evidence": json.loads(ev)} for a, t, b, ev in rows]  # noqa: E731
+        self.out_r = Lazy(lambda i: R(db.execute("SELECT s, type, o, ev FROM rels WHERE s=?", (i,))))
+        self.in_r = Lazy(lambda i: R(db.execute("SELECT s, type, o, ev FROM rels WHERE o=?", (i,))))
+        self.ents = Lazy(self._ent)
+        self._names = Lazy(lambda k: {i for (i,) in db.execute("SELECT eid FROM names WHERE k=?", (k,))})
+
+    def _ent(self, i):
+        row = self.db.execute("SELECT id, type, home, headline, aka, names FROM ents WHERE id=?", (i,)).fetchone()
+        if not row:
+            raise KeyError(i)
+        ms = [{"path": p, "lines": json.loads(ls)} for p, ls in self.db.execute("SELECT path, lines FROM ment WHERE eid=?", (i,))
+              if p in self.notes]
+        return {"id": row[0], "type": row[1], "home": row[2], "headline": row[3], "aka": json.loads(row[4]),
+                "names": json.loads(row[5]), "mentions": ms}
+
+    def names_of(self, k):
+        return self._names[k]
+
+    def multi_names(self, low):
+        ws, out = low.replace("-", " ").split(), []
+        for n in (2, 3):
+            for i in range(len(ws) - n + 1):
+                k = fold(" ".join(ws[i:i + n]))
+                if self._names[k]:
+                    out.append((k, self._names[k]))
+        return out
+
+
+def open_view(root):
+    """What ask reads: the graph in memory for small memories, index.db rows on demand for big ones."""
+    man = rd(root / "_dream" / "manifest.json", {}) or {}
+    if len(man.get("files", {})) > WIDE and (root / "_dream" / "index.db").exists():
+        cur = scan(root, man)[0]
+        if len(cur) > WIDE:
+            return DbView(root, man, cur)
+    return View(load(root)[0])
 
 
 
@@ -1164,19 +1446,13 @@ def route(pats, cat):
 
 
 def ask(args, root):
-    g, _ = load(root)
-    v = View(g)
+    v = open_view(root)
     qs = [q.strip() for q in (args.questions or []) for q in q.split("\n") if q.strip()]
     if args.file:
         qs += [q.strip() for q in read(Path(args.file)).split("\n") if q.strip()]
     if not qs:
         print("ask: give one or more questions")
         return
-    names = defaultdict(set)  # folded name → entity ids, for alias expansion
-    for e in g["entities"]:
-        for x in [e["id"], *e["aka"], *(n["name"] for n in e["names"])]:
-            if len(x) >= 3:
-                names[fold(x)].add(e["id"])
     stems = defaultdict(list)
     for p, n in v.notes.items():
         stems[n["id"].lower()].append(p)
@@ -1193,13 +1469,12 @@ def ask(args, root):
         intent = {k for k, rx in INTENT.items() if rx.search(q)}
         low = " " + q.lower() + " "
         # the index only adds aliases of things the question names by id; loose names never become patterns
-        by_id = {i for t in pats if fold(t) in names and len(names[fold(t)]) <= 2 for i in names[fold(t)]}
-        hit_ents = by_id | {i for nm, ids in names.items() if 2 <= len(nm.replace("-", " ").split()) <= 3
-                            and len(ids) <= 2 and f" {nm.replace('-', ' ')} " in low.replace("-", " ") for i in ids}
+        by_id = {i for t in pats if 0 < len(v.names_of(fold(t))) <= 2 for i in v.names_of(fold(t))}
+        hit_ents = by_id | {i for nm, ids in v.multi_names(low) if len(ids) <= 2 for i in ids}
         for eid in hit_ents:
             e = v.ents[eid]
             for x in [e["id"], *e["aka"], *(n["name"] for n in e["names"][:4])]:
-                if 3 <= len(x) <= 30 and len(x.split()) <= 3 and len(names.get(fold(x), ())) <= 2:
+                if 3 <= len(x) <= 30 and len(x.split()) <= 3 and len(v.names_of(fold(x))) <= 2:
                     pats.setdefault(x.lower(), 1.5)
         scope = {args.p.lower()} if args.p else {t for t in pats if t in folders}  # "in the aml-alerts project"
         named = {p for t in pats for p in stems.get(t, [])} | \
@@ -1216,7 +1491,7 @@ def ask(args, root):
                 named = {p for p in named if len(stems.get(v.notes[p]["id"].lower(), ())) <= 3}  # a name used everywhere names nothing
                 near = {p.split("/")[0] for p in named if "/" in p}
                 for t in ids:  # each id points at the areas that mention it, unless it is mentioned everywhere
-                    at = {m["path"].split("/")[0] for e in names.get(fold(t), ()) for m in v.ents[e]["mentions"]}
+                    at = {m["path"].split("/")[0] for e in v.names_of(fold(t)) for m in v.ents[e]["mentions"]}
                     near |= at if len(at) <= 12 else set()
                 near = near if len(near) <= 12 else set()
                 near |= {a for a in general if not near}  # no project in sight: the general areas too
@@ -1396,29 +1671,130 @@ def entity_line(v, eid):
 
 def viz(args, root):
     """Write the HTML viewer (default memory/_dream/graph.html; `dream` refreshes it too)."""
-    out = Path(args.out).expanduser() if args.out else root / "_dream" / "graph.html"
     g, _ = load(root)
+    if len(g["notes"]) > WIDE and not args.out:
+        n = write_viz_big(root, g, root / "_dream", force=True)
+        print(f"{root / '_dream' / 'graph.html'}: overview of {len(g['notes'])} notes; {n} area pages in "
+              f"{root / '_dream' / 'viz'} — open it in a browser")
+        return
+    out = Path(args.out).expanduser() if args.out else root / "_dream" / "graph.html"
     write_viz(root, g, out)
     print(f"{out}: {len(g['notes'])} notes, {len(g['entities'])} entities — open it in a browser")
 
 
-def write_viz(root, g, out):
-    """A self-contained HTML viewer of the graph: overview, explorer, health."""
-    tpl = read(Path(__file__).resolve().parent.parent / "assets" / "viz.html")
-    notes = []
-    for n in g["notes"]:
-        try:
-            ls = read(root / n["path"]).split("\n")
-        except OSError:
-            ls = []
-        notes.append({**n, "text": [x for x in ls[(n["line"] or 1) - 1:] if x.strip()][:14]})
-    data = {"built": g["built"], "notes": notes, "entities": g["entities"], "relations": g["relations"],
-            "edges": g["edges"], "checks": g["checks"], "review": g["review"], "proposed": g["proposed"]}
+def viz_template():
+    return read(Path(__file__).resolve().parent.parent / "assets" / "viz.html")
+
+
+def render_viz(data, out, tpl=None):
+    tpl = tpl or viz_template()
     island = "{\n" + ",\n".join(f'"{k}": ' + ("[\n" + ",\n".join(json.dumps(r, ensure_ascii=False) for r in v) + "\n]"
                                              if isinstance(v, list) else json.dumps(v)) for k, v in data.items()) + "\n}\n"
     a = tpl.index('id="data-graph"')
     a = tpl.index("\n", a) + 1
     wr(out, tpl[:a] + island.replace("</", "<\\/") + tpl[tpl.index("</script>", a):])
+
+
+def note_text(root, n):
+    try:
+        ls = read(root / n["path"]).split("\n")
+    except OSError:
+        ls = []
+    return [x for x in ls[(n["line"] or 1) - 1:] if x.strip()][:14]
+
+
+def write_viz(root, g, out):
+    """A self-contained HTML viewer of the graph: map, overview, explorer, health."""
+    render_viz({"built": g["built"], "notes": [{**n, "text": note_text(root, n)} for n in g["notes"]],
+                "entities": g["entities"], "relations": g["relations"], "edges": g["edges"], "checks": g["checks"],
+                "review": g["review"], "proposed": g["proposed"]}, out)
+
+
+def write_viz_big(root, g, dd, force=False):
+    """Big memories: _dream/graph.html is an overview of areas, _dream/viz/<area>.html one viewer per area, rewritten
+    only when something in the area changed. → number of area pages written."""
+    def area(p):
+        return p.split("/")[0] if "/" in p else "(root)"
+    tpl = viz_template()
+    notes = {n["path"]: n for n in g["notes"]}
+    by, e_by, m_by, r_by, c_by = (defaultdict(list) for _ in range(5))
+    for n in g["notes"]:
+        by[area(n["path"])].append(n)
+    for e in g["edges"]:
+        for a in {area(e["src"]), area(e["dst"])}:
+            e_by[a].append(e)
+    for e in g["entities"]:
+        ms = defaultdict(list)
+        for m in e["mentions"]:
+            ms[area(m["path"])].append(m)
+        for a, mm in ms.items():
+            m_by[a].append((e, mm))
+    for r in g["relations"]:
+        for a in {area(ev.rsplit(":", 1)[0]) for ev in r["evidence"]}:
+            r_by[a].append(r)
+    checks = [c for c in g["checks"] if c["code"] != "C5"]
+    for c in checks:
+        head = c["msg"].split(":")[0]
+        if "/" in head:
+            c_by[area(head)].append(c)
+    pages = dd / "viz"
+    pages.mkdir(parents=True, exist_ok=True)
+    old = rd(pages / "_sig.json", {}) or {}
+    sigs, wrote = {}, 0
+    tsig = hashlib.sha1(tpl.encode()).hexdigest()[:12]
+    for a, ns in by.items():
+        sig = hashlib.sha1(json.dumps([tsig, [[n["path"], n["sha"], n["kind"], n["superseded_by"]] for n in ns],
+                                       [[e["src"], e["dst"], e["rel"]] for e in e_by[a]],
+                                       [[e["id"], e["type"], e["home"]] for e, _ in m_by[a]],  # not names: a hub's new spelling would redraw everything
+                                       [[r["s"], r["type"], r["o"]] for r in r_by[a]], [c["msg"] for c in c_by[a]]]).encode()).hexdigest()[:16]
+        sigs[a] = sig
+        out = pages / f"{a}.html"
+        if not force and old.get(a) == sig and out.exists():
+            continue
+        stubs = {p: {**notes[p], "text": []} for e in e_by[a] for p in (e["src"], e["dst"]) if area(p) != a and p in notes}
+        render_viz({"mode": "area", "area": a, "home": "../graph.html", "built": g["built"],
+                    "notes": [{**n, "text": note_text(root, n)} for n in ns] + list(stubs.values()),
+                    "entities": [{**e, "names": e["names"][:6], "aka": e["aka"][:6], "mentions": mm} for e, mm in m_by[a]],
+                    "relations": [{**r, "evidence": [x for x in r["evidence"] if area(x.rsplit(":", 1)[0]) == a]} for r in r_by[a]],
+                    "edges": e_by[a],
+                    "checks": c_by[a], "review": [], "proposed": []}, out, tpl)
+        wrote += 1
+    for a in set(old) - set(sigs):
+        (pages / f"{a}.html").unlink() if (pages / f"{a}.html").exists() else None
+    wr(pages / "_sig.json", sigs)
+    general = {a for a, ns in by.items() if a.lower() in GENERAL or sum(n["kind"] in WORK for n in ns) < 0.8 * len(ns)}
+    w = Counter()
+    for e in g["edges"]:
+        a, b = area(e["src"]), area(e["dst"])
+        if a != b and "log" not in (a, b):
+            w[tuple(sorted((a, b)))] += 1
+    for e in g["entities"]:
+        ps = sorted({area(m["path"]) for m in e["mentions"]} - {"log"})
+        if 2 <= len(ps) <= 50:  # an entity everywhere links nothing in particular
+            for i in range(len(ps)):
+                for j in range(i + 1, len(ps)):
+                    w[(ps[i], ps[j])] += 1 / (len(ps) - 1)
+    best = defaultdict(list)
+    for k, x in w.items():
+        for a in k:
+            best[a].append((x, k))
+    keep = {k for lst in best.values() for _, k in sorted(lst, reverse=True)[:3]}
+    linked = {p for e in g["edges"] for p in (e["src"], e["dst"])}
+    render_viz({"mode": "overview", "built": g["built"], "pages": "viz/",
+                "totals": {"notes": len(g["notes"]), "entities": len(g["entities"]), "relations": len(g["relations"]),
+                           "edges": len(g["edges"]), "areas": len(by), "checks": dict(Counter(c["code"] for c in g["checks"]))},
+                "areas": [{"id": a, "n": len(by[a]), "general": a in general,
+                           "kinds": dict(Counter(n["kind"] for n in by[a]).most_common()),
+                           "updated": max(n["updated"] for n in by[a]), "superseded": sum(bool(n["superseded_by"]) for n in by[a]),
+                           "warnings": len(c_by[a]), "edges": len(e_by[a])} for a in sorted(by)],
+                "area_links": [{"a": a, "b": b, "w": round(w[(a, b)], 2)} for a, b in sorted(keep)],
+                "checks": checks[:300],
+                "chains": [{"path": n["path"], "title": n["title"], "by": n["superseded_by"]} for n in g["notes"] if n["superseded_by"]][:300],
+                "orphans": [{"path": n["path"], "title": n["title"], "kind": n["kind"]} for n in g["notes"]
+                            if n["path"] not in linked and n["kind"] != "log"][:300],
+                "review": g["review"], "proposed": g["proposed"],
+                "notes": [], "entities": [], "relations": [], "edges": []}, dd / "graph.html", tpl)
+    return wrote
 
 
 def main(argv=None):

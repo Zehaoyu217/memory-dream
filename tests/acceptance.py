@@ -529,8 +529,22 @@ def A24():
     t0 = time.perf_counter()
     out = w.run("ask", "In churn-2026, what are the current risk-tier cuts?", env=big)
     assert P + "dec-tiers-v3.md" in heads(out) and "SUPERSEDED → dec-tiers-v3" in out, out[:600]
+    took = time.perf_counter() - t0
+    w.run("dream", env=big)  # big outputs: no graph.json; an overview and one page per area
+    dd = w.root / "_dream"
+    assert not (dd / "graph.json").exists() and (dd / "graph.html").exists() and (dd / "index.db").exists()
+    sig = json.loads((dd / "viz/_sig.json").read_text())
+    assert {"churn-2026", "churn-2025", "prefs", "log"} <= set(sig), sig
+    mt = {a: (dd / f"viz/{a}.html").stat().st_mtime_ns for a in sig}
+    (w.root / "prefs/rate-decimals.md").write_text("# Rates in reports use one decimal place\n"
+                                                   "Churn and default rates get one decimal, e.g. 6.8%. Counts get none.\n")
+    w.run("dream", env=big)
+    redrawn = sorted(a for a in sig if (dd / f"viz/{a}.html").stat().st_mtime_ns != mt[a])
+    assert redrawn == ["prefs"], redrawn
+    assert "rate-decimals" in w.run("ask", "How many decimal places do rates get in reports?", env=big)
     return (f"scoped: {len(got)} notes, all in churn-2026 (its copy churn-2025 left out) · general question → prefs · "
-            f"note written after the dream supersedes dec-risk-tiers in ask ({time.perf_counter() - t0:.1f}s, no rebuild)")
+            f"note written after the dream supersedes dec-risk-tiers in ask ({took:.1f}s, no rebuild) · big dream: "
+            f"no graph.json, {len(sig)} area pages; after one edit only {redrawn} redrawn")
 
 
 TESTS = [A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A24]

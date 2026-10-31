@@ -5,7 +5,8 @@ description: Project memory for data-science work in memory/ (notes on projects,
 # memory-dream v0.4
 
 Notes in `memory/<area>/<slug>.md` are the truth: plain markdown, so grep and Read work on them as usual.
-`memory/_dream/` is generated (graph.json, and graph.html — the viewer). `memory/EDGES.md` and `memory/ALIASES.md` are yours.
+`memory/_dream/` is generated: graph.html (the viewer; past 10,000 notes an overview, with a page per area in viz/),
+index.db and store.db (what ask and dream read), graph.json (small memories). `memory/EDGES.md` and `memory/ALIASES.md` are yours.
 `memory.py` = `python3 <this skill>/scripts/memory.py` (root: `--root`, `$MEMORY_DIR`, or the nearest `memory/` upward).
 
 ## Read — one call, then answer

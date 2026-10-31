@@ -60,14 +60,40 @@ churn model?" has 137 right answers at 100×; `ask` says so ("N areas match abou
 5. **KNOWN sorted all 124k entities for every prompt.** Now one sort per wave (`Known`); a full re-index
    would otherwise have spent days sorting.
 
-## Still heavy at 100× (not fixed)
-- `dream`: 202 s and 8.2 GB peak for 30 new notes (first dream 92 s, 7.8 GB). It rebuilds the whole graph,
-  twice when a review applies, and rewrites graph.json (381 MB). Next: merge only what changed; a compact
-  graph file.
-- Viewer: graph.html is 372 MB, too big to open. Next: an area-level page plus one page per project,
-  rewritten only where notes changed.
-- `ask` parses the 381 MB graph.json on every call (3.9 s). Next: a small index for `ask` (ids, titles,
-  lineage, entity → areas) apart from the viewer's data.
+## Dream, ask and the viewer at 100×, fixed (`eval/scale/profile_dream.py`, `profile_incremental.py`)
+| at 168,141 notes | before | now |
+|---|---|---|
+| dream, nothing new | 120 s, 8.2 GB | **3 s, 0.4 GB** (stops after the scan) |
+| dream, 30 new notes (real Haiku; ~40 s of it are the calls) | 202 s, 8.2 GB | **82 s, 4.8 GB**; 137 area pages redrawn |
+| $ per new note | 0.00187 | 0.00145 (same prompt; more of it cached) |
+| `ask`, batch of 10 questions | 5–8 s (52–135 s before routing) | **2.3 s** on average (1.8–5 s) |
+| offline retrieval, gold notes / numbers | 0.852 / 0.949 | 0.854 / 0.950 |
+| viewer | one 372 MB page | 2.4 MB overview + one ~110 KB page per area |
+| at 1,677 notes: dream / retrieval | 2 s / 0.882, 0.970 | 0.7 s / 0.882, 0.970 (unchanged) |
+
+What changed:
+1. **The dream's caches live in `_dream/store.db`** (SQLite, stdlib): parsed note facts by path and extractions by
+   content hash. A dream re-reads only notes whose hash changed, instead of 168k notes and 168k cache files (75 s).
+   The files in `_dream/notes/` stay the source: a row is used only while its file's mtime matches, so deleting an
+   extraction file still forces a re-index.
+2. **The graph is written to `_dream/index.db`**; `ask` on a big memory (`DbView`) loads every note row and reads
+   entities, lineage and relations only for what a question touches. It gives the same answers as the in-memory
+   graph (1,677 notes forced through it: 0.877 / 0.960 both ways).
+3. **No graph.json past 10,000 notes**; `graph.html` is an overview of areas (map of the 120 best-linked, a filterable
+   table of all, health with counts and the first 300 of each list) and `viz/<area>.html` one viewer per area,
+   redrawn only when its notes, lineage, entity ids or relations change (`viz/_sig.json`). A first version fingerprinted
+   entities by their spellings too: one new spelling of a hub entity redrew 3,568 pages; now 137.
+4. **A dream with nothing new stops after the scan** (same hashes, same vocabulary, no review due, every extraction file
+   present).
+5. **After a vocabulary review only the entity half of the graph is rebuilt** (`notes_part` is reused); `fold` is
+   memoized; dedup counts are taken only when `check` needs them; KNOWN is rebuilt every 10th wave on big memories.
+
+Seen on the way: at 100× rare relation types pass the review threshold (3 uses) 137 times over, so 237 types queued
+and the review, 40 per dream, took 4 dreams to clear; each of those dreams changed the vocabulary and redrew most pages.
+
+Still heavy: a dream holds the whole graph in memory (4.8 GB peak at 168k notes); `_dream/` takes ~2.2 GB on disk at
+100× (extraction files 670 MB, store.db 464 MB, index.db 384 MB, area pages 703 MB) against 657 MB of notes; the first
+dream after this change fills store.db and draws every page (~100 s).
 
 # Round 3 — refined: drop what didn't help, curate entities and the relation vocabulary
 

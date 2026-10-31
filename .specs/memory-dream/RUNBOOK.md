@@ -125,6 +125,17 @@ names; otherwise areas whose note ids and titles match, areas the index says men
 general areas (prefs, reporting, glossary, corrections, howto, qa, people, log, or any area whose notes
 are mostly not project work). Changed notes are patched into the last graph instead of a rebuild.
 
+What dream writes in `_dream/`: `store.db` (its caches: parsed note facts by path, extractions by content hash;
+the files in `_dream/notes/` stay the source), `index.db` (the graph as SQLite: `ask` on a big memory reads only the
+rows a question needs), and the viewer. Up to `MEMORY_WIDE` notes: `graph.json` + one `graph.html`. Past it: no
+graph.json; `graph.html` is an overview of areas and `viz/<area>.html` one page per area, redrawn only when that
+area changed (`viz/_sig.json`). A dream with nothing new stops after the scan.
+
+```bash
+python3 eval/scale/profile_dream.py <memory root>                       # where a full rebuild spends its time
+python3 eval/scale/profile_incremental.py <memory root> <scratch> fraud-2026   # re-index one area with the fake dreamer
+```
+
 ## Troubleshooting
 
 - `dream` says C3: the dreamer answer was unusable twice; the note stays grep-searchable and is
