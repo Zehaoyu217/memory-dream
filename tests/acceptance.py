@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Acceptance tests A1–A20 (spec §13) on the churn-2026 fixture, with the deterministic fake dreamer.
+"""Acceptance tests A1–A20 (spec §13) and A24 (big memories) on the churn-2026 fixture, with the deterministic fake dreamer.
 
   python3 tests/acceptance.py            # all
   python3 tests/acceptance.py A6 A15     # some
@@ -9,6 +9,7 @@ import importlib.util
 import json
 import os
 import random
+import re
 import shutil
 import subprocess
 import sys
@@ -506,7 +507,33 @@ def A20():
     return f"{len(E)} entities, {len(homes)} with a home note; files, one-note ids and unknown types left out"
 
 
-TESTS = [A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20]
+def A24():
+    """Big memories (forced with MEMORY_WIDE): ask greps only the named project, takes general areas along for
+    questions that name none, and patches notes written since the dream into the last graph."""
+    w = World()
+    shutil.copytree(w.root / "churn-2026", w.root / "churn-2025")  # a sibling project with the same note ids
+    (w.root / "prefs").mkdir()
+    (w.root / "prefs/rate-decimals.md").write_text("# Rates in reports use one decimal place\n"
+                                                   "Churn and default rates get one decimal, e.g. 6.8%.\n")
+    w.run("dream")
+    big = {"MEMORY_WIDE": "10"}
+    heads = lambda out: re.findall(r"^▸ (\S+)", out, flags=re.M)  # noqa: E731
+    got = heads(w.run("ask", "In churn-2026, what came of exp-014?", env=big))
+    assert got and all(h.startswith(P) for h in got), got
+    out = w.run("ask", "How many decimal places do rates get in reports?", env=big)
+    assert "prefs/rate-decimals.md" in heads(out), out[:400]
+    (w.root / P / "dec-tiers-v3.md").write_text(
+        "---\nsupersedes: [dec-risk-tiers]\nupdated: 2026-10-31\n---\n"
+        "# Risk-tier cuts moved to 0.25 and 0.55 for churn-xgb-v3\n"
+        "The current risk-tier cuts are 0.25 (email) and 0.55 (call), set on churn-xgb-v3 scores.\n")
+    t0 = time.perf_counter()
+    out = w.run("ask", "In churn-2026, what are the current risk-tier cuts?", env=big)
+    assert P + "dec-tiers-v3.md" in heads(out) and "SUPERSEDED → dec-tiers-v3" in out, out[:600]
+    return (f"scoped: {len(got)} notes, all in churn-2026 (its copy churn-2025 left out) · general question → prefs · "
+            f"note written after the dream supersedes dec-risk-tiers in ask ({time.perf_counter() - t0:.1f}s, no rebuild)")
+
+
+TESTS = [A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A24]
 
 
 def main():

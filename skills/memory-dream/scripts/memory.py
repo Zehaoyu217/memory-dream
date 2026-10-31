@@ -11,6 +11,7 @@ Stdlib only. Every verb rescans first; only `dream` calls the model or writes de
 Spec: .specs/memory-dream/build-spec.md
 """
 import argparse
+import bisect
 import datetime as dt
 import difflib
 import hashlib
@@ -31,6 +32,9 @@ KINDS = set("question experiment finding decision dataset feature model metric t
 TIMEOUT = int(os.environ.get("MEMORY_TIMEOUT", "300"))
 KEEP_DAYS = 30
 MIN_UNKNOWN_USES = 3  # an unknown relation type goes to review once it is used this often
+WIDE = int(os.environ.get("MEMORY_WIDE", "10000"))  # above this many notes, ask greps only where a question points
+GENERAL = {"prefs", "reporting", "glossary", "corrections", "howto", "qa", "people", "log"}  # areas that span projects
+WORK = {"question", "experiment", "finding", "decision", "dataset", "feature", "model", "metric"}  # project kinds
 
 EDGES_SEED = """# EDGES — relation types between entities, read "X <type> Y". Closed: only these types and their aliases
 # (~ = read in reverse) are shown; other links the dreamer finds are kept aside in the cache and counted by
@@ -169,15 +173,16 @@ def find_root(arg):
 def scan(root, man):
     """Current notes {path: {sha, mtime, size}}, re-hashing only files whose stat changed; detect moves."""
     old, cur = man.get("files", {}), {}
-    if root.is_dir():
-        for p in root.rglob("*.md"):
-            rel = p.relative_to(root).as_posix()
-            parts = rel.split("/")
-            if parts[0] == "_dream" or p.name in SKIP or any(x.startswith(".") for x in parts):
+    for d, dirs, files in os.walk(root):
+        dirs[:] = [x for x in dirs if not x.startswith(".") and not (d == str(root) and x == "_dream")]
+        base = os.path.relpath(d, root).replace(os.sep, "/")
+        for f in files:
+            if not f.endswith(".md") or f in SKIP or f.startswith("."):
                 continue
-            st, o = p.stat(), old.get(rel)
+            rel = f if base == "." else f"{base}/{f}"
+            st, o = os.stat(os.path.join(d, f)), old.get(rel)
             same = o and o.get("mtime") == st.st_mtime_ns and o.get("size") == st.st_size
-            cur[rel] = {"sha": o["sha"] if same else hashlib.sha256(p.read_bytes()).hexdigest(),
+            cur[rel] = {"sha": o["sha"] if same else hashlib.sha256((root / rel).read_bytes()).hexdigest(),
                         "mtime": st.st_mtime_ns, "size": st.st_size}
     oldf = man.get("former", {})
     former = {p: list(v) for p, v in oldf.items() if p in cur}
@@ -669,7 +674,49 @@ def load(root):
         g = rd(root / "_dream" / "graph.json")
         if g and g.get("v") == V:
             return g, former
+    elif len(cur) > WIDE:  # rebuilding takes minutes here: patch the last graph for what changed since the dream
+        g = rd(root / "_dream" / "graph.json")
+        if g and g.get("v") == V:
+            return patch(root, g, man, cur), former
     return build(root, man, cur, former, et, at), former
+
+
+def patch(root, g, man, cur):
+    """The last dream's graph with changed and new notes re-read (title, kind, date, from:/supersedes:) and
+    deleted ones gone. Their entities wait for the next dream; grep reads their text as usual."""
+    old = {p: f["sha"] for p, f in man.get("files", {}).items()}
+    notes = {n["path"]: n for n in g["notes"] if n["path"] in cur}
+    changed = [p for p in cur if old.get(p) != cur[p]["sha"]]
+    stems = defaultdict(list)
+    for p in cur:
+        stems[posixpath.basename(p)[:-3]].append(p)
+    for rel in changed:
+        fm, title, tline, _ = parse_note(read(root / rel))
+        up = fm.get("updated", "")
+        proj = rel.split("/")[0] if "/" in rel else ""
+        notes[rel] = {"path": rel, "id": posixpath.basename(rel)[:-3], "project": proj, "title": title, "line": tline,
+                      "kind": (fm.get("type") or ("log" if proj == "log" else "note")).lower(), "superseded_by": [],
+                      "updated": up[:10] if re.match(r"\d{4}-\d\d-\d\d", up) else
+                      dt.date.fromtimestamp(cur[rel]["mtime"] / 1e9).isoformat(), "sha": cur[rel]["sha"][:12], "indexed": False}
+    ch = set(changed)
+    edges = [e for e in g["edges"] if e["src"] not in ch and e["src"] in notes and e["dst"] in notes]
+    for rel in changed:
+        fm = parse_note(read(root / rel))[0]
+        for kind in ("from", "supersedes"):
+            for v in fm_list(fm.get(kind)):
+                c = stems.get(posixpath.basename(re.sub(r"^\[\[|\]\]$|\.md$", "", v.strip())), [])
+                mine = [x for x in c if x.split("/")[0] == rel.split("/")[0]]
+                if (mine or c) and sorted(mine or c)[0] != rel:
+                    edges.append({"src": rel, "dst": sorted(mine or c)[0], "rel": kind})
+    for n in notes.values():
+        n["superseded_by"] = []
+    for e in edges:
+        if e["rel"] == "supersedes":
+            notes[e["dst"]]["superseded_by"].append(e["src"])
+    if len(notes) < len(g["notes"]):  # something was deleted
+        for e in g["entities"]:
+            e["mentions"] = [m for m in e["mentions"] if m["path"] in notes]
+    return {**g, "notes": [notes[p] for p in sorted(notes)], "edges": edges}
 
 
 # ---------- dream ----------
@@ -687,12 +734,30 @@ def call_model(cmd, prompt):
     return None, 2
 
 
+class Known:
+    """Entities by mention count and each project's top ones: one sort serves every prompt of a wave."""
+    def __init__(self, ents, local=80):
+        self.local = local
+        self.by_n = sorted(ents.values(), key=lambda e: (-len(e["mentions"]), fold(e["id"])))
+        self.projs = [{m["path"].split("/")[0] for m in e["mentions"]} for e in self.by_n]
+        self.top = defaultdict(list)
+        for i, ps in enumerate(self.projs):
+            for p in ps:
+                if len(self.top[p]) < local:
+                    self.top[p].append(i)
+
+
 def known_lines(ents, project, local=80, shared=20):
     """KNOWN for a prompt: this project's entities, then the most-mentioned shared ones (small prompts)."""
-    def inproj(e):
-        return any(m["path"].split("/")[0] == project for m in e["mentions"])
-    by_n = sorted(ents.values(), key=lambda e: (-len(e["mentions"]), fold(e["id"])))
-    es = [e for e in by_n if inproj(e)][:local] + [e for e in by_n if not inproj(e)][:shared]
+    kn = ents if isinstance(ents, Known) and ents.local >= local else Known(ents if isinstance(ents, dict) else
+                                                                              {e["id"]: e for e in ents.by_n}, local)
+    rest = []
+    for i, ps in enumerate(kn.projs):
+        if len(rest) >= shared:
+            break
+        if project not in ps:
+            rest.append(i)
+    es = [kn.by_n[i] for i in kn.top.get(project, [])[:local] + rest]
     return "\n".join(f"{e['id']} ({e['type']}): " + "; ".join(n["name"] for n in e["names"][:4]) for e in es) or "(none)"
 
 
@@ -753,7 +818,7 @@ def dream(args, root):
         j = max(1, args.j)
         with ThreadPoolExecutor(j) as ex:
             for w in range(0, len(todo), j):
-                wave, ents = todo[w:w + j], entities_now()
+                wave, ents = todo[w:w + j], Known(entities_now())
                 for h, (obj, n) in zip(wave, ex.map(lambda h: call_model(cmd, prompt_for(h, ents)), wave)):
                     st["calls"] += n
                     if obj is None:
@@ -777,7 +842,7 @@ def dream(args, root):
                 (pend / f"{h}.prompt.md").unlink() if (pend / f"{h}.prompt.md").exists() else None
             else:
                 attempts[h] = attempts.get(h, 0) + 1
-        ents = entities_now()
+        ents = Known(entities_now())
         for h in todo:
             if h in xs and not args.all:
                 continue
@@ -1024,17 +1089,19 @@ def boundary(p):
     return re.compile(r"(?<![a-z0-9])" + re.escape(p))
 
 
-def grep_lines(root, pats):
-    """One `grep -F` pass over the notes for every pattern → {path: [(line, text)]}. Python if grep is missing."""
+def grep_lines(root, pats, areas=None):
+    """One `grep -F` pass over the notes (or only these top-level areas) for every pattern → {path: [(line, text)]}.
+    Python if grep is missing."""
     hits = defaultdict(list)
-    if not pats:
+    where = [str(root)] if areas is None else [str(root / a) for a in areas if a and (root / a).is_dir()]
+    if not pats or not where:
         return hits
     import tempfile
     with tempfile.NamedTemporaryFile("w", suffix=".pat", delete=False, encoding="utf-8") as f:
         f.write("\n".join(sorted(pats)) + "\n")
     out = None
     try:
-        r = subprocess.run(["grep", "-rniIF", "--include=*.md", "--exclude-dir=_dream", "-f", f.name, str(root)],
+        r = subprocess.run(["grep", "-rniIF", "--include=*.md", "--exclude-dir=_dream", "-f", f.name, *where],
                            capture_output=True, text=True, errors="replace")
         out = r.stdout if r.returncode in (0, 1) else None
     except OSError:
@@ -1042,7 +1109,7 @@ def grep_lines(root, pats):
     finally:
         os.unlink(f.name)
     if out is None:
-        for p in root.rglob("*.md"):
+        for p in (q for w in where for q in Path(w).rglob("*.md")):
             rel = p.relative_to(root).as_posix()
             if rel.startswith("_dream/"):
                 continue
@@ -1050,13 +1117,50 @@ def grep_lines(root, pats):
                 if any(x in ln.lower() for x in pats):
                     hits[rel].append((i, ln))
         return hits
+    pre = str(root).rstrip("/") + "/"
     for ln in out.splitlines():
         m = re.match(r"(.*?):(\d+):(.*)$", ln)
         if m:
-            rel = Path(m.group(1)).resolve().relative_to(root).as_posix()
+            rel = m.group(1)[len(pre):] if m.group(1).startswith(pre) else Path(m.group(1)).resolve().relative_to(root).as_posix()
             if posixpath.basename(rel) not in SKIP:
                 hits[rel].append((int(m.group(2)), m.group(3)))
     return hits
+
+
+def catalog(v):
+    """Every note's id and `# ` line in one lowercase string, for routing questions to areas."""
+    paths = sorted(v.notes)
+    lines = [(v.notes[p]["id"] + " " + (v.notes[p]["title"] or "")).lower().replace("\n", " ") for p in paths]
+    starts, k = [], 0
+    for ln in lines:
+        starts.append(k)
+        k += len(ln) + 1
+    return paths, "\n".join(lines), starts
+
+
+def route(pats, cat):
+    """Areas whose note ids and titles match the question best (idf-weighted, each pattern once per area).
+    → (areas, hint): at most 8 areas; a hint when many match about equally."""
+    paths, text, starts = cat
+    score = Counter()
+    for t, w in pats.items():
+        if len(t) < 3 or text.count(t) > max(50, len(paths) // 50):  # too common to say where to look
+            continue
+        hit, i = set(), text.find(t)
+        while i >= 0:
+            k = bisect.bisect_right(starts, i) - 1
+            if i == 0 or not text[i - 1].isalnum():
+                hit.add(k)
+            i = text.find(t, i + 1)
+        idf = math.log(1 + len(paths) / max(1, len(hit)))
+        for a in {paths[k].split("/")[0] if "/" in paths[k] else "" for k in hit}:
+            score[a] += w * idf
+    if not score:
+        return None, ""
+    best = max(score.values())
+    near = [a for a, s_ in score.most_common() if s_ >= 0.9 * best]
+    hint = f"{len(near)} areas match about equally ({', '.join(sorted(near)[:4])}, …): name the project" if len(near) > 8 else ""
+    return [a for a, s_ in score.most_common(8) if s_ >= 0.6 * best], hint
 
 
 def ask(args, root):
@@ -1077,9 +1181,15 @@ def ask(args, root):
     for p, n in v.notes.items():
         stems[n["id"].lower()].append(p)
     folders = {p.split("/")[0].lower() for p in v.notes if "/" in p}
+    big, by_area, cat = len(v.notes) > WIDE, defaultdict(list), None
+    for p in v.notes:
+        by_area[p.split("/")[0] if "/" in p else ""].append(p)
+    general = {a for a, ps in by_area.items() if a.lower() in GENERAL or  # by name, or mostly not project work
+               sum(v.notes[p]["kind"] in WORK for p in ps) < 0.8 * len(ps)} if big else set()
     per_q = []
     for q in qs:
         pats = qterms(q)
+        own = list(pats)
         intent = {k for k, rx in INTENT.items() if rx.search(q)}
         low = " " + q.lower() + " "
         # the index only adds aliases of things the question names by id; loose names never become patterns
@@ -1096,34 +1206,58 @@ def ask(args, root):
                 {p for t in pats for p in ([t] if t in v.notes else [t + ".md"] if t + ".md" in v.notes else [])}
         if scope:
             named = {p for p in named if p.split("/")[0].lower() in scope}
-        paths = {p: [t for t in pats if len(t) >= 4 and t not in scope and t in p.lower()] for p in v.notes
+        areas, hint = None, ""  # None: grep everything (memories up to WIDE notes)
+        if big:
+            areas = sorted({a for a in by_area if a.lower() in scope}) if scope else None
+            if not scope:  # where to look: titles that match, notes it names, areas that mention the ids it names
+                cat = cat or catalog(v)
+                areas, hint = route(pats, cat)
+                ids = [t for t in own if len(t) >= 4 and re.search(r"[0-9._@-]", t)]
+                named = {p for p in named if len(stems.get(v.notes[p]["id"].lower(), ())) <= 3}  # a name used everywhere names nothing
+                near = {p.split("/")[0] for p in named if "/" in p}
+                for t in ids:  # each id points at the areas that mention it, unless it is mentioned everywhere
+                    at = {m["path"].split("/")[0] for e in names.get(fold(t), ()) for m in v.ents[e]["mentions"]}
+                    near |= at if len(at) <= 12 else set()
+                near = near if len(near) <= 12 else set()
+                near |= {a for a in general if not near}  # no project in sight: the general areas too
+                if not areas and not near and ids:  # ids the index does not know: grep everything for them alone
+                    near = {p.split("/")[0] for p in grep_lines(root, ids) if "/" in p}
+                    near = near if len(near) <= 12 else set()
+                areas = sorted(set(areas or []) | near) if areas or near else None
+        pool = v.notes if areas is None else [p for a in areas for p in by_area[a]]
+        paths = {p: [t for t in pats if len(t) >= 4 and t not in scope and t in p.lower()] for p in pool
                  if not scope or p.split("/")[0].lower() in scope}
-        per_q.append({"q": q, "pats": {t: w for t, w in pats.items() if t not in scope}, "intent": intent,
-                      "ents": hit_ents, "by_id": by_id, "named": named, "scope": scope, "paths": {p: ts for p, ts in paths.items() if ts}})
-    allpats = {p for x in per_q for p in x["pats"]}
-    hits = grep_lines(root, allpats)
-    if args.p:
-        hits = {p: h for p, h in hits.items() if p.split("/")[0] == args.p}
-    rx = {p: boundary(p) for p in allpats}
-    line_pats = {}  # (path, line) → patterns that really match there (word start)
-    df = Counter()
-    for path, rows in hits.items():
-        seen = set()
-        for no, text in rows:
-            lowt = text.lower()
-            ms = {p for p in allpats if p in lowt and rx[p].search(lowt)}
-            if ms:
-                line_pats[(path, no)] = (ms, text)
-                seen |= ms
-        df.update(seen)
-    N = max(len(v.notes), 1)
-    idf = {p: math.log(1 + N / df[p]) for p in df}
-    by_file = defaultdict(list)
-    for (path, no), (ms, text) in line_pats.items():
-        by_file[path].append((no, ms, text))
-    budget = args.budget or 900 * len(qs) + 1500
+        per_q.append({"q": q, "pats": {t: w for t, w in pats.items() if t not in scope}, "intent": intent, "hint": hint,
+                      "ents": hit_ents, "by_id": by_id, "named": named, "scope": scope, "areas": areas,
+                      "paths": {p: ts for p, ts in paths.items() if ts}})
+    groups = defaultdict(list)  # questions that grep the same areas share one grep
     for x in per_q:
-        x["ranked"] = rank(x, by_file, idf, v)
+        groups[None if x["areas"] is None else tuple(x["areas"])].append(x)
+    for areas, xs in groups.items():
+        allpats = {p for x in xs for p in x["pats"]}
+        hits = grep_lines(root, allpats, areas)
+        if args.p:
+            hits = {p: h for p, h in hits.items() if p.split("/")[0] == args.p}
+        rx = {p: boundary(p) for p in allpats}
+        line_pats = {}  # (path, line) → patterns that really match there (word start)
+        df = Counter()
+        for path, rows in hits.items():
+            seen = set()
+            for no, text in rows:
+                lowt = text.lower()
+                ms = {p for p in allpats if p in lowt and rx[p].search(lowt)}
+                if ms:
+                    line_pats[(path, no)] = (ms, text)
+                    seen |= ms
+            df.update(seen)
+        N = max(len(v.notes) if areas is None else sum(len(by_area[a]) for a in areas), 1)
+        idf = {p: math.log(1 + N / df[p]) for p in df}
+        by_file = defaultdict(list)
+        for (path, no), (ms, text) in line_pats.items():
+            by_file[path].append((no, ms, text))
+        for x in xs:
+            x["ranked"] = rank(x, by_file, idf, v)
+    budget = args.budget or 900 * len(qs) + 1500
     printed, out = {}, []
 
     def header(path):
@@ -1148,6 +1282,8 @@ def ask(args, root):
     full = sum(sum(len(t) + 6 for _, t in body(p)) for p in picked) <= budget
     for x in per_q:
         out.append(f"## {x['q']}")
+        if x["hint"]:
+            out.append(f"  ({x['hint']})")
         for eid in sorted(x["ents"])[:2] if "dep" in x["intent"] else []:
             out.append(entity_line(v, eid))
         for path, lines in x["ranked"]:
@@ -1189,8 +1325,11 @@ def rank(x, by_file, idf, v):
     top = max(score.values(), default=0) or 1.0
     for p in x["named"]:
         score[p] = score.get(p, 0) + top + 1
+    inside = {a.lower() for a in (x["scope"] or x.get("areas") or ())}
     for eid in x["ents"]:  # notes that mention a matched entity, findings and decisions first
         for m in v.ents[eid]["mentions"]:
+            if inside and m["path"].split("/")[0].lower() not in inside:
+                continue
             n = v.notes.get(m["path"])
             w = 0.35 if eid in x["by_id"] else 0.15  # named outright: a stronger signal than a phrase match
             score[m["path"]] = score.get(m["path"], 0) + w * top * (1.5 if n and n["kind"] in ("finding", "decision") else 1)

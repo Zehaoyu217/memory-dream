@@ -1,6 +1,73 @@
 # memory-dream v0.4 — results
 
-2026-10-30 · built from the "Memory" email spec (`build-spec.md`) · macOS, Python 3.9.6, Claude Code 2.1.314.
+2026-10-30 (round 4: 2026-10-31) · built from the "Memory" email spec (`build-spec.md`) · macOS, Python 3.9.6, Claude Code 2.1.314.
+
+# Round 4 — 100× (168,141 notes): what scales, what broke, what changed
+
+## The world (`eval/scale/make_world.py`)
+137 versions of each of the 41 projects: the originals plus 136 sibling copies whose project-local ids get
+a code (fraud-2026 → fraud-xaa-2026, exp-014 → exp-xaa-014) and whose numbers all move (60 days → 62 days,
+0.023 → 0.025). Shared tables and terms stay shared; general areas and the log stay 1× (one person, one set
+of preferences). 168,141 notes, 124,294 entities. Copies carry their extraction through the same rewrite, so
+they count as indexed. This is harder than real growth: siblings share titles and wording, so every
+general word hits 137 projects.
+
+## Saving a note costs the same (30 real Haiku calls, fraud-2026 re-indexed inside the 100× world)
+| | 1,677 notes | 168,141 notes |
+|---|---|---|
+| KNOWN entities in the prompt, tokens (median / max) | 1,447 / 1,861 | 1,597 / 1,945 |
+| tokens per note, in / out | 7.0k / 2.3k | 7.3k / 2.0k |
+| **$ per note** | **0.0020** | **0.00187** |
+| review call | $0.0026–0.0066 | $0.0040 (40 types) |
+
+KNOWN is capped (80 project + 20 shared entities), so the prompt stops growing. A full re-index at 100×
+would be ~$310 and ~37 h at -j 10; only a prompt or model change needs one.
+
+## Answering at 100× (Opus agents, 3 batches × 10 questions, Haiku judge; per batch)
+| | memory agent | grep agent | memory ÷ grep | (1,677 notes: memory ÷ grep) |
+|---|---|---|---|---|
+| answers (30 questions) | 24 / 6 / 0 | 24 / 6 / 0 | tie | 27/3/0 vs 26/4/0 |
+| tool calls | 4.0 | 25.3 | 0.16 | 0.19 |
+| tokens processed | 262k | 1,491k | 0.18 | 0.21 |
+| cost units (Opus price ratios) | 116k | 286k | **0.41** | 0.47 |
+| time | 76 s | 180 s | **0.42** | 0.35 |
+
+Neither side's cost grew from 1,677 notes (memory 131k → 116k units, grep 279k → 286k): the questions name
+a project or an id (P1), are general (P2), or come with the working project (C-orig: "you are working in
+churn-2026"), and the grep agent narrowed to that folder too. Without a project, "what is the current
+churn model?" has 137 right answers at 100×; `ask` says so ("N areas match about equally: name the project").
+
+## Offline retrieval (326 bank questions, `eval/retrieval.py`)
+| | gold notes | answer numbers | s per batch of 10 |
+|---|---|---|---|
+| 1,677 notes, grep everything | 0.882 (round 3: 0.878) | 0.970 | 0.5 |
+| 1,677 notes, routed (`MEMORY_WIDE=100`) | 0.877 | 0.960 | 0.1 |
+| 168,141 notes, routed | 0.852 | 0.949 | 5.8 |
+
+## What broke at 100×, and the fix
+1. **`ask` took 52–135 s per call.** One grep over 168k files took 37 s and printed 502k lines; turning each
+   path back into a note path took 9 s more. Now, above `MEMORY_WIDE` (10,000) notes, each question greps
+   only where it points: the project it names; else areas whose note ids and titles match (idf-weighted),
+   the areas the index says mention its ids, and the general areas. One grep over everything is left only
+   for ids the index does not know and nothing else places. → 5–8 s per call, 3.9 s of it loading graph.json.
+   Up to 10,000 notes nothing changes.
+2. **Scope leak (all sizes).** Entity boosts ignored the named project, so at 100× copies crowded the gold
+   notes out. Boosts now stay inside the project or routed areas (1× gold-note recall 0.878 → 0.882).
+3. **A widely shared id (holdout-2025q1) cancelled a precise one (fraud25-gbm-v2)** when choosing areas: now
+   each id counts on its own.
+4. **An edit before the next dream made `ask` rebuild the graph** (~90 s at 100×). Big memories now patch the
+   last graph for changed notes: title, kind, date, `from:`/`supersedes:` (entities wait for the dream). A24.
+5. **KNOWN sorted all 124k entities for every prompt.** Now one sort per wave (`Known`); a full re-index
+   would otherwise have spent days sorting.
+
+## Still heavy at 100× (not fixed)
+- `dream`: 202 s and 8.2 GB peak for 30 new notes (first dream 92 s, 7.8 GB). It rebuilds the whole graph,
+  twice when a review applies, and rewrites graph.json (381 MB). Next: merge only what changed; a compact
+  graph file.
+- Viewer: graph.html is 372 MB, too big to open. Next: an area-level page plus one page per project,
+  rewritten only where notes changed.
+- `ask` parses the 381 MB graph.json on every call (3.9 s). Next: a small index for `ask` (ids, titles,
+  lineage, entity → areas) apart from the viewer's data.
 
 # Round 3 — refined: drop what didn't help, curate entities and the relation vocabulary
 

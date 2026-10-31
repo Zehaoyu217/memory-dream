@@ -108,6 +108,23 @@ Agent prompts: memory runs get the skill's name and description (as a session li
 path to SKILL.md; grep runs get a one-paragraph description of the note folders. Both get the same 10
 questions and the same reply format. `MEMORY_DEBUG=1 memory.py ask …` prints the ranking to stderr.
 
+## Round 4: 100× (168,141 notes)
+
+```bash
+python3 eval/scale/make_world.py <indexed 1,677-note memory> <out>/memory --copies 137   # sibling copies, already indexed
+python3 eval/scale/bootstrap.py <out>/memory          # first dream, timed (review history taken as done)
+python3 eval/scale/time_ask.py <memory root> …         # one ask per batch: seconds, characters printed
+python3 eval/scale/trace_ask.py <memory root> P2       # where one ask spends its time: load, routing, each grep
+python3 eval/retrieval.py <memory root> eval/questions/bank-*.jsonl
+MEMORY_WIDE=100 python3 eval/retrieval.py …            # force big-memory routing on a small memory
+python3 eval/agent/judge_x100.py                        # grade the six A24 runs (after extract.py)
+```
+
+Above `MEMORY_WIDE` notes (default 10,000), `ask` greps only where each question points: the project it
+names; otherwise areas whose note ids and titles match, areas the index says mention its ids, and the
+general areas (prefs, reporting, glossary, corrections, howto, qa, people, log, or any area whose notes
+are mostly not project work). Changed notes are patched into the last graph instead of a rebuild.
+
 ## Troubleshooting
 
 - `dream` says C3: the dreamer answer was unusable twice; the note stays grep-searchable and is

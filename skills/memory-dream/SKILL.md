@@ -18,7 +18,8 @@ Notes in `memory/<area>/<slug>.md` are the truth: plain markdown, so grep and Re
 
 ## Write
 1. One note per thing (question, experiment, finding, decision, dataset/feature/model, preference, term, rule,
-   correction), in `memory/<project or area>/`; the filename is its id (a model's note is named after the model).
+   correction), in `memory/<project>/`, or for what spans projects in `prefs/`, `reporting/`, `glossary/`,
+   `corrections/`, `howto/`, `qa/` or `people/`; the filename is its id (a model's note is named after the model).
 2. The `# ` line is the point: the claim, or what the thing is. First paragraph = what is true now.
 3. Frontmatter `from: [notes you built on]`, `supersedes: [notes you overturn]`. Never rewrite an old conclusion;
    write a new note (a corrected definition supersedes the old one).
