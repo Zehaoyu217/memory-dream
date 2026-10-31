@@ -89,8 +89,10 @@ index) and stays quiet about entities. To add them without a model command: `dre
    context. `ask` takes every question at once and prints only the lines that answer.
 3. **Lineage is written by the author, not inferred.** `from:` (built on) and `supersedes:` (overturns) in
    frontmatter; a superseded note is shown as history with its successor.
-4. **The index is optional for answering** (measured: neutral for accuracy) and earns its keep for aliases,
-   dedup, the viewer and management. It must stay cheap and conservative: loose names hurt retrieval.
+4. **The index is optional for answering** and earns its keep for aliases, dedup, the viewer and management.
+   Measured on a real Haiku index of 1,677 notes (RESULTS F4): with it `ask` gains 1.8 points of gold recall and
+   3.9 on alias questions for 10% more characters; without it nothing is missing. It must stay cheap and
+   conservative: loose names hurt retrieval.
 5. **Constrained open relation vocabulary.** Eight types; any other link keeps its label (`other/<label>`), and a
    label becomes a type only over an evidence bar, through the review, within a budget, on probation.
 6. **Scale by routing, not by heavier machinery.** Past 10,000 notes, `ask` greps only where a question points,
@@ -365,10 +367,13 @@ python3 eval/retrieval.py <W>/memory eval/questions/bank-*.jsonl --must # supers
 MEMORY_WIDE=100 python3 eval/retrieval.py <W>/memory eval/questions/bank-*.jsonl   # force big-memory routing
 python3 eval/adversarial.py <W>/memory eval/questions/bank-*.jsonl --index-world <real-indexed world> --show
 ```
-Expect 0.895 / 0.972 at 1,677 notes (0.899 with `--must`; 0.891 / 0.963 routed). `adversarial.py` measures the sets
-where grep should lose: stale-vs-current (successor above the old note 0.95, old marked 1.00), scattered evidence
-(all gold 0.66 at 1.9k chars vs 0.99 at 12.6k for `cat` of the folder), alias traps (0.93 with or without the index
-vs 0.43 for an exact-phrase grep). `MEMORY_NO_INDEX=1` switches `ask`'s use of the index off, for such comparisons.
+Expect 0.919 / 0.975 at 1,677 notes on the fake-indexed world (0.895 / 0.972 before the lineage one-liners;
+0.939 / 0.973 on a real Haiku index, 0.921 / 0.975 with `MEMORY_NO_INDEX=1`). `adversarial.py` measures the sets
+where grep should lose: stale-vs-current (successor above the old note 0.96 fake / 0.97 real index, old marked
+1.00), scattered evidence (all gold 0.73 at 2.1k chars on the fake index, 0.79 at 2.3k on the real one, vs 0.99 at
+12.6k for `cat` of the folder), alias traps (needs a real index for its surface
+forms: 0.93 with or without the index vs 0.43 for an exact-phrase grep on the 70-note world's 14 forms; the full
+bank's 280 forms: 0.84 with the index, 0.80 without, 0.52 grep). `MEMORY_NO_INDEX=1` switches `ask`'s use of the index off, for such comparisons.
 
 ### 7.3 Agent eval (Opus subagents, memory vs grep)
 

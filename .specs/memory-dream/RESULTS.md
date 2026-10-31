@@ -55,7 +55,67 @@ The "first-name" rule turned out to be a family-word rule: "chart" in a task bri
 of house rules, which is where 7 points of rule recall live. Every heuristic in `taste()` earns its keep; the code
 is unchanged except that its comment now says what each rule is worth.
 
-## F4 — is the index worth anything to answers? (one real run; see below once the Haiku index of the bank is in)
+## F4 — is the index worth anything to answers? (one real run: kept)
+
+Phases D and E could only ask this on a fake index or a 70-note sample. The whole 1,677-note bank was indexed with
+Haiku (`tests/haiku_cmd.py`, before the cache-aware wrapper of F8): 1,677 extraction calls, $3.734 ($0.0022 per
+note, median 5,950 tokens in and 1,963 out, 0 errors), then one review call ($0.009) over 30 entity pairs, 5 labels
+and 20 conflicts. The run merged 5 aliases, mapped 1 label onto a type, admitted 4 new types on probation (`lifts`,
+`predicts`, `compared-against`, `wants`; vocabulary 12 of 24) and decided 19 of the 20 conflicts (CONFLICTS.md now
+holds 3 supersessions, 36 compatible pairs, 1 left to a person). Graph: 923 entities, 2,672 relations — 82% typed,
+18% kept as `other/<label>` over 418 labels, 427 of them below the review bar; 39 conflict candidates pending
+(C10), 12 ungrounded claims dropped (C4), 1 unresolved reference (C2). Then `ask` with and without the index on the
+same world (`MEMORY_NO_INDEX=1` switches off alias expansion and the entity boosts; lineage stays):
+
+| 326 bank questions, real index | gold notes | numbers | precision | complete answers | chars per question | complete per 10k chars |
+|---|---|---|---|---|---|---|
+| index on | **0.935** | **0.977** | 0.605 | **271** | 2,486 | 3.34 |
+| index off | 0.921 | 0.975 | **0.650** | 258 | 2,226 | 3.56 |
+| routed (`MEMORY_WIDE=100`), on | **0.936** | **0.972** | 0.621 | **271** | 2,273 | 3.66 |
+| routed, off | 0.917 | 0.966 | **0.658** | 254 | 2,073 | 3.76 |
+
+| adversarial sets, real index | index on | index off | grep |
+|---|---|---|---|
+| alias questions (280 surface forms Haiku recorded), gold note headed | **0.839** | 0.800 | 0.521 |
+| stale trap (104): successor above the old note · old marked when shown | 0.952 · 1.00 | — | — |
+| scattered evidence (248), all gold | 0.786 at 2,348 chars | — | 0.99 at 12.6k (`cat` folder) |
+| taste tasks: named prefs · implicit prefs · house rules | 1.00 · 0.85 · 0.44 at 4,457 chars | — | — |
+
+The index is not neutral on a real index: +1.4 points of gold recall (+1.9 routed), +13 complete answers, +3.9 on the
+alias set, for 12% more characters and 4.5 points of precision. 25 questions are missed only with the index on and
+37 only with it off, so the two paths fail on different questions rather than the index adding noise everywhere.
+Per 10k characters the index is slightly less dense (3.34 against 3.56 complete answers), so the question is whether
+its extra characters are productive: they cost 6,500 characters per extra complete answer — twice the average
+cost of `ask`'s own picks, but half the cost of a folder `cat` (12,800) and a twelfth of grep lines (77,000), the
+agent's two ways of finding the same notes without the index. Decision: **keep `ask`'s use of the index**; the
+~60 lines of entity boosting stay, and the F5 cut of the review is closed. The scattered-evidence set also moves,
+0.730 on the fake index → 0.786 here: real entities link the notes that share a subject.
+
+**The sweep that followed (free money).** With a real index to measure against, the three constants of the boost
+were swept (`MEM_PY` points the eval at a variant of the script; all on the same world):
+
+| entity boost: named · phrase · ×findings/decisions | gold | numbers | precision | complete | chars/q | alias | scattered | stale: successor above |
+|---|---|---|---|---|---|---|---|---|
+| 0.35 · 0.15 · 1.5 (as shipped) | 0.935 | 0.977 | 0.605 | 271 | 2,486 | 0.839 | 0.786 | 0.952 |
+| 0.50 · 0.15 · 1.5 | 0.920 | 0.973 | 0.597 | 267 | 2,486 | 0.839 | 0.786 | 0.952 |
+| 0.35 · 0.15 · 2.0 | 0.918 | 0.973 | 0.599 | 266 | 2,479 | 0.832 | 0.782 | 0.952 |
+| 0.35 · 0.00 · 1.5 (no phrase tier) | 0.935 | 0.977 | 0.602 | 271 | 2,488 | 0.839 | 0.786 | 0.952 |
+| 0.35 · 0.15 · 1.0 (no kind multiplier) | 0.939 | 0.975 | 0.609 | 274 | 2,461 | 0.843 | 0.798 | 0.962 |
+| 0.20 · 0.00 · 1.5 | 0.938 | 0.974 | 0.611 | 272 | 2,461 | 0.846 | 0.790 | 0.971 |
+| 0.30 · 0.00 · 1.0 | 0.938 | 0.975 | 0.609 | 273 | 2,450 | 0.843 | 0.794 | 0.962 |
+| **0.25 · — · — (kept)** | **0.939** | 0.973 | **0.609** | **273** | **2,448** | 0.839 | **0.794** | **0.971** |
+| 0.20 · — · — | 0.939 | 0.975 | 0.613 | 273 | 2,432 | 0.836 | 0.794 | 0.971 |
+| 0.15 · — · — | 0.940 | 0.974 | 0.616 | 273 | 2,417 | 0.832 | 0.794 | 0.971 |
+
+Stronger boosts lose (0.50, or ×2.0 for findings and decisions: −1.5 to −1.7 points); the phrase tier is worth
+exactly nothing (the row with it off is the shipped row); the finding/decision multiplier costs 3 complete answers.
+From 0.15 to 0.30 with neither, every column ties within one or two questions, so the boost is now **one weight,
+0.25**: phrase-matched entities still add their aliases as patterns (that is where the alias set is won) but no
+longer score, and kinds no longer scale the boost. Two constants and a branch gone. Final numbers against no index:
+gold 0.939 vs 0.921 (+1.8; routed 0.938 vs 0.917), complete answers 273 vs 258, characters 2,448 vs 2,226 (+10%),
+alias 0.839 vs 0.800, 19 questions missed only with the index against 30 only without. On the fake-indexed bank
+the change is noise (0.920 → 0.919 gold, 259 → 258 complete, 2,226 → 2,220 chars; taste 1.00 / 0.87 / 0.45 at
+3,948 chars per task); the suite stays 35/35.
 
 ## F6 — the graph contract (`.specs/memory-dream/CONTRACT.md`)
 

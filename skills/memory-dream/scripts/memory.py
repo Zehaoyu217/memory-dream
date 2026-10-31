@@ -1902,8 +1902,9 @@ COMPLETE_RATIO = 1.2  # print the whole memory when it costs <= this x the surgi
 WEAK_SHARE = 0.5  # weak match: a question word found nowhere, and the best note covers <= this share of the words
 TASTE_MAX, TASTE_FLOOR = 12, 0.15  # taste notes printed (were 6, 0.25): house-rule recall 0.39 -> 0.42, +25% chars
 W = {  # the tuned numbers of rank() and route(), in one place (REVIEW.md F9); set in RESULTS rounds 2-4 and phase A
-    "entity_named": 0.35, "entity_phrase": 0.15,  # boost per entity mention, as a share of the top score …
-    "finding_decision": 1.5,                       # … more for findings and decisions (round 2: id > phrase)
+    "entity_named": 0.25,  # boost per mention of an entity the question names by id, as a share of the top score (F4
+    #   sweep on a real index: 0.15–0.30 tie; 0.35 and 0.50 lose; a weaker boost for phrase-matched entities and a
+    #   ×1.5 for findings and decisions measured nil and were removed)
     "successor_current": 1.1, "successor": 0.85,   # a superseded note lifts its successor, above itself when "current" is asked
     "superseded_current": 0.85,                    # the replaced note stays, below its successor
     "why_parent": 0.6, "down_intent": 0.7, "down_named": 0.5, "up_hop": 0.6,  # lineage walks: why / what came of / based on
@@ -2338,13 +2339,11 @@ def rank(x, by_file, idf, v):
     for p in x["named"]:
         score[p] = score.get(p, 0) + top + 1
     inside = {a.lower() for a in (x["scope"] or x.get("areas") or ())}
-    for eid in x["ents"]:  # notes that mention a matched entity, findings and decisions first
+    for eid in x["by_id"]:  # notes that mention an entity the question names by id (phrase matches only add aliases)
         for m in v.ents[eid]["mentions"]:
             if inside and m["path"].split("/")[0].lower() not in inside:
                 continue
-            n = v.notes.get(m["path"])
-            w = W["entity_named"] if eid in x["by_id"] else W["entity_phrase"]  # named outright: stronger than a phrase match
-            score[m["path"]] = score.get(m["path"], 0) + w * top * (W["finding_decision"] if n and n["kind"] in ("finding", "decision") else 1)
+            score[m["path"]] = score.get(m["path"], 0) + W["entity_named"] * top
     up = intent & {"up", "why", "dep"}
     seeds = sorted(score.items(), key=lambda z: -z[1])[:W["seeds"]]
     best_live = next((p for p, _ in seeds if v.notes.get(p) and not v.notes[p]["superseded_by"]), None)
