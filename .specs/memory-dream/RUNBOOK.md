@@ -20,7 +20,7 @@ M="python3 .claude/skills/memory-dream/scripts/memory.py"
 $M ask "what came of exp-014?" "who owns cards.txn_daily?"   # answering: grep + memory, every question in one call
 $M viz                            # memory/_dream/graph.html (dream refreshes it): overview, explorer, health
 $M log "backfill running" -p churn-2026
-$M check                          # every warning C1–C8 in full
+$M check                          # every warning C1–C9 in full
 grep -rn velocity memory/ --exclude-dir=_dream                 # plain grep stays first-class
 ```
 
@@ -142,4 +142,10 @@ python3 eval/scale/profile_incremental.py <memory root> <scratch> fraud-2026   #
   retried on the next `dream`.
 - Many `C7 type x? ×1`: single-use proposed relation types; they stay live (marked `?`) and go to
   review once a type has ≥ 2 uses. Edit EDGES.md to alias or drop them by hand (0 calls).
+- `check` says C9: the note contains NUL bytes (a binary paste, a bad encoding). `ask` still greps it (`grep -a`),
+  but keep notes plain text.
+- `ask` prints `(weak match: 'x' found nowhere in memory …)`: a word of the question occurs in no note and the best
+  note covers at most half of the question's words; the notes shown are a guess. Rephrase, or grep.
+- On a small memory (≤ 200 notes) `ask` prints the whole memory after the per-question pointers whenever that costs
+  about the same as the surgical lines (within 1.2×): nothing is missed, and it is no dearer than `cat`.
 - Delete `memory/_dream/` to rebuild from scratch; EDGES.md and ALIASES.md survive.

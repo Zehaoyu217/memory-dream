@@ -142,10 +142,11 @@ is not reachable without dropping the big-memory layer; 1,300–1,400 is.
 Keep the architecture. Make `ask` unlosable at both ends, make the no-model path first-class, add the conflict
 queue in the shape the review queue already has, then simplify, then sharpen the eval so it measures the claim.
 
-**Phase A — never lose (ask).** F1 whole-memory print when it fits; F2 raw-token folder scoping; F3 C9 for binary
-notes; F4 weak-match marker; F7 two-hop person rule and cap 12. Expected: small memories complete and cheaper than
-`cat`; implicit-audience prefs 0.72 → 0.85; retrieval otherwise unchanged (0.888 / 0.969). About 100 lines, tests
-A25–A29, 0 model calls.
+**Phase A — never lose (ask).** F1 whole-memory print when it costs ≤ 1.2× the surgical output; F2 folder scoping
+on the question's own words; F3 C9 for binary notes; F4 weak-match marker; F7 two-hop person rule and cap 12; and
+hyphenated phrases searched as their words. **Done 2026-10-31** (RESULTS.md, "Phase A"): 26/26 tests; bank retrieval
+0.888 / 0.969 → 0.897 / 0.972 at the same characters; implicit-audience prefs 0.72 → 0.83; the fixture's 10 questions
+head 30 of 30 notes instead of 24. 0 model calls.
 
 **Phase B — free byproduct, and Claude Code's memory alongside.** F6 prefix kinds; `dream` with no model documented
 and tested as producing the full viewer and health page (it already does); SKILL.md states that the dreamer is
@@ -174,8 +175,12 @@ where grep should lose (stale-vs-current traps, alias traps, implicit audiences,
 baseline agent that is told it may `cat` folders; single-question agents as well as 10-question sessions; a
 stronger judge; a write-path eval (agents writing notes under SKILL.md, then dreamed and asked).
 
-What not to do: embeddings or any heavier retrieval; more model in the read path; an open relation vocabulary;
-automatic edits to notes.
+**Phase C, part 2 — a constrained open relation vocabulary** (§10): two tiers (coarse type, open label), promotion
+gated by evidence and a budget, probation and automatic demotion, seed packs for other domains. Tests A12/A14/A20
+rewritten, A30–A32 added.
+
+What not to do: embeddings or any heavier retrieval; more model in the read path; an *unconstrained* open relation
+vocabulary; automatic edits to notes.
 
 ---
 
@@ -255,6 +260,61 @@ output, never applied. One naming collision to document: `memory.py dream` is un
 Costs: R1 one grep per `ask` (milliseconds); R3 about 600 tokens per turn only if wired; R2, R4, R5 nothing.
 Tests: A25 digest (content, cap, nothing from Claude Code's memory in it), A26 read-only source (hits shown with
 their origin; `dream` refuses; the directory is byte-identical afterwards), A27 `modified:` and type mapping.
+
+---
+
+## 10. Relation vocabulary: constrained open
+
+### What the two extremes did (RESULTS rounds 2–3)
+
+Open: on the 56× bank Haiku wrote 508 distinct type names; the Haiku reviewer answered "new" to all 178 proposals
+with ≥ 2 uses; EDGES.md grew from 7 to 185 types and 470 items waited for review. Closed: 8 types cover 81.2% of
+5,196 relation instances (74.6% directly, 6.6% through aliases); 5.5% are dropped on purpose (claims, note-to-note
+links); 13.3% are unknown, spread over 449 names — a flat tail of about 1.5 uses per name, the largest (`prefers`)
+16 uses, 0.3%. Unknowns are cached but invisible until a person adds a type to EDGES.md, which picks them up at 0
+calls. And relations do not change answers: `ask` measures the same with and without the index, so the vocabulary is
+a question for the viewer and for management, not for accuracy.
+
+The coverage problem with closed: the 13.3%, and everything from another domain (software, research, operations),
+stays invisible until a person edits; the review can never add. The sprawl problem with open: synonyms multiply,
+nothing converges, the viewer becomes unreadable. Both problems come from making *the vocabulary* carry the whole
+load. Split it.
+
+### Design: two tiers, gates in code
+
+1. **Two tiers.** Every relation carries a coarse `type` — one of EDGES.md, or `other` — and a fine `label`: the
+   note's own verb in 1–3 words, folded. The dreamer picks the closest type and always writes the label. Nothing
+   grounded is dropped: `other/<label>` relations are kept, counted, listed on the entity card and shown on the map
+   behind a toggle (off by default). Coverage is 100% of grounded relations from the first dream, in any domain.
+2. **Promotion gated by evidence.** A label may become a type, or an alias of one, only once it has ≥ 5 uses in ≥ 5
+   notes across ≥ 2 areas (constants in `WEIGHTS`). The review sees only labels over the bar and answers, per label:
+   `alias T`, `alias ~T`, `new: <one line: what it means and how it differs from the closest type T>`, or `drop`.
+   The code accepts `new` only when the bar is met, the definition names a closest type, and the budget has room;
+   otherwise the label simply stays a label. The prompt cannot create sprawl because the prompt does not decide.
+3. **A budget.** EDGES.md holds at most 24 types (8 seed + 16 promoted). When it is full, a promotion needs the review
+   to name a type to merge or demote; the code refuses otherwise.
+4. **Probation.** A promoted type is written as `- <type> (proposed 2026-10-31): <def> | aka: …`. If after 60 days
+   its use is still under the bar, it is demoted to a label automatically: 0 calls, the relations reappear as
+   `other/<label>`, nothing is lost. Lines without the mark — written by a person — are permanent. Any hand edit wins,
+   as today.
+5. **A smaller `drop:` list.** Only what is not a relation between two entities stays dropped: note-to-note links
+   (`answers`, `led-to`, `basis-for`) that lineage already covers. Claims and comparisons (`beats`, `improves`,
+   `causes`) are kept as `other/<label>`.
+6. **Seed packs** for coverage on day one elsewhere: optional `pack: software` (calls, implements, deployed-to,
+   configures, tested-by, blocked-by, …), `pack: research`, `pack: ops` lines in EDGES.md expand to types and aliases.
+   A pack is nothing but lines; the default stays data-science.
+
+### Expected effect and cost
+
+From the round-3 numbers: about 19% of grounded relations that are now hidden or dropped become visible as
+`other/<label>`. With the bar at 5 / 5 / 2 the flat tail promotes almost nothing on the 56× bank — probably `prefers`
+and `predicts`, the two the add-type demo chose by hand — so EDGES.md stays near 8: the budget is a backstop, not the
+daily mechanism. In a new domain the labels appear at once and the first promotions follow once the evidence exists.
+Cost: one extra field per relation in the extraction (a few output tokens per note), the same single review call,
+0 calls for relabelling and demotion. Code: `EXTRACT` (+`label`), `ground`/`build` (keep `other`), `REVIEW` (+`new:`
+with a definition), `edit_edges` (add, mark, demote), the viewer (toggle), tests A12/A14/A20 rewritten, A30 promotion
+gate, A31 probation and demotion, A32 budget. Risks: the `other` tail is noisy in the viewer, so it is hidden by
+default; the thresholds are guesses until measured on real notes, which is why they live in `WEIGHTS` with a note.
 
 ---
 

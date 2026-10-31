@@ -246,7 +246,7 @@ def note_facts(text):
     """What the graph needs from a note's text: frontmatter lineage and dates, the `# ` line, links, body slugs."""
     fm, title, tline, links = parse_note(text)
     return {"fm": {k: fm[k] for k in ("from", "supersedes", "type", "updated") if k in fm}, "title": title,
-            "line": tline, "links": links,
+            "line": tline, "links": links, "nul": "\x00" in text,  # binary-looking: C9
             "ids": sorted(set(SLUG.findall(text.lower().split("\n", tline)[-1]))) if tline else []}
 
 
@@ -559,6 +559,8 @@ def notes_part(root, man, cur, former, xs=None, facts=None):
         by_stem[notes[rel]["id"]].append(rel)
         if not title:
             checks.append(("C6", f"{rel}: no '# ' line"))
+        if f.get("nul"):
+            checks.append(("C9", f"{rel}: contains NUL bytes (binary-looking); keep notes plain text"))
         if not x:
             checks.append(("C3" if h[:12] in man.get("failed", {}) else "C5", f"{rel}: unindexed"))
         else:
@@ -777,8 +779,9 @@ class Store:
         out, new = {}, []
         for rel, f in cur.items():
             h, r = have.get(rel, (None, None))
-            if h == f["sha"]:
-                out[rel] = json.loads(r)
+            rec = json.loads(r) if h == f["sha"] else None
+            if rec is not None and "nul" in rec:  # rows written before the C9 field are re-read once
+                out[rel] = rec
             else:
                 out[rel] = note_facts(read(root / rel))
                 new.append((rel, f["sha"], json.dumps(out[rel])))
@@ -1340,6 +1343,11 @@ INTENT = {"current": re.compile(r"\b(current|currently|now|latest|today|still|va
 ART = re.compile(r"\b(chart|plot|graph|table|deck|slide|email|notebook|query|sql|model card|alert|report|page|dashboard|"
                  r"memo|summary|readout|title|label|column|axis|axes|colou?r)s?\b", re.I)
 WORD = re.compile(r"[A-Za-z0-9@%$][A-Za-z0-9_.@%/+$-]*")
+# Read-path constants, each with the measurement that set it (.specs/memory-dream/REVIEW.md F1, F4, F7).
+COMPLETE_MAX_NOTES = 200  # only this small a memory is considered for printing whole (reading every note is cheap)
+COMPLETE_RATIO = 1.2  # print the whole memory when it costs <= this x the surgical output; then nothing is missed
+WEAK_SHARE = 0.5  # weak match: a question word found nowhere, and the best note covers <= this share of the words
+TASTE_MAX, TASTE_FLOOR = 12, 0.15  # taste notes printed (were 6, 0.25): house-rule recall 0.39 -> 0.42, +25% chars
 
 
 def stem(t):
@@ -1361,6 +1369,10 @@ def qterms(q):
             pats[t] = max(pats.get(t, 0), 1.5)
         elif re.search(r"[._/@-]", t) or (re.search(r"\d", t) and re.search(r"[a-z]", t)):
             pats[t] = 3.0 if len(t) > 3 else 1.5
+            if "-" in t and not re.search(r"\d", t):  # a hyphenated phrase ("call-routing") also searches as its words
+                for part in t.split("-"):  # bank: gold 0.888 -> 0.894, numbers 0.969 -> 0.976, +4% chars
+                    if len(part) >= 3 and part not in STOP:
+                        pats.setdefault(stem(part), 1.0)
         elif len(t) >= 3:
             s = stem(t)
             pats[s] = max(pats.get(s, 0), 1.0)
@@ -1389,7 +1401,7 @@ def grep_lines(root, pats, areas=None):
         f.write("\n".join(sorted(pats)) + "\n")
     out = None
     try:
-        r = subprocess.run(["grep", "-rniIF", "--include=*.md", "--exclude-dir=_dream", "-f", f.name, *where],
+        r = subprocess.run(["grep", "-rniaF", "--include=*.md", "--exclude-dir=_dream", "-f", f.name, *where],  # -a: a NUL byte must not hide a note
                            capture_output=True, text=True, errors="replace")
         out = r.stdout if r.returncode in (0, 1) else None
     except OSError:
@@ -1473,6 +1485,7 @@ def ask(args, root):
     for q in qs:
         pats = qterms(q)
         own = list(pats)
+        raw = {t.lower().rstrip(".,;:?!)'\"").strip("-/") for t in WORD.findall(q)}  # unstemmed: folder names
         intent = {k for k, rx in INTENT.items() if rx.search(q)}
         low = " " + q.lower() + " "
         # the index only adds aliases of things the question names by id; loose names never become patterns
@@ -1483,7 +1496,11 @@ def ask(args, root):
             for x in [e["id"], *e["aka"], *(n["name"] for n in e["names"][:4])]:
                 if 3 <= len(x) <= 30 and len(x.split()) <= 3 and len(v.names_of(fold(x))) <= 2:
                     pats.setdefault(x.lower(), 1.5)
-        scope = {args.p.lower()} if args.p else {t for t in pats if t in folders}  # "in the aml-alerts project"
+        # "in the aml-alerts project": matched on the question's own words, since the stemmer turns pricing into pric;
+        # general areas are not scopes by word ("… in reporting" asks about reporting, -p reporting scopes to it)
+        scope = {args.p.lower()} if args.p else {t for t in raw | set(pats) if t in folders and t not in GENERAL}
+        scoped_pats = scope | {stem(s) for s in scope} | \
+            {stem(p) for s in scope for p in s.split("-") if len(p) >= 3}  # the folder's name is a scope, not a pattern
         named = {p for t in pats for p in stems.get(t, [])} | \
                 {p for t in pats for p in ([t] if t in v.notes else [t + ".md"] if t + ".md" in v.notes else [])}
         if scope:
@@ -1509,9 +1526,9 @@ def ask(args, root):
             if "task" in intent and areas is not None:
                 areas = sorted(set(areas) | general)
         pool = v.notes if areas is None else [p for a in areas for p in by_area[a]]
-        paths = {p: [t for t in pats if len(t) >= 4 and t not in scope and t in p.lower()] for p in pool
+        paths = {p: [t for t in pats if len(t) >= 4 and t not in scoped_pats and t in p.lower()] for p in pool
                  if not scope or p.split("/")[0].lower() in scope}
-        per_q.append({"q": q, "pats": {t: w for t, w in pats.items() if t not in scope}, "intent": intent, "hint": hint,
+        per_q.append({"q": q, "pats": {t: w for t, w in pats.items() if t not in scoped_pats}, "intent": intent, "hint": hint,
                       "ents": hit_ents, "by_id": by_id, "named": named, "scope": scope, "areas": areas,
                       "paths": {p: ts for p, ts in paths.items() if ts}})
     groups = defaultdict(list)  # questions that grep the same areas share one grep
@@ -1543,7 +1560,6 @@ def ask(args, root):
             x["ranked"] = rank(x, by_file, idf, v)
             x["taste"] = taste(x, by_file, v, taste_pool) if "task" in x["intent"] else []
     budget = args.budget or 900 * len(qs) + 1500
-    printed, out = {}, []
 
     def header(path):
         n = v.notes.get(path)
@@ -1565,29 +1581,53 @@ def ask(args, root):
 
     picked = {p for x in per_q for p, _ in x["ranked"]}
     full = sum(sum(len(t) + 6 for _, t in body(p)) for p in picked) <= budget
-    for x in per_q:
-        out.append(f"## {x['q']}")
-        if x["hint"]:
-            out.append(f"  ({x['hint']})")
-        for eid in sorted(x["ents"])[:2] if "dep" in x["intent"] else []:
-            out.append(entity_line(v, eid))
-        for path, lines in x["ranked"]:
-            want = body(path) if full else lines
-            new = [(no, t) for no, t in want if no not in printed.get(path, set())]
-            if path in printed and not new:
-                out.append(header(path).split(" · ")[0] + " (above)")
+
+    def render(complete):
+        """complete=False: the answering lines under each question. complete=True: each question points at its
+        notes, then the whole memory follows once, by area — for small memories, where that costs about the same."""
+        printed, out = {}, []
+        for x in per_q:
+            out.append(f"## {x['q']}")
+            if x["hint"]:
+                out.append(f"  ({x['hint']})")
+            if x.get("weak"):
+                out.append(f"  ({x['weak']} — try other words, or grep memory/)")
+            for eid in sorted(x["ents"])[:2] if "dep" in x["intent"] else []:
+                out.append(entity_line(v, eid))
+            if complete:
+                out += [f"▸ {p}" for p, _ in x["ranked"]] + [f"▸ {p}" for p in x["taste"]]
+                if not x["ranked"]:
+                    out.append("  (no match — try other words, or grep memory/)")
                 continue
-            out.append(header(path) if path not in printed else header(path).split(" · ")[0] + " (more)")
-            for no, t in new:
-                out.append(f"  {t.strip()}" if full else f"  {no}: {t.strip()[:220]}")
-            printed.setdefault(path, set()).update(no for no, _ in new)
-        if not x["ranked"]:
-            out.append("  (no match — try other words, or grep memory/)")
-        if x["taste"]:
-            out.append("  preferences and house rules for this task:")
-            for p in x["taste"]:
-                out.append(f"▸ {p} · {v.notes[p]['title']}")
-    print("\n".join(out))
+            for path, lines in x["ranked"]:
+                want = body(path) if full else lines
+                new = [(no, t) for no, t in want if no not in printed.get(path, set())]
+                if path in printed and not new:
+                    out.append(header(path).split(" · ")[0] + " (above)")
+                    continue
+                out.append(header(path) if path not in printed else header(path).split(" · ")[0] + " (more)")
+                for no, t in new:
+                    out.append(f"  {t.strip()}" if full else f"  {no}: {t.strip()[:220]}")
+                printed.setdefault(path, set()).update(no for no, _ in new)
+            if not x["ranked"]:
+                out.append("  (no match — try other words, or grep memory/)")
+            if x["taste"]:
+                out.append("  preferences and house rules for this task:")
+                for p in x["taste"]:
+                    out.append(f"▸ {p} · {v.notes[p]['title']}")
+        if complete:
+            out.append(f"## memory — complete ({len(v.notes)} notes by area, oldest first; SUPERSEDED marks history)")
+            for path in sorted(v.notes, key=lambda p: (p.split("/")[0] if "/" in p else "", v.notes[p]["updated"], p)):
+                out.append(header(path))
+                out += [f"  {t.strip()}" for _, t in body(path)]
+        return "\n".join(out)
+
+    text = render(False)
+    if len(v.notes) <= COMPLETE_MAX_NOTES:  # a small memory: print all of it when that costs about the same (F1)
+        whole = render(True)
+        if len(whole) <= COMPLETE_RATIO * len(text):
+            text = whole
+    print(text)
 
 
 def taste(x, by_file, v, pool):
@@ -1620,6 +1660,12 @@ def taste(x, by_file, v, pool):
         firsts[k.split("-")[0]].add(k)
     named = {k for k in fam if k in {f"{a}-{b}" for a, b in zip(words, words[1:])}}
     named |= {next(iter(ks)) for f, ks in firsts.items() if len(ks) == 1 and f in words}
+    for p, _s in sorted(score.items(), key=lambda z: -z[1])[:3]:  # two hops: a person named in a matched house note
+        for _no, _ms, txt in cand.get(p, []):  # (the roster of their meeting, their report) is the audience
+            low_t = txt.lower()
+            for k in fam:
+                if k not in named and re.search(r"\b" + k.replace("-", "[ -]") + r"\b", low_t):
+                    named.add(k)
     top = max(score.values(), default=0) or 1.0
     for k in named:
         for p in fam[k]:
@@ -1638,7 +1684,7 @@ def taste(x, by_file, v, pool):
             score[p] = score.get(p, 0) + 0.5 * top
     shown = {p for p, _ in x["ranked"]}
     ranked = sorted(((p, s_) for p, s_ in score.items() if p not in shown), key=lambda z: (-z[1], z[0]))
-    return [p for p, s_ in ranked[:6] if s_ >= 0.25 * ranked[0][1]] if ranked else []
+    return [p for p, s_ in ranked[:TASTE_MAX] if s_ >= TASTE_FLOOR * ranked[0][1]] if ranked else []
 
 
 def rank(x, by_file, idf, v):
@@ -1706,6 +1752,16 @@ def rank(x, by_file, idf, v):
                 frontier = nxt
     ranked = sorted(score.items(), key=lambda z: (-z[1], z[0]))
     picks = [(p, sc) for p, sc in ranked[:8] if sc >= 0.2 * ranked[0][1]] if ranked else []
+    # weak match (F4): a word of the question occurs nowhere in the memory and the best note covers at most half of
+    # the question's words — say so instead of heading an unrelated note like a hit
+    content = {t for t, w in pats.items() if w >= 1 and " " not in t}
+    missing = sorted(t for t in content if t not in idf)
+    hit = set(base.get(picks[0][0], {})) if picks else set()
+    strong = any(pats.get(t, 0) >= 1.5 for t in hit)  # an id, a number or a word pair matched: not a guess
+    x["weak"] = ""
+    if picks and missing and not strong and not x["named"] and not x["ents"] and content \
+            and len(hit & content) <= WEAK_SHARE * len(content):
+        x["weak"] = "weak match: " + ", ".join(f"'{t}'" for t in missing[:3]) + " found nowhere in memory"
     if os.environ.get("MEMORY_DEBUG"):
         sys.stderr.write(f"Q {x['q']} intent={sorted(intent)} named={sorted(x['named'])}\n  pats={pats}\n")
         for p, s in sorted(score.items(), key=lambda z: -z[1])[:12]:

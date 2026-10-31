@@ -12,8 +12,9 @@ index.db and store.db (what ask and dream read), graph.json (small memories). `m
 ## Read — one call, then answer
 - `memory.py ask "<q1>" "<q2>" …` — every question in ONE call: it expands each question through note ids and aliases,
   greps the notes, ranks current notes first, follows `from:`/`supersedes:` lineage, and prints `line: text` under
-  `▸ path · kind · date · from … · SUPERSEDED → newer` (small memories: whole notes).
+  `▸ path · kind · date · from … · SUPERSEDED → newer` (a small memory: the whole of it, each question pointing at its notes).
 - Answer from that output. A note marked SUPERSEDED is history: its successor is the current answer.
+  A `(weak match …)` line names a word found nowhere: rephrase, or grep.
 - Name the project or the id when you know it ("… in churn-2026", "exp-014"): it scopes the search.
 - About to make something? Ask with the task itself, naming who it is for and the artifact ("Make the Q4 campaign
   chart for Chloe Martin's readout"): it adds the preferences and house rules that apply. Follow them, or say why not.

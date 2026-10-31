@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Acceptance tests A1–A20 (spec §13) and A24 (big memories) on the churn-2026 fixture, with the deterministic fake dreamer.
+"""Acceptance tests A1–A20 (spec §13), A24 (big memories) and A25–A29 (REVIEW.md phase A: whole-memory print, folder
+scope, C9, weak match, two-hop taste) on the churn-2026 fixture, with the deterministic fake dreamer.
 
   python3 tests/acceptance.py            # all
   python3 tests/acceptance.py A6 A15     # some
@@ -547,7 +548,84 @@ def A24():
             f"no graph.json, {len(sig)} area pages; after one edit only {redrawn} redrawn")
 
 
-TESTS = [A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A24]
+def A25():
+    """Small memories: when printing the whole memory costs about the same as the surgical answer, ask prints all of
+    it, each question pointing at its notes — never less complete than `cat memory/**`."""
+    w = World()
+    qs = ["What do we know about feat-velocity-v2?", "What came of exp-014?", "Why was the velocity feature rebuilt?",
+          "What is the current churn model and its AUC?", "What depends on cards.txn_daily?", "Who owns cards.txn_daily?",
+          "What are the risk tier cutoffs?", "What did exp-015 find about tenure?", "When is the next retrain?",
+          "What is recall@10 on holdout-2025q4?"]
+    out = w.run("ask", *qs, model=False)
+    assert "## memory — complete (30 notes" in out, out[:300]
+    heads = set(re.findall(r"^▸ (\S+)", out, flags=re.M))
+    notes = {p.relative_to(w.root).as_posix() for p in w.root.rglob("*.md") if "_dream" not in p.parts and p.name not in mem.SKIP}
+    assert notes <= heads, notes - heads
+    secs = re.split(r"^## ", out, flags=re.M)[1:]
+    assert all(re.search(r"^▸ ", s, re.M) for s in secs[:len(qs)]), "a question without pointers"
+    raw = sum(len(p.read_text()) for p in w.root.rglob("*.md") if "_dream" not in p.parts)
+    assert len(out) <= 1.5 * raw, (len(out), raw)
+    two = w.run("ask", *qs[:2], model=False)
+    assert "— complete (" not in two and len(two) < 0.5 * len(out), len(two)
+    return f"10 questions → the whole memory ({len(out)} chars; raw notes {raw}), every note headed; 2 questions → surgical ({len(two)} chars)"
+
+
+def A26():
+    """A project named in plain words scopes the search, even when the stemmer would shorten the folder's name."""
+    w = World()
+    (w.root / "pricing").mkdir()
+    (w.root / "pricing/price-gbm-v1.md").write_text(
+        "---\ntype: model\n---\n# price-gbm-v1 is the current pricing model: MAE 3.2 on holdout-2026q1\n"
+        "Gradient boosting on card spend; it replaces the rules table.\n")
+    out = w.run("ask", "what is the current model in pricing?", model=False)
+    heads = re.findall(r"^▸ (\S+)", out, flags=re.M)
+    assert heads and all(h.startswith("pricing/") for h in heads), heads
+    assert "price-gbm-v1" in out
+    return f"'in pricing' scoped to pricing/ ({len(heads)} note); the stem 'pric' no longer hides the folder"
+
+
+def A27():
+    """A note with NUL bytes is still found by ask (grep -a) and flagged by check (C9)."""
+    w = World()
+    (w.root / P / "nul-note.md").write_bytes(b"# binary-looking note zebra-nul\nbody\x00with zebra-nul\n")
+    w.run("dream", model=False)
+    chk = w.run("check", model=False)
+    assert re.search(r"^C9 ×1", chk, re.M) and "nul-note.md" in chk, chk[:400]
+    out = w.run("ask", "zebra-nul", model=False)
+    assert P + "nul-note.md" in out, out[:300]
+    return "NUL-byte note: found by ask, flagged C9 by check"
+
+
+def A28():
+    """A question whose words occur nowhere is marked weak instead of heading an unrelated note like a hit."""
+    w = World()
+    weak = w.run("ask", "what is the meaning of zxqv?", model=False)
+    assert "(weak match" in weak and "'zxqv'" in weak, weak[:300]
+    good = w.run("ask", "what came of exp-014?", "who owns cards.txn_daily?", "why was the velocity feature rebuilt?", model=False)
+    assert "(weak match" not in good
+    return "unknown word → weak-match marker naming it; real questions unmarked"
+
+
+def A29():
+    """A task that names the meeting or report, not the person, still brings the person's preferences (two hops)."""
+    w = World()
+    (w.root / "prefs").mkdir()
+    (w.root / "reporting").mkdir()
+    (w.root / "prefs/chloe-martin-no-pie.md").write_text("# Chloe Martin bans pie charts in campaign reporting\n"
+                                                        "Sorted bars with direct labels instead.\n")
+    (w.root / "prefs/chloe-martin-codes.md").write_text("# Chloe Martin refers to campaigns by code, not by title\n"
+                                                       "Codes like CMP-2026-014 in every label.\n")
+    (w.root / "reporting/weekly-kpi-deck.md").write_text("# The weekly KPI deck has a campaign slide; it goes to Chloe Martin\n"
+                                                        "Six recipients; slide 6 is campaigns.\n")
+    out = w.run("ask", "Make the chart for the weekly KPI deck's campaign slide", model=False)
+    assert "preferences and house rules" in out, out[:400]
+    for p in ("prefs/chloe-martin-no-pie.md", "prefs/chloe-martin-codes.md"):
+        assert p in out, (p, out)
+    return "task names the deck, not the person: the roster note names her, both preferences attached"
+
+
+TESTS = [A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A24,
+         A25, A26, A27, A28, A29]
 
 
 def main():

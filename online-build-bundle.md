@@ -108,7 +108,7 @@ difflib ≥ 0.85, same type.
 
 C1 ambiguous reference · C2 reference not found · C3 indexing failed (answer unusable twice) · C4 dropped an
 ungrounded entity or relation · C5 note not indexed · C6 no `# ` line · C7 review pending (unknown types) ·
-C8 unparseable line in EDGES.md or ALIASES.md.
+C8 unparseable line in EDGES.md or ALIASES.md · C9 NUL bytes in a note (binary-looking; `ask` greps it with `-a`).
 
 ### 2.5 Vocabulary
 
@@ -151,8 +151,8 @@ P6 and P8 can run in parallel once P5 is done. P10's tiers are independent of ea
   the reference suite once to record the baseline. In Mode B, create the branch `rebuild/<date>` and move the
   reference: `git mv skills/memory-dream reference/skills/memory-dream`, then `mkdir -p skills/memory-dream/{scripts,assets,agents}`.
 - **Exit conditions:**
-  - [ ] `python3 tests/acceptance.py` on the untouched branch prints `21/21 passed`. Record the time; it is
-        about 20 s.
+  - [ ] `python3 tests/acceptance.py` on the untouched branch prints `26/26 passed`. Record the time; it is
+        about 25 s.
   - [ ] Mode B: `test ! -e skills/memory-dream/scripts/memory.py && test -e reference/skills/memory-dream/scripts/memory.py`
   - [ ] Note whether `claude` (the Claude Code CLI) is on PATH. It is needed only for P9b and P10.
 
@@ -266,13 +266,21 @@ P6 and P8 can run in parallel once P5 is done. P10's tiers are independent of ea
     notes that score ≥ 20% of the best.
   - Print `▸ path · kind · date · from … · SUPERSEDED → newer` and the best 2–4 lines under it. Print whole
     notes when everything fits the budget (900 chars per question + 1,500).
-  - Taste block, for task intent only: six notes from the general areas. A named person brings all of their
-    notes, plus the house rules for the artifact asked for, plus `prefs/me-*`.
+  - Taste block, for task intent only: up to twelve notes from the general areas. A named person brings all of
+    their notes; a person named inside a matched house note (the roster of the deck, the meeting) counts as named
+    (two hops); the house rules for the artifact asked for come along, plus `prefs/me-*`.
+  - Small memories (≤ 200 notes): when the whole memory would cost ≤ 1.2× the surgical output, print per-question
+    `▸ path` pointers and then every note by area — complete, no dearer than `cat`.
+  - Weak match: a question word found nowhere, and the best note covering ≤ half the question's words, prints
+    `(weak match: 'x' found nowhere in memory …)` under the question.
+  - A project named in plain words scopes the search (match folder names on the question's unstemmed words).
   - `ask` must work with no index at all (grep plus lineage).
 - **Exit conditions:**
   - [ ] `memory.py --root tests/fixture/memory ask "what came of exp-014?" "who owns cards.txn_daily?"` gives one
         output with a block per question. The exp-014 block reaches churn-xgb-v3 and shows v2 as SUPERSEDED.
   - [ ] A2's ask check passes (ask answers from lineage + grep with no model).
+  - [ ] `python3 tests/acceptance.py A25 A26 A28 A29` passes (whole-memory print, folder scope, weak match, two-hop
+        taste); A27 (C9) belongs to P3's checks and passes once P2–P3 are done.
   - [ ] **Retrieval gate** (needs the P10 tier-1 world, no LLM): `python3 eval/retrieval.py <W>/memory eval/questions/bank-*.jsonl`
         gives gold-note recall ≥ 0.86 and number recall ≥ 0.95. The reference measured 0.882 / 0.970.
 
@@ -313,7 +321,7 @@ P6 and P8 can run in parallel once P5 is done. P10's tiers are independent of ea
 ### P9 — Integration
 
 - **P9a, deterministic (required):**
-  - [ ] `python3 tests/acceptance.py` prints `21/21 passed` in under 60 s.
+  - [ ] `python3 tests/acceptance.py` prints `26/26 passed` in under 60 s.
   - [ ] Mode B: `wc -l skills/memory-dream/scripts/memory.py` is within ±30% of the reference's ~1,900 lines. Report
         the number; it does not gate.
   - [ ] Mode B: `diff <(sed -n '/^EDGES_SEED/,/^"""$/p' reference/…/memory.py) <(… new …)` is empty, and the same

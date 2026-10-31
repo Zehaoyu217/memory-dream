@@ -2,6 +2,46 @@
 
 2026-10-30 (round 4: 2026-10-31) · built from the "Memory" email spec (`build-spec.md`) · macOS, Python 3.9.6, Claude Code 2.1.314.
 
+# Phase A (2026-10-31) — the read path never loses
+
+Changes to `ask` from `REVIEW.md` F1–F4 and F7, all with 0 model calls. Suite 21 → 26 tests (A25–A29), 26/26 in 19 s.
+Bank numbers use the 1,677-note world indexed by the fake dreamer (RESULTS round 4 shows the real index within noise).
+
+| measure | before | after |
+|---|---|---|
+| fixture (30 notes), the 10 A21 questions in one call | 11,325 chars, 24 of 30 notes headed | 12,922 chars, **30 of 30**: per-question pointers, then the whole memory by area (raw notes: 9,345 chars) |
+| fixture, 1 / 3 / 5 questions | 2,269 / 3,762 / 6,950 chars, surgical | unchanged: the whole memory is printed only when it costs ≤ 1.2× the surgical output |
+| bank, 326 questions: gold notes / numbers / chars per question | 0.888 / 0.969 / 1,984 | **0.897 / 0.972** / 1,988 (15 questions fixed, 8 regressed) |
+| bank, routed (`MEMORY_WIDE=100`) | 0.885 / 0.958 | 0.888 / 0.962 |
+| taste, 52 tasks: named prefs / implicit prefs / house rules / chars per task | 1.00 / 0.72 / 0.39 / 3,083 | 1.00 / **0.83** / 0.42 / 3,826 |
+| "what is the current model in pricing?" (single-word project) | not scoped; two churn notes printed | scoped to `pricing/` |
+| a note containing a NUL byte | invisible to `ask` (`grep -I`), no warning | found (`grep -a`), warning C9 |
+| "what is the meaning of zxqv?" | an unrelated note headed like a hit | `(weak match: 'zxqv' found nowhere in memory …)` |
+
+What changed:
+1. **Complete mode** (F1). On a memory of ≤ 200 notes, `ask` renders the surgical answer and the whole memory (each
+   question as `▸ path` pointers, then every note by area with its lineage header) and prints the whole memory when
+   it costs ≤ 1.2× the surgical output. At 10 questions that is +14% characters for 30 instead of 24 notes, with
+   lineage; it is 38% more than a bare `cat` of the notes, which has neither pointers nor SUPERSEDED marks.
+2. **Folder scope on the question's own words** (F2): the stemmer had turned `pricing` into `pric`, so a plain-word
+   project name never scoped. A first version scoped on every folder name and lost two bank questions ("… use in
+   reporting?"): general areas are not scopes by word; `-p` still names them.
+3. **`grep -a` and C9** (F3): a NUL byte made `grep -I` skip the note silently.
+4. **Weak match** (F4): a question word found nowhere in the memory, the best note covering at most half of the
+   question's words, no id, number or word pair matched, nothing named. A first version flagged "who owns
+   cards.txn_daily?" because the word `owns` occurs nowhere; the strong-match veto fixed it. On the bank 5 questions
+   were flagged before change 6, 4 of them genuine misses; 3 remain.
+5. **Taste** (F7): a person named inside one of the three best-matching house notes (the deck's roster, the meeting)
+   counts as named and brings their preferences (0.72 → 0.83 on implicit tasks); up to 12 notes with floor 0.15
+   instead of 6 and 0.25 (+0.03 house rules, +24% characters).
+6. **Hyphenated phrases also search as their words** ("call-routing" → call, routing; digits excluded): +0.9 pt gold
+   notes, +0.3 pt numbers, +0.2% characters; a scoped folder's own words are not patterns.
+
+Seen on the way, left for phase B: without an index every note's kind is "note", so the kind-based rule for general
+areas (fewer than 80% work kinds) marks *every* area general, and the taste pool spans the whole memory. Prefix kinds
+(F6) fix it. Not adopted after measuring: a recency tie-break for "current" questions (no change on 40 questions) and
+a table of contents of the named project for scoped questions (+2.9k characters per question, covers 228 of 230).
+
 # Round 4 — 100× (168,141 notes): what scales, what broke, what changed
 
 ## The world (`eval/scale/make_world.py`)

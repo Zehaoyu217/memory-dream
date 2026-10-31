@@ -160,7 +160,7 @@ hash in `_dream/store.db` so a dream re-reads only changed notes.
   filename (warning C1 if ambiguous), then moved paths; unresolved → C2. Plus `refs`: `[[links]]`, the dreamer's refs,
   and any body slug that names a note in the same project.
 - Warnings: C1 ambiguous, C2 not found, C3 indexing failed, C4 dropped ungrounded entity/relation, C5 unindexed,
-  C6 no `# ` line, C7 review pending, C8 bad EDGES/ALIASES line.
+  C6 no `# ` line, C7 review pending, C8 bad EDGES/ALIASES line, C9 NUL bytes in a note (binary-looking).
 
 ### 5.5 The graph, vocabulary half (`build`, `merge_entities`)
 
@@ -220,7 +220,10 @@ Per question:
    mentions boosted (inside the scope or routed areas only), then lineage: successors of superseded notes ("current"),
    children for "what came of", parents two hops for why/based-on. Up to 8 notes ≥ 20% of the best.
 8. **Print**: under `▸ path · kind · date · from … · SUPERSEDED → newer`, the best 2–4 lines per note; whole notes
-   when everything picked fits the budget (900 chars per question + 1,500).
+   when everything picked fits the budget (900 chars per question + 1,500). On a memory of ≤ 200 notes, when the
+   whole memory would cost ≤ 1.2× the surgical output, print it all: per-question `▸ path` pointers, then every note
+   by area — complete, and no dearer than `cat`. A question with a word found nowhere, whose best note covers at most
+   half its words, gets a `(weak match: 'x' found nowhere …)` line.
 9. **Taste** (task intent only, `taste`): scored inside the general areas so project notes cannot crowd them out; a
    person named in the task (or matched through their meeting or report) brings all their notes; house rules about
    the artifact asked for (chart, table, deck …) come along; `prefs/me-*` always. Six notes, printed as their `# ` line.
@@ -249,7 +252,7 @@ review queue). Deep links `#note=<path>`, `#entity=<id>`, `#health`. `memory.py`
 ## 6. Tests
 
 ```bash
-python3 tests/acceptance.py            # A1–A20 + A24 with the fake dreamer, about 10 s
+python3 tests/acceptance.py            # A1–A20, A24, A25–A29 with the fake dreamer, about 25 s
 python3 tests/acceptance.py A6 A24     # some
 python3 tests/real_model.py            # Haiku on the fixture vs tests/truth.py (costs a few cents)
 ```
@@ -260,7 +263,9 @@ A3 incremental (a second dream costs 0 calls), A6 entity headlines move to the n
 (C2), A8 grounding (fabricated surface forms and absent quotes dropped), A12 an unknown relation type is held back
 until the review maps it (0 extraction calls), A14 vocabulary edits by hand (0 calls), A15 dedup (case fold and the
 surface rule for free, versions never asked, one review line in ALIASES.md), A19 1,000-note speed, A20 entity keep
-rules, A24 big-memory routing, patching and per-area page redraws. Results are written to `tests/acceptance.json`.
+rules, A24 big-memory routing, patching and per-area page redraws, A25 whole-memory print on small memories, A26 a
+plain-word project name scopes the search, A27 NUL-byte notes (C9, still grepped), A28 the weak-match marker, A29
+two-hop taste (the task names the deck, the roster names the person). Results are written to `tests/acceptance.json`.
 
 ---
 
