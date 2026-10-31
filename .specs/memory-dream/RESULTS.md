@@ -53,7 +53,33 @@ and none is measured here: one run per arm (round 2 had three), the harness toke
 establish: correctness is not lost against the strongest grep strategy, and tool calls — the thing that scales context
 re-sends — drop 4×. A proper rerun needs transcripts: n ≥ 3 per arm, single-question agents, cost units.
 
-## E4 — the write path (one run; see below once scored)
+## E4 — the write path: an agent saves a session under SKILL.md (one Opus run on the 30-note fixture)
+
+Input: SKILL.md, a copy of the churn-2026 fixture, and a six-line fictional session — an experiment result with
+numbers, two preferences said in passing, a correction of a metric definition, a decision, an ownership change, and
+one unresolved incident ("nothing concluded yet"). The agent used 24 tool calls in 12 minutes and did not run `dream`.
+
+| what was said | what the agent wrote | lineage |
+|---|---|---|
+| exp-021: AUC 0.77, recall@10 0.45 on holdout-2025q4, n=1.2M, 2026-11-03 | `churn-2026/exp-021.md` (7 lines) | `from: [exp-019-recall]` |
+| decision: promote the retrained model as churn-xgb-v3.1 from 2026-11-10; cuts stay | `dec-promote-v3.1.md` (8) | `from: [exp-021, dec-risk-tiers]` |
+| the new model itself (implied) | `churn-xgb-v3.1.md` (10) | `from: [exp-021, dec-promote-v3.1]`, **`supersedes: [churn-xgb-v3]`** |
+| correction: recall@10 is per month, not per quarter | `metric-recall-at-10-monthly.md` (9) | **`supersedes: [metric-recall-at-10]`** |
+| cards.churn_labels now owned by retention-data | `ds-churn-labels-owner.md` (10) | **`supersedes: [ds-churn-labels]`** |
+| "recall@10 per risk tier" · "no red/green, colour-blind reviewers" | `prefs/maya-ortiz-recall-by-tier.md`, `prefs/maya-ortiz-no-red-green.md` (7–8) | the rule, where it applies, why, who said it, when |
+| the nightly job failed twice, under investigation | one line in `log/2026-10-31.md` | — |
+
+No existing note was edited; no note is over 10 lines. `dream` with no model: 38 notes, 0 C1/C2/C6; one C10 —
+`dec-promote-v3.1` / `dec-retrain-cadence` share the token `churn-xgb-v3`, a false candidate the review would mark
+compatible. `ask`, five questions in one call (7.5k characters): **5 of 5 facts found** — AUC 0.77 for exp-021; the
+owner of cards.churn_labels, with the old dataset note marked SUPERSEDED; recall@10 per month, with the old definition
+marked SUPERSEDED; the current production model v3.1, with v3 marked SUPERSEDED; and for "Make the recall@10 chart for
+Maya Ortiz's retention readout" both preference notes head the answer in full.
+
+Caveats: one run, one model, a transcript written by the evaluator; the agent wrote one note the transcript only
+implied (the model note churn-xgb-v3.1), which SKILL.md allows (a model's note is named after the model). The write
+rules measured here for the first time hold: one note per thing, lineage by `supersedes:` instead of edits,
+preferences saved at once as `prefs/<first>-<last>-<topic>.md`.
 
 # Phase D (2026-10-31) — simplify what the measurements allow
 

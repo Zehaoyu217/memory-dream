@@ -184,8 +184,11 @@ stronger judge; a write-path eval (agents writing notes under SKILL.md, then dre
 **Offline part done 2026-10-31** (RESULTS.md, "Phase E"): `--must` (242 → 252 complete answers), `adversarial.py`
 (stale trap: successor first 0.70 → 0.95 after a one-line ranking rule, old note marked 1.00; scattered evidence
 0.66 at 1/6.7 of the folder-`cat` characters; alias questions 0.93 with or without the index vs 0.43 for grep).
-Agent runs (one memory/grep pair allowed to `cat` folders; one write-path run) are reported below them in RESULTS.
-Not done: single-question agents, a stronger judge, n > 1 — they need a dedicated run with transcripts.
+Agent runs (RESULTS E3, E4): one memory/grep pair on ten questions, the grep arm allowed to `cat` folders — 7/3/0
+against 8/2/0 correct/partial/wrong, tool calls 7 against 31, tokens and time about equal in this single pair; one
+write-path run — eight notes from a six-line session, lineage right (three supersessions, two preferences in
+`prefs/`), every fact findable by `ask` with history marked. Not done: single-question agents, a stronger judge,
+n > 1 with cost units — they need a dedicated run with transcripts.
 
 **Phase C, part 2 — a constrained open relation vocabulary** (§10): two tiers (coarse type, open label), promotion
 gated by evidence and a budget, probation and automatic demotion, seed packs for other domains. Tests A12/A14/A20
