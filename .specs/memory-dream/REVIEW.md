@@ -180,7 +180,11 @@ stronger judge; a write-path eval (agents writing notes under SKILL.md, then dre
 
 **Phase C, part 2 — a constrained open relation vocabulary** (§10): two tiers (coarse type, open label), promotion
 gated by evidence and a budget, probation and automatic demotion, seed packs for other domains. Tests A12/A14/A20
-rewritten, A34–A36 added.
+rewritten, A34–A36 added. **Both parts done 2026-10-31** (RESULTS.md, "Phase C"): with Haiku on 70 notes, 81% of
+relations typed and 19% kept as labels that were invisible before, 0 invented types; the conflict detector tightened
+from 282 to 38 candidates on the bank after a real review showed 2 true conflicts in 20 and 157 rule/preference pairs
+that can never be supersessions; the reviewer's own verdicts were right in all 20. Deviations: a full budget refuses
+promotion and says so instead of asking for a type to demote; conflicts cover decisions, models and findings only.
 
 What not to do: embeddings or any heavier retrieval; more model in the read path; an *unconstrained* open relation
 vocabulary; automatic edits to notes.

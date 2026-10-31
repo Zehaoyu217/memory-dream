@@ -292,9 +292,10 @@ def A11():
     w.run("dream")
     g = w.graph()
     types = Counter(r["type"] for r in g["relations"])
-    for t in ("uses", "trained-on", "evaluated-on", "owned-by"):
+    for t in ("uses", "evaluated-on", "owned-by", "other/learned-from"):  # the last: a label under the bar, kept visible
         assert types[t], t
-    assert set(types) <= set(mem.parse_edges(mem.EDGES_SEED)[0]), types
+    seed = set(mem.parse_edges(mem.EDGES_SEED)[0])
+    assert all(t in seed or t.startswith("other/") for t in types), types  # typed, or a label kept as other/<label>
     for r in g["relations"]:
         for ev in r["evidence"]:
             rel, line = ev.rsplit(":", 1)
@@ -307,22 +308,25 @@ def A11():
 
 
 def A12():
+    """Constrained open: a label outside the vocabulary is kept and shown as other/<label>; under the bar it is not
+    offered to the review; once over the bar (here lowered by hand) the review may alias it onto a type."""
     w = World()
-    p = w.dir / "review.json"
-    p.write_text(json.dumps({"types": {"learned-from": "maybe later"}}))
-    w.run("dream", env={"FAKE_REVIEW": str(p)})
+    w.run("dream")
     g = w.graph()
     c7 = [c["msg"] for c in g["checks"] if c["code"] == "C7"]
-    assert any("unknown relation type learned-from ×3" in m for m in c7), c7
-    assert not any(r["type"] == "learned-from" for r in g["relations"]), "closed vocabulary shows unknown types"
+    assert any("below the review bar" in m and re.search(r"learned-from ×\d", m) for m in c7), c7
+    assert ("churn-xgb-v2", "other/learned-from", "cards.churn_labels") in rels(g), "a label must stay visible"
+    (w.root / "EDGES.md").write_text(w.text("EDGES.md").replace("promote: 5 uses, 5 notes, 2 areas", "promote: 3 uses, 3 notes, 1 area"))
+    assert any(re.search(r"label learned-from ×\d", c["msg"]) and "awaits review" in c["msg"] for c in w.graph()["checks"])
     n = len(w.calls("extract"))
-    w.run("dream")
+    w.run("dream")  # the fake reviewer answers "alias trained-on"
     assert "learned-from" in next(ln for ln in w.text("EDGES.md").split("\n") if ln.startswith("- trained-on"))
     assert sum(1 for ln in w.text("EDGES.md").split("\n") if ln.startswith("- ")) == 8, "review added a type"
     g = w.graph()
     assert ("churn-xgb-v2", "trained-on", "cards.churn_labels") in rels(g)
+    assert not any(r["type"] == "other/learned-from" for r in g["relations"])
     assert len(w.calls("extract")) == n
-    return "learned-from ×3 held back (closed), review mapped it onto trained-on, relabelled with 0 extraction calls, still 8 types"
+    return "learned-from ×3 shown as other/learned-from under the 5/5/2 bar; bar 3/3/1 → review aliased it onto trained-on, relabelled with 0 extraction calls, still 8 types"
 
 
 def A13():
@@ -335,7 +339,8 @@ def A13():
 
 def A14():
     w = World()
-    w.run("dream")
+    (w.root / "EDGES.md").write_text(mem.EDGES_SEED.replace("promote: 5 uses, 5 notes, 2 areas", "promote: 3 uses, 3 notes, 1 area"))
+    w.run("dream")  # the review aliases learned-from onto trained-on; then fold trained-on into uses by hand
     n = len(w.calls())
     lines = w.text("EDGES.md").split("\n")
     tr = next(ln for ln in lines if ln.startswith("- trained-on"))
@@ -500,12 +505,12 @@ def A20():
     g = w.graph()
     E = ents(g)
     assert "nb/exp014_xgb.ipynb" not in E and "vel-ratio-30-90" not in E
-    assert not any(r["type"] == "zorbs" for r in g["relations"])
-    assert any("rarer unknown relation types dropped" in c["msg"] for c in g["checks"])
+    assert ("xgboost", "other/zorbs", "holdout-2025q4") in rels(g), "a one-off label is kept as other/<label>"
+    assert any("below the review bar" in c["msg"] and "zorbs ×1" in c["msg"] for c in g["checks"])
     homes = {e["id"]: e["home"] for e in g["entities"] if e["home"]}
     assert homes.get("feat-velocity-v3") == P + "feat-velocity-v3.md" and homes.get("churn-xgb-v3") == P + "churn-xgb-v3.md"
     assert all(len(e["mentions"]) >= 2 or e["home"] for e in g["entities"])
-    return f"{len(E)} entities, {len(homes)} with a home note; files, one-note ids and unknown types left out"
+    return f"{len(E)} entities, {len(homes)} with a home note; files and one-note ids left out; the one-off label zorbs kept as other/zorbs"
 
 
 def A24():
@@ -713,8 +718,107 @@ def A33():
     return "type: feedback → rule; modified: → 2026-10-25"
 
 
+def A34():
+    """Promotion gate: under the bar a label is never offered; over it (bar lowered by hand) the review may answer
+    "new: <definition>" and the type line is written, marked proposed, relabelling at 0 extraction calls; packs add types."""
+    w = World()
+    w.env["FAKE_SAVE"] = str(w.dir / "prompts")
+    w.run("dream")
+    g = w.graph()
+    assert ("churn-xgb-v2", "other/learned-from", "cards.churn_labels") in rels(g)
+    rv = sorted((w.dir / "prompts").glob("*-review.txt"))
+    assert rv, "the entity pair should have caused one review"
+    labels = rv[0].read_text().split("LABELS the indexer used", 1)[1].split("ENTITY PAIRS", 1)[0]
+    assert "none" in labels and "learned-from" not in labels, labels
+    (w.root / "EDGES.md").write_text(w.text("EDGES.md").replace("promote: 5 uses, 5 notes, 2 areas", "promote: 3 uses, 3 notes, 1 area"))
+    p = w.dir / "review.json"
+    p.write_text(json.dumps({"types": {"learned-from": "new: a model was fit on a labelled dataset; unlike trained-on it names the label source"}}))
+    n = len(w.calls("extract"))
+    out = w.run("dream", env={"FAKE_REVIEW": str(p)})
+    e = w.text("EDGES.md")
+    assert re.search(r"^- learned-from \(proposed \d{4}-\d\d-\d\d\): a model was fit", e, re.M), e
+    g = w.graph()
+    assert ("churn-xgb-v2", "learned-from", "cards.churn_labels") in rels(g) and len(w.calls("extract")) == n
+    assert "1 new type" in out, out
+    types = mem.parse_edges(mem.EDGES_SEED + "pack: software\n")[0]
+    assert {"calls", "deployed-to", "tested-by"} <= set(types)
+    return "learned-from ×4 not offered under 5/5/2; bar 3/3/1 + 'new:' → proposed type line, relabelled at 0 calls; pack: software adds 6 types"
+
+
+def A35():
+    """Probation: a proposed type still under the bar after the probation is demoted back to a label, 0 calls."""
+    w = World()
+    w.run("dream")
+    n = len(w.calls())
+    e = w.text("EDGES.md").replace("drop:", "- learned-from (proposed 2026-01-01): fit on a labelled dataset\ndrop:")
+    (w.root / "EDGES.md").write_text(e)
+    assert ("churn-xgb-v2", "learned-from", "cards.churn_labels") in rels(w.graph()), "a hand line types the relations"
+    out = w.run("dream")
+    assert "1 type demoted" in out and "(proposed 2026-01-01)" not in w.text("EDGES.md"), (out, w.text("EDGES.md"))
+    assert ("churn-xgb-v2", "other/learned-from", "cards.churn_labels") in rels(w.graph())
+    assert len(w.calls()) == n
+    return "learned-from (proposed 2026-01-01), 4 uses in 1 area: demoted after the 60-day probation, back to other/learned-from, 0 calls"
+
+
+def A36():
+    """The budget: a full EDGES.md offers no label to the review and says so (C7); raising the budget admits it."""
+    w = World()
+    w.env["FAKE_SAVE"] = str(w.dir / "prompts")
+    w.run("dream")
+    e = w.text("EDGES.md").replace("promote: 5 uses, 5 notes, 2 areas", "promote: 3 uses, 3 notes, 1 area").replace("budget: 24", "budget: 8")
+    (w.root / "EDGES.md").write_text(e)
+    p = w.dir / "review.json"
+    p.write_text(json.dumps({"types": {"learned-from": "new: fit on a labelled dataset"}}))
+    w.run("dream", env={"FAKE_REVIEW": str(p)})
+    assert not re.search(r"^- learned-from \(proposed", w.text("EDGES.md"), re.M), "written despite a full budget"
+    assert any("budget full (8/8" in c["msg"] and "learned-from" in c["msg"] for c in w.graph()["checks"]), [c["msg"] for c in w.graph()["checks"] if c["code"] == "C7"]
+    for rv in (w.dir / "prompts").glob("*-review.txt"):
+        assert "learned-from" not in rv.read_text().split("LABELS the indexer used", 1)[1].split("ENTITY PAIRS", 1)[0], rv
+    (w.root / "EDGES.md").write_text(w.text("EDGES.md").replace("budget: 8", "budget: 9"))
+    out = w.run("dream", env={"FAKE_REVIEW": str(p)})
+    assert re.search(r"^- learned-from \(proposed", w.text("EDGES.md"), re.M) and "1 new type" in out, out
+    return "budget 8/8: learned-from not offered, C7 names it; budget 9 → admitted as a proposed type"
+
+
+def A37():
+    """Conflicts: live notes of one kind in one area, unlinked, sharing a rare title word, are queued (C10). The review
+    may decide a supersedes b (lineage from then on, notes untouched), compatible (never asked again) or unsure (listed
+    for a person, not asked again)."""
+    w = World()
+    (w.root / P / "dec-tiers-v3.md").write_text("---\nupdated: 2026-10-31\n---\n# Risk-tier cuts moved to 0.25 and 0.55 for churn-xgb-v3\n"
+                                                "The cuts now sit at 0.25 (email) and 0.55 (call).\n")
+    (w.root / P / "dec-email-cadence.md").write_text("---\nupdated: 2026-10-20\n---\n# Email retention offers go out weekly, not daily\nWeekly from 2026-11.\n")
+    (w.root / P / "dec-email-copy.md").write_text("---\nupdated: 2026-10-21\n---\n# Email retention offers use the short copy variant\nVariant B won exp-030.\n")
+    (w.root / P / "fnd-tenure-effect.md").write_text("---\nupdated: 2026-10-12\n---\n# Tenure under 6 months halves the velocity effect\nOn holdout-2025q4, n=0.3M.\n")
+    (w.root / P / "fnd-tenure-split.md").write_text("---\nupdated: 2026-10-14\n---\n# Tenure split at 6 months is where recall drops\nrecall@10 0.31 vs 0.55.\n")
+    w.run("dream", model=False)  # no model: the pairs are listed, nothing is decided
+    c10 = [c["msg"] for c in w.graph()["checks"] if c["code"] == "C10"]
+    for a, b in (("dec-risk-tiers", "dec-tiers-v3"), ("dec-email-cadence", "dec-email-copy"), ("fnd-tenure-effect", "fnd-tenure-split")):
+        assert any(a in m and b in m for m in c10), (a, b, c10)
+    p = w.dir / "review.json"
+    p.write_text(json.dumps({"conflicts": {f"{P}dec-risk-tiers.md / {P}dec-tiers-v3.md": "dec-tiers-v3 supersedes dec-risk-tiers",
+                                           f"{P}dec-email-cadence.md / {P}dec-email-copy.md": "compatible"}}))  # tenure: unsure (default)
+    out = w.run("dream", env={"FAKE_REVIEW": str(p)})
+    cf = w.text("CONFLICTS.md")
+    assert f"- {P}dec-tiers-v3.md > {P}dec-risk-tiers.md" in cf and f"compatible: {P}dec-email-cadence.md / {P}dec-email-copy.md" in cf \
+        and f"- {P}fnd-tenure-effect.md ? {P}fnd-tenure-split.md" in cf, cf
+    assert "2 conflicts decided" in out, out
+    g = w.graph()
+    assert note(g, P + "dec-risk-tiers.md")["superseded_by"] == [P + "dec-tiers-v3.md"]
+    c10 = [c["msg"] for c in g["checks"] if c["code"] == "C10"]
+    assert any("fnd-tenure-effect" in m and "fnd-tenure-split" in m for m in c10) and all("reviewer unsure" in m for m in c10), c10
+    assert not any("dec-email" in m or ("dec-risk-tiers" in m and "dec-tiers-v3" in m) for m in c10), c10
+    a = w.run("ask", "what are the current risk-tier cuts?")
+    assert "SUPERSEDED → dec-tiers-v3" in a, a[:500]
+    assert w.text(P + "dec-risk-tiers.md") == (FIX / P / "dec-risk-tiers.md").read_text(), "a note was edited"
+    n = len(w.calls("review"))
+    w.run("dream")
+    assert len(w.calls("review")) == n, "decided or unsure pairs were asked again"
+    return "3 pairs queued (C10); review: one supersession recorded in CONFLICTS.md and applied as lineage (ask shows SUPERSEDED), one compatible, one unsure left for a person; notes untouched; nothing re-asked"
+
+
 TESTS = [A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A24,
-         A25, A26, A27, A28, A29, A30, A31, A32, A33]
+         A25, A26, A27, A28, A29, A30, A31, A32, A33, A34, A35, A36, A37]
 
 
 def main():

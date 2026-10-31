@@ -17,8 +17,10 @@ python3 skills/memory-dream/scripts/memory.py --root tests/fixture/memory viz --
 
 For any agent with a shell (Python 3.9+, grep; a model is optional). Beside Claude Code's own memory: `ask` also
 reads the project's auto-memory topic files and never writes there; one line in CLAUDE.md, `@memory/DIGEST.md`,
-keeps the ≤ 40-line digest that every `dream` writes in context. Review and measured phases:
-`.specs/memory-dream/REVIEW.md`, `RESULTS.md`.
+keeps the ≤ 40-line digest that every `dream` writes in context. Relation types are a constrained open vocabulary
+(links outside it keep their label; promotion is gated by evidence, a budget and probation); live notes that may
+disagree are queued for a reviewing subagent, whose verdicts persist in `memory/CONFLICTS.md`. Review and measured
+phases: `.specs/memory-dream/REVIEW.md`, `RESULTS.md`.
 
 Answering is grep plus memory: `ask` expands questions through the graph (aliases, ids, lineage),
 greps the notes once, and prints the answering lines current-first. Against a grep-only agent it is

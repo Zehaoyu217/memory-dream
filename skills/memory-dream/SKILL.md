@@ -37,5 +37,7 @@ hold the work itself, with lineage, and travel with the repository. `ask` also r
 the same call and never writes there. To keep the digest in context every session, add one line to CLAUDE.md:
 `@memory/DIGEST.md`. Never the same thing in two places: if CLAUDE.md already says it, write no note.
 
-`memory/EDGES.md` (relation types) and `memory/ALIASES.md` (entity ids that mean the same thing) are yours to edit:
-`- canonical = other-id` merges, `not: a / b` keeps apart; a hand edit costs no model calls.
+Three files at the memory root are yours to edit, and a hand edit costs no model calls: `EDGES.md` (relation types —
+a link outside them keeps its own label, shown as other/<label>; `promote`, `budget` and `probation` lines gate when a
+label becomes a type), `ALIASES.md` (`- canonical = other-id` merges entity ids, `not: a / b` keeps them apart) and
+`CONFLICTS.md` (two live notes that disagreed: `- a > b` makes a supersede b without touching either note).

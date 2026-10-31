@@ -64,6 +64,7 @@ memory/                       (in a user project)
   <area>/<slug>.md            notes; filename = id; area = project or a general area
   log/YYYY-MM-DD.md           scratch lines (memory.py log)
   EDGES.md  ALIASES.md        user-owned vocabularies (seeded by the first dream)
+  CONFLICTS.md                verdicts on pairs of live notes: `- a > b`, `compatible: a / b`, `- a ? b`
   DIGEST.md                   written by every dream, ≤ 40 lines; CLAUDE.md imports it with `@memory/DIGEST.md`
   _dream/                     generated: manifest.json, store.db, index.db, notes/<sha12>.json,
                               graph.json + graph.html (≤ MEMORY_WIDE notes) or graph.html overview +
@@ -117,17 +118,25 @@ difflib ≥ 0.85, same type.
 
 C1 ambiguous reference · C2 reference not found · C3 indexing failed (answer unusable twice) · C4 dropped an
 ungrounded entity or relation · C5 note not indexed · C6 no `# ` line · C7 review pending (unknown types) ·
-C8 unparseable line in EDGES.md or ALIASES.md · C9 NUL bytes in a note (binary-looking; `ask` greps it with `-a`).
+C8 unparseable line in EDGES.md, ALIASES.md or CONFLICTS.md · C9 NUL bytes in a note (binary-looking; `ask` greps it
+with `-a`) · C10 conflict pending (two live notes of one kind in one area may disagree).
 
-### 2.5 Vocabulary
+### 2.5 Vocabulary (constrained open) and conflicts
 
-Eight closed relation types: `uses produces part-of trained-on evaluated-on measured-by replaces owned-by`.
-Each has `aka:` aliases (`~` = read in reverse), plus a `drop:` list and `mode: closed`. Copy `EDGES_SEED`,
-`EXTRACT` and `REVIEW` exactly from `skills/memory-dream/scripts/memory.py` lines 41–97 (in Mode B, from
-`reference/`). These prompt texts are tuned and measured, so they count as contract, not code. The review may
-answer only `alias T`, `alias ~T` or `drop` for a type, and `same` or `different` for a pair.
+Eight seed relation types: `uses produces part-of trained-on evaluated-on measured-by replaces owned-by`, each with
+`aka:` aliases (`~` = read in reverse); `drop:` names only note-to-note links. Every extracted relation carries a
+`type` (a type, an alias, or `other`) and a `label` (the note's own verb); a link that fits no type is kept as
+`other/<label>`. EDGES.md settings: `promote: 5 uses, 5 notes, 2 areas` (a label is offered to the review only over
+this bar), `budget: 24` (types), `probation: 60 days` (a `(proposed <date>)` type still under the bar is demoted to a
+label), `pack: software | research | ops` (`PACKS`). The review answers `alias T`, `alias ~T`, `new: <definition>`,
+`label` or `drop` for labels, `same` / `different` for entity pairs, and `<a> supersedes <b>` / `compatible` / `unsure`
+for conflicts; the code admits `new` only within the budget and records conflict verdicts in `CONFLICTS.md`. Copy
+`EDGES_SEED`, `PACKS`, `EXTRACT` and `REVIEW` exactly from `skills/memory-dream/scripts/memory.py` (in Mode B, from
+`reference/`): these texts are tuned and measured, so they count as contract, not code.
 
-ALIASES.md lines: `- canonical = other-id …` (merge these) and `not: a / b` (never merge these).
+ALIASES.md lines: `- canonical = other-id …` (merge these) and `not: a / b` (never merge these). CONFLICTS.md lines:
+`- a > b` (a supersedes b, applied as lineage), `compatible: a / b`, `- a ? b` (unsure, for a person); paths relative
+to the memory root.
 
 ---
 
@@ -160,7 +169,7 @@ P6 and P8 can run in parallel once P5 is done. P10's tiers are independent of ea
   the reference suite once to record the baseline. In Mode B, create the branch `rebuild/<date>` and move the
   reference: `git mv skills/memory-dream reference/skills/memory-dream`, then `mkdir -p skills/memory-dream/{scripts,assets,agents}`.
 - **Exit conditions:**
-  - [ ] `python3 tests/acceptance.py` on the untouched branch prints `30/30 passed`. Record the time; it is
+  - [ ] `python3 tests/acceptance.py` on the untouched branch prints `34/34 passed`. Record the time; it is
         about 25 s.
   - [ ] Mode B: `test ! -e skills/memory-dream/scripts/memory.py && test -e reference/skills/memory-dream/scripts/memory.py`
   - [ ] Note whether `claude` (the Claude Code CLI) is on PATH. It is needed only for P9b and P10.
@@ -230,14 +239,22 @@ P6 and P8 can run in parallel once P5 is done. P10's tiers are independent of ea
   - Keep an entity when it has a home note, is mentioned in ≥ 2 notes, or is named in ALIASES. Drop file-like ids.
   - Canonical id: the ALIASES lead, else the most-used raw id. Type by majority vote. The headline is the title of
     the best current note.
-  - Map relations through EDGES (aliases, `~` reverse, drop). Anything unknown is counted and held back (C7) and
-    goes to review once it has ≥ 3 uses. Evidence for each relation is `path:line`.
-  - Review candidates: same type, a shared rare surface form, or difflib ≥ 0.85. Never queue a pair with two
-    different home notes.
-  - Hand edits to EDGES.md and ALIASES.md relabel at the next merge with 0 calls. Emit C8 for unparseable lines.
+  - Map relations through EDGES (type first, then the label; aliases, `~` reverse, drop). A link that fits nothing
+    is kept as `other/<label>` with evidence `path:line`; labels are counted by uses, notes and areas; those over the
+    `promote` bar are offered to the review unless the budget is full (then C7 names them); the rest are summarised
+    in one C7 line. Types marked `(proposed <date>)` still under the bar after the probation are listed for demotion.
+  - Review candidates for entities: same type, a shared rare surface form, or difflib ≥ 0.85. Never queue a pair with
+    two different home notes.
+  - Conflict candidates: live notes of one kind (decision, model, finding) in one area, not linked, sharing an
+    id-like title token or two rare title words; pairs decided in CONFLICTS.md are not offered again; `- a > b`
+    lines become `supersedes` edges in the note half.
+  - Hand edits to EDGES.md, ALIASES.md and CONFLICTS.md relabel at the next merge with 0 calls. Emit C8 for
+    unparseable lines.
 - **Exit conditions** (with the fake dreamer from P5, or with extraction JSONs loaded directly):
   - [ ] `python3 tests/acceptance.py A11 A13 A14 A15 A16 A17 A18 A20` all pass.
   - [ ] `python3 tests/acceptance.py A19` passes: 1,000 notes, merge < 1 s, review candidates < 2 s.
+  - [ ] `python3 tests/acceptance.py A34 A35 A36 A37` passes once P5's review exists (promotion gate and packs,
+        probation, budget, conflicts).
 
 ### P5 — The dreamer: prompts, grounding, modes, review, cache
 
@@ -343,7 +360,7 @@ P6 and P8 can run in parallel once P5 is done. P10's tiers are independent of ea
 ### P9 — Integration
 
 - **P9a, deterministic (required):**
-  - [ ] `python3 tests/acceptance.py` prints `30/30 passed` in under 60 s.
+  - [ ] `python3 tests/acceptance.py` prints `34/34 passed` in under 60 s.
   - [ ] Mode B: `wc -l skills/memory-dream/scripts/memory.py` is within ±30% of the reference's ~1,900 lines. Report
         the number; it does not gate.
   - [ ] Mode B: `diff <(sed -n '/^EDGES_SEED/,/^"""$/p' reference/…/memory.py) <(… new …)` is empty, and the same

@@ -2,6 +2,52 @@
 
 2026-10-30 (round 4: 2026-10-31) · built from the "Memory" email spec (`build-spec.md`) · macOS, Python 3.9.6, Claude Code 2.1.314.
 
+# Phase C (2026-10-31) — a constrained open vocabulary, and conflicts for a subagent to settle
+
+`REVIEW.md` §10 and the conflict queue of §6 phase C. Suite 30 → 34 tests (A34–A37; A11/A12/A14/A20 rewritten),
+34/34 in 21 s. Real-model checks used Haiku through `tests/haiku_cmd.py` with costs logged.
+
+## The vocabulary, two tiers (measured with Haiku on 70 bank notes: fraud-2026, collections-uplift, 10 prefs)
+
+| measure | closed (round 3) | constrained open |
+|---|---|---|
+| extracted relations | — | 257; Haiku wrote a label distinct from the type for 241 (94%), `type: other` for 40 (16%), **0 invented types** (sprawl ends at the source), 0 grounding drops |
+| relations in the graph | 81% typed, 13% hidden in the cache, 5.5% dropped | 132: **107 typed (81%), 25 shown as other/<label> (19%) over 23 labels** — 4 of them the old drop list discarded (`is-a`, `excludes`, `excluded-from`, `removed-from`), the rest were invisible |
+| the label tail | flat (1.5 uses per name on the 56× bank) | flat again: the largest label has 2 uses in 70 notes; nothing reaches the 5 / 5 / 2 bar |
+| review with the bar lowered to 2 / 2 / 1 | — | `lifts` ×2 offered; Haiku answered `new: X lifts Y means feature X improves the measured performance of model Y; differs from measured-by …`; admitted as `- lifts (proposed 2026-10-31)`; $0.0011 |
+| cost per indexed note | $0.0013 (60 notes, round 3), $0.0020 (inside the 1,677 bank) | **$0.0022** (median 5,350 in / 2,232 out tokens, 11.5 s): the label field and the longer relation instruction cost about $0.0009 per note on a small memory |
+
+Gates in code, tested with the fake dreamer: under the bar a label is never offered (A34); `new:` writes a line marked
+`(proposed <date>)` and relabels at 0 extraction calls (A34); a proposed type still under the bar after the probation
+is demoted back to a label, 0 calls (A35); a full budget offers nothing, C7 names the waiting labels, raising the
+budget admits them (A36); `pack: software` adds 6 types (A34). EDGES.md carries the knobs: `promote: 5 uses, 5 notes,
+2 areas`, `budget: 24`, `probation: 60 days`. The `drop:` list shrank to note-to-note links (answers, led-to,
+basis-for, …); claims and comparisons (`beats`, `improves`, `causes`) are kept as labels. Deviation from §10: when the
+budget is full the code refuses promotion and says so, rather than asking the review to name a type to demote.
+
+## Conflicts between live notes (measured on the 1,677-note bank, one real Haiku review)
+
+| step | result |
+|---|---|
+| detector v1: five kinds, one shared rare title word | 282 candidate pairs across 41 areas |
+| Haiku review of the first 20 (one call, $0.0040, 17 s) | 2 "a supersedes b" — both genuine by reading (`dec-ed-promote-v3` replaces `dec-ed-gbm-for-watchlist`; `clv-ml-v2` replaces the `clv-bgnbd-v1` baseline); 18 "compatible" — all clearly different things. Reviewer precision ≈ 20/20; detector precision 2/20 |
+| detector v2: decision, model, finding only; an id-like shared token or two rare words | **282 → 38 candidates**, both true positives kept; the 157 rule/preference pairs (distinct by nature) gone |
+| after the 20 verdicts | 24 pending on the bank (about two review calls, ~$0.01, to clear); every verdict persists in `CONFLICTS.md`; the 2 supersessions act as lineage: `ask` heads the current note and marks the old one SUPERSEDED (gold recall 0.897 → 0.898) |
+
+Fake-dreamer test A37: three pairs queued (C10); the review decides one supersession (applied as lineage, both notes
+byte-identical, `ask` shows SUPERSEDED), one compatible (never asked again), one unsure (`- a ? b`, listed for a person,
+not asked again). Without a model the pairs are simply listed; nothing is decided.
+
+Read path unchanged: 326 bank questions 0.898 / 0.972 at 2,004 characters per question; taste 1.00 / 0.87 / 0.46.
+The viewer lists other/<label> links on the entity card (not drawn on the map) and conflicts in the Health queue;
+rendered with 0 console errors. SKILL.md: 606 → 650 words (43 lines) for the labels and `CONFLICTS.md` — the only
+words an agent must read once; achievement per word on the read path is unchanged at 3.7 complete answers per 10k
+characters.
+
+Found on the way: after the review wrote CONFLICTS.md, `dream` rebuilt the graph from its cached note half, so a new
+supersession appeared only at the next dream (and `ask` did not see a hand edit of CONFLICTS.md between dreams). Fixed:
+the review clears the cached half, and CONFLICTS.md is part of the freshness signature with EDGES.md and ALIASES.md.
+
 # Phase B (2026-10-31) — free byproduct, any agent, beside Claude Code's memory
 
 `REVIEW.md` F6 and §8 R1–R5, plus SKILL.md rewritten for any agent with a shell. 0 model calls anywhere. Suite 26 → 30

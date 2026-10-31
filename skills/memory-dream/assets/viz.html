@@ -432,8 +432,9 @@
         let label, isEnt = !!sel.entity;
         if (isEnt) {
           const e = ents[sel.entity]; if (!e) return; label = e.id;
-          const out = g.relations.filter(r => r.s === e.id).map(r => ({ key: { entity: r.o }, text: r.o, cls: 'rel', ent: true, sub: r.type }));
-          const inn = g.relations.filter(r => r.o === e.id).map(r => ({ key: { entity: r.s }, text: r.s, cls: 'rel', ent: true, sub: r.type }));
+          const typed = r => !r.type.startsWith('other/');  // other/<label> links are listed on the card, not drawn
+          const out = g.relations.filter(r => r.s === e.id && typed(r)).map(r => ({ key: { entity: r.o }, text: r.o, cls: 'rel', ent: true, sub: r.type }));
+          const inn = g.relations.filter(r => r.o === e.id && typed(r)).map(r => ({ key: { entity: r.s }, text: r.s, cls: 'rel', ent: true, sub: r.type }));
           groups.push(['depends on', Math.PI, out], ['used by', 0, inn],
             ['mentioned in', Math.PI / 2, e.mentions.map(m => ({ key: { note: m.path }, text: notes[m.path] ? notes[m.path].id : m.path, cls: 'rel', old: notes[m.path] && notes[m.path].superseded_by.length }))]);
         } else {
@@ -499,13 +500,16 @@
         box.className = 'body';
         if (sel.entity) {
           const e = ents[sel.entity]; if (!e) return;
-          const out = g.relations.filter(r => r.s === e.id), inn = g.relations.filter(r => r.o === e.id);
+          const typed = r => !r.type.startsWith('other/');
+          const out = g.relations.filter(r => r.s === e.id && typed(r)), inn = g.relations.filter(r => r.o === e.id && typed(r));
+          const other = g.relations.filter(r => (r.s === e.id || r.o === e.id) && !typed(r));  // labels outside the vocabulary
           box.replaceChildren(DP.el('div', { class: 'path' }, `entity · ${e.type}`), DP.el('div', { class: 'title' }, e.id),
             DP.el('dl', {}, ...row('also called', e.aka.concat(e.names.slice(0, 5).map(n => `"${n.name}"`))),
               ...row('defined in', e.home ? [nlink(e.home)] : []),
               ...row('headline', e.headline ? [nlink(e.headline)] : []),
               ...row('depends on', out.map(r => DP.el('span', {}, `${r.type} `, elink(r.o)))),
               ...row('used by', inn.map(r => DP.el('span', {}, elink(r.s), ` ${r.type}`))),
+              ...row('other links (labels)', other.map(r => DP.el('span', {}, r.s === e.id ? '' : elink(r.s), ` ${r.type.slice(6)} `, r.s === e.id ? elink(r.o) : ''))),
               ...row('mentioned in', e.mentions.map(m => nlink(m.path)))));
           return;
         }
@@ -538,11 +542,12 @@
     (function () {
       const g = DP.read('data-graph'), cols = document.querySelector('#health .cols');
       const notes = Object.fromEntries(g.notes.map(n => [n.path, n]));
-      const NAMES = { C1: 'ambiguous lineage', C2: 'lineage target not found', C3: 'dreamer failed', C4: 'grounding dropped', C5: 'not indexed yet', C6: 'no # line', C7: 'vocabulary awaiting review', C8: 'unparseable vocabulary line' };
+      const NAMES = { C1: 'ambiguous lineage', C2: 'lineage target not found', C3: 'dreamer failed', C4: 'grounding dropped', C5: 'not indexed yet', C6: 'no # line', C7: 'vocabulary awaiting review', C8: 'unparseable vocabulary line', C9: 'NUL bytes in a note', C10: 'conflict pending' };
       // total: how many exist when the list is capped (overview mode), true when only the cap is known
       const block = (title, items, total) => DP.el('div', {}, DP.el('h3', {}, `${title} (${total === true && items.length ? `first ${DP.num(items.length)}` : total > items.length ? `first ${DP.num(items.length)} of ${DP.num(total)}` : DP.num(items.length)})`),
         DP.el('ul', {}, ...(items.length ? items.slice(0, 400) : [DP.el('li', { class: 'muted' }, 'none')])));
-      const queue = () => g.review.map(r => DP.el('li', {}, `${r.a} / ${r.b}`)).concat(g.proposed.map(p => DP.el('li', {}, DP.el('span', { class: 'code' }, 'type'), `${p.type} ×${p.uses} — ${p.examples[0] || ''}`)));
+      const queue = () => g.review.map(r => DP.el('li', {}, `${r.a} / ${r.b}`)).concat(g.proposed.map(p => DP.el('li', {}, DP.el('span', { class: 'code' }, 'label'), `${p.type} ×${p.uses}${p.notes ? ` (${p.notes} notes, ${p.areas} areas)` : ''} — ${p.examples[0] || ''}`)))
+        .concat((g.conflicts || []).map(c => DP.el('li', {}, DP.el('span', { class: 'code' }, 'conflict'), `${c.a} / ${c.b} — share: ${c.shared.join(', ')}${c.unsure ? ' · reviewer unsure' : ''}`)));
       if (g.mode === 'overview') {  // counts are whole-memory totals; lists are capped samples whose paths open on their area's page
         const C = g.totals.checks || {}, CAP = 300;
         const go = p => DP.el('a', { href: DP.page(g, DP.area(p), p), title: p }, p.replace(/^.*\//, '').replace(/\.md$/, ''));
@@ -556,7 +561,7 @@
         const superseded = g.areas.reduce((s, a) => s + (a.superseded || 0), 0);
         cols.append(block('Warnings by code', summary), block('Warnings to act on (C4 and C5 are counts only)', warnItems, sumOf(Object.keys(C).filter(c => c !== 'C4' && c !== 'C5'))),
           block('Superseded → current', chains, Math.max(superseded, chains.length)), block('Unlinked notes (no from:, no successors, no refs)', orphans, orphans.length >= CAP || undefined),
-          block('Review queue: entity pairs and unknown relation types', queue()));
+          block('Review queue: entity pairs, labels over the bar, conflicts', queue()));
         return;
       }
       const sel = p => DP.el('span', { class: 'link', onclick: () => document.dispatchEvent(new CustomEvent('dp:select', { detail: { note: p } })) }, notes[p] ? notes[p].id : p);
@@ -568,7 +573,7 @@
       const orphans = g.notes.filter(n => !linked.has(n.path) && n.kind !== 'log').map(n => DP.el('li', {}, sel(n.path), DP.el('span', { class: 'muted' }, `  ${n.project} · ${n.kind}`)));
       const summary = Object.keys(byCode).sort().map(c => DP.el('li', {}, DP.el('span', { class: 'code' }, c), `${NAMES[c] || ''}: ${byCode[c].length}`));
       cols.append(block('Warnings by code', summary), block('Warnings to act on (C4 and C5 are counts only)', warnItems), block('Superseded → current', chains),
-        block('Unlinked notes (no from:, no successors, no refs)', orphans), block('Review queue: entity pairs and unknown relation types', queue()));
+        block('Unlinked notes (no from:, no successors, no refs)', orphans), block('Review queue: entity pairs, labels over the bar, conflicts', queue()));
     })();
   </script>
 </section>

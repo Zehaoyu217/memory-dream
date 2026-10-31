@@ -35,11 +35,20 @@ Viewer deep links: `graph.html#note=<path>`, `#entity=<id>`, `#health`.
 
 ## Entities and the relation vocabulary
 
-- Relation types are closed: the 8 in EDGES.md, plus their aliases (`~` = read in reverse) and a
-  `drop:` list. The dreamer may use only those. Anything else is held back at merge and counted
-  (C7), and a type used 3 or more times goes to the review. The review may only map it onto a
-  listed type or drop it; new types come from you editing EDGES.md. Editing EDGES.md costs 0 calls,
-  since everything relabels at the next merge.
+- Relation types are a constrained open vocabulary: the 8 types in EDGES.md with their aliases
+  (`~` = read in reverse), plus whatever label the dreamer gives a link that fits none — kept and
+  shown as `other/<label>`, listed on the entity card, never on the map. A label is offered to the
+  review only over the bar in EDGES.md (`promote: 5 uses, 5 notes, 2 areas`); the review may alias it
+  onto a type, keep it a label, drop it (note-to-note links only), or answer `new: <definition>`, which
+  the code admits only within `budget: 24` types, written as `- <type> (proposed <date>): …`. A proposed
+  type still under the bar after `probation: 60 days` is demoted back to a label (0 calls). Hand-written
+  lines are permanent; `pack: software` (or research, ops) adds a domain's types. Any edit relabels
+  everything at the next merge, 0 calls.
+- Conflicts: two live notes of one kind (decision, model, finding) in one area, not linked by lineage,
+  sharing an id-like title token or two rare title words, are queued (C10) and offered to the review,
+  20 per dream. Verdicts land in `memory/CONFLICTS.md`: `- a > b` (a supersedes b: lineage from then
+  on, both notes untouched), `compatible: a / b`, `- a ? b` (unsure: listed for a person). Nothing is
+  asked twice; a person can write any of these lines by hand.
 - An entity is kept when it has a home note (a note whose slug is its id, e.g. the model's own
   note), is mentioned in 2 or more notes, or is named in ALIASES.md. Files, notebooks, columns and
   note ids are not entities; grep finds them.
@@ -155,8 +164,10 @@ python3 eval/scale/profile_incremental.py <memory root> <scratch> fraud-2026   #
 
 - `dream` says C3: the dreamer answer was unusable twice; the note stays grep-searchable and is
   retried on the next `dream`.
-- Many `C7 type x? ×1`: single-use proposed relation types; they stay live (marked `?`) and go to
-  review once a type has ≥ 2 uses. Edit EDGES.md to alias or drop them by hand (0 calls).
+- `C7 … labels below the review bar`: links outside the vocabulary, shown as `other/<label>`; nothing
+  to do unless you want one as a type — add a line to EDGES.md (0 calls). `C7 vocabulary budget full`:
+  raise `budget:` or remove a type. `C10 conflict pending`: two live notes may disagree; let `dream`
+  with a model ask the review, or write `- a > b` / `compatible: a / b` into CONFLICTS.md yourself.
 - `check` says C9: the note contains NUL bytes (a binary paste, a bad encoding). `ask` still greps it (`grep -a`),
   but keep notes plain text.
 - `ask` prints `(weak match: 'x' found nowhere in memory …)`: a word of the question occurs in no note and the best

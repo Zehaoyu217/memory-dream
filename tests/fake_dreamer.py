@@ -122,14 +122,17 @@ def extraction(path, text):
 
 def review(prompt):
     over = json.load(open(os.environ["FAKE_REVIEW"])) if os.environ.get("FAKE_REVIEW") else {}
-    sec = prompt.split("UNKNOWN TYPES", 1)[1].split("ENTITY PAIRS", 1)
-    types = {m: REVIEW_TYPES.get(m, "drop") for m in re.findall(r"^- ([\w.-]+): ", sec[0], re.M)}
+    sec = prompt.split("LABELS the indexer used", 1)[1].split("ENTITY PAIRS", 1)
+    pairs_sec, conf_sec = (sec[1].split("LIVE NOTES", 1) + [""])[:2]
+    types = {m: REVIEW_TYPES.get(m, "label") for m in re.findall(r"^- ([\w.-]+): ", sec[0], re.M)}
     ents = {}
-    for a, b in re.findall(r"^- (\S+) / (\S+):", sec[1], re.M):
+    for a, b in re.findall(r"^- (\S+) / (\S+):", pairs_sec, re.M):
         ents[f"{a} / {b}"] = "same" if frozenset((a, b)) in SAME else "different"
+    conflicts = {f"{a} / {b}": "unsure" for a, b in re.findall(r"^- (\S+) / (\S+):", conf_sec, re.M)}
     types.update(over.get("types", {}))
     ents.update(over.get("entities", {}))
-    return {"types": types, "entities": ents}
+    conflicts.update(over.get("conflicts", {}))
+    return {"types": types, "entities": ents, "conflicts": conflicts}
 
 
 def main():

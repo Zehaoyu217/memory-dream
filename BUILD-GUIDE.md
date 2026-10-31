@@ -89,7 +89,8 @@ Without `MEMORY_LLM`, `dream` runs in file mode: it writes prompts to `memory/_d
    frontmatter; a superseded note is shown as history with its successor.
 4. **The index is optional for answering** (measured: neutral for accuracy) and earns its keep for aliases,
    dedup, the viewer and management. It must stay cheap and conservative: loose names hurt retrieval.
-5. **Closed relation vocabulary.** Eight types; anything else is held back until a review maps it or drops it.
+5. **Constrained open relation vocabulary.** Eight types; any other link keeps its label (`other/<label>`), and a
+   label becomes a type only over an evidence bar, through the review, within a budget, on probation.
 6. **Scale by routing, not by heavier machinery.** Past 10,000 notes, `ask` greps only where a question points,
    reads an SQLite index row by row, and the viewer splits into an overview plus one page per area.
 
@@ -169,7 +170,8 @@ hash in `_dream/store.db` so a dream re-reads only changed notes.
   filename (warning C1 if ambiguous), then moved paths; unresolved → C2. Plus `refs`: `[[links]]`, the dreamer's refs,
   and any body slug that names a note in the same project.
 - Warnings: C1 ambiguous, C2 not found, C3 indexing failed, C4 dropped ungrounded entity/relation, C5 unindexed,
-  C6 no `# ` line, C7 review pending, C8 bad EDGES/ALIASES line, C9 NUL bytes in a note (binary-looking).
+  C6 no `# ` line, C7 review pending (labels, budget), C8 bad EDGES/ALIASES/CONFLICTS line, C9 NUL bytes in a note
+  (binary-looking), C10 conflict pending.
 
 ### 5.5 The graph, vocabulary half (`build`, `merge_entities`)
 
@@ -182,14 +184,21 @@ Entities, from every note's extraction:
    named in ALIASES.md; drop file-like ids (`.py .sql .ipynb .csv`, notebooks).
 5. Canonical id: ALIASES.md lead, else the most used raw id; type by majority vote; headline = best current note.
 
-Relations: map each extracted type through EDGES.md (`mode: closed`). Listed types and their aliases (`~` = read in
-reverse) are kept with evidence `path:line`; `drop:` types are discarded; anything else is counted as a proposal and
-held back. A type used ≥ 3 times (`MIN_UNKNOWN_USES`) goes to review.
+Relations, two tiers: the dreamer gives each relation a `type` (an EDGES type or alias, or `other`) and a `label` (the
+note's own verb). Listed types and their aliases (`~` = read in reverse) are kept with evidence `path:line`; a link
+whose type and label fit nothing is kept as `other/<label>` (shown on the entity card, not on the map); `drop:` names
+only note-to-note links. A label is offered to the review once it clears `promote: 5 uses, 5 notes, 2 areas`
+(EDGES.md); the review answers `alias T`, `alias ~T`, `label`, `drop` or `new: <definition>`, and the code admits
+`new` only under `budget: 24` types, writing `- <type> (proposed <date>): …`; a proposed type still under the bar
+after `probation: 60 days` is demoted to a label (0 calls). `pack: software | research | ops` adds domain types.
+Conflicts: live notes of one kind (decision, model, finding) in one area, unlinked, sharing an id-like title token or
+two rare words, are queued (C10, 20 per review); verdicts persist in `memory/CONFLICTS.md` (`- a > b` becomes lineage,
+`compatible: a / b`, `- a ? b`); notes are never edited.
 
 The seed vocabulary (8 types): `uses`, `produces`, `part-of`, `trained-on`, `evaluated-on`, `measured-by`,
-`replaces`, `owned-by` (full alias lists in `EDGES_SEED`). Evidence for "8 is enough": 81% of 5,196 extracted links
-fit them, and 365 of 366 questions need lineage, a single note, or one of the 8 (`eval/type_coverage.py`,
-`eval/question_relations.py`).
+`replaces`, `owned-by` (full alias lists in `EDGES_SEED`). Evidence: 81% of 5,196 extracted links fit them and 365 of
+366 questions need lineage, a single note, or one of the 8 (`eval/type_coverage.py`, `eval/question_relations.py`);
+with Haiku on 70 notes the two-tier prompt gives 81% typed, 19% labels, 0 invented types (RESULTS "Phase C").
 
 Review candidates: new entities of the same type that share a rare surface form or have similar folded ids
 (difflib ≥ 0.85); pairs with two different home notes are never queued.
@@ -203,8 +212,9 @@ Review candidates: new entities of the same type that share a rare surface form 
   its quote occurs. Dropped ones are counted (C4).
 - **Command mode** (`MEMORY_LLM` set): waves of `-j` parallel calls, one retry for unusable answers.
   **File mode**: prompts in `_dream/pending/`, answered by the `memory-dreamer` subagent.
-- **Review** (`REVIEW`, one call when due): may only answer `alias T`, `alias ~T`, `drop` for types and
-  `same` / `different` for entity pairs ("when unsure, drop / different"). At most 40 types and 30 pairs per dream.
+- **Review** (`REVIEW`, one call when due): labels over the bar (`alias T`, `alias ~T`, `new: <definition>`,
+  `label`, `drop`), entity pairs (`same` / `different`), conflicts (`a supersedes b`, `compatible`, `unsure`). At most
+  40 labels, 30 pairs and 20 conflicts per dream; the code, not the prompt, enforces bar, budget and offered pairs.
 - **Cache**: one JSON per content hash in `_dream/notes/<sha12>.json` (the source), mirrored in `store.db`; kept
   30 days after last use so reverted edits cost nothing.
 - **Outputs**: `index.db` (always), `memory/DIGEST.md` (≤ 40 lines: how to ask, `prefs/me-*`, the ten newest live
@@ -268,7 +278,7 @@ review queue). Deep links `#note=<path>`, `#entity=<id>`, `#health`. `memory.py`
 ## 6. Tests
 
 ```bash
-python3 tests/acceptance.py            # A1–A20, A24, A25–A33 with the fake dreamer, about 25 s
+python3 tests/acceptance.py            # A1–A20, A24, A25–A37 with the fake dreamer, about 25 s
 python3 tests/acceptance.py A6 A24     # some
 python3 tests/real_model.py            # Haiku on the fixture vs tests/truth.py (costs a few cents)
 ```
@@ -282,8 +292,9 @@ surface rule for free, versions never asked, one review line in ALIASES.md), A19
 rules, A24 big-memory routing, patching and per-area page redraws, A25 whole-memory print on small memories, A26 a
 plain-word project name scopes the search, A27 NUL-byte notes (C9, still grepped), A28 the weak-match marker, A29
 two-hop taste (the task names the deck, the roster names the person), A30 kinds and general areas with no model, A31
-Claude Code's auto memory read and never written, A32 the digest, A33 Claude Code's frontmatter convention. Results
-are written to `tests/acceptance.json`.
+Claude Code's auto memory read and never written, A32 the digest, A33 Claude Code's frontmatter convention, A34 the
+promotion gate and packs, A35 probation and demotion, A36 the budget, A37 conflicts (queued, decided, recorded, never
+re-asked). Results are written to `tests/acceptance.json`.
 
 ---
 
