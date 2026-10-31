@@ -15,6 +15,7 @@ import datetime as dt
 import difflib
 import hashlib
 import json
+import math
 import os
 import posixpath
 import re
@@ -518,7 +519,8 @@ def build(root, man, cur, former, et, at, xs=None, now=None):
     notes, aux, by_stem = {}, {}, defaultdict(list)
     for rel in sorted(cur):
         h = cur[rel]["sha"]
-        fm, title, tline, links = parse_note(read(root / rel))
+        text = read(root / rel)
+        fm, title, tline, links = parse_note(text)
         x = xs.get(h[:12]) if xs is not None else rd(root / "_dream" / "notes" / f"{h[:12]}.json")
         up = fm.get("updated", "")
         up = up[:10] if re.match(r"\d{4}-\d\d-\d\d", up) else \
@@ -528,7 +530,9 @@ def build(root, man, cur, former, et, at, xs=None, now=None):
                       "line": tline, "summary": (x or {}).get("summary") or title,
                       "kind": (fm.get("type") or (x or {}).get("kind") or ("log" if proj == "log" else "note")).lower(),
                       "superseded_by": [], "updated": up, "sha": h[:12], "indexed": bool(x)}
-        aux[rel] = {"fm": fm, "links": links, "x": x, "mt": cur[rel]["mtime"]}
+        aux[rel] = {"fm": fm, "links": links, "x": x, "mt": cur[rel]["mtime"],
+                    "ids": set(re.findall(r"(?<![\w/-])([a-z][a-z0-9]*(?:-[a-z0-9]+)+)(?![\w-])", text.lower().split("\n", tline)[-1]))
+                    if tline else set()}
         by_stem[notes[rel]["id"]].append(rel)
         if not title:
             checks.append(("C6", f"{rel}: no '# ' line"))
@@ -573,7 +577,9 @@ def build(root, man, cur, former, et, at, xs=None, now=None):
                     linked.add((rel, dst, kind))
                     edges.append({"src": rel, "dst": dst, "rel": kind})
         x = aux[rel]["x"] or {}
-        for v in aux[rel]["links"] + list(x.get("refs") or []):
+        proj = rel.split("/")[0]
+        mentioned = [i for i in aux[rel]["ids"] if any(p_.split("/")[0] == proj for p_ in by_stem.get(i, []))]
+        for v in aux[rel]["links"] + list(x.get("refs") or []) + sorted(mentioned):  # a slug written in the body points at that note
             dst = resolve(v, rel)[0]
             if dst and dst != rel and not any((rel, dst, k) in linked for k in ("from", "supersedes", "refs")):
                 linked.add((rel, dst, "refs"))
@@ -1221,6 +1227,310 @@ def log(args, root):
     print(f"{f.relative_to(root).as_posix()}: logged")
 
 
+# ---------- ask: grep with memory ----------
+# A thin layer on grep: the graph expands each question into grep patterns (aliases, ids), one grep -F
+# pass finds the lines, and the graph orders the notes (current first, lineage) and heads them.
+
+STOP = set("""a an and are as at be been being but by can could did do does doing done for from had has have
+how i if in into is it its of on or our should so than that the their them then there these they this those
+to us was were what when where which while who whom whose why will with would you your about any all also
+each more most other some such only same too very just know known tell me give list show say said get make
+made much many one we came come happened led lead ended end up""".split())
+SYN = {"own": ["owner", "owned by", "maintain"], "owns": ["owner", "owned by", "maintain"],
+       "depend": ["uses", "built on", "feeds", "reads"], "train": ["trained on", "fit on"],
+       "defin": ["means", "definition"], "prefer": ["wants", "likes"]}
+INTENT = {"current": re.compile(r"\b(current|currently|now|latest|today|still|valid|in force|production|live)\b", re.I),
+          "down": re.compile(r"\b(came of|come of|became of|outcome|result\w*|happened|follow.?up)\b", re.I),
+          "up": re.compile(r"\b(led to|lead to|what led|based on|rests? on|built on|evidence|came from|origin\w*)\b", re.I),
+          "why": re.compile(r"\bwhy\b|\breason\b|\bcaused?\b", re.I),
+          "dep": re.compile(r"\b(depend\w*|uses?|used by|feeds?|inputs?|downstream|trained on)\b", re.I)}
+WORD = re.compile(r"[A-Za-z0-9@%$][A-Za-z0-9_.@%/+$-]*")
+
+
+def stem(t):
+    for suf in ("ings", "ing", "ies", "ed", "es", "s"):
+        if t.isalpha() and t.endswith(suf) and len(t) - len(suf) >= 4:
+            return t[:-len(suf)]
+    return t
+
+
+def qterms(q):
+    """Question → {grep pattern: weight}: ids strong, numbers kept, words stemmed to prefixes, word pairs."""
+    pats, words = {}, []
+    for raw in WORD.findall(q):
+        t = raw.lower().rstrip(".,;:?!)'\"").strip("-/")
+        if len(t) < 2 or t in STOP:
+            words.append(None)
+            continue
+        if re.fullmatch(r"[\d.,]+%?", t):
+            pats[t] = max(pats.get(t, 0), 1.5)
+        elif re.search(r"[._/@-]", t) or (re.search(r"\d", t) and re.search(r"[a-z]", t)):
+            pats[t] = 3.0 if len(t) > 3 else 1.5
+        elif len(t) >= 3:
+            s = stem(t)
+            pats[s] = max(pats.get(s, 0), 1.0)
+            for x in SYN.get(s, []):
+                pats.setdefault(x, 0.5)
+        words.append(t)
+    for a, b in zip(words, words[1:]):
+        if a and b and a.isalpha() and b.isalpha():
+            pats.setdefault(f"{a} {stem(b)}", 1.5)
+    return pats
+
+
+def boundary(p):
+    return re.compile(r"(?<![a-z0-9])" + re.escape(p))
+
+
+def grep_lines(root, pats):
+    """One `grep -F` pass over the notes for every pattern → {path: [(line, text)]}. Python if grep is missing."""
+    hits = defaultdict(list)
+    if not pats:
+        return hits
+    import tempfile
+    with tempfile.NamedTemporaryFile("w", suffix=".pat", delete=False, encoding="utf-8") as f:
+        f.write("\n".join(sorted(pats)) + "\n")
+    out = None
+    try:
+        r = subprocess.run(["grep", "-rniIF", "--include=*.md", "--exclude-dir=_dream", "-f", f.name, str(root)],
+                           capture_output=True, text=True, errors="replace")
+        out = r.stdout if r.returncode in (0, 1) else None
+    except OSError:
+        pass
+    finally:
+        os.unlink(f.name)
+    if out is None:
+        for p in root.rglob("*.md"):
+            rel = p.relative_to(root).as_posix()
+            if rel.startswith("_dream/"):
+                continue
+            for i, ln in enumerate(read(p).split("\n"), 1):
+                if any(x in ln.lower() for x in pats):
+                    hits[rel].append((i, ln))
+        return hits
+    for ln in out.splitlines():
+        m = re.match(r"(.*?):(\d+):(.*)$", ln)
+        if m:
+            rel = Path(m.group(1)).resolve().relative_to(root).as_posix()
+            if posixpath.basename(rel) not in SKIP:
+                hits[rel].append((int(m.group(2)), m.group(3)))
+    return hits
+
+
+def ask(args, root):
+    g, _ = load(root)
+    v = View(g)
+    qs = [q.strip() for q in (args.questions or []) for q in q.split("\n") if q.strip()]
+    if args.file:
+        qs += [q.strip() for q in read(Path(args.file)).split("\n") if q.strip()]
+    if not qs:
+        print("ask: give one or more questions")
+        return
+    names = defaultdict(set)  # folded name → entity ids, for alias expansion
+    for e in g["entities"]:
+        for x in [e["id"], *e["aka"], *(n["name"] for n in e["names"])]:
+            if len(x) >= 3:
+                names[fold(x)].add(e["id"])
+    stems = defaultdict(list)
+    for p, n in v.notes.items():
+        stems[n["id"].lower()].append(p)
+    folders = {p.split("/")[0].lower() for p in v.notes if "/" in p}
+    per_q = []
+    for q in qs:
+        pats = qterms(q)
+        intent = {k for k, rx in INTENT.items() if rx.search(q)}
+        low = " " + q.lower() + " "
+        hit_ents = {i for t in pats if fold(t) in names and len(names[fold(t)]) <= 2 for i in names[fold(t)]}
+        hit_ents |= {i for nm, ids in names.items() if " " in nm.replace("-", " ") and len(ids) <= 2
+                     and f" {nm.replace('-', ' ')} " in low.replace("-", " ") for i in ids}
+        for eid in hit_ents:
+            e = v.ents[eid]
+            for x in [e["id"], *e["aka"], *(n["name"] for n in e["names"][:4])]:
+                if len(x) >= 3 and len(names.get(fold(x), ())) <= 3:
+                    pats.setdefault(x.lower(), 2.0)
+        scope = {args.p.lower()} if args.p else {t for t in pats if t in folders}  # "in the aml-alerts project"
+        named = {p for t in pats for p in stems.get(t, [])} | \
+                {p for t in pats for p in ([t] if t in v.notes else [t + ".md"] if t + ".md" in v.notes else [])}
+        if scope:
+            named = {p for p in named if p.split("/")[0].lower() in scope}
+        paths = {p: [t for t in pats if len(t) >= 4 and t not in scope and t in p.lower()] for p in v.notes
+                 if not scope or p.split("/")[0].lower() in scope}
+        per_q.append({"q": q, "pats": {t: w for t, w in pats.items() if t not in scope}, "intent": intent,
+                      "ents": hit_ents, "named": named, "scope": scope, "paths": {p: ts for p, ts in paths.items() if ts}})
+    allpats = {p for x in per_q for p in x["pats"]}
+    hits = grep_lines(root, allpats)
+    if args.p:
+        hits = {p: h for p, h in hits.items() if p.split("/")[0] == args.p}
+    rx = {p: boundary(p) for p in allpats}
+    line_pats = {}  # (path, line) → patterns that really match there (word start)
+    df = Counter()
+    for path, rows in hits.items():
+        seen = set()
+        for no, text in rows:
+            lowt = text.lower()
+            ms = {p for p in allpats if p in lowt and rx[p].search(lowt)}
+            if ms:
+                line_pats[(path, no)] = (ms, text)
+                seen |= ms
+        df.update(seen)
+    N = max(len(v.notes), 1)
+    idf = {p: math.log(1 + N / df[p]) for p in df}
+    by_file = defaultdict(list)
+    for (path, no), (ms, text) in line_pats.items():
+        by_file[path].append((no, ms, text))
+    budget = args.budget or 900 * len(qs) + 1500
+    for x in per_q:
+        x["ranked"] = rank(x, by_file, idf, v)
+    printed, out = {}, []
+
+    def header(path):
+        n = v.notes.get(path)
+        if not n:
+            return f"▸ {path}"
+        s = f"▸ {path} · {n['kind']} · {n['updated']}"
+        f = [v.notes[e["dst"]]["id"] for e in v.frm[path] if e["rel"] == "from"]
+        sup = [v.notes[e["dst"]]["id"] for e in v.frm[path] if e["rel"] == "supersedes"]
+        s += f" · from {', '.join(f)}" if f else ""
+        s += f" · supersedes {', '.join(sup)}" if sup else ""
+        s += (" · SUPERSEDED → " + ", ".join(v.notes[p]["id"] for p in n["superseded_by"])) if n["superseded_by"] else ""
+        return s
+
+    def body(path):
+        """Compact note: title and body lines, no frontmatter, no blanks."""
+        ls, n = read(root / path).split("\n"), v.notes.get(path, {})
+        start = (n.get("line") or 1) - 1
+        return [(i + 1, ln) for i, ln in enumerate(ls) if i >= start and ln.strip()]
+
+    picked = {p for x in per_q for p, _ in x["ranked"]}
+    full = sum(sum(len(t) + 6 for _, t in body(p)) for p in picked) <= budget
+    for x in per_q:
+        out.append(f"## {x['q']}")
+        for eid in sorted(x["ents"])[:2] if "dep" in x["intent"] else []:
+            out.append(entity_line(v, eid))
+        for path, lines in x["ranked"]:
+            want = body(path) if full else lines
+            new = [(no, t) for no, t in want if no not in printed.get(path, set())]
+            if path in printed and not new:
+                out.append(header(path).split(" · ")[0] + " (above)")
+                continue
+            out.append(header(path) if path not in printed else header(path).split(" · ")[0] + " (more)")
+            for no, t in new:
+                out.append(f"  {t.strip()}" if full else f"  {no}: {t.strip()[:220]}")
+            printed.setdefault(path, set()).update(no for no, _ in new)
+        if not x["ranked"]:
+            out.append("  (no match — try other words, or grep memory/)")
+    print("\n".join(out))
+
+
+def rank(x, by_file, idf, v):
+    """Score notes by the patterns they contain (idf-weighted, title lines count double), then apply the
+    graph: named notes first, successors of superseded notes, children for lineage, parents for why.
+    Greedy pick that discounts patterns already covered. → [(path, [(line, text)])]"""
+    pats, intent = x["pats"], x["intent"]
+    base = {}
+    for path, rows in by_file.items():
+        n = v.notes.get(path)
+        tl = n["line"] if n else 0
+        got = Counter()
+        for no, ms, _ in rows:
+            for p in ms:
+                if p in pats:
+                    got[p] += 2 if no == tl else 1
+        if got:
+            base[path] = got
+    score = {p: sum(pats[t] * idf[t] * (1 + math.log(c)) for t, c in got.items()) for p, got in base.items()}
+    for p, ts in x["paths"].items():  # the slug names the thing: count it like a title hit
+        score[p] = score.get(p, 0) + sum(pats.get(t, 1) * idf.get(t, 1) for t in ts)
+    if x["scope"]:
+        score = {p: s_ for p, s_ in score.items() if p.split("/")[0].lower() in x["scope"]}
+    top = max(score.values(), default=0) or 1.0
+    for p in x["named"]:
+        score[p] = score.get(p, 0) + top + 1
+    for eid in x["ents"]:  # notes that mention a matched entity, findings and decisions first
+        for m in v.ents[eid]["mentions"]:
+            n = v.notes.get(m["path"])
+            score[m["path"]] = score.get(m["path"], 0) + 0.35 * top * (1.5 if n and n["kind"] in ("finding", "decision") else 1)
+    up = intent & {"up", "why", "dep"}
+    seeds = sorted(score.items(), key=lambda z: -z[1])[:6]
+    best_live = next((p for p, _ in seeds if v.notes.get(p) and not v.notes[p]["superseded_by"]), None)
+    for p, s in seeds:
+        n = v.notes.get(p)
+        if not n:
+            continue
+        for succ in n["superseded_by"]:
+            score[succ] = max(score.get(succ, 0), s * (1.1 if "current" in intent else 0.85))
+        if "current" in intent and n["superseded_by"]:
+            score[p] = s * 0.6
+        if "down" in intent or (p in x["named"] and not up and len(x["named"]) == 1) or \
+                ("current" in intent and p == best_live):
+            for e in v.down[p]:
+                if e["rel"] in ("from", "refs"):
+                    score[e["src"]] = max(score.get(e["src"], 0), s * (0.7 if "down" in intent else 0.5))
+        if up:  # ancestors, two hops
+            frontier = [(p, s)]
+            for _ in range(2):
+                nxt = []
+                for q_, sq in frontier:
+                    for e in v.frm[q_]:
+                        if e["rel"] in ("from", "refs"):
+                            w = sq * 0.6
+                            score[e["dst"]] = max(score.get(e["dst"], 0), w)
+                            nxt.append((e["dst"], w))
+                frontier = nxt
+    ranked = sorted(score.items(), key=lambda z: (-z[1], z[0]))
+    picks = [(p, sc) for p, sc in ranked[:8] if sc >= 0.2 * ranked[0][1]] if ranked else []
+    if os.environ.get("MEMORY_DEBUG"):
+        sys.stderr.write(f"Q {x['q']} intent={sorted(intent)} named={sorted(x['named'])}\n  pats={pats}\n")
+        for p, s in sorted(score.items(), key=lambda z: -z[1])[:12]:
+            sys.stderr.write(f"  {s:7.2f} {p}{' PICK' if p in dict(picks) else ''}\n")
+    res = []
+    for k, (p, _) in enumerate(picks):
+        n = v.notes.get(p)
+        rows = sorted((r for r in by_file.get(p, []) if not n or r[0] >= n["line"]),  # body lines; the header has the lineage
+                      key=lambda r: -sum(pats.get(t, 0) * idf.get(t, 0) for t in r[1]))
+        keep = rows[:4 if k < 2 else 2]
+        lines = {(no, t) for no, _, t in keep}
+        if n and n["line"]:
+            lines.add((n["line"], "# " + n["title"]))
+        res.append((p, sorted(lines)))
+    return res
+
+
+def entity_line(v, eid):
+    e = v.ents[eid]
+    parts = []
+    for arrow, rs, end in (("←", v.in_r[eid], "s"), ("→", v.out_r[eid], "o")):
+        grp = defaultdict(list)
+        for r in rs:
+            if r["canon"]:
+                grp[r["type"]].append(r[end])
+        parts += [f"{arrow} {t}: {', '.join(sorted(set(xs))[:8])}" for t, xs in sorted(grp.items())]
+    return f"= {eid} ({e['type']}" + (f"; aka {', '.join(e['aka'][:3])}" if e["aka"] else "") + ") " + " · ".join(parts[:6])
+
+
+def grepv(args, root):
+    """Plain grep over the notes, grouped by note and headed with kind · date · lineage · superseded → successor."""
+    g, _ = load(root)
+    v = View(g)
+    r = subprocess.run(["grep", "-rnI", "--include=*.md", "--exclude-dir=_dream", *args.grep_args, str(root)],
+                       capture_output=True, text=True, errors="replace")
+    groups = defaultdict(list)
+    for ln in r.stdout.splitlines():
+        m = re.match(r"(.*?):(\d+):(.*)$", ln)
+        if m:
+            rel = Path(m.group(1)).resolve().relative_to(root).as_posix()
+            if posixpath.basename(rel) not in SKIP:
+                groups[rel].append(f"  {m.group(2)}: {m.group(3).strip()[:220]}")
+    if not groups:
+        print(r.stderr.strip() or "no match")
+    for rel in sorted(groups, key=lambda p: v.notes.get(p, {}).get("updated", ""), reverse=True):
+        n = v.notes.get(rel)
+        h = f"▸ {rel}" + (f" · {n['kind']} · {n['updated']}" if n else "")
+        if n and n["superseded_by"]:
+            h += " · SUPERSEDED → " + ", ".join(v.notes[p]["id"] for p in n["superseded_by"])
+        print(h + "\n" + "\n".join(groups[rel]))
+
+
 def main(argv=None):
     try:
         sys.stdout.reconfigure(encoding="utf-8")
@@ -1252,9 +1562,17 @@ def main(argv=None):
     lg = sp.add_parser("log", parents=[common], help="append to today's log")
     lg.add_argument("text")
     lg.add_argument("-p", help="project")
+    a = sp.add_parser("ask", parents=[common], help="answer questions: grep with memory, one call for many questions")
+    a.add_argument("questions", nargs="*")
+    a.add_argument("-f", "--file", help="questions, one per line")
+    a.add_argument("-p", help="project")
+    a.add_argument("--budget", type=int, help="chars before switching from whole notes to surgical lines")
+    gr = sp.add_parser("grep", parents=[common], help="grep the notes; hits grouped by note with lineage headers")
+    gr.add_argument("grep_args", nargs=argparse.REMAINDER)
     args = ap.parse_args(argv)
     root = find_root(args.root or args.root0)
-    {"dream": dream, "where": where, "trace": trace, "check": check, "log": log}[args.verb](args, root)
+    {"dream": dream, "where": where, "trace": trace, "check": check, "log": log, "ask": ask,
+     "grep": grepv}[args.verb](args, root)
 
 
 if __name__ == "__main__":
