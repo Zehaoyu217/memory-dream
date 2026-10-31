@@ -19,7 +19,7 @@ run), shell `cat` 20 times and shell `grep` 17 times. They used `where`, `trace`
 | open relation vocabulary, and the review's "new type" answer | grew EDGES.md from 7 to 185 types |
 | 300-entity KNOWN list | about 9k-token prompts; now this project's entities ≤ 80 plus shared ≤ 20 |
 
-`memory.py`: 1,610 → 1,276 lines. Verbs: `ask`, `dream`, `viz`, `check`, `log`. A1–A20 were
+`memory.py`: 1,610 → 1,292 lines. Verbs: `ask`, `dream`, `viz`, `check`, `log`. A1–A20 were
 rewritten for the refined design and all 20 pass. A20 now tests vocabulary and identity in place of
 gists.
 
