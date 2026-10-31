@@ -6,22 +6,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Memory graph</title>
 <style id="base">
+  /* layout: a lab notebook's index — one column of tabs, wide drawings in their own scroll boxes */
   :root { --paper: #faf9f6; --ink: #1d1d1b; --muted: #6b6a65; --faint: #a3a19a; --rule: #e3e0d8; --panel: #ffffff;
     --accent: #1f4e79; --accent-soft: #e7eef5; --warm: #b4532a; --warm-soft: #f6e9e1;
     --serif: Georgia, "Iowan Old Style", "Times New Roman", serif; --sans: system-ui, -apple-system, "Segoe UI", sans-serif;
-    --mono: ui-monospace, "SF Mono", Menlo, monospace; --gap: 20px; }
+    --mono: ui-monospace, "SF Mono", Menlo, monospace; --gap: 20px; color-scheme: light; }
   @media (prefers-color-scheme: dark) {
-    :root { --paper: #161614; --ink: #ecebe6; --muted: #a3a19a; --faint: #6b6a65; --rule: #2e2d29; --panel: #1d1d1a;
-      --accent: #8db4dc; --accent-soft: #1f2a35; --warm: #e08a5f; --warm-soft: #33241c; }
+    :root:not([data-theme="light"]) { --paper: #161614; --ink: #ecebe6; --muted: #a3a19a; --faint: #6b6a65; --rule: #2e2d29;
+      --panel: #1d1d1a; --accent: #8db4dc; --accent-soft: #1f2a35; --warm: #e08a5f; --warm-soft: #33241c; color-scheme: dark; }
   }
+  :root[data-theme="dark"] { --paper: #161614; --ink: #ecebe6; --muted: #a3a19a; --faint: #6b6a65; --rule: #2e2d29;
+    --panel: #1d1d1a; --accent: #8db4dc; --accent-soft: #1f2a35; --warm: #e08a5f; --warm-soft: #33241c; color-scheme: dark; }
   * { box-sizing: border-box; }
-  body { margin: 0; padding: 24px 28px 48px; background: var(--paper); color: var(--ink); font: 14px/1.45 var(--sans);
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: var(--gap); align-items: start; }
+  body { margin: 0; padding-block: 24px 48px; padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px)); background: var(--paper); color: var(--ink);
+    font: 14px/1.45 var(--sans); display: grid; grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
+    gap: var(--gap); align-items: start; }
+  .scroll { overflow-x: auto; max-width: 100%; }
+  button:focus-visible, select:focus-visible, input:focus-visible, .link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   [data-span="full"] { grid-column: 1 / -1; }
   [data-span="2"] { grid-column: span 2; }
   @media (max-width: 760px) { [data-span="2"] { grid-column: 1 / -1; } }
-  body:not([data-tab="overview"]) [data-tab="overview"], body:not([data-tab="explore"]) [data-tab="explore"],
-  body:not([data-tab="health"]) [data-tab="health"] { display: none; }
+  body:not([data-tab="map"]) [data-tab="map"], body:not([data-tab="overview"]) [data-tab="overview"],
+  body:not([data-tab="explore"]) [data-tab="explore"], body:not([data-tab="health"]) [data-tab="health"] { display: none; }
   .card { background: transparent; border-top: 1px solid var(--rule); padding: 14px 4px 4px; min-width: 0; }
   h1 { font: 400 28px/1.15 var(--serif); margin: 0; letter-spacing: -0.01em; }
   h2 { font: 400 18px/1.2 var(--serif); margin: 0 0 10px; }
@@ -54,7 +61,7 @@
     #header nav button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
   </style>
   <h1>Memory</h1>
-  <nav><button data-go="overview">Overview</button><button data-go="explore">Explore</button><button data-go="health">Health</button></nav>
+  <nav><button data-go="map">Map</button><button data-go="overview">Overview</button><button data-go="explore">Explore</button><button data-go="health">Health</button></nav>
   <script>
     (function () {
       const root = document.getElementById('header');
@@ -62,13 +69,167 @@
       root.querySelectorAll('nav button').forEach(b => b.addEventListener('click', () => set(b.dataset.go)));
       document.addEventListener('dp:select', () => set('explore'));
       document.addEventListener('dp:filter', () => set('explore'));
-      set('overview');
+      document.addEventListener('dp:project', () => set('map'));
+      set('map');
     })();
   </script>
 </header>
 <script type="application/json" id="data-graph">
 {"built": "2026-10-30T00:00", "notes": [{"path": "proj/note.md", "id": "note", "project": "proj", "title": "Example", "kind": "note", "updated": "2026-10-30", "superseded_by": [], "line": 1, "text": ["# Example"]}], "entities": [], "relations": [], "edges": [], "checks": [], "review": [], "proposed": []}
 </script>
+<section id="map" class="card" data-span="full" data-tab="map">
+  <style>
+    #map svg { width: 100%; min-width: 640px; height: auto; display: block; }
+    #map .link-line { stroke: var(--faint); fill: none; }
+    #map .proj circle { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.4; }
+    #map .area rect { fill: var(--warm-soft); stroke: var(--warm); stroke-width: 1.4; }
+    #map .node { cursor: pointer; }
+    #map .node:hover circle, #map .node:hover rect { stroke-width: 2.6; }
+    #map .node text { font: 11px var(--sans); fill: var(--ink); text-anchor: middle; }
+    #map .legend { font-size: 12px; color: var(--muted); margin: 6px 0 0; }
+  </style>
+  <h2>The memory as a graph</h2>
+  <div class="scroll"><svg viewBox="0 0 1000 620" role="img" aria-label="projects and general memory areas linked by shared lineage and shared tables or models"></svg></div>
+  <p class="legend">Circles are projects, squares are general memory (preferences, reporting rules, terms, corrections, how-tos, saved answers); size is the number of notes. A line joins two areas that build on each other's notes or share tables, models or terms; each keeps its three strongest links, and hub tables count less. Select one to see its history below.</p>
+  <script>
+    (function () {
+      const g = DP.read('data-graph'), svg = document.querySelector('#map svg'), NS = 'http://www.w3.org/2000/svg';
+      const GENERAL = new Set(['prefs', 'reporting', 'glossary', 'corrections', 'howto', 'qa']);
+      const mk = (tag, attrs, text) => { const e = document.createElementNS(NS, tag); for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v); if (text != null) e.textContent = text; return e; };
+      const area = path => path.includes('/') ? path.split('/')[0] : '(root)';
+      const count = {};
+      g.notes.forEach(n => { const p = n.project || '(root)'; if (p !== 'log') count[p] = (count[p] || 0) + 1; });
+      const w = {};
+      const add = (a, b, x) => { if (a === b || !(a in count) || !(b in count)) return; const k = a < b ? a + '|' + b : b + '|' + a; w[k] = (w[k] || 0) + x; };
+      g.edges.forEach(e => add(area(e.src), area(e.dst), 1));
+      g.entities.forEach(e => {
+        const ps = [...new Set(e.mentions.map(m => area(m.path)))].filter(p => p in count);
+        for (let i = 0; i < ps.length; i++) for (let j = i + 1; j < ps.length; j++) add(ps[i], ps[j], 1 / (ps.length - 1));
+      });
+      const best = {};
+      Object.entries(w).forEach(([k, v]) => k.split('|').forEach(a => (best[a] ||= []).push([k, v])));
+      const keep = new Set();
+      Object.values(best).forEach(l => l.sort((x, y) => y[1] - x[1]).slice(0, 3).forEach(([k]) => keep.add(k)));
+      const links = [...keep].map(k => { const [a, b] = k.split('|'); return { a, b, w: w[k] }; });
+      const W = 1000, H = 620, nodes = Object.keys(count).sort().map(id => ({ id, n: count[id], general: GENERAL.has(id), r: 3 + 1.5 * Math.sqrt(count[id]) }));
+      const at = Object.fromEntries(nodes.map(n => [n.id, n]));
+      nodes.forEach((n, i) => { const a = 2 * Math.PI * i / nodes.length; n.x = W / 2 + Math.cos(a) * 280; n.y = H / 2 + Math.sin(a) * 230; });
+      const K = Math.sqrt(W * H / Math.max(1, nodes.length)) * 0.95, STEPS = 500;
+      for (let it = 0; it < STEPS; it++) {  // Fruchterman-Reingold, cooled; deterministic start
+        const temp = 9 * (1 - it / STEPS) + 0.4, d = Object.fromEntries(nodes.map(n => [n.id, [0, 0]]));
+        for (let i = 0; i < nodes.length; i++) for (let j = i + 1; j < nodes.length; j++) {
+          const p = nodes[i], q = nodes[j], x = p.x - q.x, y = p.y - q.y, r = Math.max(1, Math.hypot(x, y)), f = K * K / r;
+          d[p.id][0] += x / r * f; d[p.id][1] += y / r * f; d[q.id][0] -= x / r * f; d[q.id][1] -= y / r * f;
+        }
+        links.forEach(l => {
+          const p = at[l.a], q = at[l.b], x = p.x - q.x, y = p.y - q.y, r = Math.max(1, Math.hypot(x, y)), f = r * r / K * Math.min(1, 0.35 + l.w / 6);
+          d[p.id][0] -= x / r * f; d[p.id][1] -= y / r * f; d[q.id][0] += x / r * f; d[q.id][1] += y / r * f;
+        });
+        nodes.forEach(n => {
+          const [x, y] = d[n.id], r = Math.max(1, Math.hypot(x, y));
+          n.x += x / r * Math.min(r, temp) + (W / 2 - n.x) * 0.002; n.y += y / r * Math.min(r, temp) + (H / 2 - n.y) * 0.002;
+        });
+      }
+      const xs = nodes.map(n => n.x), ys = nodes.map(n => n.y), x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
+      nodes.forEach(n => {  // fill the drawing, leaving room for labels
+        n.x = 90 + (W - 180) * (n.x - x0) / Math.max(1, x1 - x0);
+        n.y = 30 + (H - 70) * (n.y - y0) / Math.max(1, y1 - y0);
+      });
+      links.forEach(l => svg.append(mk('line', { class: 'link-line', x1: at[l.a].x, y1: at[l.a].y, x2: at[l.b].x, y2: at[l.b].y, 'stroke-width': (0.6 + Math.log2(1 + l.w) * 0.9).toFixed(2), 'stroke-opacity': 0.8 })));
+      nodes.forEach(n => {
+        const el = mk('g', { class: 'node ' + (n.general ? 'area' : 'proj'), transform: `translate(${n.x.toFixed(1)},${n.y.toFixed(1)})`, tabindex: 0, role: 'button' });
+        el.append(n.general ? mk('rect', { x: -n.r, y: -n.r, width: 2 * n.r, height: 2 * n.r, rx: 2 }) : mk('circle', { r: n.r }));
+        el.append(mk('text', { y: n.r + 12 }, n.id), mk('title', {}, `${n.id}: ${n.n} notes`));
+        const go = () => document.dispatchEvent(new CustomEvent('dp:project', { detail: { project: n.id } }));
+        el.addEventListener('click', go);
+        el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+        svg.append(el);
+      });
+    })();
+  </script>
+</section>
+<section id="lanes" class="card" data-span="full" data-tab="map">
+  <style>
+    #lanes .bar { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; }
+    #lanes select { font: inherit; padding: 4px 6px; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); border-radius: 4px; }
+    #lanes svg { width: 100%; min-width: 760px; height: auto; display: block; margin-top: 8px; }
+    #lanes .lane-label { font: italic 12px var(--serif); fill: var(--muted); }
+    #lanes .lane-rule { stroke: var(--rule); }
+    #lanes .tick { font: 10.5px var(--mono); fill: var(--faint); }
+    #lanes .e-from { stroke: var(--accent); stroke-opacity: 0.55; fill: none; }
+    #lanes .e-sup { stroke: var(--warm); stroke-dasharray: 4 3; fill: none; }
+    #lanes .e-refs { stroke: var(--faint); stroke-dasharray: 1 3; fill: none; }
+    #lanes .note { cursor: pointer; }
+    #lanes .note circle { fill: var(--accent); stroke: var(--paper); stroke-width: 1.5; }
+    #lanes .note.old circle { fill: var(--paper); stroke: var(--warm); stroke-width: 1.5; }
+    #lanes .note text { font: 10.5px var(--sans); fill: var(--ink); }
+    #lanes .note.old text { fill: var(--muted); text-decoration: line-through; }
+    #lanes .note:hover circle { stroke: var(--ink); }
+    #lanes .legend { font-size: 12px; color: var(--muted); margin: 6px 0 0; }
+    #lanes .legend .k-from { color: var(--accent); }
+  </style>
+  <div class="bar"><h2 class="title">Project history</h2><label for="lanes-project" class="muted">project</label><select id="lanes-project"></select><span class="sum muted"></span></div>
+  <div class="scroll"><svg role="img" aria-label="one project's notes by kind over time, with what each built on and what it replaced"></svg></div>
+  <p class="legend">Each dot is a note, placed by kind and date. <span class="k-from">Blue lines</span>: built on (from:). <span class="warm">Dashed</span>: replaced by a newer note; hollow, struck dots are history. Dotted: mentions. Select a dot to read the note.</p>
+  <script>
+    (function () {
+      const g = DP.read('data-graph'), root = document.getElementById('lanes'), svg = root.querySelector('svg'), sel = root.querySelector('select'), NS = 'http://www.w3.org/2000/svg';
+      const mk = (tag, attrs, text) => { const e = document.createElementNS(NS, tag); for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v); if (text != null) e.textContent = text; return e; };
+      const ORDER = ['question', 'dataset', 'feature', 'model', 'experiment', 'finding', 'decision', 'metric', 'term', 'concept', 'preference', 'rule', 'note'];
+      const notes = g.notes.filter(n => n.project && n.project !== 'log');
+      const projects = [...new Set(notes.map(n => n.project))].sort();
+      projects.forEach(p => sel.append(DP.el('option', { value: p }, p)));
+      const short = s => s.length > 20 ? s.slice(0, 19) + '…' : s;
+      function draw(p) {
+        if (!projects.includes(p)) return;
+        sel.value = p;
+        svg.replaceChildren();
+        const ns = notes.filter(n => n.project === p).sort((a, b) => a.updated.localeCompare(b.updated) || a.path.localeCompare(b.path));
+        const kinds = ORDER.filter(k => ns.some(n => n.kind === k)).concat([...new Set(ns.map(n => n.kind))].filter(k => !ORDER.includes(k)));
+        const W = 1100, L = 120, R = 150, laneH = 64, top = 18, H = top + kinds.length * laneH + 28;
+        const ts = ns.map(n => Date.parse(n.updated)), t0 = Math.min(...ts), t1 = Math.max(...ts), span = Math.max(864e5, t1 - t0);
+        const X = t => L + (W - L - R) * (t - t0) / span;
+        svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+        kinds.forEach((k, i) => {
+          const y = top + i * laneH + laneH / 2;
+          svg.append(mk('line', { class: 'lane-rule', x1: L - 8, x2: W - 10, y1: y, y2: y }), mk('text', { class: 'lane-label', x: 8, y: y + 4 }, k));
+        });
+        const months = [];
+        for (let d = new Date(t0); d <= new Date(t1 + 864e5 * 31); d.setMonth(d.getMonth() + 1)) months.push(new Date(d.getFullYear(), d.getMonth(), 1));
+        const every = Math.max(1, Math.ceil(months.length / 12));
+        months.forEach((d, i) => { const x = X(d.getTime()); if (i % every === 0 && x >= L - 40 && x <= W - R + 40) svg.append(mk('text', { class: 'tick', x, y: H - 8, 'text-anchor': 'middle' }, d.toISOString().slice(0, 7))); });
+        const pos = {}, placed = {};
+        ns.forEach(n => {
+          const lane = kinds.indexOf(n.kind), x = X(Date.parse(n.updated)), near = (placed[lane] ||= []).filter(v => Math.abs(v - x) < 70).length;
+          placed[lane].push(x);
+          const off = [0, -16, 16, -32, 32, -8, 8, -24, 24][near % 9];
+          pos[n.path] = { x, y: top + lane * laneH + laneH / 2 + off };
+        });
+        const inP = new Set(ns.map(n => n.path));
+        g.edges.filter(e => inP.has(e.src) && inP.has(e.dst)).forEach(e => {
+          const a = pos[e.src], b = pos[e.dst], mx = (a.x + b.x) / 2;
+          svg.append(mk('path', { class: e.rel === 'from' ? 'e-from' : e.rel === 'supersedes' ? 'e-sup' : 'e-refs', d: `M${a.x},${a.y} C${mx},${a.y} ${mx},${b.y} ${b.x},${b.y}` }));
+        });
+        ns.forEach(n => {
+          const { x, y } = pos[n.path], old = n.superseded_by.length > 0;
+          const el = mk('g', { class: 'note' + (old ? ' old' : ''), transform: `translate(${x.toFixed(1)},${y.toFixed(1)})`, tabindex: 0, role: 'button' });
+          el.append(mk('circle', { r: 5 }), mk('text', { x: 8, y: 4 }, short(n.id)), mk('title', {}, `${n.title || n.id} · ${n.kind} · ${n.updated}` + (old ? ' · replaced' : '')));
+          const go = () => document.dispatchEvent(new CustomEvent('dp:select', { detail: { note: n.path } }));
+          el.addEventListener('click', go);
+          el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+          svg.append(el);
+        });
+        const sup = ns.filter(n => n.superseded_by.length).length;
+        root.querySelector('.sum').textContent = `${ns.length} notes · ${sup} replaced · ${ns[0].updated} to ${ns[ns.length - 1].updated}`;
+      }
+      sel.addEventListener('change', () => draw(sel.value));
+      document.addEventListener('dp:project', e => draw(e.detail.project));
+      const counts = {};
+      g.edges.forEach(e => { const p = e.src.split('/')[0]; counts[p] = (counts[p] || 0) + 1; });
+      draw(projects.includes('churn-2026') ? 'churn-2026' : projects.sort((a, b) => (counts[b] || 0) - (counts[a] || 0))[0]);
+    })();
+  </script>
+</section>
 <section id="overview" class="card" data-span="full" data-tab="overview">
   <style>
     #overview .kinds { color: var(--muted); font-size: 12.5px; }
@@ -76,7 +237,7 @@
   </style>
   <p class="stats muted"></p>
   <h2>Projects and areas</h2>
-  <table><thead><tr><th>area</th><th class="num">notes</th><th>kinds</th><th>updated</th><th class="num">superseded</th><th class="num">warnings</th></tr></thead><tbody></tbody></table>
+  <div class="scroll"><table><thead><tr><th>area</th><th class="num">notes</th><th>kinds</th><th>updated</th><th class="num">superseded</th><th class="num">warnings</th></tr></thead><tbody></tbody></table></div>
   <script>
     (function () {
       const g = DP.read('data-graph'), body = document.querySelector('#overview tbody');
@@ -94,7 +255,7 @@
         const last = ns.map(n => n.updated).sort().pop();
         const sup = ns.filter(n => n.superseded_by.length).length;
         body.append(DP.el('tr', {},
-          DP.el('td', {}, DP.el('span', { class: 'link', onclick: () => document.dispatchEvent(new CustomEvent('dp:filter', { detail: { project: p } })) }, p)),
+          DP.el('td', {}, DP.el('span', { class: 'link', onclick: () => document.dispatchEvent(new CustomEvent('dp:project', { detail: { project: p } })) }, p)),
           DP.el('td', { class: 'num' }, ns.length), DP.el('td', { class: 'kinds' }, ktxt), DP.el('td', { class: 'mono' }, last),
           DP.el('td', { class: 'num' }, sup || ''), DP.el('td', { class: 'num warm' }, warns[p] || '')));
       }
@@ -289,13 +450,17 @@
   <style>
     #footer { color: var(--muted); font-size: 12px; }
   </style>
-  <p>Notes in memory/ are the truth; this page is derived. Regenerate with <span class="mono">memory.py viz</span>. Links: <span class="mono">#overview</span> · <span class="mono">#health</span> · <span class="mono">#note=&lt;path&gt;</span> · <span class="mono">#entity=&lt;id&gt;</span>.</p>
+  <p>Notes in memory/ are the truth; this page is derived. Regenerate with <span class="mono">memory.py viz</span>. Links: <span class="mono">#map</span> · <span class="mono">#overview</span> · <span class="mono">#health</span> · <span class="mono">#note=&lt;path&gt;</span> · <span class="mono">#entity=&lt;id&gt;</span>.</p>
   <script>
     (function () {
-      const h = decodeURIComponent(location.hash.slice(1));
-      const m = h.match(/^(note|entity)=(.+)$/);
-      if (m) document.dispatchEvent(new CustomEvent('dp:select', { detail: { [m[1]]: m[2] } }));
-      else if (h === 'health' || h === 'explore' || h === 'overview') document.querySelector(`#header nav button[data-go="${h}"]`).click();
+      const route = () => {
+        const h = decodeURIComponent(location.hash.slice(1));
+        const m = h.match(/^(note|entity)=(.+)$/);
+        if (m) document.dispatchEvent(new CustomEvent('dp:select', { detail: { [m[1]]: m[2] } }));
+        else if (['map', 'overview', 'explore', 'health'].includes(h)) document.querySelector(`#header nav button[data-go="${h}"]`).click();
+      };
+      route();
+      window.addEventListener('hashchange', route);
     })();
   </script>
 </footer>
