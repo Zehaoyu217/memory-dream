@@ -43,7 +43,7 @@ for cell, runs in sorted(cells.items()):
         "cost_units": round(sum(units(usage[r]) for r in runs) / n),
         "secs": round(sum(harness[r]["ms"] for r in runs if r in harness) / max(1, sum(r in harness for r in runs)) / 1000),
     }
-for size in ("S", "B", "Bn", "X"):
+for size in ("S", "B", "Bn", "X", "G"):  # G: phase F, real Haiku index, n = 3 batches per arm
     m, gname = out.get(f"{size}-mem"), out.get(f"{'B' if size == 'Bn' else size}-grep")
     if m and gname:
         out[f"{size}-mem/grep"] = {k: round(m[k] / gname[k], 2) for k in ("tool_calls", "requests", "processed_tokens", "cost_units", "secs")}
