@@ -184,6 +184,12 @@ stronger judge; a write-path eval (agents writing notes under SKILL.md, then dre
 **Offline part done 2026-10-31** (RESULTS.md, "Phase E"): `--must` (242 → 252 complete answers), `adversarial.py`
 (stale trap: successor first 0.70 → 0.95 after a one-line ranking rule, old note marked 1.00; scattered evidence
 0.66 at 1/6.7 of the folder-`cat` characters; alias questions 0.93 with or without the index vs 0.43 for grep).
+**Phase F (RESULTS.md "Phase F")**: the five improvements of the re-review, each measured (lineage one-liners kept at
+4; quiet model-free path; precision metric; `taste()` left as is after five variants lost; the index question
+answered with a real index), then the graph contract (`CONTRACT.md`, `schema: 1`, `check` validates, A38), a second
+free-money pass (version and same-title conflict candidates, open questions in the digest, C11; cross-project refs
+measured nil and dropped), a cache-aware dreamer (−32% per note, convergence 1.06×) and the rebuilt viewer.
+
 Agent runs (RESULTS E3, E4): one memory/grep pair on ten questions, the grep arm allowed to `cat` folders — 7/3/0
 against 8/2/0 correct/partial/wrong, tool calls 7 against 31, tokens and time about equal in this single pair; one
 write-path run — eight notes from a six-line session, lineage right (three supersessions, two preferences in

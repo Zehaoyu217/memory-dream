@@ -173,7 +173,7 @@ hash in `_dream/store.db` so a dream re-reads only changed notes.
   and any body slug that names a note in the same project.
 - Warnings: C1 ambiguous, C2 not found, C3 indexing failed, C4 dropped ungrounded entity/relation, C5 unindexed,
   C6 no `# ` line, C7 review pending (labels, budget), C8 bad EDGES/ALIASES/CONFLICTS line, C9 NUL bytes in a note
-  (binary-looking), C10 conflict pending.
+  (binary-looking), C10 conflict pending, C11 a note over 40 lines.
 
 ### 5.5 The graph, vocabulary half (`build`, `merge_entities`)
 
@@ -193,9 +193,10 @@ only note-to-note links. A label is offered to the review once it clears `promot
 (EDGES.md); the review answers `alias T`, `alias ~T`, `label`, `drop` or `new: <definition>`, and the code admits
 `new` only under `budget: 24` types, writing `- <type> (proposed <date>): …`; a proposed type still under the bar
 after `probation: 60 days` is demoted to a label (0 calls). `pack: software | research | ops` adds domain types.
-Conflicts: live notes of one kind (decision, model, finding) in one area, unlinked, sharing an id-like title token or
-two rare words, are queued (C10, 20 per review); verdicts persist in `memory/CONFLICTS.md` (`- a > b` becomes lineage,
-`compatible: a / b`, `- a ? b`); notes are never edited.
+Conflicts: two live `…-vN` siblings in one area, two live notes with the same title, or live notes of one kind
+(decision, model, finding) in one area, unlinked, sharing an id-like title token or two rare words, are queued (C10,
+20 per review); verdicts persist in `memory/CONFLICTS.md` (`- a > b` becomes lineage, `compatible: a / b`, `- a ? b`);
+notes are never edited.
 
 The seed vocabulary (8 types): `uses`, `produces`, `part-of`, `trained-on`, `evaluated-on`, `measured-by`,
 `replaces`, `owned-by` (full alias lists in `EDGES_SEED`). Evidence: 81% of 5,196 extracted links fit them and 365 of
@@ -218,16 +219,20 @@ constants, each with the measurement that set it.
   (`Known`, one sort per wave), so ids are reused and the prompt stops growing (~2.2k tokens plus the CLI's own ~4.8k).
 - **Grounding** (`ground`): an entity survives only if one of its `as` strings occurs in the note; a relation only if
   its quote occurs. Dropped ones are counted (C4).
-- **Command mode** (`MEMORY_LLM` set): waves of `-j` parallel calls, one retry for unusable answers.
-  **No model**: nothing is written for a helper and `check` summarises C5 in one line; **`--prompts`** writes the
-  prompts to `_dream/pending/` for the `memory-dreamer` subagent and ingests its answers on the next dream.
+- **Command mode** (`MEMORY_LLM` set): waves of `-j` parallel calls, one retry for unusable answers; notes ordered by
+  project then date, one KNOWN per project (big memories: refreshed at most every 10 waves) so every call of a project
+  shares one byte-identical prefix; its length goes to the command in `MEMORY_STATIC_PREFIX`, and `tests/haiku_cmd.py`
+  puts that prefix in the system prompt, which `claude -p` caches (−32% per note on the sample, convergence 1.06×).
+  Note text is capped at 16k characters. **No model**: nothing is written for a helper and `check` summarises C5 in
+  one line; **`--prompts`** writes the prompts to `_dream/pending/` for the `memory-dreamer` subagent and ingests its
+  answers on the next dream.
 - **Review** (`REVIEW`, one call when due): labels over the bar (`alias T`, `alias ~T`, `new: <definition>`,
   `label`, `drop`), entity pairs (`same` / `different`), conflicts (`a supersedes b`, `compatible`, `unsure`). At most
   40 labels, 30 pairs and 20 conflicts per dream; the code, not the prompt, enforces bar, budget and offered pairs.
 - **Cache**: one JSON per content hash in `_dream/notes/<sha12>.json` (the source), mirrored in `store.db`; kept
   30 days after last use so reverted edits cost nothing.
 - **Outputs**: `index.db` (always), `memory/DIGEST.md` (≤ 40 lines: how to ask, `prefs/me-*`, the ten newest live
-  decisions and models; import it from CLAUDE.md with `@memory/DIGEST.md`), plus `graph.json` + `graph.html` up to
+  decisions and models, up to eight open questions; import it from CLAUDE.md with `@memory/DIGEST.md`), plus `graph.json` + `graph.html` up to
   `MEMORY_WIDE` (10,000) notes, or an overview `graph.html` and `viz/<area>.html` pages past it. A dream with nothing
   new (same hashes, vocabulary and script hash, no review due, every extraction file and the digest present) stops
   after the scan; a changed `memory.py` rebuilds the graph once with 0 calls.
@@ -275,6 +280,14 @@ Per question:
 | patch on read | notes changed since the dream are re-read from text (lineage now, entities at the next dream) | no 90 s rebuild inside `ask` |
 | viewer split | overview (120 best-linked areas, filterable table, health) + `viz/<area>.html`, redrawn when the area's notes, lineage, entity ids or relations change (`viz/_sig.json`) | one 372 MB page → 2.4 MB + ~110 KB per area |
 | `notes_part` reuse | after a review only the vocabulary half is rebuilt | halves the dream when a review applies |
+
+### 5.8b The graph contract
+
+`.specs/memory-dream/CONTRACT.md` is the authority on every shape `memory.py` writes and reads: the graph (`graph.json`,
+`index.db`), the viewer's data island, the extraction cache, `store.db`, the manifest, the warning codes C1–C11 and the
+grammar of EDGES.md, ALIASES.md, CONFLICTS.md and DIGEST.md. Every graph carries `schema: 1`; `validate()` checks a
+graph against the contract, `memory.py check` prints the result first, and A38 enforces it on the fixture (graph,
+`index.db` round trip, island). Build the viewer against the contract, never against the code.
 
 ### 5.9 Viewer (`assets/viz.html`)
 
@@ -325,7 +338,8 @@ plain-word project name scopes the search, A27 NUL-byte notes (C9, still grepped
 two-hop taste (the task names the deck, the roster names the person), A30 kinds and general areas with no model, A31
 Claude Code's auto memory read and never written, A32 the digest, A33 Claude Code's frontmatter convention, A34 the
 promotion gate and packs, A35 probation and demotion, A36 the budget, A37 conflicts (queued, decided, recorded, never
-re-asked). Results are written to `tests/acceptance.json`.
+re-asked), A38 the graph contract (validation, `index.db` round trip, the viewer's island, C11, version and same-title
+conflict candidates, open questions in the digest). Results are written to `tests/acceptance.json`.
 
 ---
 

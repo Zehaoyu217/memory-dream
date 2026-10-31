@@ -57,6 +57,45 @@ is unchanged except that its comment now says what each rule is worth.
 
 ## F4 — is the index worth anything to answers? (one real run; see below once the Haiku index of the bank is in)
 
+## F6 — the graph contract (`.specs/memory-dream/CONTRACT.md`)
+
+The shapes `memory.py` writes and reads are now written down field by field with their invariants: the graph
+(`graph.json`, `index.db`), the viewer's data island, the extraction cache, `store.db`, the manifest, the warning codes
+and the grammar of the four user-owned files. Every graph carries `schema: 1`; `memory.py check` prints
+`contract: schema 1 ok` or the violations; test A38 validates the fixture's graph, round-trips `index.db` to the same
+notes, edges and relations, and parses the viewer's island. The viewer was rebuilt on this contract and derives
+everything else client-side.
+
+## F7 — another pass for free money (model-free, measured on the bank)
+
+| idea | result | kept |
+|---|---|---|
+| two live `…-vN` siblings, or two live notes with the same title, as conflict candidates (a missing `supersedes:` is almost certain) | 0 such pairs on the bank (its versions all carry `supersedes:`); the fixture test queues `churn-xgb-v3 / churn-xgb-v4` and a restated decision | yes: high precision by construction, 0 noise where lineage is kept |
+| open questions in the digest: question notes no finding or decision builds on | 51 on the bank; the digest stays 25 lines | yes |
+| C11: a note over 40 lines (SKILL.md's own rule, never checked) | 0 on the bank and the fixture; fires on a 42-line note | yes |
+| cross-project body slugs as `refs` when the stem is unique anywhere | +67 links; gold 0.920 → 0.916, numbers 0.975 → 0.976, precision unchanged, scattered evidence 0.730 → 0.726 | no: nil for answers, so the simpler same-project rule stays |
+| a recency tie-break for "current" questions (phase E) | no change on 40 questions | no |
+| a table of contents of the named project (phase A) | +2.9k characters per scoped question | no |
+
+## F8 — the dreamer: cache the prefix, keep every call small
+
+`claude -p` caches its system prompt across calls, not the message; so the prompt's static part (template, EDGES,
+KNOWN) now goes into the system prompt (`--append-system-prompt` in `tests/haiku_cmd.py`, told its length through
+`MEMORY_STATIC_PREFIX`), notes are indexed project by project with one KNOWN per project (big memories: refreshed at
+most every 10 waves), and note text is capped at 16k characters so no call grows large.
+
+| 70-note sample, Haiku | before | cache-aware |
+|---|---|---|
+| cost per note | $0.0022 | **$0.0015 (−32%)** |
+| input tokens per call (median) | 5,350, none cached | 5,314: **3,331 read from cache**, 1,518 written, 2 fresh |
+| output tokens per call (median) | 2,232 | 1,618 (−28%) |
+| seconds per call | 11.5 | 8.9 |
+| graph | 56 entities, 132 relations (23 labels), 0 C4 | 74 entities, 122 relations (15 labels), 1 C4 |
+| fixture A3/A18 with real Haiku (30 notes) | round 1: $0.0452, convergence 1.05× | **$0.0374**, convergence 1.12× after one pass, **1.06× after the review** (target ≤ 1.2×); the one split left is `cards.txn_daily / txn-table`, as in round 1 |
+
+The entity count on the sample moved (74 against 56); the fixture's convergence check says dedup still holds, so the
+difference is in what Haiku chose to extract, not in merging. Review calls are one per dream and need no caching.
+
 # Phase E (2026-10-31) — an evaluation that measures the claim
 
 `REVIEW.md` F12 and phase E. New tooling: `eval/retrieval.py --must` (gold notes that are superseded count as history),

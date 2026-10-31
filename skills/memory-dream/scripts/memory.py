@@ -30,7 +30,9 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 V = "0.4"
+SCHEMA = 1  # the graph contract (.specs/memory-dream/CONTRACT.md): bumped when a field changes meaning
 CODE = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()[:12]  # a changed script rebuilds the graph once, 0 calls
+NOTE_MAX_LINES = 40  # SKILL.md's own rule; over it is C11
 SKIP = {"INDEX.md", "EDGES.md", "ALIASES.md", "CONFLICTS.md", "README.md", "DIGEST.md"}
 # Kinds without a model (REVIEW.md F6): filename prefixes cover 71% of the test bank; the area names the rest.
 PREFIX_KIND = {"exp": "experiment", "feat": "feature", "ds": "dataset", "dec": "decision", "fnd": "finding",
@@ -362,6 +364,7 @@ def note_facts(text):
     fm, title, tline, links = parse_note(text)
     return {"fm": {k: fm[k] for k in ("from", "supersedes", "type", "updated", "modified") if k in fm}, "title": title,
             "line": tline, "links": links, "nul": "\x00" in text,  # binary-looking: C9
+            "lines": text.count("\n") + (0 if text.endswith("\n") or not text else 1),  # over 40: C11
             "ids": sorted(set(SLUG.findall(text.lower().split("\n", tline)[-1]))) if tline else []}
 
 
@@ -564,27 +567,51 @@ def idlike(t):
 
 
 def conflict_candidates(notes, edges, decided):
-    """Pairs of live notes of one kind in one area, not linked by lineage, sharing an id-like title token or two
-    title words rare among that area's notes of the kind (bank: 282 → 38 candidates, both known true positives kept).
-    `decided` pairs (unsure) are marked so the review is not asked again."""
+    """Pairs of live notes in one area, not linked by lineage, that may disagree: two `…-vN` siblings (any kind), two
+    notes with the same title, or two notes of a decision/model/finding kind sharing an id-like title token or two
+    title words rare among that area's notes of the kind (bank: 282 → 38 with the token rule alone, both known true
+    positives kept). `decided` pairs (unsure) are marked so the review is not asked again."""
     linked = {frozenset((e["src"], e["dst"])) for e in edges}
+    live = [n for n in notes.values() if not n["superseded_by"] and n["project"] != "log"]
+    out, seen = [], set()
+
+    def add(a, b, shared):
+        key = frozenset((a, b))
+        if key in linked or key in seen:
+            return
+        seen.add(key)
+        out.append({"a": min(a, b), "b": max(a, b), "shared": shared, "unsure": key in decided})
+
+    by_ver = defaultdict(list)  # feat-x-v2 / feat-x-v3 both live and unlinked: almost always a missing supersedes:
+    for n in live:
+        if re.search(r"-v\d+$", n["id"]):
+            by_ver[(n["project"], re.sub(r"-v\d+$", "", n["id"]))].append(n["path"])
+    for ps in by_ver.values():
+        for i, a in enumerate(sorted(ps)):
+            for b in sorted(ps)[i + 1:]:
+                add(a, b, ["version"])
+    by_title = defaultdict(list)
+    for n in live:
+        if n["title"]:
+            by_title[(n["project"], n["title"].strip().lower())].append(n["path"])
+    for ps in by_title.values():
+        for i, a in enumerate(sorted(ps)):
+            for b in sorted(ps)[i + 1:]:
+                add(a, b, ["same title"])
     by = defaultdict(list)
-    for n in notes.values():
-        if not n["superseded_by"] and n["kind"] in CONFLICT_KINDS and n["project"] != "log":
+    for n in live:
+        if n["kind"] in CONFLICT_KINDS:
             by[(n["project"], n["kind"])].append(n)
-    out = []
     for ns in by.values():
         toks = {n["path"]: title_tokens(n["title"]) for n in ns}
         freq = Counter(t for ts in toks.values() for t in ts)
         ps = sorted(toks)
         for i, a in enumerate(ps):
             for b in ps[i + 1:]:
-                if frozenset((a, b)) in linked:
-                    continue
                 shared = sorted(t for t in toks[a] & toks[b] if freq[t] <= 3)
                 if len(shared) >= 2 or any(idlike(t) for t in shared):
-                    out.append({"a": a, "b": b, "shared": shared, "unsure": frozenset((a, b)) in decided})
-    out.sort(key=lambda c: (c["unsure"], -len(c["shared"]), c["a"], c["b"]))
+                    add(a, b, shared)
+    out.sort(key=lambda c: (c["unsure"], c["shared"] not in (["version"], ["same title"]), -len(c["shared"]), c["a"], c["b"]))
     return out
 
 
@@ -772,6 +799,8 @@ def notes_part(root, man, cur, former, xs=None, facts=None):
             checks.append(("C6", f"{rel}: no '# ' line"))
         if f.get("nul"):
             checks.append(("C9", f"{rel}: contains NUL bytes (binary-looking); keep notes plain text"))
+        if f.get("lines", 0) > NOTE_MAX_LINES and proj != "log":
+            checks.append(("C11", f"{rel}: {f['lines']} lines, over the 40-line rule; split it, or move detail to a new note"))
         if not x:
             checks.append(("C3" if h[:12] in man.get("failed", {}) else "C5", f"{rel}: unindexed"))
         else:
@@ -813,6 +842,8 @@ def notes_part(root, man, cur, former, xs=None, facts=None):
                     edges.append({"src": rel, "dst": dst, "rel": kind})
         x = aux[rel]["x"] or {}
         proj = rel.split("/")[0]
+        # a slug written in the body names a note of the same project (cross-project slugs measured nil for answers:
+        # 67 links on the bank, gold 0.920 → 0.916, RESULTS phase F)
         mentioned = [i for i in aux[rel]["ids"] if any(p_.split("/")[0] == proj for p_ in by_stem.get(i, []))]
         for v in aux[rel]["links"] + list(x.get("refs") or []) + sorted(mentioned):  # a slug written in the body points at that note
             dst = resolve(v, rel)[0]
@@ -932,7 +963,7 @@ def build(root, man, cur, former, et, at, xs=None, now=None, facts=None, base=No
     conflicts = [c for c in conflict_candidates(notes, edges, unsure) if frozenset((c["a"], c["b"])) not in compat]
     checks += [("C10", f"conflict pending: {c['a']} / {c['b']} — both live, share: {', '.join(c['shared'][:3])}"
                 + (" · reviewer unsure, a person decides" if c["unsure"] else "")) for c in conflicts]
-    return {"v": V, "built": now.strftime("%Y-%m-%dT%H:%M"),
+    return {"schema": SCHEMA, "v": V, "built": now.strftime("%Y-%m-%dT%H:%M"),
             "notes": [notes[p] for p in sorted(notes)],
             "entities": [ents[c] for c in sorted(ents, key=fold)],
             "relations": sorted(rels.values(), key=lambda r: (fold(r["s"]), r["type"], fold(r["o"]))),
@@ -946,6 +977,69 @@ def build(root, man, cur, former, et, at, xs=None, now=None, facts=None, base=No
 def vocab_texts(root):
     e, a = root / "EDGES.md", root / "ALIASES.md"
     return (read(e) if e.exists() else EDGES_SEED), (read(a) if a.exists() else ALIASES_HEAD)
+
+
+def validate(g, types=None):
+    """The graph against CONTRACT.md §1 -> a list of problems (empty when it conforms). `types`: the vocabulary's
+    type names, when known, to check relation types."""
+    bad = []
+    for k, t in (("schema", int), ("v", str), ("built", str), ("notes", list), ("entities", list), ("relations", list),
+                 ("edges", list), ("proposed", list), ("review", list), ("conflicts", list), ("vocab", dict), ("checks", list)):
+        if not isinstance(g.get(k), t):
+            bad.append(f"{k}: missing or not {t.__name__}")
+    if bad:
+        return bad
+    if g["schema"] != SCHEMA:
+        bad.append(f"schema {g['schema']} is not {SCHEMA}")
+    paths = {n["path"] for n in g["notes"]}
+    for n in g["notes"]:
+        for k in ("path", "id", "project", "title", "line", "kind", "updated", "superseded_by", "sha", "indexed"):
+            if k not in n:
+                bad.append(f"note {n.get('path')}: no {k}")
+        if n.get("id") != posixpath.basename(n["path"])[:-3]:
+            bad.append(f"note {n['path']}: id {n.get('id')!r} is not the filename")
+        if n.get("project") != (n["path"].split("/")[0] if "/" in n["path"] else ""):
+            bad.append(f"note {n['path']}: project {n.get('project')!r} is not the first path segment")
+        if not re.fullmatch(r"\d{4}-\d\d-\d\d", str(n.get("updated", ""))):
+            bad.append(f"note {n['path']}: updated {n.get('updated')!r} is not a date")
+        if n.get("kind") != str(n.get("kind", "")).lower():
+            bad.append(f"note {n['path']}: kind not lowercase")
+        bad += [f"note {n['path']}: superseded_by {s} is not a note" for s in n.get("superseded_by", []) if s not in paths]
+    sup_edges = {(e["src"], e["dst"]) for e in g["edges"] if e.get("rel") == "supersedes"}
+    for n in g["notes"]:
+        bad += [f"note {n['path']}: superseded_by {s} without a supersedes edge" for s in n.get("superseded_by", []) if (s, n["path"]) not in sup_edges]
+    seen = set()
+    for e in g["edges"]:
+        key = (e.get("src"), e.get("dst"), e.get("rel"))
+        if e.get("rel") not in ("from", "supersedes", "refs") or e.get("src") not in paths or e.get("dst") not in paths:
+            bad.append(f"edge {key}: bad rel or unknown note")
+        if key in seen:
+            bad.append(f"edge {key}: duplicate")
+        seen.add(key)
+    eids = {e["id"] for e in g["entities"]}
+    for e in g["entities"]:
+        for k in ("id", "type", "home", "aka", "names", "headline", "mentions"):
+            if k not in e:
+                bad.append(f"entity {e.get('id')}: no {k}")
+        for p in (e.get("home"), e.get("headline")):
+            if p is not None and p not in paths:
+                bad.append(f"entity {e['id']}: {p} is not a note")
+        bad += [f"entity {e['id']}: mention {m.get('path')} is not a note" for m in e.get("mentions", []) if m.get("path") not in paths]
+    for r in g["relations"]:
+        if r.get("s") not in eids or r.get("o") not in eids:
+            bad.append(f"relation {r.get('s')} {r.get('type')} {r.get('o')}: unknown entity")
+        t = str(r.get("type", ""))
+        if types is not None and not (t in types or t.startswith("other/")):
+            bad.append(f"relation {r['s']} {t} {r['o']}: type is not in the vocabulary nor other/<label>")
+        for ev in r.get("evidence", []):
+            m = re.fullmatch(r"(.+):(\d+)", ev)
+            if not m or m.group(1) not in paths or int(m.group(2)) < 1:
+                bad.append(f"relation {r['s']} {t} {r['o']}: evidence {ev!r} is not path:line of a note")
+    bad += [f"conflict {c.get('a')} / {c.get('b')}: unknown note" for c in g["conflicts"] if c.get("a") not in paths or c.get("b") not in paths]
+    bad += [f"check {c.get('code')}: unknown code" for c in g["checks"] if not re.fullmatch(r"C(?:[1-9]|1[01])", str(c.get("code", "")))]
+    if [c["code"] for c in g["checks"]] != sorted(c["code"] for c in g["checks"]):
+        bad.append("checks are not sorted by code")
+    return bad
 
 
 def conflicts_text(root):
@@ -1044,7 +1138,7 @@ class Store:
         for rel, f in cur.items():
             h, r = have.get(rel, (None, None))
             rec = json.loads(r) if h == f["sha"] else None
-            if rec is not None and "nul" in rec:  # rows written before the C9 field are re-read once
+            if rec is not None and "nul" in rec and "lines" in rec:  # rows written before the C9/C11 fields are re-read once
                 out[rel] = rec
             else:
                 out[rel] = note_facts(read(root / rel))
@@ -1095,7 +1189,7 @@ def write_index(dd, g):
         CREATE TABLE rels(s TEXT, type TEXT, o TEXT, ev TEXT);
         CREATE TABLE checks(code TEXT, msg TEXT);""")
     with db:
-        db.executemany("INSERT INTO meta VALUES (?,?)", [(k, json.dumps(g.get(k))) for k in ("v", "built", "proposed", "review", "dedup", "vocab", "conflicts")])
+        db.executemany("INSERT INTO meta VALUES (?,?)", [(k, json.dumps(g.get(k))) for k in ("schema", "v", "built", "proposed", "review", "dedup", "vocab", "conflicts")])
         db.executemany("INSERT INTO notes VALUES (?,?,?,?,?,?,?,?,?,?)",
                        ((n["path"], n["id"], n["project"], n["title"], n["line"], n["kind"], n["updated"], n["sha"],
                          int(n["indexed"]), json.dumps(n["superseded_by"])) for n in g["notes"]))
@@ -1595,6 +1689,10 @@ def write_digest(root, g, now):
     me = [n for n in notes if n["project"] == "prefs" and n["id"].startswith("me-") and not n["superseded_by"]]
     live = sorted((n for n in notes if not n["superseded_by"] and n["project"].lower() not in GENERAL
                    and n["kind"] in ("decision", "model")), key=lambda n: (n["updated"], n["path"]), reverse=True)
+    answered = {e["dst"] for e in g["edges"] if e["rel"] in ("from", "refs")  # a finding or decision built on the question
+                and any(m["path"] == e["src"] and m["kind"] in ("finding", "decision") for m in [next(x for x in g["notes"] if x["path"] == e["src"])])}
+    open_q = sorted((n for n in notes if n["kind"] == "question" and not n["superseded_by"] and n["path"] not in answered),
+                    key=lambda n: (n["updated"], n["path"]), reverse=True)
     lines = ["<!-- written by memory.py dream; edit nothing here. To keep it in context every session, import it from "
              "CLAUDE.md with the line: @memory/DIGEST.md -->",
              f"# memory digest · {now.date().isoformat()} · {len(notes)} notes in {len(areas)} areas",
@@ -1606,6 +1704,9 @@ def write_digest(root, g, now):
     if live:
         lines += ["", "## current: the newest live decisions and models"] + \
                  [f"- {n['updated']} {n['project']}: {n['title'][:120]}" for n in live[:DIGEST_HEADS]]
+    if open_q:  # free from kinds and lineage: what is asked and not yet answered
+        lines += ["", f"## open questions ({len(open_q)}): no finding or decision builds on them yet"] + \
+                 [f"- {n['updated']} {n['project']}: {n['title'][:120]}" for n in open_q[:8]]
     wr(root / "DIGEST.md", "\n".join(lines[:DIGEST_MAX_LINES]) + "\n")
 
 
@@ -1743,6 +1844,8 @@ def check(args, root):
               f"{d.get('kept_by_aliases_md', 0)} by ALIASES.md) · dropped {d.get('dropped_one_note', 0)} one-note, "
               f"{d.get('dropped_file_like', 0)} file-like · refused {d.get('refused_versions', 0)} version merges, "
               f"{d.get('refused_not_line', 0)} by not: lines")
+    problems = validate(g, set(parse_edges(vocab_texts(root)[0])[0]))
+    print(f"contract: schema {g.get('schema')} " + ("ok" if not problems else f"{len(problems)} problems: " + "; ".join(problems[:5])))
     by = defaultdict(list)
     for c in g["checks"]:
         by[c["code"]].append(c["msg"])
@@ -2373,7 +2476,7 @@ def note_text(root, n):
 
 def write_viz(root, g, out):
     """A self-contained HTML viewer of the graph: map, overview, explorer, health."""
-    render_viz({"built": g["built"], "notes": [{**n, "text": note_text(root, n)} for n in g["notes"]],
+    render_viz({"schema": g.get("schema", SCHEMA), "built": g["built"], "notes": [{**n, "text": note_text(root, n)} for n in g["notes"]],
                 "entities": g["entities"], "relations": g["relations"], "edges": g["edges"], "checks": g["checks"],
                 "review": g["review"], "proposed": g["proposed"], "conflicts": g.get("conflicts", [])}, out)
 
@@ -2420,7 +2523,7 @@ def write_viz_big(root, g, dd, force=False):
         if not force and old.get(a) == sig and out.exists():
             continue
         stubs = {p: {**notes[p], "text": []} for e in e_by[a] for p in (e["src"], e["dst"]) if area(p) != a and p in notes}
-        render_viz({"mode": "area", "area": a, "home": "../graph.html", "built": g["built"],
+        render_viz({"schema": g.get("schema", SCHEMA), "mode": "area", "area": a, "home": "../graph.html", "built": g["built"],
                     "notes": [{**n, "text": note_text(root, n)} for n in ns] + list(stubs.values()),
                     "entities": [{**e, "names": e["names"][:6], "aka": e["aka"][:6], "mentions": mm} for e, mm in m_by[a]],
                     "relations": [{**r, "evidence": [x for x in r["evidence"] if area(x.rsplit(":", 1)[0]) == a]} for r in r_by[a]],
@@ -2448,7 +2551,7 @@ def write_viz_big(root, g, dd, force=False):
             best[a].append((x, k))
     keep = {k for lst in best.values() for _, k in sorted(lst, reverse=True)[:3]}
     linked = {p for e in g["edges"] for p in (e["src"], e["dst"])}
-    render_viz({"mode": "overview", "built": g["built"], "pages": "viz/",
+    render_viz({"schema": g.get("schema", SCHEMA), "mode": "overview", "built": g["built"], "pages": "viz/",
                 "totals": {"notes": len(g["notes"]), "entities": len(g["entities"]), "relations": len(g["relations"]),
                            "edges": len(g["edges"]), "areas": len(by), "checks": dict(Counter(c["code"] for c in g["checks"]))},
                 "areas": [{"id": a, "n": len(by[a]), "general": a in general,

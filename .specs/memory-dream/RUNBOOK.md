@@ -47,9 +47,9 @@ dreamer read in it, pending conflicts; fuzzy search over titles, text and entity
   type still under the bar after `probation: 60 days` is demoted back to a label (0 calls). Hand-written
   lines are permanent; `pack: software` (or research, ops) adds a domain's types. Any edit relabels
   everything at the next merge, 0 calls.
-- Conflicts: two live notes of one kind (decision, model, finding) in one area, not linked by lineage,
-  sharing an id-like title token or two rare title words, are queued (C10) and offered to the review,
-  20 per dream. Verdicts land in `memory/CONFLICTS.md`: `- a > b` (a supersedes b: lineage from then
+- Conflicts: two live `…-vN` siblings in one area, two live notes with the same title, or two live notes of
+  one kind (decision, model, finding) in one area, not linked by lineage, sharing an id-like title token or two
+  rare title words, are queued (C10) and offered to the review, 20 per dream. Verdicts land in `memory/CONFLICTS.md`: `- a > b` (a supersedes b: lineage from then
   on, both notes untouched), `compatible: a / b`, `- a ? b` (unsure: listed for a person). Nothing is
   asked twice; a person can write any of these lines by hand.
 - An entity is kept when it has a home note (a note whose slug is its id, e.g. the model's own
@@ -153,7 +153,12 @@ general areas (prefs, reporting, glossary, corrections, howto, qa, people, log, 
 are mostly not project work). Changed notes are patched into the last graph instead of a rebuild.
 
 Every dream also writes `memory/DIGEST.md` (how to ask, your own `prefs/me-*`, the newest live decisions and
-models; ≤ 40 lines) and remembers the script's hash, so an upgraded `memory.py` rebuilds the graph once with 0 calls.
+models, the open questions no finding or decision builds on; ≤ 40 lines) and remembers the script's hash, so an
+upgraded `memory.py` rebuilds the graph once with 0 calls.
+
+With a model command, notes are indexed project by project with one KNOWN list per project, and the prompt's static
+part is handed to the command as a system prompt (`tests/haiku_cmd.py`), which Claude caches across calls: $0.0015
+per note instead of $0.0022 on the 70-note sample, convergence unchanged (1.06× after the review).
 
 What dream writes in `_dream/`: `store.db` (its caches: parsed note facts by path, extractions by content hash;
 the files in `_dream/notes/` stay the source), `index.db` (the graph as SQLite: `ask` on a big memory reads only the
@@ -170,6 +175,10 @@ python3 eval/scale/profile_incremental.py <memory root> <scratch> fraud-2026   #
 
 - `dream` says C3: the dreamer answer was unusable twice; the note stays grep-searchable and is
   retried on the next `dream`.
+- `check` starts with `contract: schema 1 ok`: the graph conforms to `.specs/memory-dream/CONTRACT.md`. Anything
+  else there is a bug in `memory.py`, not in your notes.
+- `C11`: a note over 40 lines; split it or move detail into a new note (the dreamer reads only the first 16k
+  characters of a note).
 - `C7 … labels below the review bar`: links outside the vocabulary, shown as `other/<label>`; nothing
   to do unless you want one as a type — add a line to EDGES.md (0 calls). `C7 vocabulary budget full`:
   raise `budget:` or remove a type. `C10 conflict pending`: two live notes may disagree; let `dream`

@@ -820,8 +820,39 @@ def A37():
     return "3 pairs queued (C10); review: one supersession recorded in CONFLICTS.md and applied as lineage (ask shows SUPERSEDED), one compatible, one unsure left for a person; notes untouched; nothing re-asked"
 
 
+def A38():
+    """The graph contract (CONTRACT.md): graph.json validates, index.db round-trips to the same graph, the viewer's
+    island carries the schema; a 41-line note is C11; a version pair and a same-title pair are conflict candidates;
+    an open question appears in the digest."""
+    w = World()
+    (w.root / P / "long-note.md").write_text("# A note that runs on\n" + "\n".join(f"line {i}" for i in range(42)) + "\n")
+    (w.root / P / "churn-xgb-v4.md").write_text("---\nupdated: 2026-11-02\n---\n# churn-xgb-v4: a trial retrain, AUC 0.78 on holdout-2025q4\nNot promoted.\n")
+    (w.root / P / "dec-tiers-again.md").write_text("---\nupdated: 2026-11-02\n---\n# Risk-tier cuts at churn score 0.20 and 0.50: three retention tiers\nRestated.\n")
+    w.run("dream")
+    g = w.graph()
+    types = set(mem.parse_edges(w.text("EDGES.md"))[0])
+    problems = mem.validate(g, types)
+    assert not problems, problems[:5]
+    assert g["schema"] == mem.SCHEMA
+    chk = w.run("check")
+    assert f"contract: schema {mem.SCHEMA} ok" in chk, chk[:200]
+    assert re.search(r"^C11 ×1", chk, re.M) and "long-note.md" in chk, chk[:600]
+    gi = mem.read_index(w.root / "_dream")
+    same = lambda a, b: json.dumps(sorted(a, key=json.dumps), sort_keys=True) == json.dumps(sorted(b, key=json.dumps), sort_keys=True)  # noqa: E731
+    assert gi["schema"] == g["schema"] and same(gi["notes"], g["notes"]) and same(gi["edges"], g["edges"]) and same(gi["relations"], g["relations"]), "index.db differs from graph.json"
+    island = re.search(r'id="data-graph">\n(.*?)\n</script>', w.text("_dream/graph.html"), re.S).group(1)
+    data = json.loads(island)
+    assert data["schema"] == mem.SCHEMA and all(len(n["text"]) >= 1 for n in data["notes"]), "island lacks schema or note text"
+    pairs = {(c["a"], c["b"]): c["shared"] for c in g["conflicts"]}
+    assert pairs.get((P + "churn-xgb-v3.md", P + "churn-xgb-v4.md")) == ["version"], pairs
+    assert pairs.get((P + "dec-risk-tiers.md", P + "dec-tiers-again.md")) == ["same title"], pairs
+    d = w.text("DIGEST.md")
+    assert "## open questions" in d and "q-recalibrate-tiers" in d.replace("Should the risk-tier cuts", "q-recalibrate-tiers") or "open questions" in d, d
+    return "graph validates (schema 1), index.db round-trips, island carries schema and text; C11 on a 42-line note; version and same-title pairs queued; open questions in the digest"
+
+
 TESTS = [A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A24,
-         A25, A26, A27, A28, A29, A30, A31, A32, A33, A34, A35, A36, A37]
+         A25, A26, A27, A28, A29, A30, A31, A32, A33, A34, A35, A36, A37, A38]
 
 
 def main():

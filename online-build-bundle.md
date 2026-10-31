@@ -119,7 +119,15 @@ difflib ≥ 0.85, same type.
 C1 ambiguous reference · C2 reference not found · C3 indexing failed (answer unusable twice) · C4 dropped an
 ungrounded entity or relation · C5 note not indexed · C6 no `# ` line · C7 review pending (unknown types) ·
 C8 unparseable line in EDGES.md, ALIASES.md or CONFLICTS.md · C9 NUL bytes in a note (binary-looking; `ask` greps it
-with `-a`) · C10 conflict pending (two live notes of one kind in one area may disagree).
+with `-a`) · C10 conflict pending (two live notes of one kind in one area may disagree) · C11 a note over 40 lines.
+
+### 2.4b The graph contract
+
+`.specs/memory-dream/CONTRACT.md` (schema 1) is the authority on every shape: the graph (`graph.json`, `index.db`
+meta and tables), the viewer's data island (graph + per-note `text`, `mode`, and the overview/area fields), the
+extraction cache, `store.db`, the manifest, the warning codes and the user-owned files' grammar. Every graph carries
+`schema`; `validate(g, types)` returns the violations; `memory.py check` prints `contract: schema 1 ok` first; A38
+enforces it. Build P6–P8 against the contract, and bump `SCHEMA` when a field changes meaning.
 
 ### 2.5 Vocabulary (constrained open) and conflicts
 
@@ -169,7 +177,7 @@ P6 and P8 can run in parallel once P5 is done. P10's tiers are independent of ea
   the reference suite once to record the baseline. In Mode B, create the branch `rebuild/<date>` and move the
   reference: `git mv skills/memory-dream reference/skills/memory-dream`, then `mkdir -p skills/memory-dream/{scripts,assets,agents}`.
 - **Exit conditions:**
-  - [ ] `python3 tests/acceptance.py` on the untouched branch prints `34/34 passed`. Record the time; it is
+  - [ ] `python3 tests/acceptance.py` on the untouched branch prints `35/35 passed`. Record the time; it is
         about 25 s.
   - [ ] Mode B: `test ! -e skills/memory-dream/scripts/memory.py && test -e reference/skills/memory-dream/scripts/memory.py`
   - [ ] Note whether `claude` (the Claude Code CLI) is on PATH. It is needed only for P9b and P10.
@@ -245,7 +253,8 @@ P6 and P8 can run in parallel once P5 is done. P10's tiers are independent of ea
     in one C7 line. Types marked `(proposed <date>)` still under the bar after the probation are listed for demotion.
   - Review candidates for entities: same type, a shared rare surface form, or difflib ≥ 0.85. Never queue a pair with
     two different home notes.
-  - Conflict candidates: live notes of one kind (decision, model, finding) in one area, not linked, sharing an
+  - Conflict candidates: two live `…-vN` siblings in one area (`shared: ["version"]`), two live notes with the same
+    title (`["same title"]`), or live notes of one kind (decision, model, finding) in one area, not linked, sharing an
     id-like title token or two rare title words; pairs decided in CONFLICTS.md are not offered again; `- a > b`
     lines become `supersedes` edges in the note half.
   - Hand edits to EDGES.md, ALIASES.md and CONFLICTS.md relabel at the next merge with 0 calls. Emit C8 for
@@ -283,8 +292,8 @@ the read path live in one `W` table with their provenance.
     `--all` re-indexes everything.
   - Stop after the scan when nothing is new (same hashes, vocabulary and script hash; digest and index present).
     Write `index.db` and `memory/DIGEST.md` every time (digest: a comment line, the count, how to ask with the
-    script's real path, `prefs/me-*` titles, the ten newest live decisions and models outside the general areas;
-    ≤ 40 lines). Store the script's hash in the manifest so an upgraded script rebuilds the graph once, 0 calls.
+    script's real path, `prefs/me-*` titles, the ten newest live decisions and models outside the general areas,
+    up to eight open questions — question notes no finding or decision builds on; ≤ 40 lines). Store the script's hash in the manifest so an upgraded script rebuilds the graph once, 0 calls.
     The summary line reads `dream: N notes · K indexed (C calls) · … · P pending`.
 - **Exit conditions:**
   - [ ] `python3 tests/acceptance.py A3 A5 A6 A7 A8 A9 A10 A12` all pass.
@@ -385,7 +394,8 @@ the read path live in one `W` table with their provenance.
 ### P9 — Integration
 
 - **P9a, deterministic (required):**
-  - [ ] `python3 tests/acceptance.py` prints `34/34 passed` in under 60 s.
+  - [ ] `python3 tests/acceptance.py` prints `35/35 passed` in under 60 s, and `memory.py check` on the fixture
+        starts with `contract: schema 1 ok`.
   - [ ] Mode B: `wc -l skills/memory-dream/scripts/memory.py` is within ±30% of the reference's ~1,900 lines. Report
         the number; it does not gate.
   - [ ] Mode B: `diff <(sed -n '/^EDGES_SEED/,/^"""$/p' reference/…/memory.py) <(… new …)` is empty, and the same
