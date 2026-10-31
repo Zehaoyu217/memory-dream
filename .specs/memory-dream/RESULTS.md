@@ -65,6 +65,48 @@ Retrieval is unchanged within noise. `ask` gold-note recall:
 Answer-number recall stays at 0.97. The agent-level results of round 2 still stand: the read path
 (`ask`) is the same.
 
+## What indexing costs (Haiku through `claude -p`, refined prompt, measured on 60 notes)
+
+| per note | before refinement (56× bank) | refined, default effort | refined, `--effort low` |
+|---|---|---|---|
+| cost | $0.0035 | **$0.00133** | $0.00113 |
+| input tokens, median | 14.8k | 5.9k | 6.0k |
+| output tokens, median (incl. thinking) | 2,525 | 1,398 | 1,021 |
+| seconds per call, median | 10.4 | 6.5 | 4.6 |
+| `ask` gold-note / number recall, 46 questions | — | 0.866 / 0.958 | 0.866 / 0.958 |
+| grounding drops (C4) | — | 1 | 7 |
+
+- **Whole 56× bank:** about $2.2 and about 20 minutes at `-j 10`, against $5.95 and 45 minutes
+  before. Low effort is about $1.9; retrieval is unchanged, but it makes more unsupported claims,
+  which grounding drops.
+- **Steady state:** only new or edited notes cost a call. Moves, renames, deletes and edits to
+  EDGES.md or ALIASES.md cost 0.
+- **Dedup** (folding, surface rule, home notes, versions, union-find) uses no model: 0.12 s for
+  1,000 notes.
+- **Review:** at most 1 call per `dream`, only when something is queued: $0.0007–$0.0066.
+- **File mode instead:** one `memory-dreamer` subagent answered 30 prompts in 186 s (131k tokens).
+- **Where input tokens go:** much of each call's input is Claude Code's own prompt. A direct API
+  call would be smaller (not measured).
+
+## Is the 8-type vocabulary enough? (`eval/type_coverage.py`, `eval/question_relations.py`)
+
+- **What Haiku writes when free to invent** (5,196 relation instances on the 56× bank, old open
+  prompt):
+  - 81.2% fit the 8 types (74.6% directly, 6.6% through an alias);
+  - 5.5% are deliberately dropped (claims, note-to-note links);
+  - 13.3% are unknown, spread over 449 names. The largest covers only 16 instances (0.3%: `prefers`).
+- **What the 366 questions need** (labelled by Haiku):
+  - lineage: 133 (36%);
+  - the answer sits in a single note: 127 (35%);
+  - one of the 8 types: 105 (29%), of which uses 50 and evaluated-on 38;
+  - other: 1.
+- **Answers don't hinge on it:** `ask` without any index is as accurate.
+- **Not proven:** one domain, and notes, questions and labels all came from Haiku.
+- **So extending must be free:** the dreamer now names links outside the vocabulary in 1–3 words.
+  They are kept aside in the cache, not shown. A type added to EDGES.md later picks them up at the
+  next merge. Demo (`eval/add_type_demo.py`): adding `prefers` and `predicts` brought in 8 and 4
+  relations with 0 model calls. A listed type now wins over the drop line.
+
 # Round 2 — a thin layer on grep, tested at 1× and 56×
 
 ## Verdict

@@ -32,9 +32,10 @@ TIMEOUT = int(os.environ.get("MEMORY_TIMEOUT", "300"))
 KEEP_DAYS = 30
 MIN_UNKNOWN_USES = 3  # an unknown relation type goes to review once it is used this often
 
-EDGES_SEED = """# EDGES — relation types between entities, read "X <type> Y". Closed: the dreamer may use only these
-# types and their aliases (~ = read in reverse); anything else is dropped at merge and counted by `check`.
-# Note-to-note links (from:, supersedes:, refs) are lineage, not relations. Add or rename types here by hand.
+EDGES_SEED = """# EDGES — relation types between entities, read "X <type> Y". Closed: only these types and their aliases
+# (~ = read in reverse) are shown; other links the dreamer finds are kept aside in the cache and counted by
+# `check`. Add a type or alias here by hand and they appear at the next merge (0 calls).
+# Note-to-note links (from:, supersedes:, refs) are lineage, not relations.
 mode: closed
 - uses: X needs Y as an input (model uses feature; feature uses table) | aka: depends-on, consumes, built-on, built-from, derived-from, based-on, sourced-from, requires, reads, reads-from, joined-to, ~feeds, ~input-to, ~used-by, ~used-for, ~used-in
 - produces: X creates or writes Y (job produces table; model produces scores) | aka: writes, writes-to, creates, outputs, generates, ~generated-by, ~produced-by, ~output-of
@@ -60,8 +61,9 @@ Entities are things someone would look up across notes: tables, features, models
 people, teams, defined terms. Not columns, files, notebooks, numbers, or note ids (those go in refs).
 If an entity is in KNOWN, reuse its id. Otherwise id = its most specific name, lowercase, spaces to
 hyphens; a table keeps its dots (cards.txn_daily).
-Relations: only ones the note states, read "s <type> o", and only with an EDGES type or one of its
-aliases (aliases marked ~ read in reverse). If none fits, leave the relation out.
+Relations: only ones the note states, read "s <type> o". Use an EDGES type or one of its aliases
+(aliases marked ~ read in reverse). If none fits but the note states a real link between two things,
+name it in 1-3 words: it is kept aside, not shown, until the vocabulary covers it.
 EDGES:
 {edges}
 KNOWN:
@@ -587,7 +589,7 @@ def build(root, man, cur, former, et, at, xs=None, now=None):
         for r in (aux[rel]["x"] or {}).get("relations", []):
             s, o = cmap.get(fold(r["s"])), cmap.get(fold(r["o"]))
             t = fold(r["type"]).lstrip("~")
-            if not s or not o or t in drop:
+            if not s or not o or (t in drop and t not in alias):  # a listed type or alias wins over the drop line
                 continue
             if t not in alias:  # closed vocabulary: unknown types are counted for review, not shown
                 p = props.setdefault(t, {"type": t, "uses": 0, "examples": []})

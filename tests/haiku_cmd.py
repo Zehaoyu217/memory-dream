@@ -13,6 +13,8 @@ import sys
 MODEL = os.environ.get("DREAM_MODEL", "haiku")
 cmd = ["claude", "-p", "--model", MODEL, "--tools", "", "--setting-sources", "", "--strict-mcp-config",
        "--no-session-persistence", "--output-format", "json"]
+if os.environ.get("DREAM_EFFORT"):  # e.g. low: less thinking per call
+    cmd += ["--effort", os.environ["DREAM_EFFORT"]]
 prompt = sys.stdin.read()
 r = subprocess.run(cmd, input=prompt, capture_output=True, text=True)
 try:
