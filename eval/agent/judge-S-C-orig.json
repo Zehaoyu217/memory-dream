@@ -1,0 +1,96 @@
+{
+ "eval/agent/runs/S-mem-C-orig.md": {
+  "verdicts": {
+   "Q1": {
+    "v": "partial",
+    "why": "Covers leak, AUC drop, and supersession, but omits the exp-014 and churn-xgb-v2 usage."
+   },
+   "Q2": {
+    "v": "correct",
+    "why": "Gives churn-xgb-v2 AUC 0.81, exp-017 check, v3 and AUC 0.76."
+   },
+   "Q3": {
+    "v": "correct",
+    "why": "Lists all direct and indirect dependents matching the reference."
+   },
+   "Q4": {
+    "v": "correct",
+    "why": "States churn-xgb-v3, AUC 0.76, recall@10 0.43, and stable cohort recall."
+   },
+   "Q5": {
+    "v": "correct",
+    "why": "Explains v2 leak inflating AUC to 0.81; v3 honest at 0.76."
+   },
+   "Q6": {
+    "v": "correct",
+    "why": "Names data-eng-cards, 6% September shortfall, and 2026-10-27 backfill."
+   },
+   "Q7": {
+    "v": "correct",
+    "why": "Gives 0.20/0.50 cutoffs, shares, v2 calibration, and the open recalibration question."
+   },
+   "Q8": {
+    "v": "correct",
+    "why": "Gives AUC 0.69 vs 0.83 and the new-account share and need for separate treatment."
+   },
+   "Q9": {
+    "v": "correct",
+    "why": "States no leak; all three util_ columns end on observation date."
+   },
+   "Q10": {
+    "v": "correct",
+    "why": "Lists all three trained models and the 6.8% base rate."
+   }
+  },
+  "correct": 9,
+  "partial": 1,
+  "wrong": 0
+ },
+ "eval/agent/runs/S-grep-C-orig.md": {
+  "verdicts": {
+   "Q1": {
+    "v": "partial",
+    "why": "Gets leak, AUC 0.74, superseded by v3; misses exp-014 and churn-xgb-v2 usage explicitly, adds extra details"
+   },
+   "Q2": {
+    "v": "correct",
+    "why": "Covers churn-xgb-v2, leak check exp-017 AUC 0.74, and v3 AUC 0.76"
+   },
+   "Q3": {
+    "v": "correct",
+    "why": "Lists the direct readers and downstream models, including the required items"
+   },
+   "Q4": {
+    "v": "correct",
+    "why": "Names churn-xgb-v3, AUC 0.76, recall@10 0.43, and stable 0.40–0.45 cohorts"
+   },
+   "Q5": {
+    "v": "correct",
+    "why": "Explains leakage, AUC 0.74 without post-period days, and honest 0.76 for v3"
+   },
+   "Q6": {
+    "v": "correct",
+    "why": "Gives data-eng-cards owner, 6% September shortfall, and 2026-10-27 backfill"
+   },
+   "Q7": {
+    "v": "correct",
+    "why": "Gives 0.20/0.50 cutoffs, percentages, and the open recalibration question"
+   },
+   "Q8": {
+    "v": "partial",
+    "why": "Gives AUC 0.69 vs 0.83 and n=168k, but omits the 14% share in the same line; ok otherwise"
+   },
+   "Q9": {
+    "v": "correct",
+    "why": "States utilization is unaffected, all util_ windows end on observation date"
+   },
+   "Q10": {
+    "v": "partial",
+    "why": "Lists the models but omits the 6.8% base-rate-with-n? It gives 6.8%, n=4.1M; model list is correct"
+   }
+  },
+  "correct": 7,
+  "partial": 3,
+  "wrong": 0
+ }
+}

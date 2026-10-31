@@ -1531,6 +1531,28 @@ def grepv(args, root):
         print(h + "\n" + "\n".join(groups[rel]))
 
 
+def viz(args, root):
+    """A self-contained HTML viewer of the graph: overview, explorer, health (default memory/_dream/graph.html)."""
+    g, _ = load(root)
+    tpl = read(Path(__file__).resolve().parent.parent / "assets" / "viz.html")
+    notes = []
+    for n in g["notes"]:
+        try:
+            ls = read(root / n["path"]).split("\n")
+        except OSError:
+            ls = []
+        notes.append({**n, "text": [x for x in ls[(n["line"] or 1) - 1:] if x.strip()][:14]})
+    data = {"built": g["built"], "notes": notes, "entities": g["entities"], "relations": g["relations"],
+            "edges": g["edges"], "checks": g["checks"], "review": g["review"], "proposed": g["proposed"]}
+    island = "{\n" + ",\n".join(f'"{k}": ' + ("[\n" + ",\n".join(json.dumps(r, ensure_ascii=False) for r in v) + "\n]"
+                                             if isinstance(v, list) else json.dumps(v)) for k, v in data.items()) + "\n}\n"
+    a = tpl.index('id="data-graph"')
+    a = tpl.index("\n", a) + 1
+    out = Path(args.out).expanduser() if args.out else root / "_dream" / "graph.html"
+    wr(out, tpl[:a] + island.replace("</", "<\\/") + tpl[tpl.index("</script>", a):])
+    print(f"{out}: {len(notes)} notes, {len(g['entities'])} entities — open it in a browser")
+
+
 def main(argv=None):
     try:
         sys.stdout.reconfigure(encoding="utf-8")
@@ -1569,10 +1591,12 @@ def main(argv=None):
     a.add_argument("--budget", type=int, help="chars before switching from whole notes to surgical lines")
     gr = sp.add_parser("grep", parents=[common], help="grep the notes; hits grouped by note with lineage headers")
     gr.add_argument("grep_args", nargs=argparse.REMAINDER)
+    vz = sp.add_parser("viz", parents=[common], help="write an HTML viewer of the graph")
+    vz.add_argument("--out", help="output file (default memory/_dream/graph.html)")
     args = ap.parse_args(argv)
     root = find_root(args.root or args.root0)
     {"dream": dream, "where": where, "trace": trace, "check": check, "log": log, "ask": ask,
-     "grep": grepv}[args.verb](args, root)
+     "grep": grepv, "viz": viz}[args.verb](args, root)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,96 @@
+{
+ "eval/agent/runs/S-mem-C-h2.md": {
+  "verdicts": {
+   "Q1": {
+    "v": "correct",
+    "why": "Matches trees, depth, AUC, recall, n, and date; extra baseline context is accurate."
+   },
+   "Q2": {
+    "v": "correct",
+    "why": "Gives the 0.10 AUC jump and the 'around' window reasoning."
+   },
+   "Q3": {
+    "v": "correct",
+    "why": "Says No, names v3 at 0.43 with n and monthly 0.40–0.45 range."
+   },
+   "Q4": {
+    "v": "wrong",
+    "why": "Reference says cuts apply to churn-xgb-v2 scores; candidate asserts v3 dependency and omits cuts staying fixed."
+   },
+   "Q5": {
+    "v": "correct",
+    "why": "Gives Maya Ortiz request, 4%/12% budget, and 0.50/0.20 decision on 2026-10-08."
+   },
+   "Q6": {
+    "v": "correct",
+    "why": "Names nb/metrics.py::recall_at_k with k=0.10 and the metric definition."
+   },
+   "Q7": {
+    "v": "correct",
+    "why": "Reports AUC 0.74, recall@10 0.41, n=1.2M, dated 2026-10-28."
+   },
+   "Q8": {
+    "v": "correct",
+    "why": "Gives September 2025 partitions ~6% short until 2026-10-27 backfill, affecting velocity features."
+   },
+   "Q9": {
+    "v": "correct",
+    "why": "States October partitions, year not stated, and September gap closed 10-27."
+   },
+   "Q10": {
+    "v": "correct",
+    "why": "Cites notebook cells 12–18 kept 2026-10-29 and AUC drop 0.81 to 0.74 from exp-017."
+   }
+  },
+  "correct": 9,
+  "partial": 0,
+  "wrong": 1
+ },
+ "eval/agent/runs/S-grep-C-h2.md": {
+  "verdicts": {
+   "Q1": {
+    "v": "correct",
+    "why": "Gives 400 trees, depth 6, AUC 0.81, recall@10 0.52, n=1.2M, 2026-09-25."
+   },
+   "Q2": {
+    "v": "correct",
+    "why": "States the 0.10 AUC jump and the 'around' window reaching into the label window."
+   },
+   "Q3": {
+    "v": "correct",
+    "why": "Says no; quotes v3's recall@10 of 0.43 at n=1.2M, dated 2026-10-30."
+   },
+   "Q4": {
+    "v": "partial",
+    "why": "Gives the cuts and that they stay fixed, but says v3 replaced v2, contradicting the reference's v2 basis."
+   },
+   "Q5": {
+    "v": "correct",
+    "why": "Gives the Maya Ortiz request, 4%/12% budget, 2026-10-08 cuts at 0.50 and 0.20."
+   },
+   "Q6": {
+    "v": "correct",
+    "why": "Names nb/metrics.py::recall_at_k with k=0.10 and the 90-day churner definition."
+   },
+   "Q7": {
+    "v": "correct",
+    "why": "Reports AUC 0.74, recall@10 0.41, n=1.2M, dated 2026-10-28, as in reference."
+   },
+   "Q8": {
+    "v": "correct",
+    "why": "Explains the ~6% short September 2025 partitions until the 10-27 backfill and the v2 impact."
+   },
+   "Q9": {
+    "v": "correct",
+    "why": "Says October partitions were backfilling on 10-30 and September was done 10-27."
+   },
+   "Q10": {
+    "v": "correct",
+    "why": "Cites exp-014 vs exp-017 AUC 0.81→0.74 and eda_velocity notebook cells 12–18."
+   }
+  },
+  "correct": 9,
+  "partial": 1,
+  "wrong": 0
+ }
+}

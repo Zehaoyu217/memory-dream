@@ -1,0 +1,96 @@
+{
+ "eval/agent/runs/S-mem-C-h1.md": {
+  "verdicts": {
+   "Q1": {
+    "v": "correct",
+    "why": "Gives latest 9 months, 2026-10-30 decision, and 2025-01 to 2025-09 v3 fit."
+   },
+   "Q2": {
+    "v": "partial",
+    "why": "Names both models and the check, but misses the 'no post-period days, unchanged in v3' point for v2 being superseded — roughly fine; the candidate says 'all 3 util_ columns' and clean, which matches. Substantively correct."
+   },
+   "Q3": {
+    "v": "partial",
+    "why": "Gets AUC 0.81→0.74 and leak confirmation, but omits the frozen-velocity-v3 decision details? It mentions v3 rebuild and retiring v2 implicitly; misses explicit Sam Lee decision."
+   },
+   "Q4": {
+    "v": "correct",
+    "why": "Matches sampling, size, observation dates, no training use, freeze date, and script."
+   },
+   "Q5": {
+    "v": "correct",
+    "why": "Matches AUC 0.71, recall@10 0.29, n=1.2M, 14 features, date."
+   },
+   "Q6": {
+    "v": "correct",
+    "why": "Explains 10% call capacity, 90-day churners in top 10%, AUC reported alongside."
+   },
+   "Q7": {
+    "v": "correct",
+    "why": "Identifies v3 current, same 6 vel_ columns, 30-days-before window versus v2's surrounding window."
+   },
+   "Q8": {
+    "v": "correct",
+    "why": "Gives cards.txn_daily, velocity_v3.py, 6 columns, 30-day window, used by churn-xgb-v3."
+   },
+   "Q9": {
+    "v": "correct",
+    "why": "Covers exp-014 review start, September partition question, backfill finished 2026-10-27 under DE-4411."
+   },
+   "Q10": {
+    "v": "correct",
+    "why": "Matches 90-day flag, month-end dates, retention-labels job, data-eng-cards maintainer."
+   }
+  },
+  "correct": 8,
+  "partial": 2,
+  "wrong": 0
+ },
+ "eval/agent/runs/S-grep-C-h1.md": {
+  "verdicts": {
+   "Q1": {
+    "v": "correct",
+    "why": "Gives latest 9 months rule and v3's 2025-01 to 2025-09 fit."
+   },
+   "Q2": {
+    "v": "correct",
+    "why": "Names v2 and v3 users; 2026-10-29 check and unchanged feat-utilization-v1 match."
+   },
+   "Q3": {
+    "v": "partial",
+    "why": "Gives 0.81→0.74 and v3 follow-on, but omits the post-period leak conclusion framing; mostly right."
+   },
+   "Q4": {
+    "v": "correct",
+    "why": "Sampling, stratification, 1.2M, freeze date and script all match."
+   },
+   "Q5": {
+    "v": "correct",
+    "why": "AUC 0.71, recall 0.29, n=1.2M, 14 features, date all match."
+   },
+   "Q6": {
+    "v": "correct",
+    "why": "Explains 10% capacity and recall@10 as decision metric; matches reference."
+   },
+   "Q7": {
+    "v": "correct",
+    "why": "v3 supersedes v2 on 2026-10-30; window before versus around observation date matches."
+   },
+   "Q8": {
+    "v": "correct",
+    "why": "Reads cards.txn_daily, velocity_v3.py, 6 columns, churn-xgb-v3 user all match."
+   },
+   "Q9": {
+    "v": "correct",
+    "why": "Starts from exp-014 velocity columns; backfill finished 2026-10-27 with DE-4411."
+   },
+   "Q10": {
+    "v": "correct",
+    "why": "90-day flag, no spend after observation date, retention-labels job, data-eng-cards owner match."
+   }
+  },
+  "correct": 9,
+  "partial": 1,
+  "wrong": 0
+ }
+}
