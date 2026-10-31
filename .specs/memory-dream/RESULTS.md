@@ -33,7 +33,25 @@ at least the old note's). Stale set 0.702 → 0.952 above, full gate 0.898 → 0
 history notes dropping out of the top 8), numbers 0.972 unchanged, history-free 0.899, routed 0.889 → 0.891. And a
 short `(above)` header keeps the SUPERSEDED mark, so history is marked wherever it appears.
 
-## E3 — agents (one pair of runs; see below once judged)
+## E3 — agents: one memory run against the strongest grep arm (Opus subagents, P1 batch, Haiku judge)
+
+The grep arm was told it may `cat` whole folders; the memory arm got the skill's description, the script path and
+SKILL.md. Replies: `eval/agent/runs/E-mem-P1.md`, `E-grep-P1.md`; verdicts `eval/agent/judge-E-P1.json`.
+
+| | memory arm | grep arm (folder `cat` allowed) | ratio |
+|---|---|---|---|
+| answers, 10 questions (correct / partial / wrong) | 7 / 3 / 0 | 8 / 2 / 0 | tie within noise (the judge's "partials" are detail-level on both sides) |
+| tool calls | **7** (questions file, one `ask` for all ten, four checking reads) | 31 | **0.23** |
+| harness tokens for the run | 113.7k | 120.4k | 0.94 |
+| wall time | 275 s | 285 s | 0.96 |
+| minimum reading | the `ask` output: 25,092 chars (~4.2k words) for ten questions, plus SKILL.md (650 words) | unknown (31 reads) | — |
+
+Reading: with the skill as it now is, the memory arm needs a quarter of the tool calls for the same accuracy; the
+token and time gap of round 2 (0.47× cost, 0.35× time) did not show in this single pair. Three reasons are candidates
+and none is measured here: one run per arm (round 2 had three), the harness token figure is not round 2's cost units
+(cache reads weighted 0.1), and the grep arm was allowed `cat` of folders, which round 2's was not. What this pair does
+establish: correctness is not lost against the strongest grep strategy, and tool calls — the thing that scales context
+re-sends — drop 4×. A proper rerun needs transcripts: n ≥ 3 per arm, single-question agents, cost units.
 
 ## E4 — the write path (one run; see below once scored)
 

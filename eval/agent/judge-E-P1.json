@@ -1,0 +1,96 @@
+{
+ "eval/agent/runs/E-mem-P1.md": {
+  "verdicts": {
+   "Q1": {
+    "v": "partial",
+    "why": "Misses Gini 0.44→0.42 cost framing? No; gives 0.41 start, omits 2.9x detail correctly, but says v2 had 0.47 without it; core facts present."
+   },
+   "Q2": {
+    "v": "correct",
+    "why": "Gives +1.8 naive, +0.6 matched, and dec-xs-call-low-deciles limiting outreach to deciles 1-2 with +1.2."
+   },
+   "Q3": {
+    "v": "partial",
+    "why": "Names all four inputs and MinT reconciliation, but omits ds-sfc-segment-monthly source table as the reference's main input and adds unverified claims."
+   },
+   "Q4": {
+    "v": "correct",
+    "why": "States 0.66 on fraud26-gbm-v3, dec-f26-promote-v3, no travel uplift, supersedes 0.62."
+   },
+   "Q5": {
+    "v": "correct",
+    "why": "States AUC 0.86 and precision@100 0.43 on mrisk-oot-2026h1 via exp-505."
+   },
+   "Q6": {
+    "v": "partial",
+    "why": "Gives Gini 0.41→0.33 drift and v4 rebuild rationale, but reference's dec-app-rebuild-v4 date and v10 bands are mostly present; minor divergence on details."
+   },
+   "Q7": {
+    "v": "correct",
+    "why": "States 2025-09-22 build, store-number/hash/city stripping, macro-F1 0.78→0.81 in exp-104, and txc-gbm-v3 membership."
+   },
+   "Q8": {
+    "v": "correct",
+    "why": "Gives payment-to-minimum AUC 0.781→0.803 in exp-205 and ed-gbm-v2 lineage."
+   },
+   "Q9": {
+    "v": "correct",
+    "why": "States 41 features, v1's 40 plus payment-lag, util-ratio and spend-cv-30d; no legacy tables read."
+   },
+   "Q10": {
+    "v": "correct",
+    "why": "States cutoff 652 on v10 from 2026-09-01, replacing 640, with 58% approval rate."
+   }
+  },
+  "correct": 7,
+  "partial": 3,
+  "wrong": 0
+ },
+ "eval/agent/runs/E-grep-P1.md": {
+  "verdicts": {
+   "Q1": {
+    "v": "partial",
+    "why": "Gives baseline Gini 0.41 where reference says 0.42; rest matches."
+   },
+   "Q2": {
+    "v": "correct",
+    "why": "Covers +1.8 naive, +0.6 matched, find note, and deciles 1-2 decision."
+   },
+   "Q3": {
+    "v": "partial",
+    "why": "Omits feat-sfc-season-v2 from the four inputs; other facts match."
+   },
+   "Q4": {
+    "v": "correct",
+    "why": "States 0.66 on fraud26-gbm-v3, supersedes 0.62, no travel uplift."
+   },
+   "Q5": {
+    "v": "correct",
+    "why": "AUC 0.86 and precision@100 0.43 on mrisk-oot-2026h1 in exp-505."
+   },
+   "Q6": {
+    "v": "correct",
+    "why": "Gini 0.41 to 0.33 drift, dec-app-rebuild-v4 with v10 bands, reject inference, income estimate."
+   },
+   "Q7": {
+    "v": "correct",
+    "why": "Normalisation details, macro-F1 0.78 to 0.81 in exp-104, part of txc-gbm-v3."
+   },
+   "Q8": {
+    "v": "correct",
+    "why": "AUC 0.781 to 0.803 on holdout-2024q4, led to ed-gbm-v2."
+   },
+   "Q9": {
+    "v": "correct",
+    "why": "41 store features: v1's 40 plus payment-lag-v2, util-ratio, and spend-cv-30d."
+   },
+   "Q10": {
+    "v": "correct",
+    "why": "Cutoff 652 on v10 from 2026-09-01, replacing v8 640, 58% approval."
+   }
+  },
+  "correct": 8,
+  "partial": 2,
+  "wrong": 0
+ }
+}
