@@ -15,6 +15,11 @@ python3 skills/memory-dream/scripts/memory.py --root tests/fixture/memory ask "w
 python3 skills/memory-dream/scripts/memory.py --root tests/fixture/memory viz --out /tmp/graph.html
 ```
 
+For any agent with a shell (Python 3.9+, grep; a model is optional). Beside Claude Code's own memory: `ask` also
+reads the project's auto-memory topic files and never writes there; one line in CLAUDE.md, `@memory/DIGEST.md`,
+keeps the ≤ 40-line digest that every `dream` writes in context. Review and measured phases:
+`.specs/memory-dream/REVIEW.md`, `RESULTS.md`.
+
 Answering is grep plus memory: `ask` expands questions through the graph (aliases, ids, lineage),
 greps the notes once, and prints the answering lines current-first. Against a grep-only agent it is
 as accurate, 0.93× the cost at 30 notes and 0.39–0.47× at 1,677 (`.specs/memory-dream/RESULTS.md`).

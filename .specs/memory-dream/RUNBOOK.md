@@ -11,7 +11,14 @@ mkdir -p <project>/memory
 ```
 
 `memory.py` finds the memory root by `--root`, then `$MEMORY_DIR`, then the nearest `memory/`
-upward from the cwd, then `./memory`.
+upward from the cwd, then `./memory`. It needs a shell, Python 3.9+ and grep; any agent that has those
+can use it, with or without a model.
+
+Beside Claude Code's own memory: `ask` also reads the project's auto-memory topic files
+(`~/.claude/projects/<project>/memory/`, or `autoMemoryDirectory`; override with `MEMORY_CC_DIR`,
+switch off with `MEMORY_SOURCES=notes`) and never writes there — `dream`, `log` and `viz` refuse such a
+root. To keep `memory/DIGEST.md` (written by every dream, ≤ 40 lines) in context every session, add one
+line to CLAUDE.md: `@memory/DIGEST.md`.
 
 ## Daily use
 
@@ -44,6 +51,11 @@ Viewer deep links: `graph.html#note=<path>`, `#entity=<id>`, `#health`.
   once, and the answer lands in ALIASES.md as `- a = b` or `not: a / b`.
 - Lineage between notes (`from:`, `supersedes:`, and note ids written in a body) is not a relation:
   it needs no model and no vocabulary.
+- Kinds need no model either: frontmatter `type:` wins (Claude Code's user/feedback/project/reference
+  count as preference/rule/note/note), then the dreamer's kind, then the filename prefix (`exp- feat- ds-
+  dec- fnd- q- metric-`; `…-vN` is a model), then the area (`prefs/` preference, `glossary/` term,
+  `corrections/` correction, `reporting/` and `howto/` rule). `modified:` serves as the date when
+  `updated:` is absent.
 
 ## Dream (index new or changed notes)
 
@@ -124,6 +136,9 @@ Above `MEMORY_WIDE` notes (default 10,000), `ask` greps only where each question
 names; otherwise areas whose note ids and titles match, areas the index says mention its ids, and the
 general areas (prefs, reporting, glossary, corrections, howto, qa, people, log, or any area whose notes
 are mostly not project work). Changed notes are patched into the last graph instead of a rebuild.
+
+Every dream also writes `memory/DIGEST.md` (how to ask, your own `prefs/me-*`, the newest live decisions and
+models; ≤ 40 lines) and remembers the script's hash, so an upgraded `memory.py` rebuilds the graph once with 0 calls.
 
 What dream writes in `_dream/`: `store.db` (its caches: parsed note facts by path, extractions by content hash;
 the files in `_dream/notes/` stay the source), `index.db` (the graph as SQLite: `ask` on a big memory reads only the

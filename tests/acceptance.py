@@ -624,8 +624,97 @@ def A29():
     return "task names the deck, not the person: the roster note names her, both preferences attached"
 
 
+def A30():
+    """Kinds without a model: filename prefixes and areas give kinds; general areas are judged on kinded notes only."""
+    w = World()
+    (w.root / "prefs").mkdir()
+    (w.root / "prefs/me-decimals.md").write_text("# I round rates to one decimal in every readout\nSo 6.8%, not 6.83%.\n")
+    (w.root / "reporting").mkdir()
+    (w.root / "reporting/chart-colour.md").write_text("# Chart colour: brand blue first, grey for context\n")
+    w.run("dream", model=False)
+    g = w.graph()
+    kinds = {n["id"]: n["kind"] for n in g["notes"]}
+    want = {"exp-014": "experiment", "dec-risk-tiers": "decision", "feat-velocity-v2": "feature", "ds-txn-2025q4": "dataset",
+            "churn-xgb-v3": "model", "q-churn-drivers": "question", "finding-new-accounts": "finding",
+            "me-decimals": "preference", "chart-colour": "rule", "2026-10-30": "log"}
+    bad = {k: (kinds.get(k), v) for k, v in want.items() if kinds.get(k) != v}
+    assert not bad, bad
+    by_area = {}
+    for n in g["notes"]:
+        by_area.setdefault(n["project"], []).append(n["path"])
+    gen = mem.general_areas(by_area, lambda p: kinds[Path(p).stem])
+    assert gen == {"prefs", "reporting", "log"}, gen
+    n_k = sum(1 for k in kinds.values() if k != "note")
+    return f"{n_k}/{len(kinds)} notes kinded with no model; general areas = {sorted(gen)}"
+
+
+def cc_world(w):
+    """A mock of Claude Code's auto-memory directory beside the fixture."""
+    cc = w.dir / "cc"
+    cc.mkdir()
+    (cc / "MEMORY.md").write_text("# index\n- [Testing](feedback_testing.md) — tests hit a real database\n")
+    (cc / "feedback_testing.md").write_text("---\ntype: feedback\nmodified: 2026-10-25T15:00:00Z\n---\n"
+                                          "# Integration tests must hit a real database, not mocks\nA mocked test passed while prod failed.\n")
+    (cc / "user_role.md").write_text("---\ntype: user\nmodified: 2026-10-20T09:00:00Z\n---\n"
+                                   "# The user is a data scientist on the cards team and prefers terse answers\n")
+    return cc
+
+
+def A31():
+    """Claude Code's auto memory is read in the same ask call, under its own mark, and never written to."""
+    w = World()
+    cc = cc_world(w)
+    before = {p.name: p.read_bytes() for p in cc.iterdir()}
+    env = {"MEMORY_CC_DIR": str(cc)}
+    out = w.run("ask", "how should integration tests be written?", "what came of exp-014?", model=False, env=env)
+    assert "▸ claude-code: feedback_testing.md · feedback · 2026-10-25" in out, out[:600]
+    assert "MEMORY.md" not in out
+    sec = out.split("## what came of exp-014?")[0]
+    assert "real database" in sec, sec
+    assert "claude-code:" not in w.run("ask", "how should integration tests be written?", model=False,
+                                       env={**env, "MEMORY_SOURCES": "notes"})
+    w.run("check", model=False, env=env)
+    assert {p.name: p.read_bytes() for p in cc.iterdir()} == before, "ask or check wrote into Claude Code's directory"
+    for verb in (["dream"], ["log", "x"], ["viz"]):
+        r = subprocess.run([sys.executable, str(MEM), "--root", str(cc), *verb], capture_output=True, text=True, env=w.env)
+        assert r.returncode == 2 and "never" in r.stderr, (verb, r.returncode, r.stderr)
+    assert {p.name for p in cc.iterdir()} == set(before), "dream/log/viz wrote into Claude Code's directory"
+    return "auto-memory topic file shown with origin, type and modified date; MEMORY.md skipped; dream/log/viz refused; directory untouched"
+
+
+def A32():
+    """dream writes memory/DIGEST.md: ≤ 40 lines, how to ask, the user's own preferences, the newest live decisions
+    and models; nothing superseded; not a note itself; the nothing-new short cut still holds."""
+    w = World()
+    (w.root / "prefs").mkdir()
+    (w.root / "prefs/me-decimals.md").write_text("# I round rates to one decimal in every readout\n")
+    w.run("dream", model=False)
+    d = w.text("DIGEST.md")
+    lines = d.rstrip("\n").split("\n")
+    assert len(lines) <= 40 and "memory.py ask" in d.replace("scripts/memory.py", "memory.py") or " ask " in d, d[:300]
+    assert "## your own preferences" in d and "one decimal" in d
+    assert "churn-xgb-v3" in d and "churn-xgb-v2" not in d, d
+    assert "DIGEST.md" not in {n["id"] + ".md" for n in w.graph()["notes"]}
+    w.run("dream", model=False)
+    out = w.run("dream", model=False)
+    assert "0 indexed (0 calls)" in out
+    assert w.text("DIGEST.md") == d
+    return f"DIGEST.md: {len(lines)} lines, {len(d)} chars; preferences and live heads listed, superseded left out"
+
+
+def A33():
+    """Notes in Claude Code's convention parse: type: feedback → rule, modified: → the date."""
+    w = World()
+    (w.root / P / "cc-style.md").write_text("---\ntype: feedback\nmodified: 2026-10-25T15:00:00Z\n---\n"
+                                           "# Integration tests must hit a real database\n")
+    w.run("dream", model=False)
+    n = note(w.graph(), P + "cc-style.md")
+    assert n["kind"] == "rule" and n["updated"] == "2026-10-25", n
+    return "type: feedback → rule; modified: → 2026-10-25"
+
+
 TESTS = [A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A24,
-         A25, A26, A27, A28, A29]
+         A25, A26, A27, A28, A29, A30, A31, A32, A33]
 
 
 def main():

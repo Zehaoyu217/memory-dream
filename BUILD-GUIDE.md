@@ -34,6 +34,7 @@ Saving a note costs about $0.0015–0.002 of Haiku at any size. A dream with not
 
 | need | for | notes |
 |---|---|---|
+| a shell | any agent: Claude Code, Claude through the API with a shell tool, other LLM agents, people | the skill is instructions plus one script |
 | Python ≥ 3.9 | everything | stdlib only (sqlite3, json, re, subprocess) |
 | `grep` | `ask` | BSD or GNU; Python fallback if missing |
 | Claude Code CLI (`claude`) | the Haiku dreamer, agent evals, Haiku judges | `claude -p --model haiku …` headless |
@@ -55,8 +56,13 @@ cp skills/memory-dream/agents/memory-dreamer.md ~/.claude/agents/
 # in your project
 cd /path/to/project && mkdir -p memory && echo "memory/_dream/" >> .gitignore
 export MEMORY_LLM='claude -p --model haiku --tools "" --setting-sources "" --strict-mcp-config --no-session-persistence'
-python3 ~/.claude/skills/memory-dream/scripts/memory.py dream      # seeds EDGES.md, ALIASES.md, _dream/
+python3 ~/.claude/skills/memory-dream/scripts/memory.py dream      # seeds EDGES.md, ALIASES.md, DIGEST.md, _dream/
+echo '@memory/DIGEST.md' >> CLAUDE.md                              # Claude Code: the digest in context every session
 ```
+
+Beside Claude Code's own memory (CLAUDE.md, auto memory under `~/.claude/projects/<project>/memory/`): `ask` reads the
+auto-memory topic files in the same call and never writes there; `dream`, `log` and `viz` refuse such a root. Any other
+agent with a shell uses the same three steps SKILL.md gives: read once, write as you go, dream at the end.
 
 Daily use (what SKILL.md tells the agent):
 
@@ -154,8 +160,11 @@ hash in `_dream/store.db` so a dream re-reads only changed notes.
 
 ### 5.4 The graph, note half (`notes_part`)
 
-- One record per note: path, id (filename), project (top folder), title, line, kind (frontmatter `type`, else the
-  dreamer's kind, else `note`/`log`), updated (frontmatter, log filename date, or mtime), superseded_by.
+- One record per note: path, id (filename), project (top folder), title, line, kind (`kind_of`: frontmatter `type`
+  with Claude Code's user/feedback/project/reference mapped to preference/rule/note/note, else the dreamer's kind unless
+  it is the fallback "note", else the filename prefix `exp- feat- ds- dec- fnd- find- q- metric-` or `…-vN` = model,
+  else the area `prefs/ glossary/ corrections/ reporting/ howto/ log/`, else `note`), updated (frontmatter `updated`
+  or `modified`, log filename date, or mtime), superseded_by. `general_areas` judges an area on its kinded notes only.
 - Edges: `from` and `supersedes` resolved by relative path, then exact path, then unique filename, then same-project
   filename (warning C1 if ambiguous), then moved paths; unresolved → C2. Plus `refs`: `[[links]]`, the dreamer's refs,
   and any body slug that names a note in the same project.
@@ -198,9 +207,11 @@ Review candidates: new entities of the same type that share a rare surface form 
   `same` / `different` for entity pairs ("when unsure, drop / different"). At most 40 types and 30 pairs per dream.
 - **Cache**: one JSON per content hash in `_dream/notes/<sha12>.json` (the source), mirrored in `store.db`; kept
   30 days after last use so reverted edits cost nothing.
-- **Outputs**: `index.db` (always), plus `graph.json` + `graph.html` up to `MEMORY_WIDE` (10,000) notes, or an
-  overview `graph.html` and `viz/<area>.html` pages past it. A dream with nothing new (same hashes, vocabulary, no
-  review due, every extraction file present) stops after the scan.
+- **Outputs**: `index.db` (always), `memory/DIGEST.md` (≤ 40 lines: how to ask, `prefs/me-*`, the ten newest live
+  decisions and models; import it from CLAUDE.md with `@memory/DIGEST.md`), plus `graph.json` + `graph.html` up to
+  `MEMORY_WIDE` (10,000) notes, or an overview `graph.html` and `viz/<area>.html` pages past it. A dream with nothing
+  new (same hashes, vocabulary and script hash, no review due, every extraction file and the digest present) stops
+  after the scan; a changed `memory.py` rebuilds the graph once with 0 calls.
 
 ### 5.7 Answering (`ask`)
 
@@ -225,8 +236,13 @@ Per question:
    by area — complete, and no dearer than `cat`. A question with a word found nowhere, whose best note covers at most
    half its words, gets a `(weak match: 'x' found nowhere …)` line.
 9. **Taste** (task intent only, `taste`): scored inside the general areas so project notes cannot crowd them out; a
-   person named in the task (or matched through their meeting or report) brings all their notes; house rules about
-   the artifact asked for (chart, table, deck …) come along; `prefs/me-*` always. Six notes, printed as their `# ` line.
+   person named in the task, or named inside one of the three best-matching house notes (their meeting's roster,
+   their report), brings all their notes; house rules about the artifact asked for (chart, table, deck …) come along;
+   `prefs/me-*` always. Up to twelve notes, printed as their `# ` line.
+10. **Claude Code's auto memory** (`cc_search`, read-only): the project's auto-memory topic files are grepped once for
+    every question; at most three files and two lines each, under `▸ claude-code: <file> · <type> · <date>`.
+    `MEMORY.md` is skipped (Claude Code loads it itself). Resolution: `$MEMORY_CC_DIR`, `autoMemoryDirectory` in
+    `.claude/settings.local.json` or `~/.claude/settings.json`, else `<config>/projects/<git root sanitised>/memory`.
 
 ### 5.8 Big memories
 
@@ -252,7 +268,7 @@ review queue). Deep links `#note=<path>`, `#entity=<id>`, `#health`. `memory.py`
 ## 6. Tests
 
 ```bash
-python3 tests/acceptance.py            # A1–A20, A24, A25–A29 with the fake dreamer, about 25 s
+python3 tests/acceptance.py            # A1–A20, A24, A25–A33 with the fake dreamer, about 25 s
 python3 tests/acceptance.py A6 A24     # some
 python3 tests/real_model.py            # Haiku on the fixture vs tests/truth.py (costs a few cents)
 ```
@@ -265,7 +281,9 @@ until the review maps it (0 extraction calls), A14 vocabulary edits by hand (0 c
 surface rule for free, versions never asked, one review line in ALIASES.md), A19 1,000-note speed, A20 entity keep
 rules, A24 big-memory routing, patching and per-area page redraws, A25 whole-memory print on small memories, A26 a
 plain-word project name scopes the search, A27 NUL-byte notes (C9, still grepped), A28 the weak-match marker, A29
-two-hop taste (the task names the deck, the roster names the person). Results are written to `tests/acceptance.json`.
+two-hop taste (the task names the deck, the roster names the person), A30 kinds and general areas with no model, A31
+Claude Code's auto memory read and never written, A32 the digest, A33 Claude Code's frontmatter convention. Results
+are written to `tests/acceptance.json`.
 
 ---
 

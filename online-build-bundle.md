@@ -64,6 +64,7 @@ memory/                       (in a user project)
   <area>/<slug>.md            notes; filename = id; area = project or a general area
   log/YYYY-MM-DD.md           scratch lines (memory.py log)
   EDGES.md  ALIASES.md        user-owned vocabularies (seeded by the first dream)
+  DIGEST.md                   written by every dream, ≤ 40 lines; CLAUDE.md imports it with `@memory/DIGEST.md`
   _dream/                     generated: manifest.json, store.db, index.db, notes/<sha12>.json,
                               graph.json + graph.html (≤ MEMORY_WIDE notes) or graph.html overview +
                               viz/<area>.html + viz/_sig.json (> MEMORY_WIDE), pending/ (file mode)
@@ -98,7 +99,15 @@ memory.py [--root DIR] log "text" [-p PROJECT]
 
 Root lookup: `--root`, then `$MEMORY_DIR`, then the nearest `memory/` upward from the cwd, then `./memory`.
 Environment variables: `MEMORY_LLM` (model command, prompt on stdin; unset means file mode), `MEMORY_WIDE`
-(10000), `MEMORY_TIMEOUT` (300), `MEMORY_DEBUG` (prints the ranking to stderr), `DREAM_COST_LOG`.
+(10000), `MEMORY_TIMEOUT` (300), `MEMORY_DEBUG` (prints the ranking to stderr), `DREAM_COST_LOG`, `MEMORY_CC_DIR`
+(Claude Code's auto-memory directory to read; default resolved from settings and `<config>/projects/`),
+`MEMORY_SOURCES=notes` (read no Claude Code memory). `dream`, `log` and `viz` without `--out` refuse a root that is
+Claude Code's own memory (holds `MEMORY.md`, or lies under `<config>/projects/*/memory`): exit 2.
+
+Kinds without a model (`kind_of`): frontmatter `type:` (Claude Code's user/feedback/project/reference →
+preference/rule/note/note), else the dreamer's kind unless "note", else the filename prefix (`exp- feat- ds- dec- fnd-
+find- q- metric-`; `…-vN` = model), else the area (`prefs/ glossary/ corrections/ reporting/ howto/ log/`), else
+`note`. `modified:` is the date when `updated:` is absent.
 
 Constants: `KEEP_DAYS = 30`, `MIN_UNKNOWN_USES = 3`. Review caps: 40 types and 30 entity pairs per dream.
 KNOWN = up to 80 entities from the note's project plus the 20 most-mentioned shared ones. Lookalike cutoff:
@@ -151,7 +160,7 @@ P6 and P8 can run in parallel once P5 is done. P10's tiers are independent of ea
   the reference suite once to record the baseline. In Mode B, create the branch `rebuild/<date>` and move the
   reference: `git mv skills/memory-dream reference/skills/memory-dream`, then `mkdir -p skills/memory-dream/{scripts,assets,agents}`.
 - **Exit conditions:**
-  - [ ] `python3 tests/acceptance.py` on the untouched branch prints `26/26 passed`. Record the time; it is
+  - [ ] `python3 tests/acceptance.py` on the untouched branch prints `30/30 passed`. Record the time; it is
         about 25 s.
   - [ ] Mode B: `test ! -e skills/memory-dream/scripts/memory.py && test -e reference/skills/memory-dream/scripts/memory.py`
   - [ ] Note whether `claude` (the Claude Code CLI) is on PATH. It is needed only for P9b and P10.
@@ -160,11 +169,16 @@ P6 and P8 can run in parallel once P5 is done. P10's tiers are independent of ea
 
 - **References:** BUILD-GUIDE §5.1; build-spec §3, §7, §12; reference `SKILL.md` and `agents/memory-dreamer.md`.
 - **Do:**
-  - Write `SKILL.md`: frontmatter `name: memory-dream` and a description that tells the agent to make ONE
-    `ask` call holding all its questions and tasks. Body sections: Read (one call, then answer; SUPERSEDED means
-    history; scope with the project or id; ask with the task to get preferences), Write (the rules in §2.2, taste
-    notes `prefs/<first>-<last>-<topic>.md` or `prefs/me-<topic>.md`), End of session (`dream`, `check`, EDGES and
-    ALIASES edits).
+  - Write `SKILL.md` for **any agent with a shell** (Claude Code, Claude through the API, other LLM agents, people),
+    in plain dense language: frontmatter `name: memory-dream` and a description that tells the agent to make ONE
+    `ask` call holding all its questions and tasks. Body: requirements (a shell, Python 3.9+, grep, no model needed),
+    what the notes are, then "What an agent does with memory" in three numbered steps — read first, once (one call;
+    SUPERSEDED is history; a task brings preferences; `(weak match …)`; one batched follow-up at most); write as you
+    go (the rules in §2.2, prefixes give kinds, taste notes `prefs/<first>-<last>-<topic>.md` or `prefs/me-<topic>.md`);
+    dream at the end (viewer, digest, index; a model is optional) — then one paragraph for Claude Code (CLAUDE.md
+    holds instructions, auto memory holds learnings, these notes hold the work; `ask` reads auto memory and never
+    writes it; `@memory/DIGEST.md`; never the same thing twice), then EDGES/ALIASES hand edits. ≤ 45 lines; keep the
+    word count: achievement per word is a metric (RESULTS.md, "Phase B").
   - Write `agents/memory-dreamer.md`: `model: haiku`. It reads `memory/_dream/pending/TODO.md`, answers every
     listed `*.prompt.md` that has no `.json` yet, and touches nothing else.
   - Write the `memory.py` skeleton: argparse with the five subcommands, root lookup (§2.3), the `log` command
@@ -241,8 +255,11 @@ P6 and P8 can run in parallel once P5 is done. P10's tiers are independent of ea
     ALIASES.md.
   - Cache: `_dream/notes/<sha12>.json` (the source), mirrored into store.db, kept `KEEP_DAYS` after last use.
     `--all` re-indexes everything.
-  - Stop after the scan when nothing is new. Write `index.db` every time. The summary line reads
-    `dream: N notes · K indexed (C calls) · … · P pending`.
+  - Stop after the scan when nothing is new (same hashes, vocabulary and script hash; digest and index present).
+    Write `index.db` and `memory/DIGEST.md` every time (digest: a comment line, the count, how to ask with the
+    script's real path, `prefs/me-*` titles, the ten newest live decisions and models outside the general areas;
+    ≤ 40 lines). Store the script's hash in the manifest so an upgraded script rebuilds the graph once, 0 calls.
+    The summary line reads `dream: N notes · K indexed (C calls) · … · P pending`.
 - **Exit conditions:**
   - [ ] `python3 tests/acceptance.py A3 A5 A6 A7 A8 A9 A10 A12` all pass.
   - [ ] Re-run A4, which now passes with 0 calls.
@@ -273,14 +290,19 @@ P6 and P8 can run in parallel once P5 is done. P10's tiers are independent of ea
     `▸ path` pointers and then every note by area — complete, no dearer than `cat`.
   - Weak match: a question word found nowhere, and the best note covering ≤ half the question's words, prints
     `(weak match: 'x' found nowhere in memory …)` under the question.
-  - A project named in plain words scopes the search (match folder names on the question's unstemmed words).
+  - A project named in plain words scopes the search (match folder names on the question's unstemmed words;
+    general areas are never scopes by word).
+  - Claude Code's auto memory, read-only (`cc_search`): one grep over the resolved directory's topic files
+    (never `MEMORY.md`), at most three files and two lines each per question, printed under
+    `▸ claude-code: <file> · <type> · <date>` after the notes. Nothing is ever written there.
   - `ask` must work with no index at all (grep plus lineage).
 - **Exit conditions:**
   - [ ] `memory.py --root tests/fixture/memory ask "what came of exp-014?" "who owns cards.txn_daily?"` gives one
         output with a block per question. The exp-014 block reaches churn-xgb-v3 and shows v2 as SUPERSEDED.
   - [ ] A2's ask check passes (ask answers from lineage + grep with no model).
-  - [ ] `python3 tests/acceptance.py A25 A26 A28 A29` passes (whole-memory print, folder scope, weak match, two-hop
-        taste); A27 (C9) belongs to P3's checks and passes once P2–P3 are done.
+  - [ ] `python3 tests/acceptance.py A25 A26 A28 A29 A31` passes (whole-memory print, folder scope, weak match,
+        two-hop taste, Claude Code's memory read and never written); A27 (C9), A30 (kinds), A32 (digest) and A33
+        (frontmatter convention) belong to P3 and P5 and pass once those are done.
   - [ ] **Retrieval gate** (needs the P10 tier-1 world, no LLM): `python3 eval/retrieval.py <W>/memory eval/questions/bank-*.jsonl`
         gives gold-note recall ≥ 0.86 and number recall ≥ 0.95. The reference measured 0.882 / 0.970.
 
@@ -321,7 +343,7 @@ P6 and P8 can run in parallel once P5 is done. P10's tiers are independent of ea
 ### P9 — Integration
 
 - **P9a, deterministic (required):**
-  - [ ] `python3 tests/acceptance.py` prints `26/26 passed` in under 60 s.
+  - [ ] `python3 tests/acceptance.py` prints `30/30 passed` in under 60 s.
   - [ ] Mode B: `wc -l skills/memory-dream/scripts/memory.py` is within ±30% of the reference's ~1,900 lines. Report
         the number; it does not gate.
   - [ ] Mode B: `diff <(sed -n '/^EDGES_SEED/,/^"""$/p' reference/…/memory.py) <(… new …)` is empty, and the same

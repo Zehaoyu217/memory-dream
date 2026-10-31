@@ -2,6 +2,61 @@
 
 2026-10-30 (round 4: 2026-10-31) · built from the "Memory" email spec (`build-spec.md`) · macOS, Python 3.9.6, Claude Code 2.1.314.
 
+# Phase B (2026-10-31) — free byproduct, any agent, beside Claude Code's memory
+
+`REVIEW.md` F6 and §8 R1–R5, plus SKILL.md rewritten for any agent with a shell. 0 model calls anywhere. Suite 26 → 30
+tests (A30–A33), 30/30 in 24 s.
+
+| measure | before | after |
+|---|---|---|
+| notes with a kind, no model (bank, 1,677 notes) | 0 of 1,500 non-log notes (`type:` absent, kind "note") | **1,595 of 1,677 (95%)** from filename prefixes and areas; the graph shows experiment 291, feature 200, finding 176, dataset 163, decision 148, model 135, rule 96, question 84 |
+| general areas detected, no model | all 48 areas (the kind rule saw no work kinds anywhere) | **7 of 48**: corrections, glossary, howto, log, prefs, qa, reporting |
+| taste, 52 tasks: named / implicit prefs / house rules / chars per task | 1.00 / 0.83 / 0.42 / 3,826 | 1.00 / **0.87** / **0.46** / 3,795 (the taste pool is now the general areas only) |
+| bank retrieval: gold / numbers / chars per question | 0.897 / 0.972 / 1,988 | 0.897 / 0.972 / 2,005; routed 0.888 / 0.962 |
+| `memory/DIGEST.md` | — | bank: 15 lines, 1,596 chars (10 live heads across 5 projects); fixture: 9 lines, 894 chars |
+| viewer after a dream with no model | rendered, kinds all "note" | renders Map, Explore, Health with the seven kinds, 0 console errors |
+| `ask` with Claude Code's auto memory present (mock, 3 questions) | — | 0.10 s with or without it; topic file shown as `▸ claude-code: feedback_testing.md · feedback · 2026-10-25`, MEMORY.md skipped, directory byte-identical afterwards |
+| `dream`, `log`, `viz` pointed at Claude Code's directory | wrote EDGES.md, ALIASES.md, `_dream/` into it | refused with exit 2 and a one-line reason |
+| SKILL.md | 605 words, Claude-Code-flavoured | 606 words, addressed to any agent with a shell: three steps (read once, write as you go, dream at the end), a paragraph for Claude Code |
+| a changed `memory.py` | the graph kept old kinds until a note changed | the manifest carries the script's hash: one rebuild, 0 calls (bank: 0.33 s) |
+
+Achievement per word — the skill's efficiency, to be tracked from here on (characters are what is measured; ~6.7
+characters per word of this kind of text):
+
+| read path, 326 bank questions | complete-gold answers | characters per question | complete answers per 10k characters read | instruction read once |
+|---|---|---|---|---|
+| `ask` | 242 | 2,005 | **3.7** | SKILL.md 606 words |
+| `cat` the named project folder (simulated best grep agent, 230 scoped questions) | 323 of 326 | 12,638 | 0.78 | a paragraph on the note format |
+| one grep, every matching line | 262 | 63,001 | 0.13 | the same |
+
+Tasks: the person's preferences 0.94 and house rules 0.46 of the gold notes at 3,795 characters per task. The
+agent-level version of the same ratio (correct answers per 10k characters the agent read, including SKILL.md and
+tool output) is phase E's job; RESULTS round 2 gives the ingredients (memory arm 27 of 30 correct at 311k tokens
+processed, grep arm 26 at 1,465k).
+
+What changed:
+1. **Kinds without a model** (F6): `kind_of` — frontmatter `type:` (Claude Code's user/feedback/project/reference map
+   to preference/rule/note/note), else the dreamer's kind unless it is the fallback "note", else the filename prefix
+   (`exp- feat- ds- dec- fnd- find- q- metric-`, `…-vN` is a model), else the area (`prefs/ glossary/ corrections/
+   reporting/ howto/ log/`). `general_areas` judges an area on its kinded notes only, so an unindexed memory no longer
+   counts every area as general; this is what lifted taste.
+2. **Claude Code's memory, read in the same call** (R1): `claude_code_memory` resolves `$MEMORY_CC_DIR`, else
+   `autoMemoryDirectory` from `.claude/settings.local.json` or `~/.claude/settings.json` (the checked-in project
+   settings are not trusted, as Claude Code itself does), else `<config>/projects/<git root, non-alphanumerics → ->/memory`;
+   off with `MEMORY_SOURCES=notes` or `CLAUDE_CODE_DISABLE_AUTO_MEMORY=1`, and absent in cloud sessions. One extra grep
+   over the topic files (never MEMORY.md, which Claude Code already loads), at most three files and two lines each per
+   question, under their own mark.
+3. **Never write there** (R2): `dream`, `log` and `viz` without `--out` refuse a root holding MEMORY.md or lying under
+   `<config>/projects/*/memory`.
+4. **The digest** (R3): `write_digest` after every dream — a comment line (free in Claude Code's context), the count,
+   how to ask with the script's real path, the user's own preferences (`prefs/me-*`), the ten newest live decisions and
+   models outside the general areas; ≤ 40 lines; `DIGEST.md` is skipped by the scan and required by the nothing-new
+   short cut.
+5. **Frontmatter compatibility** (R4): `modified:` is the date when `updated:` is absent.
+6. **SKILL.md for any agent** (R5): requirements first (a shell, Python 3.9+, grep, no model), what the notes are,
+   then the three things an agent does with memory in dense plain language, then one paragraph for Claude Code (which
+   layer owns what, the digest import, never the same thing twice). The description keeps the one-call policy.
+
 # Phase A (2026-10-31) — the read path never loses
 
 Changes to `ask` from `REVIEW.md` F1–F4 and F7, all with 0 model calls. Suite 21 → 26 tests (A25–A29), 26/26 in 19 s.

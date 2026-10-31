@@ -29,7 +29,16 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 V = "0.4"
-SKIP = {"INDEX.md", "EDGES.md", "ALIASES.md", "README.md"}
+CODE = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()[:12]  # a changed script rebuilds the graph once, 0 calls
+SKIP = {"INDEX.md", "EDGES.md", "ALIASES.md", "README.md", "DIGEST.md"}
+# Kinds without a model (REVIEW.md F6): filename prefixes cover 71% of the test bank; the area names the rest.
+PREFIX_KIND = {"exp": "experiment", "feat": "feature", "ds": "dataset", "dec": "decision", "fnd": "finding",
+               "find": "finding", "finding": "finding", "q": "question", "metric": "metric", "model": "model",
+               "pref": "preference", "rule": "rule", "term": "term"}
+AREA_KIND = {"prefs": "preference", "glossary": "term", "corrections": "correction", "reporting": "rule",
+             "howto": "rule", "log": "log"}
+CC_KIND = {"user": "preference", "feedback": "rule", "project": "note", "reference": "note"}  # Claude Code's auto-memory types
+DIGEST_MAX_LINES, DIGEST_HEADS = 40, 10  # memory/DIGEST.md: ≤ 40 lines so it can sit in context every session
 KINDS = set("question experiment finding decision dataset feature model metric term preference rule log note".split())
 TIMEOUT = int(os.environ.get("MEMORY_TIMEOUT", "300"))
 KEEP_DAYS = 30
@@ -163,6 +172,72 @@ def mmdd(d):
     return d[5:10] if d else "--"
 
 
+def kind_of(rel, fm_type=None, x_kind=None):
+    """A note's kind: frontmatter `type:` (Claude Code's user/feedback/project/reference map onto ours), else the
+    dreamer's, else the filename prefix (exp-, feat-, ds-, dec-, fnd-, q-, …; `…-vN` is a model), else the area."""
+    t = (fm_type or "").strip().lower()
+    if t:
+        return CC_KIND.get(t, t)
+    if x_kind and str(x_kind).lower() != "note":  # the dreamer's "note" means nothing specific: let the name decide
+        return str(x_kind).lower()
+    stem_ = posixpath.basename(rel)[:-3].lower()
+    area = rel.split("/")[0].lower() if "/" in rel else ""
+    pre = stem_.split("-", 1)[0]
+    if "-" in stem_ and pre in PREFIX_KIND:
+        return PREFIX_KIND[pre]
+    if area in AREA_KIND:
+        return AREA_KIND[area]
+    return "model" if re.search(r"-v\d+$", stem_) else "note"
+
+
+def general_areas(by_area, kind):
+    """Areas that span projects (prefs, reporting, …): named, or mostly not project work by kind — judged on the notes
+    that have a kind, since without an index many have none (REVIEW.md F6)."""
+    out = set()
+    for a, ps in by_area.items():
+        ks = [kind(p) for p in ps]
+        ks = [k for k in ks if k != "note"]
+        if a.lower() in GENERAL or (ks and 2 * len(ks) >= len(ps) and 2 * sum(k in WORK for k in ks) < len(ks)):
+            out.add(a)
+    return out
+
+
+def claude_code_memory(root):
+    """Claude Code's auto-memory directory for this project, read only (REVIEW.md §8 R1): $MEMORY_CC_DIR; else
+    `autoMemoryDirectory` from .claude/settings.local.json beside the project or ~/.claude/settings.json; else
+    <config>/projects/<git root with non-alphanumerics as '-'>/memory. None when absent or switched off."""
+    if os.environ.get("MEMORY_SOURCES", "").strip() == "notes" or os.environ.get("CLAUDE_CODE_DISABLE_AUTO_MEMORY") == "1":
+        return None
+    if os.environ.get("MEMORY_CC_DIR"):
+        d = Path(os.environ["MEMORY_CC_DIR"]).expanduser()
+        return d if d.is_dir() else None
+    proj = root.parent
+    try:
+        r = subprocess.run(["git", "-C", str(proj), "rev-parse", "--show-toplevel"], capture_output=True, text=True, timeout=5)
+        if r.returncode == 0 and r.stdout.strip():
+            proj = Path(r.stdout.strip())
+    except (OSError, subprocess.TimeoutExpired):
+        pass
+    cfg = Path(os.environ.get("CLAUDE_CONFIG_DIR") or "~/.claude").expanduser()
+    for s in (proj / ".claude/settings.local.json", cfg / "settings.json"):  # not the checked-in project settings
+        v = (rd(s, {}) or {}).get("autoMemoryDirectory")
+        if isinstance(v, str) and v:
+            d = Path(v).expanduser()
+            return d if d.is_dir() else None
+    d = cfg / "projects" / re.sub(r"[^a-zA-Z0-9]", "-", str(proj)) / "memory"
+    return d if d.is_dir() else None
+
+
+def claude_code_owned(root):
+    """Why a root is Claude Code's own memory directory (which memory-dream never writes into), or ''."""
+    if (root / "MEMORY.md").exists():
+        return "it holds a MEMORY.md index"
+    cfg = Path(os.environ.get("CLAUDE_CONFIG_DIR") or "~/.claude").expanduser().resolve()
+    if root.name == "memory" and root.parent.parent.name == "projects" and root.parent.parent.parent == cfg:
+        return f"it is {cfg}/projects/<project>/memory"
+    return ""
+
+
 def find_root(arg):
     if arg:
         return Path(arg).expanduser().resolve()
@@ -245,7 +320,7 @@ SLUG = re.compile(r"(?<![\w/-])([a-z][a-z0-9]*(?:-[a-z0-9]+)+)(?![\w-])")
 def note_facts(text):
     """What the graph needs from a note's text: frontmatter lineage and dates, the `# ` line, links, body slugs."""
     fm, title, tline, links = parse_note(text)
-    return {"fm": {k: fm[k] for k in ("from", "supersedes", "type", "updated") if k in fm}, "title": title,
+    return {"fm": {k: fm[k] for k in ("from", "supersedes", "type", "updated", "modified") if k in fm}, "title": title,
             "line": tline, "links": links, "nul": "\x00" in text,  # binary-looking: C9
             "ids": sorted(set(SLUG.findall(text.lower().split("\n", tline)[-1]))) if tline else []}
 
@@ -546,14 +621,13 @@ def notes_part(root, man, cur, former, xs=None, facts=None):
         f = facts[rel] if facts is not None and rel in facts else note_facts(read(root / rel))
         fm, title, tline, links = f["fm"], f["title"], f["line"], f["links"]
         x = xs.get(h[:12]) if xs is not None else rd(root / "_dream" / "notes" / f"{h[:12]}.json")
-        up = fm.get("updated", "")
+        up = fm.get("updated") or fm.get("modified") or ""  # modified: Claude Code's auto-memory timestamp
         stem_date = re.match(r"\d{4}-\d\d-\d\d$", posixpath.basename(rel)[:-3])  # log/YYYY-MM-DD.md
         up = up[:10] if re.match(r"\d{4}-\d\d-\d\d", up) else stem_date.group(0) if stem_date else \
             dt.date.fromtimestamp(cur[rel]["mtime"] / 1e9).isoformat()
         proj = rel.split("/")[0] if "/" in rel else ""
         notes[rel] = {"path": rel, "id": posixpath.basename(rel)[:-3], "project": proj, "title": title,
-                      "line": tline,
-                      "kind": (fm.get("type") or (x or {}).get("kind") or ("log" if proj == "log" else "note")).lower(),
+                      "line": tline, "kind": kind_of(rel, fm.get("type"), (x or {}).get("kind")),
                       "superseded_by": [], "updated": up, "sha": h[:12], "indexed": bool(x)}
         aux[rel] = {"fm": fm, "links": links, "x": x, "mt": cur[rel]["mtime"], "ids": set(f["ids"])}
         by_stem[notes[rel]["id"]].append(rel)
@@ -700,7 +774,7 @@ def load(root):
     cur, former, _, _ = scan(root, man)
     et, at = vocab_texts(root)
     same = {p: f["sha"] for p, f in cur.items()} == {p: f["sha"] for p, f in man.get("files", {}).items()}
-    if same and man.get("vsig") == vsig(et, at):
+    if same and man.get("vsig") == vsig(et, at) and (man.get("code") == CODE or len(cur) > WIDE):
         g = rd(root / "_dream" / "graph.json") or read_index(root / "_dream")
         if g and g.get("v") == V:
             return g, former
@@ -714,10 +788,10 @@ def load(root):
 def fresh_note(root, rel, cur, stems):
     """A note changed since the last dream: its record and its from:/supersedes: edges, from its text alone."""
     fm, title, tline, _ = parse_note(read(root / rel))
-    up = fm.get("updated", "")
+    up = fm.get("updated") or fm.get("modified") or ""
     proj = rel.split("/")[0] if "/" in rel else ""
     n = {"path": rel, "id": posixpath.basename(rel)[:-3], "project": proj, "title": title, "line": tline,
-         "kind": (fm.get("type") or ("log" if proj == "log" else "note")).lower(), "superseded_by": [],
+         "kind": kind_of(rel, fm.get("type")), "superseded_by": [],
          "updated": up[:10] if re.match(r"\d{4}-\d\d-\d\d", up) else
          dt.date.fromtimestamp(cur[rel]["mtime"] / 1e9).isoformat(), "sha": cur[rel]["sha"][:12], "indexed": False}
     edges = []
@@ -930,9 +1004,11 @@ def dream(args, root):
     man = rd(dd / "manifest.json", {}) or {}
     cur, former, moved, deleted = scan(root, man)
     cmd = args.cmd or os.environ.get("MEMORY_LLM")
-    if (not args.all and not args.review and man.get("v") == V and man.get("unindexed") == 0 and not man.get("due")
+    if (not args.all and not args.review and man.get("v") == V and man.get("code") == CODE and man.get("unindexed") == 0
+            and not man.get("due")
             and {p: f["sha"] for p, f in cur.items()} == {p: f["sha"] for p, f in man.get("files", {}).items()}
             and man.get("vsig") == vsig(*vocab_texts(root)) and (dd / "index.db").exists() and (dd / "graph.html").exists()
+            and (root / "DIGEST.md").exists()
             and not any(pend.glob("*.json")) and {f["sha"][:12] + ".json" for f in cur.values()} <= set(os.listdir(dd / "notes"))):
         print(f"dream: {len(cur)} notes · 0 indexed (0 calls) · nothing new since {man.get('dreamed', '?')}")
         return
@@ -1127,6 +1203,7 @@ def dream(args, root):
         wr(dd / "graph.json", g)
         write_viz(root, g, dd / "graph.html")
     write_index(dd, g)
+    write_digest(root, g, now)
     old_index = root / "INDEX.md"  # earlier versions generated it; the viewer replaces it
     if old_index.exists() and read(old_index).startswith("# memory · "):
         old_index.unlink()
@@ -1138,7 +1215,7 @@ def dream(args, root):
            + "".join(f"{p.resolve()}\n" for p in todo_list))
     elif (pend / "TODO.md").exists():
         (pend / "TODO.md").unlink()
-    wr(dd / "manifest.json", {"v": V, "files": cur, "former": former, "vsig": vsig(e2, a2),
+    wr(dd / "manifest.json", {"v": V, "code": CODE, "files": cur, "former": former, "vsig": vsig(e2, a2),
                               "seen": sorted(fold(e["id"]) for e in g["entities"]),
                               "queue": [[r["a"], r["b"]] for r in g["review"]],
                               "failed": failed, "attempts": attempts, "refs": refs,
@@ -1161,6 +1238,29 @@ def dream(args, root):
     if pending:
         print(f"{pending} prompts listed in {pend / 'TODO.md'}: run the memory-dreamer subagent, "
               "then memory.py dream again")
+
+
+def write_digest(root, g, now):
+    """memory/DIGEST.md (REVIEW.md §8 R3): ≤ 40 lines that can sit in an agent's context every session — Claude Code
+    loads it when CLAUDE.md imports it with `@memory/DIGEST.md`. How to ask, the user's own preferences, the newest
+    live decisions and models. Deterministic, 0 calls, nothing from anyone else's memory."""
+    notes = [n for n in g["notes"] if n["project"] != "log"]
+    areas = sorted({n["project"] for n in notes if n["project"]})
+    me = [n for n in notes if n["project"] == "prefs" and n["id"].startswith("me-") and not n["superseded_by"]]
+    live = sorted((n for n in notes if not n["superseded_by"] and n["project"].lower() not in GENERAL
+                   and n["kind"] in ("decision", "model")), key=lambda n: (n["updated"], n["path"]), reverse=True)
+    lines = ["<!-- written by memory.py dream; edit nothing here. To keep it in context every session, import it from "
+             "CLAUDE.md with the line: @memory/DIGEST.md -->",
+             f"# memory digest · {now.date().isoformat()} · {len(notes)} notes in {len(areas)} areas",
+             f"The project's memory is the notes in `memory/<area>/`. Ask it everything in ONE call, tasks included: "
+             f"`python3 {Path(__file__).resolve()} ask \"q1\" \"q2\" …`. Write a short note per new fact or decision; "
+             "run `dream` at the end of a session."]
+    if me:
+        lines += ["", "## your own preferences"] + [f"- {n['title'][:140]}" for n in me[:10]]
+    if live:
+        lines += ["", "## current: the newest live decisions and models"] + \
+                 [f"- {n['updated']} {n['project']}: {n['title'][:120]}" for n in live[:DIGEST_HEADS]]
+    wr(root / "DIGEST.md", "\n".join(lines[:DIGEST_MAX_LINES]) + "\n")
 
 
 # ---------- retrieval ----------
@@ -1478,9 +1578,9 @@ def ask(args, root):
     big, by_area, cat = len(v.notes) > WIDE, defaultdict(list), None
     for p in v.notes:
         by_area[p.split("/")[0] if "/" in p else ""].append(p)
-    general = {a for a, ps in by_area.items() if a.lower() in GENERAL or  # by name, or mostly not project work
-               sum(v.notes[p]["kind"] in WORK for p in ps) < 0.8 * len(ps)}
+    general = general_areas(by_area, lambda p: v.notes[p]["kind"])  # by name, or mostly not project work
     taste_pool = {p for a in general for p in by_area[a]}
+    cc = claude_code_memory(root)  # Claude Code's own memory beside ours: read in the same call, never written
     per_q = []
     for q in qs:
         pats = qterms(q)
@@ -1559,6 +1659,7 @@ def ask(args, root):
         for x in xs:
             x["ranked"] = rank(x, by_file, idf, v)
             x["taste"] = taste(x, by_file, v, taste_pool) if "task" in x["intent"] else []
+    cc_search(cc, per_q) if cc else None
     budget = args.budget or 900 * len(qs) + 1500
 
     def header(path):
@@ -1598,6 +1699,7 @@ def ask(args, root):
                 out += [f"▸ {p}" for p, _ in x["ranked"]] + [f"▸ {p}" for p in x["taste"]]
                 if not x["ranked"]:
                     out.append("  (no match — try other words, or grep memory/)")
+                out += x.get("cc", [])
                 continue
             for path, lines in x["ranked"]:
                 want = body(path) if full else lines
@@ -1615,6 +1717,7 @@ def ask(args, root):
                 out.append("  preferences and house rules for this task:")
                 for p in x["taste"]:
                     out.append(f"▸ {p} · {v.notes[p]['title']}")
+            out += x.get("cc", [])
         if complete:
             out.append(f"## memory — complete ({len(v.notes)} notes by area, oldest first; SUPERSEDED marks history)")
             for path in sorted(v.notes, key=lambda p: (p.split("/")[0] if "/" in p else "", v.notes[p]["updated"], p)):
@@ -1628,6 +1731,59 @@ def ask(args, root):
         if len(whole) <= COMPLETE_RATIO * len(text):
             text = whole
     print(text)
+
+
+def cc_search(cc, per_q, top=3):
+    """Claude Code's auto-memory topic files, read-only, for every question in the same call (REVIEW.md §8 R1): one
+    grep, at most `top` files per question, two lines each, under their own origin mark. MEMORY.md is skipped: Claude
+    Code already loads it. Sets x["cc"] (printable lines) on each question."""
+    allpats = {t for x in per_q for t in x["pats"]}
+    if not allpats:
+        return
+    import tempfile
+    with tempfile.NamedTemporaryFile("w", suffix=".pat", delete=False, encoding="utf-8") as f:
+        f.write("\n".join(sorted(allpats)) + "\n")
+    try:
+        r = subprocess.run(["grep", "-rniaF", "--include=*.md", "--exclude=MEMORY.md", "-f", f.name, str(cc)],
+                           capture_output=True, text=True, errors="replace")
+        out = r.stdout if r.returncode in (0, 1) else ""
+    except OSError:
+        out = ""
+    finally:
+        os.unlink(f.name)
+    hits = defaultdict(list)
+    for ln in out.splitlines():
+        m = re.match(r"(.*?):(\d+):(.*)$", ln)
+        if m:
+            hits[os.path.relpath(m.group(1), cc)].append((int(m.group(2)), m.group(3)))
+    if not hits:
+        return
+    rx = {p: boundary(p) for p in allpats}
+    meta = {}
+    for f_ in hits:
+        fm, _, _, _ = parse_note(read(cc / f_))
+        up = (fm.get("modified") or fm.get("updated") or "")[:10]
+        meta[f_] = (fm.get("type", "memory"), up if re.match(r"\d{4}-\d\d-\d\d", up) else
+                    dt.date.fromtimestamp((cc / f_).stat().st_mtime).isoformat())
+    for x in per_q:
+        score, best = {}, {}
+        for f_, rows in hits.items():
+            lines = []
+            for no, text in rows:
+                ms = {p for p in x["pats"] if p in text.lower() and rx[p].search(text.lower())}
+                if ms:
+                    w = sum(x["pats"][p] for p in ms)
+                    lines.append((w, no, text))
+            if lines:
+                score[f_] = sum(w for w, _, _ in lines) + max(w for w, _, _ in lines)
+                best[f_] = sorted(lines, key=lambda z: (-z[0], z[1]))[:2]
+        picks = sorted(score.items(), key=lambda z: (-z[1], z[0]))[:top]
+        picks = [(f_, s) for f_, s in picks if s >= 0.3 * picks[0][1]] if picks else []
+        if picks:
+            x["cc"] = ["  also in Claude Code's memory:"]
+            for f_, _ in picks:
+                x["cc"].append(f"▸ claude-code: {f_} · {meta[f_][0]} · {meta[f_][1]}")
+                x["cc"] += [f"  {no}: {t.strip()[:220]}" for _, no, t in sorted(best[f_], key=lambda z: z[1])]
 
 
 def taste(x, by_file, v, pool):
@@ -1883,7 +2039,7 @@ def write_viz_big(root, g, dd, force=False):
     for a in set(old) - set(sigs):
         (pages / f"{a}.html").unlink() if (pages / f"{a}.html").exists() else None
     wr(pages / "_sig.json", sigs)
-    general = {a for a, ns in by.items() if a.lower() in GENERAL or sum(n["kind"] in WORK for n in ns) < 0.8 * len(ns)}
+    general = general_areas({a: [n["path"] for n in ns] for a, ns in by.items()}, lambda p: notes[p]["kind"])
     w = Counter()
     for e in g["edges"]:
         a, b = area(e["src"]), area(e["dst"])
@@ -1946,6 +2102,12 @@ def main(argv=None):
     lg.add_argument("-p", help="project")
     args = ap.parse_args(argv)
     root = find_root(args.root or args.root0)
+    if args.verb in ("dream", "log") or (args.verb == "viz" and not args.out):  # REVIEW.md §8 R2: never write there
+        why = claude_code_owned(root)
+        if why:
+            sys.stderr.write(f"memory.py: {root} is Claude Code's own memory ({why}); memory-dream reads it but never "
+                             "writes there. Point --root at your notes.\n")
+            sys.exit(2)
     {"dream": dream, "ask": ask, "viz": viz, "check": check, "log": log}[args.verb](args, root)
 
 

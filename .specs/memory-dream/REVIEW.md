@@ -22,7 +22,7 @@ and let subagents resolve conflicts.
 | robust | **good.** 14 malformed-input probes passed; failing, hanging and garbage-returning model commands are handled. Four real defects found (§4: F2, F3, F4, F10) | measured, §4 |
 | maintenance and viewer free | **mostly.** The viewer and health checks render with no model at all (verified in Chromium); dedup, move detection and vocabulary edits cost 0 calls; the review is ≤ 1 call per dream; indexing is $0.0013–0.0020 per new note. Not free: entity names, types and typed relations need Haiku, and without it every note's kind is "note" (0 of 1,677 bank notes carry `type:`) | measured + RESULTS |
 | subagents resolve conflicts | **partly.** Vocabulary and entity-pair reviews are already delegated (file mode → `memory-dreamer`). Conflicts between notes (two live notes that disagree) are neither detected nor queued | code reading |
-| works alongside Claude Code's own memory (CLAUDE.md, auto memory) | **not yet, but cleanly.** Pointed read-only at an auto-memory directory, `ask` already works; `dream` would wrongly write there. Design in §8 | measured, §8 |
+| works alongside Claude Code's own memory (CLAUDE.md, auto memory) | **done in phase B** (was: `ask` worked read-only, `dream` would wrongly write there). Design in §8; results in RESULTS.md "Phase B" | measured, §8 |
 
 Overall: the design is right and the evidence behind it is unusually honest. The read path is close to its ceiling
 on the test bank. The gaps are (a) the small-memory case, where `ask` prints more than the whole memory,
@@ -154,7 +154,10 @@ optional and what it adds (aliases, entity map, typed relations). Skip determini
 coverage is too thin unless notes follow the backtick rule strictly. Then the five interop rules of §8: `ask` reads
 Claude Code's auto-memory topic files in the same call (R1); `dream` and `log` refuse to write into Claude Code's
 directories (R2); `dream` writes a ≤ 40-line `memory/DIGEST.md` the user can import from CLAUDE.md (R3); `modified:`
-and Claude Code's `type:` values parse (R4); SKILL.md says which layer owns what (R5). Tests A25–A27. 0 model calls.
+and Claude Code's `type:` values parse (R4); SKILL.md says which layer owns what (R5). Tests A30–A33. 0 model calls.
+**Done 2026-10-31** (RESULTS.md, "Phase B"): 95% of bank notes kinded with no model, general areas 48 → 7, taste
+implicit 0.83 → 0.87 and rules 0.42 → 0.46, digest 15 lines on the bank, Claude Code's directory read and never
+written, SKILL.md rewritten for any agent with a shell at the same 606 words.
 
 **Phase C — subagent maintenance queue.** Generalise `_dream/pending/` into the one place subagents work:
 extraction prompts (exists), the vocabulary review (exists), and **conflict prompts** (new). Detection is
@@ -177,7 +180,7 @@ stronger judge; a write-path eval (agents writing notes under SKILL.md, then dre
 
 **Phase C, part 2 — a constrained open relation vocabulary** (§10): two tiers (coarse type, open label), promotion
 gated by evidence and a budget, probation and automatic demotion, seed packs for other domains. Tests A12/A14/A20
-rewritten, A30–A32 added.
+rewritten, A34–A36 added.
 
 What not to do: embeddings or any heavier retrieval; more model in the read path; an *unconstrained* open relation
 vocabulary; automatic edits to notes.
@@ -312,8 +315,8 @@ and `predicts`, the two the add-type demo chose by hand — so EDGES.md stays ne
 daily mechanism. In a new domain the labels appear at once and the first promotions follow once the evidence exists.
 Cost: one extra field per relation in the extraction (a few output tokens per note), the same single review call,
 0 calls for relabelling and demotion. Code: `EXTRACT` (+`label`), `ground`/`build` (keep `other`), `REVIEW` (+`new:`
-with a definition), `edit_edges` (add, mark, demote), the viewer (toggle), tests A12/A14/A20 rewritten, A30 promotion
-gate, A31 probation and demotion, A32 budget. Risks: the `other` tail is noisy in the viewer, so it is hidden by
+with a definition), `edit_edges` (add, mark, demote), the viewer (toggle), tests A12/A14/A20 rewritten, A34 promotion
+gate, A35 probation and demotion, A36 budget. Risks: the `other` tail is noisy in the viewer, so it is hidden by
 default; the thresholds are guesses until measured on real notes, which is why they live in `WEIGHTS` with a note.
 
 ---
