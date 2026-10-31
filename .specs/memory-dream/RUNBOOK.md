@@ -31,7 +31,10 @@ $M check                          # every warning C1–C9 in full
 grep -rn velocity memory/ --exclude-dir=_dream                 # plain grep stays first-class
 ```
 
-Viewer deep links: `graph.html#note=<path>`, `#entity=<id>`, `#health`.
+Viewer (`_dream/graph.html`, self-contained, grayscale, light/dark): notes by area and time with their lineage
+drawn; pick a note to see exactly what `ask` prints for it, its lineage tree, the entities and relations the
+dreamer read in it, pending conflicts; fuzzy search over titles, text and entity names (`/`). Deep links:
+`graph.html#note=<path>`, `#entity=<id>`, `#area=<name>`, `#q=<search>`, `#health`.
 
 ## Entities and the relation vocabulary
 

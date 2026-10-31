@@ -221,9 +221,10 @@ def kind_of(rel, fm_type=None, x_kind=None):
         return str(x_kind).lower()
     stem_ = posixpath.basename(rel)[:-3].lower()
     area = rel.split("/")[0].lower() if "/" in rel else ""
-    pre = stem_.split("-", 1)[0]
-    if "-" in stem_ and pre in PREFIX_KIND:
-        return PREFIX_KIND[pre]
+    segs = stem_.split("-")
+    for pre in segs[:2]:  # exp-014, and project-prefixed ids such as aml-find-kyc-lift or mrisk-find-watchlist
+        if len(segs) > 1 and pre in PREFIX_KIND:
+            return PREFIX_KIND[pre]
     if area in AREA_KIND:
         return AREA_KIND[area]
     return "model" if re.search(r"-v\d+$", stem_) else "note"
@@ -1142,11 +1143,17 @@ def read_index(dd):
 
 # ---------- dream ----------
 
-def call_model(cmd, prompt):
-    """One prompt on stdin, answer on stdout; retry once when unusable. -> (obj or None, calls)."""
+NOTE_CAP = 16000  # characters of note text per prompt: every call stays small (a note is 40 lines by rule)
+
+
+def call_model(cmd, prompt, static=0):
+    """One prompt on stdin, answer on stdout; retry once when unusable. -> (obj or None, calls).
+    MEMORY_STATIC_PREFIX tells a cache-aware command how many leading characters are the same for every call of this
+    project (template, EDGES, KNOWN): it can place them where the model caches (tests/haiku_cmd.py does)."""
+    env = {**os.environ, "MEMORY_STATIC_PREFIX": str(static)}
     for n in (1, 2):
         try:
-            r = subprocess.run(cmd, shell=True, input=prompt, capture_output=True, text=True, timeout=TIMEOUT)
+            r = subprocess.run(cmd, shell=True, input=prompt, capture_output=True, text=True, timeout=TIMEOUT, env=env)
             obj = parse_json(r.stdout) if r.returncode == 0 else None
         except subprocess.TimeoutExpired:
             obj = None
@@ -1276,8 +1283,9 @@ class Dream:
         def upd(rel):
             u = self.facts[rel]["fm"].get("updated", "")
             return u if re.match(r"\d{4}-\d\d-\d\d", u) else dt.date.fromtimestamp(cur[rel]["mtime"] / 1e9).isoformat()
+        # by project, then date: a wave is one project, so its calls share one KNOWN and one cacheable prefix
         self.todo = sorted((h for h in self.by_sha if self.args.all or h not in self.xs),
-                           key=lambda h: (upd(self.by_sha[h]), self.by_sha[h]))
+                           key=lambda h: (self.by_sha[h].split("/")[0], upd(self.by_sha[h]), self.by_sha[h]))
 
     def entities_now(self):
         xs, cur = self.xs, self.cur
@@ -1285,9 +1293,14 @@ class Dream:
         return merge_entities(occ, self.alines, self.nots, self.homes)[0]
 
     def prompt_for(self, h, ents):
+        """-> (prompt, static_len). The static part — template, EDGES, KNOWN — comes first and is byte-identical for
+        every note of a project within a dream; the note follows, capped so no call is large."""
         rel = self.by_sha[h]
-        return fill(EXTRACT, edges="\n".join(self.tlines), known=known_lines(ents, rel.split("/")[0]),
-                    path=rel, text=read(self.root / rel))
+        text = read(self.root / rel)
+        if len(text) > NOTE_CAP:
+            text = text[:NOTE_CAP] + f"\n… [{len(text) - NOTE_CAP} more characters cut: the note is far over the 40-line rule]"
+        pr = fill(EXTRACT, edges="\n".join(self.tlines), known=known_lines(ents, rel.split("/")[0]), path=rel, text=text)
+        return pr, pr.index("\nNOTE ") + 1
 
     def ingest(self, h, ans):
         rel = self.by_sha[h]
@@ -1308,12 +1321,16 @@ class Dream:
         if self.cmd:
             j = max(1, args.j)
             with ThreadPoolExecutor(j) as ex:
-                ents = None
+                ents, proj, since = None, None, 0
                 for w in range(0, len(todo), j):
-                    if ents is None or len(self.cur) <= WIDE or w // j % 10 == 0:
-                        ents = Known(self.entities_now())
                     wave = todo[w:w + j]
-                    for h, (obj, n) in zip(wave, ex.map(lambda h: call_model(self.cmd, self.prompt_for(h, ents)), wave)):
+                    p0 = self.by_sha[wave[0]].split("/")[0]
+                    # KNOWN is refreshed when the project changes (big memories: at most every 10 waves, the merge is
+                    # slow there), so every call of a project shares one prefix that the model can cache
+                    if ents is None or (p0 != proj and (len(self.cur) <= WIDE or since >= 10)):
+                        ents, proj, since = Known(self.entities_now()), p0, 0
+                    since += 1
+                    for h, (obj, n) in zip(wave, ex.map(lambda h: call_model(self.cmd, *self.prompt_for(h, ents)), wave)):
                         self.st["calls"] += n
                         if obj is None:
                             self.failed[h] = "unusable answer after one retry"
@@ -1341,7 +1358,7 @@ class Dream:
             for h in todo:
                 if h in xs and not args.all:
                     continue
-                wr(pend / f"{h}.prompt.md", self.prompt_for(h, ents))
+                wr(pend / f"{h}.prompt.md", self.prompt_for(h, ents)[0])
         for pp in pend.glob("*.prompt.md"):  # stale prompts: note changed or gone, or prompts no longer wanted
             k = pp.name[:-len(".prompt.md")]
             if not args.prompts or not (k in by_sha or k == "review"):
@@ -2351,7 +2368,7 @@ def note_text(root, n):
         ls = read(root / n["path"]).split("\n")
     except OSError:
         ls = []
-    return [x for x in ls[(n["line"] or 1) - 1:] if x.strip()][:14]
+    return [x for x in ls[(n["line"] or 1) - 1:] if x.strip()][:60]  # the whole note (40 lines by rule): the viewer reads it
 
 
 def write_viz(root, g, out):

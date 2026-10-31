@@ -269,7 +269,11 @@ the read path live in one `W` table with their provenance.
     retry at the next dream.
   - Ground the output: keep an entity only if one of its `as` strings occurs in the note, and a relation only if
     its quote occurs. Count what is dropped as C4.
-  - Command mode (`--cmd` or `$MEMORY_LLM`): run waves of `-j` parallel calls with the prompt on stdin.
+  - Command mode (`--cmd` or `$MEMORY_LLM`): run waves of `-j` parallel calls with the prompt on stdin. Order the
+    notes by project then date, refresh KNOWN only when the project changes (big memories: at most every 10 waves),
+    so every call of a project shares one byte-identical prefix (template, EDGES, KNOWN); pass its length in
+    `MEMORY_STATIC_PREFIX` so a cache-aware command (`tests/haiku_cmd.py`: `--append-system-prompt` for the prefix,
+    the note as the message) lets the model cache it. Cap note text at 16k characters: every call stays small.
   - No model: write nothing for a helper (the memory is complete for answering; `check` summarises C5 in one line
     and the summary says "N without entities (no model; …)"). With `--prompts`: write `_dream/pending/<id>.prompt.md`
     and `pending/TODO.md` (and the review prompt when due), then ingest the `.json` answers on the next `dream`.
@@ -355,16 +359,28 @@ the read path live in one `W` table with their provenance.
 ### P8 — Viewer (`assets/viz.html`, `render_viz`)
 
 - **References:** BUILD-GUIDE §5.9; RESULTS round 2 "Viewer".
-- **Do:** write one self-contained HTML file with no external requests. Data lives in
-  `<script type="application/json" id="data-graph">` and components talk through `dp:` events. Tabs: Map,
-  Overview, Explore and Health. Deep links: `#note=<path>`, `#entity=<id>`, `#health`. Three modes: normal,
-  `overview`, `area`. Theme tokens with dark mode, a 16px phone gutter and no horizontal scroll.
+- **Do:** write one self-contained HTML file with no external requests, grayscale theme (tokens on `:root`, dark
+  mode under `prefers-color-scheme` and `[data-theme="dark"]`, `prefers-reduced-motion` honoured). Data lives in
+  `<script type="application/json" id="data-graph">`; every top-level element has an id; parts talk through `dp:`
+  events. Two views: **global** — one row per area, x = date, a shape per kind (circle experiment, square
+  decision, diamond finding, triangle model, hexagon dataset/feature), superseded notes hollow and dashed, lineage
+  as curves (built on; dashed supersedes; faint refs), hover lights a note's links, a pick dims everything outside
+  two hops and draws the picked note's links (≤ 420 ms); **picked** — for a note the exact `ask` header and numbered
+  lines, a five-column lineage tree (clickable), the dreamer's entities as chips, relations with the quoted line
+  (`label?` outside the vocabulary), conflicts and warnings; for an entity its names, headline, relations, labels
+  and mentioning notes; for an area its counts, chains, conflicts, warnings, notes. **Fuzzy search** (fzf-style
+  scoring) over title, id, text and entity names: best 20 listed with matched letters marked, all matches kept in
+  the lanes while the rest fade; `/`, arrows, Enter, Esc. **Health** collapsed. Deep links `#note=`, `#entity=`,
+  `#area=`, `#q=`, `#health`. Modes: whole memory, `area` (with "← all areas"), `overview` (area cards).
 - **Exit conditions:**
   - [ ] `memory.py --root <indexed fixture> viz --out /tmp/g.html` writes the file, and
         `grep -c 'https\?://' /tmp/g.html` finds no script or stylesheet URLs.
-  - [ ] Headless Chromium (Playwright; skip if not installed) loads `/tmp/g.html#note=churn-2026/exp-014.md` and
-        `#health` with no console errors.
-  - [ ] A24's big-memory page checks pass. These are shared with P7.
+  - [ ] Headless Chromium (Playwright): `/tmp/g.html` has one `.node` per non-log note and `.edge` paths; running
+        `window.__memorySearch.run('velocity leak')` lists results and marks `.hit`/`.dim` nodes; `#note=churn-2026/exp-014.md`
+        shows a `#pick pre` starting with `▸ churn-2026/exp-014.md · experiment` and a `svg.tree`; clicking a `.chip`
+        opens the entity view; `#health` lists; dark mode gives a dark body background; 0 console errors.
+  - [ ] The 1,677-note bank page loads in under 3 s with every note and its lineage drawn (reference 0.9 s, 1.6 MB).
+  - [ ] A24's big-memory page checks pass (overview cards, area pages). These are shared with P7.
 
 ### P9 — Integration
 

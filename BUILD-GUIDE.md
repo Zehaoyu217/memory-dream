@@ -278,12 +278,31 @@ Per question:
 
 ### 5.9 Viewer (`assets/viz.html`)
 
-Self-contained HTML (no CDN) following the html-lite habits: every top-level element has an id, data lives in
-`<script type="application/json" id="data-graph">`, components talk through `dp:` events. Tabs: Map (area graph with
-a deterministic force layout; project history lanes by kind over time), Overview (areas table), Explore (search, a
-radial view of a note or entity, note text), Health (warnings by code, superseded → current chains, unlinked notes,
-review queue). Deep links `#note=<path>`, `#entity=<id>`, `#health`. `memory.py` fills the island
-(`render_viz`); the template has three modes: normal, `overview`, `area`.
+Self-contained HTML (no network), grayscale theme with light and dark modes, one accent (the ink) for what is picked.
+Data lives in `<script type="application/json" id="data-graph">` (notes with their full text, entities with
+mentions, relations with evidence, lineage edges, checks, review queue, conflicts); `memory.py` fills it
+(`render_viz`); every top-level element has an id; parts talk through `dp:` events. Two views:
+
+- **Global — notes by area and time.** One row per area (projects first, general areas in italics), x = date, each
+  note a shape by kind (circle experiment, square decision, diamond finding, triangle model, hexagon dataset or
+  feature) in a grey by kind; superseded notes hollow and dashed; lineage drawn as curves (built on; dashed =
+  supersedes; faint = refers to). Hovering a note lights its links; picking one dims everything outside two lineage
+  hops and draws its own links in (a 420 ms stroke animation, off under `prefers-reduced-motion`). Clicking an area
+  label opens the area's summary.
+- **Picked — what the agent sees.** For a note: the exact `▸ path · kind · date · from … · SUPERSEDED → …` header and
+  the numbered lines `memory.py ask` prints, then its lineage as a five-column tree (built on ×2 · built on · the note ·
+  built upon by · ×2, clickable), the entities the dreamer read in it (chips → the entity view), the relations it
+  states with the quoted line (`label?` for links outside the vocabulary), pending conflicts and warnings. For an
+  entity: how it is written, headline and home note, typed relations, labels, every note that mentions it. For an
+  area: counts by kind, superseded → current chains, conflicts, warnings, notes newest first.
+- **Fuzzy search** (fzf-style subsequence scoring with word-start and run bonuses; exact substrings win) over title,
+  id, text and entity names; the best 20 listed with matched letters marked, every match kept in the lanes while the
+  rest fade; `/` focuses, arrows and Enter pick, Esc clears.
+- **Health** (collapsed): warnings by code, superseded → current, unlinked notes, the review queue (pairs, labels
+  over the bar, conflicts). Deep links: `#note=`, `#entity=`, `#area=`, `#q=`, `#health`.
+- **Modes**: whole memory; `area` (one page per area past `MEMORY_WIDE`, with "← all areas"); `overview` (one card per
+  area with a kind bar, linking to its page). Measured: the 1,677-note bank renders in 0.9 s from a 1.6 MB page with
+  1,524 notes and 3,680 links drawn, 0 console errors.
 
 ---
 
