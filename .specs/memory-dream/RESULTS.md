@@ -2,6 +2,26 @@
 
 2026-10-30 (round 4: 2026-10-31) · built from the "Memory" email spec (`build-spec.md`) · macOS, Python 3.9.6, Claude Code 2.1.314.
 
+# Phase D (2026-10-31) — simplify what the measurements allow
+
+`REVIEW.md` F9, F10, F13 and §5. Suite 34/34; bank retrieval byte-identical before and after (0.898 / 0.972 / 2,004
+characters; routed 0.889 / 0.962; taste 1.00 / 0.87 / 0.46).
+
+| change | before | after |
+|---|---|---|
+| `dream()` | one 306-line function of closures | a `Dream` class in 15 stage methods (plan → index → graph → demote → review → write → report), none over 68 lines |
+| tuned numbers in `rank`/`route` | 13 literals in the code | one `W` table with the measurement behind each; 46 retrieval literals remain outside it (15 distinct), from 58 (22) before phase A |
+| concurrent dreams | raced on manifest.json and store.db | `_dream/lock`: a second dream exits 3 with a message; a lock older than 2 h is taken over (measured: fresh lock refused, stale lock taken, no lock left behind) |
+| question words | ASCII only: "vélocité" produced no term | `\w`: "qu'est-ce que la vélocité?" finds the note |
+| legacy | INDEX.md unlink | removed (INDEX.md stays skipped if present) |
+| `memory.py` | 1,897 lines (review), 2,391 after phases A–C | 2,446 lines: the features of A–C (kinds, Claude Code's memory, the digest, two-tier vocabulary, conflicts, the lock) cost ~550 lines; the review's 1,400-line target is not reachable with them in |
+
+Measured and kept, not cut: `ask`'s entity boosts. On the one world with a real index (70 notes, 56 entities, 12 bank
+questions) gold recall is 0.842 with or without them, number recall 0.991 with against 0.970 without, +8% characters
+— a small positive, so the ~60 lines stay (F5 said measure, then cut or keep). Not done: F11 (patch below 10,000
+notes); the in-memory rebuild is exact and takes 0.6 s at 1,677 notes, while a patch would have to recompute headlines,
+mentions and evidence to match it.
+
 # Phase C (2026-10-31) — a constrained open vocabulary, and conflicts for a subagent to settle
 
 `REVIEW.md` §10 and the conflict queue of §6 phase C. Suite 30 → 34 tests (A34–A37; A11/A12/A14/A20 rewritten),

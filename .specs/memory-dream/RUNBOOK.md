@@ -174,4 +174,6 @@ python3 eval/scale/profile_incremental.py <memory root> <scratch> fraud-2026   #
   note covers at most half of the question's words; the notes shown are a guess. Rephrase, or grep.
 - On a small memory (≤ 200 notes) `ask` prints the whole memory after the per-question pointers whenever that costs
   about the same as the surgical lines (within 1.2×): nothing is missed, and it is no dearer than `cat`.
-- Delete `memory/_dream/` to rebuild from scratch; EDGES.md and ALIASES.md survive.
+- `memory.py: another dream is running` (exit 3): `_dream/lock` exists and is under two hours old; wait, or
+  delete it if that dream died. A lock older than two hours is taken over.
+- Delete `memory/_dream/` to rebuild from scratch; EDGES.md, ALIASES.md and CONFLICTS.md survive.

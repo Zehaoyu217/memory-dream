@@ -205,6 +205,12 @@ Review candidates: new entities of the same type that share a rare surface form 
 
 ### 5.6 The dreamer (`dream`)
 
+Structure: `dream` takes `_dream/lock` (a second dream exits 3; a lock older than 2 h is taken over) and runs a
+`Dream` object in stages — `plan` (scan, caches, what to index), `index` (command or file mode), `graph`, `demote`
+(probation over), `run_review` (labels over the bar, entity pairs, conflicts), `write` (viewer, index.db, digest,
+pending list, manifest), `report`. The tuned numbers of `rank`/`route` live in the `W` table beside the retrieval
+constants, each with the measurement that set it.
+
 - **Extraction prompt** (`EXTRACT`): JSON with kind, entities `{id, type, as[]}`, relations `{s, type, o, quote}`,
   refs. It gets the EDGES list and KNOWN: up to 80 entities of the note's project plus 20 most-mentioned shared ones
   (`Known`, one sort per wave), so ids are reused and the prompt stops growing (~2.2k tokens plus the CLI's own ~4.8k).

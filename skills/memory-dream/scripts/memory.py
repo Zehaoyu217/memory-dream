@@ -24,6 +24,7 @@ import re
 import sqlite3
 import subprocess
 import sys
+import time
 from collections import Counter, defaultdict
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
@@ -1181,86 +1182,144 @@ def known_lines(ents, project, local=80, shared=20):
     return "\n".join(f"{e['id']} ({e['type']}): " + "; ".join(n["name"] for n in e["names"][:4]) for e in es) or "(none)"
 
 
+class Lock:
+    """_dream/lock: one dream at a time (REVIEW.md F10). A lock older than LOCK_STALE_S is taken over."""
+    def __init__(self, dd):
+        self.p = dd / "lock"
+
+    def __enter__(self):
+        if self.p.exists() and time.time() - self.p.stat().st_mtime < LOCK_STALE_S:
+            sys.stderr.write(f"memory.py: another dream is running ({self.p}, {int(time.time() - self.p.stat().st_mtime)} s "
+                             "old); wait for it, or delete the lock if it died.\n")
+            sys.exit(3)
+        self.p.write_text(str(os.getpid()))
+        return self
+
+    def __exit__(self, *exc):
+        self.p.unlink() if self.p.exists() else None
+
+
+LOCK_STALE_S = 2 * 3600
+
+
 def dream(args, root):
     root.mkdir(parents=True, exist_ok=True)
-    for name, seed in (("EDGES.md", EDGES_SEED), ("ALIASES.md", ALIASES_HEAD)):
-        if not (root / name).exists():
-            wr(root / name, seed)
-    dd, now = root / "_dream", dt.datetime.now()
+    dd = root / "_dream"
     (dd / "notes").mkdir(parents=True, exist_ok=True)
-    pend = dd / "pending"
-    man = rd(dd / "manifest.json", {}) or {}
-    cur, former, moved, deleted = scan(root, man)
-    cmd = args.cmd or os.environ.get("MEMORY_LLM")
-    if (not args.all and not args.review and man.get("v") == V and man.get("code") == CODE and man.get("unindexed") == 0
-            and not man.get("due")
-            and {p: f["sha"] for p, f in cur.items()} == {p: f["sha"] for p, f in man.get("files", {}).items()}
-            and man.get("vsig") == vsig(*vocab_texts(root), conflicts_text(root)) and (dd / "index.db").exists()
-            and (dd / "graph.html").exists()
-            and (root / "DIGEST.md").exists()
-            and not any(pend.glob("*.json")) and {f["sha"][:12] + ".json" for f in cur.values()} <= set(os.listdir(dd / "notes"))):
-        print(f"dream: {len(cur)} notes · 0 indexed (0 calls) · nothing new since {man.get('dreamed', '?')}")
-        return
-    failed, attempts = man.get("failed", {}), man.get("attempts", {})
-    st = Counter()
-    by_sha = {}
-    for rel in sorted(cur):
-        by_sha.setdefault(cur[rel]["sha"][:12], rel)
-    store = Store(dd)
-    facts = store.facts(root, cur)
-    xs = store.extractions(by_sha)
-    et, at = vocab_texts(root)
-    _, _, _, tlines, _ = parse_edges(et)
-    alines, nots, _ = parse_aliases(at)
+    with Lock(dd):
+        dream_locked(args, root)
 
-    homes = defaultdict(list)
-    for rel in cur:
-        if not rel.startswith("log/"):
-            homes[fold(posixpath.basename(rel)[:-3])].append(rel)
 
-    def entities_now():
+def dream_locked(args, root):
+    Dream(args, root).run()
+
+
+class Dream:
+    """One dream, in stages: plan (scan, caches, what to index) → index (command or file mode) → graph → demote
+    (probation over) → review (labels over the bar, entity pairs, conflicts: one call, or one prompt in file mode)
+    → write (viewer, index.db, digest, pending list, manifest) → report. State lives on the instance."""
+
+    def __init__(self, args, root):
+        self.args, self.root = args, root
+        for name, seed in (("EDGES.md", EDGES_SEED), ("ALIASES.md", ALIASES_HEAD)):
+            if not (root / name).exists():
+                wr(root / name, seed)
+        self.dd, self.now = root / "_dream", dt.datetime.now()
+        self.pend = self.dd / "pending"
+        self.man = rd(self.dd / "manifest.json", {}) or {}
+        self.cur, self.former, self.moved, self.deleted = scan(root, self.man)
+        self.cmd = args.cmd or os.environ.get("MEMORY_LLM")
+        self.st = Counter()
+        self.review = {"pairs": 0, "types": 0, "calls": 0, "aliases": 0, "mapped": 0, "new": 0, "refused": 0,
+                       "demoted": 0, "conflicts": 0, "decided": 0}
+        self.base = {}  # the note half of the graph, reused across rebuilds until a review changes lineage
+
+    def run(self):
+        if self.nothing_new():
+            print(f"dream: {len(self.cur)} notes · 0 indexed (0 calls) · nothing new since {self.man.get('dreamed', '?')}")
+            return
+        self.plan()
+        self.index()
+        g = self.demote(self.graph())
+        g = self.run_review(g)
+        self.report(g, self.write(g))
+
+    def nothing_new(self):
+        """Same hashes, vocabulary, conflicts and script; nothing unindexed, due or pending; every output present."""
+        a, man, cur, dd, root = self.args, self.man, self.cur, self.dd, self.root
+        return (not a.all and not a.review and man.get("v") == V and man.get("code") == CODE
+                and man.get("unindexed") == 0 and not man.get("due")
+                and {p: f["sha"] for p, f in cur.items()} == {p: f["sha"] for p, f in man.get("files", {}).items()}
+                and man.get("vsig") == vsig(*vocab_texts(root), conflicts_text(root))
+                and (dd / "index.db").exists() and (dd / "graph.html").exists() and (root / "DIGEST.md").exists()
+                and not any(self.pend.glob("*.json"))
+                and {f["sha"][:12] + ".json" for f in cur.values()} <= set(os.listdir(dd / "notes")))
+
+    def plan(self):
+        """Caches in, the list of notes to index (oldest first), the homes for entity dedup."""
+        man, cur, root = self.man, self.cur, self.root
+        self.failed, self.attempts = man.get("failed", {}), man.get("attempts", {})
+        self.by_sha = {}
+        for rel in sorted(cur):
+            self.by_sha.setdefault(cur[rel]["sha"][:12], rel)
+        self.store = Store(self.dd)
+        self.facts = self.store.facts(root, cur)
+        self.xs = self.store.extractions(self.by_sha)
+        et, at = vocab_texts(root)
+        self.tlines = parse_edges(et)[3]
+        self.alines, self.nots, _ = parse_aliases(at)
+        self.homes = defaultdict(list)
+        for rel in cur:
+            if not rel.startswith("log/"):
+                self.homes[fold(posixpath.basename(rel)[:-3])].append(rel)
+
+        def upd(rel):
+            u = self.facts[rel]["fm"].get("updated", "")
+            return u if re.match(r"\d{4}-\d\d-\d\d", u) else dt.date.fromtimestamp(cur[rel]["mtime"] / 1e9).isoformat()
+        self.todo = sorted((h for h in self.by_sha if self.args.all or h not in self.xs),
+                           key=lambda h: (upd(self.by_sha[h]), self.by_sha[h]))
+
+    def entities_now(self):
+        xs, cur = self.xs, self.cur
         occ = [(rel, e) for rel in cur if cur[rel]["sha"][:12] in xs for e in xs[cur[rel]["sha"][:12]]["entities"]]
-        return merge_entities(occ, alines, nots, homes)[0]
+        return merge_entities(occ, self.alines, self.nots, self.homes)[0]
 
-    def upd(rel):
-        u = facts[rel]["fm"].get("updated", "")
-        return u if re.match(r"\d{4}-\d\d-\d\d", u) else dt.date.fromtimestamp(cur[rel]["mtime"] / 1e9).isoformat()
+    def prompt_for(self, h, ents):
+        rel = self.by_sha[h]
+        return fill(EXTRACT, edges="\n".join(self.tlines), known=known_lines(ents, rel.split("/")[0]),
+                    path=rel, text=read(self.root / rel))
 
-    todo = [h for h in by_sha if args.all or h not in xs]
-    todo.sort(key=lambda h: (upd(by_sha[h]), by_sha[h]))
+    def ingest(self, h, ans):
+        rel = self.by_sha[h]
+        rec = ground(ans, read(self.root / rel))
+        rec.update(path=rel, sha=self.cur[rel]["sha"], model=self.cmd or "file",
+                   indexed_at=self.now.isoformat(timespec="seconds"))
+        wr(self.dd / "notes" / f"{h}.json", rec)
+        self.store.put(h, rec)
+        self.xs[h] = rec
+        self.failed.pop(h, None)
+        self.attempts.pop(h, None)
+        self.st["indexed"] += 1
 
-    def prompt_for(h, ents):
-        rel = by_sha[h]
-        return fill(EXTRACT, edges="\n".join(tlines), known=known_lines(ents, rel.split("/")[0]),
-                    path=rel, text=read(root / rel))
-
-    def ingest(h, ans):
-        rel = by_sha[h]
-        text = read(root / rel)
-        rec = ground(ans, text)
-        rec.update(path=rel, sha=cur[rel]["sha"], model=cmd or "file", indexed_at=now.isoformat(timespec="seconds"))
-        wr(dd / "notes" / f"{h}.json", rec)
-        store.put(h, rec)
-        xs[h] = rec
-        failed.pop(h, None)
-        attempts.pop(h, None)
-        st["indexed"] += 1
-
-    if cmd:  # command mode: waves of -j parallel calls, KNOWN refreshed between waves
-        j = max(1, args.j)
-        with ThreadPoolExecutor(j) as ex:
-            ents = None
-            for w in range(0, len(todo), j):
-                if ents is None or len(cur) <= WIDE or w // j % 10 == 0:
-                    ents = Known(entities_now())
-                wave = todo[w:w + j]
-                for h, (obj, n) in zip(wave, ex.map(lambda h: call_model(cmd, prompt_for(h, ents)), wave)):
-                    st["calls"] += n
-                    if obj is None:
-                        failed[h] = "unusable answer after one retry"
-                    else:
-                        ingest(h, obj)
-    else:  # file mode: ingest answers beside prompts, write prompts for the rest
+    def index(self):
+        """Command mode: waves of -j parallel calls, KNOWN refreshed between waves. File mode: ingest the answers
+        found beside the prompts, write prompts for what is still unindexed, drop stale prompts."""
+        todo, pend, by_sha, xs, args = self.todo, self.pend, self.by_sha, self.xs, self.args
+        if self.cmd:
+            j = max(1, args.j)
+            with ThreadPoolExecutor(j) as ex:
+                ents = None
+                for w in range(0, len(todo), j):
+                    if ents is None or len(self.cur) <= WIDE or w // j % 10 == 0:
+                        ents = Known(self.entities_now())
+                    wave = todo[w:w + j]
+                    for h, (obj, n) in zip(wave, ex.map(lambda h: call_model(self.cmd, self.prompt_for(h, ents)), wave)):
+                        self.st["calls"] += n
+                        if obj is None:
+                            self.failed[h] = "unusable answer after one retry"
+                        else:
+                            self.ingest(h, obj)
+            return
         pend.mkdir(parents=True, exist_ok=True)
         for pj in sorted(pend.glob("*.json")):
             h = pj.name[:-5]
@@ -1269,43 +1328,79 @@ def dream(args, root):
             obj = parse_json(read(pj))
             pj.unlink()
             if obj is not None:
-                ingest(h, obj)
+                self.ingest(h, obj)
                 (pend / f"{h}.prompt.md").unlink() if (pend / f"{h}.prompt.md").exists() else None
-            elif attempts.get(h, 0) >= 1:
-                failed[h] = "unusable answer after one retry"
-                attempts.pop(h, None)
+            elif self.attempts.get(h, 0) >= 1:
+                self.failed[h] = "unusable answer after one retry"
+                self.attempts.pop(h, None)
                 (pend / f"{h}.prompt.md").unlink() if (pend / f"{h}.prompt.md").exists() else None
             else:
-                attempts[h] = attempts.get(h, 0) + 1
-        ents = Known(entities_now()) if any(h not in xs or args.all for h in todo) else None
+                self.attempts[h] = self.attempts.get(h, 0) + 1
+        ents = Known(self.entities_now()) if any(h not in xs or args.all for h in todo) else None
         for h in todo:
             if h in xs and not args.all:
                 continue
-            wr(pend / f"{h}.prompt.md", prompt_for(h, ents))
+            wr(pend / f"{h}.prompt.md", self.prompt_for(h, ents))
         for pp in pend.glob("*.prompt.md"):  # stale prompts: note changed or gone
             k = pp.name[:-len(".prompt.md")]
             if not (k in by_sha or k == "review"):
                 pp.unlink()
 
-    base = {}
+    def graph(self):
+        """The graph now. The note half is reused across rebuilds in one dream unless a review changed lineage."""
+        e2, a2 = vocab_texts(self.root)
+        man = {**self.man, "failed": self.failed}
+        self.base.update(self.base or notes_part(self.root, man, self.cur, self.former, self.xs, self.facts))
+        return build(self.root, man, self.cur, self.former, e2, a2, xs=self.xs, now=self.now, facts=self.facts, base=self.base)
 
-    def graph():  # after a review only the vocabulary changed: the note half is reused
-        e2, a2 = vocab_texts(root)
-        base.update(base or notes_part(root, {**man, "failed": failed}, cur, former, xs, facts))
-        return build(root, {**man, "failed": failed}, cur, former, e2, a2, xs=xs, now=now, facts=facts, base=base)
-
-    review = {"pairs": 0, "types": 0, "calls": 0, "aliases": 0, "mapped": 0, "new": 0, "refused": 0, "demoted": 0,
-              "conflicts": 0, "decided": 0}
-    g = graph()
-    if g["vocab"]["demote"]:  # probation over, still under the bar: back to a label, 0 calls
-        e2 = vocab_texts(root)[0]
+    def demote(self, g):
+        """Probation over and still under the bar: the type goes back to a label, 0 calls."""
+        if not g["vocab"]["demote"]:
+            return g
+        e2 = vocab_texts(self.root)[0]
         for T in g["vocab"]["demote"]:
             e2 = edit_edges(e2, "demote", T)
-        wr(root / "EDGES.md", e2)
-        review["demoted"] = len(g["vocab"]["demote"])
-        g = graph()
+        wr(self.root / "EDGES.md", e2)
+        self.review["demoted"] = len(g["vocab"]["demote"])
+        return self.graph()
 
-    def apply_review(ans, props, pairs, conflicts=()):
+    def review_prompt(self, g):
+        """-> (prompt or None, labels offered, entity pairs offered, conflicts offered)."""
+        root = self.root
+        props = g["proposed"][:40]
+        pairs = [(r["a"], r["b"]) for r in g["review"]][:30]
+        conflicts = [c for c in g["conflicts"] if not c["unsure"]][:CONFLICT_MAX]
+        if not props and not pairs and not conflicts:
+            return None, props, pairs, conflicts
+        ents = {e["id"]: e for e in g["entities"]}
+        nmap = {n["path"]: n for n in g["notes"]}
+
+        def first_line(p):
+            n = nmap[p]
+            ls = [x.strip() for x in read(root / p).split("\n")[(n["line"] or 1):] if x.strip() and not x.startswith("#")]
+            return (ls[0] if ls else "")[:160]
+
+        def ctx(e):
+            m = e["mentions"][0]
+            return read(root / m["path"]).split("\n")[m["lines"][0] - 1].strip()[:160]
+
+        def desc(c):
+            e = ents[c]
+            return f"{c} ({e['type']}; " + "; ".join(f'"{n["name"]}"' for n in e["names"][:3]) + f") «{ctx(e)}»"
+        vc = g["vocab"]
+        pr = fill(REVIEW, edges="\n".join(parse_edges(vocab_texts(root)[0])[3]), n=vc["types"], budget=vc["budget"],
+                  u=vc["promote"][0], nn=vc["promote"][1], a=vc["promote"][2],
+                  proposals="\n".join(f"- {p['type']}: {p['uses']} uses, {p['notes']} notes, {p['areas']} areas; "
+                                      + "; ".join(f'"{x}"' for x in p["examples"]) for p in props) or "none",
+                  pairs="\n".join(f"- {a} / {b}: {desc(a)} | {desc(b)}" for a, b in pairs) or "none",
+                  conflicts="\n".join(f"- {c['a']} / {c['b']}: \"{nmap[c['a']]['title']}\" «{first_line(c['a'])}» | "
+                                      f"\"{nmap[c['b']]['title']}\" «{first_line(c['b'])}»" for c in conflicts) or "none")
+        return pr, props, pairs, conflicts
+
+    def apply_review(self, g, ans, props, pairs, conflicts=()):
+        """Write what the review decided: CONFLICTS.md verdicts, EDGES.md aliases / drops / new types (within the
+        budget), ALIASES.md pairs. The code decides what is admissible; the answer only proposes."""
+        root, review, now = self.root, self.review, self.now
         e2, a2 = vocab_texts(root)
         cf = root / "CONFLICTS.md"
         c2 = read(cf) if cf.exists() else CONFLICTS_HEAD
@@ -1333,7 +1428,7 @@ def dream(args, root):
             offered.pop(frozenset(pair), None)
         if conflicts and c2 != (read(cf) if cf.exists() else CONFLICTS_HEAD):
             wr(cf, c2)
-            base.clear()  # a supersession changes the note half: rebuild it, not only the vocabulary half
+            self.base.clear()  # a supersession changes the note half: rebuild it, not only the vocabulary half
         types, alias_all = parse_edges(e2)[0], parse_edges(e2)[1]
         budget = edges_cfg(e2)["budget"]
         mentions = {e["id"]: len(e["mentions"]) for e in g["entities"]}
@@ -1371,125 +1466,100 @@ def dream(args, root):
         if a2 != vocab_texts(root)[1]:
             wr(root / "ALIASES.md", a2)
 
-    def review_prompt():
-        props = g["proposed"][:40]
-        pairs = [(r["a"], r["b"]) for r in g["review"]][:30]
-        conflicts = [c for c in g["conflicts"] if not c["unsure"]][:CONFLICT_MAX]
-        if not props and not pairs and not conflicts:
-            return None, props, pairs, conflicts
-        ents = {e["id"]: e for e in g["entities"]}
-        nmap = {n["path"]: n for n in g["notes"]}
+    def run_review(self, g):
+        """Command mode: one call when something is due. File mode: ingest review.json if the helper agent left one,
+        then write review.prompt.md for what is still due."""
+        pend, cmd, args = self.pend, self.cmd, self.args
+        open_ = lambda g_: [c for c in g_["conflicts"] if not c["unsure"]]  # noqa: E731
+        if cmd and (args.review or g["proposed"] or g["review"] or open_(g)):
+            pr, props, pairs, conflicts = self.review_prompt(g)
+            if pr:
+                obj, n = call_model(cmd, pr)
+                self.review.update(pairs=len(pairs), types=len(props), calls=n, conflicts=len(conflicts))
+                if obj is not None:
+                    self.apply_review(g, obj, props, pairs, conflicts)
+                    g = self.graph()
+        elif not cmd:
+            rj = pend / "review.json"
+            if rj.exists():
+                obj = parse_json(read(rj))
+                props, pairs, conflicts = g["proposed"], [(r["a"], r["b"]) for r in g["review"]], open_(g)[:CONFLICT_MAX]
+                self.review.update(pairs=len(pairs), types=len(props), conflicts=len(conflicts))
+                if obj is not None:
+                    self.apply_review(g, obj, props, pairs, conflicts)
+                    g = self.graph()
+                rj.unlink()
+                (pend / "review.prompt.md").unlink() if (pend / "review.prompt.md").exists() else None
+            pr = self.review_prompt(g)[0] if (args.review or g["proposed"] or g["review"] or open_(g)) else None
+            if pr:
+                wr(pend / "review.prompt.md", pr)
+            elif (pend / "review.prompt.md").exists():
+                (pend / "review.prompt.md").unlink()
+        return g
 
-        def first_line(p):
-            n = nmap[p]
-            ls = [x.strip() for x in read(root / p).split("\n")[(n["line"] or 1):] if x.strip() and not x.startswith("#")]
-            return (ls[0] if ls else "")[:160]
+    def write(self, g):
+        """Cache upkeep, the viewer, index.db, the digest, the pending list, the manifest. -> pending prompts."""
+        root, dd, pend, now, cur, man = self.root, self.dd, self.pend, self.now, self.cur, self.man
+        refs = man.get("refs", {})  # keep extractions referenced in the last KEEP_DAYS: edit reverts reuse them
+        today = now.date().isoformat()
+        for h in self.by_sha:
+            refs[h] = today
+        cutoff = (now.date() - dt.timedelta(days=KEEP_DAYS)).isoformat()
+        for f in (dd / "notes").glob("*.json"):
+            h = f.name[:-5]
+            last = refs.get(h) or dt.date.fromtimestamp(f.stat().st_mtime).isoformat()
+            if h not in self.by_sha and last < cutoff:
+                f.unlink()
+                refs.pop(h, None)
+        e2, a2 = vocab_texts(root)
+        if len(cur) > WIDE:  # big: no 380 MB graph.json; an overview page and one page per area
+            (dd / "graph.json").unlink() if (dd / "graph.json").exists() else None
+            write_viz_big(root, g, dd)
+        else:
+            wr(dd / "graph.json", g)
+            write_viz(root, g, dd / "graph.html")
+        write_index(dd, g)
+        write_digest(root, g, now)
+        todo_list = sorted(p for p in pend.glob("*.prompt.md")) if pend.exists() else []
+        todo_list = [p for p in todo_list if not (pend / (p.name[:-len(".prompt.md")] + ".json")).exists()]
+        if todo_list:  # the helper agent may have no way to list files: name them
+            wr(pend / "TODO.md", "# pending prompts: answer each with <same name>.json\n"
+               + "".join(f"{p.resolve()}\n" for p in todo_list))
+        elif (pend / "TODO.md").exists():
+            (pend / "TODO.md").unlink()
+        wr(dd / "manifest.json", {"v": V, "code": CODE, "files": cur, "former": self.former,
+                                  "vsig": vsig(e2, a2, conflicts_text(root)),
+                                  "seen": sorted(fold(e["id"]) for e in g["entities"]),
+                                  "queue": [[r["a"], r["b"]] for r in g["review"]],
+                                  "failed": self.failed, "attempts": self.attempts, "refs": refs,
+                                  "dreamed": now.isoformat(timespec="seconds"),
+                                  "unindexed": sum(1 for n in g["notes"] if not n["indexed"]),
+                                  "due": bool(self.cmd and (g["proposed"] or g["review"]
+                                                            or [c for c in g["conflicts"] if not c["unsure"]]))})
+        return len(todo_list)
 
-        def ctx(e):
-            m = e["mentions"][0]
-            return read(root / m["path"]).split("\n")[m["lines"][0] - 1].strip()[:160]
-
-        def desc(c):
-            e = ents[c]
-            return f"{c} ({e['type']}; " + "; ".join(f'"{n["name"]}"' for n in e["names"][:3]) + f") «{ctx(e)}»"
-        et_ = vocab_texts(root)[0]
-        vc = g["vocab"]
-        pr = fill(REVIEW, edges="\n".join(parse_edges(et_)[3]), n=vc["types"], budget=vc["budget"],
-                  u=vc["promote"][0], nn=vc["promote"][1], a=vc["promote"][2],
-                  proposals="\n".join(f"- {p['type']}: {p['uses']} uses, {p['notes']} notes, {p['areas']} areas; "
-                                      + "; ".join(f'"{x}"' for x in p["examples"]) for p in props) or "none",
-                  pairs="\n".join(f"- {a} / {b}: {desc(a)} | {desc(b)}" for a, b in pairs) or "none",
-                  conflicts="\n".join(f"- {c['a']} / {c['b']}: \"{nmap[c['a']]['title']}\" «{first_line(c['a'])}» | "
-                                      f"\"{nmap[c['b']]['title']}\" «{first_line(c['b'])}»" for c in conflicts) or "none")
-        return pr, props, pairs, conflicts
-
-    pending_conflicts = [c for c in g["conflicts"] if not c["unsure"]]
-    due = args.review or g["proposed"] or g["review"] or pending_conflicts
-    if cmd and due:
-        pr, props, pairs, conflicts = review_prompt()
-        if pr:
-            obj, n = call_model(cmd, pr)
-            review.update(pairs=len(pairs), types=len(props), calls=n, conflicts=len(conflicts))
-            if obj is not None:
-                apply_review(obj, props, pairs, conflicts)
-                g = graph()
-    elif not cmd:
-        rj = pend / "review.json"
-        if rj.exists():
-            obj = parse_json(read(rj))
-            props, pairs = g["proposed"], [(r["a"], r["b"]) for r in g["review"]]
-            conflicts = [c for c in g["conflicts"] if not c["unsure"]][:CONFLICT_MAX]
-            review.update(pairs=len(pairs), types=len(props), conflicts=len(conflicts))
-            if obj is not None:
-                apply_review(obj, props, pairs, conflicts)
-                g = graph()
-            rj.unlink()
-            (pend / "review.prompt.md").unlink() if (pend / "review.prompt.md").exists() else None
-        pr = review_prompt()[0] if (args.review or g["proposed"] or g["review"] or [c for c in g["conflicts"] if not c["unsure"]]) else None
-        if pr:
-            wr(pend / "review.prompt.md", pr)
-        elif (pend / "review.prompt.md").exists():
-            (pend / "review.prompt.md").unlink()
-
-    # cache upkeep: keep extractions referenced in the last KEEP_DAYS (edit reverts reuse them)
-    refs = man.get("refs", {})
-    today = now.date().isoformat()
-    for h in by_sha:
-        refs[h] = today
-    cutoff = (now.date() - dt.timedelta(days=KEEP_DAYS)).isoformat()
-    for f in (dd / "notes").glob("*.json"):
-        h = f.name[:-5]
-        last = refs.get(h) or dt.date.fromtimestamp(f.stat().st_mtime).isoformat()
-        if h not in by_sha and last < cutoff:
-            f.unlink()
-            refs.pop(h, None)
-    e2, a2 = vocab_texts(root)
-    if len(cur) > WIDE:  # big: no 380 MB graph.json; an overview page and one page per area
-        (dd / "graph.json").unlink() if (dd / "graph.json").exists() else None
-        write_viz_big(root, g, dd)
-    else:
-        wr(dd / "graph.json", g)
-        write_viz(root, g, dd / "graph.html")
-    write_index(dd, g)
-    write_digest(root, g, now)
-    old_index = root / "INDEX.md"  # earlier versions generated it; the viewer replaces it
-    if old_index.exists() and read(old_index).startswith("# memory · "):
-        old_index.unlink()
-    todo_list = sorted(p for p in pend.glob("*.prompt.md")) if pend.exists() else []
-    todo_list = [p for p in todo_list if not (pend / (p.name[:-len(".prompt.md")] + ".json")).exists()]
-    pending = len(todo_list)
-    if pending:  # the dreamer may have no way to list files: name them
-        wr(pend / "TODO.md", "# pending prompts: answer each with <same name>.json\n"
-           + "".join(f"{p.resolve()}\n" for p in todo_list))
-    elif (pend / "TODO.md").exists():
-        (pend / "TODO.md").unlink()
-    wr(dd / "manifest.json", {"v": V, "code": CODE, "files": cur, "former": former, "vsig": vsig(e2, a2, conflicts_text(root)),
-                              "seen": sorted(fold(e["id"]) for e in g["entities"]),
-                              "queue": [[r["a"], r["b"]] for r in g["review"]],
-                              "failed": failed, "attempts": attempts, "refs": refs,
-                              "dreamed": now.isoformat(timespec="seconds"),
-                              "unindexed": sum(1 for n in g["notes"] if not n["indexed"]),
-                              "due": bool(cmd and (g["proposed"] or g["review"] or [c for c in g["conflicts"] if not c["unsure"]]))})
-    codes = Counter(c["code"] for c in g["checks"] if c["code"] != "C5")
-    out = f"dream: {len(cur)} notes · {st['indexed']} indexed ({st['calls']} calls)"
-    if review["pairs"] or review["types"] or review["conflicts"]:
+    def report(self, g, pending):
+        st, review, cmd = self.st, self.review, self.cmd
+        codes = Counter(c["code"] for c in g["checks"] if c["code"] != "C5")
         pl = lambda n, w: f"{n} {w}" + ("s" if n != 1 else "")  # noqa: E731
-        out += f" · review: {pl(review['pairs'], 'pair')}, {pl(review['types'], 'label')}, {pl(review['conflicts'], 'conflict')} " + \
-            (f"({pl(review['calls'], 'call')})" if cmd else "(file mode)")
-    out += f" · {review['decided']} conflicts decided" if review["decided"] else ""
-    out += f" · +{review['aliases']} aliases" if review["aliases"] else ""
-    out += f" · {review['mapped']} types mapped" if review["mapped"] else ""
-    out += f" · {review['new']} new type" + ("s" if review["new"] != 1 else "") if review["new"] else ""
-    out += f" · {review['refused']} refused (budget {g['vocab']['types']}/{g['vocab']['budget']})" if review["refused"] else ""
-    out += f" · {review['demoted']} type" + ("s" if review["demoted"] != 1 else "") + " demoted" if review["demoted"] else ""
-    out += f" · {len(moved)} moved" if moved else ""
-    out += f" · {len(deleted)} deleted" if deleted else ""
-    out += f" · {pending if not cmd else sum(1 for n in g['notes'] if not n['indexed'])} pending"
-    out += (" · " + " ".join(f"{c}×{n}" for c, n in sorted(codes.items()))) if codes else ""
-    print(out)
-    if pending:
-        print(f"{pending} prompts listed in {pend / 'TODO.md'}: run the memory-dreamer subagent, "
-              "then memory.py dream again")
+        out = f"dream: {len(self.cur)} notes · {st['indexed']} indexed ({st['calls']} calls)"
+        if review["pairs"] or review["types"] or review["conflicts"]:
+            out += f" · review: {pl(review['pairs'], 'pair')}, {pl(review['types'], 'label')}, {pl(review['conflicts'], 'conflict')} " + \
+                (f"({pl(review['calls'], 'call')})" if cmd else "(file mode)")
+        out += f" · {review['decided']} conflicts decided" if review["decided"] else ""
+        out += f" · +{review['aliases']} aliases" if review["aliases"] else ""
+        out += f" · {review['mapped']} types mapped" if review["mapped"] else ""
+        out += f" · {pl(review['new'], 'new type')}" if review["new"] else ""
+        out += f" · {review['refused']} refused (budget {g['vocab']['types']}/{g['vocab']['budget']})" if review["refused"] else ""
+        out += f" · {pl(review['demoted'], 'type')} demoted" if review["demoted"] else ""
+        out += f" · {len(self.moved)} moved" if self.moved else ""
+        out += f" · {len(self.deleted)} deleted" if self.deleted else ""
+        out += f" · {pending if not cmd else sum(1 for n in g['notes'] if not n['indexed'])} pending"
+        out += (" · " + " ".join(f"{c}×{n}" for c, n in sorted(codes.items()))) if codes else ""
+        print(out)
+        if pending:
+            print(f"{pending} prompts listed in {self.pend / 'TODO.md'}: run the memory-dreamer subagent, "
+                  "then memory.py dream again")
 
 
 def write_digest(root, g, now):
@@ -1694,12 +1764,21 @@ INTENT = {"current": re.compile(r"\b(current|currently|now|latest|today|still|va
                              r"(i|we) (present|show|report|format|chart|plot|write|name|round|label|lay out|display)\b", re.I)}
 ART = re.compile(r"\b(chart|plot|graph|table|deck|slide|email|notebook|query|sql|model card|alert|report|page|dashboard|"
                  r"memo|summary|readout|title|label|column|axis|axes|colou?r)s?\b", re.I)
-WORD = re.compile(r"[A-Za-z0-9@%$][A-Za-z0-9_.@%/+$-]*")
+WORD = re.compile(r"[\w@%$][\w.@%/+$-]*")  # \w: words in any script count (REVIEW.md F13)
 # Read-path constants, each with the measurement that set it (.specs/memory-dream/REVIEW.md F1, F4, F7).
 COMPLETE_MAX_NOTES = 200  # only this small a memory is considered for printing whole (reading every note is cheap)
 COMPLETE_RATIO = 1.2  # print the whole memory when it costs <= this x the surgical output; then nothing is missed
 WEAK_SHARE = 0.5  # weak match: a question word found nowhere, and the best note covers <= this share of the words
 TASTE_MAX, TASTE_FLOOR = 12, 0.15  # taste notes printed (were 6, 0.25): house-rule recall 0.39 -> 0.42, +25% chars
+W = {  # the tuned numbers of rank() and route(), in one place (REVIEW.md F9); set in RESULTS rounds 2-4 and phase A
+    "entity_named": 0.35, "entity_phrase": 0.15,  # boost per entity mention, as a share of the top score …
+    "finding_decision": 1.5,                       # … more for findings and decisions (round 2: id > phrase)
+    "successor_current": 1.1, "successor": 0.85,   # a superseded note lifts its successor, above itself when "current" is asked
+    "superseded_current": 0.85,                    # the replaced note stays, below its successor
+    "why_parent": 0.6, "down_intent": 0.7, "down_named": 0.5, "up_hop": 0.6,  # lineage walks: why / what came of / based on
+    "seeds": 6, "picks": 8, "pick_floor": 0.2, "lines_top": 4, "lines_rest": 2,  # notes considered, printed, lines each
+    "route_common": 50, "route_near": 0.9, "route_areas": 8, "route_floor": 0.6,  # big memories: where a question points
+}
 
 
 def stem(t):
@@ -1796,7 +1875,7 @@ def route(pats, cat):
     paths, text, starts = cat
     score = Counter()
     for t, w in pats.items():
-        if len(t) < 3 or text.count(t) > max(50, len(paths) // 50):  # too common to say where to look
+        if len(t) < 3 or text.count(t) > max(W["route_common"], len(paths) // 50):  # too common to say where to look
             continue
         hit, i = set(), text.find(t)
         while i >= 0:
@@ -1810,9 +1889,9 @@ def route(pats, cat):
     if not score:
         return None, ""
     best = max(score.values())
-    near = [a for a, s_ in score.most_common() if s_ >= 0.9 * best]
-    hint = f"{len(near)} areas match about equally ({', '.join(sorted(near)[:4])}, …): name the project" if len(near) > 8 else ""
-    return [a for a, s_ in score.most_common(8) if s_ >= 0.6 * best], hint
+    near = [a for a, s_ in score.most_common() if s_ >= W["route_near"] * best]
+    hint = f"{len(near)} areas match about equally ({', '.join(sorted(near)[:4])}, …): name the project" if len(near) > W["route_areas"] else ""
+    return [a for a, s_ in score.most_common(W["route_areas"]) if s_ >= W["route_floor"] * best], hint
 
 
 def ask(args, root):
@@ -2125,28 +2204,28 @@ def rank(x, by_file, idf, v):
             if inside and m["path"].split("/")[0].lower() not in inside:
                 continue
             n = v.notes.get(m["path"])
-            w = 0.35 if eid in x["by_id"] else 0.15  # named outright: a stronger signal than a phrase match
-            score[m["path"]] = score.get(m["path"], 0) + w * top * (1.5 if n and n["kind"] in ("finding", "decision") else 1)
+            w = W["entity_named"] if eid in x["by_id"] else W["entity_phrase"]  # named outright: stronger than a phrase match
+            score[m["path"]] = score.get(m["path"], 0) + w * top * (W["finding_decision"] if n and n["kind"] in ("finding", "decision") else 1)
     up = intent & {"up", "why", "dep"}
-    seeds = sorted(score.items(), key=lambda z: -z[1])[:6]
+    seeds = sorted(score.items(), key=lambda z: -z[1])[:W["seeds"]]
     best_live = next((p for p, _ in seeds if v.notes.get(p) and not v.notes[p]["superseded_by"]), None)
     for p, s in seeds:
         n = v.notes.get(p)
         if not n:
             continue
         for succ in n["superseded_by"]:
-            score[succ] = max(score.get(succ, 0), s * (1.1 if "current" in intent else 0.85))
+            score[succ] = max(score.get(succ, 0), s * (W["successor_current"] if "current" in intent else W["successor"]))
             if "why" in intent:  # why it was replaced: what the successor built on
                 for e in v.frm[succ]:
                     if e["rel"] in ("from", "refs") and e["dst"] != p:
-                        score[e["dst"]] = max(score.get(e["dst"], 0), s * 0.6)
+                        score[e["dst"]] = max(score.get(e["dst"], 0), s * W["why_parent"])
         if "current" in intent and n["superseded_by"]:
-            score[p] = s * 0.85  # still shown (answers cite what was replaced), below its successor
+            score[p] = s * W["superseded_current"]  # still shown (answers cite what was replaced), below its successor
         if "down" in intent or (p in x["named"] and not up and len(x["named"]) == 1) or \
                 ("current" in intent and p == best_live):
             for e in v.down[p]:
                 if e["rel"] in ("from", "refs"):
-                    score[e["src"]] = max(score.get(e["src"], 0), s * (0.7 if "down" in intent else 0.5))
+                    score[e["src"]] = max(score.get(e["src"], 0), s * (W["down_intent"] if "down" in intent else W["down_named"]))
         if up:  # ancestors, two hops
             frontier = [(p, s)]
             for _ in range(2):
@@ -2154,12 +2233,12 @@ def rank(x, by_file, idf, v):
                 for q_, sq in frontier:
                     for e in v.frm[q_]:
                         if e["rel"] in ("from", "refs"):
-                            w = sq * 0.6
+                            w = sq * W["up_hop"]
                             score[e["dst"]] = max(score.get(e["dst"], 0), w)
                             nxt.append((e["dst"], w))
                 frontier = nxt
     ranked = sorted(score.items(), key=lambda z: (-z[1], z[0]))
-    picks = [(p, sc) for p, sc in ranked[:8] if sc >= 0.2 * ranked[0][1]] if ranked else []
+    picks = [(p, sc) for p, sc in ranked[:W["picks"]] if sc >= W["pick_floor"] * ranked[0][1]] if ranked else []
     # weak match (F4): a word of the question occurs nowhere in the memory and the best note covers at most half of
     # the question's words — say so instead of heading an unrelated note like a hit
     content = {t for t, w in pats.items() if w >= 1 and " " not in t}
@@ -2179,7 +2258,7 @@ def rank(x, by_file, idf, v):
         n = v.notes.get(p)
         rows = sorted((r for r in by_file.get(p, []) if not n or r[0] >= n["line"]),  # body lines; the header has the lineage
                       key=lambda r: -sum(pats.get(t, 0) * idf.get(t, 0) for t in r[1]))
-        keep = rows[:4 if k < 2 else 2]
+        keep = rows[:W["lines_top"] if k < 2 else W["lines_rest"]]
         lines = {(no, t) for no, _, t in keep}
         if n and n["line"]:
             lines.add((n["line"], "# " + n["title"]))

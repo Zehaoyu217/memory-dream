@@ -172,6 +172,10 @@ today; the heuristic needs kinds, which phase B supplies).
 
 **Phase D — simplify.** F9, F10, F11, F13: split `dream`, the `WEIGHTS` table, patch everywhere, a lock file,
 Unicode terms, delete legacy. Gate: 21/21 (plus the new tests) and retrieval within ±0.005 of today.
+**Done 2026-10-31** (RESULTS.md, "Phase D"): `Dream` class in 15 methods, the `W` table, the lock, Unicode terms,
+legacy removed; retrieval byte-identical. Not done, on evidence: F11 (the exact rebuild is 0.6 s at 1,677 notes) and
+the F5 cut (the entity boosts measured +2 pts of number recall on the real-indexed world). The file is 2,446 lines:
+phases A–C added about 550 lines of features, so the 1,400-line target of §5 is withdrawn.
 
 **Phase E — an eval that measures the claim.** Gold notes split into `must` and `may` (history); adversarial sets
 where grep should lose (stale-vs-current traps, alias traps, implicit audiences, scattered evidence); a grep

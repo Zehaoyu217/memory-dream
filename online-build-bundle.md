@@ -258,6 +258,10 @@ P6 and P8 can run in parallel once P5 is done. P10's tiers are independent of ea
 
 ### P5 — The dreamer: prompts, grounding, modes, review, cache
 
+Shape: a `Dream` class whose stages are methods — `plan`, `index`, `graph`, `demote`, `run_review`, `write`,
+`report` — run under `_dream/lock` (a second dream exits 3; a lock older than 2 h is taken over). Tuned numbers of
+the read path live in one `W` table with their provenance.
+
 - **References:** BUILD-GUIDE §5.6; build-spec §4.1–4.4 and §4.8; RESULTS "Deviations" item 1 (TODO.md).
 - **Do:**
   - Fill `EXTRACT` with the EDGES list, KNOWN (one sort per wave, `Known`), the path and the text.
