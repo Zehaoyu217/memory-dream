@@ -22,6 +22,7 @@ and let subagents resolve conflicts.
 | robust | **good.** 14 malformed-input probes passed; failing, hanging and garbage-returning model commands are handled. Four real defects found (§4: F2, F3, F4, F10) | measured, §4 |
 | maintenance and viewer free | **mostly.** The viewer and health checks render with no model at all (verified in Chromium); dedup, move detection and vocabulary edits cost 0 calls; the review is ≤ 1 call per dream; indexing is $0.0013–0.0020 per new note. Not free: entity names, types and typed relations need Haiku, and without it every note's kind is "note" (0 of 1,677 bank notes carry `type:`) | measured + RESULTS |
 | subagents resolve conflicts | **partly.** Vocabulary and entity-pair reviews are already delegated (file mode → `memory-dreamer`). Conflicts between notes (two live notes that disagree) are neither detected nor queued | code reading |
+| works alongside Claude Code's own memory (CLAUDE.md, auto memory) | **not yet, but cleanly.** Pointed read-only at an auto-memory directory, `ask` already works; `dream` would wrongly write there. Design in §8 | measured, §8 |
 
 Overall: the design is right and the evidence behind it is unusually honest. The read path is close to its ceiling
 on the test bank. The gaps are (a) the small-memory case, where `ask` prints more than the whole memory,
@@ -146,10 +147,13 @@ notes; F4 weak-match marker; F7 two-hop person rule and cap 12. Expected: small 
 `cat`; implicit-audience prefs 0.72 → 0.85; retrieval otherwise unchanged (0.888 / 0.969). About 100 lines, tests
 A25–A29, 0 model calls.
 
-**Phase B — free byproduct.** F6 prefix kinds; `dream` with no model documented and tested as producing the full
-viewer and health page (it already does); SKILL.md states that the dreamer is optional and what it adds (aliases,
-entity map, typed relations). Skip deterministic entity extraction: measured coverage is too thin unless notes
-follow the backtick rule strictly.
+**Phase B — free byproduct, and Claude Code's memory alongside.** F6 prefix kinds; `dream` with no model documented
+and tested as producing the full viewer and health page (it already does); SKILL.md states that the dreamer is
+optional and what it adds (aliases, entity map, typed relations). Skip deterministic entity extraction: measured
+coverage is too thin unless notes follow the backtick rule strictly. Then the five interop rules of §8: `ask` reads
+Claude Code's auto-memory topic files in the same call (R1); `dream` and `log` refuse to write into Claude Code's
+directories (R2); `dream` writes a ≤ 40-line `memory/DIGEST.md` the user can import from CLAUDE.md (R3); `modified:`
+and Claude Code's `type:` values parse (R4); SKILL.md says which layer owns what (R5). Tests A25–A27. 0 model calls.
 
 **Phase C — subagent maintenance queue.** Generalise `_dream/pending/` into the one place subagents work:
 extraction prompts (exists), the vocabulary review (exists), and **conflict prompts** (new). Detection is
@@ -175,7 +179,86 @@ automatic edits to notes.
 
 ---
 
-## 7. Appendix — probe scripts
+## 8. Working alongside Claude Code's own memory
+
+### What Claude Code does (v2.1.316; docs read 2026-10-31, confirmed against the installed binary)
+
+Two mechanisms, both loaded at the start of every session:
+
+- **CLAUDE.md files**, written by people: managed policy → `~/.claude/CLAUDE.md` → `./CLAUDE.md` or `./.claude/CLAUDE.md`
+  → `./CLAUDE.local.md`; ancestors of the cwd load at launch, subdirectory files on demand; `.claude/rules/*.md` load
+  unconditionally or scoped by `paths:` frontmatter; `@path` imports (depth 4, relative to the importing file; an import
+  outside the working directory needs a one-time approval); HTML comments are stripped before injection; the guidance
+  is under 200 lines per file.
+- **Auto memory**, written by Claude: `~/.claude/projects/<project>/memory/`, where `<project>` is the git root path with
+  every non-alphanumeric character replaced by `-` (`/home/user/memory-dream` → `-home-user-memory-dream`), or the
+  `autoMemoryDirectory` setting, or `CLAUDE_CODE_PROJECT_DIR_NAME` with `CLAUDE_CONFIG_DIR`. `MEMORY.md` is the index:
+  its first 200 lines or 25 KB load every session; one topic file per memory with `type: user | feedback | project |
+  reference` and a `modified:` ISO timestamp, read on demand. Machine-local, not shared across machines, off by
+  default in self-hosted and cloud sessions; `CLAUDE_CODE_DISABLE_AUTO_MEMORY=1` turns it off. Claude Code also runs
+  its own background consolidation, called auto-dream (`autoDreamEnabled`), over its own files.
+
+What `memory.py` does today when pointed at an auto-memory directory (measured on a mock with four typed memories):
+`ask` works read-only — it heads MEMORY.md and the topic files, Claude Code's `type:` values pass through as kinds,
+`modified:` is ignored so dates fall back to mtime. `dream` wrote `EDGES.md`, `ALIASES.md` and `_dream/` into the
+directory, which must never happen to Claude Code's files.
+
+### Where each layer is strong
+
+| | CLAUDE.md and rules | auto memory | memory-dream notes |
+|---|---|---|---|
+| writer | people | Claude | agents and people |
+| holds | standing instructions | learnings about the user and the work (user, feedback, project, reference) | the work itself: experiments, findings, decisions, datasets, features, models, taste, terms, corrections — with lineage and numbers |
+| lives | the repo (and `~/.claude`) | this machine only | the repo (`memory/`): travels with git, present in cloud sessions |
+| loaded | whole, every session | index every session, topics on demand | on demand, through one `ask` |
+| scale | ≤ 200 lines per file by design | a 200-line index | thousands of notes, grep plus lineage |
+
+The best of both: personal learnings stay local in Claude Code's memory; the team's knowledge lives in the repo with
+lineage; one `ask` reads both; the always-loaded layer is Claude Code's own loader, not a second one.
+
+### Five rules
+
+- **R1 — one read over both.** `ask` also greps Claude Code's auto-memory *topic files* — not `MEMORY.md` and not
+  CLAUDE.md or rules, which are already in the agent's context — ranks them in their own pool and prints at most three
+  per question under an origin mark, e.g. `▸ claude-code: feedback_testing.md · feedback · 2026-10-25`. The taste block
+  includes `user` and `feedback` memories when a task is asked. Source resolution follows Claude Code's own order:
+  `autoMemoryDirectory` from `.claude/settings.local.json`, `.claude/settings.json`, `~/.claude/settings.json`, else
+  `${CLAUDE_CONFIG_DIR:-~/.claude}/projects/<sanitised git root>/memory`. Skipped when the directory does not exist
+  (cloud sessions), when `CLAUDE_CODE_DISABLE_AUTO_MEMORY=1`, or with `MEMORY_SOURCES=notes`. One extra grep; 0 calls.
+- **R2 — never write there.** `dream` and `log` refuse a root that contains `MEMORY.md` or lies under
+  `<config>/projects/*/memory`, with a one-line message; `ask`, `check` and `viz --out` stay allowed read-only. Nothing
+  from Claude Code's memory is ever copied into `memory/` or the digest, so private memories stay where Claude put them,
+  and Claude Code's auto-dream and memory-dream's `dream` never touch each other's files.
+- **R3 — an always-loaded digest, through Claude Code's loader.** `dream` writes `memory/DIGEST.md` (deterministic,
+  0 calls, ≤ 40 lines): how to ask (2 lines), the user's own preferences (`prefs/me-*` titles), the newest live
+  decisions and models (≤ 10), and, off by default, the areas with counts. The user wires it with one line in
+  CLAUDE.md — `@memory/DIGEST.md`, a relative import, so no approval dialog — or a symlink in `.claude/rules/`. The
+  generation notice is an HTML comment, which costs no context. Measured size: 20 lines / 2.3k chars (~580 tokens per
+  turn) at 1,677 notes and 47 areas with the areas list, 9 lines / 784 chars at 30 notes. The benefit is unmeasured:
+  round 1 found an index *file* worthless at 30 notes, but context is different from a file to read. Before
+  recommending it by default, run the agent eval cell "memory + digest" against "memory" and count tool calls and
+  correctness. Claude Code's own rule — skip anything CLAUDE.md already says — then also keeps auto memory from
+  duplicating what the digest states.
+- **R4 — frontmatter compatibility.** `modified:` (ISO 8601) is the date when `updated:` is absent; Claude Code's
+  types map to kinds: user → preference, feedback → rule, project → note, reference → howto. A note written in either
+  convention parses.
+- **R5 — which layer owns what** (a SKILL.md paragraph). Standing instructions to Claude → CLAUDE.md (people) or auto
+  memory (Claude), exactly as Claude Code already does. A fact about the work with a number, a date, a source or a
+  predecessor → a note. A person's taste about artifacts → `prefs/`, so `ask` attaches it to tasks and it carries
+  lineage. Never the same thing in two layers: if CLAUDE.md says it, no note.
+
+Conflicts across layers belong to the phase C queue: a note against an auto-memory topic file or a CLAUDE.md line
+that share a rare token, both live, go to the subagent; the decision lands in `memory/CONFLICTS.md` naming the other
+file's path; `ask` prints the decided one first and names the other; an edit to a Claude Code file is proposed in the
+output, never applied. One naming collision to document: `memory.py dream` is unrelated to Claude Code's auto-dream.
+
+Costs: R1 one grep per `ask` (milliseconds); R3 about 600 tokens per turn only if wired; R2, R4, R5 nothing.
+Tests: A25 digest (content, cap, nothing from Claude Code's memory in it), A26 read-only source (hits shown with
+their origin; `dream` refuses; the directory is byte-identical afterwards), A27 `modified:` and type mapping.
+
+---
+
+## 9. Appendix — probe scripts
 
 All probes were run from the scratch directory and left no files in the repository. The three grep-strategy
 and taste experiments used `eval/retrieval.py` and `eval/taste/score.py` unchanged, pointed at a scratch copy of
