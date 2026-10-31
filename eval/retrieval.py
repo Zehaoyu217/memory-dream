@@ -37,9 +37,11 @@ def sections(out):
     return [(parts[i], parts[i + 1]) for i in range(1, len(parts) - 1, 2)]
 
 
-def score(out, batch, history=frozenset()):
+def score(out, batch, history=frozenset(), near=None):
     """history: gold notes that are superseded (the reference answer names them as the past); with --must they are
-    left out of the gold-note denominator, since heading the successor answers the question."""
+    left out of the gold-note denominator, since heading the successor answers the question.
+    near: {path: set of lineage neighbours} for precision — a headed note counts as relevant when it is gold or one
+    lineage hop from a gold note (its parent, child, predecessor or successor)."""
     printed = {}  # path → all lines printed for it anywhere
     cur = None
     for ln in out.split("\n"):
@@ -58,9 +60,12 @@ def score(out, batch, history=frozenset()):
         gold = [g for g in (item.get("notes") or []) if g not in history] or (item.get("notes") or [])
         nums = set(NUM.findall(item["a"])) - {str(y) for y in range(2020, 2031)}
         have = set(NUM.findall(seen))
+        relevant = set(gold) | {n for g in gold for n in (near or {}).get(g, ())}
+        shown = [h for h in heads if not h.startswith("claude-code:")]
         rows.append({"q": item["q"], "type": item.get("type"), "gold": gold,
                      "note_recall": sum(g in heads for g in gold) / len(gold) if gold else None,
                      "num_recall": len(nums & have) / len(nums) if nums else None,
+                     "precision": sum(h in relevant for h in shown) / len(shown) if shown and gold else None,
                      "missing_notes": [g for g in gold if g not in heads], "missing_nums": sorted(nums - have),
                      "chars": len(sec)})
     return rows
@@ -74,10 +79,12 @@ def main():
     files = [a for a in args[1:] if a.endswith(".jsonl")]
     root = Path(args[0]).resolve()
     items = [json.loads(x) for f in files for x in Path(f).read_text().splitlines() if x.strip()]
-    history = frozenset()
-    if "--must" in args:  # gold notes that are superseded count as history, not as must-have heads
-        g = mem.load(root)[0]
-        history = frozenset(n["path"] for n in g["notes"] if n["superseded_by"])
+    g = mem.load(root)[0]
+    history = frozenset(n["path"] for n in g["notes"] if n["superseded_by"]) if "--must" in args else frozenset()
+    near = {}  # lineage neighbours of every note, for precision
+    for e in g["edges"]:
+        near.setdefault(e["src"], set()).add(e["dst"])
+        near.setdefault(e["dst"], set()).add(e["src"])
     rows, total_chars, secs = [], 0, 0.0
     for i in range(0, len(items), batch_n):
         batch = items[i:i + batch_n]
@@ -85,13 +92,15 @@ def main():
         out = run_ask(root, [b["q"] for b in batch], budget)
         secs += time.perf_counter() - t0
         total_chars += len(out)
-        rows += score(out, batch, history)
+        rows += score(out, batch, history, near)
         if show:
             print(out)
     nr = [r["note_recall"] for r in rows if r["note_recall"] is not None]
     mr = [r["num_recall"] for r in rows if r["num_recall"] is not None]
+    pr = [r["precision"] for r in rows if r["precision"] is not None]
     summary = {"questions": len(rows), "note_recall": round(sum(nr) / len(nr), 3) if nr else None,
                "num_recall": round(sum(mr) / len(mr), 3) if mr else None,
+               "precision": round(sum(pr) / len(pr), 3) if pr else None,
                "full_note_hit": sum(r["note_recall"] == 1 for r in rows if r["note_recall"] is not None),
                "chars_per_batch": round(total_chars / max(1, -(-len(items) // batch_n))),
                "chars_per_q": round(total_chars / max(1, len(rows))), "secs_per_batch": round(secs / max(1, -(-len(items) // batch_n)), 2)}

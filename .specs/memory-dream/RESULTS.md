@@ -2,6 +2,61 @@
 
 2026-10-30 (round 4: 2026-10-31) · built from the "Memory" email spec (`build-spec.md`) · macOS, Python 3.9.6, Claude Code 2.1.314.
 
+# Phase F (2026-10-31) — five improvements, each measured, the best kept
+
+The review of phases A–E named the weak spot (scattered evidence: 66% of multi-note questions get every gold note,
+against 99% for `cat` of the folder) and five cheap moves. Each was built, measured, and kept only where it won.
+
+## F1 — lineage one-liners (kept, at 4 lines)
+
+When a question walks lineage (what came of, why, based on, depends on) or names two or more ids, the picked notes'
+parents, successors and — for "what came of" — children come along as a header plus their `# ` line.
+
+| 326 bank questions | gold notes | numbers | precision (headed notes that are gold or one lineage hop from gold) | complete answers | chars per question | scattered evidence, all gold (248) |
+|---|---|---|---|---|---|---|
+| none | 0.895 | 0.972 | 0.710 | 242 | 2,002 | 0.661 |
+| **4 lines (kept)** | **0.920** | 0.975 | 0.649 | **259** | 2,226 (+11%) | **0.730** |
+| 8 lines | 0.930 | 0.976 | 0.612 | 264 | 2,352 (+17%) | 0.750 |
+
+Per 10k characters read, complete answers go 3.71 → 3.57 → 3.44: the one-liners buy recall at a small cost in
+density. Four was kept because it takes most of the gain (+7 points on scattered evidence, +17 complete answers) for
+half the extra characters of eight, and the stale set even improves (successor first 0.952 → 0.962). Precision drops
+because a relative of a picked note is not always a relative of a gold note; it is still a pointer the agent can use.
+
+## F2 — the model-free path is quiet (kept)
+
+Without a model, `dream` used to write one prompt file per unindexed note and `check` one C5 line per note.
+
+| bank, 1,677 notes, no model | before | after |
+|---|---|---|
+| `dream` | 1,678 prompt files written, "run the memory-dreamer" | 0 files; "1677 without entities (no model; `dream --prompts` writes prompts for a helper agent)"; 0.4 s |
+| `check` | 1,700+ lines | 29 lines; C5 is one line that says answering is unaffected and how to add entities |
+| the helper-agent flow | automatic | `dream --prompts` (1,679 files: notes, review, TODO), then the agent, then `dream` |
+
+A10 covers both paths. SKILL.md says it in one clause: "without a model nothing is missing for answering".
+
+## F3 — a precision line in `retrieval.py` (kept)
+
+A headed note counts as relevant when it is gold or one lineage hop from gold. Baseline 0.710; with F1 0.649. It is
+the missing half of achievement per word and will gate future changes alongside recall and characters.
+
+## F5 — `taste()` simplifications (none kept; measured and reverted)
+
+| variant | named prefs | implicit prefs | house rules | chars per task |
+|---|---|---|---|---|
+| as is | 1.00 | 0.87 | 0.46 | 4,021 (F1 adds ~6% on tasks) |
+| without the "first word of a family" rule | 1.00 | 0.89 | **0.39** | 4,027 |
+| without the context-family rule | 1.00 | **0.81** | 0.47 | 4,011 |
+| without the artifact rule | 1.00 | 0.87 | 0.42 | 3,955 |
+| without the first two | 1.00 | 0.87 | 0.39 | 4,017 |
+| candidate pool by kind (preference, rule) instead of general areas | 1.00 | 0.87 | 0.44 | 3,979 |
+
+The "first-name" rule turned out to be a family-word rule: "chart" in a task brings the whole `chart-style-*` family
+of house rules, which is where 7 points of rule recall live. Every heuristic in `taste()` earns its keep; the code
+is unchanged except that its comment now says what each rule is worth.
+
+## F4 — is the index worth anything to answers? (one real run; see below once the Haiku index of the bank is in)
+
 # Phase E (2026-10-31) — an evaluation that measures the claim
 
 `REVIEW.md` F12 and phase E. New tooling: `eval/retrieval.py --must` (gold notes that are superseded count as history),

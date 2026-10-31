@@ -74,8 +74,10 @@ $M dream            # end of session: index new notes (Haiku), dedup, viewer
 $M check            # warnings in full;  $M viz → _dream/graph.html
 ```
 
-Without `MEMORY_LLM`, `dream` runs in file mode: it writes prompts to `memory/_dream/pending/` and lists them in
-`TODO.md`; run the `memory-dreamer` subagent (Haiku) on them, then `dream` again.
+Without `MEMORY_LLM`, `dream` builds everything that needs no model (lineage, kinds, conflicts, digest, viewer,
+index) and stays quiet about entities. To add them without a model command: `dream --prompts` writes prompts to
+`memory/_dream/pending/` and lists them in `TODO.md`; run the `memory-dreamer` subagent (Haiku) on them, then
+`dream --prompts` again.
 
 ---
 
@@ -217,7 +219,8 @@ constants, each with the measurement that set it.
 - **Grounding** (`ground`): an entity survives only if one of its `as` strings occurs in the note; a relation only if
   its quote occurs. Dropped ones are counted (C4).
 - **Command mode** (`MEMORY_LLM` set): waves of `-j` parallel calls, one retry for unusable answers.
-  **File mode**: prompts in `_dream/pending/`, answered by the `memory-dreamer` subagent.
+  **No model**: nothing is written for a helper and `check` summarises C5 in one line; **`--prompts`** writes the
+  prompts to `_dream/pending/` for the `memory-dreamer` subagent and ingests its answers on the next dream.
 - **Review** (`REVIEW`, one call when due): labels over the bar (`alias T`, `alias ~T`, `new: <definition>`,
   `label`, `drop`), entity pairs (`same` / `different`), conflicts (`a supersedes b`, `compatible`, `unsure`). At most
   40 labels, 30 pairs and 20 conflicts per dream; the code, not the prompt, enforces bar, budget and offered pairs.
@@ -246,7 +249,9 @@ Per question:
 7. **Rank** (`rank`): idf per pattern (title lines count double, path matches count), named notes first, entity
    mentions boosted (inside the scope or routed areas only), then lineage: successors of superseded notes ("current"),
    children for "what came of", parents two hops for why/based-on; a superseded note never outranks its live
-   successor. Up to 8 notes ≥ 20% of the best. Weights in the `W` table.
+   successor. Up to 8 notes ≥ 20% of the best. When the question walks lineage or names two or more ids, up to 4
+   relatives of the picked notes (parents, successors, children for "what came of") follow as a header plus their
+   `# ` line (gold recall 0.895 → 0.920 for +11% characters). Weights in the `W` table.
 8. **Print**: under `▸ path · kind · date · from … · SUPERSEDED → newer`, the best 2–4 lines per note; whole notes
    when everything picked fits the budget (900 chars per question + 1,500). On a memory of ≤ 200 notes, when the
    whole memory would cost ≤ 1.2× the surgical output, print it all: per-question `▸ path` pointers, then every note

@@ -27,9 +27,9 @@ truth; everything else is derived and disposable. `memory.py` = `python3 <this s
    (artifact, meeting, audience), why. When it changes, a new note with `supersedes:`.
 3. **Dream at the end.** `memory.py dream` (background is fine) refreshes `_dream/graph.html` — the map, health,
    review queue — the digest `memory/DIGEST.md` and the index. With `$MEMORY_LLM` set (e.g. `claude -p --model haiku
-   --tools ""`) a cheap model also names entities and typed relations; without it the prompts wait in
-   `_dream/pending/` for any helper agent (`memory-dreamer`). `memory.py check` lists warnings. Scratch lines:
-   `memory.py log "…" -p <project>`.
+   --tools ""`) a cheap model also names entities and typed relations; without a model nothing is missing for
+   answering, and `memory.py dream --prompts` writes prompts for any helper agent (`memory-dreamer`) when you want
+   entities too. `memory.py check` lists warnings. Scratch lines: `memory.py log "…" -p <project>`.
 
 ## Beside Claude Code's own memory (when you are Claude Code)
 CLAUDE.md holds standing instructions people wrote; auto memory holds what you learned about the user; these notes

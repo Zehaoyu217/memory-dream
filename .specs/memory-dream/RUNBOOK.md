@@ -79,9 +79,12 @@ $M dream -j 6
 hooks, plugins and MCP servers: each call is then ~4.4k input tokens and ~$0.0015 with Haiku.
 `tests/haiku_cmd.py` is the same command with per-call cost logging (`$DREAM_COST_LOG`).
 
-File mode (no command): `dream` writes prompts to `memory/_dream/pending/` and lists them in
-`pending/TODO.md`; run the `memory-dreamer` subagent; run `dream` again. A review prompt can
-appear on the second pass, so loop until `dream` reports 0 pending (normally 2 rounds).
+No command: `dream` builds everything that needs no model — lineage, kinds, conflicts, digest,
+viewer, index — and says how many notes have no entities yet; `check` says it in one C5 line.
+Answering is unaffected. When you want entities and relations without a model command, run
+`dream --prompts`: it writes prompts to `memory/_dream/pending/` and lists them in `pending/TODO.md`;
+run the `memory-dreamer` subagent; run `dream --prompts` again. A review prompt can appear on the
+second pass, so loop until it reports 0 pending (normally 2 rounds).
 
 Other flags: `--review` forces the vocabulary review, `--all` re-indexes everything (after changing
 the dreamer model). Indexing is optional for answering: `ask` works on raw notes (grep plus lineage);

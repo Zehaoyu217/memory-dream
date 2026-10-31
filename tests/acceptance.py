@@ -274,11 +274,14 @@ def answer_pending(w):
 
 def A10():
     w = World()
-    outs = [w.run("dream", model=False)]
+    quiet = w.run("dream", model=False)  # no model and no --prompts: nothing written for a helper, nothing nagged
+    assert not (w.root / "_dream" / "pending").exists() or not list((w.root / "_dream" / "pending").iterdir())
+    assert "without entities (no model" in quiet and "pending" not in quiet, quiet
+    outs = [w.run("dream", "--prompts", model=False)]
     rounds = 0
     while list((w.root / "_dream" / "pending").glob("*.prompt.md")) and rounds < 4:
         answer_pending(w)
-        outs.append(w.run("dream", model=False))
+        outs.append(w.run("dream", "--prompts", model=False))
         rounds += 1
     g = w.graph()
     assert all(n["indexed"] for n in g["notes"]) and not codes(g)["C3"], codes(g)

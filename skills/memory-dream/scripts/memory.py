@@ -1336,14 +1336,15 @@ class Dream:
                 (pend / f"{h}.prompt.md").unlink() if (pend / f"{h}.prompt.md").exists() else None
             else:
                 self.attempts[h] = self.attempts.get(h, 0) + 1
-        ents = Known(self.entities_now()) if any(h not in xs or args.all for h in todo) else None
-        for h in todo:
-            if h in xs and not args.all:
-                continue
-            wr(pend / f"{h}.prompt.md", self.prompt_for(h, ents))
-        for pp in pend.glob("*.prompt.md"):  # stale prompts: note changed or gone
+        if args.prompts:  # only when asked: a memory used without any model stays quiet (phase F)
+            ents = Known(self.entities_now()) if any(h not in xs or args.all for h in todo) else None
+            for h in todo:
+                if h in xs and not args.all:
+                    continue
+                wr(pend / f"{h}.prompt.md", self.prompt_for(h, ents))
+        for pp in pend.glob("*.prompt.md"):  # stale prompts: note changed or gone, or prompts no longer wanted
             k = pp.name[:-len(".prompt.md")]
-            if not (k in by_sha or k == "review"):
+            if not args.prompts or not (k in by_sha or k == "review"):
                 pp.unlink()
 
     def graph(self):
@@ -1490,7 +1491,7 @@ class Dream:
                     g = self.graph()
                 rj.unlink()
                 (pend / "review.prompt.md").unlink() if (pend / "review.prompt.md").exists() else None
-            pr = self.review_prompt(g)[0] if (args.review or g["proposed"] or g["review"] or open_(g)) else None
+            pr = self.review_prompt(g)[0] if args.prompts and (args.review or g["proposed"] or g["review"] or open_(g)) else None
             if pr:
                 wr(pend / "review.prompt.md", pr)
             elif (pend / "review.prompt.md").exists():
@@ -1554,7 +1555,13 @@ class Dream:
         out += f" · {pl(review['demoted'], 'type')} demoted" if review["demoted"] else ""
         out += f" · {len(self.moved)} moved" if self.moved else ""
         out += f" · {len(self.deleted)} deleted" if self.deleted else ""
-        out += f" · {pending if not cmd else sum(1 for n in g['notes'] if not n['indexed'])} pending"
+        unindexed = sum(1 for n in g["notes"] if not n["indexed"])
+        if cmd:
+            out += f" · {unindexed} pending"
+        elif self.args.prompts:
+            out += f" · {pending} pending"
+        elif unindexed:
+            out += f" · {unindexed} without entities (no model; `dream --prompts` writes prompts for a helper agent)"
         out += (" · " + " ".join(f"{c}×{n}" for c, n in sorted(codes.items()))) if codes else ""
         print(out)
         if pending:
@@ -1725,6 +1732,10 @@ def check(args, root):
     if not by:
         print("check: no warnings")
     for code in sorted(by):
+        if code == "C5":  # one line, not one per note: a memory used without a model is not a problem
+            print(f"C5 ×{len(by[code])}: notes without entities (no model has indexed them; answering is unaffected). "
+                  "To add entities and relations: dream with $MEMORY_LLM, or `dream --prompts` and the memory-dreamer agent.")
+            continue
         print(f"{code} ×{len(by[code])}")
         for m in by[code]:
             print(f"  {m}")
@@ -1778,6 +1789,7 @@ W = {  # the tuned numbers of rank() and route(), in one place (REVIEW.md F9); s
     "why_parent": 0.6, "down_intent": 0.7, "down_named": 0.5, "up_hop": 0.6,  # lineage walks: why / what came of / based on
     "seeds": 6, "picks": 8, "pick_floor": 0.2, "lines_top": 4, "lines_rest": 2,  # notes considered, printed, lines each
     "route_common": 50, "route_near": 0.9, "route_areas": 8, "route_floor": 0.6,  # big memories: where a question points
+    "lineage_lines": 4,  # relatives of the picked notes shown as header + # line when a question walks lineage or names 2+ ids
 }
 
 
@@ -2140,7 +2152,9 @@ def taste(x, by_file, v, pool):
         s_ = sum(pats[t] * math.log(1 + n / df[t]) * (2 if " " in t else 1) for t in got)
         if s_:
             score[p] = s_
-    fam = defaultdict(list)  # prefs/<first>-<last>-<topic>.md: one person; chart-style-*: one family of rules
+    fam = defaultdict(list)  # a family = notes sharing the first two words of their id: prefs/<first>-<last>-* is one
+    # person, reporting/chart-style-* one family of rules. Each rule below was measured (RESULTS phase F): dropping the
+    # family-word rule costs 7 pts of house rules, the context rule 6 pts of implicit prefs, the artifact rule 4 pts
     for p in pool:
         parts = v.notes[p]["id"].lower().split("-")
         if len(parts) >= 3 and parts[0].isalpha() and parts[1].isalpha():
@@ -2151,7 +2165,7 @@ def taste(x, by_file, v, pool):
     for k in fam:
         firsts[k.split("-")[0]].add(k)
     named = {k for k in fam if k in {f"{a}-{b}" for a, b in zip(words, words[1:])}}
-    named |= {next(iter(ks)) for f, ks in firsts.items() if len(ks) == 1 and f in words}
+    named |= {next(iter(ks)) for f, ks in firsts.items() if len(ks) == 1 and f in words}  # "chart" → chart-style-*; "maya" → maya-ortiz-*
     for p, _s in sorted(score.items(), key=lambda z: -z[1])[:3]:  # two hops: a person named in a matched house note
         for _no, _ms, txt in cand.get(p, []):  # (the roster of their meeting, their report) is the audience
             low_t = txt.lower()
@@ -2273,6 +2287,25 @@ def rank(x, by_file, idf, v):
         if n and n["line"]:
             lines.add((n["line"], "# " + n["title"]))
         res.append((p, sorted(lines)))
+    # lineage one-liners (phase F): when the question walks lineage or names several ids, the picked notes' nearest
+    # relatives — parents, successors, and children for "what came of" — come along as a header plus their # line
+    ids_named = sum(1 for t in pats if len(t) >= 4 and re.search(r"[0-9._/@-]", t))
+    if W["lineage_lines"] and (ids_named >= 2 or intent & {"down", "why", "up", "dep"}):
+        have, extra = {p for p, _ in res}, []
+        for p, _ in res:
+            kin = [e["dst"] for e in v.frm[p] if e["rel"] in ("from", "supersedes")] + \
+                  [e["src"] for e in v.down[p] if e["rel"] == "supersedes"] + \
+                  ([e["src"] for e in v.down[p] if e["rel"] == "from"] if "down" in intent else [])
+            for q_ in kin:
+                n = v.notes.get(q_)
+                if n and q_ not in have and n["line"]:
+                    have.add(q_)
+                    extra.append((q_, [(n["line"], "# " + n["title"])]))
+                if len(extra) >= W["lineage_lines"]:
+                    break
+            if len(extra) >= W["lineage_lines"]:
+                break
+        res += extra
     return res
 
 
@@ -2430,6 +2463,7 @@ def main(argv=None):
     d.add_argument("-j", type=int, default=4, help="parallel calls")
     d.add_argument("--review", action="store_true", help="review the vocabulary even if nothing is due")
     d.add_argument("--all", action="store_true", help="re-index every note")
+    d.add_argument("--prompts", action="store_true", help="no model: write the prompts for a helper agent to _dream/pending/")
     a = sp.add_parser("ask", parents=[common], help="answer questions: grep with memory, one call for many questions")
     a.add_argument("questions", nargs="*")
     a.add_argument("-f", "--file", help="questions, one per line")
