@@ -1910,7 +1910,7 @@ W = {  # the tuned numbers of rank() and route(), in one place (REVIEW.md F9); s
     "why_parent": 0.6, "down_intent": 0.7, "down_named": 0.5, "up_hop": 0.6,  # lineage walks: why / what came of / based on
     "seeds": 6, "picks": 8, "pick_floor": 0.2, "lines_top": 4, "lines_rest": 2,  # notes considered, printed, lines each
     "route_common": 50, "route_near": 0.9, "route_areas": 8, "route_floor": 0.6,  # big memories: where a question points
-    "lineage_lines": 4,  # relatives of the picked notes shown as header + # line when a question walks lineage or names 2+ ids
+    "lineage_lines": 4,  # relatives of the picked notes shown as header + # line (F1: 4 beats 0 and 8; F9: for every question)
 }
 
 
@@ -2051,17 +2051,21 @@ def ask(args, root):
         own = list(pats)
         raw = {t.lower().rstrip(".,;:?!)'\"").strip("-/") for t in WORD.findall(q)}  # unstemmed: folder names
         intent = {k for k, rx in INTENT.items() if rx.search(q)}
-        low = " " + q.lower() + " "
-        # the index only adds aliases of things the question names by id; loose names never become patterns
-        # (MEMORY_NO_INDEX=1 switches this off, for measuring what the index is worth: RESULTS phases D–E)
-        by_id = {i for t in pats if 0 < len(v.names_of(fold(t))) <= 2 for i in v.names_of(fold(t))} \
+        low = " " + " ".join(WORD.findall(q.lower())) + " "  # punctuation off: "…about intent model v2?" still names it
+        # the index only adds aliases of things the question names: a token that is an entity's id ("churn"), an id-like
+        # token that is a recorded name (a digit or separator in it, 4+ chars: "exp-102" — never "model" or "v2", which
+        # the dreamer records as names of one model: F9), or a name of 2-3 words spelt out; loose names never become
+        # patterns (MEMORY_NO_INDEX=1 switches this off: RESULTS phases D–F)
+        by_id = {i for t in pats if " " not in t and 0 < len(v.names_of(fold(t))) <= 2 for i in v.names_of(fold(t))
+                 if fold(i) == fold(t) or (len(t) >= 4 and pats[t] >= 1.5)} \
             if not os.environ.get("MEMORY_NO_INDEX") else set()
         hit_ents = by_id | ({i for nm, ids in v.multi_names(low) if len(ids) <= 2 for i in ids}
                             if not os.environ.get("MEMORY_NO_INDEX") else set())
         for eid in hit_ents:
             e = v.ents[eid]
             for x in [e["id"], *e["aka"], *(n["name"] for n in e["names"][:4])]:
-                if 3 <= len(x) <= 30 and len(x.split()) <= 3 and len(v.names_of(fold(x))) <= 2:
+                if 3 <= len(x) <= 30 and len(x.split()) <= 3 and len(v.names_of(fold(x))) <= 2 \
+                        and (x == e["id"] or " " in x or re.search(r"[\d._/@-]", x)):  # a plain word is not an alias
                     pats.setdefault(x.lower(), 1.5)
         # "in the aml-alerts project": matched on the question's own words, since the stemmer turns pricing into pric;
         # general areas are not scopes by word ("… in reporting" asks about reporting, -p reporting scopes to it)
@@ -2163,7 +2167,7 @@ def ask(args, root):
             for eid in sorted(x["ents"])[:2] if "dep" in x["intent"] else []:
                 out.append(entity_line(v, eid))
             if complete:
-                out += [f"▸ {p}" for p, _ in x["ranked"]] + [f"▸ {p}" for p in x["taste"]]
+                out += [f"▸ {p}" for p, _ in x["ranked"] if p not in x.get("kin", ())] + [f"▸ {p}" for p in x["taste"]]
                 if not x["ranked"]:
                     out.append("  (no match — try other words, or grep memory/)")
                 out += x.get("cc", [])
@@ -2406,10 +2410,10 @@ def rank(x, by_file, idf, v):
         if n and n["line"]:
             lines.add((n["line"], "# " + n["title"]))
         res.append((p, sorted(lines)))
-    # lineage one-liners (phase F): when the question walks lineage or names several ids, the picked notes' nearest
-    # relatives — parents, successors, and children for "what came of" — come along as a header plus their # line
-    ids_named = sum(1 for t in pats if len(t) >= 4 and re.search(r"[0-9._/@-]", t))
-    if W["lineage_lines"] and (ids_named >= 2 or intent & {"down", "why", "up", "dep"}):
+    # lineage one-liners (phase F): the picked notes' nearest relatives — parents, successors, and children for "what
+    # came of" — come along as a header plus their # line. For every question: a trigger (lineage intents or 2+ ids
+    # named) measured −7 complete answers on the real index for −3% characters (F9)
+    if W["lineage_lines"]:
         have, extra = {p for p, _ in res}, []
         for p, _ in res:
             kin = [e["dst"] for e in v.frm[p] if e["rel"] in ("from", "supersedes")] + \
@@ -2424,6 +2428,7 @@ def rank(x, by_file, idf, v):
                     break
             if len(extra) >= W["lineage_lines"]:
                 break
+        x["kin"] = {q_ for q_, _ in extra}  # the complete print lists them with the memory, not as pointers
         res += extra
     return res
 

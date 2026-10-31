@@ -92,7 +92,7 @@ second pass, so loop until it reports 0 pending (normally 2 rounds).
 Other flags: `--review` forces the vocabulary review, `--all` re-indexes everything (after changing
 the dreamer model). Indexing is optional for answering: `ask` works on raw notes (grep plus lineage);
 the index adds aliases, typed relations and the viewer's entity views (measured on 1,677 notes: about
-2 points more gold recall and 4 more on alias questions, for 10% more characters).
+1 point more gold recall and 6 more on alias questions, for 5% more characters).
 
 ## Tests
 

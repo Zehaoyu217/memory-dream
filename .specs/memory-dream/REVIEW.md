@@ -100,10 +100,10 @@ Severity: **H** changes an answer or hides a note · **M** costs money, time or 
 | F2 | H | Project scoping fails for single-word folder names the stemmer shortens: `pricing` → `pric`, `collections` → `collection`, `prefs` → `pref`. The question "in pricing" is not scoped | measured: `pats={'pric': 1.0, …}`, scope empty, two unrelated churn notes printed | match folder names against the raw lowercase tokens before stemming |
 | F3 | H | A note containing a NUL byte is skipped by `grep -I` as binary and never surfaces; `check` says nothing | measured: `zebra-nul` → "no match" | `check` warning C9 "binary-looking note", or grep with `-a` |
 | F4 | M | Confident false positives: a question with no real match still prints a note, headed like a hit | "what is the meaning of zxqv?" → stem `mean` → `finding-new-accounts.md` printed | when no id, title or path hit exists and the best score is below an idf floor, print `(weak match)` on the header or "no match" |
-| F5 | M | The entity index is neutral for answering (0.888 vs 0.892 gold recall; identical miss pattern) yet `ask` carries ~60 lines of entity boosting, multi-word name matching and `entity_line` | measured; RESULTS round 2 says the same | keep alias expansion for ids the question names; measure dropping the rest. If neutral, delete it. The index then serves the viewer and management only, which is what the evidence supports. **Measured on a real Haiku index of the whole bank (RESULTS F4): +1.8 points gold recall, +2.1 routed, +3.9 on alias questions, for +10% characters — kept; the sweep then removed the phrase tier and the finding/decision multiplier (nil) and left one weight** |
+| F5 | M | The entity index is neutral for answering (0.888 vs 0.892 gold recall; identical miss pattern) yet `ask` carries ~60 lines of entity boosting, multi-word name matching and `entity_line` | measured; RESULTS round 2 says the same | keep alias expansion for ids the question names; measure dropping the rest. If neutral, delete it. The index then serves the viewer and management only, which is what the evidence supports. **Measured on a real Haiku index of the whole bank (RESULTS F4, F9): the boosts stay at one weight (the phrase tier and the finding/decision multiplier measured nil); with lineage one-liners on for every question the index is worth +0.8 points gold recall and +6.4 on alias questions for +4.8% characters — kept** |
 | F6 | M | Without the dreamer every note is kind "note": the viewer's lanes, the health counts and any kind-aware rule are empty for free users | 0/1,677 `type:`; prefixes cover 71% | filename prefix → kind (`exp-` experiment, `feat-` feature, `ds-` dataset, `dec-` decision, `fnd-`/`find-` finding, `q-` question, `prefs/` preference, `glossary/` term, `corrections/` correction, `howto/`/`reporting/` rule); frontmatter and the dreamer override. 0 calls |
 | F7 | M | Implicit audiences miss 28% of the person's preferences; house rules 61% | 0.72 and 0.39 | two-hop person rule: 0.72 → 0.85 at +25% chars (measured). House rules are capped by the 6-note print cap against 4.2 gold rules per task plus prefs; raising the cap to 12 gives +3 pts for +25% chars. Rules keyed by measure type (rates, percents, CIs) cannot be found from task words; an always-on digest costs 8.6k chars and is not worth it. Accept ~0.4 and let the one batched follow-up grep `reporting/` |
-| F8 | M | No note-level conflict detection or resolution queue | code; 36 crude candidates on the bank | §6, phase C |
+| F8 | M | No note-level conflict detection or resolution queue | code; 36 crude candidates on the bank | §6, phase C. Precision on the real index (RESULTS F9): 4 true of 67 candidates, kept loose because a Haiku review of 20 pairs costs $0.005 |
 | F9 | M | Implementation weight: `dream()` 242 lines mixing scan, planning, two call modes, review, cache upkeep and output; 58 tuned constants in retrieval with no table or provenance; legacy bits (INDEX.md cleanup, `SKIP` naming INDEX.md) | measured | split `dream` into stages; one `WEIGHTS` table with the measurement that justifies each value; delete legacy. Target ≤ 1,400 lines with 21/21 still passing |
 | F10 | L | No lock: two concurrent `dream`s race on manifest.json and store.db | code | an `_dream/lock` file with pid and age; the second dream exits with a message |
 | F11 | L | Below `MEMORY_WIDE`, `ask` after an edit rebuilds the whole graph in memory on every call until the next dream (0.58 s at 1,677, ~4 s at 10k); above it, it patches | measured | patch everywhere; the rebuild path then exists only inside `dream` |
@@ -168,7 +168,8 @@ token or entity; dated. A subagent (or the dreamer in command mode) reads both n
 most one call ever; `ask` honours a recorded supersession as lineage; `check` reports C10 "conflict pending"; the
 Health tab lists them. Never edit a note automatically: the main agent or a person adds `supersedes:` to the note,
 which is the truth. Before shipping, measure precision of the detector on the bank with Haiku (36 crude candidates
-today; the heuristic needs kinds, which phase B supplies).
+today; the heuristic needs kinds, which phase B supplies). Measured in phase F (RESULTS F9): 4 true of 67
+candidates, 6%; kept loose since a Haiku review of 20 pairs costs $0.005 and found four missing `supersedes:` lines.
 
 **Phase D — simplify.** F9, F10, F11, F13: split `dream`, the `WEIGHTS` table, patch everywhere, a lock file,
 Unicode terms, delete legacy. Gate: 21/21 (plus the new tests) and retrieval within ±0.005 of today.
@@ -186,7 +187,9 @@ stronger judge; a write-path eval (agents writing notes under SKILL.md, then dre
 0.66 at 1/6.7 of the folder-`cat` characters; alias questions 0.93 with or without the index vs 0.43 for grep).
 **Phase F (RESULTS.md "Phase F")**: the five improvements of the re-review, each measured (lineage one-liners kept at
 4; quiet model-free path; precision metric; `taste()` left as is after five variants lost; the index question
-answered with a real index of the whole bank: the boosts stay at one weight, +1.8 / +3.9 points for +10% characters), then the graph contract (`CONTRACT.md`, `schema: 1`, `check` validates, A38), a second
+answered with a real index of the whole bank: the boosts stay at one weight, +0.8 / +6.4 points for +4.8% characters once
+lineage one-liners run for every question — F9, where the real index also exposed two alias hijacks and the
+conflict detector's 6% precision), then the graph contract (`CONTRACT.md`, `schema: 1`, `check` validates, A38), a second
 free-money pass (version and same-title conflict candidates, open questions in the digest, C11; cross-project refs
 measured nil and dropped), a cache-aware dreamer (−32% per note, convergence 1.06×) and the rebuilt viewer.
 

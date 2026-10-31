@@ -115,7 +115,8 @@ longer score, and kinds no longer scale the boost. Two constants and a branch go
 gold 0.939 vs 0.921 (+1.8; routed 0.938 vs 0.917), complete answers 273 vs 258, characters 2,448 vs 2,226 (+10%),
 alias 0.839 vs 0.800, 19 questions missed only with the index against 30 only without. On the fake-indexed bank
 the change is noise (0.920 → 0.919 gold, 259 → 258 complete, 2,226 → 2,220 chars; taste 1.00 / 0.87 / 0.45 at
-3,948 chars per task); the suite stays 35/35.
+3,948 chars per task); the suite stays 35/35. F9 below moves both sides of this comparison (lineage one-liners for
+every question); its last table has the final figures.
 
 ## F6 — the graph contract (`.specs/memory-dream/CONTRACT.md`)
 
@@ -167,6 +168,65 @@ Then `--effort low`, now the wrapper's default (`DREAM_EFFORT=default` restores 
 
 Low effort finds one true entity fewer on the fixture and drops two ungrounded claims; it merges cleaner. Kept as the
 default because grounding already protects the graph from what less thinking costs.
+
+## F9 — what only a real index could show: two hijacks, one trigger, and the detector's precision
+
+The fake dreamer records no surface forms and no wrong aliases, so three things were invisible until the bank had
+a real index. Each was found by reading the misses of F4's alias set (45 of 280) and the Haiku verdicts.
+
+**Alias hijacks.** Haiku records generic words as names: "Model" is a name of `inc-gbm-v3`, "v4" of
+`lbl-fraud-gbm-v4`, and `exp-102` an alias of the entity `lightgbm`. Any question containing "model" then named
+`inc-gbm-v3` outright (+top+1), and "LightGBM v3" pulled seven projects' `exp-102` notes. A second bug hid the
+good names: `low` kept the question's punctuation, so a 2–3-word name at the end of a question ("…about Intent model
+v2?") never matched. Three rules now: punctuation is stripped before name matching; a single token selects an entity
+only when it is that entity's id ("churn") or an id-like recorded name of 4+ characters ("exp-102" — never "model"
+or "v2"); and a hit entity's plain single-word names are not added as patterns (its id and multi-word names are).
+
+**Lineage one-liners for every question.** The alias fix cost 7 "current X model" answers, and the trace showed
+why: the hijacked `inc-gbm-v3` patterns counted as two ids named, which switched the lineage one-liners on, which
+showed the superseded predecessor the gold list counts as history. The accident was doing useful work, so the
+trigger (lineage words or two ids) was measured against one id and against no trigger at all:
+
+| real index, 326 questions | gold | numbers | precision | complete | complete (`--must`) | chars/q | alias (280) | scattered (248) | stale: successor above |
+|---|---|---|---|---|---|---|---|---|---|
+| after F4's sweep | 0.939 | 0.973 | 0.609 | 273 | 277 | 2,448 | 0.839 | 0.794 | 0.971 |
+| + the three alias rules | 0.936 | 0.976 | 0.611 | 268 | 275 | 2,417 | **0.889** | 0.766 | 0.962 |
+| … without the punctuation rule | 0.935 | 0.976 | 0.612 | 267 | — | 2,413 | 0.821 | 0.762 | 0.962 |
+| … plain-word names allowed as patterns | 0.936 | 0.976 | 0.610 | 268 | — | 2,419 | 0.886 | 0.766 | 0.962 |
+| + one-liners from one id named | 0.938 | 0.976 | 0.597 | 270 | 277 | 2,466 | 0.893 | 0.774 | 0.962 |
+| **+ one-liners for every question (kept)** | **0.946** | **0.978** | 0.597 | **275** | **280** | 2,487 | **0.893** | **0.794** | **0.971** |
+
+Per 10k characters the kept row and the row before it tie (3.39 against 3.40 complete answers); the extra
+one-liners cost 3,900 characters per extra complete answer, cheaper than the index's own 6,500. The condition and
+the `ids_named` count are gone from `rank`; in the complete print the relatives are listed with the memory, not as
+pointers (A25). On the fake-indexed bank the same change moves gold recall 0.919 → 0.937 and complete answers
+258 → 272 for +6% characters, scattered evidence 0.726 → 0.782, the stale trap 0.962 → 0.971; taste on the real
+index 1.00 / 0.89 / 0.48 at 4,225 characters (from 1.00 / 0.85 / 0.44 at 4,457). Suite 35/35.
+
+What the index is worth, final (same world, `MEMORY_NO_INDEX=1` for the right-hand column):
+
+| real index | with the index | without |
+|---|---|---|
+| gold · numbers · precision | 0.946 · 0.978 · 0.597 | 0.938 · 0.979 · 0.616 |
+| complete answers · chars per question | 275 · 2,487 | 271 · 2,373 |
+| routed (`MEMORY_WIDE=100`): gold · complete · chars | 0.940 · 273 · 2,255 | 0.938 · 271 · 2,196 |
+| alias questions, gold headed (grep the form: 0.521) | 0.893 | 0.829 |
+
+The index's own share is now +0.8 points of gold recall, +4 complete answers and +6.4 points on the alias set for
++4.8% characters: smaller than F4 measured, because the one-liners now do for every question part of what the
+entity boosts did for some. Still positive, still kept; the alias set is what it is for.
+
+**The conflict detector's precision.** Two more `dream --review` calls on the real index ($0.0053 and $0.0043,
+20 and 18 pairs, 17 and 18 decided) cleared the backlog: 78 verdicts in CONFLICTS.md, 4 supersessions, 4 left to
+a person, 70 compatible. Of the 67 candidates the detector produces on this world today, 4 are supersessions
+(6%): by rule, an id-like token 2 of 19, two rare title words 2 of 48, plus the 4 unsure. The four are real missing
+`supersedes:` lines — `dec-ed-promote-v3` over `dec-ed-gbm-for-watchlist`, `clv-ml-v2` over `clv-bgnbd-v1`,
+`mrisk-find-watchlist-065` over `exp-506`, `dec-rs-promote-v3` over `dec-rs-placement-cutoff` — and `ask` now
+marks the old notes as history. A tighter rule (three shared tokens, or two with an id-like one) keeps 3 of the 4
+and 1 of the 4 unsure in 15 candidates (20%). Not taken: with a model the review costs $0.00026 a pair and recall
+is worth more than precision; without one, the C10 list is long (67 pairs on 1,677 notes) and already ordered
+most-shared-first, so a person or a subagent meets the likely ones first. The version and same-title rules of F7
+fired 0 times here (every version carries `supersedes:`).
 
 # Phase E (2026-10-31) — an evaluation that measures the claim
 
