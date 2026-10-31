@@ -300,8 +300,9 @@ the read path live in one `W` table with their provenance.
   - Run one `grep -rniIF` per group of questions that share areas, with a Python fallback when grep is missing.
     Keep a hit only where a pattern starts a word.
   - Rank by idf (title lines count ×2), then named notes, then entity boosts inside the scope only, then lineage
-    (successor of a superseded note, children for "what came of", parents two hops back for why). Return ≤ 8
-    notes that score ≥ 20% of the best.
+    (successor of a superseded note, children for "what came of", parents two hops back for why); finally a
+    superseded note never outranks its live successor (the successor's score is at least the old note's). Return
+    ≤ 8 notes that score ≥ 20% of the best. Short `(above)` / `(more)` headers keep the SUPERSEDED mark.
   - Print `▸ path · kind · date · from … · SUPERSEDED → newer` and the best 2–4 lines under it. Print whole
     notes when everything fits the budget (900 chars per question + 1,500).
   - Taste block, for task intent only: up to twelve notes from the general areas. A named person brings all of
@@ -385,7 +386,8 @@ BUILD-GUIDE §7; only the gates are repeated here.
 |---|---|---|---|
 | 1. 56× world | `eval/bank/assemble.py eval/bank/generated tests/fixture/memory <W>/memory`, then a Haiku `dream -j 10` with `tests/haiku_cmd.py` | 1,677 notes indexed, 0 C3; cost per note ≤ $0.003 | ~$3.3, ~25 min |
 | 1-free | the same world, indexed with `MEMORY_LLM="python3 $PWD/tests/fake_dreamer.py" memory.py --root <W>/memory dream -j 10` | `1677 indexed`, `0 pending`. Enough for the P6 and P7 retrieval gates. Measured on the reference: 0.888 / 0.969, routed 0.885 / 0.958 | $0, ~20 s |
-| 2. offline retrieval | `eval/retrieval.py`, both normal and `MEMORY_WIDE=100` | ≥ 0.86 gold / ≥ 0.95 numbers | $0 |
+| 2. offline retrieval | `eval/retrieval.py`, both normal and `MEMORY_WIDE=100`; `--must` for history-free gold | ≥ 0.86 gold / ≥ 0.95 numbers (reference 0.895 / 0.972; 0.899 with `--must`) | $0 |
+| 2b. adversarial sets | `eval/adversarial.py <W>/memory eval/questions/bank-*.jsonl [--index-world <real-indexed world>]` | stale: successor above the old note ≥ 0.90 and old marked 1.00 (ref 0.952 / 1.00); scattered evidence all-gold ≥ 0.60 at ≤ 2.2k chars (ref 0.661 / 1,874); alias ≥ 0.85 (ref 0.929) | $0 |
 | 3. agent eval | `eval/agent/make_batches.py`, then Opus subagents per batch on the memory arm and the grep arm (prompt in BUILD-GUIDE §7.3), then `a21/extract.py`, `judge.py`, `agent/summarize.py` | memory accuracy ≥ grep accuracy minus 1 correct per 10 questions, **and** memory cost ≤ 0.6× grep at 1,677 notes (reference: 0.47×) | Opus tokens; 2 arms × 3 batches |
 | 4. 100× | `eval/scale/make_world.py <W>/memory <X>/memory --copies 137`, `bootstrap.py`, `time_ask.py`, `profile_incremental.py` | `ask` on 10 questions < 5 s (ref 2.3 s); a dream with nothing new < 10 s (ref 3 s); retrieval ≥ 0.83 / ≥ 0.93 | ~20 GB disk, ~5 GB RAM; Haiku about $0.06 for 30 notes |
 | 5. taste | `eval/taste/score.py <W>/memory eval/taste/tasks.jsonl` (fixed tasks), optionally the T1/T2 agent runs and `taste/judge.py` | named-person preference recall ≥ 0.85 (ref 0.93); house rules ≥ 0.35 (ref 0.42) | $0 for the scorer |

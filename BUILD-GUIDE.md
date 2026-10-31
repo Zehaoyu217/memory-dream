@@ -245,7 +245,8 @@ Per question:
 6. **One `grep -rniIF` per group of questions sharing areas**; hits kept only where a pattern starts a word.
 7. **Rank** (`rank`): idf per pattern (title lines count double, path matches count), named notes first, entity
    mentions boosted (inside the scope or routed areas only), then lineage: successors of superseded notes ("current"),
-   children for "what came of", parents two hops for why/based-on. Up to 8 notes ≥ 20% of the best.
+   children for "what came of", parents two hops for why/based-on; a superseded note never outranks its live
+   successor. Up to 8 notes ≥ 20% of the best. Weights in the `W` table.
 8. **Print**: under `▸ path · kind · date · from … · SUPERSEDED → newer`, the best 2–4 lines per note; whole notes
    when everything picked fits the budget (900 chars per question + 1,500). On a memory of ≤ 200 notes, when the
    whole memory would cost ≤ 1.2× the surgical output, print it all: per-question `▸ path` pointers, then every note
@@ -322,9 +323,14 @@ MEMORY_LLM="python3 tests/haiku_cmd.py" DREAM_COST_LOG=<W>/cost.jsonl \
 
 ```bash
 python3 eval/retrieval.py <W>/memory eval/questions/bank-*.jsonl        # gold-note recall, number recall, chars
+python3 eval/retrieval.py <W>/memory eval/questions/bank-*.jsonl --must # superseded gold notes count as history
 MEMORY_WIDE=100 python3 eval/retrieval.py <W>/memory eval/questions/bank-*.jsonl   # force big-memory routing
+python3 eval/adversarial.py <W>/memory eval/questions/bank-*.jsonl --index-world <real-indexed world> --show
 ```
-Expect 0.882 / 0.970 at 1,677 notes (0.877 / 0.960 routed).
+Expect 0.895 / 0.972 at 1,677 notes (0.899 with `--must`; 0.891 / 0.963 routed). `adversarial.py` measures the sets
+where grep should lose: stale-vs-current (successor above the old note 0.95, old marked 1.00), scattered evidence
+(all gold 0.66 at 1.9k chars vs 0.99 at 12.6k for `cat` of the folder), alias traps (0.93 with or without the index
+vs 0.43 for an exact-phrase grep). `MEMORY_NO_INDEX=1` switches `ask`'s use of the index off, for such comparisons.
 
 ### 7.3 Agent eval (Opus subagents, memory vs grep)
 

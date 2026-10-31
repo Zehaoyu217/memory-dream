@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Offline retrieval eval for `memory.py ask`: no LLM, just "did the answer's evidence come back?".
 
-  retrieval.py <memory root> <questions.jsonl> [more.jsonl ...] [--batch 10] [--budget N] [--show]
+  retrieval.py <memory root> <questions.jsonl> [more.jsonl ...] [--batch 10] [--budget N] [--show] [--must]
+  --must: gold notes that are superseded count as history (heading the successor answers the question)
 
 Per question: gold-note recall (gold notes headed in its section), number recall (numbers of the
 reference answer present in what the agent would see for it), chars. Questions run in batches, one
@@ -36,7 +37,9 @@ def sections(out):
     return [(parts[i], parts[i + 1]) for i in range(1, len(parts) - 1, 2)]
 
 
-def score(out, batch):
+def score(out, batch, history=frozenset()):
+    """history: gold notes that are superseded (the reference answer names them as the past); with --must they are
+    left out of the gold-note denominator, since heading the successor answers the question."""
     printed = {}  # path → all lines printed for it anywhere
     cur = None
     for ln in out.split("\n"):
@@ -52,7 +55,7 @@ def score(out, batch):
     for (qtext, sec), item in zip(sections(out), batch):
         heads = set(re.findall(r"^▸ (\S+)", sec, re.M))
         seen = sec + "\n" + "\n".join(x for p in heads for x in printed.get(p, []))
-        gold = item.get("notes") or []
+        gold = [g for g in (item.get("notes") or []) if g not in history] or (item.get("notes") or [])
         nums = set(NUM.findall(item["a"])) - {str(y) for y in range(2020, 2031)}
         have = set(NUM.findall(seen))
         rows.append({"q": item["q"], "type": item.get("type"), "gold": gold,
@@ -71,6 +74,10 @@ def main():
     files = [a for a in args[1:] if a.endswith(".jsonl")]
     root = Path(args[0]).resolve()
     items = [json.loads(x) for f in files for x in Path(f).read_text().splitlines() if x.strip()]
+    history = frozenset()
+    if "--must" in args:  # gold notes that are superseded count as history, not as must-have heads
+        g = mem.load(root)[0]
+        history = frozenset(n["path"] for n in g["notes"] if n["superseded_by"])
     rows, total_chars, secs = [], 0, 0.0
     for i in range(0, len(items), batch_n):
         batch = items[i:i + batch_n]
@@ -78,7 +85,7 @@ def main():
         out = run_ask(root, [b["q"] for b in batch], budget)
         secs += time.perf_counter() - t0
         total_chars += len(out)
-        rows += score(out, batch)
+        rows += score(out, batch, history)
         if show:
             print(out)
     nr = [r["note_recall"] for r in rows if r["note_recall"] is not None]

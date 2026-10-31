@@ -1920,8 +1920,11 @@ def ask(args, root):
         intent = {k for k, rx in INTENT.items() if rx.search(q)}
         low = " " + q.lower() + " "
         # the index only adds aliases of things the question names by id; loose names never become patterns
-        by_id = {i for t in pats if 0 < len(v.names_of(fold(t))) <= 2 for i in v.names_of(fold(t))}
-        hit_ents = by_id | {i for nm, ids in v.multi_names(low) if len(ids) <= 2 for i in ids}
+        # (MEMORY_NO_INDEX=1 switches this off, for measuring what the index is worth: RESULTS phases D–E)
+        by_id = {i for t in pats if 0 < len(v.names_of(fold(t))) <= 2 for i in v.names_of(fold(t))} \
+            if not os.environ.get("MEMORY_NO_INDEX") else set()
+        hit_ents = by_id | ({i for nm, ids in v.multi_names(low) if len(ids) <= 2 for i in ids}
+                            if not os.environ.get("MEMORY_NO_INDEX") else set())
         for eid in hit_ents:
             e = v.ents[eid]
             for x in [e["id"], *e["aka"], *(n["name"] for n in e["names"][:4])]:
@@ -2035,10 +2038,12 @@ def ask(args, root):
             for path, lines in x["ranked"]:
                 want = body(path) if full else lines
                 new = [(no, t) for no, t in want if no not in printed.get(path, set())]
+                sup_mark = (" · SUPERSEDED → " + ", ".join(v.notes[q]["id"] for q in v.notes[path]["superseded_by"])) \
+                    if path in v.notes and v.notes[path]["superseded_by"] else ""  # history stays marked on short headers too
                 if path in printed and not new:
-                    out.append(header(path).split(" · ")[0] + " (above)")
+                    out.append(header(path).split(" · ")[0] + " (above)" + sup_mark)
                     continue
-                out.append(header(path) if path not in printed else header(path).split(" · ")[0] + " (more)")
+                out.append(header(path) if path not in printed else header(path).split(" · ")[0] + " (more)" + sup_mark)
                 for no, t in new:
                     out.append(f"  {t.strip()}" if full else f"  {no}: {t.strip()[:220]}")
                 printed.setdefault(path, set()).update(no for no, _ in new)
@@ -2237,6 +2242,11 @@ def rank(x, by_file, idf, v):
                             score[e["dst"]] = max(score.get(e["dst"], 0), w)
                             nxt.append((e["dst"], w))
                 frontier = nxt
+    for p in list(score):  # a superseded note never outranks its live successor; it stays right below it (phase E:
+        n = v.notes.get(p)  # on 104 stale-vs-current questions the successor came first in 70% → 95%, gold −0.003)
+        for succ in (n["superseded_by"] if n else []):
+            if v.notes.get(succ) and not v.notes[succ]["superseded_by"]:
+                score[succ] = max(score.get(succ, 0), score[p] * 1.001)
     ranked = sorted(score.items(), key=lambda z: (-z[1], z[0]))
     picks = [(p, sc) for p, sc in ranked[:W["picks"]] if sc >= W["pick_floor"] * ranked[0][1]] if ranked else []
     # weak match (F4): a word of the question occurs nowhere in the memory and the best note covers at most half of

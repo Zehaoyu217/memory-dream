@@ -2,6 +2,41 @@
 
 2026-10-30 (round 4: 2026-10-31) · built from the "Memory" email spec (`build-spec.md`) · macOS, Python 3.9.6, Claude Code 2.1.314.
 
+# Phase E (2026-10-31) — an evaluation that measures the claim
+
+`REVIEW.md` F12 and phase E. New tooling: `eval/retrieval.py --must` (gold notes that are superseded count as history),
+`eval/adversarial.py` (the sets where grep should lose, measured offline against simulated grep strategies),
+`MEMORY_NO_INDEX=1` (what the index is worth to `ask`). Everything below is on the 1,677-note bank unless said.
+
+## E1 — gold lists name history
+
+| 326 bank questions | gold recall | complete answers |
+|---|---|---|
+| as written (superseded notes required) | 0.895 | 242 of 326 |
+| `--must` (heading the successor answers the question) | **0.899** | **252 of 326** |
+
+## E2 — where the design should win, offline
+
+| set | what it tests | `ask` | grep, every matching line | `cat` the named folder |
+|---|---|---|---|---|
+| **stale vs current** (104 questions whose gold has an old → new pair) | the live successor heads the answer and the old note is marked | successor headed 0.981; **successor above the old note 0.952** (0.702 before this phase); old note marked SUPERSEDED whenever shown **1.00** (0.865) | both printed, unmarked: the agent must open frontmatter | both printed, unmarked |
+| **scattered evidence** (248 questions with 2+ gold notes) | every gold note headed, and characters read | all gold **0.661** at **1,874** chars/question | 0.871 at 82,235 | 0.991 at 12,625 (214 scoped questions) |
+| **alias traps** (14 surface forms on the real-indexed 70-note world: "what do we know about card-not-present?") | the entity's home or headline note found | 0.929 with the index, **0.929 without it**; ~1,950 chars | 0.429 for the exact phrase | — |
+
+Per 10k characters read, complete answers on the scattered set: `ask` 3.5, `cat` the folder 0.78, grep lines 0.11.
+Reading: `ask` loses on scattered evidence (66% vs 99%) and pays that for 6.7× fewer characters; it wins the stale trap
+outright, which grep cannot even see; and the alias questions are answered by word matching, not by the index — one
+more datum for "the index serves the viewer and management, not answers".
+
+Change adopted from E2: **a superseded note never outranks its live successor** (`rank`: the successor's score is
+at least the old note's). Stale set 0.702 → 0.952 above, full gate 0.898 → 0.895 gold (9 regressed, 7 fixed, all
+history notes dropping out of the top 8), numbers 0.972 unchanged, history-free 0.899, routed 0.889 → 0.891. And a
+short `(above)` header keeps the SUPERSEDED mark, so history is marked wherever it appears.
+
+## E3 — agents (one pair of runs; see below once judged)
+
+## E4 — the write path (one run; see below once scored)
+
 # Phase D (2026-10-31) — simplify what the measurements allow
 
 `REVIEW.md` F9, F10, F13 and §5. Suite 34/34; bank retrieval byte-identical before and after (0.898 / 0.972 / 2,004

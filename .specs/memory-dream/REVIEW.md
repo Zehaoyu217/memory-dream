@@ -181,6 +181,11 @@ phases A–C added about 550 lines of features, so the 1,400-line target of §5 
 where grep should lose (stale-vs-current traps, alias traps, implicit audiences, scattered evidence); a grep
 baseline agent that is told it may `cat` folders; single-question agents as well as 10-question sessions; a
 stronger judge; a write-path eval (agents writing notes under SKILL.md, then dreamed and asked).
+**Offline part done 2026-10-31** (RESULTS.md, "Phase E"): `--must` (242 → 252 complete answers), `adversarial.py`
+(stale trap: successor first 0.70 → 0.95 after a one-line ranking rule, old note marked 1.00; scattered evidence
+0.66 at 1/6.7 of the folder-`cat` characters; alias questions 0.93 with or without the index vs 0.43 for grep).
+Agent runs (one memory/grep pair allowed to `cat` folders; one write-path run) are reported below them in RESULTS.
+Not done: single-question agents, a stronger judge, n > 1 — they need a dedicated run with transcripts.
 
 **Phase C, part 2 — a constrained open relation vocabulary** (§10): two tiers (coarse type, open label), promotion
 gated by evidence and a budget, probation and automatic demotion, seed packs for other domains. Tests A12/A14/A20
