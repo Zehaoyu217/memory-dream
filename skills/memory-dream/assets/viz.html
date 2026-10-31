@@ -18,9 +18,11 @@
   body { margin: 0; padding: 24px 28px 48px; background: var(--paper); color: var(--ink); font: 14px/1.45 var(--sans);
     display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: var(--gap); align-items: start; }
   [data-span="full"] { grid-column: 1 / -1; }
+  [data-span="2"] { grid-column: span 2; }
+  @media (max-width: 760px) { [data-span="2"] { grid-column: 1 / -1; } }
   body:not([data-tab="overview"]) [data-tab="overview"], body:not([data-tab="explore"]) [data-tab="explore"],
   body:not([data-tab="health"]) [data-tab="health"] { display: none; }
-  .card { background: var(--panel); border-top: 1px solid var(--rule); padding: 14px 4px 4px; min-width: 0; }
+  .card { background: transparent; border-top: 1px solid var(--rule); padding: 14px 4px 4px; min-width: 0; }
   h1 { font: 400 28px/1.15 var(--serif); margin: 0; letter-spacing: -0.01em; }
   h2 { font: 400 18px/1.2 var(--serif); margin: 0 0 10px; }
   .muted { color: var(--muted); }
@@ -133,7 +135,7 @@
     })();
   </script>
 </section>
-<section id="ego" class="card" data-tab="explore">
+<section id="ego" class="card" data-tab="explore" data-span="2">
   <style>
     #ego svg { width: 100%; height: auto; display: block; }
     #ego .edge { stroke: var(--faint); stroke-width: 1; fill: none; }
@@ -144,14 +146,14 @@
     #ego .node.entity rect { fill: var(--accent-soft); stroke: var(--accent); }
     #ego .node.old circle { stroke: var(--warm); fill: var(--warm-soft); }
     #ego .node.center circle, #ego .node.center rect { stroke: var(--ink); stroke-width: 2; }
-    #ego .node text { font: 11px var(--sans); fill: var(--ink); }
+    #ego .node text { font: 12px var(--sans); fill: var(--ink); }
     #ego .node { cursor: pointer; }
     #ego .group { font: italic 12px var(--serif); fill: var(--muted); }
     #ego .legend { font-size: 12px; color: var(--muted); margin-top: 6px; }
     #ego .legend .k-from { color: var(--accent); }
   </style>
   <h2>Neighbourhood</h2>
-  <svg viewBox="0 0 760 560" role="img" aria-label="the selected note or entity and its neighbours"></svg>
+  <svg viewBox="0 0 640 460" role="img" aria-label="the selected note or entity and its neighbours"></svg>
   <div class="legend"><span class="k-from">—</span> built on / built upon · <span class="warm">- -</span> supersedes · <span>···</span> relation or mention · struck nodes are superseded</div>
   <script>
     (function () {
@@ -161,7 +163,7 @@
       const short = s => s.length > 26 ? s.slice(0, 25) + '…' : s;
       function draw(sel) {
         svg.replaceChildren();
-        const cx = 380, cy = 280, groups = [];
+        const cx = 320, cy = 230, groups = [];
         let label, isEnt = !!sel.entity;
         if (isEnt) {
           const e = ents[sel.entity]; if (!e) return; label = e.id;
@@ -179,9 +181,9 @@
         }
         const nodes = [];
         for (const [name, ang, items] of groups) {
-          const shown = items.slice(0, 14), r = 205, spread = Math.min(Math.PI * 0.42, 0.13 * Math.max(1, shown.length));
+          const shown = items.slice(0, 14), r = 165, spread = Math.min(Math.PI * 0.62, 0.3 * Math.max(1, shown.length - 1));
           shown.forEach((it, i) => { const a = ang + (shown.length > 1 ? -spread / 2 + spread * i / (shown.length - 1) : 0); nodes.push({ ...it, x: cx + r * Math.cos(a), y: cy + r * Math.sin(a) * 0.92 }); });
-          const gx = cx + 255 * Math.cos(ang), gy = cy + 250 * Math.sin(ang) * 0.92;
+          const gx = cx + 212 * Math.cos(ang), gy = cy + 205 * Math.sin(ang) * 0.92;
           svg.append(mk('text', { class: 'group', x: gx, y: gy, 'text-anchor': Math.abs(Math.cos(ang)) < 0.3 ? 'middle' : Math.cos(ang) < 0 ? 'start' : 'end' }, items.length ? `${name} (${items.length})` : ''));
         }
         for (const nd of nodes) svg.append(mk('line', { class: `edge ${nd.cls}`, x1: cx, y1: cy, x2: nd.x, y2: nd.y }));
@@ -239,7 +241,7 @@
         const n = notes[sel.note]; if (!n) return;
         const E = (rel, dir) => g.edges.filter(x => x.rel === rel && x[dir] === n.path).map(x => nlink(dir === 'src' ? x.dst : x.src));
         box.replaceChildren(DP.el('div', { class: 'path' }, `${n.path} · ${n.kind} · ${n.updated}`), DP.el('div', { class: 'title' }, n.title || n.path),
-          n.superseded_by.length ? DP.el('div', { class: 'banner' }, 'Superseded by ', ...list(n.superseded_by.map(nlink)), ' — history, not the current answer.') : null,
+          n.superseded_by.length ? DP.el('div', { class: 'banner' }, 'Superseded by ', ...list(n.superseded_by.map(nlink)), ' — history, not the current answer.') : '',
           DP.el('pre', {}, (n.text || []).join('\n')),
           DP.el('dl', {}, ...row('built on', E('from', 'src')), ...row('built upon by', E('from', 'dst')), ...row('supersedes', E('supersedes', 'src')),
             ...row('refers to', E('refs', 'src')), ...row('referred by', E('refs', 'dst')),
@@ -279,5 +281,19 @@
     })();
   </script>
 </section>
+<footer id="footer" class="card" data-span="full">
+  <style>
+    #footer { color: var(--muted); font-size: 12px; }
+  </style>
+  <p>Notes in memory/ are the truth; this page is derived. Regenerate with <span class="mono">memory.py viz</span>. Links: <span class="mono">#overview</span> · <span class="mono">#health</span> · <span class="mono">#note=&lt;path&gt;</span> · <span class="mono">#entity=&lt;id&gt;</span>.</p>
+  <script>
+    (function () {
+      const h = decodeURIComponent(location.hash.slice(1));
+      const m = h.match(/^(note|entity)=(.+)$/);
+      if (m) document.dispatchEvent(new CustomEvent('dp:select', { detail: { [m[1]]: m[2] } }));
+      else if (h === 'health' || h === 'explore' || h === 'overview') document.querySelector(`#header nav button[data-go="${h}"]`).click();
+    })();
+  </script>
+</footer>
 </body>
 </html>

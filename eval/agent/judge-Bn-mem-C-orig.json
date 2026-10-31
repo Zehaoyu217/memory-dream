@@ -1,0 +1,49 @@
+{
+ "eval/agent/runs/Bn-mem-C-orig.md": {
+  "verdicts": {
+   "Q1": {
+    "v": "correct",
+    "why": "Gives the v2 leak, AUC 0.81→0.74, and supersession by v3; omits churn-xgb-v2 usage."
+   },
+   "Q2": {
+    "v": "correct",
+    "why": "Covers exp-014→churn-xgb-v2 (0.81), leak check exp-017 (0.74), and v3 (0.76)."
+   },
+   "Q3": {
+    "v": "partial",
+    "why": "Lists features and churn_labels, but omits logreg-baseline from dependent models."
+   },
+   "Q4": {
+    "v": "correct",
+    "why": "States churn-xgb-v3, AUC 0.76, recall@10 0.43, and the 0.40–0.45 stability range."
+   },
+   "Q5": {
+    "v": "correct",
+    "why": "Explains v2 leakage inflating AUC, exp-017 at 0.74, and honest v3 0.76."
+   },
+   "Q6": {
+    "v": "correct",
+    "why": "Names data-eng-cards, the ~6% September shortfall, and the 2026-10-27 backfill."
+   },
+   "Q7": {
+    "v": "correct",
+    "why": "Gives 0.20/0.50 cuts, 2026-10-08 date, and the open recalibration question with ~2.9%."
+   },
+   "Q8": {
+    "v": "correct",
+    "why": "Gives v2 AUC 0.69 for under-6-month accounts (n=168k) versus 0.83."
+   },
+   "Q9": {
+    "v": "correct",
+    "why": "Says no, all util_ columns end on the observation date; kept unchanged."
+   },
+   "Q10": {
+    "v": "partial",
+    "why": "Gives 6.8% base rate and v2/v3 models, but omits logreg-baseline."
+   }
+  },
+  "correct": 8,
+  "partial": 2,
+  "wrong": 0
+ }
+}

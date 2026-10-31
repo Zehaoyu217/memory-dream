@@ -523,7 +523,8 @@ def build(root, man, cur, former, et, at, xs=None, now=None):
         fm, title, tline, links = parse_note(text)
         x = xs.get(h[:12]) if xs is not None else rd(root / "_dream" / "notes" / f"{h[:12]}.json")
         up = fm.get("updated", "")
-        up = up[:10] if re.match(r"\d{4}-\d\d-\d\d", up) else \
+        stem_date = re.match(r"\d{4}-\d\d-\d\d$", posixpath.basename(rel)[:-3])  # log/YYYY-MM-DD.md
+        up = up[:10] if re.match(r"\d{4}-\d\d-\d\d", up) else stem_date.group(0) if stem_date else \
             dt.date.fromtimestamp(cur[rel]["mtime"] / 1e9).isoformat()
         proj = rel.split("/")[0] if "/" in rel else ""
         notes[rel] = {"path": rel, "id": posixpath.basename(rel)[:-3], "project": proj, "title": title,
