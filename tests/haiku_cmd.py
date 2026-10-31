@@ -16,8 +16,9 @@ import sys
 MODEL = os.environ.get("DREAM_MODEL", "haiku")
 cmd = ["claude", "-p", "--model", MODEL, "--tools", "", "--setting-sources", "", "--strict-mcp-config",
        "--no-session-persistence", "--output-format", "json"]
-if os.environ.get("DREAM_EFFORT"):  # e.g. low: less thinking per call
-    cmd += ["--effort", os.environ["DREAM_EFFORT"]]
+effort = os.environ.get("DREAM_EFFORT", "low")  # low by default: −13% per note, grounding catches the few extra slips
+if effort and effort != "default":  # DREAM_EFFORT=default restores the CLI's own setting
+    cmd += ["--effort", effort]
 prompt = sys.stdin.read()
 static = int(os.environ.get("MEMORY_STATIC_PREFIX") or 0)
 if 0 < static < len(prompt) and not os.environ.get("DREAM_NO_CACHE"):

@@ -96,6 +96,18 @@ most every 10 waves), and note text is capped at 16k characters so no call grows
 The entity count on the sample moved (74 against 56); the fixture's convergence check says dedup still holds, so the
 difference is in what Haiku chose to extract, not in merging. Review calls are one per dream and need no caching.
 
+Then `--effort low`, now the wrapper's default (`DREAM_EFFORT=default` restores the CLI's setting):
+
+| 70-note sample | cache-aware | cache + effort low |
+|---|---|---|
+| cost per note | $0.0015 | **$0.0013** (−41% against the starting $0.0022) |
+| output tokens per call | 1,618 | 1,588 · cached input 3,848 of 5,302 |
+| graph | 74 entities, 122 relations (15 labels), 1 C4 | 67 entities, 124 relations (10 labels), 2 C4 |
+| fixture A3/A18 (30 notes) | $0.0374; 16 of 20 true entities found, 1.06× after the review | **$0.0289**; 15 of 20 found, **1.00×** (no split at all), 2 C4 |
+
+Low effort finds one true entity fewer on the fixture and drops two ungrounded claims; it merges cleaner. Kept as the
+default because grounding already protects the graph from what less thinking costs.
+
 # Phase E (2026-10-31) — an evaluation that measures the claim
 
 `REVIEW.md` F12 and phase E. New tooling: `eval/retrieval.py --must` (gold notes that are superseded count as history),
