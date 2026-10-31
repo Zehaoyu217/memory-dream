@@ -1332,7 +1332,13 @@ INTENT = {"current": re.compile(r"\b(current|currently|now|latest|today|still|va
           "down": re.compile(r"\b(came of|come of|became of|outcome|result\w*|happened|follow.?up)\b", re.I),
           "up": re.compile(r"\b(led to|lead to|what led|based on|rests? on|built on|evidence|came from|origin\w*)\b", re.I),
           "why": re.compile(r"\bwhy\b|\breason\b|\bcaused?\b", re.I),
-          "dep": re.compile(r"\b(depend\w*|uses?|used by|feeds?|inputs?|downstream|trained on)\b", re.I)}
+          "dep": re.compile(r"\b(depend\w*|uses?|used by|feeds?|inputs?|downstream|trained on)\b", re.I),
+          # a task, not a question: someone's taste and the house rules should shape what gets made
+          "task": re.compile(r"^\s*(please\s+)?(make|build|draft|write|prepare|create|put together|set up|design|plot|"
+                             r"format|produce|update|add|summari[sz]e|sketch|lay out|turn)\b|\bhow (should|do|would|can) "
+                             r"(i|we) (present|show|report|format|chart|plot|write|name|round|label|lay out|display)\b", re.I)}
+ART = re.compile(r"\b(chart|plot|graph|table|deck|slide|email|notebook|query|sql|model card|alert|report|page|dashboard|"
+                 r"memo|summary|readout|title|label|column|axis|axes|colou?r)s?\b", re.I)
 WORD = re.compile(r"[A-Za-z0-9@%$][A-Za-z0-9_.@%/+$-]*")
 
 
@@ -1461,7 +1467,8 @@ def ask(args, root):
     for p in v.notes:
         by_area[p.split("/")[0] if "/" in p else ""].append(p)
     general = {a for a, ps in by_area.items() if a.lower() in GENERAL or  # by name, or mostly not project work
-               sum(v.notes[p]["kind"] in WORK for p in ps) < 0.8 * len(ps)} if big else set()
+               sum(v.notes[p]["kind"] in WORK for p in ps) < 0.8 * len(ps)}
+    taste_pool = {p for a in general for p in by_area[a]}
     per_q = []
     for q in qs:
         pats = qterms(q)
@@ -1499,6 +1506,8 @@ def ask(args, root):
                     near = {p.split("/")[0] for p in grep_lines(root, ids) if "/" in p}
                     near = near if len(near) <= 12 else set()
                 areas = sorted(set(areas or []) | near) if areas or near else None
+            if "task" in intent and areas is not None:
+                areas = sorted(set(areas) | general)
         pool = v.notes if areas is None else [p for a in areas for p in by_area[a]]
         paths = {p: [t for t in pats if len(t) >= 4 and t not in scope and t in p.lower()] for p in pool
                  if not scope or p.split("/")[0].lower() in scope}
@@ -1532,6 +1541,7 @@ def ask(args, root):
             by_file[path].append((no, ms, text))
         for x in xs:
             x["ranked"] = rank(x, by_file, idf, v)
+            x["taste"] = taste(x, by_file, v, taste_pool) if "task" in x["intent"] else []
     budget = args.budget or 900 * len(qs) + 1500
     printed, out = {}, []
 
@@ -1573,7 +1583,62 @@ def ask(args, root):
             printed.setdefault(path, set()).update(no for no, _ in new)
         if not x["ranked"]:
             out.append("  (no match — try other words, or grep memory/)")
+        if x["taste"]:
+            out.append("  preferences and house rules for this task:")
+            for p in x["taste"]:
+                out.append(f"▸ {p} · {v.notes[p]['title']}")
     print("\n".join(out))
+
+
+def taste(x, by_file, v, pool):
+    """A task ("make the chart for Chloe's readout") → the preferences and house rules that should shape it. Scored
+    inside the general areas only, so project notes that share a word cannot crowd them out. A person (or a family of
+    rules) named in the task, or matched through their meetings and reports, brings all their notes; rules about the
+    artifact asked for (chart, table, deck …) come along."""
+    pats, n = x["pats"], max(len(pool), 1)
+    cand = {p: rows for p, rows in by_file.items() if p in pool and p in v.notes}
+    df = Counter(t for rows in cand.values() for t in {t for _, ms, _ in rows for t in ms})
+    score = {}
+    for p, rows in cand.items():
+        got = Counter()
+        for no, ms, _ in rows:
+            for t in ms:
+                if t in pats:
+                    got[t] += 2 if no == v.notes[p]["line"] else 1
+        s_ = sum(pats[t] * math.log(1 + n / df[t]) * (2 if " " in t else 1) for t in got)
+        if s_:
+            score[p] = s_
+    fam = defaultdict(list)  # prefs/<first>-<last>-<topic>.md: one person; chart-style-*: one family of rules
+    for p in pool:
+        parts = v.notes[p]["id"].lower().split("-")
+        if len(parts) >= 3 and parts[0].isalpha() and parts[1].isalpha():
+            fam[f"{parts[0]}-{parts[1]}"].append(p)
+    fam = {k: ps for k, ps in fam.items() if len(ps) >= 2}
+    words = re.findall(r"[a-z]+", re.sub(r"'s\b", "", x["q"].lower()))
+    firsts = defaultdict(set)
+    for k in fam:
+        firsts[k.split("-")[0]].add(k)
+    named = {k for k in fam if k in {f"{a}-{b}" for a, b in zip(words, words[1:])}}
+    named |= {next(iter(ks)) for f, ks in firsts.items() if len(ks) == 1 and f in words}
+    top = max(score.values(), default=0) or 1.0
+    for k in named:
+        for p in fam[k]:
+            score[p] = score.get(p, 0) + top + 1
+    for k, ps in fam.items():  # matched through context (their meeting, their report): the whole person comes along
+        got = sum(score.get(p, 0) for p in ps)
+        if k not in named and got >= 0.5 * top:
+            for p in ps:
+                score[p] = max(score.get(p, 0), 0.6 * got)
+    arts = {stem(m.group(1).lower()) for m in ART.finditer(x["q"])}
+    for p in pool:
+        t = (v.notes[p]["title"] or "").lower()
+        if arts and any(re.search(r"\b" + re.escape(a), t) for a in arts):
+            score[p] = score.get(p, 0) + 0.5 * top
+        if v.notes[p]["id"].lower().startswith("me-"):  # your own taste applies to every task
+            score[p] = score.get(p, 0) + 0.5 * top
+    shown = {p for p, _ in x["ranked"]}
+    ranked = sorted(((p, s_) for p, s_ in score.items() if p not in shown), key=lambda z: (-z[1], z[0]))
+    return [p for p, s_ in ranked[:6] if s_ >= 0.25 * ranked[0][1]] if ranked else []
 
 
 def rank(x, by_file, idf, v):

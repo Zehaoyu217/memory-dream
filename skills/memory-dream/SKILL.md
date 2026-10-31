@@ -1,6 +1,6 @@
 ---
 name: memory-dream
-description: Project memory for data-science work in memory/ (notes on projects, experiments, findings, decisions, datasets, features, models, people's preferences, reporting rules, terms, corrections). To answer questions about past work, make ONE call with all your questions — python3 <this skill>/scripts/memory.py ask "q1" "q2" … — it greps the notes with memory (aliases, lineage, superseded → current) and prints the lines that answer each. Write short notes as you work; run memory.py dream at session end.
+description: Project memory for data-science work in memory/ (notes on projects, experiments, findings, decisions, datasets, features, models, people's preferences, reporting rules, terms, corrections). Before making something for someone (chart, table, deck, email, notebook, query), and to answer questions about past work, make ONE call with the tasks and questions — python3 <this skill>/scripts/memory.py ask "q1" "q2" … — it greps the notes with memory (aliases, lineage, superseded → current) and prints the lines that answer each. Write short notes as you work; run memory.py dream at session end.
 ---
 # memory-dream v0.4
 
@@ -15,6 +15,8 @@ index.db and store.db (what ask and dream read), graph.json (small memories). `m
   `▸ path · kind · date · from … · SUPERSEDED → newer` (small memories: whole notes).
 - Answer from that output. A note marked SUPERSEDED is history: its successor is the current answer.
 - Name the project or the id when you know it ("… in churn-2026", "exp-014"): it scopes the search.
+- About to make something? Ask with the task itself, naming who it is for and the artifact ("Make the Q4 campaign
+  chart for Chloe Martin's readout"): it adds the preferences and house rules that apply. Follow them, or say why not.
 - A fact missing? ONE batched follow-up: `ask` with sharper words or ids, plain `grep -rn … memory/`, or Read at a printed line.
 
 ## Write
@@ -26,6 +28,10 @@ index.db and store.db (what ask and dream read), graph.json (small memories). `m
    write a new note (a corrected definition supersedes the old one).
 4. Numbers carry metric, eval set, n, date. Sources (tables, notebooks, queries) in backticks.
 5. ≤ 40 lines, plain markdown, nothing about the memory system. Scratch: `memory.py log "…" -p <project>`.
+6. Taste is said once, in passing ("no pie charts", "round to 1 decimal for the board", "too AI-looking"): when someone
+   states a preference or corrects your style, save it then — `prefs/<first>-<last>-<topic>.md` (your user's own:
+   `prefs/me-<topic>.md`); the `# ` line is the rule, then where it applies (artifact, meeting, audience) and why.
+   When it changes, write a new note with `supersedes:`.
 
 ## End of session
 `memory.py dream` (background is fine; command mode needs `$MEMORY_LLM`, e.g. `claude -p --model haiku --tools ""`;
