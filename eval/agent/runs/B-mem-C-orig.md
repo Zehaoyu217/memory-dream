@@ -1,0 +1,36 @@
+## Q1
+feat-velocity-v2 is the 30-day transaction velocity feature group: 6 `vel_` columns (count, sum and ratio to the 90-day average) built on `cards.txn_daily`, in `features/velocity_v2.py`. It drove exp-014's AUC jump from 0.71 to 0.81, mostly through `vel_ratio_30_90`. Its window sat "around" the observation date, so it read post-period days and leaked the target. It was retired on 2026-10-30 and replaced by feat-velocity-v3, whose windows end on the observation date.
+Sources: memory/churn-2026/feat-velocity-v2.md, memory/churn-2026/feat-velocity-v3.md, memory/churn-2026/dec-velocity-v3.md, memory/churn-2026/exp-014.md, memory/churn-2026/post-period-leak.md
+## Q2
+exp-014 (XGBoost, 400 trees, depth 6, holdout-2025q4, n=1.2M) reached AUC 0.81 and recall@10 0.52, up from the baseline's 0.71 and 0.29, and it became churn-xgb-v2. The jump looked too good and was traced to leakage: exp-017 ended the velocity window at the observation date and AUC fell to 0.74 (recall@10 0.41), with `vel_ratio_30_90` dropping from 1st to 9th in importance. That led to velocity v3 and churn-xgb-v3.
+Sources: memory/churn-2026/exp-014.md, memory/churn-2026/leak-hypothesis.md, memory/churn-2026/exp-017-leak-check.md, memory/churn-2026/post-period-leak.md, memory/churn-2026/churn-xgb-v2.md
+## Q3
+In churn-2026, the table feeds feat-velocity-v2/v3, feat-utilization-v1 (via `balance`/`credit_limit`), the ds-txn-2025q4 snapshot and `cards.churn_labels` (built from it by the retention-labels job). So churn-xgb-v2/v3 and the logistic baseline all depend on it. Other consumers include:
+- the feature store (six migrated features, e.g. txn_cnt_7d and txn_cnt_30d)
+- fraud-2025/2026 card-not-present datasets (9.8M and 14.2M rows)
+- the AML cash subset, the merchant-risk merchant-month panel and the NPS behaviour join
+- the weekly-deck data-quality gate (does not publish if the row count is more than 5% off its trailing 7-day mean)
+
+About 60 notes reference the table in total.
+Sources: memory/churn-2026/ds-churn-labels.md, memory/churn-2026/feat-velocity-v3.md, memory/churn-2026/feat-utilization-v1.md, memory/churn-2026/ds-txn-2025q4.md, memory/feature-store-migration/ds-fsm-txn-source.md, memory/fraud-2026/ds-f26-cnp-txn.md, memory/merchant-risk/ds-mrisk-merchant-month.md, memory/reporting/data-quality-gate.md
+## Q4
+The production churn model is churn-xgb-v3 (`models:/churn-xgb/3`), which replaced churn-xgb-v2 in the nightly scoring job on 2026-10-30. On holdout-2025q4 (n=1.2M) it scores AUC 0.76 and recall@10 0.43, holding at 0.40–0.45 across the Oct/Nov/Dec cohorts; recall@10 is the business metric. It is retrained monthly on the latest 9 observation months. One conflict: an older feature-store-migration note (2026-02-19) calls fsm-churn-xgb-v2 (AUC 0.791 on holdout-2025q2) the production churn model, but the churn-2026 notes are newer.
+Sources: memory/churn-2026/churn-xgb-v3.md, memory/churn-2026/exp-019-recall.md, memory/churn-2026/dec-retrain-cadence.md, memory/churn-2026/metric-recall-at-10.md, memory/feature-store-migration/fsm-churn-xgb-v2.md
+## Q5
+v2's 0.81 was inflated by target leakage. feat-velocity-v2 aggregated `cards.txn_daily` past the observation date, into the label window. Removing those post-period days cut AUC to 0.74 in exp-017. v3 rebuilds velocity from pre-observation days only, keeps the clean utilization features and the same XGBoost settings, and gives an honest 0.76 (recall@10 0.52 to 0.43). Separately, v2's numbers were computed before the September 2025 txn backfill, so they used about 6% fewer September transactions.
+Sources: memory/churn-2026/post-period-leak.md, memory/churn-2026/exp-017-leak-check.md, memory/churn-2026/dec-velocity-v3.md, memory/churn-2026/churn-xgb-v3.md, memory/churn-2026/exp-019-recall.md, memory/churn-2026/txn-backfill.md
+## Q6
+The table is owned by data-eng-cards; Tomás Rivera is the data-engineering owner, with an SLA of T+1 by 07:00 UTC. Yes, there was an issue: September 2025 partitions were about 6% short until the backfill (ticket DE-4411) finished on 2026-10-27, after which row counts match the ledger within 0.1%. Any v2 numbers computed before then are affected. The table also has standing issues: late partitions (after 10:00 on D+1) and duplicate txn_id rows from partition reloads after retries (11 of 90 Q1-2025 partitions). The 2026-10-30 log shows a backfill also running for October partitions.
+Sources: memory/churn-2026/txn-backfill.md, memory/churn-2026/ds-txn-2025q4.md, memory/data-quality-txn/ds-dq-txn-daily.md, memory/data-quality-txn/q-dq-late-cause.md, memory/data-quality-txn/fnd-dup-retries.md, memory/prefs/tomas-rivera-freshness-sla.md, memory/log/2026-10-30.md
+## Q7
+The cutoffs are churn score ≥ 0.50 for a call (3.8% of the book), 0.20–0.50 for an email (11.6%), and below 0.20 no action. They were set on 2026-10-08 with Maya Ortiz on churn-xgb-v2 scores, against a budget of 4% calls and 12% emails. They stay in force for now, but whether they are still valid is an open question (2026-10-30). churn-xgb-v3 scores are less extreme, so the call tier would shrink to about 2.9% of the book at the current cuts.
+Sources: memory/churn-2026/dec-risk-tiers.md, memory/churn-2026/q-tier-cutoffs.md, memory/churn-2026/q-recalibrate-tiers.md, memory/churn-2026/dec-retrain-cadence.md
+## Q8
+Poorly. In exp-015, churn-xgb-v2 on accounts under 6 months' tenure (n=168k, 14% of the holdout) reached only AUC 0.69 and recall@10 0.31, against AUC 0.83 on older accounts. New accounts have too little history for velocity or utilization to mean much, yet they are 14% of the book and 21% of churners. The options on the table are a tenure-specific model or routing new accounts to onboarding (owner Priya Nair). No v3 breakdown by tenure has been recorded, and v2's figures carried the leak.
+Sources: memory/churn-2026/exp-015-tenure.md, memory/churn-2026/finding-new-accounts.md
+## Q9
+No. On 2026-10-29 all 3 `util_` columns of feat-utilization-v1 were checked against the post-period leak pattern. Every window ends on the observation date, so they were kept unchanged in churn-xgb-v3.
+Sources: memory/churn-2026/feat-utilization-check.md, memory/churn-2026/feat-utilization-v1.md, memory/churn-2026/churn-xgb-v3.md
+## Q10
+In churn-2026, three models are trained on `cards.churn_labels`: logreg-baseline (exp-011), churn-xgb-v2 and churn-xgb-v3, all on the 2025-01 to 2025-09 observation months. The base rate is 6.8% on the 2025 book (n=4.1M accounts; 90-day flag, month-end observation dates). Other projects building labels from the same table report different rates because their windows and segments differ: churn-2025 4.3% at 60 days, SMB 7.4% at 90 days, and 6.1% for the December 2025 cohort at 90 days.
+Sources: memory/churn-2026/ds-churn-labels.md, memory/churn-2026/exp-011-baseline.md, memory/churn-2026/churn-xgb-v2.md, memory/churn-2026/churn-xgb-v3.md, memory/churn-2025/ds-c25-churn-labels.md, memory/churn-small-business/ds-csb-churn-labels.md, memory/howto/churn-label-90d.md

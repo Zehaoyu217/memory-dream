@@ -1341,14 +1341,15 @@ def ask(args, root):
         pats = qterms(q)
         intent = {k for k, rx in INTENT.items() if rx.search(q)}
         low = " " + q.lower() + " "
-        hit_ents = {i for t in pats if fold(t) in names and len(names[fold(t)]) <= 2 for i in names[fold(t)]}
-        hit_ents |= {i for nm, ids in names.items() if " " in nm.replace("-", " ") and len(ids) <= 2
-                     and f" {nm.replace('-', ' ')} " in low.replace("-", " ") for i in ids}
+        # the index only adds aliases of things the question names by id; loose names never become patterns
+        by_id = {i for t in pats if fold(t) in names and len(names[fold(t)]) <= 2 for i in names[fold(t)]}
+        hit_ents = by_id | {i for nm, ids in names.items() if 2 <= len(nm.replace("-", " ").split()) <= 3
+                            and len(ids) <= 2 and f" {nm.replace('-', ' ')} " in low.replace("-", " ") for i in ids}
         for eid in hit_ents:
             e = v.ents[eid]
             for x in [e["id"], *e["aka"], *(n["name"] for n in e["names"][:4])]:
-                if len(x) >= 3 and len(names.get(fold(x), ())) <= 3:
-                    pats.setdefault(x.lower(), 2.0)
+                if 3 <= len(x) <= 30 and len(x.split()) <= 3 and len(names.get(fold(x), ())) <= 2:
+                    pats.setdefault(x.lower(), 1.5)
         scope = {args.p.lower()} if args.p else {t for t in pats if t in folders}  # "in the aml-alerts project"
         named = {p for t in pats for p in stems.get(t, [])} | \
                 {p for t in pats for p in ([t] if t in v.notes else [t + ".md"] if t + ".md" in v.notes else [])}
@@ -1357,7 +1358,7 @@ def ask(args, root):
         paths = {p: [t for t in pats if len(t) >= 4 and t not in scope and t in p.lower()] for p in v.notes
                  if not scope or p.split("/")[0].lower() in scope}
         per_q.append({"q": q, "pats": {t: w for t, w in pats.items() if t not in scope}, "intent": intent,
-                      "ents": hit_ents, "named": named, "scope": scope, "paths": {p: ts for p, ts in paths.items() if ts}})
+                      "ents": hit_ents, "by_id": by_id, "named": named, "scope": scope, "paths": {p: ts for p, ts in paths.items() if ts}})
     allpats = {p for x in per_q for p in x["pats"]}
     hits = grep_lines(root, allpats)
     if args.p:
@@ -1450,7 +1451,8 @@ def rank(x, by_file, idf, v):
     for eid in x["ents"]:  # notes that mention a matched entity, findings and decisions first
         for m in v.ents[eid]["mentions"]:
             n = v.notes.get(m["path"])
-            score[m["path"]] = score.get(m["path"], 0) + 0.35 * top * (1.5 if n and n["kind"] in ("finding", "decision") else 1)
+            w = 0.35 if eid in x["by_id"] else 0.15  # named outright: a stronger signal than a phrase match
+            score[m["path"]] = score.get(m["path"], 0) + w * top * (1.5 if n and n["kind"] in ("finding", "decision") else 1)
     up = intent & {"up", "why", "dep"}
     seeds = sorted(score.items(), key=lambda z: -z[1])[:6]
     best_live = next((p for p, _ in seeds if v.notes.get(p) and not v.notes[p]["superseded_by"]), None)
@@ -1460,8 +1462,12 @@ def rank(x, by_file, idf, v):
             continue
         for succ in n["superseded_by"]:
             score[succ] = max(score.get(succ, 0), s * (1.1 if "current" in intent else 0.85))
+            if "why" in intent:  # why it was replaced: what the successor built on
+                for e in v.frm[succ]:
+                    if e["rel"] in ("from", "refs") and e["dst"] != p:
+                        score[e["dst"]] = max(score.get(e["dst"], 0), s * 0.6)
         if "current" in intent and n["superseded_by"]:
-            score[p] = s * 0.6
+            score[p] = s * 0.85  # still shown (answers cite what was replaced), below its successor
         if "down" in intent or (p in x["named"] and not up and len(x["named"]) == 1) or \
                 ("current" in intent and p == best_live):
             for e in v.down[p]:

@@ -2,6 +2,141 @@
 
 2026-10-30 · built from the "Memory" email spec (`build-spec.md`) · macOS, Python 3.9.6, Claude Code 2.1.314.
 
+# Round 2 — a thin layer on grep, tested at 1× and 56×
+
+## Verdict
+
+Every target holds at both sizes. Fresh Opus subagents using the memory are at least as accurate
+as a grep-only baseline. They cost less: 0.93× at 30 notes and 0.39–0.47× at 1,677 notes. And they
+are faster: 0.75× at 30 notes and 0.35–0.44× at 1,677. Each cell is three runs of 10 questions,
+judged by Haiku against reference answers.
+
+| cell | correct / partial / wrong | tool calls | API requests | tokens processed | cost vs grep | time |
+|---|---|---|---|---|---|---|
+| small (30 notes) — memory | 26 / 3 / 1 | 1.3 | 2.3 | 104k | **0.93×** | 40 s |
+| small — grep | 25 / 5 / 0 | 2.7 | 3.0 | 129k | 1× | 53 s |
+| 56× (1,677 notes) — memory, Haiku index | **27** / 3 / 0 | 4.7 | 5.7 | 311k | **0.47×** | 61 s |
+| 56× — memory, no LLM index | 26 / 4 / 0 | 5.0 | 6.0 | 324k | **0.39×** | 75 s |
+| 56× — grep | 26 / 4 / 0 | 25.3 | 23.3 | 1,465k | 1× | 172 s |
+
+Cost compares "cost units" per run: tokens weighted by Opus price ratios (fresh input 1, cache read
+0.1, cache write 1.25, output 5). Data: `eval/agent/summary.json`; answers in `eval/agent/runs/`;
+verdicts in `eval/agent/judge-*.json`.
+
+## Why round 1 cost 2.3×
+
+It was round trips, not note size. Every API request re-sends the subagent's context: at least 37k
+tokens of system prompt, tools and history. Round 1's SKILL.md told agents to look up, then read
+each pointer, one question at a time. That loop took 16–20 requests where grep took 3.
+
+At 30 notes the whole corpus is about 3k tokens. INDEX.md alone was 70% of the corpus, so it
+compressed nothing, and one `cat` of everything was the cheapest possible plan.
+(`eval/a21/calls.py` lists every call of every run.)
+
+## What changed: grep plus memory, not a replacement for grep
+
+- `memory.py ask "q1" "q2" …` takes every question in one call:
+  - The graph expands each question into grep patterns: note ids, entity aliases, and the project
+    named in the question, which then scopes the search.
+  - One real `grep -F` pass finds the lines.
+  - Notes are scored by idf-weighted pattern hits; a hit on the title or in the slug counts double.
+  - Then the graph orders them. Named notes come first. Superseded notes lift their successors.
+    "What came of X" walks down the `from:` links; "what led to X", "why" and "depends on" walk two
+    hops up. For "why" questions about a replaced note, the walk goes up from its successor.
+  - Output is `line: text` under `▸ path · kind · date · from … · SUPERSEDED → newer`, i.e.
+    surgical lines from the original files. When everything relevant fits the budget (small
+    memories), it prints whole notes instead.
+- `memory.py grep <grep args>`: plain grep over the notes, with the same headers per note.
+- Lineage without a model: a slug-like note id written in a note's body counts as a `refs` link
+  within its project. Log notes take their date from the `log/YYYY-MM-DD` filename.
+- SKILL.md policy: one `ask` call with every question, answer, and at most one batched follow-up.
+  The skill description, which agents see without loading the skill, names the command, so the
+  skill body never has to be read just to answer.
+
+## The 56× bank (written by 12 Haiku subagents)
+
+- **Projects:** 40, each with 30 notes in real chains: question → experiments → findings →
+  decisions → new versions, with at least 2 supersessions per project.
+- **General memory:** 300 notes across `prefs/` (people's taste and working preferences),
+  `reporting/` (conventions), `glossary/` (terms), `corrections/` (wrong definitions or
+  understandings, each superseding what it corrects), `howto/` (analysis practice) and `qa/`
+  (saved question-and-answer notes).
+- **Size:** 1,499 notes plus 149 log days. Adding the churn-2026 fixture gives 1,677 files and
+  653 KB, about 190k tokens.
+- **Questions:** 326, each with gold notes, written by the same authors. Plus 30 more churn-2026
+  questions from a 13th agent.
+- **Validation** (`eval/bank/split.py`): 0 notes over 40 lines, 0 without a title, 1 of 2,190
+  `from:` links unresolved, 0 of 209 `supersedes:` links unresolved.
+
+## Offline retrieval (no LLM): did the answer's evidence come back?
+
+| bank | questions | gold-note recall | answer-number recall | chars per question |
+|---|---|---|---|---|
+| small, Haiku index | 40 | 0.93 | 0.97 | 1,200 |
+| 56×, no index | 326 | 0.89 | 0.97 | 1,975 |
+| 56×, Haiku index | 326 | 0.88 | 0.97 | 2,210 |
+
+`python3 eval/retrieval.py <memory root> <questions…>`. Weakest types are "current" (26 of 40
+miss at least one gold note or number) and "dependency" (21 of 40); some of those are strict gold
+lists (the gold names the superseded version too).
+
+## Is the Haiku index worth it? For retrieval, no; for management, yes
+
+- **Cost:** indexing 1,677 notes took 1,677 calls plus 1 review call, $5.95 and about 45 minutes
+  at `-j 10`. The KNOWN entity list makes each prompt about 9k tokens.
+- **Retrieval value:** neutral. The index's loose entity names made `ask` worse (gold-note recall
+  0.86 vs 0.88), so `ask` now uses the index conservatively:
+  - aliases expand only through short names;
+  - entities are matched by name, not by long descriptions;
+  - the boost is smaller for phrase matches.
+
+  With that, indexed and unindexed are within noise offline and at agent level (27 vs 26 correct).
+  The indexed agent runs used the ranking from just before the last why/current tweak, which is
+  worth +0.8 pt offline.
+- **Where it pays:** entity aliases and typed relations ("what uses `cards.txn_daily`" across 27
+  projects), the viewer, and review.
+- **Problem found:** with Haiku as reviewer, all 178 proposed relation types with 2 or more uses
+  were answered "new". EDGES.md grew from 7 types to 185, and 470 vocabulary items still await
+  review (C7). The review needs a stricter prompt or a cap.
+
+## Viewer (for visualization and management)
+
+`memory.py viz` writes `memory/_dream/graph.html`, self-contained with no CDN and built to the
+html-harness habits (10/10 under `map.py`). It has three tabs:
+- **Overview:** every project and area with note counts by kind, last update, superseded and
+  warning counts.
+- **Explore:** search plus a radial neighbourhood for a note (built on, built upon by, supersedes,
+  entities) or an entity (depends on, used by, mentioned in), and a detail panel with the note text
+  and links.
+- **Health:** warnings by code, all 211 superseded → current chains, unlinked notes, and the review
+  queue.
+
+Deep links: `#note=<path>`, `#entity=<id>`, `#health`. It renders with 0 errors and 0 AA contrast
+failures in light and dark mode. Screenshots are in `eval/viz/`.
+
+## Caveats
+
+- The judge is Haiku, with n = 30 questions per cell, so a one-question difference is noise.
+  Several "partial" verdicts say "substantively correct".
+- Each run answers 10 questions in one session, which lets grep spread its reads across questions.
+  One fresh agent per question would favour the one-call design more; that was not measured.
+- The questions were written by Haiku. Churn-2026 questions written for the small bank are
+  ambiguous in the big one ("the current churn model" could be churn-2025's).
+- `memory.py` is 1,610 lines against the spec's ~600.
+
+## Next refinements
+
+1. Make the dreamer optional for answering and keep it for aliases, relations and the viewer.
+   Cap the KNOWN list per project, which should roughly halve indexing cost.
+2. Gate the vocabulary review: accept a new type only with a definition distinct from every
+   existing type, and cap new types per review.
+3. Run single-question agents, and use a stronger judge.
+4. Improve "current" and "dependency" retrieval: follow the successor's relations, not only its
+   lineage.
+5. Test the write path: agents writing notes under the SKILL rules.
+
+# Round 1 — the spec as written
+
 ## Verdict
 
 The tool works to spec: **A1–A20 pass** with a deterministic fake dreamer. A3, A10 and A18 also pass

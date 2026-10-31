@@ -11,5 +11,11 @@ from it. Stdlib Python, markdown + JSON.
 
 ```bash
 python3 tests/acceptance.py
-python3 skills/memory-dream/scripts/memory.py --root tests/fixture/memory where cards.txn_daily
+python3 skills/memory-dream/scripts/memory.py --root tests/fixture/memory ask "what came of exp-014?" "who owns cards.txn_daily?"
+python3 skills/memory-dream/scripts/memory.py --root tests/fixture/memory viz --out /tmp/graph.html
 ```
+
+Answering is grep plus memory: `ask` expands questions through the graph (aliases, ids, lineage),
+greps the notes once, and prints the answering lines current-first. Against a grep-only agent it is
+as accurate, 0.93× the cost at 30 notes and 0.39–0.47× at 1,677 (`.specs/memory-dream/RESULTS.md`).
+`eval/bank/generated/` holds the 56× Haiku-written test bank; `eval/questions/` its 366 questions.

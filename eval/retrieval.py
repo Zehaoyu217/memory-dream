@@ -11,12 +11,13 @@ import contextlib
 import importlib.util
 import io
 import json
+import os
 import re
 import sys
 import time
 from pathlib import Path
 
-MEM = Path(__file__).resolve().parent.parent / "skills/memory-dream/scripts/memory.py"
+MEM = Path(os.environ.get("MEM_PY") or Path(__file__).resolve().parent.parent / "skills/memory-dream/scripts/memory.py")
 _spec = importlib.util.spec_from_file_location("memory", MEM)
 mem = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(mem)

@@ -17,6 +17,9 @@ upward from the cwd, then `./memory`.
 
 ```bash
 M="python3 .claude/skills/memory-dream/scripts/memory.py"
+$M ask "what came of exp-014?" "who owns cards.txn_daily?"   # answering: grep + memory, every question in one call
+$M grep -i -e velocity -e leak    # plain grep over the notes, hits grouped per note with lineage headers
+$M viz                            # memory/_dream/graph.html: overview, explorer, health (#note=<path>, #health)
 $M where cards.txn_daily          # entities, headline, relations, notes with path:line
 $M where -p churn-2026            # project overview
 $M trace churn-xgb-v3             # lineage: what it built on (--down: what built on it)
@@ -70,6 +73,22 @@ python3 tests/real_model.py a10-next /tmp/w-a10   #   /tmp/w-a10/memory and call
 4. Save each answer as `eval/a21/runs/<world>.md`, grade with
    `python3 eval/a21/grade.py eval/a21/runs/*.md`, and record tokens and tool calls reported by
    the harness for each subagent.
+
+## Round 2: 50× bank, retrieval and agent eval
+
+```bash
+python3 eval/bank/split.py <bundles dir> eval/bank/generated eval/questions   # Haiku-written bundles → notes + questions
+python3 eval/bank/assemble.py eval/bank/generated tests/fixture/memory <out>/memory   # big bank = generated + churn-2026
+python3 eval/retrieval.py <memory root> eval/questions/bank-*.jsonl             # offline: gold-note and number recall of `ask`
+python3 eval/agent/make_batches.py                                               # C-orig, C-h1, C-h2, P1, P2 (seeded)
+python3 eval/a21/extract.py eval/agent/runs NAME=<subagent transcript> …         # report + usage per run
+python3 eval/judge.py eval/agent/batches/<B>.jsonl eval/agent/runs/<run>.md      # Haiku judge vs reference answers
+python3 eval/agent/summarize.py                                                  # per cell: accuracy, calls, tokens, cost, time
+```
+
+Agent prompts: memory runs get the skill's name and description (as a session lists skills) and the
+path to SKILL.md; grep runs get a one-paragraph description of the note folders. Both get the same 10
+questions and the same reply format. `MEMORY_DEBUG=1 memory.py ask …` prints the ranking to stderr.
 
 ## Troubleshooting
 
