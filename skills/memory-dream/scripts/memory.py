@@ -43,6 +43,58 @@ AREA_KIND = {"prefs": "preference", "glossary": "term", "corrections": "correcti
 CC_KIND = {"user": "preference", "feedback": "rule", "project": "note", "reference": "note"}  # Claude Code's auto-memory types
 DIGEST_MAX_LINES, DIGEST_HEADS = 40, 10  # memory/DIGEST.md: ≤ 40 lines so it can sit in context every session
 KINDS = set("question experiment finding decision dataset feature model metric term preference rule log note".split())
+# The class tree (phase H): two levels, a child counts as its parent wherever a rule names the parent — conflict
+# kinds, the viewer's legend and entity graph, the shape check. Kinds of notes, then types of entities.
+KIND_PARENT = {"experiment": "finding", "correction": "rule", "preference": "rule", "metric": "term"}
+TYPE_PARENT = {"table": "dataset", "segment": "dataset", "column": "feature", "person": "party", "team": "party",
+               "tool": "system", "job": "system", "pipeline": "system", "service": "system"}
+SHAPES = {"trained-on": ("model", "dataset"), "evaluated-on": (None, "dataset"), "measured-by": (None, "metric"),
+          "owned-by": (None, "party"), "replaces": ("same", "same")}  # usual subject → object families of seed types (C12)
+
+
+def family(k, tree=KIND_PARENT):
+    """A kind's or type's parent in the class tree, or itself."""
+    return tree.get(k, k)
+
+
+def successors(notes, path, hops=4):
+    """The chain after `path`'s first successor: v2 → v3 → … to the live end (phase H: 11% of the bank's history
+    notes had a successor that was itself superseded, so the header sent the agent on a second hop)."""
+    out, p, seen = [], path, {path}
+    while len(out) < hops:
+        nxt = (notes.get(p) or {}).get("superseded_by") or []
+        if not nxt or nxt[0] in seen or nxt[0] not in notes:
+            break
+        p = nxt[0]
+        seen.add(p)
+        out.append(p)
+    return out
+
+
+def chain_mark(notes, n):
+    """` · SUPERSEDED → v2 → v3`: every direct successor, then the first one's chain to the live end."""
+    if not n["superseded_by"]:
+        return ""
+    return " · SUPERSEDED → " + ", ".join(notes[q]["id"] for q in n["superseded_by"] if q in notes) \
+        + "".join(" → " + notes[q]["id"] for q in successors(notes, n["superseded_by"][0]))
+
+
+def shape_checks(ents, rels):
+    """C12 (phase H): a seed-type relation whose entity families are unusual for it — a `term` trained-on a `term`
+    is probably a mistyped model and dataset; the review or a person retypes or drops it. Bank: 35 of 1,071 (3%)."""
+    out = []
+    for (s, T, o), rec in rels.items():
+        exp = SHAPES.get(T)
+        if not exp or s not in ents or o not in ents:
+            continue
+        fs, fo = family(ents[s]["type"], TYPE_PARENT), family(ents[o]["type"], TYPE_PARENT)
+        es, eo = exp
+        bad = (fs != fo) if es == "same" else ((es and fs != es) or (eo and fo != eo))
+        if bad:
+            out.append(("C12", f"{s} ({ents[s]['type']}) {T} {o} ({ents[o]['type']}): usually "
+                        f"{'the same family on both sides' if es == 'same' else (es or '*') + ' → ' + eo}; retype or drop · "
+                        f"{(rec.get('evidence') or ['?'])[0]}"))
+    return out
 TIMEOUT = int(os.environ.get("MEMORY_TIMEOUT", "300"))
 KEEP_DAYS = 30
 # Constrained open vocabulary (REVIEW.md §10): a link outside EDGES.md keeps its label (other/<label>); a label may
@@ -50,7 +102,8 @@ KEEP_DAYS = 30
 PROMOTE, BUDGET, PROBATION_DAYS = (5, 5, 2), 24, 60  # uses, notes, areas · types · days — EDGES.md can override
 # Conflicts (REVIEW.md phase C): two live notes of one kind in one area, unlinked, sharing a rare title word, are
 # queued for the review; decisions persist in memory/CONFLICTS.md; notes are never edited.
-CONFLICT_KINDS = {"decision", "model", "finding"}  # rules and preferences are distinct by nature: not queued (bank: 157 false pairs)
+CONFLICT_KINDS = {"decision", "model", "finding"}  # by family: experiments count as findings (phase H). Rules and
+# preferences are distinct by nature: not queued (bank: 157 false pairs)
 CONFLICT_MAX = 20  # pairs per review
 CONFLICT_STOP = set("decision model finding current holdout threshold rule note with from that this using when what".split())
 CONFLICTS_HEAD = ("# CONFLICTS — decisions about pairs of live notes that looked contradictory. `- a > b`: a supersedes b "
@@ -600,8 +653,8 @@ def conflict_candidates(notes, edges, decided):
                 add(a, b, ["same title"])
     by = defaultdict(list)
     for n in live:
-        if n["kind"] in CONFLICT_KINDS:
-            by[(n["project"], n["kind"])].append(n)
+        if family(n["kind"]) in CONFLICT_KINDS:
+            by[(n["project"], family(n["kind"]))].append(n)
     for ns in by.values():
         toks = {n["path"]: title_tokens(n["title"]) for n in ns}
         freq = Counter(t for ts in toks.values() for t in ts)
@@ -958,6 +1011,7 @@ def build(root, man, cur, former, et, at, xs=None, now=None, facts=None, base=No
         if age >= cfg["probation"] and not (u["uses"] >= U and len(u["notes"]) >= Nn and len(u["areas"]) >= A):
             demote.append(T)
     checks += [("C7", f"entities {a} / {b} await review") for a, b in pairs]
+    checks += shape_checks(ents, rels)
     cf = root / "CONFLICTS.md"
     _, compat, unsure, _ = parse_conflicts(read(cf)) if cf.exists() else ([], set(), set(), [])
     conflicts = [c for c in conflict_candidates(notes, edges, unsure) if frozenset((c["a"], c["b"])) not in compat]
@@ -1036,7 +1090,7 @@ def validate(g, types=None):
             if not m or m.group(1) not in paths or int(m.group(2)) < 1:
                 bad.append(f"relation {r['s']} {t} {r['o']}: evidence {ev!r} is not path:line of a note")
     bad += [f"conflict {c.get('a')} / {c.get('b')}: unknown note" for c in g["conflicts"] if c.get("a") not in paths or c.get("b") not in paths]
-    bad += [f"check {c.get('code')}: unknown code" for c in g["checks"] if not re.fullmatch(r"C(?:[1-9]|1[01])", str(c.get("code", "")))]
+    bad += [f"check {c.get('code')}: unknown code" for c in g["checks"] if not re.fullmatch(r"C(?:[1-9]|1[0-2])", str(c.get("code", "")))]
     if [c["code"] for c in g["checks"]] != sorted(c["code"] for c in g["checks"]):
         bad.append("checks are not sorted by code")
     return bad
@@ -2153,8 +2207,7 @@ def ask(args, root):
         sup = [v.notes[e["dst"]]["id"] for e in v.frm[path] if e["rel"] == "supersedes"]
         s += f" · from {', '.join(f)}" if f else ""
         s += f" · supersedes {', '.join(sup)}" if sup else ""
-        s += (" · SUPERSEDED → " + ", ".join(v.notes[p]["id"] for p in n["superseded_by"])) if n["superseded_by"] else ""
-        return s
+        return s + chain_mark(v.notes, n)
 
     def body(path):
         """Compact note: title and body lines, no frontmatter, no blanks."""
@@ -2186,8 +2239,7 @@ def ask(args, root):
             for path, lines in x["ranked"]:
                 want = body(path) if full else lines
                 new = [(no, t) for no, t in want if no not in printed.get(path, set())]
-                sup_mark = (" · SUPERSEDED → " + ", ".join(v.notes[q]["id"] for q in v.notes[path]["superseded_by"])) \
-                    if path in v.notes and v.notes[path]["superseded_by"] else ""  # history stays marked on short headers too
+                sup_mark = chain_mark(v.notes, v.notes[path]) if path in v.notes else ""  # history stays marked on short headers
                 if path in printed and not new:
                     out.append(header(path).split(" · ")[0] + " (above)" + sup_mark)
                     continue
@@ -2367,7 +2419,8 @@ def rank(x, by_file, idf, v):
         if not n:
             continue
         for succ in n["superseded_by"]:
-            score[succ] = max(score.get(succ, 0), s * (W["successor_current"] if "current" in intent else W["successor"]))
+            for q in [succ] + successors(v.notes, succ):  # the whole chain to the live end (phase H)
+                score[q] = max(score.get(q, 0), s * (W["successor_current"] if "current" in intent else W["successor"]))
             if "why" in intent:  # why it was replaced: what the successor built on
                 for e in v.frm[succ]:
                     if e["rel"] in ("from", "refs") and e["dst"] != p:
@@ -2393,8 +2446,9 @@ def rank(x, by_file, idf, v):
     for p in list(score):  # a superseded note never outranks its live successor; it stays right below it (phase E:
         n = v.notes.get(p)  # on 104 stale-vs-current questions the successor came first in 70% → 95%, gold −0.003)
         for succ in (n["superseded_by"] if n else []):
-            if v.notes.get(succ) and not v.notes[succ]["superseded_by"]:
-                score[succ] = max(score.get(succ, 0), score[p] * 1.001)
+            end = ([succ] + successors(v.notes, succ))[-1]  # the live end of the chain (phase H)
+            if v.notes.get(end) and not v.notes[end]["superseded_by"]:
+                score[end] = max(score.get(end, 0), score[p] * 1.001)
     ranked = sorted(score.items(), key=lambda z: (-z[1], z[0]))
     picks = [(p, sc) for p, sc in ranked[:W["picks"]] if sc >= W["pick_floor"] * ranked[0][1]] if ranked else []
     # weak match (F4): a word of the question occurs nowhere in the memory and the best note covers at most half of
@@ -2492,7 +2546,8 @@ def note_text(root, n):
 
 def write_viz(root, g, out):
     """A self-contained HTML viewer of the graph: map, overview, explorer, health."""
-    render_viz({"schema": g.get("schema", SCHEMA), "built": g["built"], "notes": [{**n, "text": note_text(root, n)} for n in g["notes"]],
+    render_viz({"schema": g.get("schema", SCHEMA), "built": g["built"], "families": {"kinds": KIND_PARENT, "types": TYPE_PARENT},
+                "notes": [{**n, "text": note_text(root, n)} for n in g["notes"]],
                 "entities": g["entities"], "relations": g["relations"], "edges": g["edges"], "checks": g["checks"],
                 "review": g["review"], "proposed": g["proposed"], "conflicts": g.get("conflicts", [])}, out)
 
@@ -2540,6 +2595,7 @@ def write_viz_big(root, g, dd, force=False):
             continue
         stubs = {p: {**notes[p], "text": []} for e in e_by[a] for p in (e["src"], e["dst"]) if area(p) != a and p in notes}
         render_viz({"schema": g.get("schema", SCHEMA), "mode": "area", "area": a, "home": "../graph.html", "built": g["built"],
+                    "families": {"kinds": KIND_PARENT, "types": TYPE_PARENT},
                     "notes": [{**n, "text": note_text(root, n)} for n in ns] + list(stubs.values()),
                     "entities": [{**e, "names": e["names"][:6], "aka": e["aka"][:6], "mentions": mm} for e, mm in m_by[a]],
                     "relations": [{**r, "evidence": [x for x in r["evidence"] if area(x.rsplit(":", 1)[0]) == a]} for r in r_by[a]],

@@ -851,8 +851,48 @@ def A38():
     return "graph validates (schema 1), index.db round-trips, island carries schema and text; C11 on a 42-line note; version and same-title pairs queued; open questions in the digest"
 
 
+def A39():
+    """The class tree: an experiment counts as a finding for conflicts, entity types fold into families for the shape
+    check (C12), and the viewer's island carries the tree."""
+    assert mem.family("experiment") == "finding" and mem.family("preference") == "rule" and mem.family("decision") == "decision"
+    assert mem.family("segment", mem.TYPE_PARENT) == "dataset" and mem.family("team", mem.TYPE_PARENT) == "party"
+    w = World(fixture=False)
+    (w.root / "mrisk").mkdir()
+    (w.root / "mrisk/exp-506.md").write_text("# exp-506: a score of 0.70 flags 4.1% of merchants and captures 63% of confirmed-fraud merchants\n"
+                                            "Run on mrisk-oot-2026h1.\n")
+    (w.root / "mrisk/fnd-watchlist-065.md").write_text("# With v3, a 0.65 cut captures 74% of confirmed-fraud merchants at 5.2% flagged\n"
+                                                       "Supersedes nothing yet: both notes are live.\n")
+    w.run("dream", model=False)
+    out = w.run("check", model=False)
+    assert "conflict pending: mrisk/exp-506.md / mrisk/fnd-watchlist-065.md" in out, out
+    ents = {"m": {"type": "model"}, "d": {"type": "segment"}, "t": {"type": "term"}, "p": {"type": "person"}}
+    rels = {("m", "trained-on", "d"): {"evidence": ["a.md:3"]}, ("m", "trained-on", "t"): {"evidence": ["a.md:4"]},
+            ("m", "owned-by", "p"): {"evidence": ["a.md:5"]}, ("m", "replaces", "t"): {"evidence": ["a.md:6"]},
+            ("m", "other/goes-to", "t"): {"evidence": ["a.md:7"]}}
+    c12 = mem.shape_checks(ents, rels)
+    assert [c[1].split(":")[0] for c in c12] == ["m (model) trained-on t (term)", "m (model) replaces t (term)"], c12
+    w.run("viz", model=False)
+    island = (w.root / "_dream/graph.html").read_text()
+    assert '"families": {"kinds": {"experiment": "finding"' in island, island[:200]
+    return "experiment + finding sharing rare title words → queued; segment→dataset, team→party; 2 of 5 relations off-shape (C12); island carries the tree"
+
+
+def A40():
+    """A supersession chain: the header follows it to the live end, and the live end outranks the old note."""
+    w = World(fixture=False)
+    (w.root / "proj").mkdir()
+    (w.root / "proj/feat-x-v1.md").write_text("# feat-x-v1: the first velocity window, 30 days around the date\nAUC 0.81 on the holdout.\n")
+    (w.root / "proj/feat-x-v2.md").write_text("---\nsupersedes: [feat-x-v1]\n---\n# feat-x-v2: the window ends on the date\nAUC 0.74 on the holdout.\n")
+    (w.root / "proj/feat-x-v3.md").write_text("---\nsupersedes: [feat-x-v2]\n---\n# feat-x-v3: the window ends on the date, 60 days\nAUC 0.76 on the holdout.\n")
+    out = w.run("ask", "what do we know about feat-x-v1?", model=False)
+    assert "SUPERSEDED → feat-x-v2 → feat-x-v3" in out, out
+    heads = re.findall(r"^▸ (\S+)", out, flags=re.M)
+    assert heads.index("proj/feat-x-v3.md") < heads.index("proj/feat-x-v1.md"), heads
+    return "header reads SUPERSEDED → feat-x-v2 → feat-x-v3; the live end is headed above the old note"
+
+
 TESTS = [A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A24,
-         A25, A26, A27, A28, A29, A30, A31, A32, A33, A34, A35, A36, A37, A38]
+         A25, A26, A27, A28, A29, A30, A31, A32, A33, A34, A35, A36, A37, A38, A39, A40]
 
 
 def main():
