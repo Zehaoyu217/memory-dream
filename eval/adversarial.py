@@ -15,7 +15,9 @@ import contextlib
 import importlib.util
 import io
 import json
+from collections import Counter
 import os
+import random
 import re
 import statistics
 import subprocess
@@ -160,6 +162,44 @@ def alias(index_root, show):
             "chars_per_q": {k: round(statistics.mean(v)) for k, v in chars.items()}}
 
 
+NONSENSE = ["zorbax rate", "quill index", "the brindle ratio", "velvet scoring", "the tarn method", "marlow cutoff",
+            "the saffron holdout", "obelisk features", "the kelp model", "dunlin uplift"]
+MADE_UP = ["quillbeam", "tarnwick", "vexhollow", "obrindle", "saffmoor", "kelverin", "dunmarsh", "pyrelock", "wendralt", "moskvane",
+           "corrilane", "brastwick", "jorvaney", "lintharbor", "ferrowick", "ostmarle", "tavenrook", "ulmbright", "greysloe", "haddenmere",
+           "orvinstone", "pellamoor", "sidrathe", "quenbarrow", "thistlecrag", "varnholt", "wrenfield", "yarrowden", "zelmbrook", "ashcombe"]
+
+
+def absence(root, g, show):
+    """Questions about things the memory does not hold (phase G, after MOOSEDev's negation set): a version that was
+    never written (churn-xgb-v3 → -v9), a made-up id with a real prefix, a nonsense term beside a real word. A good
+    answer says so: "(no match" or a "(weak match …" marker naming the unknown token. A confident header is a false
+    positive. Grep's "every matching line" strategy is the comparator: any line at all counts as a confident answer."""
+    ids = sorted({n["id"] for n in g["notes"]})
+    rnd = random.Random(7)
+    ver = [i for i in ids if re.search(r"-v\d+$", i)]
+    bumps = [re.sub(r"-v\d+$", "-v9", i) for i in rnd.sample(ver, min(40, len(ver)))]
+    bumps = [b for b in bumps if b not in ids][:30]
+    made = [f"{p}-{w}" for p, w in zip(rnd.sample(["feat", "exp", "dec", "ds", "fnd", "find", "q"] * 5, 30), MADE_UP)]
+    qs = [("version bump", f"what do we know about {x}?", x) for x in bumps] + \
+         [("made-up id", f"what do we know about {x}?", x) for x in made] + \
+         [("nonsense term", f"what is {t}?", t) for t in NONSENSE]
+    flagged, grep_quiet, n_by = Counter(), Counter(), Counter()
+    for i in range(0, len(qs), 10):
+        batch = qs[i:i + 10]
+        out = run_ask(root, [q for _, q, _ in batch])
+        for (kind, q, form), (_, sec) in zip(batch, sections(out)):
+            n_by[kind] += 1
+            ok = "(no match" in sec or "weak match" in sec
+            flagged[kind] += ok
+            words = [w for w in re.findall(r"[a-z0-9][a-z0-9.-]*", form.lower()) if len(w) >= 3 and w not in ("the",)]
+            grep_quiet[kind] += not grep_lines(root, words)
+            if show and not ok:
+                print("  absence (confident):", q, "→", heads(sec)[:2])
+    n = sum(n_by.values())
+    return {"n": n, "ask flagged": round(sum(flagged.values()) / n, 3), "grep lines empty": round(sum(grep_quiet.values()) / n, 3),
+            "by kind": {k: f"{flagged[k]}/{n_by[k]}" for k in n_by}}
+
+
 def main():
     args = sys.argv[1:]
     show = "--show" in args
@@ -168,7 +208,7 @@ def main():
     root = Path(args[0]).resolve()
     qs = [json.loads(x) for f in files for x in Path(f).read_text().splitlines() if x.strip()]
     g = mem.load(root)[0]
-    out = {"stale": stale(root, qs, g, show), "scatter": scatter(root, qs, show)}
+    out = {"stale": stale(root, qs, g, show), "scatter": scatter(root, qs, show), "absence": absence(root, g, show)}
     if index_root:
         out["alias"] = alias(index_root, show)
     print(json.dumps(out, indent=1))

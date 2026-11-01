@@ -2,6 +2,87 @@
 
 2026-10-30 (round 4: 2026-10-31) · built from the "Memory" email spec (`build-spec.md`) · macOS, Python 3.9.6, Claude Code 2.1.314.
 
+# Phase G (2026-11-01) — agents on the real index, and two designs read for free money
+
+## G1 — the agent eval at n = 3 batches per arm (Opus, real Haiku index)
+
+Six Opus subagents, three batches of ten questions each (P1 projects, C-h1 churn-2026, P2 general: preferences,
+reporting rules, corrections, a term, a how-to, a QA note), one arm per workspace: **memory** = the bank with its
+real Haiku index and the skill (`ask` only; read-only), **grep** = the same notes with nothing else, told it may
+`cat` whole folders. Prompts as in BUILD-GUIDE §7.3; answers graded by the Haiku judge against the question
+bank's reference answers; usage from the transcripts (`eval/a21/extract.py`), wall time from the harness.
+
+| arm | correct / partial / wrong (30) | tool calls per batch | API requests | tokens processed | cost units | seconds |
+|---|---|---|---|---|---|---|
+| memory (`ask` on the real index) | 23 / 7 / 0 | **5.7** | 6.0 | **498k** | **285,723** | **204** |
+| grep (bare notes, folders allowed) | 23 / 7 / 0 | 18.7 | 19.7 | 1,742k | 465,811 | 273 |
+| memory / grep | tie | **0.30** | 0.30 | **0.29** | **0.61** | **0.75** |
+
+Per batch (correct/partial/wrong · tool calls): P1 memory 8/2/0 · 8 against grep 8/2/0 · 26; C-h1 memory 5/5/0 · 5
+against 7/3/0 · 9; P2 memory 10/0/0 · 4 against 8/2/0 · 21. No wrong answer in either arm; every partial is a
+detail missing or an unverified extra, on both sides. Cost units weight fresh input 1, cache read 0.1, cache write
+1.25, output 5: the memory arm reads 0.29× the tokens but writes answers of the same length, and output is what
+costs, so 0.61× is the floor this question format allows. The tier-3 gate of the bundle holds: accuracy within
+one correct answer per ten (a tie), tool calls ≤ 0.35× (0.30×). One observation: on the densest batch (churn-2026,
+60 notes plus daily log entries) the memory agent answered mostly from `ask`'s lines and read few whole notes, which
+is where its five partials come from; the grep agent read whole notes and had three.
+
+## G2 — Helix Foundry, HelixDB's memory skill, MOOSEDev: what they do, what was worth borrowing
+
+Read for this pass (cloned, not run): **Helix Foundry** (`HelixDB/helix-foundry`, Apache-2.0) — an agent drafts an
+ontology over a company's databases, Slack, Notion and documents, a person reviews it, and it loads into HelixDB as
+one graph; every value stays traceable to the row or quote it came from, reads are versioned by load (`as_of`), the
+agent's Read and Ask contracts are JSON schemas (`contract/ontology_agent/`) whose results carry `stats: what the
+request spent`, and a price catalog of models with as-of dates feeds its cost estimates. A hosted product with a
+database, a Go backend and a web app: a different problem (integrating a company's data) and a different cost
+class; nothing in it is free to borrow, though its "every answer cites the row" is what `▸ path · line:` already
+does for notes. **HelixDB's `helix-memory-system` skill** is a design guide for agent memory on a hybrid graph +
+vector + BM25 store: `Memory` nodes with `isLatest` / `validFrom` / `validTo` / `deletedAt`, `UPDATES` / `EXTENDS` /
+`DERIVES` edges, a maintained profile, and two rules it states as law — "never collapse a memory system to
+vector-only" and "exact names, ids, rare tokens need BM25; embeddings blur them". Our plain files already carry each
+of these: `supersedes:` is `UPDATES`, `from:` is `DERIVES`/`EXTENDS`, the SUPERSEDED mark is `isLatest`, `prefs/`
+plus the digest is the profile, and grep is the exact-token channel the skill says must exist.
+
+**MOOSEDev** (`Trivyn/moosedev`, Apache-2.0 on a closed engine; the NeSy 2026 paper "Ontology-Grounded Project
+Memory for Coding Agents", read through search summaries because arxiv.org is outside this session's network) is
+the closest relative: typed records (decision, requirement, constraint, alternative, consequence, pattern,
+anti-pattern, lesson) in two small OWL ontologies with SHACL shapes, the graph committed to git as N-Quads,
+supersede-with-rationale (the new record links `supersedes` to the old and `hasRationale` to a rationale node; the
+old is flipped to `superseded`, never deleted), current-only retrieval by default with history one hop away,
+provenance of who and when, MCP tools and SPARQL. Its benchmark (`bench/RESULTS.md`) is the useful part: on
+reversal pairs (a decision later reversed) the structured graph answers with the current state 100% of the time,
+BM25 over the same text 46% when context is pushed to the agent (8% in the worst pair) and 91% when the agent pulls
+its own search; the paper's set-completeness and negation questions score 0.98–1.00 against 6–27% for a vector-
+memory product; a dense channel beside BM25 recovered nothing BM25 missed at k = 10 and only re-ranked the head
+(−19% agent tokens); and a grading lesson — stale-keyword detection is unreliable because a correct current answer
+narrates the old state to deny it. Against this: our stale set already measures their "currency" — successor
+headed 1.00, above the old note 0.97, old marked 1.00 — by lineage alone, with no database; our stale metric is
+structural (which note heads, is it marked), not keyword-based, so their lesson is already built in; their dense-
+channel result supports keeping retrieval at grep plus structure; their rationale node is our rule that a
+superseding note's first line says what changed and why (the note is the rationale); their typed kinds are our
+note kinds. Two of their ideas were cheap and missing here:
+
+| borrowed | what | measured |
+|---|---|---|
+| a **negation (absence) set** in `adversarial.py` | 70 questions about things the memory does not hold: 30 versions never written (`…-v9`), 30 made-up ids with real prefixes, 10 nonsense terms beside a real word. A good answer says "(no match" or carries the `(weak match …` marker naming the unknown token | before: 64 of 70 flagged (4 version bumps headed the nearest version unmarked; 2 nonsense terms were vetoed by an entity hit on their real word). After the rule below: **70 of 70** on the real and the fake index; grep's "every matching line" is quiet on 60 of 70 |
+| a **lineage connectivity line** in `check` (their bootstrap target: edges ≳ nodes) | `lineage: 2,426 from/supersedes links over 1,073 live project notes (2.3 per note) · 13 link to nothing: …` — the notes "why" and "what came of" cannot reach | bank: 13 of 1,073 (8 questions, 2 datasets); fixture: 4 of 23. 0 calls, 9 lines |
+
+The weak-match rule changed in three ways for the absence set, each measured on the 326 real questions so the
+marker stays rare there: an id, version or number the question names that no note mentions is always said, even
+when its neighbours match ("feat-cb-handoff-rule-v9" heads the v2 and v1 notes, marked); the rule reads the
+question's own words only, never the aliases the index added (those produced 22 false markers on real questions
+in the first attempt: dreamer-coined names like `precision-at-0.90`); a hyphenated phrase is judged by its words
+("call-routing" counts as found when both words are). The entity veto went: a generic word that is an entity id
+("holdout") no longer hides a nonsense neighbour. Real questions marked: 2 of 326 on the real index, 1 of 326 on the
+fake, both truthful ("company" and "segmentation" occur in no note); retrieval unchanged at 0.946 / 0.978 / 275
+complete / 2,487 chars; suite 35/35.
+
+Not borrowed, on purpose: an ontology language, shapes and a daemon (`CONTRACT.md` plus `check` validate what we
+need, and "a thin layer on grep" is the design); separate alternative/consequence records (a decision note carries
+them); an author field (notes carry a date; who wrote them is git's job); `as_of` point-in-time reads (about ten
+lines — filter notes by date and recompute supersession as of then — but no question in the bank asks it; listed
+under next steps).
+
 # Phase F (2026-10-31) — five improvements, each measured, the best kept
 
 The review of phases A–E named the weak spot (scattered evidence: 66% of multi-note questions get every gold note,

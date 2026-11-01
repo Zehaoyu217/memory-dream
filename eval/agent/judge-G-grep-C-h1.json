@@ -1,0 +1,49 @@
+{
+ "eval/agent/runs/G-grep-C-h1.md": {
+  "verdicts": {
+   "Q1": {
+    "v": "correct",
+    "why": "States latest 9 months, 2026-10-30 decision, and v3 fit on 2025-01 to 2025-09."
+   },
+   "Q2": {
+    "v": "partial",
+    "why": "Correct models and check result, but says all util_ checks clean and omits the v3 unchanged reasoning detail; mostly right."
+   },
+   "Q3": {
+    "v": "partial",
+    "why": "Gives 0.81→0.74 and rebuild decision, but adds unverified exp-019 and tier claims; core facts present."
+   },
+   "Q4": {
+    "v": "correct",
+    "why": "States random 30%, tenure stratified, 1.2M, frozen 2026-09-04, make_holdout notebook."
+   },
+   "Q5": {
+    "v": "correct",
+    "why": "AUC 0.71, recall@10 0.29, n=1.2M, 14 features, no velocity/utilization."
+   },
+   "Q6": {
+    "v": "correct",
+    "why": "Explains recall@10 as call capacity matching retention; AUC only reported alongside."
+   },
+   "Q7": {
+    "v": "correct",
+    "why": "feat-velocity-v3 current; 30 days before observation date versus v2's 'around' window."
+   },
+   "Q8": {
+    "v": "correct",
+    "why": "Reads cards.txn_daily via velocity_v3.py; used by churn-xgb-v3 only."
+   },
+   "Q9": {
+    "v": "partial",
+    "why": "Covers exp-014 start and backfill finish, but adds unsupported analytic claims and mixes details."
+   },
+   "Q10": {
+    "v": "correct",
+    "why": "Gives 90-day no-spend definition after observation date, built from txn_daily, maintained by data-eng-cards."
+   }
+  },
+  "correct": 7,
+  "partial": 3,
+  "wrong": 0
+ }
+}

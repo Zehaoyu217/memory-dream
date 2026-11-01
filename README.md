@@ -24,7 +24,7 @@ phases: `.specs/memory-dream/REVIEW.md`, `RESULTS.md`.
 
 Answering is grep plus memory: `ask` expands questions through the graph (aliases, ids, lineage),
 greps the notes once, and prints the answering lines current-first. Against a grep-only agent it is
-as accurate, 0.93× the cost at 30 notes and 0.39–0.47× at 1,677 (`.specs/memory-dream/RESULTS.md`); on the
-1,677-note bank it heads 92% of the gold notes at ~2.2k characters per question, and a quarter of the tool calls
-of a grep agent. No model is needed; a cheap one adds entities for the viewer.
+as accurate, 0.93× the cost at 30 notes and 0.39–0.47× at 1,677 (`.specs/memory-dream/RESULTS.md`; three Opus
+batches per arm on a real Haiku index: 23/7/0 against 23/7/0, 0.30× the tool calls, 0.29× the tokens, 0.61× the
+cost units); on the 1,677-note bank it heads 95% of the gold notes at ~2.5k characters per question. No model is needed; a cheap one adds entities for the viewer.
 `eval/bank/generated/` holds the 56× Haiku-written test bank; `eval/questions/` its 366 questions.

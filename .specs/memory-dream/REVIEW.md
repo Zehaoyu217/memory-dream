@@ -194,7 +194,9 @@ free-money pass (version and same-title conflict candidates, open questions in t
 measured nil and dropped), a cache-aware dreamer (−32% per note, convergence 1.06×) and the rebuilt viewer.
 
 Agent runs (RESULTS E3, E4): one memory/grep pair on ten questions, the grep arm allowed to `cat` folders — 7/3/0
-against 8/2/0 correct/partial/wrong, tool calls 7 against 31, tokens and time about equal in this single pair; one
+against 8/2/0 correct/partial/wrong, tool calls 7 against 31, tokens and time about equal in this single pair —
+**then phase G (RESULTS G1): three batches per arm on the real Haiku index, 23/7/0 against 23/7/0, tool calls 0.30×,
+tokens processed 0.29×, cost units 0.61×, wall time 0.75×**; one
 write-path run — eight notes from a six-line session, lineage right (three supersessions, two preferences in
 `prefs/`), every fact findable by `ask` with history marked. Not done: single-question agents, a stronger judge,
 n > 1 with cost units — they need a dedicated run with transcripts.
@@ -345,6 +347,22 @@ gate, A35 probation and demotion, A36 budget. Risks: the `other` tail is noisy i
 default; the thresholds are guesses until measured on real notes, which is why they live in `WEIGHTS` with a note.
 
 ---
+
+## 11. Two other designs, read for what was free to borrow (phase G)
+
+Helix Foundry (HelixDB) builds a company-wide ontology over connected data with an agent and a human reviewer and
+loads it into a graph database — a different problem and cost class; its "every value traces to its row" is what
+`▸ path · line:` does for notes. HelixDB's memory-system skill and MOOSEDev (Trivyn; the NeSy 2026 paper on
+ontology-grounded project memory) are closer: typed records with lifecycle state, supersession kept as history,
+current-only retrieval with history one hop away, exact-token search as a required channel. Each of those is
+already here in plain files (`supersedes:`, `from:`, the SUPERSEDED mark, grep). What was missing and cheap:
+MOOSEDev's **negation** category — now the absence set in `adversarial.py`, 70 of 70 flagged after a three-part
+change to the weak-match rule that keeps it at 2 of 326 real questions — and its **connectivity** target, now the
+`lineage:` line of `check`. Their currency benchmark (structured 100% vs BM25 46% with pushed context) is the
+same guarantee our stale set measures by lineage (successor above the old note 0.97, old marked 1.00), and their
+finding that a dense channel re-ranks but recovers nothing BM25 misses supports keeping retrieval at grep plus
+structure. Not taken: an ontology language and a daemon, separate alternative/consequence records, an author field,
+`as_of` reads. RESULTS G2 has the detail.
 
 ## 9. Appendix — probe scripts
 

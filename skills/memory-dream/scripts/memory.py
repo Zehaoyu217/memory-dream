@@ -1846,6 +1846,17 @@ def check(args, root):
               f"{d.get('refused_not_line', 0)} by not: lines")
     problems = validate(g, set(parse_edges(vocab_texts(root)[0])[0]))
     print(f"contract: schema {g.get('schema')} " + ("ok" if not problems else f"{len(problems)} problems: " + "; ".join(problems[:5])))
+    deg = Counter()  # lineage connectivity: "why" and "what came of" can only walk links that were written (phase G)
+    for e in g["edges"]:
+        if e["rel"] in ("from", "supersedes"):
+            deg[e["src"]] += 1
+            deg[e["dst"]] += 1
+    proj = [n["path"] for n in g["notes"] if not n["superseded_by"] and n["project"] not in GENERAL and n["project"] != "log"]
+    loose = [p for p in proj if not deg[p]]
+    if proj:
+        print(f"lineage: {sum(deg.values()) // 2} from/supersedes links over {len(proj)} live project notes "
+              f"({sum(deg.values()) / 2 / len(proj):.1f} per note) · {len(loose)} link to nothing"
+              + (": " + ", ".join(loose[:5]) + (" …" if len(loose) > 5 else "") if loose else ""))
     by = defaultdict(list)
     for c in g["checks"]:
         by[c["code"]].append(c["msg"])
@@ -2100,7 +2111,7 @@ def ask(args, root):
         paths = {p: [t for t in pats if len(t) >= 4 and t not in scoped_pats and t in p.lower()] for p in pool
                  if not scope or p.split("/")[0].lower() in scope}
         per_q.append({"q": q, "pats": {t: w for t, w in pats.items() if t not in scoped_pats}, "intent": intent, "hint": hint,
-                      "ents": hit_ents, "by_id": by_id, "named": named, "scope": scope, "areas": areas,
+                      "own": set(own), "ents": hit_ents, "by_id": by_id, "named": named, "scope": scope, "areas": areas,
                       "paths": {p: ts for p, ts in paths.items() if ts}})
     groups = defaultdict(list)  # questions that grep the same areas share one grep
     for x in per_q:
@@ -2388,14 +2399,15 @@ def rank(x, by_file, idf, v):
     picks = [(p, sc) for p, sc in ranked[:W["picks"]] if sc >= W["pick_floor"] * ranked[0][1]] if ranked else []
     # weak match (F4): a word of the question occurs nowhere in the memory and the best note covers at most half of
     # the question's words — say so instead of heading an unrelated note like a hit
-    content = {t for t, w in pats.items() if w >= 1 and " " not in t}
+    content = {t for t in x["own"] if pats.get(t, 0) >= 1 and " " not in t  # the question's own words, not aliases;
+               and not ("-" in t and not re.search(r"\d", t))}  # a hyphenated phrase is judged by its words
     missing = sorted(t for t in content if t not in idf)
     hit = set(base.get(picks[0][0], {})) if picks else set()
-    strong = any(pats.get(t, 0) >= 1.5 for t in hit)  # an id, a number or a word pair matched: not a guess
-    x["weak"] = ""
-    if picks and missing and not strong and not x["named"] and not x["ents"] and content \
-            and len(hit & content) <= WEAK_SHARE * len(content):
-        x["weak"] = "weak match: " + ", ".join(f"'{t}'" for t in missing[:3]) + " found nowhere in memory"
+    strong = any(pats.get(t, 0) >= 1.5 for t in hit if t in x["own"])  # an id, number or word pair of the question matched
+    ids_missing = [t for t in missing if re.search(r"\d|[._/@]", t)]  # an id, version or number the question names and
+    x["weak"] = ""  # no note mentions: always said, even when its neighbours match (phase G absence set: 97% flagged)
+    if picks and (ids_missing or (missing and not strong and content and len(hit & content) <= WEAK_SHARE * len(content))):
+        x["weak"] = "weak match: " + ", ".join(f"'{t}'" for t in (ids_missing or missing)[:3]) + " found nowhere in memory"
     if os.environ.get("MEMORY_DEBUG"):
         sys.stderr.write(f"Q {x['q']} intent={sorted(intent)} named={sorted(x['named'])}\n  pats={pats}\n")
         for p, s in sorted(score.items(), key=lambda z: -z[1])[:12]:

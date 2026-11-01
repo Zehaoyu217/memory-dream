@@ -262,8 +262,9 @@ Per question:
 8. **Print**: under `▸ path · kind · date · from … · SUPERSEDED → newer`, the best 2–4 lines per note; whole notes
    when everything picked fits the budget (900 chars per question + 1,500). On a memory of ≤ 200 notes, when the
    whole memory would cost ≤ 1.2× the surgical output, print it all: per-question `▸ path` pointers, then every note
-   by area — complete, and no dearer than `cat`. A question with a word found nowhere, whose best note covers at most
-   half its words, gets a `(weak match: 'x' found nowhere …)` line.
+   by area — complete, and no dearer than `cat`. An id, version or number the question names that no note mentions,
+   or a plain word found nowhere when the best note covers at most half the question's words, gets a
+   `(weak match: 'x' found nowhere …)` line; the rule reads the question's own words, never the index's aliases.
 9. **Taste** (task intent only, `taste`): scored inside the general areas so project notes cannot crowd them out; a
    person named in the task, or named inside one of the three best-matching house notes (their meeting's roster,
    their report), brings all their notes; house rules about the artifact asked for (chart, table, deck …) come along;
@@ -371,7 +372,8 @@ Expect 0.937 / 0.980 at 1,677 notes on the fake-indexed world (0.895 / 0.972 bef
 0.946 / 0.978 on a real Haiku index, 0.938 / 0.979 with `MEMORY_NO_INDEX=1`). `adversarial.py` measures the sets
 where grep should lose: stale-vs-current (successor above the old note 0.97, old marked 1.00), scattered
 evidence (all gold 0.78 at 2.2k chars on the fake index, 0.79 at 2.3k on the real one, vs 0.99 at 12.6k for `cat`
-of the folder), alias traps (needs a real index for its surface
+of the folder), absence (70 questions about things the memory does not hold: ask says "(no match" or marks
+the unknown id or word, 70 of 70), alias traps (needs a real index for its surface
 forms: 0.93 with or without the index vs 0.43 for an exact-phrase grep on the 70-note world's 14 forms; the full
 bank's 280 forms: 0.89 with the index, 0.83 without, 0.52 grep). `MEMORY_NO_INDEX=1` switches `ask`'s use of the index off, for such comparisons.
 
@@ -446,7 +448,7 @@ which applicable notes each plan follows by content, and which it contradicts.
 |---|---|---|---|
 | retrieval: gold notes / numbers | — | 0.882 / 0.970 | 0.854 / 0.950 |
 | `ask`, 10 questions | < 1 s | 0.5 s | 2.3 s |
-| agent cost vs grep | 0.93× | 0.47× | 0.41× |
+| agent cost vs grep | 0.93× | 0.47× (phase G, real index, n = 3 batches per arm: tool calls 0.30×, tokens 0.29×, cost units 0.61×, time 0.75×, accuracy tied 23/7/0) | 0.41× |
 | $ per new note (Haiku) | 0.0013 (60-note world) | 0.0020 | 0.0015–0.0019 |
 | dream, nothing new | — | 0.7 s | 3 s |
 | dream, 30 new notes (with Haiku) | — | — | 82 s, 4.8 GB |

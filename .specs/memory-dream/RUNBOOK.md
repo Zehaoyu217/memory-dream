@@ -186,8 +186,9 @@ python3 eval/scale/profile_incremental.py <memory root> <scratch> fraud-2026   #
   with a model ask the review, or write `- a > b` / `compatible: a / b` into CONFLICTS.md yourself.
 - `check` says C9: the note contains NUL bytes (a binary paste, a bad encoding). `ask` still greps it (`grep -a`),
   but keep notes plain text.
-- `ask` prints `(weak match: 'x' found nowhere in memory …)`: a word of the question occurs in no note and the best
-  note covers at most half of the question's words; the notes shown are a guess. Rephrase, or grep.
+- `ask` prints `(weak match: 'x' found nowhere in memory …)`: an id, version or number you named occurs in no note
+  (the notes shown are its nearest neighbours, such as the versions that do exist), or a word of the question occurs
+  in no note and the best note covers at most half of the question's words. Rephrase, or grep.
 - On a small memory (≤ 200 notes) `ask` prints the whole memory after the per-question pointers whenever that costs
   about the same as the surgical lines (within 1.2×): nothing is missed, and it is no dearer than `cat`.
 - `memory.py: another dream is running` (exit 3): `_dream/lock` exists and is under two hours old; wait, or
