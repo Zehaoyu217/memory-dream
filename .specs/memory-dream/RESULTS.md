@@ -55,8 +55,8 @@ that may disagree, names that may be the same thing, links that look odd, links 
 own, other things to look at — each item in a sentence, with a "Copy question" button that puts a ready question
 for the assistant on the clipboard (the note titles and paths inside it, so the assistant can act); a picked note
 has "Something wrong here? Copy a question", every extracted fact a "Wrong?" button quoting its line. On the bank:
-106 items (53 pairs that may disagree, 35 odd links, 1 broken link, 4 notes on their own, 13 other). Theme: navy
-and GS blue, square corners, a seven-hue family palette validated in both modes by the dataviz validator (CVD
+106 items (53 pairs that may disagree, 35 odd links, 1 broken link, 4 notes on their own, 13 other). Theme: navy ink
+and one blue, square corners, a seven-hue family palette validated in both modes by the dataviz validator (CVD
 separation, lightness band, chroma floor, contrast; shapes carry identity as well); selection pops (1.7×, no ring)
 and its lines light up with arrowheads flowing toward the newer note. Headless checks pass on both worlds; the
 viewer is 938 lines, still one file, no dependencies.
@@ -70,6 +70,20 @@ its own box as the main thing; "How this note connects" shows direct links first
 tree folded; "Worth checking" lists six items then "Show all", with no inner scrollbars. All verified headless:
 pan moves the camera, a wheel step zooms 1.14 → 1.64, a drag moves a node, 51 nodes magnify near the cursor,
 Back returns to the previous note; 0 errors. 1,075 lines, one file, no dependencies.
+
+**H5 — measured tokens (1 Nov).** The owner shared their html-harness (a component catalogue measured from a bank's
+public site: 190 design tokens, 178 components, the diagram skin) and asked for its look with one rule — nothing
+that could cause legal trouble. What crossed over is values and conventions only: the ink ladder (one black at .95
+/.80/.70/.60 for text, .95/.44/.34/.16 for rules) instead of navy hexes; one blue `#7297C5` (text twin `#446EA6`,
+selection wash at 16%) used for what is selected and the lit path; the eight series colours in their order (navy,
+blue, magenta, teal, orange, purple, red, ochre) for the families, grey for context; status colours for status only
+(amber tint under a 3px rule for "may be wrong"); spacing on 8; a 3px ink rule opening every module; tabs as plain
+words over a hairline with a 2px blue line under the open one; square outline buttons and chips; hairline rows in
+every list; a serif voice for the page title and the picked note's title (Georgia, a system face); the year as a
+faint watermark behind the timeline. Nothing of the bank's crossed: no font files, no icons, no mark, no wording,
+no component markup (the magnifier in the search box is two CSS pseudo-elements). The harness's own diagram
+references are MIT (vendored from a third party) and were read for conventions, not copied. Both headless checks
+and the 37 acceptance tests pass unchanged; the page is still one file with no requests.
 
 # Phase G (2026-11-01) — agents on the real index, and two designs read for free money
 

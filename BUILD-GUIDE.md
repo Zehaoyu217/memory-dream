@@ -297,9 +297,13 @@ graph against the contract, `memory.py check` prints the result first, and A38 e
 Self-contained HTML (no network), written for a person who knows nothing about how the memory works: plain words
 everywhere (no file names, ids or codes on the surface — `gbm-model-exp233` reads "GBM Model Exp233",
 `evaluated-on` reads "evaluated on", dates are spelt out; raw forms stay in tooltips and one folded technical block),
-a white page with navy ink and GS blue as the accent, square corners, and a validated family palette (seven hues,
-checked with the dataviz validator; shapes carry identity as well). What is picked pops (no ring) and its lines
-light up in the accent with arrowheads and a slow flow toward the newer note. The Selected panel keeps a trail:
+a white page, one black at four strengths for text (.95 .80 .70 .60) and four for rules (.95 .44 .34 .16), one
+blue (`#7297C5`, text twin `#446EA6`, a 16% wash) for what is selected and the lit path, eight series colours for
+the families (navy, blue, magenta, teal, orange, purple, red, ochre; shapes carry identity as well), status colours
+for status only, spacing on 8, a 3px ink rule opening every module, square corners, no shadow at rest, system faces
+only (a serif for the page title and the picked note's title). The values are measured from a bank's public site;
+nothing of its fonts, icons, marks, wording or markup is used. What is picked pops (no ring) and its lines light up
+in the blue with arrowheads and a slow flow toward the newer note. The Selected panel keeps a trail:
 Back and Forward through everything looked at (Alt+← / Alt+→).
 Data lives in `<script type="application/json" id="data-graph">` (notes with their full text, entities with
 mentions, relations with evidence, lineage edges, checks, review queue, conflicts); `memory.py` fills it
@@ -307,7 +311,7 @@ mentions, relations with evidence, lineage edges, checks, review queue, conflict
 
 - **Time — notes by area and date.** One row per area (projects first, general areas in italics), x = date, each
   note a shape by kind (square decision, diamond finding, triangle model, hexagon dataset or feature, circle
-  question; a child kind such as experiment takes its family's shape with a lighter fill) in a grey by family;
+  question; a child kind such as experiment takes its family's shape with a lighter fill) in its family's colour;
   superseded notes hollow and dashed; lineage drawn as curves (built on; dashed = supersedes; faint = refers to).
   Lane labels stay put when the lanes scroll. Hovering a note lights its links; picking one dims everything outside
   two lineage hops and draws its own links in (a 420 ms stroke animation, off under `prefers-reduced-motion`).

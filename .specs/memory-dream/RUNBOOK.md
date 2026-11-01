@@ -31,7 +31,7 @@ $M check                          # every warning C1–C12 in full
 grep -rn velocity memory/ --exclude-dir=_dream                 # plain grep stays first-class
 ```
 
-Viewer (`_dream/graph.html`, self-contained, white with navy and GS blue, plain words only): two views — notes by area and time with
+Viewer (`_dream/graph.html`, self-contained, white, one black at four strengths, one blue, plain words only): two views — notes by area and time with
 their lineage drawn, and the entity graph (nodes by family, the notes' current relations as arrows; pan, zoom,
 drag, a fisheye under the mouse, bubbles at low zoom; `Connections` tab or `#view=graph`); pick a note to read
 it in its own box, see how it connects (direct links first, the rest folded), what the assistant took from it, the
