@@ -362,7 +362,9 @@ change to the weak-match rule that keeps it at 2 of 326 real questions — and i
 same guarantee our stale set measures by lineage (successor above the old note 0.97, old marked 1.00), and their
 finding that a dense channel re-ranks but recovers nothing BM25 misses supports keeping retrieval at grep plus
 structure. Not taken: an ontology language and a daemon, separate alternative/consequence records, an author field,
-`as_of` reads. RESULTS G2 has the detail.
+`as_of` reads. RESULTS G2 has the detail. **Phase H** then added the one of those the owner wanted — a two-level
+class tree of kinds and entity types (conflicts by family, a shape check C12, the viewer's families) — with
+supersession chains followed to the live end and a graph view of entities beside the time lanes (RESULTS H1–H3).
 
 ## 9. Appendix — probe scripts
 

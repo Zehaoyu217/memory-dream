@@ -287,7 +287,7 @@ Per question:
 ### 5.8b The graph contract
 
 `.specs/memory-dream/CONTRACT.md` is the authority on every shape `memory.py` writes and reads: the graph (`graph.json`,
-`index.db`), the viewer's data island, the extraction cache, `store.db`, the manifest, the warning codes C1–C11 and the
+`index.db`), the viewer's data island, the extraction cache, `store.db`, the manifest, the warning codes C1–C12 and the
 grammar of EDGES.md, ALIASES.md, CONFLICTS.md and DIGEST.md. Every graph carries `schema: 1`; `validate()` checks a
 graph against the contract, `memory.py check` prints the result first, and A38 enforces it on the fixture (graph,
 `index.db` round trip, island). Build the viewer against the contract, never against the code.
@@ -297,28 +297,46 @@ graph against the contract, `memory.py check` prints the result first, and A38 e
 Self-contained HTML (no network), grayscale theme with light and dark modes, one accent (the ink) for what is picked.
 Data lives in `<script type="application/json" id="data-graph">` (notes with their full text, entities with
 mentions, relations with evidence, lineage edges, checks, review queue, conflicts); `memory.py` fills it
-(`render_viz`); every top-level element has an id; parts talk through `dp:` events. Two views:
+(`render_viz`); every top-level element has an id; parts talk through `dp:` events. Three views:
 
-- **Global — notes by area and time.** One row per area (projects first, general areas in italics), x = date, each
-  note a shape by kind (circle experiment, square decision, diamond finding, triangle model, hexagon dataset or
-  feature) in a grey by kind; superseded notes hollow and dashed; lineage drawn as curves (built on; dashed =
-  supersedes; faint = refers to). Hovering a note lights its links; picking one dims everything outside two lineage
-  hops and draws its own links in (a 420 ms stroke animation, off under `prefers-reduced-motion`). Clicking an area
-  label opens the area's summary.
-- **Picked — what the agent sees.** For a note: the exact `▸ path · kind · date · from … · SUPERSEDED → …` header and
-  the numbered lines `memory.py ask` prints, then its lineage as a five-column tree (built on ×2 · built on · the note ·
-  built upon by · ×2, clickable), the entities the dreamer read in it (chips → the entity view), the relations it
-  states with the quoted line (`label?` for links outside the vocabulary), pending conflicts and warnings. For an
-  entity: how it is written, headline and home note, typed relations, labels, every note that mentions it. For an
-  area: counts by kind, superseded → current chains, conflicts, warnings, notes newest first.
+- **Time — notes by area and date.** One row per area (projects first, general areas in italics), x = date, each
+  note a shape by kind (square decision, diamond finding, triangle model, hexagon dataset or feature, circle
+  question; a child kind such as experiment takes its family's shape with a lighter fill) in a grey by family;
+  superseded notes hollow and dashed; lineage drawn as curves (built on; dashed = supersedes; faint = refers to).
+  Lane labels stay put when the lanes scroll. Hovering a note lights its links; picking one dims everything outside
+  two lineage hops and draws its own links in (a 420 ms stroke animation, off under `prefers-reduced-motion`).
+  Clicking an area label opens the area's summary.
+- **Graph — entities and their relations.** The `Graph` tab: nodes are entities shaped and coloured by family
+  (hexagon dataset, triangle model, diamond feature, circle metric or term, square party, rounded square system),
+  sized by mentions, dashed when a newer version replaces them; arrows are the relations the notes state, current
+  by default (at least one evidence note live; "include history" adds the rest), solid for uses/part-of/owned-by,
+  dashed for replaces, dotted for trained/evaluated/measured, faint for labels outside the vocabulary. A
+  deterministic force layout (short-range repulsion, springs on relations, a pull toward each family's place on a
+  ring, gravity) settles in about a second — nodes travel from their family's place, then the arrows draw in — and
+  is fitted to the pane; the 400 best-connected entities are shown, and picking any other builds its neighbourhood
+  (two hops, ≤ 150). Picking dims everything beyond two hops (one hop for hubs with > 30 neighbours); hovering lights
+  a node's arrows and labels its neighbours. Zoom −/+/fit. `#view=graph` opens it.
+- **Picked — the note, and what the agent sees.** For a note: its text rendered as markdown (headings, lists,
+  quotes, fenced code, pipe tables, inline code/bold/italic/links; note ids and entity ids become links; built as
+  DOM nodes, never HTML), then, collapsed, the exact `▸ path · kind · date · from … · SUPERSEDED → v2 → v3` header
+  (the chain to the live end, as `ask` prints it) and the numbered lines, then its lineage as a five-column tree
+  (built on ×2 · built on · the note · built upon by · ×2, clickable) with the current end of a chain named, the
+  entities the dreamer read in it (chips → the entity view), the relations it states with the quoted line (`label?`
+  for links outside the vocabulary), pending conflicts and warnings. For an entity: how it is written, headline and
+  home note, typed relations, labels, every note that mentions it. For an area: counts by kind, superseded → current
+  chains, conflicts, warnings, notes newest first.
+- **Legends** are two rows of toggles, nodes then edges: each entry (a kind or family; a lineage kind or a relation
+  type) shows or hides what it names; hidden entries are struck through. Edges whose end is hidden hide too.
 - **Fuzzy search** (fzf-style subsequence scoring with word-start and run bonuses; exact substrings win) over title,
   id, text and entity names; the best 20 listed with matched letters marked, every match kept in the lanes while the
-  rest fade; `/` focuses, arrows and Enter pick, Esc clears.
+  rest fade (in the graph view, the entities those notes mention light up); `/` focuses, arrows and Enter pick, Esc
+  clears.
 - **Health** (collapsed): warnings by code, superseded → current, unlinked notes, the review queue (pairs, labels
   over the bar, conflicts). Deep links: `#note=`, `#entity=`, `#area=`, `#q=`, `#health`.
 - **Modes**: whole memory; `area` (one page per area past `MEMORY_WIDE`, with "← all areas"); `overview` (one card per
-  area with a kind bar, linking to its page). Measured: the 1,677-note bank renders in 0.9 s from a 1.6 MB page with
-  1,524 notes and 3,680 links drawn, 0 console errors.
+  area with a kind bar, linking to its page). Measured: the 1,677-note bank renders in 0.9 s from a 2.6 MB page with
+  1,524 notes and 3,680 links drawn; its graph view lays out 400 entities and 1,355 current relations in 1.3 s;
+  0 console errors on the bank and the fixture, headless (Playwright: `tests/viz_check.js`).
 
 ---
 

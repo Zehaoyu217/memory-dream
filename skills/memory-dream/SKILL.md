@@ -12,7 +12,7 @@ truth; everything else is derived and disposable. `memory.py` = `python3 <this s
 1. **Read first, once.** Before answering about past work or making something for someone, put every question and
    task into ONE call: `memory.py ask "what came of exp-014?" "Make the Q4 chart for Chloe Martin's readout"`.
    Per question it prints `line: text` under `▸ path · kind · date · from … · SUPERSEDED → newer`; a small memory is
-   printed whole, each question pointing at its notes. SUPERSEDED is history: the successor is current. For a task it
+   printed whole, each question pointing at its notes. SUPERSEDED → a → b is history: the last named is current. For a task it
    adds the preferences and house rules that apply — follow them, or say why not. `(weak match …)` names a word found
    nowhere: rephrase. Name the project or an id when you know it; it scopes the search. At most one batched
    follow-up: `ask` with sharper words, plain `grep -rn … memory/`, or read a printed line.

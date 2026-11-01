@@ -27,14 +27,16 @@ M="python3 .claude/skills/memory-dream/scripts/memory.py"
 $M ask "what came of exp-014?" "who owns cards.txn_daily?"   # answering: grep + memory, every question in one call
 $M viz                            # memory/_dream/graph.html (dream refreshes it): overview, explorer, health
 $M log "backfill running" -p churn-2026
-$M check                          # every warning C1–C9 in full
+$M check                          # every warning C1–C12 in full
 grep -rn velocity memory/ --exclude-dir=_dream                 # plain grep stays first-class
 ```
 
-Viewer (`_dream/graph.html`, self-contained, grayscale, light/dark): notes by area and time with their lineage
-drawn; pick a note to see exactly what `ask` prints for it, its lineage tree, the entities and relations the
-dreamer read in it, pending conflicts; fuzzy search over titles, text and entity names (`/`). Deep links:
-`graph.html#note=<path>`, `#entity=<id>`, `#area=<name>`, `#q=<search>`, `#health`.
+Viewer (`_dream/graph.html`, self-contained, grayscale, light/dark): two views — notes by area and time with
+their lineage drawn, and the entity graph (nodes by family, the notes' current relations as arrows; `Graph` tab or
+`#view=graph`); pick a note to read it rendered, see exactly what `ask` prints for it, its lineage tree, the
+entities and relations the dreamer read in it, pending conflicts; legends are toggles (two rows: nodes, edges);
+fuzzy search over titles, text and entity names (`/`). Deep links: `graph.html#note=<path>`, `#entity=<id>`,
+`#area=<name>`, `#q=<search>`, `#view=graph`, `#health`.
 
 ## Entities and the relation vocabulary
 

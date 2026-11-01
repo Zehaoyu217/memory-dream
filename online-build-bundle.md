@@ -124,7 +124,8 @@ with `-a`) · C10 conflict pending (two live notes of one kind in one area may d
 ### 2.4b The graph contract
 
 `.specs/memory-dream/CONTRACT.md` (schema 1) is the authority on every shape: the graph (`graph.json`, `index.db`
-meta and tables), the viewer's data island (graph + per-note `text`, `mode`, and the overview/area fields), the
+meta and tables), the viewer's data island (graph + per-note `text`, `families` — the class tree — `mode`, and the
+overview/area fields), the
 extraction cache, `store.db`, the manifest, the warning codes and the user-owned files' grammar. Every graph carries
 `schema`; `validate(g, types)` returns the violations; `memory.py check` prints `contract: schema 1 ok` first, then a
 `lineage:` line (from/supersedes links per live project note, and the notes that link to nothing); A38
@@ -374,22 +375,32 @@ the read path live in one `W` table with their provenance.
 - **Do:** write one self-contained HTML file with no external requests, grayscale theme (tokens on `:root`, dark
   mode under `prefers-color-scheme` and `[data-theme="dark"]`, `prefers-reduced-motion` honoured). Data lives in
   `<script type="application/json" id="data-graph">`; every top-level element has an id; parts talk through `dp:`
-  events. Two views: **global** — one row per area, x = date, a shape per kind (circle experiment, square
-  decision, diamond finding, triangle model, hexagon dataset/feature), superseded notes hollow and dashed, lineage
-  as curves (built on; dashed supersedes; faint refs), hover lights a note's links, a pick dims everything outside
-  two hops and draws the picked note's links (≤ 420 ms); **picked** — for a note the exact `ask` header and numbered
-  lines, a five-column lineage tree (clickable), the dreamer's entities as chips, relations with the quoted line
-  (`label?` outside the vocabulary), conflicts and warnings; for an entity its names, headline, relations, labels
-  and mentioning notes; for an area its counts, chains, conflicts, warnings, notes. **Fuzzy search** (fzf-style
-  scoring) over title, id, text and entity names: best 20 listed with matched letters marked, all matches kept in
-  the lanes while the rest fade; `/`, arrows, Enter, Esc. **Health** collapsed. Deep links `#note=`, `#entity=`,
-  `#area=`, `#q=`, `#health`. Modes: whole memory, `area` (with "← all areas"), `overview` (area cards).
+  events. Three views: **time** — one row per area, x = date, a shape per kind (square decision, diamond finding,
+  triangle model, hexagon dataset/feature, circle question; a child kind takes its family's shape, lighter),
+  superseded notes hollow and dashed, lineage as curves (built on; dashed supersedes; faint refs), lane labels
+  sticky, hover lights a note's links, a pick dims everything outside two hops and draws the picked note's links
+  (≤ 420 ms); **graph** (`#view=graph`) — entities as nodes shaped and coloured by family (the island's
+  `families`), sized by mentions, dashed when replaced; the notes' relations as arrows, current by default (an
+  evidence note is live; "include history" adds the rest), line style by relation type; a deterministic force
+  layout fitted to the pane (the 400 best-connected entities; picking another builds its two-hop neighbourhood);
+  a pick dims beyond two hops (one for hubs); zoom −/+/fit; **picked** — for a note its text rendered as markdown
+  (lists, tables, code, inline marks; note and entity ids as links; DOM nodes, never HTML), the exact `ask` header
+  (chains followed to the live end: `SUPERSEDED → v2 → v3`) and numbered lines collapsed under it, a five-column
+  lineage tree (clickable), the dreamer's entities as chips, relations with the quoted line (`label?` outside the
+  vocabulary), conflicts and warnings; for an entity its names, headline, relations, labels and mentioning notes;
+  for an area its counts, chains, conflicts, warnings, notes. **Legends** in two rows (nodes, edges), every entry a
+  toggle that shows or hides what it names. **Fuzzy search** (fzf-style scoring) over title, id, text and entity
+  names: best 20 listed with matched letters marked, all matches kept in the lanes (and lit in the graph) while
+  the rest fade; `/`, arrows, Enter, Esc. **Health** collapsed. Deep links `#note=`, `#entity=`, `#area=`, `#q=`,
+  `#view=graph`, `#health`. Modes: whole memory, `area` (with "← all areas"), `overview` (area cards).
 - **Exit conditions:**
   - [ ] `memory.py --root <indexed fixture> viz --out /tmp/g.html` writes the file, and
         `grep -c 'https\?://' /tmp/g.html` finds no script or stylesheet URLs.
   - [ ] Headless Chromium (Playwright): `/tmp/g.html` has one `.node` per non-log note and `.edge` paths; running
         `window.__memorySearch.run('velocity leak')` lists results and marks `.hit`/`.dim` nodes; `#note=churn-2026/exp-014.md`
-        shows a `#pick pre` starting with `▸ churn-2026/exp-014.md · experiment` and a `svg.tree`; clicking a `.chip`
+        shows a `#pick pre` starting with `▸ churn-2026/exp-014.md · experiment` and a `svg.tree`; `#view=graph` builds
+        `.gnode` elements (one per shown entity) and `.gedge` arrows with 0 page errors, and clicking a legend
+        toggle hides that family's nodes (`node tests/viz_check.js <page.html>` runs these); clicking a `.chip`
         opens the entity view; `#health` lists; dark mode gives a dark body background; 0 console errors.
   - [ ] The 1,677-note bank page loads in under 3 s with every note and its lineage drawn (reference 0.9 s, 1.6 MB).
   - [ ] A24's big-memory page checks pass (overview cards, area pages). These are shared with P7.

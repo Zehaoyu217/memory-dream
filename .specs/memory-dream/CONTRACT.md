@@ -29,7 +29,7 @@ Produced by `build()`, written as `_dream/graph.json` (≤ `MEMORY_WIDE` notes) 
 | `conflicts` | list of conflict | live-note pairs that may disagree |
 | `vocab` | object | `{types, budget, promote: [uses, notes, areas], probation, labels, below, demote: [type]}` |
 | `dedup` | object | counters from entity merging (`mentions`, `ids_as_written`, `after_folding`, …) |
-| `checks` | list of `{code, msg}` | warnings, sorted by code; codes `C1`–`C11` (§5) |
+| `checks` | list of `{code, msg}` | warnings, sorted by code; codes `C1`–`C12` (§5) |
 
 **note** — `{path, id, project, title, line, kind, updated, superseded_by, sha, indexed}`
 - `title`: the text of the first `# ` line outside code fences (`""` when none → C6); `line`: its file line (0 when none).
@@ -75,7 +75,12 @@ the reviewer answered unsure (`- a ? b`), so it waits for a person and is not as
 
 ## 3. The viewer's data island (`<script type="application/json" id="data-graph">`)
 
-The graph of §1 with: each note carrying `text` (its non-blank lines from the `# ` line, ≤ 60); and a `mode`:
+The graph of §1 with: each note carrying `text` (its non-blank lines from the `# ` line, ≤ 60); `families`
+`{kinds: {child kind: parent}, types: {child type: parent}}` — the class tree (two levels; `experiment` under
+`finding`, `correction` and `preference` under `rule`, `metric` under `term`; `table` and `segment` under `dataset`,
+`column` under `feature`, `person` and `team` under `party`, `tool`, `job`, `pipeline`, `service` under `system`;
+anything absent is its own family), which the viewer uses for colours, shapes and legends and the checks for C12
+and conflict kinds; and a `mode`:
 - absent — the whole memory;
 - `"area"` — one area's page: `area` (name), `home` (the overview's relative URL), notes of other areas that lineage
   touches present as stubs with `text: []`, `entities` limited to those mentioned in the area, `relations` to those
@@ -85,7 +90,8 @@ The graph of §1 with: each note carrying `text` (its non-blank lines from the `
   edges}]`, `area_links` `[{a, b, w}]`, `checks` (first 300), `chains` `[{path, title, by}]`, `orphans` `[{path, title,
   kind}]`, `review`, `proposed`, `conflicts`; `notes`, `entities`, `relations`, `edges` empty.
 The viewer derives everything else client-side (per-note entities from `mentions`, per-note relations from `evidence`,
-the `ask` header from edges and `superseded_by`).
+the `ask` header from edges and `superseded_by`, following `superseded_by` chains to the live end as `ask` does; a
+relation is "current" when one of its evidence notes is live).
 
 ## 4. Caches and the manifest (`_dream/`)
 
@@ -107,7 +113,9 @@ the `ask` header from edges and `superseded_by`).
 `C4` an ungrounded entity or relation was dropped · `C5` no extraction yet (one summary line in `check`) · `C6` no `# `
 line · `C7` vocabulary: a label over the bar awaits review, the budget is full, or labels sit below the bar · `C8` an
 unparseable line in EDGES.md, ALIASES.md or CONFLICTS.md · `C9` NUL bytes in a note · `C10` conflict pending ·
-`C11` a note over 40 lines (SKILL.md's own rule).
+`C11` a note over 40 lines (SKILL.md's own rule) · `C12` a seed-type relation whose entity families are unusual for
+it (`trained-on` is model → dataset, `evaluated-on` → dataset, `measured-by` → metric, `owned-by` → party, `replaces`
+the same family on both sides; families by the class tree below): retype the entity or drop the relation.
 
 ## 6. The user-owned files
 

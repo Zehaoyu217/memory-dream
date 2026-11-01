@@ -2,6 +2,46 @@
 
 2026-10-30 (round 4: 2026-10-31) · built from the "Memory" email spec (`build-spec.md`) · macOS, Python 3.9.6, Claude Code 2.1.314.
 
+# Phase H (2026-11-01) — a class tree, chains to the live end, shapes, and the graph view
+
+## H1 — the class tree (two levels, no inference)
+
+`KIND_PARENT` (experiment → finding, correction and preference → rule, metric → term) and `TYPE_PARENT` (table and
+segment → dataset, column → feature, person and team → party, tool/job/pipeline/service → system), read through
+`family()`. Three consumers, all 0 calls:
+
+| consumer | before | after |
+|---|---|---|
+| conflict candidates (`CONFLICT_KINDS` by family: an experiment is a finding) | 64 on the bank | 53 — the group a token's rarity is judged in is bigger, so fewer pairs qualify; the 4 supersessions the review confirmed are all still produced (checked with the review's lineage undone) |
+| shape check C12 (`SHAPES`: trained-on model → dataset, evaluated-on → dataset, measured-by → metric, owned-by → party, replaces same family) | — | 35 of 1,071 seed-type relations on the real index: evaluated-on 21, measured-by 10, trained-on 3, replaces 1; nearly all a `term` where a dataset or metric belongs — a retype for the review or a person |
+| the viewer | colours by kind | colours and shapes by family, child kinds lighter; the entity graph's families; legends by family (`families` in the island, CONTRACT §3) |
+
+Not added, as agreed: inference (transitive or inverse edges, OWL-style), beyond the explicit walks `ask` makes.
+
+## H2 — supersession chains to the live end
+
+215 superseded notes on the bank; 23 (11%) had a successor that was itself superseded, so the header's
+`SUPERSEDED → v2` sent the agent on a second hop. `successors()` follows the first successor's chain (≤ 4 hops,
+cycle-safe); the header reads `SUPERSEDED → v2 → v3`; `rank` lifts the whole chain for "current" questions and the
+never-below rule now lifts the live end rather than a dead middle. A40 covers a three-note chain. Retrieval on the
+real index 0.944 / 0.978 / 275 complete / 2,485 chars (one gold note moved; complete answers unchanged); stale set
+unchanged (successor headed 1.00, above the old note 0.971, old marked 1.00).
+
+## H3 — the viewer: an entity graph beside the time lanes, legends that toggle, markdown notes
+
+- **Graph view** (`#view=graph`): entities as nodes shaped and coloured by family, sized by mentions, dashed when a
+  newer version replaces them; the relations the notes state as arrows, current by default (an evidence note is
+  live), with "include history". A deterministic force layout fitted to the pane; the 400 best-connected of the
+  bank's 900 entities with relations (1,355 current arrows) lay out in 1.3 s; picking an entity outside builds its
+  neighbourhood (two hops, ≤ 150); picking dims beyond two hops (one for hubs); hover lights a node's arrows.
+- **Legends** in two rows (nodes, then edges), every entry a toggle: kinds and families, superseded, lineage kinds,
+  relation types. Hiding a family hides its arrows; hidden entries are struck through.
+- **Notes rendered as markdown** (headings, lists, quotes, fenced code, pipe tables, inline marks; note and entity
+  ids become links; DOM nodes, never HTML), with the raw `ask` view collapsed below it; the header replica follows
+  chains like `ask`. Lane labels stay put when the lanes scroll.
+- Verified headless on both worlds (Playwright): 0 errors; a legend toggle hides 93 of 400 nodes and all built-on
+  curves as expected; markdown lists and links render; the agent block is collapsed.
+
 # Phase G (2026-11-01) — agents on the real index, and two designs read for free money
 
 ## G1 — the agent eval at n = 3 batches per arm (Opus, real Haiku index)
