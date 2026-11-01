@@ -8,6 +8,20 @@ An optional cheap model builds an index of the things the notes name.
 
 Python standard library only. Markdown and JSON files. No server, no database service, no embeddings.
 
+## What it buys
+
+- **Same answers at half the cost.** Against an agent given the same notes and plain grep, an agent with the
+  memory answers as accurately, at 0.47× the cost and 0.35× the time on 1,677 notes. The gap holds at 168,141
+  notes (0.41× the cost).
+- **Conclusions do not get lost or mixed up.** A change of mind is a new note that supersedes the old one.
+  Retrieval lists the current note first and marks the old one as replaced. On 104 questions aimed at replaced
+  conclusions, the successor is listed above the old note 95% of the time and the old note is marked 100%.
+- **A memory that grows for months without a schema team or a vector store.** Identity is decided by rule, the
+  relation vocabulary cannot grow past a budget, and the model reads each note once.
+- **Everything can be checked.** Every indexed fact quotes the line it came from. A page a non-engineer can read
+  lists what may be wrong and hands the question back to the agent in one click.
+- **No infrastructure.** Python, grep, and files in the repository.
+
 ## The problem
 
 An agent that works on a project for weeks produces results, decisions, data definitions and rules. Without
@@ -136,6 +150,23 @@ or overrule any of these lines by hand.
 The model reads a note again only when the note's content changes. Indexing the 1,677-note test bank cost under
 $4 in total.
 
+### What the index buys
+
+For answering, little, and this is measured. With the index on, `ask` returns the gold note for 94.6% of 326
+questions against 93.8% without it, four more complete answers, and 89% against 83% on questions that use a
+synonym instead of the id, for 5% more characters. At the agent level the two are within noise (27 against 26
+correct out of 30). Answering never depends on the index.
+
+The index is a map and a reviewer, not a search engine. It pays in four places:
+
+- cross-project questions by thing: "what uses `cards.txn_daily`" across 27 projects, through aliases and typed
+  relations;
+- the Connections and Map views, which show the project's things and their links;
+- the review: pairs of notes that may disagree, decided for about $0.005 per 20 pairs and recorded as plain lines;
+- facts with evidence: each extracted fact quotes its line and carries a button that sends a correction request.
+
+Its cost is about $0.0015 per note, once.
+
 ## Layer 4: checks and the viewer
 
 Twelve checks run on every indexing pass: links to notes that do not exist or are ambiguous, notes over 40 lines,
@@ -190,6 +221,84 @@ had the skill and the notes; the grep arm had the notes only.
 Offline, on 326 questions over the 1,677-note bank, `ask` returns the gold note for 93.8% of questions and the
 number asked for in 97.6%, in about 2,500 characters per question. On 70 questions about things the memory does
 not contain, it reports no match every time. Full record: `.specs/memory-dream/RESULTS.md`.
+
+## Design decisions
+
+### Problems avoided rather than solved
+
+- No embedding model and no vector index. Notes written under the contract are short, carry their ids and numbers
+  in the text, and are found by exact text match plus lineage. Nothing drifts, nothing has to be re-embedded.
+- No ontology designed up front. The relation vocabulary starts at eight types and grows only from usage, under a
+  budget.
+- No entity-resolution model. Identity is a folding rule, one merge rule, a short list of hand aliases, and a
+  yes-or-no question to the cheap model for the remaining look-alikes.
+- No update problem. Notes are append-only. "Current" is derived by following `supersedes` links, so there is no
+  state to keep consistent and no truth-maintenance logic.
+- No model call per question. Retrieval is a grep. The model is paid once per note, at indexing time.
+- No context pressure. The agent receives matching lines, not files, and a 40-line digest, not the memory.
+
+### Identity and de-duplication
+
+- Ids are folded before comparison: case, spaces, `.`, `_` and `-` do not distinguish, so `cards.txn_daily` and
+  `cards-txn-daily` are one thing.
+- `ALIASES.md` merges ids by hand (`- canonical = other`) or keeps them apart (`not: a / b`).
+- One rule merges automatically: an id that exactly one other entity writes as one of its spellings is that entity.
+- Ids that differ only in digits (`v2`, `v3`) are versions and are never merged, by rule or by review.
+- An entity is kept only if it has a note of its own, is mentioned in two or more notes, or is named in
+  `ALIASES.md`. File names, notebooks and columns are dropped; grep finds those.
+- Remaining look-alikes are asked once of the cheap model (same or different), never when the two have different
+  notes of their own. The answer lands in `ALIASES.md`.
+
+On the 1,677-note bank: 7,060 mentions, 1,871 ids as written, 1,867 after folding, 1,861 after the alias file,
+1,734 after the merge rule; 923 kept (530 with a note of their own, 393 named in two or more notes); 810 dropped as
+named in one note only.
+
+### What the model is told about the existing memory
+
+Each indexing call carries the instructions, the current relation vocabulary from `EDGES.md`, and a KNOWN list:
+the project's existing entities, at most 80, plus the 20 most-mentioned entities shared across projects, each with
+its id, type and known spellings. The model must reuse a KNOWN id when the thing is already known. Notes are indexed
+project by project in waves, and the list is refreshed between waves, so a note indexed late in a session sees what
+earlier notes in the same project introduced. The cap keeps the prompt flat as the memory grows: the KNOWN part is
+about 1,450 tokens on 1,677 notes and about 1,600 on 168,141.
+
+### Caching and incremental work
+
+- Each note's reading is stored under its content hash. A note is read by the model again only when its text
+  changes; an edit that is reverted within 30 days reuses the old reading.
+- Within a project, the instructions, vocabulary and KNOWN list are byte-identical across calls. The script marks
+  that prefix and the command wrapper passes it as the system prompt, which the provider caches. This took the cost
+  per note from $0.0022 to $0.0015.
+- A manifest of hash, size and time per file lets a `dream` with nothing new stop after the scan: 3 seconds on
+  168,141 notes.
+- A hand edit to `EDGES.md`, `ALIASES.md` or `CONFLICTS.md` relabels everything at the next pass with no model calls:
+  the graph is rebuilt from cached readings under the new names.
+- The script's own hash is recorded, so an upgraded `memory.py` rebuilds the graph once, with no model calls.
+- Above 10,000 notes, changed notes are patched into the last graph instead of a rebuild, the index lives in
+  SQLite, and `ask` greps only the areas a question points at. At 168,141 notes a call takes 5 to 8 seconds.
+
+### Keeping the vocabulary from growing without bound
+
+The first reviewer, asked about 178 common labels, answered "new type" to all of them, and the vocabulary grew from
+7 types to 185. The present rules came from that:
+
+- Entity types are a fixed list of nine and note kinds a fixed list of thirteen; the model cannot add to either.
+- Relation types start at eight. A link that fits none keeps its own label and is shown as `other/<label>`; it is
+  stored and searchable but it is not a type.
+- A label is offered to the review only after 5 uses in 5 notes across 2 areas. The review may alias it onto an
+  existing type, keep it as a label, drop it, or propose a new type with a one-line definition. A new type is
+  admitted only while the budget of 24 types has room.
+- A proposed type is on probation for 60 days and falls back to a label if it is still under the bar.
+- Verbs that link notes rather than things (`answers`, `led-to`, `basis-for`) are on a drop list.
+- The review is asked once per item and at most 20 conflict pairs per pass. Hand-written lines are permanent.
+
+### Living with an unreliable model
+
+- A spelling the model reports must occur in the note and a quote must be found in it, or the item is dropped and
+  counted (C4). The model can name things; it cannot invent facts that survive.
+- An answer that cannot be parsed is retried once; after that the note stays grep-searchable and is flagged (C3).
+- The model never writes to a note. Its verdicts are plain lines in three files that a person can edit or delete.
+- One indexing run at a time, guarded by a lock file.
 
 ## What it is not
 
