@@ -294,7 +294,12 @@ graph against the contract, `memory.py check` prints the result first, and A38 e
 
 ### 5.9 Viewer (`assets/viz.html`)
 
-Self-contained HTML (no network), grayscale theme with light and dark modes, one accent (the ink) for what is picked.
+Self-contained HTML (no network), written for a person who knows nothing about how the memory works: plain words
+everywhere (no file names, ids or codes on the surface — `gbm-model-exp233` reads "GBM Model Exp233",
+`evaluated-on` reads "evaluated on", dates are spelt out; raw forms stay in tooltips and one folded technical block),
+a navy and GS-blue theme in light and dark modes with square corners, and a validated family palette (seven hues,
+checked with the dataviz validator in both modes; shapes carry identity as well). What is picked pops (a 1.7×
+scale, no ring) and its lines light up in the accent with arrowheads and a slow flow toward the newer note.
 Data lives in `<script type="application/json" id="data-graph">` (notes with their full text, entities with
 mentions, relations with evidence, lineage edges, checks, review queue, conflicts); `memory.py` fills it
 (`render_viz`); every top-level element has an id; parts talk through `dp:` events. Three views:
@@ -327,6 +332,13 @@ mentions, relations with evidence, lineage edges, checks, review queue, conflict
   chains, conflicts, warnings, notes newest first.
 - **Legends** are two rows of toggles, nodes then edges: each entry (a kind or family; a lineage kind or a relation
   type) shows or hides what it names; hidden entries are struck through. Edges whose end is hidden hide too.
+- **Worth checking** (a section, not a hidden panel): what may be wrong, in plain words, each with a "Copy question"
+  button that puts a ready question for the assistant on the clipboard — notes that may disagree (the conflict
+  queue), names that may be the same thing (the entity review queue), links that look odd (C12), links that lead
+  nowhere (C1, C2), notes on their own (no lineage in or out, project areas only), other things to look at (C3, C6,
+  C8, C9, C11). A picked note has the same button ("Something wrong here?") and every extracted fact has a "Wrong?"
+  button whose question quotes the line. The header counts the items. Older versions and what replaced them sit
+  folded under it.
 - **Fuzzy search** (fzf-style subsequence scoring with word-start and run bonuses; exact substrings win) over title,
   id, text and entity names; the best 20 listed with matched letters marked, every match kept in the lanes while the
   rest fade (in the graph view, the entities those notes mention light up); `/` focuses, arrows and Enter pick, Esc

@@ -31,12 +31,14 @@ $M check                          # every warning C1–C12 in full
 grep -rn velocity memory/ --exclude-dir=_dream                 # plain grep stays first-class
 ```
 
-Viewer (`_dream/graph.html`, self-contained, grayscale, light/dark): two views — notes by area and time with
+Viewer (`_dream/graph.html`, self-contained, navy and GS blue, light/dark, plain words only): two views — notes by area and time with
 their lineage drawn, and the entity graph (nodes by family, the notes' current relations as arrows; `Graph` tab or
 `#view=graph`); pick a note to read it rendered, see exactly what `ask` prints for it, its lineage tree, the
 entities and relations the dreamer read in it, pending conflicts; legends are toggles (two rows: nodes, edges);
 fuzzy search over titles, text and entity names (`/`). Deep links: `graph.html#note=<path>`, `#entity=<id>`,
-`#area=<name>`, `#q=<search>`, `#view=graph`, `#health`.
+`#area=<name>`, `#q=<search>`, `#view=graph`, `#check`. "Worth checking" lists what may be wrong (notes that may
+disagree, names that may be the same thing, odd or broken links, notes on their own), each with a "Copy question"
+button whose text you paste to the assistant; a picked note and each extracted fact have the same.
 
 ## Entities and the relation vocabulary
 

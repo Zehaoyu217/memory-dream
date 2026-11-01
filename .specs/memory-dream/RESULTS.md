@@ -42,6 +42,25 @@ unchanged (successor headed 1.00, above the old note 0.971, old marked 1.00).
 - Verified headless on both worlds (Playwright): 0 errors; a legend toggle hides 93 of 400 nodes and all built-on
   curves as expected; markdown lists and links render; the agent block is collapsed.
 
+## H4 — the page for a person who knows nothing about any of this
+
+Rewritten for its real reader: someone who wants to look at their own memory, see where it may be wrong, and say so
+with no effort. Plain words everywhere — `gbm-model-exp233` reads "GBM Model Exp233", `evaluated-on` reads
+"evaluated on", a date reads "30 Oct 2026", areas read "Churn 2026"; known ids inside authored titles are rendered
+the same way; raw forms survive only in tooltips and one folded "What the assistant reads (technical)" block. Views
+are "Timeline" and "Connections"; lines are "Built on", "Replaces", "Mentions"; a picked note shows "How this note
+connects" (Built on, Replaces, Replaced by, Current version, Led to, Mentions, Mentioned by), "Mentioned in this
+note", "What the assistant took from it". **Worth checking** is a section on the page, not a hidden panel: notes
+that may disagree, names that may be the same thing, links that look odd, links that lead nowhere, notes on their
+own, other things to look at — each item in a sentence, with a "Copy question" button that puts a ready question
+for the assistant on the clipboard (the note titles and paths inside it, so the assistant can act); a picked note
+has "Something wrong here? Copy a question", every extracted fact a "Wrong?" button quoting its line. On the bank:
+106 items (53 pairs that may disagree, 35 odd links, 1 broken link, 4 notes on their own, 13 other). Theme: navy
+and GS blue, square corners, a seven-hue family palette validated in both modes by the dataviz validator (CVD
+separation, lightness band, chroma floor, contrast; shapes carry identity as well); selection pops (1.7×, no ring)
+and its lines light up with arrowheads flowing toward the newer note. Headless checks pass on both worlds; the
+viewer is 938 lines, still one file, no dependencies.
+
 # Phase G (2026-11-01) — agents on the real index, and two designs read for free money
 
 ## G1 — the agent eval at n = 3 batches per arm (Opus, real Haiku index)

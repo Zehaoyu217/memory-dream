@@ -372,7 +372,10 @@ the read path live in one `W` table with their provenance.
 ### P8 — Viewer (`assets/viz.html`, `render_viz`)
 
 - **References:** BUILD-GUIDE §5.9; RESULTS round 2 "Viewer".
-- **Do:** write one self-contained HTML file with no external requests, grayscale theme (tokens on `:root`, dark
+- **Do:** write one self-contained HTML file with no external requests, for a person who knows nothing about the
+  mechanics: plain words only on the surface (ids, paths, kinds, link types and dates rendered readable; raw forms
+  in tooltips and one folded technical block), a navy / GS-blue theme with square corners and a validated family
+  palette (tokens on `:root`, dark
   mode under `prefers-color-scheme` and `[data-theme="dark"]`, `prefers-reduced-motion` honoured). Data lives in
   `<script type="application/json" id="data-graph">`; every top-level element has an id; parts talk through `dp:`
   events. Three views: **time** — one row per area, x = date, a shape per kind (square decision, diamond finding,
@@ -389,7 +392,10 @@ the read path live in one `W` table with their provenance.
   lineage tree (clickable), the dreamer's entities as chips, relations with the quoted line (`label?` outside the
   vocabulary), conflicts and warnings; for an entity its names, headline, relations, labels and mentioning notes;
   for an area its counts, chains, conflicts, warnings, notes. **Legends** in two rows (nodes, edges), every entry a
-  toggle that shows or hides what it names. **Fuzzy search** (fzf-style scoring) over title, id, text and entity
+  toggle that shows or hides what it names. **Worth checking**: what may be wrong, in plain words, each item with a
+  "Copy question" button (a ready question for the assistant): notes that may disagree, names that may be the same
+  thing, links that look odd (C12), links that lead nowhere (C1, C2), notes on their own, other things to look at;
+  the same button on a picked note, and a "Wrong?" button on every extracted fact. **Fuzzy search** (fzf-style scoring) over title, id, text and entity
   names: best 20 listed with matched letters marked, all matches kept in the lanes (and lit in the graph) while
   the rest fade; `/`, arrows, Enter, Esc. **Health** collapsed. Deep links `#note=`, `#entity=`, `#area=`, `#q=`,
   `#view=graph`, `#health`. Modes: whole memory, `area` (with "← all areas"), `overview` (area cards).
