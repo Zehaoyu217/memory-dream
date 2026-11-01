@@ -297,9 +297,10 @@ graph against the contract, `memory.py check` prints the result first, and A38 e
 Self-contained HTML (no network), written for a person who knows nothing about how the memory works: plain words
 everywhere (no file names, ids or codes on the surface — `gbm-model-exp233` reads "GBM Model Exp233",
 `evaluated-on` reads "evaluated on", dates are spelt out; raw forms stay in tooltips and one folded technical block),
-a navy and GS-blue theme in light and dark modes with square corners, and a validated family palette (seven hues,
-checked with the dataviz validator in both modes; shapes carry identity as well). What is picked pops (a 1.7×
-scale, no ring) and its lines light up in the accent with arrowheads and a slow flow toward the newer note.
+a white page with navy ink and GS blue as the accent, square corners, and a validated family palette (seven hues,
+checked with the dataviz validator; shapes carry identity as well). What is picked pops (no ring) and its lines
+light up in the accent with arrowheads and a slow flow toward the newer note. The Selected panel keeps a trail:
+Back and Forward through everything looked at (Alt+← / Alt+→).
 Data lives in `<script type="application/json" id="data-graph">` (notes with their full text, entities with
 mentions, relations with evidence, lineage edges, checks, review queue, conflicts); `memory.py` fills it
 (`render_viz`); every top-level element has an id; parts talk through `dp:` events. Three views:
@@ -319,15 +320,21 @@ mentions, relations with evidence, lineage edges, checks, review queue, conflict
   deterministic force layout (short-range repulsion, springs on relations, a pull toward each family's place on a
   ring, gravity) settles in about a second — nodes travel from their family's place, then the arrows draw in — and
   is fitted to the pane; the 400 best-connected entities are shown, and picking any other builds its neighbourhood
-  (two hops, ≤ 150). Picking dims everything beyond two hops (one hop for hubs with > 30 neighbours); hovering lights
-  a node's arrows and labels its neighbours. Zoom −/+/fit. `#view=graph` opens it.
-- **Picked — the note, and what the agent sees.** For a note: its text rendered as markdown (headings, lists,
-  quotes, fenced code, pipe tables, inline code/bold/italic/links; note ids and entity ids become links; built as
-  DOM nodes, never HTML), then, collapsed, the exact `▸ path · kind · date · from … · SUPERSEDED → v2 → v3` header
-  (the chain to the live end, as `ask` prints it) and the numbered lines, then its lineage as a five-column tree
-  (built on ×2 · built on · the note · built upon by · ×2, clickable) with the current end of a chain named, the
-  entities the dreamer read in it (chips → the entity view), the relations it states with the quoted line (`label?`
-  for links outside the vocabulary), pending conflicts and warnings. For an entity: how it is written, headline and
+  (two hops, ≤ 150). The canvas is a camera: drag the background to pan, wheel or pinch to zoom around the cursor,
+  +/−/⌂ buttons, drag a node to place it (its arrows follow). A fisheye follows the mouse: the node under it grows
+  almost double and those around it a little, fading with distance. Below a zoom of 0.85, nodes that share a
+  screen-sized cell fold into one bubble with a count (coloured by the dominant family; arrows between bubbles
+  aggregate with width by count); clicking a bubble zooms into it; zooming in opens them. Picking dims everything
+  beyond two hops (one hop for hubs with > 30 neighbours) and centres the pick if it sits in a bubble or off
+  screen; hovering lights a node's arrows and labels its neighbours. `#view=graph` opens it.
+- **Selected — the note, and what the agent sees.** For a note: its text rendered as markdown in its own box, the
+  main thing on the panel (headings, lists, quotes, fenced code, pipe tables, inline code/bold/italic/links; note
+  ids and entity ids become links in plain words; built as DOM nodes, never HTML), then "How this note connects"
+  shown progressively — the direct links first (Built on, Replaces, Replaced by, Current version, Led to; six per
+  row then "and N more"), mentions folded, the five-column family tree folded — then the things mentioned (eight,
+  then "+N more"), what the assistant took from it (five facts, then "Show N more"), what it may disagree with, and
+  what is worth a look; last, folded, the exact `▸ path · kind · date · from … · SUPERSEDED → v2 → v3` header (the
+  chain to the live end, as `ask` prints it) and the numbered lines. For an entity: how it is written, headline and
   home note, typed relations, labels, every note that mentions it. For an area: counts by kind, superseded → current
   chains, conflicts, warnings, notes newest first.
 - **Legends** are two rows of toggles, nodes then edges: each entry (a kind or family; a lineage kind or a relation
@@ -335,10 +342,10 @@ mentions, relations with evidence, lineage edges, checks, review queue, conflict
 - **Worth checking** (a section, not a hidden panel): what may be wrong, in plain words, each with a "Copy question"
   button that puts a ready question for the assistant on the clipboard — notes that may disagree (the conflict
   queue), names that may be the same thing (the entity review queue), links that look odd (C12), links that lead
-  nowhere (C1, C2), notes on their own (no lineage in or out, project areas only), other things to look at (C3, C6,
-  C8, C9, C11). A picked note has the same button ("Something wrong here?") and every extracted fact has a "Wrong?"
-  button whose question quotes the line. The header counts the items. Older versions and what replaced them sit
-  folded under it.
+  nowhere (C1, C2), notes on their own (no lineage in or out, project areas only, daily logs excluded), other
+  things to look at (C3, C6, C8, C9, C11). Six items per list, then "Show all N" — no inner scrollbars. A picked
+  note has the same button ("Something wrong here?") and every extracted fact has a "Wrong?" button whose question
+  quotes the line. The header counts the items. Older versions and what replaced them sit folded under it.
 - **Fuzzy search** (fzf-style subsequence scoring with word-start and run bonuses; exact substrings win) over title,
   id, text and entity names; the best 20 listed with matched letters marked, every match kept in the lanes while the
   rest fade (in the graph view, the entities those notes mention light up); `/` focuses, arrows and Enter pick, Esc

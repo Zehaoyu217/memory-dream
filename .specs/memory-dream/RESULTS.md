@@ -61,6 +61,16 @@ separation, lightness band, chroma floor, contrast; shapes carry identity as wel
 and its lines light up with arrowheads flowing toward the newer note. Headless checks pass on both worlds; the
 viewer is 938 lines, still one file, no dependencies.
 
+Then, on the owner's review: white only (the dark theme went); the Connections view became a camera — drag to
+pan, wheel or pinch to zoom around the cursor, drag a node to place it, a fisheye under the mouse (the node it
+touches grows almost double, those around it less with distance), and bubbles below zoom 0.85 where nodes that
+share a screen-sized cell fold into one count (on the bank at the fitted zoom, 48 bubbles hold 162 of 400 nodes;
+zoomed out, 54 hold 379; zoomed in, none); the Selected panel keeps a Back/Forward trail; the note's text sits in
+its own box as the main thing; "How this note connects" shows direct links first with mentions and the family
+tree folded; "Worth checking" lists six items then "Show all", with no inner scrollbars. All verified headless:
+pan moves the camera, a wheel step zooms 1.14 → 1.64, a drag moves a node, 51 nodes magnify near the cursor,
+Back returns to the previous note; 0 errors. 1,075 lines, one file, no dependencies.
+
 # Phase G (2026-11-01) — agents on the real index, and two designs read for free money
 
 ## G1 — the agent eval at n = 3 batches per arm (Opus, real Haiku index)

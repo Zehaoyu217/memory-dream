@@ -374,8 +374,8 @@ the read path live in one `W` table with their provenance.
 - **References:** BUILD-GUIDE §5.9; RESULTS round 2 "Viewer".
 - **Do:** write one self-contained HTML file with no external requests, for a person who knows nothing about the
   mechanics: plain words only on the surface (ids, paths, kinds, link types and dates rendered readable; raw forms
-  in tooltips and one folded technical block), a navy / GS-blue theme with square corners and a validated family
-  palette (tokens on `:root`, dark
+  in tooltips and one folded technical block), a white page with navy ink and GS blue as the accent, square corners,
+  a validated family palette (tokens on `:root`; no dark
   mode under `prefers-color-scheme` and `[data-theme="dark"]`, `prefers-reduced-motion` honoured). Data lives in
   `<script type="application/json" id="data-graph">`; every top-level element has an id; parts talk through `dp:`
   events. Three views: **time** — one row per area, x = date, a shape per kind (square decision, diamond finding,
@@ -386,7 +386,9 @@ the read path live in one `W` table with their provenance.
   `families`), sized by mentions, dashed when replaced; the notes' relations as arrows, current by default (an
   evidence note is live; "include history" adds the rest), line style by relation type; a deterministic force
   layout fitted to the pane (the 400 best-connected entities; picking another builds its two-hop neighbourhood);
-  a pick dims beyond two hops (one for hubs); zoom −/+/fit; **picked** — for a note its text rendered as markdown
+  a camera (drag to pan, wheel or pinch to zoom, +/−/⌂, drag a node to place it), a fisheye under the mouse,
+  bubbles with counts below zoom 0.85 that open on click or zoom; a pick dims beyond two hops (one for hubs);
+  **selected** — a Back/Forward trail, then for a note its text rendered as markdown in its own box
   (lists, tables, code, inline marks; note and entity ids as links; DOM nodes, never HTML), the exact `ask` header
   (chains followed to the live end: `SUPERSEDED → v2 → v3`) and numbered lines collapsed under it, a five-column
   lineage tree (clickable), the dreamer's entities as chips, relations with the quoted line (`label?` outside the
