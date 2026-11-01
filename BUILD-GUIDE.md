@@ -307,7 +307,8 @@ in the blue with arrowheads and a slow flow toward the newer note. The Selected 
 Back and Forward through everything looked at (Alt+← / Alt+→).
 Data lives in `<script type="application/json" id="data-graph">` (notes with their full text, entities with
 mentions, relations with evidence, lineage edges, checks, review queue, conflicts); `memory.py` fills it
-(`render_viz`); every top-level element has an id; parts talk through `dp:` events. Three views:
+(`render_viz`); every top-level element has an id; parts talk through `dp:` events. Three views, the Map first
+when the page opens (tab order Map · Timeline · Connections; `#view=time` and `#view=graph` open the others):
 
 - **Time — notes by area and date.** One row per area (projects first, general areas in italics), x = date, each
   note a shape by kind (square decision, diamond finding, triangle model, hexagon dataset or feature, circle

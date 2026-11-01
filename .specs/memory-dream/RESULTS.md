@@ -129,7 +129,9 @@ tables below give the counts and what to do with each kind. On the bank: 1,521 n
 links, 2,354 current facts, 318 older, 53 disputed pairs, 60 open questions; 400 of 861 linked things drawn with
 1,355 links. Fixing the Map's name sizes uncovered that Connections' names were also stuck at world size (a CSS
 font-size overrode the per-zoom size on the layer); both now keep their size on screen. 15 headless checks pass
-on both worlds.
+on both worlds. On the owner's next look ("why don't you take this for the map, I like it") the Map became the view
+that opens first, with the tab order Map · Timeline · Connections, and the README gained three screenshots of the
+bank viewer under `docs/`.
 
 # Phase G (2026-11-01) — agents on the real index, and two designs read for free money
 

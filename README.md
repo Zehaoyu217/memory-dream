@@ -299,15 +299,28 @@ everything at the next dream.
 ### Look: the viewer
 
 `memory/_dream/graph.html` is one file with no network requests, written for someone who knows nothing about
-the mechanics. **Timeline** places every note by topic and date with the lines between them. **Connections**
-shows the things the notes talk about in one column per kind, with the current links as curves. **Map** reads the
-same memory for trust: what a person wrote, what it became, who checked it, with verdict badges; one graph with
-the most linked things named; and two tables, what the memory holds and what each kind of statement is worth.
-Picking a note shows it rendered, with every thing it mentions marked in the text, how it connects, and what the
-assistant took from it, each fact with a "Wrong?" button. **Worth checking** lists what may be wrong: notes that
-may disagree, names that may be the same thing, links that look odd or lead nowhere, notes on their own. Each
-item has a "Copy question" button whose text you paste to the assistant; the assistant then fixes the link,
-writes the superseding note, or tells you the two notes are compatible.
+the mechanics. It opens on the **Map**: what a person wrote, what it became, who checked it, each with a count
+and a verdict badge; one graph of the things the notes talk about, the most linked ones named, things with a note
+of their own in their kind's colour; and two tables, what the memory holds and what each kind of statement is
+worth. The pictures below are the 1,677-note test bank.
+
+![The Map: a person writes, what it becomes, who checks it; one graph with its hubs named](docs/viewer-map.png)
+
+**Timeline** places every note by topic and date, with the lines between them. Picking a note shows it rendered
+on the right, with every thing it mentions marked in the text, how it connects, what the assistant took from it
+(each fact with a "Wrong?" button), and its family tree under the chart.
+
+![The Timeline with a note picked: its lane washed, its links lit, the note rendered beside it](docs/viewer-note.png)
+
+**Connections** shows the same things in one column per kind, the most connected named, with the current links as
+curves between the columns.
+
+![Connections: one column per kind of thing, links as curves](docs/viewer-connections.png)
+
+**Worth checking** lists what may be wrong: notes that may disagree, names that may be the same thing, links that
+look odd or lead nowhere, notes on their own. Each item has a "Copy question" button whose text you paste to the
+assistant; the assistant then fixes the link, writes the superseding note, or tells you the two notes are
+compatible.
 
 ---
 
