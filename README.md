@@ -173,17 +173,22 @@ Twelve checks run on every indexing pass: links to notes that do not exist or ar
 notes without a heading, facts the model could not ground, pairs of current notes that may disagree, relations
 whose endpoints have unusual types, and a few more. `memory.py check` prints them all.
 
-The viewer is `memory/_dream/graph.html`, one file with no network requests. It opens on the Map.
+The viewer is `memory/_dream/graph.html`, one file with no network requests, with three tabs. It opens on the
+Timeline, which places every note by topic and date with the lines between them; a picked note is shown rendered,
+with the things it mentions marked, its links, and the facts the model read from it, each with a button that copies
+a correction request for the agent.
+
+![The Timeline with a note picked](docs/viewer-note.png)
+
+The Map shows, with counts, what the notes state themselves, what the model extracted, what rests only on replaced
+notes, which pairs may disagree and which questions are open; one graph of the things the notes talk about, the most
+connected named; and a table that says what each kind of statement is worth.
 
 ![The Map: what a person wrote, what it became, who checked it; one graph with the most connected things named](docs/viewer-map.png)
 
-The Map shows, with counts, what the notes state themselves, what the model extracted, what rests only on replaced
-notes, which pairs may disagree and which questions are open; one graph of the things the notes talk about; and a
-table that says what each kind of statement is worth. The Timeline places every note by topic and date, and a
-picked note is shown rendered, with the things it mentions marked, its links, and the facts the model read from it,
-each with a button that copies a correction request for the agent.
+Connections shows the same things in one column per kind, with the current links as curves between the columns.
 
-![The Timeline with a note picked](docs/viewer-note.png)
+![Connections: one column per kind of thing](docs/viewer-connections.png)
 
 "Worth checking" lists what may be wrong: notes that may disagree, names that may be the same thing, links that
 look odd or lead nowhere, notes connected to nothing. Each item has a button that copies a ready question for the

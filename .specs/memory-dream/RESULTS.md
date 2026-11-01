@@ -131,7 +131,9 @@ links, 2,354 current facts, 318 older, 53 disputed pairs, 60 open questions; 400
 font-size overrode the per-zoom size on the layer); both now keep their size on screen. 15 headless checks pass
 on both worlds. On the owner's next look ("why don't you take this for the map, I like it") the Map became the view
 that opens first, with the tab order Map · Timeline · Connections, and the README gained three screenshots of the
-bank viewer under `docs/`.
+bank viewer under `docs/`. On the following review the owner kept the Connections columns and put the Timeline back
+first: the order is Timeline · Map · Connections; a plain link opens the Timeline, `#view=map` and `#view=graph` the
+others.
 
 **H9 — the domain out of the code (1 Nov).** The owner asked for a domain-neutral skill that still covers data,
 analytics, software and finance, with the extraction prompt filled from editable lists, entity types that can grow the
