@@ -195,11 +195,51 @@
     #lanes .gnode.hot .shape, #lanes .gnode.hit .shape { stroke: var(--hot); }
     #lanes .gnode.picked .shape { stroke: var(--hot); stroke-width: 1.6; }
     #lanes .gnode.dim { opacity: .12; }
-    #lanes .glabel { font-size: 10.5px; fill: var(--ink-2); pointer-events: none; paint-order: stroke; stroke: var(--bg); stroke-width: 3px; stroke-linejoin: round; transition: opacity var(--t); }
+    #lanes .glabel { fill: var(--ink-2); pointer-events: none; paint-order: stroke; stroke: var(--bg); stroke-width: 3px; stroke-linejoin: round; transition: opacity var(--t); }   /* size set on the layer per zoom */
     #lanes .glabel.hid { opacity: 0; }   /* only the right-hand lane of a zone is named at rest */
     #lanes .glabels.far .glabel { opacity: 0; }   /* zoomed out past reading distance */
     #lanes .glabel.dim { opacity: .15; }
     #lanes .glabel.keep, #lanes .glabels.far .glabel.keep { opacity: 1; }   /* picked, lit, hovered or under the fisheye */
+    /* the map (v2): a person writes → what it becomes → who checks it; one framed graph with its hubs named; what a statement is worth */
+    #lanes .mview .mgrid { display: grid; grid-template-columns: 1fr; gap: 24px; align-items: start; }
+    #lanes .mflow .eyebrow { color: var(--ink); }
+    #lanes .mflow .cols { display: grid; grid-template-columns: 1fr 16px 1fr 16px 1fr; gap: 0 12px; align-items: start; }
+    @media (max-width: 640px) { #lanes .mflow .cols { grid-template-columns: 1fr; } #lanes .mflow .arr { display: none; } }
+    #lanes .mflow .arr { color: var(--rule-q); font: 400 14px/16px var(--sans); padding-top: 2px; text-align: center; }
+    #lanes .mflow .col h4 { font: 400 11px/16px var(--sans); text-transform: uppercase; letter-spacing: 1px; color: var(--meta); margin: 0; padding-bottom: 6px; border-bottom: 1px solid var(--hair); }
+    #lanes .mflow .it { display: grid; grid-template-columns: 10px 1fr; gap: 0 8px; align-items: start; font: 400 13px/18px var(--sans); color: var(--ink-2); padding: 8px 0; border-bottom: 1px solid var(--hair); }
+    #lanes .mflow .it > i { width: 10px; height: 10px; margin-top: 4px; display: block; }
+    #lanes .mflow .it .main { color: var(--ink); font-weight: 500; }
+    #lanes .mflow .it .m { color: var(--meta); font-size: 12px; line-height: 16px; margin-top: 2px; }
+    #lanes .mflow .it .tag { margin-left: 6px; vertical-align: 1px; font-size: 10px; min-height: 16px; letter-spacing: .5px; }
+    #lanes .mflow .it .tag.ok { background: var(--pos-tint); border-color: transparent; } #lanes .mflow .it .tag.bad { background: var(--neg-tint); border-color: transparent; } #lanes .mflow .it .tag.open { background: var(--warn-tint); border-color: transparent; }
+    #lanes .mfig { margin: 0; }
+    #lanes .mfig .cap { font: 400 11px/16px var(--sans); text-transform: uppercase; letter-spacing: 1px; color: var(--ink); margin: 0 0 8px; }
+    #lanes .mfig .cap .m { display: block; color: var(--meta); letter-spacing: 0; text-transform: none; font-size: 12px; margin-top: 2px; }
+    #lanes .mfig .frame { position: relative; border: 1px solid var(--rule-q); background: var(--bg); height: 62vh; min-height: 420px; overflow: hidden; cursor: grab; }
+    #lanes .mfig .frame.panning { cursor: grabbing; }
+    #lanes .mfig .frame svg { width: 100%; height: 100%; touch-action: none; user-select: none; }
+    #lanes .mfig .under { font: 400 12px/16px var(--sans); color: var(--meta); margin: 8px 0 0; display: flex; flex-wrap: wrap; gap: 4px 16px; }
+    #lanes .mfig .under i { display: inline-block; width: 9px; height: 9px; margin-right: 6px; vertical-align: -1px; border-radius: 50% !important; }
+    #lanes .mfig .under i.doc { background: var(--blue); border: 1px solid var(--ink); } #lanes .mfig .under i.dot { width: 6px; height: 6px; background: rgba(0, 0, 0, .6); vertical-align: 0; }
+    #lanes .medge { stroke: rgba(0, 0, 0, .18); stroke-width: 1; fill: none; vector-effect: non-scaling-stroke; transition: opacity var(--t), stroke var(--t), stroke-width var(--t); }
+    #lanes .medge.hot { stroke: var(--hot); stroke-width: 1.8; opacity: 1; } #lanes .medge.dim { opacity: .06; }
+    #lanes .mnode { cursor: pointer; transition: opacity var(--t); }
+    #lanes .mnode circle { stroke: var(--bg); stroke-width: 1; vector-effect: non-scaling-stroke; transform-box: fill-box; transform-origin: center; transition: transform 120ms ease-out, stroke var(--t); }
+    #lanes .mnode.doc circle { stroke: var(--ink); }
+    #lanes .mnode.hot circle { stroke: var(--hot); stroke-width: 1.5; } #lanes .mnode.picked circle { stroke: var(--hot); stroke-width: 2.2; }
+    #lanes .mnode.dim { opacity: .14; }
+    #lanes .mlabel { fill: var(--ink); paint-order: stroke; stroke: var(--bg); stroke-width: 3px; stroke-linejoin: round; pointer-events: none; transition: opacity var(--t); }   /* size set on the layer per zoom */
+    #lanes .mlabel.hub { font-weight: 500; } #lanes .mlabel.hid { opacity: 0; } #lanes .mlabel.keep { opacity: 1; } #lanes .mlabel.dim { opacity: .15; }
+    #lanes .mtables { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 32px; margin-top: 24px; }
+    @media (max-width: 900px) { #lanes .mtables { grid-template-columns: 1fr; } }
+    #lanes .mt h4 { font: 400 11px/16px var(--sans); text-transform: uppercase; letter-spacing: 1px; color: var(--ink); margin: 0; padding-bottom: 6px; border-bottom: 1px solid var(--ink); display: flex; justify-content: space-between; gap: 12px; }
+    #lanes .mt h4 .m { color: var(--meta); letter-spacing: 0; text-transform: none; font-size: 12px; font-weight: 400; }
+    #lanes .mt .row { display: grid; grid-template-columns: 10px 92px 52px 1fr; gap: 0 10px; align-items: baseline; padding: 6px 0; border-bottom: 1px solid var(--hair); font: 400 13px/18px var(--sans); color: var(--ink-2); }
+    #lanes .mt.worth .row { grid-template-columns: 10px 92px 1fr; }
+    #lanes .mt .row > i { width: 10px; height: 10px; display: block; align-self: start; margin-top: 4px; }
+    #lanes .mt .row b { font: 500 11px/18px var(--sans); text-transform: uppercase; letter-spacing: 1px; color: var(--ink); }
+    #lanes .mt .row .n { font-variant-numeric: tabular-nums; text-align: right; color: var(--ink); }
     /* the family tree of the picked note, under the figure */
     #lanes .tree-panel { margin-top: 16px; }
     #lanes .tree-panel h3 { margin-top: 0; }
@@ -214,10 +254,17 @@
     #lanes .tree .tnode { cursor: pointer; }
     #lanes .tree .tnode:hover .box { stroke: var(--hot); }
   </style>
-  <div class="top"><div class="head"><h2>Your notes over time, by topic</h2><div class="modes" role="tablist" aria-label="view"><button role="tab" data-view="time" aria-selected="true">Timeline</button><button role="tab" data-view="graph" aria-selected="false">Connections</button></div></div><div class="legends"><p class="legend nodes"></p><p class="legend edges"></p></div></div>
+  <div class="top"><div class="head"><h2>Your notes over time, by topic</h2><div class="modes" role="tablist" aria-label="view"><button role="tab" data-view="time" aria-selected="true">Timeline</button><button role="tab" data-view="graph" aria-selected="false">Connections</button><button role="tab" data-view="map" aria-selected="false">Map</button></div></div><div class="legends"><p class="legend nodes"></p><p class="legend edges"></p></div></div>
   <p class="gbar" hidden></p>
   <div class="scroll"><svg role="img" aria-label="every note placed by topic (rows) and date (columns); lines show what each note was built on, replaced or mentioned"></svg></div>
   <div class="gview" hidden><svg class="graph" role="img" aria-label="the things the notes talk about, in columns by family; curves are the links the notes state, current ones by default"></svg><div class="zhead" aria-hidden="true"></div><div class="zoom"><button type="button" data-z="+" title="Zoom in">+</button><button type="button" data-z="-" title="Zoom out">−</button><button type="button" data-z="fit" title="Fit everything">⌂</button></div><div class="hint">Drag to move · scroll or pinch to zoom · drag a thing to place it · zoom in to read names</div></div>
+  <div class="mview" hidden>
+    <div class="mgrid">
+      <div class="mflow"><p class="eyebrow">1 · a person writes</p><div class="cols"></div></div>
+      <figure class="mfig"><figcaption class="cap"></figcaption><div class="frame"><svg class="map" role="img" aria-label="every thing the notes talk about, one connected graph; the most connected are named; things with a note of their own are coloured by kind"></svg></div><p class="under"></p></figure>
+    </div>
+    <div class="mtables"><div class="mt holds"></div><div class="mt worth"></div></div>
+  </div>
   <div class="tree-panel" hidden><h3></h3><div class="tree-host"></div></div>
   <p class="source"></p>
 </section>
@@ -888,13 +935,14 @@
       }
     }
     function setView(v, fromHash) {
-      S.view = v; const on = v === 'graph';
+      S.view = v; const on = v === 'graph', mapOn = v === 'map';
       for (const b of tabs.querySelectorAll('button')) b.setAttribute('aria-selected', String(b.dataset.view === v));
-      view.hidden = !on; scrollBox.hidden = on; bar.hidden = !on;
-      h2.textContent = on ? `What your notes talk about, by kind, and how it connects${history ? '' : ' today'}` : 'Your notes over time, by topic';
+      view.hidden = !on; scrollBox.hidden = on || mapOn; bar.hidden = !on; $('#lanes .mview').hidden = !mapOn; $('#lanes .legends').hidden = mapOn;
+      h2.textContent = mapOn ? 'Your memory, and how much to trust each part of it' : on ? `What your notes talk about, by kind, and how it connects${history ? '' : ' today'}` : 'Your notes over time, by topic';
       if (on) { if (!built) { build(); built = true; } else { sizeSvg(); apply(); focus(S.pick); legendN.replaceChildren(...st.legendN); legendE.replaceChildren(...st.legendE); } }
+      else if (mapOn) fire('dp:map', { show: true });
       else if (S.timeLegend) { legendN.replaceChildren(...S.timeLegend.nodes); legendE.replaceChildren(...S.timeLegend.edges); }
-      if (!fromHash && !S.pick) history.replaceState && history.replaceState(null, '', on ? '#view=graph' : location.pathname);
+      if (!fromHash && !S.pick) history.replaceState && history.replaceState(null, '', on ? '#view=graph' : mapOn ? '#view=map' : location.pathname);
     }
     tabs.addEventListener('click', e => { const b = e.target.closest('button'); if (b) setView(b.dataset.view); });
     bar.addEventListener('change', e => { if (e.target.type === 'checkbox') { history = e.target.checked; h2.textContent = `What your notes talk about, by kind, and how it connects${history ? '' : ' today'}`; build(st.scope); } });
@@ -904,6 +952,173 @@
     document.addEventListener('dp:pick', e => { if (e.detail && e.detail.entity && S.view !== 'graph' && !built) return; focus(e.detail); });
     document.addEventListener('dp:search', () => { if (!S.pick) focus(null); });
     window.__memoryGraph = { setView, state: st, build, cam, zoomAt, fitAll };  // for #view= links and tests
+  })();
+
+  // ---------- map (v2): a person writes → what it becomes → who checks it; one graph with its hubs named; what a statement is worth ----------
+  (function mapView() {
+    if (g.mode === 'overview') return;
+    const root = $('#lanes .mview'), cols = $('.mflow .cols', root), cap = $('.mfig .cap', root), frame = $('.mfig .frame', root), msvg = $('svg.map', root), under = $('.mfig .under', root), holds = $('.mt.holds', root), worth = $('.mt.worth', root);
+    const liveNote = p => notes[p] && !notes[p].superseded_by.length;
+    const current = r => (r.evidence || []).some(ev => liveNote(ev.slice(0, ev.lastIndexOf(':'))));
+    const isLog = n => n.kind === 'log' || area(n.path) === 'log';
+    const written = g.notes.filter(n => !isLog(n)), live = written.filter(n => !n.superseded_by.length);
+    const stated = (g.edges || []).filter(e => e.rel !== 'refs').length, refs = (g.edges || []).filter(e => e.rel === 'refs').length;
+    const rels = g.relations || [], cur = rels.filter(current), stale = rels.length - cur.length;
+    const answered = new Set((g.edges || []).filter(e => e.rel === 'from').map(e => e.dst));   // a note built on a question answers it
+    const openQ = written.filter(n => n.kind === 'question' && !n.superseded_by.length && !answered.has(n.path));
+    const conflicts = g.conflicts || [], odd = (g.checks || []).filter(c => c.code === 'C12'), broken = (g.checks || []).filter(c => c.code === 'C1' || c.code === 'C2');
+    const SW = { written: 'var(--ink)', stated: 'var(--ink-2)', extracted: 'var(--blue-text)', stale: '#8d8f91', disputed: 'var(--neg)', open: 'var(--warn)', ok: 'var(--pos)' };
+    const sw = k => el('i', { style: `background:${SW[k]}` });
+    const tag = (text, cls) => text ? el('span', { class: 'tag' + (cls ? ' ' + cls : '') }, text) : null;
+    const item = (k, main, meta, badge, cls) => el('div', { class: 'it' }, sw(k), el('div', {}, el('div', { class: 'main' }, main, tag(badge, cls)), meta ? el('div', { class: 'm' }, meta) : null));
+    const col = (title, items) => el('div', { class: 'col' }, el('h4', {}, title), ...items.filter(Boolean));
+    const arrow = () => el('div', { class: 'arr', 'aria-hidden': 'true' }, '→');
+    const toCheck = el('span', { class: 'link', onclick: () => $('#check').scrollIntoView({ behavior: 'smooth' }) }, `${fmt(CHECK_COUNT)} worth checking`);
+    // ----- the flow: for the whole memory, for a picked note, for a picked thing -----
+    function flowAll() {
+      return [col('The notes', [item('written', `${fmt(written.length)} notes`, `${fmt(live.length)} current · every one written by a person · logs aside`), item('written', `${fmt(written.filter(n => n.indexed).length)} read by the assistant`, 'turned into things, facts and links')]), arrow(),
+        col('What they become', [item('stated', `${fmt(stated)} stated links`, 'built on, replaces — said in the notes themselves', 'stated'), item('extracted', `${fmt(cur.length)} facts`, 'read out of the notes by the assistant', 'quotes its line'), item('stale', `${fmt(stale)} older facts`, 'rest only on notes a newer note replaced'), item('written', `${fmt(g.entities.length)} things named`, `${fmt(g.entities.filter(e => e.home).length)} have a note of their own · ${fmt(refs)} mentions between notes`)]), arrow(),
+        col('Who checks it', [item(conflicts.length ? 'disputed' : 'ok', conflicts.length ? `${fmt(conflicts.length)} pairs may disagree` : 'No disagreement found', conflicts.length ? `${fmt(conflicts.filter(c => c.unsure).length)} the reviewer could not decide` : 'every pair sharing its terms was compared', 'reviewer', conflicts.length ? 'bad' : 'ok'), item(odd.length + broken.length ? 'disputed' : 'ok', odd.length + broken.length ? `${fmt(odd.length + broken.length)} flagged by house rules` : 'House rules pass', `${fmt(odd.length)} odd links · ${fmt(broken.length)} leading nowhere`, 'rules', odd.length + broken.length ? 'bad' : 'ok'), item(openQ.length ? 'open' : 'ok', openQ.length ? `${fmt(openQ.length)} open questions` : 'No open questions', 'asked in a note, not yet answered by one', openQ.length ? 'open' : null, 'open'), item('written', 'You', toCheck)])];
+    }
+    function flowNote(p) {
+      const n = notes[p], ms = mentions[p] || [], rs = relsBy[p] || [], frm = (out[p] || []).filter(e => e.rel === 'from').length, sup = (out[p] || []).filter(e => e.rel === 'supersedes').length, kids = (inn[p] || []).filter(e => e.rel === 'from').length;
+      const cf = conflictsBy[p] || [], ck = checksBy[p] || [], isQ = n.kind === 'question', qOpen = isQ && !answered.has(p);
+      return [col('The note', [item('written', titleOf(n).slice(0, 90), `${kindName(n.kind)} · ${fmtDate(n.updated)} · written by a person`, n.superseded_by.length ? 'older version' : n.indexed ? 'read by the assistant' : null, n.superseded_by.length ? 'open' : 'ok')]), arrow(),
+        col('What it becomes', [item('stated', `${fmt(frm + sup)} stated links`, `built on ${fmt(frm)} · replaces ${fmt(sup)} · led to ${fmt(kids)}`, frm + sup ? 'stated' : null), item('extracted', `${fmt(rs.length)} facts`, rs.length ? `each quotes its line — ${rs.slice(0, 3).map(x => 'line ' + x.line).join(', ')}${rs.length > 3 ? '…' : ''}` : 'nothing read out of it yet', rs.length ? 'quotes its line' : null), item('written', `${fmt(ms.length)} things named`, ms.slice(0, 5).map(m => human(m.e.id)).join(', ') + (ms.length > 5 ? '…' : ''))]), arrow(),
+        col('Who checks it', [item(cf.length ? 'disputed' : 'ok', cf.length ? `May disagree with ${fmt(cf.length)} note${cf.length > 1 ? 's' : ''}` : 'No disagreement found', cf.length ? cf.map(c => shortOf(c.a === p ? c.b : c.a)).slice(0, 3).join(', ') : 'no current note clashes with it', 'reviewer', cf.length ? 'bad' : 'ok'), item(ck.length ? 'disputed' : 'ok', ck.length ? `${fmt(ck.length)} flagged by house rules` : 'Passes the house rules', ck.length ? ck[0].msg.slice(ck[0].msg.indexOf(':') + 1).trim().slice(0, 100) : 'its links resolve; its facts have the usual shape', 'rules', ck.length ? 'bad' : 'ok'), isQ ? item(qOpen ? 'open' : 'ok', qOpen ? 'Open question' : 'Answered', qOpen ? 'no note has been built on it yet' : 'a later note was built on it', qOpen ? 'open' : null, 'open') : null, item('written', 'You', askButton(`I think something is wrong or out of date in ${quote(p)}: `, 'Something wrong?'))])];
+    }
+    function flowEntity(id) {
+      const e = ents[id], about = rels.filter(r => r.s === id || r.o === id), curA = about.filter(current), oddA = odd.filter(c => c.msg.startsWith(id + ' ') || c.msg.includes(' ' + id + ' '));
+      return [col('The thing', [item('written', human(id), `${kindName(e.type)} · named in ${fmt(e.mentions.length)} notes`, e.home ? 'has its own note' : 'only mentioned', e.home ? 'ok' : null)]), arrow(),
+        col('What is said', [item('extracted', `${fmt(curA.length)} facts`, 'in current notes, each quoting its line', curA.length ? 'quotes its line' : null), item('stale', `${fmt(about.length - curA.length)} older facts`, 'only in notes since replaced'), item('written', `${fmt((e.names || []).length)} ways it is written`, (e.names || []).slice(0, 4).map(x => x.name).join(', '))]), arrow(),
+        col('Who checks it', [item(oddA.length ? 'disputed' : 'ok', oddA.length ? `${fmt(oddA.length)} odd link${oddA.length > 1 ? 's' : ''}` : 'Its links look usual', oddA.length ? 'a link joins kinds that rarely go together' : 'every link has the usual shape for its kind', 'rules', oddA.length ? 'bad' : 'ok'), item('written', 'You', askButton(`I think "${human(id)}" (${id}) is wrong in the memory — its type (${e.type}), its name, or how it is linked: `, 'Something wrong?'))])];
+    }
+    function renderFlow(sel) { cols.replaceChildren(...(sel && sel.note && notes[sel.note] ? flowNote(sel.note) : sel && sel.entity && ents[sel.entity] ? flowEntity(sel.entity) : flowAll())); }
+    // ----- the two tables -----
+    const row = (k, label, n, meaning) => el('div', { class: 'row' }, sw(k), el('b', {}, label), n == null ? null : el('span', { class: 'n' }, fmt(n)), el('span', {}, meaning));
+    holds.replaceChildren(el('h4', {}, 'What the memory holds', el('span', { class: 'm' }, `${fmt(written.length)} notes · read ${fmtDate(g.built)}`)),
+      row('written', 'written', written.length, 'notes a person wrote. The notes are the truth; this page only shows them.'),
+      row('stated', 'stated', stated, 'links the notes state themselves: built on, replaces. Follow them as written.'),
+      row('extracted', 'extracted', cur.length, 'facts the assistant read out of current notes. Every one quotes the line it came from.'),
+      row('stale', 'older', stale, 'facts that rest only on notes a newer note has replaced. Hidden unless asked for.'),
+      row('disputed', 'disputed', conflicts.length, 'pairs of current notes that may disagree. Nothing decided yet; one may be out of date.'),
+      row('open', 'open', openQ.length, 'questions asked in a note that no note has answered.'));
+    worth.replaceChildren(el('h4', {}, 'What a statement is worth'),
+      row('written', 'written', null, 'A person said it. Believe the note, not the summary of it.'),
+      row('stated', 'stated', null, 'The note names what it was built on or replaces. The link is the author’s own.'),
+      row('extracted', 'extracted', null, 'The assistant read it. Open the note; the line is quoted. If the line does not say that, press Wrong?.'),
+      row('disputed', 'disputed', null, 'Two current notes clash. Read both; mark the older one as replaced, or say they are compatible.'),
+      row('open', 'open', null, 'Asked, not answered. Write the note that answers it and build it on the question.'));
+    // ----- the graph: one connected picture, nodes sized by their links, hubs named, things with a note of their own in their kind's colour -----
+    const MAX = 400, st = { nodes: [], edges: [], byId: {}, pos: {}, adj: {}, deg: {}, nodeEl: {}, labelEl: {}, edgeEl: {}, hubs: new Set(), keep: new Set(), W: 10, H: 10 };
+    const cam = { k: 1, x: 0, y: 0 }; let built = false, gRoot = null, layers = null, hover = null;
+    const rad = id => 2.5 + Math.min(10, 1.7 * Math.sqrt(st.deg[id] || 0));
+    function build() {
+      const deg = {}; for (const r of cur) { deg[r.s] = (deg[r.s] || 0) + 1; deg[r.o] = (deg[r.o] || 0) + 1; }
+      const ns = (g.entities || []).filter(e => deg[e.id]).sort((a, b) => (deg[b.id] + b.mentions.length) - (deg[a.id] + a.mentions.length) || a.id.localeCompare(b.id)).slice(0, MAX);
+      const keep = new Set(ns.map(e => e.id)); st.nodes = ns; st.byId = Object.fromEntries(ns.map(e => [e.id, e])); st.total = Object.keys(deg).length;
+      st.edges = cur.filter(r => keep.has(r.s) && keep.has(r.o) && r.s !== r.o); st.deg = {}; st.adj = {};
+      for (const r of st.edges) { st.deg[r.s] = (st.deg[r.s] || 0) + 1; st.deg[r.o] = (st.deg[r.o] || 0) + 1; (st.adj[r.s] ||= new Set()).add(r.o); (st.adj[r.o] ||= new Set()).add(r.s); }
+      st.hubs = new Set(ns.slice().sort((a, b) => (st.deg[b.id] || 0) - (st.deg[a.id] || 0)).slice(0, 12).map(e => e.id));
+      layout(); render();
+    }
+    // a deterministic force layout: every thing pushes its neighbours away, every link pulls, a gentle pull toward the centre
+    // and toward the family's place on a ring, so kinds gather without the picture breaking into islands
+    function layout() {
+      const n = st.nodes.length; if (!n) { st.pos = {}; return; }
+      let seed = 11; const rnd = () => (seed = (seed * 48271) % 2147483647) / 2147483647;
+      const R = Math.max(150, 15 * Math.sqrt(n)), cx = R + 40, cy = R + 40;
+      const fams = [...new Set(st.nodes.map(e => tfam(e.type)))].sort(), ang = Object.fromEntries(fams.map((f, i) => [f, -Math.PI / 2 + 2 * Math.PI * i / fams.length]));
+      const idx = Object.fromEntries(st.nodes.map((e, i) => [e.id, i]));
+      const x = new Float64Array(n), y = new Float64Array(n), vx = new Float64Array(n), vy = new Float64Array(n);
+      st.nodes.forEach((e, i) => { const a = ang[tfam(e.type)]; x[i] = cx + 0.55 * R * Math.cos(a) + (rnd() - 0.5) * R * 0.8; y[i] = cy + 0.55 * R * Math.sin(a) + (rnd() - 0.5) * R * 0.8; });
+      const E = st.edges.map(r => [idx[r.s], idx[r.o]]), K = 24, L = 42, ITER = n > 250 ? 140 : 200;
+      for (let it = 0; it < ITER; it++) {
+        const cool = 1 - it / ITER; vx.fill(0); vy.fill(0);
+        for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) {
+          let dx = x[i] - x[j], dy = y[i] - y[j], d2 = dx * dx + dy * dy; if (d2 < 1) { dx = rnd() - 0.5; dy = rnd() - 0.5; d2 = 1; }
+          const d = Math.sqrt(d2), f = (d > 7 * K ? 0 : Math.min(32, K * K / d)) / d; vx[i] += dx * f; vy[i] += dy * f; vx[j] -= dx * f; vy[j] -= dy * f;
+        }
+        for (const [i, j] of E) { const dx = x[j] - x[i], dy = y[j] - y[i], d = Math.sqrt(dx * dx + dy * dy) || 1, f = (d - L) * 0.06 / d; vx[i] += dx * f; vy[i] += dy * f; vx[j] -= dx * f; vy[j] -= dy * f; }
+        for (let i = 0; i < n; i++) { const a = ang[tfam(st.nodes[i].type)]; vx[i] += (cx + 0.5 * R * Math.cos(a) - x[i]) * 0.012 + (cx - x[i]) * 0.015; vy[i] += (cy + 0.5 * R * Math.sin(a) - y[i]) * 0.012 + (cy - y[i]) * 0.015; }
+        const cap = 3 + 28 * cool;
+        for (let i = 0; i < n; i++) { const v = Math.sqrt(vx[i] * vx[i] + vy[i] * vy[i]) || 1, sc = Math.min(v, cap) / v; x[i] += vx[i] * sc; y[i] += vy[i] * sc; }
+      }
+      let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+      for (let i = 0; i < n; i++) { minX = Math.min(minX, x[i]); maxX = Math.max(maxX, x[i]); minY = Math.min(minY, y[i]); maxY = Math.max(maxY, y[i]); }
+      minX -= 40; minY -= 30; maxX += 120; maxY += 30;
+      st.pos = {}; st.nodes.forEach((e, i) => { st.pos[e.id] = { x: x[i] - minX, y: y[i] - minY }; }); st.W = maxX - minX; st.H = maxY - minY;
+    }
+    const sizeSvg = () => msvg.setAttribute('viewBox', `0 0 ${frame.clientWidth || 800} ${frame.clientHeight || 500}`);
+    function apply() { if (!gRoot) return; gRoot.setAttribute('transform', `translate(${cam.x} ${cam.y}) scale(${cam.k})`); layers.lL.setAttribute('font-size', `${11 / cam.k}px`); }
+    function fitAll() { const bw = frame.clientWidth || 800, bh = frame.clientHeight || 500; cam.k = Math.max(0.15, Math.min(2.5, Math.min((bw - 24) / st.W, (bh - 24) / st.H))); cam.x = (bw - st.W * cam.k) / 2; cam.y = (bh - st.H * cam.k) / 2; apply(); }
+    function zoomAt(f, sx, sy) { const k2 = Math.max(0.1, Math.min(6, cam.k * f)); cam.x = sx - (sx - cam.x) * k2 / cam.k; cam.y = sy - (sy - cam.y) * k2 / cam.k; cam.k = k2; apply(); }
+    function centerOn(id, k) { const p = st.pos[id]; if (!p) return; const bw = frame.clientWidth || 800, bh = frame.clientHeight || 500; if (k) cam.k = k; cam.x = bw / 2 - p.x * cam.k; cam.y = bh / 2 - p.y * cam.k; apply(); }
+    const screenPt = e => { const r = msvg.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; };
+    function render() {
+      sizeSvg(); msvg.replaceChildren(); gRoot = mk('g', { class: 'root' });
+      layers = { eL: mk('g', { class: 'medges' }), nL: mk('g', { class: 'mnodes' }), lL: mk('g', { class: 'mlabels' }) };
+      st.nodeEl = {}; st.labelEl = {}; st.edgeEl = {};
+      for (const r of st.edges) {
+        const a = st.pos[r.s], b = st.pos[r.o], ln = mk('line', { class: 'medge', x1: a.x, y1: a.y, x2: b.x, y2: b.y, 'data-s': r.s, 'data-o': r.o });
+        ln.append(mk('title', {}, `${human(r.s)} ${relName(r.type)} ${human(r.o)}\nsaid in ${(r.evidence || []).slice(0, 2).map(ev => shortOf(ev.slice(0, ev.lastIndexOf(':')))).join(', ')}`));
+        layers.eL.append(ln); (st.edgeEl[r.s] ||= []).push(ln); (st.edgeEl[r.o] ||= []).push(ln); ln.__r = r;
+      }
+      for (const e of st.nodes) {
+        const p = st.pos[e.id], r = rad(e.id), gN = mk('g', { class: 'mnode' + (e.home ? ' doc' : ''), 'data-id': e.id, transform: `translate(${p.x} ${p.y})` });
+        const c = mk('circle', { r }); c.setAttribute('fill', e.home ? typeVar(e.type) : 'rgba(0, 0, 0, .55)'); gN.append(c);
+        gN.append(mk('title', {}, `${human(e.id)} · ${kindName(e.type)}${e.home ? ' · has its own note' : ' · only mentioned'}\n${fmt(st.deg[e.id] || 0)} links in current notes · named in ${fmt(e.mentions.length)} notes`));
+        layers.nL.append(gN); st.nodeEl[e.id] = gN;
+        const nm = human(e.id), tx = mk('text', { class: 'mlabel' + (st.hubs.has(e.id) ? ' hub' : ' hid'), x: p.x + r + 3, y: p.y + 4, 'data-id': e.id }, nm.length > 30 ? nm.slice(0, 29) + '…' : nm);
+        layers.lL.append(tx); st.labelEl[e.id] = tx;
+      }
+      gRoot.append(layers.eL, layers.nL, layers.lL); msvg.append(gRoot); fitAll();
+      const typeCount = {}; for (const r of st.edges) { const k = r.type.startsWith('other/') ? 'other' : r.type; typeCount[k] = (typeCount[k] || 0) + 1; }
+      const top = Object.keys(typeCount).filter(k => k !== 'other').sort((a, b) => typeCount[b] - typeCount[a]).slice(0, 5);
+      cap.replaceChildren(`${fmt(st.nodes.length)} things of your memory, one graph`, el('span', { class: 'm' }, `· ${top.map(relName).join(', ')}${typeCount.other ? ', and links in the notes’ own words' : ''}`));
+      under.replaceChildren(el('span', {}, el('i', { class: 'doc' }), 'has a note of its own — the colour is its kind'), el('span', {}, el('i', { class: 'dot' }), 'only mentioned'), el('span', {}, `the ${fmt(st.nodes.length)} most linked of ${fmt(st.total)} · ${fmt(st.edges.length)} links in current notes · the most linked are named`), el('span', {}, 'drag to move · scroll to zoom · click to open'));
+    }
+    function moveNode(id, x, y) { st.pos[id] = { x, y }; st.nodeEl[id].setAttribute('transform', `translate(${x} ${y})`); const tx = st.labelEl[id]; tx.setAttribute('x', x + rad(id) + 3); tx.setAttribute('y', y + 4); for (const ln of st.edgeEl[id] || []) { const r = ln.__r, a = st.pos[r.s], b = st.pos[r.o]; ln.setAttribute('x1', a.x); ln.setAttribute('y1', a.y); ln.setAttribute('x2', b.x); ln.setAttribute('y2', b.y); } }
+    const pointers = new Map(); let drag = null;
+    msvg.addEventListener('pointerdown', e => {
+      msvg.setPointerCapture(e.pointerId); pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (pointers.size === 2) { const [p1, p2] = [...pointers.values()]; drag = { type: 'pinch', d0: Math.hypot(p1.x - p2.x, p1.y - p2.y), k0: cam.k }; return; }
+      const n = e.target.closest('.mnode');
+      drag = { type: n ? 'node' : 'pan', id: n ? n.dataset.id : null, sx: e.clientX, sy: e.clientY, cx: cam.x, cy: cam.y, moved: false };
+      if (n) { const p = st.pos[n.dataset.id]; drag.ox = p.x; drag.oy = p.y; } else frame.classList.add('panning');
+    });
+    msvg.addEventListener('pointermove', e => {
+      if (pointers.has(e.pointerId)) pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (!drag) return;
+      if (drag.type === 'pinch' && pointers.size === 2) { const [p1, p2] = [...pointers.values()], d = Math.hypot(p1.x - p2.x, p1.y - p2.y), r = msvg.getBoundingClientRect(); zoomAt(drag.k0 * d / drag.d0 / cam.k, (p1.x + p2.x) / 2 - r.left, (p1.y + p2.y) / 2 - r.top); return; }
+      const dx = e.clientX - drag.sx, dy = e.clientY - drag.sy; if (Math.hypot(dx, dy) > 3) drag.moved = true;
+      if (drag.type === 'pan') { cam.x = drag.cx + dx; cam.y = drag.cy + dy; apply(); } else if (drag.type === 'node' && drag.moved) moveNode(drag.id, drag.ox + dx / cam.k, drag.oy + dy / cam.k);
+    });
+    const endDrag = e => { pointers.delete(e.pointerId); frame.classList.remove('panning'); if (!drag) return; const d = drag; drag = null; if (d.type === 'node' && !d.moved) pickEntity(d.id); };
+    msvg.addEventListener('pointerup', endDrag); msvg.addEventListener('pointercancel', endDrag);
+    msvg.addEventListener('wheel', e => { e.preventDefault(); const p = screenPt(e); zoomAt(Math.exp(-e.deltaY * (e.deltaMode === 1 ? 0.03 : 0.0012)), p.x, p.y); }, { passive: false });
+    msvg.addEventListener('pointerover', e => { const n = e.target.closest('.mnode'); if (!n || n.dataset.id === hover) return; hover = n.dataset.id; n.firstChild.style.transform = 'scale(1.6)'; st.labelEl[hover].classList.add('keep'); for (const ln of st.edgeEl[hover] || []) ln.classList.add('hot'); for (const o of st.adj[hover] || []) { st.nodeEl[o].classList.add('hot'); st.labelEl[o].classList.add('keep'); } });
+    msvg.addEventListener('pointerout', e => { const n = e.target.closest('.mnode'); if (!n || !hover) return; n.firstChild.style.transform = ''; for (const ln of st.edgeEl[hover] || []) ln.classList.remove('hot'); for (const o of st.adj[hover] || []) st.nodeEl[o].classList.remove('hot'); hover = null; focus(S.pick); });
+    window.addEventListener('resize', () => { if (built && !root.hidden) { sizeSvg(); apply(); } });
+    function focus(sel) {
+      if (!built) return;
+      for (const ln of layers.eL.children) ln.classList.remove('dim', 'hot');
+      for (const [id, gN] of Object.entries(st.nodeEl)) { gN.classList.remove('dim', 'picked', 'hot'); st.labelEl[id].classList.remove('dim', 'keep'); }
+      let keep = null;
+      if (sel && sel.entity && st.byId[sel.entity]) {
+        keep = new Set([sel.entity, ...(st.adj[sel.entity] || [])]); st.nodeEl[sel.entity].classList.add('picked');
+        for (const ln of st.edgeEl[sel.entity] || []) ln.classList.add('hot'); for (const o of st.adj[sel.entity] || []) st.nodeEl[o].classList.add('hot');
+        if (!root.hidden) { const p = st.pos[sel.entity], bw = frame.clientWidth, bh = frame.clientHeight, sx = p.x * cam.k + cam.x, sy = p.y * cam.k + cam.y; if (sx < 30 || sy < 30 || sx > bw - 30 || sy > bh - 30) centerOn(sel.entity); }
+      } else if (sel && sel.note) { keep = new Set((mentions[sel.note] || []).map(m => m.e.id).filter(id => st.byId[id])); for (const id of keep) st.nodeEl[id].classList.add('hot'); if (!keep.size) keep = null; }
+      else if (S.hits) { keep = new Set(); for (const p of S.hits) for (const m of mentions[p] || []) if (st.byId[m.e.id]) keep.add(m.e.id); for (const id of keep) st.nodeEl[id].classList.add('hot'); }
+      st.keep = new Set(keep && keep.size <= 40 ? keep : []); for (const id of st.keep) st.labelEl[id].classList.add('keep');
+      if (keep) { for (const [id, gN] of Object.entries(st.nodeEl)) if (!keep.has(id)) { gN.classList.add('dim'); st.labelEl[id].classList.add('dim'); } for (const ln of layers.eL.children) if (!(keep.has(ln.dataset.s) && keep.has(ln.dataset.o))) ln.classList.add('dim'); }
+    }
+    document.addEventListener('dp:map', () => { if (!built) { build(); built = true; } else { sizeSvg(); apply(); } renderFlow(S.pick); focus(S.pick); });
+    document.addEventListener('dp:pick', e => { if (root.hidden) return; renderFlow(e.detail); focus(e.detail); });
+    document.addEventListener('dp:search', () => { if (!root.hidden && !S.pick) focus(null); });
+    renderFlow(null);
+    window.__memoryMap = { state: st, cam, zoomAt, fitAll, build };  // for tests
   })();
 
   // progressive disclosure: the first n of a list, then a button that reveals the rest
@@ -1131,7 +1346,7 @@
       else if (k === 'entity' && ents[v]) pickEntity(v, true);
       else if (k === 'area' && v) pickArea(v, true);
       else if (k === 'q' && v) window.__memorySearch.run(v);
-      else if (k === 'view' && window.__memoryGraph) window.__memoryGraph.setView(v === 'graph' ? 'graph' : 'time', true);
+      else if (k === 'view' && window.__memoryGraph) window.__memoryGraph.setView(v === 'graph' ? 'graph' : v === 'map' ? 'map' : 'time', true);
       else if (k === 'check' || k === 'health') $('#check').scrollIntoView();
     };
     window.addEventListener('hashchange', go); go();

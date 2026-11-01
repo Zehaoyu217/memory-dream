@@ -60,6 +60,12 @@ const path = require('path');
       out('drag a node moves it', Math.abs(p1.x - target.p.x) > 5, { id: target.id, dx: Math.round(p1.x - target.p.x), dy: Math.round(p1.y - target.p.y) });
     }
   }
+  // ---- P8c map (v2): a person writes → what it becomes → who checks it; one graph with its hubs named; the two tables ----
+  await page.evaluate(() => { location.hash = ''; history.replaceState(null, '', location.pathname); window.__memoryGraph.setView('map'); }); await page.waitForTimeout(1500);
+  const map = await page.evaluate(() => { const M = window.__memoryMap; const fs = getComputedStyle(document.querySelector('#lanes .mlabel.hub')).fontSize; return { visible: !document.querySelector('#lanes .mview').hidden, nodes: document.querySelectorAll('#lanes .mnode').length, stNodes: M.state.nodes.length, edges: document.querySelectorAll('#lanes .medge').length, stEdges: M.state.edges.length, hubs: document.querySelectorAll('#lanes .mlabel.hub').length, hubPx: Math.round(parseFloat(fs) * M.cam.k), flowCols: document.querySelectorAll('#lanes .mflow .col').length, rows: document.querySelectorAll('#lanes .mt .row').length, counts: [...document.querySelectorAll('#lanes .mt.holds .row .n')].map(x => x.textContent), k: +M.cam.k.toFixed(3) }; });
+  out('map: one graph, hubs named at reading size, the flow in three columns, the two tables', map.visible && map.nodes === map.stNodes && map.nodes > 0 && map.edges === map.stEdges && map.hubs > 0 && map.hubPx >= 10 && map.hubPx <= 12 && map.flowCols === 3 && map.rows >= 10 && map.counts.length === 6, map);
+  const mp = await page.evaluate(() => { const M = window.__memoryMap; const e = M.state.nodes[1]; location.hash = '#entity=' + encodeURIComponent(e.id); return new Promise(r => setTimeout(() => r({ id: e.id, picked: document.querySelectorAll('#lanes .mnode.picked').length, hot: document.querySelectorAll('#lanes .medge.hot').length, dim: document.querySelectorAll('#lanes .mnode.dim').length, flowHead: (document.querySelector('#lanes .mflow .col h4') || {}).textContent }), 500)); });
+  out('map: picking a thing lights its links, dims the rest and rewrites the flow for it', mp.picked === 1 && mp.hot > 0 && mp.dim > 0 && mp.flowHead === 'The thing', mp);
   out('no page errors', errors.length === 0, { errors });
   await browser.close();
   process.exit(ok ? 0 : 1);

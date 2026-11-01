@@ -115,6 +115,22 @@ text does not yield, typically a mention only in the title, is named once in an 
 Measured on 84 sampled bank notes (332 mentions): 0 missed; on the fixture (25 notes, 86 mentions): 0 missed. The
 headless check now asserts every mention marked and no technical block on the picked note.
 
+**H8 — the Map (v2) (1 Nov).** The owner showed a public ontology viewer's poster — a person asserts → what it
+becomes → who reads it, verdict badges (certificate, opinion), one connected graph with only the hubs named, and a
+legend that says what each kind of statement is worth — and asked for a v2 of the graph in that spirit, in our own
+theme. Added as a third tab beside Timeline and Connections, so the two readings can be compared. Our epistemic
+ladder, from the data the page already carries: written (notes a person wrote) · stated (lineage a note declares
+itself) · extracted (facts the assistant read out of current notes, each quoting its line) · older (facts that rest
+only on replaced notes) · disputed (conflict pairs) · open (question notes nothing was built on). The flow shows
+these as three columns with status swatches and small badges and rewrites itself for a picked note or thing; the
+graph is one framed force layout, nodes sized by their links, things with a note of their own in their family's
+colour, the rest as ink dots, twelve hubs named at rest and the picked thing's neighbourhood named on pick; two
+tables below give the counts and what to do with each kind. On the bank: 1,521 notes (logs aside), 2,428 stated
+links, 2,354 current facts, 318 older, 53 disputed pairs, 60 open questions; 400 of 861 linked things drawn with
+1,355 links. Fixing the Map's name sizes uncovered that Connections' names were also stuck at world size (a CSS
+font-size overrode the per-zoom size on the layer); both now keep their size on screen. 15 headless checks pass
+on both worlds.
+
 # Phase G (2026-11-01) — agents on the real index, and two designs read for free money
 
 ## G1 — the agent eval at n = 3 batches per arm (Opus, real Haiku index)

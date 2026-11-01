@@ -334,6 +334,28 @@ mentions, relations with evidence, lineage edges, checks, review queue, conflict
   everything beyond two hops (one hop for hubs with > 30 neighbours), washes its zone, names its neighbours and
   centres it when zoomed out or off screen; hovering lights a node's curves and names its neighbours. `#view=graph`
   opens it.
+- **Map (v2) — a person writes, what it becomes, who checks it.** The `Map` tab (`#view=map`) is the second
+  reading of the same things, built for trust rather than structure, after a public ontology viewer whose idea is
+  borrowed (not its look): **the flow** — three columns under "1 · a person writes": *The notes* (how many, how
+  many current, how many the assistant read), *What they become* (stated links a note itself declares — built on,
+  replaces — tagged STATED; facts the assistant read out of current notes, tagged QUOTES ITS LINE; older facts
+  that rest only on replaced notes; things named, and how many have a note of their own), *Who checks it* (pairs
+  that may disagree, tagged REVIEWER; links flagged by the house rules, tagged RULES; open questions — question
+  notes nothing was built on — tagged OPEN; and "You", linking to Worth checking). Each row carries a status swatch
+  in the functional colours: ink for written and stated, blue for extracted, grey for older, red for disputed,
+  amber for open, green when a check passes. Picking a note rewrites the flow for that note (its stated links,
+  its facts with their line numbers, the things it names, whether a current note clashes with it, whether it
+  passes the rules, whether it is an open or answered question); picking a thing rewrites it for the thing (facts
+  in current notes, older facts, the ways it is written, odd links). **The graph** — one framed picture captioned
+  with its real counts ("400 things of your memory, one graph · uses, measured by, …"): a deterministic force
+  layout with a gentle pull toward each family's place on a ring, nodes sized by their links (`2.5 + 1.7√degree`,
+  capped), things with a note of their own filled in their family's colour with an ink outline, things only
+  mentioned as small ink dots; only the twelve most linked are named at rest, names keep their size on screen,
+  hovering names a thing and its neighbours, picking lights its links and dims the rest; drag, wheel and pinch as
+  in Connections. **The two tables** below — "What the memory holds" (written, stated, extracted, older, disputed,
+  open, each with its count and one sentence) and "What a statement is worth" (what to do with each kind: believe
+  the note; follow the author's link; open the quoted line and press Wrong? if it does not say that; read both
+  clashing notes; write the note that answers the question).
 - **Selected — the note, and what the agent sees.** For a note: its text rendered as markdown in its own box, the
   main thing on the panel (headings, lists, quotes, fenced code, pipe tables, inline code/bold/italic/links; note
   ids and entity ids become links in plain words; built as DOM nodes, never HTML), then "How this note connects"
