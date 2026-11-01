@@ -639,7 +639,7 @@ or to a fresh worker given the packet, at most twice. After that, it stops and r
 
 ## Appendix A — the contract surface, verbatim: `skills/memory-dream/SKILL.md` and the dreamer agent
 
-_Part 5 · copied at commit 0db791f. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
+_Part 5 · copied at commit 21b2cc4. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
 
 ```markdown
 ---
@@ -713,7 +713,7 @@ Touch nothing else.
 
 ## Appendix B — the graph contract, verbatim: `.specs/memory-dream/CONTRACT.md`
 
-_Part 6 · copied at commit 0db791f. Schema 1; `memory.py check` validates against it (A38)._
+_Part 6 · copied at commit 21b2cc4. Schema 1; `memory.py check` validates against it (A38)._
 
 ## memory-dream — the graph contract (schema 1)
 
@@ -876,7 +876,7 @@ nothing (C13 reports it and the readings fall back to `other/<word>`); merging i
 
 ## Appendix C — the build guide, verbatim: `BUILD-GUIDE.md` §3–§10
 
-_Part 7 · copied at commit 0db791f. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
+_Part 7 · copied at commit 21b2cc4. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
 
 ### 3. The design in one page
 
@@ -1124,8 +1124,8 @@ in the blue with arrowheads and a slow flow toward the newer note. The Selected 
 Back and Forward through everything looked at (Alt+← / Alt+→).
 Data lives in `<script type="application/json" id="data-graph">` (notes with their full text, entities with
 mentions, relations with evidence, lineage edges, checks, review queue, conflicts); `memory.py` fills it
-(`render_viz`); every top-level element has an id; parts talk through `dp:` events. Three views, the Map first
-when the page opens (tab order Map · Timeline · Connections; `#view=time` and `#view=graph` open the others):
+(`render_viz`); every top-level element has an id; parts talk through `dp:` events. Three views, the Timeline first
+when the page opens (tab order Timeline · Map · Connections; `#view=map` and `#view=graph` open the others):
 
 - **Time — notes by area and date.** One row per area (projects first, general areas in italics), x = date, each
   note a shape by kind (square decision, diamond finding, triangle model, hexagon dataset or feature, circle
@@ -1383,7 +1383,7 @@ Taste retrieval (fresh tasks, recall of the gold notes): the person's preference
 
 ## Appendix D — prompts, seeds and tuned tables, verbatim from `memory.py`
 
-_Part 8 · extracted at commit 0db791f by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
+_Part 8 · extracted at commit 21b2cc4 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
 
 ### D.1 `EXTRACT` — the per-note prompt: fixed guidance, then `KINDS:`, `TYPES:`, `EDGES:` and `KNOWN:` from the registries (the static part is cached), then `NOTE`
 
