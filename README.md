@@ -277,12 +277,30 @@ about 1,450 tokens on 1,677 notes and about 1,600 on 168,141.
 - Above 10,000 notes, changed notes are patched into the last graph instead of a rebuild, the index lives in
   SQLite, and `ask` greps only the areas a question points at. At 168,141 notes a call takes 5 to 8 seconds.
 
+### The registries: the domain lives in three files, not in the code
+
+The extraction prompt has two parts. The fixed part is guidance: answer in JSON, copy spellings and quotes verbatim,
+reuse known ids. The variable part is three lists, filled in from files at the memory root that anyone may edit:
+
+- `KINDS.md`: the kinds of note, with the filename prefix and folder that imply each, the class tree, and the role each
+  kind plays (which kinds head the digest, which are compared for disagreement, which answer a question).
+- `TYPES.md`: the types of thing, each with a definition, what it is not, its aliases and its family.
+- `EDGES.md`: the types of link, each with its aliases and the usual shape of its two ends.
+
+All three are seeded for data, analytics, software and finance work, with packs for research and operations. Nothing
+about any domain is in the script. The lists grow in two ways: a person adds a line, or the review admits a word the
+model kept using for things that fit no type, under the bar, budget and probation described below. Two rules protect
+what is already indexed. A registry edit never re-reads a note: the cached readings keep the model's raw words, and the
+registries decide what the words mean when the graph is rebuilt, with no model call. And a type is retired by merging,
+not deleting: a deleted line is reported, and its things fall back to `other/<word>` rather than vanish.
+
 ### Keeping the vocabulary from growing without bound
 
 The first reviewer, asked about 178 common labels, answered "new type" to all of them, and the vocabulary grew from
 7 types to 185. The present rules came from that:
 
-- Entity types are a fixed list of nine and note kinds a fixed list of thirteen; the model cannot add to either.
+- Entity types and note kinds are registries (`TYPES.md`, `KINDS.md`); the model can use what they list, and a
+  word outside them is kept as `other/<word>` until the same gate admits it.
 - Relation types start at eight. A link that fits none keeps its own label and is shown as `other/<label>`; it is
   stored and searchable but it is not a type.
 - A label is offered to the review only after 5 uses in 5 notes across 2 areas. The review may alias it onto an
@@ -314,7 +332,7 @@ The first reviewer, asked about 178 common labels, answered "new type" to all of
 ```bash
 cp -R skills/memory-dream <project>/.claude/skills/memory-dream
 mkdir -p <project>/memory
-python3 tests/acceptance.py        # 37 checks on the fixture
+python3 tests/acceptance.py        # 38 checks on the fixture
 ```
 
 ## Further reading

@@ -891,8 +891,59 @@ def A40():
     return "header reads SUPERSEDED → feat-x-v2 → feat-x-v3; the live end is headed above the old note"
 
 
+def A41():
+    """The domain lives in registries, not in the code: KINDS.md and TYPES.md are seeded on the first dream; a kind's
+    prefix comes from KINDS.md; a thing's type is read through TYPES.md (type or alias → the type; an unknown word stays
+    as other/<word> and is counted; a dropped word removes the thing); a word over the bar is offered to the review and
+    admitted with its family; a type removed by hand is reported (C13) and its things keep their word."""
+    w = World(fixture=False)
+    (w.root / "fin").mkdir()
+    (w.root / "fin/inc-2026-03-01.md").write_text("---\nupdated: 2026-03-01\n---\n# The EUR swap 5y position at Acme Bank was mis-booked for a day\n"
+                                                 "Found in the London vault reconciliation; the box-ledger PDF was wrong.\n")
+    (w.root / "fin/risk-fx-exposure.md").write_text("---\nupdated: 2026-03-02\nfrom: [inc-2026-03-01]\n---\n# FX exposure to Acme Bank through the EUR swap 5y is 12m\n"
+                                                   "Collateral sits in the London vault; see the box-ledger PDF.\n")
+    (w.root / "fin/dec-hedge.md").write_text("---\nupdated: 2026-03-03\nfrom: [risk-fx-exposure]\n---\n# Hedge the EUR swap 5y exposure with a 6m forward\nDecided with the desk.\n")
+    ents = [{"id": "eur-swap-5y", "type": "instrument", "as": ["EUR swap 5y"]}, {"id": "acme-bank", "type": "counterparty", "as": ["Acme Bank"]},
+            {"id": "london-vault", "type": "other", "label": "warehouse", "as": ["London vault"]}, {"id": "box-ledger-pdf", "type": "file", "as": ["box-ledger PDF"]}]
+    w.inject({"inc-2026-03-01": {"kind": "incident", "entities": ents, "relations": [], "refs": []},
+              "risk-fx-exposure": {"kind": "risk", "entities": ents, "relations": [], "refs": []},
+              "dec-hedge": {"kind": "decision", "entities": ents[:1], "relations": [], "refs": []}})
+    out = w.run("dream")
+    assert w.text("KINDS.md") == mem.KINDS_SEED and w.text("TYPES.md") == mem.TYPES_SEED, "registries not seeded"
+    g = w.graph()
+    kinds = {n["id"]: n["kind"] for n in g["notes"]}
+    assert kinds["inc-2026-03-01"] == "incident" and kinds["risk-fx-exposure"] == "risk" and kinds["dec-hedge"] == "decision", kinds
+    types = {e["id"]: e["type"] for e in g["entities"]}
+    assert types == {"eur-swap-5y": "instrument", "acme-bank": "counterparty", "london-vault": "other/warehouse"}, types
+    chk = w.run("check", model=False)
+    assert "type word" in chk and "warehouse" in chk, chk[:400]
+    assert mem.parse_edges(mem.EDGES_SEED)[5]["shape"]["trained-on"] == ("model", "dataset")
+    d = w.text("DIGEST.md")
+    assert "decisions, models and plans" in d and "Hedge the EUR swap" in d, d[:600]
+    # the word goes over a lowered bar; the review admits it as a type with a family; the thing takes the type, 0 re-reads
+    (w.root / "TYPES.md").write_text(w.text("TYPES.md").replace("promote: 5 uses, 5 notes, 2 areas", "promote: 1 uses, 1 notes, 1 areas"))
+    rv = w.dir / "review.json"
+    rv.write_text(json.dumps({"etypes": {"warehouse": "new: a storage location for physical goods, not a data store | family: place"}}))
+    calls_before = len(w.calls("extract"))
+    out = w.run("dream", env={"FAKE_REVIEW": str(rv)})
+    assert "1 new type" in out, out
+    assert len(w.calls("extract")) == calls_before, "a registry change re-read notes"
+    assert re.search(r"^- warehouse \(proposed \d{4}-\d\d-\d\d\): .*\| family: place", w.text("TYPES.md"), re.M), w.text("TYPES.md")[-400:]
+    g = w.graph()
+    assert {e["id"]: e["type"] for e in g["entities"]}["london-vault"] == "warehouse"
+    island = json.loads(re.search(r'id="data-graph">\n(.*?)\n</script>', w.text("_dream/graph.html"), re.S).group(1))
+    assert island["families"]["types"].get("warehouse") == "place", island["families"]["types"]
+    # a type removed by hand: its things keep the word, and check says so
+    (w.root / "TYPES.md").write_text("\n".join(ln for ln in w.text("TYPES.md").split("\n") if not ln.startswith("- counterparty:")) + "\n")
+    w.run("dream", model=False)
+    chk = w.run("check", model=False)
+    assert re.search(r"^C13", chk, re.M) and "counterparty" in chk, chk[:600]
+    assert {e["id"]: e["type"] for e in w.graph()["entities"]}["acme-bank"] == "other/counterparty"
+    return "KINDS.md/TYPES.md seeded; inc-/risk- kinds from the registry; instrument and counterparty typed, warehouse kept as other/warehouse, the file dropped; review admitted warehouse (family place) with 0 re-reads; a removed type reported as C13, its things keep the word"
+
+
 TESTS = [A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A24,
-         A25, A26, A27, A28, A29, A30, A31, A32, A33, A34, A35, A36, A37, A38, A39, A40]
+         A25, A26, A27, A28, A29, A30, A31, A32, A33, A34, A35, A36, A37, A38, A39, A40, A41]
 
 
 def main():

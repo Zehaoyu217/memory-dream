@@ -133,6 +133,22 @@ on both worlds. On the owner's next look ("why don't you take this for the map, 
 that opens first, with the tab order Map · Timeline · Connections, and the README gained three screenshots of the
 bank viewer under `docs/`.
 
+**H9 — the domain out of the code (1 Nov).** The owner asked for a domain-neutral skill that still covers data,
+analytics, software and finance, with the extraction prompt filled from editable lists, entity types that can grow the
+way relation types do, and no re-indexing when a list changes. Done as an addition, not a rewrite: the kind tables,
+the entity-type list in the prompt and the shape table moved into three registries at the memory root — `KINDS.md`
+(prefix, area, family, role, digest, conflicts, answers), `TYPES.md` (definition, aliases, family, what it is not, a
+drop list) and `EDGES.md` (now with `shape:` fields) — seeded with exactly the old lists plus software and finance
+lines, and read by `load_domain()` before every command. The extraction prompt is a template over them; `ground()`
+keeps the model's raw type word and label in the cached reading, and `build()` reads them through TYPES.md at merge
+time, so a registry edit re-derives the graph with no model call and no note re-read (A41 counts the extract calls).
+Type words outside TYPES.md are kept as `other/<word>` and go through the same gate as relation labels (`vocab_gate`,
+shared): bar, review (a new `etypes` section, admitting a type with its family), budget 40, probation. A type removed by
+hand is reported (C13) and its things keep the word. The digest's "current" and "open questions" and the conflict
+kinds come from the registry's roles and flags. The viewer assigns colours to families from the series in order, so a
+new family gets the next free colour. SKILL.md no longer names a field. 38 of 38 acceptance tests pass, the fixture's
+graph is unchanged except that `concept` now reads as `term` through the alias list.
+
 # Phase G (2026-11-01) — agents on the real index, and two designs read for free money
 
 ## G1 — the agent eval at n = 3 batches per arm (Opus, real Haiku index)

@@ -5,7 +5,7 @@ Prompt on stdin, JSON on stdout, like `claude -p`. Answers extraction and review
 from a hand-written oracle. Knobs (env):
   FAKE_LOG     append one line per call: "<kind> <note path or ->"
   FAKE_INJECT  JSON file {note stem: raw answer text} returned verbatim instead of the oracle
-  FAKE_REVIEW  JSON file {"types": {...}, "entities": {...}} overriding review answers
+  FAKE_REVIEW  JSON file {"types": {...}, "entities": {...}, "conflicts": {...}, "etypes": {...}} overriding review answers
   FAKE_SAVE    directory: save every prompt there (NNN-<kind>.txt)
 """
 import json
@@ -128,11 +128,15 @@ def review(prompt):
     ents = {}
     for a, b in re.findall(r"^- (\S+) / (\S+):", pairs_sec, re.M):
         ents[f"{a} / {b}"] = "same" if frozenset((a, b)) in SAME else "different"
-    conflicts = {f"{a} / {b}": "unsure" for a, b in re.findall(r"^- (\S+) / (\S+):", conf_sec, re.M)}
+    conf_only = conf_sec.split("THING TYPES", 1)[0]
+    conflicts = {f"{a} / {b}": "unsure" for a, b in re.findall(r"^- (\S+) / (\S+):", conf_only, re.M)}
+    words_sec = (prompt.split("TYPE WORDS the indexer used", 1) + [""])[1].split("Reply with JSON", 1)[0]
+    etypes = {m: "label" for m in re.findall(r"^- ([\w.-]+): ", words_sec, re.M)}
     types.update(over.get("types", {}))
     ents.update(over.get("entities", {}))
     conflicts.update(over.get("conflicts", {}))
-    return {"types": types, "entities": ents, "conflicts": conflicts}
+    etypes.update(over.get("etypes", {}))
+    return {"types": types, "entities": ents, "conflicts": conflicts, "etypes": etypes}
 
 
 def main():

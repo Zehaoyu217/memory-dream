@@ -44,7 +44,8 @@ def constants():
     spec = importlib.util.spec_from_file_location("mem", ROOT / "skills/memory-dream/scripts/memory.py")
     mem = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mem)
-    tables = {k: getattr(mem, k) for k in ("PREFIX_KIND", "AREA_KIND", "CC_KIND", "KIND_PARENT", "TYPE_PARENT", "SHAPES", "CONFLICT_KINDS",
+    tables = {k: getattr(mem, k) for k in ("PREFIX_KIND", "AREA_KIND", "CC_KIND", "KINDS", "KIND_ORDER", "KIND_PARENT", "TYPE_PARENT", "SHAPES", "CONFLICT_KINDS",
+                                           "DIGEST_KINDS", "ANSWER_KINDS", "WORK", "ROLE_OF",
                                            "CONFLICT_STOP", "GENERAL", "W", "PROMOTE", "BUDGET", "PROBATION_DAYS", "COMPLETE_MAX_NOTES",
                                            "COMPLETE_RATIO", "WEAK_SHARE", "TASTE_MAX", "TASTE_FLOOR", "NOTE_CAP", "NOTE_MAX_LINES", "WIDE",
                                            "CONFLICT_MAX", "DIGEST_MAX_LINES", "DIGEST_HEADS", "SCHEMA", "V") if hasattr(mem, k)}
@@ -87,10 +88,13 @@ def main():
          f"_Part 8 · extracted at commit {sha} by importing the script. The dreamer's two prompts, the seed vocabulary"
          f" (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its"
          f" name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._\n\n"]
-    d.append("### D.1 `EXTRACT` — the per-note prompt (the static part is cached; `EDGES:` and `KNOWN:` follow, then `NOTE`)\n\n" + fenced(mem.EXTRACT))
-    d.append("\n### D.2 `REVIEW` — the one-call review (entity pairs, labels over the bar, conflicts)\n\n" + fenced(mem.REVIEW))
-    d.append("\n### D.3 `EDGES_SEED` — `memory/EDGES.md` as first written (software pack)\n\n" + fenced(mem.EDGES_SEED, "markdown"))
-    d.append("\n### D.4 `PACKS` — seed types for other domains (`pack: research|ops` in EDGES.md)\n\n" + fenced(json.dumps(mem.PACKS, indent=1, ensure_ascii=False), "json"))
+    d.append("### D.1 `EXTRACT` — the per-note prompt: fixed guidance, then `KINDS:`, `TYPES:`, `EDGES:` and `KNOWN:` from the registries (the static part is cached), then `NOTE`\n\n" + fenced(mem.EXTRACT))
+    d.append("\n### D.2 `REVIEW` — the one-call review (entity pairs, labels over the bar, conflicts, type words over the bar)\n\n" + fenced(mem.REVIEW))
+    d.append("\n### D.3 `EDGES_SEED` — `memory/EDGES.md` as first written (relation types, with `shape:`)\n\n" + fenced(mem.EDGES_SEED, "markdown"))
+    d.append("\n### D.3b `KINDS_SEED` — `memory/KINDS.md` as first written (kinds of note: prefix, area, family, role, digest, conflicts, answers)\n\n" + fenced(mem.KINDS_SEED, "markdown"))
+    d.append("\n### D.3c `TYPES_SEED` — `memory/TYPES.md` as first written (types of thing: aliases, family, not, drop)\n\n" + fenced(mem.TYPES_SEED, "markdown"))
+    d.append("\n### D.4 `PACKS`, `KIND_PACKS`, `TYPE_PACKS` — the lines a `pack: software|research|ops` adds to each registry\n\n"
+             + fenced(json.dumps({"EDGES.md": mem.PACKS, "KINDS.md": mem.KIND_PACKS, "TYPES.md": mem.TYPE_PACKS}, indent=1, ensure_ascii=False), "json"))
     d.append("\n### D.5 Headers of `ALIASES.md` and `CONFLICTS.md`\n\n" + fenced(mem.ALIASES_HEAD if isinstance(mem.ALIASES_HEAD, str) else "".join(mem.ALIASES_HEAD), "markdown")
              + "\n" + fenced(mem.CONFLICTS_HEAD if isinstance(mem.CONFLICTS_HEAD, str) else "".join(mem.CONFLICTS_HEAD), "markdown"))
     d.append("\n### D.6 Tuned tables and constants (`W` is `rank`/`route`; the rest are named where they are used)\n\n" + fenced(json.dumps(tables, indent=1, ensure_ascii=False), "json"))

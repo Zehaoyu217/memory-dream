@@ -373,9 +373,26 @@
   const GENERAL = new Set(['prefs', 'reporting', 'glossary', 'corrections', 'howto', 'qa', 'people']);
   const FAM = (g.families && g.families.kinds) || {}, TFAM = (g.families && g.families.types) || {};  // the class tree (CONTRACT §3)
   const fam = k => FAM[k] || k, tfam = ty => TFAM[ty] || ty;
-  const KINDS = ['finding', 'decision', 'model', 'dataset', 'feature', 'rule', 'term', 'question'];  // families with a colour
-  const kindVar = k => `var(--k-${KINDS.includes(fam(k)) ? fam(k) : 'other'})`;
-  const typeVar = ty => { const f = tfam(ty); return KINDS.includes(f) ? `var(--k-${f})` : ['metric', 'party', 'system'].includes(f) ? `var(--e-${f})` : 'var(--k-other)'; };
+  // colours: the eight series colours, in their order; the families the seed knows keep a fixed one, families a registry
+  // added take the next free colour by how often they occur, the rest grey. Kinds of note and types of thing share the ladder.
+  const SERIES = ['#092c61', '#7297c5', '#a6428c', '#159788', '#e0731a', '#7537ad', '#b03030', '#bd8c00'];
+  const FIXED = { finding: 0, metric: 0, model: 1, rule: 2, party: 2, dataset: 3, decision: 4, system: 4, feature: 5, term: 7 };
+  const GREY = { question: '#8d8f91', other: '#a2a4a6' };
+  const COLOUR = {};
+  (function assign() {
+    const count = {};
+    for (const n of g.notes || []) count[fam(n.kind)] = (count[fam(n.kind)] || 0) + 1;
+    for (const e of g.entities || []) count[tfam(e.type)] = (count[tfam(e.type)] || 0) + 1;
+    const used = new Set(Object.values(FIXED));
+    const free = SERIES.map((_, i) => i).filter(i => !used.has(i));
+    const rest = Object.keys(count).filter(f => !(f in FIXED) && !(f in GREY) && !f.startsWith('other')).sort((a, b) => count[b] - count[a] || a.localeCompare(b));
+    for (const f in FIXED) COLOUR[f] = SERIES[FIXED[f]];
+    rest.forEach((f, i) => { COLOUR[f] = i < free.length ? SERIES[free[i]] : GREY.other; });
+  })();
+  const KINDS = Object.keys(COLOUR);  // families with a colour
+  const colourOf = f => COLOUR[f] || GREY[f] || GREY.other;
+  const kindVar = k => colourOf(fam(k));
+  const typeVar = ty => colourOf(tfam(ty));
   const notes = Object.fromEntries((g.notes || []).map(n => [n.path, n]));
   const ents = Object.fromEntries((g.entities || []).map(e => [e.id, e]));
   const out = {}, inn = {};
@@ -681,7 +698,7 @@
     };
     const kindEntries = KINDS.filter(f => [...present].some(k => fam(k) === f)).flatMap(f => [...(present.has(f) ? [toggle(f, hideKind, kindName(f), swatch(kindVar(f)), null, applyHidden)] : []),
       ...[...present].filter(k => k !== f && fam(k) === f).sort().map(k => toggle(k, hideKind, kindName(k), el('i', { class: 'kind', style: `background:${kindVar(f)};opacity:.6` }), `${kindName(k)}: a kind of ${f} — show or hide`, applyHidden))]);
-    const otherKinds = [...present].filter(k => !KINDS.includes(fam(k))).sort().map(k => toggle(k, hideKind, kindName(k), swatch('var(--k-other)'), null, applyHidden));
+    const otherKinds = [...present].filter(k => !KINDS.includes(fam(k))).sort().map(k => toggle(k, hideKind, kindName(k), swatch(GREY.other), null, applyHidden));
     S.timeLegend = { nodes: [lead('Notes'), ...kindEntries, ...otherKinds, toggle('superseded', hideKind, 'Older version', swatch('', 'dashed'), 'Notes a newer note has replaced — show or hide', applyHidden)],
       edges: [lead('Lines'), toggle('from', hideRel, 'Built on', stroke('1px solid'), null, applyHidden), toggle('supersedes', hideRel, 'Replaces', stroke('1px dashed', 'var(--edge-sup)'), null, applyHidden), toggle('refs', hideRel, 'Mentions', stroke('1px solid', 'var(--rule)'), null, applyHidden)] };
     legendN.replaceChildren(...S.timeLegend.nodes); legendE.replaceChildren(...S.timeLegend.edges); applyHidden();
@@ -726,7 +743,7 @@
     const cam = { k: 1, x: 0, y: 0 };
     let history = false, built = false, hover = null, root = null, layers = null;
     const radius = e => 4 + Math.min(6, Math.sqrt(e.mentions.length));
-    const famName = f => ({ dataset: 'Data', model: 'Models', feature: 'Features', metric: 'Metrics', party: 'People & teams', term: 'Terms', system: 'Tools' })[f] || kindName(f);
+    const famName = f => ({ dataset: 'Data', model: 'Models', feature: 'Features', metric: 'Metrics', party: 'People & teams', term: 'Terms', system: 'Tools & systems', document: 'Documents', instrument: 'Instruments', portfolio: 'Portfolios', account: 'Accounts', rule: 'Rules & policies', scenario: 'Scenarios' })[f] || kindName(f.replace(/^other\//, ''));
     const hiddenNode = e => hideFam.has(tfam(e.type)) || (hideFam.has('replaced') && st.replaced.has(e.id));
     const edgeKind = r => r.type.startsWith('other/') ? 'other' : r.type;
     const eshape = (f, r) => {

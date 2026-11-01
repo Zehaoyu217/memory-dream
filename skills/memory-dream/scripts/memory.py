@@ -33,28 +33,19 @@ V = "0.4"
 SCHEMA = 1  # the graph contract (.specs/memory-dream/CONTRACT.md): bumped when a field changes meaning
 CODE = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()[:12]  # a changed script rebuilds the graph once, 0 calls
 NOTE_MAX_LINES = 40  # SKILL.md's own rule; over it is C11
-SKIP = {"INDEX.md", "EDGES.md", "ALIASES.md", "CONFLICTS.md", "README.md", "DIGEST.md"}
-# Kinds without a model (REVIEW.md F6): filename prefixes cover 71% of the test bank; the area names the rest.
-PREFIX_KIND = {"exp": "experiment", "feat": "feature", "ds": "dataset", "dec": "decision", "fnd": "finding",
-               "find": "finding", "finding": "finding", "q": "question", "metric": "metric", "model": "model",
-               "pref": "preference", "rule": "rule", "term": "term"}
-AREA_KIND = {"prefs": "preference", "glossary": "term", "corrections": "correction", "reporting": "rule",
-             "howto": "rule", "log": "log"}
+SKIP = {"INDEX.md", "EDGES.md", "ALIASES.md", "CONFLICTS.md", "KINDS.md", "TYPES.md", "README.md", "DIGEST.md"}
 CC_KIND = {"user": "preference", "feedback": "rule", "project": "note", "reference": "note"}  # Claude Code's auto-memory types
 DIGEST_MAX_LINES, DIGEST_HEADS = 40, 10  # memory/DIGEST.md: ≤ 40 lines so it can sit in context every session
-KINDS = set("question experiment finding decision dataset feature model metric term preference rule log note".split())
-# The class tree (phase H): two levels, a child counts as its parent wherever a rule names the parent — conflict
-# kinds, the viewer's legend and entity graph, the shape check. Kinds of notes, then types of entities.
-KIND_PARENT = {"experiment": "finding", "correction": "rule", "preference": "rule", "metric": "term"}
-TYPE_PARENT = {"table": "dataset", "segment": "dataset", "column": "feature", "person": "party", "team": "party",
-               "tool": "system", "job": "system", "pipeline": "system", "service": "system"}
-SHAPES = {"trained-on": ("model", "dataset"), "evaluated-on": (None, "dataset"), "measured-by": (None, "metric"),
-          "owned-by": (None, "party"), "replaces": ("same", "same")}  # usual subject → object families of seed types (C12)
+# The domain — kinds of note (prefixes, areas, roles, the class tree), types of thing (with families) and the usual
+# shapes of relations — lives in three files at the memory root, KINDS.md, TYPES.md and EDGES.md, seeded below and
+# read by load_domain(); these module names are set from them: PREFIX_KIND, AREA_KIND, KINDS, KIND_PARENT, GENERAL,
+# WORK, CONFLICT_KINDS, DIGEST_KINDS, ROLE_OF, KIND_ORDER, TYPE_PARENT, SHAPES. Nothing about data science is fixed
+# in the code; the seeds cover data, software and finance, and a hand-written line in any of the files is permanent.
 
 
-def family(k, tree=KIND_PARENT):
+def family(k, tree=None):
     """A kind's or type's parent in the class tree, or itself."""
-    return tree.get(k, k)
+    return (KIND_PARENT if tree is None else tree).get(k, k)
 
 
 def successors(notes, path, hops=4):
@@ -79,15 +70,16 @@ def chain_mark(notes, n):
         + "".join(" → " + notes[q]["id"] for q in successors(notes, n["superseded_by"][0]))
 
 
-def shape_checks(ents, rels):
-    """C12 (phase H): a seed-type relation whose entity families are unusual for it — a `term` trained-on a `term`
-    is probably a mistyped model and dataset; the review or a person retypes or drops it. Bank: 35 of 1,071 (3%)."""
-    out = []
+def shape_checks(ents, rels, shapes=None, tparent=None):
+    """C12 (phase H): a relation whose entity families are unusual for its type (the `shape:` of its EDGES.md line) —
+    a `term` trained-on a `term` is probably a mistyped model and dataset; the review or a person retypes or drops it.
+    Bank: 35 of 1,071 (3%)."""
+    out, shapes, tparent = [], SHAPES if shapes is None else shapes, TYPE_PARENT if tparent is None else tparent
     for (s, T, o), rec in rels.items():
-        exp = SHAPES.get(T)
+        exp = shapes.get(T)
         if not exp or s not in ents or o not in ents:
             continue
-        fs, fo = family(ents[s]["type"], TYPE_PARENT), family(ents[o]["type"], TYPE_PARENT)
+        fs, fo = family(ents[s]["type"], tparent), family(ents[o]["type"], tparent)
         es, eo = exp
         bad = (fs != fo) if es == "same" else ((es and fs != es) or (eo and fo != eo))
         if bad:
@@ -102,7 +94,7 @@ KEEP_DAYS = 30
 PROMOTE, BUDGET, PROBATION_DAYS = (5, 5, 2), 24, 60  # uses, notes, areas · types · days — EDGES.md can override
 # Conflicts (REVIEW.md phase C): two live notes of one kind in one area, unlinked, sharing a rare title word, are
 # queued for the review; decisions persist in memory/CONFLICTS.md; notes are never edited.
-CONFLICT_KINDS = {"decision", "model", "finding"}  # by family: experiments count as findings (phase H). Rules and
+# Conflict kinds come from KINDS.md (`conflicts: yes`; a child kind counts as its family — phase H). Rules and
 # preferences are distinct by nature: not queued (bank: 157 false pairs)
 CONFLICT_MAX = 20  # pairs per review
 CONFLICT_STOP = set("decision model finding current holdout threshold rule note with from that this using when what".split())
@@ -110,8 +102,6 @@ CONFLICTS_HEAD = ("# CONFLICTS — decisions about pairs of live notes that look
                   "(lineage from then on; the notes are untouched). `compatible: a / b`: both stand. `- a ? b`: the reviewer "
                   "was unsure; a person decides. Edit freely.\n")
 WIDE = int(os.environ.get("MEMORY_WIDE", "10000"))  # above this many notes, ask greps only where a question points
-GENERAL = {"prefs", "reporting", "glossary", "corrections", "howto", "qa", "people", "log"}  # areas that span projects
-WORK = {"question", "experiment", "finding", "decision", "dataset", "feature", "model", "metric"}  # project kinds
 
 EDGES_SEED = """# EDGES — relation types between entities, read "X <type> Y". Constrained open: the dreamer uses these types and
 # their aliases (~ = read in reverse); any other link it finds keeps its own label and is shown as other/<label>.
@@ -125,11 +115,11 @@ probation: 60 days
 - uses: X needs Y as an input (model uses feature; feature uses table) | aka: depends-on, consumes, built-on, built-from, derived-from, based-on, sourced-from, requires, reads, reads-from, joined-to, ~feeds, ~input-to, ~used-by, ~used-for, ~used-in
 - produces: X creates or writes Y (job produces table; model produces scores) | aka: writes, writes-to, creates, outputs, generates, ~generated-by, ~produced-by, ~output-of
 - part-of: X is a component of Y (column part-of table; feature part-of feature-set) | aka: member-of, column-of, subset-of, stored-in, ~contains, ~has, ~includes
-- trained-on: model X was fit on dataset Y | aka: fit-on, fitted-on, trained-with
-- evaluated-on: X was measured on dataset or segment Y | aka: tested-on, validated-on, measured-on, scored-on, backtested-on
-- measured-by: X is judged by metric Y | aka: reports, reports-metric, has-metric, measures, measured-in, scored-by, optimizes, optimises, targets, ~metric-of
-- replaces: X is the newer version of Y | aka: supersedes, retires, ~replaced-by, ~superseded-by
-- owned-by: X is maintained or decided by person or team Y | aka: maintained-by, managed-by, run-by, approved-by, decided-by, set-by, signed-off-by, agreed-by, ~owns, ~maintains
+- trained-on: model X was fit on dataset Y | aka: fit-on, fitted-on, trained-with | shape: model → dataset
+- evaluated-on: X was measured on dataset or segment Y | aka: tested-on, validated-on, measured-on, scored-on, backtested-on | shape: * → dataset
+- measured-by: X is judged by metric Y | aka: reports, reports-metric, has-metric, measures, measured-in, scored-by, optimizes, optimises, targets, ~metric-of | shape: * → metric
+- replaces: X is the newer version of Y | aka: supersedes, retires, ~replaced-by, ~superseded-by | shape: same
+- owned-by: X is maintained or decided by person or team Y | aka: maintained-by, managed-by, run-by, approved-by, decided-by, set-by, signed-off-by, agreed-by, ~owns, ~maintains | shape: * → party
 drop: related-to, associated-with, about, mentions, relates-to, answers, answered-by, basis-for, evidence-for, led-to, leads-to, motivates, motivated-by, informs, follows, confirms, explains, supports, overturned-by
 """
 PACKS = {  # seed vocabularies for other domains: `pack: software` in EDGES.md adds these lines (they count in the budget)
@@ -151,20 +141,171 @@ PACKS = {  # seed vocabularies for other domains: `pack: software` in EDGES.md a
 ALIASES_HEAD = ("# ALIASES — entity ids that name the same thing; the first id on a line is canonical. "
                 "Edit freely.\n")
 
+KINDS_SEED = """# KINDS — kinds of note. A note's kind is its frontmatter `type:`, else the kind whose prefix starts its filename
+# (`exp-014` → experiment; `…-vN` is a model), else the kind of its area (`prefs/` → preference), else note. One line per
+# kind: `- kind: definition | prefix: a, b | area: x, y | family: parent | role: R | digest: current | conflicts: yes
+# | answers: yes | not: what it is not`. role ∈ question, evidence, state, rule, reference, log; project work is question,
+# evidence and state. `answers: yes` kinds answer a question they are built on; `digest: current` kinds head the digest;
+# `conflicts: yes` kinds are compared for disagreement (a child kind counts as its family). `general:` names the areas
+# that span projects.
+# Edit freely: a hand-written line is permanent (0 model calls); `pack: research, ops` adds a domain's kinds.
+# The seed covers data, analytics, software and finance work.
+general: prefs, reporting, glossary, corrections, howto, qa, people, log
+- question: something asked and not yet settled | prefix: q | role: question
+- experiment: a run with a method and a measured result | prefix: exp | family: finding | role: evidence
+- finding: a result or observation that holds until superseded | prefix: fnd, find, finding | role: evidence | conflicts: yes | answers: yes | not: a single run (experiment)
+- incident: a failure, outage, loss or error, and what was learned | prefix: inc | family: finding | role: evidence
+- decision: a choice made, with its reason | prefix: dec | role: state | digest: current | conflicts: yes | answers: yes
+- plan: an intended course of action, with steps or dates | prefix: plan | role: state | digest: current
+- requirement: a stated need or acceptance condition | prefix: req | role: state
+- risk: a known exposure, its size and its owner | prefix: risk | role: state
+- dataset: a table, file, feed or extract, and what it holds | prefix: ds | role: state
+- feature: an input variable or feature set, and how it is built | prefix: feat | role: state
+- model: a trained or rule-based model, scorecard or forecast, one version per note | prefix: model | role: state | digest: current | conflicts: yes
+- metric: how something is measured | prefix: metric | family: term | role: state
+- report: a recurring report, dashboard or deliverable, and its rules | prefix: rpt, report | role: reference
+- term: a defined word or concept | prefix: term | area: glossary | role: reference
+- preference: how a named person wants things done | prefix: pref | area: prefs | family: rule | role: rule
+- rule: a standing rule or procedure for the work | prefix: rule | area: reporting, howto | role: rule
+- correction: a past mistake and the rule that prevents it | area: corrections | family: rule | role: rule
+- log: a dated scratch line | area: log | role: log
+- note: anything else | role: reference
+"""
+KIND_PACKS = {
+    "research": """- hypothesis: a claim to test, and how | prefix: hyp | role: question
+- paper: a paper or report read, and what it claims | prefix: paper | role: reference""",
+    "ops": """- runbook: a procedure to run, check or fix something | prefix: rb | area: runbooks | role: rule
+- change: a change made to a system, when and by whom | prefix: chg | role: state""",
+}
+TYPES_SEED = """# TYPES — kinds of thing the notes name, read "X is a <type>". Constrained open, like EDGES.md: the dreamer types each
+# thing with one of these or an alias; a thing of any other type keeps the dreamer's word, shown as other/<word>; a word
+# becomes a type only over the bar, through the review, within the budget; a (proposed <date>) type still under the bar
+# after the probation goes back to a word. `family:` groups types for the viewer and the shape check (C12); `drop:`
+# names words that are never things (grep finds files and numbers). Edit freely: a hand-written line is permanent
+# (0 model calls); `pack: research, ops` adds a domain's types. The seed covers data, analytics, software and finance.
+promote: 5 uses, 5 notes, 2 areas
+budget: 40
+probation: 60 days
+- person: a named individual | aka: people, user, analyst, engineer, manager, owner | family: party | not: a team or a company
+- team: a named team or group of people | aka: group, squad, crew | family: party
+- organisation: a company, client, vendor, regulator or other body | aka: organization, company, vendor, client, regulator, firm | family: party
+- term: a defined word, concept or method | aka: concept, method, definition, technique | not: a measured quantity (metric)
+- metric: a measured quantity used to judge something | aka: kpi, measure, statistic, score | not: a single value or threshold
+- tool: software or a platform used to do the work | aka: library, platform, framework, package, software | family: system | not: a service the team runs (service)
+- document: a report, deck, specification, policy document or paper named as a thing | aka: report, deck, spec, paper, memo, template
+- dataset: a table, file, feed or extract of records | aka: table, data set, feed, extract, view, source | not: one column of it (feature), one subset of it (segment)
+- segment: a defined subset of records, customers or accounts | aka: cohort, population, subset | family: dataset
+- feature: an input variable or set of variables | aka: column, variable, field, feature set, attribute | not: the table it comes from (dataset)
+- model: a trained or rule-based model, scorecard, forecast or one version of it | aka: scorecard, classifier, forecast model, algorithm
+- pipeline: a job, pipeline or scheduled process that moves or transforms data | aka: job, dag, workflow, etl, process | family: system
+- dashboard: a dashboard or report page people read regularly | aka: report page, bi report | family: document
+- service: a running service, API or application | aka: api, app, application, endpoint, system | family: system
+- module: a code module, package, repository or component | aka: repo, repository, component, class, function, script | family: system
+- environment: a cluster, host, environment or deployment target | aka: cluster, host, prod, staging, region | family: system
+- release: a named version or release of software | aka: version, build, tag | family: system
+- instrument: a security, loan, contract or product that is traded, held or sold | aka: security, bond, loan, product, contract, derivative
+- portfolio: a portfolio, book, fund or set of holdings | aka: book, fund, holdings
+- account: a customer, ledger or trading account | aka: ledger, wallet
+- counterparty: a client, issuer, borrower or counterparty in a transaction | aka: issuer, borrower, lender, obligor | family: party
+- policy: a policy, limit, regulation or control that constrains the work | aka: regulation, limit, control, standard, mandate | family: rule
+- scenario: a stress, forecast or planning scenario | aka: stress test, case, what-if
+- desk: a trading desk, business unit or department | aka: business unit, department, division, unit | family: party
+drop: number, date, file, notebook, note, line, page, link
+"""
+TYPE_PACKS = {
+    "research": """- paper: a paper or published result | aka: article, preprint | family: document
+- method: a named method or algorithm | aka: approach, procedure | family: term""",
+    "ops": """- monitor: a monitor, alert rule or check that watches a system | aka: alert, probe, healthcheck | family: system
+- queue: a queue, topic or channel that carries work | aka: topic, channel, stream | family: system""",
+}
+
+
+def parse_kinds(text):
+    """KINDS.md -> {order, kinds: {kind: {def, prefix, area, family, role, digest, conflicts}}, general, bad}."""
+    out = {"order": [], "kinds": {}, "general": set(), "bad": []}
+    for i, ln in enumerate(expand_packs(text, KIND_PACKS).split("\n"), 1):
+        s = ln.strip()
+        if not s or s.startswith("#"):
+            continue
+        g = re.match(r"general\s*:(.*)$", s, re.I)
+        m = re.match(r"-\s*([^:|]+?)\s*:\s*(.*)$", s)
+        if g:
+            out["general"] |= {a.strip().lower() for a in g.group(1).split(",") if a.strip()}
+        elif re.match(r"pack\s*:", s, re.I):
+            continue
+        elif m:
+            k = fold(m.group(1))
+            segs = [x.strip() for x in m.group(2).split("|")]
+            d = {"def": segs[0], "prefix": [], "area": [], "family": k, "role": "reference", "digest": False, "conflicts": False, "answers": False, "not": ""}
+            for seg in segs[1:]:
+                key, _, val = seg.partition(":")
+                key, val = key.strip().lower(), val.strip()
+                if key in ("prefix", "area"):
+                    d[key] = [fold(x) for x in val.split(",") if x.strip()]
+                elif key == "family":
+                    d["family"] = fold(val)
+                elif key == "role":
+                    d["role"] = fold(val)
+                elif key == "digest":
+                    d["digest"] = val.lower() in ("current", "yes", "true")
+                elif key == "conflicts":
+                    d["conflicts"] = val.lower() in ("yes", "true")
+                elif key == "answers":
+                    d["answers"] = val.lower() in ("yes", "true")
+                elif key == "not":
+                    d["not"] = val
+            out["kinds"][k] = d
+            out["order"].append(k)
+        else:
+            out["bad"].append((i, s))
+    return out
+
+
+def domain_texts(root):
+    k, t = root / "KINDS.md", root / "TYPES.md"
+    return (read(k) if k.exists() else KINDS_SEED), (read(t) if t.exists() else TYPES_SEED)
+
+
+def domain_from(kt, tt, et):
+    """The module's domain tables from the three files' texts."""
+    kc, tv, ev = parse_kinds(kt), parse_edges(tt, TYPE_PACKS), parse_edges(et)
+    ks = kc["kinds"]
+    return {"PREFIX_KIND": {p: k for k, d in ks.items() for p in d["prefix"]},
+            "AREA_KIND": {a: k for k, d in ks.items() for a in d["area"]},
+            "KINDS": set(ks), "KIND_ORDER": kc["order"],
+            "KIND_PARENT": {k: d["family"] for k, d in ks.items() if d["family"] != k},
+            "GENERAL": kc["general"],
+            "WORK": {k for k, d in ks.items() if d["role"] in ("question", "evidence", "state")},
+            "CONFLICT_KINDS": {k for k, d in ks.items() if d["conflicts"]},
+            "DIGEST_KINDS": {k for k, d in ks.items() if d["digest"]},
+            "ANSWER_KINDS": {k for k, d in ks.items() if d["answers"]},
+            "ROLE_OF": {k: d["role"] for k, d in ks.items()},
+            "TYPE_PARENT": tv[5]["family"], "SHAPES": {**SEED_SHAPES, **ev[5]["shape"]}}
+
+
+def load_domain(root):
+    """Read KINDS.md, TYPES.md and EDGES.md of this memory (seeds when absent) into the module's domain tables."""
+    globals().update(domain_from(*domain_texts(root), vocab_texts(root)[0]))
+
+
 EXTRACT = """Index this memory note for retrieval. Reply with JSON only:
-{"kind": "question|experiment|finding|decision|dataset|feature|model|metric|term|preference|rule|log|note",
- "entities": [{"id": "...", "type": "dataset|feature|model|metric|segment|person|team|term|tool",
+{"kind": "one of KINDS",
+ "entities": [{"id": "...", "type": "a TYPES type or alias, or other", "label": "the note's own word for what it is, 1-2 words",
                "as": ["text copied verbatim from the note"]}],
  "relations": [{"s": "entity id", "type": "an EDGES type or alias, or other", "label": "the note's own verb, 1-3 words",
                 "o": "entity id", "quote": "short text copied verbatim from the note that states it"}],
  "refs": ["ids or paths of other notes the text explicitly points to"]}
-Entities are things someone would look up across notes: tables, features, models, metrics, segments,
-people, teams, defined terms. Not columns, files, notebooks, numbers, or note ids (those go in refs).
+Entities are things someone would look up across notes; TYPES says which. Not numbers, dates, files,
+notebooks or note ids (those go in refs). Type each with a TYPES type or one of its aliases; if none fits
+a real thing, type is other and the label says what it is (a word that becomes common is offered as a type).
 If an entity is in KNOWN, reuse its id. Otherwise id = its most specific name, lowercase, spaces to
 hyphens; a table keeps its dots (cards.txn_daily).
 Relations: only ones the note states, read "s <type> o". Use an EDGES type or one of its aliases
 (aliases marked ~ read in reverse) and always give the label. If no type fits a real link between two
 things, type is other: the label is kept and shown, and becomes a type once it is common.
+KINDS: {kinds}
+TYPES:
+{types}
 EDGES:
 {edges}
 KNOWN:
@@ -172,7 +313,7 @@ KNOWN:
 NOTE {path}:
 {text}
 """
-REVIEW = """You keep the vocabulary of a data-science memory.
+REVIEW = """You keep the vocabulary of a memory of work notes.
 RELATION TYPES, read "X <type> Y" ({n} of {budget} slots used):
 {edges}
 LABELS the indexer used that fit no type, each over the bar of {u} uses in {nn} notes across {a} areas
@@ -182,18 +323,25 @@ ENTITY PAIRS that may name the same thing (id, type, surface forms, one context 
 {pairs}
 LIVE NOTES of one kind in one area that may disagree (path · "title" «first line»; neither supersedes the other):
 {conflicts}
+THING TYPES, read "X is a <type>" ({tn} of {tbudget} slots used):
+{types}
+TYPE WORDS the indexer used for things that fit no type, each over the bar (uses, notes, areas; up to 3 examples "id: as written"):
+{etypes}
 Reply with JSON only:
 {"types": {"<label>": "alias T" | "alias ~T" | "new: <one line: what the link means and how it differs from the closest type>" | "label" | "drop"},
  "entities": {"<a> / <b>": "same" | "different"},
- "conflicts": {"<a> / <b>": "<a> supersedes <b>" | "<b> supersedes <a>" | "compatible" | "unsure"}}
+ "conflicts": {"<a> / <b>": "<a> supersedes <b>" | "<b> supersedes <a>" | "compatible" | "unsure"},
+ "etypes": {"<word>": "alias T" | "new: <one line: what the thing is and how it differs from the closest type> | family: <a listed family or the word itself>" | "label" | "drop"}}
 Map a label onto T when it names the same link as T, as a synonym ("alias T") or read in reverse
 ("alias ~T"). Answer "new: …" only for a link between two things that no listed type expresses and that
 the notes will keep using; name the closest type and the difference. Answer "label" to keep it as a plain
 label. Drop only what links notes rather than things (answers, led-to, basis-for) or is a conversation
 (asked-by, raised-by). When unsure between alias and new, alias; when unsure between new and drop, label.
+A type word: "alias T" when it is a kind of T; "new: …" only for a kind of thing people will keep looking up
+across notes; "label" to keep the word; "drop" for what is not a thing (a number, a file, a date).
 If unsure whether two entities are the same thing, answer different. Versions (v2, v3) are different.
 Two notes: the newer one supersedes the older when it decides or states the same thing differently (a new
-cutoff, a newer model as the current one); they are compatible when they are about different things or
+threshold, a newer version as the current one); they are compatible when they are about different things or
 one builds on the other; otherwise unsure. Never invent paths: copy them from the pair.
 """
 
@@ -451,7 +599,7 @@ def ground(ans, text):
             kept[k]["lines"] = sorted(set(kept[k]["lines"]) | set(lines))
             continue
         kept[k] = {"id": str(e["id"]).strip(), "type": str(e.get("type") or "other").strip().lower(),
-                   "as": ok, "lines": lines}
+                   "label": str(e.get("label") or "").strip().lower(), "as": ok, "lines": lines}
         ents.append(kept[k])
     rels = []
     for r in ans.get("relations") or []:
@@ -476,11 +624,23 @@ def ground(ans, text):
 PROPOSED_RX = re.compile(r"\s*\(proposed (\d{4}-\d\d-\d\d)\)\s*")
 
 
-def expand_packs(text):
-    """EDGES.md with its `pack: software, …` lines expanded into the packs' type lines."""
+def expand_packs(text, packs=None):
+    """A vocabulary file with its `pack: software, …` lines expanded into the packs' lines."""
+    packs = PACKS if packs is None else packs
     names = [p.strip().lower() for ln in text.split("\n") for m in [re.match(r"\s*pack\s*:(.*)$", ln, re.I)] if m
              for p in m.group(1).split(",") if p.strip()]
-    return text + "".join("\n" + PACKS[n] for n in names if n in PACKS)
+    return text + "".join("\n" + packs[n] for n in names if n in packs)
+
+
+def parse_shape(v):
+    """`model → dataset`, `* → metric`, `same` -> (subject family or None, object family or None) or ("same", "same")."""
+    v = v.strip()
+    if fold(v) == "same":
+        return ("same", "same")
+    parts = re.split(r"\s*(?:→|->)\s*", v)
+    if len(parts) != 2:
+        return None
+    return tuple(None if p.strip() in ("*", "") else fold(p) for p in parts)
 
 
 def edges_cfg(text):
@@ -507,22 +667,38 @@ def edges_cfg(text):
     return cfg
 
 
-def parse_edges(text):
-    """-> types {T: {def, aka}}, alias {folded: (T, reversed)}, drop, raw type lines, bad lines."""
+def parse_edges(text, packs=None):
+    """A vocabulary file (EDGES.md, or TYPES.md with packs=TYPE_PACKS) -> types {T: {def, aka, family, shape}},
+    alias {folded: (T, reversed)}, drop, raw type lines, bad lines, extra {family: {T: F}, shape: {T: (s, o)}}.
+    A line is `- type: definition | aka: a, ~b | family: parent | shape: s → o`, the fields after the definition in any order."""
     types, alias, drop, tl, bad = {}, {}, set(), [], []
-    for i, ln in enumerate(expand_packs(text).split("\n"), 1):
+    extra = {"family": {}, "shape": {}}
+    for i, ln in enumerate(expand_packs(text, packs).split("\n"), 1):
         s = ln.strip()
         if not s or s.startswith("#"):
             continue
         m = re.match(r"-\s*([^:|]+?)\s*:\s*(.*)$", s)
         d = re.match(r"drop\s*:(.*)$", s, re.I)
-        if re.match(r"(mode|promote|budget|probation|pack)\s*:", s, re.I):  # settings: edges_cfg reads them
+        if re.match(r"(mode|promote|budget|probation|pack|general)\s*:", s, re.I):  # settings: edges_cfg reads them
             continue
         if m:
             t = fold(PROPOSED_RX.sub("", m.group(1)))
-            parts = re.split(r"\|\s*aka\s*:", m.group(2), maxsplit=1)
-            aka = [a.strip() for a in parts[1].split(",") if a.strip()] if len(parts) > 1 else []
-            types[t] = {"def": parts[0].strip(), "aka": aka}
+            segs = [x.strip() for x in m.group(2).split("|")]
+            aka, fam, shape = [], None, None
+            for seg in segs[1:]:
+                key, _, val = seg.partition(":")
+                key = key.strip().lower()
+                if key == "aka":
+                    aka += [a.strip() for a in val.split(",") if a.strip()]
+                elif key == "family":
+                    fam = fold(val)
+                elif key == "shape":
+                    shape = parse_shape(val)
+            types[t] = {"def": segs[0], "aka": aka, "family": fam or t, "shape": shape}
+            if fam and fam != t:
+                extra["family"][t] = fam
+            if shape:
+                extra["shape"][t] = shape
             alias.setdefault(t, (t, False))
             for a in aka:
                 alias.setdefault(fold(a.lstrip("~")), (t, a.startswith("~")))
@@ -531,7 +707,7 @@ def parse_edges(text):
             drop |= {fold(x) for x in d.group(1).split(",") if x.strip()}
         else:
             bad.append((i, s))
-    return types, alias, drop, tl, bad
+    return types, alias, drop, tl, bad, extra
 
 
 def split_pair(s):
@@ -569,8 +745,14 @@ def edit_edges(text, op, t, arg="", date=None):
                 return k
         return -1
 
-    def add_aka(k, a):
-        lines[k] += (", " if re.search(r"\|\s*aka\s*:", lines[k]) else " | aka: ") + a
+    def add_aka(k, a):  # into the aka field, before any field that follows it
+        segs = lines[k].split("|")
+        j = next((i for i, seg in enumerate(segs) if re.match(r"\s*aka\s*:", seg)), -1)
+        if j >= 0:
+            segs[j] = segs[j].rstrip() + ", " + a + " "
+            lines[k] = "|".join(segs).rstrip()
+        else:
+            lines[k] = (segs[0].rstrip() + " | aka: " + a + (" | " + "|".join(segs[1:]).strip() if len(segs) > 1 else "")).rstrip()
 
     dk = next((k for k, ln in enumerate(lines) if re.match(r"\s*drop\s*:", ln, re.I)), -1)
     if op == "alias":
@@ -607,6 +789,10 @@ def parse_conflicts(text):
         else:
             bad.append((i, s))
     return sup, compat, unsure, bad
+
+
+SEED_SHAPES = parse_edges(EDGES_SEED)[5]["shape"]  # EDGES.md files written before `shape:` fields existed keep these
+globals().update(domain_from(KINDS_SEED, TYPES_SEED, EDGES_SEED))  # the module's defaults: the seeds
 
 
 def title_tokens(title):
@@ -831,6 +1017,7 @@ def decided(a, b, gkeys, nots):
 
 def notes_part(root, man, cur, former, xs=None, facts=None):
     """The half of the graph that the vocabulary does not touch: notes, lineage edges, note warnings."""
+    load_domain(root)
     checks = []
     notes, aux, by_stem = {}, {}, defaultdict(list)
     for rel in sorted(cur):
@@ -916,24 +1103,96 @@ def notes_part(root, man, cur, former, xs=None, facts=None):
     return {"notes": notes, "aux": aux, "edges": edges, "checks": checks}
 
 
+def canon_occ(occ, talias, tdrop):
+    """Entity occurrences with their type read through TYPES.md: a type or alias becomes the type; a word that fits
+    none stays as other/<word> and is counted for the review; a dropped word (a file, a number) removes the occurrence.
+    -> occurrences, {word: {type, uses, notes, areas, examples}}."""
+    out, props = [], {}
+    for rel, e in occ:
+        raw, lbl = fold(e.get("type") or "other"), fold(e.get("label") or "")
+        if raw in talias:
+            T = talias[raw][0]
+        elif lbl and lbl in talias:
+            T = talias[lbl][0]
+        elif raw in tdrop or (lbl and lbl in tdrop):
+            continue
+        elif raw in ("other", "") and not lbl:
+            T = "other"
+        else:
+            w = lbl or raw
+            T = f"other/{w}"
+            p = props.setdefault(w, {"type": w, "uses": 0, "notes": set(), "areas": set(), "examples": []})
+            p["uses"] += 1
+            p["notes"].add(rel)
+            p["areas"].add(rel.split("/")[0] if "/" in rel else "")
+            if len(p["examples"]) < 3:
+                p["examples"].append(f"{e['id']}: {(e.get('as') or [e['id']])[0]}")
+        out.append((rel, {**e, "type": T}))
+    return out, props
+
+
+def vocab_gate(props, cfg, n_types, usage, now, noun, shown):
+    """The constrained-open gate shared by relation labels and type words: -> (proposed over the bar while the budget
+    has room, below the bar, proposed types to demote after their probation, C7 checks)."""
+    U, Nn, A = cfg["promote"]
+    for p in props.values():
+        if not isinstance(p["notes"], int):
+            p["notes"], p["areas"] = len(p["notes"]), len(p["areas"])
+    over = [p for p in props.values() if p["uses"] >= U and p["notes"] >= Nn and p["areas"] >= A]
+    below = sorted((p for p in props.values() if p not in over), key=lambda p: (-p["uses"], p["type"]))
+    over.sort(key=lambda p: (-p["uses"], p["type"]))
+    full = n_types >= cfg["budget"]
+    proposed = [] if full else over  # a full budget offers nothing: a person merges or demotes a type first
+    checks = [("C7", f"{noun} {p['type']} ×{p['uses']} ({p['notes']} notes, {p['areas']} areas) awaits review") for p in proposed]
+    if full and over:
+        checks.append(("C7", f"{'type ' if noun != 'label' else ''}vocabulary budget full ({n_types}/{cfg['budget']} types): "
+                       + ", ".join(f"{p['type']} ×{p['uses']}" for p in over[:5]) + f" wait as {noun}s until a type is merged or demoted"))
+    if below:
+        checks.append(("C7", f"{len(below)} {noun}s below the review bar ({U} uses, {Nn} notes, {A} areas), shown as {shown}: "
+                       + ", ".join(f"{p['type']} ×{p['uses']}" for p in below[:5]) + (" …" if len(below) > 5 else "")))
+    demote = []
+    for T, d in cfg["proposed"].items():
+        try:
+            age = (now.date() - dt.date.fromisoformat(d)).days
+        except ValueError:
+            continue
+        u = usage.get(T, {"uses": 0, "notes": set(), "areas": set()})
+        if age >= cfg["probation"] and not (u["uses"] >= U and len(u["notes"]) >= Nn and len(u["areas"]) >= A):
+            demote.append(T)
+    return proposed, below, demote, checks
+
+
 def build(root, man, cur, former, et, at, xs=None, now=None, facts=None, base=None):
     """The graph = union of current notes' cached subgraphs, renamed by EDGES.md and ALIASES.md. `base` reuses the
     note half (notes_part) when only the vocabulary changed."""
     now = now or dt.datetime.now()
-    types, alias, drop, _, bad_e = parse_edges(et)
+    load_domain(root)
+    types, alias, drop, _, bad_e, e_extra = parse_edges(et)
     alines, nots, bad_a = parse_aliases(at)
+    kt, tt = domain_texts(root)
+    ttypes, talias, tdrop, _, bad_t, t_extra = parse_edges(tt, TYPE_PACKS)
     checks = [("C8", f"EDGES.md:{i}: {s}") for i, s in bad_e] + [("C8", f"ALIASES.md:{i}: {s}") for i, s in bad_a]
+    checks += [("C8", f"TYPES.md:{i}: {s}") for i, s in bad_t] + [("C8", f"KINDS.md:{i}: {s}") for i, s in parse_kinds(kt)["bad"]]
     base = base or notes_part(root, man, cur, former, xs, facts)
     notes, aux, edges = base["notes"], base["aux"], base["edges"]
     checks += base["checks"]
 
-    occ = [(rel, e) for rel in notes if aux[rel]["x"] for e in aux[rel]["x"].get("entities", [])]
+    occ, tprops = canon_occ(((rel, e) for rel in notes if aux[rel]["x"] for e in aux[rel]["x"].get("entities", [])), talias, tdrop)
     homes = defaultdict(list)  # a note whose slug is an entity's id is that entity's home
     for rel, n in notes.items():
         if n["project"] != "log":
             homes[fold(n["id"])].append(rel)
     dedup = Counter()
     ents, cmap, gkeys = merge_entities(occ, alines, nots, homes, dedup)
+    tcfg = edges_cfg(tt)
+    tusage = {}  # thing types in use, for the probation of proposed types
+    for e in ents.values():
+        u = tusage.setdefault(e["type"], {"uses": 0, "notes": set(), "areas": set()})
+        u["uses"] += sum(len(m["lines"]) for m in e["mentions"])
+        u["notes"] |= {m["path"] for m in e["mentions"]}
+        u["areas"] |= {m["path"].split("/")[0] if "/" in m["path"] else "" for m in e["mentions"]}
+    proposed_t, tbelow, tdemote, tchecks = vocab_gate(tprops, tcfg, len(ttypes), tusage, now, "type word", "other/<word>")
+    checks += tchecks
     cfg = edges_cfg(et)
     U, Nn, A = cfg["promote"]
     rels, props = {}, {}
@@ -981,37 +1240,24 @@ def build(root, man, cur, former, et, at, xs=None, now=None, facts=None, base=No
         if a and b and a != b and not decided(a, b, gkeys, nots):
             pairs.add(tuple(sorted((a, b), key=fold)))
     pairs = sorted(pairs, key=lambda p: (fold(p[0]), fold(p[1])))
-    for p in props.values():
-        p["notes"], p["areas"] = len(p["notes"]), len(p["areas"])
-    over = [p for p in props.values() if p["uses"] >= U and p["notes"] >= Nn and p["areas"] >= A]
-    below = sorted((p for p in props.values() if p not in over), key=lambda p: (-p["uses"], p["type"]))
-    over.sort(key=lambda p: (-p["uses"], p["type"]))
-    n_types, full = len(types), len(types) >= cfg["budget"]
-    proposed = [] if full else over  # a full budget offers nothing: a person merges or demotes a type first
-    checks += [("C7", f"label {p['type']} ×{p['uses']} ({p['notes']} notes, {p['areas']} areas) awaits review") for p in proposed]
-    if full and over:
-        checks.append(("C7", f"vocabulary budget full ({n_types}/{cfg['budget']} types): "
-                       + ", ".join(f"{p['type']} ×{p['uses']}" for p in over[:5]) + " wait as labels until a type is merged or demoted"))
-    if below:
-        checks.append(("C7", f"{len(below)} labels below the review bar ({U} uses, {Nn} notes, {A} areas), shown as other/<label>: "
-                       + ", ".join(f"{p['type']} ×{p['uses']}" for p in below[:5]) + (" …" if len(below) > 5 else "")))
     usage = {}  # probation: a proposed type still under the bar after its probation is demoted to a label (0 calls)
     for (s, T, o), rec in rels.items():
         u = usage.setdefault(T, {"uses": 0, "notes": set(), "areas": set()})
         u["uses"] += len(rec["evidence"])
         u["notes"] |= {ev.rsplit(":", 1)[0] for ev in rec["evidence"]}
         u["areas"] |= {ev.split("/")[0] if "/" in ev else "" for ev in rec["evidence"]}
-    demote = []
-    for T, d in cfg["proposed"].items():
-        try:
-            age = (now.date() - dt.date.fromisoformat(d)).days
-        except ValueError:
-            continue
-        u = usage.get(T, {"uses": 0, "notes": set(), "areas": set()})
-        if age >= cfg["probation"] and not (u["uses"] >= U and len(u["notes"]) >= Nn and len(u["areas"]) >= A):
-            demote.append(T)
+    proposed, below, demote, vchecks = vocab_gate(props, cfg, len(types), usage, now, "label", "other/<label>")
+    checks += vchecks
+    n_types = len(types)
     checks += [("C7", f"entities {a} / {b} await review") for a, b in pairs]
-    checks += shape_checks(ents, rels)
+    checks += shape_checks(ents, rels, {**SEED_SHAPES, **e_extra["shape"]}, t_extra["family"])
+    was = man.get("registry") or {}  # a type removed by hand is never lost: its readings stay as other/<word>; say so
+    for name, had, have, als, used in (("EDGES.md", was.get("edges", []), types, alias, {k for (_, k, _) in rels} | {p for p in props}),
+                                        ("TYPES.md", was.get("types", []), ttypes, talias, {e["type"] for e in ents.values()} | set(tprops))):
+        for T in had:
+            if T not in have and T not in als and (T in used or f"other/{T}" in used):
+                checks.append(("C13", f"{name}: type {T} was removed while readings still use it; they now show as other/{T} — "
+                               f"merge it instead (add {T} to another type's aka) or restore the line"))
     cf = root / "CONFLICTS.md"
     _, compat, unsure, _ = parse_conflicts(read(cf)) if cf.exists() else ([], set(), set(), [])
     conflicts = [c for c in conflict_candidates(notes, edges, unsure) if frozenset((c["a"], c["b"])) not in compat]
@@ -1024,6 +1270,9 @@ def build(root, man, cur, former, et, at, xs=None, now=None, facts=None, base=No
             "edges": edges, "proposed": proposed, "review": [{"a": a, "b": b} for a, b in pairs], "conflicts": conflicts,
             "vocab": {"types": n_types, "budget": cfg["budget"], "promote": [U, Nn, A], "probation": cfg["probation"],
                       "labels": len(props), "below": len(below), "demote": sorted(demote)},
+            "proposed_types": proposed_t,
+            "tvocab": {"types": len(ttypes), "budget": tcfg["budget"], "promote": list(tcfg["promote"]), "probation": tcfg["probation"],
+                       "labels": len(tprops), "below": len(tbelow), "demote": sorted(tdemote)},
             "dedup": dict(dedup),
             "checks": [{"code": c, "msg": m} for c, m in sorted(checks, key=lambda z: z[0])]}
 
@@ -1090,7 +1339,7 @@ def validate(g, types=None):
             if not m or m.group(1) not in paths or int(m.group(2)) < 1:
                 bad.append(f"relation {r['s']} {t} {r['o']}: evidence {ev!r} is not path:line of a note")
     bad += [f"conflict {c.get('a')} / {c.get('b')}: unknown note" for c in g["conflicts"] if c.get("a") not in paths or c.get("b") not in paths]
-    bad += [f"check {c.get('code')}: unknown code" for c in g["checks"] if not re.fullmatch(r"C(?:[1-9]|1[0-2])", str(c.get("code", "")))]
+    bad += [f"check {c.get('code')}: unknown code" for c in g["checks"] if not re.fullmatch(r"C(?:[1-9]|1[0-3])", str(c.get("code", "")))]
     if [c["code"] for c in g["checks"]] != sorted(c["code"] for c in g["checks"]):
         bad.append("checks are not sorted by code")
     return bad
@@ -1101,9 +1350,10 @@ def conflicts_text(root):
     return read(cf) if cf.exists() else ""
 
 
-def vsig(et, at, ct=""):
-    """Signature of the user-owned files that shape the graph without a model: EDGES.md, ALIASES.md, CONFLICTS.md."""
-    return hashlib.sha256((et + "\0" + at + "\0" + ct).encode()).hexdigest()[:16]
+def vsig(et, at, ct="", kt="", tt=""):
+    """Signature of the user-owned files that shape the graph without a model: EDGES.md, ALIASES.md, CONFLICTS.md,
+    KINDS.md, TYPES.md."""
+    return hashlib.sha256("\0".join((et, at, ct, kt, tt)).encode()).hexdigest()[:16]
 
 
 def load(root):
@@ -1112,7 +1362,7 @@ def load(root):
     cur, former, _, _ = scan(root, man)
     et, at = vocab_texts(root)
     same = {p: f["sha"] for p, f in cur.items()} == {p: f["sha"] for p, f in man.get("files", {}).items()}
-    if same and man.get("vsig") == vsig(et, at, conflicts_text(root)) and (man.get("code") == CODE or len(cur) > WIDE):
+    if same and man.get("vsig") == vsig(et, at, conflicts_text(root), *domain_texts(root)) and (man.get("code") == CODE or len(cur) > WIDE):
         g = rd(root / "_dream" / "graph.json") or read_index(root / "_dream")
         if g and g.get("v") == V:
             return g, former
@@ -1243,7 +1493,7 @@ def write_index(dd, g):
         CREATE TABLE rels(s TEXT, type TEXT, o TEXT, ev TEXT);
         CREATE TABLE checks(code TEXT, msg TEXT);""")
     with db:
-        db.executemany("INSERT INTO meta VALUES (?,?)", [(k, json.dumps(g.get(k))) for k in ("schema", "v", "built", "proposed", "review", "dedup", "vocab", "conflicts")])
+        db.executemany("INSERT INTO meta VALUES (?,?)", [(k, json.dumps(g.get(k))) for k in ("schema", "v", "built", "proposed", "review", "dedup", "vocab", "conflicts", "proposed_types", "tvocab")])
         db.executemany("INSERT INTO notes VALUES (?,?,?,?,?,?,?,?,?,?)",
                        ((n["path"], n["id"], n["project"], n["title"], n["line"], n["kind"], n["updated"], n["sha"],
                          int(n["indexed"]), json.dumps(n["superseded_by"])) for n in g["notes"]))
@@ -1376,9 +1626,10 @@ class Dream:
 
     def __init__(self, args, root):
         self.args, self.root = args, root
-        for name, seed in (("EDGES.md", EDGES_SEED), ("ALIASES.md", ALIASES_HEAD)):
+        for name, seed in (("EDGES.md", EDGES_SEED), ("ALIASES.md", ALIASES_HEAD), ("KINDS.md", KINDS_SEED), ("TYPES.md", TYPES_SEED)):
             if not (root / name).exists():
                 wr(root / name, seed)
+        load_domain(root)
         self.dd, self.now = root / "_dream", dt.datetime.now()
         self.pend = self.dd / "pending"
         self.man = rd(self.dd / "manifest.json", {}) or {}
@@ -1405,7 +1656,7 @@ class Dream:
         return (not a.all and not a.review and man.get("v") == V and man.get("code") == CODE
                 and man.get("unindexed") == 0 and not man.get("due")
                 and {p: f["sha"] for p, f in cur.items()} == {p: f["sha"] for p, f in man.get("files", {}).items()}
-                and man.get("vsig") == vsig(*vocab_texts(root), conflicts_text(root))
+                and man.get("vsig") == vsig(*vocab_texts(root), conflicts_text(root), *domain_texts(root))
                 and (dd / "index.db").exists() and (dd / "graph.html").exists() and (root / "DIGEST.md").exists()
                 and not any(self.pend.glob("*.json"))
                 and {f["sha"][:12] + ".json" for f in cur.values()} <= set(os.listdir(dd / "notes")))
@@ -1421,7 +1672,10 @@ class Dream:
         self.facts = self.store.facts(root, cur)
         self.xs = self.store.extractions(self.by_sha)
         et, at = vocab_texts(root)
+        kt, tt = domain_texts(root)
         self.tlines = parse_edges(et)[3]
+        self.ty_lines = parse_edges(tt, TYPE_PACKS)[3]
+        self.kind_names = ", ".join(parse_kinds(kt)["order"])
         self.alines, self.nots, _ = parse_aliases(at)
         self.homes = defaultdict(list)
         for rel in cur:
@@ -1437,7 +1691,8 @@ class Dream:
 
     def entities_now(self):
         xs, cur = self.xs, self.cur
-        occ = [(rel, e) for rel in cur if cur[rel]["sha"][:12] in xs for e in xs[cur[rel]["sha"][:12]]["entities"]]
+        _, talias, tdrop, _, _, _ = parse_edges(domain_texts(self.root)[1], TYPE_PACKS)
+        occ, _ = canon_occ(((rel, e) for rel in cur if cur[rel]["sha"][:12] in xs for e in xs[cur[rel]["sha"][:12]]["entities"]), talias, tdrop)
         return merge_entities(occ, self.alines, self.nots, self.homes)[0]
 
     def prompt_for(self, h, ents):
@@ -1447,7 +1702,8 @@ class Dream:
         text = read(self.root / rel)
         if len(text) > NOTE_CAP:
             text = text[:NOTE_CAP] + f"\n… [{len(text) - NOTE_CAP} more characters cut: the note is far over the 40-line rule]"
-        pr = fill(EXTRACT, edges="\n".join(self.tlines), known=known_lines(ents, rel.split("/")[0]), path=rel, text=text)
+        pr = fill(EXTRACT, kinds=self.kind_names, types="\n".join(self.ty_lines), edges="\n".join(self.tlines),
+                  known=known_lines(ents, rel.split("/")[0]), path=rel, text=text)
         return pr, pr.index("\nNOTE ") + 1
 
     def ingest(self, h, ans):
@@ -1520,23 +1776,30 @@ class Dream:
         return build(self.root, man, self.cur, self.former, e2, a2, xs=self.xs, now=self.now, facts=self.facts, base=self.base)
 
     def demote(self, g):
-        """Probation over and still under the bar: the type goes back to a label, 0 calls."""
-        if not g["vocab"]["demote"]:
+        """Probation over and still under the bar: the type goes back to a label (EDGES.md) or a word (TYPES.md), 0 calls."""
+        if not g["vocab"]["demote"] and not g["tvocab"]["demote"]:
             return g
-        e2 = vocab_texts(self.root)[0]
-        for T in g["vocab"]["demote"]:
-            e2 = edit_edges(e2, "demote", T)
-        wr(self.root / "EDGES.md", e2)
-        self.review["demoted"] = len(g["vocab"]["demote"])
+        if g["vocab"]["demote"]:
+            e2 = vocab_texts(self.root)[0]
+            for T in g["vocab"]["demote"]:
+                e2 = edit_edges(e2, "demote", T)
+            wr(self.root / "EDGES.md", e2)
+        if g["tvocab"]["demote"]:
+            t2 = domain_texts(self.root)[1]
+            for T in g["tvocab"]["demote"]:
+                t2 = edit_edges(t2, "demote", T)
+            wr(self.root / "TYPES.md", t2)
+        self.review["demoted"] = len(g["vocab"]["demote"]) + len(g["tvocab"]["demote"])
         return self.graph()
 
     def review_prompt(self, g):
         """-> (prompt or None, labels offered, entity pairs offered, conflicts offered)."""
         root = self.root
         props = g["proposed"][:40]
+        tprops = g.get("proposed_types", [])[:40]
         pairs = [(r["a"], r["b"]) for r in g["review"]][:30]
         conflicts = [c for c in g["conflicts"] if not c["unsure"]][:CONFLICT_MAX]
-        if not props and not pairs and not conflicts:
+        if not props and not pairs and not conflicts and not tprops:
             return None, props, pairs, conflicts
         ents = {e["id"]: e for e in g["entities"]}
         nmap = {n["path"]: n for n in g["notes"]}
@@ -1553,9 +1816,12 @@ class Dream:
         def desc(c):
             e = ents[c]
             return f"{c} ({e['type']}; " + "; ".join(f'"{n["name"]}"' for n in e["names"][:3]) + f") «{ctx(e)}»"
-        vc = g["vocab"]
+        vc, tv = g["vocab"], g["tvocab"]
         pr = fill(REVIEW, edges="\n".join(parse_edges(vocab_texts(root)[0])[3]), n=vc["types"], budget=vc["budget"],
                   u=vc["promote"][0], nn=vc["promote"][1], a=vc["promote"][2],
+                  types="\n".join(parse_edges(domain_texts(root)[1], TYPE_PACKS)[3]), tn=tv["types"], tbudget=tv["budget"],
+                  etypes="\n".join(f"- {p['type']}: {p['uses']} uses, {p['notes']} notes, {p['areas']} areas; "
+                                    + "; ".join(f'"{x}"' for x in p["examples"]) for p in tprops) or "none",
                   proposals="\n".join(f"- {p['type']}: {p['uses']} uses, {p['notes']} notes, {p['areas']} areas; "
                                       + "; ".join(f'"{x}"' for x in p["examples"]) for p in props) or "none",
                   pairs="\n".join(f"- {a} / {b}: {desc(a)} | {desc(b)}" for a, b in pairs) or "none",
@@ -1631,13 +1897,37 @@ class Dream:
             wr(root / "EDGES.md", e2)
         if a2 != vocab_texts(root)[1]:
             wr(root / "ALIASES.md", a2)
+        t2 = domain_texts(root)[1]  # type words: alias onto a type, a new type with its family, keep the word, or drop it
+        ttypes, talias_all = parse_edges(t2, TYPE_PACKS)[0], parse_edges(t2, TYPE_PACKS)[1]
+        tbudget = edges_cfg(t2)["budget"]
+        tmap = {fold(p["type"]): p for p in g.get("proposed_types", [])}
+        for t, v in (ans.get("etypes") or {}).items():
+            t, v = fold(t), str(v).strip()
+            low = v.lower()
+            tgt = v[5:].strip() if low.startswith("alias") else ""
+            definition = v.split(":", 1)[1].strip() if low.startswith("new") and ":" in v else ""
+            if t in tmap and tgt and fold(tgt.lstrip("~")) in ttypes:
+                t2 = edit_edges(t2, "alias", t, fold(tgt))
+                review["mapped"] += 1
+            elif t in tmap and low == "drop":
+                t2 = edit_edges(t2, "drop", t)
+                review["mapped"] += 1
+            elif t in tmap and low.startswith("new"):
+                if definition and t not in ttypes and t not in talias_all and len(ttypes) < tbudget:
+                    t2 = edit_edges(t2, "new", t, definition, date=now.date().isoformat())
+                    ttypes[t] = {"def": definition, "aka": []}
+                    review["new"] += 1
+                else:
+                    review["refused"] += 1
+        if t2 != domain_texts(root)[1]:
+            wr(root / "TYPES.md", t2)
 
     def run_review(self, g):
         """Command mode: one call when something is due. File mode: ingest review.json if the helper agent left one,
         then write review.prompt.md for what is still due."""
         pend, cmd, args = self.pend, self.cmd, self.args
         open_ = lambda g_: [c for c in g_["conflicts"] if not c["unsure"]]  # noqa: E731
-        if cmd and (args.review or g["proposed"] or g["review"] or open_(g)):
+        if cmd and (args.review or g["proposed"] or g.get("proposed_types") or g["review"] or open_(g)):
             pr, props, pairs, conflicts = self.review_prompt(g)
             if pr:
                 obj, n = call_model(cmd, pr)
@@ -1656,7 +1946,7 @@ class Dream:
                     g = self.graph()
                 rj.unlink()
                 (pend / "review.prompt.md").unlink() if (pend / "review.prompt.md").exists() else None
-            pr = self.review_prompt(g)[0] if args.prompts and (args.review or g["proposed"] or g["review"] or open_(g)) else None
+            pr = self.review_prompt(g)[0] if args.prompts and (args.review or g["proposed"] or g.get("proposed_types") or g["review"] or open_(g)) else None
             if pr:
                 wr(pend / "review.prompt.md", pr)
             elif (pend / "review.prompt.md").exists():
@@ -1694,13 +1984,14 @@ class Dream:
         elif (pend / "TODO.md").exists():
             (pend / "TODO.md").unlink()
         wr(dd / "manifest.json", {"v": V, "code": CODE, "files": cur, "former": self.former,
-                                  "vsig": vsig(e2, a2, conflicts_text(root)),
+                                  "vsig": vsig(e2, a2, conflicts_text(root), *domain_texts(root)),
                                   "seen": sorted(fold(e["id"]) for e in g["entities"]),
+                                  "registry": {"edges": sorted(parse_edges(e2)[0]), "types": sorted(parse_edges(domain_texts(root)[1], TYPE_PACKS)[0])},
                                   "queue": [[r["a"], r["b"]] for r in g["review"]],
                                   "failed": self.failed, "attempts": self.attempts, "refs": refs,
                                   "dreamed": now.isoformat(timespec="seconds"),
                                   "unindexed": sum(1 for n in g["notes"] if not n["indexed"]),
-                                  "due": bool(self.cmd and (g["proposed"] or g["review"]
+                                  "due": bool(self.cmd and (g["proposed"] or g.get("proposed_types") or g["review"]
                                                             or [c for c in g["conflicts"] if not c["unsure"]]))})
         return len(todo_list)
 
@@ -1741,12 +2032,18 @@ def write_digest(root, g, now):
     notes = [n for n in g["notes"] if n["project"] != "log"]
     areas = sorted({n["project"] for n in notes if n["project"]})
     me = [n for n in notes if n["project"] == "prefs" and n["id"].startswith("me-") and not n["superseded_by"]]
+    load_domain(root)
+    heads = sorted(DIGEST_KINDS) or ["decision", "model"]
     live = sorted((n for n in notes if not n["superseded_by"] and n["project"].lower() not in GENERAL
-                   and n["kind"] in ("decision", "model")), key=lambda n: (n["updated"], n["path"]), reverse=True)
-    answered = {e["dst"] for e in g["edges"] if e["rel"] in ("from", "refs")  # a finding or decision built on the question
-                and any(m["path"] == e["src"] and m["kind"] in ("finding", "decision") for m in [next(x for x in g["notes"] if x["path"] == e["src"])])}
-    open_q = sorted((n for n in notes if n["kind"] == "question" and not n["superseded_by"] and n["path"] not in answered),
+                   and n["kind"] in DIGEST_KINDS), key=lambda n: (n["updated"], n["path"]), reverse=True)
+    role = lambda k: ROLE_OF.get(k, ROLE_OF.get(family(k), "reference"))  # noqa: E731
+    by_path = {n["path"]: n for n in g["notes"]}
+    answered = {e["dst"] for e in g["edges"] if e["rel"] in ("from", "refs")  # an answering kind (finding, decision) built on it
+                and by_path[e["src"]]["kind"] in ANSWER_KINDS}
+    open_q = sorted((n for n in notes if role(n["kind"]) == "question" and not n["superseded_by"] and n["path"] not in answered),
                     key=lambda n: (n["updated"], n["path"]), reverse=True)
+    plural = lambda k: k + ("s" if not k.endswith("s") else "")  # noqa: E731
+    head_names = ", ".join(plural(k) for k in heads[:-1]) + (" and " if len(heads) > 1 else "") + plural(heads[-1])
     lines = ["<!-- written by memory.py dream; edit nothing here. To keep it in context every session, import it from "
              "CLAUDE.md with the line: @memory/DIGEST.md -->",
              f"# memory digest · {now.date().isoformat()} · {len(notes)} notes in {len(areas)} areas",
@@ -1756,10 +2053,10 @@ def write_digest(root, g, now):
     if me:
         lines += ["", "## your own preferences"] + [f"- {n['title'][:140]}" for n in me[:10]]
     if live:
-        lines += ["", "## current: the newest live decisions and models"] + \
+        lines += ["", f"## current: the newest live {head_names}"] + \
                  [f"- {n['updated']} {n['project']}: {n['title'][:120]}" for n in live[:DIGEST_HEADS]]
     if open_q:  # free from kinds and lineage: what is asked and not yet answered
-        lines += ["", f"## open questions ({len(open_q)}): no finding or decision builds on them yet"] + \
+        lines += ["", f"## open questions ({len(open_q)}): nothing has been built on them yet"] + \
                  [f"- {n['updated']} {n['project']}: {n['title'][:120]}" for n in open_q[:8]]
     wr(root / "DIGEST.md", "\n".join(lines[:DIGEST_MAX_LINES]) + "\n")
 
@@ -2669,6 +2966,7 @@ def main(argv=None):
     lg.add_argument("-p", help="project")
     args = ap.parse_args(argv)
     root = find_root(args.root or args.root0)
+    load_domain(root)
     if args.verb in ("dream", "log") or (args.verb == "viz" and not args.out):  # REVIEW.md §8 R2: never write there
         why = claude_code_owned(root)
         if why:

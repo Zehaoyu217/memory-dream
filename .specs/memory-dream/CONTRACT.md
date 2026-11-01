@@ -8,8 +8,8 @@ test A38 enforces it on the fixture.
 Conventions. Paths are relative to the memory root with `/` separators and the `.md` suffix (`churn-2026/exp-014.md`).
 A note's **id** is its filename without `.md`; its **project** (area) is the first path segment, `""` at the root. Dates
 are ISO `YYYY-MM-DD`. Line numbers are 1-based file lines. Everything under `_dream/` is derived and disposable; the
-notes and the four user-owned files (`EDGES.md`, `ALIASES.md`, `CONFLICTS.md`, and the generated `DIGEST.md`) are
-not.
+notes and the six user-owned files (`KINDS.md`, `TYPES.md`, `EDGES.md`, `ALIASES.md`, `CONFLICTS.md`, and the generated
+`DIGEST.md`) are not.
 
 ## 1. The graph
 
@@ -27,16 +27,20 @@ Produced by `build()`, written as `_dream/graph.json` (≤ `MEMORY_WIDE` notes) 
 | `proposed` | list of label | labels over the `promote` bar, offered to the review (empty when the budget is full) |
 | `review` | list of `{a, b}` | entity pairs for the review (canonical ids) |
 | `conflicts` | list of conflict | live-note pairs that may disagree |
-| `vocab` | object | `{types, budget, promote: [uses, notes, areas], probation, labels, below, demote: [type]}` |
+| `vocab` | object | `{types, budget, promote: [uses, notes, areas], probation, labels, below, demote: [type]}` — the relation vocabulary (EDGES.md) |
+| `proposed_types` | list of label | type words (things typed outside TYPES.md) over the `promote` bar of TYPES.md, offered to the review |
+| `tvocab` | object | the same shape as `vocab`, for TYPES.md |
 | `dedup` | object | counters from entity merging (`mentions`, `ids_as_written`, `after_folding`, …) |
 | `checks` | list of `{code, msg}` | warnings, sorted by code; codes `C1`–`C12` (§5) |
 
 **note** — `{path, id, project, title, line, kind, updated, superseded_by, sha, indexed}`
 - `title`: the text of the first `# ` line outside code fences (`""` when none → C6); `line`: its file line (0 when none).
 - `kind`: lowercase; frontmatter `type:` wins (Claude Code's `user|feedback|project|reference` map to
-  `preference|rule|note|note`), else the dreamer's kind unless it is `note`, else the filename prefix (first two id
-  segments: `exp- feat- ds- dec- fnd- find- finding- q- metric- model- pref- rule- term-`; `…-vN` → `model`), else the
-  area (`prefs`→preference, `glossary`→term, `corrections`→correction, `reporting`/`howto`→rule, `log`→log), else `note`.
+  `preference|rule|note|note`), else the dreamer's kind unless it is `note` (and only a kind `KINDS.md` lists), else the
+  filename prefix (first two id segments; the prefixes are the `prefix:` fields of `KINDS.md`, seeded `exp- feat- ds- dec-
+  fnd- find- finding- q- metric- model- pref- rule- term- plan- req- risk- inc- rpt- report-`; `…-vN` → `model`), else the
+  area (the `area:` fields, seeded `prefs`→preference, `glossary`→term, `corrections`→correction, `reporting`/`howto`→rule,
+  `log`→log), else `note`.
 - `updated`: frontmatter `updated:` or `modified:` (first 10 chars), else a `log/YYYY-MM-DD` filename, else mtime.
 - `superseded_by`: paths of notes whose `supersedes:` names this note, plus `- a > b` lines of `CONFLICTS.md`; every
   entry has a matching `supersedes` edge.
@@ -48,8 +52,10 @@ same-project filename → C1 if ambiguous, then moved paths; unresolved → C2).
 and body slugs that name a note in the same project or a unique note anywhere.
 
 **entity** — `{id, type, home, aka, names, headline, mentions}`
-- `id`: canonical (the `ALIASES.md` lead, else the most-used spelling); `type`: lowercase (`dataset feature model metric
-  segment person team term tool other`); `aka`: other spellings merged into it; `names`: `[{name, n}]` surface forms
+- `id`: canonical (the `ALIASES.md` lead, else the most-used spelling); `type`: lowercase, a type of `TYPES.md` (the
+  dreamer's type or alias read through the file), **or** `other/<word>` when the dreamer's word fits no type (the word is
+  folded), or `other`; a thing whose word is on the `drop:` line of `TYPES.md` is not an entity; `aka`: other spellings
+  merged into it; `names`: `[{name, n}]` surface forms
   with counts; `home`: the note whose id is this entity's id, or null; `headline`: the best live note mentioning it
   (title-line mention, then finding/decision, then newest), or null; `mentions`: `[{path, lines}]` sorted by path.
 - Kept only with a home note, ≥ 2 mentioning notes, or an `ALIASES.md` line; file-like ids are dropped.
@@ -95,15 +101,17 @@ relation is "current" when one of its evidence notes is live).
 
 ## 4. Caches and the manifest (`_dream/`)
 
-- `notes/<sha12>.json` — one extraction per note content: `{kind, entities: [{id, type, as, lines}], relations:
-  [{s, type, label, o, quote, line}], refs, dropped: {entities, relations}, path, sha, model, indexed_at}`. Entities
-  keep only surface forms (`as`) that occur in the note; relations only with their quote found (the rest counted in
-  `dropped` → C4). Kept `KEEP_DAYS` after last use.
+- `notes/<sha12>.json` — one extraction per note content: `{kind, entities: [{id, type, label, as, lines}], relations:
+  [{s, type, label, o, quote, line}], refs, dropped: {entities, relations}, path, sha, model, indexed_at}`. `type` and
+  `label` are the dreamer's raw words; the registries read them at merge time. Entities keep only surface forms (`as`)
+  that occur in the note; relations only with their quote found (the rest counted in `dropped` → C4). Kept `KEEP_DAYS`
+  after last use.
 - `store.db` — `facts(path, sha, rec)` parsed note facts (`fm`, `title`, `line`, `links`, `ids`, `nul`, `lines`);
   `x(sha, mt, rec)` the extraction, valid while its file's mtime matches.
 - `manifest.json` — `v`, `code` (hash of memory.py), `files {path: {sha, mtime, size}}`, `former {path: [old paths]}`,
-  `vsig` (hash of EDGES + ALIASES + CONFLICTS), `seen`, `queue`, `failed`, `attempts`, `refs`, `dreamed`, `unindexed`,
-  `due`. A dream with nothing changed in any of these stops after the scan.
+  `vsig` (hash of EDGES + ALIASES + CONFLICTS + KINDS + TYPES), `registry` (the type names of EDGES.md and TYPES.md at
+  the last dream, for C13), `seen`, `queue`, `failed`, `attempts`, `refs`, `dreamed`, `unindexed`, `due`. A dream with
+  nothing changed in any of these stops after the scan.
 - `pending/` — `<sha12>.prompt.md` and `review.prompt.md` written by `dream --prompts`, answered as `.json` by a helper
   agent; `TODO.md` lists them. `lock` — pid of a running dream.
 
@@ -113,13 +121,35 @@ relation is "current" when one of its evidence notes is live).
 `C4` an ungrounded entity or relation was dropped · `C5` no extraction yet (one summary line in `check`) · `C6` no `# `
 line · `C7` vocabulary: a label over the bar awaits review, the budget is full, or labels sit below the bar · `C8` an
 unparseable line in EDGES.md, ALIASES.md or CONFLICTS.md · `C9` NUL bytes in a note · `C10` conflict pending ·
-`C11` a note over 40 lines (SKILL.md's own rule) · `C12` a seed-type relation whose entity families are unusual for
-it (`trained-on` is model → dataset, `evaluated-on` → dataset, `measured-by` → metric, `owned-by` → party, `replaces`
-the same family on both sides; families by the class tree below): retype the entity or drop the relation.
+`C11` a note over 40 lines (SKILL.md's own rule) · `C12` a relation whose entity families are unusual for its type
+(the `shape:` field of its EDGES.md line; seeded `trained-on` model → dataset, `evaluated-on` → dataset, `measured-by` →
+metric, `owned-by` → party, `replaces` the same family on both sides; families by the class tree below): retype the
+entity or drop the relation · `C13` a type removed by hand from EDGES.md or TYPES.md while cached readings still use
+its word: the readings show as `other/<word>`; merge the type into another (add the word to that type's `aka`) or
+restore the line. `C7` covers type words of TYPES.md as it covers relation labels.
 
 ## 6. The user-owned files
 
-`EDGES.md`: `promote: U uses, N notes, A areas` · `budget: B` · `probation: D days` · `pack: name, …` · type lines
-`- type[ (proposed YYYY-MM-DD)]: definition | aka: a, ~b, …` · `drop: a, b, …`. `ALIASES.md`: `- canonical = other, …` ·
+The domain is three registries, seeded by the first dream (`KINDS_SEED`, `TYPES_SEED`, `EDGES_SEED` in `memory.py`) and
+read by `load_domain()` before every command. A line is `- name[ (proposed YYYY-MM-DD)]: definition | field: value | …`,
+the fields after the definition in any order; `#` lines are comments; a hand-written line is permanent. Editing any of
+them re-derives the graph from the cached readings at the next dream, with no model call and no note re-read (the
+readings keep the dreamer's raw words; the registries decide what they mean).
+
+`KINDS.md` (kinds of note): `general: a, b, …` (areas that span projects) · `pack: research, ops` · kind lines with
+`prefix: a, b` (filename prefixes), `area: x, y` (areas whose notes default to this kind), `family: parent` (the class
+tree), `role: question|evidence|state|rule|reference|log` (project work = question, evidence, state), `digest: current`
+(heads the digest), `conflicts: yes` (compared for disagreement; a child kind counts as its family), `answers: yes` (a
+note of this kind built on a question answers it), `not: …`.
+
+`TYPES.md` (types of thing): `promote: U uses, N notes, A areas` · `budget: B` · `probation: D days` · `pack: research,
+ops` · type lines with `aka: a, b` (the dreamer's words read as this type), `family: parent`, `not: …` · `drop: a, b`
+(words that are never things). A thing typed outside the file keeps its word as `other/<word>`; words over the bar are
+offered to the review, which may alias them onto a type, admit a new type (with `| family: F`) within the budget, keep
+the word, or drop it; a proposed type still under the bar after the probation is demoted to a word.
+
+`EDGES.md` (types of link): the same settings and `pack: software, research, ops` · type lines with `aka: a, ~b` (`~` =
+read in reverse), `shape: s → o` (`*` for any; `same`) · `drop: a, b`. `ALIASES.md`: `- canonical = other, …` ·
 `not: a / b`. `CONFLICTS.md`: `- a > b` (a supersedes b) · `compatible: a / b` · `- a ? b` (unsure). `DIGEST.md`:
-generated by every dream, ≤ 40 lines, never edited by hand.
+generated by every dream, ≤ 40 lines, never edited by hand. Removing a type line from `EDGES.md` or `TYPES.md` loses
+nothing (C13 reports it and the readings fall back to `other/<word>`); merging is the intended way to retire one.

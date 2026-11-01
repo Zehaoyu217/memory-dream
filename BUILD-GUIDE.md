@@ -56,7 +56,7 @@ cp skills/memory-dream/agents/memory-dreamer.md ~/.claude/agents/
 # in your project
 cd /path/to/project && mkdir -p memory && echo "memory/_dream/" >> .gitignore
 export MEMORY_LLM='claude -p --model haiku --tools "" --setting-sources "" --strict-mcp-config --no-session-persistence'
-python3 ~/.claude/skills/memory-dream/scripts/memory.py dream      # seeds EDGES.md, ALIASES.md, DIGEST.md, _dream/
+python3 ~/.claude/skills/memory-dream/scripts/memory.py dream      # seeds KINDS.md, TYPES.md, EDGES.md, ALIASES.md, DIGEST.md, _dream/
 echo '@memory/DIGEST.md' >> CLAUDE.md                              # Claude Code: the digest in context every session
 ```
 
@@ -93,8 +93,12 @@ index) and stays quiet about entities. To add them without a model command: `dre
    Measured on a real Haiku index of 1,677 notes (RESULTS F4, F9): with it `ask` gains 0.8 points of gold recall
    and 6.4 on alias questions for 5% more characters; without it nothing is missing. It must stay cheap and
    conservative: loose names hurt retrieval.
-5. **Constrained open relation vocabulary.** Eight types; any other link keeps its label (`other/<label>`), and a
-   label becomes a type only over an evidence bar, through the review, within a budget, on probation.
+5. **The domain is three registries, not code.** `KINDS.md` (kinds of note), `TYPES.md` (types of thing) and
+   `EDGES.md` (types of link) are seeded for data, analytics, software and finance and read before every command; the
+   extraction prompt is fixed guidance filled from them. Both vocabularies are constrained open: a word that fits no
+   type is kept as `other/<word>`, and becomes a type only over an evidence bar, through the review, within a budget,
+   on probation. A registry edit never re-reads a note (the cached readings keep the raw words; the registries decide
+   what they mean at merge time), and a type is retired by merging, not deleting (a deleted line is reported, C13).
 6. **Scale by routing, not by heavier machinery.** Past 10,000 notes, `ask` greps only where a question points,
    reads an SQLite index row by row, and the viewer splits into an overview plus one page per area.
 
@@ -152,7 +156,7 @@ your own `prefs/me-<topic>.md`, saved as soon as it is said.
 
 ### 5.2 Scan and manifest (`scan`)
 
-Walk `memory/` with `os.walk` (skip `_dream/`, dot dirs, `EDGES.md`, `ALIASES.md`, `README.md`, `INDEX.md`).
+Walk `memory/` with `os.walk` (skip `_dream/`, dot dirs, `KINDS.md`, `TYPES.md`, `EDGES.md`, `ALIASES.md`, `CONFLICTS.md`, `DIGEST.md`, `README.md`, `INDEX.md`).
 Keep `{path: {sha256, mtime_ns, size}}` in `_dream/manifest.json`; re-hash only files whose mtime or size changed.
 A path that disappeared while the same hash appeared at exactly one new path is a move (`former` keeps old paths so
 old references still resolve).
@@ -167,8 +171,9 @@ hash in `_dream/store.db` so a dream re-reads only changed notes.
 
 - One record per note: path, id (filename), project (top folder), title, line, kind (`kind_of`: frontmatter `type`
   with Claude Code's user/feedback/project/reference mapped to preference/rule/note/note, else the dreamer's kind unless
-  it is the fallback "note", else the filename prefix `exp- feat- ds- dec- fnd- find- q- metric-` or `…-vN` = model,
-  else the area `prefs/ glossary/ corrections/ reporting/ howto/ log/`, else `note`), updated (frontmatter `updated`
+  it is the fallback "note", else the filename prefix (the `prefix:` fields of `KINDS.md`: `exp- feat- ds- dec- fnd- find-
+  q- metric- plan- req- risk- inc- rpt-` in the seed) or `…-vN` = model, else the area (the `area:` fields: `prefs/
+  glossary/ corrections/ reporting/ howto/ log/`), else `note`), updated (frontmatter `updated`
   or `modified`, log filename date, or mtime), superseded_by. `general_areas` judges an area on its kinded notes only.
 - Edges: `from` and `supersedes` resolved by relative path, then exact path, then unique filename, then same-project
   filename (warning C1 if ambiguous), then moved paths; unresolved → C2. Plus `refs`: `[[links]]`, the dreamer's refs,
@@ -186,7 +191,10 @@ Entities, from every note's extraction:
 3. Surface rule: if exactly one other entity writes this id as a surface form (and ≤ 3 users), merge.
 4. Keep an entity only if it has a home note (a note whose filename is its id), is mentioned in ≥ 2 notes, or is
    named in ALIASES.md; drop file-like ids (`.py .sql .ipynb .csv`, notebooks).
-5. Canonical id: ALIASES.md lead, else the most used raw id; type by majority vote; headline = best current note.
+5. Canonical id: ALIASES.md lead, else the most used raw id; type by majority vote over the occurrences' types read
+   through `TYPES.md` (`canon_occ`: the dreamer's type or label that is a type or alias → that type; a word that fits
+   none → `other/<word>`, counted for the review; a word on the `drop:` line removes the occurrence); headline = best
+   current note.
 
 Relations, two tiers: the dreamer gives each relation a `type` (an EDGES type or alias, or `other`) and a `label` (the
 note's own verb). Listed types and their aliases (`~` = read in reverse) are kept with evidence `path:line`; a link
@@ -195,13 +203,23 @@ only note-to-note links. A label is offered to the review once it clears `promot
 (EDGES.md); the review answers `alias T`, `alias ~T`, `label`, `drop` or `new: <definition>`, and the code admits
 `new` only under `budget: 24` types, writing `- <type> (proposed <date>): …`; a proposed type still under the bar
 after `probation: 60 days` is demoted to a label (0 calls). `pack: software | research | ops` adds domain types.
+Type words go through the same gate (`vocab_gate`, shared): `TYPES.md` has its own `promote`, `budget: 40` and
+`probation`; the review's `etypes` answers alias a word onto a type, admit `new: <definition> | family: <F>`, keep the
+word, or drop it; `tvocab` and `proposed_types` in the graph mirror `vocab` and `proposed`. A type line removed by hand
+from either file while readings still use its word is reported (C13); the readings show as `other/<word>`.
 Conflicts: two live `…-vN` siblings in one area, two live notes with the same title, or live notes of one kind
 (decision, model, finding) in one area, unlinked, sharing an id-like title token or two rare words, are queued (C10,
 20 per review); verdicts persist in `memory/CONFLICTS.md` (`- a > b` becomes lineage, `compatible: a / b`, `- a ? b`);
 notes are never edited.
 
 The seed vocabulary (8 types): `uses`, `produces`, `part-of`, `trained-on`, `evaluated-on`, `measured-by`,
-`replaces`, `owned-by` (full alias lists in `EDGES_SEED`). Evidence: 81% of 5,196 extracted links fit them and 365 of
+`replaces`, `owned-by` (full alias lists and `shape:` fields in `EDGES_SEED`; a file written before shapes existed keeps
+the seed's shapes). The seed thing types (24, `TYPES_SEED`): person, team, organisation, term, metric, tool, document;
+dataset, segment, feature, model, pipeline, dashboard; service, module, environment, release; instrument, portfolio,
+account, counterparty, policy, scenario, desk — each with aliases, a family where it has one, and `not:` on the most
+confusable. The seed kinds (19, `KINDS_SEED`): question, experiment, finding, incident, decision, plan, requirement,
+risk, dataset, feature, model, metric, report, term, preference, rule, correction, log, note, with prefixes, areas,
+families, roles and the `digest`, `conflicts` and `answers` flags. Evidence: 81% of 5,196 extracted links fit them and 365 of
 366 questions need lineage, a single note, or one of the 8 (`eval/type_coverage.py`, `eval/question_relations.py`);
 with Haiku on 70 notes the two-tier prompt gives 81% typed, 19% labels, 0 invented types (RESULTS "Phase C").
 
@@ -216,8 +234,10 @@ Structure: `dream` takes `_dream/lock` (a second dream exits 3; a lock older tha
 pending list, manifest), `report`. The tuned numbers of `rank`/`route` live in the `W` table beside the retrieval
 constants, each with the measurement that set it.
 
-- **Extraction prompt** (`EXTRACT`): JSON with kind, entities `{id, type, as[]}`, relations `{s, type, o, quote}`,
-  refs. It gets the EDGES list and KNOWN: up to 80 entities of the note's project plus 20 most-mentioned shared ones
+- **Extraction prompt** (`EXTRACT`): fixed guidance filled from the registries — JSON with kind (one of KINDS),
+  entities `{id, type, label, as[]}` (a TYPES type or alias, or `other` with the note's own word as label), relations
+  `{s, type, label, o, quote}`, refs. It gets the KINDS list, the TYPES lines, the EDGES lines and KNOWN: up to 80
+  entities of the note's project plus 20 most-mentioned shared ones
   (`Known`, one sort per wave), so ids are reused and the prompt stops growing (~2.2k tokens plus the CLI's own ~4.8k).
 - **Grounding** (`ground`): an entity survives only if one of its `as` strings occurs in the note; a relation only if
   its quote occurs. Dropped ones are counted (C4).

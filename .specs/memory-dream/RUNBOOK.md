@@ -43,6 +43,19 @@ fuzzy search over titles, text and entity names (`/`). Deep links: `graph.html#n
 disagree, names that may be the same thing, odd or broken links, notes on their own), each with a "Copy question"
 button whose text you paste to the assistant; a picked note and each extracted fact have the same.
 
+## The domain: three registries, not the code
+
+`memory/KINDS.md` (kinds of note), `memory/TYPES.md` (types of thing) and `memory/EDGES.md` (types of link) are
+written by the first dream from seeds that cover data, analytics, software and finance work, and read before every
+command. The extraction prompt is a fixed piece of guidance filled from them: the kinds list, the type lines (what each
+is, its aliases, what it is not), the relation lines. A hand edit is permanent and costs nothing: the next dream
+re-derives the graph from the cached readings, which keep the dreamer's raw words, so no note is re-read. Add a type by
+adding a line; add a domain with `pack: research` or `pack: ops`; retire a type by merging it (add its word to another
+type's `aka`) — a deleted line is reported (C13) and its readings fall back to `other/<word>`, so nothing is lost
+either way. The review may also admit types: a word used for things that fit no type is counted, offered over the bar
+(`promote:`), admitted within the `budget:` with a `family:`, and demoted after the `probation:` if it stays rare,
+exactly as relation labels are.
+
 ## Entities and the relation vocabulary
 
 - Relation types are a constrained open vocabulary: the 8 types in EDGES.md with their aliases
@@ -187,6 +200,8 @@ python3 eval/scale/profile_incremental.py <memory root> <scratch> fraud-2026   #
   else there is a bug in `memory.py`, not in your notes.
 - `C11`: a note over 40 lines; split it or move detail into a new note (the dreamer reads only the first 16k
   characters of a note).
+- `C13`: a type line was removed from EDGES.md or TYPES.md while readings still use its word; the things or links
+  show as `other/<word>`. Merge the word into another type's `aka`, or restore the line.
 - `C7 … labels below the review bar`: links outside the vocabulary, shown as `other/<label>`; nothing
   to do unless you want one as a type — add a line to EDGES.md (0 calls). `C7 vocabulary budget full`:
   raise `budget:` or remove a type. `C10 conflict pending`: two live notes may disagree; let `dream`

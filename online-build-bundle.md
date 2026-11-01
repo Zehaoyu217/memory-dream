@@ -118,9 +118,11 @@ Environment variables: `MEMORY_LLM` (model command, prompt on stdin; unset means
 Claude Code's own memory (holds `MEMORY.md`, or lies under `<config>/projects/*/memory`): exit 2.
 
 Kinds without a model (`kind_of`): frontmatter `type:` (Claude Code's user/feedback/project/reference →
-preference/rule/note/note), else the dreamer's kind unless "note", else the filename prefix (`exp- feat- ds- dec- fnd-
-find- q- metric-`; `…-vN` = model), else the area (`prefs/ glossary/ corrections/ reporting/ howto/ log/`), else
-`note`. `modified:` is the date when `updated:` is absent.
+preference/rule/note/note), else the dreamer's kind unless "note", else the filename prefix (the `prefix:` fields of
+`KINDS.md`: `exp- feat- ds- dec- fnd- find- q- metric- plan- req- risk- inc- rpt-` in the seed; `…-vN` = model), else the
+area (the `area:` fields: `prefs/ glossary/ corrections/ reporting/ howto/ log/`), else `note`. `modified:` is the date
+when `updated:` is absent. The kinds themselves, their class tree, their roles and the digest, conflict and answer
+flags are lines of `KINDS.md` (`KINDS_SEED`), read by `load_domain()` before every command.
 
 Constants: `KEEP_DAYS = 30`, `MIN_UNKNOWN_USES = 3`. Review caps: 40 types and 30 entity pairs per dream.
 KNOWN = up to 80 entities from the note's project plus the 20 most-mentioned shared ones. Lookalike cutoff:
@@ -143,17 +145,26 @@ extraction cache, `store.db`, the manifest, the warning codes and the user-owned
 `lineage:` line (from/supersedes links per live project note, and the notes that link to nothing); A38
 enforces it. Build P6–P8 against the contract, and bump `SCHEMA` when a field changes meaning.
 
-### 2.5 Vocabulary (constrained open) and conflicts
+### 2.5 Vocabularies (constrained open), the registries and conflicts
 
-Eight seed relation types: `uses produces part-of trained-on evaluated-on measured-by replaces owned-by`, each with
-`aka:` aliases (`~` = read in reverse); `drop:` names only note-to-note links. Every extracted relation carries a
-`type` (a type, an alias, or `other`) and a `label` (the note's own verb); a link that fits no type is kept as
-`other/<label>`. EDGES.md settings: `promote: 5 uses, 5 notes, 2 areas` (a label is offered to the review only over
-this bar), `budget: 24` (types), `probation: 60 days` (a `(proposed <date>)` type still under the bar is demoted to a
-label), `pack: software | research | ops` (`PACKS`). The review answers `alias T`, `alias ~T`, `new: <definition>`,
-`label` or `drop` for labels, `same` / `different` for entity pairs, and `<a> supersedes <b>` / `compatible` / `unsure`
-for conflicts; the code admits `new` only within the budget and records conflict verdicts in `CONFLICTS.md`. Copy
-`EDGES_SEED`, `PACKS`, `EXTRACT` and `REVIEW` exactly from `skills/memory-dream/scripts/memory.py` (in Mode B, from
+The domain is three registries at the memory root, seeded by the first dream and read before every command; the
+extraction prompt is fixed guidance filled from them. `KINDS.md`: kinds of note with prefix, area, family, role and the
+digest, conflicts and answers flags. `TYPES.md`: types of thing with aliases, family, `not:` and a `drop:` line; its own
+`promote`, `budget: 40`, `probation`. `EDGES.md`: eight seed relation types `uses produces part-of trained-on
+evaluated-on measured-by replaces owned-by`, each with `aka:` aliases (`~` = read in reverse) and a `shape:` (the usual
+families of its two ends, C12); `drop:` names only note-to-note links. Every extracted relation carries a `type` (a
+type, an alias, or `other`) and a `label` (the note's own verb); a link that fits no type is kept as `other/<label>`.
+Every extracted entity carries a `type` and a `label` likewise; a thing that fits no type is kept as `other/<word>`
+(`canon_occ`), a word on `drop:` is not a thing. EDGES.md settings: `promote: 5 uses, 5 notes, 2 areas` (a label is
+offered to the review only over this bar), `budget: 24` (types), `probation: 60 days` (a `(proposed <date>)` type still
+under the bar is demoted to a label), `pack: software | research | ops` (`PACKS`; `KIND_PACKS` and `TYPE_PACKS` for the
+other two files). One gate (`vocab_gate`) serves relation labels and type words. The review answers `alias T`,
+`alias ~T`, `new: <definition>`, `label` or `drop` for labels, the same for type words under `etypes` (a new type with
+`| family: <F>`), `same` / `different` for entity pairs, and `<a> supersedes <b>` / `compatible` / `unsure` for
+conflicts; the code admits `new` only within the budget and records conflict verdicts in `CONFLICTS.md`. A registry
+edit re-derives the graph from the cached readings (0 calls, no note re-read); a type line removed while readings use
+its word is reported (C13) and the readings show as `other/<word>`. Copy `KINDS_SEED`, `TYPES_SEED`, `EDGES_SEED`, the
+three pack tables, `EXTRACT` and `REVIEW` exactly from `skills/memory-dream/scripts/memory.py` (in Mode B, from
 `reference/`): these texts are tuned and measured, so they count as contract, not code.
 
 ALIASES.md lines: `- canonical = other-id …` (merge these) and `not: a / b` (never merge these). CONFLICTS.md lines:
@@ -255,7 +266,7 @@ _Part 2 of 9 · online-build-bundle.md — phases P0–P5_
 
 ### P4 — Graph, vocabulary half: entities, relations, dedup
 
-- **References:** Appendix C §5.5; build-spec §4.6–4.7; RUNBOOK "Entities and the relation vocabulary".
+- **References:** Appendix C §5.5; build-spec §4.6–4.7; RUNBOOK "The domain: three registries" and "Entities and the relation vocabulary".
 - **Do:**
   - Fold ids: lowercase, and turn runs of space `_` `.` `-` into `-`.
   - Run union-find: ALIASES lines force merges; `not:` pairs and version pairs (ids that differ only in digits)
@@ -291,7 +302,8 @@ the read path live in one `W` table with their provenance.
 
 - **References:** Appendix C §5.6; build-spec §4.1–4.4 and §4.8; RESULTS "Deviations" item 1 (TODO.md).
 - **Do:**
-  - Fill `EXTRACT` with the EDGES list, KNOWN (one sort per wave, `Known`), the path and the text.
+  - Fill `EXTRACT` with the KINDS list, the TYPES lines, the EDGES lines (all from the registries), KNOWN (one sort
+    per wave, `Known`), the path and the text; keep the raw `type` and `label` words in the cached reading.
   - Parse answers that are wrapped in prose or code fences. Retry an unusable answer once; after that, emit C3 and
     retry at the next dream.
   - Ground the output: keep an entity only if one of its `as` strings occurs in the note, and a relation only if
@@ -535,7 +547,7 @@ _Part 4 of 9 · online-build-bundle.md — phases P9–P11, handoff, done, traps
   - [ ] Mode B: `wc -l skills/memory-dream/scripts/memory.py` is within ±30% of the reference's ~1,900 lines. Report
         the number; it does not gate.
   - [ ] Mode B: `diff <(sed -n '/^EDGES_SEED/,/^"""$/p' reference/…/memory.py) <(… new …)` is empty, and the same
-        holds for `EXTRACT` and `REVIEW`.
+        holds for `KINDS_SEED`, `TYPES_SEED`, `EXTRACT` and `REVIEW`.
 - **P9b, real model (optional; needs `claude` and a budget of about $0.10):**
   - [ ] `python3 tests/real_model.py a3 <scratch>/w-a3`: every note is indexed once, and a second dream makes 0
         calls.
@@ -627,12 +639,12 @@ or to a fresh worker given the packet, at most twice. After that, it stops and r
 
 ## Appendix A — the contract surface, verbatim: `skills/memory-dream/SKILL.md` and the dreamer agent
 
-_Part 5 · copied at commit 6ee2bae. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
+_Part 5 · copied at commit 0db791f. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
 
 ```markdown
 ---
 name: memory-dream
-description: Project memory for data-science and coding work. Plain notes in memory/<area>/, one per thing (question, experiment, finding, decision, dataset, feature, model, a person's preference, rule, term, correction). Before answering anything about past work, and before making something for someone (chart, table, deck, email, notebook, query), make ONE call with all your questions and tasks — python3 <this skill>/scripts/memory.py ask "q1" "q2" … — it greps the notes with memory (aliases, lineage, superseded → current, who wants what) and prints the lines that answer. Write a short note per new fact as you work; run memory.py dream at the end.
+description: Project memory for work done with an agent, in any field (data, analytics, software, finance, research, operations). Plain notes in memory/<area>/, one per thing (a question, a result, a decision, a dataset, a model, a plan, a risk, a rule, a term, a person's preference). Before answering anything about past work or making something for someone, read the memory in one call; write a note for each new fact or decision; dream at the end to index and check.
 ---
 # memory-dream
 
@@ -644,35 +656,42 @@ truth; everything else is derived and disposable. `memory.py` = `python3 <this s
 1. **Read first, once.** Before answering about past work or making something for someone, put every question and
    task into ONE call: `memory.py ask "what came of exp-014?" "Make the Q4 chart for Chloe Martin's readout"`.
    Per question it prints `line: text` under `▸ path · kind · date · from … · SUPERSEDED → newer`; a small memory is
-   printed whole, each question pointing at its notes. SUPERSEDED → a → b is history: the last named is current. For a task it
-   adds the preferences and house rules that apply — follow them, or say why not. `(weak match …)` names a word found
-   nowhere: rephrase. Name the project or an id when you know it; it scopes the search. At most one batched
+   printed whole, each question pointing at its notes. SUPERSEDED → a → b is history: the last named is current. For a
+   task it adds the preferences and house rules that apply — follow them, or say why not. `(weak match …)` names a word
+   found nowhere: rephrase. Name the area or an id when you know it; it scopes the search. At most one batched
    follow-up: `ask` with sharper words, plain `grep -rn … memory/`, or read a printed line.
 2. **Write as you go.** One note per thing, in `memory/<project>/`, or for what spans projects in `prefs/`,
-   `reporting/`, `glossary/`, `corrections/`, `howto/`, `qa/`, `people/`. The filename is the id (a model's note is
-   named after the model; prefixes `exp- feat- ds- dec- fnd- q-` say what it is). The `# ` line is the claim; the
-   first paragraph is what is true now. Frontmatter `from: [notes built on]`, `supersedes: [notes overturned]`:
-   never rewrite an old conclusion, write a new note that supersedes it. Numbers carry metric, eval set, n, date;
-   sources (tables, notebooks, queries) in backticks. ≤ 40 lines, plain markdown, nothing about the memory system.
-   Taste is said once, in passing ("no pie charts", "round to 1 decimal for the board", "too AI-looking"): save it
-   then — `prefs/<first>-<last>-<topic>.md` (your user's own: `prefs/me-<topic>.md`): the rule, where it applies
-   (artifact, meeting, audience), why. When it changes, a new note with `supersedes:`.
-3. **Dream at the end.** `memory.py dream` (background is fine) refreshes `_dream/graph.html` — the map, health,
-   review queue — the digest `memory/DIGEST.md` and the index. With `$MEMORY_LLM` set (e.g. `claude -p --model haiku
-   --tools ""`) a cheap model also names entities and typed relations; without a model nothing is missing for
-   answering, and `memory.py dream --prompts` writes prompts for any helper agent (`memory-dreamer`) when you want
-   entities too. `memory.py check` lists warnings. Scratch lines: `memory.py log "…" -p <project>`.
+   `reporting/`, `glossary/`, `corrections/`, `howto/`, `qa/`, `people/`. The filename is the id; a prefix from
+   `memory/KINDS.md` says what kind of note it is (`exp- fnd- dec- plan- risk- inc- ds- feat- q- …`; a thing's own note
+   is named after the thing, `churn-xgb-v3`). The `# ` line is the claim; the first paragraph is what is true now.
+   Frontmatter `from: [notes built on]`, `supersedes: [notes overturned]`, `updated: YYYY-MM-DD`: never rewrite an old
+   conclusion, write a new note that supersedes it. Numbers carry their unit or metric, their basis (the data, the
+   period, the sample), and the date; sources (tables, documents, queries, tickets) in backticks. ≤ 40 lines, plain
+   markdown, nothing about the memory system. Taste is said once, in passing ("no pie charts", "round to one decimal
+   for the board"): save it then — `prefs/<first>-<last>-<topic>.md` (your user's own: `prefs/me-<topic>.md`): the rule,
+   where it applies, why. When it changes, a new note with `supersedes:`.
+3. **Dream at the end.** `memory.py dream` (background is fine) refreshes `_dream/graph.html` — the map, what is worth
+   checking, the review queue — the digest `memory/DIGEST.md` and the index. With `$MEMORY_LLM` set (e.g. `claude -p
+   --model haiku --tools ""`) a cheap model also names the things each note mentions and the typed links between them;
+   without a model nothing is missing for answering, and `memory.py dream --prompts` writes prompts for any helper agent
+   (`memory-dreamer`) when you want the things too. `memory.py check` lists warnings. Scratch lines: `memory.py log "…" -p
+   <project>`.
+
+## The domain is three files you may edit, never the code
+`memory/KINDS.md` (kinds of note: prefixes, areas, roles), `memory/TYPES.md` (types of thing: what each is and is not,
+its aliases, its family) and `memory/EDGES.md` (types of link between things). All three are seeded for data,
+analytics, software and finance work; `pack: research` or `pack: ops` adds a domain's lines. The model is only ever
+asked to use what these files list; a word that fits nothing is kept as `other/<word>`, and becomes a type through the
+review once it is common. A hand-written line is permanent and costs no model calls: the graph is re-derived from the
+cached readings. Add types freely; to retire one, merge it (add it to another type's `aka`) rather than delete it, so
+nothing already read is lost. `ALIASES.md` (`- canonical = other-id`, `not: a / b`) and `CONFLICTS.md` (`- a > b`
+makes a supersede b without touching either note) are the other two files at the root that are yours.
 
 ## Beside Claude Code's own memory (when you are Claude Code)
 CLAUDE.md holds standing instructions people wrote; auto memory holds what you learned about the user; these notes
 hold the work itself, with lineage, and travel with the repository. `ask` also reads your auto-memory topic files in
 the same call and never writes there. To keep the digest in context every session, add one line to CLAUDE.md:
 `@memory/DIGEST.md`. Never the same thing in two places: if CLAUDE.md already says it, write no note.
-
-Three files at the memory root are yours to edit, and a hand edit costs no model calls: `EDGES.md` (relation types —
-a link outside them keeps its own label, shown as other/<label>; `promote`, `budget` and `probation` lines gate when a
-label becomes a type), `ALIASES.md` (`- canonical = other-id` merges entity ids, `not: a / b` keeps them apart) and
-`CONFLICTS.md` (two live notes that disagreed: `- a > b` makes a supersede b without touching either note).
 ```
 
 `skills/memory-dream/agents/memory-dreamer.md` (the helper agent for the no-API-key path):
@@ -694,7 +713,7 @@ Touch nothing else.
 
 ## Appendix B — the graph contract, verbatim: `.specs/memory-dream/CONTRACT.md`
 
-_Part 6 · copied at commit 6ee2bae. Schema 1; `memory.py check` validates against it (A38)._
+_Part 6 · copied at commit 0db791f. Schema 1; `memory.py check` validates against it (A38)._
 
 ## memory-dream — the graph contract (schema 1)
 
@@ -706,8 +725,8 @@ test A38 enforces it on the fixture.
 Conventions. Paths are relative to the memory root with `/` separators and the `.md` suffix (`churn-2026/exp-014.md`).
 A note's **id** is its filename without `.md`; its **project** (area) is the first path segment, `""` at the root. Dates
 are ISO `YYYY-MM-DD`. Line numbers are 1-based file lines. Everything under `_dream/` is derived and disposable; the
-notes and the four user-owned files (`EDGES.md`, `ALIASES.md`, `CONFLICTS.md`, and the generated `DIGEST.md`) are
-not.
+notes and the six user-owned files (`KINDS.md`, `TYPES.md`, `EDGES.md`, `ALIASES.md`, `CONFLICTS.md`, and the generated
+`DIGEST.md`) are not.
 
 ### 1. The graph
 
@@ -725,16 +744,20 @@ Produced by `build()`, written as `_dream/graph.json` (≤ `MEMORY_WIDE` notes) 
 | `proposed` | list of label | labels over the `promote` bar, offered to the review (empty when the budget is full) |
 | `review` | list of `{a, b}` | entity pairs for the review (canonical ids) |
 | `conflicts` | list of conflict | live-note pairs that may disagree |
-| `vocab` | object | `{types, budget, promote: [uses, notes, areas], probation, labels, below, demote: [type]}` |
+| `vocab` | object | `{types, budget, promote: [uses, notes, areas], probation, labels, below, demote: [type]}` — the relation vocabulary (EDGES.md) |
+| `proposed_types` | list of label | type words (things typed outside TYPES.md) over the `promote` bar of TYPES.md, offered to the review |
+| `tvocab` | object | the same shape as `vocab`, for TYPES.md |
 | `dedup` | object | counters from entity merging (`mentions`, `ids_as_written`, `after_folding`, …) |
 | `checks` | list of `{code, msg}` | warnings, sorted by code; codes `C1`–`C12` (§5) |
 
 **note** — `{path, id, project, title, line, kind, updated, superseded_by, sha, indexed}`
 - `title`: the text of the first `# ` line outside code fences (`""` when none → C6); `line`: its file line (0 when none).
 - `kind`: lowercase; frontmatter `type:` wins (Claude Code's `user|feedback|project|reference` map to
-  `preference|rule|note|note`), else the dreamer's kind unless it is `note`, else the filename prefix (first two id
-  segments: `exp- feat- ds- dec- fnd- find- finding- q- metric- model- pref- rule- term-`; `…-vN` → `model`), else the
-  area (`prefs`→preference, `glossary`→term, `corrections`→correction, `reporting`/`howto`→rule, `log`→log), else `note`.
+  `preference|rule|note|note`), else the dreamer's kind unless it is `note` (and only a kind `KINDS.md` lists), else the
+  filename prefix (first two id segments; the prefixes are the `prefix:` fields of `KINDS.md`, seeded `exp- feat- ds- dec-
+  fnd- find- finding- q- metric- model- pref- rule- term- plan- req- risk- inc- rpt- report-`; `…-vN` → `model`), else the
+  area (the `area:` fields, seeded `prefs`→preference, `glossary`→term, `corrections`→correction, `reporting`/`howto`→rule,
+  `log`→log), else `note`.
 - `updated`: frontmatter `updated:` or `modified:` (first 10 chars), else a `log/YYYY-MM-DD` filename, else mtime.
 - `superseded_by`: paths of notes whose `supersedes:` names this note, plus `- a > b` lines of `CONFLICTS.md`; every
   entry has a matching `supersedes` edge.
@@ -746,8 +769,10 @@ same-project filename → C1 if ambiguous, then moved paths; unresolved → C2).
 and body slugs that name a note in the same project or a unique note anywhere.
 
 **entity** — `{id, type, home, aka, names, headline, mentions}`
-- `id`: canonical (the `ALIASES.md` lead, else the most-used spelling); `type`: lowercase (`dataset feature model metric
-  segment person team term tool other`); `aka`: other spellings merged into it; `names`: `[{name, n}]` surface forms
+- `id`: canonical (the `ALIASES.md` lead, else the most-used spelling); `type`: lowercase, a type of `TYPES.md` (the
+  dreamer's type or alias read through the file), **or** `other/<word>` when the dreamer's word fits no type (the word is
+  folded), or `other`; a thing whose word is on the `drop:` line of `TYPES.md` is not an entity; `aka`: other spellings
+  merged into it; `names`: `[{name, n}]` surface forms
   with counts; `home`: the note whose id is this entity's id, or null; `headline`: the best live note mentioning it
   (title-line mention, then finding/decision, then newest), or null; `mentions`: `[{path, lines}]` sorted by path.
 - Kept only with a home note, ≥ 2 mentioning notes, or an `ALIASES.md` line; file-like ids are dropped.
@@ -793,15 +818,17 @@ relation is "current" when one of its evidence notes is live).
 
 ### 4. Caches and the manifest (`_dream/`)
 
-- `notes/<sha12>.json` — one extraction per note content: `{kind, entities: [{id, type, as, lines}], relations:
-  [{s, type, label, o, quote, line}], refs, dropped: {entities, relations}, path, sha, model, indexed_at}`. Entities
-  keep only surface forms (`as`) that occur in the note; relations only with their quote found (the rest counted in
-  `dropped` → C4). Kept `KEEP_DAYS` after last use.
+- `notes/<sha12>.json` — one extraction per note content: `{kind, entities: [{id, type, label, as, lines}], relations:
+  [{s, type, label, o, quote, line}], refs, dropped: {entities, relations}, path, sha, model, indexed_at}`. `type` and
+  `label` are the dreamer's raw words; the registries read them at merge time. Entities keep only surface forms (`as`)
+  that occur in the note; relations only with their quote found (the rest counted in `dropped` → C4). Kept `KEEP_DAYS`
+  after last use.
 - `store.db` — `facts(path, sha, rec)` parsed note facts (`fm`, `title`, `line`, `links`, `ids`, `nul`, `lines`);
   `x(sha, mt, rec)` the extraction, valid while its file's mtime matches.
 - `manifest.json` — `v`, `code` (hash of memory.py), `files {path: {sha, mtime, size}}`, `former {path: [old paths]}`,
-  `vsig` (hash of EDGES + ALIASES + CONFLICTS), `seen`, `queue`, `failed`, `attempts`, `refs`, `dreamed`, `unindexed`,
-  `due`. A dream with nothing changed in any of these stops after the scan.
+  `vsig` (hash of EDGES + ALIASES + CONFLICTS + KINDS + TYPES), `registry` (the type names of EDGES.md and TYPES.md at
+  the last dream, for C13), `seen`, `queue`, `failed`, `attempts`, `refs`, `dreamed`, `unindexed`, `due`. A dream with
+  nothing changed in any of these stops after the scan.
 - `pending/` — `<sha12>.prompt.md` and `review.prompt.md` written by `dream --prompts`, answered as `.json` by a helper
   agent; `TODO.md` lists them. `lock` — pid of a running dream.
 
@@ -811,23 +838,45 @@ relation is "current" when one of its evidence notes is live).
 `C4` an ungrounded entity or relation was dropped · `C5` no extraction yet (one summary line in `check`) · `C6` no `# `
 line · `C7` vocabulary: a label over the bar awaits review, the budget is full, or labels sit below the bar · `C8` an
 unparseable line in EDGES.md, ALIASES.md or CONFLICTS.md · `C9` NUL bytes in a note · `C10` conflict pending ·
-`C11` a note over 40 lines (SKILL.md's own rule) · `C12` a seed-type relation whose entity families are unusual for
-it (`trained-on` is model → dataset, `evaluated-on` → dataset, `measured-by` → metric, `owned-by` → party, `replaces`
-the same family on both sides; families by the class tree below): retype the entity or drop the relation.
+`C11` a note over 40 lines (SKILL.md's own rule) · `C12` a relation whose entity families are unusual for its type
+(the `shape:` field of its EDGES.md line; seeded `trained-on` model → dataset, `evaluated-on` → dataset, `measured-by` →
+metric, `owned-by` → party, `replaces` the same family on both sides; families by the class tree below): retype the
+entity or drop the relation · `C13` a type removed by hand from EDGES.md or TYPES.md while cached readings still use
+its word: the readings show as `other/<word>`; merge the type into another (add the word to that type's `aka`) or
+restore the line. `C7` covers type words of TYPES.md as it covers relation labels.
 
 ### 6. The user-owned files
 
-`EDGES.md`: `promote: U uses, N notes, A areas` · `budget: B` · `probation: D days` · `pack: name, …` · type lines
-`- type[ (proposed YYYY-MM-DD)]: definition | aka: a, ~b, …` · `drop: a, b, …`. `ALIASES.md`: `- canonical = other, …` ·
+The domain is three registries, seeded by the first dream (`KINDS_SEED`, `TYPES_SEED`, `EDGES_SEED` in `memory.py`) and
+read by `load_domain()` before every command. A line is `- name[ (proposed YYYY-MM-DD)]: definition | field: value | …`,
+the fields after the definition in any order; `#` lines are comments; a hand-written line is permanent. Editing any of
+them re-derives the graph from the cached readings at the next dream, with no model call and no note re-read (the
+readings keep the dreamer's raw words; the registries decide what they mean).
+
+`KINDS.md` (kinds of note): `general: a, b, …` (areas that span projects) · `pack: research, ops` · kind lines with
+`prefix: a, b` (filename prefixes), `area: x, y` (areas whose notes default to this kind), `family: parent` (the class
+tree), `role: question|evidence|state|rule|reference|log` (project work = question, evidence, state), `digest: current`
+(heads the digest), `conflicts: yes` (compared for disagreement; a child kind counts as its family), `answers: yes` (a
+note of this kind built on a question answers it), `not: …`.
+
+`TYPES.md` (types of thing): `promote: U uses, N notes, A areas` · `budget: B` · `probation: D days` · `pack: research,
+ops` · type lines with `aka: a, b` (the dreamer's words read as this type), `family: parent`, `not: …` · `drop: a, b`
+(words that are never things). A thing typed outside the file keeps its word as `other/<word>`; words over the bar are
+offered to the review, which may alias them onto a type, admit a new type (with `| family: F`) within the budget, keep
+the word, or drop it; a proposed type still under the bar after the probation is demoted to a word.
+
+`EDGES.md` (types of link): the same settings and `pack: software, research, ops` · type lines with `aka: a, ~b` (`~` =
+read in reverse), `shape: s → o` (`*` for any; `same`) · `drop: a, b`. `ALIASES.md`: `- canonical = other, …` ·
 `not: a / b`. `CONFLICTS.md`: `- a > b` (a supersedes b) · `compatible: a / b` · `- a ? b` (unsure). `DIGEST.md`:
-generated by every dream, ≤ 40 lines, never edited by hand.
+generated by every dream, ≤ 40 lines, never edited by hand. Removing a type line from `EDGES.md` or `TYPES.md` loses
+nothing (C13 reports it and the readings fall back to `other/<word>`); merging is the intended way to retire one.
 
 
 <--->
 
 ## Appendix C — the build guide, verbatim: `BUILD-GUIDE.md` §3–§10
 
-_Part 7 · copied at commit 6ee2bae. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
+_Part 7 · copied at commit 0db791f. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
 
 ### 3. The design in one page
 
@@ -841,8 +890,12 @@ _Part 7 · copied at commit 6ee2bae. The design in one page, the repository layo
    Measured on a real Haiku index of 1,677 notes (RESULTS F4, F9): with it `ask` gains 0.8 points of gold recall
    and 6.4 on alias questions for 5% more characters; without it nothing is missing. It must stay cheap and
    conservative: loose names hurt retrieval.
-5. **Constrained open relation vocabulary.** Eight types; any other link keeps its label (`other/<label>`), and a
-   label becomes a type only over an evidence bar, through the review, within a budget, on probation.
+5. **The domain is three registries, not code.** `KINDS.md` (kinds of note), `TYPES.md` (types of thing) and
+   `EDGES.md` (types of link) are seeded for data, analytics, software and finance and read before every command; the
+   extraction prompt is fixed guidance filled from them. Both vocabularies are constrained open: a word that fits no
+   type is kept as `other/<word>`, and becomes a type only over an evidence bar, through the review, within a budget,
+   on probation. A registry edit never re-reads a note (the cached readings keep the raw words; the registries decide
+   what they mean at merge time), and a type is retired by merging, not deleting (a deleted line is reported, C13).
 6. **Scale by routing, not by heavier machinery.** Past 10,000 notes, `ask` greps only where a question points,
    reads an SQLite index row by row, and the viewer splits into an overview plus one page per area.
 
@@ -900,7 +953,7 @@ your own `prefs/me-<topic>.md`, saved as soon as it is said.
 
 #### 5.2 Scan and manifest (`scan`)
 
-Walk `memory/` with `os.walk` (skip `_dream/`, dot dirs, `EDGES.md`, `ALIASES.md`, `README.md`, `INDEX.md`).
+Walk `memory/` with `os.walk` (skip `_dream/`, dot dirs, `KINDS.md`, `TYPES.md`, `EDGES.md`, `ALIASES.md`, `CONFLICTS.md`, `DIGEST.md`, `README.md`, `INDEX.md`).
 Keep `{path: {sha256, mtime_ns, size}}` in `_dream/manifest.json`; re-hash only files whose mtime or size changed.
 A path that disappeared while the same hash appeared at exactly one new path is a move (`former` keeps old paths so
 old references still resolve).
@@ -915,8 +968,9 @@ hash in `_dream/store.db` so a dream re-reads only changed notes.
 
 - One record per note: path, id (filename), project (top folder), title, line, kind (`kind_of`: frontmatter `type`
   with Claude Code's user/feedback/project/reference mapped to preference/rule/note/note, else the dreamer's kind unless
-  it is the fallback "note", else the filename prefix `exp- feat- ds- dec- fnd- find- q- metric-` or `…-vN` = model,
-  else the area `prefs/ glossary/ corrections/ reporting/ howto/ log/`, else `note`), updated (frontmatter `updated`
+  it is the fallback "note", else the filename prefix (the `prefix:` fields of `KINDS.md`: `exp- feat- ds- dec- fnd- find-
+  q- metric- plan- req- risk- inc- rpt-` in the seed) or `…-vN` = model, else the area (the `area:` fields: `prefs/
+  glossary/ corrections/ reporting/ howto/ log/`), else `note`), updated (frontmatter `updated`
   or `modified`, log filename date, or mtime), superseded_by. `general_areas` judges an area on its kinded notes only.
 - Edges: `from` and `supersedes` resolved by relative path, then exact path, then unique filename, then same-project
   filename (warning C1 if ambiguous), then moved paths; unresolved → C2. Plus `refs`: `[[links]]`, the dreamer's refs,
@@ -934,7 +988,10 @@ Entities, from every note's extraction:
 3. Surface rule: if exactly one other entity writes this id as a surface form (and ≤ 3 users), merge.
 4. Keep an entity only if it has a home note (a note whose filename is its id), is mentioned in ≥ 2 notes, or is
    named in ALIASES.md; drop file-like ids (`.py .sql .ipynb .csv`, notebooks).
-5. Canonical id: ALIASES.md lead, else the most used raw id; type by majority vote; headline = best current note.
+5. Canonical id: ALIASES.md lead, else the most used raw id; type by majority vote over the occurrences' types read
+   through `TYPES.md` (`canon_occ`: the dreamer's type or label that is a type or alias → that type; a word that fits
+   none → `other/<word>`, counted for the review; a word on the `drop:` line removes the occurrence); headline = best
+   current note.
 
 Relations, two tiers: the dreamer gives each relation a `type` (an EDGES type or alias, or `other`) and a `label` (the
 note's own verb). Listed types and their aliases (`~` = read in reverse) are kept with evidence `path:line`; a link
@@ -943,13 +1000,23 @@ only note-to-note links. A label is offered to the review once it clears `promot
 (EDGES.md); the review answers `alias T`, `alias ~T`, `label`, `drop` or `new: <definition>`, and the code admits
 `new` only under `budget: 24` types, writing `- <type> (proposed <date>): …`; a proposed type still under the bar
 after `probation: 60 days` is demoted to a label (0 calls). `pack: software | research | ops` adds domain types.
+Type words go through the same gate (`vocab_gate`, shared): `TYPES.md` has its own `promote`, `budget: 40` and
+`probation`; the review's `etypes` answers alias a word onto a type, admit `new: <definition> | family: <F>`, keep the
+word, or drop it; `tvocab` and `proposed_types` in the graph mirror `vocab` and `proposed`. A type line removed by hand
+from either file while readings still use its word is reported (C13); the readings show as `other/<word>`.
 Conflicts: two live `…-vN` siblings in one area, two live notes with the same title, or live notes of one kind
 (decision, model, finding) in one area, unlinked, sharing an id-like title token or two rare words, are queued (C10,
 20 per review); verdicts persist in `memory/CONFLICTS.md` (`- a > b` becomes lineage, `compatible: a / b`, `- a ? b`);
 notes are never edited.
 
 The seed vocabulary (8 types): `uses`, `produces`, `part-of`, `trained-on`, `evaluated-on`, `measured-by`,
-`replaces`, `owned-by` (full alias lists in `EDGES_SEED`). Evidence: 81% of 5,196 extracted links fit them and 365 of
+`replaces`, `owned-by` (full alias lists and `shape:` fields in `EDGES_SEED`; a file written before shapes existed keeps
+the seed's shapes). The seed thing types (24, `TYPES_SEED`): person, team, organisation, term, metric, tool, document;
+dataset, segment, feature, model, pipeline, dashboard; service, module, environment, release; instrument, portfolio,
+account, counterparty, policy, scenario, desk — each with aliases, a family where it has one, and `not:` on the most
+confusable. The seed kinds (19, `KINDS_SEED`): question, experiment, finding, incident, decision, plan, requirement,
+risk, dataset, feature, model, metric, report, term, preference, rule, correction, log, note, with prefixes, areas,
+families, roles and the `digest`, `conflicts` and `answers` flags. Evidence: 81% of 5,196 extracted links fit them and 365 of
 366 questions need lineage, a single note, or one of the 8 (`eval/type_coverage.py`, `eval/question_relations.py`);
 with Haiku on 70 notes the two-tier prompt gives 81% typed, 19% labels, 0 invented types (RESULTS "Phase C").
 
@@ -964,8 +1031,10 @@ Structure: `dream` takes `_dream/lock` (a second dream exits 3; a lock older tha
 pending list, manifest), `report`. The tuned numbers of `rank`/`route` live in the `W` table beside the retrieval
 constants, each with the measurement that set it.
 
-- **Extraction prompt** (`EXTRACT`): JSON with kind, entities `{id, type, as[]}`, relations `{s, type, o, quote}`,
-  refs. It gets the EDGES list and KNOWN: up to 80 entities of the note's project plus 20 most-mentioned shared ones
+- **Extraction prompt** (`EXTRACT`): fixed guidance filled from the registries — JSON with kind (one of KINDS),
+  entities `{id, type, label, as[]}` (a TYPES type or alias, or `other` with the note's own word as label), relations
+  `{s, type, label, o, quote}`, refs. It gets the KINDS list, the TYPES lines, the EDGES lines and KNOWN: up to 80
+  entities of the note's project plus 20 most-mentioned shared ones
   (`Known`, one sort per wave), so ids are reused and the prompt stops growing (~2.2k tokens plus the CLI's own ~4.8k).
 - **Grounding** (`ground`): an entity survives only if one of its `as` strings occurs in the note; a relation only if
   its quote occurs. Dropped ones are counted (C4).
@@ -1314,25 +1383,29 @@ Taste retrieval (fresh tasks, recall of the gold notes): the person's preference
 
 ## Appendix D — prompts, seeds and tuned tables, verbatim from `memory.py`
 
-_Part 8 · extracted at commit 6ee2bae by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
+_Part 8 · extracted at commit 0db791f by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
 
-### D.1 `EXTRACT` — the per-note prompt (the static part is cached; `EDGES:` and `KNOWN:` follow, then `NOTE`)
+### D.1 `EXTRACT` — the per-note prompt: fixed guidance, then `KINDS:`, `TYPES:`, `EDGES:` and `KNOWN:` from the registries (the static part is cached), then `NOTE`
 
 ```
 Index this memory note for retrieval. Reply with JSON only:
-{"kind": "question|experiment|finding|decision|dataset|feature|model|metric|term|preference|rule|log|note",
- "entities": [{"id": "...", "type": "dataset|feature|model|metric|segment|person|team|term|tool",
+{"kind": "one of KINDS",
+ "entities": [{"id": "...", "type": "a TYPES type or alias, or other", "label": "the note's own word for what it is, 1-2 words",
                "as": ["text copied verbatim from the note"]}],
  "relations": [{"s": "entity id", "type": "an EDGES type or alias, or other", "label": "the note's own verb, 1-3 words",
                 "o": "entity id", "quote": "short text copied verbatim from the note that states it"}],
  "refs": ["ids or paths of other notes the text explicitly points to"]}
-Entities are things someone would look up across notes: tables, features, models, metrics, segments,
-people, teams, defined terms. Not columns, files, notebooks, numbers, or note ids (those go in refs).
+Entities are things someone would look up across notes; TYPES says which. Not numbers, dates, files,
+notebooks or note ids (those go in refs). Type each with a TYPES type or one of its aliases; if none fits
+a real thing, type is other and the label says what it is (a word that becomes common is offered as a type).
 If an entity is in KNOWN, reuse its id. Otherwise id = its most specific name, lowercase, spaces to
 hyphens; a table keeps its dots (cards.txn_daily).
 Relations: only ones the note states, read "s <type> o". Use an EDGES type or one of its aliases
 (aliases marked ~ read in reverse) and always give the label. If no type fits a real link between two
 things, type is other: the label is kept and shown, and becomes a type once it is common.
+KINDS: {kinds}
+TYPES:
+{types}
 EDGES:
 {edges}
 KNOWN:
@@ -1341,10 +1414,10 @@ NOTE {path}:
 {text}
 ```
 
-### D.2 `REVIEW` — the one-call review (entity pairs, labels over the bar, conflicts)
+### D.2 `REVIEW` — the one-call review (entity pairs, labels over the bar, conflicts, type words over the bar)
 
 ```
-You keep the vocabulary of a data-science memory.
+You keep the vocabulary of a memory of work notes.
 RELATION TYPES, read "X <type> Y" ({n} of {budget} slots used):
 {edges}
 LABELS the indexer used that fit no type, each over the bar of {u} uses in {nn} notes across {a} areas
@@ -1354,22 +1427,29 @@ ENTITY PAIRS that may name the same thing (id, type, surface forms, one context 
 {pairs}
 LIVE NOTES of one kind in one area that may disagree (path · "title" «first line»; neither supersedes the other):
 {conflicts}
+THING TYPES, read "X is a <type>" ({tn} of {tbudget} slots used):
+{types}
+TYPE WORDS the indexer used for things that fit no type, each over the bar (uses, notes, areas; up to 3 examples "id: as written"):
+{etypes}
 Reply with JSON only:
 {"types": {"<label>": "alias T" | "alias ~T" | "new: <one line: what the link means and how it differs from the closest type>" | "label" | "drop"},
  "entities": {"<a> / <b>": "same" | "different"},
- "conflicts": {"<a> / <b>": "<a> supersedes <b>" | "<b> supersedes <a>" | "compatible" | "unsure"}}
+ "conflicts": {"<a> / <b>": "<a> supersedes <b>" | "<b> supersedes <a>" | "compatible" | "unsure"},
+ "etypes": {"<word>": "alias T" | "new: <one line: what the thing is and how it differs from the closest type> | family: <a listed family or the word itself>" | "label" | "drop"}}
 Map a label onto T when it names the same link as T, as a synonym ("alias T") or read in reverse
 ("alias ~T"). Answer "new: …" only for a link between two things that no listed type expresses and that
 the notes will keep using; name the closest type and the difference. Answer "label" to keep it as a plain
 label. Drop only what links notes rather than things (answers, led-to, basis-for) or is a conversation
 (asked-by, raised-by). When unsure between alias and new, alias; when unsure between new and drop, label.
+A type word: "alias T" when it is a kind of T; "new: …" only for a kind of thing people will keep looking up
+across notes; "label" to keep the word; "drop" for what is not a thing (a number, a file, a date).
 If unsure whether two entities are the same thing, answer different. Versions (v2, v3) are different.
 Two notes: the newer one supersedes the older when it decides or states the same thing differently (a new
-cutoff, a newer model as the current one); they are compatible when they are about different things or
+threshold, a newer version as the current one); they are compatible when they are about different things or
 one builds on the other; otherwise unsure. Never invent paths: copy them from the pair.
 ```
 
-### D.3 `EDGES_SEED` — `memory/EDGES.md` as first written (software pack)
+### D.3 `EDGES_SEED` — `memory/EDGES.md` as first written (relation types, with `shape:`)
 
 ```markdown
 # EDGES — relation types between entities, read "X <type> Y". Constrained open: the dreamer uses these types and
@@ -1384,21 +1464,104 @@ probation: 60 days
 - uses: X needs Y as an input (model uses feature; feature uses table) | aka: depends-on, consumes, built-on, built-from, derived-from, based-on, sourced-from, requires, reads, reads-from, joined-to, ~feeds, ~input-to, ~used-by, ~used-for, ~used-in
 - produces: X creates or writes Y (job produces table; model produces scores) | aka: writes, writes-to, creates, outputs, generates, ~generated-by, ~produced-by, ~output-of
 - part-of: X is a component of Y (column part-of table; feature part-of feature-set) | aka: member-of, column-of, subset-of, stored-in, ~contains, ~has, ~includes
-- trained-on: model X was fit on dataset Y | aka: fit-on, fitted-on, trained-with
-- evaluated-on: X was measured on dataset or segment Y | aka: tested-on, validated-on, measured-on, scored-on, backtested-on
-- measured-by: X is judged by metric Y | aka: reports, reports-metric, has-metric, measures, measured-in, scored-by, optimizes, optimises, targets, ~metric-of
-- replaces: X is the newer version of Y | aka: supersedes, retires, ~replaced-by, ~superseded-by
-- owned-by: X is maintained or decided by person or team Y | aka: maintained-by, managed-by, run-by, approved-by, decided-by, set-by, signed-off-by, agreed-by, ~owns, ~maintains
+- trained-on: model X was fit on dataset Y | aka: fit-on, fitted-on, trained-with | shape: model → dataset
+- evaluated-on: X was measured on dataset or segment Y | aka: tested-on, validated-on, measured-on, scored-on, backtested-on | shape: * → dataset
+- measured-by: X is judged by metric Y | aka: reports, reports-metric, has-metric, measures, measured-in, scored-by, optimizes, optimises, targets, ~metric-of | shape: * → metric
+- replaces: X is the newer version of Y | aka: supersedes, retires, ~replaced-by, ~superseded-by | shape: same
+- owned-by: X is maintained or decided by person or team Y | aka: maintained-by, managed-by, run-by, approved-by, decided-by, set-by, signed-off-by, agreed-by, ~owns, ~maintains | shape: * → party
 drop: related-to, associated-with, about, mentions, relates-to, answers, answered-by, basis-for, evidence-for, led-to, leads-to, motivates, motivated-by, informs, follows, confirms, explains, supports, overturned-by
 ```
 
-### D.4 `PACKS` — seed types for other domains (`pack: research|ops` in EDGES.md)
+### D.3b `KINDS_SEED` — `memory/KINDS.md` as first written (kinds of note: prefix, area, family, role, digest, conflicts, answers)
+
+```markdown
+# KINDS — kinds of note. A note's kind is its frontmatter `type:`, else the kind whose prefix starts its filename
+# (`exp-014` → experiment; `…-vN` is a model), else the kind of its area (`prefs/` → preference), else note. One line per
+# kind: `- kind: definition | prefix: a, b | area: x, y | family: parent | role: R | digest: current | conflicts: yes
+# | answers: yes | not: what it is not`. role ∈ question, evidence, state, rule, reference, log; project work is question,
+# evidence and state. `answers: yes` kinds answer a question they are built on; `digest: current` kinds head the digest;
+# `conflicts: yes` kinds are compared for disagreement (a child kind counts as its family). `general:` names the areas
+# that span projects.
+# Edit freely: a hand-written line is permanent (0 model calls); `pack: research, ops` adds a domain's kinds.
+# The seed covers data, analytics, software and finance work.
+general: prefs, reporting, glossary, corrections, howto, qa, people, log
+- question: something asked and not yet settled | prefix: q | role: question
+- experiment: a run with a method and a measured result | prefix: exp | family: finding | role: evidence
+- finding: a result or observation that holds until superseded | prefix: fnd, find, finding | role: evidence | conflicts: yes | answers: yes | not: a single run (experiment)
+- incident: a failure, outage, loss or error, and what was learned | prefix: inc | family: finding | role: evidence
+- decision: a choice made, with its reason | prefix: dec | role: state | digest: current | conflicts: yes | answers: yes
+- plan: an intended course of action, with steps or dates | prefix: plan | role: state | digest: current
+- requirement: a stated need or acceptance condition | prefix: req | role: state
+- risk: a known exposure, its size and its owner | prefix: risk | role: state
+- dataset: a table, file, feed or extract, and what it holds | prefix: ds | role: state
+- feature: an input variable or feature set, and how it is built | prefix: feat | role: state
+- model: a trained or rule-based model, scorecard or forecast, one version per note | prefix: model | role: state | digest: current | conflicts: yes
+- metric: how something is measured | prefix: metric | family: term | role: state
+- report: a recurring report, dashboard or deliverable, and its rules | prefix: rpt, report | role: reference
+- term: a defined word or concept | prefix: term | area: glossary | role: reference
+- preference: how a named person wants things done | prefix: pref | area: prefs | family: rule | role: rule
+- rule: a standing rule or procedure for the work | prefix: rule | area: reporting, howto | role: rule
+- correction: a past mistake and the rule that prevents it | area: corrections | family: rule | role: rule
+- log: a dated scratch line | area: log | role: log
+- note: anything else | role: reference
+```
+
+### D.3c `TYPES_SEED` — `memory/TYPES.md` as first written (types of thing: aliases, family, not, drop)
+
+```markdown
+# TYPES — kinds of thing the notes name, read "X is a <type>". Constrained open, like EDGES.md: the dreamer types each
+# thing with one of these or an alias; a thing of any other type keeps the dreamer's word, shown as other/<word>; a word
+# becomes a type only over the bar, through the review, within the budget; a (proposed <date>) type still under the bar
+# after the probation goes back to a word. `family:` groups types for the viewer and the shape check (C12); `drop:`
+# names words that are never things (grep finds files and numbers). Edit freely: a hand-written line is permanent
+# (0 model calls); `pack: research, ops` adds a domain's types. The seed covers data, analytics, software and finance.
+promote: 5 uses, 5 notes, 2 areas
+budget: 40
+probation: 60 days
+- person: a named individual | aka: people, user, analyst, engineer, manager, owner | family: party | not: a team or a company
+- team: a named team or group of people | aka: group, squad, crew | family: party
+- organisation: a company, client, vendor, regulator or other body | aka: organization, company, vendor, client, regulator, firm | family: party
+- term: a defined word, concept or method | aka: concept, method, definition, technique | not: a measured quantity (metric)
+- metric: a measured quantity used to judge something | aka: kpi, measure, statistic, score | not: a single value or threshold
+- tool: software or a platform used to do the work | aka: library, platform, framework, package, software | family: system | not: a service the team runs (service)
+- document: a report, deck, specification, policy document or paper named as a thing | aka: report, deck, spec, paper, memo, template
+- dataset: a table, file, feed or extract of records | aka: table, data set, feed, extract, view, source | not: one column of it (feature), one subset of it (segment)
+- segment: a defined subset of records, customers or accounts | aka: cohort, population, subset | family: dataset
+- feature: an input variable or set of variables | aka: column, variable, field, feature set, attribute | not: the table it comes from (dataset)
+- model: a trained or rule-based model, scorecard, forecast or one version of it | aka: scorecard, classifier, forecast model, algorithm
+- pipeline: a job, pipeline or scheduled process that moves or transforms data | aka: job, dag, workflow, etl, process | family: system
+- dashboard: a dashboard or report page people read regularly | aka: report page, bi report | family: document
+- service: a running service, API or application | aka: api, app, application, endpoint, system | family: system
+- module: a code module, package, repository or component | aka: repo, repository, component, class, function, script | family: system
+- environment: a cluster, host, environment or deployment target | aka: cluster, host, prod, staging, region | family: system
+- release: a named version or release of software | aka: version, build, tag | family: system
+- instrument: a security, loan, contract or product that is traded, held or sold | aka: security, bond, loan, product, contract, derivative
+- portfolio: a portfolio, book, fund or set of holdings | aka: book, fund, holdings
+- account: a customer, ledger or trading account | aka: ledger, wallet
+- counterparty: a client, issuer, borrower or counterparty in a transaction | aka: issuer, borrower, lender, obligor | family: party
+- policy: a policy, limit, regulation or control that constrains the work | aka: regulation, limit, control, standard, mandate | family: rule
+- scenario: a stress, forecast or planning scenario | aka: stress test, case, what-if
+- desk: a trading desk, business unit or department | aka: business unit, department, division, unit | family: party
+drop: number, date, file, notebook, note, line, page, link
+```
+
+### D.4 `PACKS`, `KIND_PACKS`, `TYPE_PACKS` — the lines a `pack: software|research|ops` adds to each registry
 
 ```json
 {
- "software": "- calls: X invokes Y (service calls API; function calls function) | aka: invokes, requests, queries, ~called-by, ~serves\n- implements: X realises Y (module implements interface; service implements spec) | aka: realises, realizes, satisfies, ~implemented-by, ~specified-by\n- deployed-to: X runs in Y (service deployed-to cluster) | aka: runs-on, runs-in, hosted-on, ~hosts\n- configures: X sets Y's behaviour (flag configures service; file configures job) | aka: sets, parameterises, parameterizes, ~configured-by\n- tested-by: X is checked by Y (module tested-by suite) | aka: covered-by, verified-by, ~tests, ~covers, ~verifies\n- blocked-by: X waits on Y (release blocked-by bug) | aka: waits-on, ~blocks",
- "research": "- cites: X refers to Y as a source (paper cites paper; note cites report) | aka: references, quotes, ~cited-by\n- extends: X builds on Y's method or result (model extends baseline) | aka: generalises, generalizes, refines, ~extended-by\n- contradicts: X's result disagrees with Y's | aka: disagrees-with, refutes, ~contradicted-by\n- reproduces: X repeats Y's result | aka: replicates, ~reproduced-by",
- "ops": "- alerts-on: X raises an alert on Y (monitor alerts-on metric) | aka: monitors, watches, pages-on, ~monitored-by\n- runs-after: X is scheduled after Y (job runs-after job) | aka: scheduled-after, ~runs-before, ~precedes\n- escalates-to: X hands off to Y (queue escalates-to team) | aka: hands-off-to, ~escalated-from\n- rolled-back-to: X reverted to Y (release rolled-back-to version) | aka: reverted-to, ~rolled-back-from"
+ "EDGES.md": {
+  "software": "- calls: X invokes Y (service calls API; function calls function) | aka: invokes, requests, queries, ~called-by, ~serves\n- implements: X realises Y (module implements interface; service implements spec) | aka: realises, realizes, satisfies, ~implemented-by, ~specified-by\n- deployed-to: X runs in Y (service deployed-to cluster) | aka: runs-on, runs-in, hosted-on, ~hosts\n- configures: X sets Y's behaviour (flag configures service; file configures job) | aka: sets, parameterises, parameterizes, ~configured-by\n- tested-by: X is checked by Y (module tested-by suite) | aka: covered-by, verified-by, ~tests, ~covers, ~verifies\n- blocked-by: X waits on Y (release blocked-by bug) | aka: waits-on, ~blocks",
+  "research": "- cites: X refers to Y as a source (paper cites paper; note cites report) | aka: references, quotes, ~cited-by\n- extends: X builds on Y's method or result (model extends baseline) | aka: generalises, generalizes, refines, ~extended-by\n- contradicts: X's result disagrees with Y's | aka: disagrees-with, refutes, ~contradicted-by\n- reproduces: X repeats Y's result | aka: replicates, ~reproduced-by",
+  "ops": "- alerts-on: X raises an alert on Y (monitor alerts-on metric) | aka: monitors, watches, pages-on, ~monitored-by\n- runs-after: X is scheduled after Y (job runs-after job) | aka: scheduled-after, ~runs-before, ~precedes\n- escalates-to: X hands off to Y (queue escalates-to team) | aka: hands-off-to, ~escalated-from\n- rolled-back-to: X reverted to Y (release rolled-back-to version) | aka: reverted-to, ~rolled-back-from"
+ },
+ "KINDS.md": {
+  "research": "- hypothesis: a claim to test, and how | prefix: hyp | role: question\n- paper: a paper or report read, and what it claims | prefix: paper | role: reference",
+  "ops": "- runbook: a procedure to run, check or fix something | prefix: rb | area: runbooks | role: rule\n- change: a change made to a system, when and by whom | prefix: chg | role: state"
+ },
+ "TYPES.md": {
+  "research": "- paper: a paper or published result | aka: article, preprint | family: document\n- method: a named method or algorithm | aka: approach, procedure | family: term",
+  "ops": "- monitor: a monitor, alert rule or check that watches a system | aka: alert, probe, healthcheck | family: system\n- queue: a queue, topic or channel that carries work | aka: topic, channel, stream | family: system"
+ }
 }
 ```
 
@@ -1417,26 +1580,32 @@ drop: related-to, associated-with, about, mentions, relates-to, answers, answere
 ```json
 {
  "PREFIX_KIND": {
+  "q": "question",
   "exp": "experiment",
-  "feat": "feature",
-  "ds": "dataset",
-  "dec": "decision",
   "fnd": "finding",
   "find": "finding",
   "finding": "finding",
-  "q": "question",
-  "metric": "metric",
+  "inc": "incident",
+  "dec": "decision",
+  "plan": "plan",
+  "req": "requirement",
+  "risk": "risk",
+  "ds": "dataset",
+  "feat": "feature",
   "model": "model",
+  "metric": "metric",
+  "rpt": "report",
+  "report": "report",
+  "term": "term",
   "pref": "preference",
-  "rule": "rule",
-  "term": "term"
+  "rule": "rule"
  },
  "AREA_KIND": {
-  "prefs": "preference",
   "glossary": "term",
-  "corrections": "correction",
+  "prefs": "preference",
   "reporting": "rule",
   "howto": "rule",
+  "corrections": "correction",
   "log": "log"
  },
  "CC_KIND": {
@@ -1445,22 +1614,70 @@ drop: related-to, associated-with, about, mentions, relates-to, answers, answere
   "project": "note",
   "reference": "note"
  },
+ "KINDS": [
+  "correction",
+  "dataset",
+  "decision",
+  "experiment",
+  "feature",
+  "finding",
+  "incident",
+  "log",
+  "metric",
+  "model",
+  "note",
+  "plan",
+  "preference",
+  "question",
+  "report",
+  "requirement",
+  "risk",
+  "rule",
+  "term"
+ ],
+ "KIND_ORDER": [
+  "question",
+  "experiment",
+  "finding",
+  "incident",
+  "decision",
+  "plan",
+  "requirement",
+  "risk",
+  "dataset",
+  "feature",
+  "model",
+  "metric",
+  "report",
+  "term",
+  "preference",
+  "rule",
+  "correction",
+  "log",
+  "note"
+ ],
  "KIND_PARENT": {
   "experiment": "finding",
-  "correction": "rule",
+  "incident": "finding",
+  "metric": "term",
   "preference": "rule",
-  "metric": "term"
+  "correction": "rule"
  },
  "TYPE_PARENT": {
-  "table": "dataset",
-  "segment": "dataset",
-  "column": "feature",
   "person": "party",
   "team": "party",
+  "organisation": "party",
   "tool": "system",
-  "job": "system",
+  "segment": "dataset",
   "pipeline": "system",
-  "service": "system"
+  "dashboard": "document",
+  "service": "system",
+  "module": "system",
+  "environment": "system",
+  "release": "system",
+  "counterparty": "party",
+  "policy": "rule",
+  "desk": "party"
  },
  "SHAPES": {
   "trained-on": [
@@ -1475,13 +1692,13 @@ drop: related-to, associated-with, about, mentions, relates-to, answers, answere
    null,
    "metric"
   ],
-  "owned-by": [
-   null,
-   "party"
-  ],
   "replaces": [
    "same",
    "same"
+  ],
+  "owned-by": [
+   null,
+   "party"
   ]
  },
  "CONFLICT_KINDS": [
@@ -1489,6 +1706,50 @@ drop: related-to, associated-with, about, mentions, relates-to, answers, answere
   "finding",
   "model"
  ],
+ "DIGEST_KINDS": [
+  "decision",
+  "model",
+  "plan"
+ ],
+ "ANSWER_KINDS": [
+  "decision",
+  "finding"
+ ],
+ "WORK": [
+  "dataset",
+  "decision",
+  "experiment",
+  "feature",
+  "finding",
+  "incident",
+  "metric",
+  "model",
+  "plan",
+  "question",
+  "requirement",
+  "risk"
+ ],
+ "ROLE_OF": {
+  "question": "question",
+  "experiment": "evidence",
+  "finding": "evidence",
+  "incident": "evidence",
+  "decision": "state",
+  "plan": "state",
+  "requirement": "state",
+  "risk": "state",
+  "dataset": "state",
+  "feature": "state",
+  "model": "state",
+  "metric": "state",
+  "report": "reference",
+  "term": "reference",
+  "preference": "rule",
+  "rule": "rule",
+  "correction": "rule",
+  "log": "log",
+  "note": "reference"
+ },
  "CONFLICT_STOP": [
   "current",
   "decision",
