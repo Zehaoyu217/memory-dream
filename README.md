@@ -1,345 +1,217 @@
 # memory-dream
 
-Project memory for agents that do data-science and coding work. The memory is a folder of short notes.
-A person or the main agent writes them. A grep that knows how the notes link answers questions about them.
-A cheap model, if you want one, reads each note once and writes down the things it names. A web page shows
-the whole memory and what may be wrong in it.
+Project memory for AI coding agents.
 
-One Python file (standard library only), one HTML file, markdown and JSON. No server, no database to run,
-no embeddings. Works for any agent with a shell, Python 3.9 and grep.
+The agent writes short notes about its work into a folder in the repository. A command-line tool retrieves from
+those notes, keeps them consistent, and renders a web page that shows the memory and what may be wrong in it.
+An optional cheap model builds an index of the things the notes name.
 
----
+Python standard library only. Markdown and JSON files. No server, no database service, no embeddings.
 
-## The idea, told simply
+## The problem
 
-Imagine a shoebox of index cards.
+An agent that works on a project for weeks produces results, decisions, data definitions and rules. Without
+memory, every new session either starts blank or re-reads the whole project, which costs tokens and time. It also
+cannot tell a current conclusion from one that was overturned last month.
 
-- **Each card says one thing.** "The new model scores 0.81." It has a date, and it says which older cards it
-  came from, and which old card it replaces. That is a note.
-- **You never erase a card.** When you change your mind, you write a new card that says "this replaces card 7".
-  Both stay in the box. The newest one counts.
-- **To find things, you flip through the cards looking for words.** That is grep. The box also knows which
-  card replaced which, so it shows you the newest card first and tells you which ones are old.
-- **A helper may read each card once** and write a sticky note on it: "this card talks about the model
-  `churn-xgb-v3` and the dataset `cards.txn_daily`; it says the model was *trained on* the dataset, and here are
-  the exact words it used." The helper never changes a card and must copy the exact words, so you can check.
-- **A counter looks for trouble**: cards that point at a card that is not in the box, two current cards that
-  seem to say opposite things, cards that are too long. It writes a list, and it never fixes anything by itself.
-- **A map** lays the cards out by topic and time, draws the things they talk about and how they connect, and
-  says, for each kind of statement, how much to trust it.
+## The approach
 
-That is the whole system. Everything below is the same story with the real names.
+1. Everything worth remembering is written as a short note: one per result, decision, dataset, model, rule or
+   question. Each note names the notes it was built on and the notes it replaces. Nothing is ever rewritten; a
+   change of mind is a new note that supersedes the old one.
+2. Retrieval is a text search over the notes, ordered by that lineage. The newest conclusion comes first and
+   replaced ones are marked as replaced. One command answers every question of a session in one call.
+3. A cheap model may read each note once and record which named things appear in it (datasets, models, metrics,
+   people) and how they relate, with the sentence that says so as evidence. This adds synonyms and a map of the
+   project. Answering works without it.
+4. Checks flag anything inconsistent. A web page shows the memory and lists what may be wrong, for a person to
+   review.
 
----
+## Architecture
 
-## What it is, and what it is not
+Four layers. Each is built only from the one below it.
 
-**It is**
+| layer | what it is | produced by | cost |
+|---|---|---|---|
+| 1. Notes | `memory/<area>/<id>.md`, one file per thing, with three front-matter fields | the agent, or a person | writing a file |
+| 2. Retrieval | `ask`: one grep pass over the notes, results ordered by lineage | the script | no model |
+| 3. Index (optional) | the things each note names, typed links between them with quoted evidence, synonyms, conflict verdicts | a cheap model reads each note once; the script checks and stores the answer | about $0.002 per note, once |
+| 4. Checks and viewer | twelve warnings, a digest, one self-contained HTML page | the script | no model |
 
-- A folder convention: `memory/<area>/<id>.md`, one note per thing, with three front-matter fields.
-- A search command, `ask`, that is grep plus a thin layer of memory: it expands a question into the ids and
-  aliases the memory knows, greps the notes once, and orders what it finds by lineage, newest first.
-- An optional index built by a cheap model (the "dreamer"): the things each note names (entities), the typed
-  links it states between them (relations), each with the quoted line that states it.
-- A reviewer, the same cheap model, asked once per dream about vocabulary, look-alike names and notes that may
-  disagree. Its verdicts are plain-text lines you can edit.
-- A set of checks (C1 to C12) and a self-contained viewer page with a "Worth checking" list.
-- A skill: `SKILL.md` tells an agent when to read, how to write, and when to dream.
+Layer 1 is the only state that matters. Layers 2 to 4 live under `memory/_dream/` and can be deleted and rebuilt.
 
-**It is not**
+## Who decides what
 
-- Not a vector database and not embeddings. Nothing is ranked by similarity; words either occur or they do not.
-- Not a reasoner. No inference, no inferred transitive or inverse links. The only walks are explicit: `from` and
-  `supersedes` links, at most two hops, exactly as the notes state them.
-- Not an editor of your notes. Nothing in the system rewrites a note, ever. The dreamer writes only under
-  `_dream/`; the review appends lines to three small root files you own; the digest is regenerated.
-- Not Claude Code's own memory. When the agent is Claude Code, `ask` also reads its auto-memory topic files and
-  never writes there; `dream`, `log` and `viz` refuse to run on such a folder.
-- Not a judge of truth. It quotes the line a fact came from and flags pairs that may disagree. A person decides
-  anything the reviewer marks unsure.
-- Not a replacement for grep. Plain `grep -rn … memory/` stays first-class and is sometimes the right call.
-- Not a sync service or a multi-user store. It is files in a repository; git carries them.
+| the agent or a person | the cheap model | the script (deterministic) |
+|---|---|---|
+| what is worth a note and what it claims | which named things a note mentions, and their types | lineage between notes, from the front matter |
+| which notes it was built on, which it replaces | which links between things the note states, each with a quote | which note is current (following `supersedes` to the end) |
+| numbers, dates, sources | synonyms: whether two names are the same thing | kinds, dates, which things are kept, the relation vocabulary's limits |
+| preferences and house rules | conflicts: whether one of two notes supersedes the other | which pairs of notes to flag as possibly conflicting |
+| the final word on anything the model marks unsure | | search, scoring, the twelve checks, the digest, the page |
 
----
+The right column is rules anyone can read in `memory.py`. The middle column always leaves a quote behind. Only the
+left column is judgement.
 
-## Why it is effective, and why it is cheap
+## Layer 1: the notes
 
-**The notes are the truth, and they are small.** One claim per note, at most 40 lines, with the numbers, the
-evaluation set, the count and the date in the first paragraph. A whole small project is a few thousand tokens.
-
-**Answering is one grep, not many round trips.** The expensive thing for an agent is not reading; it is the
-number of times it goes back and forth. `ask` takes every question and task of a session in one call, greps once,
-and prints the answering lines under a one-line header per note that already says the kind, the date, what the
-note was built on and what replaced it. Measured against a grep-only agent on the same questions:
-
-| 10 questions, 3 runs each, judged against reference answers | correct / partial / wrong | tool calls | tokens | cost | time |
-|---|---|---|---|---|---|
-| 30 notes, with the memory | 26 / 3 / 1 | 1.3 | 104k | 0.93× | 40 s |
-| 30 notes, grep only | 25 / 5 / 0 | 2.7 | 129k | 1× | 53 s |
-| 1,677 notes, with the memory | 27 / 3 / 0 | 4.7 | 311k | 0.47× | 61 s |
-| 1,677 notes, grep only | 26 / 4 / 0 | 25.3 | 1,465k | 1× | 172 s |
-
-On 326 questions over the 1,677-note test bank, `ask` heads 93.8% of the gold notes and 97.6% of the numbers
-asked for, in about 2,500 characters per question; it finds 89% of questions asked with an alias the notes use
-rather than the id; and on 70 questions about things the memory does not hold, it says so every time instead of
-guessing. Details and every run: `.specs/memory-dream/RESULTS.md`.
-
-**The model is optional and reads each note once.** Without it, nothing is missing for answering: lineage, kinds,
-dates, conflicts, the digest and the viewer all come from the notes themselves. With it, each note costs about
-$0.0013 to $0.0022 once (a note is re-read only when its content changes), and you get entity names, aliases and
-typed relations: about one point more gold recall, six more on alias questions, and the Connections and Map views.
-
-**Everything derived is disposable.** Delete `_dream/` and the next dream rebuilds it. The only state that
-matters is the notes and three small text files at the memory root.
-
----
-
-## The note: what a person or the main agent writes
-
-This is the one contract everybody has to keep. A note is a markdown file at `memory/<area>/<id>.md`.
+A note is a markdown file at `memory/<area>/<id>.md`. The area is a project folder (`churn-2026/`) or a shared
+folder (`prefs/`, `glossary/`, `howto/`, `people/`, and a few others). The filename is the id.
 
 ```markdown
 ---
 from: [exp-011-baseline, feat-velocity-v2]
+supersedes: []
 updated: 2026-09-25
 ---
 # XGBoost with 30-day velocity: AUC 0.81, recall@10 0.52 on holdout-2025q4
-Adding the velocity features to the baseline set lifts AUC 0.71→0.81 and recall@10 0.29→0.52.
-holdout-2025q4, n=1.2M, 2026-09-25. Model: XGBoost, 400 trees, depth 6. Notebook: `nb/exp014_xgb.ipynb`.
-The lift is mostly from `vel_ratio_30_90`.
+Adding the velocity features to the baseline lifts AUC 0.71 to 0.81 and recall@10 0.29 to 0.52.
+holdout-2025q4, n=1.2M, 2026-09-25. XGBoost, 400 trees, depth 6. Notebook: `nb/exp014_xgb.ipynb`.
 ```
 
-- **The filename is the id.** `exp-014`. A model's note is named after the model (`churn-xgb-v3`). Prefixes say
-  what a note is: `exp-` experiment, `feat-` feature, `ds-` dataset, `dec-` decision, `fnd-` finding, `q-` question,
-  `metric-`, `pref-`, `rule-`, `term-`; `…-vN` is a model.
-- **The area is the folder.** A project (`churn-2026/`), or one of the areas that span projects: `prefs/`,
-  `reporting/`, `glossary/`, `corrections/`, `howto/`, `qa/`, `people/`, `log/`.
-- **Three front-matter fields.** `from:` the notes this one was built on. `supersedes:` the notes it overturns.
-  `updated:` the date (`YYYY-MM-DD`). Optional `type:` names the kind when the prefix or folder does not.
-- **The `# ` line is the claim.** The first paragraph is what is true now. Numbers carry the metric, the evaluation
-  set, n and the date. Sources (tables, notebooks, queries) go in backticks.
-- **At most 40 lines, plain markdown, nothing about the memory system itself.**
-- **Never rewrite an old conclusion.** Write a new note with `supersedes:`. Here the model's third version
-  replaces the second, and both notes stay:
+Rules:
 
-```markdown
----
-from: [feat-velocity-v3, feat-utilization-check]
-supersedes: [churn-xgb-v2]
-updated: 2026-10-30
----
-# churn-xgb-v3: AUC 0.76, recall@10 0.43 on holdout-2025q4, no leakage
-churn-xgb-v3 uses feat-velocity-v3 and feat-utilization-v1, same XGBoost settings as churn-xgb-v2.
-…
-```
+- `from` lists the notes this one was built on. `supersedes` lists the notes it overturns. `updated` is the date.
+- The first heading is the claim. The first paragraph is what is true now, with the metric, the evaluation set,
+  the sample size and the date. Sources go in backticks.
+- At most 40 lines. Plain markdown. Nothing about the memory system itself.
+- Never edit an old conclusion. Write a new note with `supersedes`. Both notes stay; the newer one counts.
+- Filename prefixes say what a note is: `exp-` experiment, `feat-` feature, `ds-` dataset, `dec-` decision,
+  `fnd-` finding, `q-` question. A model's note is named after the model (`churn-xgb-v3`).
+- Preferences and house rules are notes too, in `prefs/`: the rule, where it applies, why.
 
-- **Taste and house rules are notes too.** When someone says "no pie charts" or "round to one decimal for the
-  board", that goes into `prefs/<first>-<last>-<topic>.md` (your own: `prefs/me-<topic>.md`): the rule, where it
-  applies, why. When it changes, a new note with `supersedes:`.
-
-*Simply:* one card, one thing, with a date; say which cards it came from; never erase, replace.
-
----
-
-## The sticky note: what the dreamer writes
-
-The dreamer is a cheap model (the skill uses Claude Haiku) called once per note with a fixed prompt. It is asked
-for JSON only, and for nothing it cannot quote:
-
-- the note's **kind** (`question | experiment | finding | decision | dataset | feature | model | metric | term |
-  preference | rule | log | note`);
-- the **entities** the note names, things someone would look up across notes: tables, features, models, metrics,
-  segments, people, teams, defined terms. Each with an id, a type (`dataset | feature | model | metric | segment |
-  person | team | term | tool`) and the surface forms copied verbatim from the note. Not columns, files, notebooks,
-  numbers or note ids;
-- the **relations** the note states, read "s *type* o", using one of the vocabulary types or saying `other` with the
-  note's own verb as a label, each with a short quote copied verbatim from the note;
-- the **refs**: ids or paths of other notes the text points to.
-
-For the dataset note `churn-2026/ds-txn-2025q4.md` the answer is:
-
-```json
-{"path": "churn-2026/ds-txn-2025q4.md", "kind": "dataset",
- "entities": [{"id": "cards.txn_daily", "type": "dataset", "as": ["cards.txn_daily"], "lines": [4]},
-              {"id": "data-eng-cards", "type": "team", "as": ["data-eng-cards"], "lines": [5]}],
- "relations": [{"s": "cards.txn_daily", "type": "owned-by", "label": "owned-by", "o": "data-eng-cards",
-                "quote": "Owned by data-eng-cards", "line": 5}],
- "refs": []}
-```
-
-What happens to it:
-
-- The script keeps a surface form only if it really occurs in the note, and a relation only if its quote is found.
-  Anything ungrounded is dropped and counted (warning C4). This is the whole trust model: the dreamer may name
-  things, but every fact it adds points at a line you can read.
-- The answer is stored under `_dream/notes/<hash>.json`, keyed by the note's content, so a note is read again only
-  when its text changes. Edits that revert reuse the old answer for 30 days.
-- The eight relation types live in `memory/EDGES.md`: `uses`, `produces`, `part-of`, `trained-on`, `evaluated-on`,
-  `measured-by`, `replaces`, `owned-by`, each with aliases (`~` means read in reverse). A link outside them keeps
-  its label and is shown as `other/<label>`. A label becomes a type only after it is common enough (the `promote:`
-  bar), through the review, within a `budget:` of types, and a proposed type goes back to a label after a
-  `probation:` if it stays rare. Packs (`software`, `research`, `ops`) add a domain's types in one line.
-
-**The reviewer** is the same cheap model, asked once per dream (at most 20 conflict pairs a time) about three
-things: labels over the bar (alias onto a type, a new type with a definition, keep as a label, or drop), entity
-pairs that may be the same thing (same or different; versions are never merged), and pairs of current notes of one
-kind in one area that may disagree (one supersedes the other, compatible, or unsure). Its verdicts are appended as
-plain lines to `EDGES.md`, `ALIASES.md` and `CONFLICTS.md`. Nothing is asked twice; an unsure pair waits for a
-person; and you can write any of those lines yourself, at no model cost.
-
-*Simply:* the helper may write names on a sticky note, but only words it can point to on the card. The sticky
-note can be thrown away; the card cannot.
-
----
-
-## Who decides what
-
-| A person, or the main agent writing notes | The dreamer (cheap model) | The script, with no model at all |
-|---|---|---|
-| What is worth a note, and what it claims | Entity ids, types and surface forms | Lineage: `from`, `supersedes`, and note ids written in a body, resolved to files (C1, C2 when they do not resolve) |
-| Which notes it was built on; which it replaces | Typed relations with their quoted line | Kinds: `type:` wins, then the dreamer's kind, then the prefix, then the folder; dates |
-| Numbers, dates, sources | The note's kind when nothing else says | Which note is current: the chain of `supersedes` to its live end |
-| Preferences and house rules | Refs to other notes | Which entities are kept: a home note, two or more mentioning notes, or an `ALIASES.md` line; folding of `.`, `_`, `-`, case; versions never merged |
-| Hand lines in `EDGES.md`, `ALIASES.md`, `CONFLICTS.md` | Review verdicts: alias or new type, same or different, supersedes, compatible or unsure | Vocabulary gating: the bar, the budget, the probation |
-| Whether an unsure conflict is a supersession | | Conflict candidates: two current notes of one kind in one area, not linked, sharing a rare title word, an id, a version pattern or a title |
-| What to ask, and what to do with the answer | | Search: pattern expansion, one grep, scoring, lineage ordering, the weak-match marker |
-| | | The checks C1 to C12, the digest, the index, the viewer and its "Worth checking" list |
-
-Every decision in the right column is a rule you can read in `memory.py`, and every one in the middle column
-leaves a quote behind. Only the left column is judgement.
-
----
-
-## How an agent works with it
-
-`memory.py` means `python3 <skill>/scripts/memory.py`. It finds the memory by `--root`, `$MEMORY_DIR`, or the
-nearest `memory/` folder upward.
-
-### Search: read first, once
+## Layer 2: retrieval
 
 ```bash
-memory.py ask "what came of exp-014?" "who owns cards.txn_daily?" "Make the Q4 chart for Chloe Martin's readout"
+memory.py ask "what came of exp-014?" "who owns cards.txn_daily?"
 ```
 
-Every question and task of a session goes into one call. Per question it prints the answering lines under one
-header per note:
+The command expands each question with the ids and synonyms the memory knows, greps the notes once, and prints
+the matching lines under one header per note. The header carries the kind, the date, what the note was built on
+and what replaced it:
 
 ```
-## what came of exp-014?
-▸ churn-2026/exp-014.md · experiment · 2026-09-25 · from exp-011-baseline, feat-velocity-v2
-  5: # XGBoost with 30-day velocity: AUC 0.81, recall@10 0.52 on holdout-2025q4
-▸ churn-2026/churn-xgb-v3.md · model · 2026-10-30 · from feat-velocity-v3, feat-utilization-check · supersedes churn-xgb-v2
+▸ churn-2026/churn-xgb-v3.md · model · 2026-10-30 · from feat-velocity-v3 · supersedes churn-xgb-v2
   6: # churn-xgb-v3: AUC 0.76, recall@10 0.43 on holdout-2025q4, no leakage
 ▸ churn-2026/churn-xgb-v2.md · model · 2026-10-02 · from exp-014 · SUPERSEDED → churn-xgb-v3
   5: # churn-xgb-v2: XGBoost on velocity v2 + utilization, AUC 0.81 on holdout-2025q4
-▸ churn-2026/post-period-leak.md · finding · 2026-10-29 · from exp-014, exp-017-leak-check
-  5: # Post-period aggregation leaks target: AUC 0.81→0.74 without it
 ```
 
-`SUPERSEDED → a → b` is history: the last name is current. "What came of X" walks down the `from` links; "why"
-and "what led to" walk two hops up. For a task, the preferences and house rules that apply are added. A small
-memory is printed whole when that costs about the same as the pointers. `(weak match: 'x' found nowhere in
-memory)` means a word of the question occurs in no note: rephrase, or grep. Naming the project or an id scopes
-the search. Then at most one batched follow-up.
+The agent reads the current note first and knows the older one is history without opening either file. If a word
+in the question occurs nowhere in the memory, the output says so instead of guessing. Plain grep remains available
+and is sometimes the right tool.
 
-### Add: write as you go
+## Layer 3: the index
 
-Write the file. That is the whole act.
+A cheap model (Claude Haiku in our runs) is called once per note with a fixed prompt and must answer in JSON:
 
-```bash
-cat > memory/churn-2026/exp-020-tenure-bins.md <<'NOTE'
----
-from: [churn-xgb-v3]
-updated: 2026-11-01
----
-# Tenure bins add nothing: AUC 0.76 → 0.76 on holdout-2025q4
-Five tenure bins on top of churn-xgb-v3's features; AUC unchanged, recall@10 0.43 → 0.44. n=1.2M, 2026-11-01.
-Notebook: `nb/exp020_tenure.ipynb`. Not worth a model version.
-NOTE
+- the note's kind;
+- the entities it names: tables, features, models, metrics, segments, people, teams, defined terms; each with a
+  type and the exact spelling used in the note;
+- the relations it states between those entities, each typed and each with a short quote from the note;
+- references to other notes.
+
+For a dataset note that says "Owned by data-eng-cards", the answer is:
+
+```json
+{"kind": "dataset",
+ "entities": [{"id": "cards.txn_daily", "type": "dataset"}, {"id": "data-eng-cards", "type": "team"}],
+ "relations": [{"s": "cards.txn_daily", "type": "owned-by", "o": "data-eng-cards", "quote": "Owned by data-eng-cards"}]}
 ```
 
-A scratch line that is not yet a note: `memory.py log "backfill running" -p churn-2026` appends a timestamped line
-to `memory/log/<today>.md`. Logs are searched like everything else and never count as current knowledge.
+The script keeps an entity only if its spelling occurs in the note and a relation only if its quote is found.
+Everything else is dropped and counted. Every fact in the index therefore points at a line a person can read.
 
-### Maintain: dream at the end
+Relation types are a fixed list of eight (`uses`, `produces`, `part-of`, `trained-on`, `evaluated-on`,
+`measured-by`, `replaces`, `owned-by`) with synonyms, kept in `memory/EDGES.md`. A link that fits none keeps its
+own label and is shown as `other/<label>`. A label can become a type only after it is common, through the review,
+within a budget.
 
-```bash
-memory.py dream          # lineage, kinds, conflicts, digest, viewer, index; with $MEMORY_LLM set, entities and relations too
-memory.py check          # every warning C1–C12 in full, and whether the graph conforms to the contract
-memory.py viz            # rewrite the viewer page, memory/_dream/graph.html
-```
+The review is one more call to the same model per indexing run. It answers three kinds of question: whether a
+common label is a synonym of an existing type or a new one; whether two names are the same thing; and whether one
+of two notes that appear to disagree supersedes the other, or both stand, or it cannot tell. The verdicts are
+appended as plain lines to `EDGES.md`, `ALIASES.md` and `CONFLICTS.md`. Nothing is asked twice. A person can write
+or overrule any of these lines by hand.
 
-`dream` is safe to run in the background and stops after a scan when nothing changed. With a model command in
-`$MEMORY_LLM` (for example `claude -p --model haiku --tools ""`), it reads new or changed notes, then asks the
-review. Without one, it does everything that needs no model and says how many notes have no entities yet; an
-agent that wants entities without a command runs `dream --prompts`, lets the `memory-dreamer` subagent answer the
-prompt files under `_dream/pending/`, and runs `dream --prompts` again.
+The model reads a note again only when the note's content changes. Indexing the 1,677-note test bank cost under
+$4 in total.
 
-Every dream writes `memory/DIGEST.md`: how to ask, your own preferences, the newest current decisions and
-models, the open questions, in at most 40 lines. One line in `CLAUDE.md`, `@memory/DIGEST.md`, keeps it in
-context every session.
+## Layer 4: checks and the viewer
 
-Three files at the memory root are yours: `EDGES.md` (the relation types), `ALIASES.md` (`- canonical = other`
-merges two ids; `not: a / b` keeps them apart), `CONFLICTS.md` (`- a > b` makes a supersede b without touching
-either note; `compatible: a / b`; `- a ? b` waits for a person). A hand edit costs no model calls and relabels
-everything at the next dream.
+Twelve checks run on every indexing pass: links to notes that do not exist or are ambiguous, notes over 40 lines,
+notes without a heading, facts the model could not ground, pairs of current notes that may disagree, relations
+whose endpoints have unusual types, and a few more. `memory.py check` prints them all.
 
-### Delete, retire, move
+The viewer is `memory/_dream/graph.html`, one file with no network requests. It opens on the Map.
 
-- **To retire a conclusion, supersede it.** Write the new note with `supersedes:`. Both stay; `ask` lifts the
-  newer one and marks the older `SUPERSEDED`; the viewer draws the older one hollow.
-- **To remove a note, delete the file.** The next dream drops it from the graph. Notes that pointed at it get a
-  C2 warning (a link to nothing), the things it named lose those mentions, and its cached reading is kept 30 days
-  in case the file comes back. Nothing else needs doing.
-- **To move or rename a note, move the file.** A dream recognises the same content at one new path, keeps the old
-  path resolving, and relabels links. Renaming and editing in one step counts as a delete and a new note.
-- **To start over, delete `_dream/`.** Everything in it is derived; the next dream rebuilds it. Notes whose
-  readings are gone are read again, which is where the model cost returns.
+![The Map: what a person wrote, what it became, who checked it; one graph with the most connected things named](docs/viewer-map.png)
 
-### Look: the viewer
+The Map shows, with counts, what the notes state themselves, what the model extracted, what rests only on replaced
+notes, which pairs may disagree and which questions are open; one graph of the things the notes talk about; and a
+table that says what each kind of statement is worth. The Timeline places every note by topic and date, and a
+picked note is shown rendered, with the things it mentions marked, its links, and the facts the model read from it,
+each with a button that copies a correction request for the agent.
 
-`memory/_dream/graph.html` is one file with no network requests, written for someone who knows nothing about
-the mechanics. It opens on the **Map**: what a person wrote, what it became, who checked it, each with a count
-and a verdict badge; one graph of the things the notes talk about, the most linked ones named, things with a note
-of their own in their kind's colour; and two tables, what the memory holds and what each kind of statement is
-worth. The pictures below are the 1,677-note test bank.
+![The Timeline with a note picked](docs/viewer-note.png)
 
-![The Map: a person writes, what it becomes, who checks it; one graph with its hubs named](docs/viewer-map.png)
+"Worth checking" lists what may be wrong: notes that may disagree, names that may be the same thing, links that
+look odd or lead nowhere, notes connected to nothing. Each item has a button that copies a ready question for the
+agent, which then fixes the link, writes the superseding note, or records that the two notes are compatible.
 
-**Timeline** places every note by topic and date, with the lines between them. Picking a note shows it rendered
-on the right, with every thing it mentions marked in the text, how it connects, what the assistant took from it
-(each fact with a "Wrong?" button), and its family tree under the chart.
+## Operations
 
-![The Timeline with a note picked: its lane washed, its links lit, the note rendered beside it](docs/viewer-note.png)
+| task | what to do |
+|---|---|
+| search | `memory.py ask "q1" "q2" …` with every question and task of the session in one call |
+| add | write the note file; `memory.py log "…" -p <project>` for a scratch line that is not yet a note |
+| maintain | `memory.py dream` at the end of a session (safe in the background; stops early when nothing changed); `memory.py check`; `memory.py viz` |
+| retire a conclusion | write the new note with `supersedes`; both stay, the new one counts |
+| delete a note | delete the file; the next `dream` drops it and warns about notes that still link to it |
+| move or rename a note | move the file; the next `dream` recognises the same content at the new path |
+| start over | delete `memory/_dream/`; the next `dream` rebuilds it (the model re-reads notes whose results were deleted) |
 
-**Connections** shows the same things in one column per kind, the most connected named, with the current links as
-curves between the columns.
+`dream` needs a model command in `$MEMORY_LLM` to build the index (for example `claude -p --model haiku --tools ""`).
+Without one it still builds lineage, kinds, conflicts, the digest and the page. Every `dream` writes
+`memory/DIGEST.md`, at most 40 lines: current decisions and models, open questions, the user's own preferences.
+One line in `CLAUDE.md`, `@memory/DIGEST.md`, keeps it in the agent's context.
 
-![Connections: one column per kind of thing, links as curves](docs/viewer-connections.png)
+## Results
 
-**Worth checking** lists what may be wrong: notes that may disagree, names that may be the same thing, links that
-look odd or lead nowhere, notes on their own. Each item has a "Copy question" button whose text you paste to the
-assistant; the assistant then fixes the link, writes the superseding note, or tells you the two notes are
-compatible.
+Fresh agents answering ten questions each, three runs per cell, graded against reference answers. The memory arm
+had the skill and the notes; the grep arm had the notes only.
 
----
+| | correct / partial / wrong | tool calls | tokens | cost | time |
+|---|---|---|---|---|---|
+| 30 notes, memory | 26 / 3 / 1 | 1.3 | 104k | 0.93× | 40 s |
+| 30 notes, grep | 25 / 5 / 0 | 2.7 | 129k | 1× | 53 s |
+| 1,677 notes, memory | 27 / 3 / 0 | 4.7 | 311k | 0.47× | 61 s |
+| 1,677 notes, grep | 26 / 4 / 0 | 25.3 | 1,465k | 1× | 172 s |
+
+Offline, on 326 questions over the 1,677-note bank, `ask` returns the gold note for 93.8% of questions and the
+number asked for in 97.6%, in about 2,500 characters per question. On 70 questions about things the memory does
+not contain, it reports no match every time. Full record: `.specs/memory-dream/RESULTS.md`.
+
+## What it is not
+
+- Not a vector database. Nothing is ranked by similarity.
+- Not a reasoning engine. The only inference is following `from` and `supersedes` links, at most two steps.
+- Not an editor of notes. No part of the system rewrites a note.
+- Not Claude Code's own memory. When the agent is Claude Code, `ask` also reads that memory and never writes to it.
+- Not a judge of truth. It quotes evidence and flags possible conflicts; a person decides the unsure ones.
+- Not a service. It is files in a repository.
 
 ## Install
 
 ```bash
-cp -R skills/memory-dream <project>/.claude/skills/memory-dream          # or ~/.claude/skills/
-cp skills/memory-dream/agents/memory-dreamer.md <project>/.claude/agents/   # only for the no-command dreamer
+cp -R skills/memory-dream <project>/.claude/skills/memory-dream
 mkdir -p <project>/memory
-python3 tests/acceptance.py                                               # 37 checks on the fixture, about a minute
+python3 tests/acceptance.py        # 37 checks on the fixture
 ```
 
-## Where to read more
+## Further reading
 
-- `skills/memory-dream/SKILL.md`: the three habits an agent follows (read first, write as you go, dream at the end).
-- `.specs/memory-dream/CONTRACT.md`: every field the script writes and reads, and the twelve warnings.
-- `.specs/memory-dream/RUNBOOK.md`: daily use, the dreamer in command and file mode, troubleshooting.
-- `.specs/memory-dream/RESULTS.md`: every measured phase, with the runs behind each number.
-- `BUILD-GUIDE.md` and `online-build-bundle.md`: how to build it again from scratch, phase by phase, with exit
-  conditions; the bundle is one markdown that splits at `<--->` lines.
-- `tests/`: the churn-2026 fixture, the deterministic fake dreamer, the acceptance suite and the headless viewer
-  check. `eval/`: the 1,677-note test bank, its 366 questions, and the agent evaluations.
+- `skills/memory-dream/SKILL.md`: the instructions the agent follows.
+- `.specs/memory-dream/CONTRACT.md`: every field the script writes and reads, and the twelve checks.
+- `.specs/memory-dream/RUNBOOK.md`: daily use and troubleshooting.
+- `.specs/memory-dream/RESULTS.md`: every measurement, with the runs behind it.
+- `BUILD-GUIDE.md`, `online-build-bundle.md`: how to rebuild it from scratch, phase by phase.
