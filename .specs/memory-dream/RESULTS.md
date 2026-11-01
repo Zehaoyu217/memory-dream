@@ -103,6 +103,18 @@ button does, and that it worked, is a flat ink popover on hover, focus or after 
 full width under the figure whenever a picked note has one. The headless check now covers zones, the washed lane
 and zone, the kept names and the reading-distance rule; 13 checks pass on both worlds, 0 page errors.
 
+**H7 — mentions in the text, one action in ink (1 Nov).** The owner's next review: the action belongs at the right of
+the box, in black; the things a note mentions should be marked in the text rather than listed below it, and none may be
+missed; the technical block ("What the assistant reads") goes; the timeline's picked note should look as it does in
+Connections (a blue outline, not an enlarged shape with a boxy edge). Done. Marking works on the rendered note: the
+text nodes are merged first (the renderer emits one per word, which is why multi-word names failed on the first try),
+then every surface form the index knows for each mentioned thing — id, plain words, aliases — is matched longest
+first, whole words, any case, skipping code, links and chips already placed; a token that is both a thing and a note
+now renders as the thing (it used to become a note link, so model and feature ids were never marked). Whatever the
+text does not yield, typically a mention only in the title, is named once in an "Also about" line under the text.
+Measured on 84 sampled bank notes (332 mentions): 0 missed; on the fixture (25 notes, 86 mentions): 0 missed. The
+headless check now asserts every mention marked and no technical block on the picked note.
+
 # Phase G (2026-11-01) — agents on the real index, and two designs read for free money
 
 ## G1 — the agent eval at n = 3 batches per arm (Opus, real Haiku index)

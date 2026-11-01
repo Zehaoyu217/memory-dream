@@ -24,8 +24,8 @@ const path = require('path');
     out('timeline pick pops, lights its curves with arrows, dims the rest, washes its lane; no lines between lanes', pk.picked === 1 && pk.hot > 0 && pk.arrow && pk.dim > 0 && pk.lane === 1 && pk.lines === 0, pk);
     const hid = await page.evaluate(() => { const b = document.querySelector('#lanes .legend.nodes button.lg'); b.click(); const n = document.querySelectorAll('#lanes .node.off').length; const e = document.querySelectorAll('#lanes .edge.off').length; b.click(); return { nodesHidden: n, edgesHidden: e }; });
     out('timeline legend toggle hides a kind and its curves', hid.nodesHidden > 0, hid);
-    const md = await page.evaluate(() => ({ md: !!document.querySelector('#pick .md'), agentCollapsed: !document.querySelector('#pick details.agent').open, pre: (document.querySelector('#pick pre') || {}).textContent.slice(0, 2) }));
-    out('note rendered as markdown, agent view collapsed', md.md && md.agentCollapsed && md.pre === '▸ ', md);
+    const md = await page.evaluate(() => { const g = JSON.parse(document.getElementById('data-graph').textContent); const p = decodeURIComponent(location.hash.slice(6)); const want = new Set(g.entities.filter(e => e.mentions.some(m => m.path === p)).map(e => e.id)); const got = new Set([...document.querySelectorAll('#pick .paper .ent')].map(c => c.dataset.id)); return { md: !!document.querySelector('#pick .md'), technical: !!document.querySelector('#pick details.agent, #pick pre:not(.md pre)'), mentions: want.size, marked: [...want].filter(id => got.has(id)).length, inText: document.querySelectorAll('#pick .md .ent').length, rawIds: /\b[a-z]+-[a-z]+-v\d\b/.test(document.querySelector('#pick .paper').textContent) }; });
+    out('note rendered as markdown, every mention marked in it, no technical block, no raw ids', md.md && !md.technical && md.marked === md.mentions, md);
     await page.evaluate(() => { location.hash = ''; history.replaceState(null, '', location.pathname); }); await page.waitForTimeout(200);
   }
   // ---- P8b connections ----

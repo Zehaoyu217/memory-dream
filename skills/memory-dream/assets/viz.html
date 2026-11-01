@@ -1,8 +1,8 @@
 <!doctype html>
 <!-- what: memory/ as a page a person can browse without knowing how any of it works — their notes placed by topic
      and time with the lines between them, a map of the things the notes talk about and how they connect, a search
-     over everything, the note itself when picked (rendered), where it came from and led to, what the assistant took
-     from it, and a "Worth checking" list of what may be wrong, each item with a one-click question to hand the
+     over everything, the note itself when picked (rendered, the things it mentions marked in the text), where it came
+     from and led to, what the assistant took from it, and a "Worth checking" list of what may be wrong, each item with a one-click question to hand the
      assistant | views: Timeline and Connections | modes: the whole memory; one topic (big memories, with an overview
      page of topics) | style: a white field, one black at four strengths for text and rules, one blue for what is
      selected, eight series colours for the families, zones in light grey and a blue wash, square corners, no bars, no shadows
@@ -155,10 +155,10 @@
     #lanes .node { cursor: pointer; transition: opacity var(--t); }
     #lanes .node .shape { stroke: var(--bg); stroke-width: 1; transform-box: fill-box; transform-origin: center; transition: transform var(--t) var(--ease), stroke var(--t); }
     #lanes .node.sup .shape { fill-opacity: .25; stroke: var(--ink-2); stroke-dasharray: 2 2; }
-    #lanes .node:hover .shape, #lanes .node.hot .shape { transform: scale(1.3); stroke: var(--hot); }
-    #lanes .node.picked .shape { transform: scale(1.8); stroke: var(--hot); stroke-width: 1.4; }
+    #lanes .node:hover .shape { transform: scale(1.4); }
+    #lanes .node.hot .shape, #lanes .node.hit .shape { stroke: var(--hot); stroke-width: 1.2; vector-effect: non-scaling-stroke; }
+    #lanes .node.picked .shape { stroke: var(--hot); stroke-width: 1.6; vector-effect: non-scaling-stroke; }
     #lanes .node.dim { opacity: .14; }
-    #lanes .node.hit .shape { stroke: var(--hot); stroke-width: 1.5; }
     #lanes .arrow { fill: var(--hot); }
     @keyframes flow { to { stroke-dashoffset: -10; } }
     @media (prefers-reduced-motion: reduce) { #lanes .edge.hot, #lanes .gedge.hot { animation: none; } }
@@ -227,15 +227,12 @@
     #pick { position: sticky; top: 16px; }
     #pick .empty { color: var(--muted); font: 400 16px/24px var(--sans); margin-top: 8px; }
     #pick .in > h2, #pick .paper h2 { font: 400 26px/32px var(--serif); color: var(--ink); margin: 0 0 12px; }   /* the note or thing itself: the serif voice */
-    #pick .actions { display: flex; flex-wrap: wrap; gap: 8px 12px; margin: 16px 0 0; align-items: center; }
+    #pick .actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px 12px; margin: 16px 0 0; align-items: center; }   /* the one action, right-aligned, in ink */
+    #pick .actions button.ask { background: var(--ink); color: #fff; border-color: transparent; }
+    #pick .actions button.ask:hover { background: rgba(0, 0, 0, .8); }
+    #pick .actions button.ask.done { background: var(--pos); color: #fff; }
+    #pick .actions button.ask::after { left: auto; right: 0; }
     #pick .trail { margin: 8px 0 12px; font: 400 12px/16px var(--sans); display: flex; gap: 8px; align-items: center; flex-wrap: wrap; color: var(--meta); }
-    #pick .agent { background: var(--tint); padding: 8px 12px; margin: 24px 0 0; }
-    #pick .agent summary { font: 400 12px/16px var(--sans); text-transform: uppercase; letter-spacing: 1px; color: var(--meta); cursor: pointer; }
-    #pick .agent[open] summary { margin-bottom: 8px; }
-    #pick pre { margin: 0; white-space: pre-wrap; word-break: break-word; font: 400 12px/16px var(--mono); color: var(--ink-2); }
-    #pick pre .hd { color: var(--ink); }
-    #pick pre .sup { color: var(--blue-text); font-weight: 500; }
-    #pick pre .ln { color: var(--meta); }
     #pick .paper { background: var(--tint); padding: 20px 24px; margin: 8px 0 0; }   /* the note itself, on the light grey field */
     #pick .md { font: 400 16px/24px var(--sans); color: var(--ink-2); }
     #pick details.fold { margin-top: 8px; } #pick details.fold summary { font: 400 14px/20px var(--sans); color: var(--muted); cursor: pointer; } #pick details.fold[open] summary { margin-bottom: 8px; }
@@ -253,10 +250,11 @@
     #pick dl { display: grid; grid-template-columns: max-content 1fr; gap: 0 16px; margin: 0; font: 400 14px/20px var(--sans); }
     #pick dt { color: var(--ink); font-weight: 500; padding: 6px 0; border-bottom: 1px solid var(--hair); }
     #pick dd { margin: 0; min-width: 0; padding: 6px 0; border-bottom: 1px solid var(--hair); color: var(--ink-2); }
-    #pick .chips { display: flex; flex-wrap: wrap; gap: 6px; }
-    #pick .chip { display: inline-flex; align-items: center; gap: 6px; min-height: 28px; border: 1px solid var(--rule); padding: 0 10px; font: 400 13px/16px var(--sans); cursor: pointer; background: transparent; color: var(--ink); }
-    #pick .chip:hover { background: rgba(0, 0, 0, .04); border-color: var(--ink); }
-    #pick .chip .ty { color: var(--meta); font-size: 11px; text-transform: uppercase; letter-spacing: .5px; }
+    /* a thing the note mentions, marked where it is said: a square chip in the running text, its family's colour in the corner */
+    #pick .ent { display: inline; white-space: nowrap; padding: 1px 5px 1px 4px; margin: 0 1px; border: 1px solid var(--rule-q); background: var(--bg); color: var(--ink); cursor: pointer; font-size: .92em; }
+    #pick .ent:hover { border-color: var(--ink); background: var(--wash); }
+    #pick .ent .kind { width: 8px; height: 8px; margin-right: 5px; vertical-align: 0; border: 0; }
+    #pick .also { margin: 12px 0 0; font: 400 14px/24px var(--sans); color: var(--muted); }
     #pick .rel { font: 400 14px/20px var(--sans); margin: 0; padding: 6px 0; border-bottom: 1px solid var(--hair); display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; align-items: start; }
     #pick .rel .lab { color: var(--muted); }
     #pick .rel .q { grid-column: 1 / -1; color: var(--meta); font: 400 12px/16px var(--sans); }
@@ -392,16 +390,6 @@
     return b;
   };
   const quote = p => `"${nameOf(p)}" (${p})`;
-
-  // ---------- the header line exactly as memory.py ask prints it (folded away, for the technically curious) ----------
-  function header(n) {
-    const f = (out[n.path] || []).filter(e => e.rel === 'from').map(e => idOf(e.dst));
-    const s = (out[n.path] || []).filter(e => e.rel === 'supersedes').map(e => idOf(e.dst));
-    let h = `▸ ${n.path} · ${n.kind} · ${n.updated}`;
-    if (f.length) h += ` · from ${f.join(', ')}`;
-    if (s.length) h += ` · supersedes ${s.join(', ')}`;
-    return { text: h, sup: n.superseded_by.length ? ` · SUPERSEDED → ${n.superseded_by.map(idOf).join(', ')}${chainOf(n.superseded_by[0]).map(q => ' → ' + idOf(q)).join('')}` : '' };
-  }
 
   // ---------- fuzzy search: fzf-like subsequence scoring over title, id, text and the names of things mentioned ----------
   const hayOf = {};
@@ -934,18 +922,41 @@
     // a small markdown renderer for notes: headings, paragraphs, lists, quotes, fenced code, pipe tables; inline code,
     // bold, italic, links; note ids and the ids of things become links shown in plain words. DOM nodes, never HTML.
     const byId = {}; for (const n of g.notes || []) byId[n.id] = n.path;
+    const aliasEnt = {}; for (const e of g.entities || []) for (const x of e.names || []) if (x.name && !ents[x.name]) aliasEnt[x.name.toLowerCase()] ||= e.id;   // a token that is only an alias of a thing (a glossary note's id, say) is that thing
+    const entChip = (id, text) => { const e = ents[id]; return el('span', { class: 'ent', 'data-id': id, title: `${human(id)} · ${kindName(e.type)} · in ${e.mentions.length} notes — click to open`, onclick: ev => { ev.stopPropagation(); pickEntity(id); } }, el('i', { class: 'kind', style: `background:${typeVar(e.type)}` }), text ?? human(id)); };
+    // every thing the index says this note mentions, marked where the text says it: each surface form the index knows
+    // (the id, its plain words, the aliases seen), longest first, whole words, any case; code, links and chips already
+    // placed are left alone. → the ids found, so the caller can list the ones the text did not yield.
+    function markMentions(container, p) {
+      const ms = mentions[p] || [], found = new Set(); if (!ms.length) return found;
+      const forms = [];
+      for (const { e } of ms) { const fs = new Set([e.id, human(e.id), e.id.replace(/[-_]+/g, ' '), ...(e.names || []).map(x => x.name)].map(x => (x || '').trim()).filter(x => x.length >= 2)); for (const f of fs) forms.push([f, e.id]); }
+      forms.sort((a, b) => b[0].length - a[0].length);
+      const byForm = {}; for (const [f, id] of forms) byForm[f.toLowerCase()] ||= id;
+      const rx = new RegExp(`(^|[^A-Za-z0-9])(${forms.map(f => f[0].replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})(?![A-Za-z0-9])`, 'gi');
+      container.normalize();   // the renderer leaves one text node per word; names span words
+      const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, { acceptNode: t => t.parentElement && t.parentElement.closest('code, pre, a, .ent, .link') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT });
+      const texts = []; let t; while ((t = walker.nextNode())) texts.push(t);
+      for (const tn of texts) {
+        const str = tn.nodeValue; const frag = document.createDocumentFragment(); let last = 0, m, any = false; rx.lastIndex = 0;
+        while ((m = rx.exec(str))) { const start = m.index + m[1].length, id = byForm[m[2].toLowerCase()]; if (start > last) frag.append(str.slice(last, start)); frag.append(entChip(id, m[2])); found.add(id); last = start + m[2].length; any = true; }
+        if (any) { if (last < str.length) frag.append(str.slice(last)); tn.replaceWith(frag); }
+      }
+      for (const c of container.querySelectorAll('.ent')) found.add(c.dataset.id);   // chips the renderer placed from ids count too
+      return found;
+    }
     const WORDRX = /(`[^`]+`|\*\*[^*]+\*\*|\*[^*\s][^*]*\*|_[^_\s][^_]*_|\[[^\]]+\]\([^)]+\)|https?:\/\/\S+|[A-Za-z0-9][\w.@%\/+$-]*)/g;
     function inline(s) {
       const o = []; let last = 0; let m;
       while ((m = WORDRX.exec(s))) {
         if (m.index > last) o.push(s.slice(last, m.index));
         const x = m[0];
-        if (x[0] === '`') { const c = x.slice(1, -1), path = notes[c] ? c : byId[c] || byId[c.replace(/\.md$/, '')]; o.push(path ? link(path, human(c)) : ents[c] ? elink(c) : el('code', {}, c)); }
+        if (x[0] === '`') { const c = x.slice(1, -1), path = notes[c] ? c : byId[c] || byId[c.replace(/\.md$/, '')]; o.push(ents[c] ? entChip(c) : path ? link(path, human(c)) : el('code', {}, c)); }
         else if (x.startsWith('**')) o.push(el('strong', {}, ...inline(x.slice(2, -2))));
         else if (x[0] === '*' || x[0] === '_') o.push(el('em', {}, ...inline(x.slice(1, -1))));
         else if (x[0] === '[') { const i = x.indexOf(']('); o.push(el('a', { href: x.slice(i + 2, -1), target: '_blank', rel: 'noopener' }, x.slice(1, i))); }
         else if (x.startsWith('http')) o.push(el('a', { href: x, target: '_blank', rel: 'noopener' }, x));
-        else { const bare = x.replace(/[.,;:]+$/, ''), tail = x.slice(bare.length), path = notes[bare] ? bare : byId[bare] || byId[bare.replace(/\.md$/, '')]; if (path) o.push(link(path, human(bare))); else if (ents[bare]) o.push(elink(bare)); else o.push(bare); if (tail) o.push(tail); }
+        else { const bare = x.replace(/[.,;:]+$/, ''), tail = x.slice(bare.length), path = notes[bare] ? bare : byId[bare] || byId[bare.replace(/\.md$/, '')]; if (ents[bare]) o.push(entChip(bare)); else if (path && aliasEnt[bare.toLowerCase()]) o.push(entChip(aliasEnt[bare.toLowerCase()], human(bare))); else if (path) o.push(link(path, human(bare))); else o.push(bare); if (tail) o.push(tail); }
         last = m.index + x.length;
       }
       if (last < s.length) o.push(s.slice(last));
@@ -1001,10 +1012,8 @@
       return s;
     }
     function renderNote(p) {
-      const n = notes[p]; const h = header(n);
-      const pre = el('pre', {}, el('span', { class: 'hd' }, h.text), h.sup ? el('span', { class: 'sup' }, h.sup) : null, '\n');
+      const n = notes[p];
       const start = n.line || 1;
-      (n.text || []).forEach((t, i) => { pre.append(el('span', { class: 'ln' }, `  ${start + i}: `), t, '\n'); });
       const frm = (out[p] || []).filter(e => e.rel === 'from').map(e => e.dst), sup = (out[p] || []).filter(e => e.rel === 'supersedes').map(e => e.dst);
       const kids = (inn[p] || []).filter(e => e.rel === 'from').map(e => e.src), refs = (out[p] || []).filter(e => e.rel === 'refs').map(e => e.dst), refd = (inn[p] || []).filter(e => e.rel === 'refs').map(e => e.src);
       const dl = el('dl', {}), dl2 = el('dl', {});
@@ -1021,21 +1030,20 @@
       const cf = conflictsBy[p] || [], ck = checksBy[p] || [];
       const lineText = ln => { const i = ln - start; return (n.text && n.text[i]) ? n.text[i].trim() : ''; };
       const factQ = (r, line) => `In ${quote(p)}, line ${line} was read as "${human(r.s)} ${relName(r.type)} ${human(r.o)}"${lineText(line) ? ` (the line says: "${lineText(line).slice(0, 200)}")` : ''}. Is that right? If not, please correct the note or the link.`;
-      const chip = m => el('span', { class: 'chip', title: `${m.e.id} · in ${m.e.mentions.length} notes`, onclick: () => pickEntity(m.e.id) }, human(m.e.id), el('span', { class: 'ty' }, kindName(m.e.type)));
       const fact = ({ r, line }) => el('div', { class: 'rel' }, el('span', {}, elink(r.s), ' ', el('span', { class: 'lab' }, relName(r.type)), ' ', elink(r.o)), (b => { b.classList.add('mini'); return b; })(askButton(factQ(r, line), 'Wrong?', 'Copies a question about this line for the assistant')), el('span', { class: 'q' }, lineText(line) ? `“${lineText(line).slice(0, 160)}”` : ''));
       const treeEl = tree(n), moreLinks = refs.length + refd.length;
+      const mdEl = el('div', { class: 'md' }, ...md(n.text || [], n.title)), found = markMentions(mdEl, p), missed = ms.filter(m => !found.has(m.e.id));   // the rest, named once under the text
       const parts = [
         el('p', { class: 'eyebrow' }, `${areaName(area(p))} · ${kindName(n.kind)} · ${fmtDate(n.updated)}`),
         n.superseded_by.length ? el('p', { class: 'warn' }, el('span', { class: 'tag sup' }, 'older version'), ' Replaced by ', ...n.superseded_by.flatMap((q, i) => i ? [', ', link(q)] : [link(q)]), '. The newer note is the one that counts.') : null,
-        el('div', { class: 'paper' }, el('h2', {}, titleOf(n)), el('div', { class: 'md' }, ...md(n.text || [], n.title)),
+        el('div', { class: 'paper' }, el('h2', {}, titleOf(n)), mdEl,
+          missed.length ? el('p', { class: 'also' }, 'Also about ', ...missed.flatMap((m, i) => i ? [', ', entChip(m.e.id)] : [entChip(m.e.id)])) : null,
           el('div', { class: 'actions' }, askButton(`I think something is wrong or out of date in ${quote(p)}: `, 'Something wrong?'))),
         (frm.length || sup.length || kids.length || n.superseded_by.length || moreLinks) ? [el('h3', {}, 'How this note connects'), dl.childElementCount ? dl : el('p', { class: 'muted', style: 'margin:0 0 6px' }, 'No direct links; only mentions.'),
           moreLinks ? el('details', { class: 'fold' }, el('summary', {}, `Mentions (${moreLinks})`), dl2) : null] : null,
-        ms.length ? [el('h3', {}, 'Mentioned in this note'), firstThen(el('div', { class: 'chips' }), ms, 8, chip, k => `+${k} more`)] : null,
         rs.length ? [el('h3', {}, `What the assistant took from it (${rs.length})`), firstThen(el('div', {}), rs, 5, fact, k => `Show ${k} more`)] : null,
         cf.length ? [el('h3', {}, 'May disagree with'), ...cf.map(c => el('p', { class: 'warn' }, link(c.a === p ? c.b : c.a), ` — both are current and share: ${c.shared.join(', ')}${c.unsure ? ' · the reviewer was unsure' : ''}. `, askButton(`Please check whether ${quote(c.a)} and ${quote(c.b)} disagree. If one has replaced the other, mark the older note as replaced; if both are right, say they are compatible.`)))] : null,
         ck.length ? [el('h3', {}, 'Worth a look'), ...ck.map(c => el('p', { class: 'warn' }, c.msg.slice(c.msg.indexOf(':') + 1).trim(), ' ', askButton(`Please look into this in ${quote(p)}: ${c.msg.slice(c.msg.indexOf(':') + 1).trim()}`)))] : null,
-        el('details', { class: 'agent' }, el('summary', {}, 'What the assistant reads (technical)'), pre),
       ];
       body.replaceChildren(el('div', { class: 'in' }, ...parts));
       if (treeEl) { $('#lanes .tree-panel h3').textContent = `Where “${titleOf(n).slice(0, 70)}” came from and what it led to — two steps each way; click a box to go there`; $('#lanes .tree-host').replaceChildren(treeEl); $('#lanes .tree-panel').hidden = false; }

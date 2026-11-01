@@ -296,7 +296,7 @@ graph against the contract, `memory.py check` prints the result first, and A38 e
 
 Self-contained HTML (no network), written for a person who knows nothing about how the memory works: plain words
 everywhere (no file names, ids or codes on the surface — `gbm-model-exp233` reads "GBM Model Exp233",
-`evaluated-on` reads "evaluated on", dates are spelt out; raw forms stay in tooltips and one folded technical block),
+`evaluated-on` reads "evaluated on", dates are spelt out; raw forms stay in tooltips),
 a white page, one black at four strengths for text (.95 .80 .70 .60) and four for rules (.95 .44 .34 .16), one
 blue (`#7297C5`, text twin `#446EA6`, a 16% wash) for what is selected and the lit path, eight series colours for
 the families (navy, blue, magenta, teal, orange, purple, red, ochre; shapes carry identity as well), status colours
@@ -339,10 +339,15 @@ mentions, relations with evidence, lineage edges, checks, review queue, conflict
   ids and entity ids become links in plain words; built as DOM nodes, never HTML), then "How this note connects"
   shown progressively — the direct links first (Built on, Replaces, Replaced by, Current version, Led to; six per
   row then "and N more"), mentions folded; the five-column family tree is drawn under the big figure, full width,
-  not in the panel — then the things mentioned (eight,
-  then "+N more"), what the assistant took from it (five facts, then "Show N more"), what it may disagree with, and
-  what is worth a look; last, folded, the exact `▸ path · kind · date · from … · SUPERSEDED → v2 → v3` header (the
-  chain to the live end, as `ask` prints it) and the numbered lines. For an entity: how it is written, headline and
+  not in the panel. The things the note mentions are marked in the text itself, not listed: after rendering, the
+  text nodes are merged and every surface form the index knows for each mentioned thing (its id, its plain words,
+  the aliases seen; longest first, whole words, any case; code, links and chips already placed are skipped) becomes
+  a square chip with the family's colour in its corner, which opens the thing; a token that is both a thing and a
+  note is the thing. Anything the index says is mentioned but the text did not yield (typically a mention in the
+  title) is named once in an "Also about" line under the text, so nothing is missed. The one action, "Something
+  wrong?", sits at the right of the box in ink. Then what the assistant took from it (five facts, then "Show N
+  more"), what it may disagree with, and what is worth a look. There is no technical block: the raw `▸ path · kind
+  · date` header and the numbered lines that `ask` prints stay off the page. For an entity: how it is written, headline and
   home note, typed relations, labels, every note that mentions it. For an area: counts by kind, superseded → current
   chains, conflicts, warnings, notes newest first.
 - **Legends** are two rows of toggles, nodes then edges: each entry (a kind or family; a lineage kind or a relation
