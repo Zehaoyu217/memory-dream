@@ -423,11 +423,17 @@ _Part 3 of 9 · online-build-bundle.md — phases P6–P8_
   1. Rows: one per area (project areas first, general ones last and in italics), `ROW = 42` px; columns: x from the
      date, `LEFT = 170`, 34 px per month, width `max(720, …)`; a month grid (lines at 7% ink, January at 16%) with
      uppercase labels every `ceil(months/18)`, and each year drawn once as a faint watermark (4.5% ink, 64 px,
-     `aria-hidden`) behind the first rows.
+     `aria-hidden`) behind the first rows. No line between rows: lanes are bands of colour, white and light grey
+     by turns for the project areas, a blue wash for the general ones, each zone headed by an uppercase label
+     (Projects, General) when both exist; the picked note's or area's lane takes a 12% blue wash; the lane-label
+     column repeats the band colour so it reads as part of the lane when the lanes scroll.
   2. Place each note at its date; when two notes of a row land within 11 px, nudge the later one into the next of 4
      sub-lanes (8 px apart). Draw order: grid, row lines, edges, nodes, labels — the labels in a last layer with a
      panel-coloured rect behind each, translated by `scrollLeft` on scroll so they stay put (sticky).
-  3. Edges as cubic curves from the older note (`dst`) to the newer (`src`), control points `±min(70, max(14,
+  3. Mentions (`refs`) start hidden — their legend entry is off until the reader turns it on — so a lane is not a
+     thicket of lines; within a lane a link is an arc above the notes (quadratic, height `min(0.55·ROW, 6 +
+     0.22·|dx|)`), never a line along the lane. Between lanes, edges are cubic curves from the older note (`dst`)
+     to the newer (`src`), control points `±min(70, max(14,
      |Δx|/2))`; `from` solid, `supersedes` dashed in the accent, `refs` faint; past 4,000 edges skip `refs`.
   4. A superseded note is drawn hollow and dashed. Hover lights a note's own curves (`hot`). A pick adds `picked`
      (the shape scales 1.75× through CSS `transform` with `transform-box: fill-box`, no ring), marks its linked notes
@@ -450,33 +456,39 @@ _Part 3 of 9 · online-build-bundle.md — phases P6–P8_
      is drawn hollow and dashed. Arrows: `uses`, `part-of`, `owned-by` solid; `replaces` dashed in the accent;
      `trained-on`, `evaluated-on`, `measured-by` dotted; `other/…` faint; `marker-end` arrowhead, `vector-effect:
      non-scaling-stroke`.
-  2. Layout, deterministic (seeded LCG, seed 7): families get anchors on a ring of radius `0.5R`, `R = max(140,
-     13·√n·1.6)`, nodes start near their family's anchor; 180 iterations (120 past 250 nodes) of short-range
-     repulsion (`K = 22`, zero beyond `6K`, capped at 30), springs on relations (rest length 46, stiffness 0.05),
-     a pull toward the family anchor (0.02) and the centre (0.012), step capped at `4 + 30·cooling`; pad the extent
-     70/30/150/30.
+  2. Layout, deterministic, in columns: one zone per family. Order the families so linked ones sit side by side
+     (cost = Σ over cross-family links of their column distance; try every order of up to eight families with
+     Heap's algorithm, else keep size order; the larger end on the left). Inside a zone sort by degree, then
+     mentions; `lanes = min(4, ceil(n/48))`; the most connected go to the right-hand lane (the one that carries
+     names at rest), the rest leftward; zone width `28 + (lanes−1)·40 + 150`, zones 56 apart; row spacing
+     `SP = clamp(16, 36, (paneH−16)/(paneW−16) · W / tallest lane)` so the figure fills the pane's height; each lane
+     centred vertically; then six barycentre sweeps (sort a lane by the mean y of each thing's neighbours, replace).
+     Zones are rects from far above to far below the figure (white / light grey by turns), with a 28 px strip of
+     HTML labels above the pane positioned by the camera (`left = x·k + cam.x`, `width = w·k`, uppercase, ellipsis).
+     Curves: cubic between columns (`c = max(24, 0.4·|dx|)` in the travel direction), a quadratic bowing out to the
+     left between two things of the same lane; the end shortened by the target's radius + 2.
   3. A camera, not a scrollbar: all layers under one `<g transform="translate(x y) scale(k)">`; `fitAll()` picks
      `k` to fit the pane (clamped 0.12–2) and centres; `zoomAt(f, sx, sy)` zooms around a screen point (`k` clamped
      0.1–6); wheel `f = exp(−Δy·0.0012)`; drag on the background pans; drag on a node moves it (`moveNode` rewrites
      its transform, its label and its arrows' endpoints); two pointers pinch; a pointerup without 3 px of movement is
-     a click (pick a node, open a bubble); +/−/⌂ buttons; labels keep their size by `font-size = 10.5/k`.
-  4. Fisheye: on pointermove (rAF-throttled) each unclustered node gets `scale(s)` on its shape with
-     `s = 1 + 0.95·exp(−d²/(2·60²))`, `d` the screen distance to the cursor; labels show for `s > 1.35`; cleared on
-     leave.
-  5. Bubbles: 60 ms after any camera change, when `k < 0.85`, bin visible nodes into cells of `34/k` world units;
-     a cell with ≥ 3 nodes becomes a bubble at their centroid, radius `(9 + 2.4·√n)/k`, filled with the dominant
-     family's colour, the count inside (`font-size 11/k`); its members, their labels and their arrows get
-     `clustered` (hidden); arrows between a bubble and anything else aggregate by pair with width `min(4, 0.6 +
-     log₂ count)`; a cell containing the picked entity never folds. Clicking a bubble zooms ×`max(1.6, 0.9/k)` at
-     it; zooming past 0.85 opens all bubbles.
-  6. Pick focus: dim beyond two hops (one hop for hubs with > 30 neighbours); the pick's arrows and neighbours
-     `hot`; centre the camera on it (zoom ≥ 1.1) if it sits in a bubble or off screen. Hover lights a node's arrows
-     and its neighbours' labels. Legend rows: families (+ "Older version"); relation types (+ "Other links").
+     a click (pick a node); +/−/⌂ buttons; the fit leaves the 28 px name strip clear. Labels keep their size by
+     `font-size = 10.5/k`; the label layer gets `far` when `k·SP < 10` (rows closer than 10 px), which hides every
+     name except those with `keep` (the picked thing and its neighbours, a hovered thing's, the fisheye's).
+  4. Fisheye: on pointermove (rAF-throttled) each shown node gets `scale(s)` on its shape with
+     `s = 1 + 0.95·exp(−d²/(2·60²))`, `d` the screen distance to the cursor; names get `keep` for `s > 1.35`;
+     cleared on leave (names kept by the pick stay).
+  5. Legends hide a family's zone and name along with its things; "Include older versions" rebuilds with the
+     relations stated only in superseded notes.
+  6. Pick focus: dim beyond two hops (one hop for hubs with > 30 neighbours); the pick's curves and neighbours
+     `hot`, their names `keep`; the pick's zone and its name in the strip `picked` (blue wash, blue text); centre
+     the camera on it (zoom 1.1) when zoomed out below 0.8, or when it is off screen. Hover lights a node's curves
+     and names its neighbours. Legend rows: families (+ "Older version"); relation types (+ "Other links").
 - **P8b exit conditions:** (`node tests/viz_check.js <page>` runs all of them)
   - [ ] `#view=graph`: `.gnode` count = shown entities, `.gedge` count = shown relations, two legend rows, a legend
         toggle hides a family's nodes.
-  - [ ] At the fitted zoom on the bank `.gcluster` > 0 and `.gnode.clustered` > 0; `zoomAt(4, …)` leaves none;
-        `zoomAt(0.5, …)` folds more than at fit (reference: fit 48 bubbles / 162 nodes; zoomed out 379; zoomed in 0).
+  - [ ] One `.gzone` and one strip name per family, every thing's x inside its family's zone; picking a thing marks
+        exactly one zone and one strip name `picked` and keeps some names; zooming to `k = 0.15` sets `far` on the
+        label layer and zooming to `1.5` clears it.
   - [ ] A background drag changes `cam.x`/`cam.y` by the drag; a wheel step changes `cam.k`; dragging a node moves
         `state.pos[id]`; moving the mouse over a node sets inline `transform: scale(…)` on nearby shapes
         (reference: 51 within ~150 px on the bank); 0 page errors.
@@ -588,7 +600,7 @@ or to a fresh worker given the packet, at most twice. After that, it stops and r
 
 ## Appendix A — the contract surface, verbatim: `skills/memory-dream/SKILL.md` and the dreamer agent
 
-_Part 5 · copied at commit a4e6dad. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
+_Part 5 · copied at commit ca99961. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
 
 ```markdown
 ---
@@ -655,7 +667,7 @@ Touch nothing else.
 
 ## Appendix B — the graph contract, verbatim: `.specs/memory-dream/CONTRACT.md`
 
-_Part 6 · copied at commit a4e6dad. Schema 1; `memory.py check` validates against it (A38)._
+_Part 6 · copied at commit ca99961. Schema 1; `memory.py check` validates against it (A38)._
 
 ## memory-dream — the graph contract (schema 1)
 
@@ -788,7 +800,7 @@ generated by every dream, ≤ 40 lines, never edited by hand.
 
 ## Appendix C — the build guide, verbatim: `BUILD-GUIDE.md` §3–§10
 
-_Part 7 · copied at commit a4e6dad. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
+_Part 7 · copied at commit ca99961. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
 
 ### 3. The design in one page
 
@@ -1029,22 +1041,26 @@ mentions, relations with evidence, lineage edges, checks, review queue, conflict
   (hexagon dataset, triangle model, diamond feature, circle metric or term, square party, rounded square system),
   sized by mentions, dashed when a newer version replaces them; arrows are the relations the notes state, current
   by default (at least one evidence note live; "include history" adds the rest), solid for uses/part-of/owned-by,
-  dashed for replaces, dotted for trained/evaluated/measured, faint for labels outside the vocabulary. A
-  deterministic force layout (short-range repulsion, springs on relations, a pull toward each family's place on a
-  ring, gravity) settles in about a second — nodes travel from their family's place, then the arrows draw in — and
-  is fitted to the pane; the 400 best-connected entities are shown, and picking any other builds its neighbourhood
-  (two hops, ≤ 150). The canvas is a camera: drag the background to pan, wheel or pinch to zoom around the cursor,
-  +/−/⌂ buttons, drag a node to place it (its arrows follow). A fisheye follows the mouse: the node under it grows
-  almost double and those around it a little, fading with distance. Below a zoom of 0.85, nodes that share a
-  screen-sized cell fold into one bubble with a count (coloured by the dominant family; arrows between bubbles
-  aggregate with width by count); clicking a bubble zooms into it; zooming in opens them. Picking dims everything
-  beyond two hops (one hop for hubs with > 30 neighbours) and centres the pick if it sits in a bubble or off
-  screen; hovering lights a node's arrows and labels its neighbours. `#view=graph` opens it.
+  dashed for replaces, dotted for trained/evaluated/measured, faint for labels outside the vocabulary. The layout
+  is columns, deterministic: one zone per family (white and light grey by turns, the picked family's on a blue
+  wash, each named in a strip above the pane), in the order that puts linked families side by side (every order of
+  up to eight families is tried); inside a zone the most connected things stand in the right-hand lane, named,
+  the rest in up to three lanes to its left (48 per lane); six sweeps then level each thing with the mean height of
+  its neighbours so the curves run short and flat, and the row spacing stretches (16–36 units) to fill the pane's
+  height so names read at the fitted zoom. The 400 best-connected entities are shown, and picking any other builds
+  its neighbourhood (two hops, ≤ 150). The canvas is a camera: drag the background to pan, wheel or pinch to zoom
+  around the cursor, +/−/⌂ buttons, drag a node to place it (its curves follow); names keep their size on screen
+  and go when rows are closer than 10 px, except the picked, lit, hovered or magnified ones. A fisheye follows the
+  mouse: the node under it grows almost double and those around it a little, fading with distance. Picking dims
+  everything beyond two hops (one hop for hubs with > 30 neighbours), washes its zone, names its neighbours and
+  centres it when zoomed out or off screen; hovering lights a node's curves and names its neighbours. `#view=graph`
+  opens it.
 - **Selected — the note, and what the agent sees.** For a note: its text rendered as markdown in its own box, the
   main thing on the panel (headings, lists, quotes, fenced code, pipe tables, inline code/bold/italic/links; note
   ids and entity ids become links in plain words; built as DOM nodes, never HTML), then "How this note connects"
   shown progressively — the direct links first (Built on, Replaces, Replaced by, Current version, Led to; six per
-  row then "and N more"), mentions folded, the five-column family tree folded — then the things mentioned (eight,
+  row then "and N more"), mentions folded; the five-column family tree is drawn under the big figure, full width,
+  not in the panel — then the things mentioned (eight,
   then "+N more"), what the assistant took from it (five facts, then "Show N more"), what it may disagree with, and
   what is worth a look; last, folded, the exact `▸ path · kind · date · from … · SUPERSEDED → v2 → v3` header (the
   chain to the live end, as `ask` prints it) and the numbered lines. For an entity: how it is written, headline and
@@ -1243,7 +1259,7 @@ Taste retrieval (fresh tasks, recall of the gold notes): the person's preference
 
 ## Appendix D — prompts, seeds and tuned tables, verbatim from `memory.py`
 
-_Part 8 · extracted at commit a4e6dad by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
+_Part 8 · extracted at commit ca99961 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
 
 ### D.1 `EXTRACT` — the per-note prompt (the static part is cached; `EDGES:` and `KNOWN:` follow, then `NOTE`)
 

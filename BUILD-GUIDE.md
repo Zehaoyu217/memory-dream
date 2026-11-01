@@ -320,22 +320,26 @@ mentions, relations with evidence, lineage edges, checks, review queue, conflict
   (hexagon dataset, triangle model, diamond feature, circle metric or term, square party, rounded square system),
   sized by mentions, dashed when a newer version replaces them; arrows are the relations the notes state, current
   by default (at least one evidence note live; "include history" adds the rest), solid for uses/part-of/owned-by,
-  dashed for replaces, dotted for trained/evaluated/measured, faint for labels outside the vocabulary. A
-  deterministic force layout (short-range repulsion, springs on relations, a pull toward each family's place on a
-  ring, gravity) settles in about a second — nodes travel from their family's place, then the arrows draw in — and
-  is fitted to the pane; the 400 best-connected entities are shown, and picking any other builds its neighbourhood
-  (two hops, ≤ 150). The canvas is a camera: drag the background to pan, wheel or pinch to zoom around the cursor,
-  +/−/⌂ buttons, drag a node to place it (its arrows follow). A fisheye follows the mouse: the node under it grows
-  almost double and those around it a little, fading with distance. Below a zoom of 0.85, nodes that share a
-  screen-sized cell fold into one bubble with a count (coloured by the dominant family; arrows between bubbles
-  aggregate with width by count); clicking a bubble zooms into it; zooming in opens them. Picking dims everything
-  beyond two hops (one hop for hubs with > 30 neighbours) and centres the pick if it sits in a bubble or off
-  screen; hovering lights a node's arrows and labels its neighbours. `#view=graph` opens it.
+  dashed for replaces, dotted for trained/evaluated/measured, faint for labels outside the vocabulary. The layout
+  is columns, deterministic: one zone per family (white and light grey by turns, the picked family's on a blue
+  wash, each named in a strip above the pane), in the order that puts linked families side by side (every order of
+  up to eight families is tried); inside a zone the most connected things stand in the right-hand lane, named,
+  the rest in up to three lanes to its left (48 per lane); six sweeps then level each thing with the mean height of
+  its neighbours so the curves run short and flat, and the row spacing stretches (16–36 units) to fill the pane's
+  height so names read at the fitted zoom. The 400 best-connected entities are shown, and picking any other builds
+  its neighbourhood (two hops, ≤ 150). The canvas is a camera: drag the background to pan, wheel or pinch to zoom
+  around the cursor, +/−/⌂ buttons, drag a node to place it (its curves follow); names keep their size on screen
+  and go when rows are closer than 10 px, except the picked, lit, hovered or magnified ones. A fisheye follows the
+  mouse: the node under it grows almost double and those around it a little, fading with distance. Picking dims
+  everything beyond two hops (one hop for hubs with > 30 neighbours), washes its zone, names its neighbours and
+  centres it when zoomed out or off screen; hovering lights a node's curves and names its neighbours. `#view=graph`
+  opens it.
 - **Selected — the note, and what the agent sees.** For a note: its text rendered as markdown in its own box, the
   main thing on the panel (headings, lists, quotes, fenced code, pipe tables, inline code/bold/italic/links; note
   ids and entity ids become links in plain words; built as DOM nodes, never HTML), then "How this note connects"
   shown progressively — the direct links first (Built on, Replaces, Replaced by, Current version, Led to; six per
-  row then "and N more"), mentions folded, the five-column family tree folded — then the things mentioned (eight,
+  row then "and N more"), mentions folded; the five-column family tree is drawn under the big figure, full width,
+  not in the panel — then the things mentioned (eight,
   then "+N more"), what the assistant took from it (five facts, then "Show N more"), what it may disagree with, and
   what is worth a look; last, folded, the exact `▸ path · kind · date · from … · SUPERSEDED → v2 → v3` header (the
   chain to the live end, as `ask` prints it) and the numbered lines. For an entity: how it is written, headline and

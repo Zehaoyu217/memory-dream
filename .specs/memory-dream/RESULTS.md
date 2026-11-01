@@ -85,6 +85,24 @@ no component markup (the magnifier in the search box is two CSS pseudo-elements)
 references are MIT (vendored from a third party) and were read for conventions, not copied. Both headless checks
 and the 37 acceptance tests pass unchanged; the page is still one file with no requests.
 
+**H6 — zones, not bubbles; a calmer timeline (1 Nov).** The owner's review of H5: the bubbles were not cool, the
+timeline had too many horizontal lines, zones should carry colour (the light grey, the blue, black), no accent bars
+on top or left of a container, shorter buttons, no footnote under a button, and the family tree under the big chart
+rather than folded in the panel. Done: the Connections view is now columns — one zone per family, white and light
+grey by turns, the picked family's on a 12% blue wash, named in a strip above the pane; the families are ordered so
+linked ones sit side by side (every order of up to eight is tried), the most connected things stand in each zone's
+right-hand lane with their names, the rest in lanes to the left, and six barycentre sweeps level each thing with its
+neighbours so the curves run short; the row spacing stretches to fill the pane, so names read at the fitted zoom and
+go only when rows are closer than 10 px (the picked, lit, hovered and magnified ones stay). The clustering code is
+gone (about 60 lines). The timeline lost its row lines and month lines: lanes are bands (white and light grey by
+turns; general topics on a blue wash; the picked lane washed deeper), only January keeps a hairline, months are
+ticks under their label, within-lane links are arcs above the notes, and mentions start hidden with their legend
+entry off. Containers carry no bar: the note sits on the light grey field, warnings on the amber tint, the header
+closes with a hairline. Buttons are 24 px and two words ("Something wrong?", "Wrong?", "Copy question"); what a
+button does, and that it worked, is a flat ink popover on hover, focus or after a click. The family tree is drawn
+full width under the figure whenever a picked note has one. The headless check now covers zones, the washed lane
+and zone, the kept names and the reading-distance rule; 13 checks pass on both worlds, 0 page errors.
+
 # Phase G (2026-11-01) — agents on the real index, and two designs read for free money
 
 ## G1 — the agent eval at n = 3 batches per arm (Opus, real Haiku index)

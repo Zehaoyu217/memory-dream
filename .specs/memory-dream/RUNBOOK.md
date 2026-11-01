@@ -32,8 +32,8 @@ grep -rn velocity memory/ --exclude-dir=_dream                 # plain grep stay
 ```
 
 Viewer (`_dream/graph.html`, self-contained, white, one black at four strengths, one blue, plain words only): two views — notes by area and time with
-their lineage drawn, and the entity graph (nodes by family, the notes' current relations as arrows; pan, zoom,
-drag, a fisheye under the mouse, bubbles at low zoom; `Connections` tab or `#view=graph`); pick a note to read
+their lineage drawn (lanes as bands of colour, no lines), and the entity graph (one column per family, the notes'
+current relations as curves; pan, zoom, drag, a fisheye under the mouse; `Connections` tab or `#view=graph`); pick a note to read
 it in its own box, see how it connects (direct links first, the rest folded), what the assistant took from it, the
 entities and relations the dreamer read in it, pending conflicts; legends are toggles (two rows: nodes, edges);
 fuzzy search over titles, text and entity names (`/`). Deep links: `graph.html#note=<path>`, `#entity=<id>`,
