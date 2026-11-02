@@ -2364,7 +2364,20 @@ W = {  # the tuned numbers of rank() and route(), in one place (REVIEW.md F9); s
     "seeds": 6, "picks": 8, "pick_floor": 0.2, "lines_top": 4, "lines_rest": 2,  # notes considered, printed, lines each
     "route_common": 50, "route_near": 0.9, "route_areas": 8, "route_floor": 0.6,  # big memories: where a question points
     "lineage_lines": 4,  # relatives of the picked notes shown as header + # line (F1: 4 beats 0 and 8; F9: for every question)
+    "relation_lines": 4, "relation_mode": "cue", "relation_hops": 2,  # typed-link one-liners (phase I, typed_links()): the
+    #   notes of the things a named thing is linked to; "cue" = only over the relation types the question's words point at,
+    #   "always" = any type; input questions walk two hops (inputs of inputs, the predecessor's inputs).
+    #   MEMORY_RELATION_LINES, MEMORY_RELATION_MODE and MEMORY_RELATION_HOPS override them for measurement
 }
+RELCUE = {t: re.compile(rx, re.I) for t, rx in {  # question words → the relation types worth one hop (phase I)
+    "uses": r"\b(uses?|using|used by|depend\w*|inputs?|feeds?|reads?|built (on|from)|based on|sources?|features?)\b",
+    "trained-on": r"\b(train\w*|fit(ted)? on|training (set|data))\b",
+    "produces": r"\b(produces?|outputs?|writes?|generat\w+)\b",
+    "part-of": r"\b(part of|components?|members?|columns?|contains?)\b",
+    "evaluated-on": r"\b(evaluat\w+|tested on|validat\w+|holdouts?|backtest\w*|scored on)\b",
+    "measured-by": r"\b(metrics?|measured by|auc|recall|precision|mape|f1|score[sd]?)\b",
+    "replaces": r"\b(replac\w+|supersed\w+|versions?|predecessor|successor|newer|older|retired?)\b",
+    "owned-by": r"\b(owns?|owner\w*|owned|maintain\w*|responsible|teams?)\b"}.items()}
 
 
 def stem(t):
@@ -2884,7 +2897,98 @@ def rank(x, by_file, idf, v):
                 break
         x["kin"] = {q_ for q_, _ in extra}  # the complete print lists them with the memory, not as pointers
         res += extra
+    # typed-link one-liners (phase I): the notes of the things the index links a named thing to (typed_links)
+    n_rel = int(os.environ.get("MEMORY_RELATION_LINES", W["relation_lines"]))
+    if n_rel:
+        extra, cued = typed_links(x, v, {p for p, _ in res}, n_rel, int(os.environ.get("MEMORY_RELATION_HOPS", W["relation_hops"])),
+                                  os.environ.get("MEMORY_RELATION_MODE", W["relation_mode"]))
+        x["kin"] = set(x.get("kin", set())) | {q_ for q_, _ in extra}
+        res += extra
+        if os.environ.get("MEMORY_DEBUG"):
+            sys.stderr.write(f"  typed links: cued={sorted(cued)} by_id={sorted(x['by_id'])} added={[q_ for q_, _ in extra]}\n")
     return res
+
+
+INWARD = re.compile(r"\b(what|which|who)\s+(uses?|depends?|reads?|consumes?|feeds?|relies)\b|\bused by\b|\bdownstream\b|\bdependents?\b", re.I)
+INPUT_TYPES = {"uses", "trained-on", "part-of"}  # the input relations: the two-hop walk follows these and `from:` lineage
+
+
+def typed_links(x, v, have, n_rel, hops, mode):
+    """Phase I: for a thing the question names by id, the notes of the things the index links it to. One hop over the
+    relation types the question's words point at (RELCUE: inputs → uses, trained-on; owner → owned-by; holdout →
+    evaluated-on; …), or any type in "always" mode. For input questions a second hop: the inputs of the inputs and the
+    inputs of the thing's predecessor (a version inherits what it did not replace), through typed relations and `from:`
+    lineage alike; "what uses X" walks the other way, to the users. Each linked thing comes as its own note, or its
+    headline note, at the live end. -> ([(note, [(line, "# title")])] in depth order, at most n_rel; the cued types)."""
+    cued = {t for t, rx in RELCUE.items() if rx.search(x["q"])}
+    if not x["by_id"] or not (cued or mode == "always"):
+        return [], cued
+    inward, input_q = bool(INWARD.search(x["q"])), bool(cued & INPUT_TYPES)
+
+    def ent(i):
+        try:
+            return v.ents[i]
+        except KeyError:
+            return None
+
+    def note_of(e):
+        home = e["home"] or e["headline"]
+        if not home or home not in v.notes:
+            return None
+        chain = successors(v.notes, home)
+        return chain[-1] if chain else home
+
+    def step(eid, depth):
+        """One step from a thing: (note, linked thing or None, relation type, its entity) for each link worth a line."""
+        out, types = [], (cued or None) if depth == 1 else (cued & INPUT_TYPES)
+        rels = (v.in_r[eid] if inward else v.out_r[eid]) if input_q else v.in_r[eid] + v.out_r[eid]
+        for r in rels:
+            if types is not None and r["type"] not in types:
+                continue
+            other = r["o"] if r["s"] == eid else r["s"]
+            oe = ent(other) if other != eid else None
+            q_ = note_of(oe) if oe else None
+            if q_:
+                out.append((q_, other, r["type"], oe))
+        if input_q:  # lineage is the same walk without the index: the parents (inputs) or children (users) of its note
+            e = ent(eid)
+            home = e["home"] if e else None
+            if home and home in v.notes:
+                kin = [e_["src"] for e_ in v.down[home] if e_["rel"] == "from"] if inward else \
+                      [e_["dst"] for e_ in v.frm[home] if e_["rel"] == "from"]
+                out += [(q_, None, "from", None) for q_ in kin if q_ in v.notes]
+        return out
+
+    cands, seen, frontier = [], set(x["by_id"]), [(i, 1) for i in sorted(x["by_id"])]
+    if input_q and hops >= 2 and not inward:  # the predecessor's inputs
+        for i in sorted(x["by_id"]):
+            e = ent(i)
+            home = e["home"] if e else None
+            for e_ in (v.frm[home] if home and home in v.notes else []):
+                if e_["rel"] == "supersedes":
+                    pid = v.notes[e_["dst"]]["id"]
+                    if ent(pid) and pid not in seen:
+                        seen.add(pid)
+                        frontier.append((pid, 2))
+    while frontier:
+        nxt = []
+        for eid, depth in frontier:
+            for q_, other, t, oe in step(eid, depth):
+                cands.append(((depth, 0 if t in cued or t == "from" else 1, t.startswith("other/"), -(len(oe["mentions"]) if oe else 0), q_), q_))
+                if other and other not in seen and depth < hops and input_q:
+                    seen.add(other)
+                    nxt.append((other, depth + 1))
+        frontier = nxt
+    extra, got = [], set(have)
+    for _, q_ in sorted(cands):
+        n = v.notes.get(q_)
+        if q_ in got or not n or not n["line"]:
+            continue
+        got.add(q_)
+        extra.append((q_, [(n["line"], "# " + n["title"])]))
+        if len(extra) >= n_rel:
+            break
+    return extra, cued
 
 
 def entity_line(v, eid):

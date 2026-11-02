@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Offline retrieval eval for `memory.py ask`: no LLM, just "did the answer's evidence come back?".
 
-  retrieval.py <memory root> <questions.jsonl> [more.jsonl ...] [--batch 10] [--budget N] [--show] [--must]
+  retrieval.py <memory root> <questions.jsonl> [more.jsonl ...] [--batch 10] [--budget N] [--show] [--must] [--by-type]
   --must: gold notes that are superseded count as history (heading the successor answers the question)
 
 Per question: gold-note recall (gold notes headed in its section), number recall (numbers of the
@@ -104,6 +104,17 @@ def main():
                "full_note_hit": sum(r["note_recall"] == 1 for r in rows if r["note_recall"] is not None),
                "chars_per_batch": round(total_chars / max(1, -(-len(items) // batch_n))),
                "chars_per_q": round(total_chars / max(1, len(rows))), "secs_per_batch": round(secs / max(1, -(-len(items) // batch_n)), 2)}
+    if "--by-type" in args:  # per question type: gold-note recall and complete answers (phase I)
+        by = {}
+        for r in rows:
+            d = by.setdefault(r["type"] or "?", {"n": 0, "gold": [], "full": 0, "chars": 0})
+            d["n"] += 1
+            d["chars"] += r["chars"]
+            if r["note_recall"] is not None:
+                d["gold"].append(r["note_recall"])
+                d["full"] += r["note_recall"] == 1
+        summary["by_type"] = {t: {"n": d["n"], "gold": round(sum(d["gold"]) / len(d["gold"]), 3) if d["gold"] else None,
+                                  "full": d["full"], "chars_per_q": round(d["chars"] / d["n"])} for t, d in sorted(by.items())}
     print(json.dumps(summary))
     for r in rows:
         if (r["note_recall"] or 0) < 1 or (r["num_recall"] if r["num_recall"] is not None else 1) < 1:
