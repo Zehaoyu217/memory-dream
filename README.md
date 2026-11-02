@@ -282,10 +282,11 @@ its 7 stale questions the successor is listed above the old note and the old one
 - Remaining look-alikes are asked once of the cheap model (same or different), never when the two have different
   notes of their own. The answer lands in `ALIASES.md`.
 
-On the 1,677-note bank, from `memory.py check` on the real-index world (the index itself is not in the repository):
-7,060 mentions, 1,871 ids as written, 1,867 after folding, 1,861 after the alias file,
-1,734 after the merge rule; 923 kept (530 with a note of their own, 393 named in two or more notes); 810 dropped as
-named in one note only.
+On the 1,677-note bank with the index kept in `eval/real/bank-index/` (`memory.py check` after `restore.py` and a
+model-free dream): 8,382 mentions, 3,216 ids as written, 3,190 after folding, 3,175 after the alias file, 2,972 after the
+merge rule; 1,325 kept (712 with a note of their own, 613 named in two or more notes); 1,642 dropped as named in one note
+only, 5 as file names. An earlier index of the same notes, made with an earlier extraction prompt and not kept, had 7,060
+mentions and 923 kept.
 
 ### What the model is told about the existing memory
 
@@ -409,3 +410,4 @@ index) and the software fixture, the build-bundle freshness check and the Postgr
 - `.specs/memory-dream/RUNBOOK.md`: daily use and troubleshooting.
 - `.specs/memory-dream/RESULTS.md`: every measurement, with the runs behind it.
 - `BUILD-GUIDE.md`, `online-build-bundle.md`: how to rebuild it from scratch, phase by phase.
+- `.specs/memory-dream/HANDOFF.md`: where the work stood on 2026-11-02, what is verified, what is open, how to pick it up.

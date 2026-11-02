@@ -14,7 +14,8 @@ from the graph are deleted, all in one transaction under a per-repository lock (
 the repository's Lock node). A schema or version mismatch (CONTRACT.md `schema`, memory.py `v`) deletes the
 repository's rows first and republishes everything. The PostgreSQL backend is tested (tests/store_parity.py). The
 Neo4j backend is written against the official 5.x driver and has NOT been run against a server in this repository's
-test environment; the CSV export is the verified path into a graph database.
+test environment, and neither have the CSV export's import.sh and load.cypher: the export is checked only for its files
+and counts.
 
 The seven calls (what memory.py's DbView needs; SqliteRows in memory.py answers them from index.db):
   notes() -> (path, id, area, title, line, kind, updated, superseded_by)…   edges_from(p) / edges_to(p) -> (src, dst, rel)…

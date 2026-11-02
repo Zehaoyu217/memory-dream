@@ -226,7 +226,8 @@ $M export --to /tmp/graph-export   # no driver: CSV in neo4j-admin header format
 - Neo4j: `MEMORY_STORE=neo4j MEMORY_STORE_URL=neo4j://host:7687 MEMORY_STORE_USER=neo4j MEMORY_STORE_PASSWORD=…` with
   `pip install neo4j`. Nodes `Note` and `Entity` keyed by `repo|id`, lineage as `BUILT_ON`, `SUPERSEDES`, `REFS`,
   `MENTIONED_IN {lines}`, typed relations as `REL {type, evidence}`, `Name` nodes for folded spellings. This backend has
-  not been run against a server in this repository's test environment; `export` plus `import.sh` is the verified path.
+  not been run against a server in this repository's test environment, and neither have the export's `import.sh` and
+  `load.cypher`: the export is checked only for its files and counts.
 - Parity test: `MEMORY_STORE_URL=… python3 tests/store_parity.py postgres [--bank]` (needs the driver): identical `ask`
   output through the store and the local index, the graph read back equals graph.json, a second dream publishes nothing,
   an edit publishes one note, a deletion deletes it, a version mismatch republishes all.
