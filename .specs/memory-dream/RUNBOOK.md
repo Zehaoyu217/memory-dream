@@ -25,9 +25,9 @@ line to CLAUDE.md: `@memory/DIGEST.md`.
 ```bash
 M="python3 .claude/skills/memory-dream/scripts/memory.py"
 $M ask "what came of exp-014?" "who owns cards.txn_daily?"   # answering: grep + memory, every question in one call
-$M viz                            # memory/_dream/graph.html (dream refreshes it): overview, explorer, health
+$M viz                            # memory/_dream/graph.html (dream refreshes it): Timeline, Map, Connections
 $M log "backfill running" -p churn-2026
-$M check                          # every warning C1–C12 in full
+$M check                          # every warning C1–C13 in full
 grep -rn velocity memory/ --exclude-dir=_dream                 # plain grep stays first-class
 ```
 
@@ -117,7 +117,7 @@ the index adds aliases, typed relations and the viewer's entity views (measured 
 ## Tests
 
 ```bash
-python3 tests/acceptance.py                 # A1–A20 with the deterministic fake dreamer (~10 s)
+python3 tests/acceptance.py                 # 38 checks (A1–A20, A24–A41) with the deterministic fake dreamer (~30 s)
 python3 tests/acceptance.py A6 A15          # a subset
 python3 tests/real_model.py a3  /tmp/w-a3   # A3/A18 with real Haiku in command mode (~60 s, ~$0.05)
 python3 tests/real_model.py a10-prep /tmp/w-a10   # A10: file mode; then run memory-dreamer on
@@ -191,6 +191,34 @@ area changed (`viz/_sig.json`). A dream with nothing new stops after the scan.
 python3 eval/scale/profile_dream.py <memory root>                       # where a full rebuild spends its time
 python3 eval/scale/profile_incremental.py <memory root> <scratch> fraud-2026   # re-index one area with the fake dreamer
 ```
+
+## A hosted store (ADR-001): PostgreSQL, Neo4j, or an export
+
+The notes stay the truth and the local index keeps working; a store holds a copy of the graph (CONTRACT.md schema 1) for
+dashboards, cross-repository queries and a graph explorer. `skills/memory-dream/scripts/stores.py` carries the backends;
+`memory.py` itself stays standard-library only and imports it only when `MEMORY_STORE` is set.
+
+```bash
+pip install "psycopg[binary]"                                   # the PostgreSQL driver (the script needs nothing else)
+export MEMORY_STORE=postgres MEMORY_STORE_URL=postgresql://user:pw@host:5432/memdream   # MEMORY_REPO=<id> for many memories
+$M dream            # publishes the graph as a diff after the dream: "store postgres: +N −M rows in 0.4s"; a dream with
+                    # nothing new still publishes when the store is behind
+$M ask "…"          # reads notes, lineage, entities and names from the store (identical output: tests/store_parity.py)
+$M check            # one line: store postgres: repo R · N notes · E entities · R relations · built … · schema 1 v0.4
+$M export --to /tmp/graph-export   # no driver: CSV in neo4j-admin header format + import.sh + load.cypher + meta.json
+```
+
+- Publishing is a diff: rows are keyed and hashed, only new or changed rows travel, rows gone from the graph are deleted,
+  in one transaction under a per-repository advisory lock; a schema or version mismatch republishes everything.
+- If the store is down, `ask` says so on stderr and reads the local index; `dream` reports "publish failed" and the local
+  index is complete. Nothing in answering depends on a database.
+- Neo4j: `MEMORY_STORE=neo4j MEMORY_STORE_URL=neo4j://host:7687 MEMORY_STORE_USER=neo4j MEMORY_STORE_PASSWORD=…` with
+  `pip install neo4j`. Nodes `Note` and `Entity` keyed by `repo|id`, lineage as `BUILT_ON`, `SUPERSEDES`, `REFS`,
+  `MENTIONED_IN {lines}`, typed relations as `REL {type, evidence}`, `Name` nodes for folded spellings. This backend has
+  not been run against a server in this repository's test environment; `export` plus `import.sh` is the verified path.
+- Parity test: `MEMORY_STORE_URL=… python3 tests/store_parity.py postgres [--bank]` (needs the driver): identical `ask`
+  output through the store and the local index, the graph read back equals graph.json, a second dream publishes nothing,
+  an edit publishes one note, a deletion deletes it, a version mismatch republishes all.
 
 ## Troubleshooting
 

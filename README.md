@@ -10,12 +10,15 @@ Python standard library only. Markdown and JSON files. No server, no database se
 
 ## What it buys
 
-- **Same answers at half the cost.** Against an agent given the same notes and plain grep, an agent with the
-  memory answers as accurately, at 0.47× the cost and 0.35× the time on 1,677 notes. The gap holds at 168,141
-  notes (0.41× the cost).
+- **Same answers at a third of the tool calls and 0.6× the cost.** Against an agent given the same notes and plain
+  grep, allowed to read whole folders, an agent with the memory answers as accurately (23/7/0 against 23/7/0 on 30
+  questions) with 0.30× the tool calls, 0.29× the tokens read, 0.61× the cost units and 0.75× the time on 1,677
+  notes. That is the latest run, on the shipped code. An earlier run, before the retrieval rewrite and against a
+  grep arm that could not read folders, measured 0.47× the cost and 0.35× the time at 1,677 notes and 0.41× at
+  168,141; those cells are not re-measured on the shipped code. See Results.
 - **Conclusions do not get lost or mixed up.** A change of mind is a new note that supersedes the old one.
   Retrieval lists the current note first and marks the old one as replaced. On 104 questions aimed at replaced
-  conclusions, the successor is listed above the old note 95% of the time and the old note is marked 100%.
+  conclusions, the successor is listed above the old note 96% of the time and the old note is marked 100%.
 - **A memory that grows for months without a schema team or a vector store.** Identity is decided by rule, the
   relation vocabulary cannot grow past a budget, and the model reads each note once.
 - **Everything can be checked.** Every indexed fact quotes the line it came from. A page a non-engineer can read
@@ -49,8 +52,8 @@ Four layers. Each is built only from the one below it.
 |---|---|---|---|
 | 1. Notes | `memory/<area>/<id>.md`, one file per thing, with three front-matter fields | the agent, or a person | writing a file |
 | 2. Retrieval | `ask`: one grep pass over the notes, results ordered by lineage | the script | no model |
-| 3. Index (optional) | the things each note names, typed links between them with quoted evidence, synonyms, conflict verdicts | a cheap model reads each note once; the script checks and stores the answer | about $0.002 per note, once |
-| 4. Checks and viewer | twelve warnings, a digest, one self-contained HTML page | the script | no model |
+| 3. Index (optional) | the things each note names, typed links between them with quoted evidence, synonyms, conflict verdicts | a cheap model reads each note once; the script checks and stores the answer | $0.0013 to $0.0022 per note, once (Claude Haiku; the lower figure with the cached prefix) |
+| 4. Checks and viewer | thirteen warnings, a digest, one self-contained HTML page | the script | no model |
 
 Layer 1 is the only state that matters. Layers 2 to 4 live under `memory/_dream/` and can be deleted and rebuilt.
 
@@ -62,7 +65,7 @@ Layer 1 is the only state that matters. Layers 2 to 4 live under `memory/_dream/
 | which notes it was built on, which it replaces | which links between things the note states, each with a quote | which note is current (following `supersedes` to the end) |
 | numbers, dates, sources | synonyms: whether two names are the same thing | kinds, dates, which things are kept, the relation vocabulary's limits |
 | preferences and house rules | conflicts: whether one of two notes supersedes the other | which pairs of notes to flag as possibly conflicting |
-| the final word on anything the model marks unsure | | search, scoring, the twelve checks, the digest, the page |
+| the final word on anything the model marks unsure | | search, scoring, the thirteen checks, the digest, the page |
 
 The right column is rules anyone can read in `memory.py`. The middle column always leaves a quote behind. Only the
 left column is judgement.
@@ -165,11 +168,11 @@ The index is a map and a reviewer, not a search engine. It pays in four places:
 - the review: pairs of notes that may disagree, decided for about $0.005 per 20 pairs and recorded as plain lines;
 - facts with evidence: each extracted fact quotes its line and carries a button that sends a correction request.
 
-Its cost is about $0.0015 per note, once.
+Its cost is $0.0013 per note with the cache-aware wrapper (`tests/haiku_cmd.py`) and $0.0022 without, once.
 
 ## Layer 4: checks and the viewer
 
-Twelve checks run on every indexing pass: links to notes that do not exist or are ambiguous, notes over 40 lines,
+Thirteen checks run on every indexing pass: links to notes that do not exist or are ambiguous, notes over 40 lines,
 notes without a heading, facts the model could not ground, pairs of current notes that may disagree, relations
 whose endpoints have unusual types, and a few more. `memory.py check` prints them all.
 
@@ -193,6 +196,9 @@ Connections shows the same things in one column per kind, with the current links
 "Worth checking" lists what may be wrong: notes that may disagree, names that may be the same thing, links that
 look odd or lead nowhere, notes connected to nothing. Each item has a button that copies a ready question for the
 agent, which then fixes the link, writes the superseding note, or records that the two notes are compatible.
+The list is loose on purpose: on the 1,677-note bank the detector offers 67 pairs of which 4 are real supersessions
+(6%), ordered most-shared first. With a model the review clears 20 pairs for about $0.005 and records the verdicts;
+without one, a person meets the likely pairs first.
 
 ## Operations
 
@@ -209,23 +215,38 @@ agent, which then fixes the link, writes the superseding note, or records that t
 `dream` needs a model command in `$MEMORY_LLM` to build the index (for example `claude -p --model haiku --tools ""`).
 Without one it still builds lineage, kinds, conflicts, the digest and the page. Every `dream` writes
 `memory/DIGEST.md`, at most 40 lines: current decisions and models, open questions, the user's own preferences.
-One line in `CLAUDE.md`, `@memory/DIGEST.md`, keeps it in the agent's context.
+One line in `CLAUDE.md`, `@memory/DIGEST.md`, keeps it in the agent's context. Whether that line changes an agent's
+answers or tool calls is not measured.
 
 ## Results
 
-Fresh agents answering ten questions each, three runs per cell, graded against reference answers. The memory arm
-had the skill and the notes; the grep arm had the notes only.
+Fresh Opus agents answering ten questions per batch, graded by a Haiku judge against reference answers. The memory
+arm had the skill and the notes; the grep arm had the notes only.
 
-| | correct / partial / wrong | tool calls | tokens | cost | time |
+Latest run, on the shipped code (RESULTS.md, phase G): 1,677 notes with the real Haiku index, three batches per arm,
+the grep arm allowed to read whole folders.
+
+| | correct / partial / wrong | tool calls per batch | tokens processed | cost units | time |
 |---|---|---|---|---|---|
-| 30 notes, memory | 26 / 3 / 1 | 1.3 | 104k | 0.93× | 40 s |
-| 30 notes, grep | 25 / 5 / 0 | 2.7 | 129k | 1× | 53 s |
-| 1,677 notes, memory | 27 / 3 / 0 | 4.7 | 311k | 0.47× | 61 s |
-| 1,677 notes, grep | 26 / 4 / 0 | 25.3 | 1,465k | 1× | 172 s |
+| memory | 23 / 7 / 0 | 5.7 | 498k | 0.61× | 204 s |
+| grep | 23 / 7 / 0 | 18.7 | 1,742k | 1× | 273 s |
 
-Offline, on 326 questions over the 1,677-note bank, `ask` returns the gold note for 93.8% of questions and the
-number asked for in 97.6%, in about 2,500 characters per question. On 70 questions about things the memory does
-not contain, it reports no match every time. Full record: `.specs/memory-dream/RESULTS.md`.
+Earlier runs (rounds 2 and 4), on the code before the retrieval rewrite and against a grep arm that could not read
+folders: 30 notes 26/3/1 against 25/5/0 at 0.93× the cost; 1,677 notes 27/3/0 against 26/4/0 at 0.47× the cost and
+0.35× the time; 168,141 notes 24/6/0 against 24/6/0 at 0.41× the cost. The 30-note and 168,141-note cells have not
+been re-run on the shipped code.
+
+Offline, on 326 questions over the 1,677-note bank with no index, `ask` returns the gold note for 93.9% of questions
+and the number asked for in 97.9%, in about 2,400 characters per question; with the index, 94.6% and 97.8%. On 104
+questions aimed at replaced conclusions the successor is listed above the old note 96% of the time and the old note
+is marked 100%. On 70 questions about things the memory does not contain, it flags the unknown word every time. The
+model-free numbers reproduce from the repository: `python3 tests/retrieval_gate.py bank` runs them with floors.
+
+A second fixture is a software project (`tests/fixture-software/`: a payments API with services, modules, design records,
+bugs and their fixes, releases, an incident, 30 notes) with 30 questions (`eval/questions/software-payments-api.jsonl`).
+With no model, `ask` heads every gold note and every number (gold 1.00, numbers 1.00, 1,570 characters per question); on
+its 7 stale questions the successor is listed above the old note and the old one marked every time:
+`python3 tests/retrieval_gate.py software`. Full record: `.specs/memory-dream/RESULTS.md`.
 
 ## Design decisions
 
@@ -254,7 +275,8 @@ not contain, it reports no match every time. Full record: `.specs/memory-dream/R
 - Remaining look-alikes are asked once of the cheap model (same or different), never when the two have different
   notes of their own. The answer lands in `ALIASES.md`.
 
-On the 1,677-note bank: 7,060 mentions, 1,871 ids as written, 1,867 after folding, 1,861 after the alias file,
+On the 1,677-note bank, from `memory.py check` on the real-index world (the index itself is not in the repository):
+7,060 mentions, 1,871 ids as written, 1,867 after folding, 1,861 after the alias file,
 1,734 after the merge rule; 923 kept (530 with a note of their own, 393 named in two or more notes); 810 dropped as
 named in one note only.
 
@@ -273,14 +295,14 @@ about 1,450 tokens on 1,677 notes and about 1,600 on 168,141.
   changes; an edit that is reverted within 30 days reuses the old reading.
 - Within a project, the instructions, vocabulary and KNOWN list are byte-identical across calls. The script marks
   that prefix and the command wrapper passes it as the system prompt, which the provider caches. This took the cost
-  per note from $0.0022 to $0.0015.
+  per note from $0.0022 to $0.0015, and low reasoning effort to $0.0013.
 - A manifest of hash, size and time per file lets a `dream` with nothing new stop after the scan: 3 seconds on
   168,141 notes.
 - A hand edit to `EDGES.md`, `ALIASES.md` or `CONFLICTS.md` relabels everything at the next pass with no model calls:
   the graph is rebuilt from cached readings under the new names.
 - The script's own hash is recorded, so an upgraded `memory.py` rebuilds the graph once, with no model calls.
 - Above 10,000 notes, changed notes are patched into the last graph instead of a rebuild, the index lives in
-  SQLite, and `ask` greps only the areas a question points at. At 168,141 notes a call takes 5 to 8 seconds.
+  SQLite, and `ask` greps only the areas a question points at. At 168,141 notes a batch of ten questions takes 2.3 seconds on average (1.8 to 5).
 
 ### The registries: the domain lives in three files, not in the code
 
@@ -292,7 +314,8 @@ reuse known ids. The variable part is three lists, filled in from files at the m
 - `TYPES.md`: the types of thing, each with a definition, what it is not, its aliases and its family.
 - `EDGES.md`: the types of link, each with its aliases and the usual shape of its two ends.
 
-All three are seeded for data, analytics, software and finance work, with packs for research and operations. Nothing
+All three are seeded for data, analytics, software and finance work (for software: component, design, bug and release
+notes; flag, test, issue, service, module, release and environment as things), with packs for research and operations. Nothing
 about any domain is in the script. The lists grow in two ways: a person adds a line, or the review admits a word the
 model kept using for things that fit no type, under the bar, budget and probation described below. Two rules protect
 what is already indexed. A registry edit never re-reads a note: the cached readings keep the model's raw words, and the
@@ -323,6 +346,29 @@ The first reviewer, asked about 178 common labels, answered "new type" to all of
 - The model never writes to a note. Its verdicts are plain lines in three files that a person can edit or delete.
 - One indexing run at a time, guarded by a lock file.
 
+## Limits
+
+- The evidence is synthetic and small. Notes, questions and the judge are Haiku; each agent cell is 30 questions; the
+  write path was measured in one run. Real notes written by people over months are untested.
+- Any number that involves the index needs a model to reproduce: the real Haiku index of the bank is not in the
+  repository (about $4 to rebuild with `tests/haiku_cmd.py`). The model-free numbers reproduce as above.
+- A dream holds the whole graph in memory: 4.8 GB peak at 168,141 notes, and `_dream/` takes about 2.2 GB on disk
+  at that size against 657 MB of notes.
+- Conflict detection is loose by design: about 6% of the pairs it offers on the bank are real supersessions.
+- A task that names a meeting or an audience instead of a person misses 15 to 40% of that person's preferences
+  depending on the task set, and house rules keyed by measure type are found under half the time.
+- Retrieval is text match plus lineage. A question whose words occur in no note gets a weak-match marker and the
+  nearest neighbours, not a paraphrase search; the index adds synonyms and typed links, not similarity.
+- The graph is used lightly for answering: synonyms, lineage order, one line of typed links per named thing, a boost
+  for notes that mention a named thing. Following typed links to the notes of related things is not done yet; it needs
+  a real index to measure.
+- Linux and macOS with GNU or BSD grep and Python 3.9 or newer; Windows is untested. One memory, one writer: the lock
+  file serialises `dream` on one machine and nothing coordinates two machines.
+- Hosting it as a service is designed, not built (`.specs/memory-dream/ADR-001-hosting-and-store.md`). What exists is
+  the store seam: `MEMORY_STORE=postgres` publishes the graph to PostgreSQL after every dream and `ask` reads it there;
+  a Neo4j backend is written but untested against a server; `memory.py export` writes CSV and Cypher for any graph
+  database. The runbook has the details.
+
 ## What it is not
 
 - Not a vector database. Nothing is ranked by similarity.
@@ -335,15 +381,23 @@ The first reviewer, asked about 178 common labels, answered "new type" to all of
 ## Install
 
 ```bash
-cp -R skills/memory-dream <project>/.claude/skills/memory-dream
+cp -R skills/memory-dream <project>/.claude/skills/memory-dream           # the skill: SKILL.md, memory.py, the viewer
+cp skills/memory-dream/agents/memory-dreamer.md <project>/.claude/agents/  # optional: the file-mode dreamer subagent
 mkdir -p <project>/memory
-python3 tests/acceptance.py        # 38 checks on the fixture
+export MEMORY_LLM='claude -p --model haiku --tools ""'                     # optional: the index; without it no model is called
+python3 tests/acceptance.py        # from this repository: 38 checks on the fixture, about 30 s, no model
 ```
+
+MIT licence (`LICENSE`). Continuous integration (`.github/workflows/ci.yml`) runs the 38 checks on Python 3.9 and
+3.13, the headless viewer check, the model-free retrieval gates on the analytics bank and the software fixture, the
+build-bundle freshness check and the PostgreSQL store parity test.
 
 ## Further reading
 
 - `skills/memory-dream/SKILL.md`: the instructions the agent follows.
-- `.specs/memory-dream/CONTRACT.md`: every field the script writes and reads, and the twelve checks.
+- `.specs/memory-dream/CONTRACT.md`: every field the script writes and reads, and the thirteen checks.
+- `.specs/memory-dream/ADR-001-hosting-and-store.md`: hosting it as a service; git stays the truth; the store is a
+  configuration choice (`MEMORY_STORE`); what the graph does for answering today.
 - `.specs/memory-dream/RUNBOOK.md`: daily use and troubleshooting.
 - `.specs/memory-dream/RESULTS.md`: every measurement, with the runs behind it.
 - `BUILD-GUIDE.md`, `online-build-bundle.md`: how to rebuild it from scratch, phase by phase.

@@ -6,9 +6,12 @@
   memory.py viz [--out F]                 the HTML viewer: overview, explorer, health
   memory.py check                         warnings in full
   memory.py log "text" [-p P]             append to today's log
+  memory.py export --to DIR               the graph as CSV + Cypher for a graph database
+  MEMORY_STORE=postgres|neo4j             publish the graph to a hosted store after dream; ask reads it (stores.py, ADR-001)
 
 Stdlib only. Every verb rescans first; only `dream` calls the model or writes derived files.
-Spec: .specs/memory-dream/build-spec.md
+Contract: .specs/memory-dream/CONTRACT.md · runbook: .specs/memory-dream/RUNBOOK.md · origin: build-spec.md (v0.4 as first
+specified; `where`, `trace`, `--gists` and INDEX.md from it were replaced by `ask`, lineage headers and the viewer).
 """
 import argparse
 import bisect
@@ -164,6 +167,10 @@ general: prefs, reporting, glossary, corrections, howto, qa, people, log
 - model: a trained or rule-based model, scorecard or forecast, one version per note | prefix: model | role: state | digest: current | conflicts: yes
 - metric: how something is measured | prefix: metric | family: term | role: state
 - report: a recurring report, dashboard or deliverable, and its rules | prefix: rpt, report | role: reference
+- component: a service, module, library or system and what it does, one per note | prefix: svc, mod, lib, sys | role: state
+- design: an architecture or design decision, with the options weighed | prefix: adr, design | family: decision | role: state | digest: current | conflicts: yes | answers: yes
+- bug: a defect observed, its cause and its fix | prefix: bug, fix | family: finding | role: evidence
+- release: a shipped version or deployment, when and what changed | prefix: rel, release | role: state
 - term: a defined word or concept | prefix: term | area: glossary | role: reference
 - preference: how a named person wants things done | prefix: pref | area: prefs | family: rule | role: rule
 - rule: a standing rule or procedure for the work | prefix: rule | area: reporting, howto | role: rule
@@ -210,6 +217,9 @@ probation: 60 days
 - policy: a policy, limit, regulation or control that constrains the work | aka: regulation, limit, control, standard, mandate | family: rule
 - scenario: a stress, forecast or planning scenario | aka: stress test, case, what-if
 - desk: a trading desk, business unit or department | aka: business unit, department, division, unit | family: party
+- flag: a feature flag, configuration setting or option | aka: feature flag, setting, config, option | family: system
+- test: a test suite, test case or benchmark named as a thing | aka: suite, test case, benchmark | family: system
+- issue: a ticket, issue or pull request named as a thing | aka: ticket, pr, pull request, bug report, merge request | family: document
 drop: number, date, file, notebook, note, line, page, link
 """
 TYPE_PACKS = {
@@ -1642,7 +1652,8 @@ class Dream:
 
     def run(self):
         if self.nothing_new():
-            print(f"dream: {len(self.cur)} notes · 0 indexed (0 calls) · nothing new since {self.man.get('dreamed', '?')}")
+            print(f"dream: {len(self.cur)} notes · 0 indexed (0 calls) · nothing new since {self.man.get('dreamed', '?')}"
+                  + (f" · {store_publish(self.root, load(self.root)[0])}" if store_name() else ""))  # a store behind the index catches up
             return
         self.plan()
         self.index()
@@ -1975,6 +1986,7 @@ class Dream:
             wr(dd / "graph.json", g)
             write_viz(root, g, dd / "graph.html")
         write_index(dd, g)
+        self.published = store_publish(root, g)  # MEMORY_STORE: the hosted store, as a diff (stores.py)
         write_digest(root, g, now)
         todo_list = sorted(p for p in pend.glob("*.prompt.md")) if pend.exists() else []
         todo_list = [p for p in todo_list if not (pend / (p.name[:-len(".prompt.md")] + ".json")).exists()]
@@ -2019,6 +2031,7 @@ class Dream:
         elif unindexed:
             out += f" · {unindexed} without entities (no model; `dream --prompts` writes prompts for a helper agent)"
         out += (" · " + " ".join(f"{c}×{n}" for c, n in sorted(codes.items()))) if codes else ""
+        out += f" · {self.published}" if getattr(self, "published", "") else ""
         print(out)
         if pending:
             print(f"{pending} prompts listed in {self.pend / 'TODO.md'}: run the memory-dreamer subagent, "
@@ -2109,15 +2122,47 @@ class View:
                 if 2 <= len(nm.replace("-", " ").split()) <= 3 and f" {nm.replace('-', ' ')} " in lw]
 
 
+class SqliteRows:
+    """Rows of _dream/index.db for DbView: the seven calls a store answers (stores.py answers the same seven for
+    PostgreSQL and Neo4j): notes(), edges_from(p), edges_to(p), rels_out(i), rels_in(i), entity(i), names(k)."""
+    def __init__(self, db):
+        self.db = db
+
+    def notes(self):
+        for p, i, a, t, ln, k, u, sup in self.db.execute("SELECT path, id, area, title, line, kind, updated, sup FROM notes"):
+            yield p, i, a, t, ln, k, u, json.loads(sup)
+
+    def edges_from(self, p):
+        return self.db.execute("SELECT src, dst, rel FROM edges WHERE src=?", (p,)).fetchall()
+
+    def edges_to(self, p):
+        return self.db.execute("SELECT src, dst, rel FROM edges WHERE dst=?", (p,)).fetchall()
+
+    def rels_out(self, i):
+        return [(s, t, o, json.loads(ev)) for s, t, o, ev in self.db.execute("SELECT s, type, o, ev FROM rels WHERE s=?", (i,))]
+
+    def rels_in(self, i):
+        return [(s, t, o, json.loads(ev)) for s, t, o, ev in self.db.execute("SELECT s, type, o, ev FROM rels WHERE o=?", (i,))]
+
+    def entity(self, i):
+        row = self.db.execute("SELECT id, type, home, headline, aka, names FROM ents WHERE id=?", (i,)).fetchone()
+        if not row:
+            return None
+        ms = [(p, json.loads(ls)) for p, ls in self.db.execute("SELECT path, lines FROM ment WHERE eid=?", (i,))]
+        return {"id": row[0], "type": row[1], "home": row[2], "headline": row[3], "aka": json.loads(row[4]), "names": json.loads(row[5])}, ms
+
+    def names(self, k):
+        return {i for (i,) in self.db.execute("SELECT eid FROM names WHERE k=?", (k,))}
+
+
 class DbView:
-    """index.db for ask on big memories: every note's row, everything else read when a question needs it. Notes
-    changed since the dream are read from their text (lineage now; entities at the next dream)."""
-    def __init__(self, root, man, cur):
-        db = self.db = index_db(root / "_dream")
+    """Rows on demand, for ask on big memories (index.db) and on a hosted store (stores.py): every note's row, everything
+    else read when a question needs it. Notes changed since the dream are read from their text (lineage now; entities
+    at the next dream)."""
+    def __init__(self, rows, root, man, cur):
+        self.rows = rows
         self.notes = {p: {"path": p, "id": i, "project": a, "title": t, "line": ln, "kind": k, "updated": u,
-                          "superseded_by": json.loads(sup)}
-                      for p, i, a, t, ln, k, u, sup in db.execute(
-                          "SELECT path, id, area, title, line, kind, updated, sup FROM notes")}
+                          "superseded_by": list(sup or [])} for p, i, a, t, ln, k, u, sup in rows.notes()}
         old = {p: f["sha"] for p, f in man.get("files", {}).items()}
         changed = {p for p in cur if old.get(p) != cur[p]["sha"]}
         gone = {p for p in self.notes if p not in cur}
@@ -2140,25 +2185,21 @@ class DbView:
                     if e["rel"] == "supersedes" and e["dst"] in self.notes:
                         self.notes[e["dst"]]["superseded_by"].append(rel)
         skip = changed | gone
-        E = lambda rows: [{"src": a, "dst": b, "rel": r} for a, b, r in rows]  # noqa: E731
-        self.frm = Lazy(lambda p: mine[p] if p in mine else [e for e in E(db.execute(
-            "SELECT src, dst, rel FROM edges WHERE src=?", (p,))) if e["dst"] in self.notes and p not in skip])
-        self.down = Lazy(lambda p: [e for e in E(db.execute("SELECT src, dst, rel FROM edges WHERE dst=?", (p,)))
-                                    if e["src"] not in skip] + added[p])
-        R = lambda rows: [{"s": a, "type": t, "o": b, "evidence": json.loads(ev)} for a, t, b, ev in rows]  # noqa: E731
-        self.out_r = Lazy(lambda i: R(db.execute("SELECT s, type, o, ev FROM rels WHERE s=?", (i,))))
-        self.in_r = Lazy(lambda i: R(db.execute("SELECT s, type, o, ev FROM rels WHERE o=?", (i,))))
+        E = lambda rs: [{"src": a, "dst": b, "rel": r} for a, b, r in rs]  # noqa: E731
+        self.frm = Lazy(lambda p: mine[p] if p in mine else [e for e in E(rows.edges_from(p)) if e["dst"] in self.notes and p not in skip])
+        self.down = Lazy(lambda p: [e for e in E(rows.edges_to(p)) if e["src"] not in skip] + added[p])
+        R = lambda rs: [{"s": a, "type": t, "o": b, "evidence": list(ev)} for a, t, b, ev in rs]  # noqa: E731
+        self.out_r = Lazy(lambda i: R(rows.rels_out(i)))
+        self.in_r = Lazy(lambda i: R(rows.rels_in(i)))
         self.ents = Lazy(self._ent)
-        self._names = Lazy(lambda k: {i for (i,) in db.execute("SELECT eid FROM names WHERE k=?", (k,))})
+        self._names = Lazy(lambda k: set(rows.names(k)))
 
     def _ent(self, i):
-        row = self.db.execute("SELECT id, type, home, headline, aka, names FROM ents WHERE id=?", (i,)).fetchone()
-        if not row:
+        got = self.rows.entity(i)
+        if not got:
             raise KeyError(i)
-        ms = [{"path": p, "lines": json.loads(ls)} for p, ls in self.db.execute("SELECT path, lines FROM ment WHERE eid=?", (i,))
-              if p in self.notes]
-        return {"id": row[0], "type": row[1], "home": row[2], "headline": row[3], "aka": json.loads(row[4]),
-                "names": json.loads(row[5]), "mentions": ms}
+        e, ms = got
+        return {**e, "mentions": [{"path": p, "lines": list(ls)} for p, ls in ms if p in self.notes]}
 
     def names_of(self, k):
         return self._names[k]
@@ -2173,15 +2214,60 @@ class DbView:
         return out
 
 
+def store_name():
+    """The hosted store `MEMORY_STORE` names (ADR-001: postgres, neo4j), or "" for the local index."""
+    s = os.environ.get("MEMORY_STORE", "").strip().lower()
+    return "" if s in ("", "sqlite", "local", "files") else s
+
+
+def stores_module():
+    """stores.py beside this script: the PostgreSQL and Neo4j backends and the CSV export; imported only when used, so
+    the script itself stays standard-library only."""
+    import importlib.util
+    p = Path(__file__).resolve().parent / "stores.py"
+    spec = importlib.util.spec_from_file_location("memory_stores", p)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+def store_rows(root):
+    """Rows from the hosted store for ask, or None: no store named, or one that cannot answer (ask says so on stderr and
+    reads the local index, so an answer never depends on a database being up)."""
+    name = store_name()
+    if not name:
+        return None
+    try:
+        return stores_module().rows(name, root)
+    except Exception as e:  # noqa: BLE001
+        sys.stderr.write(f"memory.py: store {name} unavailable ({type(e).__name__}: {e}); reading the local index\n")
+        return None
+
+
+def store_publish(root, g):
+    """After a dream: the graph into the hosted store as a diff (stores.py). -> one report fragment, or ""."""
+    name = store_name()
+    if not name:
+        return ""
+    try:
+        return stores_module().publish(name, root, g, fold)
+    except Exception as e:  # noqa: BLE001
+        sys.stderr.write(f"memory.py: store {name}: publish failed ({type(e).__name__}: {e}); the local index is complete\n")
+        return f"store {name}: publish failed"
+
+
 def open_view(root):
-    """What ask reads: the graph in memory for small memories, index.db rows on demand for big ones."""
+    """What ask reads: the hosted store's rows when MEMORY_STORE names one, index.db rows on demand for big memories,
+    else the graph in memory."""
     man = rd(root / "_dream" / "manifest.json", {}) or {}
+    rows = store_rows(root)
+    if rows is not None:
+        return DbView(rows, root, man, scan(root, man)[0])
     if len(man.get("files", {})) > WIDE and (root / "_dream" / "index.db").exists():
         cur = scan(root, man)[0]
         if len(cur) > WIDE:
-            return DbView(root, man, cur)
+            return DbView(SqliteRows(index_db(root / "_dream")), root, man, cur)
     return View(load(root)[0])
-
 
 
 def check(args, root):
@@ -2197,6 +2283,11 @@ def check(args, root):
               f"{d.get('refused_not_line', 0)} by not: lines")
     problems = validate(g, set(parse_edges(vocab_texts(root)[0])[0]))
     print(f"contract: schema {g.get('schema')} " + ("ok" if not problems else f"{len(problems)} problems: " + "; ".join(problems[:5])))
+    if store_name():
+        try:
+            print(stores_module().status(store_name(), root))
+        except Exception as e:  # noqa: BLE001
+            print(f"store {store_name()}: unavailable ({type(e).__name__}: {e})")
     deg = Counter()  # lineage connectivity: "why" and "what came of" can only walk links that were written (phase G)
     for e in g["edges"]:
         if e["rel"] in ("from", "supersedes"):
@@ -2807,6 +2898,12 @@ def entity_line(v, eid):
     return f"= {eid} ({e['type']}" + (f"; aka {', '.join(e['aka'][:3])}" if e["aka"] else "") + ") " + " · ".join(parts[:6])
 
 
+def export(args, root):
+    """The graph as CSV + Cypher for a graph database (neo4j-admin database import, or LOAD CSV); no driver needed."""
+    g, _ = load(root)
+    print(stores_module().export_csv(root, g, Path(args.to), fold))
+
+
 def viz(args, root):
     """Write the HTML viewer (default memory/_dream/graph.html; `dream` refreshes it too)."""
     g, _ = load(root)
@@ -2961,6 +3058,8 @@ def main(argv=None):
     vz = sp.add_parser("viz", parents=[common], help="write the HTML viewer (dream refreshes it too)")
     vz.add_argument("--out", help="output file (default memory/_dream/graph.html)")
     sp.add_parser("check", parents=[common], help="warnings in full")
+    ex = sp.add_parser("export", parents=[common], help="the graph as CSV + Cypher for a graph database (no driver needed)")
+    ex.add_argument("--to", required=True, help="output directory")
     lg = sp.add_parser("log", parents=[common], help="append to today's log")
     lg.add_argument("text")
     lg.add_argument("-p", help="project")
@@ -2973,7 +3072,7 @@ def main(argv=None):
             sys.stderr.write(f"memory.py: {root} is Claude Code's own memory ({why}); memory-dream reads it but never "
                              "writes there. Point --root at your notes.\n")
             sys.exit(2)
-    {"dream": dream, "ask": ask, "viz": viz, "check": check, "log": log}[args.verb](args, root)
+    {"dream": dream, "ask": ask, "viz": viz, "check": check, "log": log, "export": export}[args.verb](args, root)
 
 
 if __name__ == "__main__":

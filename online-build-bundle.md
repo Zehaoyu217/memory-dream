@@ -639,7 +639,7 @@ or to a fresh worker given the packet, at most twice. After that, it stops and r
 
 ## Appendix A — the contract surface, verbatim: `skills/memory-dream/SKILL.md` and the dreamer agent
 
-_Part 5 · copied at commit 5fd63eb. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
+_Part 5 · copied at commit 102cbc0. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
 
 ```markdown
 ---
@@ -713,7 +713,7 @@ Touch nothing else.
 
 ## Appendix B — the graph contract, verbatim: `.specs/memory-dream/CONTRACT.md`
 
-_Part 6 · copied at commit 5fd63eb. Schema 1; `memory.py check` validates against it (A38)._
+_Part 6 · copied at commit 102cbc0. Schema 1; `memory.py check` validates against it (A38)._
 
 ## memory-dream — the graph contract (schema 1)
 
@@ -748,14 +748,15 @@ Produced by `build()`, written as `_dream/graph.json` (≤ `MEMORY_WIDE` notes) 
 | `proposed_types` | list of label | type words (things typed outside TYPES.md) over the `promote` bar of TYPES.md, offered to the review |
 | `tvocab` | object | the same shape as `vocab`, for TYPES.md |
 | `dedup` | object | counters from entity merging (`mentions`, `ids_as_written`, `after_folding`, …) |
-| `checks` | list of `{code, msg}` | warnings, sorted by code; codes `C1`–`C12` (§5) |
+| `checks` | list of `{code, msg}` | warnings, sorted by code; codes `C1`–`C13` (§5) |
 
 **note** — `{path, id, project, title, line, kind, updated, superseded_by, sha, indexed}`
 - `title`: the text of the first `# ` line outside code fences (`""` when none → C6); `line`: its file line (0 when none).
 - `kind`: lowercase; frontmatter `type:` wins (Claude Code's `user|feedback|project|reference` map to
   `preference|rule|note|note`), else the dreamer's kind unless it is `note` (and only a kind `KINDS.md` lists), else the
   filename prefix (first two id segments; the prefixes are the `prefix:` fields of `KINDS.md`, seeded `exp- feat- ds- dec-
-  fnd- find- finding- q- metric- model- pref- rule- term- plan- req- risk- inc- rpt- report-`; `…-vN` → `model`), else the
+  fnd- find- finding- q- metric- model- pref- rule- term- plan- req- risk- inc- rpt- report- svc- mod- lib- sys- adr- design-
+  bug- fix- rel- release-`; `…-vN` → `model`), else the
   area (the `area:` fields, seeded `prefs`→preference, `glossary`→term, `corrections`→correction, `reporting`/`howto`→rule,
   `log`→log), else `note`.
 - `updated`: frontmatter `updated:` or `modified:` (first 10 chars), else a `log/YYYY-MM-DD` filename, else mtime.
@@ -795,6 +796,11 @@ the reviewer answered unsure (`- a ? b`), so it waits for a person and is not as
 `edges(src, dst, rel)` · `ents(id, type, home, headline, aka, names)` · `ment(eid, path, lines)` ·
 `names(k, eid)` — folded spellings (id, aka, names ≥ 3 chars) → entity · `rels(s, type, o, ev)` · `checks(code, msg)`.
 `read_index(dd)` returns the graph of §1 from these tables; the two forms are interchangeable.
+
+A hosted store (`stores.py`, ADR-001; `MEMORY_STORE=postgres|neo4j`) holds the same tables keyed by a repository id
+(`md_notes`, `md_edges` with the index's edge order, `md_ents`, `md_ment`, `md_names`, `md_rels`, `md_meta`; in Neo4j the
+equivalent nodes and relationships), published as a diff after every dream; its `read_graph()` returns the graph of §1,
+and `ask` reads it through the same seven row calls as `index.db` (`tests/store_parity.py` checks both).
 
 ### 3. The viewer's data island (`<script type="application/json" id="data-graph">`)
 
@@ -876,7 +882,7 @@ nothing (C13 reports it and the readings fall back to `other/<word>`); merging i
 
 ## Appendix C — the build guide, verbatim: `BUILD-GUIDE.md` §3–§10
 
-_Part 7 · copied at commit 5fd63eb. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
+_Part 7 · copied at commit 102cbc0. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
 
 ### 3. The design in one page
 
@@ -907,12 +913,16 @@ _Part 7 · copied at commit 5fd63eb. The design in one page, the repository layo
 skills/memory-dream/
   SKILL.md                     what the agent reads (41 lines): read, write, end of session
   scripts/memory.py            ask · dream · viz · check · log  (stdlib, ~1,900 lines)
+  scripts/stores.py           optional hosted stores (PostgreSQL, Neo4j) and the CSV export; imported only when MEMORY_STORE is set
   assets/viz.html              viewer template (html-lite habits; normal, overview and area modes)
   agents/memory-dreamer.md     Haiku subagent for file mode
 .specs/memory-dream/           build-spec.md (v0.4 spec), RUNBOOK.md, RESULTS.md (rounds 1–4)
 tests/
   fixture/memory/              churn-2026: 25 notes + 5 log days (hand-written ground truth)
-  acceptance.py                A1–A20 (spec) + A24 (big memories), fake dreamer, < 1 min
+  acceptance.py                38 checks: A1–A20 (spec), A24 (big memories), A25–A41 (phases A–H), fake dreamer, ~30 s
+  retrieval_gate.py            CI floors for the model-free retrieval numbers: bank (326 questions) and software fixture
+  store_parity.py              a hosted store (MEMORY_STORE=postgres) gives identical ask output and the same graph
+  fixture-software/memory/     a software project (payments-api: services, modules, ADRs, bugs, releases, an incident)
   fake_dreamer.py              deterministic dreamer (regex extraction) for tests and profiling
   haiku_cmd.py                 MEMORY_LLM wrapper around `claude -p --model haiku`, logs cost per call
   real_model.py, truth.py      Haiku runs against the fixture's ground truth
@@ -1104,7 +1114,7 @@ Per question:
 #### 5.8b The graph contract
 
 `.specs/memory-dream/CONTRACT.md` is the authority on every shape `memory.py` writes and reads: the graph (`graph.json`,
-`index.db`), the viewer's data island, the extraction cache, `store.db`, the manifest, the warning codes C1–C12 and the
+`index.db`), the viewer's data island, the extraction cache, `store.db`, the manifest, the warning codes C1–C13 and the
 grammar of EDGES.md, ALIASES.md, CONFLICTS.md and DIGEST.md. Every graph carries `schema: 1`; `validate()` checks a
 graph against the contract, `memory.py check` prints the result first, and A38 enforces it on the fixture (graph,
 `index.db` round trip, island). Build the viewer against the contract, never against the code.
@@ -1215,7 +1225,9 @@ when the page opens (tab order Timeline · Map · Connections; `#view=map` and `
 ### 6. Tests
 
 ```bash
-python3 tests/acceptance.py            # A1–A20, A24, A25–A37 with the fake dreamer, about 25 s
+python3 tests/acceptance.py            # 38 checks, A1–A20, A24, A25–A41, with the fake dreamer, about 30 s
+python3 tests/retrieval_gate.py bank   # the model-free numbers with floors (README Results); `software` for the second fixture
+MEMORY_STORE_URL=postgresql://… python3 tests/store_parity.py postgres --bank   # needs psycopg: the PostgreSQL store (ADR-001)
 python3 tests/acceptance.py A6 A24     # some
 python3 tests/real_model.py            # Haiku on the fixture vs tests/truth.py (costs a few cents)
 ```
@@ -1383,7 +1395,7 @@ Taste retrieval (fresh tasks, recall of the gold notes): the person's preference
 
 ## Appendix D — prompts, seeds and tuned tables, verbatim from `memory.py`
 
-_Part 8 · extracted at commit 5fd63eb by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
+_Part 8 · extracted at commit 102cbc0 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
 
 ### D.1 `EXTRACT` — the per-note prompt: fixed guidance, then `KINDS:`, `TYPES:`, `EDGES:` and `KNOWN:` from the registries (the static part is cached), then `NOTE`
 
@@ -1498,6 +1510,10 @@ general: prefs, reporting, glossary, corrections, howto, qa, people, log
 - model: a trained or rule-based model, scorecard or forecast, one version per note | prefix: model | role: state | digest: current | conflicts: yes
 - metric: how something is measured | prefix: metric | family: term | role: state
 - report: a recurring report, dashboard or deliverable, and its rules | prefix: rpt, report | role: reference
+- component: a service, module, library or system and what it does, one per note | prefix: svc, mod, lib, sys | role: state
+- design: an architecture or design decision, with the options weighed | prefix: adr, design | family: decision | role: state | digest: current | conflicts: yes | answers: yes
+- bug: a defect observed, its cause and its fix | prefix: bug, fix | family: finding | role: evidence
+- release: a shipped version or deployment, when and what changed | prefix: rel, release | role: state
 - term: a defined word or concept | prefix: term | area: glossary | role: reference
 - preference: how a named person wants things done | prefix: pref | area: prefs | family: rule | role: rule
 - rule: a standing rule or procedure for the work | prefix: rule | area: reporting, howto | role: rule
@@ -1542,6 +1558,9 @@ probation: 60 days
 - policy: a policy, limit, regulation or control that constrains the work | aka: regulation, limit, control, standard, mandate | family: rule
 - scenario: a stress, forecast or planning scenario | aka: stress test, case, what-if
 - desk: a trading desk, business unit or department | aka: business unit, department, division, unit | family: party
+- flag: a feature flag, configuration setting or option | aka: feature flag, setting, config, option | family: system
+- test: a test suite, test case or benchmark named as a thing | aka: suite, test case, benchmark | family: system
+- issue: a ticket, issue or pull request named as a thing | aka: ticket, pr, pull request, bug report, merge request | family: document
 drop: number, date, file, notebook, note, line, page, link
 ```
 
@@ -1596,6 +1615,16 @@ drop: number, date, file, notebook, note, line, page, link
   "metric": "metric",
   "rpt": "report",
   "report": "report",
+  "svc": "component",
+  "mod": "component",
+  "lib": "component",
+  "sys": "component",
+  "adr": "design",
+  "design": "design",
+  "bug": "bug",
+  "fix": "bug",
+  "rel": "release",
+  "release": "release",
   "term": "term",
   "pref": "preference",
   "rule": "rule"
@@ -1615,9 +1644,12 @@ drop: number, date, file, notebook, note, line, page, link
   "reference": "note"
  },
  "KINDS": [
+  "bug",
+  "component",
   "correction",
   "dataset",
   "decision",
+  "design",
   "experiment",
   "feature",
   "finding",
@@ -1629,6 +1661,7 @@ drop: number, date, file, notebook, note, line, page, link
   "plan",
   "preference",
   "question",
+  "release",
   "report",
   "requirement",
   "risk",
@@ -1649,6 +1682,10 @@ drop: number, date, file, notebook, note, line, page, link
   "model",
   "metric",
   "report",
+  "component",
+  "design",
+  "bug",
+  "release",
   "term",
   "preference",
   "rule",
@@ -1660,6 +1697,8 @@ drop: number, date, file, notebook, note, line, page, link
   "experiment": "finding",
   "incident": "finding",
   "metric": "term",
+  "design": "decision",
+  "bug": "finding",
   "preference": "rule",
   "correction": "rule"
  },
@@ -1677,7 +1716,10 @@ drop: number, date, file, notebook, note, line, page, link
   "release": "system",
   "counterparty": "party",
   "policy": "rule",
-  "desk": "party"
+  "desk": "party",
+  "flag": "system",
+  "test": "system",
+  "issue": "document"
  },
  "SHAPES": {
   "trained-on": [
@@ -1703,21 +1745,27 @@ drop: number, date, file, notebook, note, line, page, link
  },
  "CONFLICT_KINDS": [
   "decision",
+  "design",
   "finding",
   "model"
  ],
  "DIGEST_KINDS": [
   "decision",
+  "design",
   "model",
   "plan"
  ],
  "ANSWER_KINDS": [
   "decision",
+  "design",
   "finding"
  ],
  "WORK": [
+  "bug",
+  "component",
   "dataset",
   "decision",
+  "design",
   "experiment",
   "feature",
   "finding",
@@ -1726,6 +1774,7 @@ drop: number, date, file, notebook, note, line, page, link
   "model",
   "plan",
   "question",
+  "release",
   "requirement",
   "risk"
  ],
@@ -1743,6 +1792,10 @@ drop: number, date, file, notebook, note, line, page, link
   "model": "state",
   "metric": "state",
   "report": "reference",
+  "component": "state",
+  "design": "state",
+  "bug": "evidence",
+  "release": "state",
   "term": "reference",
   "preference": "rule",
   "rule": "rule",

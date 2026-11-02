@@ -16,7 +16,7 @@ A project memory for coding and data-science agents:
   (`from:` / `supersedes:`), names (aliases from the index), current-first ranking and surgical line output.
 - **`memory.py dream`** (end of session) has a cheap model, Haiku, index new notes into entities and typed relations,
   dedups them, keeps a closed relation vocabulary, and writes the viewer (`_dream/graph.html`).
-- One stdlib Python file (`skills/memory-dream/scripts/memory.py`, ~1,900 lines), one HTML template, one SKILL.md.
+- One stdlib Python file (`skills/memory-dream/scripts/memory.py`, ~3100 lines), one HTML template, one SKILL.md; stores.py for optional hosted stores.
 
 What it measures against a grep-only Opus agent (same questions, Haiku judge):
 
@@ -46,7 +46,7 @@ Saving a note costs about $0.0015–0.002 of Haiku at any size. A dream with not
 
 ```bash
 git clone https://github.com/Zehaoyu217/memory-dream.git && cd memory-dream && git checkout worktree-build-v0.4
-python3 tests/acceptance.py                         # 21/21 should pass
+python3 tests/acceptance.py                         # 38/38 should pass
 
 # the skill and the dreamer subagent, user-wide
 mkdir -p ~/.claude/skills ~/.claude/agents
@@ -110,12 +110,16 @@ index) and stays quiet about entities. To add them without a model command: `dre
 skills/memory-dream/
   SKILL.md                     what the agent reads (41 lines): read, write, end of session
   scripts/memory.py            ask · dream · viz · check · log  (stdlib, ~1,900 lines)
+  scripts/stores.py           optional hosted stores (PostgreSQL, Neo4j) and the CSV export; imported only when MEMORY_STORE is set
   assets/viz.html              viewer template (html-lite habits; normal, overview and area modes)
   agents/memory-dreamer.md     Haiku subagent for file mode
 .specs/memory-dream/           build-spec.md (v0.4 spec), RUNBOOK.md, RESULTS.md (rounds 1–4)
 tests/
   fixture/memory/              churn-2026: 25 notes + 5 log days (hand-written ground truth)
-  acceptance.py                A1–A20 (spec) + A24 (big memories), fake dreamer, < 1 min
+  acceptance.py                38 checks: A1–A20 (spec), A24 (big memories), A25–A41 (phases A–H), fake dreamer, ~30 s
+  retrieval_gate.py            CI floors for the model-free retrieval numbers: bank (326 questions) and software fixture
+  store_parity.py              a hosted store (MEMORY_STORE=postgres) gives identical ask output and the same graph
+  fixture-software/memory/     a software project (payments-api: services, modules, ADRs, bugs, releases, an incident)
   fake_dreamer.py              deterministic dreamer (regex extraction) for tests and profiling
   haiku_cmd.py                 MEMORY_LLM wrapper around `claude -p --model haiku`, logs cost per call
   real_model.py, truth.py      Haiku runs against the fixture's ground truth
@@ -307,7 +311,7 @@ Per question:
 ### 5.8b The graph contract
 
 `.specs/memory-dream/CONTRACT.md` is the authority on every shape `memory.py` writes and reads: the graph (`graph.json`,
-`index.db`), the viewer's data island, the extraction cache, `store.db`, the manifest, the warning codes C1–C12 and the
+`index.db`), the viewer's data island, the extraction cache, `store.db`, the manifest, the warning codes C1–C13 and the
 grammar of EDGES.md, ALIASES.md, CONFLICTS.md and DIGEST.md. Every graph carries `schema: 1`; `validate()` checks a
 graph against the contract, `memory.py check` prints the result first, and A38 enforces it on the fixture (graph,
 `index.db` round trip, island). Build the viewer against the contract, never against the code.
@@ -418,7 +422,9 @@ when the page opens (tab order Timeline · Map · Connections; `#view=map` and `
 ## 6. Tests
 
 ```bash
-python3 tests/acceptance.py            # A1–A20, A24, A25–A37 with the fake dreamer, about 25 s
+python3 tests/acceptance.py            # 38 checks, A1–A20, A24, A25–A41, with the fake dreamer, about 30 s
+python3 tests/retrieval_gate.py bank   # the model-free numbers with floors (README Results); `software` for the second fixture
+MEMORY_STORE_URL=postgresql://… python3 tests/store_parity.py postgres --bank   # needs psycopg: the PostgreSQL store (ADR-001)
 python3 tests/acceptance.py A6 A24     # some
 python3 tests/real_model.py            # Haiku on the fixture vs tests/truth.py (costs a few cents)
 ```

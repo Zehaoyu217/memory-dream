@@ -31,14 +31,15 @@ Produced by `build()`, written as `_dream/graph.json` (≤ `MEMORY_WIDE` notes) 
 | `proposed_types` | list of label | type words (things typed outside TYPES.md) over the `promote` bar of TYPES.md, offered to the review |
 | `tvocab` | object | the same shape as `vocab`, for TYPES.md |
 | `dedup` | object | counters from entity merging (`mentions`, `ids_as_written`, `after_folding`, …) |
-| `checks` | list of `{code, msg}` | warnings, sorted by code; codes `C1`–`C12` (§5) |
+| `checks` | list of `{code, msg}` | warnings, sorted by code; codes `C1`–`C13` (§5) |
 
 **note** — `{path, id, project, title, line, kind, updated, superseded_by, sha, indexed}`
 - `title`: the text of the first `# ` line outside code fences (`""` when none → C6); `line`: its file line (0 when none).
 - `kind`: lowercase; frontmatter `type:` wins (Claude Code's `user|feedback|project|reference` map to
   `preference|rule|note|note`), else the dreamer's kind unless it is `note` (and only a kind `KINDS.md` lists), else the
   filename prefix (first two id segments; the prefixes are the `prefix:` fields of `KINDS.md`, seeded `exp- feat- ds- dec-
-  fnd- find- finding- q- metric- model- pref- rule- term- plan- req- risk- inc- rpt- report-`; `…-vN` → `model`), else the
+  fnd- find- finding- q- metric- model- pref- rule- term- plan- req- risk- inc- rpt- report- svc- mod- lib- sys- adr- design-
+  bug- fix- rel- release-`; `…-vN` → `model`), else the
   area (the `area:` fields, seeded `prefs`→preference, `glossary`→term, `corrections`→correction, `reporting`/`howto`→rule,
   `log`→log), else `note`.
 - `updated`: frontmatter `updated:` or `modified:` (first 10 chars), else a `log/YYYY-MM-DD` filename, else mtime.
@@ -78,6 +79,11 @@ the reviewer answered unsure (`- a ? b`), so it waits for a person and is not as
 `edges(src, dst, rel)` · `ents(id, type, home, headline, aka, names)` · `ment(eid, path, lines)` ·
 `names(k, eid)` — folded spellings (id, aka, names ≥ 3 chars) → entity · `rels(s, type, o, ev)` · `checks(code, msg)`.
 `read_index(dd)` returns the graph of §1 from these tables; the two forms are interchangeable.
+
+A hosted store (`stores.py`, ADR-001; `MEMORY_STORE=postgres|neo4j`) holds the same tables keyed by a repository id
+(`md_notes`, `md_edges` with the index's edge order, `md_ents`, `md_ment`, `md_names`, `md_rels`, `md_meta`; in Neo4j the
+equivalent nodes and relationships), published as a diff after every dream; its `read_graph()` returns the graph of §1,
+and `ask` reads it through the same seven row calls as `index.db` (`tests/store_parity.py` checks both).
 
 ## 3. The viewer's data island (`<script type="application/json" id="data-graph">`)
 

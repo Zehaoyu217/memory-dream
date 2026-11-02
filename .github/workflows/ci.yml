@@ -1,0 +1,70 @@
+name: ci
+on:
+  push:
+  pull_request:
+jobs:
+  acceptance:
+    name: 38 checks (python ${{ matrix.python }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.9", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python3 tests/acceptance.py
+  retrieval:
+    name: model-free retrieval gates
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: python3 tests/retrieval_gate.py bank
+      - run: python3 tests/retrieval_gate.py software
+  viewer:
+    name: headless viewer check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npm install --no-save playwright@1.49.1 && npx playwright install --with-deps chromium
+      - run: |
+          cp -R tests/fixture/memory /tmp/w && MEMORY_LLM="python3 $PWD/tests/fake_dreamer.py" python3 skills/memory-dream/scripts/memory.py --root /tmp/w dream
+          node tests/viz_check.js /tmp/w/_dream/graph.html
+  bundle:
+    name: build bundle is fresh
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: python3 tests/bundle_refresh.py --check
+  store-postgres:
+    name: PostgreSQL store parity
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_PASSWORD: pw
+          POSTGRES_DB: memdream
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: pip install "psycopg[binary]==3.2.9"
+      - run: MEMORY_STORE_URL=postgresql://postgres:pw@127.0.0.1:5432/memdream python3 tests/store_parity.py postgres

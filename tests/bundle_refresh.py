@@ -8,6 +8,7 @@ import importlib.util
 import json
 import re
 import subprocess
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -132,7 +133,15 @@ _Part 9 · the shapes `eval/` reads and writes, so a rebuilt eval can be compare
   "extract|review", "cost", "ms", "in", "fresh", "cached", "cache_write", "out", "static", "error"}}`.
 """
     parts.append(e)
-    BUNDLE.write_text("".join(parts).rstrip() + "\n")
+    new = "".join(parts).rstrip() + "\n"
+    if "--check" in sys.argv:  # CI: the committed bundle must match its sources (the commit stamps are ignored)
+        strip = lambda t: re.sub(r"(copied|extracted) at commit [0-9a-f]*", r"\1 at commit", t)  # noqa: E731
+        if strip(BUNDLE.read_text()) != strip(new):
+            print("bundle: STALE — run python3 tests/bundle_refresh.py and commit online-build-bundle.md")
+            sys.exit(1)
+        print("bundle: fresh")
+        return
+    BUNDLE.write_text(new)
     out = BUNDLE.read_text()
     print(f"bundle: {len(out.splitlines())} lines · {out.count(SPLIT)} split markers · appendices from commit {sha}")
 

@@ -919,7 +919,7 @@ def A41():
     assert "type word" in chk and "warehouse" in chk, chk[:400]
     assert mem.parse_edges(mem.EDGES_SEED)[5]["shape"]["trained-on"] == ("model", "dataset")
     d = w.text("DIGEST.md")
-    assert "decisions, models and plans" in d and "Hedge the EUR swap" in d, d[:600]
+    assert "decisions, designs, models and plans" in d and "Hedge the EUR swap" in d, d[:600]  # digest heads: the kinds marked digest: current
     # the word goes over a lowered bar; the review admits it as a type with a family; the thing takes the type, 0 re-reads
     (w.root / "TYPES.md").write_text(w.text("TYPES.md").replace("promote: 5 uses, 5 notes, 2 areas", "promote: 1 uses, 1 notes, 1 areas"))
     rv = w.dir / "review.json"
