@@ -1,0 +1,209 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "cr-lgbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "LightGBM multiclass v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cr-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cr-lgbm-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro f1",
+   "as": [
+    "Macro F1"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "top-1-accuracy",
+   "type": "metric",
+   "label": "top-1 accuracy",
+   "as": [
+    "top-1 accuracy"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "tf-idf-svd",
+   "type": "feature",
+   "label": "tf-idf svd",
+   "as": [
+    "TF-IDF SVD (200)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ivr-path-tokens",
+   "type": "feature",
+   "label": "ivr path tokens",
+   "as": [
+    "IVR path tokens"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "caller-history-v1",
+   "type": "feature",
+   "label": "caller history v1",
+   "as": [
+    "caller history v1"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "tenure-and-product-count",
+   "type": "feature",
+   "label": "tenure and product count",
+   "as": [
+    "tenure and product count"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-104",
+   "type": "other",
+   "label": "out-of-time read",
+   "as": [
+    "July 2026 out-of-time read (exp-104)"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cr-lgbm-v1",
+   "type": "uses",
+   "label": "takes inputs",
+   "o": "tf-idf-svd",
+   "quote": "Inputs: TF-IDF SVD (200), IVR path tokens, caller history v1, tenure and product count.",
+   "line": 6
+  },
+  {
+   "s": "cr-lgbm-v1",
+   "type": "uses",
+   "label": "takes inputs",
+   "o": "ivr-path-tokens",
+   "quote": "Inputs: TF-IDF SVD (200), IVR path tokens, caller history v1, tenure and product count.",
+   "line": 6
+  },
+  {
+   "s": "cr-lgbm-v1",
+   "type": "uses",
+   "label": "takes inputs",
+   "o": "caller-history-v1",
+   "quote": "Inputs: TF-IDF SVD (200), IVR path tokens, caller history v1, tenure and product count.",
+   "line": 6
+  },
+  {
+   "s": "cr-lgbm-v1",
+   "type": "uses",
+   "label": "takes inputs",
+   "o": "tenure-and-product-count",
+   "quote": "Inputs: TF-IDF SVD (200), IVR path tokens, caller history v1, tenure and product count.",
+   "line": 6
+  },
+  {
+   "s": "cr-lgbm-v1",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "holdout-2025q4",
+   "quote": "Macro F1 0.79 and top-1 accuracy 0.84 on holdout-2025q4 (n = 380,000 calls), scored 2026-01-30.",
+   "line": 7
+  },
+  {
+   "s": "cr-lgbm-v1",
+   "type": "measured-by",
+   "label": "gives macro F1",
+   "o": "macro-f1",
+   "quote": "LightGBM multiclass v1 gives macro F1 0.79",
+   "line": 5
+  },
+  {
+   "s": "cr-lgbm-v1",
+   "type": "measured-by",
+   "label": "top-1 accuracy",
+   "o": "top-1-accuracy",
+   "quote": "Macro F1 0.79 and top-1 accuracy 0.84 on holdout-2025q4",
+   "line": 7
+  },
+  {
+   "s": "cr-lgbm-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "cr-lgbm-v1",
+   "quote": "Superseded by cr-lgbm-v2 after the July 2026 out-of-time read (exp-104).",
+   "line": 8
+  },
+  {
+   "s": "cr-lgbm-v1",
+   "type": "other",
+   "label": "superseded after",
+   "o": "exp-104",
+   "quote": "Superseded by cr-lgbm-v2 after the July 2026 out-of-time read (exp-104).",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-cr-transcript-tfidf-v1",
+  "feat-cr-ivr-path-v1",
+  "feat-cr-caller-history-v1",
+  "feat-cr-tenure-v1",
+  "exp-101",
+  "cr-lgbm-v2",
+  "exp-104"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/cr-lgbm-v1.md",
+ "sha": "f39052e9df6e93e87e787e6faa4477d8f05bd68f296fe09b2c335a5fa28f503a",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

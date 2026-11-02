@@ -1,0 +1,207 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "cu-uplift-v2",
+   "type": "model",
+   "label": "t-learner",
+   "as": [
+    "cu-uplift-v2 is the T-learner with isotonic calibration, used for call routing from December 2025",
+    "cu-uplift-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cu-uplift-v1",
+   "type": "model",
+   "label": "two-arm model",
+   "as": [
+    "cu-uplift-v1"
+   ],
+   "lines": [
+    2,
+    4,
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout split",
+   "as": [
+    "holdout-2025q4 split",
+    "holdout-2025q4 (n=31,200)"
+   ],
+   "lines": [
+    7,
+    9
+   ]
+  },
+  {
+   "id": "feat-cu-dpd-roll-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-dpd-roll-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-cu-pay-behaviour",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-pay-behaviour"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-cu-contact-hist-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-contact-hist-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-cu-call-tod-v1",
+   "type": "feature",
+   "label": "excluded feature",
+   "as": [
+    "feat-cu-call-tod-v1 is excluded"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "uplift@20% 0.034"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "brier",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Brier 0.181"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "cu-uplift-v3",
+   "type": "model",
+   "label": "successor model",
+   "as": [
+    "cu-uplift-v3 (2026-03-06)"
+   ],
+   "lines": [
+    10
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cu-uplift-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "cu-uplift-v1",
+   "quote": "supersedes: [cu-uplift-v1]",
+   "line": 4
+  },
+  {
+   "s": "cu-uplift-v3",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "cu-uplift-v2",
+   "quote": "Superseded by cu-uplift-v3 (2026-03-06).",
+   "line": 10
+  },
+  {
+   "s": "cu-uplift-v2",
+   "type": "trained-on",
+   "label": "fitted on",
+   "o": "holdout-2025q4",
+   "quote": "isotonic calibration on each arm fitted on the holdout-2025q4 split",
+   "line": 7
+  },
+  {
+   "s": "cu-uplift-v2",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-cu-dpd-roll-v1",
+   "quote": "Features: feat-cu-dpd-roll-v1, feat-cu-pay-behaviour, feat-cu-contact-hist-v2.",
+   "line": 8
+  },
+  {
+   "s": "cu-uplift-v2",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-cu-pay-behaviour",
+   "quote": "Features: feat-cu-dpd-roll-v1, feat-cu-pay-behaviour, feat-cu-contact-hist-v2.",
+   "line": 8
+  },
+  {
+   "s": "cu-uplift-v2",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-cu-contact-hist-v2",
+   "quote": "Features: feat-cu-dpd-roll-v1, feat-cu-pay-behaviour, feat-cu-contact-hist-v2.",
+   "line": 8
+  },
+  {
+   "s": "cu-uplift-v2",
+   "type": "other",
+   "label": "excludes",
+   "o": "feat-cu-call-tod-v1",
+   "quote": "feat-cu-call-tod-v1 is excluded.",
+   "line": 8
+  },
+  {
+   "s": "cu-uplift-v2",
+   "type": "measured-by",
+   "label": "metrics",
+   "o": "uplift-at-20",
+   "quote": "Metrics on holdout-2025q4 (n=31,200): uplift@20% 0.034",
+   "line": 9
+  },
+  {
+   "s": "cu-uplift-v2",
+   "type": "measured-by",
+   "label": "metrics",
+   "o": "brier",
+   "quote": "Metrics on holdout-2025q4 (n=31,200): uplift@20% 0.034, Brier 0.181.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "exp-105",
+  "cu-uplift-v1",
+  "cu-uplift-v3"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-uplift/cu-uplift-v2.md",
+ "sha": "2f3cecaa2288b15d99739edae7ea857237851cd0e146965cd7110cc2e02fee7e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

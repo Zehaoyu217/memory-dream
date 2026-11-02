@@ -1,0 +1,59 @@
+{
+ "kind": "note",
+ "entities": [
+  {
+   "id": "kpi-book-definition",
+   "type": "term",
+   "label": "kpi deck definition",
+   "as": [
+    "In the KPI deck, book is open accounts at month end, excluding charged-off accounts, shown as count and $ balance"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "book",
+   "type": "term",
+   "label": "book",
+   "as": [
+    "Book = accounts open at the last day of the month, excluding charged-off accounts."
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "book",
+   "type": "uses",
+   "label": "month-end snapshot from",
+   "o": "cards.accounts_monthly",
+   "quote": "Source: `cards.accounts_monthly`, month-end snapshot.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "reporting/kpi-book-definition.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/kpi-book-definition.md",
+ "sha": "3c910965bbd9ec3450472a279289d80ee5225ec52e9824471712801386712b64",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

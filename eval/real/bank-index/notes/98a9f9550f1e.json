@@ -1,0 +1,126 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "chart-colour-rule",
+   "type": "policy",
+   "label": "colour rule",
+   "as": [
+    "Chart colour: brand blue for the primary series, grey for context, one orange highlight per chart"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "brand-blue",
+   "type": "other",
+   "label": "brand colour",
+   "as": [
+    "brand blue `#1F4E9A`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "grey",
+   "type": "other",
+   "label": "context colour",
+   "as": [
+    "grey `#B8BEC7`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "orange",
+   "type": "other",
+   "label": "highlight colour",
+   "as": [
+    "Orange `#E07B24`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "primary-series",
+   "type": "term",
+   "label": "series type",
+   "as": [
+    "Primary series"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "context-series",
+   "type": "term",
+   "label": "series type",
+   "as": [
+    "context series"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "small-multiples",
+   "type": "term",
+   "label": "chart layout",
+   "as": [
+    "small multiples"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "primary-series",
+   "type": "other",
+   "label": "coloured",
+   "o": "brand-blue",
+   "quote": "Primary series are brand blue `#1F4E9A`",
+   "line": 5
+  },
+  {
+   "s": "context-series",
+   "type": "other",
+   "label": "coloured",
+   "o": "grey",
+   "quote": "context series are grey `#B8BEC7`",
+   "line": 5
+  },
+  {
+   "s": "chart-colour-rule",
+   "type": "other",
+   "label": "reserves",
+   "o": "orange",
+   "quote": "Orange `#E07B24` is used for exactly one highlighted series per chart, never two.",
+   "line": 6
+  },
+  {
+   "s": "chart-colour-rule",
+   "type": "other",
+   "label": "splits into",
+   "o": "small-multiples",
+   "quote": "Charts with more than three coloured series are split into small multiples instead.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/chart-style-colour.md",
+ "sha": "98a9f9550f1e6aa7aefb41c082bf2c85884514b65099581b9270cf00ffa07e51",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

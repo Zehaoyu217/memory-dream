@@ -1,0 +1,195 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "util-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "util-v2 model"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-c25-txn-recency",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-c25-txn-recency"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "c25-oot-2024h1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "c25-oot-2024h1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "holdout auc",
+   "as": [
+    "holdout AUC 0.772"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.41"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "recall-at-10",
+   "type": "metric",
+   "label": "recall@10%",
+   "as": [
+    "recall@10%"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "brier",
+   "type": "metric",
+   "label": "brier",
+   "as": [
+    "Brier"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "recency psi",
+   "as": [
+    "Recency PSI"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "monotone-constraint",
+   "type": "term",
+   "label": "constraint",
+   "as": [
+    "Monotone decreasing constraint"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "early-stopping",
+   "type": "term",
+   "label": "early stopping",
+   "as": [
+    "early stopping"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "util-v2",
+   "type": "uses",
+   "label": "monotone decreasing constraint on",
+   "o": "feat-c25-txn-recency",
+   "quote": "Monotone decreasing constraint on feat-c25-txn-recency",
+   "line": 6
+  },
+  {
+   "s": "util-v2",
+   "type": "uses",
+   "label": "stopped at",
+   "o": "early-stopping",
+   "quote": "early stopping at 412 rounds",
+   "line": 6
+  },
+  {
+   "s": "util-v2",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "c25-oot-2024h1",
+   "quote": "Holdout c25-oot-2024h1: AUC 0.772",
+   "line": 7
+  },
+  {
+   "s": "util-v2",
+   "type": "measured-by",
+   "label": "holdout AUC",
+   "o": "auc",
+   "quote": "holdout AUC 0.772",
+   "line": 5
+  },
+  {
+   "s": "util-v2",
+   "type": "measured-by",
+   "label": "KS",
+   "o": "ks",
+   "quote": "KS 0.41",
+   "line": 7
+  },
+  {
+   "s": "util-v2",
+   "type": "measured-by",
+   "label": "recall@10%",
+   "o": "recall-at-10",
+   "quote": "recall@10% 0.34",
+   "line": 7
+  },
+  {
+   "s": "util-v2",
+   "type": "measured-by",
+   "label": "Brier",
+   "o": "brier",
+   "quote": "Brier 0.0334",
+   "line": 7
+  },
+  {
+   "s": "feat-c25-txn-recency",
+   "type": "measured-by",
+   "label": "recency PSI",
+   "o": "psi",
+   "quote": "Recency PSI across the 2024 months falls to 0.03 from 0.11 unconstrained",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-104",
+  "fnd-c25-recency-dominates",
+  "dec-c25-drop-app-sessions"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2025/exp-106.md",
+ "sha": "b83fb1cb41026e67f9062e8569a6494618b02d18d6f45ee8fc4a970ffd4ae704",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

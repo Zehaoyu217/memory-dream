@@ -1,0 +1,95 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "ridge",
+   "type": "model",
+   "label": "ridge model",
+   "as": [
+    "Ridge"
+   ],
+   "lines": [
+    5,
+    6,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "funnel-features",
+   "type": "feature",
+   "label": "funnel features",
+   "as": [
+    "funnel features"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "trv-bt-2025h2",
+   "type": "dataset",
+   "label": "backtest set",
+   "as": [
+    "trv-bt-2025h2"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "error metric",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ridge",
+   "type": "uses",
+   "label": "added",
+   "o": "funnel-features",
+   "quote": "Ridge with feat-trv-funnel-v2 added",
+   "line": 6
+  },
+  {
+   "s": "ridge",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "trv-bt-2025h2",
+   "quote": "trv-bt-2025h2 (monthly origins Jul to Dec 2025)",
+   "line": 6
+  },
+  {
+   "s": "ridge",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "mape",
+   "quote": "MAPE 4.3%",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-503",
+  "feat-trv-funnel-v2",
+  "trv-ridge-v2",
+  "trv-ridge-v3",
+  "fnd-trv-funnel-driver"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "travel-spend-recovery/exp-505.md",
+ "sha": "bc6cf4654a180aa44893269a1b74624b8c7afcd59396f4f79ea2a54bcba2b400",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

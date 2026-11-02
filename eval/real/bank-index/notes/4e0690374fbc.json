@@ -1,0 +1,97 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift metric",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "cli-rct-2025q3",
+   "type": "dataset",
+   "label": "rct dataset",
+   "as": [
+    "cli-rct-2025q3"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "credit-line-increase",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "[credit-line-increase]"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "t-learner",
+   "type": "model",
+   "label": "t-learner model",
+   "as": [
+    "T-learner"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "propensity",
+   "type": "model",
+   "label": "propensity model",
+   "as": [
+    "propensity"
+   ],
+   "lines": [
+    3
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "t-learner",
+   "type": "measured-by",
+   "label": "scored uplift",
+   "o": "uplift-at-20",
+   "quote": "T-learner uplift@20% 1.9 vs propensity 1.3",
+   "line": 3
+  },
+  {
+   "s": "t-learner",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "cli-rct-2025q3",
+   "quote": "on cli-rct-2025q3",
+   "line": 3
+  },
+  {
+   "s": "propensity",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "cli-rct-2025q3",
+   "quote": "propensity 1.3 on cli-rct-2025q3",
+   "line": 3
+  }
+ ],
+ "refs": [
+  "log/2025-11-25.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2025-11-25.md",
+ "sha": "4e0690374fbc7ff47e69601ad7fa6283137a20065024162f91f66943b5c311bb",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

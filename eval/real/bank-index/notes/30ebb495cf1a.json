@@ -1,0 +1,71 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "inc-gbm-v3",
+   "type": "model",
+   "label": "live income estimate",
+   "as": [
+    "inc-gbm-v3"
+   ],
+   "lines": [
+    2,
+    5
+   ]
+  },
+  {
+   "id": "self-employed-uplift",
+   "type": "term",
+   "label": "self-employed uplift",
+   "as": [
+    "9% uplift for self-employed accounts"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-inc-payroll-proxy",
+   "type": "feature",
+   "label": "payroll cadence",
+   "as": [
+    "payroll cadence"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "inc-gbm-v3",
+   "type": "uses",
+   "label": "refreshed from",
+   "o": "ds-inc-payroll-proxy",
+   "quote": "Estimates are refreshed monthly from the payroll cadence and spend features.",
+   "line": 7
+  },
+  {
+   "s": "inc-gbm-v3",
+   "type": "other",
+   "label": "adopted with uplift",
+   "o": "self-employed-uplift",
+   "quote": "Adopted 2026-05-12 with the uplift from find-inc-self-employed-bias",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "find-inc-self-employed-bias",
+  "inc-gbm-v3",
+  "find-inc-log-target-gain",
+  "dec-inc-stated-override"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "income-estimation/dec-inc-estimate-live.md",
+ "sha": "30ebb495cf1a7dc23f31bd6c7acf375fb086d6c3e830f06070f9fdb1974c60c5",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

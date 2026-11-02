@@ -1,0 +1,121 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-dq-rowcount-z-v2",
+   "type": "feature",
+   "label": "z-score feature",
+   "as": [
+    "feat-dq-rowcount-z-v2",
+    "z-score of row count against the same weekday, trailing 8 weeks"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-dq-rowcount-z-v1",
+   "type": "feature",
+   "label": "earlier version",
+   "as": [
+    "feat-dq-rowcount-z-v1"
+   ],
+   "lines": [
+    2,
+    4
+   ]
+  },
+  {
+   "id": "fnd-volume-false-alarms",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-volume-false-alarms"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "dq-volume-iforest-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "dq-volume-iforest-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "dec-dq-same-weekday-baseline",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-dq-same-weekday-baseline"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "z-score",
+   "type": "metric",
+   "label": "z-score",
+   "as": [
+    "z-score of row count"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-dq-rowcount-z-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "feat-dq-rowcount-z-v1",
+   "quote": "supersedes: [feat-dq-rowcount-z-v1]",
+   "line": 4
+  },
+  {
+   "s": "feat-dq-rowcount-z-v2",
+   "type": "derived-from",
+   "label": "from",
+   "o": "fnd-volume-false-alarms",
+   "quote": "from: [feat-dq-rowcount-z-v1, fnd-volume-false-alarms]",
+   "line": 2
+  },
+  {
+   "s": "dq-volume-iforest-v1",
+   "type": "uses",
+   "label": "uses as one of its inputs",
+   "o": "feat-dq-rowcount-z-v2",
+   "quote": "Used by dq-volume-iforest-v1 as one of its 12 inputs.",
+   "line": 8
+  },
+  {
+   "s": "feat-dq-rowcount-z-v2",
+   "type": "other",
+   "label": "alert set by",
+   "o": "dec-dq-same-weekday-baseline",
+   "quote": "Alert at absolute z above 3, as set by dec-dq-same-weekday-baseline.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-dq-rowcount-z-v1",
+  "fnd-volume-false-alarms",
+  "dec-dq-same-weekday-baseline",
+  "dq-volume-iforest-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "data-quality-txn/feat-dq-rowcount-z-v2.md",
+ "sha": "7e88581199b92154af71af0d0d82cf6658d293d26554fa4cd9f1422f2d47941e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,115 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "rs-xgb-v1",
+   "type": "model",
+   "label": "xgboost classifier",
+   "as": [
+    "rs-xgb-v1"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "feat-rs-region-rate",
+   "type": "feature",
+   "label": "region recovery rate",
+   "as": [
+    "feat-rs-region-rate",
+    "region recovery rate"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "recovery-scoring-holdout-2023h2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "recovery-scoring-holdout-2023h2",
+    "Same holdout"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini 0.44",
+    "Gini"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.32"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rs-xgb-v1",
+   "type": "other",
+   "label": "plus",
+   "o": "feat-rs-region-rate",
+   "quote": "rs-xgb-v1 plus feat-rs-region-rate",
+   "line": 6
+  },
+  {
+   "s": "rs-xgb-v1",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "recovery-scoring-holdout-2023h2",
+   "quote": "on recovery-scoring-holdout-2023h2",
+   "line": 5
+  },
+  {
+   "s": "rs-xgb-v1",
+   "type": "measured-by",
+   "label": "lifts Gini",
+   "o": "gini",
+   "quote": "lifts Gini from 0.41 to 0.44",
+   "line": 5
+  },
+  {
+   "s": "rs-xgb-v1",
+   "type": "measured-by",
+   "label": "has KS",
+   "o": "ks",
+   "quote": "Gini 0.44, KS 0.32",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "feat-rs-region-rate",
+  "rs-xgb-v1",
+  "recovery_scoring/exp303_region.ipynb"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "recovery-scoring/exp-303.md",
+ "sha": "3561a40034cbd9209092f8dd9918b2d990f838af63ed1f5c9e19e1c16764e864",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

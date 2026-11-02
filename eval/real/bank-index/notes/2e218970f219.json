@@ -1,0 +1,119 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-407-markov-roll-model",
+   "type": "model",
+   "label": "markov roll model",
+   "as": [
+    "a Markov roll model",
+    "Scenario model"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "hp-psm-v2",
+   "type": "model",
+   "label": "effect",
+   "as": [
+    "the hp-psm-v2 effect"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-hp-roll-matrix",
+   "type": "dataset",
+   "label": "roll matrix",
+   "as": [
+    "ds-hp-roll-matrix"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "enrolled-accounts",
+   "type": "segment",
+   "label": "enrolled accounts",
+   "as": [
+    "enrolled accounts",
+    "per enrolled account"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "accounts-30-plus-dpd",
+   "type": "segment",
+   "label": "accounts entering 30+ dpd",
+   "as": [
+    "accounts entering 30+ DPD"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "long-run-charge-off-rate",
+   "type": "metric",
+   "label": "long-run charge-off rate",
+   "as": [
+    "long-run charge-off rate",
+    "charge-off"
+   ],
+   "lines": [
+    5,
+    7,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-407-markov-roll-model",
+   "type": "uses",
+   "label": "scenario model on",
+   "o": "ds-hp-roll-matrix",
+   "quote": "Scenario model on ds-hp-roll-matrix",
+   "line": 6
+  },
+  {
+   "s": "exp-407-markov-roll-model",
+   "type": "uses",
+   "label": "shifted by effect",
+   "o": "hp-psm-v2",
+   "quote": "enrolled accounts use the transition probabilities shifted by the hp-psm-v2 effect",
+   "line": 6
+  },
+  {
+   "s": "exp-407-markov-roll-model",
+   "type": "measured-by",
+   "label": "implies change in",
+   "o": "long-run-charge-off-rate",
+   "quote": "Base long-run charge-off rate for accounts entering 30+ DPD: 4.3%",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "hardship_programs/exp407_markov.ipynb",
+  "hp-psm-v2",
+  "ds-hp-roll-matrix"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "hardship-programs/exp-407.md",
+ "sha": "2e218970f219f80b1764c2228220ff4be4491d1a0e2aa1290db58727ba1359d9",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

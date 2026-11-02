@@ -1,0 +1,154 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-205",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-205"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "25pct-per-cycle-cap",
+   "type": "policy",
+   "label": "per-cycle cap",
+   "as": [
+    "a 25% per-cycle cap"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "40pct-cap",
+   "type": "policy",
+   "label": "40% cap",
+   "as": [
+    "a 40% cap",
+    "a 40% cut in one cycle"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "band-c-d-accounts",
+   "type": "segment",
+   "label": "band c and d accounts",
+   "as": [
+    "band C and D accounts"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "90-day-roll",
+   "type": "metric",
+   "label": "90-day roll",
+   "as": [
+    "90-day roll"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-cld-control-2025h2",
+   "type": "dataset",
+   "label": "control design",
+   "as": [
+    "H2 2025 control design"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-cld-cap-25pct",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-cld-cap-25pct"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-205",
+   "type": "uses",
+   "label": "cohort from",
+   "o": "ds-cld-control-2025h2",
+   "quote": "cohort from the H2 2025 control design",
+   "line": 6
+  },
+  {
+   "s": "exp-205",
+   "type": "evaluated-on",
+   "label": "arms of",
+   "o": "band-c-d-accounts",
+   "quote": "Two arms of 2,140 band C and D accounts each",
+   "line": 6
+  },
+  {
+   "s": "exp-205",
+   "type": "measured-by",
+   "label": "measures",
+   "o": "90-day-roll",
+   "quote": "roll is 30+ DPD within 90 days",
+   "line": 6
+  },
+  {
+   "s": "25pct-per-cycle-cap",
+   "type": "measured-by",
+   "label": "rolls",
+   "o": "90-day-roll",
+   "quote": "Cap of 25% per cycle rolls 6.1%",
+   "line": 7
+  },
+  {
+   "s": "40pct-cap",
+   "type": "measured-by",
+   "label": "rolls",
+   "o": "90-day-roll",
+   "quote": "a 40% cut in one cycle rolls 8.4%",
+   "line": 7
+  },
+  {
+   "s": "exp-205",
+   "type": "other",
+   "label": "compares",
+   "o": "40pct-cap",
+   "quote": "a 25% per-cycle cap gives 6.1% 90-day roll versus 8.4% for a 40% cap",
+   "line": 5
+  },
+  {
+   "s": "exp-205",
+   "type": "other",
+   "label": "basis for",
+   "o": "dec-cld-cap-25pct",
+   "quote": "Basis for dec-cld-cap-25pct.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "cld-gbm-v1",
+  "dec-cld-cap-25pct"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "limit-decrease-policy/exp-205.md",
+ "sha": "b270be6cac874438270efe323899652c7204619340458307e98b5fed2a025a5f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,146 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "feat-ror-value-band-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ror-value-band-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-ror-value-band-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ror-value-band-v1"
+   ],
+   "lines": [
+    2,
+    4
+   ]
+  },
+  {
+   "id": "feat-ror-expected-revenue",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ror-expected-revenue"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "fnd-ror-cashback-roi-v2",
+   "type": "other",
+   "label": "credit-loss check",
+   "as": [
+    "fnd-ror-cashback-roi-v2"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "dec-ror-matrix-v4",
+   "type": "other",
+   "label": "v4 draft",
+   "as": [
+    "matrix v4 candidate"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "ror-roi-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ror-roi-v2"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "bureau bands",
+   "as": [
+    "bureau.scores_monthly"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ror-value-band-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "feat-ror-value-band-v1",
+   "quote": "supersedes: [feat-ror-value-band-v1]",
+   "line": 4
+  },
+  {
+   "s": "feat-ror-value-band-v2",
+   "type": "uses",
+   "label": "from",
+   "o": "feat-ror-expected-revenue",
+   "quote": "from: [feat-ror-value-band-v1, feat-ror-expected-revenue, fnd-ror-cashback-roi-v2]",
+   "line": 2
+  },
+  {
+   "s": "feat-ror-value-band-v2",
+   "type": "uses",
+   "label": "from",
+   "o": "fnd-ror-cashback-roi-v2",
+   "quote": "from: [feat-ror-value-band-v1, feat-ror-expected-revenue, fnd-ror-cashback-roi-v2]",
+   "line": 2
+  },
+  {
+   "s": "feat-ror-value-band-v2",
+   "type": "uses",
+   "label": "PD from",
+   "o": "bureau.scores_monthly",
+   "quote": "PD from the bureau.scores_monthly bands (credit-data)",
+   "line": 7
+  },
+  {
+   "s": "feat-ror-value-band-v2",
+   "type": "uses",
+   "label": "basis for",
+   "o": "dec-ror-matrix-v4",
+   "quote": "Basis for the matrix v4 candidate and ror-roi-v2.",
+   "line": 9
+  },
+  {
+   "s": "feat-ror-value-band-v2",
+   "type": "uses",
+   "label": "basis for",
+   "o": "ror-roi-v2",
+   "quote": "Basis for the matrix v4 candidate and ror-roi-v2.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "retention-offers-roi/feat-ror-value-band-v1.md",
+  "retention-offers-roi/feat-ror-expected-revenue.md",
+  "retention-offers-roi/fnd-ror-cashback-roi-v2.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "retention-offers-roi/feat-ror-value-band-v2.md",
+ "sha": "a548667b5bd90bfd84035cfaf35029d1f2cf19c8d9753c22bc2766162e36e2a8",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

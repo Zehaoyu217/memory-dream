@@ -1,0 +1,98 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-c25-payment-behaviour",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "feat-c25-payment-behaviour"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "payment-ratio",
+   "type": "feature",
+   "label": "payment ratio",
+   "as": [
+    "Payment ratio"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "late-count",
+   "type": "feature",
+   "label": "late count",
+   "as": [
+    "Late count"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "`cards.payments_daily`"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "payment-ratio",
+   "type": "part-of",
+   "label": "part of",
+   "o": "feat-c25-payment-behaviour",
+   "quote": "payment ratio and late counts from cards.payments_daily",
+   "line": 5
+  },
+  {
+   "s": "late-count",
+   "type": "part-of",
+   "label": "part of",
+   "o": "feat-c25-payment-behaviour",
+   "quote": "payment ratio and late counts from cards.payments_daily",
+   "line": 5
+  },
+  {
+   "s": "payment-ratio",
+   "type": "uses",
+   "label": "source",
+   "o": "cards.payments_daily",
+   "quote": "Source `cards.payments_daily`.",
+   "line": 8
+  },
+  {
+   "s": "late-count",
+   "type": "uses",
+   "label": "source",
+   "o": "cards.payments_daily",
+   "quote": "Source `cards.payments_daily`.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-c25-accounts-snapshot",
+  "churn-2025/feat-c25-payment-behaviour.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2025/feat-c25-payment-behaviour.md",
+ "sha": "1cf4ca4f99546a8bde3a34b0fb4624433e172b0920bec46c4c7c2d616175008a",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

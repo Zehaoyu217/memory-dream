@@ -1,0 +1,139 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "churn-rate",
+   "type": "metric",
+   "label": "churn",
+   "as": [
+    "Churn is 6.4 percent"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "churn-rule-rebuilt",
+   "type": "term",
+   "label": "rebuilt definition",
+   "as": [
+    "Rebuilt definition"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "legacy-60-day-rule",
+   "type": "term",
+   "label": "legacy 60-day rule",
+   "as": [
+    "legacy 60-day rule"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "account-snapshots",
+   "type": "dataset",
+   "label": "account-snapshots",
+   "as": [
+    "4.6M account-snapshots"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "2025-h1-snapshots",
+   "type": "dataset",
+   "label": "2025-h1 snapshots",
+   "as": [
+    "2025-H1 snapshots"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "rebuilt-job",
+   "type": "pipeline",
+   "label": "rebuilt job",
+   "as": [
+    "The rebuilt job"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-406",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-406"
+   ],
+   "lines": [
+    2,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-rule-rebuilt",
+   "type": "uses",
+   "label": "defined on",
+   "o": "account-snapshots",
+   "quote": "Rebuilt definition on the same 4.6M account-snapshots",
+   "line": 7
+  },
+  {
+   "s": "churn-rule-rebuilt",
+   "type": "other",
+   "label": "yields",
+   "o": "churn-rate",
+   "quote": "Churn is 6.4 percent",
+   "line": 6
+  },
+  {
+   "s": "legacy-60-day-rule",
+   "type": "other",
+   "label": "yields",
+   "o": "churn-rate",
+   "quote": "against 7.9 under the legacy 60-day rule",
+   "line": 6
+  },
+  {
+   "s": "churn-rule-rebuilt",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "legacy-60-day-rule",
+   "quote": "supersedes: [fnd-churn-rate-legacy]",
+   "line": 4
+  },
+  {
+   "s": "rebuilt-job",
+   "type": "other",
+   "label": "verified by",
+   "o": "exp-406",
+   "quote": "The rebuilt job is idempotent (exp-406)",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "fnd-churn-rate-legacy",
+  "exp-401",
+  "exp-406"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "label-pipeline-rebuild/fnd-churn-rate-rebuilt.md",
+ "sha": "aec9e8c410fc4a0c46c2d7ceec7a675eb7baa440f80b9dc7a9e86e0a514f544e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

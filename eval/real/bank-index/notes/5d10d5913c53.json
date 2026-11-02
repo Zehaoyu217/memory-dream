@@ -1,0 +1,151 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cld-gbm-v3",
+   "type": "model",
+   "label": "version",
+   "as": [
+    "cld-gbm-v3"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cld-gbm-v2",
+   "type": "model",
+   "label": "version",
+   "as": [
+    "cld-gbm-v2",
+    "v2 scores"
+   ],
+   "lines": [
+    2,
+    4,
+    6,
+    9
+   ]
+  },
+  {
+   "id": "feat-cld-payment-shock",
+   "type": "feature",
+   "label": "features",
+   "as": [
+    "feat-cld-payment-shock",
+    "payment-shock features"
+   ],
+   "lines": [
+    2,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "cld-test-2026q1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "cld-test-2026q1"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.81",
+    "0.78"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini 0.62",
+    "0.56"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cld-gbm-v3",
+   "type": "uses",
+   "label": "adds input",
+   "o": "feat-cld-payment-shock",
+   "quote": "Adds feat-cld-payment-shock to the v2 inputs.",
+   "line": 7
+  },
+  {
+   "s": "cld-gbm-v3",
+   "type": "uses",
+   "label": "built from",
+   "o": "cld-gbm-v2",
+   "quote": "from: [feat-cld-payment-shock, cld-gbm-v2]",
+   "line": 2
+  },
+  {
+   "s": "cld-gbm-v3",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "cld-gbm-v2",
+   "quote": "supersedes: [cld-gbm-v2]",
+   "line": 4
+  },
+  {
+   "s": "cld-gbm-v3",
+   "type": "evaluated-on",
+   "label": "eval on",
+   "o": "cld-test-2026q1",
+   "quote": "Eval: cld-test-2026q1",
+   "line": 8
+  },
+  {
+   "s": "cld-gbm-v3",
+   "type": "measured-by",
+   "label": "scored AUC",
+   "o": "auc",
+   "quote": "AUC 0.81 on cld-test-2026q1",
+   "line": 6
+  },
+  {
+   "s": "cld-gbm-v3",
+   "type": "measured-by",
+   "label": "scored Gini",
+   "o": "gini",
+   "quote": "Gini 0.62 against 0.56",
+   "line": 9
+  },
+  {
+   "s": "cld-gbm-v2",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "cld-test-2026q1",
+   "quote": "v2 scores 0.78 on the same set",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "cld-gbm-v2",
+  "feat-cld-payment-shock"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "limit-decrease-policy/cld-gbm-v3.md",
+ "sha": "5d10d5913c531afca6222ec87d73d4ba2662046b7bbbd851872d453d2fcddbeb",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

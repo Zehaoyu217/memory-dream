@@ -1,0 +1,108 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-mq3-email-open-90d",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mq3-email-open-90d",
+    "Count of email opens in the 90 days before contact"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "marketing.campaign_responses",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`marketing.campaign_responses`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "response-model",
+   "type": "model",
+   "label": "response model",
+   "as": [
+    "response-model AUC",
+    "response model"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "coverage",
+   "type": "metric",
+   "label": "coverage",
+   "as": [
+    "Coverage 58% of accounts"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-mq3-email-open-90d",
+   "type": "uses",
+   "label": "reads from",
+   "o": "marketing.campaign_responses",
+   "quote": "from `marketing.campaign_responses` (email rows only)",
+   "line": 6
+  },
+  {
+   "s": "response-model",
+   "type": "uses",
+   "label": "kept for",
+   "o": "feat-mq3-email-open-90d",
+   "quote": "Kept for the response model only.",
+   "line": 7
+  },
+  {
+   "s": "response-model",
+   "type": "measured-by",
+   "label": "AUC change",
+   "o": "auc",
+   "quote": "Adds 0.01 to response-model AUC",
+   "line": 7
+  },
+  {
+   "s": "feat-mq3-email-open-90d",
+   "type": "measured-by",
+   "label": "coverage",
+   "o": "coverage",
+   "quote": "Coverage 58% of accounts.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-mq3-contacts-snap"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "marketing-uplift-q3/feat-mq3-email-open-90d.md",
+ "sha": "c54a2a8913b55272347592c319ff69974c8acf7c44bded5e75816b4ede5a295f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

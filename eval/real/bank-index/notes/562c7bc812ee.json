@@ -1,0 +1,157 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-disp-autoresolve-090",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Pilot auto-resolve at p>=0.90 for the five low-value reason codes"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "disp-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "disp-lgbm-v2"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "exp-304",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-304"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "exp-305",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-305"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "disp-oot-2026h1",
+   "type": "dataset",
+   "label": "sample",
+   "as": [
+    "disp-oot-2026h1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "precision-at-0.90",
+   "type": "metric",
+   "label": "precision",
+   "as": [
+    "93.4% precision"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "coverage",
+   "type": "metric",
+   "label": "coverage",
+   "as": [
+    "31% coverage"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "five-low-value-reason-codes",
+   "type": "other",
+   "label": "reason codes",
+   "as": [
+    "five low-value reason codes"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-disp-autoresolve-090",
+   "type": "uses",
+   "label": "from",
+   "o": "disp-lgbm-v2",
+   "quote": "from: [exp-304, exp-305, disp-lgbm-v2]",
+   "line": 2
+  },
+  {
+   "s": "dec-disp-autoresolve-090",
+   "type": "uses",
+   "label": "pilot on",
+   "o": "disp-lgbm-v2",
+   "quote": "pilot auto-resolve on disp-lgbm-v2 at p>=0.90",
+   "line": 6
+  },
+  {
+   "s": "dec-disp-autoresolve-090",
+   "type": "uses",
+   "label": "limited to",
+   "o": "five-low-value-reason-codes",
+   "quote": "limited to five low-value reason codes",
+   "line": 6
+  },
+  {
+   "s": "exp-304",
+   "type": "evaluated-on",
+   "label": "on",
+   "o": "disp-oot-2026h1",
+   "quote": "exp-304 (93.4% precision, 31% coverage on disp-oot-2026h1)",
+   "line": 7
+  },
+  {
+   "s": "exp-304",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "precision-at-0.90",
+   "quote": "exp-304 (93.4% precision, 31% coverage on disp-oot-2026h1)",
+   "line": 7
+  },
+  {
+   "s": "exp-304",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "coverage",
+   "quote": "exp-304 (93.4% precision, 31% coverage on disp-oot-2026h1)",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-disp-autoresolve-095"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "dispute-triage/dec-disp-autoresolve-090.md",
+ "sha": "562c7bc812ee35440f52a965e3690f66296d13889d351051e8971a82b997e441",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

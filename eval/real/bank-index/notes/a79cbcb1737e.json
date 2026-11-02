@@ -1,0 +1,88 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-inc-payroll-cadence-v1",
+   "type": "feature",
+   "label": "payroll cadence flag",
+   "as": [
+    "feat-inc-payroll-cadence-v1: payroll cadence flag and median inflow over 3 months"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-inc-payroll-cadence-v2",
+   "type": "feature",
+   "label": "payroll cadence flag",
+   "as": [
+    "feat-inc-payroll-cadence-v2"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "ds-inc-payroll-proxy",
+   "type": "feature",
+   "label": "source",
+   "as": [
+    "ds-inc-payroll-proxy"
+   ],
+   "lines": [
+    2,
+    8
+   ]
+  },
+  {
+   "id": "booked-accounts",
+   "type": "segment",
+   "label": "subset",
+   "as": [
+    "booked accounts"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-inc-payroll-cadence-v1",
+   "type": "uses",
+   "label": "derived from",
+   "o": "ds-inc-payroll-proxy",
+   "quote": "from: [ds-inc-payroll-proxy, q-inc-coverage]",
+   "line": 2
+  },
+  {
+   "s": "feat-inc-payroll-cadence-v1",
+   "type": "other",
+   "label": "covers",
+   "o": "booked-accounts",
+   "quote": "Covers 38% of booked accounts in ds-inc-payroll-proxy.",
+   "line": 8
+  },
+  {
+   "s": "feat-inc-payroll-cadence-v1",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "feat-inc-payroll-cadence-v2",
+   "quote": "Superseded by feat-inc-payroll-cadence-v2 (2025-12-16).",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "feat-inc-payroll-cadence-v2",
+  "q-inc-coverage"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "income-estimation/feat-inc-payroll-cadence-v1.md",
+ "sha": "a79cbcb1737ef5c83c0388bfb3ff0824bfdb646918aa308a2eeb71f7f4ecb2bf",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

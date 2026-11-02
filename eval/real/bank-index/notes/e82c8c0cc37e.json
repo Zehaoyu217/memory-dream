@@ -1,0 +1,104 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "contained-sessions",
+   "type": "segment",
+   "label": "contained sessions",
+   "as": [
+    "contained sessions"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "calls",
+   "type": "dataset",
+   "label": "calls",
+   "as": [
+    "calls"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "caller-key",
+   "type": "feature",
+   "label": "join key",
+   "as": [
+    "caller_key"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "wrap-code",
+   "type": "feature",
+   "label": "wrap code",
+   "as": [
+    "wrap code"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "intent",
+   "type": "term",
+   "label": "intent",
+   "as": [
+    "intent"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "contained-sessions",
+   "type": "uses",
+   "label": "joined to",
+   "o": "calls",
+   "quote": "joined to calls on caller_key",
+   "line": 6
+  },
+  {
+   "s": "calls",
+   "type": "uses",
+   "label": "joined on",
+   "o": "caller-key",
+   "quote": "joined to calls on caller_key",
+   "line": 6
+  },
+  {
+   "s": "intent",
+   "type": "uses",
+   "label": "matched from",
+   "o": "wrap-code",
+   "quote": "intent matched from the call's wrap code",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-cb-call-linkage",
+  "feat-cb-prior-calls-v1",
+  "fnd-cb-repeat-contact"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "chatbot-deflection/exp-307.md",
+ "sha": "e82c8c0cc37e91e00f2e931943b8886286cce300ca14c212bf53077d7bf87c30",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

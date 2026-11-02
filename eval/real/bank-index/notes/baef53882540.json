@@ -1,0 +1,101 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "feat-sfc-cpi-lag6",
+   "type": "feature",
+   "label": "cpi lag",
+   "as": [
+    "six-month CPI lag",
+    "CPI lag"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "sfc-bt-2024",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "sfc-bt-2024"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "3-month MAPE",
+    "6-month MAPE"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "spend-forecasting",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "spend-forecasting"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "customer-segments",
+   "type": "segment",
+   "label": "customer segments",
+   "as": [
+    "six customer segments"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-sfc-cpi-lag6",
+   "type": "measured-by",
+   "label": "cuts MAPE",
+   "o": "mape",
+   "quote": "the CPI lag cuts 3-month MAPE from 6.8% to 6.4%",
+   "line": 7
+  },
+  {
+   "s": "feat-sfc-cpi-lag6",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "sfc-bt-2024",
+   "quote": "Eval set is sfc-bt-2024",
+   "line": 8
+  },
+  {
+   "s": "customer-segments",
+   "type": "part-of",
+   "label": "in eval set",
+   "o": "sfc-bt-2024",
+   "quote": "rolling origins across 2024, six customer segments",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-204",
+  "fnd-sfc-macro-weak"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "spend-forecasting/q-sfc-macro-horizon.md",
+ "sha": "baef53882540311837012b41d76bed0ab4380cdf67c9f3119e3cfa7e89210ca8",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

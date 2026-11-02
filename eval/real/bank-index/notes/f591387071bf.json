@@ -1,0 +1,110 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "csb-lr-base",
+   "type": "model",
+   "label": "lr baseline",
+   "as": [
+    "LR baseline"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-csb-churn-labels",
+   "type": "dataset",
+   "label": "churn labels",
+   "as": [
+    "labels at 60 and at 90 days"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-csb-oot-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "csb-oot-2025q1",
+    "SMB holdout"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "churn-rate",
+   "type": "metric",
+   "label": "churn",
+   "as": [
+    "churn 4.0%",
+    "churn 7.1%"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "csb-lr-base",
+   "type": "uses",
+   "label": "labels at",
+   "o": "ds-csb-churn-labels",
+   "quote": "Same LR baseline with labels at 60 and at 90 days",
+   "line": 6
+  },
+  {
+   "s": "csb-lr-base",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "ds-csb-oot-2025q1",
+   "quote": "scored on csb-oot-2025q1 (all tenures)",
+   "line": 6
+  },
+  {
+   "s": "csb-lr-base",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.684 vs 0.671",
+   "line": 5
+  },
+  {
+   "s": "csb-lr-base",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "churn-rate",
+   "quote": "churn 4.0%",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-csb-90d-window"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-small-business/exp-201.md",
+ "sha": "f591387071bfb16167f7c469011127f4e77d9111d00a0bb704e09bd25a723334",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

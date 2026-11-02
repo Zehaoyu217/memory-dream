@@ -1,0 +1,86 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "pbs-hdbscan-v1",
+   "type": "model",
+   "label": "density clustering",
+   "as": [
+    "pbs-hdbscan-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "pbs-gmm-v2",
+   "type": "model",
+   "label": "inputs reference",
+   "as": [
+    "pbs-gmm-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-pbs-pay-ratio-v1",
+   "type": "feature",
+   "label": "input",
+   "as": [
+    "feat-pbs-pay-ratio-v1"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "feat-pbs-interest-paid",
+   "type": "feature",
+   "label": "input",
+   "as": [
+    "feat-pbs-interest-paid"
+   ],
+   "lines": [
+    2
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "pbs-hdbscan-v1",
+   "type": "uses",
+   "label": "takes inputs",
+   "o": "feat-pbs-pay-ratio-v1",
+   "quote": "from: [feat-pbs-pay-ratio-v1, feat-pbs-interest-paid]",
+   "line": 2
+  },
+  {
+   "s": "pbs-hdbscan-v1",
+   "type": "uses",
+   "label": "takes inputs",
+   "o": "feat-pbs-interest-paid",
+   "quote": "from: [feat-pbs-pay-ratio-v1, feat-pbs-interest-paid]",
+   "line": 2
+  },
+  {
+   "s": "pbs-hdbscan-v1",
+   "type": "other",
+   "label": "same inputs as",
+   "o": "pbs-gmm-v2",
+   "quote": "on the same inputs as pbs-gmm-v2",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "dec-pbs-no-hdbscan"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "payment-behavior-segments/pbs-hdbscan-v1.md",
+ "sha": "a9b2179aa49cccd206a5e971977d81dd15da105559c0d3b98469e952b47ae6b2",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

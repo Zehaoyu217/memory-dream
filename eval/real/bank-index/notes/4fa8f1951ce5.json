@@ -1,0 +1,131 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cli-xgb-v1",
+   "type": "model",
+   "label": "loss model",
+   "as": [
+    "cli-xgb-v1",
+    "XGBoost loss model"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cli-xgb-v2",
+   "type": "model",
+   "label": "loss model",
+   "as": [
+    "cli-xgb-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cli-v1-feature-sets",
+   "type": "feature",
+   "label": "feature sets",
+   "as": [
+    "three v1 feature sets"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    2,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cli-xgb-v1",
+   "type": "uses",
+   "label": "built on",
+   "o": "cli-v1-feature-sets",
+   "quote": "Gradient-boosted trees on the three v1 feature sets",
+   "line": 6
+  },
+  {
+   "s": "cli-xgb-v1",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q4",
+   "quote": "Eval: holdout-2025q4, n=118,400",
+   "line": 7
+  },
+  {
+   "s": "cli-xgb-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.71 and KS 0.31 on holdout-2025q4",
+   "line": 5
+  },
+  {
+   "s": "cli-xgb-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "ks",
+   "quote": "AUC 0.71 and KS 0.31 on holdout-2025q4",
+   "line": 5
+  },
+  {
+   "s": "cli-xgb-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "cli-xgb-v1",
+   "quote": "Superseded by cli-xgb-v2",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-cli-util-v1",
+  "feat-cli-spend-velocity",
+  "feat-cli-pay-behaviour",
+  "ds-cli-holdout-2025q4",
+  "cli-xgb-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/cli-xgb-v1.md",
+ "sha": "4fa8f1951ce5a4d20134168b369417722ab0073e9e15a1cfd4f14dbd8cfbad41",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

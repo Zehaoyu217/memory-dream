@@ -1,0 +1,124 @@
+{
+ "kind": "note",
+ "entities": [
+  {
+   "id": "cards.churn_labels",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.churn_labels"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "data-eng-cards",
+   "type": "team",
+   "label": "owner team",
+   "as": [
+    "owned by data-eng-cards"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "labels/legacy/churn_60d.sql",
+   "type": "pipeline",
+   "label": "legacy job",
+   "as": [
+    "the legacy job `labels/legacy/churn_60d.sql`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "churn-60d-rule",
+   "type": "policy",
+   "label": "churn definition",
+   "as": [
+    "labels churn when the account has no approved transaction in 60 days"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "rebuilt-churn-job",
+   "type": "pipeline",
+   "label": "rebuilt job",
+   "as": [
+    "The rebuilt job"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "dec-lbl-churn-closure",
+   "type": "term",
+   "label": "closure rule",
+   "as": [
+    "plus closure (dec-lbl-churn-closure)"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cards.churn_labels",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "data-eng-cards",
+   "quote": "owned by data-eng-cards",
+   "line": 5
+  },
+  {
+   "s": "cards.churn_labels",
+   "type": "produces",
+   "label": "built by",
+   "o": "labels/legacy/churn_60d.sql",
+   "quote": "Built by the legacy job `labels/legacy/churn_60d.sql`",
+   "line": 6
+  },
+  {
+   "s": "labels/legacy/churn_60d.sql",
+   "type": "uses",
+   "label": "labels churn when",
+   "o": "churn-60d-rule",
+   "quote": "labels churn when the account has no approved transaction in 60 days",
+   "line": 6
+  },
+  {
+   "s": "rebuilt-churn-job",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "labels/legacy/churn_60d.sql",
+   "quote": "The rebuilt job replaces it",
+   "line": 8
+  },
+  {
+   "s": "rebuilt-churn-job",
+   "type": "uses",
+   "label": "plus closure",
+   "o": "dec-lbl-churn-closure",
+   "quote": "plus closure (dec-lbl-churn-closure)",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "dec-lbl-churn-closure"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "label-pipeline-rebuild/ds-lbl-churn-labels.md",
+ "sha": "0d28ac5f9dd0ebf3fcb3ef4c47ca7077fa6ae6a5120c5812d2a049aa31573a30",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

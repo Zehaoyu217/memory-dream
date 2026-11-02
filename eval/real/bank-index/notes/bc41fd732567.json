@@ -1,0 +1,50 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "handoff-rule-v1",
+   "type": "policy",
+   "label": "rule",
+   "as": [
+    "Handoff rule v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "failed-match",
+   "type": "term",
+   "label": "failed match",
+   "as": [
+    "A failed match is"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "handoff-rule-v1",
+   "type": "uses",
+   "label": "counts",
+   "o": "failed-match",
+   "quote": "after 2 failed intent matches in one session",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-301",
+  "exp-302",
+  "feat-cb-handoff-rule-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "chatbot-deflection/feat-cb-handoff-rule-v1.md",
+ "sha": "bc41fd732567e76e53e4fcc454d81fc976fca9550df5f7cc43b8d3052a125aac",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

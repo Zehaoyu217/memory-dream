@@ -1,0 +1,97 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "fraud-training-set",
+   "type": "dataset",
+   "label": "training set",
+   "as": [
+    "fraud training set"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "maturity-rule-120d",
+   "type": "policy",
+   "label": "maturity rule",
+   "as": [
+    "120-day maturity rule"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "daniel-okafor-team",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "Daniel Okafor's team"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "daniel-okafor",
+   "type": "person",
+   "label": "person",
+   "as": [
+    "Daniel Okafor"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "observation-months",
+   "type": "term",
+   "label": "observation months",
+   "as": [
+    "observation months"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "daniel-okafor-team",
+   "type": "owned-by",
+   "label": "led-by",
+   "o": "daniel-okafor",
+   "quote": "Daniel Okafor's team dropped that month.",
+   "line": 6
+  },
+  {
+   "s": "fraud-training-set",
+   "type": "uses",
+   "label": "uses",
+   "o": "observation-months",
+   "quote": "Training uses observation months at least four months back.",
+   "line": 7
+  },
+  {
+   "s": "fraud-training-set",
+   "type": "other",
+   "label": "excludes by rule",
+   "o": "maturity-rule-120d",
+   "quote": "Under the 120-day maturity rule, late-September transactions were not yet 120 days old at the extract",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "howto/fraud-label-maturity"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/fraud-train-excludes-sept.md",
+ "sha": "61db1f26f40d7602b6738bfc725b7530ab617a1069966a1cbe34fe6a3437aed0",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

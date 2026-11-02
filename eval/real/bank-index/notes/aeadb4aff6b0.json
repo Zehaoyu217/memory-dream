@@ -1,0 +1,126 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "aml-xgb-v3",
+   "type": "model",
+   "label": "ranker",
+   "as": [
+    "aml-xgb-v3",
+    "Recalibrated ranker",
+    "Current ranker"
+   ],
+   "lines": [
+    6,
+    7,
+    9
+   ]
+  },
+  {
+   "id": "aml-xgb-v2",
+   "type": "model",
+   "label": "earlier version",
+   "as": [
+    "aml-xgb-v2"
+   ],
+   "lines": [
+    2,
+    3
+   ]
+  },
+  {
+   "id": "jan-jun-2026-dispositions",
+   "type": "dataset",
+   "label": "dispositions",
+   "as": [
+    "Jan-Jun 2026 dispositions"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "aml-oot-2026h1",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "aml-oot-2026h1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "top-40-capture",
+   "type": "metric",
+   "label": "capture",
+   "as": [
+    "top-40% capture"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "suppression-rule-set",
+   "type": "policy",
+   "label": "suppression rule set",
+   "as": [
+    "suppression rule set"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "aml-xgb-v3",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "aml-xgb-v2",
+   "quote": "supersedes: [aml-xgb-v2]",
+   "line": 3
+  },
+  {
+   "s": "aml-xgb-v3",
+   "type": "trained-on",
+   "label": "recalibrated on",
+   "o": "jan-jun-2026-dispositions",
+   "quote": "recalibrated on Jan-Jun 2026 dispositions",
+   "line": 6
+  },
+  {
+   "s": "aml-xgb-v3",
+   "type": "evaluated-on",
+   "label": "on",
+   "o": "aml-oot-2026h1",
+   "quote": "On aml-oot-2026h1: 96.3% of SAR-referred alerts",
+   "line": 8
+  },
+  {
+   "s": "aml-xgb-v3",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "top-40-capture",
+   "quote": "96.3% of SAR-referred alerts in the top 40% of the queue",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "aml-xgb-v2",
+  "exp-405",
+  "exp-407",
+  "ds-aml-oot",
+  "dec-aml-ranker-v3"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "aml-alerts/aml-xgb-v3.md",
+ "sha": "aeadb4aff6b0d09fbb38c65741e51e54685585cbf4b4df0cac6ef4398bc2ce44",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

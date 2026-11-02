@@ -1,0 +1,93 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "exp-502",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-502"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.85"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "merchant-month-panel",
+   "type": "dataset",
+   "label": "panel",
+   "as": [
+    "merchant-month panel"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "active-merchants",
+   "type": "segment",
+   "label": "active merchants",
+   "as": [
+    "active merchants"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "watchlist",
+   "type": "segment",
+   "label": "watchlist",
+   "as": [
+    "watchlist"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-502",
+   "type": "evaluated-on",
+   "label": "basis",
+   "o": "merchant-month-panel",
+   "quote": "exp-502 (AUC 0.85) on the merchant-month panel",
+   "line": 7
+  },
+  {
+   "s": "exp-502",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "exp-502 (AUC 0.85)",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "q-mrisk-score-use",
+  "exp-502",
+  "ds-mrisk-merchant-month"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "merchant-risk/dec-mrisk-monthly-scoring.md",
+ "sha": "e167829ff8f03c50992c7fc8fea8ff49b1a308f5ea477c8152197e88cd59c915",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

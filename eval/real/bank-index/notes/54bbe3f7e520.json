@@ -1,0 +1,87 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ae-session-trend-v1",
+   "type": "feature",
+   "label": "session trend",
+   "as": [
+    "Session trend"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "app.sessions_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "app.sessions_daily"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "attrition-model",
+   "type": "model",
+   "label": "attrition model",
+   "as": [
+    "attrition model"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-507",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-507"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ae-session-trend-v1",
+   "type": "uses",
+   "label": "computed from",
+   "o": "app.sessions_daily",
+   "quote": "Linear slope of sessions per day from `app.sessions_daily`",
+   "line": 6
+  },
+  {
+   "s": "feat-ae-session-trend-v1",
+   "type": "other",
+   "label": "tested as add-on to",
+   "o": "attrition-model",
+   "quote": "Tested as an add-on to the attrition model in exp-507",
+   "line": 7
+  },
+  {
+   "s": "feat-ae-session-trend-v1",
+   "type": "other",
+   "label": "tested in",
+   "o": "exp-507",
+   "quote": "Tested as an add-on to the attrition model in exp-507",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-ae-sessions-daily",
+  "exp-507"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "app-engagement/feat-ae-session-trend-v1.md",
+ "sha": "54bbe3f7e520b6138b01f09f87633fea6a4be37bc02eaaa757301e802224a9a4",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

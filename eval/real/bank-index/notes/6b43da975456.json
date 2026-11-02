@@ -1,0 +1,145 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "feat-cu-call-tod-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-call-tod-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "raj-patel",
+   "type": "person",
+   "label": "agreer",
+   "as": [
+    "Raj Patel"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "agreer",
+   "as": [
+    "Sam Lee"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cu-resp-v1",
+   "type": "model",
+   "label": "retrained model",
+   "as": [
+    "cu-resp-v1 retrain"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cu-uplift-v2",
+   "type": "model",
+   "label": "excluded model",
+   "as": [
+    "cu-uplift-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "find-cu-tod-leak",
+   "type": "other",
+   "label": "investigation",
+   "as": [
+    "find-cu-tod-leak"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "dialler-rule",
+   "type": "other",
+   "label": "scheduling rule",
+   "as": [
+    "dialler rule"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cu-call-tod-v1",
+   "type": "other",
+   "label": "removed from",
+   "o": "cu-resp-v1",
+   "quote": "Removed from the cu-resp-v1 retrain",
+   "line": 8
+  },
+  {
+   "s": "feat-cu-call-tod-v1",
+   "type": "other",
+   "label": "excluded from",
+   "o": "cu-uplift-v2",
+   "quote": "excluded from cu-uplift-v2",
+   "line": 8
+  },
+  {
+   "s": "raj-patel",
+   "type": "other",
+   "label": "agreed decision",
+   "o": "feat-cu-call-tod-v1",
+   "quote": "Agreed 2025-07-24 by Raj Patel and Sam Lee",
+   "line": 6
+  },
+  {
+   "s": "sam-lee",
+   "type": "other",
+   "label": "agreed decision",
+   "o": "feat-cu-call-tod-v1",
+   "quote": "Agreed 2025-07-24 by Raj Patel and Sam Lee",
+   "line": 6
+  },
+  {
+   "s": "feat-cu-call-tod-v1",
+   "type": "other",
+   "label": "caused by",
+   "o": "find-cu-tod-leak",
+   "quote": "Agreed 2025-07-24 by Raj Patel and Sam Lee after find-cu-tod-leak",
+   "line": 6
+  },
+  {
+   "s": "dialler-rule",
+   "type": "other",
+   "label": "handles scheduling",
+   "o": "feat-cu-call-tod-v1",
+   "quote": "Day-part call scheduling is handled by a dialler rule, not by a model",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "collections-uplift/dec-cu-drop-tod.md",
+  "find-cu-tod-leak"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-uplift/dec-cu-drop-tod.md",
+ "sha": "6b43da97545689aa6e566b184b02ef7a2ab31563f06bcb27ca06e33db6aac5bf",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

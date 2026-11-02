@@ -1,0 +1,260 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "churn-gbm-2025-v2",
+   "type": "model",
+   "label": "scoring model",
+   "as": [
+    "churn-gbm-2025-v2",
+    "Current churn-2025 scoring model"
+   ],
+   "lines": [
+    6,
+    9
+   ]
+  },
+  {
+   "id": "churn-gbm-2025",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "churn-gbm-2025"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "churn-xgb",
+   "type": "model",
+   "label": "models",
+   "as": [
+    "churn-xgb models"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "lightgbm",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "c25-oot-2024h1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Holdout c25-oot-2024h1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.772"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.41"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "recall-at-10pct",
+   "type": "metric",
+   "label": "recall@10%",
+   "as": [
+    "recall@10% 0.34"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "brier",
+   "type": "metric",
+   "label": "brier",
+   "as": [
+    "Brier 0.0334"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "util-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "util-v2"
+   ],
+   "lines": [
+    2,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "transaction-recency",
+   "type": "feature",
+   "label": "transaction recency",
+   "as": [
+    "transaction recency (monotone)"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "payment-behaviour",
+   "type": "feature",
+   "label": "payment behaviour",
+   "as": [
+    "payment behaviour"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "churn-2026-project",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "churn-2026 project"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-gbm-2025-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "churn-gbm-2025",
+   "quote": "supersedes: [churn-gbm-2025]",
+   "line": 4
+  },
+  {
+   "s": "churn-xgb",
+   "type": "replaces",
+   "label": "replaced",
+   "o": "churn-gbm-2025-v2",
+   "quote": "later replaced this line with its own churn-xgb models",
+   "line": 9
+  },
+  {
+   "s": "churn-gbm-2025-v2",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "c25-oot-2024h1",
+   "quote": "Holdout c25-oot-2024h1 (n=312,470): AUC 0.772",
+   "line": 8
+  },
+  {
+   "s": "churn-gbm-2025-v2",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.772",
+   "line": 6
+  },
+  {
+   "s": "churn-gbm-2025-v2",
+   "type": "measured-by",
+   "label": "KS",
+   "o": "ks",
+   "quote": "KS 0.41",
+   "line": 8
+  },
+  {
+   "s": "churn-gbm-2025-v2",
+   "type": "measured-by",
+   "label": "recall@10%",
+   "o": "recall-at-10pct",
+   "quote": "recall@10% 0.34",
+   "line": 8
+  },
+  {
+   "s": "churn-gbm-2025-v2",
+   "type": "measured-by",
+   "label": "Brier",
+   "o": "brier",
+   "quote": "Brier 0.0334",
+   "line": 8
+  },
+  {
+   "s": "churn-gbm-2025-v2",
+   "type": "uses",
+   "label": "features",
+   "o": "util-v2",
+   "quote": "13 features: util-v2",
+   "line": 7
+  },
+  {
+   "s": "churn-gbm-2025-v2",
+   "type": "uses",
+   "label": "features",
+   "o": "transaction-recency",
+   "quote": "transaction recency (monotone)",
+   "line": 7
+  },
+  {
+   "s": "churn-gbm-2025-v2",
+   "type": "uses",
+   "label": "features",
+   "o": "payment-behaviour",
+   "quote": "payment behaviour",
+   "line": 7
+  },
+  {
+   "s": "churn-gbm-2025-v2",
+   "type": "uses",
+   "label": "LightGBM with",
+   "o": "lightgbm",
+   "quote": "LightGBM with util-v2",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-106",
+  "feat-c25-util-v2",
+  "feat-c25-txn-recency",
+  "feat-c25-payment-behaviour",
+  "dec-c25-drop-app-sessions",
+  "churn-gbm-2025"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2025/churn-gbm-2025-v2.md",
+ "sha": "008b8b17c4def4aed8267ca3af68cbcee7b729dcf1601a5ab29c301a4fe1405d",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

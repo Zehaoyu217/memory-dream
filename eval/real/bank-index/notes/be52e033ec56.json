@@ -1,0 +1,118 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-dup-retries",
+   "type": "document",
+   "label": "note",
+   "as": [
+    "Duplicates in cards.txn_daily come from partition reloads after retries, not from the authorisation extract"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-302",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-302"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "partition-reloads",
+   "type": "other",
+   "label": "partition reloads",
+   "as": [
+    "partition reloads after retries"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "authorisation-extract",
+   "type": "dataset",
+   "label": "extract",
+   "as": [
+    "the authorisation extract"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dedupe-policy",
+   "type": "policy",
+   "label": "dedupe policy",
+   "as": [
+    "the dedupe policy is a separate decision"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cards.txn_daily",
+   "type": "other",
+   "label": "duplicates from",
+   "o": "partition-reloads",
+   "quote": "Duplicates in cards.txn_daily come from partition reloads after retries",
+   "line": 5
+  },
+  {
+   "s": "cards.txn_daily",
+   "type": "other",
+   "label": "not from",
+   "o": "authorisation-extract",
+   "quote": "not from the authorisation extract",
+   "line": 5
+  },
+  {
+   "s": "fnd-dup-retries",
+   "type": "other",
+   "label": "from experiment",
+   "o": "exp-302",
+   "quote": "from: [exp-302]",
+   "line": 2
+  },
+  {
+   "s": "dedupe-policy",
+   "type": "other",
+   "label": "separate decision",
+   "o": "fnd-dup-retries",
+   "quote": "the dedupe policy is a separate decision",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "data-quality-txn/fnd-dup-retries.md",
+  "exp-302"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "data-quality-txn/fnd-dup-retries.md",
+ "sha": "be52e033ec56e142254af35f25f0556c51e54e64a3fad85d424701339c274780",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

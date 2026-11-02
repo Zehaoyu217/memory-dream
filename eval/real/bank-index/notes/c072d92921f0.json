@@ -1,0 +1,121 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "elasticity",
+   "type": "metric",
+   "label": "elasticity",
+   "as": [
+    "elasticity",
+    "Elasticities"
+   ],
+   "lines": [
+    2,
+    5,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "pilot-data",
+   "type": "dataset",
+   "label": "pilot data",
+   "as": [
+    "pilot data"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "spend-band",
+   "type": "segment",
+   "label": "spend band",
+   "as": [
+    "six-month spend band"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "flat-rate",
+   "type": "term",
+   "label": "flat rate",
+   "as": [
+    "a flat rate"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "high-spenders",
+   "type": "segment",
+   "label": "high spenders",
+   "as": [
+    "high spenders"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cb-elasticity-v2",
+   "type": "model",
+   "label": "elasticity model",
+   "as": [
+    "cb-elasticity-v2"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "elasticity",
+   "type": "evaluated-on",
+   "label": "split by",
+   "o": "spend-band",
+   "quote": "split by six-month spend band",
+   "line": 6
+  },
+  {
+   "s": "spend-band",
+   "type": "part-of",
+   "label": "split of",
+   "o": "pilot-data",
+   "quote": "Same pilot data as exp-203, split by six-month spend band.",
+   "line": 6
+  },
+  {
+   "s": "cb-elasticity-v2",
+   "type": "uses",
+   "label": "fed by",
+   "o": "elasticity",
+   "quote": "Feeds cb-elasticity-v2.",
+   "line": 8
+  },
+  {
+   "s": "flat-rate",
+   "type": "other",
+   "label": "pays most of its cost to",
+   "o": "high-spenders",
+   "quote": "a flat rate pays most of its cost to high spenders who do not respond",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-203-pooled-elasticity",
+  "feat-cb-spend-base"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/exp-204-band-split.md",
+ "sha": "c072d92921f01c681eadd48ba347ce006dfc80c9d1ee5852c59e4c2f7f0508c9",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

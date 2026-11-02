@@ -1,0 +1,249 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cu-resp-v1",
+   "type": "model",
+   "label": "response model",
+   "as": [
+    "cu-resp-v1",
+    "response model"
+   ],
+   "lines": [
+    5,
+    9
+   ]
+  },
+  {
+   "id": "feat-cu-dpd-roll-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-dpd-roll-v1"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "feat-cu-pay-behaviour",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-pay-behaviour"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "feat-cu-contact-hist-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-contact-hist-v2"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "brier",
+   "type": "metric",
+   "label": "brier",
+   "as": [
+    "Brier"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "xgboost",
+   "type": "tool",
+   "label": "xgboost",
+   "as": [
+    "XGBoost"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "2024-h2-contacts",
+   "type": "dataset",
+   "label": "contacts",
+   "as": [
+    "2024-H2 contacts"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "promise-to-pay-14d",
+   "type": "term",
+   "label": "outcome",
+   "as": [
+    "promise to pay within 14 days"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-101",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-101"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-102",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-102"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cu-resp-v1",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-cu-dpd-roll-v1",
+   "quote": "Features: feat-cu-dpd-roll-v1, feat-cu-pay-behaviour, feat-cu-contact-hist-v2.",
+   "line": 7
+  },
+  {
+   "s": "cu-resp-v1",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-cu-pay-behaviour",
+   "quote": "Features: feat-cu-dpd-roll-v1, feat-cu-pay-behaviour, feat-cu-contact-hist-v2.",
+   "line": 7
+  },
+  {
+   "s": "cu-resp-v1",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-cu-contact-hist-v2",
+   "quote": "Features: feat-cu-dpd-roll-v1, feat-cu-pay-behaviour, feat-cu-contact-hist-v2.",
+   "line": 7
+  },
+  {
+   "s": "cu-resp-v1",
+   "type": "trained-on",
+   "label": "trained on",
+   "o": "2024-h2-contacts",
+   "quote": "trained on 2024-H2 contacts",
+   "line": 6
+  },
+  {
+   "s": "cu-resp-v1",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q1",
+   "quote": "evaluated on holdout-2025q1",
+   "line": 6
+  },
+  {
+   "s": "cu-resp-v1",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.71",
+   "line": 8
+  },
+  {
+   "s": "cu-resp-v1",
+   "type": "measured-by",
+   "label": "Brier",
+   "o": "brier",
+   "quote": "Brier 0.142",
+   "line": 8
+  },
+  {
+   "s": "cu-resp-v1",
+   "type": "uses",
+   "label": "built with",
+   "o": "xgboost",
+   "quote": "is a response model (XGBoost)",
+   "line": 5
+  },
+  {
+   "s": "cu-resp-v1",
+   "type": "other",
+   "label": "scores",
+   "o": "promise-to-pay-14d",
+   "quote": "scores P(promise to pay within 14 days | contacted)",
+   "line": 5
+  },
+  {
+   "s": "cu-resp-v1",
+   "type": "other",
+   "label": "ranking baseline in",
+   "o": "exp-101",
+   "quote": "Used as the ranking baseline in exp-101 and exp-102.",
+   "line": 8
+  },
+  {
+   "s": "cu-resp-v1",
+   "type": "other",
+   "label": "ranking baseline in",
+   "o": "exp-102",
+   "quote": "Used as the ranking baseline in exp-101 and exp-102.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-cu-dpd-roll-v1",
+  "feat-cu-pay-behaviour",
+  "feat-cu-contact-hist-v2",
+  "ds-cu-call-outcomes",
+  "exp-101",
+  "exp-102"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-uplift/cu-resp-v1.md",
+ "sha": "0e5374755c20044b64953dee7653be697eaf68a4de8517da121be8353377244f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

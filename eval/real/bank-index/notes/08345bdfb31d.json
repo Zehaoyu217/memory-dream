@@ -1,0 +1,123 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "fourier-and-calendar-terms",
+   "type": "feature",
+   "label": "terms",
+   "as": [
+    "Fourier and calendar terms"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cpi-lag",
+   "type": "feature",
+   "label": "cpi lag",
+   "as": [
+    "CPI lag"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "sfc-bt-2024",
+   "type": "other",
+   "label": "backtest",
+   "as": [
+    "sfc-bt-2024"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE",
+    "1-month MAPE"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "premier",
+   "type": "segment",
+   "label": "customer segment",
+   "as": [
+    "Premier"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "small-business",
+   "type": "segment",
+   "label": "customer segment",
+   "as": [
+    "Small business"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "student",
+   "type": "segment",
+   "label": "customer segment",
+   "as": [
+    "Student"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "student",
+   "type": "measured-by",
+   "label": "still at",
+   "o": "mape",
+   "quote": "Student still 9.7%",
+   "line": 8
+  },
+  {
+   "s": "premier",
+   "type": "other",
+   "label": "gain in",
+   "o": "mape",
+   "quote": "Most of the gain is in Premier and Small business",
+   "line": 8
+  },
+  {
+   "s": "small-business",
+   "type": "other",
+   "label": "gain in",
+   "o": "mape",
+   "quote": "Most of the gain is in Premier and Small business",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-202",
+  "feat-sfc-season-v2",
+  "exp-204"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "spend-forecasting/exp-203.md",
+ "sha": "08345bdfb31dbb0c7e044813e7ab6e6af75b547573def7675ae140c66fc9ec64",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

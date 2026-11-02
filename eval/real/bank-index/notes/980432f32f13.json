@@ -1,0 +1,80 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "cmp-2026-014",
+   "type": "other",
+   "label": "campaign code",
+   "as": [
+    "CMP-2026-014"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "uplift",
+   "type": "metric",
+   "label": "uplift rule",
+   "as": [
+    "uplift rule"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "lift-with-95-ci",
+   "type": "term",
+   "label": "lift section",
+   "as": [
+    "lift with 95% CI"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cost-per-response",
+   "type": "metric",
+   "label": "cost per response",
+   "as": [
+    "Cost per response is in $"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "lift-with-95-ci",
+   "type": "measured-by",
+   "label": "shown per",
+   "o": "uplift",
+   "quote": "Lift is shown as a point estimate with its 95% CI, per the uplift rule.",
+   "line": 6
+  },
+  {
+   "s": "cost-per-response",
+   "type": "other",
+   "label": "sits in same table as",
+   "o": "lift-with-95-ci",
+   "quote": "Cost per response is in $ and sits in the same table as the lift.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "reporting/campaign-readout-template.md"
+ ],
+ "dropped": {
+  "entities": [
+   "campaign-readout-template"
+  ],
+  "relations": 1
+ },
+ "path": "reporting/campaign-readout-template.md",
+ "sha": "980432f32f132b8e5cafe1a0434e244e288bfd408f6aa93c9f1f8e844a5df43e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

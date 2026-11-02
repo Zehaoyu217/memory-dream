@@ -1,0 +1,108 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "churn-recency-signal",
+   "type": "metric",
+   "label": "recency signal",
+   "as": [
+    "Card recency is the strongest churn signal: 58% of churners had no card spend in 60 days",
+    "Recency has the largest standardised coefficient in churn-lr-base-2025."
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "ds-c25-churn-labels",
+   "type": "dataset",
+   "label": "churn labels",
+   "as": [
+    "ds-c25-churn-labels"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "card transactions table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "churn-lr-base-2025",
+   "type": "model",
+   "label": "churn baseline model",
+   "as": [
+    "churn-lr-base-2025"
+   ],
+   "lines": [
+    2,
+    8
+   ]
+  },
+  {
+   "id": "feat-c25-txn-recency",
+   "type": "feature",
+   "label": "txn recency feature",
+   "as": [
+    "feat-c25-txn-recency"
+   ],
+   "lines": [
+    2
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-lr-base-2025",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-c25-txn-recency",
+   "quote": "from: [feat-c25-txn-recency, churn-lr-base-2025]",
+   "line": 2
+  },
+  {
+   "s": "churn-recency-signal",
+   "type": "uses",
+   "label": "basis",
+   "o": "cards.txn_daily",
+   "quote": "Basis: cards.txn_daily joined to ds-c25-churn-labels.",
+   "line": 8
+  },
+  {
+   "s": "churn-recency-signal",
+   "type": "uses",
+   "label": "joined to",
+   "o": "ds-c25-churn-labels",
+   "quote": "Basis: cards.txn_daily joined to ds-c25-churn-labels.",
+   "line": 8
+  },
+  {
+   "s": "churn-recency-signal",
+   "type": "measured-by",
+   "label": "has coefficient in",
+   "o": "churn-lr-base-2025",
+   "quote": "Recency has the largest standardised coefficient in churn-lr-base-2025.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "churn-2025/fnd-c25-recency-dominates.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2025/fnd-c25-recency-dominates.md",
+ "sha": "904539f1be28d2907982ff9832338a982f166339f5709ee9626a5480c41e4d2b",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

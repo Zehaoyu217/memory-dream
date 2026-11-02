@@ -1,0 +1,93 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "hp-psm-v2",
+   "type": "model",
+   "label": "propensity matching",
+   "as": [
+    "hp-psm-v2",
+    "propensity matching"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "hp-psm-v1",
+   "type": "model",
+   "label": "version",
+   "as": [
+    "hp-psm-v1"
+   ],
+   "lines": [
+    2,
+    4
+   ]
+  },
+  {
+   "id": "hardship-programs-holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "hardship-programs-holdout-2025q4"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "30-to-60-roll",
+   "type": "metric",
+   "label": "roll rate",
+   "as": [
+    "30-to-60 roll"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "hp-psm-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "hp-psm-v1",
+   "quote": "supersedes: [hp-psm-v1]",
+   "line": 4
+  },
+  {
+   "s": "hp-psm-v2",
+   "type": "measured-by",
+   "label": "effect on",
+   "o": "30-to-60-roll",
+   "quote": "Effect on the 30-to-60 roll: -4.7pp",
+   "line": 9
+  },
+  {
+   "s": "hp-psm-v2",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "hardship-programs-holdout-2025q4",
+   "quote": "Effect on the 30-to-60 roll: -4.7pp on hardship-programs-holdout-2025q4 (exp-408).",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "exp-408",
+  "feat-hp-txn-drop-v1",
+  "feat-hp-bureau-delta",
+  "feat-hp-match-covars-v1",
+  "feat-hp-pre-dpd-v1",
+  "hp-psm-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "hardship-programs/hp-psm-v2.md",
+ "sha": "caca39a2d0eead4c0245720939b0b45120d9c2cbe429daa52d17bc3ce0129dd3",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

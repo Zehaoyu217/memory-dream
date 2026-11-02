@@ -1,0 +1,146 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-ch-call-escalation",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: 8-29 DPD accounts not in the uplift top 20% get SMS first, with a call on day 5 for non-responders"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sms-then-call-escalation",
+   "type": "term",
+   "label": "escalation",
+   "as": [
+    "SMS-then-call escalation"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-508",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-508"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "raj-patel",
+   "type": "person",
+   "label": "agreed by",
+   "as": [
+    "Raj Patel"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "yuki-tanaka",
+   "type": "person",
+   "label": "customer experience",
+   "as": [
+    "Yuki Tanaka"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dpd-8-29-accounts",
+   "type": "segment",
+   "label": "8-29 dpd accounts",
+   "as": [
+    "8-29 DPD accounts"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "uplift-top-20",
+   "type": "segment",
+   "label": "uplift top 20%",
+   "as": [
+    "accounts in the uplift top 20%"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-ch-call-escalation",
+   "type": "owned-by",
+   "label": "agreed by",
+   "o": "raj-patel",
+   "quote": "Agreed 2026-03-24 by Raj Patel and Yuki Tanaka",
+   "line": 6
+  },
+  {
+   "s": "dec-ch-call-escalation",
+   "type": "owned-by",
+   "label": "agreed by",
+   "o": "yuki-tanaka",
+   "quote": "Agreed 2026-03-24 by Raj Patel and Yuki Tanaka",
+   "line": 6
+  },
+  {
+   "s": "dec-ch-call-escalation",
+   "type": "based-on",
+   "label": "based on",
+   "o": "exp-508",
+   "quote": "SMS-then-call escalation (exp-508) gives the lowest cost per promise on 8-29 DPD",
+   "line": 7
+  },
+  {
+   "s": "dec-ch-call-escalation",
+   "type": "other",
+   "label": "applies to",
+   "o": "dpd-8-29-accounts",
+   "quote": "8-29 DPD accounts not in the uplift top 20% get SMS first",
+   "line": 5
+  },
+  {
+   "s": "sms-then-call-escalation",
+   "type": "other",
+   "label": "is",
+   "o": "exp-508",
+   "quote": "SMS-then-call escalation (exp-508)",
+   "line": 7
+  },
+  {
+   "s": "uplift-top-20",
+   "type": "other",
+   "label": "keeps direct calls",
+   "o": "dec-ch-call-escalation",
+   "quote": "Accounts in the uplift top 20% keep direct calls under collections-uplift dec-cu-promote-v3.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "find-ch-sms-call-gap",
+  "exp-508",
+  "dec-cu-promote-v3"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-channel-mix/dec-ch-call-escalation.md",
+ "sha": "249d719a275f26c1dc4a7a31567692ba2ad5a1eb7fcc89940e4fe9c6b6bb0bbd",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

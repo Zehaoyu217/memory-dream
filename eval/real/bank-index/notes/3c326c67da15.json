@@ -1,0 +1,144 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "score-floor-640",
+   "type": "policy",
+   "label": "score floor",
+   "as": [
+    "640 score floor",
+    "Floor of 640"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "dec-cld-band-policy-2025",
+   "type": "policy",
+   "label": "band policy",
+   "as": [
+    "dec-cld-band-policy-2025",
+    "2025 band rules"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "dec-cld-band-policy-2026",
+   "type": "policy",
+   "label": "band policy",
+   "as": [
+    "dec-cld-band-policy-2026"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "bureau-v8-score",
+   "type": "feature",
+   "label": "v8 score",
+   "as": [
+    "v8 score"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "psi",
+   "as": [
+    "PSI 0.22",
+    "PSI"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "score-pulls-2025q4-2026q1",
+   "type": "dataset",
+   "label": "score pulls",
+   "as": [
+    "2025-Q4 and 2026-Q1 score pulls"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-cld-decrease-cohort",
+   "type": "segment",
+   "label": "cohort",
+   "as": [
+    "2024 cohort"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "score-floor-640",
+   "type": "uses",
+   "label": "on",
+   "o": "bureau-v8-score",
+   "quote": "Floor of 640 on the v8 score",
+   "line": 6
+  },
+  {
+   "s": "score-floor-640",
+   "type": "other",
+   "label": "set in",
+   "o": "dec-cld-band-policy-2025",
+   "quote": "was set in dec-cld-band-policy-2025",
+   "line": 6
+  },
+  {
+   "s": "score-floor-640",
+   "type": "other",
+   "label": "set on",
+   "o": "ds-cld-decrease-cohort",
+   "quote": "set in dec-cld-band-policy-2025 on the 2024 cohort",
+   "line": 6
+  },
+  {
+   "s": "psi",
+   "type": "evaluated-on",
+   "label": "between",
+   "o": "score-pulls-2025q4-2026q1",
+   "quote": "PSI 0.22 between the 2025-Q4 and 2026-Q1 score pulls",
+   "line": 7
+  },
+  {
+   "s": "dec-cld-band-policy-2026",
+   "type": "other",
+   "label": "drops floor",
+   "o": "score-floor-640",
+   "quote": "Basis for dropping the floor in dec-cld-band-policy-2026.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-cld-risk-band-v2",
+  "ds-cld-decrease-cohort",
+  "dec-cld-band-policy-2025",
+  "dec-cld-band-policy-2026"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "limit-decrease-policy/find-cld-cut-640.md",
+ "sha": "3c326c67da15e9f3b66435aede91a81e9eb90883e7b088e3cfb5c6ee6f3e8324",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

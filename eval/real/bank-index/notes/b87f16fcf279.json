@@ -1,0 +1,168 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "xs-gbm-v1",
+   "type": "model",
+   "label": "gradient boosting",
+   "as": [
+    "xs-gbm-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "xs-gbm-v2",
+   "type": "model",
+   "label": "newer model",
+   "as": [
+    "xs-gbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-xs-balance-proxy",
+   "type": "feature",
+   "label": "balance proxy",
+   "as": [
+    "feat-xs-balance-proxy"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "feat-xs-credit-limit-band",
+   "type": "feature",
+   "label": "limit band",
+   "as": [
+    "feat-xs-credit-limit-band"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "tenure-and-six-month-spend",
+   "type": "feature",
+   "label": "tenure and spend",
+   "as": [
+    "tenure and six-month spend"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "xs-holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "xs-holdout-2025q1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.71"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "top-decile-open-rate",
+   "type": "metric",
+   "label": "top-decile open rate",
+   "as": [
+    "top-decile open rate 6.9%"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "xs-gbm-v1",
+   "type": "uses",
+   "label": "takes input",
+   "o": "feat-xs-balance-proxy",
+   "quote": "Inputs: feat-xs-balance-proxy, feat-xs-credit-limit-band, tenure and six-month spend.",
+   "line": 6
+  },
+  {
+   "s": "xs-gbm-v1",
+   "type": "uses",
+   "label": "takes input",
+   "o": "feat-xs-credit-limit-band",
+   "quote": "Inputs: feat-xs-balance-proxy, feat-xs-credit-limit-band, tenure and six-month spend.",
+   "line": 6
+  },
+  {
+   "s": "xs-gbm-v1",
+   "type": "uses",
+   "label": "takes input",
+   "o": "tenure-and-six-month-spend",
+   "quote": "Inputs: feat-xs-balance-proxy, feat-xs-credit-limit-band, tenure and six-month spend.",
+   "line": 6
+  },
+  {
+   "s": "xs-gbm-v1",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "xs-holdout-2025q1",
+   "quote": "AUC 0.71 on xs-holdout-2025q1",
+   "line": 7
+  },
+  {
+   "s": "xs-gbm-v1",
+   "type": "measured-by",
+   "label": "has AUC",
+   "o": "auc",
+   "quote": "AUC 0.71 on xs-holdout-2025q1",
+   "line": 7
+  },
+  {
+   "s": "xs-gbm-v1",
+   "type": "measured-by",
+   "label": "has top-decile open rate",
+   "o": "top-decile-open-rate",
+   "quote": "top-decile open rate 6.9%",
+   "line": 7
+  },
+  {
+   "s": "xs-gbm-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "xs-gbm-v1",
+   "quote": "Superseded by xs-gbm-v2 after exp-402.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-xs-balance-proxy",
+  "feat-xs-credit-limit-band",
+  "xs-logit-v1",
+  "exp-402"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cross-sell-savings/xs-gbm-v1.md",
+ "sha": "b87f16fcf279b272c878b070afbe9f85f32f35c7629d54519a36a7f37bf5b1e9",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

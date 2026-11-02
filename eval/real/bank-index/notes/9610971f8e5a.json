@@ -1,0 +1,73 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "rdm-uplift-v1",
+   "type": "model",
+   "label": "uplift model",
+   "as": [
+    "rdm-uplift-v1"
+   ],
+   "lines": [
+    2,
+    5
+   ]
+  },
+  {
+   "id": "feat-rdm-last-activity-v2",
+   "type": "feature",
+   "label": "last-activity feature",
+   "as": [
+    "last-activity v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sms",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "SMS"
+   ],
+   "lines": [
+    5,
+    7,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rdm-uplift-v1",
+   "type": "uses",
+   "label": "ships with",
+   "o": "feat-rdm-last-activity-v2",
+   "quote": "ship rdm-uplift-v1 with last-activity v2 for the July 2025 wave",
+   "line": 5
+  },
+  {
+   "s": "rdm-uplift-v1",
+   "type": "other",
+   "label": "weights",
+   "o": "sms",
+   "quote": "weighting SMS by its channel uplift",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-303",
+  "exp-304",
+  "fnd-rdm-activity-v2-lift",
+  "dec-rdm-ship-uplift-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reactivation-dormant/dec-rdm-ship-uplift-v1.md",
+ "sha": "9610971f8e5aacfe6535a2ddc3c22598076e77bd9bb5034c936408580e1951a4",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

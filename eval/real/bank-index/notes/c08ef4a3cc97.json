@@ -1,0 +1,86 @@
+{
+ "kind": "preference",
+ "entities": [
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "notebook author",
+   "as": [
+    "Sam Lee wants every notebook to open with a config cell and seed 20260"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "config-cell",
+   "type": "term",
+   "label": "config cell",
+   "as": [
+    "The first code cell holds all paths, table names and the seed (`SEED = 20260`); no hard-coded paths appear below it."
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "log-helper",
+   "type": "tool",
+   "label": "log() helper",
+   "as": [
+    "Print statements are replaced by a small `log()` helper that writes to the run log."
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "nbstripout",
+   "type": "tool",
+   "label": "nbstripout",
+   "as": [
+    "Outputs are cleared before commit with `nbstripout`, so diffs show code only."
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "sam-lee",
+   "type": "other",
+   "label": "wants",
+   "o": "config-cell",
+   "quote": "Sam Lee wants every notebook to open with a config cell and seed 20260",
+   "line": 4
+  },
+  {
+   "s": "log-helper",
+   "type": "other",
+   "label": "replaces print statements",
+   "o": "config-cell",
+   "quote": "Print statements are replaced by a small `log()` helper that writes to the run log.",
+   "line": 6
+  },
+  {
+   "s": "nbstripout",
+   "type": "other",
+   "label": "clears outputs before commit",
+   "o": "config-cell",
+   "quote": "Outputs are cleared before commit with `nbstripout`, so diffs show code only.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "prefs/sam-lee-notebook-config.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "prefs/sam-lee-notebook-config.md",
+ "sha": "c08ef4a3cc97a766fdadbea0b466758b91d9098459cccc67d3ae76da849feb63",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

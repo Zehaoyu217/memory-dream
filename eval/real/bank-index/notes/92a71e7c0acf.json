@@ -1,0 +1,107 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "headline metric",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "ranking metric",
+   "as": [
+    "Gini"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "ranking metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "oot-set",
+   "type": "dataset",
+   "label": "evaluation set",
+   "as": [
+    "OOT set"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "monthly-review",
+   "type": "document",
+   "label": "review report",
+   "as": [
+    "monthly review"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ks",
+   "type": "other",
+   "label": "is headline in",
+   "o": "monthly-review",
+   "quote": "KS and Gini go in the monthly review, with KS as the headline",
+   "line": 4
+  },
+  {
+   "s": "gini",
+   "type": "measured-on",
+   "label": "computed on",
+   "o": "oot-set",
+   "quote": "Both are computed on the OOT set, with n in the footnote.",
+   "line": 5
+  },
+  {
+   "s": "ks",
+   "type": "measured-on",
+   "label": "computed on",
+   "o": "oot-set",
+   "quote": "Both are computed on the OOT set, with n in the footnote.",
+   "line": 5
+  },
+  {
+   "s": "gini",
+   "type": "other",
+   "label": "derived from",
+   "o": "auc",
+   "quote": "Gini = 2 x AUC - 1",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "howto/ks-vs-gini-reporting.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/ks-vs-gini-reporting.md",
+ "sha": "92a71e7c0acf211228aa0658ba1d8105edb95e3bd9dc0e88bb92eeb4b5c60d61",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

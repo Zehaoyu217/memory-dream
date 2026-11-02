@@ -1,0 +1,122 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-405",
+   "type": "other",
+   "label": "experiment note",
+   "as": [
+    "exp-405"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-inc-verified-2026",
+   "type": "dataset",
+   "label": "verified sample",
+   "as": [
+    "ds-inc-verified-2026"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "inc-gbm-v2",
+   "type": "model",
+   "label": "model v2",
+   "as": [
+    "inc-gbm-v2"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "ds-inc-stated-income-2025",
+   "type": "dataset",
+   "label": "stated income",
+   "as": [
+    "Stated income"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE 31%",
+    "v2 MAPE"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "holdout-verified-2026",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "the 1,980-account holdout"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "inc-gbm-v2",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "ds-inc-verified-2026",
+   "quote": "Scored inc-gbm-v2 on the verified sample (ds-inc-verified-2026, 9,850 accounts",
+   "line": 6
+  },
+  {
+   "s": "inc-gbm-v2",
+   "type": "measured-by",
+   "label": "MAPE against verified income",
+   "o": "mape",
+   "quote": "v2 MAPE against verified income is 31%",
+   "line": 7
+  },
+  {
+   "s": "holdout-verified-2026",
+   "type": "part-of",
+   "label": "subset of",
+   "o": "ds-inc-verified-2026",
+   "quote": "the 1,980-account holdout is a subset",
+   "line": 6
+  },
+  {
+   "s": "ds-inc-stated-income-2025",
+   "type": "other",
+   "label": "overstates verified income",
+   "o": "ds-inc-verified-2026",
+   "quote": "Stated income is 14% above verified income at the median",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "income-estimation/exp-406.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "income-estimation/exp-405.md",
+ "sha": "b06bdda0a68bdd0ed077d05f19cca914de6443f62d3021ab7d1fe526ec650052",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,88 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "holdout-2025q2",
+   "type": "dataset",
+   "label": "evaluation set",
+   "as": [
+    "holdout-2025q2"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "txc-oot-2026h1",
+   "type": "dataset",
+   "label": "gold evaluation set",
+   "as": [
+    "txc-oot-2026h1"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "headline metric",
+   "as": [
+    "Macro-F1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-txc-labelled-merchants",
+   "type": "dataset",
+   "label": "labelled set",
+   "as": [
+    "labelled set"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "holdout-2025q2",
+   "type": "measured-by",
+   "label": "headline metric",
+   "o": "macro-f1",
+   "quote": "Macro-F1 is the headline metric on both",
+   "line": 8
+  },
+  {
+   "s": "txc-oot-2026h1",
+   "type": "measured-by",
+   "label": "headline metric",
+   "o": "macro-f1",
+   "quote": "Macro-F1 is the headline metric on both",
+   "line": 8
+  },
+  {
+   "s": "holdout-2025q2",
+   "type": "uses",
+   "label": "drawn from",
+   "o": "ds-txc-labelled-merchants",
+   "quote": "drawn from the labelled set after removing all training merchants",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-txc-labelled-merchants"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "txn-categorization/ds-txc-gold-holdout.md",
+ "sha": "c55c0524d373042c83f0b9658f08818690c61e68085163a50c7404e11abab91a",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

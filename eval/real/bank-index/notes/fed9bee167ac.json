@@ -1,0 +1,67 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "rpt-naming-convention",
+   "type": "term",
+   "label": "naming convention",
+   "as": [
+    "Reporting views are named `rpt_<domain>_<grain>_<metric>`"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "reporting-views",
+   "type": "dataset",
+   "label": "reporting views",
+   "as": [
+    "Reporting views",
+    "Views that do not follow the pattern"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  },
+  {
+   "id": "deck",
+   "type": "document",
+   "label": "decks",
+   "as": [
+    "decks"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "reporting-views",
+   "type": "other",
+   "label": "named by",
+   "o": "rpt-naming-convention",
+   "quote": "Reporting views are named `rpt_<domain>_<grain>_<metric>`",
+   "line": 4
+  },
+  {
+   "s": "reporting-views",
+   "type": "other",
+   "label": "not used in",
+   "o": "deck",
+   "quote": "Views that do not follow the pattern are not used in decks.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/table-naming-convention.md",
+ "sha": "fed9bee167acb94fde8cebb36e31638384421a95281b4291b1e8df08609f5cf7",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

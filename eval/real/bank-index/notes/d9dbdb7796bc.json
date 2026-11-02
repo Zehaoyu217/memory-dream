@@ -1,0 +1,116 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "recovery-scoring",
+   "type": "model",
+   "label": "scoring project",
+   "as": [
+    "[recovery-scoring]"
+   ],
+   "lines": [
+    3,
+    4
+   ]
+  },
+  {
+   "id": "region-rate",
+   "type": "feature",
+   "label": "region rate",
+   "as": [
+    "region rate"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "postcode-spread",
+   "type": "feature",
+   "label": "postcode spread",
+   "as": [
+    "postcode spread"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "fairness-check",
+   "type": "term",
+   "label": "fairness check",
+   "as": [
+    "fairness check"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "compliance",
+   "type": "team",
+   "label": "compliance",
+   "as": [
+    "compliance"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini"
+   ],
+   "lines": [
+    3,
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "region-rate",
+   "type": "other",
+   "label": "adds",
+   "o": "gini",
+   "quote": "region rate adds Gini",
+   "line": 3
+  },
+  {
+   "s": "postcode-spread",
+   "type": "other",
+   "label": "looks like proxy",
+   "o": "compliance",
+   "quote": "the postcode spread looks like a proxy; compliance to look",
+   "line": 3
+  },
+  {
+   "s": "region-rate",
+   "type": "other",
+   "label": "removing costs",
+   "o": "gini",
+   "quote": "removing it costs 0.02 Gini",
+   "line": 4
+  },
+  {
+   "s": "fairness-check",
+   "type": "other",
+   "label": "says drop",
+   "o": "region-rate",
+   "quote": "fairness check says drop",
+   "line": 4
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2025-05-06.md",
+ "sha": "d9dbdb7796bcd036cda57ffeb00908917ffb0395c8995b2cb75610b6e9e8f85a",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

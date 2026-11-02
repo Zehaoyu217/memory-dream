@@ -1,0 +1,108 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "churn-label-60d",
+   "type": "term",
+   "label": "churn definition",
+   "as": [
+    "Churn meant no purchase or payment for 60 days after observation (superseded)",
+    "Churn in `cards.churn_labels` was defined as no purchase and no payment in the 60 days after the observation date"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "cards.churn_labels",
+   "type": "dataset",
+   "label": "churn labels table",
+   "as": [
+    "`cards.churn_labels`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "churn-label-90d",
+   "type": "term",
+   "label": "churn definition",
+   "as": [
+    "Superseded by `howto/churn-label-90d`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "retention-models-2025",
+   "type": "model",
+   "label": "retention models",
+   "as": [
+    "The 2025 retention models"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "monthly-churn-line",
+   "type": "metric",
+   "label": "monthly churn line",
+   "as": [
+    "the monthly churn line"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "retention-models-2025",
+   "type": "trained-on",
+   "label": "trained on",
+   "o": "churn-label-60d",
+   "quote": "The 2025 retention models were trained on this label",
+   "line": 5
+  },
+  {
+   "s": "monthly-churn-line",
+   "type": "uses",
+   "label": "used it",
+   "o": "churn-label-60d",
+   "quote": "the monthly churn line used it too",
+   "line": 5
+  },
+  {
+   "s": "churn-label-90d",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "churn-label-60d",
+   "quote": "Superseded by `howto/churn-label-90d`",
+   "line": 6
+  },
+  {
+   "s": "churn-label-60d",
+   "type": "part-of",
+   "label": "defined in",
+   "o": "cards.churn_labels",
+   "quote": "Churn in `cards.churn_labels` was defined as",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "howto/churn-label-90d",
+  "howto/churn-label-60d.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/churn-label-60d.md",
+ "sha": "24de49cf36f1829e534242283fa03bfbec205f01d4e33024af0f8c8155f7d7bf",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,112 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "caller-history-v1",
+   "type": "feature",
+   "label": "caller feature",
+   "as": [
+    "Caller history v1",
+    "caller history v1"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "caller-history-v2",
+   "type": "feature",
+   "label": "caller feature",
+   "as": [
+    "v2",
+    "use v2 everywhere"
+   ],
+   "lines": [
+    2,
+    5,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "feature-store",
+   "type": "tool",
+   "label": "feature store",
+   "as": [
+    "feature store"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Sam Lee"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "backfiller",
+   "as": [
+    "Tomás Rivera"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "caller-history-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "caller-history-v1",
+   "quote": "Retire caller history v1 and use v2 everywhere",
+   "line": 5
+  },
+  {
+   "s": "caller-history-v1",
+   "type": "other",
+   "label": "removed from",
+   "o": "feature-store",
+   "quote": "Caller history v1 is removed from the feature store.",
+   "line": 6
+  },
+  {
+   "s": "caller-history-v2",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "sam-lee",
+   "quote": "Owner Sam Lee.",
+   "line": 8
+  },
+  {
+   "s": "tomas-rivera",
+   "type": "other",
+   "label": "backfills",
+   "o": "caller-history-v2",
+   "quote": "Tomás Rivera backfills v2 from 2025-07 onward.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "fnd-cr-leak-corrected",
+  "feat-cr-caller-history-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/dec-cr-caller-v2.md",
+ "sha": "1e1cdcc54b15562aba4f2dda803ef6d09cfac5c65d9d5b9ed4069fc37bac0a82",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

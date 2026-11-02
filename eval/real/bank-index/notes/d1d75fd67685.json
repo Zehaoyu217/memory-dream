@@ -1,0 +1,86 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "churn-xgb-v3",
+   "type": "model",
+   "label": "churn model version",
+   "as": [
+    "churn-xgb-v3's lower scores",
+    "churn-xgb-v3 scores"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "churn-xgb-v2",
+   "type": "model",
+   "label": "churn model version",
+   "as": [
+    "churn-xgb-v2's"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "risk-tier-cutoffs",
+   "type": "term",
+   "label": "risk tier cutoffs",
+   "as": [
+    "risk tier cutoffs",
+    "the current cuts"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "call-tier",
+   "type": "term",
+   "label": "call tier",
+   "as": [
+    "the call tier"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-xgb-v3",
+   "type": "other",
+   "label": "scores less extreme than",
+   "o": "churn-xgb-v2",
+   "quote": "churn-xgb-v3 scores are less extreme than churn-xgb-v2's (fewer above 0.50)",
+   "line": 6
+  },
+  {
+   "s": "call-tier",
+   "type": "other",
+   "label": "would shrink under",
+   "o": "risk-tier-cutoffs",
+   "quote": "the call tier would shrink from 3.8% to about 2.9% of the book at the current cuts",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "churn-2026/q-recalibrate-tiers.md",
+  "dec-risk-tiers",
+  "exp-019-recall"
+ ],
+ "dropped": {
+  "entities": [
+   "churn-2026"
+  ],
+  "relations": 0
+ },
+ "path": "churn-2026/q-recalibrate-tiers.md",
+ "sha": "d1d75fd676850fe2c4c5d6fe3672aa401f02766ecba11f75116ac08107334aec",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

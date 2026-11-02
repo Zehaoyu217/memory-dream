@@ -1,0 +1,67 @@
+{
+ "kind": "note",
+ "entities": [
+  {
+   "id": "uplift-eval-qini-at-20pct",
+   "type": "document",
+   "label": "howto note",
+   "as": [
+    "Report uplift@20% with Qini support, and at least 3,000 treated and 3,000 control per arm"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "headline metric",
+   "as": [
+    "uplift@20%",
+    "Uplift@20%"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "marketing.campaign_responses",
+   "type": "dataset",
+   "label": "randomised assignment table",
+   "as": [
+    "marketing.campaign_responses"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "uplift-eval-qini-at-20pct",
+   "type": "measured-by",
+   "label": "headlines",
+   "o": "uplift-at-20",
+   "quote": "Headline the uplift@20% number and show the Qini curve as support.",
+   "line": 5
+  },
+  {
+   "s": "uplift-eval-qini-at-20pct",
+   "type": "uses",
+   "label": "uses randomised assignment",
+   "o": "marketing.campaign_responses",
+   "quote": "Use the randomised assignment in `marketing.campaign_responses`, not the historical targeting list",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/uplift-eval-qini-at-20pct.md",
+ "sha": "45f972d4cf38c7d46565c769226c8fd1917b9a79ac4cfe8b4a7a150e95abdfa8",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

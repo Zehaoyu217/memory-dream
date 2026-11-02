@@ -1,0 +1,133 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "bsts",
+   "type": "model",
+   "label": "bsts model",
+   "as": [
+    "BSTS",
+    "Bayesian structural time series"
+   ],
+   "lines": [
+    2,
+    5,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "ridge",
+   "type": "model",
+   "label": "ridge model",
+   "as": [
+    "ridge"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "trv-bt-2025h1",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "trv-bt-2025h1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "holiday-effects",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "holiday effects"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "app-sessions",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "app sessions"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bsts",
+   "type": "evaluated-on",
+   "label": "run on",
+   "o": "trv-bt-2025h1",
+   "quote": "on trv-bt-2025h1",
+   "line": 6
+  },
+  {
+   "s": "bsts",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "mape",
+   "quote": "MAPE 5.6%",
+   "line": 5
+  },
+  {
+   "s": "ridge",
+   "type": "measured-by",
+   "label": "scored",
+   "o": "mape",
+   "quote": "worse than the 5.2% ridge",
+   "line": 7
+  },
+  {
+   "s": "bsts",
+   "type": "uses",
+   "label": "includes",
+   "o": "holiday-effects",
+   "quote": "holiday effects plus app sessions",
+   "line": 6
+  },
+  {
+   "s": "bsts",
+   "type": "uses",
+   "label": "includes",
+   "o": "app-sessions",
+   "quote": "holiday effects plus app sessions",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "trv-bsts-v1",
+  "exp-503",
+  "dec-trv-stop-bsts"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "travel-spend-recovery/exp-504.md",
+ "sha": "435363ac98de4ed90aafa5f0911dda48196fec1750f020a36640206704becc37",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

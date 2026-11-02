@@ -1,0 +1,146 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-sfc-season-v2",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "feat-sfc-season-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fourier-terms",
+   "type": "feature",
+   "label": "fourier terms",
+   "as": [
+    "Fourier terms of order 3"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "calendar-event-indicators",
+   "type": "feature",
+   "label": "indicators",
+   "as": [
+    "indicators for each event"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "retail-calendar-v3",
+   "type": "dataset",
+   "label": "calendar",
+   "as": [
+    "retail-calendar-v3"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bfcm-shifted-dates",
+   "type": "dataset",
+   "label": "date set",
+   "as": [
+    "shifted date set"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "sfc-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "sfc-lgbm-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "1-month MAPE"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fourier-terms",
+   "type": "part-of",
+   "label": "plus",
+   "o": "feat-sfc-season-v2",
+   "quote": "Fourier terms of order 3 plus calendar event indicators",
+   "line": 5
+  },
+  {
+   "s": "calendar-event-indicators",
+   "type": "part-of",
+   "label": "plus",
+   "o": "feat-sfc-season-v2",
+   "quote": "Fourier terms of order 3 plus calendar event indicators",
+   "line": 5
+  },
+  {
+   "s": "calendar-event-indicators",
+   "type": "uses",
+   "label": "indicators for",
+   "o": "retail-calendar-v3",
+   "quote": "indicators for each event in retail-calendar-v3",
+   "line": 6
+  },
+  {
+   "s": "feat-sfc-season-v2",
+   "type": "uses",
+   "label": "use",
+   "o": "bfcm-shifted-dates",
+   "quote": "Black Friday and Cyber week use the shifted date set",
+   "line": 7
+  },
+  {
+   "s": "sfc-lgbm-v2",
+   "type": "measured-by",
+   "label": "1-month MAPE",
+   "o": "mape",
+   "quote": "Lowers sfc-lgbm-v2 1-month MAPE from 5.6% to 5.2%",
+   "line": 8
+  },
+  {
+   "s": "feat-sfc-season-v2",
+   "type": "other",
+   "label": "lowers MAPE of",
+   "o": "sfc-lgbm-v2",
+   "quote": "Lowers sfc-lgbm-v2 1-month MAPE from 5.6% to 5.2%",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-sfc-holiday-calendar",
+  "fnd-sfc-bfcm-shift",
+  "exp-203"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "spend-forecasting/feat-sfc-season-v2.md",
+ "sha": "8b171427bf1a3a05768d0d80bd668d7c3a736f4f2cf71d40eda80d7ef62b0e91",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

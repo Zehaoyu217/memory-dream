@@ -1,0 +1,123 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "cr-lgbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cr-lgbm-v1"
+   ],
+   "lines": [
+    2,
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "cr-oot-2026h1",
+   "type": "dataset",
+   "label": "out-of-time read set",
+   "as": [
+    "cr-oot-2026h1"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "feat-cr-caller-history-v1",
+   "type": "feature",
+   "label": "caller history feature",
+   "as": [
+    "caller history v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro f1",
+   "as": [
+    "Macro F1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "post-call-contacts",
+   "type": "other",
+   "label": "post-call contacts",
+   "as": [
+    "contacts that happen after the current call"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cr-lgbm-v1",
+   "type": "evaluated-on",
+   "label": "read on",
+   "o": "holdout-2025q4",
+   "quote": "Out-of-time read of cr-lgbm-v1: 0.79 on holdout-2025q4 falls to 0.72 on cr-oot-2026h1",
+   "line": 5
+  },
+  {
+   "s": "cr-lgbm-v1",
+   "type": "evaluated-on",
+   "label": "out-of-time read on",
+   "o": "cr-oot-2026h1",
+   "quote": "0.72 on cr-oot-2026h1",
+   "line": 5
+  },
+  {
+   "s": "cr-lgbm-v1",
+   "type": "measured-by",
+   "label": "scored by",
+   "o": "macro-f1",
+   "quote": "Macro F1 0.79 on holdout-2025q4",
+   "line": 7
+  },
+  {
+   "s": "feat-cr-caller-history-v1",
+   "type": "other",
+   "label": "counts",
+   "o": "post-call-contacts",
+   "quote": "caller history v1 counts contacts that happen after the current call",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "fnd-cr-leak-v1",
+  "feat-cr-caller-history-v1",
+  "cr-lgbm-v1",
+  "fnd-cr-leak-corrected"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/exp-104.md",
+ "sha": "bdf52ac8285627e25d654a80035ebdde37700d30a89f8236d329cdc525836ef3",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

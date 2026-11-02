@@ -1,0 +1,127 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "xs-call-uplift-v1",
+   "type": "model",
+   "label": "scoring model",
+   "as": [
+    "xs-call-uplift-v1"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "xs-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "xs-gbm-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sav.offer_log",
+   "type": "dataset",
+   "label": "offer log",
+   "as": [
+    "offer log"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "open-rate",
+   "type": "metric",
+   "label": "open rate",
+   "as": [
+    "open rate"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "deciles-1-2",
+   "type": "segment",
+   "label": "decile group",
+   "as": [
+    "deciles 1-2"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "top-two-deciles",
+   "type": "segment",
+   "label": "decile group",
+   "as": [
+    "top two deciles"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "call-treatment",
+   "type": "other",
+   "label": "treatment",
+   "as": [
+    "a call"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "xs-call-uplift-v1",
+   "type": "scored-on",
+   "label": "scored on",
+   "o": "sav.offer_log",
+   "quote": "scored on the offer log for the 2025 waves",
+   "line": 6
+  },
+  {
+   "s": "call-treatment",
+   "type": "measured-by",
+   "label": "measured as",
+   "o": "open-rate",
+   "quote": "a call adds 1.2 points of open rate",
+   "line": 5
+  },
+  {
+   "s": "call-treatment",
+   "type": "evaluated-on",
+   "label": "effect in",
+   "o": "deciles-1-2",
+   "quote": "Effect in deciles 1-2 (lowest propensity): +1.2 points",
+   "line": 6
+  },
+  {
+   "s": "call-treatment",
+   "type": "evaluated-on",
+   "label": "effect in",
+   "o": "top-two-deciles",
+   "quote": "Effect in the top two deciles is +0.1 points",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cross-sell-savings/exp-406-call-uplift.md",
+ "sha": "19a5cceead932b4083fb740c5e955357765385adb89cdbe75ccafaad199362a1",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

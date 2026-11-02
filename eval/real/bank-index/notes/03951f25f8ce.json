@@ -1,0 +1,106 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-506-balance-forecast",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-506: exponential-decay balance forecast has MAPE 11% on 12-month balance, against 19% flat"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "pa-bal-forecast-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "The decay path is used in pa-bal-forecast-v1."
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "holdout-feb-cohort",
+   "type": "segment",
+   "label": "holdout cohort",
+   "as": [
+    "Holdout of the February cohort"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE 11% for the decay forecast",
+    "19% for flat-at-month-6"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-pa-balance-panel",
+   "type": "team",
+   "label": "author team",
+   "as": [
+    "[ds-pa-balance-panel]"
+   ],
+   "lines": [
+    2
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "pa-bal-forecast-v1",
+   "type": "evaluated-on",
+   "label": "holdout of",
+   "o": "holdout-feb-cohort",
+   "quote": "Holdout of the February cohort",
+   "line": 6
+  },
+  {
+   "s": "exp-506-balance-forecast",
+   "type": "measured-by",
+   "label": "reports MAPE",
+   "o": "mape",
+   "quote": "MAPE 11% for the decay forecast, 19% for flat-at-month-6.",
+   "line": 7
+  },
+  {
+   "s": "pa-bal-forecast-v1",
+   "type": "uses",
+   "label": "uses decay path",
+   "o": "exp-506-balance-forecast",
+   "quote": "The decay path is used in pa-bal-forecast-v1.",
+   "line": 7
+  },
+  {
+   "s": "exp-506-balance-forecast",
+   "type": "owned-by",
+   "label": "from",
+   "o": "ds-pa-balance-panel",
+   "quote": "from: [ds-pa-balance-panel]",
+   "line": 2
+  }
+ ],
+ "refs": [
+  "promo-apr-test/exp-506-balance-forecast.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "promo-apr-test/exp-506-balance-forecast.md",
+ "sha": "03951f25f8ce8cc270822ac54a460ee8ad6a30cac0d39038f4294a23b52df53d",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

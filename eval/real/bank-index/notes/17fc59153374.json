@@ -1,0 +1,137 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "feat-csb-tenure-band",
+   "type": "feature",
+   "label": "tenure",
+   "as": [
+    "feat-csb-tenure-band"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "ds-csb-biz-accounts",
+   "type": "person",
+   "label": "source",
+   "as": [
+    "ds-csb-biz-accounts"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "ds-csb-churn-labels",
+   "type": "dataset",
+   "label": "labels",
+   "as": [
+    "ds-csb-churn-labels"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "churn",
+   "type": "metric",
+   "label": "churn",
+   "as": [
+    "churn"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "accounts-under-6-months",
+   "type": "segment",
+   "label": "tenure group",
+   "as": [
+    "Accounts under 6 months"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "accounts-6-months-and-over",
+   "type": "segment",
+   "label": "tenure group",
+   "as": [
+    "6 months and over"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "onboarding-playbook",
+   "type": "other",
+   "label": "onboarding playbook",
+   "as": [
+    "onboarding playbook"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn",
+   "type": "evaluated-on",
+   "label": "basis",
+   "o": "ds-csb-churn-labels",
+   "quote": "Basis: ds-csb-churn-labels on the training snapshots, 90-day window.",
+   "line": 7
+  },
+  {
+   "s": "accounts-under-6-months",
+   "type": "measured-by",
+   "label": "churns at",
+   "o": "churn",
+   "quote": "Accounts under 6 months churn at 11.2%",
+   "line": 5
+  },
+  {
+   "s": "accounts-6-months-and-over",
+   "type": "measured-by",
+   "label": "churn",
+   "o": "churn",
+   "quote": "6 months and over: churn 5.6%",
+   "line": 7
+  },
+  {
+   "s": "feat-csb-tenure-band",
+   "type": "other",
+   "label": "drives",
+   "o": "churn",
+   "quote": "Tenure is a real driver",
+   "line": 8
+  },
+  {
+   "s": "onboarding-playbook",
+   "type": "other",
+   "label": "covers",
+   "o": "accounts-under-6-months",
+   "quote": "the onboarding playbook already covers that group",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "dec-csb-tenure-floor"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-small-business/fnd-csb-tenure-cut.md",
+ "sha": "17fc591533740dd6ee5089b0af3d9f0c1e506d8ecb936a6a744ab7f9377f752e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,131 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "maya-ortiz",
+   "type": "person",
+   "label": "asker",
+   "as": [
+    "Maya Ortiz"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cli-eligible-population",
+   "type": "segment",
+   "label": "eligible population",
+   "as": [
+    "eligible population",
+    "ds-cli-eligible-pop"
+   ],
+   "lines": [
+    2,
+    8
+   ]
+  },
+  {
+   "id": "cli-score-cutoff",
+   "type": "other",
+   "label": "score cutoff",
+   "as": [
+    "CLI score cutoff"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "net-margin",
+   "type": "metric",
+   "label": "net margin",
+   "as": [
+    "net margin"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "90-day-loss",
+   "type": "metric",
+   "label": "90-day loss",
+   "as": [
+    "90-day loss"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exposed-book",
+   "type": "portfolio",
+   "label": "exposed book",
+   "as": [
+    "exposed book"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "proactive-cli-waves",
+   "type": "other",
+   "label": "campaign",
+   "as": [
+    "proactive CLI waves"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cli-score-cutoff",
+   "type": "measured-by",
+   "label": "maximises",
+   "o": "net-margin",
+   "quote": "maximises net margin",
+   "line": 5
+  },
+  {
+   "s": "cli-score-cutoff",
+   "type": "measured-by",
+   "label": "keeps 90-day loss under limit",
+   "o": "90-day-loss",
+   "quote": "keeping 90-day loss under 1.5% of exposed book",
+   "line": 5
+  },
+  {
+   "s": "cli-score-cutoff",
+   "type": "other",
+   "label": "scoped to",
+   "o": "cli-eligible-population",
+   "quote": "Scope is the eligible population in ds-cli-eligible-pop only",
+   "line": 8
+  },
+  {
+   "s": "cli-score-cutoff",
+   "type": "other",
+   "label": "raised by",
+   "o": "maya-ortiz",
+   "quote": "Raised by Maya Ortiz",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-104",
+  "dec-cli-loss-cap",
+  "ds-cli-eligible-pop"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/q-cli-revenue-loss-tradeoff.md",
+ "sha": "7210df888cd81c5531270c776810b9b02d4c91c7ac90a1b7f4c4274acfedb6b0",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

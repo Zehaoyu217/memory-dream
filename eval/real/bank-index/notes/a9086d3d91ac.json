@@ -1,0 +1,90 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "pbs-gmm-v3",
+   "type": "model",
+   "label": "gmm parameters",
+   "as": [
+    "pbs-gmm-v3 parameters"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "segment-labels",
+   "type": "other",
+   "label": "segment labels",
+   "as": [
+    "segment labels",
+    "monthly labels"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "churn-model",
+   "type": "model",
+   "label": "churn model",
+   "as": [
+    "The churn model"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "collections-queue",
+   "type": "other",
+   "label": "collections queue",
+   "as": [
+    "the collections queue"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "segment-labels",
+   "type": "uses",
+   "label": "re-scored with",
+   "o": "pbs-gmm-v3",
+   "quote": "The segment labels are re-scored monthly with the pbs-gmm-v3 parameters frozen.",
+   "line": 6
+  },
+  {
+   "s": "churn-model",
+   "type": "uses",
+   "label": "reads monthly labels",
+   "o": "segment-labels",
+   "quote": "The churn model and the collections queue both read the monthly labels.",
+   "line": 8
+  },
+  {
+   "s": "collections-queue",
+   "type": "uses",
+   "label": "reads monthly labels",
+   "o": "segment-labels",
+   "quote": "The churn model and the collections queue both read the monthly labels.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "dec-pbs-gmm-v3-current",
+  "fnd-pbs-revolver-migration",
+  "fnd-pbs-churn-signal"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "payment-behavior-segments/dec-pbs-monthly-refresh.md",
+ "sha": "a9086d3d91acf8adf7a7f5ad2210ab6303e56a776cb938ded89487b2e5dd92ca",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

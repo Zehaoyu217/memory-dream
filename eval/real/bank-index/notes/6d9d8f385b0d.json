@@ -1,0 +1,133 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-305",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-305"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-mq3-recency-v1",
+   "type": "feature",
+   "label": "recency feature",
+   "as": [
+    "feat-mq3-recency-v1",
+    "Recency v1"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "feat-mq3-recency-v2",
+   "type": "feature",
+   "label": "recency feature",
+   "as": [
+    "recency v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mq3-uplift-tlearner-v1",
+   "type": "model",
+   "label": "uplift model",
+   "as": [
+    "mq3-uplift-tlearner-v1"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift@20%",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "x-learner-prototype",
+   "type": "model",
+   "label": "prototype",
+   "as": [
+    "X-learner prototype"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-305",
+   "type": "other",
+   "label": "inflated",
+   "o": "uplift-at-20",
+   "quote": "counting refunds as activity inflated uplift@20%",
+   "line": 5
+  },
+  {
+   "s": "exp-305",
+   "type": "derived-from",
+   "label": "from",
+   "o": "feat-mq3-recency-v1",
+   "quote": "from: [feat-mq3-recency-v1, mq3-uplift-tlearner-v1]",
+   "line": 2
+  },
+  {
+   "s": "exp-305",
+   "type": "derived-from",
+   "label": "from",
+   "o": "mq3-uplift-tlearner-v1",
+   "quote": "from: [feat-mq3-recency-v1, mq3-uplift-tlearner-v1]",
+   "line": 2
+  },
+  {
+   "s": "exp-305",
+   "type": "uses",
+   "label": "re-ran with",
+   "o": "feat-mq3-recency-v2",
+   "quote": "Re-ran the X-learner prototype with recency v2.",
+   "line": 6
+  },
+  {
+   "s": "exp-305",
+   "type": "uses",
+   "label": "re-ran",
+   "o": "x-learner-prototype",
+   "quote": "Re-ran the X-learner prototype with recency v2.",
+   "line": 6
+  },
+  {
+   "s": "feat-mq3-recency-v1",
+   "type": "other",
+   "label": "counted refunds as activity",
+   "o": "feat-mq3-recency-v2",
+   "quote": "Recency v1 counted refunds as recent activity, so refund-heavy accounts looked recently active and were over-scored.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "marketing-uplift-q3/exp-305-refund-fix.md",
+ "sha": "6d9d8f385b0dae9889582cc4fa603f6d633f9e8acd47c43c9a2fc5e4ecd38f4c",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

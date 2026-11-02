@@ -1,0 +1,49 @@
+{
+ "kind": "note",
+ "entities": [
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cross-border-travel-spend-share",
+   "type": "metric",
+   "label": "cross-border share",
+   "as": [
+    "Cross-border share of travel spend, 2023-01 to 2025-08"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cross-border-travel-spend-share",
+   "type": "uses",
+   "label": "from",
+   "o": "cards.txn_daily",
+   "quote": "Share of travel spend where the merchant country differs from the cardholder country, from `cards.txn_daily`.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "travel-spend-recovery/ds-trv-fx-cross-border.md",
+  "feat-trv-cross-border-share"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "travel-spend-recovery/ds-trv-fx-cross-border.md",
+ "sha": "0eca5c22a4982d95e4cf928d3be2dc38728dcf80cd6e538d20efb24dba272ffd",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

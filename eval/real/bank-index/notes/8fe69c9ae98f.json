@@ -1,0 +1,90 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-cb-threshold-2500",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: top tier starts at $2,500 monthly spend, not $3,000, for the Q3 2026 launch"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-cb-adopt-banded-tiers",
+   "type": "other",
+   "label": "superseded decision",
+   "as": [
+    "dec-cb-adopt-banded-tiers"
+   ],
+   "lines": [
+    2,
+    4
+   ]
+  },
+  {
+   "id": "cb-oot-2026h1",
+   "type": "dataset",
+   "label": "replay dataset",
+   "as": [
+    "cb-oot-2026h1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "proposal-a",
+   "type": "other",
+   "label": "proposal",
+   "as": [
+    "Proposal A failed break-even at $3,000 (2.4% against 3.4%)"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-cb-threshold-2500",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "dec-cb-adopt-banded-tiers",
+   "quote": "supersedes: [dec-cb-adopt-banded-tiers]",
+   "line": 4
+  },
+  {
+   "s": "dec-cb-threshold-2500",
+   "type": "evaluated-on",
+   "label": "replay on",
+   "o": "cb-oot-2026h1",
+   "quote": "a replay on `cb-oot-2026h1` (exp-207)",
+   "line": 8
+  },
+  {
+   "s": "dec-cb-threshold-2500",
+   "type": "replaces",
+   "label": "chosen over",
+   "o": "proposal-a",
+   "quote": "Proposal A failed break-even at $3,000 (2.4% against 3.4%)",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "find-cb-breakeven-lift",
+  "exp-206-breakeven-sim",
+  "dec-cb-adopt-banded-tiers",
+  "exp-207"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/dec-cb-threshold-2500.md",
+ "sha": "8fe69c9ae98f6a7344de2c2845ae35829c46853ee1052d2718ea496e33e49a1e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

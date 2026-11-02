@@ -1,0 +1,108 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "fraud25-gbm-v2",
+   "type": "model",
+   "label": "champion",
+   "as": [
+    "fraud25-gbm-v2"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "fraud-2026",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fraud-2026"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q1",
+   "quote": "on holdout-2025q1",
+   "line": 7
+  },
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "auc",
+   "quote": "AUC 0.911 vs 0.902",
+   "line": 7
+  },
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "ks",
+   "quote": "KS 0.66 vs 0.61",
+   "line": 7
+  },
+  {
+   "s": "fraud-2026",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "fraud25-gbm-v2",
+   "quote": "This is the model fraud-2026 later replaces",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-104",
+  "dec-f26-replace-f25"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/dec-f25-champion-v2.md",
+ "sha": "e484bc0eb652e82b657f8af017730c8c4994e04daae52f8dcdd90bb0c6755a6c",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

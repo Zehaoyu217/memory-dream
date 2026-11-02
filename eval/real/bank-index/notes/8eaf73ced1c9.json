@@ -1,0 +1,81 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-201",
+   "type": "other",
+   "label": "pilot experiment",
+   "as": [
+    "exp-201: pilot of 25% cuts on bands C and D gives 4.6 complaints per 1,000 versus 1.9 baseline (2.4x)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "account wave",
+   "as": [
+    "February 2025 wave, 18,600 accounts in band C or D with a 25% cut."
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "complaints-per-1000",
+   "type": "metric",
+   "label": "complaint rate",
+   "as": [
+    "Complaints in the 30 days after the cut: 4.6 per 1,000 account-months against the 1.9 baseline (2.4x)."
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-202",
+   "type": "other",
+   "label": "follow-up experiment",
+   "as": [
+    "exp-202 tests a 30-day notice."
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-201",
+   "type": "measured-by",
+   "label": "measures complaints",
+   "o": "complaints-per-1000",
+   "quote": "Complaints in the 30 days after the cut: 4.6 per 1,000 account-months against the 1.9 baseline (2.4x).",
+   "line": 7
+  },
+  {
+   "s": "exp-201",
+   "type": "uses",
+   "label": "pilot wave",
+   "o": "cards.accounts_monthly",
+   "quote": "February 2025 wave, 18,600 accounts in band C or D with a 25% cut.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-202",
+  "feat-cld-risk-band-v1",
+  "q-cld-complaint-spike",
+  "ds-cld-complaint-calls"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "limit-decrease-policy/exp-201.md",
+ "sha": "8eaf73ced1c908e3b6a4e9167fc53f2595804965b3ca412a2b26d7828831e344",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

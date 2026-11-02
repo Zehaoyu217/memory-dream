@@ -1,0 +1,86 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "dormancy-cutoff",
+   "type": "term",
+   "label": "dormancy cutoff",
+   "as": [
+    "dormancy cutoffs"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift",
+   "as": [
+    "Uplift at the top 20%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-rdm-last-activity-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rdm-last-activity-v1"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "ds-rdm-dormant-pool",
+   "type": "dataset",
+   "label": "eligible pools",
+   "as": [
+    "Eligible pools"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dormancy-cutoff",
+   "type": "measured-by",
+   "label": "judged by uplift",
+   "o": "uplift-at-20",
+   "quote": "Uplift at the top 20% by predicted uplift",
+   "line": 6
+  },
+  {
+   "s": "dormancy-cutoff",
+   "type": "uses",
+   "label": "from",
+   "o": "feat-rdm-last-activity-v1",
+   "quote": "from: [q-rdm-dormancy-cutoff, feat-rdm-last-activity-v1, ds-rdm-dormant-pool]",
+   "line": 2
+  },
+  {
+   "s": "dormancy-cutoff",
+   "type": "uses",
+   "label": "eligible pools",
+   "o": "ds-rdm-dormant-pool",
+   "quote": "Eligible pools: 618,400 at 5 months",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "q-rdm-dormancy-cutoff"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reactivation-dormant/exp-301.md",
+ "sha": "743c3f3f3c33711795ec1c92ace0133548f5378a741dd8df5de79c6375fa9861",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

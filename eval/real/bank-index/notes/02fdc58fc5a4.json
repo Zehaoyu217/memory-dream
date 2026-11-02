@@ -1,0 +1,98 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-csb-spend-raw",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-csb-spend-raw: trailing three-month card spend in raw dollars"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fnd-csb-seasonal-trap",
+   "type": "finding",
+   "label": "finding",
+   "as": [
+    "fnd-csb-seasonal-trap"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-csb-spend-sa-v2",
+   "type": "feature",
+   "label": "replacement feature",
+   "as": [
+    "feat-csb-spend-sa-v2"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "ds-csb-biz-accounts",
+   "type": "person",
+   "label": "source",
+   "as": [
+    "ds-csb-biz-accounts"
+   ],
+   "lines": [
+    2
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-csb-spend-raw",
+   "type": "uses",
+   "label": "sums from",
+   "o": "cards.txn_daily",
+   "quote": "Sum of card spend over the last 3 months from `cards.txn_daily`",
+   "line": 7
+  },
+  {
+   "s": "feat-csb-spend-raw",
+   "type": "other",
+   "label": "reads December peak as safety",
+   "o": "fnd-csb-seasonal-trap",
+   "quote": "it reads December peak spend as safety (fnd-csb-seasonal-trap)",
+   "line": 8
+  },
+  {
+   "s": "feat-csb-spend-sa-v2",
+   "type": "replaces",
+   "label": "replaced by",
+   "o": "feat-csb-spend-raw",
+   "quote": "Replaced by feat-csb-spend-sa-v2 from January 2026",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "fnd-csb-seasonal-trap",
+  "feat-csb-spend-sa-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-small-business/feat-csb-spend-raw.md",
+ "sha": "02fdc58fc5a44f85fdeedcf2a201edcd78a5868881d28e4d49b422831113cb63",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

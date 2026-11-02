@@ -1,0 +1,114 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "travel-overflag-finding",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Travel-MCC alerts are over-flagged"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "threshold-fine-finding",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "threshold-fine finding"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "travel-mcc-alerts",
+   "type": "other",
+   "label": "alert group",
+   "as": [
+    "Travel-MCC alerts",
+    "travel alerts"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "fraud25_alerts_log",
+   "type": "dataset",
+   "label": "alert log",
+   "as": [
+    "fraud25_alerts_log"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "precision-at-0.90",
+   "type": "metric",
+   "label": "precision",
+   "as": [
+    "precision"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "fraud-threshold",
+   "type": "flag",
+   "label": "threshold",
+   "as": [
+    "0.62 threshold"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "travel-overflag-finding",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "threshold-fine-finding",
+   "quote": "Supersedes the threshold-fine finding",
+   "line": 9
+  },
+  {
+   "s": "travel-mcc-alerts",
+   "type": "measured-by",
+   "label": "precision",
+   "o": "precision-at-0.90",
+   "quote": "travel alerts precision 3.1%",
+   "line": 7
+  },
+  {
+   "s": "travel-mcc-alerts",
+   "type": "part-of",
+   "label": "logged in",
+   "o": "fraud25_alerts_log",
+   "quote": "Jul-Sep 2025 alert log (`fraud25_alerts_log`",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-106",
+  "exp-108",
+  "fraud25-find-threshold-fine",
+  "dec-f25-threshold-070"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/fraud25-find-travel-overflag.md",
+ "sha": "c61f28ca5175ecb1ba3e6bd196391fc704383f9c82387a1c6fa9dec20dc12b94",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

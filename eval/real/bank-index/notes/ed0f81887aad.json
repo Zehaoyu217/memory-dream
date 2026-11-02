@@ -1,0 +1,79 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "hardship-payment-plan",
+   "type": "other",
+   "label": "hardship payment plan",
+   "as": [
+    "hardship payment plan"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "30-to-60-roll-rate",
+   "type": "metric",
+   "label": "outcome",
+   "as": [
+    "30-to-60 roll rate",
+    "30-to-60 roll within 30 days of enrolment"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "ds-hp-matched-controls",
+   "type": "dataset",
+   "label": "comparison base",
+   "as": [
+    "ds-hp-matched-controls"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "hardship-payment-plan",
+   "type": "other",
+   "label": "effect on",
+   "o": "30-to-60-roll-rate",
+   "quote": "What is the effect of a hardship payment plan on the 30-to-60 roll rate?",
+   "line": 5
+  },
+  {
+   "s": "30-to-60-roll-rate",
+   "type": "measured-by",
+   "label": "outcome",
+   "o": "30-to-60-roll-rate",
+   "quote": "Outcome: 30-to-60 roll within 30 days of enrolment.",
+   "line": 7
+  },
+  {
+   "s": "hardship-payment-plan",
+   "type": "evaluated-on",
+   "label": "comparison base",
+   "o": "ds-hp-matched-controls",
+   "quote": "Comparison base: ds-hp-matched-controls.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "find-hp-naive-effect",
+  "find-hp-adjusted-effect",
+  "find-hp-effect-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "hardship-programs/q-hp-effect-size.md",
+ "sha": "ed0f81887aad67a974fc8189326bc1e5a9ec6df91f58260d3d49fe8449bf383b",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

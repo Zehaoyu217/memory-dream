@@ -1,0 +1,85 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "consumer-view",
+   "type": "dataset",
+   "label": "consumer view",
+   "as": [
+    "consumer view"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "fraud-ops",
+   "type": "team",
+   "label": "fraud-ops",
+   "as": [
+    "fraud-ops"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "disputes-join",
+   "type": "other",
+   "label": "disputes join",
+   "as": [
+    "disputes join"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cards.txn_daily",
+   "type": "other",
+   "label": "has duplicates",
+   "o": "consumer-view",
+   "quote": "Duplicates in cards.txn_daily come from partition reloads.",
+   "line": 6
+  },
+  {
+   "s": "fraud-ops",
+   "type": "other",
+   "label": "must join decision",
+   "o": "consumer-view",
+   "quote": "so fraud-ops needs to be part of the decision",
+   "line": 7
+  },
+  {
+   "s": "consumer-view",
+   "type": "other",
+   "label": "changes dispute rates in",
+   "o": "disputes-join",
+   "quote": "The choice changes dispute rates in the disputes join",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "data-quality-txn/q-dq-dedupe-policy.md",
+ "sha": "2fd19c9bc62c3b46a90d87c3e809e1af4f647a478b1748960acfca7fd64ac51f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

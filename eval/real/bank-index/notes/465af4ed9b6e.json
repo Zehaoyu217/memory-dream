@@ -1,0 +1,126 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-507",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-507"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "thompson-sampling-bandit",
+   "type": "term",
+   "label": "bandit",
+   "as": [
+    "Thompson-sampling bandit",
+    "bandit"
+   ],
+   "lines": [
+    5,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "ch-propensity-v2",
+   "type": "model",
+   "label": "scores",
+   "as": [
+    "ch-propensity-v2 scores",
+    "ch-propensity-v2"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "ds-ch-ab-wave2",
+   "type": "dataset",
+   "label": "wave-2 data",
+   "as": [
+    "wave-2 data",
+    "ds-ch-ab-wave2"
+   ],
+   "lines": [
+    2,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "fixed-sms-then-call-rule",
+   "type": "policy",
+   "label": "fixed rule",
+   "as": [
+    "fixed SMS-then-call rule"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "promise-to-pay",
+   "type": "metric",
+   "label": "promise-to-pay",
+   "as": [
+    "promise-to-pay"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-507",
+   "type": "measured-by",
+   "label": "yields",
+   "o": "promise-to-pay",
+   "quote": "Bandit allocation yields 9% more promise-to-pay than the fixed SMS-then-call rule.",
+   "line": 6
+  },
+  {
+   "s": "exp-507",
+   "type": "uses",
+   "label": "simulation on",
+   "o": "ds-ch-ab-wave2",
+   "quote": "Simulation on the wave-2 data",
+   "line": 6
+  },
+  {
+   "s": "exp-507",
+   "type": "uses",
+   "label": "priors from",
+   "o": "ch-propensity-v2",
+   "quote": "with ch-propensity-v2 scores as priors",
+   "line": 6
+  },
+  {
+   "s": "thompson-sampling-bandit",
+   "type": "other",
+   "label": "yields more than",
+   "o": "fixed-sms-then-call-rule",
+   "quote": "Bandit allocation yields 9% more promise-to-pay than the fixed SMS-then-call rule.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ch-propensity-v2",
+  "ds-ch-ab-wave2",
+  "collections_channel/exp507_bandit_sim.ipynb"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-channel-mix/exp-507.md",
+ "sha": "465af4ed9b6ed67761407ffded9fe41152e03888b86ff71dcd0165dfbc143ae0",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

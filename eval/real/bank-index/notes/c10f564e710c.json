@@ -1,0 +1,117 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "analyst-labels",
+   "type": "dataset",
+   "label": "hand labels",
+   "as": [
+    "Analyst labels",
+    "8,900 hand labels Jan-Apr 2026"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fraud-ops-analysts",
+   "type": "team",
+   "label": "analysts",
+   "as": [
+    "fraud-ops analysts"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "kappa",
+   "type": "metric",
+   "label": "agreement score",
+   "as": [
+    "Kappa 0.71"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "double-labelled-disputes",
+   "type": "segment",
+   "label": "double-labelled set",
+   "as": [
+    "400 double-labelled disputes"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "customer-wins",
+   "type": "term",
+   "label": "label value",
+   "as": [
+    "customer_wins"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "review-needed",
+   "type": "term",
+   "label": "label value",
+   "as": [
+    "review_needed"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud-ops-analysts",
+   "type": "produces",
+   "label": "labels by",
+   "o": "analyst-labels",
+   "quote": "Labels by fraud-ops analysts",
+   "line": 6
+  },
+  {
+   "s": "analyst-labels",
+   "type": "other",
+   "label": "label values",
+   "o": "customer-wins",
+   "quote": "customer_wins (auto-resolve candidate)",
+   "line": 6
+  },
+  {
+   "s": "analyst-labels",
+   "type": "other",
+   "label": "label values",
+   "o": "review-needed",
+   "quote": "review_needed",
+   "line": 6
+  },
+  {
+   "s": "kappa",
+   "type": "evaluated-on",
+   "label": "kappa on",
+   "o": "double-labelled-disputes",
+   "quote": "Kappa 0.71 on the 400 double-labelled disputes",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "disp-find-label-noise"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "dispute-triage/ds-disp-analyst-labels.md",
+ "sha": "c10f564e710c6518410ed58bcc9d0b517906a907a061e54e5dc6d35e55a2d634",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,116 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "bureau-score",
+   "type": "feature",
+   "label": "bureau score",
+   "as": [
+    "bureau score"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "reviewer",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "default-model-2025",
+   "type": "model",
+   "label": "default model",
+   "as": [
+    "2025 default model"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "leakage",
+   "type": "term",
+   "label": "leakage",
+   "as": [
+    "leakage"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "30-day-lag-rule",
+   "type": "policy",
+   "label": "30-day lag rule",
+   "as": [
+    "30-day lag rule"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bureau-score",
+   "type": "decided-by",
+   "label": "rejected by",
+   "o": "lena-fischer",
+   "quote": "Lena Fischer rejected the feature.",
+   "line": 6
+  },
+  {
+   "s": "bureau-score",
+   "type": "other",
+   "label": "raised AUC",
+   "o": "auc",
+   "quote": "A same-month pull raised AUC on the 2025 default model by 0.02",
+   "line": 6
+  },
+  {
+   "s": "bureau-score",
+   "type": "other",
+   "label": "signals",
+   "o": "leakage",
+   "quote": "which is the signature of leakage",
+   "line": 6
+  },
+  {
+   "s": "30-day-lag-rule",
+   "type": "other",
+   "label": "constrains",
+   "o": "bureau-score",
+   "quote": "it has to be at least 30 days before observation",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "howto/bureau-score-pull-timing"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/bureau-same-month-pull.md",
+ "sha": "ec4d5f6c4fd8587613063ae96f7bb335e0cba28151b67747d9c12c742d4b802d",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

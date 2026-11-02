@@ -1,0 +1,133 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "bt-holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "bt-holdout-2025q1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bt.offer_log",
+   "type": "dataset",
+   "label": "offer log",
+   "as": [
+    "bt.offer_log"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-bt-revolve-share",
+   "type": "feature",
+   "label": "revolve share",
+   "as": [
+    "feat-bt-revolve-share",
+    "revolve share"
+   ],
+   "lines": [
+    2,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "revolvers",
+   "type": "segment",
+   "label": "revolvers",
+   "as": [
+    "Revolvers"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "transactors",
+   "type": "segment",
+   "label": "transactors",
+   "as": [
+    "transactors"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "mailer-rules",
+   "type": "policy",
+   "label": "mailer rules",
+   "as": [
+    "mailer rules"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "bt-acceptance",
+   "type": "metric",
+   "label": "acceptance",
+   "as": [
+    "accept"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "revolvers",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "bt-holdout-2025q1",
+   "quote": "On bt-holdout-2025q1 (n=41,800), accounts with revolve share at or above 0.5 accept at 6.8%",
+   "line": 6
+  },
+  {
+   "s": "revolvers",
+   "type": "measured-by",
+   "label": "accept at",
+   "o": "bt-acceptance",
+   "quote": "accounts with revolve share at or above 0.5 accept at 6.8%",
+   "line": 6
+  },
+  {
+   "s": "bt.offer_log",
+   "type": "uses",
+   "label": "joined to",
+   "o": "feat-bt-revolve-share",
+   "quote": "`bt.offer_log` joined to feat-bt-revolve-share",
+   "line": 8
+  },
+  {
+   "s": "mailer-rules",
+   "type": "other",
+   "label": "skip",
+   "o": "transactors",
+   "quote": "The mailer rules already skip most transactors",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-bt-revolve-share",
+  "bt-xgb-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "balance-transfer-propensity/find-bt-revolvers-decline.md",
+ "sha": "a6b6ec0f6bd40d8bb243310b7ae0c4f67ea1bb98b065df91fe6be5cb80b43833",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

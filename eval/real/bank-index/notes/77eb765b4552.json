@@ -1,0 +1,169 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "xs-call-uplift-v1",
+   "type": "model",
+   "label": "causal forest",
+   "as": [
+    "xs-call-uplift-v1",
+    "causal forest"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "feat-xs-call-recent",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-xs-call-recent"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "tenure",
+   "type": "feature",
+   "label": "input",
+   "as": [
+    "tenure"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "spend",
+   "type": "feature",
+   "label": "input",
+   "as": [
+    "spend"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "offer-log",
+   "type": "dataset",
+   "label": "offer log",
+   "as": [
+    "offer-log covariates"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "open-rate",
+   "type": "metric",
+   "label": "open rate",
+   "as": [
+    "open rate"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "xs-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "xs-gbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "call-centre-routing",
+   "type": "other",
+   "label": "routing process",
+   "as": [
+    "call-centre routing"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "xs-call-uplift-v1",
+   "type": "uses",
+   "label": "causal forest on",
+   "o": "feat-xs-call-recent",
+   "quote": "Causal forest on feat-xs-call-recent, tenure and spend",
+   "line": 6
+  },
+  {
+   "s": "xs-call-uplift-v1",
+   "type": "uses",
+   "label": "causal forest on",
+   "o": "tenure",
+   "quote": "Causal forest on feat-xs-call-recent, tenure and spend",
+   "line": 6
+  },
+  {
+   "s": "xs-call-uplift-v1",
+   "type": "uses",
+   "label": "causal forest on",
+   "o": "spend",
+   "quote": "Causal forest on feat-xs-call-recent, tenure and spend",
+   "line": 6
+  },
+  {
+   "s": "xs-call-uplift-v1",
+   "type": "uses",
+   "label": "propensity comes from",
+   "o": "offer-log",
+   "quote": "the propensity comes from the offer-log covariates",
+   "line": 6
+  },
+  {
+   "s": "xs-call-uplift-v1",
+   "type": "measured-by",
+   "label": "effect of call on",
+   "o": "open-rate",
+   "quote": "Effect of a call on open rate: +1.2 points",
+   "line": 7
+  },
+  {
+   "s": "xs-call-uplift-v1",
+   "type": "other",
+   "label": "deciles of",
+   "o": "xs-gbm-v2",
+   "quote": "deciles 1-2 of xs-gbm-v2",
+   "line": 7
+  },
+  {
+   "s": "xs-call-uplift-v1",
+   "type": "other",
+   "label": "used for",
+   "o": "call-centre-routing",
+   "quote": "Used for call-centre routing",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-xs-call-recent",
+  "exp-403-callcentre-naive",
+  "find-xs-call-overstated",
+  "dec-xs-call-low-deciles"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cross-sell-savings/xs-call-uplift-v1.md",
+ "sha": "77eb765b45527139f2bf09cfe1fb12e9154372f95c7393c68d47e750bc1392ab",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

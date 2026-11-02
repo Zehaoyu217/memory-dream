@@ -1,0 +1,159 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "campaign-responses",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "marketing.campaign_responses"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "redemption",
+   "type": "term",
+   "label": "redemption",
+   "as": [
+    "A redemption is an offer used within 60 days"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "redemption-rate",
+   "type": "metric",
+   "label": "overall redemption",
+   "as": [
+    "Overall redemption 18.2%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cashback",
+   "type": "other",
+   "label": "offer type",
+   "as": [
+    "cashback 22.4%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "apr-cut",
+   "type": "other",
+   "label": "offer type",
+   "as": [
+    "APR cut 11.9%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-ror-offer-fatigue",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ror-offer-fatigue"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-401",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-401"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-403",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-403"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "july-2025-wave",
+   "type": "other",
+   "label": "wave",
+   "as": [
+    "The July 2025 wave"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "campaign-responses",
+   "type": "other",
+   "label": "records counts used for",
+   "o": "feat-ror-offer-fatigue",
+   "quote": "Each pair records how many retention offers the account had in the prior 12 months, used for feat-ror-offer-fatigue.",
+   "line": 7
+  },
+  {
+   "s": "cashback",
+   "type": "part-of",
+   "label": "breakdown of",
+   "o": "redemption-rate",
+   "quote": "Overall redemption 18.2%; cashback 22.4%",
+   "line": 6
+  },
+  {
+   "s": "apr-cut",
+   "type": "part-of",
+   "label": "breakdown of",
+   "o": "redemption-rate",
+   "quote": "Overall redemption 18.2%; cashback 22.4%; APR cut 11.9%",
+   "line": 6
+  },
+  {
+   "s": "july-2025-wave",
+   "type": "other",
+   "label": "main read for",
+   "o": "exp-401",
+   "quote": "The July 2025 wave has a 10% control and is the main read for exp-401 and exp-403.",
+   "line": 8
+  },
+  {
+   "s": "july-2025-wave",
+   "type": "other",
+   "label": "main read for",
+   "o": "exp-403",
+   "quote": "The July 2025 wave has a 10% control and is the main read for exp-401 and exp-403.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-ror-offer-fatigue",
+  "exp-401",
+  "exp-403"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "retention-offers-roi/ds-ror-redemptions.md",
+ "sha": "7c7eb21b3d1880a0a28673baa7155af97c26beee4c687dde17878c24df917243",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

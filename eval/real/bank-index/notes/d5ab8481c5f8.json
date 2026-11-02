@@ -1,0 +1,90 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "score-psi",
+   "type": "metric",
+   "label": "score psi",
+   "as": [
+    "score PSI"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "feature-psi",
+   "type": "metric",
+   "label": "feature psi",
+   "as": [
+    "feature PSI"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "label-rate",
+   "type": "metric",
+   "label": "label rate",
+   "as": [
+    "label rate"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "labelled-incidents",
+   "type": "other",
+   "label": "labelled incidents",
+   "as": [
+    "labelled incidents"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "score-psi",
+   "type": "other",
+   "label": "leads",
+   "o": "feature-psi",
+   "quote": "Score PSI leads feature PSI by about 3 days",
+   "line": 5
+  },
+  {
+   "s": "score-psi",
+   "type": "other",
+   "label": "passed 0.10 before",
+   "o": "label-rate",
+   "quote": "score PSI passed 0.10 a median 6 days before the label rate moved",
+   "line": 6
+  },
+  {
+   "s": "score-psi",
+   "type": "other",
+   "label": "led on",
+   "o": "labelled-incidents",
+   "quote": "Score PSI led on 17 of 19 labelled incidents",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-203",
+  "dec-mm-score-first"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "model-monitoring/fnd-score-psi-leads.md",
+ "sha": "d5ab8481c5f88ef10a3ff354616790939c4c3546ac9d171fe3cbec1028a6402e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

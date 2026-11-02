@@ -1,0 +1,119 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "precision-at-k",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "precision@k",
+    "precision@1800"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "recall-at-k",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "recall@1800"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "oot-set",
+   "type": "dataset",
+   "label": "oot set",
+   "as": [
+    "OOT set"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "k",
+   "type": "term",
+   "label": "k",
+   "as": [
+    "k"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "fraud-review-team",
+   "type": "team",
+   "label": "fraud review team",
+   "as": [
+    "fraud review team"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "daniel-okafor",
+   "type": "person",
+   "label": "reader",
+   "as": [
+    "Daniel Okafor"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "precision-at-k",
+   "type": "evaluated-on",
+   "label": "reported on",
+   "o": "oot-set",
+   "quote": "Report precision@1800 on the OOT set beside recall@1800",
+   "line": 5
+  },
+  {
+   "s": "recall-at-k",
+   "type": "evaluated-on",
+   "label": "reported beside",
+   "o": "oot-set",
+   "quote": "Report precision@1800 on the OOT set beside recall@1800",
+   "line": 5
+  },
+  {
+   "s": "k",
+   "type": "other",
+   "label": "is accounts worked by",
+   "o": "fraud-review-team",
+   "quote": "k is the number of accounts the fraud review team can work in a week",
+   "line": 5
+  },
+  {
+   "s": "daniel-okafor",
+   "type": "other",
+   "label": "reads as target",
+   "o": "precision-at-k",
+   "quote": "Daniel Okafor reads precision@k as the target.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "howto/recall-at-k-definition"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/precision-at-k-review-capacity.md",
+ "sha": "8b1828f6d1e8e0520d4956536b0844635ca1c954fe15d08f190f01a73f941238",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

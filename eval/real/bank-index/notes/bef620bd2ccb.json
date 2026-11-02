@@ -1,0 +1,76 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-aml-new-counterparty",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-aml-new-counterparty: share of cash recipients first seen in the last 30 days"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-aml-cash-txn",
+   "type": "person",
+   "label": "source team",
+   "as": [
+    "ds-aml-cash-txn"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "aml-xgb-v1",
+   "type": "model",
+   "label": "shipped model",
+   "as": [
+    "aml-xgb-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "structuring-v1",
+   "type": "model",
+   "label": "shipped with",
+   "as": [
+    "structuring-v1"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-aml-new-counterparty",
+   "type": "used-by",
+   "label": "shipped in",
+   "o": "aml-xgb-v1",
+   "quote": "Shipped in aml-xgb-v1 with structuring-v1.",
+   "line": 7
+  },
+  {
+   "s": "feat-aml-new-counterparty",
+   "type": "used-by",
+   "label": "shipped with",
+   "o": "structuring-v1",
+   "quote": "Shipped in aml-xgb-v1 with structuring-v1.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "aml-alerts/feat-aml-new-counterparty.md",
+ "sha": "bef620bd2ccb9e378efb01b49ac35e9c0b0cb0c51f25ce4cc6b79a65a95134e9",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

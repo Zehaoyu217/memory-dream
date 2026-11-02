@@ -1,0 +1,188 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "app-scorecard-v3",
+   "type": "model",
+   "label": "points scorecard",
+   "as": [
+    "app-scorecard-v3"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "app-scorecard-v4",
+   "type": "model",
+   "label": "superseding scorecard",
+   "as": [
+    "app-scorecard-v4"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini"
+   ],
+   "lines": [
+    5,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "bad-rate",
+   "type": "metric",
+   "label": "bad rate",
+   "as": [
+    "bad rate"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-app-util-new",
+   "type": "feature",
+   "label": "utilisation",
+   "as": [
+    "utilisation"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-app-velocity-apps",
+   "type": "feature",
+   "label": "velocity",
+   "as": [
+    "velocity"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "bureau-score-v8",
+   "type": "feature",
+   "label": "bureau score",
+   "as": [
+    "v8 bureau score"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "app-scorecard-v3",
+   "type": "uses",
+   "label": "built with",
+   "o": "feat-app-util-new",
+   "quote": "built with logistic regression on utilisation, velocity and the v8 bureau score",
+   "line": 6
+  },
+  {
+   "s": "app-scorecard-v3",
+   "type": "uses",
+   "label": "built with",
+   "o": "feat-app-velocity-apps",
+   "quote": "built with logistic regression on utilisation, velocity and the v8 bureau score",
+   "line": 6
+  },
+  {
+   "s": "app-scorecard-v3",
+   "type": "uses",
+   "label": "built with",
+   "o": "bureau-score-v8",
+   "quote": "built with logistic regression on utilisation, velocity and the v8 bureau score",
+   "line": 6
+  },
+  {
+   "s": "app-scorecard-v3",
+   "type": "evaluated-on",
+   "label": "eval on",
+   "o": "holdout-2025q1",
+   "quote": "Eval: holdout-2025q1 (n=21,300)",
+   "line": 7
+  },
+  {
+   "s": "app-scorecard-v3",
+   "type": "measured-by",
+   "label": "Gini 0.41",
+   "o": "gini",
+   "quote": "Gini 0.41",
+   "line": 5
+  },
+  {
+   "s": "app-scorecard-v3",
+   "type": "measured-by",
+   "label": "KS 0.36",
+   "o": "ks",
+   "quote": "KS 0.36",
+   "line": 7
+  },
+  {
+   "s": "app-scorecard-v3",
+   "type": "measured-by",
+   "label": "bad rate 4.6%",
+   "o": "bad-rate",
+   "quote": "bad rate 4.6%",
+   "line": 7
+  },
+  {
+   "s": "app-scorecard-v4",
+   "type": "replaces",
+   "label": "superseded",
+   "o": "app-scorecard-v3",
+   "quote": "Superseded by app-scorecard-v4",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-app-util-new",
+  "feat-app-velocity-apps",
+  "ds-app-applications-2024",
+  "find-app-gini-v3-drift"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "application-scorecard/app-scorecard-v3.md",
+ "sha": "a4a265e4a7fdcaf2bfff712949bd34e209ba39849c596f96646ef8c321f1c729",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

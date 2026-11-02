@@ -1,0 +1,132 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-103",
+   "type": "model",
+   "label": "experiment",
+   "as": [
+    "exp-103: exp-102 without app sessions, holdout AUC 0.735"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-102",
+   "type": "model",
+   "label": "baseline experiment",
+   "as": [
+    "exp-102"
+   ],
+   "lines": [
+    2,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "c25-oot-2024h1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Holdout c25-oot-2024h1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.735",
+    "AUC"
+   ],
+   "lines": [
+    5,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.35",
+    "KS"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "recall-at-10",
+   "type": "metric",
+   "label": "recall@10%",
+   "as": [
+    "recall@10% 0.28"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-103",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "c25-oot-2024h1",
+   "quote": "Holdout c25-oot-2024h1: AUC 0.735",
+   "line": 7
+  },
+  {
+   "s": "exp-103",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "Holdout c25-oot-2024h1: AUC 0.735",
+   "line": 7
+  },
+  {
+   "s": "exp-103",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "ks",
+   "quote": "KS 0.35",
+   "line": 7
+  },
+  {
+   "s": "exp-103",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "recall-at-10",
+   "quote": "recall@10% 0.28",
+   "line": 7
+  },
+  {
+   "s": "exp-103",
+   "type": "other",
+   "label": "removes app sessions from",
+   "o": "exp-102",
+   "quote": "Same LightGBM on 13 features, app sessions removed.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-102",
+  "q-c25-app-lift",
+  "c25-oot-2024h1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2025/exp-103.md",
+ "sha": "0d611623cd2b4fefdc28ec2b60ed54640342058383f5d605401666b89bcf0b5f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

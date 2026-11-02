@@ -1,0 +1,131 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "bureau.scores_monthly"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "current-account-base",
+   "type": "dataset",
+   "label": "base",
+   "as": [
+    "current-account base"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "credit-data",
+   "type": "other",
+   "label": "data source",
+   "as": [
+    "credit-data"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "thin-file-accounts",
+   "type": "segment",
+   "label": "thin-file accounts",
+   "as": [
+    "Thin-file accounts",
+    "thin-file accounts"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "coverage",
+   "type": "metric",
+   "label": "coverage",
+   "as": [
+    "Coverage 91%"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "non-bureau-features",
+   "type": "feature",
+   "label": "features without bureau data",
+   "as": [
+    "the features that do not need bureau data"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "snapshot-date",
+   "type": "term",
+   "label": "snapshot date",
+   "as": [
+    "snapshot date"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bureau.scores_monthly",
+   "type": "uses",
+   "label": "joins to",
+   "o": "current-account-base",
+   "quote": "bureau.scores_monthly joins to the current-account base",
+   "line": 5
+  },
+  {
+   "s": "bureau.scores_monthly",
+   "type": "measured-by",
+   "label": "coverage",
+   "o": "coverage",
+   "quote": "Coverage 91%.",
+   "line": 7
+  },
+  {
+   "s": "thin-file-accounts",
+   "type": "uses",
+   "label": "scored by",
+   "o": "non-bureau-features",
+   "quote": "are scored only by the features that do not need bureau data",
+   "line": 7
+  },
+  {
+   "s": "bureau.scores_monthly",
+   "type": "other",
+   "label": "sourced from",
+   "o": "credit-data",
+   "quote": "`bureau.scores_monthly` (credit-data)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-ed-current-base",
+  "find-ed-gbm-vs-logit"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "early-delinquency/ds-ed-bureau-join.md",
+ "sha": "3c037d7ac0d6a5fcfe66d40e88991935190b115bef0b9399b2dede05a63a0a3f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

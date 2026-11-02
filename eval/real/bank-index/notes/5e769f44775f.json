@@ -1,0 +1,152 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-504",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-504"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sms-arm",
+   "type": "segment",
+   "label": "sms-only arm",
+   "as": [
+    "SMS-only"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "control-arm",
+   "type": "segment",
+   "label": "control arm",
+   "as": [
+    "control 5.0%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "call-first-arm",
+   "type": "segment",
+   "label": "call-first arm",
+   "as": [
+    "call-first"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "dpd-8-29",
+   "type": "segment",
+   "label": "days-past-due band",
+   "as": [
+    "8-29 DPD"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "promise-to-pay",
+   "type": "metric",
+   "label": "promise-to-pay",
+   "as": [
+    "promise-to-pay"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "lift",
+   "type": "metric",
+   "label": "lift",
+   "as": [
+    "lift",
+    "call lift"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "sms-arm",
+   "type": "part-of",
+   "label": "arm of",
+   "o": "exp-504",
+   "quote": "SMS-only 8.1% (lift 3.1pp, n=18,000)",
+   "line": 6
+  },
+  {
+   "s": "call-first-arm",
+   "type": "part-of",
+   "label": "arm of",
+   "o": "exp-504",
+   "quote": "call-first 10.9% (lift 5.9pp, n=17,700)",
+   "line": 6
+  },
+  {
+   "s": "control-arm",
+   "type": "part-of",
+   "label": "arm of",
+   "o": "exp-504",
+   "quote": "control 5.0% (n=18,900)",
+   "line": 6
+  },
+  {
+   "s": "exp-504",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "dpd-8-29",
+   "quote": "on 8-29 DPD, SMS-only reaches 8.1% promise-to-pay",
+   "line": 5
+  },
+  {
+   "s": "exp-504",
+   "type": "measured-by",
+   "label": "reaches",
+   "o": "promise-to-pay",
+   "quote": "on 8-29 DPD, SMS-only reaches 8.1% promise-to-pay against 5.0% control",
+   "line": 5
+  },
+  {
+   "s": "exp-504",
+   "type": "measured-by",
+   "label": "captures",
+   "o": "lift",
+   "quote": "SMS-only captures 3.1 of the 5.9pp call lift, about 53%",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-ch-ab-wave2",
+  "find-ch-sms-matches-call",
+  "collections_channel/exp504_wave2.ipynb"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-channel-mix/exp-504.md",
+ "sha": "5e769f44775ff7b4a08eaa82c4cd71bd9d22d9b8abb73e47f85c66703f40539a",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

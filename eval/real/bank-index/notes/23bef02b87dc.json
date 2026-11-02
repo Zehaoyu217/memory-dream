@@ -1,0 +1,49 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "no-12m-promo-under-640",
+   "type": "policy",
+   "label": "promo rule",
+   "as": [
+    "Decision: no 12-month 0% promo for score under 640"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-pa-credit-band",
+   "type": "feature",
+   "label": "credit band",
+   "as": [
+    "score under 640"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "no-12m-promo-under-640",
+   "type": "measured-by",
+   "label": "loses money once churn and loss are counted",
+   "o": "feat-pa-credit-band",
+   "quote": "Under 640 the 12-month promo loses money once churn and loss are counted (-$72 per account over 24 months).",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "find-pa-margin-corrected",
+  "find-pa-band-het"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "promo-apr-test/dec-pa-no-12m-subprime.md",
+ "sha": "23bef02b87dc477f13861f644652cd82042f9585b001347c9bf67ace178b535a",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

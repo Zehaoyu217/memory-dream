@@ -1,0 +1,147 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "fraud26-oot-2025q4",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "fraud26-oot-2025q4"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fraud26-gbm-v2",
+   "type": "model",
+   "label": "v2 candidate",
+   "as": [
+    "v2 candidate",
+    "fraud26-gbm-v2"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "recall-at-1pct",
+   "type": "metric",
+   "label": "recall@1%",
+   "as": [
+    "recall@1%"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "mcc-risk",
+   "type": "feature",
+   "label": "mcc risk",
+   "as": [
+    "MCC risk"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "velocity-v2",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "velocity-v2"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud26-gbm-v2",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "fraud26-oot-2025q4",
+   "quote": "Eval set: fraud26-oot-2025q4",
+   "line": 6
+  },
+  {
+   "s": "fraud26-gbm-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "v2 candidate: AUC 0.927",
+   "line": 7
+  },
+  {
+   "s": "fraud26-gbm-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "ks",
+   "quote": "KS 0.70",
+   "line": 7
+  },
+  {
+   "s": "fraud26-gbm-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "recall-at-1pct",
+   "quote": "recall@1% 0.58",
+   "line": 7
+  },
+  {
+   "s": "mcc-risk",
+   "type": "part-of",
+   "label": "added to",
+   "o": "velocity-v2",
+   "quote": "adding MCC risk to clean velocity-v2",
+   "line": 5
+  },
+  {
+   "s": "fraud26-gbm-v2",
+   "type": "uses",
+   "label": "ships feature set",
+   "o": "velocity-v2",
+   "quote": "This is the feature set shipped in fraud26-gbm-v2.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-205",
+  "feat-f26-mcc-risk"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2026/exp-206.md",
+ "sha": "1579a3dd8e9bc58fc8cb0679b52bb01fc878c519827e0a07c7f63b3d4c1f11d0",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

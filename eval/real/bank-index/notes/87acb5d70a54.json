@@ -1,0 +1,148 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "app-scorecard-v4",
+   "type": "model",
+   "label": "candidate",
+   "as": [
+    "Candidate v4"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "app-scorecard-v3",
+   "type": "model",
+   "label": "deployed model",
+   "as": [
+    "the deployed v3"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "application-scorecard-oot-2026h1",
+   "type": "dataset",
+   "label": "out-of-time set",
+   "as": [
+    "application-scorecard-oot-2026h1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini 0.42",
+    "Gini 0.42 for v4",
+    "0.35 for v3"
+   ],
+   "lines": [
+    5,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.38"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "gini-target",
+   "type": "other",
+   "label": "gini target",
+   "as": [
+    "Gini 0.42 target"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "app-scorecard-v4",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "application-scorecard-oot-2026h1",
+   "quote": "Candidate v4 and the deployed v3 scored on the out-of-time set",
+   "line": 6
+  },
+  {
+   "s": "app-scorecard-v3",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "application-scorecard-oot-2026h1",
+   "quote": "Candidate v4 and the deployed v3 scored on the out-of-time set",
+   "line": 6
+  },
+  {
+   "s": "app-scorecard-v4",
+   "type": "measured-by",
+   "label": "reports Gini",
+   "o": "gini",
+   "quote": "Gini 0.42 for v4 against 0.35 for v3",
+   "line": 7
+  },
+  {
+   "s": "app-scorecard-v3",
+   "type": "measured-by",
+   "label": "reports Gini",
+   "o": "gini",
+   "quote": "Gini 0.42 for v4 against 0.35 for v3",
+   "line": 7
+  },
+  {
+   "s": "app-scorecard-v4",
+   "type": "measured-by",
+   "label": "reports KS",
+   "o": "ks",
+   "quote": "KS 0.38 against 0.33",
+   "line": 7
+  },
+  {
+   "s": "app-scorecard-v3",
+   "type": "measured-by",
+   "label": "reports KS",
+   "o": "ks",
+   "quote": "KS 0.38 against 0.33",
+   "line": 7
+  },
+  {
+   "s": "app-scorecard-v4",
+   "type": "other",
+   "label": "meets target",
+   "o": "gini-target",
+   "quote": "Meets the Gini 0.42 target",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-app-bureau-v10-band",
+  "feat-app-income-est",
+  "app-gbm-v2",
+  "ds-app-oot-2026h1",
+  "q-app-gini-target"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "application-scorecard/exp-507.md",
+ "sha": "87acb5d70a541effe15deab2723b54e9808a45d1a9f879d9453158ce55916503",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

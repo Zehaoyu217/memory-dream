@@ -1,0 +1,121 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "chloe-martin",
+   "type": "person",
+   "label": "question owner",
+   "as": [
+    "Chloe Martin"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "response",
+   "type": "term",
+   "label": "response definition",
+   "as": [
+    "Response = a purchase of $50 or more within 14 days of contact"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "response-model",
+   "type": "model",
+   "label": "response model",
+   "as": [
+    "A response model scores who buys"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "uplift-model",
+   "type": "model",
+   "label": "uplift model",
+   "as": [
+    "an uplift model scores who buys because we contacted them"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "q2-26-spend",
+   "type": "other",
+   "label": "randomized campaign",
+   "as": [
+    "the Q2 2026 randomized campaign",
+    "campaign Q2-26-SPEND"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "marketing.campaign_responses",
+   "type": "dataset",
+   "label": "campaign responses table",
+   "as": [
+    "marketing.campaign_responses"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "control-group",
+   "type": "segment",
+   "label": "control group",
+   "as": [
+    "10% control"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "q3-send-lists",
+   "type": "dataset",
+   "label": "send lists",
+   "as": [
+    "The Q3 send lists"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "q2-26-spend",
+   "type": "produces",
+   "label": "data in",
+   "o": "marketing.campaign_responses",
+   "quote": "Data: the Q2 2026 randomized campaign (`marketing.campaign_responses`, campaign Q2-26-SPEND)",
+   "line": 7
+  },
+  {
+   "s": "control-group",
+   "type": "part-of",
+   "label": "control of",
+   "o": "q2-26-spend",
+   "quote": "10% control, running now",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "marketing-uplift-q3/q-mq3-uplift-vs-response.md",
+ "sha": "3593cad3feafa99e5ab34ab19431d406c7b455c81cede8e142dfbd6fc272ced4",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

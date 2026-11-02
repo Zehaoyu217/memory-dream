@@ -1,0 +1,107 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "alert-threshold-0.62",
+   "type": "flag",
+   "label": "alert threshold",
+   "as": [
+    "A 0.62 alert threshold"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "precision-at-0.62",
+   "type": "metric",
+   "label": "precision",
+   "as": [
+    "14.2% precision"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "recall-at-0.62",
+   "type": "metric",
+   "label": "recall",
+   "as": [
+    "0.58 recall"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "alert-volume",
+   "type": "metric",
+   "label": "alert volume",
+   "as": [
+    "alert volume around 0.9% of CNP traffic"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "alert-threshold-0.62",
+   "type": "evaluated-on",
+   "label": "gives on holdout",
+   "o": "holdout-2025q1",
+   "quote": "On holdout-2025q1, threshold 0.62 gives 14.2% precision",
+   "line": 6
+  },
+  {
+   "s": "alert-threshold-0.62",
+   "type": "measured-by",
+   "label": "gives precision",
+   "o": "precision-at-0.62",
+   "quote": "threshold 0.62 gives 14.2% precision",
+   "line": 6
+  },
+  {
+   "s": "alert-threshold-0.62",
+   "type": "measured-by",
+   "label": "gives recall",
+   "o": "recall-at-0.62",
+   "quote": "and 0.58 recall (exp-103)",
+   "line": 6
+  },
+  {
+   "s": "alert-threshold-0.62",
+   "type": "measured-by",
+   "label": "alert volume around",
+   "o": "alert-volume",
+   "quote": "alert volume around 0.9% of CNP traffic",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-103",
+  "exp-104",
+  "fraud25-find-travel-overflag"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/fraud25-find-threshold-fine.md",
+ "sha": "7cd00ae582e791bc3108050eba4c87628a1be75d6f4533624996737811957918",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

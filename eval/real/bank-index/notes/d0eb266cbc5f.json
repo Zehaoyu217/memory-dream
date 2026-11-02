@@ -1,0 +1,150 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "fraud26-gbm-v3",
+   "type": "model",
+   "label": "promoted model",
+   "as": [
+    "fraud26-gbm-v3"
+   ],
+   "lines": [
+    2,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "fraud26-oot-2026h1",
+   "type": "dataset",
+   "label": "evaluation holdout",
+   "as": [
+    "fraud26-oot-2026h1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.933"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.72"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "precision-at-0.6pct-alert",
+   "type": "metric",
+   "label": "precision",
+   "as": [
+    "21.5% precision"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "alert-threshold",
+   "type": "flag",
+   "label": "alert threshold",
+   "as": [
+    "alert threshold 0.66"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "geo-mismatch-drift",
+   "type": "term",
+   "label": "drift finding",
+   "as": [
+    "geo-mismatch drift"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud26-gbm-v3",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "fraud26-oot-2026h1",
+   "quote": "AUC 0.933, KS 0.72 on fraud26-oot-2026h1",
+   "line": 8
+  },
+  {
+   "s": "fraud26-gbm-v3",
+   "type": "measured-by",
+   "label": "has AUC",
+   "o": "auc",
+   "quote": "exp-207 (AUC 0.933, KS 0.72 on fraud26-oot-2026h1)",
+   "line": 8
+  },
+  {
+   "s": "fraud26-gbm-v3",
+   "type": "measured-by",
+   "label": "has KS",
+   "o": "ks",
+   "quote": "exp-207 (AUC 0.933, KS 0.72 on fraud26-oot-2026h1)",
+   "line": 8
+  },
+  {
+   "s": "fraud26-gbm-v3",
+   "type": "measured-by",
+   "label": "has precision",
+   "o": "precision-at-0.6pct-alert",
+   "quote": "exp-208 (21.5% precision at 0.6% alert rate)",
+   "line": 8
+  },
+  {
+   "s": "fraud26-gbm-v3",
+   "type": "other",
+   "label": "uses alert threshold",
+   "o": "alert-threshold",
+   "quote": "alert threshold 0.66",
+   "line": 6
+  },
+  {
+   "s": "geo-mismatch-drift",
+   "type": "other",
+   "label": "logged for monitoring",
+   "o": "fraud26-gbm-v3",
+   "quote": "The geo-mismatch drift is logged for Q4 monitoring",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "exp-207",
+  "exp-208",
+  "fraud26-find-geo-drift",
+  "q-f26-travel-rule",
+  "dec-f26-promote-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2026/dec-f26-promote-v3.md",
+ "sha": "d0eb266cbc5f2bb5e0b5fcab7c11b02e8e4fca90ee36f22cc7af819a0875893f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

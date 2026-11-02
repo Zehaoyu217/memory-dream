@@ -1,0 +1,167 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "lightgbm",
+   "type": "model",
+   "label": "lightgbm",
+   "as": [
+    "LightGBM with the same inputs",
+    "LightGBM (600 trees, depth 8)"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "feat-txc-descriptor-tokens-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-txc-descriptor-tokens-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-txc-mcc-prior",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-txc-mcc-prior"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro-f1",
+   "as": [
+    "Macro-F1 0.78"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "accuracy",
+   "type": "metric",
+   "label": "accuracy",
+   "as": [
+    "accuracy 0.85"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "logistic-model",
+   "type": "model",
+   "label": "logistic model",
+   "as": [
+    "logistic model"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "txc-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "txc-gbm-v2"
+   ],
+   "lines": [
+    2,
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "lightgbm",
+   "type": "uses",
+   "label": "trained on",
+   "o": "feat-txc-descriptor-tokens-v1",
+   "quote": "LightGBM (600 trees, depth 8) on feat-txc-descriptor-tokens-v1",
+   "line": 6
+  },
+  {
+   "s": "lightgbm",
+   "type": "uses",
+   "label": "plus",
+   "o": "feat-txc-mcc-prior",
+   "quote": "plus feat-txc-mcc-prior",
+   "line": 6
+  },
+  {
+   "s": "lightgbm",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "holdout-2025q2",
+   "quote": "holdout-2025q2 (n=2,000)",
+   "line": 6
+  },
+  {
+   "s": "lightgbm",
+   "type": "measured-by",
+   "label": "Macro-F1 0.78",
+   "o": "macro-f1",
+   "quote": "Macro-F1 0.78 (+0.04 over the logistic model)",
+   "line": 7
+  },
+  {
+   "s": "lightgbm",
+   "type": "measured-by",
+   "label": "accuracy 0.85",
+   "o": "accuracy",
+   "quote": "accuracy 0.85",
+   "line": 7
+  },
+  {
+   "s": "lightgbm",
+   "type": "other",
+   "label": "improves on",
+   "o": "logistic-model",
+   "quote": "+0.04 over the logistic model",
+   "line": 7
+  },
+  {
+   "s": "txc-gbm-v2",
+   "type": "uses",
+   "label": "basis for",
+   "o": "lightgbm",
+   "quote": "Basis for txc-gbm-v2.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "exp-102",
+  "txc-gbm-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "txn-categorization/exp-103.md",
+ "sha": "957dec01e8eb6ab13d5cb769dc42f8cde0223d540086b0c639ec6dbf68d9ab5e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

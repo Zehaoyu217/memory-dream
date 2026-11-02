@@ -1,0 +1,117 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dispute-models",
+   "type": "model",
+   "label": "dispute models",
+   "as": [
+    "dispute models"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "disp-lgbm-v1",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "disp-lgbm-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "two-analyst-agreement-labels",
+   "type": "term",
+   "label": "agreement labels",
+   "as": [
+    "two-analyst agreement labels"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "single-analyst-labels",
+   "type": "term",
+   "label": "single-analyst labels",
+   "as": [
+    "single-analyst labels"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "double-labelled-set",
+   "type": "dataset",
+   "label": "double-labelled set",
+   "as": [
+    "the 400 double-labelled set"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "kappa",
+   "type": "metric",
+   "label": "agreement score",
+   "as": [
+    "kappa 0.71"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dispute-models",
+   "type": "trained-on",
+   "label": "trained only on",
+   "o": "two-analyst-agreement-labels",
+   "quote": "Train dispute models only on two-analyst agreement labels",
+   "line": 5
+  },
+  {
+   "s": "single-analyst-labels",
+   "type": "other",
+   "label": "is noisy",
+   "o": "two-analyst-agreement-labels",
+   "quote": "single-analyst labels are noisy",
+   "line": 7
+  },
+  {
+   "s": "double-labelled-set",
+   "type": "measured-by",
+   "label": "gives kappa",
+   "o": "kappa",
+   "quote": "the 400 double-labelled set gives kappa 0.71",
+   "line": 7
+  },
+  {
+   "s": "two-analyst-agreement-labels",
+   "type": "other",
+   "label": "applies to",
+   "o": "disp-lgbm-v1",
+   "quote": "Applies to disp-lgbm-v1 onward.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "q-disp-label-source",
+  "ds-disp-analyst-labels"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "dispute-triage/dec-disp-labels-two-analyst.md",
+ "sha": "9e14cc2d223cf5ec2d3c7e417183a56330e9b8831a6ab181bfaa15281d03c354",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

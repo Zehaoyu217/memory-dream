@@ -1,0 +1,81 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "depth-v1",
+   "type": "feature",
+   "label": "depth v1",
+   "as": [
+    "Depth v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "accounts-under-90-days",
+   "type": "segment",
+   "label": "new accounts",
+   "as": [
+    "accounts under 90 days"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "tenure-normalised-depth",
+   "type": "feature",
+   "label": "tenure-normalised depth",
+   "as": [
+    "tenure-normalised depth"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "depth-v1",
+   "type": "other",
+   "label": "inflates score for",
+   "o": "accounts-under-90-days",
+   "quote": "Depth v1 inflates the score for accounts under 90 days",
+   "line": 5
+  },
+  {
+   "s": "accounts-under-90-days",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "holdout-2025q4",
+   "quote": "38,500 accounts under 90 days tenure on holdout-2025q4",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-504",
+  "feat-ae-depth-v2",
+  "dec-ae-tenure-norm"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "app-engagement/fnd-ae-new-user-inflation.md",
+ "sha": "dde54e3b41ec307ce18f84b0a930b2295fc2289e63884debc866a7549983256f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

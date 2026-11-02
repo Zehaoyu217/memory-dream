@@ -1,0 +1,224 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "rdm-uplift-v1",
+   "type": "model",
+   "label": "targeting model",
+   "as": [
+    "rdm-uplift-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "rdm-uplift-v2",
+   "type": "model",
+   "label": "later model",
+   "as": [
+    "rdm-uplift-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "rdm-oot-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "rdm-oot-2025q1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift metric",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "qini",
+   "type": "metric",
+   "label": "qini",
+   "as": [
+    "Qini"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "lightgbm",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "t-learner",
+   "type": "term",
+   "label": "t-learner",
+   "as": [
+    "T-learner"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "feat-rdm-last-activity-v1",
+   "type": "feature",
+   "label": "last activity v1",
+   "as": [
+    "last activity v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-rdm-prior-response",
+   "type": "feature",
+   "label": "prior response",
+   "as": [
+    "prior response"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-rdm-balance-band",
+   "type": "feature",
+   "label": "balance band",
+   "as": [
+    "balance band"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-rdm-app-installed",
+   "type": "feature",
+   "label": "app installed",
+   "as": [
+    "app installed"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rdm-uplift-v1",
+   "type": "uses",
+   "label": "uses",
+   "o": "lightgbm",
+   "quote": "LightGBM T-learner trained on waves 1 and 2",
+   "line": 6
+  },
+  {
+   "s": "rdm-uplift-v1",
+   "type": "other",
+   "label": "is a",
+   "o": "t-learner",
+   "quote": "LightGBM T-learner trained on waves 1 and 2",
+   "line": 6
+  },
+  {
+   "s": "rdm-uplift-v1",
+   "type": "uses",
+   "label": "uses feature",
+   "o": "feat-rdm-last-activity-v1",
+   "quote": "features last activity v1, prior response, balance band and app installed",
+   "line": 6
+  },
+  {
+   "s": "rdm-uplift-v1",
+   "type": "uses",
+   "label": "uses feature",
+   "o": "feat-rdm-prior-response",
+   "quote": "features last activity v1, prior response, balance band and app installed",
+   "line": 6
+  },
+  {
+   "s": "rdm-uplift-v1",
+   "type": "uses",
+   "label": "uses feature",
+   "o": "feat-rdm-balance-band",
+   "quote": "features last activity v1, prior response, balance band and app installed",
+   "line": 6
+  },
+  {
+   "s": "rdm-uplift-v1",
+   "type": "uses",
+   "label": "uses feature",
+   "o": "feat-rdm-app-installed",
+   "quote": "features last activity v1, prior response, balance band and app installed",
+   "line": 6
+  },
+  {
+   "s": "rdm-uplift-v1",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "rdm-oot-2025q1",
+   "quote": "Holdout rdm-oot-2025q1: uplift@20% 2.8pp, Qini 0.41.",
+   "line": 7
+  },
+  {
+   "s": "rdm-uplift-v1",
+   "type": "measured-by",
+   "label": "uplift@20% 2.8pp",
+   "o": "uplift-at-20",
+   "quote": "uplift@20% 2.8pp",
+   "line": 5
+  },
+  {
+   "s": "rdm-uplift-v1",
+   "type": "measured-by",
+   "label": "Qini 0.41",
+   "o": "qini",
+   "quote": "Qini 0.41",
+   "line": 7
+  },
+  {
+   "s": "rdm-uplift-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "rdm-uplift-v1",
+   "quote": "Production targeting model until rdm-uplift-v2 in February 2026.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-303",
+  "rdm-propensity-lr",
+  "feat-rdm-last-activity-v1",
+  "feat-rdm-app-installed"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reactivation-dormant/rdm-uplift-v1.md",
+ "sha": "6f3faf65778420058bcc30f05721bd180f341bb9eefb4a914d985deaddeb3334",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

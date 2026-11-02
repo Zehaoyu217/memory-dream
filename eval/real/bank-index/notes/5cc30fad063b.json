@@ -1,0 +1,114 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "bg-nbd-gamma-gamma",
+   "type": "model",
+   "label": "bg/nbd model",
+   "as": [
+    "BG/NBD with Gamma-Gamma"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "model",
+   "label": "gbm",
+   "as": [
+    "LightGBM",
+    "a GBM"
+   ],
+   "lines": [
+    5,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "clv-oot-2021h1",
+   "type": "dataset",
+   "label": "out-of-time scoring set",
+   "as": [
+    "clv-oot-2021h1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "clv-bgnbd-v1",
+   "type": "model",
+   "label": "baseline",
+   "as": [
+    "clv-bgnbd-v1"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bg-nbd-gamma-gamma",
+   "type": "measured-by",
+   "label": "gives",
+   "o": "mape",
+   "quote": "BG/NBD with Gamma-Gamma gives 22.6% MAPE",
+   "line": 5
+  },
+  {
+   "s": "lightgbm",
+   "type": "measured-by",
+   "label": "gives",
+   "o": "mape",
+   "quote": "LightGBM on net margin: MAPE 18.4%",
+   "line": 7
+  },
+  {
+   "s": "bg-nbd-gamma-gamma",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "clv-oot-2021h1",
+   "quote": "scored on clv-oot-2021h1 (n=318,400)",
+   "line": 6
+  },
+  {
+   "s": "lightgbm",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "clv-oot-2021h1",
+   "quote": "scored on clv-oot-2021h1 (n=318,400)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "q-clv-model-choice",
+  "feat-clv-arpu-v1",
+  "feat-clv-tenure",
+  "ds-clv-holdout-2021h1",
+  "exp-503"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "customer-lifetime-value/exp-501.md",
+ "sha": "5cc30fad063b496e7951af7ca380dc7d3d9d37e2287dcae6ed17f3dcb865d2a6",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

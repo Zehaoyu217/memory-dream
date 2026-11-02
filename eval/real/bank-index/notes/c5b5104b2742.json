@@ -1,0 +1,80 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "feat-lbl-fraud-flag-v2",
+   "type": "feature",
+   "label": "fraud label",
+   "as": [
+    "feat-lbl-fraud-flag-v2: fraud label from reason-code categories A and B"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.fraud_labels",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.fraud_labels"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-403",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-403"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "fnd-friendly-fraud",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-friendly-fraud"
+   ],
+   "lines": [
+    2
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-lbl-fraud-flag-v2",
+   "type": "produces",
+   "label": "built into",
+   "o": "cards.fraud_labels",
+   "quote": "Built into cards.fraud_labels by the rebuilt job.",
+   "line": 6
+  },
+  {
+   "s": "feat-lbl-fraud-flag-v2",
+   "type": "evaluated-on",
+   "label": "rate rises on",
+   "o": "exp-403",
+   "quote": "On 2025-Q2 approved transactions the fraud label rate rises from 0.41 to 0.47 percent with category B included (exp-403).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-403",
+  "fnd-friendly-fraud"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "label-pipeline-rebuild/feat-lbl-fraud-flag-v2.md",
+ "sha": "c5b5104b2742e7a2973c64abf8f8376fb2b137396db798f0a3c56b701efb8379",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

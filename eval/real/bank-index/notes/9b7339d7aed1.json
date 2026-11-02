@@ -1,0 +1,151 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "trv-ridge-v3",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "trv-ridge-v3"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "trv-ridge-v2",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "trv-ridge-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "trv-bt-2025h2",
+   "type": "dataset",
+   "label": "backtest dataset",
+   "as": [
+    "trv-bt-2025h2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "error metric",
+   "as": [
+    "MAPE 4.3%"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-trv-funnel-v2",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "funnel features"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-505",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-505"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "exp-506",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-506"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "fx-volatility",
+   "type": "other",
+   "label": "excluded factor",
+   "as": [
+    "FX volatility"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "trv-ridge-v3",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "trv-ridge-v2",
+   "quote": "trv-ridge-v3 replaces trv-ridge-v2 in the quarterly pack",
+   "line": 6
+  },
+  {
+   "s": "trv-ridge-v3",
+   "type": "measured-by",
+   "label": "basis MAPE",
+   "o": "mape",
+   "quote": "MAPE 4.3% on trv-bt-2025h2 with funnel features",
+   "line": 7
+  },
+  {
+   "s": "trv-ridge-v3",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "trv-bt-2025h2",
+   "quote": "MAPE 4.3% on trv-bt-2025h2 with funnel features",
+   "line": 7
+  },
+  {
+   "s": "trv-ridge-v3",
+   "type": "uses",
+   "label": "uses funnel features",
+   "o": "feat-trv-funnel-v2",
+   "quote": "with funnel features",
+   "line": 7
+  },
+  {
+   "s": "exp-506",
+   "type": "other",
+   "label": "excludes",
+   "o": "fx-volatility",
+   "quote": "FX volatility excluded (exp-506)",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-505",
+  "exp-506",
+  "dec-trv-report-split"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "travel-spend-recovery/dec-trv-ridge-v3-pack.md",
+ "sha": "9b7339d7aed1afd7a19dfe8b2d7a6cd5f3160803f9cb5a2a716aee94fe2a637f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

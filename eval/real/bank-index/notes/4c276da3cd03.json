@@ -1,0 +1,138 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "behavioural-feature-date-rule",
+   "type": "policy",
+   "label": "rule",
+   "as": [
+    "Behavioural features use only data dated on or before the survey send date"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "behaviour-feature",
+   "type": "feature",
+   "label": "behaviour feature",
+   "as": [
+    "Behavioural features",
+    "behaviour feature"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "ds-nps-behaviour-join",
+   "type": "pipeline",
+   "label": "join",
+   "as": [
+    "ds-nps-behaviour-join"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "nps-wave-2026q1",
+   "type": "other",
+   "label": "survey wave",
+   "as": [
+    "2026Q1 wave"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "survey-send-date",
+   "type": "other",
+   "label": "survey send date",
+   "as": [
+    "survey send date"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "agreed by",
+   "as": [
+    "Tomás Rivera"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "chloe-martin",
+   "type": "person",
+   "label": "agreed by",
+   "as": [
+    "Chloe Martin"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "behavioural-feature-date-rule",
+   "type": "other",
+   "label": "applies to",
+   "o": "behaviour-feature",
+   "quote": "Applies to every behaviour feature in the driver model",
+   "line": 6
+  },
+  {
+   "s": "ds-nps-behaviour-join",
+   "type": "other",
+   "label": "enforces",
+   "o": "behavioural-feature-date-rule",
+   "quote": "Enforced in the join (ds-nps-behaviour-join)",
+   "line": 6
+  },
+  {
+   "s": "behavioural-feature-date-rule",
+   "type": "other",
+   "label": "checked on",
+   "o": "nps-wave-2026q1",
+   "quote": "checked on the 2026Q1 wave",
+   "line": 6
+  },
+  {
+   "s": "behavioural-feature-date-rule",
+   "type": "owned-by",
+   "label": "agreed by",
+   "o": "tomas-rivera",
+   "quote": "Agreed by Tomás Rivera and Chloe Martin",
+   "line": 7
+  },
+  {
+   "s": "behavioural-feature-date-rule",
+   "type": "owned-by",
+   "label": "agreed by",
+   "o": "chloe-martin",
+   "quote": "Agreed by Tomás Rivera and Chloe Martin",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-nps-fee-corrected",
+  "feat-nps-fee-shock-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "nps-drivers/dec-nps-no-leak-rule.md",
+ "sha": "4c276da3cd0375d43c4f39abaf9306834fbdbc8f1ade8ed862e05f246b86aa2a",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

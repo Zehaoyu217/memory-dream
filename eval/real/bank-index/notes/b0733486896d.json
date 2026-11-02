@@ -1,0 +1,138 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "psi-investigation-rule",
+   "type": "term",
+   "label": "rule",
+   "as": [
+    "PSI above 0.25 means investigate, not retrain"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "old-psi-retrain-rule",
+   "type": "term",
+   "label": "old rule",
+   "as": [
+    "The old rule said PSI above 0.25 means retrain."
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "psi",
+   "as": [
+    "PSI"
+   ],
+   "lines": [
+    3,
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "mlops-runbook",
+   "type": "document",
+   "label": "runbook",
+   "as": [
+    "MLOps runbook"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "aisha-khan",
+   "type": "person",
+   "label": "runbook owner",
+   "as": [
+    "Aisha Khan"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fraud-retrain-2026-03",
+   "type": "other",
+   "label": "fraud retrain",
+   "as": [
+    "the March 2026 fraud retrain"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "oot auc",
+   "as": [
+    "OOT AUC"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "psi-investigation-rule",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "old-psi-retrain-rule",
+   "quote": "supersedes: [glossary/psi]",
+   "line": 3
+  },
+  {
+   "s": "psi-investigation-rule",
+   "type": "uses",
+   "label": "triggered by",
+   "o": "psi",
+   "quote": "From 2026-04 a PSI above 0.25 starts an investigation",
+   "line": 6
+  },
+  {
+   "s": "psi-investigation-rule",
+   "type": "other",
+   "label": "follows",
+   "o": "mlops-runbook",
+   "quote": "This follows Aisha Khan's MLOps runbook.",
+   "line": 6
+  },
+  {
+   "s": "mlops-runbook",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "aisha-khan",
+   "quote": "This follows Aisha Khan's MLOps runbook.",
+   "line": 6
+  },
+  {
+   "s": "fraud-retrain-2026-03",
+   "type": "measured-by",
+   "label": "judged by OOT AUC",
+   "o": "auc",
+   "quote": "The retrain stood because OOT AUC had dropped 0.06.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "glossary/psi"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "corrections/psi-investigate-not-retrain.md",
+ "sha": "b0733486896dc888176982d11508077ad65b7eacd6ec07eead42e2d28f2d26f5",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

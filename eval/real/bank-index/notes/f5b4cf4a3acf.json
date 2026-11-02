@@ -1,0 +1,172 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cld-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cld-gbm-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cld-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cld-gbm-v1"
+   ],
+   "lines": [
+    2,
+    4
+   ]
+  },
+  {
+   "id": "cld-gbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cld-gbm-v3"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "feat-cld-risk-band-v2",
+   "type": "feature",
+   "label": "v2 bands",
+   "as": [
+    "feat-cld-risk-band-v2"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "utilisation-slope",
+   "type": "feature",
+   "label": "utilisation slope",
+   "as": [
+    "utilisation slope"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cld-test-2025q3",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "cld-test-2025q3"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.78"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini 0.56"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cld-gbm-v2",
+   "type": "uses",
+   "label": "rolled on",
+   "o": "feat-cld-risk-band-v2",
+   "quote": "roll model on the v2 bands",
+   "line": 6
+  },
+  {
+   "s": "cld-gbm-v2",
+   "type": "uses",
+   "label": "uses slope",
+   "o": "utilisation-slope",
+   "quote": "a utilisation slope from the CLI project",
+   "line": 7
+  },
+  {
+   "s": "cld-gbm-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "cld-gbm-v1",
+   "quote": "supersedes: [cld-gbm-v1]",
+   "line": 4
+  },
+  {
+   "s": "cld-gbm-v3",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "cld-gbm-v2",
+   "quote": "Superseded by cld-gbm-v3 (2026-05-18).",
+   "line": 9
+  },
+  {
+   "s": "cld-gbm-v2",
+   "type": "other",
+   "label": "same tree family as",
+   "o": "cld-gbm-v1",
+   "quote": "Same tree family as v1",
+   "line": 7
+  },
+  {
+   "s": "cld-gbm-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "cld-test-2025q3",
+   "quote": "Eval: cld-test-2025q3, n=19,400",
+   "line": 8
+  },
+  {
+   "s": "cld-gbm-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.78 on cld-test-2025q3",
+   "line": 6
+  },
+  {
+   "s": "cld-gbm-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "gini",
+   "quote": "Gini 0.56",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "limit-decrease-policy/cld-gbm-v2.md",
+ "sha": "f5b4cf4a3acfa09ee8e768f5befa2010ef4eb9609d1be7f07e931d0c8689e23c",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

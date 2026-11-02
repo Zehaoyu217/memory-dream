@@ -1,0 +1,83 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "mm-collect-xgb-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "mm-collect-xgb-v1"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "feat-mm-payment-ratio-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mm-payment-ratio-v1"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "feat-mm-days-past-due-3m",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mm-days-past-due-3m"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "psi",
+   "as": [
+    "PSI"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mm-collect-xgb-v1",
+   "type": "measured-by",
+   "label": "PSI computed on inputs",
+   "o": "psi",
+   "quote": "Computed PSI for every input of mm-collect-xgb-v1 against its training reference",
+   "line": 6
+  },
+  {
+   "s": "feat-mm-payment-ratio-v1",
+   "type": "measured-by",
+   "label": "highest PSI",
+   "o": "psi",
+   "quote": "feat-mm-payment-ratio-v1 was highest at 0.31",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-mm-scoring-log",
+  "ds-mm-reference-train",
+  "feat-mm-payment-ratio-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "model-monitoring/exp-201.md",
+ "sha": "fffcbffc6b08f4702a8d71f984f6a214a65a1e3862a50c3772b40c90e058ee54",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

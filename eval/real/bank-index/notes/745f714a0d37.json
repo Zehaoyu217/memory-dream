@@ -1,0 +1,77 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "merchant-risk",
+   "type": "other",
+   "label": "project tag",
+   "as": [
+    "[merchant-risk]"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "v2-mcc-base-rate",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "v2 with MCC base rate"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "travel-spend-recovery",
+   "type": "other",
+   "label": "project tag",
+   "as": [
+    "[travel-spend-recovery]"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "travel-active-cardholders",
+   "type": "segment",
+   "label": "cohort panel",
+   "as": [
+    "travel-active cardholders",
+    "cohort panel"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "v2-mcc-base-rate",
+   "type": "other",
+   "label": "promoted for",
+   "o": "merchant-risk",
+   "quote": "v2 with MCC base rate promoted for review scoring",
+   "line": 3
+  },
+  {
+   "s": "travel-active-cardholders",
+   "type": "other",
+   "label": "tracked in",
+   "o": "travel-spend-recovery",
+   "quote": "cohort panel: 62% of travel-active cardholders back by 2026-Q2",
+   "line": 4
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2026-06-09.md",
+ "sha": "745f714a0d371555ce0c475b54f04a3547e49c23a903683939a9ef8a038815b0",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

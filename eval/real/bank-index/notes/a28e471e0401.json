@@ -1,0 +1,119 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-307",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-307"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-mq3-app-sessions-30d",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mq3-app-sessions-30d"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift@20%",
+   "as": [
+    "Uplift@20%"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "x-learner",
+   "type": "term",
+   "label": "x-learner",
+   "as": [
+    "X-learner"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "q2-rct",
+   "type": "dataset",
+   "label": "30% split",
+   "as": [
+    "Q2 split"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "q1-drift",
+   "type": "other",
+   "label": "drift",
+   "as": [
+    "Q1 drift"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-mq3-app-sessions-30d",
+   "type": "other",
+   "label": "removed from",
+   "o": "x-learner",
+   "quote": "Removed feat-mq3-app-sessions-30d from the X-learner",
+   "line": 6
+  },
+  {
+   "s": "exp-307",
+   "type": "measured-by",
+   "label": "is",
+   "o": "uplift-at-20",
+   "quote": "Uplift@20% is 2.4 without app sessions and 2.6 with.",
+   "line": 7
+  },
+  {
+   "s": "exp-307",
+   "type": "evaluated-on",
+   "label": "re-scored on",
+   "o": "q2-rct",
+   "quote": "re-scored on the 30% split (n=330,000)",
+   "line": 6
+  },
+  {
+   "s": "feat-mq3-app-sessions-30d",
+   "type": "other",
+   "label": "worth about 0.2 of",
+   "o": "uplift-at-20",
+   "quote": "App features are worth about 0.2 of uplift@20%",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-303-xlearner",
+  "feat-mq3-app-sessions-30d"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "marketing-uplift-q3/exp-307-app-drop.md",
+ "sha": "a28e471e0401d85a85213683e09c2a4b639992bdc6172e1739c98a0d53fc9c10",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,86 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-disp-txn-match",
+   "type": "feature",
+   "label": "boolean",
+   "as": [
+    "feat-disp-txn-match",
+    "Boolean"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "disp-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "disp-lgbm-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-disp-amount-band",
+   "type": "feature",
+   "label": "amount band",
+   "as": [
+    "amount band"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "auth-record",
+   "type": "dataset",
+   "label": "auth record",
+   "as": [
+    "auth record"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "disp-lgbm-v2",
+   "type": "uses",
+   "label": "shipped in",
+   "o": "feat-disp-txn-match",
+   "quote": "Shipped in disp-lgbm-v2 with amount band.",
+   "line": 8
+  },
+  {
+   "s": "disp-lgbm-v2",
+   "type": "uses",
+   "label": "shipped with",
+   "o": "feat-disp-amount-band",
+   "quote": "Shipped in disp-lgbm-v2 with amount band.",
+   "line": 8
+  },
+  {
+   "s": "feat-disp-txn-match",
+   "type": "uses",
+   "label": "matches on",
+   "o": "auth-record",
+   "quote": "1 when an auth record matches on auth_id",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "dispute-triage/feat-disp-txn-match.md",
+ "sha": "3837b6da6eea467f590bcff72006471d675011818a63290623b08a5bb89a879f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

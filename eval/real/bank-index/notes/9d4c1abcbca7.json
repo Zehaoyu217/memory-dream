@@ -1,0 +1,61 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "cards.fraud_labels",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.fraud_labels"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "median-label-lag",
+   "type": "metric",
+   "label": "median label lag",
+   "as": [
+    "Median label lag"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "maturity-cut",
+   "type": "policy",
+   "label": "maturity cut",
+   "as": [
+    "45-day maturity cut"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cards.fraud_labels",
+   "type": "measured-by",
+   "label": "has median lag",
+   "o": "median-label-lag",
+   "quote": "Median label lag 21 days",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-f25-txn-2024-2025",
+  "fraud-2026"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/ds-f25-labels.md",
+ "sha": "9d4c1abcbca71281620c82398330790d0779cb34c8ec27c61147347db429d36a",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

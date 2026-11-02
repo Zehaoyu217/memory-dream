@@ -1,0 +1,164 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "bsm-cutoff-logit",
+   "type": "model",
+   "label": "logistic model",
+   "as": [
+    "Logistic model",
+    "bsm-cutoff-logit"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "ds-bsm-v10-cohorts-2026",
+   "type": "dataset",
+   "label": "eval cohort",
+   "as": [
+    "ds-bsm-v10-cohorts-2026"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "v10-bands",
+   "type": "feature",
+   "label": "bands",
+   "as": [
+    "v10 bands"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "v8-approval-decision",
+   "type": "other",
+   "label": "approval decision",
+   "as": [
+    "v8 approval decision"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "approval-rate",
+   "type": "metric",
+   "label": "approval rate",
+   "as": [
+    "approval rate",
+    "approval rate held at 58%"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "cutoff-652-v10",
+   "type": "other",
+   "label": "cutoff on v10 scale",
+   "as": [
+    "cutoff 652 on the v10 scale",
+    "cutoff 652"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "cutoff-640-v8",
+   "type": "other",
+   "label": "cutoff on v8 scale",
+   "as": [
+    "v8 cutoff of 640"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dec-bsm-cutover-2026q3",
+   "type": "other",
+   "label": "cutover decision",
+   "as": [
+    "dec-bsm-cutover-2026q3",
+    "the cutover decision"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bsm-cutoff-logit",
+   "type": "uses",
+   "label": "maps",
+   "o": "v10-bands",
+   "quote": "Logistic model maps v10 bands to the v8 approval decision",
+   "line": 6
+  },
+  {
+   "s": "bsm-cutoff-logit",
+   "type": "other",
+   "label": "maps to",
+   "o": "v8-approval-decision",
+   "quote": "maps v10 bands to the v8 approval decision",
+   "line": 6
+  },
+  {
+   "s": "bsm-cutoff-logit",
+   "type": "evaluated-on",
+   "label": "eval on",
+   "o": "ds-bsm-v10-cohorts-2026",
+   "quote": "Eval: ds-bsm-v10-cohorts-2026, n=71,300",
+   "line": 7
+  },
+  {
+   "s": "bsm-cutoff-logit",
+   "type": "measured-by",
+   "label": "holds",
+   "o": "approval-rate",
+   "quote": "approval rate held at 58% with cutoff 652",
+   "line": 5
+  },
+  {
+   "s": "cutoff-652-v10",
+   "type": "other",
+   "label": "matches",
+   "o": "cutoff-640-v8",
+   "quote": "cutoff 652 on the v10 scale matches a v8 cutoff of 640 for 58% approval",
+   "line": 7
+  },
+  {
+   "s": "dec-bsm-cutover-2026q3",
+   "type": "uses",
+   "label": "used for",
+   "o": "bsm-cutoff-logit",
+   "quote": "Used for the cutover decision in dec-bsm-cutover-2026q3.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-bsm-v10-band",
+  "exp-305",
+  "dec-bsm-cutover-2026q3"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "bureau-score-migration/bsm-cutoff-logit.md",
+ "sha": "fdcb81142de57202957c6578176c03d51622d492e4364060466510e50914247a",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

@@ -1,0 +1,116 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "data-quality-gate",
+   "type": "policy",
+   "label": "gate",
+   "as": [
+    "The gate compares",
+    "The gate result is shown"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "weekly-deck",
+   "type": "document",
+   "label": "weekly deck",
+   "as": [
+    "The weekly deck",
+    "slide 8 of the weekly deck"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  },
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "team lead",
+   "as": [
+    "Tomás Rivera's team"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "data-eng-cards",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "data-eng-cards"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "data-quality-gate",
+   "type": "uses",
+   "label": "compares",
+   "o": "cards.txn_daily",
+   "quote": "The gate compares the week's daily row count in `cards.txn_daily` with the trailing 7-day mean.",
+   "line": 5
+  },
+  {
+   "s": "data-quality-gate",
+   "type": "other",
+   "label": "posts to",
+   "o": "data-eng-cards",
+   "quote": "A gap above 5% stops publication and posts to data-eng-cards",
+   "line": 6
+  },
+  {
+   "s": "data-quality-gate",
+   "type": "other",
+   "label": "cleared by",
+   "o": "tomas-rivera",
+   "quote": "Tomás Rivera's team clears it.",
+   "line": 6
+  },
+  {
+   "s": "weekly-deck",
+   "type": "other",
+   "label": "blocked by gate",
+   "o": "data-quality-gate",
+   "quote": "The weekly deck does not publish if `cards.txn_daily` row count is more than 5% off its trailing 7-day mean",
+   "line": 4
+  },
+  {
+   "s": "data-quality-gate",
+   "type": "other",
+   "label": "shown as slide 8",
+   "o": "weekly-deck",
+   "quote": "The gate result is shown as slide 8 of the weekly deck.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/data-quality-gate.md",
+ "sha": "064281c5ebedd19e152a8df84ebf34e2b9f9e10eebbd5f49b517d178b56fae1f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

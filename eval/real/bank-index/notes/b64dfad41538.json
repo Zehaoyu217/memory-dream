@@ -1,0 +1,109 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "feat-ed-limit-change-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ed-limit-change-v1",
+    "The limit-change feature"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "ed-gbm-v1",
+   "type": "model",
+   "label": "gbm",
+   "as": [
+    "ed-gbm-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "early-delinquency-holdout-2024q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "early-delinquency-holdout-2024q4"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.781",
+    "0.021 AUC"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "watchlist-model",
+   "type": "other",
+   "label": "watchlist model",
+   "as": [
+    "the next watchlist model"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ed-limit-change-v1",
+   "type": "other",
+   "label": "lifts",
+   "o": "ed-gbm-v1",
+   "quote": "feat-ed-limit-change-v1 lifts ed-gbm-v1 from AUC 0.781 to 0.812 on early-delinquency-holdout-2024q4",
+   "line": 6
+  },
+  {
+   "s": "ed-gbm-v1",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "early-delinquency-holdout-2024q4",
+   "quote": "lifts ed-gbm-v1 from AUC 0.781 to 0.812 on early-delinquency-holdout-2024q4",
+   "line": 6
+  },
+  {
+   "s": "ed-gbm-v1",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "lifts ed-gbm-v1 from AUC 0.781 to 0.812",
+   "line": 6
+  },
+  {
+   "s": "feat-ed-limit-change-v1",
+   "type": "other",
+   "label": "recommended for",
+   "o": "watchlist-model",
+   "quote": "Recommended adding the feature to the next watchlist model.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-203"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "early-delinquency/find-ed-limit-gain.md",
+ "sha": "b64dfad415385d9eb0dde4de088eb1363854b3566a15430ed48c000334c3ddce",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

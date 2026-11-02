@@ -1,0 +1,145 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "sav.offer_log",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`sav.offer_log`",
+    "sav.offer_log"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "crm.contacts",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`crm.contacts`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "offer-engine",
+   "type": "service",
+   "label": "offer engine",
+   "as": [
+    "the offer engine"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "onboarding",
+   "type": "team",
+   "label": "owner team",
+   "as": [
+    "onboarding"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "priya-nair",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Priya Nair"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "open-rate",
+   "type": "metric",
+   "label": "open rate",
+   "as": [
+    "open rate 2.9%",
+    "Wave open rates run 2.4% to 3.5%"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "eligibility",
+   "type": "policy",
+   "label": "eligibility rule",
+   "as": [
+    "Eligibility"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "sav.offer_log",
+   "type": "uses",
+   "label": "built from",
+   "o": "crm.contacts",
+   "quote": "Built from `crm.contacts` and the offer engine.",
+   "line": 6
+  },
+  {
+   "s": "sav.offer_log",
+   "type": "uses",
+   "label": "built from",
+   "o": "offer-engine",
+   "quote": "Built from `crm.contacts` and the offer engine.",
+   "line": 6
+  },
+  {
+   "s": "sav.offer_log",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "onboarding",
+   "quote": "Owner: onboarding (Priya Nair).",
+   "line": 8
+  },
+  {
+   "s": "sav.offer_log",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "priya-nair",
+   "quote": "Owner: onboarding (Priya Nair).",
+   "line": 8
+  },
+  {
+   "s": "sav.offer_log",
+   "type": "measured-by",
+   "label": "open rate",
+   "o": "open-rate",
+   "quote": "Wave open rates run 2.4% to 3.5%.",
+   "line": 7
+  },
+  {
+   "s": "sav.offer_log",
+   "type": "other",
+   "label": "governed by",
+   "o": "eligibility",
+   "quote": "Eligibility: no savings account, card open over six months, no negative account status.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cross-sell-savings/ds-xs-offer-log.md",
+ "sha": "2de76c8199328796edfb5cb8261fcf9b826869ba4b0d5a70e289553d74da226b",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

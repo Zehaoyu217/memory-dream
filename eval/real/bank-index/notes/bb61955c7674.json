@@ -1,0 +1,128 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "target-by-predicted-uplift",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: target reactivation sends by predicted uplift, not response propensity"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "chloe-martin",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Chloe Martin (marketing)"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Sam Lee (ML engineering)"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fnd-rdm-prior-responder-trap",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-rdm-prior-responder-trap"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "prior-responders",
+   "type": "segment",
+   "label": "prior responders",
+   "as": [
+    "Prior responders"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "predicted-uplift",
+   "type": "metric",
+   "label": "predicted uplift",
+   "as": [
+    "predicted uplift"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "target-by-predicted-uplift",
+   "type": "measured-by",
+   "label": "targets",
+   "o": "predicted-uplift",
+   "quote": "target reactivation sends by predicted uplift",
+   "line": 5
+  },
+  {
+   "s": "target-by-predicted-uplift",
+   "type": "owned-by",
+   "label": "owner for campaign rules",
+   "o": "chloe-martin",
+   "quote": "Owner: Chloe Martin (marketing) for campaign rules",
+   "line": 8
+  },
+  {
+   "s": "target-by-predicted-uplift",
+   "type": "owned-by",
+   "label": "owner for scoring job",
+   "o": "sam-lee",
+   "quote": "Sam Lee (ML engineering) for the scoring job",
+   "line": 8
+  },
+  {
+   "s": "target-by-predicted-uplift",
+   "type": "based-on",
+   "label": "basis",
+   "o": "fnd-rdm-prior-responder-trap",
+   "quote": "Basis: exp-303 (2.8pp against 0.9pp at the top 20%) and fnd-rdm-prior-responder-trap.",
+   "line": 7
+  },
+  {
+   "s": "target-by-predicted-uplift",
+   "type": "other",
+   "label": "no longer sent by default",
+   "o": "prior-responders",
+   "quote": "Prior responders are no longer sent by default",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-303",
+  "rdm-uplift-v1",
+  "fnd-rdm-prior-responder-trap"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reactivation-dormant/dec-rdm-target-by-uplift.md",
+ "sha": "bb61955c7674118abc5572061baa8a7a24a1fb769ccae982c2401659166fa351",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

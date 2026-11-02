@@ -1,0 +1,67 @@
+{
+ "kind": "design",
+ "entities": [
+  {
+   "id": "mon-reference-samples",
+   "type": "dataset",
+   "label": "reference table",
+   "as": [
+    "mon.reference_samples"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "stability metric",
+   "as": [
+    "PSI"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dec-mm-seasonal-reference",
+   "type": "other",
+   "label": "seasonal reference",
+   "as": [
+    "seasonal references"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mon-reference-samples",
+   "type": "measured-by",
+   "label": "PSI computed against",
+   "o": "psi",
+   "quote": "PSI is always computed against this sample, not against a rolling window",
+   "line": 7
+  },
+  {
+   "s": "mon-reference-samples",
+   "type": "part-of",
+   "label": "seasonal rows",
+   "o": "dec-mm-seasonal-reference",
+   "quote": "Seasonal references are a separate set of rows keyed by reference_month (see dec-mm-seasonal-reference).",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "dec-mm-seasonal-reference"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "model-monitoring/ds-mm-reference-train.md",
+ "sha": "2c8e22f232d85cd59e5d97f98f7cd5be0a7ffbfb8f3bf82a46824f6ed04f62ca",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

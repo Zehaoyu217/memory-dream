@@ -1,0 +1,130 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "cards.merchants",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`cards.merchants`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "mcc",
+   "type": "feature",
+   "label": "column",
+   "as": [
+    "`mcc`",
+    "four-digit MCC",
+    "MCC"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "mcc-table",
+   "type": "dataset",
+   "label": "lookup table",
+   "as": [
+    "MCC table"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "category",
+   "type": "term",
+   "label": "merchant category",
+   "as": [
+    "category"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "merchant-name",
+   "type": "feature",
+   "label": "merchant name",
+   "as": [
+    "merchant name"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "spend-model-2025",
+   "type": "model",
+   "label": "2025 spend model",
+   "as": [
+    "2025 spend model"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "restaurants",
+   "type": "term",
+   "label": "category",
+   "as": [
+    "restaurants"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cards.merchants",
+   "type": "other",
+   "label": "carries",
+   "o": "mcc",
+   "quote": "`cards.merchants` carries `mcc` as a four-digit string",
+   "line": 5
+  },
+  {
+   "s": "category",
+   "type": "uses",
+   "label": "comes from",
+   "o": "mcc-table",
+   "quote": "Category comes from the MCC table",
+   "line": 5
+  },
+  {
+   "s": "mcc",
+   "type": "other",
+   "label": "maps to",
+   "o": "restaurants",
+   "quote": "MCC 5812 and 5814 both map to restaurants",
+   "line": 5
+  },
+  {
+   "s": "merchant-name",
+   "type": "other",
+   "label": "split chain in",
+   "o": "spend-model-2025",
+   "quote": "Grouping by merchant name split one chain into 14 groups in the 2025 spend model",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/merchant-mcc-mapping.md",
+ "sha": "5d5ba173f9068a07aa22eeac3ad37898b6adac7c89f600990a03b590186be165",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

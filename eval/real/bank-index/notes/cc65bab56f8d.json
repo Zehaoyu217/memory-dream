@@ -1,0 +1,97 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-disp-reason-text",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "feat-disp-reason-text",
+    "TF-IDF of dispute description"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "disp-lgbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "disp-lgbm-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "tf-idf",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "TF-IDF"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "2025-disputes",
+   "type": "segment",
+   "label": "subset of disputes",
+   "as": [
+    "2025 disputes"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-disp-disputes",
+   "type": "team",
+   "label": "owning team",
+   "as": [
+    "ds-disp-disputes"
+   ],
+   "lines": [
+    2
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "disp-lgbm-v1",
+   "type": "uses",
+   "label": "only input",
+   "o": "feat-disp-reason-text",
+   "quote": "Only input of disp-lgbm-v1",
+   "line": 8
+  },
+  {
+   "s": "feat-disp-reason-text",
+   "type": "uses",
+   "label": "built with",
+   "o": "tf-idf",
+   "quote": "TF-IDF over 1-2 word grams of the free-text description",
+   "line": 6
+  },
+  {
+   "s": "feat-disp-reason-text",
+   "type": "uses",
+   "label": "vocabulary fit on",
+   "o": "2025-disputes",
+   "quote": "vocabulary fit on 2025 disputes only",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "dispute-triage/feat-disp-reason-text.md",
+ "sha": "cc65bab56f8d85523a2e6fde33e730e94a3cc877ead22d56d17a104c2d0cc81f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

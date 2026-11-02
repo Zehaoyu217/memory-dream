@@ -1,0 +1,178 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "cr-lgbm-v2",
+   "type": "model",
+   "label": "retrained model",
+   "as": [
+    "cr-lgbm-v2",
+    "Retrain with caller history v2"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "cr-lgbm-v1",
+   "type": "model",
+   "label": "lightgbm setup",
+   "as": [
+    "cr-lgbm-v1"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "feat-cr-caller-history-v2",
+   "type": "feature",
+   "label": "caller history v2",
+   "as": [
+    "feat-cr-caller-history-v2",
+    "caller history v2"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "lightgbm",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "cr-oot-2026h1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "cr-oot-2026h1"
+   ],
+   "lines": [
+    5,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro f1",
+   "as": [
+    "Macro F1"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "top-1-accuracy",
+   "type": "metric",
+   "label": "top-1 accuracy",
+   "as": [
+    "Top-1 accuracy"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cr-lgbm-v2",
+   "type": "uses",
+   "label": "built with",
+   "o": "feat-cr-caller-history-v2",
+   "quote": "with caller history v2 (cut at call start)",
+   "line": 6
+  },
+  {
+   "s": "cr-lgbm-v2",
+   "type": "uses",
+   "label": "same LightGBM setup",
+   "o": "lightgbm",
+   "quote": "Same LightGBM setup as cr-lgbm-v1",
+   "line": 6
+  },
+  {
+   "s": "cr-lgbm-v2",
+   "type": "other",
+   "label": "same setup as",
+   "o": "cr-lgbm-v1",
+   "quote": "Same LightGBM setup as cr-lgbm-v1",
+   "line": 6
+  },
+  {
+   "s": "cr-lgbm-v2",
+   "type": "evaluated-on",
+   "label": "macro F1 on",
+   "o": "holdout-2025q4",
+   "quote": "Macro F1 0.74 on holdout-2025q4 (n = 380,000)",
+   "line": 7
+  },
+  {
+   "s": "cr-lgbm-v2",
+   "type": "evaluated-on",
+   "label": "macro F1 on",
+   "o": "cr-oot-2026h1",
+   "quote": "0.73 on cr-oot-2026h1 (n = 410,000)",
+   "line": 7
+  },
+  {
+   "s": "cr-lgbm-v2",
+   "type": "measured-by",
+   "label": "macro F1",
+   "o": "macro-f1",
+   "quote": "Macro F1 0.74 on holdout-2025q4 (n = 380,000)",
+   "line": 7
+  },
+  {
+   "s": "cr-lgbm-v2",
+   "type": "measured-by",
+   "label": "top-1 accuracy",
+   "o": "top-1-accuracy",
+   "quote": "Top-1 accuracy 0.79 on cr-oot-2026h1",
+   "line": 8
+  },
+  {
+   "s": "cr-lgbm-v2",
+   "type": "evaluated-on",
+   "label": "top-1 accuracy on",
+   "o": "cr-oot-2026h1",
+   "quote": "Top-1 accuracy 0.79 on cr-oot-2026h1",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/exp-105.md",
+ "sha": "234f69ff340b70e89677fec4ab6050bbad9559c3cec3e56b9cf6b6a526016d35",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

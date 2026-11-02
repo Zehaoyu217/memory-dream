@@ -1,0 +1,128 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "ed-logit-v1",
+   "type": "model",
+   "label": "logistic scorecard",
+   "as": [
+    "logistic scorecard"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "early-delinquency-holdout-2024q4",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "early-delinquency-holdout-2024q4"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.742"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini 0.484"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.36"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "brier",
+   "type": "metric",
+   "label": "brier score",
+   "as": [
+    "Brier 0.047"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ed-logit-v1",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "early-delinquency-holdout-2024q4",
+   "quote": "Eval set early-delinquency-holdout-2024q4",
+   "line": 6
+  },
+  {
+   "s": "ed-logit-v1",
+   "type": "measured-by",
+   "label": "result",
+   "o": "auc",
+   "quote": "Result: AUC 0.742",
+   "line": 7
+  },
+  {
+   "s": "ed-logit-v1",
+   "type": "measured-by",
+   "label": "result",
+   "o": "gini",
+   "quote": "Gini 0.484",
+   "line": 5
+  },
+  {
+   "s": "ed-logit-v1",
+   "type": "measured-by",
+   "label": "result",
+   "o": "ks",
+   "quote": "KS 0.36",
+   "line": 5
+  },
+  {
+   "s": "ed-logit-v1",
+   "type": "measured-by",
+   "label": "result",
+   "o": "brier",
+   "quote": "Brier 0.047",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "early_delinquency/exp201_scorecard.ipynb"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "early-delinquency/exp-201.md",
+ "sha": "91dd41bebf4cdac291d67e31678a9c7bce020b7a0329e415076f438b6aeb8da7",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

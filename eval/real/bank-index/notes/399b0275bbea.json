@@ -1,0 +1,104 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "cb-sim-v1",
+   "type": "model",
+   "label": "simulator",
+   "as": [
+    "cb-sim-v1",
+    "sim"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "cb.spend_panel",
+   "type": "dataset",
+   "label": "spend panel",
+   "as": [
+    "cb.spend_panel"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "proposal-a",
+   "type": "other",
+   "label": "proposal",
+   "as": [
+    "Proposal A"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "spend-lift-predicted",
+   "type": "metric",
+   "label": "predicted spend lift",
+   "as": [
+    "predicted spend lift"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "break-even-lift",
+   "type": "metric",
+   "label": "break-even",
+   "as": [
+    "break-even"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "proposal-a",
+   "type": "measured-by",
+   "label": "predicted spend lift",
+   "o": "spend-lift-predicted",
+   "quote": "predicted spend lift 2.4%",
+   "line": 7
+  },
+  {
+   "s": "proposal-a",
+   "type": "measured-by",
+   "label": "break-even",
+   "o": "break-even-lift",
+   "quote": "break-even 3.4%",
+   "line": 7
+  },
+  {
+   "s": "cb-sim-v1",
+   "type": "evaluated-on",
+   "label": "run on",
+   "o": "cb.spend_panel",
+   "quote": "cb-sim-v1 on the Dec 2025 snapshot of `cb.spend_panel`",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "q-cb-breakeven-lift",
+  "cb-sim-v1",
+  "dec-cb-threshold-2500"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/exp-206-breakeven-sim.md",
+ "sha": "399b0275bbead20432866d2022409b4a06cadc21c4f41220b6aa1fd76f18f612",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

@@ -1,0 +1,82 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "sms-channel",
+   "type": "term",
+   "label": "channel",
+   "as": [
+    "SMS"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "email-channel",
+   "type": "term",
+   "label": "channel",
+   "as": [
+    "email"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "uplift",
+   "type": "metric",
+   "label": "uplift",
+   "as": [
+    "uplift"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "wave-3-holdout",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "wave 3 holdout"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "sms-channel",
+   "type": "measured-by",
+   "label": "beats email on",
+   "o": "uplift",
+   "quote": "SMS beats email on uplift",
+   "line": 5
+  },
+  {
+   "s": "sms-channel",
+   "type": "evaluated-on",
+   "label": "randomised on",
+   "o": "wave-3-holdout",
+   "quote": "randomised within each channel, wave 3 holdout",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-304",
+  "exp-302",
+  "fnd-rdm-sms-uplift-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reactivation-dormant/fnd-rdm-sms-uplift.md",
+ "sha": "03d53b862e487d08b782c95c57cb26eb7cb1dd98936586ab7b74095a323e0991",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

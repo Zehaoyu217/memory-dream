@@ -1,0 +1,112 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "logistic-regression",
+   "type": "model",
+   "label": "logistic regression",
+   "as": [
+    "Logistic regression"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-mrisk-cb-ratio-90d",
+   "type": "feature",
+   "label": "chargeback ratio",
+   "as": [
+    "feat-mrisk-cb-ratio-90d",
+    "chargeback ratio"
+   ],
+   "lines": [
+    2,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "mrisk-oot-2025h2",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "mrisk-oot-2025h2"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.78"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "precision-at-100",
+   "type": "metric",
+   "label": "precision@100",
+   "as": [
+    "precision@100 0.27"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "logistic-regression",
+   "type": "uses",
+   "label": "fit on",
+   "o": "feat-mrisk-cb-ratio-90d",
+   "quote": "Logistic regression on feat-mrisk-cb-ratio-90d only",
+   "line": 7
+  },
+  {
+   "s": "logistic-regression",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "mrisk-oot-2025h2",
+   "quote": "Eval set: mrisk-oot-2025h2",
+   "line": 6
+  },
+  {
+   "s": "logistic-regression",
+   "type": "measured-by",
+   "label": "gives AUC",
+   "o": "auc",
+   "quote": "AUC 0.78",
+   "line": 5
+  },
+  {
+   "s": "logistic-regression",
+   "type": "measured-by",
+   "label": "precision@100",
+   "o": "precision-at-100",
+   "quote": "precision@100 0.27",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-mrisk-cb-ratio-90d",
+  "ds-mrisk-merchant-month",
+  "exp-502"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "merchant-risk/exp-501.md",
+ "sha": "8ca4e9f29a7eaa6355496a81a160c7f0574543a2bf47f13a662ba16bd842762a",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

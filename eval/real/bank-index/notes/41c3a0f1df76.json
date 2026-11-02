@@ -1,0 +1,68 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cb-grocery-share",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cb-grocery-share: share of six-month spend in grocery"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cb.spend_panel",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cb.spend_panel`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cb-elasticity-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cb-elasticity-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cb-grocery-share",
+   "type": "uses",
+   "label": "computed from",
+   "o": "cb.spend_panel",
+   "quote": "from `cb.spend_panel` by merchant group",
+   "line": 6
+  },
+  {
+   "s": "cb-elasticity-v2",
+   "type": "uses",
+   "label": "uses feature",
+   "o": "feat-cb-grocery-share",
+   "quote": "Used in cb-elasticity-v2, where it carries the largest within-band response difference.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-cb-merchant-cat",
+  "ds-cb-spend-panel"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/feat-cb-grocery-share.md",
+ "sha": "41c3a0f1df76c00587ab746c43f1602d4d357fe0a59a2adee2c1ac2226b0aac1",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

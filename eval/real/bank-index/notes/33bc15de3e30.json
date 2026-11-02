@@ -1,0 +1,99 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-504-margin-cohort",
+   "type": "document",
+   "label": "experiment note",
+   "as": [
+    "exp-504: the 24-month margin falls from +$210 to +$38 per account once churn and loss are counted"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "pa-margin-v1",
+   "type": "model",
+   "label": "margin model v1",
+   "as": [
+    "pa-margin-v1"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "pa-margin-v2",
+   "type": "model",
+   "label": "margin model v2",
+   "as": [
+    "pa-margin-v2"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "arm-b",
+   "type": "segment",
+   "label": "arm b cohort",
+   "as": [
+    "arm B"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "24-month margin",
+   "as": [
+    "+$210 in v1",
+    "+$38 in v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-504-margin-cohort",
+   "type": "uses",
+   "label": "from",
+   "o": "pa-margin-v1",
+   "quote": "from: [pa-margin-v1, pa-margin-v2]",
+   "line": 2
+  },
+  {
+   "s": "exp-504-margin-cohort",
+   "type": "uses",
+   "label": "from",
+   "o": "pa-margin-v2",
+   "quote": "from: [pa-margin-v1, pa-margin-v2]",
+   "line": 2
+  },
+  {
+   "s": "exp-504-margin-cohort",
+   "type": "evaluated-on",
+   "label": "compared on same arm B paths",
+   "o": "arm-b",
+   "quote": "Compared pa-margin-v1 (no churn, no loss) with pa-margin-v2 on the same arm B and control paths.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "promo-apr-test/exp-504-margin-cohort.md",
+ "sha": "33bc15de3e30d46bfb732b672d1fb107334edba37828a6d58a5634962b1d2760",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

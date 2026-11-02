@@ -1,0 +1,108 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ror-value-band-v1",
+   "type": "feature",
+   "label": "value bands",
+   "as": [
+    "feat-ror-value-band-v1: three value bands from expected-revenue deciles"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-ror-expected-revenue",
+   "type": "feature",
+   "label": "expected-revenue deciles",
+   "as": [
+    "expected-revenue deciles"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-ror-tier-matrix",
+   "type": "dataset",
+   "label": "matrix grid",
+   "as": [
+    "ds-ror-tier-matrix v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-ror-value-band-v2",
+   "type": "feature",
+   "label": "value bands v2",
+   "as": [
+    "feat-ror-value-band-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fnd-ror-cashback-roi-v2",
+   "type": "other",
+   "label": "credit-loss check",
+   "as": [
+    "credit-loss check"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ror-value-band-v1",
+   "type": "uses",
+   "label": "built from",
+   "o": "feat-ror-expected-revenue",
+   "quote": "three value bands from expected-revenue deciles",
+   "line": 5
+  },
+  {
+   "s": "feat-ror-value-band-v1",
+   "type": "part-of",
+   "label": "column of",
+   "o": "ds-ror-tier-matrix",
+   "quote": "Column of the matrix grid in ds-ror-tier-matrix v3.",
+   "line": 7
+  },
+  {
+   "s": "feat-ror-value-band-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "feat-ror-value-band-v1",
+   "quote": "Replaced by feat-ror-value-band-v2 after the credit-loss check",
+   "line": 8
+  },
+  {
+   "s": "feat-ror-value-band-v2",
+   "type": "other",
+   "label": "after credit-loss check",
+   "o": "fnd-ror-cashback-roi-v2",
+   "quote": "after the credit-loss check (fnd-ror-cashback-roi-v2)",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-ror-expected-revenue",
+  "ds-ror-tier-matrix",
+  "feat-ror-value-band-v2",
+  "fnd-ror-cashback-roi-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "retention-offers-roi/feat-ror-value-band-v1.md",
+ "sha": "3addc86e2f45fc42aebe4612d39de012171620199aa85e7fcc731be25a276591",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

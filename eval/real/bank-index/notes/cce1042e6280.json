@@ -1,0 +1,180 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "rdm-propensity-lr",
+   "type": "model",
+   "label": "baseline",
+   "as": [
+    "rdm-propensity-lr",
+    "response-propensity baseline"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-rdm-last-activity-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rdm-last-activity-v1"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "feat-rdm-prior-response",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rdm-prior-response"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "feat-rdm-balance-band",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rdm-balance-band"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "feat-rdm-app-installed",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rdm-app-installed"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "ds-rdm-campaign-history",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-rdm-campaign-history"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "rdm-oot-2025q1",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "rdm-oot-2025q1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rdm-propensity-lr",
+   "type": "uses",
+   "label": "from",
+   "o": "feat-rdm-last-activity-v1",
+   "quote": "from: [feat-rdm-last-activity-v1, feat-rdm-prior-response, feat-rdm-balance-band, feat-rdm-app-installed, ds-rdm-campaign-history]",
+   "line": 2
+  },
+  {
+   "s": "rdm-propensity-lr",
+   "type": "uses",
+   "label": "from",
+   "o": "feat-rdm-prior-response",
+   "quote": "from: [feat-rdm-last-activity-v1, feat-rdm-prior-response, feat-rdm-balance-band, feat-rdm-app-installed, ds-rdm-campaign-history]",
+   "line": 2
+  },
+  {
+   "s": "rdm-propensity-lr",
+   "type": "uses",
+   "label": "from",
+   "o": "feat-rdm-balance-band",
+   "quote": "from: [feat-rdm-last-activity-v1, feat-rdm-prior-response, feat-rdm-balance-band, feat-rdm-app-installed, ds-rdm-campaign-history]",
+   "line": 2
+  },
+  {
+   "s": "rdm-propensity-lr",
+   "type": "uses",
+   "label": "from",
+   "o": "feat-rdm-app-installed",
+   "quote": "from: [feat-rdm-last-activity-v1, feat-rdm-prior-response, feat-rdm-balance-band, feat-rdm-app-installed, ds-rdm-campaign-history]",
+   "line": 2
+  },
+  {
+   "s": "rdm-propensity-lr",
+   "type": "uses",
+   "label": "from",
+   "o": "ds-rdm-campaign-history",
+   "quote": "from: [feat-rdm-last-activity-v1, feat-rdm-prior-response, feat-rdm-balance-band, feat-rdm-app-installed, ds-rdm-campaign-history]",
+   "line": 2
+  },
+  {
+   "s": "rdm-propensity-lr",
+   "type": "evaluated-on",
+   "label": "on",
+   "o": "rdm-oot-2025q1",
+   "quote": "Targeting the top 20% by propensity gives 0.9pp uplift on rdm-oot-2025q1",
+   "line": 7
+  },
+  {
+   "s": "rdm-propensity-lr",
+   "type": "measured-by",
+   "label": "gives uplift",
+   "o": "uplift-at-20",
+   "quote": "holdout uplift@20% 0.9pp",
+   "line": 5
+  },
+  {
+   "s": "rdm-propensity-lr",
+   "type": "measured-by",
+   "label": "response AUC",
+   "o": "auc",
+   "quote": "response AUC 0.641",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reactivation-dormant/rdm-propensity-lr.md",
+ "sha": "cce1042e6280acfbced34279456a2f91d3a90695edc52c7fd9d11dcfa077547b",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

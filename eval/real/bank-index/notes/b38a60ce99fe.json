@@ -1,0 +1,136 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "feat-disp-merchant-cb-rate",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-disp-merchant-cb-rate",
+    "Merchant chargeback rate"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "disp-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "disp-lgbm-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "lightgbm-gain",
+   "type": "metric",
+   "label": "gain",
+   "as": [
+    "total LightGBM gain",
+    "gain"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "precision-at-0.90",
+   "type": "metric",
+   "label": "precision@0.90",
+   "as": [
+    "precision@0.90"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-303",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-303"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "feat-mrisk-dispute-ratio",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mrisk-dispute-ratio",
+    "the dispute ratio"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "merchant-risk",
+   "type": "other",
+   "label": "merchant-risk",
+   "as": [
+    "merchant-risk"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "disp-lgbm-v2",
+   "type": "uses",
+   "label": "holds gain in",
+   "o": "feat-disp-merchant-cb-rate",
+   "quote": "In disp-lgbm-v2, feat-disp-merchant-cb-rate holds 22% of total LightGBM gain.",
+   "line": 6
+  },
+  {
+   "s": "feat-disp-merchant-cb-rate",
+   "type": "measured-by",
+   "label": "holds 22% of",
+   "o": "lightgbm-gain",
+   "quote": "holds 22% of total LightGBM gain",
+   "line": 6
+  },
+  {
+   "s": "feat-disp-merchant-cb-rate",
+   "type": "measured-by",
+   "label": "lifted",
+   "o": "precision-at-0.90",
+   "quote": "Adding it lifted precision@0.90 from 88.5% to 91.2% (exp-303).",
+   "line": 7
+  },
+  {
+   "s": "merchant-risk",
+   "type": "uses",
+   "label": "reuses",
+   "o": "feat-mrisk-dispute-ratio",
+   "quote": "merchant-risk reuses the dispute ratio (feat-mrisk-dispute-ratio)",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-disp-merchant-cb-rate",
+  "exp-303",
+  "feat-mrisk-dispute-ratio"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "dispute-triage/disp-find-merchant-signal.md",
+ "sha": "b38a60ce99fecb9e34acf4a50be8335e1f77af90473921d1b47cdbe4552697d0",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

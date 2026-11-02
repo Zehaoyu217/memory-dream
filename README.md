@@ -115,8 +115,9 @@ and what replaced it:
 ```
 
 The agent reads the current note first and knows the older one is history without opening either file. If a word
-in the question occurs nowhere in the memory, the output says so instead of guessing. Plain grep remains available
-and is sometimes the right tool.
+in the question occurs nowhere in the memory, the output says so instead of guessing. When the question asks what a
+thing is built from or what is built on it, the notes two steps out along `from:` lineage and the index's typed links
+come along as one-line pointers. Plain grep remains available and is sometimes the right tool.
 
 ## Layer 3: the index
 
@@ -155,12 +156,17 @@ $4 in total.
 
 ### What the index buys
 
-For answering, little, and this is measured. With the index on, `ask` returns the gold note for 94.6% of 326
-questions against 93.8% without it, four more complete answers, and 89% against 83% on questions that use a
-synonym instead of the id, for 5% more characters. At the agent level the two are within noise (27 against 26
-correct out of 30). Answering never depends on the index.
+For answering, a little, and this is measured on two real indexes of the bank. For the gold note the index is within a
+point either way (94.6% against 93.8% without it on the first index, 93.3% against 93.7% on the second); on questions
+that use a synonym instead of the id it is worth 5 to 6 points (82% against 77%, 89% against 83%), for 5% more
+characters. It also answers input questions: for a thing named by id, `ask` follows its typed links two steps (what it
+is built from, what those are built from, what its predecessor was built from) and heads those notes, which takes
+dependency questions from 85% to 92% of gold notes for 4.6% more characters. At the agent level the two arms are within
+noise. Answering never depends on the index.
 
-The index is a map and a reviewer, not a search engine. It pays in four places:
+The index is a map and a reviewer, not a search engine. It pays in five places:
+
+- input questions: what a thing uses or what uses it, two steps through typed links and lineage, as one-line pointers;
 
 - cross-project questions by thing: "what uses `cards.txn_daily`" across 27 projects, through aliases and typed
   relations;
@@ -237,7 +243,8 @@ folders: 30 notes 26/3/1 against 25/5/0 at 0.93× the cost; 1,677 notes 27/3/0 a
 been re-run on the shipped code.
 
 Offline, on 326 questions over the 1,677-note bank with no index, `ask` returns the gold note for 93.9% of questions
-and the number asked for in 97.9%, in about 2,400 characters per question; with the index, 94.6% and 97.8%. On 104
+and the number asked for in 97.9%, in about 2,400 characters per question; with the index and the typed-link walk,
+94.1% and 97.8% in about 2,600 (RESULTS phase I; the index is in the repository and rebuilds with no model). On 104
 questions aimed at replaced conclusions the successor is listed above the old note 96% of the time and the old note
 is marked 100%. On 70 questions about things the memory does not contain, it flags the unknown word every time. The
 model-free numbers reproduce from the repository: `python3 tests/retrieval_gate.py bank` runs them with floors.
@@ -350,8 +357,9 @@ The first reviewer, asked about 178 common labels, answered "new type" to all of
 
 - The evidence is synthetic and small. Notes, questions and the judge are Haiku; each agent cell is 30 questions; the
   write path was measured in one run. Real notes written by people over months are untested.
-- Any number that involves the index needs a model to reproduce: the real Haiku index of the bank is not in the
-  repository (about $4 to rebuild with `tests/haiku_cmd.py`). The model-free numbers reproduce as above.
+- The real index of the bank is in the repository as the model's readings (`eval/real/bank-index/`), so the with-index
+  numbers rebuild with no model call. Re-reading the notes with a model costs about $2.70 and gives a slightly different
+  index each time: two indexes differed by a point of gold recall.
 - A dream holds the whole graph in memory: 4.8 GB peak at 168,141 notes, and `_dream/` takes about 2.2 GB on disk
   at that size against 657 MB of notes.
 - Conflict detection is loose by design: about 6% of the pairs it offers on the bank are real supersessions.
@@ -359,9 +367,9 @@ The first reviewer, asked about 178 common labels, answered "new type" to all of
   depending on the task set, and house rules keyed by measure type are found under half the time.
 - Retrieval is text match plus lineage. A question whose words occur in no note gets a weak-match marker and the
   nearest neighbours, not a paraphrase search; the index adds synonyms and typed links, not similarity.
-- The graph is used lightly for answering: synonyms, lineage order, one line of typed links per named thing, a boost
-  for notes that mention a named thing. Following typed links to the notes of related things is not done yet; it needs
-  a real index to measure.
+- The graph is used for answering in five ways: synonyms, lineage order, one line of typed links per named thing, a
+  boost for notes that mention a named thing, and a two-step walk to the notes of what a thing is built from for input
+  questions. It is not used for ranking, and no other relation type is walked (RESULTS phase I).
 - Linux and macOS with GNU or BSD grep and Python 3.9 or newer; Windows is untested. One memory, one writer: the lock
   file serialises `dream` on one machine and nothing coordinates two machines.
 - Hosting it as a service is designed, not built (`.specs/memory-dream/ADR-001-hosting-and-store.md`). What exists is
@@ -389,8 +397,8 @@ python3 tests/acceptance.py        # from this repository: 38 checks on the fixt
 ```
 
 MIT licence (`LICENSE`). Continuous integration (`.github/workflows/ci.yml`) runs the 38 checks on Python 3.9 and
-3.13, the headless viewer check, the model-free retrieval gates on the analytics bank and the software fixture, the
-build-bundle freshness check and the PostgreSQL store parity test.
+3.13, the headless viewer check, the model-free retrieval gates on the analytics bank (without and with the restored
+index) and the software fixture, the build-bundle freshness check and the PostgreSQL store parity test.
 
 ## Further reading
 

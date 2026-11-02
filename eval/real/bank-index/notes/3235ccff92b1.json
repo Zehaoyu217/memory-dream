@@ -1,0 +1,156 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "feat-ae-depth-v1",
+   "type": "feature",
+   "label": "depth v1",
+   "as": [
+    "depth v1"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "feat-ae-depth-v2",
+   "type": "feature",
+   "label": "depth v2",
+   "as": [
+    "depth v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-ae-holdout",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "tenure-under-90-days",
+   "type": "segment",
+   "label": "tenure under 90 days subset",
+   "as": [
+    "accounts under 90 days tenure",
+    "tenure under 90 days subset"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "mean-score",
+   "type": "metric",
+   "label": "mean score",
+   "as": [
+    "Mean score",
+    "mean score"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "all-tenure-mean",
+   "type": "metric",
+   "label": "all-tenure mean",
+   "as": [
+    "all-tenure mean"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "inflation",
+   "type": "term",
+   "label": "inflation",
+   "as": [
+    "the inflation"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ae-depth-v1",
+   "type": "uses",
+   "label": "from",
+   "o": "ds-ae-holdout",
+   "quote": "from: [feat-ae-depth-v1, ds-ae-holdout]",
+   "line": 2
+  },
+  {
+   "s": "feat-ae-depth-v1",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "tenure-under-90-days",
+   "quote": "score on the tenure under 90 days subset of holdout-2025q4",
+   "line": 6
+  },
+  {
+   "s": "feat-ae-depth-v2",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "tenure-under-90-days",
+   "quote": "score on the tenure under 90 days subset of holdout-2025q4",
+   "line": 6
+  },
+  {
+   "s": "tenure-under-90-days",
+   "type": "part-of",
+   "label": "subset of",
+   "o": "ds-ae-holdout",
+   "quote": "the tenure under 90 days subset of holdout-2025q4",
+   "line": 6
+  },
+  {
+   "s": "feat-ae-depth-v1",
+   "type": "measured-by",
+   "label": "mean score 62",
+   "o": "mean-score",
+   "quote": "Mean score 62 under v1, 48 under v2.",
+   "line": 7
+  },
+  {
+   "s": "feat-ae-depth-v2",
+   "type": "measured-by",
+   "label": "mean score 48",
+   "o": "mean-score",
+   "quote": "Mean score 62 under v1, 48 under v2.",
+   "line": 7
+  },
+  {
+   "s": "feat-ae-depth-v1",
+   "type": "other",
+   "label": "shows inflation",
+   "o": "inflation",
+   "quote": "The v1 mean sits well above the all-tenure mean, which is the inflation.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-ae-new-user-inflation"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "app-engagement/exp-504.md",
+ "sha": "3235ccff92b16c3dd7f65f92c064d70f6b1a7f50fed25e49d9d5cfed02d9e0a4",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

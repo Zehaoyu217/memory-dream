@@ -1,0 +1,92 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "5m-cutoff",
+   "type": "segment",
+   "label": "5-month cutoff",
+   "as": [
+    "A 5-month cutoff",
+    "Five-month accounts"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "9m-pool",
+   "type": "segment",
+   "label": "9-month pool",
+   "as": [
+    "The 9-month pool"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "uplift",
+   "type": "metric",
+   "label": "uplift",
+   "as": [
+    "uplift 1.1pp",
+    "1.2pp"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "exp-301",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-301"
+   ],
+   "lines": [
+    2,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "5m-cutoff",
+   "type": "measured-by",
+   "label": "uplift",
+   "o": "uplift",
+   "quote": "A 5-month cutoff dilutes the pool: uplift 1.1pp against 1.6pp at 6 months",
+   "line": 5
+  },
+  {
+   "s": "9m-pool",
+   "type": "measured-by",
+   "label": "gives",
+   "o": "uplift",
+   "quote": "The 9-month pool is smaller and gives 1.2pp",
+   "line": 7
+  },
+  {
+   "s": "5m-cutoff",
+   "type": "other",
+   "label": "basis",
+   "o": "exp-301",
+   "quote": "Basis: exp-301 on waves 1 and 2.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-301",
+  "q-rdm-dormancy-cutoff"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reactivation-dormant/fnd-rdm-cutoff-5m.md",
+ "sha": "269faa958261a65908f9902e2e36d0379b610a8ca60fc3fea0b3352aa61e3ec0",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

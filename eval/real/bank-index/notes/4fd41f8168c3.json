@@ -1,0 +1,99 @@
+{
+ "kind": "note",
+ "entities": [
+  {
+   "id": "legacy-label-jobs",
+   "type": "pipeline",
+   "label": "cron jobs",
+   "as": [
+    "Six cron jobs",
+    "six legacy label jobs"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "non-idempotent-jobs",
+   "type": "pipeline",
+   "label": "non-idempotent jobs",
+   "as": [
+    "Three of the six are not idempotent"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "labels",
+   "type": "dataset",
+   "label": "labels",
+   "as": [
+    "write labels"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-406",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-406"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "account-snapshots",
+   "type": "dataset",
+   "label": "account snapshots",
+   "as": [
+    "duplicate account-snapshots"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "legacy-label-jobs",
+   "type": "produces",
+   "label": "write",
+   "o": "labels",
+   "quote": "Six cron jobs write labels",
+   "line": 6
+  },
+  {
+   "s": "non-idempotent-jobs",
+   "type": "part-of",
+   "label": "part of",
+   "o": "legacy-label-jobs",
+   "quote": "Three of the six are not idempotent",
+   "line": 7
+  },
+  {
+   "s": "non-idempotent-jobs",
+   "type": "other",
+   "label": "source of duplicates",
+   "o": "account-snapshots",
+   "quote": "That is the source of the duplicate account-snapshots in exp-406.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "labels/legacy/"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "label-pipeline-rebuild/ds-lbl-legacy-jobs.md",
+ "sha": "4fd41f8168c3758024f99aa4c3c4991098d7c506dc4ea2ab1bd3c178429d02de",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

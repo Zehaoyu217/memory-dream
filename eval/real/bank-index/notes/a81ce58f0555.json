@@ -1,0 +1,141 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "rs-xgb-v3",
+   "type": "model",
+   "label": "classifier",
+   "as": [
+    "rs-xgb-v3",
+    "rs-xgb-v3 is rs-xgb-v2 with a regression head for recovered share and 2025 recalibration"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "rs-xgb-v2",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "rs-xgb-v2"
+   ],
+   "lines": [
+    2,
+    4,
+    6,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "regression-head",
+   "type": "term",
+   "label": "regression head",
+   "as": [
+    "regression head"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "recovery-scoring-agency-2025h2",
+   "type": "dataset",
+   "label": "evaluation data",
+   "as": [
+    "recovery-scoring-agency-2025h2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "error metric",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "placement-cutoff",
+   "type": "policy",
+   "label": "cutoff",
+   "as": [
+    "0.18 cutoff"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rs-xgb-v3",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "rs-xgb-v2",
+   "quote": "supersedes: [rs-xgb-v2]",
+   "line": 4
+  },
+  {
+   "s": "rs-xgb-v3",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "mape",
+   "quote": "MAPE 14.2% on recovery-scoring-agency-2025h2",
+   "line": 8
+  },
+  {
+   "s": "rs-xgb-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "mape",
+   "quote": "19.8% for rs-xgb-v2",
+   "line": 8
+  },
+  {
+   "s": "rs-xgb-v3",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "recovery-scoring-agency-2025h2",
+   "quote": "MAPE 14.2% on recovery-scoring-agency-2025h2 (n=3,480)",
+   "line": 8
+  },
+  {
+   "s": "regression-head",
+   "type": "part-of",
+   "label": "added to",
+   "o": "rs-xgb-v3",
+   "quote": "plus a regression head predicting recovered share of balance",
+   "line": 7
+  },
+  {
+   "s": "rs-xgb-v3",
+   "type": "uses",
+   "label": "uses",
+   "o": "placement-cutoff",
+   "quote": "Placement uses the classifier probability with the 0.18 cutoff",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "exp-308",
+  "dec-rs-placement-cutoff",
+  "rs-xgb-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "recovery-scoring/rs-xgb-v3.md",
+ "sha": "a81ce58f0555a73ec9d1cbe62001feb361249703cd1807764e2d66fa47dad998",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

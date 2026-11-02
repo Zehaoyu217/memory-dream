@@ -1,0 +1,199 @@
+{
+ "kind": "report",
+ "entities": [
+  {
+   "id": "rev26-combined-v1",
+   "type": "model",
+   "label": "combined forecast",
+   "as": [
+    "rev26-combined-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "rev26-interchange-v1",
+   "type": "model",
+   "label": "interchange forecast",
+   "as": [
+    "rev26-interchange-v1"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "rev26-interest-v2",
+   "type": "model",
+   "label": "interest forecast",
+   "as": [
+    "rev26-interest-v2"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "sfc-hier-v3",
+   "type": "model",
+   "label": "volume forecast",
+   "as": [
+    "sfc-hier-v3"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "fee-income",
+   "type": "other",
+   "label": "fee income",
+   "as": [
+    "fee income"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "p10-p90-bands",
+   "type": "term",
+   "label": "p10/p90 bands",
+   "as": [
+    "P10 and P90 bands"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "scenario-runs",
+   "type": "scenario",
+   "label": "scenario runs",
+   "as": [
+    "scenario runs"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "promo-roll-off-timing",
+   "type": "other",
+   "label": "promo roll-off timing",
+   "as": [
+    "promo roll-off timing"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cap-scenarios",
+   "type": "scenario",
+   "label": "cap scenarios",
+   "as": [
+    "cap scenarios"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "board-pack",
+   "type": "document",
+   "label": "board pack",
+   "as": [
+    "board pack"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rev26-combined-v1",
+   "type": "uses",
+   "label": "sums",
+   "o": "rev26-interchange-v1",
+   "quote": "Sums rev26-interchange-v1, rev26-interest-v2 and fee income into one FY26 revenue line.",
+   "line": 6
+  },
+  {
+   "s": "rev26-combined-v1",
+   "type": "uses",
+   "label": "sums",
+   "o": "rev26-interest-v2",
+   "quote": "Sums rev26-interchange-v1, rev26-interest-v2 and fee income into one FY26 revenue line.",
+   "line": 6
+  },
+  {
+   "s": "rev26-combined-v1",
+   "type": "uses",
+   "label": "sums",
+   "o": "fee-income",
+   "quote": "Sums rev26-interchange-v1, rev26-interest-v2 and fee income into one FY26 revenue line.",
+   "line": 6
+  },
+  {
+   "s": "p10-p90-bands",
+   "type": "uses",
+   "label": "come from",
+   "o": "scenario-runs",
+   "quote": "P10 and P90 bands come from scenario runs over volume (sfc-hier-v3 error) and promo roll-off timing.",
+   "line": 7
+  },
+  {
+   "s": "scenario-runs",
+   "type": "uses",
+   "label": "runs over volume error of",
+   "o": "sfc-hier-v3",
+   "quote": "scenario runs over volume (sfc-hier-v3 error)",
+   "line": 7
+  },
+  {
+   "s": "scenario-runs",
+   "type": "uses",
+   "label": "includes timing of",
+   "o": "promo-roll-off-timing",
+   "quote": "P10 and P90 bands come from scenario runs over volume (sfc-hier-v3 error) and promo roll-off timing.",
+   "line": 7
+  },
+  {
+   "s": "rev26-combined-v1",
+   "type": "other",
+   "label": "excludes",
+   "o": "cap-scenarios",
+   "quote": "cap scenarios are not included",
+   "line": 8
+  },
+  {
+   "s": "rev26-combined-v1",
+   "type": "other",
+   "label": "has base case in",
+   "o": "board-pack",
+   "quote": "Base case FY26 total is in the board pack",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "rev26-interchange-v1",
+  "rev26-interest-v2",
+  "spend-forecasting/sfc-hier-v3",
+  "dec-rev26-cap-scenario-separate"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "revenue-forecast-2026/rev26-combined-v1.md",
+ "sha": "b53f3d341fe07d420447477fe0da485435c1ee0273c5ffb5a6c8c7981b55725b",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

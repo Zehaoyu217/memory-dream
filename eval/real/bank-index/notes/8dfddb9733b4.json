@@ -1,0 +1,144 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "inc-gbm-v3",
+   "type": "model",
+   "label": "estimate model",
+   "as": [
+    "inc-gbm-v3",
+    "Current estimate model"
+   ],
+   "lines": [
+    6,
+    9
+   ]
+  },
+  {
+   "id": "inc-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "inc-gbm-v2"
+   ],
+   "lines": [
+    2,
+    4,
+    8
+   ]
+  },
+  {
+   "id": "ds-inc-verified-2026",
+   "type": "dataset",
+   "label": "verified sample",
+   "as": [
+    "ds-inc-verified-2026",
+    "verified 2026 sample"
+   ],
+   "lines": [
+    2,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "verified-2026-holdout",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "verified-2026 holdout"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "log-target",
+   "type": "term",
+   "label": "log-target",
+   "as": [
+    "log-target"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "inc-gbm-v3",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "inc-gbm-v2",
+   "quote": "supersedes: [inc-gbm-v2]",
+   "line": 4
+  },
+  {
+   "s": "inc-gbm-v3",
+   "type": "evaluated-on",
+   "label": "eval on",
+   "o": "verified-2026-holdout",
+   "quote": "Eval: verified-2026 holdout",
+   "line": 8
+  },
+  {
+   "s": "verified-2026-holdout",
+   "type": "part-of",
+   "label": "holdout of",
+   "o": "ds-inc-verified-2026",
+   "quote": "n=1,980 of ds-inc-verified-2026",
+   "line": 8
+  },
+  {
+   "s": "inc-gbm-v3",
+   "type": "measured-by",
+   "label": "MAPE 19%",
+   "o": "mape",
+   "quote": "MAPE 19%",
+   "line": 6
+  },
+  {
+   "s": "inc-gbm-v2",
+   "type": "measured-by",
+   "label": "MAPE 31%",
+   "o": "mape",
+   "quote": "31% for inc-gbm-v2",
+   "line": 8
+  },
+  {
+   "s": "inc-gbm-v3",
+   "type": "uses",
+   "label": "log target",
+   "o": "log-target",
+   "quote": "a log of verified income as the target",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "inc-gbm-v2",
+  "find-inc-log-target-gain",
+  "ds-inc-verified-2026",
+  "find-inc-self-employed-bias"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "income-estimation/inc-gbm-v3.md",
+ "sha": "8dfddb9733b459ce4f3be52c7c52513f6ee44c935f98fafd0f9877119e05b829",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

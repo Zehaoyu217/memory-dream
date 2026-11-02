@@ -1,0 +1,88 @@
+{
+ "kind": "design",
+ "entities": [
+  {
+   "id": "behaviour-features-join",
+   "type": "other",
+   "label": "join design",
+   "as": [
+    "Behaviour features join"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "transactions table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "complaint calls table",
+   "as": [
+    "`callcenter.calls`"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "builder",
+   "as": [
+    "Tomás Rivera"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "behaviour-features-join",
+   "type": "uses",
+   "label": "joins to",
+   "o": "cards.txn_daily",
+   "quote": "Behaviour features join to `cards.txn_daily` and `callcenter.calls`",
+   "line": 5
+  },
+  {
+   "s": "behaviour-features-join",
+   "type": "uses",
+   "label": "joins to",
+   "o": "callcenter.calls",
+   "quote": "Behaviour features join to `cards.txn_daily` and `callcenter.calls`",
+   "line": 5
+  },
+  {
+   "s": "behaviour-features-join",
+   "type": "owned-by",
+   "label": "built by",
+   "o": "tomas-rivera",
+   "quote": "Built by Tomás Rivera (data engineering)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-nps-waves"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "nps-drivers/ds-nps-behaviour-join.md",
+ "sha": "95fb049047b6d365989354d858482aabe30a424e14980600514da56992df3318",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

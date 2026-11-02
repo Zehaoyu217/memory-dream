@@ -1,0 +1,121 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "hotel-spend",
+   "type": "metric",
+   "label": "spend category",
+   "as": [
+    "Hotel spend",
+    "hotel spend"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "airline-spend",
+   "type": "metric",
+   "label": "spend category",
+   "as": [
+    "airline spend"
+   ],
+   "lines": [
+    5,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "cohort-2024-q4",
+   "type": "segment",
+   "label": "cohort",
+   "as": [
+    "2024-Q4 cohort"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "tenure-bands",
+   "type": "segment",
+   "label": "tenure bands",
+   "as": [
+    "tenure bands"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "hotel-forecasts",
+   "type": "model",
+   "label": "forecasts",
+   "as": [
+    "Hotel forecasts"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "airline-spend-lag-1q",
+   "type": "feature",
+   "label": "regressor",
+   "as": [
+    "airline spend lagged one quarter"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "hotel-spend",
+   "type": "other",
+   "label": "trails",
+   "o": "airline-spend",
+   "quote": "Hotel spend trails airline spend by about one quarter",
+   "line": 5
+  },
+  {
+   "s": "hotel-spend",
+   "type": "other",
+   "label": "returns in",
+   "o": "cohort-2024-q4",
+   "quote": "In the 2024-Q4 cohort, hotel spend returns about one quarter after airline spend",
+   "line": 6
+  },
+  {
+   "s": "hotel-spend",
+   "type": "other",
+   "label": "lag holds across",
+   "o": "tenure-bands",
+   "quote": "The lag holds across tenure bands",
+   "line": 7
+  },
+  {
+   "s": "hotel-forecasts",
+   "type": "uses",
+   "label": "use as regressor",
+   "o": "airline-spend-lag-1q",
+   "quote": "Hotel forecasts therefore use airline spend lagged one quarter as a regressor",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-507",
+  "q-trv-hotel-lag"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "travel-spend-recovery/fnd-trv-hotel-lag.md",
+ "sha": "4ffe5b21cc58a84bda74fadf0cd5c88363593f06986217ac221ba69b80ee17b7",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

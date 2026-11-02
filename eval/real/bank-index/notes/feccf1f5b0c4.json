@@ -1,0 +1,149 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "clv-ml-v1",
+   "type": "model",
+   "label": "gbm",
+   "as": [
+    "clv-ml-v1",
+    "LightGBM"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "clv-oot-2021h1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "clv-oot-2021h1"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE 18.4%",
+    "MAPE"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "arpu-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "arpu v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "tenure-feature",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "tenure"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "loss-rate",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "loss rate"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "clv-ml-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "clv-ml-v2"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "clv-ml-v1",
+   "type": "uses",
+   "label": "features",
+   "o": "arpu-v1",
+   "quote": "Features: arpu v1, tenure, loss rate.",
+   "line": 6
+  },
+  {
+   "s": "clv-ml-v1",
+   "type": "uses",
+   "label": "features",
+   "o": "tenure-feature",
+   "quote": "Features: arpu v1, tenure, loss rate.",
+   "line": 6
+  },
+  {
+   "s": "clv-ml-v1",
+   "type": "uses",
+   "label": "features",
+   "o": "loss-rate",
+   "quote": "Features: arpu v1, tenure, loss rate.",
+   "line": 6
+  },
+  {
+   "s": "clv-ml-v1",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "clv-oot-2021h1",
+   "quote": "Holdout clv-oot-2021h1 (n=318,400): MAPE 18.4%.",
+   "line": 7
+  },
+  {
+   "s": "clv-ml-v1",
+   "type": "measured-by",
+   "label": "MAPE",
+   "o": "mape",
+   "quote": "MAPE 18.4%",
+   "line": 5
+  },
+  {
+   "s": "clv-ml-v1",
+   "type": "superseded-by",
+   "label": "superseded by",
+   "o": "clv-ml-v2",
+   "quote": "superseded by clv-ml-v2",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-503",
+  "dec-clv-include-losses",
+  "clv-bgnbd-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "customer-lifetime-value/clv-ml-v1.md",
+ "sha": "feccf1f5b0c470a380640344bb5681845a67be21ebc3e8837449390420aa4659",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

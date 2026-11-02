@@ -1,0 +1,185 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "inc-linear-baseline",
+   "type": "model",
+   "label": "baseline",
+   "as": [
+    "inc-linear-baseline"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "inc-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "inc-gbm-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "booked-accounts",
+   "type": "segment",
+   "label": "booked accounts",
+   "as": [
+    "booked accounts"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-inc-stated-income-2025",
+   "type": "dataset",
+   "label": "stated income",
+   "as": [
+    "stated income"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-inc-payroll-cadence-v1",
+   "type": "feature",
+   "label": "payroll cadence",
+   "as": [
+    "payroll cadence"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ordinary-least-squares",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "Ordinary least squares"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE 31%"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "median-absolute-error",
+   "type": "metric",
+   "label": "median absolute error",
+   "as": [
+    "median absolute error"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "inc-linear-baseline",
+   "type": "uses",
+   "label": "regresses on",
+   "o": "ds-inc-stated-income-2025",
+   "quote": "Ordinary least squares on log stated income",
+   "line": 6
+  },
+  {
+   "s": "inc-linear-baseline",
+   "type": "uses",
+   "label": "with features",
+   "o": "feat-inc-payroll-cadence-v1",
+   "quote": "Ordinary least squares on log stated income with payroll cadence",
+   "line": 6
+  },
+  {
+   "s": "inc-linear-baseline",
+   "type": "other",
+   "label": "fit by",
+   "o": "ordinary-least-squares",
+   "quote": "Ordinary least squares on log stated income",
+   "line": 6
+  },
+  {
+   "s": "inc-linear-baseline",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q1",
+   "quote": "Eval: holdout-2025q1 (n=12,400 booked accounts)",
+   "line": 7
+  },
+  {
+   "s": "inc-linear-baseline",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "booked-accounts",
+   "quote": "Eval: holdout-2025q1 (n=12,400 booked accounts)",
+   "line": 7
+  },
+  {
+   "s": "inc-linear-baseline",
+   "type": "measured-by",
+   "label": "eval MAPE",
+   "o": "mape",
+   "quote": "MAPE 31%",
+   "line": 5
+  },
+  {
+   "s": "inc-linear-baseline",
+   "type": "measured-by",
+   "label": "eval error",
+   "o": "median-absolute-error",
+   "quote": "median absolute error $9,100",
+   "line": 7
+  },
+  {
+   "s": "inc-linear-baseline",
+   "type": "other",
+   "label": "baseline for",
+   "o": "inc-gbm-v1",
+   "quote": "Baseline for inc-gbm-v1",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-inc-payroll-cadence-v1",
+  "ds-inc-stated-income-2025",
+  "inc-gbm-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "income-estimation/inc-linear-baseline.md",
+ "sha": "8c341445336a601cbc799ed3ea0a410d35faaf2f10a3c2c1c71218e34c779334",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,166 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "disp-lgbm-v3",
+   "type": "model",
+   "label": "classifier",
+   "as": [
+    "disp-lgbm-v3",
+    "Current classifier"
+   ],
+   "lines": [
+    6,
+    9
+   ]
+  },
+  {
+   "id": "disp-lgbm-v2",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "disp-lgbm-v2"
+   ],
+   "lines": [
+    2,
+    3
+   ]
+  },
+  {
+   "id": "feat-disp-fraud-score",
+   "type": "feature",
+   "label": "score",
+   "as": [
+    "feat-disp-fraud-score",
+    "fraud-2026 score"
+   ],
+   "lines": [
+    2,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "disp-oot-2026h1",
+   "type": "dataset",
+   "label": "out-of-time set",
+   "as": [
+    "disp-oot-2026h1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "precision-at-0.95",
+   "type": "metric",
+   "label": "precision",
+   "as": [
+    "precision 95.3% at p>=0.95",
+    "precision 95.1% at p>=0.95"
+   ],
+   "lines": [
+    6,
+    8,
+    9
+   ]
+  },
+  {
+   "id": "coverage",
+   "type": "metric",
+   "label": "coverage",
+   "as": [
+    "29% coverage"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-307",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-307"
+   ],
+   "lines": [
+    2,
+    8
+   ]
+  },
+  {
+   "id": "exp-308",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-308"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "disp-lgbm-v3",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "disp-lgbm-v2",
+   "quote": "supersedes: [disp-lgbm-v2]",
+   "line": 3
+  },
+  {
+   "s": "disp-lgbm-v3",
+   "type": "uses",
+   "label": "adds",
+   "o": "feat-disp-fraud-score",
+   "quote": "Adds feat-disp-fraud-score to the v2 feature set.",
+   "line": 7
+  },
+  {
+   "s": "disp-lgbm-v3",
+   "type": "evaluated-on",
+   "label": "out-of-time on",
+   "o": "disp-oot-2026h1",
+   "quote": "Out-of-time on disp-oot-2026h1: precision 95.3% at p>=0.95 with 29% coverage (exp-307).",
+   "line": 8
+  },
+  {
+   "s": "disp-lgbm-v3",
+   "type": "measured-by",
+   "label": "precision",
+   "o": "precision-at-0.95",
+   "quote": "precision 95.3% at p>=0.95 with 29% coverage (exp-307)",
+   "line": 8
+  },
+  {
+   "s": "disp-lgbm-v3",
+   "type": "measured-by",
+   "label": "coverage",
+   "o": "coverage",
+   "quote": "with 29% coverage (exp-307)",
+   "line": 8
+  },
+  {
+   "s": "disp-lgbm-v3",
+   "type": "measured-by",
+   "label": "precision",
+   "o": "precision-at-0.95",
+   "quote": "Fresh Jul-Aug 2026 labels: precision 95.1% at p>=0.95 (exp-308).",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "disp-lgbm-v2",
+  "feat-disp-fraud-score",
+  "dec-disp-fraud-score-in"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "dispute-triage/disp-lgbm-v3.md",
+ "sha": "65aca32917e5f8aaf0b7d94eeb1c8431461bd011687c5e1ce433bee7e3a5b761",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

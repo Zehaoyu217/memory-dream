@@ -1,0 +1,164 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-csb-tenure-floor",
+   "type": "other",
+   "label": "decision note",
+   "as": [
+    "Decision: train and score only SMB accounts with 6 or more months of tenure"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-202",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-202"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "fnd-csb-tenure-cut",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-csb-tenure-cut"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "q-csb-tenure-floor",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "q-csb-tenure-floor"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "priya-nair",
+   "type": "person",
+   "label": "playbook owner",
+   "as": [
+    "Priya Nair"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "onboarding",
+   "type": "team",
+   "label": "onboarding playbook",
+   "as": [
+    "onboarding playbook"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "csb-xgb",
+   "type": "model",
+   "label": "model family",
+   "as": [
+    "csb-xgb evaluations",
+    "the model does not score them"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "csb-oot-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "csb-oot-2025q1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "tenure-6m-subset",
+   "type": "segment",
+   "label": "6-month-plus subset",
+   "as": [
+    "6-month-plus subset"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-202",
+   "type": "other",
+   "label": "basis for",
+   "o": "dec-csb-tenure-floor",
+   "quote": "Basis: exp-202 (0.699 against 0.687 on the 6-month-plus subset)",
+   "line": 6
+  },
+  {
+   "s": "fnd-csb-tenure-cut",
+   "type": "other",
+   "label": "basis for",
+   "o": "dec-csb-tenure-floor",
+   "quote": "and fnd-csb-tenure-cut.",
+   "line": 6
+  },
+  {
+   "s": "csb-xgb",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "tenure-6m-subset",
+   "quote": "All csb-xgb evaluations are on the 6-month-plus subset of csb-oot-2025q1.",
+   "line": 8
+  },
+  {
+   "s": "tenure-6m-subset",
+   "type": "part-of",
+   "label": "subset of",
+   "o": "csb-oot-2025q1",
+   "quote": "the 6-month-plus subset of csb-oot-2025q1",
+   "line": 8
+  },
+  {
+   "s": "priya-nair",
+   "type": "owned-by",
+   "label": "owns playbook",
+   "o": "onboarding",
+   "quote": "the onboarding playbook owned by Priya Nair",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-202",
+  "fnd-csb-tenure-cut",
+  "q-csb-tenure-floor"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-small-business/dec-csb-tenure-floor.md",
+ "sha": "3a742e24ef10b8196e7bf07d2134e132b6e83b7ab35cf513f0e75aa8321aa2dc",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

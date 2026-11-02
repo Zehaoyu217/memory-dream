@@ -1,0 +1,122 @@
+{
+ "kind": "term",
+ "entities": [
+  {
+   "id": "churn",
+   "type": "term",
+   "label": "defined term",
+   "as": [
+    "churn",
+    "Churn"
+   ],
+   "lines": [
+    4,
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "churned-account",
+   "type": "term",
+   "label": "churned account",
+   "as": [
+    "A churned account"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "monthly-churn-rate",
+   "type": "metric",
+   "label": "monthly churn rate",
+   "as": [
+    "Monthly churn rate",
+    "1.1% monthly churn"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.churn_labels",
+   "type": "dataset",
+   "label": "label table",
+   "as": [
+    "cards.churn_labels"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "label-window",
+   "type": "term",
+   "label": "label window",
+   "as": [
+    "label window"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn",
+   "type": "other",
+   "label": "defined as",
+   "o": "churned-account",
+   "quote": "Churn is an account that closes. A churned account is one closed inside the label window",
+   "line": 5
+  },
+  {
+   "s": "churned-account",
+   "type": "uses",
+   "label": "closure date from",
+   "o": "cards.accounts_monthly",
+   "quote": "using the closure date in `cards.accounts_monthly`",
+   "line": 5
+  },
+  {
+   "s": "churn",
+   "type": "produces",
+   "label": "labels stored in",
+   "o": "cards.churn_labels",
+   "quote": "Churn labels are stored in `cards.churn_labels`",
+   "line": 5
+  },
+  {
+   "s": "monthly-churn-rate",
+   "type": "uses",
+   "label": "computed from accounts closed",
+   "o": "churn",
+   "quote": "Monthly churn rate = accounts closed in the month / opening accounts",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "glossary/churn.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "glossary/churn.md",
+ "sha": "33783a3071f21adb6790feb284a8b35621e4e2990e4c73bb670058fd1d1b1ed3",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

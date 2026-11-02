@@ -1,0 +1,78 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-aml-cash-velocity",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-aml-cash-velocity: 30-day cash total against the prior 90-day average"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "aml-xgb-v2",
+   "type": "model",
+   "label": "shipped with",
+   "as": [
+    "shipped with round-amount in aml-xgb-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "round-amount",
+   "type": "feature",
+   "label": "shipped with",
+   "as": [
+    "round-amount"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-aml-cash-txn",
+   "type": "team",
+   "label": "from",
+   "as": [
+    "ds-aml-cash-txn"
+   ],
+   "lines": [
+    2
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-aml-cash-velocity",
+   "type": "part-of",
+   "label": "shipped with",
+   "o": "aml-xgb-v2",
+   "quote": "shipped with round-amount in aml-xgb-v2",
+   "line": 7
+  },
+  {
+   "s": "round-amount",
+   "type": "part-of",
+   "label": "shipped with",
+   "o": "aml-xgb-v2",
+   "quote": "shipped with round-amount in aml-xgb-v2",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "aml-alerts/feat-aml-cash-velocity.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "aml-alerts/feat-aml-cash-velocity.md",
+ "sha": "099467fbb00a216115b6bbf93bfea7315aa3dfdd3c0440ea3870ebbdd67c1104",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

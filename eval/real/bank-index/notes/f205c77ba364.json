@@ -1,0 +1,122 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-402-payroll-flag",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-402: adding the payroll flag lifts xs-gbm AUC from 0.71 to 0.73 on xs-holdout-2025q1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-xs-payroll-flag-v2",
+   "type": "feature",
+   "label": "payroll flag",
+   "as": [
+    "feat-xs-payroll-flag-v2"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "xs-gbm-v1",
+   "type": "model",
+   "label": "xs-gbm model",
+   "as": [
+    "xs-gbm-v1",
+    "xs-gbm"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "xs-holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "xs-holdout-2025q1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.71 to 0.73",
+    "AUC"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "top-decile-open-rate",
+   "type": "metric",
+   "label": "top-decile open rate",
+   "as": [
+    "Top-decile open rate 6.9% to 7.8%"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "xs-gbm-v1",
+   "type": "uses",
+   "label": "added feature",
+   "o": "feat-xs-payroll-flag-v2",
+   "quote": "Added feat-xs-payroll-flag-v2 to xs-gbm-v1",
+   "line": 6
+  },
+  {
+   "s": "xs-gbm-v1",
+   "type": "evaluated-on",
+   "label": "same holdout",
+   "o": "xs-holdout-2025q1",
+   "quote": "on the same holdout (n=52,000)",
+   "line": 6
+  },
+  {
+   "s": "xs-gbm-v1",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.71 to 0.73",
+   "line": 7
+  },
+  {
+   "s": "xs-gbm-v1",
+   "type": "measured-by",
+   "label": "top-decile open rate",
+   "o": "top-decile-open-rate",
+   "quote": "Top-decile open rate 6.9% to 7.8%",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "cross-sell-savings/exp-402-payroll-flag.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cross-sell-savings/exp-402-payroll-flag.md",
+ "sha": "f205c77ba3647d27fb17d84b7beb15a4d1dc0a9f1a2bc8d52b2b0095c77246a1",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

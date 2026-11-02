@@ -1,0 +1,92 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "aml-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "aml-xgb-v2"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "aml-oot-2026h1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "aml-oot-2026h1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "sar-referred-alerts",
+   "type": "segment",
+   "label": "sar-referred alerts",
+   "as": [
+    "SAR-referred alerts"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "top-40-capture",
+   "type": "metric",
+   "label": "capture rate",
+   "as": [
+    "93.5%"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "ds-aml-oot",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "ds-aml-oot"
+   ],
+   "lines": [
+    2
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "aml-xgb-v2",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "aml-oot-2026h1",
+   "quote": "Eval set: aml-oot-2026h1",
+   "line": 6
+  },
+  {
+   "s": "aml-xgb-v2",
+   "type": "measured-by",
+   "label": "puts in top 40%",
+   "o": "top-40-capture",
+   "quote": "aml-xgb-v2 puts 93.5% of SAR-referred alerts in the top 40% of the queue",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "aml-find-ranker-top40"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "aml-alerts/exp-405.md",
+ "sha": "c891c4e0a5fbedc3c22c35e526d61a6eaa6492bc624e56d8a56bba58da2b2efe",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

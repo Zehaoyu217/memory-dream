@@ -1,0 +1,123 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "feat-f26-velocity-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "Velocity-v2"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "fraud26-oot-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "fraud26-oot-2025q4"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "post-period-days",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "post-period days"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "target-leak",
+   "type": "term",
+   "label": "leak",
+   "as": [
+    "leaks the target"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "join-window-bug",
+   "type": "other",
+   "label": "join-window bug",
+   "as": [
+    "join-window bug"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-f26-velocity-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "fraud26-oot-2025q4",
+   "quote": "Velocity-v2 AUC 0.94 on fraud26-oot-2025q4",
+   "line": 6
+  },
+  {
+   "s": "feat-f26-velocity-v2",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "Velocity-v2 AUC 0.94 on fraud26-oot-2025q4",
+   "line": 6
+  },
+  {
+   "s": "feat-f26-velocity-v2",
+   "type": "uses",
+   "label": "computed with",
+   "o": "post-period-days",
+   "quote": "AUC 0.94 with post-period days, 0.88 without",
+   "line": 5
+  },
+  {
+   "s": "target-leak",
+   "type": "other",
+   "label": "caused by",
+   "o": "join-window-bug",
+   "quote": "the leak is a join-window bug",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "fraud26-find-velocity-clean",
+  "exp-203",
+  "exp-204",
+  "feat-f26-velocity-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2026/fraud26-find-velocity-leak.md",
+ "sha": "992f5f665476760ffda80a79bf8122e8180408b84ea2a74382d7109090e3479e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

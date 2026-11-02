@@ -1,0 +1,178 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "find-ch-send-window",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "SMS sent in the morning window"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-ch-send-window-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ch-send-window-v1"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "ds-ch-ab-wave1",
+   "type": "dataset",
+   "label": "wave 1",
+   "as": [
+    "ds-ch-ab-wave1"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "sms-arm",
+   "type": "segment",
+   "label": "arm",
+   "as": [
+    "wave-1 SMS arm",
+    "n=28,400"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "morning-sends",
+   "type": "segment",
+   "label": "morning sends",
+   "as": [
+    "morning sends (08-11)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "afternoon-sends",
+   "type": "segment",
+   "label": "afternoon sends",
+   "as": [
+    "afternoon sends (14-18)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "promise-to-pay",
+   "type": "metric",
+   "label": "promise-to-pay",
+   "as": [
+    "promise-to-pay"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "confidence-interval",
+   "type": "term",
+   "label": "ci",
+   "as": [
+    "CI"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "find-ch-send-window",
+   "type": "uses",
+   "label": "from",
+   "o": "feat-ch-send-window-v1",
+   "quote": "from: [feat-ch-send-window-v1, ds-ch-ab-wave1]",
+   "line": 2
+  },
+  {
+   "s": "find-ch-send-window",
+   "type": "uses",
+   "label": "from",
+   "o": "ds-ch-ab-wave1",
+   "quote": "from: [feat-ch-send-window-v1, ds-ch-ab-wave1]",
+   "line": 2
+  },
+  {
+   "s": "find-ch-send-window",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "sms-arm",
+   "quote": "On the wave-1 SMS arm (n=28,400)",
+   "line": 6
+  },
+  {
+   "s": "morning-sends",
+   "type": "part-of",
+   "label": "subset of",
+   "o": "sms-arm",
+   "quote": "On the wave-1 SMS arm (n=28,400), morning sends",
+   "line": 6
+  },
+  {
+   "s": "afternoon-sends",
+   "type": "part-of",
+   "label": "subset of",
+   "o": "sms-arm",
+   "quote": "On the wave-1 SMS arm (n=28,400)",
+   "line": 6
+  },
+  {
+   "s": "morning-sends",
+   "type": "measured-by",
+   "label": "produce",
+   "o": "promise-to-pay",
+   "quote": "morning sends (08-11) produce promise-to-pay at 11.9%",
+   "line": 6
+  },
+  {
+   "s": "afternoon-sends",
+   "type": "measured-by",
+   "label": "produce",
+   "o": "promise-to-pay",
+   "quote": "11.1% for afternoon sends (14-18)",
+   "line": 6
+  },
+  {
+   "s": "find-ch-send-window",
+   "type": "measured-by",
+   "label": "compares",
+   "o": "promise-to-pay",
+   "quote": "0.8pp more promise-to-pay than afternoon sends",
+   "line": 5
+  },
+  {
+   "s": "find-ch-send-window",
+   "type": "other",
+   "label": "inside CI",
+   "o": "confidence-interval",
+   "quote": "The difference is inside the CI",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-channel-mix/find-ch-send-window.md",
+ "sha": "de65aa382169d082b673592f43abc819520e15a2f39554a071c5c9fd69f84cfe",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

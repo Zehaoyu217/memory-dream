@@ -1,0 +1,169 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "collections.pilot_assignments",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`collections.pilot_assignments`"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`callcenter.calls`"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`cards.payments_daily`"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "raj-patel",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Raj Patel"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "randomised-pilot",
+   "type": "other",
+   "label": "pilot",
+   "as": [
+    "The pilot (Apr-Jun 2025)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "eligible-1-29-dpd",
+   "type": "segment",
+   "label": "eligible accounts",
+   "as": [
+    "eligible 1-29 DPD accounts"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "treatment-arm",
+   "type": "segment",
+   "label": "treatment arm",
+   "as": [
+    "treatment (90%, eligible for outbound contact by uplift rank)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "control-arm",
+   "type": "segment",
+   "label": "control arm",
+   "as": [
+    "control (10%, no outbound call)",
+    "The control arm"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "assignment-seed",
+   "type": "term",
+   "label": "assignment seed",
+   "as": [
+    "Assignment seed"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift ci",
+   "as": [
+    "uplift@20% CI"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "collections.pilot_assignments",
+   "type": "uses",
+   "label": "joined to",
+   "o": "callcenter.calls",
+   "quote": "Table: `collections.pilot_assignments` joined to `callcenter.calls` and `cards.payments_daily`.",
+   "line": 7
+  },
+  {
+   "s": "collections.pilot_assignments",
+   "type": "uses",
+   "label": "joined to",
+   "o": "cards.payments_daily",
+   "quote": "Table: `collections.pilot_assignments` joined to `callcenter.calls` and `cards.payments_daily`.",
+   "line": 7
+  },
+  {
+   "s": "collections.pilot_assignments",
+   "type": "owned-by",
+   "label": "owner of",
+   "o": "raj-patel",
+   "quote": "Owner of the assignment table: Raj Patel (collections).",
+   "line": 9
+  },
+  {
+   "s": "eligible-1-29-dpd",
+   "type": "other",
+   "label": "randomised to",
+   "o": "treatment-arm",
+   "quote": "randomised eligible 1-29 DPD accounts to treatment",
+   "line": 6
+  },
+  {
+   "s": "eligible-1-29-dpd",
+   "type": "other",
+   "label": "randomised to",
+   "o": "control-arm",
+   "quote": "or control (10%, no outbound call)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-cu-cases-dpd"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-uplift/ds-cu-treat-log.md",
+ "sha": "b70318eca996da890616a3d53835710dc112a74cb5fee3dbaabb02f64796841f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

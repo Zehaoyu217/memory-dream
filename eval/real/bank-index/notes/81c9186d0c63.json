@@ -1,0 +1,100 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "risk-tier-cuts",
+   "type": "term",
+   "label": "risk-tier cuts",
+   "as": [
+    "Risk-tier cuts at churn score 0.20 and 0.50",
+    "risk-tier cuts"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "retention",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "retention"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "maya-ortiz",
+   "type": "person",
+   "label": "person",
+   "as": [
+    "Maya Ortiz"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "churn-xgb-v2",
+   "type": "model",
+   "label": "churn model",
+   "as": [
+    "churn-xgb-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "offers.tier_matrix",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`offers.tier_matrix`"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "risk-tier-cuts",
+   "type": "uses",
+   "label": "applied to",
+   "o": "churn-xgb-v2",
+   "quote": "The risk-tier cuts are applied to churn-xgb-v2 scores",
+   "line": 7
+  },
+  {
+   "s": "risk-tier-cuts",
+   "type": "produces",
+   "label": "written to",
+   "o": "offers.tier_matrix",
+   "quote": "written to `offers.tier_matrix` each night",
+   "line": 8
+  },
+  {
+   "s": "risk-tier-cuts",
+   "type": "owned-by",
+   "label": "decided with",
+   "o": "retention",
+   "quote": "with retention (Maya Ortiz)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "q-tier-cutoffs"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2026/dec-risk-tiers.md",
+ "sha": "81c9186d0c63b898f2ad700e1a823068fd67bc192bfe172d94c9a86eedbd1de1",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

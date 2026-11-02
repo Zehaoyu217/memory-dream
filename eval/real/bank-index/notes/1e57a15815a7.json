@@ -1,0 +1,83 @@
+{
+ "kind": "note",
+ "entities": [
+  {
+   "id": "cards.churn_labels",
+   "type": "dataset",
+   "label": "churn labels table",
+   "as": [
+    "`cards.churn_labels`",
+    "cards.churn_labels"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "data-eng-cards",
+   "type": "team",
+   "label": "data-eng team",
+   "as": [
+    "data-eng-cards"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "arm-c",
+   "type": "segment",
+   "label": "arm c cohort",
+   "as": [
+    "arm C cohorts",
+    "arm C"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "arm-b",
+   "type": "segment",
+   "label": "arm b cohort",
+   "as": [
+    "arm B"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cards.churn_labels",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "data-eng-cards",
+   "quote": "Label from `cards.churn_labels` (data-eng-cards)",
+   "line": 6
+  },
+  {
+   "s": "arm-c",
+   "type": "evaluated-on",
+   "label": "label observed for",
+   "o": "cards.churn_labels",
+   "quote": "so the label is observed for arm C and the control comparison",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-pa-ab-assignments"
+ ],
+ "dropped": {
+  "entities": [
+   "ds-pa-churn-labels"
+  ],
+  "relations": 1
+ },
+ "path": "promo-apr-test/ds-pa-churn-labels.md",
+ "sha": "1e57a15815a7b8d42f9c4f863c154d702a501d2f41ab29df486584c5c333d4b8",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

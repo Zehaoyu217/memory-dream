@@ -1,0 +1,175 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ml.legacy_feats_v1",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "ml.legacy_feats_v1"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "legacy-feature-notebooks",
+   "type": "module",
+   "label": "notebooks",
+   "as": [
+    "nine notebooks"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "legacy-features",
+   "type": "feature",
+   "label": "features",
+   "as": [
+    "214 features"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "`cards.payments_daily`"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cards.limits_history",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "`cards.limits_history`"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "`bureau.scores_monthly`"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "aisha-khan",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Aisha Khan"
+   ],
+   "lines": [
+    10
+   ]
+  },
+  {
+   "id": "monthly-refresh",
+   "type": "pipeline",
+   "label": "refresh",
+   "as": [
+    "Refresh is manual"
+   ],
+   "lines": [
+    10
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ml.legacy_feats_v1",
+   "type": "uses",
+   "label": "sources from",
+   "o": "cards.txn_daily",
+   "quote": "Sources: `cards.txn_daily`, `cards.payments_daily`, `cards.limits_history`, `bureau.scores_monthly`.",
+   "line": 8
+  },
+  {
+   "s": "ml.legacy_feats_v1",
+   "type": "uses",
+   "label": "sources from",
+   "o": "cards.payments_daily",
+   "quote": "Sources: `cards.txn_daily`, `cards.payments_daily`, `cards.limits_history`, `bureau.scores_monthly`.",
+   "line": 8
+  },
+  {
+   "s": "ml.legacy_feats_v1",
+   "type": "uses",
+   "label": "sources from",
+   "o": "cards.limits_history",
+   "quote": "Sources: `cards.txn_daily`, `cards.payments_daily`, `cards.limits_history`, `bureau.scores_monthly`.",
+   "line": 8
+  },
+  {
+   "s": "ml.legacy_feats_v1",
+   "type": "uses",
+   "label": "sources from",
+   "o": "bureau.scores_monthly",
+   "quote": "Sources: `cards.txn_daily`, `cards.payments_daily`, `cards.limits_history`, `bureau.scores_monthly`.",
+   "line": 8
+  },
+  {
+   "s": "legacy-feature-notebooks",
+   "type": "produces",
+   "label": "writes to",
+   "o": "ml.legacy_feats_v1",
+   "quote": "written monthly to `ml.legacy_feats_v1`",
+   "line": 6
+  },
+  {
+   "s": "legacy-features",
+   "type": "part-of",
+   "label": "holds",
+   "o": "ml.legacy_feats_v1",
+   "quote": "ml.legacy_feats_v1 holds 214 features",
+   "line": 5
+  },
+  {
+   "s": "monthly-refresh",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "aisha-khan",
+   "quote": "owned by Aisha Khan",
+   "line": 10
+  }
+ ],
+ "refs": [
+  "fnd-parity-pre-fix"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "feature-store-migration/ds-fsm-legacy-features.md",
+ "sha": "348014483763f018fb0bb0e89b0b815f8a5db24ec73e6da703bfa9c4cea1ed31",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

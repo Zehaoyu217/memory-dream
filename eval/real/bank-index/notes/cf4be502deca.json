@@ -1,0 +1,180 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-502",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-502"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "mrisk-oot-2025h2",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "Eval set: mrisk-oot-2025h2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "gbm-three-feature",
+   "type": "model",
+   "label": "gbm",
+   "as": [
+    "GBM with cb-ratio, concentration and new-merchant"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "mrisk-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "mrisk-gbm-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cb-ratio",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "cb-ratio"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "concentration",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "concentration"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "new-merchant",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "new-merchant"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.85"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "precision-at-100",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "precision@100 0.41"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "gbm-three-feature",
+   "type": "uses",
+   "label": "uses feature",
+   "o": "cb-ratio",
+   "quote": "GBM with cb-ratio, concentration and new-merchant",
+   "line": 7
+  },
+  {
+   "s": "gbm-three-feature",
+   "type": "uses",
+   "label": "uses feature",
+   "o": "concentration",
+   "quote": "GBM with cb-ratio, concentration and new-merchant",
+   "line": 7
+  },
+  {
+   "s": "gbm-three-feature",
+   "type": "uses",
+   "label": "uses feature",
+   "o": "new-merchant",
+   "quote": "GBM with cb-ratio, concentration and new-merchant",
+   "line": 7
+  },
+  {
+   "s": "gbm-three-feature",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "mrisk-oot-2025h2",
+   "quote": "Eval set: mrisk-oot-2025h2",
+   "line": 6
+  },
+  {
+   "s": "gbm-three-feature",
+   "type": "measured-by",
+   "label": "reaches AUC",
+   "o": "auc",
+   "quote": "GBM with cb-ratio, concentration and new-merchant: AUC 0.85, precision@100 0.41.",
+   "line": 7
+  },
+  {
+   "s": "gbm-three-feature",
+   "type": "measured-by",
+   "label": "reaches precision",
+   "o": "precision-at-100",
+   "quote": "GBM with cb-ratio, concentration and new-merchant: AUC 0.85, precision@100 0.41.",
+   "line": 7
+  },
+  {
+   "s": "mrisk-gbm-v1",
+   "type": "other",
+   "label": "chosen as basis",
+   "o": "gbm-three-feature",
+   "quote": "Chosen as mrisk-gbm-v1 basis",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-501",
+  "feat-mrisk-txn-concentration",
+  "feat-mrisk-new-merchant",
+  "dec-mrisk-monthly-scoring"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "merchant-risk/exp-502.md",
+ "sha": "cf4be502deca1560a7bffd9c258b3db9da1451763a9aab79f7a00951665ad3c9",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,89 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "sms-uplift",
+   "type": "metric",
+   "label": "uplift metric",
+   "as": [
+    "SMS uplift"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "email-uplift",
+   "type": "metric",
+   "label": "uplift metric",
+   "as": [
+    "Email uplift"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "rdm-oot-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "rdm-oot-2025q1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "crm.contacts",
+   "type": "dataset",
+   "label": "contacts table",
+   "as": [
+    "crm.contacts"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "sms-uplift",
+   "type": "evaluated-on",
+   "label": "corrected on",
+   "o": "rdm-oot-2025q1",
+   "quote": "Corrected SMS uplift on rdm-oot-2025q1",
+   "line": 7
+  },
+  {
+   "s": "email-uplift",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "rdm-oot-2025q1",
+   "quote": "Email uplift: 1.4pp",
+   "line": 7
+  },
+  {
+   "s": "rdm-oot-2025q1",
+   "type": "uses",
+   "label": "rescored using",
+   "o": "crm.contacts",
+   "quote": "Re-scored the holdout using consent history from crm.contacts at send time",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fnd-rdm-sms-uplift",
+  "ds-rdm-contact-channels",
+  "ds-rdm-holdout-2025q1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reactivation-dormant/exp-306.md",
+ "sha": "44cd941c629d69710893eb009e06e39c51b46dadd5a7ab837170159822388146",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,98 @@
+{
+ "kind": "note",
+ "entities": [
+  {
+   "id": "ds-cld-collections-roll",
+   "type": "dataset",
+   "label": "roll outcomes table",
+   "as": [
+    "ds-cld-collections-roll: roll outcomes for decrease-cohort accounts from collections.cases"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-cld-decrease-cohort",
+   "type": "segment",
+   "label": "decrease cohort",
+   "as": [
+    "the decrease cohort"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "collections.cases",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`collections.cases`"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "hardship-programme",
+   "type": "segment",
+   "label": "hardship accounts",
+   "as": [
+    "Hardship-programme accounts"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cld-gbm-v1",
+   "type": "model",
+   "label": "roll-rate model",
+   "as": [
+    "cld-gbm-v1"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-cld-collections-roll",
+   "type": "uses",
+   "label": "joins",
+   "o": "ds-cld-decrease-cohort",
+   "quote": "Joins the decrease cohort to `collections.cases`",
+   "line": 6
+  },
+  {
+   "s": "ds-cld-collections-roll",
+   "type": "uses",
+   "label": "joins",
+   "o": "collections.cases",
+   "quote": "Joins the decrease cohort to `collections.cases`",
+   "line": 6
+  },
+  {
+   "s": "cld-gbm-v1",
+   "type": "evaluated-on",
+   "label": "roll-rate evaluation",
+   "o": "ds-cld-collections-roll",
+   "quote": "roll-rate evaluation in cld-gbm-v1",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-cld-decrease-cohort"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "limit-decrease-policy/ds-cld-collections-roll.md",
+ "sha": "fd3e26832e27c55aed6781ea80d7581434902f75f7e9d35a3242633fa6880433",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

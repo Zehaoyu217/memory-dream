@@ -1,0 +1,136 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-203",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-203"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "exp-202",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-202"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "cld-control-2025h2",
+   "type": "dataset",
+   "label": "control set",
+   "as": [
+    "cld-control-2025h2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "raw-complaint-ratio",
+   "type": "metric",
+   "label": "raw ratio",
+   "as": [
+    "Raw ratio 2.3x"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "mix-adjusted-complaint-ratio",
+   "type": "metric",
+   "label": "mix-adjusted ratio",
+   "as": [
+    "mix-adjusted 1.1x"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "reason-mix",
+   "type": "term",
+   "label": "reason mix",
+   "as": [
+    "reason mix"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "notice-timing",
+   "type": "term",
+   "label": "notice timing",
+   "as": [
+    "Notice timing"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-203",
+   "type": "evaluated-on",
+   "label": "run on",
+   "o": "cld-control-2025h2",
+   "quote": "From exp-203 on cld-control-2025h2",
+   "line": 7
+  },
+  {
+   "s": "exp-203",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "raw-complaint-ratio",
+   "quote": "Raw ratio 2.3x",
+   "line": 8
+  },
+  {
+   "s": "exp-203",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "mix-adjusted-complaint-ratio",
+   "quote": "mix-adjusted 1.1x, so the spike was mostly reason mix from the decrease wave",
+   "line": 8
+  },
+  {
+   "s": "reason-mix",
+   "type": "other",
+   "label": "explains spike",
+   "o": "raw-complaint-ratio",
+   "quote": "the spike was mostly reason mix from the decrease wave",
+   "line": 8
+  },
+  {
+   "s": "notice-timing",
+   "type": "other",
+   "label": "still matters",
+   "o": "exp-202",
+   "quote": "Notice timing still matters, as exp-202 showed.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "find-cld-complaints-2x"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "limit-decrease-policy/find-cld-complaints-controlled.md",
+ "sha": "18ecbe9141fd7300f75e5721866904957c189556087f7be54903be0c8f5e2a0c",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

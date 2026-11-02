@@ -1,0 +1,128 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "feat-c25-util-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "util-v1"
+   ],
+   "lines": [
+    2,
+    5,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "feat-c25-util-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-c25-util-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cards.limits_history",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`cards.limits_history`"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "churn-rate",
+   "type": "metric",
+   "label": "churn rate",
+   "as": [
+    "churn rate"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "limit-cut-accounts",
+   "type": "segment",
+   "label": "subset",
+   "as": [
+    "had a limit decrease in the trailing 30 days"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "measurement-artefact",
+   "type": "term",
+   "label": "artefact",
+   "as": [
+    "measurement artefact"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-c25-util-v1",
+   "type": "other",
+   "label": "reads as over-utilised",
+   "o": "limit-cut-accounts",
+   "quote": "util-v1 reads them as over-utilised",
+   "line": 7
+  },
+  {
+   "s": "feat-c25-util-v2",
+   "type": "other",
+   "label": "fixes",
+   "o": "feat-c25-util-v1",
+   "quote": "feat-c25-util-v2 fixes it with time-matched limits from `cards.limits_history`",
+   "line": 8
+  },
+  {
+   "s": "feat-c25-util-v2",
+   "type": "uses",
+   "label": "takes limits from",
+   "o": "cards.limits_history",
+   "quote": "time-matched limits from `cards.limits_history`",
+   "line": 8
+  },
+  {
+   "s": "limit-cut-accounts",
+   "type": "measured-by",
+   "label": "churn rate is",
+   "o": "churn-rate",
+   "quote": "Their churn rate is 11.9%",
+   "line": 7
+  },
+  {
+   "s": "feat-c25-util-v1",
+   "type": "other",
+   "label": "mixes signal with",
+   "o": "measurement-artefact",
+   "quote": "util-v1 mixes a real churn signal with a measurement artefact",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-c25-util-v1",
+  "ds-c25-accounts-snapshot"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2025/fnd-c25-limit-cut-spike.md",
+ "sha": "2306b87c94a54210bfe4089f9487357befb16d2eb4872ba7003ec759bc95b40c",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

@@ -1,0 +1,165 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "app-scorecard-v3",
+   "type": "model",
+   "label": "scorecard",
+   "as": [
+    "app-scorecard-v3"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "ds-app-applications-2024",
+   "type": "dataset",
+   "label": "applications dataset",
+   "as": [
+    "ds-app-applications-2024"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "holdout-2026q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Holdout-2026q1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini"
+   ],
+   "lines": [
+    6,
+    9
+   ]
+  },
+  {
+   "id": "bad-rate",
+   "type": "metric",
+   "label": "bad rate",
+   "as": [
+    "bad rate"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "bureau-score-v8",
+   "type": "feature",
+   "label": "bureau score",
+   "as": [
+    "v8 bureau score"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "utilisation-feature",
+   "type": "feature",
+   "label": "utilisation feature",
+   "as": [
+    "utilisation"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "velocity-feature",
+   "type": "feature",
+   "label": "velocity feature",
+   "as": [
+    "velocity"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "app-scorecard-v3",
+   "type": "trained-on",
+   "label": "built from",
+   "o": "ds-app-applications-2024",
+   "quote": "from: [app-scorecard-v3, ds-app-applications-2024]",
+   "line": 2
+  },
+  {
+   "s": "app-scorecard-v3",
+   "type": "evaluated-on",
+   "label": "holdout check",
+   "o": "holdout-2026q1",
+   "quote": "Gini falls from 0.41 to 0.33 on the 2026-Q1 holdout (n=18,900)",
+   "line": 6
+  },
+  {
+   "s": "app-scorecard-v3",
+   "type": "measured-by",
+   "label": "Gini falls",
+   "o": "gini",
+   "quote": "app-scorecard-v3 Gini falls from 0.41 to 0.33",
+   "line": 6
+  },
+  {
+   "s": "holdout-2026q1",
+   "type": "measured-by",
+   "label": "bad rate",
+   "o": "bad-rate",
+   "quote": "bad rate 4.7%",
+   "line": 7
+  },
+  {
+   "s": "app-scorecard-v3",
+   "type": "uses",
+   "label": "drift in",
+   "o": "bureau-score-v8",
+   "quote": "Score drift in the v8 bureau score accounts for most of the fall",
+   "line": 8
+  },
+  {
+   "s": "app-scorecard-v3",
+   "type": "uses",
+   "label": "stable inputs",
+   "o": "utilisation-feature",
+   "quote": "the utilisation and velocity features are stable",
+   "line": 8
+  },
+  {
+   "s": "app-scorecard-v3",
+   "type": "uses",
+   "label": "stable inputs",
+   "o": "velocity-feature",
+   "quote": "the utilisation and velocity features are stable",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "q-app-gini-target",
+  "dec-app-rebuild-v4"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "application-scorecard/find-app-gini-v3-drift.md",
+ "sha": "f166a6552f1f958e17bb30ce4608916a23f22c06fcccbe20fa6286e26e1c6185",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

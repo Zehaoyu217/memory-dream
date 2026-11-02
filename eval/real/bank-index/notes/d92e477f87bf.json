@@ -1,0 +1,78 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "weekly-kpi-deck",
+   "type": "document",
+   "label": "weekly deck",
+   "as": [
+    "Weekly deck titles"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "title-format",
+   "type": "term",
+   "label": "title format",
+   "as": [
+    "Weekly KPI, w/c DD Mon YYYY"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "monthly-deck",
+   "type": "document",
+   "label": "monthly deck",
+   "as": [
+    "monthly decks"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fiscal-year",
+   "type": "term",
+   "label": "fy label",
+   "as": [
+    "FY label"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "weekly-kpi-deck",
+   "type": "other",
+   "label": "title reads",
+   "o": "title-format",
+   "quote": "Weekly deck titles read \"Weekly KPI, w/c DD Mon YYYY\"",
+   "line": 4
+  },
+  {
+   "s": "monthly-deck",
+   "type": "uses",
+   "label": "uses FY label",
+   "o": "fiscal-year",
+   "quote": "Titles of monthly decks use the FY label",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "reporting/weekly-kpi-cutoff-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/weekly-deck-title-format.md",
+ "sha": "d92e477f87bff071f5ad2c0d667f5ed8a17c87f82b73771f59777a41e0fabd9e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

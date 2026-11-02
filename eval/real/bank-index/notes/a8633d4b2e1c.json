@@ -1,0 +1,71 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-508",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-508: v3 at score >= 0.65 flags 5.2% of merchants and captures 74% of confirmed-fraud merchants"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "mrisk-oot-2026h1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "Eval set: mrisk-oot-2026h1 with the acquirer watchlist as recall reference."
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mrisk-gbm-v3",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "mrisk-gbm-v3 at score >= 0.65: 5.2% of merchants flagged, 74% of confirmed-fraud merchants captured, precision 0.27."
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "mrisk-gbm-v3-at-0.65",
+   "type": "other",
+   "label": "cut-off threshold",
+   "as": [
+    "At 0.70 on v3 the capture would be 66%, so 0.65 is the better cut."
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mrisk-gbm-v3",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "mrisk-oot-2026h1",
+   "quote": "Eval set: mrisk-oot-2026h1 with the acquirer watchlist as recall reference.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "merchant-risk/exp-507.md",
+  "dec-mrisk-watchlist-07"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "merchant-risk/exp-508.md",
+ "sha": "a8633d4b2e1cf3aa7bf00386dfb829e12e27b2f96f0a3f1cd6491de5a367da4b",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

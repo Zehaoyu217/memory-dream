@@ -1,0 +1,126 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-txc-descriptor-tokens-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-txc-descriptor-tokens-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-txc-descriptor-sample",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "ds-txc-descriptor-sample"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "ds-txc-labelled-merchants",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "ds-txc-labelled-merchants"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "txc-logreg-v1",
+   "type": "model",
+   "label": "baseline model",
+   "as": [
+    "txc-logreg-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "txc-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "txc-gbm-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-txc-descriptor-tokens-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-txc-descriptor-tokens-v2"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-txc-descriptor-tokens-v1",
+   "type": "uses",
+   "label": "built from",
+   "o": "ds-txc-descriptor-sample",
+   "quote": "from: [ds-txc-descriptor-sample, ds-txc-labelled-merchants]",
+   "line": 2
+  },
+  {
+   "s": "feat-txc-descriptor-tokens-v1",
+   "type": "uses",
+   "label": "built from",
+   "o": "ds-txc-labelled-merchants",
+   "quote": "from: [ds-txc-descriptor-sample, ds-txc-labelled-merchants]",
+   "line": 2
+  },
+  {
+   "s": "txc-logreg-v1",
+   "type": "uses",
+   "label": "baseline for",
+   "o": "feat-txc-descriptor-tokens-v1",
+   "quote": "Baseline for txc-logreg-v1",
+   "line": 8
+  },
+  {
+   "s": "txc-gbm-v2",
+   "type": "uses",
+   "label": "baseline for",
+   "o": "feat-txc-descriptor-tokens-v1",
+   "quote": "the first txc-gbm-v2 runs (exp-101, exp-103)",
+   "line": 8
+  },
+  {
+   "s": "feat-txc-descriptor-tokens-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "feat-txc-descriptor-tokens-v1",
+   "quote": "Superseded by feat-txc-descriptor-tokens-v2",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "exp-101",
+  "exp-103",
+  "feat-txc-descriptor-tokens-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "txn-categorization/feat-txc-descriptor-tokens-v1.md",
+ "sha": "71b8be54eb019dcb0ddc61f5060bfd2222fb1a41201e621a395f4e1d17e313ee",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

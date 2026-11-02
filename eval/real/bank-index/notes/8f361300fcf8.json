@@ -1,0 +1,144 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-ae-no-push-credit",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Remove push open rate from the engagement score"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "engagement-score",
+   "type": "metric",
+   "label": "engagement score",
+   "as": [
+    "engagement score"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "push-open-rate",
+   "type": "metric",
+   "label": "push open rate",
+   "as": [
+    "push open rate"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ae-score-v2",
+   "type": "model",
+   "label": "score version",
+   "as": [
+    "ae-score-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "push-data",
+   "type": "dataset",
+   "label": "push data",
+   "as": [
+    "Push data"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "priya-nair",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Priya Nair"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "onboarding",
+   "type": "team",
+   "label": "onboarding",
+   "as": [
+    "onboarding"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-ae-no-push-credit",
+   "type": "other",
+   "label": "removes",
+   "o": "push-open-rate",
+   "quote": "Remove push open rate from the engagement score",
+   "line": 5
+  },
+  {
+   "s": "push-open-rate",
+   "type": "other",
+   "label": "removed from",
+   "o": "engagement-score",
+   "quote": "Remove push open rate from the engagement score",
+   "line": 5
+  },
+  {
+   "s": "dec-ae-no-push-credit",
+   "type": "other",
+   "label": "applied in",
+   "o": "ae-score-v2",
+   "quote": "Applied in ae-score-v2",
+   "line": 7
+  },
+  {
+   "s": "push-data",
+   "type": "other",
+   "label": "kept for reporting",
+   "o": "push-data",
+   "quote": "Push data remains in the warehouse for campaign reporting",
+   "line": 7
+  },
+  {
+   "s": "dec-ae-no-push-credit",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "priya-nair",
+   "quote": "Owner Priya Nair (onboarding)",
+   "line": 8
+  },
+  {
+   "s": "priya-nair",
+   "type": "part-of",
+   "label": "member of",
+   "o": "onboarding",
+   "quote": "Owner Priya Nair (onboarding)",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "fnd-ae-push-null",
+  "ae-score-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "app-engagement/dec-ae-no-push-credit.md",
+ "sha": "8f361300fcf829264634e648d2e8758662fbfcbdd511d3d2855af83e3b3546cc",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

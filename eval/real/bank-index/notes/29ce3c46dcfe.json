@@ -1,0 +1,68 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "app.sessions_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "app.sessions_daily"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "user_id",
+   "type": "feature",
+   "label": "column",
+   "as": [
+    "`user_id`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "session_count",
+   "type": "feature",
+   "label": "column",
+   "as": [
+    "`session_count`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "active-user",
+   "type": "term",
+   "label": "definition",
+   "as": [
+    "active user"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "active-user",
+   "type": "uses",
+   "label": "counts distinct",
+   "o": "user_id",
+   "quote": "Count distinct `user_id` for active users",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/app-sessions-dedupe.md",
+ "sha": "29ce3c46dcfe4cf53b0b9207955ae082a98072cdb1dbdcaf6866756ce3c78aef",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

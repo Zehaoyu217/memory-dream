@@ -1,0 +1,82 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "dedupe-dry-run",
+   "type": "other",
+   "label": "dry run",
+   "as": [
+    "dedupe dry-run",
+    "Dry run"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "shared-consumer-view",
+   "type": "dataset",
+   "label": "consumer view",
+   "as": [
+    "shared consumer view"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "upstream-control-totals",
+   "type": "dataset",
+   "label": "control totals",
+   "as": [
+    "upstream control totals"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dispute-join",
+   "type": "other",
+   "label": "dispute join",
+   "as": [
+    "dispute join"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dedupe-dry-run",
+   "type": "other",
+   "label": "reconciled against",
+   "o": "upstream-control-totals",
+   "quote": "After reconciliation against the upstream control totals",
+   "line": 7
+  },
+  {
+   "s": "dedupe-dry-run",
+   "type": "other",
+   "label": "precedes entry into",
+   "o": "shared-consumer-view",
+   "quote": "Re-check before the dedupe goes into the shared consumer view.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "dec-dq-dedupe-first-arrival",
+  "ds-dq-dispute-join",
+  "exp-305"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "data-quality-txn/exp-307.md",
+ "sha": "763decb4b02ec2e4ef07508f7cf7cc9c99f963971c3b84349606002a0e7d00fb",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

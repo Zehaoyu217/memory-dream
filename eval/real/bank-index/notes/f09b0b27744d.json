@@ -1,0 +1,90 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "question raiser",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "points-based-scorecard",
+   "type": "model",
+   "label": "scorecard",
+   "as": [
+    "points-based scorecard",
+    "new-account scorecard"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "reject-inference",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "reject inference"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "manual-approvals",
+   "type": "segment",
+   "label": "manual approvals",
+   "as": [
+    "manual approvals"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "lena-fischer",
+   "type": "other",
+   "label": "raised question",
+   "o": "reject-inference",
+   "quote": "Raised by Lena Fischer when the 2024 score curve looked flat above the cutoff.",
+   "line": 6
+  },
+  {
+   "s": "reject-inference",
+   "type": "uses",
+   "label": "could estimate from",
+   "o": "manual-approvals",
+   "quote": "whether the 8,400 manual approvals can give a better population estimate",
+   "line": 6
+  },
+  {
+   "s": "reject-inference",
+   "type": "other",
+   "label": "scoped to",
+   "o": "points-based-scorecard",
+   "quote": "Scope is the points-based scorecard only.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-501",
+  "find-app-reject-inference-gain",
+  "ds-app-reject-sample"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "application-scorecard/q-app-reject-inference.md",
+ "sha": "f09b0b27744dccaa144077eadc7377dd088c064c51fa0799bdaf3c8497c39178",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

@@ -1,0 +1,97 @@
+{
+ "kind": "term",
+ "entities": [
+  {
+   "id": "escalation-label",
+   "type": "term",
+   "label": "label",
+   "as": [
+    "Escalation label"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "chat.handoff_events",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "chat.handoff_events"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "escalation-rate",
+   "type": "metric",
+   "label": "escalation rate",
+   "as": [
+    "escalation rate 11.8 percent"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cb-escalate-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cb-escalate-v1"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "escalation-label",
+   "type": "uses",
+   "label": "built from",
+   "o": "chat.handoff_events",
+   "quote": "Built from `chat.handoff_events`",
+   "line": 6
+  },
+  {
+   "s": "cb-escalate-v1",
+   "type": "uses",
+   "label": "target",
+   "o": "escalation-label",
+   "quote": "Used as the target for cb-escalate-v1.",
+   "line": 7
+  },
+  {
+   "s": "escalation-rate",
+   "type": "evaluated-on",
+   "label": "holdout is",
+   "o": "holdout-2025q4",
+   "quote": "Holdout is holdout-2025q4: 18,400 sessions from Oct to Dec 2025, escalation rate 11.8 percent.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-cb-sessions"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "chatbot-deflection/ds-cb-escalation-labels.md",
+ "sha": "81c774660ed8372167b7fa4cddb1bc614ede05260c141113d8ef62fc914a1132",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

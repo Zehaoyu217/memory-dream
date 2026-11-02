@@ -1,0 +1,72 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Gini"
+   ],
+   "lines": [
+    3,
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "2024-scorecard-memo",
+   "type": "document",
+   "label": "scorecard memo",
+   "as": [
+    "2024 scorecard memo"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "gini",
+   "type": "derived-from",
+   "label": "computed from",
+   "o": "auc",
+   "quote": "Gini = 2 x AUC - 1",
+   "line": 5
+  },
+  {
+   "s": "2024-scorecard-memo",
+   "type": "measured-by",
+   "label": "quoted",
+   "o": "gini",
+   "quote": "the 2024 scorecard memo quoted Gini 0.20 for an AUC 0.80 model",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "glossary/gini"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "corrections/gini-two-auc.md",
+ "sha": "f9815cd96403080b066a278a5164bce330ae6b1bbfd44ba903c3ee0569f9649a",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

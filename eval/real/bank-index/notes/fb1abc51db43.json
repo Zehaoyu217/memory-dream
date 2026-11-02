@@ -1,0 +1,67 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "early-delinquency-holdout-2024q4",
+   "type": "dataset",
+   "label": "holdout set",
+   "as": [
+    "early-delinquency-holdout-2024q4"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "early-delinquency",
+   "type": "model",
+   "label": "scorecard",
+   "as": [
+    "[early-delinquency] scorecard baseline"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.742"
+   ],
+   "lines": [
+    3
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "early-delinquency",
+   "type": "evaluated-on",
+   "label": "baseline on",
+   "o": "early-delinquency-holdout-2024q4",
+   "quote": "scorecard baseline on early-delinquency-holdout-2024q4: AUC 0.742",
+   "line": 3
+  },
+  {
+   "s": "early-delinquency",
+   "type": "measured-by",
+   "label": "has AUC",
+   "o": "auc",
+   "quote": "scorecard baseline on early-delinquency-holdout-2024q4: AUC 0.742",
+   "line": 3
+  }
+ ],
+ "refs": [
+  "log/2025-05-14.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2025-05-14.md",
+ "sha": "fb1abc51db43950388dfcb6c6f0880f6cb72929a251248c161ec23287dfe2c8c",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

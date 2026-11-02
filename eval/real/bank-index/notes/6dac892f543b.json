@@ -1,0 +1,91 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-507",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-507"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-trv-cohort-panel",
+   "type": "dataset",
+   "label": "cohort panel",
+   "as": [
+    "ds-trv-cohort-panel"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "feat-trv-tenure",
+   "type": "feature",
+   "label": "tenure band",
+   "as": [
+    "feat-trv-tenure",
+    "Tenure band changes the return rate, but not the lag (feat-trv-tenure)."
+   ],
+   "lines": [
+    2,
+    8
+   ]
+  },
+  {
+   "id": "travel-cohort-2024q4",
+   "type": "segment",
+   "label": "travel cohort",
+   "as": [
+    "the 2024-Q4 travel cohort",
+    "2024-Q4 travel cohort"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-507",
+   "type": "uses",
+   "label": "measured on",
+   "o": "ds-trv-cohort-panel",
+   "quote": "Of the 312k cardholders in ds-trv-cohort-panel, 62% had travel spend again in 2026-Q2.",
+   "line": 6
+  },
+  {
+   "s": "exp-507",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-trv-tenure",
+   "quote": "Tenure band changes the return rate, but not the lag (feat-trv-tenure).",
+   "line": 8
+  },
+  {
+   "s": "travel-cohort-2024q4",
+   "type": "subset-of",
+   "label": "drawn from",
+   "o": "ds-trv-cohort-panel",
+   "quote": "Of the 312k cardholders in ds-trv-cohort-panel, 62% had travel spend again in 2026-Q2.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-trv-cohort-panel",
+  "feat-trv-tenure"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "travel-spend-recovery/exp-507.md",
+ "sha": "6dac892f543b7e120d50d1430d371acc8d53b00dcb2a58f06154a0878acfd27a",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,207 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "rs-xgb-v2",
+   "type": "model",
+   "label": "recovery classifier",
+   "as": [
+    "rs-xgb-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "rs-xgb-v1",
+   "type": "model",
+   "label": "superseded model",
+   "as": [
+    "rs-xgb-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "rs-xgb-v3",
+   "type": "model",
+   "label": "superseding model",
+   "as": [
+    "rs-xgb-v3"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "feat-rs-balance-at-co",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rs-balance-at-co"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-rs-pay-before-co",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rs-pay-before-co"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-rs-bureau-postco-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rs-bureau-postco-v1"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "feat-rs-contact-attempts",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rs-contact-attempts"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "recovery-scoring-holdout-2023h2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "recovery-scoring-holdout-2023h2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Gini 0.47"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "KS 0.33"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rs-xgb-v2",
+   "type": "uses",
+   "label": "uses feature",
+   "o": "feat-rs-balance-at-co",
+   "quote": "Features: feat-rs-balance-at-co",
+   "line": 7
+  },
+  {
+   "s": "rs-xgb-v2",
+   "type": "uses",
+   "label": "uses feature",
+   "o": "feat-rs-pay-before-co",
+   "quote": "feat-rs-pay-before-co",
+   "line": 7
+  },
+  {
+   "s": "rs-xgb-v2",
+   "type": "uses",
+   "label": "uses feature",
+   "o": "feat-rs-bureau-postco-v1",
+   "quote": "feat-rs-bureau-postco-v1",
+   "line": 2
+  },
+  {
+   "s": "rs-xgb-v2",
+   "type": "uses",
+   "label": "uses feature",
+   "o": "feat-rs-contact-attempts",
+   "quote": "feat-rs-contact-attempts",
+   "line": 2
+  },
+  {
+   "s": "rs-xgb-v2",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "gini",
+   "quote": "Gini 0.47 and KS 0.33",
+   "line": 8
+  },
+  {
+   "s": "rs-xgb-v2",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "ks",
+   "quote": "KS 0.33 on recovery-scoring-holdout-2023h2",
+   "line": 8
+  },
+  {
+   "s": "rs-xgb-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "recovery-scoring-holdout-2023h2",
+   "quote": "on recovery-scoring-holdout-2023h2 (n=6,120)",
+   "line": 8
+  },
+  {
+   "s": "rs-xgb-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "rs-xgb-v1",
+   "quote": "supersedes: [rs-xgb-v1]",
+   "line": 4
+  },
+  {
+   "s": "rs-xgb-v3",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "rs-xgb-v2",
+   "quote": "Superseded by rs-xgb-v3 (2026-02-10)",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "exp-306",
+  "find-rs-region-proxy",
+  "feat-rs-bureau-postco-v1",
+  "feat-rs-contact-attempts",
+  "rs-xgb-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "recovery-scoring/rs-xgb-v2.md",
+ "sha": "0219eb7b432f5c2b434b10d358d037722e1dd022de67e3ba73c35ddff9affed8",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

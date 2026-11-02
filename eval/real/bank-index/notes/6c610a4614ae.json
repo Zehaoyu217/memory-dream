@@ -1,0 +1,156 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "mrisk-gbm-v3",
+   "type": "model",
+   "label": "merchant model",
+   "as": [
+    "the merchant model for v3",
+    "mrisk-gbm-v3"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "feat-mrisk-dispute-ratio",
+   "type": "feature",
+   "label": "dispute ratio",
+   "as": [
+    "feat-mrisk-dispute-ratio",
+    "the dispute ratio from dispute-triage"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "dispute-triage",
+   "type": "other",
+   "label": "source project",
+   "as": [
+    "dispute-triage"
+   ],
+   "lines": [
+    5,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "ds-disp-merchant-link",
+   "type": "dataset",
+   "label": "merchant link dataset",
+   "as": [
+    "dispute-triage/ds-disp-merchant-link"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fraud-ops",
+   "type": "team",
+   "label": "owner team",
+   "as": [
+    "the fraud-ops team"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-507",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-507"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "mrisk-oot-2026h1",
+   "type": "dataset",
+   "label": "out-of-time set",
+   "as": [
+    "mrisk-oot-2026h1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.86 to 0.91"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mrisk-gbm-v3",
+   "type": "uses",
+   "label": "include",
+   "o": "feat-mrisk-dispute-ratio",
+   "quote": "include feat-mrisk-dispute-ratio, borrowed from dispute-triage, in mrisk-gbm-v3.",
+   "line": 6
+  },
+  {
+   "s": "feat-mrisk-dispute-ratio",
+   "type": "uses",
+   "label": "introduces dependency on",
+   "o": "ds-disp-merchant-link",
+   "quote": "Introduces a dependency on dispute-triage/ds-disp-merchant-link",
+   "line": 8
+  },
+  {
+   "s": "ds-disp-merchant-link",
+   "type": "owned-by",
+   "label": "owner is",
+   "o": "fraud-ops",
+   "quote": "the owner is the fraud-ops team",
+   "line": 8
+  },
+  {
+   "s": "mrisk-gbm-v3",
+   "type": "measured-by",
+   "label": "basis AUC",
+   "o": "auc",
+   "quote": "AUC 0.86 to 0.91 on mrisk-oot-2026h1",
+   "line": 7
+  },
+  {
+   "s": "exp-507",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "mrisk-oot-2026h1",
+   "quote": "exp-507 (AUC 0.86 to 0.91 on mrisk-oot-2026h1)",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "merchant-risk/dec-mrisk-dispute-feature.md",
+  "feat-mrisk-dispute-ratio",
+  "exp-507"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "merchant-risk/dec-mrisk-dispute-feature.md",
+ "sha": "6c610a4614ae27d527c5039fe7f12685776e950cbc4ca8bcab2a8a46929d12a8",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

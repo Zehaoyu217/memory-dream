@@ -1,0 +1,160 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "feat-mrisk-mcc-base",
+   "type": "feature",
+   "label": "base rate feature",
+   "as": [
+    "feat-mrisk-mcc-base: smoothed confirmed-fraud base rate per MCC over the prior 12 months",
+    "Base rate per MCC from the previous 12 months of confirmed-fraud merchants, smoothed toward the global rate."
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "mcc",
+   "type": "feature",
+   "label": "mcc",
+   "as": [
+    "MCC"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "bad-rate",
+   "type": "metric",
+   "label": "base rate",
+   "as": [
+    "Base rate per MCC"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "mrisk-find-mcc-base",
+   "type": "document",
+   "label": "finding",
+   "as": [
+    "mrisk-find-mcc-base"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "mrisk-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "added in mrisk-gbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "Adds about 0.02 AUC"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-mrisk-chargebacks",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "ds-mrisk-chargebacks"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "ds-mrisk-merchants",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "ds-mrisk-merchants"
+   ],
+   "lines": [
+    2
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-mrisk-mcc-base",
+   "type": "uses",
+   "label": "smoothed toward",
+   "o": "bad-rate",
+   "quote": "smoothed toward the global rate",
+   "line": 6
+  },
+  {
+   "s": "feat-mrisk-mcc-base",
+   "type": "part-of",
+   "label": "per MCC",
+   "o": "mcc",
+   "quote": "Base rate per MCC from the previous 12 months",
+   "line": 6
+  },
+  {
+   "s": "feat-mrisk-mcc-base",
+   "type": "measured-by",
+   "label": "adds about",
+   "o": "auc",
+   "quote": "Adds about 0.02 AUC (mrisk-find-mcc-base)",
+   "line": 7
+  },
+  {
+   "s": "mrisk-gbm-v2",
+   "type": "uses",
+   "label": "added in",
+   "o": "feat-mrisk-mcc-base",
+   "quote": "added in mrisk-gbm-v2",
+   "line": 7
+  },
+  {
+   "s": "feat-mrisk-mcc-base",
+   "type": "owned-by",
+   "label": "from",
+   "o": "ds-mrisk-chargebacks",
+   "quote": "from: [ds-mrisk-chargebacks, ds-mrisk-merchants]",
+   "line": 2
+  },
+  {
+   "s": "feat-mrisk-mcc-base",
+   "type": "owned-by",
+   "label": "from",
+   "o": "ds-mrisk-merchants",
+   "quote": "from: [ds-mrisk-chargebacks, ds-mrisk-merchants]",
+   "line": 2
+  }
+ ],
+ "refs": [
+  "mrisk-find-mcc-base",
+  "mrisk-gbm-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "merchant-risk/feat-mrisk-mcc-base.md",
+ "sha": "9bdefd91fa313585ac4c918d336c18343a47352950296d51bdfbb39ac4ade0fe",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

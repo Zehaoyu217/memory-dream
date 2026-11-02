@@ -1,0 +1,70 @@
+{
+ "kind": "term",
+ "entities": [
+  {
+   "id": "book",
+   "type": "term",
+   "label": "defined term",
+   "as": [
+    "book"
+   ],
+   "lines": [
+    4,
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "book-percent",
+   "type": "term",
+   "label": "share of book",
+   "as": [
+    "\"% of book\""
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "book",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cards.accounts_monthly",
+   "quote": "from `cards.accounts_monthly`",
+   "line": 5
+  },
+  {
+   "s": "book-percent",
+   "type": "uses",
+   "label": "divides by",
+   "o": "book",
+   "quote": "a segment's balance divided by the total book",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "glossary/book.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "glossary/book.md",
+ "sha": "1fc654d6adea0b7b83ead219e016d5e1841a2331917d92756862a394ed6b4cda",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

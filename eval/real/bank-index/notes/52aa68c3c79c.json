@@ -1,0 +1,86 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-app-applications-2024",
+   "type": "dataset",
+   "label": "application dataset",
+   "as": [
+    "ds-app-applications-2024: 214,600 new-account applications, Jan to Dec 2024, with 12-month outcome"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "outcome table",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bad-rate",
+   "type": "metric",
+   "label": "bad rate",
+   "as": [
+    "Bad rate among booked accounts 4.6%"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "booked-accounts",
+   "type": "segment",
+   "label": "booked accounts",
+   "as": [
+    "Booked accounts 58,300"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-app-applications-2024",
+   "type": "uses",
+   "label": "outcome from",
+   "o": "cards.accounts_monthly",
+   "quote": "outcome from `cards.accounts_monthly` for booked accounts",
+   "line": 6
+  },
+  {
+   "s": "booked-accounts",
+   "type": "measured-by",
+   "label": "bad rate among",
+   "o": "bad-rate",
+   "quote": "Bad rate among booked accounts 4.6%",
+   "line": 8
+  },
+  {
+   "s": "booked-accounts",
+   "type": "subset-of",
+   "label": "booked from",
+   "o": "ds-app-applications-2024",
+   "quote": "Booked accounts 58,300; declined applications carry no observed outcome",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "application-scorecard/ds-app-applications-2024.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "application-scorecard/ds-app-applications-2024.md",
+ "sha": "52aa68c3c79c02de9d75d4f43ff3fded8703ce4ed17b0bbf1cee9601ce445fec",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

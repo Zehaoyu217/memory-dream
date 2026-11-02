@@ -1,0 +1,129 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "v10b",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "v10b"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "v8",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "v8"
+   ],
+   "lines": [
+    2,
+    5
+   ]
+  },
+  {
+   "id": "bureau-score-migration-oot-2026h1",
+   "type": "dataset",
+   "label": "out-of-time holdout",
+   "as": [
+    "bureau-score-migration-oot-2026h1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ks-tolerance",
+   "type": "policy",
+   "label": "ks tolerance",
+   "as": [
+    "0.03 KS tolerance"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "v10b",
+   "type": "measured-by",
+   "label": "scored on",
+   "o": "auc",
+   "quote": "AUC 0.80 against 0.78",
+   "line": 6
+  },
+  {
+   "s": "v10b",
+   "type": "measured-by",
+   "label": "scored on",
+   "o": "ks",
+   "quote": "KS 0.37 against 0.36",
+   "line": 6
+  },
+  {
+   "s": "v8",
+   "type": "measured-by",
+   "label": "scored on",
+   "o": "ks",
+   "quote": "KS 0.37 against 0.36",
+   "line": 6
+  },
+  {
+   "s": "v10b",
+   "type": "evaluated-on",
+   "label": "validated out of time",
+   "o": "bureau-score-migration-oot-2026h1",
+   "quote": "v10b keeps KS parity with v8 out of time",
+   "line": 5
+  },
+  {
+   "s": "v10b",
+   "type": "other",
+   "label": "within tolerance",
+   "o": "ks-tolerance",
+   "quote": "Within the 0.03 KS tolerance agreed for the migration",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-306",
+  "bsm-app-gbm-v8",
+  "dec-bsm-cutover-2026q3"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "bureau-score-migration/find-bsm-ks-parity.md",
+ "sha": "c9e8fc13ad1e0686073462e1b0395a4cb6c756fe3e6255ee400e7689f1db2317",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

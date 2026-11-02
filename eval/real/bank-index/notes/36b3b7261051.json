@@ -1,0 +1,101 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-ep-fixed-horizon",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: readouts happen once, at the planned end; early stops need a sequential boundary"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-ep-daily-looks",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-ep-daily-looks"
+   ],
+   "lines": [
+    2,
+    4
+   ]
+  },
+  {
+   "id": "monitoring-dashboard",
+   "type": "dashboard",
+   "label": "monitoring dashboard",
+   "as": [
+    "monitoring dashboard"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "daily-looks",
+   "type": "term",
+   "label": "daily looks",
+   "as": [
+    "Daily looks"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "sequential-boundary",
+   "type": "term",
+   "label": "sequential boundary",
+   "as": [
+    "sequential boundary"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-ep-fixed-horizon",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "dec-ep-daily-looks",
+   "quote": "supersedes: [dec-ep-daily-looks]",
+   "line": 4
+  },
+  {
+   "s": "monitoring-dashboard",
+   "type": "other",
+   "label": "shows",
+   "o": "daily-looks",
+   "quote": "Daily looks are still shown on the monitoring dashboard",
+   "line": 7
+  },
+  {
+   "s": "dec-ep-fixed-horizon",
+   "type": "uses",
+   "label": "requires",
+   "o": "sequential-boundary",
+   "quote": "Early stops are allowed only with a pre-registered sequential boundary",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "fnd-peeking",
+  "exp-503",
+  "dec-ep-daily-looks"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "experiment-platform/dec-ep-fixed-horizon.md",
+ "sha": "36b3b7261051334e5e4f589ecb7e2bd6ca4204d4e0307668618dd650c23a3857",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

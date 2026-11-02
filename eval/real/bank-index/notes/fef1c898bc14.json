@@ -1,0 +1,71 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "student-segment",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "The Student segment",
+    "Student"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "1-month MAPE"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "semester-timing",
+   "type": "other",
+   "label": "driver",
+   "as": [
+    "semester timing"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "student-segment",
+   "type": "measured-by",
+   "label": "has 1-month MAPE",
+   "o": "mape",
+   "quote": "its 1-month MAPE stayed at 9.7%",
+   "line": 6
+  },
+  {
+   "s": "semester-timing",
+   "type": "other",
+   "label": "drives volatility in",
+   "o": "student-segment",
+   "quote": "The driver is semester timing",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-203",
+  "exp-204"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "spend-forecasting/fnd-sfc-student-volatile.md",
+ "sha": "fef1c898bc1451722407a99ad53c07d764c44bd43c1d99013cf7772008924091",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

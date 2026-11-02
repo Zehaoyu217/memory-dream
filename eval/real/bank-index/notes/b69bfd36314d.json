@@ -1,0 +1,70 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "cpi-and-consumer-confidence-monthly",
+   "type": "dataset",
+   "label": "vintage",
+   "as": [
+    "CPI and consumer confidence, monthly, 2015-01 to 2025-06",
+    "pulled 5 Aug 2025 as a vintage"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "feat-sfc-cpi-lag6",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-sfc-cpi-lag6"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "sfc-ets-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "sfc-ets-v1"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-sfc-cpi-lag6",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cpi-and-consumer-confidence-monthly",
+   "quote": "Source for feat-sfc-cpi-lag6.",
+   "line": 8
+  },
+  {
+   "s": "sfc-ets-v1",
+   "type": "other",
+   "label": "not used by",
+   "o": "cpi-and-consumer-confidence-monthly",
+   "quote": "Not used by sfc-ets-v1.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-sfc-cpi-lag6",
+  "sfc-ets-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "spend-forecasting/ds-sfc-macro-series.md",
+ "sha": "b69bfd36314d9e061accc140253ecb1fec174da8aba2d278afec155562bad286",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

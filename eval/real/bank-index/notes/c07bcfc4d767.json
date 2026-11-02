@@ -1,0 +1,76 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "deck",
+   "type": "document",
+   "label": "deck",
+   "as": [
+    "decks"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sample-id",
+   "type": "feature",
+   "label": "sample_id",
+   "as": [
+    "`sample_id` values"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "yuki-tanaka",
+   "type": "person",
+   "label": "person",
+   "as": [
+    "Yuki Tanaka"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "call-quotes",
+   "type": "other",
+   "label": "verbatim call quotes",
+   "as": [
+    "Verbatim call quotes"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "deck",
+   "type": "uses",
+   "label": "use hashed",
+   "o": "sample-id",
+   "quote": "Examples in decks use `sample_id` values hashed with the team salt",
+   "line": 5
+  },
+  {
+   "s": "call-quotes",
+   "type": "owned-by",
+   "label": "follow rule of",
+   "o": "yuki-tanaka",
+   "quote": "Verbatim call quotes follow Yuki Tanaka's rule",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/anonymised-deck-examples.md",
+ "sha": "c07bcfc4d7675696c5c8cb9f31656efd322cd1ca3d8ebe0ba2fe99990cb15fd8",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

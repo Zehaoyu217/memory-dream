@@ -1,0 +1,129 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "sms-channel",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "SMS"
+   ],
+   "lines": [
+    2,
+    4,
+    6,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "email-channel",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "email"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "uplift",
+   "type": "metric",
+   "label": "uplift",
+   "as": [
+    "uplift",
+    "Corrected uplift"
+   ],
+   "lines": [
+    2,
+    4,
+    6,
+    7,
+    9
+   ]
+  },
+  {
+   "id": "exp-306",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-306"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "rdm-oot-2025q1",
+   "type": "dataset",
+   "label": "out-of-time sample",
+   "as": [
+    "rdm-oot-2025q1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "consent-fix",
+   "type": "other",
+   "label": "consent fix",
+   "as": [
+    "consent fix"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "sms-channel",
+   "type": "measured-by",
+   "label": "uplift is",
+   "o": "uplift",
+   "quote": "Corrected uplift: SMS 2.1pp, email 1.4pp",
+   "line": 7
+  },
+  {
+   "s": "email-channel",
+   "type": "measured-by",
+   "label": "uplift is",
+   "o": "uplift",
+   "quote": "Corrected uplift: SMS 2.1pp, email 1.4pp",
+   "line": 7
+  },
+  {
+   "s": "exp-306",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "rdm-oot-2025q1",
+   "quote": "Corrected uplift: SMS 2.1pp, email 1.4pp on rdm-oot-2025q1 (exp-306).",
+   "line": 7
+  },
+  {
+   "s": "uplift",
+   "type": "other",
+   "label": "corrected after",
+   "o": "consent-fix",
+   "quote": "The 3.4pp earlier figure included sends to accounts that had withdrawn SMS consent.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "fnd-rdm-sms-uplift",
+  "exp-306",
+  "dec-rdm-ship-uplift-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reactivation-dormant/fnd-rdm-sms-uplift-v2.md",
+ "sha": "7a823b3dfc13e2483cc92a5953cb0ed74f9a1a64fa203f6e2e28c6d5266bfb41",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

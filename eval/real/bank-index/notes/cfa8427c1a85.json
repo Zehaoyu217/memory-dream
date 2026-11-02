@@ -1,0 +1,152 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-506",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-506"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "income-estimate",
+   "type": "feature",
+   "label": "income estimate",
+   "as": [
+    "income estimate",
+    "income band"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "thin-file-approval",
+   "type": "metric",
+   "label": "thin-file approval",
+   "as": [
+    "thin-file approval"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "bad-rate",
+   "type": "metric",
+   "label": "bad rate",
+   "as": [
+    "bad rate"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "app-scorecard-v4",
+   "type": "model",
+   "label": "scorecard",
+   "as": [
+    "app-scorecard-v4"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "dec-app-cutoff-v4",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-app-cutoff-v4"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-506",
+   "type": "evaluated-on",
+   "label": "run on",
+   "o": "holdout-2025q1",
+   "quote": "From exp-506 on holdout-2025q1 (n=21,300).",
+   "line": 7
+  },
+  {
+   "s": "income-estimate",
+   "type": "measured-by",
+   "label": "adds Gini",
+   "o": "gini",
+   "quote": "income estimate adds Gini +0.01",
+   "line": 6
+  },
+  {
+   "s": "income-estimate",
+   "type": "other",
+   "label": "lifts",
+   "o": "thin-file-approval",
+   "quote": "lifts thin-file approval from 19% to 23%",
+   "line": 6
+  },
+  {
+   "s": "income-estimate",
+   "type": "measured-by",
+   "label": "no change in",
+   "o": "bad-rate",
+   "quote": "with no change in bad rate",
+   "line": 7
+  },
+  {
+   "s": "app-scorecard-v4",
+   "type": "uses",
+   "label": "keeps income band in",
+   "o": "income-estimate",
+   "quote": "Makes the income band worth keeping in app-scorecard-v4.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-506",
+  "dec-app-cutoff-v4"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "application-scorecard/find-app-income-lift.md",
+ "sha": "cfa8427c1a85457be9092177ef5dbbfff576382d757a89f3708103d0ad89589c",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

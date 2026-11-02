@@ -1,0 +1,106 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    2,
+    4,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "verified-2026-holdout",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "verified-2026 holdout"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "log-target",
+   "type": "term",
+   "label": "log target",
+   "as": [
+    "log target"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "raw-target",
+   "type": "term",
+   "label": "raw target",
+   "as": [
+    "raw target"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "stated-income-target",
+   "type": "other",
+   "label": "stated-income target",
+   "as": [
+    "stated-income target"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "inc-gbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "inc-gbm-v3"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mape",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "verified-2026-holdout",
+   "quote": "From exp-406 on the verified-2026 holdout (n=1,980)",
+   "line": 7
+  },
+  {
+   "s": "stated-income-target",
+   "type": "other",
+   "label": "gave ceiling",
+   "o": "mape",
+   "quote": "The ceiling in find-inc-mape-initial came from the stated-income target, which overstates income.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-406",
+  "find-inc-mape-initial",
+  "dec-inc-band-floor-2026"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "income-estimation/find-inc-log-target-gain.md",
+ "sha": "ba40a1949ffc36ed3334a4cdbafb03e14a1fcb46a357b1970b6eac2735b025a2",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

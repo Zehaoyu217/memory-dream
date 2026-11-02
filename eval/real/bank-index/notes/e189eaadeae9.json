@@ -1,0 +1,93 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "utilisation",
+   "type": "metric",
+   "label": "ratio",
+   "as": [
+    "utilisation"
+   ],
+   "lines": [
+    3,
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "statement-balance",
+   "type": "term",
+   "label": "balance",
+   "as": [
+    "statement balance"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "credit-limit",
+   "type": "term",
+   "label": "limit",
+   "as": [
+    "credit limit"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "pending-transactions",
+   "type": "term",
+   "label": "transactions",
+   "as": [
+    "Pending transactions",
+    "pending"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "utilisation",
+   "type": "uses",
+   "label": "is the statement balance divided by",
+   "o": "statement-balance",
+   "quote": "Utilisation is the statement balance at statement close divided by the credit limit.",
+   "line": 6
+  },
+  {
+   "s": "utilisation",
+   "type": "uses",
+   "label": "divided by",
+   "o": "credit-limit",
+   "quote": "Utilisation is the statement balance at statement close divided by the credit limit.",
+   "line": 6
+  },
+  {
+   "s": "utilisation",
+   "type": "other",
+   "label": "excludes",
+   "o": "pending-transactions",
+   "quote": "Pending transactions are excluded.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "glossary/utilisation",
+  "corrections/utilisation-statement-balance.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "corrections/utilisation-statement-balance.md",
+ "sha": "e189eaadeae9813cf6d76264fd22fbc5a3ee73a659f0c26e66aacdf8b3b3464b",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

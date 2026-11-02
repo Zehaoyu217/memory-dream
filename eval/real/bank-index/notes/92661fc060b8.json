@@ -1,0 +1,149 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "cli-xgb-v3",
+   "type": "model",
+   "label": "uplift score",
+   "as": [
+    "cli-xgb-v3 uplift score"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cli-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cli-xgb-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "t-learner",
+   "type": "term",
+   "label": "t-learner",
+   "as": [
+    "T-learner"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift@20%",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.72"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cli-oot-2026h1",
+   "type": "dataset",
+   "label": "out-of-time set",
+   "as": [
+    "cli-oot-2026h1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cli-loss-cap",
+   "type": "policy",
+   "label": "loss cap",
+   "as": [
+    "1.5% loss cap"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "q4-2026-cli-batch",
+   "type": "other",
+   "label": "batch",
+   "as": [
+    "Q4 2026 CLI batch"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "q4-2026-cli-batch",
+   "type": "uses",
+   "label": "targets top 20% by",
+   "o": "cli-xgb-v3",
+   "quote": "targets the top 20% by cli-xgb-v3 uplift score",
+   "line": 6
+  },
+  {
+   "s": "t-learner",
+   "type": "measured-by",
+   "label": "ahead on",
+   "o": "uplift-at-20",
+   "quote": "the T-learner ahead on uplift@20%",
+   "line": 8
+  },
+  {
+   "s": "cli-xgb-v2",
+   "type": "evaluated-on",
+   "label": "drift on",
+   "o": "cli-oot-2026h1",
+   "quote": "cli-xgb-v2 drift on cli-oot-2026h1",
+   "line": 8
+  },
+  {
+   "s": "cli-xgb-v2",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "cli-xgb-v2 drift on cli-oot-2026h1 (AUC 0.72)",
+   "line": 8
+  },
+  {
+   "s": "cli-loss-cap",
+   "type": "other",
+   "label": "applies to",
+   "o": "q4-2026-cli-batch",
+   "quote": "The 1.5% loss cap in dec-cli-loss-cap still applies to the selected population.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "find-cli-uplift-wins",
+  "exp-106",
+  "dec-cli-cutoff-2025",
+  "dec-cli-loss-cap"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/dec-cli-uplift-targeting.md",
+ "sha": "92661fc060b8503d8d650d465723e90a2f92669af22e3f2cd77d050fc2ec63f6",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

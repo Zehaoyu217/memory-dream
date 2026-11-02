@@ -1,0 +1,107 @@
+{
+ "kind": "preference",
+ "entities": [
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "person",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "PSI"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "limit-glm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "limit-glm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "quantile-bins",
+   "type": "term",
+   "label": "psi bins",
+   "as": [
+    "10 quantile bins",
+    "quantile cut-points"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "training-set",
+   "type": "dataset",
+   "label": "training set",
+   "as": [
+    "training set"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "lena-fischer",
+   "type": "other",
+   "label": "wants",
+   "o": "psi",
+   "quote": "Lena Fischer wants PSI computed on 10 quantile bins from the training set",
+   "line": 4
+  },
+  {
+   "s": "psi",
+   "type": "uses",
+   "label": "bins are",
+   "o": "quantile-bins",
+   "quote": "PSI bins are the 10 quantile cut-points of the training-set distribution",
+   "line": 5
+  },
+  {
+   "s": "quantile-bins",
+   "type": "uses",
+   "label": "cut-points of",
+   "o": "training-set",
+   "quote": "10 quantile cut-points of the training-set distribution",
+   "line": 5
+  },
+  {
+   "s": "limit-glm-v2",
+   "type": "measured-by",
+   "label": "PSI was rising",
+   "o": "psi",
+   "quote": "while its PSI was rising",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "prefs/lena-fischer-psi-bins.md",
+ "sha": "af367c68f69f1ec5838962a42fbe70f41b46e205a75c85bc3bea2fa6d7ad5ac9",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

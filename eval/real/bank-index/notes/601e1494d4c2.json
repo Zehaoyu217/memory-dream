@@ -1,0 +1,169 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "feat-bsm-score-map-v2",
+   "type": "other",
+   "label": "isotonic map",
+   "as": [
+    "isotonic map (feat-bsm-score-map-v2)",
+    "isotonic map"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "linear-map",
+   "type": "other",
+   "label": "linear map",
+   "as": [
+    "linear map",
+    "the linear map"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "psi",
+   "as": [
+    "PSI 0.06"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "bsm-app-gbm-v10b",
+   "type": "model",
+   "label": "retrain",
+   "as": [
+    "bsm-app-gbm-v10b"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-bsm-v10-band",
+   "type": "policy",
+   "label": "band rule",
+   "as": [
+    "feat-bsm-v10-band",
+    "the band rule"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cutoff-model",
+   "type": "model",
+   "label": "cutoff model",
+   "as": [
+    "the cutoff model"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "dual-pull-sample",
+   "type": "dataset",
+   "label": "dual-pull sample",
+   "as": [
+    "dual-pull sample"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "v10-v8-bridging",
+   "type": "term",
+   "label": "v10 to v8 bridging",
+   "as": [
+    "v10 to v8 bridging"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-bsm-score-map-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "linear-map",
+   "quote": "isotonic map (feat-bsm-score-map-v2) replaces the linear map",
+   "line": 6
+  },
+  {
+   "s": "feat-bsm-score-map-v2",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "psi",
+   "quote": "PSI 0.06 against 0.12 for the linear map",
+   "line": 7
+  },
+  {
+   "s": "feat-bsm-score-map-v2",
+   "type": "other",
+   "label": "bridges",
+   "o": "v10-v8-bridging",
+   "quote": "replaces the linear map for all v10 to v8 bridging",
+   "line": 6
+  },
+  {
+   "s": "bsm-app-gbm-v10b",
+   "type": "uses",
+   "label": "applies to",
+   "o": "feat-bsm-score-map-v2",
+   "quote": "Applies to the retrain (bsm-app-gbm-v10b), the band rule (feat-bsm-v10-band) and the cutoff model.",
+   "line": 8
+  },
+  {
+   "s": "feat-bsm-v10-band",
+   "type": "uses",
+   "label": "applies to",
+   "o": "feat-bsm-score-map-v2",
+   "quote": "Applies to the retrain (bsm-app-gbm-v10b), the band rule (feat-bsm-v10-band) and the cutoff model.",
+   "line": 8
+  },
+  {
+   "s": "cutoff-model",
+   "type": "uses",
+   "label": "applies to",
+   "o": "feat-bsm-score-map-v2",
+   "quote": "Applies to the retrain (bsm-app-gbm-v10b), the band rule (feat-bsm-v10-band) and the cutoff model.",
+   "line": 8
+  },
+  {
+   "s": "feat-bsm-score-map-v2",
+   "type": "uses",
+   "label": "refit on",
+   "o": "dual-pull-sample",
+   "quote": "Map refit is quarterly on the dual-pull sample.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "dec-bsm-linear-map",
+  "find-bsm-psi-after-map",
+  "feat-bsm-score-map-v2",
+  "exp-303"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "bureau-score-migration/dec-bsm-isotonic-map.md",
+ "sha": "601e1494d4c2ce9142d36dc9c9cb0c72a3e50fa3b3c4d71c1c3b46247414389c",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

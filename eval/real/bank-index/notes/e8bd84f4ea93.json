@@ -1,0 +1,68 @@
+{
+ "kind": "term",
+ "entities": [
+  {
+   "id": "apr",
+   "type": "term",
+   "label": "defined term",
+   "as": [
+    "APR (annual percentage rate)",
+    "Purchase APR"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "prime-rate",
+   "type": "other",
+   "label": "benchmark rate",
+   "as": [
+    "prime rate"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "daily-interest",
+   "type": "term",
+   "label": "interest calculation",
+   "as": [
+    "Daily interest is APR / 365 x balance"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "apr",
+   "type": "uses",
+   "label": "built from",
+   "o": "prime-rate",
+   "quote": "the prime rate plus a fixed margin",
+   "line": 5
+  },
+  {
+   "s": "daily-interest",
+   "type": "uses",
+   "label": "derived from",
+   "o": "apr",
+   "quote": "Daily interest is APR / 365 x balance",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "glossary/apr.md",
+ "sha": "e8bd84f4ea93dbf67ac4f59b3542ef59593227886df8486eee8b290e65a552b5",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

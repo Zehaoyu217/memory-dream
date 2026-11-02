@@ -1,0 +1,81 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "mm-limit-glm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "mm-limit-glm-v1"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "flat-reference",
+   "type": "term",
+   "label": "flat reference",
+   "as": [
+    "flat reference"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "seasonal-reference",
+   "type": "term",
+   "label": "seasonal reference",
+   "as": [
+    "same-month-last-year reference"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "incident-log",
+   "type": "document",
+   "label": "incident log",
+   "as": [
+    "the incident log"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "flat-reference",
+   "type": "other",
+   "label": "raised alarms on",
+   "o": "mm-limit-glm-v1",
+   "quote": "The flat reference raised 9 feature alarms.",
+   "line": 6
+  },
+  {
+   "s": "seasonal-reference",
+   "type": "other",
+   "label": "raised no alarms on",
+   "o": "mm-limit-glm-v1",
+   "quote": "The same-month-last-year reference raised none.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "mm-limit-glm-v1",
+  "ds-mm-reference-train"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "model-monitoring/exp-206.md",
+ "sha": "7921519e005d743425ad3a7cadb0feed57483f522fe0af9c7345f268ef7b2ead",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

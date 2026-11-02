@@ -1,0 +1,97 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "churn-xgb-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "churn-xgb-v3"
+   ],
+   "lines": [
+    2,
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "recall-at-10",
+   "type": "metric",
+   "label": "recall@10",
+   "as": [
+    "recall@10"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "churn-xgb-v2",
+   "type": "model",
+   "label": "v2",
+   "as": [
+    "v2's 0.52"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "post-period-leak",
+   "type": "term",
+   "label": "leak",
+   "as": [
+    "the leak"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-xgb-v3",
+   "type": "evaluated-on",
+   "label": "re-scored on",
+   "o": "holdout-2025q4",
+   "quote": "Re-scored holdout-2025q4 by observation month",
+   "line": 6
+  },
+  {
+   "s": "churn-xgb-v3",
+   "type": "measured-by",
+   "label": "keeps recall@10 at",
+   "o": "recall-at-10",
+   "quote": "churn-xgb-v3 keeps recall@10 at 0.43 across monthly cohorts",
+   "line": 5
+  },
+  {
+   "s": "churn-xgb-v2",
+   "type": "other",
+   "label": "inflated by",
+   "o": "post-period-leak",
+   "quote": "v2's 0.52 was the leak",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2026/exp-019-recall.md",
+ "sha": "05c7f9d20a78419089e840d6543686c730d71d933e14c4e4994d9d3a4241b05f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

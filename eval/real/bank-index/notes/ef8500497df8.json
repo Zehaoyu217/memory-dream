@@ -1,0 +1,185 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "post-offer-cutoff",
+   "type": "term",
+   "label": "decision",
+   "as": [
+    "drop all limit-history rows dated after offer open from every BT model"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "maya-ortiz",
+   "type": "person",
+   "label": "agreer",
+   "as": [
+    "Maya Ortiz"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "retention",
+   "type": "team",
+   "label": "owner",
+   "as": [
+    "retention"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "implementer",
+   "as": [
+    "Sam Lee"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "bt-xgb-v2",
+   "type": "model",
+   "label": "clean model",
+   "as": [
+    "the clean model",
+    "bt-xgb-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "bt-features",
+   "type": "feature",
+   "label": "bt features",
+   "as": [
+    "all BT features"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feature-pipeline",
+   "type": "pipeline",
+   "label": "feature pipeline",
+   "as": [
+    "the feature pipeline"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "holdout-set",
+   "type": "dataset",
+   "label": "holdout and oot sets",
+   "as": [
+    "Holdout and OOT sets"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "limit-history-rows",
+   "type": "other",
+   "label": "limit-history rows",
+   "as": [
+    "limit-history rows"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "post-offer-cutoff",
+   "type": "decided-by",
+   "label": "agreed with",
+   "o": "maya-ortiz",
+   "quote": "Agreed with Maya Ortiz on 2025-07-08.",
+   "line": 6
+  },
+  {
+   "s": "post-offer-cutoff",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "retention",
+   "quote": "Owner: retention.",
+   "line": 8
+  },
+  {
+   "s": "sam-lee",
+   "type": "other",
+   "label": "implements",
+   "o": "post-offer-cutoff",
+   "quote": "Sam Lee implements in the feature pipeline.",
+   "line": 8
+  },
+  {
+   "s": "bt-xgb-v2",
+   "type": "measured-by",
+   "label": "reaches holdout AUC",
+   "o": "auc",
+   "quote": "the clean model reaches 0.68 holdout AUC (bt-xgb-v2)",
+   "line": 7
+  },
+  {
+   "s": "post-offer-cutoff",
+   "type": "other",
+   "label": "applies to",
+   "o": "bt-features",
+   "quote": "Applies to all BT features and to holdout scoring.",
+   "line": 6
+  },
+  {
+   "s": "holdout-set",
+   "type": "other",
+   "label": "rebuilt with cutoff",
+   "o": "post-offer-cutoff",
+   "quote": "Holdout and OOT sets are rebuilt with the same cutoff.",
+   "line": 6
+  },
+  {
+   "s": "post-offer-cutoff",
+   "type": "other",
+   "label": "drops",
+   "o": "limit-history-rows",
+   "quote": "drop all limit-history rows dated after offer open from every BT model",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "find-bt-limit-leak"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "balance-transfer-propensity/dec-bt-drop-post-offer-features.md",
+ "sha": "ef8500497df8dcf73a40df557f7bb782a9b89365484ea51b0b158e4b91c6664b",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

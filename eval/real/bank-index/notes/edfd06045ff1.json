@@ -1,0 +1,88 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-fsm-naming-rule",
+   "type": "term",
+   "label": "naming rule",
+   "as": [
+    "feature names are lowercase <domain>_<agg>_<window>, with no feat_ prefix"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-103",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-103"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "legacy-feat-names",
+   "type": "feature",
+   "label": "legacy names",
+   "as": [
+    "Legacy feat_ names"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-fsm-txn-cnt-7d",
+   "type": "feature",
+   "label": "example feature",
+   "as": [
+    "txn_cnt_7d"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-103",
+   "type": "other",
+   "label": "found breaking names",
+   "o": "dec-fsm-naming-rule",
+   "quote": "exp-103 found 41 names breaking the rule",
+   "line": 7
+  },
+  {
+   "s": "legacy-feat-names",
+   "type": "other",
+   "label": "stay as aliases",
+   "o": "dec-fsm-naming-rule",
+   "quote": "Legacy feat_ names stay as aliases for 90 days",
+   "line": 6
+  },
+  {
+   "s": "dec-fsm-naming-rule",
+   "type": "other",
+   "label": "example",
+   "o": "feat-fsm-txn-cnt-7d",
+   "quote": "for example txn_cnt_7d",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "q-fsm-naming-scheme",
+  "exp-103"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "feature-store-migration/dec-fsm-naming-rule.md",
+ "sha": "edfd06045ff1a66c4330493a5219b881b961f0de28a4a8b989885f9a58260f49",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

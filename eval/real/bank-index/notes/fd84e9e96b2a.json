@@ -1,0 +1,89 @@
+{
+ "kind": "term",
+ "entities": [
+  {
+   "id": "fraud-label",
+   "type": "term",
+   "label": "fraud label",
+   "as": [
+    "fraud label",
+    "A fraud label is a transaction-level flag marking confirmed fraud."
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "cards.fraud_labels",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`cards.fraud_labels`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fraud-ops",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "fraud-ops"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "observation-date",
+   "type": "term",
+   "label": "observation date",
+   "as": [
+    "observation date"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud-label",
+   "type": "part-of",
+   "label": "stored in",
+   "o": "cards.fraud_labels",
+   "quote": "Labels are stored in `cards.fraud_labels`",
+   "line": 5
+  },
+  {
+   "s": "fraud-label",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "fraud-ops",
+   "quote": "owned by fraud-ops",
+   "line": 5
+  },
+  {
+   "s": "fraud-label",
+   "type": "uses",
+   "label": "as they stood on",
+   "o": "observation-date",
+   "quote": "training sets use labels as they stood on the observation date",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "glossary/fraud-label.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "glossary/fraud-label.md",
+ "sha": "fd84e9e96b2a496a28999ab4bf8a72b223242cf6b1fdfed94de6ad64b0880d1b",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

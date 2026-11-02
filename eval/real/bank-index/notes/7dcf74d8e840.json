@@ -1,0 +1,128 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "propensity-matching",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "propensity matching"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "hardship-programs-holdout-2025q4",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "hardship-programs-holdout-2025q4"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "enrolled-accounts",
+   "type": "segment",
+   "label": "enrolled accounts",
+   "as": [
+    "enrolled accounts"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "matched-controls",
+   "type": "segment",
+   "label": "matched controls",
+   "as": [
+    "matched controls"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "treatment-effect",
+   "type": "metric",
+   "label": "effect",
+   "as": [
+    "Effect -4.7pp"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "max-standardised-mean-difference",
+   "type": "metric",
+   "label": "max standardised mean difference",
+   "as": [
+    "Max standardised mean difference"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "treatment-effect",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "hardship-programs-holdout-2025q4",
+   "quote": "Eval set hardship-programs-holdout-2025q4",
+   "line": 6
+  },
+  {
+   "s": "enrolled-accounts",
+   "type": "part-of",
+   "label": "in",
+   "o": "hardship-programs-holdout-2025q4",
+   "quote": "Eval set hardship-programs-holdout-2025q4: 6,310 enrolled accounts",
+   "line": 6
+  },
+  {
+   "s": "matched-controls",
+   "type": "part-of",
+   "label": "in",
+   "o": "hardship-programs-holdout-2025q4",
+   "quote": "25,240 matched controls",
+   "line": 6
+  },
+  {
+   "s": "propensity-matching",
+   "type": "produces",
+   "label": "matches",
+   "o": "matched-controls",
+   "quote": "25,240 matched controls (4:1 with caliper 0.05 on the propensity logit)",
+   "line": 6
+  },
+  {
+   "s": "propensity-matching",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "max-standardised-mean-difference",
+   "quote": "Max standardised mean difference after matching 0.08",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "hp-psm-v1",
+  "feat-hp-txn-drop-v1",
+  "feat-hp-bureau-delta",
+  "hardship_programs/exp408_psm_v2.ipynb"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "hardship-programs/exp-408.md",
+ "sha": "7dcf74d8e8407942ee5b0e5d62880b9c984dc3e1a9506bffe6b4f96a5e8bda64",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

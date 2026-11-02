@@ -1,0 +1,149 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "ed-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ed-gbm-v1"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "feat-ed-limit-change-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ed-limit-change-v1"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "early-delinquency-holdout-2024q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "early-delinquency-holdout-2024q4",
+    "Same holdout (n=402,000)"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.812"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini 0.624"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.45"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "brier",
+   "type": "metric",
+   "label": "brier",
+   "as": [
+    "Brier 0.041"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ed-gbm-v1",
+   "type": "uses",
+   "label": "plus",
+   "o": "feat-ed-limit-change-v1",
+   "quote": "ed-gbm-v1 plus feat-ed-limit-change-v1",
+   "line": 6
+  },
+  {
+   "s": "ed-gbm-v1",
+   "type": "evaluated-on",
+   "label": "same holdout",
+   "o": "early-delinquency-holdout-2024q4",
+   "quote": "Same holdout (n=402,000)",
+   "line": 6
+  },
+  {
+   "s": "ed-gbm-v1",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.812",
+   "line": 6
+  },
+  {
+   "s": "ed-gbm-v1",
+   "type": "measured-by",
+   "label": "Gini",
+   "o": "gini",
+   "quote": "Gini 0.624",
+   "line": 6
+  },
+  {
+   "s": "ed-gbm-v1",
+   "type": "measured-by",
+   "label": "KS",
+   "o": "ks",
+   "quote": "KS 0.45",
+   "line": 6
+  },
+  {
+   "s": "ed-gbm-v1",
+   "type": "measured-by",
+   "label": "Brier",
+   "o": "brier",
+   "quote": "Brier 0.041",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-204",
+  "early_delinquency/exp203_limit.ipynb"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "early-delinquency/exp-203.md",
+ "sha": "fcd112594464ec583898d22ac7de5c8dadd4e5494950f043999a405cc689181d",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

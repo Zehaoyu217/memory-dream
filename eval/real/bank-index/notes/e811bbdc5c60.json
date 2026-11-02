@@ -1,0 +1,107 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cu-call-tod-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-call-tod-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`callcenter.calls`"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-cu-call-outcomes",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "ds-cu-call-outcomes"
+   ],
+   "lines": [
+    2
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cu-call-tod-v1",
+   "type": "uses",
+   "label": "built from",
+   "o": "callcenter.calls",
+   "quote": "Built from `callcenter.calls`.",
+   "line": 7
+  },
+  {
+   "s": "feat-cu-call-tod-v1",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q2",
+   "quote": "adds AUC in exp-103 on holdout-2025q2",
+   "line": 8
+  },
+  {
+   "s": "feat-cu-call-tod-v1",
+   "type": "measured-by",
+   "label": "adds AUC",
+   "o": "auc",
+   "quote": "adds AUC in exp-103 on holdout-2025q2",
+   "line": 8
+  },
+  {
+   "s": "feat-cu-call-tod-v1",
+   "type": "other",
+   "label": "written by",
+   "o": "ds-cu-call-outcomes",
+   "quote": "from: [ds-cu-call-outcomes]",
+   "line": 2
+  }
+ ],
+ "refs": [
+  "exp-103",
+  "find-cu-tod-leak"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-uplift/feat-cu-call-tod-v1.md",
+ "sha": "e811bbdc5c6073e15b852b624b3d75da52f7c4ef40cfdd46d9c3aa65f57c9015",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

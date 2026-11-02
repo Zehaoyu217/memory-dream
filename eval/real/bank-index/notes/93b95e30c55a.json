@@ -1,0 +1,106 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-mm-payment-ratio-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "payments over minimum due using the January 2025 minimum-due formula"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-mm-payment-ratio-v1",
+   "type": "feature",
+   "label": "earlier version",
+   "as": [
+    "Same ratio as v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "minimum-due-formula-2025",
+   "type": "term",
+   "label": "minimum-due formula",
+   "as": [
+    "the formula in force from January 2025"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "mm-collect-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "Used by mm-collect-xgb-v2 from 2025-08-12"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "feature psi",
+   "as": [
+    "Feature PSI on the v2 definition stays under 0.10"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-mm-payment-ratio-v2",
+   "type": "uses",
+   "label": "computed with",
+   "o": "minimum-due-formula-2025",
+   "quote": "the minimum due is computed with the formula in force from January 2025",
+   "line": 7
+  },
+  {
+   "s": "feat-mm-payment-ratio-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "feat-mm-payment-ratio-v1",
+   "quote": "supersedes: [feat-mm-payment-ratio-v1]",
+   "line": 4
+  },
+  {
+   "s": "mm-collect-xgb-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-mm-payment-ratio-v2",
+   "quote": "Used by mm-collect-xgb-v2 from 2025-08-12",
+   "line": 8
+  },
+  {
+   "s": "feat-mm-payment-ratio-v2",
+   "type": "measured-by",
+   "label": "PSI on",
+   "o": "psi",
+   "quote": "Feature PSI on the v2 definition stays under 0.10",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-mm-payment-ratio-v1",
+  "fnd-payment-ratio-bug"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "model-monitoring/feat-mm-payment-ratio-v2.md",
+ "sha": "93b95e30c55a694c3f573a711e38791607464e1260e63a2c0fd9a8495000e33a",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

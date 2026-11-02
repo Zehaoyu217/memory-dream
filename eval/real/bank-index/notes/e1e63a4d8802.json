@@ -1,0 +1,118 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "early-stopping",
+   "type": "term",
+   "label": "rule",
+   "as": [
+    "Early stopping"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "validation-slice",
+   "type": "segment",
+   "label": "validation slice",
+   "as": [
+    "validation slice"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "oot-set",
+   "type": "dataset",
+   "label": "oot set",
+   "as": [
+    "OOT set"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "log-loss",
+   "type": "metric",
+   "label": "loss",
+   "as": [
+    "log-loss"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "early-stop-split",
+   "type": "flag",
+   "label": "run config parameter",
+   "as": [
+    "early_stop_split"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "pipeline owner",
+   "as": [
+    "Sam Lee"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "early-stopping",
+   "type": "measured-by",
+   "label": "stops on",
+   "o": "log-loss",
+   "quote": "Stop on log-loss of a validation slice",
+   "line": 6
+  },
+  {
+   "s": "early-stopping",
+   "type": "uses",
+   "label": "validates on",
+   "o": "validation-slice",
+   "quote": "Stop on log-loss of a validation slice cut from the most recent three months of the training window",
+   "line": 6
+  },
+  {
+   "s": "early-stopping",
+   "type": "other",
+   "label": "must never use",
+   "o": "oot-set",
+   "quote": "never the OOT set",
+   "line": 5
+  },
+  {
+   "s": "sam-lee",
+   "type": "other",
+   "label": "enforces via",
+   "o": "early-stop-split",
+   "quote": "Sam Lee's pipeline enforces this through the `early_stop_split` parameter",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "howto/gbm-early-stopping-on-test"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/gbm-early-stopping-on-oot.md",
+ "sha": "e1e63a4d88028bbc9b82b320cbfd5ae935b0e8d0d084e610e5bed02fb25607cc",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

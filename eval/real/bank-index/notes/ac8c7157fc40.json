@@ -1,0 +1,78 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "offers.tier_matrix",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`offers.tier_matrix`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "new_total_limit",
+   "type": "feature",
+   "label": "column",
+   "as": [
+    "new_total_limit"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cli-offer",
+   "type": "other",
+   "label": "offer",
+   "as": [
+    "CLI offers"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "offer-extracts-2025",
+   "type": "dataset",
+   "label": "extracts",
+   "as": [
+    "2025 offer extracts"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "new_total_limit",
+   "type": "part-of",
+   "label": "stored in",
+   "o": "offers.tier_matrix",
+   "quote": "From 2026-02 `offers.tier_matrix` stores new_total_limit",
+   "line": 6
+  },
+  {
+   "s": "cli-offer",
+   "type": "uses",
+   "label": "computed from",
+   "o": "new_total_limit",
+   "quote": "the CLI amount is new total minus current limit",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "glossary/cli"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "corrections/cli-new-total-limit.md",
+ "sha": "ac8c7157fc406b91476fc737d16696b7a8dd7b9bfaa29ef322ab76dbbe027898",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

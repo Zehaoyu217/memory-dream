@@ -1,0 +1,111 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "bt-xgb-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bt-xgb-v3"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bt-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bt-xgb-v2"
+   ],
+   "lines": [
+    2,
+    4,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "bt-holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "bt-holdout-2025q1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.69"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "12-month-net-margin",
+   "type": "metric",
+   "label": "target",
+   "as": [
+    "12-month net margin per exposed account"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bt-xgb-v3",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "bt-xgb-v2",
+   "quote": "supersedes: [bt-xgb-v2]",
+   "line": 4
+  },
+  {
+   "s": "bt-xgb-v3",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "bt-holdout-2025q1",
+   "quote": "On bt-holdout-2025q1: AUC 0.69 against acceptance (n=41,800).",
+   "line": 8
+  },
+  {
+   "s": "bt-xgb-v3",
+   "type": "measured-by",
+   "label": "AUC 0.69",
+   "o": "auc",
+   "quote": "AUC 0.69 against acceptance",
+   "line": 8
+  },
+  {
+   "s": "bt-xgb-v3",
+   "type": "measured-by",
+   "label": "target",
+   "o": "12-month-net-margin",
+   "quote": "Target changed from accept/no-accept to 12-month net margin per exposed account",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "bt-xgb-v2",
+  "exp-107-margin-label",
+  "dec-bt-margin-label"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "balance-transfer-propensity/bt-xgb-v3.md",
+ "sha": "fd9817fd2044310f0de6ac346e1b3fab60e0744d753b248b789b57d9c09d930f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

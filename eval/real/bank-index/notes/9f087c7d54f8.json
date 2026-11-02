@@ -1,0 +1,88 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-103",
+   "type": "other",
+   "label": "experiment note",
+   "as": [
+    "exp-103: naming lint on the draft registry: 41 of 306 names break the proposed rule"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fsm-naming-scheme",
+   "type": "term",
+   "label": "proposed naming rule",
+   "as": [
+    "the proposed rule <domain>_<agg>_<window>, lowercase snake case"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fsm-draft-registry",
+   "type": "dataset",
+   "label": "draft registry",
+   "as": [
+    "the draft registry"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "lint-names-script",
+   "type": "module",
+   "label": "lint script",
+   "as": [
+    "Lint script: `fsm/registry/lint_names.py`"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-103",
+   "type": "measured-on",
+   "label": "checked",
+   "o": "fsm-draft-registry",
+   "quote": "Ran a regex lint on the draft registry against the proposed rule",
+   "line": 6
+  },
+  {
+   "s": "exp-103",
+   "type": "uses",
+   "label": "ran lint script",
+   "o": "lint-names-script",
+   "quote": "Lint script: `fsm/registry/lint_names.py`",
+   "line": 8
+  },
+  {
+   "s": "exp-103",
+   "type": "uses",
+   "label": "tested against rule",
+   "o": "fsm-naming-scheme",
+   "quote": "against the proposed rule <domain>_<agg>_<window>, lowercase snake case",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "q-fsm-naming-scheme",
+  "fsm/registry/lint_names.py"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "feature-store-migration/exp-103.md",
+ "sha": "9f087c7d54f85896b13ebc72d130bdc6ec9cb19d490b83fa814a93991067ddca",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

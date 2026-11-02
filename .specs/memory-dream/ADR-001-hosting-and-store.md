@@ -113,4 +113,6 @@ measurement, not a side effect of hosting.
 4. [ ] The service itself (mirror worker, queue per repository, API, viewer as a client): not built, by the owner's
        decision on 2026-11-02; a skeleton exists outside the repository if it is ever wanted.
 5. [ ] Run the Neo4j backend against a server and record the result here.
-6. [ ] Measure typed-relation retrieval on a real index before changing `ask` (about $4 of Haiku calls on the bank).
+6. [x] Measured on a real index ($2.72; RESULTS phase I): one hop lands on notes `from:` lineage already heads; two hops for
+       input questions take dependency questions from 0.853 to 0.920 of gold notes for +4.6% characters, kept as the default.
+       The readings are in `eval/real/bank-index/` and rebuild the index with no model call.

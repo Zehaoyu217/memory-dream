@@ -1,0 +1,102 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "bt-xgb-v3",
+   "type": "model",
+   "label": "margin-label model",
+   "as": [
+    "bt-xgb-v3"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bt-xgb-v2",
+   "type": "model",
+   "label": "acceptance-label model",
+   "as": [
+    "bt-xgb-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bt-holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "bt-holdout-2025q1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ben-carter",
+   "type": "person",
+   "label": "finance reviewer",
+   "as": [
+    "Ben Carter"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "12-month-margin",
+   "type": "metric",
+   "label": "12-month margin",
+   "as": [
+    "12-month margin"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "nim-curve",
+   "type": "term",
+   "label": "net-interest-margin curve",
+   "as": [
+    "net-interest-margin curve"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bt-xgb-v3",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "bt-holdout-2025q1",
+   "quote": "Measured on bt-holdout-2025q1 with bt-xgb-v3 (margin label)",
+   "line": 6
+  },
+  {
+   "s": "nim-curve",
+   "type": "other",
+   "label": "checked by",
+   "o": "ben-carter",
+   "quote": "Ben Carter (finance) is still checking the net-interest-margin curve used for the 12-month figure",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-107-margin-label",
+  "q-bt-margin-threshold",
+  "dec-bt-margin-label"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "balance-transfer-propensity/find-bt-margin-top30.md",
+ "sha": "3a8cd7c9de95ae05ea4d86f4b272f930c26bd3c2166bb2862f2f0964abb96df4",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

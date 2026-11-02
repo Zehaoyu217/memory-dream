@@ -1,0 +1,125 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "txc-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "txc-gbm-v2"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "feat-txc-merchant-history-v1",
+   "type": "feature",
+   "label": "merchant-history features",
+   "as": [
+    "feat-txc-merchant-history-v1",
+    "merchant-history features"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro-f1",
+   "as": [
+    "macro-F1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "random-split",
+   "type": "term",
+   "label": "random split",
+   "as": [
+    "random split",
+    "random 80/20 split"
+   ],
+   "lines": [
+    5,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "time-split",
+   "type": "term",
+   "label": "time split",
+   "as": [
+    "time split"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "leakage",
+   "type": "term",
+   "label": "leak",
+   "as": [
+    "leaks"
+   ],
+   "lines": [
+    8,
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "txc-gbm-v2",
+   "type": "uses",
+   "label": "plus",
+   "o": "feat-txc-merchant-history-v1",
+   "quote": "txc-gbm-v2 plus feat-txc-merchant-history-v1",
+   "line": 6
+  },
+  {
+   "s": "txc-gbm-v2",
+   "type": "measured-by",
+   "label": "scores",
+   "o": "macro-f1",
+   "quote": "macro-F1 0.91 on a random 80/20 split of the labelled set",
+   "line": 6
+  },
+  {
+   "s": "txc-gbm-v2",
+   "type": "other",
+   "label": "scores on time split",
+   "o": "time-split",
+   "quote": "On a time split (train to 2025-06, test on 2025-Q3 merchants, n=2,400) the same model scores 0.78",
+   "line": 7
+  },
+  {
+   "s": "random-split",
+   "type": "other",
+   "label": "leaks",
+   "o": "leakage",
+   "quote": "The random split leaks",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "fnd-txc-history-leaks"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "txn-categorization/exp-106.md",
+ "sha": "aafdad897156edf5b3f97be3a2eb280cc2e267f4c7c10cac51f7274bd7f630b1",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

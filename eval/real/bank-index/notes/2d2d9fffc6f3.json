@@ -1,0 +1,182 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "wave-1-channel-test",
+   "type": "test",
+   "label": "randomised test",
+   "as": [
+    "Wave-1 randomised channel test"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "collections-cases",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`collections.cases`"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "callcenter-calls",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`callcenter.calls`"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "sms-and-email-logs",
+   "type": "dataset",
+   "label": "log",
+   "as": [
+    "the SMS and email logs"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "sms-arm",
+   "type": "segment",
+   "label": "sms arm",
+   "as": [
+    "SMS 28,400"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "call-arm",
+   "type": "segment",
+   "label": "call arm",
+   "as": [
+    "call 28,300"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "email-arm",
+   "type": "segment",
+   "label": "email arm",
+   "as": [
+    "email 14,500"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "control-arm",
+   "type": "segment",
+   "label": "control arm",
+   "as": [
+    "control 14,800"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "promise-to-pay-outcome",
+   "type": "metric",
+   "label": "outcome",
+   "as": [
+    "Outcome: promise-to-pay or payment within 14 days"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "wave-1-channel-test",
+   "type": "measured-by",
+   "label": "outcome is",
+   "o": "promise-to-pay-outcome",
+   "quote": "Outcome: promise-to-pay or payment within 14 days of the first contact",
+   "line": 7
+  },
+  {
+   "s": "wave-1-channel-test",
+   "type": "uses",
+   "label": "source joins",
+   "o": "collections-cases",
+   "quote": "Source: `collections.cases` joined to `callcenter.calls`",
+   "line": 8
+  },
+  {
+   "s": "wave-1-channel-test",
+   "type": "uses",
+   "label": "source joins",
+   "o": "callcenter-calls",
+   "quote": "Source: `collections.cases` joined to `callcenter.calls`",
+   "line": 8
+  },
+  {
+   "s": "wave-1-channel-test",
+   "type": "uses",
+   "label": "source joins",
+   "o": "sms-and-email-logs",
+   "quote": "joined to callcenter.calls and the SMS and email logs",
+   "line": 8
+  },
+  {
+   "s": "sms-arm",
+   "type": "part-of",
+   "label": "arm of",
+   "o": "wave-1-channel-test",
+   "quote": "Four arms: SMS 28,400, call 28,300, email 14,500, control 14,800.",
+   "line": 6
+  },
+  {
+   "s": "call-arm",
+   "type": "part-of",
+   "label": "arm of",
+   "o": "wave-1-channel-test",
+   "quote": "Four arms: SMS 28,400, call 28,300, email 14,500, control 14,800.",
+   "line": 6
+  },
+  {
+   "s": "email-arm",
+   "type": "part-of",
+   "label": "arm of",
+   "o": "wave-1-channel-test",
+   "quote": "Four arms: SMS 28,400, call 28,300, email 14,500, control 14,800.",
+   "line": 6
+  },
+  {
+   "s": "control-arm",
+   "type": "part-of",
+   "label": "arm of",
+   "o": "wave-1-channel-test",
+   "quote": "Four arms: SMS 28,400, call 28,300, email 14,500, control 14,800.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-ch-contact-costs",
+  "q-ch-sms-vs-call"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-channel-mix/ds-ch-ab-wave1.md",
+ "sha": "2d2d9fffc6f318071ecd0a0660c197724b349b32e2b307b2a9ac6191c43acb8d",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

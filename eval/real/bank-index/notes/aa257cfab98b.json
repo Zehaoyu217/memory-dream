@@ -1,0 +1,165 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "rdm-uplift-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rdm-uplift-v1"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "clv-ml-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "clv-ml-v2"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "wave-3-holdout",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "wave 3 holdout"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mean-clv",
+   "type": "metric",
+   "label": "mean clv",
+   "as": [
+    "mean CLV"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "uplift",
+   "type": "metric",
+   "label": "uplift",
+   "as": [
+    "Uplift of 2.8pp"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "incremental-margin-36m",
+   "type": "metric",
+   "label": "margin per send",
+   "as": [
+    "$4.09 of incremental 36-month margin per targeted send"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "reactivated-accounts",
+   "type": "segment",
+   "label": "reactivated accounts",
+   "as": [
+    "reactivated accounts"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "chloe-martin",
+   "type": "person",
+   "label": "marketing",
+   "as": [
+    "Chloe Martin"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "uplift",
+   "type": "uses",
+   "label": "from",
+   "o": "rdm-uplift-v1",
+   "quote": "Uplift of 2.8pp from rdm-uplift-v1 on the wave 3 holdout",
+   "line": 6
+  },
+  {
+   "s": "uplift",
+   "type": "evaluated-on",
+   "label": "on the wave 3 holdout",
+   "o": "wave-3-holdout",
+   "quote": "Uplift of 2.8pp from rdm-uplift-v1 on the wave 3 holdout",
+   "line": 6
+  },
+  {
+   "s": "mean-clv",
+   "type": "uses",
+   "label": "from",
+   "o": "clv-ml-v2",
+   "quote": "a mean CLV of $146 for reactivated accounts from clv-ml-v2",
+   "line": 6
+  },
+  {
+   "s": "mean-clv",
+   "type": "other",
+   "label": "for",
+   "o": "reactivated-accounts",
+   "quote": "a mean CLV of $146 for reactivated accounts from clv-ml-v2",
+   "line": 6
+  },
+  {
+   "s": "incremental-margin-36m",
+   "type": "uses",
+   "label": "combines",
+   "o": "uplift",
+   "quote": "Uplift of 2.8pp from rdm-uplift-v1 on the wave 3 holdout, times a mean CLV of $146",
+   "line": 6
+  },
+  {
+   "s": "incremental-margin-36m",
+   "type": "uses",
+   "label": "combines",
+   "o": "mean-clv",
+   "quote": "times a mean CLV of $146 for reactivated accounts from clv-ml-v2",
+   "line": 6
+  },
+  {
+   "s": "incremental-margin-36m",
+   "type": "other",
+   "label": "shared with",
+   "o": "chloe-martin",
+   "quote": "Shared with Chloe Martin (marketing) for the reactivation budget case",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "reactivation-dormant/rdm-uplift-v1",
+  "clv-ml-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "customer-lifetime-value/exp-506.md",
+ "sha": "aa257cfab98b7422839577aa5eedf71854b96a6e0ad8e6e6e6679d03b49317bc",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

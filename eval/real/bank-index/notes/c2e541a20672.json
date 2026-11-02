@@ -1,0 +1,113 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "holm-correction",
+   "type": "term",
+   "label": "correction method",
+   "as": [
+    "Holm correction",
+    "Holm"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "family-wise-alpha",
+   "type": "term",
+   "label": "significance level",
+   "as": [
+    "family-wise alpha"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "test-family",
+   "type": "term",
+   "label": "test family",
+   "as": [
+    "test family"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "segment",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "segments"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "adjusted-p-value",
+   "type": "metric",
+   "label": "adjusted p-value",
+   "as": [
+    "adjusted p-value"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "appendix",
+   "type": "other",
+   "label": "report section",
+   "as": [
+    "appendix"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "test-family",
+   "type": "other",
+   "label": "adjusted with",
+   "o": "holm-correction",
+   "quote": "is adjusted with Holm at family-wise alpha 0.05",
+   "line": 5
+  },
+  {
+   "s": "test-family",
+   "type": "other",
+   "label": "alpha set at",
+   "o": "family-wise-alpha",
+   "quote": "is adjusted with Holm at family-wise alpha 0.05",
+   "line": 5
+  },
+  {
+   "s": "adjusted-p-value",
+   "type": "other",
+   "label": "reported in",
+   "o": "appendix",
+   "quote": "Each segment's adjusted p-value is reported in the appendix, not the body.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "reporting/significance-bh-segments"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/significance-holm-correction.md",
+ "sha": "c2e541a206723373f1e56b55e181fefe364c496f8020db3b58d8e428e467be02",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

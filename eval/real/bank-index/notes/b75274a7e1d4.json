@@ -1,0 +1,106 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-clv-arpu-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-clv-arpu-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-clv-revenue-monthly",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "ds-clv-revenue-monthly"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "clv-bgnbd-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "clv-bgnbd-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "clv-ml-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "clv-ml-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-clv-arpu-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-clv-arpu-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-clv-arpu-v1",
+   "type": "uses",
+   "label": "computed from",
+   "o": "ds-clv-revenue-monthly",
+   "quote": "Mean of account-month revenue over the last 6 months from ds-clv-revenue-monthly.",
+   "line": 6
+  },
+  {
+   "s": "clv-bgnbd-v1",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-clv-arpu-v1",
+   "quote": "Used in clv-bgnbd-v1 and clv-ml-v1",
+   "line": 7
+  },
+  {
+   "s": "clv-ml-v1",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-clv-arpu-v1",
+   "quote": "Used in clv-bgnbd-v1 and clv-ml-v1",
+   "line": 7
+  },
+  {
+   "s": "feat-clv-arpu-v2",
+   "type": "replaces",
+   "label": "replaced by",
+   "o": "feat-clv-arpu-v1",
+   "quote": "replaced by feat-clv-arpu-v2 in November 2025",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-clv-offer-cost"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "customer-lifetime-value/feat-clv-arpu-v1.md",
+ "sha": "b75274a7e1d480c03ab7c1607b9487fef4d448aeb2f78e4f24c9230541fb53ce",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

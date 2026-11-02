@@ -1,0 +1,108 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "ep-exposures",
+   "type": "dataset",
+   "label": "exposure event log",
+   "as": [
+    "ep.exposures"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "onboarding-tests",
+   "type": "other",
+   "label": "onboarding tests",
+   "as": [
+    "onboarding tests"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "marketing-tests",
+   "type": "other",
+   "label": "marketing tests",
+   "as": [
+    "Marketing tests"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exposure-rate",
+   "type": "metric",
+   "label": "exposure rate",
+   "as": [
+    "Exposure rate",
+    "exposure rates"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "itt-result",
+   "type": "metric",
+   "label": "intent-to-treat result",
+   "as": [
+    "assigned-unit intent-to-treat result"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ep-exposures",
+   "type": "other",
+   "label": "logs",
+   "o": "onboarding-tests",
+   "quote": "Each row is an exposure event that the app logs when the unit sees the test.",
+   "line": 6
+  },
+  {
+   "s": "onboarding-tests",
+   "type": "measured-by",
+   "label": "has exposure rate",
+   "o": "exposure-rate",
+   "quote": "Exposure rate in onboarding tests is 61 percent of assigned units (median across tests).",
+   "line": 6
+  },
+  {
+   "s": "marketing-tests",
+   "type": "measured-by",
+   "label": "has lower exposure rate",
+   "o": "exposure-rate",
+   "quote": "Marketing tests have lower exposure rates because campaigns reach only part of the base.",
+   "line": 7
+  },
+  {
+   "s": "onboarding-tests",
+   "type": "measured-by",
+   "label": "reports alongside",
+   "o": "itt-result",
+   "quote": "Analyses use exposed units by default, with the assigned-unit intent-to-treat result reported next to them.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "experiment-platform/ds-ep-exposures.md",
+  "ds-ep-assignments"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "experiment-platform/ds-ep-exposures.md",
+ "sha": "546ed37d31014b4556b4664f28aabe3b16c09c1a5d012cf3e5fd82799ced65ad",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

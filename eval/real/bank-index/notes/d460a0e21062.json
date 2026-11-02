@@ -1,0 +1,124 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-pbs-minpay-flag",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-pbs-minpay-flag"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-pbs-payments-12m",
+   "type": "dataset",
+   "label": "source dataset",
+   "as": [
+    "ds-pbs-payments-12m"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "ds-pbs-statement-balances",
+   "type": "dataset",
+   "label": "source dataset",
+   "as": [
+    "ds-pbs-statement-balances"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "pbs-kmeans-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "pbs-kmeans-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "pbs-gmm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "pbs-gmm-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "pbs-gmm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "pbs-gmm-v3"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-pbs-minpay-flag",
+   "type": "uses",
+   "label": "from",
+   "o": "ds-pbs-payments-12m",
+   "quote": "from: [ds-pbs-payments-12m, ds-pbs-statement-balances]",
+   "line": 2
+  },
+  {
+   "s": "feat-pbs-minpay-flag",
+   "type": "uses",
+   "label": "from",
+   "o": "ds-pbs-statement-balances",
+   "quote": "from: [ds-pbs-payments-12m, ds-pbs-statement-balances]",
+   "line": 2
+  },
+  {
+   "s": "pbs-kmeans-v1",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-pbs-minpay-flag",
+   "quote": "Used in pbs-kmeans-v1, pbs-gmm-v2 and pbs-gmm-v3.",
+   "line": 8
+  },
+  {
+   "s": "pbs-gmm-v2",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-pbs-minpay-flag",
+   "quote": "Used in pbs-kmeans-v1, pbs-gmm-v2 and pbs-gmm-v3.",
+   "line": 8
+  },
+  {
+   "s": "pbs-gmm-v3",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-pbs-minpay-flag",
+   "quote": "Used in pbs-kmeans-v1, pbs-gmm-v2 and pbs-gmm-v3.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "payment-behavior-segments/feat-pbs-minpay-flag.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "payment-behavior-segments/feat-pbs-minpay-flag.md",
+ "sha": "d460a0e210621e911c7240a677f3503c2d76099793168f96466abe62f6f82928",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

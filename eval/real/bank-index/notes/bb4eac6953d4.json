@@ -1,0 +1,59 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "reporting-kpi-retention-definition-v2",
+   "type": "metric",
+   "label": "retention definition",
+   "as": [
+    "# From June 2026, charged-off accounts count as not retained, and retention is measured on cohort book balances"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "charged-off-accounts",
+   "type": "term",
+   "label": "charge-off rule",
+   "as": [
+    "Any account charged off within the window counts as not retained, even if it was open at M+12."
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ben-carter",
+   "type": "person",
+   "label": "finance team lead",
+   "as": [
+    "Ben Carter's finance team"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "charged-off-accounts",
+   "type": "other",
+   "label": "counts as not retained",
+   "o": "reporting-kpi-retention-definition-v2",
+   "quote": "Any account charged off within the window counts as not retained, even if it was open at M+12.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "reporting/kpi-retention-definition"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "reporting/kpi-retention-definition-v2.md",
+ "sha": "bb4eac6953d41ab8b50f7ef1b5b802c2097f7a077dde34365cc34613c2f5d300",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,67 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "monthly-review",
+   "type": "document",
+   "label": "monthly review",
+   "as": [
+    "monthly review"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "oot-holdout-2026h1",
+   "type": "dataset",
+   "label": "out-of-time holdout",
+   "as": [
+    "out-of-time holdout"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "random-holdout",
+   "type": "term",
+   "label": "random holdout",
+   "as": [
+    "Random holdouts"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "monthly-review",
+   "type": "evaluated-on",
+   "label": "scores",
+   "o": "oot-holdout-2026h1",
+   "quote": "Each monthly review scores the latest out-of-time holdout",
+   "line": 4
+  },
+  {
+   "s": "monthly-review",
+   "type": "other",
+   "label": "does not report",
+   "o": "random-holdout",
+   "quote": "Random holdouts are not reported in the monthly review",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/monthly-review-holdout.md",
+ "sha": "12ec5e3ce27831181aeb12c3eb9c81a6ec8ad961786afae252c1e8289aad26e0",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

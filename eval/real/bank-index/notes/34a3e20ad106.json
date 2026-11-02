@@ -1,0 +1,111 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "cli-logreg-baseline",
+   "type": "model",
+   "label": "logistic score",
+   "as": [
+    "cli-logreg-baseline",
+    "logistic score"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "2025-q1-test-cohort",
+   "type": "dataset",
+   "label": "test cohort",
+   "as": [
+    "2025-Q1 test cohort"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cutoff-0.031",
+   "type": "other",
+   "label": "cutoff",
+   "as": [
+    "cutoff 0.031"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "90-day-loss",
+   "type": "metric",
+   "label": "90-day loss",
+   "as": [
+    "90-day loss"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "net-margin",
+   "type": "metric",
+   "label": "net margin",
+   "as": [
+    "net margin"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cli-logreg-baseline",
+   "type": "evaluated-on",
+   "label": "sweep over",
+   "o": "2025-q1-test-cohort",
+   "quote": "over the 2025-Q1 test cohort (n=60,000)",
+   "line": 6
+  },
+  {
+   "s": "cli-logreg-baseline",
+   "type": "other",
+   "label": "cutoff at",
+   "o": "cutoff-0.031",
+   "quote": "cutoff 0.031 on the logistic score",
+   "line": 5
+  },
+  {
+   "s": "cli-logreg-baseline",
+   "type": "measured-by",
+   "label": "90-day loss of",
+   "o": "90-day-loss",
+   "quote": "90-day loss 1.4% of exposed book",
+   "line": 7
+  },
+  {
+   "s": "cli-logreg-baseline",
+   "type": "measured-by",
+   "label": "net margin of",
+   "o": "net-margin",
+   "quote": "net margin +$1.8M a year",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "credit-line-increase/q-cli-revenue-loss-tradeoff",
+  "cli-logreg-baseline"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/exp-104.md",
+ "sha": "34a3e20ad10650bb831d4aa7d5053949014663fb43f06b457560c68300a6e3ce",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

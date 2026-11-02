@@ -1,0 +1,155 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "account-state",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "Account state"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cb-intent-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cb-intent-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "session-login-flag",
+   "type": "feature",
+   "label": "login flag",
+   "as": [
+    "session login flag"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "card-status",
+   "type": "feature",
+   "label": "card status",
+   "as": [
+    "card status"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "days-since-last-payment",
+   "type": "feature",
+   "label": "days since last payment",
+   "as": [
+    "days since last payment"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.payments_daily"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "data-eng-cards",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "data-eng-cards"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "account-state",
+   "type": "uses",
+   "label": "sources",
+   "o": "session-login-flag",
+   "quote": "Sources: session login flag",
+   "line": 6
+  },
+  {
+   "s": "account-state",
+   "type": "uses",
+   "label": "sources",
+   "o": "cards.accounts_monthly",
+   "quote": "card status from `cards.accounts_monthly`",
+   "line": 6
+  },
+  {
+   "s": "account-state",
+   "type": "uses",
+   "label": "sources",
+   "o": "cards.payments_daily",
+   "quote": "last payment from `cards.payments_daily`",
+   "line": 6
+  },
+  {
+   "s": "card-status",
+   "type": "part-of",
+   "label": "covers",
+   "o": "account-state",
+   "quote": "login status, card status (active, locked, closed), and days since last payment",
+   "line": 5
+  },
+  {
+   "s": "days-since-last-payment",
+   "type": "part-of",
+   "label": "covers",
+   "o": "account-state",
+   "quote": "login status, card status (active, locked, closed), and days since last payment",
+   "line": 5
+  },
+  {
+   "s": "cb-intent-v2",
+   "type": "uses",
+   "label": "input",
+   "o": "account-state",
+   "quote": "Input to cb-intent-v2.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-cb-intent-acc"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "chatbot-deflection/feat-cb-account-state-v1.md",
+ "sha": "7cafdaf76b01f2cc361ba77bc5d9864b605caffba8dc225da656588be524d5e0",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

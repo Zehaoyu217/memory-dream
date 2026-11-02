@@ -1,0 +1,82 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "merchant-history-features",
+   "type": "feature",
+   "label": "features",
+   "as": [
+    "Merchant-history features",
+    "merchant-history features"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "txc-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "txc-gbm-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "macro-F1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "random-split",
+   "type": "term",
+   "label": "split",
+   "as": [
+    "random split"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "merchant-history-features",
+   "type": "other",
+   "label": "lifts",
+   "o": "txc-gbm-v2",
+   "quote": "lift txc-gbm-v2 from 0.84 to 0.91 (+0.07)",
+   "line": 6
+  },
+  {
+   "s": "merchant-history-features",
+   "type": "measured-by",
+   "label": "adds",
+   "o": "macro-f1",
+   "quote": "add 0.07 macro-F1 under the random split",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-106",
+  "fnd-txc-history-leaks"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "txn-categorization/fnd-txc-history-helps.md",
+ "sha": "3b18648010e486a0f61fbe3576c2c4e64d65549c4e96aec3e9ee4c606d7f9aa6",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

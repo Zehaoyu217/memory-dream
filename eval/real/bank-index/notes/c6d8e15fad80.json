@@ -1,0 +1,186 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "bt-logit-baseline",
+   "type": "model",
+   "label": "reference model",
+   "as": [
+    "bt-logit-baseline",
+    "Reference model only"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-bt-util-3m",
+   "type": "feature",
+   "label": "utilization feature",
+   "as": [
+    "feat-bt-util-3m"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "bureau-score-band",
+   "type": "feature",
+   "label": "score band",
+   "as": [
+    "bureau score band"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "tenure-months",
+   "type": "feature",
+   "label": "tenure feature",
+   "as": [
+    "tenure months"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bt-holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "bt-holdout-2025q1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "2025-waves",
+   "type": "dataset",
+   "label": "training waves",
+   "as": [
+    "2025 waves"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "top-30-lift",
+   "type": "metric",
+   "label": "top-30% lift",
+   "as": [
+    "top-30% lift 1.4x"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bt-logit-baseline",
+   "type": "uses",
+   "label": "built on",
+   "o": "bureau-score-band",
+   "quote": "Regularized logistic regression (C=0.5) on bureau score band, feat-bt-util-3m and tenure months.",
+   "line": 6
+  },
+  {
+   "s": "bt-logit-baseline",
+   "type": "uses",
+   "label": "built on",
+   "o": "feat-bt-util-3m",
+   "quote": "Regularized logistic regression (C=0.5) on bureau score band, feat-bt-util-3m and tenure months.",
+   "line": 6
+  },
+  {
+   "s": "bt-logit-baseline",
+   "type": "uses",
+   "label": "built on",
+   "o": "tenure-months",
+   "quote": "Regularized logistic regression (C=0.5) on bureau score band, feat-bt-util-3m and tenure months.",
+   "line": 6
+  },
+  {
+   "s": "bt-logit-baseline",
+   "type": "trained-on",
+   "label": "trained on",
+   "o": "2025-waves",
+   "quote": "Trained on 2025 waves excluding holdout accounts.",
+   "line": 7
+  },
+  {
+   "s": "bt-logit-baseline",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "bt-holdout-2025q1",
+   "quote": "AUC 0.63 on bt-holdout-2025q1 (n=41,800)",
+   "line": 7
+  },
+  {
+   "s": "bt-logit-baseline",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.63 on bt-holdout-2025q1 (n=41,800)",
+   "line": 7
+  },
+  {
+   "s": "bt-logit-baseline",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "ks",
+   "quote": "KS 0.19",
+   "line": 7
+  },
+  {
+   "s": "bt-logit-baseline",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "top-30-lift",
+   "quote": "top-30% lift 1.4x",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-bt-util-3m",
+  "ds-bt-bureau-join"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "balance-transfer-propensity/bt-logit-baseline.md",
+ "sha": "c6d8e15fad804304feaca9268084384f7713fec792bba38f57286a160ef53ba5",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

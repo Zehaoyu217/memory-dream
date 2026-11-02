@@ -1,0 +1,106 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-pa-credit-band",
+   "type": "feature",
+   "label": "credit band feature",
+   "as": [
+    "feat-pa-credit-band: three bureau score bands, under 640, 640-699, 700 and over"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "bureau score table",
+   "as": [
+    "`bureau.scores_monthly`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "pa-margin-v1",
+   "type": "model",
+   "label": "pa margin model v1",
+   "as": [
+    "pa-margin-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "pa-margin-v2",
+   "type": "model",
+   "label": "pa margin model v2",
+   "as": [
+    "pa-margin-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-507-band-het",
+   "type": "other",
+   "label": "heterogeneity cut",
+   "as": [
+    "exp-507-band-het"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-pa-credit-band",
+   "type": "uses",
+   "label": "bands from",
+   "o": "bureau.scores_monthly",
+   "quote": "Bands from the bureau score at assignment, from `bureau.scores_monthly`.",
+   "line": 6
+  },
+  {
+   "s": "pa-margin-v1",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-pa-credit-band",
+   "quote": "Used in pa-margin-v1 and pa-margin-v2, and as the heterogeneity cut in exp-507-band-het.",
+   "line": 7
+  },
+  {
+   "s": "pa-margin-v2",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-pa-credit-band",
+   "quote": "Used in pa-margin-v1 and pa-margin-v2, and as the heterogeneity cut in exp-507-band-het.",
+   "line": 7
+  },
+  {
+   "s": "exp-507-band-het",
+   "type": "uses",
+   "label": "heterogeneity cut",
+   "o": "feat-pa-credit-band",
+   "quote": "as the heterogeneity cut in exp-507-band-het.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-pa-ab-assignments",
+  "promo-apr-test/feat-pa-credit-band.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "promo-apr-test/feat-pa-credit-band.md",
+ "sha": "4e91a921a72f0513076b2a0b6ddede5b60e2f8be5d79682a388d613dc4669d29",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

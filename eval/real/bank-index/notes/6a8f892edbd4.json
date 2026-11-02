@@ -1,0 +1,111 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "utilisation",
+   "type": "feature",
+   "label": "predictor",
+   "as": [
+    "utilisation at 90% or more",
+    "utilisation alone"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "90-day-loss",
+   "type": "metric",
+   "label": "loss",
+   "as": [
+    "90-day loss"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.64"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "cli-test-2025q1",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "cli-test-2025q1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "utilisation-led-targeting",
+   "type": "term",
+   "label": "targeting",
+   "as": [
+    "utilisation-led targeting"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "utilisation",
+   "type": "measured-by",
+   "label": "reached",
+   "o": "auc",
+   "quote": "utilisation alone reached AUC 0.64 for 90-day loss",
+   "line": 7
+  },
+  {
+   "s": "utilisation",
+   "type": "other",
+   "label": "predicts",
+   "o": "90-day-loss",
+   "quote": "best single predictor of 90-day loss",
+   "line": 6
+  },
+  {
+   "s": "utilisation",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "cli-test-2025q1",
+   "quote": "On cli-test-2025q1 (n=60,000)",
+   "line": 7
+  },
+  {
+   "s": "utilisation",
+   "type": "other",
+   "label": "used to justify",
+   "o": "utilisation-led-targeting",
+   "quote": "This was used to justify utilisation-led targeting",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-101",
+  "ds-cli-eligible-pop",
+  "find-cli-util-not-enough"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/find-cli-util-best.md",
+ "sha": "6a8f892edbd441a7db0885076b35fabed5e046d385a158aed1236e9b2f49d824",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

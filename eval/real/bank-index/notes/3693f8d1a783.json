@@ -1,0 +1,159 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "inc-gbm-v2",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "inc-gbm-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "inc-gbm-v1",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "inc-gbm-v1"
+   ],
+   "lines": [
+    2,
+    4
+   ]
+  },
+  {
+   "id": "feat-inc-payroll-cadence-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-inc-payroll-cadence-v2"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "booked-accounts",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "booked accounts"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    6,
+    8,
+    9
+   ]
+  },
+  {
+   "id": "median-absolute-error",
+   "type": "metric",
+   "label": "median absolute error",
+   "as": [
+    "median absolute error"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-inc-verified-2026",
+   "type": "dataset",
+   "label": "verified sample",
+   "as": [
+    "verified sample"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "inc-gbm-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "inc-gbm-v1",
+   "quote": "supersedes: [inc-gbm-v1]",
+   "line": 4
+  },
+  {
+   "s": "inc-gbm-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-inc-payroll-cadence-v2",
+   "quote": "with feat-inc-payroll-cadence-v2 in place of v1",
+   "line": 7
+  },
+  {
+   "s": "inc-gbm-v2",
+   "type": "evaluated-on",
+   "label": "eval on",
+   "o": "holdout-2025q4",
+   "quote": "Eval: holdout-2025q4 (n=15,800 booked accounts)",
+   "line": 8
+  },
+  {
+   "s": "inc-gbm-v2",
+   "type": "measured-by",
+   "label": "MAPE 24%",
+   "o": "mape",
+   "quote": "MAPE 24%, median absolute error $7,600",
+   "line": 8
+  },
+  {
+   "s": "inc-gbm-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "median-absolute-error",
+   "quote": "median absolute error $7,600",
+   "line": 8
+  },
+  {
+   "s": "inc-gbm-v2",
+   "type": "evaluated-on",
+   "label": "eval on",
+   "o": "ds-inc-verified-2026",
+   "quote": "On the verified sample (ds-inc-verified-2026) MAPE is 31%",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "exp-406"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "income-estimation/inc-gbm-v2.md",
+ "sha": "3693f8d1a783690a6d1f5be4b9436ab1fa9906c95ed691693649a61529118a89",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

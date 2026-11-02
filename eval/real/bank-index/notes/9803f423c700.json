@@ -1,0 +1,141 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "mrisk-gbm-v1",
+   "type": "model",
+   "label": "gradient-boosted model",
+   "as": [
+    "mrisk-gbm-v1",
+    "gradient-boosted merchant risk, three features, AUC 0.85"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "mrisk-gbm-v2",
+   "type": "model",
+   "label": "successor model",
+   "as": [
+    "mrisk-gbm-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "mrisk-oot-2025h2",
+   "type": "dataset",
+   "label": "out-of-time eval set",
+   "as": [
+    "mrisk-oot-2025h2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-mrisk-chargebacks",
+   "type": "dataset",
+   "label": "chargeback labels",
+   "as": [
+    "ds-mrisk-chargebacks"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.85"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "precision-at-100",
+   "type": "metric",
+   "label": "precision@100",
+   "as": [
+    "precision@100 0.41"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-502",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-502"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mrisk-gbm-v1",
+   "type": "trained-on",
+   "label": "labels from",
+   "o": "ds-mrisk-chargebacks",
+   "quote": "Labels from ds-mrisk-chargebacks",
+   "line": 7
+  },
+  {
+   "s": "mrisk-gbm-v1",
+   "type": "evaluated-on",
+   "label": "eval on",
+   "o": "mrisk-oot-2025h2",
+   "quote": "AUC 0.85 and precision@100 0.41 on mrisk-oot-2025h2",
+   "line": 8
+  },
+  {
+   "s": "mrisk-gbm-v1",
+   "type": "measured-by",
+   "label": "AUC 0.85",
+   "o": "auc",
+   "quote": "AUC 0.85 and precision@100 0.41",
+   "line": 8
+  },
+  {
+   "s": "mrisk-gbm-v1",
+   "type": "measured-by",
+   "label": "precision@100 0.41",
+   "o": "precision-at-100",
+   "quote": "precision@100 0.41",
+   "line": 8
+  },
+  {
+   "s": "mrisk-gbm-v2",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "mrisk-gbm-v1",
+   "quote": "Superseded by mrisk-gbm-v2 on 2026-06-09",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-mrisk-cb-ratio-90d",
+  "feat-mrisk-txn-concentration",
+  "feat-mrisk-new-merchant",
+  "ds-mrisk-merchant-month",
+  "exp-502"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "merchant-risk/mrisk-gbm-v1.md",
+ "sha": "9803f423c7009d0f468784a2388571d116237bf0e99d8ba856a2727d32b7aef0",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

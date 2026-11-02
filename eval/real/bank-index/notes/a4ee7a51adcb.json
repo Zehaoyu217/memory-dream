@@ -1,0 +1,97 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-107",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-107: month-end rule test for util ratio, latest effective limit row vs exact month-end row"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-fsm-parity-sample",
+   "type": "dataset",
+   "label": "parity sample",
+   "as": [
+    "ds-fsm-parity-sample"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "fsm_parity_sample_2025h2",
+   "type": "dataset",
+   "label": "parity sample",
+   "as": [
+    "fsm_parity_sample_2025h2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fnd-parity-pre-fix",
+   "type": "document",
+   "label": "finding",
+   "as": [
+    "fnd-parity-pre-fix"
+   ],
+   "lines": [
+    2
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-107",
+   "type": "uses",
+   "label": "compared on",
+   "o": "fsm_parity_sample_2025h2",
+   "quote": "Compared the two rules on fsm_parity_sample_2025h2.",
+   "line": 6
+  },
+  {
+   "s": "exp-107",
+   "type": "evaluated-on",
+   "label": "churn AUC on",
+   "o": "holdout-2025q2",
+   "quote": "Under the store rule, churn AUC on holdout-2025q2 moves by +0.002.",
+   "line": 8
+  },
+  {
+   "s": "exp-107",
+   "type": "uses",
+   "label": "from",
+   "o": "ds-fsm-parity-sample",
+   "quote": "from: [ds-fsm-parity-sample, fnd-parity-pre-fix]",
+   "line": 2
+  }
+ ],
+ "refs": [
+  "fnd-parity-pre-fix"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "feature-store-migration/exp-107.md",
+ "sha": "a4ee7a51adcb92feddcdc16cf3fc1db03ec9b5be35ed5fef665c7f54a57c1e46",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

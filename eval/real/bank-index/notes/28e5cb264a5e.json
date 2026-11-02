@@ -1,0 +1,89 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "bureau-score",
+   "type": "metric",
+   "label": "bureau score",
+   "as": [
+    "bureau score is pulled monthly",
+    "The old note said the score is pulled once at application.",
+    "the score is pulled monthly for open accounts"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "bureau-scores-monthly",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "stored in `bureau.scores_monthly`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "application-score",
+   "type": "feature",
+   "label": "application score",
+   "as": [
+    "credit-risk models built before 2025-06 use the application score"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "lagged-monthly-bureau-features",
+   "type": "feature",
+   "label": "lagged features",
+   "as": [
+    "Newer models use lagged monthly bureau features."
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bureau-score",
+   "type": "produces",
+   "label": "stored in",
+   "o": "bureau-scores-monthly",
+   "quote": "stored in `bureau.scores_monthly`",
+   "line": 6
+  },
+  {
+   "s": "application-score",
+   "type": "uses",
+   "label": "used by pre-2025-06 models",
+   "o": "bureau-score",
+   "quote": "credit-risk models built before 2025-06 use the application score",
+   "line": 7
+  },
+  {
+   "s": "lagged-monthly-bureau-features",
+   "type": "uses",
+   "label": "used by newer models",
+   "o": "bureau-score",
+   "quote": "Newer models use lagged monthly bureau features.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "glossary/bureau-score"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "corrections/bureau-score-monthly.md",
+ "sha": "28e5cb264a5e260c3e9bacc1b33294f5a144cb9f03d3a94f2c98673d7743a5bc",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

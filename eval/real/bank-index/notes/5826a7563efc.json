@@ -1,0 +1,142 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "cli-xgb-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cli-xgb-v1"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    2,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "utilisation-slope",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "6-month utilisation slope"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "over-limit-flag",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "over-limit flag"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-cli-util-v2",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "feat-cli-util-v2"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cli-xgb-v1",
+   "type": "uses",
+   "label": "retrained with",
+   "o": "utilisation-slope",
+   "quote": "Retrained cli-xgb-v1 with a 6-month utilisation slope",
+   "line": 6
+  },
+  {
+   "s": "cli-xgb-v1",
+   "type": "uses",
+   "label": "retrained with",
+   "o": "over-limit-flag",
+   "quote": "over-limit flag added",
+   "line": 6
+  },
+  {
+   "s": "cli-xgb-v1",
+   "type": "evaluated-on",
+   "label": "eval on",
+   "o": "holdout-2025q4",
+   "quote": "Eval: holdout-2025q4, n=118,400",
+   "line": 7
+  },
+  {
+   "s": "cli-xgb-v1",
+   "type": "measured-by",
+   "label": "AUC moved",
+   "o": "auc",
+   "quote": "AUC 0.698 to 0.710",
+   "line": 7
+  },
+  {
+   "s": "cli-xgb-v1",
+   "type": "measured-by",
+   "label": "KS unchanged",
+   "o": "ks",
+   "quote": "KS unchanged at 0.31",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-cli-util-v1",
+  "cli-xgb-v1",
+  "ds-cli-holdout-2025q4"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/exp-103.md",
+ "sha": "5826a7563efc532201b6d0aa8f92db4b09bd010b23b2ce2b421380ae91cbbae6",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

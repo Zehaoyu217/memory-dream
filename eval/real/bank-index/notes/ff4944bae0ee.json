@@ -1,0 +1,169 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-105",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-105"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cu-uplift-v2",
+   "type": "model",
+   "label": "t-learner model",
+   "as": [
+    "cu-uplift-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cu-uplift-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cu-uplift-v1"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "brier",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Brier"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "find-cu-response-misranks",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-cu-response-misranks"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "ds-cu-treat-log",
+   "type": "dataset",
+   "label": "log",
+   "as": [
+    "ds-cu-treat-log"
+   ],
+   "lines": [
+    2
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cu-uplift-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q4",
+   "quote": "Holdout-2025q4, n=31,200 accounts. cu-uplift-v2",
+   "line": 6
+  },
+  {
+   "s": "cu-uplift-v1",
+   "type": "evaluated-on",
+   "label": "same split",
+   "o": "holdout-2025q4",
+   "quote": "cu-uplift-v1 on the same split",
+   "line": 6
+  },
+  {
+   "s": "cu-uplift-v2",
+   "type": "measured-by",
+   "label": "scored by",
+   "o": "uplift-at-20",
+   "quote": "uplift@20% 0.034",
+   "line": 6
+  },
+  {
+   "s": "cu-uplift-v2",
+   "type": "measured-by",
+   "label": "scored by",
+   "o": "brier",
+   "quote": "Brier 0.181",
+   "line": 6
+  },
+  {
+   "s": "cu-uplift-v1",
+   "type": "measured-by",
+   "label": "scored by",
+   "o": "uplift-at-20",
+   "quote": "uplift@20% 0.031",
+   "line": 6
+  },
+  {
+   "s": "cu-uplift-v1",
+   "type": "measured-by",
+   "label": "scored by",
+   "o": "brier",
+   "quote": "Brier 0.196",
+   "line": 6
+  },
+  {
+   "s": "cu-uplift-v2",
+   "type": "replaces",
+   "label": "newer version of",
+   "o": "cu-uplift-v1",
+   "quote": "T-learner with isotonic calibration (uplift v2)",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "collections_uplift/exp105_calib.ipynb",
+  "cu-uplift-v1",
+  "find-cu-response-misranks",
+  "ds-cu-treat-log"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-uplift/exp-105.md",
+ "sha": "ff4944bae0eec1d8923ac6996b975deeaef5042ba52945632bab5a5f8bd986a0",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,85 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "uplift-model",
+   "type": "model",
+   "label": "uplift model",
+   "as": [
+    "uplift model"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "response-model",
+   "type": "model",
+   "label": "response model",
+   "as": [
+    "response model"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "promise-to-pay-uplift-20",
+   "type": "metric",
+   "label": "promise-to-pay uplift",
+   "as": [
+    "promise-to-pay uplift@20%"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "randomised-pilot",
+   "type": "dataset",
+   "label": "randomised pilot",
+   "as": [
+    "randomised pilot",
+    "pilot data"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "uplift-model",
+   "type": "measured-by",
+   "label": "compared by",
+   "o": "promise-to-pay-uplift-20",
+   "quote": "comparing promise-to-pay uplift@20% for each ranking",
+   "line": 7
+  },
+  {
+   "s": "response-model",
+   "type": "measured-by",
+   "label": "compared by",
+   "o": "promise-to-pay-uplift-20",
+   "quote": "comparing promise-to-pay uplift@20% for each ranking",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "q-cu-who-to-call",
+  "ds-cu-treat-log",
+  "exp-102",
+  "find-cu-response-misranks"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-uplift/q-cu-uplift-vs-response.md",
+ "sha": "c1cbf13f2f642e6dd9d162d26c99310dc98d98fb7b864ed0f3d1c512f79c7145",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

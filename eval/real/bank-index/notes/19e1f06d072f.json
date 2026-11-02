@@ -1,0 +1,127 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-201",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-201"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "exp-202",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-202"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "fraud26-oot-2025q4",
+   "type": "dataset",
+   "label": "evaluation set",
+   "as": [
+    "fraud26-oot-2025q4"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC",
+    "0.889",
+    "0.912"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "immature-labels",
+   "type": "term",
+   "label": "concept",
+   "as": [
+    "Immature labels",
+    "immature frauds"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "matured-labels",
+   "type": "term",
+   "label": "concept",
+   "as": [
+    "matured labels"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "immature-labels",
+   "type": "measured-by",
+   "label": "cuts AUC by",
+   "o": "auc",
+   "quote": "Immature labels cut AUC by about 0.02",
+   "line": 5
+  },
+  {
+   "s": "auc",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "fraud26-oot-2025q4",
+   "quote": "Effect is on fraud26-oot-2025q4",
+   "line": 7
+  },
+  {
+   "s": "exp-201",
+   "type": "other",
+   "label": "reports AUC",
+   "o": "auc",
+   "quote": "0.889 on partial labels vs 0.912 on matured labels (exp-201 vs exp-202)",
+   "line": 6
+  },
+  {
+   "s": "exp-202",
+   "type": "other",
+   "label": "reports AUC",
+   "o": "auc",
+   "quote": "0.889 on partial labels vs 0.912 on matured labels (exp-201 vs exp-202)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fraud-2026/fraud26-find-label-bias.md",
+  "exp-201",
+  "exp-202",
+  "q-f26-label-lag",
+  "dec-f26-maturity-60d"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2026/fraud26-find-label-bias.md",
+ "sha": "19e1f06d072f689b24ca4e0445306a750a2116c9e1a1977a4149ba822803e617",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,88 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-rdm-6m-cutoff",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: reactivation pool is accounts dormant for 6 or more months"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dormant-pool",
+   "type": "segment",
+   "label": "reactivation pool",
+   "as": [
+    "reactivation pool"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift at the top 20%",
+   "as": [
+    "uplift at the top 20%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "priya-nair",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Priya Nair"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-rdm-6m-cutoff",
+   "type": "other",
+   "label": "defines",
+   "o": "dormant-pool",
+   "quote": "reactivation pool is accounts dormant for 6 or more months",
+   "line": 5
+  },
+  {
+   "s": "dormant-pool",
+   "type": "measured-by",
+   "label": "gives best uplift at",
+   "o": "uplift-at-20",
+   "quote": "Gives the best uplift at the top 20% (1.6pp, exp-301)",
+   "line": 6
+  },
+  {
+   "s": "dec-rdm-6m-cutoff",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "priya-nair",
+   "quote": "Owner: Priya Nair (onboarding).",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-301",
+  "fnd-rdm-cutoff-5m",
+  "q-rdm-dormancy-cutoff"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reactivation-dormant/dec-rdm-6m-cutoff.md",
+ "sha": "8e194dcb5f2c7a076ac01769c514a6606e8b7c4584f8455189ad8f92c51dad26",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,119 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-306",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-306"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-rev26-rate-schedule",
+   "type": "dataset",
+   "label": "rate schedule",
+   "as": [
+    "ds-rev26-rate-schedule"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "promo-cohorts",
+   "type": "segment",
+   "label": "promo cohorts",
+   "as": [
+    "promo cohorts with 0% balance transfers"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "promo-rolloff-shift",
+   "type": "scenario",
+   "label": "sensitivity",
+   "as": [
+    "Sensitivity on the promo cohorts with 0% balance transfers",
+    "Shifting the roll-off date one month earlier or later"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "interest-income",
+   "type": "metric",
+   "label": "interest",
+   "as": [
+    "moves Q1-2026 interest by $2.2M"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "q1-2026-interest-miss",
+   "type": "other",
+   "label": "forecast miss",
+   "as": [
+    "the Q1-2026 miss"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-306",
+   "type": "uses",
+   "label": "derived from",
+   "o": "ds-rev26-rate-schedule",
+   "quote": "from: [ds-rev26-rate-schedule, fnd-rev26-promo-tail]",
+   "line": 2
+  },
+  {
+   "s": "promo-rolloff-shift",
+   "type": "evaluated-on",
+   "label": "sensitivity on",
+   "o": "promo-cohorts",
+   "quote": "Sensitivity on the promo cohorts with 0% balance transfers",
+   "line": 6
+  },
+  {
+   "s": "exp-306",
+   "type": "other",
+   "label": "shifts interest",
+   "o": "interest-income",
+   "quote": "moves Q1-2026 interest by $2.2M",
+   "line": 7
+  },
+  {
+   "s": "exp-306",
+   "type": "other",
+   "label": "explains",
+   "o": "q1-2026-interest-miss",
+   "quote": "This is the working explanation for the Q1-2026 miss",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "fnd-rev26-promo-tail",
+  "q-rev26-q1-interest-miss"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "revenue-forecast-2026/exp-306.md",
+ "sha": "cdd0fdbc254ec93936f28a936ab75c2d4beef73a40272b1a6d5b6972d75428f1",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

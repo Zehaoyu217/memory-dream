@@ -1,0 +1,119 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-pbs-timing-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-pbs-timing-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-pbs-pay-ratio-v1",
+   "type": "feature",
+   "label": "source feature",
+   "as": [
+    "feat-pbs-pay-ratio-v1"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "ds-pbs-payments-12m",
+   "type": "dataset",
+   "label": "source dataset",
+   "as": [
+    "ds-pbs-payments-12m"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "pbs-gmm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "pbs-gmm-v3"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-403",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-403"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ari",
+   "type": "metric",
+   "label": "seed-to-seed ari",
+   "as": [
+    "seed-to-seed ARI"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-pbs-timing-v2",
+   "type": "uses",
+   "label": "derived from",
+   "o": "feat-pbs-pay-ratio-v1",
+   "quote": "from: [feat-pbs-pay-ratio-v1, ds-pbs-payments-12m]",
+   "line": 2
+  },
+  {
+   "s": "feat-pbs-timing-v2",
+   "type": "uses",
+   "label": "derived from",
+   "o": "ds-pbs-payments-12m",
+   "quote": "from: [feat-pbs-pay-ratio-v1, ds-pbs-payments-12m]",
+   "line": 2
+  },
+  {
+   "s": "pbs-gmm-v3",
+   "type": "uses",
+   "label": "input to",
+   "o": "feat-pbs-timing-v2",
+   "quote": "Input to pbs-gmm-v3.",
+   "line": 8
+  },
+  {
+   "s": "feat-pbs-timing-v2",
+   "type": "measured-by",
+   "label": "lifts",
+   "o": "ari",
+   "quote": "Lifts seed-to-seed ARI from 0.74 to 0.81 (exp-403)",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-pbs-pay-ratio-v1",
+  "ds-pbs-payments-12m",
+  "pbs-gmm-v3",
+  "exp-403"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "payment-behavior-segments/feat-pbs-timing-v2.md",
+ "sha": "a26cdc5c76d63fd745546acced514816af36fedce7d023d911abf5189fe5a380",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

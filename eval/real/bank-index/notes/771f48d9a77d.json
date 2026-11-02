@@ -1,0 +1,69 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.payments_daily`",
+    "cards.payments_daily"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "feat-pa-payment-rate",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-pa-payment-rate"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "coverage",
+   "type": "metric",
+   "label": "coverage",
+   "as": [
+    "Coverage 99.6% of accounts"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-pa-payment-rate",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cards.payments_daily",
+   "quote": "Source `cards.payments_daily`.",
+   "line": 6
+  },
+  {
+   "s": "cards.payments_daily",
+   "type": "measured-by",
+   "label": "coverage",
+   "o": "coverage",
+   "quote": "Coverage 99.6% of accounts",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-pa-ab-assignments"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "promo-apr-test/ds-pa-payments.md",
+ "sha": "771f48d9a77d95f3b02b9bd5a85da2fc1b528097001780f0c5bcb32064b01ddc",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

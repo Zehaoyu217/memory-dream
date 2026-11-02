@@ -1,0 +1,75 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "credit-limit-change-feature",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "credit-limit change feature"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "gbm",
+   "type": "model",
+   "label": "gbm run",
+   "as": [
+    "GBM"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "early-delinquency",
+   "type": "term",
+   "label": "signal",
+   "as": [
+    "early-delinquency"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "credit-limit-change-feature",
+   "type": "other",
+   "label": "strong signal for",
+   "o": "early-delinquency",
+   "quote": "a limit decrease over 90 days is a strong early-delinquency signal",
+   "line": 6
+  },
+  {
+   "s": "credit-limit-change-feature",
+   "type": "other",
+   "label": "hypothesis from",
+   "o": "gbm",
+   "quote": "Hypothesis from the first GBM run",
+   "line": 6
+  },
+  {
+   "s": "credit-limit-change-feature",
+   "type": "other",
+   "label": "may carry",
+   "o": "early-delinquency",
+   "quote": "the feature may carry information from after the prediction date",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-204"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "early-delinquency/q-ed-limit-feature-usable.md",
+ "sha": "6e9c47e910364d6d7752686bc426237b7794b3732f3d36b25bb71cb41a22412d",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

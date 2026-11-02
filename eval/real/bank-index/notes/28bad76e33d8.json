@@ -1,0 +1,71 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "handoff-rule-v2",
+   "type": "policy",
+   "label": "handoff rule",
+   "as": [
+    "Hand off after 3 failed intent matches",
+    "feat-cb-handoff-rule-v2"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "containment",
+   "type": "metric",
+   "label": "containment",
+   "as": [
+    "containment"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "repeat-contact",
+   "type": "metric",
+   "label": "repeat contact",
+   "as": [
+    "Repeat contact on the 14-day window"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "handoff-rule-v2",
+   "type": "measured-by",
+   "label": "lowers containment",
+   "o": "containment",
+   "quote": "containment drops from 29 to 25 percent",
+   "line": 6
+  },
+  {
+   "s": "handoff-rule-v2",
+   "type": "measured-by",
+   "label": "lowers repeat contact",
+   "o": "repeat-contact",
+   "quote": "Repeat contact on the 14-day window falls from 21 to 15 percent",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-cb-handoff-rule-v2",
+  "fnd-cb-repeat-contact"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "chatbot-deflection/dec-cb-handoff-v2.md",
+ "sha": "28bad76e33d8dbbfc9be7c0eb00e3563b8f79b08fbdc4a3ebed962360a7c68d0",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

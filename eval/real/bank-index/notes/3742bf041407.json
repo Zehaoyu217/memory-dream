@@ -1,0 +1,164 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-cli-holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "ds-cli-holdout-2025q4",
+    "holdout"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "cli-xgb-v1",
+   "type": "model",
+   "label": "scores",
+   "as": [
+    "cli-xgb-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cli-xgb-v2",
+   "type": "model",
+   "label": "scores",
+   "as": [
+    "cli-xgb-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "cards.payments_daily"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "90-day-loss",
+   "type": "metric",
+   "label": "prevalence",
+   "as": [
+    "90-day loss"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "incremental-spend-90d",
+   "type": "metric",
+   "label": "prevalence",
+   "as": [
+    "incremental spend of $50 or more in 90 days"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-cli-holdout-2025q4",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cards.accounts_monthly",
+   "quote": "Source: `cards.accounts_monthly`, `cards.txn_daily`, `cards.payments_daily`.",
+   "line": 8
+  },
+  {
+   "s": "ds-cli-holdout-2025q4",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cards.txn_daily",
+   "quote": "Source: `cards.accounts_monthly`, `cards.txn_daily`, `cards.payments_daily`.",
+   "line": 8
+  },
+  {
+   "s": "ds-cli-holdout-2025q4",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cards.payments_daily",
+   "quote": "Source: `cards.accounts_monthly`, `cards.txn_daily`, `cards.payments_daily`.",
+   "line": 8
+  },
+  {
+   "s": "cli-xgb-v1",
+   "type": "evaluated-on",
+   "label": "evaluation set for",
+   "o": "ds-cli-holdout-2025q4",
+   "quote": "Evaluation set for cli-xgb-v1 and cli-xgb-v2 scores",
+   "line": 7
+  },
+  {
+   "s": "cli-xgb-v2",
+   "type": "evaluated-on",
+   "label": "evaluation set for",
+   "o": "ds-cli-holdout-2025q4",
+   "quote": "Evaluation set for cli-xgb-v1 and cli-xgb-v2 scores",
+   "line": 7
+  },
+  {
+   "s": "ds-cli-holdout-2025q4",
+   "type": "other",
+   "label": "prevalence of",
+   "o": "90-day-loss",
+   "quote": "prevalence of 90-day loss 1.0%",
+   "line": 7
+  },
+  {
+   "s": "ds-cli-holdout-2025q4",
+   "type": "other",
+   "label": "prevalence of",
+   "o": "incremental-spend-90d",
+   "quote": "incremental spend of $50 or more in 90 days 22%",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-cli-eligible-pop"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/ds-cli-holdout-2025q4.md",
+ "sha": "3742bf041407bc97aa81744005cea70253fb905dcd178d433e32895bd271e60a",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

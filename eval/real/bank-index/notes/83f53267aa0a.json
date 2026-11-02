@@ -1,0 +1,125 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-csb-tenure-band",
+   "type": "feature",
+   "label": "tenure band",
+   "as": [
+    "feat-csb-tenure-band",
+    "five tenure bands"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "under-6-month-band",
+   "type": "segment",
+   "label": "band",
+   "as": [
+    "the under-6-month band"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "churn",
+   "type": "metric",
+   "label": "churn",
+   "as": [
+    "churn"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "csb-lr-base",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "csb-lr-base"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "csb-xgb-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "csb-xgb-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "csb-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "csb-xgb-v2"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "under-6-month-band",
+   "type": "part-of",
+   "label": "band of",
+   "o": "feat-csb-tenure-band",
+   "quote": "Bands: 0 to 5, 6 to 11, 12 to 23, 24 to 47 and 48+ months.",
+   "line": 6
+  },
+  {
+   "s": "under-6-month-band",
+   "type": "measured-by",
+   "label": "churn",
+   "o": "churn",
+   "quote": "Under 6 months: churn 11.2%, against 5.6% for 6 months and over",
+   "line": 7
+  },
+  {
+   "s": "csb-lr-base",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-csb-tenure-band",
+   "quote": "Used in csb-lr-base, csb-xgb-v1 and csb-xgb-v2.",
+   "line": 8
+  },
+  {
+   "s": "csb-xgb-v1",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-csb-tenure-band",
+   "quote": "Used in csb-lr-base, csb-xgb-v1 and csb-xgb-v2.",
+   "line": 8
+  },
+  {
+   "s": "csb-xgb-v2",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-csb-tenure-band",
+   "quote": "Used in csb-lr-base, csb-xgb-v1 and csb-xgb-v2.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "fnd-csb-tenure-cut"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-small-business/feat-csb-tenure-band.md",
+ "sha": "83f53267aa0aadbdb2ef89370e859909c92b83fa40459a4ac32df58dba271884",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,133 @@
+{
+ "kind": "report",
+ "entities": [
+  {
+   "id": "weekly-fraud-alert-report",
+   "type": "document",
+   "label": "report",
+   "as": [
+    "The weekly fraud alert report"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "precision-at-50",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "precision@50"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "precision-at-200",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "precision@200"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "alerts-per-1000-transactions",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Alerts per 1,000 transactions"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "latest-out-of-time-fraud-holdout",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "the latest out-of-time fraud holdout"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "weekly-fraud-alert-report",
+   "type": "measured-by",
+   "label": "gives",
+   "o": "precision-at-50",
+   "quote": "The weekly fraud alert report gives precision@50, precision@200 and alerts per 1,000 transactions",
+   "line": 4
+  },
+  {
+   "s": "weekly-fraud-alert-report",
+   "type": "measured-by",
+   "label": "gives",
+   "o": "precision-at-200",
+   "quote": "The weekly fraud alert report gives precision@50, precision@200 and alerts per 1,000 transactions",
+   "line": 4
+  },
+  {
+   "s": "weekly-fraud-alert-report",
+   "type": "measured-by",
+   "label": "gives",
+   "o": "alerts-per-1000-transactions",
+   "quote": "The weekly fraud alert report gives precision@50, precision@200 and alerts per 1,000 transactions",
+   "line": 4
+  },
+  {
+   "s": "precision-at-50",
+   "type": "evaluated-on",
+   "label": "computed on",
+   "o": "latest-out-of-time-fraud-holdout",
+   "quote": "Precision@50 and precision@200 are computed on the latest out-of-time fraud holdout.",
+   "line": 5
+  },
+  {
+   "s": "precision-at-200",
+   "type": "evaluated-on",
+   "label": "computed on",
+   "o": "latest-out-of-time-fraud-holdout",
+   "quote": "Precision@50 and precision@200 are computed on the latest out-of-time fraud holdout.",
+   "line": 5
+  },
+  {
+   "s": "alerts-per-1000-transactions",
+   "type": "uses",
+   "label": "use the week's transactions from",
+   "o": "cards.txn_daily",
+   "quote": "Alerts per 1,000 transactions use the week's transactions from `cards.txn_daily`.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/fraud-alert-volume-report.md",
+ "sha": "ddd7bf562c56a002f6d301238ab9980d6ac073a803a94d1df6e30dc2a345abe0",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

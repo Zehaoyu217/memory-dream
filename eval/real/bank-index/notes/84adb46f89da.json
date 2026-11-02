@@ -1,0 +1,145 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "bsm-app-gbm-v10a",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "v10a"
+   ],
+   "lines": [
+    2,
+    5,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "bsm-v8",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "v8"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "ds-bsm-v10-cohorts-2026",
+   "type": "dataset",
+   "label": "cohorts",
+   "as": [
+    "ds-bsm-v10-cohorts-2026"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    5,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "top-decile-bad-rate",
+   "type": "metric",
+   "label": "bad rate",
+   "as": [
+    "top-decile bad rate"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bsm-app-gbm-v10a",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "ds-bsm-v10-cohorts-2026",
+   "quote": "Both models scored on ds-bsm-v10-cohorts-2026",
+   "line": 6
+  },
+  {
+   "s": "bsm-v8",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "ds-bsm-v10-cohorts-2026",
+   "quote": "Both models scored on ds-bsm-v10-cohorts-2026",
+   "line": 6
+  },
+  {
+   "s": "bsm-app-gbm-v10a",
+   "type": "measured-by",
+   "label": "AUC 0.78",
+   "o": "auc",
+   "quote": "AUC 0.78 for v10a against 0.79 for v8",
+   "line": 7
+  },
+  {
+   "s": "bsm-v8",
+   "type": "measured-by",
+   "label": "AUC 0.79",
+   "o": "auc",
+   "quote": "AUC 0.78 for v10a against 0.79 for v8",
+   "line": 7
+  },
+  {
+   "s": "bsm-app-gbm-v10a",
+   "type": "measured-by",
+   "label": "KS 0.34",
+   "o": "ks",
+   "quote": "KS 0.34 against 0.36",
+   "line": 7
+  },
+  {
+   "s": "bsm-v8",
+   "type": "measured-by",
+   "label": "KS 0.36",
+   "o": "ks",
+   "quote": "KS 0.34 against 0.36",
+   "line": 7
+  },
+  {
+   "s": "bsm-app-gbm-v10a",
+   "type": "measured-by",
+   "label": "higher top-decile bad rate",
+   "o": "top-decile-bad-rate",
+   "quote": "the top-decile bad rate is 0.6 points higher for v10a",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "bureau-score-migration/exp-302.md",
+ "sha": "84adb46f89da8584f99bdfa254f80b35b79ce021382d5ce8e3387e6db9fbde89",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

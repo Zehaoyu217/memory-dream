@@ -1,0 +1,93 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-lbl-churn-closure",
+   "type": "term",
+   "label": "decision",
+   "as": [
+    "Decision: churn is no approved transaction for 90 days, or an account closure within 120 days of the snapshot"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-lbl-churn-90d",
+   "type": "term",
+   "label": "90-day rule",
+   "as": [
+    "the 90-day-only rule"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-lbl-churn-flag-closure",
+   "type": "feature",
+   "label": "churn flag",
+   "as": [
+    "feat-lbl-churn-flag-closure"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-407",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-407"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-lbl-churn-closure",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "dec-lbl-churn-90d",
+   "quote": "supersedes: [dec-lbl-churn-90d]",
+   "line": 4
+  },
+  {
+   "s": "dec-lbl-churn-closure",
+   "type": "other",
+   "label": "implemented as",
+   "o": "feat-lbl-churn-flag-closure",
+   "quote": "Current definition, implemented as feat-lbl-churn-flag-closure in the rebuilt job.",
+   "line": 8
+  },
+  {
+   "s": "exp-407",
+   "type": "other",
+   "label": "shows",
+   "o": "dec-lbl-churn-closure",
+   "quote": "exp-407 shows the closure-inclusive label gives the better model.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-churn-rate-rebuilt",
+  "dec-lbl-churn-90d",
+  "exp-406",
+  "exp-407",
+  "feat-lbl-churn-flag-closure",
+  "label-pipeline-rebuild/dec-lbl-churn-closure.md"
+ ],
+ "dropped": {
+  "entities": [
+   "feat-lbl-churn-flag-90d"
+  ],
+  "relations": 0
+ },
+ "path": "label-pipeline-rebuild/dec-lbl-churn-closure.md",
+ "sha": "790a6836b6a526ddff7b388421d95c23c0f328ff5bbe9f4fef8994de9ec53806",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,144 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "30-day-notice",
+   "type": "policy",
+   "label": "notice rule",
+   "as": [
+    "30-day notice before any risk-based credit-line decrease"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-202",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-202"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "yuki-tanaka",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Yuki Tanaka"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "raj-patel",
+   "type": "person",
+   "label": "collections owner",
+   "as": [
+    "Raj Patel"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "risk-based-decrease",
+   "type": "term",
+   "label": "decrease type",
+   "as": [
+    "risk-based decrease",
+    "risk-based credit-line decrease"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "emergency-decrease-exemption",
+   "type": "policy",
+   "label": "exemption",
+   "as": [
+    "emergency decreases under compliance rules are exempt"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "complaints-per-1000",
+   "type": "metric",
+   "label": "complaints rate",
+   "as": [
+    "complaints per 1,000"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "30-day-notice",
+   "type": "other",
+   "label": "adopted after",
+   "o": "exp-202",
+   "quote": "Adopted on 2025-04-02 after exp-202",
+   "line": 6
+  },
+  {
+   "s": "exp-202",
+   "type": "measured-by",
+   "label": "measured complaints",
+   "o": "complaints-per-1000",
+   "quote": "3.1 versus 4.6 complaints per 1,000 in 30 days",
+   "line": 6
+  },
+  {
+   "s": "30-day-notice",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "yuki-tanaka",
+   "quote": "Owner: Yuki Tanaka with Raj Patel for the collections side.",
+   "line": 8
+  },
+  {
+   "s": "30-day-notice",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "raj-patel",
+   "quote": "Owner: Yuki Tanaka with Raj Patel for the collections side.",
+   "line": 8
+  },
+  {
+   "s": "30-day-notice",
+   "type": "other",
+   "label": "applies to",
+   "o": "risk-based-decrease",
+   "quote": "Applies to every risk-based decrease",
+   "line": 7
+  },
+  {
+   "s": "emergency-decrease-exemption",
+   "type": "other",
+   "label": "exempt from",
+   "o": "30-day-notice",
+   "quote": "emergency decreases under compliance rules are exempt",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "limit-decrease-policy/dec-cld-notice-first.md",
+ "sha": "c61ba3300c120a8dfdb2b78fd7cec05dc2c124a117f7d2f4aa32d0455bbfff14",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,117 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "churn-small-business",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "churn-small-business"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "90-day-labels",
+   "type": "term",
+   "label": "churn labels",
+   "as": [
+    "90-day churn labels"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "60-day-labels",
+   "type": "term",
+   "label": "churn labels",
+   "as": [
+    "60-day labels"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "holdout auc",
+   "as": [
+    "Holdout AUC"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "base-rate",
+   "type": "metric",
+   "label": "base rate",
+   "as": [
+    "base rate"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-small-business",
+   "type": "uses",
+   "label": "uses",
+   "o": "90-day-labels",
+   "quote": "uses 90-day churn labels, not 60",
+   "line": 5
+  },
+  {
+   "s": "90-day-labels",
+   "type": "measured-by",
+   "label": "holdout AUC",
+   "o": "auc",
+   "quote": "Holdout AUC 0.684 at 90 days",
+   "line": 7
+  },
+  {
+   "s": "60-day-labels",
+   "type": "measured-by",
+   "label": "holdout AUC",
+   "o": "auc",
+   "quote": "0.671 at 60 days (exp-201)",
+   "line": 7
+  },
+  {
+   "s": "churn-small-business",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "lena-fischer",
+   "quote": "Owner: Lena Fischer",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-201",
+  "ds-csb-churn-labels"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-small-business/dec-csb-90d-window.md",
+ "sha": "9713ce188d7998450c9252d0c5449de6e766b2440f30cf7db162dddff9a4a35d",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

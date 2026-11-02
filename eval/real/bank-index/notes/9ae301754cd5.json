@@ -1,0 +1,109 @@
+{
+ "kind": "design",
+ "entities": [
+  {
+   "id": "bureau-scores-join",
+   "type": "term",
+   "label": "join",
+   "as": [
+    "Bureau scores join"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "`bureau.scores_monthly`"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "credit-data",
+   "type": "other",
+   "label": "data source",
+   "as": [
+    "credit-data"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "thin-file-accounts",
+   "type": "segment",
+   "label": "thin-file accounts",
+   "as": [
+    "Thin-file accounts (no score)"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "score-coverage",
+   "type": "metric",
+   "label": "score coverage",
+   "as": [
+    "Score coverage"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "accounts-open-over-12-months",
+   "type": "segment",
+   "label": "accounts",
+   "as": [
+    "accounts open more than 12 months"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bureau-scores-join",
+   "type": "uses",
+   "label": "joins on",
+   "o": "bureau.scores_monthly",
+   "quote": "Bureau scores join on `bureau.scores_monthly`",
+   "line": 5
+  },
+  {
+   "s": "bureau.scores_monthly",
+   "type": "sourced-from",
+   "label": "pulled from",
+   "o": "credit-data",
+   "quote": "Pulled from `bureau.scores_monthly` (credit-data)",
+   "line": 6
+  },
+  {
+   "s": "score-coverage",
+   "type": "evaluated-on",
+   "label": "measured for",
+   "o": "accounts-open-over-12-months",
+   "quote": "Score coverage is 99.1% for accounts open more than 12 months.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-bt-offer-log"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "balance-transfer-propensity/ds-bt-bureau-join.md",
+ "sha": "9ae301754cd56cfc3a16ccb850bbfdd688035ab59027d92ef106dc4432d230cd",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

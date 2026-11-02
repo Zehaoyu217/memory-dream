@@ -1,0 +1,94 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "cb-sim-v1",
+   "type": "model",
+   "label": "simulator",
+   "as": [
+    "cb-sim-v1",
+    "The sim"
+   ],
+   "lines": [
+    2,
+    5,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "cb-oot-2026h1",
+   "type": "dataset",
+   "label": "spend months",
+   "as": [
+    "cb-oot-2026h1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "flat-1-25-extension-cell",
+   "type": "segment",
+   "label": "extension cell",
+   "as": [
+    "the flat 1.25% extension cell"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "spend-lift",
+   "type": "metric",
+   "label": "spend lift",
+   "as": [
+    "2.6% spend lift",
+    "Realised lift 2.2%"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cb-sim-v1",
+   "type": "evaluated-on",
+   "label": "replayed on",
+   "o": "cb-oot-2026h1",
+   "quote": "Replay on `cb-oot-2026h1`",
+   "line": 6
+  },
+  {
+   "s": "cb-sim-v1",
+   "type": "other",
+   "label": "predicts",
+   "o": "spend-lift",
+   "quote": "predicts 2.6% spend lift",
+   "line": 5
+  },
+  {
+   "s": "flat-1-25-extension-cell",
+   "type": "measured-by",
+   "label": "realised lift",
+   "o": "spend-lift",
+   "quote": "Realised lift 2.2% (95% CI 1.0-3.4)",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "cb-sim-v1",
+  "exp-202-tier-pilot",
+  "dec-cb-extend-flat-pilot"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/exp-207-oot-replay.md",
+ "sha": "1dff39fd8848920ac33b13661562292df514ee9ce6c2707a0a57150da0335ae5",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

@@ -1,0 +1,98 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "aml-find-fp-baseline",
+   "type": "document",
+   "label": "note",
+   "as": [
+    "The structuring rule closes 94.1% of its alerts as false positives"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "structuring-rule",
+   "type": "policy",
+   "label": "rule",
+   "as": [
+    "The structuring rule"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "structuring-alerts",
+   "type": "dataset",
+   "label": "alerts",
+   "as": [
+    "Structuring alerts Jan-Aug 2025: 21,340 alerts"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "aml-queue",
+   "type": "dataset",
+   "label": "queue",
+   "as": [
+    "the AML queue"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dec-aml-queue-only",
+   "type": "document",
+   "label": "decision",
+   "as": [
+    "dec-aml-queue-only"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "structuring-rule",
+   "type": "produces",
+   "label": "closes as false positives",
+   "o": "structuring-alerts",
+   "quote": "94.1% closed as false positives, 5.9% SAR-referred",
+   "line": 6
+  },
+  {
+   "s": "aml-queue",
+   "type": "other",
+   "label": "time spent on",
+   "o": "structuring-rule",
+   "quote": "Most of the analyst time on the AML queue goes to this rule.",
+   "line": 7
+  },
+  {
+   "s": "aml-find-fp-baseline",
+   "type": "other",
+   "label": "basis for ranking",
+   "o": "dec-aml-queue-only",
+   "quote": "Basis for ranking the queue (dec-aml-queue-only), not for closing alerts.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-401",
+  "dec-aml-queue-only"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "aml-alerts/aml-find-fp-baseline.md",
+ "sha": "a2108da735334d922235f222b7c533e10a552dbdb3c8f1343ef4a894887f02db",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

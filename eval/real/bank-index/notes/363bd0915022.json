@@ -1,0 +1,91 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "churn-xgb-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "churn-xgb-v3"
+   ],
+   "lines": [
+    2,
+    5
+   ]
+  },
+  {
+   "id": "cards.churn_labels",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "`cards.churn_labels`"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "decision maker",
+   "as": [
+    "Sam Lee"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "retention",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "retention"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "risk-tier-cuts",
+   "type": "policy",
+   "label": "risk-tier cuts",
+   "as": [
+    "0.20 / 0.50 risk-tier cuts"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-xgb-v3",
+   "type": "trained-on",
+   "label": "retrain on",
+   "o": "cards.churn_labels",
+   "quote": "Monthly retrain on the latest 9 observation months",
+   "line": 6
+  },
+  {
+   "s": "churn-xgb-v3",
+   "type": "other",
+   "label": "keeps",
+   "o": "risk-tier-cuts",
+   "quote": "the 0.20 / 0.50 risk-tier cuts stay until q-recalibrate-tiers is answered",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-risk-tiers",
+  "q-recalibrate-tiers"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2026/dec-retrain-cadence.md",
+ "sha": "363bd09150223e3fec7f1f0c14f42f241d8da8b31d3b1ead78c16183a5968244",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

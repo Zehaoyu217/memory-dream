@@ -1,0 +1,153 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-cr-cost-matrix",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Route with cost-matrix thresholds, dispute misroutes weighted 3x"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cr-lgbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cr-lgbm-v3"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "production-router",
+   "type": "service",
+   "label": "production router",
+   "as": [
+    "the production router"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cr-oot-2026h1",
+   "type": "dataset",
+   "label": "evaluation set",
+   "as": [
+    "cr-oot-2026h1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro f1",
+   "as": [
+    "macro F1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dispute-misroutes",
+   "type": "metric",
+   "label": "dispute misroutes",
+   "as": [
+    "dispute misroutes",
+    "dispute-queue misroutes"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "threshold-file",
+   "type": "other",
+   "label": "threshold file",
+   "as": [
+    "the threshold file"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "maya-ortiz",
+   "type": "person",
+   "label": "approver",
+   "as": [
+    "Maya Ortiz"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "file owner",
+   "as": [
+    "Sam Lee"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "production-router",
+   "type": "uses",
+   "label": "adopted with",
+   "o": "cr-lgbm-v3",
+   "quote": "Adopted for the production router with cr-lgbm-v3.",
+   "line": 6
+  },
+  {
+   "s": "cr-lgbm-v3",
+   "type": "evaluated-on",
+   "label": "macro F1 unchanged on",
+   "o": "cr-oot-2026h1",
+   "quote": "macro F1 unchanged on cr-oot-2026h1",
+   "line": 7
+  },
+  {
+   "s": "dec-cr-cost-matrix",
+   "type": "owned-by",
+   "label": "approved by",
+   "o": "maya-ortiz",
+   "quote": "Approved by Maya Ortiz",
+   "line": 8
+  },
+  {
+   "s": "threshold-file",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "sam-lee",
+   "quote": "Sam Lee owns the threshold file.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "fnd-cr-threshold"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/dec-cr-cost-matrix.md",
+ "sha": "0a86d3747ea6ca1ff785dd55210af2668d7e8b750b35f1685ecbd6574f4e8e31",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

@@ -1,0 +1,118 @@
+{
+ "kind": "preference",
+ "entities": [
+  {
+   "id": "daniel-okafor",
+   "type": "person",
+   "label": "requirer",
+   "as": [
+    "Daniel Okafor requires fraud models to be scored on a time-based holdout, never a random split"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fraud-models",
+   "type": "term",
+   "label": "model class",
+   "as": [
+    "Fraud models train on data before a cut date"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "time-based-holdout",
+   "type": "term",
+   "label": "holdout method",
+   "as": [
+    "a time-based holdout, never a random split",
+    "out-of-time holdout"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "random-split",
+   "type": "term",
+   "label": "rejected method",
+   "as": [
+    "Random train/test splits are not allowed for fraud models"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fraud26-gbm-v1",
+   "type": "model",
+   "label": "example model",
+   "as": [
+    "`fraud26-gbm-v1`"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "precision-at-50",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "precision@50 of 0.61 that fell to 0.44"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "daniel-okafor",
+   "type": "owned-by",
+   "label": "requires",
+   "o": "fraud-models",
+   "quote": "Daniel Okafor requires fraud models to be scored on a time-based holdout",
+   "line": 4
+  },
+  {
+   "s": "fraud-models",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "time-based-holdout",
+   "quote": "Fraud models train on data before a cut date and are scored on a later out-of-time holdout",
+   "line": 5
+  },
+  {
+   "s": "random-split",
+   "type": "other",
+   "label": "leaks labels",
+   "o": "fraud-models",
+   "quote": "a random split leaks them",
+   "line": 6
+  },
+  {
+   "s": "fraud26-gbm-v1",
+   "type": "measured-by",
+   "label": "showed drop",
+   "o": "precision-at-50",
+   "quote": "a random split gave `fraud26-gbm-v1` a precision@50 of 0.61 that fell to 0.44",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "prefs/daniel-okafor-fraud-splits.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "prefs/daniel-okafor-fraud-splits.md",
+ "sha": "8c4a9bd1b09b30a9702d3edbb36d1e6a30b11e1c8d48f276b473b2403c801462",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

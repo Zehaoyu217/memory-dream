@@ -1,0 +1,108 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "handoff-rule-v1",
+   "type": "policy",
+   "label": "handoff rule",
+   "as": [
+    "handoff rule v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sessions-jul-oct-2025",
+   "type": "dataset",
+   "label": "sessions",
+   "as": [
+    "July to October 2025 sessions"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "containment",
+   "type": "metric",
+   "label": "containment",
+   "as": [
+    "Containment 34 percent"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "repeat-contact-48h",
+   "type": "metric",
+   "label": "repeat contact",
+   "as": [
+    "Repeat contact within 48 hours 14 percent"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "agent-handled-chats",
+   "type": "segment",
+   "label": "agent-handled chats",
+   "as": [
+    "agent-handled chats"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "handoff-rule-v1",
+   "type": "evaluated-on",
+   "label": "replayed on",
+   "o": "sessions-jul-oct-2025",
+   "quote": "Replay on July to October 2025 sessions (n = 620,000)",
+   "line": 6
+  },
+  {
+   "s": "handoff-rule-v1",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "containment",
+   "quote": "Containment 34 percent.",
+   "line": 7
+  },
+  {
+   "s": "handoff-rule-v1",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "repeat-contact-48h",
+   "quote": "Repeat contact within 48 hours 14 percent",
+   "line": 7
+  },
+  {
+   "s": "repeat-contact-48h",
+   "type": "other",
+   "label": "compared against",
+   "o": "agent-handled-chats",
+   "quote": "against 16 percent for agent-handled chats",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-cb-handoff-rule-v1",
+  "cb-intent-v1",
+  "fnd-cb-containment-high"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "chatbot-deflection/exp-301.md",
+ "sha": "963382fd4c45ec93025992e271538fc348e8a5c3702582f1812f1f48e4b96cd4",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

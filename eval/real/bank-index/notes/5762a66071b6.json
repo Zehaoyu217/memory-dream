@@ -1,0 +1,104 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "payment-lag",
+   "type": "feature",
+   "label": "payment lag",
+   "as": [
+    "payment lag"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "mismatch-rate",
+   "type": "metric",
+   "label": "mismatch",
+   "as": [
+    "Mismatch on payment lag",
+    "mismatch"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "fsm-parity-sample-2025h2",
+   "type": "dataset",
+   "label": "parity sample",
+   "as": [
+    "fsm_parity_sample_2025h2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "midnight-utc-payments",
+   "type": "segment",
+   "label": "midnight utc payments",
+   "as": [
+    "payments timestamped at exactly midnight UTC"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feature-store",
+   "type": "tool",
+   "label": "feature store",
+   "as": [
+    "the store"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "payment-lag",
+   "type": "measured-by",
+   "label": "mismatch on",
+   "o": "mismatch-rate",
+   "quote": "Mismatch on payment lag fell from 3.1 percent of rows",
+   "line": 7
+  },
+  {
+   "s": "payment-lag",
+   "type": "evaluated-on",
+   "label": "reran parity on",
+   "o": "fsm-parity-sample-2025h2",
+   "quote": "reran parity on fsm_parity_sample_2025h2",
+   "line": 6
+  },
+  {
+   "s": "midnight-utc-payments",
+   "type": "other",
+   "label": "accounts for remaining mismatches",
+   "o": "mismatch-rate",
+   "quote": "The remaining mismatches are payments timestamped at exactly midnight UTC",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-fsm-payment-lag-v1",
+  "exp-101",
+  "dec-fsm-timezone-utc",
+  "feat-fsm-payment-lag-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "feature-store-migration/exp-102.md",
+ "sha": "5762a66071b6e8a99c6aebc23c8a4b2365839db7cf3a3e5a2beb92b7042e62dc",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

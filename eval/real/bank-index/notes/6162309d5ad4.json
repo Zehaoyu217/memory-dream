@@ -1,0 +1,86 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-pa-payment-rate",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-pa-payment-rate: share of statements paid in full over the first six statements"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.payments_daily`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "pa-churn-hazard-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "Used in pa-churn-hazard-v1."
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-pa-payments",
+   "type": "team",
+   "label": "owner team",
+   "as": [
+    "[ds-pa-payments]"
+   ],
+   "lines": [
+    2
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-pa-payment-rate",
+   "type": "uses",
+   "label": "computed from",
+   "o": "cards.payments_daily",
+   "quote": "Count of the first six statements paid in full, divided by six, from `cards.payments_daily`.",
+   "line": 6
+  },
+  {
+   "s": "feat-pa-payment-rate",
+   "type": "uses",
+   "label": "used in",
+   "o": "pa-churn-hazard-v1",
+   "quote": "Used in pa-churn-hazard-v1.",
+   "line": 7
+  },
+  {
+   "s": "feat-pa-payment-rate",
+   "type": "owned-by",
+   "label": "maintained by",
+   "o": "ds-pa-payments",
+   "quote": "from: [ds-pa-payments]",
+   "line": 2
+  }
+ ],
+ "refs": [
+  "promo-apr-test/feat-pa-payment-rate.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "promo-apr-test/feat-pa-payment-rate.md",
+ "sha": "6162309d5ad420c0e52eb04a73ee5a4e6c8461e915901cbca07cf9d1aebc1949",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

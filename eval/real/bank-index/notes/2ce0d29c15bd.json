@@ -1,0 +1,58 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "feat-rs-pay-before-co",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "feat-rs-pay-before-co is the payment history in the 6 months before charge-off, from payments_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.payments_daily`",
+    "Source: `cards.payments_daily`, using posting date."
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-rs-chargeoff-base",
+   "type": "person",
+   "label": "author",
+   "as": [
+    "from: [ds-rs-chargeoff-base]"
+   ],
+   "lines": [
+    2
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-rs-pay-before-co",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cards.payments_daily",
+   "quote": "Source: `cards.payments_daily`, using posting date.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "recovery-scoring/feat-rs-pay-before-co.md",
+ "sha": "2ce0d29c15bdd8ca270478ea9870d4d53e27870f6d49b4b1dc7023fa2bc2675e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

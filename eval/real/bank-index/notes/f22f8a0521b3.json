@@ -1,0 +1,195 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cb-escalate-v1",
+   "type": "model",
+   "label": "escalation model",
+   "as": [
+    "Escalation model"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "gradient-boosted-trees",
+   "type": "term",
+   "label": "model method",
+   "as": [
+    "gradient boosted trees"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout sample",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "exp-305",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-305"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "session-features",
+   "type": "feature",
+   "label": "session features",
+   "as": [
+    "session features"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "prior-calls-count",
+   "type": "feature",
+   "label": "prior-calls count",
+   "as": [
+    "prior-calls count"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "escalation-label",
+   "type": "other",
+   "label": "target label",
+   "as": [
+    "escalation label"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "handoff-rule-v1",
+   "type": "policy",
+   "label": "handoff rule",
+   "as": [
+    "handoff rule"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "agent-callbacks",
+   "type": "other",
+   "label": "agent callbacks",
+   "as": [
+    "agent callbacks"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cb-escalate-v1",
+   "type": "uses",
+   "label": "takes inputs",
+   "o": "session-features",
+   "quote": "Inputs: session features plus the prior-calls count.",
+   "line": 6
+  },
+  {
+   "s": "cb-escalate-v1",
+   "type": "uses",
+   "label": "takes inputs",
+   "o": "prior-calls-count",
+   "quote": "Inputs: session features plus the prior-calls count.",
+   "line": 6
+  },
+  {
+   "s": "cb-escalate-v1",
+   "type": "other",
+   "label": "predicts",
+   "o": "escalation-label",
+   "quote": "Target is the escalation label.",
+   "line": 6
+  },
+  {
+   "s": "cb-escalate-v1",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q4",
+   "quote": "AUC 0.77 on holdout-2025q4 sessions (n = 18,400)",
+   "line": 7
+  },
+  {
+   "s": "cb-escalate-v1",
+   "type": "measured-by",
+   "label": "scored by",
+   "o": "auc",
+   "quote": "AUC 0.77 on holdout-2025q4 sessions (n = 18,400)",
+   "line": 7
+  },
+  {
+   "s": "cb-escalate-v1",
+   "type": "other",
+   "label": "measured in",
+   "o": "exp-305",
+   "quote": "measured in exp-305",
+   "line": 7
+  },
+  {
+   "s": "cb-escalate-v1",
+   "type": "other",
+   "label": "used to prioritise",
+   "o": "agent-callbacks",
+   "quote": "Used to prioritise agent callbacks",
+   "line": 8
+  },
+  {
+   "s": "cb-escalate-v1",
+   "type": "other",
+   "label": "not part of",
+   "o": "handoff-rule-v1",
+   "quote": "not part of the handoff rule",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-cb-escalation-labels",
+  "feat-cb-prior-calls-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "chatbot-deflection/cb-escalate-v1.md",
+ "sha": "f22f8a0521b3d3962d791d85f12f6e91758c80221628fce6082868ffeca5487f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

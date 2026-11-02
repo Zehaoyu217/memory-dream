@@ -1,0 +1,146 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "ben-carter",
+   "type": "person",
+   "label": "finance sign-off owner",
+   "as": [
+    "Ben Carter"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "reconciliation-table",
+   "type": "dataset",
+   "label": "reconciliation table",
+   "as": [
+    "reconciliation table"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "line-tolerance",
+   "type": "policy",
+   "label": "tolerance",
+   "as": [
+    "tolerance"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "total-difference-limit",
+   "type": "policy",
+   "label": "total difference limit",
+   "as": [
+    "total difference above $100k"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "sign-off",
+   "type": "other",
+   "label": "sign-off",
+   "as": [
+    "Ben Carter's sign-off"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "written-explanation",
+   "type": "other",
+   "label": "written explanation",
+   "as": [
+    "written explanation"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "k-figures",
+   "type": "other",
+   "label": "$k figures",
+   "as": [
+    "$k figures"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "m-figures",
+   "type": "other",
+   "label": "$m rounded figures",
+   "as": [
+    "$m rounded figures"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "line-tolerance",
+   "type": "other",
+   "label": "applies to each line of",
+   "o": "reconciliation-table",
+   "quote": "Each line in the reconciliation table has a tolerance of $50k",
+   "line": 5
+  },
+  {
+   "s": "total-difference-limit",
+   "type": "other",
+   "label": "blocks",
+   "o": "sign-off",
+   "quote": "A total difference above $100k across the table blocks Ben Carter's sign-off until it is resolved.",
+   "line": 6
+  },
+  {
+   "s": "sign-off",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "ben-carter",
+   "quote": "blocks Ben Carter's sign-off",
+   "line": 6
+  },
+  {
+   "s": "line-tolerance",
+   "type": "other",
+   "label": "triggers",
+   "o": "written-explanation",
+   "quote": "a line above it needs a written explanation",
+   "line": 5
+  },
+  {
+   "s": "line-tolerance",
+   "type": "other",
+   "label": "checked on",
+   "o": "k-figures",
+   "quote": "Tolerances are checked on $k figures, not on $m rounded figures.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/finance-reconciliation-tolerance.md",
+ "sha": "d6c46f95b3973961655229e4013ae18a7681b57a1fb78c219d802d0906a30cfa",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -2364,10 +2364,14 @@ W = {  # the tuned numbers of rank() and route(), in one place (REVIEW.md F9); s
     "seeds": 6, "picks": 8, "pick_floor": 0.2, "lines_top": 4, "lines_rest": 2,  # notes considered, printed, lines each
     "route_common": 50, "route_near": 0.9, "route_areas": 8, "route_floor": 0.6,  # big memories: where a question points
     "lineage_lines": 4,  # relatives of the picked notes shown as header + # line (F1: 4 beats 0 and 8; F9: for every question)
-    "relation_lines": 4, "relation_mode": "cue", "relation_hops": 2,  # typed-link one-liners (phase I, typed_links()): the
+    "relation_lines": 8, "relation_mode": "inputs", "relation_hops": 2,  # typed-link one-liners (phase I, typed_links()): the
     #   notes of the things a named thing is linked to; "cue" = only over the relation types the question's words point at,
-    #   "always" = any type; input questions walk two hops (inputs of inputs, the predecessor's inputs).
-    #   MEMORY_RELATION_LINES, MEMORY_RELATION_MODE and MEMORY_RELATION_HOPS override them for measurement
+    #   "inputs" = only questions about inputs or users, "always" = any type; input questions walk two hops (inputs of
+    #   inputs, the predecessor's inputs).
+    #   MEMORY_RELATION_LINES, MEMORY_RELATION_MODE and MEMORY_RELATION_HOPS override them for measurement. Real index,
+    #   326 questions (RESULTS I3): inputs · 2 hops · 8 lines takes gold 0.933 → 0.941, complete answers 270 → 274 and
+    #   dependency questions 0.853 → 0.920 for +4.6% characters; one hop +1 answer, any-type cues +10% characters for the
+    #   same gain, 12 lines +1 more answer for +1% more; nothing else moves.
 }
 RELCUE = {t: re.compile(rx, re.I) for t, rx in {  # question words → the relation types worth one hop (phase I)
     "uses": r"\b(uses?|using|used by|depend\w*|inputs?|feeds?|reads?|built (on|from)|based on|sources?|features?)\b",
@@ -2921,6 +2925,8 @@ def typed_links(x, v, have, n_rel, hops, mode):
     lineage alike; "what uses X" walks the other way, to the users. Each linked thing comes as its own note, or its
     headline note, at the live end. -> ([(note, [(line, "# title")])] in depth order, at most n_rel; the cued types)."""
     cued = {t for t, rx in RELCUE.items() if rx.search(x["q"])}
+    if mode == "inputs":  # only questions about what a thing is built from, or what is built on it
+        cued &= INPUT_TYPES
     if not x["by_id"] or not (cued or mode == "always"):
         return [], cued
     inward, input_q = bool(INWARD.search(x["q"])), bool(cued & INPUT_TYPES)

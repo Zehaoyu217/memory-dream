@@ -1,0 +1,91 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "cb-elasticity-v1",
+   "type": "metric",
+   "label": "pooled elasticity",
+   "as": [
+    "Pooled elasticity 0.21",
+    "pooled log-log elasticity of spend to rewards rate, 0.21"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "monthly-spend",
+   "type": "metric",
+   "label": "monthly spend",
+   "as": [
+    "log monthly spend"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "effective-rewards-rate",
+   "type": "feature",
+   "label": "effective rewards rate",
+   "as": [
+    "log effective rewards rate"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "pilot-cells",
+   "type": "segment",
+   "label": "pilot cells",
+   "as": [
+    "all three pilot cells"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cb-elasticity-v1",
+   "type": "uses",
+   "label": "regresses on",
+   "o": "effective-rewards-rate",
+   "quote": "Regression of log monthly spend on log effective rewards rate",
+   "line": 6
+  },
+  {
+   "s": "cb-elasticity-v1",
+   "type": "uses",
+   "label": "fit across",
+   "o": "pilot-cells",
+   "quote": "across all three pilot cells",
+   "line": 6
+  },
+  {
+   "s": "cb-elasticity-v1",
+   "type": "uses",
+   "label": "regresses",
+   "o": "monthly-spend",
+   "quote": "Regression of log monthly spend",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-cb-pilot-2025q4",
+  "feat-cb-spend-base",
+  "find-cb-flat-wins",
+  "cb-elasticity-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/cb-elasticity-v1.md",
+ "sha": "b78733b08cf8bdca586e6c89cb624d4e2f00a4dbd32f3b3e09f21a0924feff5f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

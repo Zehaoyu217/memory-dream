@@ -1,0 +1,239 @@
+{
+ "kind": "component",
+ "entities": [
+  {
+   "id": "cb-sim-v1",
+   "type": "tool",
+   "label": "simulator",
+   "as": [
+    "cb-sim-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cb-elasticity-v2",
+   "type": "model",
+   "label": "elasticities",
+   "as": [
+    "cb-elasticity-v2",
+    "elasticities"
+   ],
+   "lines": [
+    2,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "cb-uplift-v1",
+   "type": "model",
+   "label": "uplift",
+   "as": [
+    "cb-uplift-v1"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "feat-cb-tier-eligibility",
+   "type": "feature",
+   "label": "tier eligibility",
+   "as": [
+    "feat-cb-tier-eligibility"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "feat-cb-redemption-rate",
+   "type": "feature",
+   "label": "redemption rate",
+   "as": [
+    "feat-cb-redemption-rate"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "cb.rewards_ledger",
+   "type": "dataset",
+   "label": "rewards ledger",
+   "as": [
+    "ds-cb-rewards-ledger"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "proposal-a",
+   "type": "other",
+   "label": "proposal",
+   "as": [
+    "Proposal A"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cb-tier-variant-2500",
+   "type": "other",
+   "label": "variant",
+   "as": [
+    "$2,500 variant"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "pilot-3-month",
+   "type": "other",
+   "label": "pilot",
+   "as": [
+    "3-month pilot"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "net-dollars-per-account",
+   "type": "metric",
+   "label": "net $ per account",
+   "as": [
+    "net $ per account"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "break-even-spend-lift",
+   "type": "metric",
+   "label": "break-even spend lift",
+   "as": [
+    "break-even spend lift"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "tier-schedule",
+   "type": "term",
+   "label": "tier schedule",
+   "as": [
+    "tier schedule"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cb-sim-v1",
+   "type": "uses",
+   "label": "applies",
+   "o": "cb-elasticity-v2",
+   "quote": "applies cb-elasticity-v2 to each spend band",
+   "line": 6
+  },
+  {
+   "s": "cb-sim-v1",
+   "type": "uses",
+   "label": "applies rewards cost from",
+   "o": "cb.rewards_ledger",
+   "quote": "applies rewards cost from ds-cb-rewards-ledger",
+   "line": 6
+  },
+  {
+   "s": "cb-sim-v1",
+   "type": "uses",
+   "label": "from",
+   "o": "cb-uplift-v1",
+   "quote": "from: [cb-elasticity-v2, cb-uplift-v1",
+   "line": 2
+  },
+  {
+   "s": "cb-sim-v1",
+   "type": "uses",
+   "label": "from",
+   "o": "feat-cb-tier-eligibility",
+   "quote": "feat-cb-tier-eligibility, feat-cb-redemption-rate",
+   "line": 2
+  },
+  {
+   "s": "cb-sim-v1",
+   "type": "uses",
+   "label": "from",
+   "o": "feat-cb-redemption-rate",
+   "quote": "feat-cb-redemption-rate, ds-cb-rewards-ledger",
+   "line": 2
+  },
+  {
+   "s": "cb-sim-v1",
+   "type": "measured-by",
+   "label": "returns",
+   "o": "net-dollars-per-account",
+   "quote": "returns net $ per account",
+   "line": 6
+  },
+  {
+   "s": "cb-sim-v1",
+   "type": "measured-by",
+   "label": "returns",
+   "o": "break-even-spend-lift",
+   "quote": "the break-even spend lift",
+   "line": 6
+  },
+  {
+   "s": "proposal-a",
+   "type": "other",
+   "label": "run in same script",
+   "o": "cb-sim-v1",
+   "quote": "Proposal A and the $2,500 variant run in the same script",
+   "line": 7
+  },
+  {
+   "s": "cb-tier-variant-2500",
+   "type": "other",
+   "label": "run in same script",
+   "o": "cb-sim-v1",
+   "quote": "Proposal A and the $2,500 variant run in the same script",
+   "line": 7
+  },
+  {
+   "s": "cb-elasticity-v2",
+   "type": "other",
+   "label": "comes from",
+   "o": "pilot-3-month",
+   "quote": "elasticities come from a 3-month pilot",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "cb-elasticity-v2",
+  "cb-uplift-v1",
+  "feat-cb-tier-eligibility",
+  "feat-cb-redemption-rate",
+  "ds-cb-rewards-ledger",
+  "exp-207-oot-replay"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/cb-sim-v1.md",
+ "sha": "b6552280d9c7fb0f8d323ceb56b101e001543b48523f519cb5e2d55761ceea78",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

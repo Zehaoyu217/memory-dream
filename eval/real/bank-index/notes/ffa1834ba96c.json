@@ -1,0 +1,100 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "raw-response",
+   "type": "metric",
+   "label": "raw response",
+   "as": [
+    "Raw response within 60 days of send"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "sms-channel",
+   "type": "other",
+   "label": "sms channel",
+   "as": [
+    "SMS 4.6%"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "email-channel",
+   "type": "other",
+   "label": "email channel",
+   "as": [
+    "email 3.1%"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sms-list",
+   "type": "segment",
+   "label": "sms list",
+   "as": [
+    "the SMS list"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "consent-flags",
+   "type": "feature",
+   "label": "consent flags",
+   "as": [
+    "consent flags"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "sms-channel",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "raw-response",
+   "quote": "wave 2 raw response by channel, SMS 4.6% against email 3.1%",
+   "line": 5
+  },
+  {
+   "s": "email-channel",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "raw-response",
+   "quote": "wave 2 raw response by channel, SMS 4.6% against email 3.1%",
+   "line": 5
+  },
+  {
+   "s": "sms-list",
+   "type": "uses",
+   "label": "built from",
+   "o": "consent-flags",
+   "quote": "the SMS list was also built from consent flags read at list-build time",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-304",
+  "q-rdm-sms-vs-email",
+  "ds-rdm-contact-channels",
+  "ds-rdm-campaign-history"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reactivation-dormant/exp-302.md",
+ "sha": "ffa1834ba96c782f6a03b6fa4ab05dc781c847b58d94ac0801e940c5764af9e9",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

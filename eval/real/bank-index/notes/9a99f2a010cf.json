@@ -1,0 +1,112 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp301-logit-baseline",
+   "type": "model",
+   "label": "logistic baseline",
+   "as": [
+    "a logistic baseline",
+    "Logistic regression"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "rs-xgb-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rs-xgb-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "recovery-scoring-holdout-2023h2",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "Eval set recovery-scoring-holdout-2023h2",
+    "recovery-scoring-holdout-2023h2"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini 0.33"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.24"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp301-logit-baseline",
+   "type": "measured-by",
+   "label": "gives",
+   "o": "gini",
+   "quote": "gives Gini 0.33",
+   "line": 5
+  },
+  {
+   "s": "exp301-logit-baseline",
+   "type": "measured-by",
+   "label": "result",
+   "o": "ks",
+   "quote": "Result: Gini 0.33, KS 0.24.",
+   "line": 7
+  },
+  {
+   "s": "exp301-logit-baseline",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "recovery-scoring-holdout-2023h2",
+   "quote": "Eval set recovery-scoring-holdout-2023h2, n=6,120 charge-offs.",
+   "line": 6
+  },
+  {
+   "s": "exp301-logit-baseline",
+   "type": "other",
+   "label": "same features as",
+   "o": "rs-xgb-v1",
+   "quote": "same two feature groups as rs-xgb-v1",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "feat-rs-balance-at-co",
+  "feat-rs-pay-before-co",
+  "recovery_scoring/exp301_logit.ipynb"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "recovery-scoring/exp-301.md",
+ "sha": "9a99f2a010cfa23f26cc7463067bf23e70d4cd9ec61798c7021eb85d666bb92b",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

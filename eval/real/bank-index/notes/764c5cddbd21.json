@@ -1,0 +1,149 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "rs-xgb-v1",
+   "type": "model",
+   "label": "xgboost classifier",
+   "as": [
+    "rs-xgb-v1 is an XGBoost classifier"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "rs-xgb-v2",
+   "type": "model",
+   "label": "newer version",
+   "as": [
+    "rs-xgb-v2"
+   ],
+   "lines": [
+    10
+   ]
+  },
+  {
+   "id": "feat-rs-balance-at-co",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rs-balance-at-co"
+   ],
+   "lines": [
+    2,
+    8
+   ]
+  },
+  {
+   "id": "feat-rs-pay-before-co",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rs-pay-before-co"
+   ],
+   "lines": [
+    2,
+    8
+   ]
+  },
+  {
+   "id": "recovery-scoring-holdout-2023h2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "recovery-scoring-holdout-2023h2"
+   ],
+   "lines": [
+    7,
+    9
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini 0.41"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.29"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rs-xgb-v1",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "recovery-scoring-holdout-2023h2",
+   "quote": "evaluated on recovery-scoring-holdout-2023h2",
+   "line": 7
+  },
+  {
+   "s": "rs-xgb-v1",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-rs-balance-at-co",
+   "quote": "Features: feat-rs-balance-at-co and feat-rs-pay-before-co only.",
+   "line": 8
+  },
+  {
+   "s": "rs-xgb-v1",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-rs-pay-before-co",
+   "quote": "Features: feat-rs-balance-at-co and feat-rs-pay-before-co only.",
+   "line": 8
+  },
+  {
+   "s": "rs-xgb-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "gini",
+   "quote": "Gini 0.41, KS 0.29 on recovery-scoring-holdout-2023h2",
+   "line": 9
+  },
+  {
+   "s": "rs-xgb-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "ks",
+   "quote": "Gini 0.41, KS 0.29 on recovery-scoring-holdout-2023h2",
+   "line": 9
+  },
+  {
+   "s": "rs-xgb-v2",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "rs-xgb-v1",
+   "quote": "Superseded by rs-xgb-v2 (2025-09-18).",
+   "line": 10
+  }
+ ],
+ "refs": [
+  "feat-rs-balance-at-co",
+  "feat-rs-pay-before-co",
+  "ds-rs-recovery-labels",
+  "exp-302"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "recovery-scoring/rs-xgb-v1.md",
+ "sha": "764c5cddbd210dc8c2aeb53b921584a6f265c4a0ec37a3cfcfa008d1ea87ac65",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

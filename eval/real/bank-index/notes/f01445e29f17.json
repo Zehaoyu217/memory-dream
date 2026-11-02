@@ -1,0 +1,142 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-304",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-304"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "exp-307",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-307"
+   ],
+   "lines": [
+    2,
+    8
+   ]
+  },
+  {
+   "id": "handoff-rule-v1",
+   "type": "policy",
+   "label": "handoff rule",
+   "as": [
+    "v1 handoff rule"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "containment",
+   "type": "metric",
+   "label": "containment",
+   "as": [
+    "34 percent containment"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "repeat-contact",
+   "type": "metric",
+   "label": "repeat contact",
+   "as": [
+    "repeat contact"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "agent-handled",
+   "type": "metric",
+   "label": "agent-handled rate",
+   "as": [
+    "agent-handled"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "same-intent-call-rebound",
+   "type": "metric",
+   "label": "rebound rate",
+   "as": [
+    "Same-intent call rebounds"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "repeat-window",
+   "type": "term",
+   "label": "repeat window",
+   "as": [
+    "14-day repeat window"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "handoff-rule-v1",
+   "type": "measured-by",
+   "label": "gives",
+   "o": "repeat-contact",
+   "quote": "the v1 handoff rule gives 21 percent repeat contact against 16 percent agent-handled",
+   "line": 6
+  },
+  {
+   "s": "exp-304",
+   "type": "other",
+   "label": "reports",
+   "o": "repeat-contact",
+   "quote": "From exp-304: v1 repeat contact 21 percent",
+   "line": 7
+  },
+  {
+   "s": "exp-307",
+   "type": "other",
+   "label": "measures",
+   "o": "same-intent-call-rebound",
+   "quote": "Same-intent call rebounds after containment run at 9 percent (exp-307)",
+   "line": 8
+  },
+  {
+   "s": "containment",
+   "type": "other",
+   "label": "not yet safe",
+   "o": "repeat-contact",
+   "quote": "so containment is not yet safe",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fnd-cb-containment-high"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "chatbot-deflection/fnd-cb-repeat-contact.md",
+ "sha": "f01445e29f1743b4bca905b29f45e8096e075c529aa0489fa0c5cfa13b891ec0",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

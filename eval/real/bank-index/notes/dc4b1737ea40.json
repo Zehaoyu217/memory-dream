@@ -1,0 +1,223 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "cr-lgbm-v3",
+   "type": "model",
+   "label": "lightgbm v3",
+   "as": [
+    "LightGBM v3"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cr-lgbm-v2",
+   "type": "model",
+   "label": "v2",
+   "as": [
+    "v2"
+   ],
+   "lines": [
+    2,
+    4,
+    9,
+    10
+   ]
+  },
+  {
+   "id": "cr-oot-2026h1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "cr-oot-2026h1"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "ds-cr-intent-labels",
+   "type": "dataset",
+   "label": "adjudicated labels",
+   "as": [
+    "adjudicated labels"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cost-matrix-thresholds",
+   "type": "term",
+   "label": "cost-matrix thresholds",
+   "as": [
+    "cost-matrix thresholds"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "default-thresholds",
+   "type": "flag",
+   "label": "default thresholds",
+   "as": [
+    "default thresholds"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "relabelling",
+   "type": "term",
+   "label": "relabelling",
+   "as": [
+    "Relabelling"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feature-set",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "Feature set"
+   ],
+   "lines": [
+    10
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro f1",
+   "as": [
+    "Macro F1 0.74",
+    "macro F1 unchanged"
+   ],
+   "lines": [
+    6,
+    8,
+    9
+   ]
+  },
+  {
+   "id": "top-1-accuracy",
+   "type": "metric",
+   "label": "top-1 accuracy",
+   "as": [
+    "top-1 accuracy 0.81",
+    "top-1"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "dispute-queue-misroutes",
+   "type": "metric",
+   "label": "dispute-queue misroutes",
+   "as": [
+    "Dispute-queue misroutes"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cr-lgbm-v3",
+   "type": "trained-on",
+   "label": "trained on",
+   "o": "ds-cr-intent-labels",
+   "quote": "Trained on adjudicated labels for the 1,200 double-coded calls (ds-cr-intent-labels)",
+   "line": 7
+  },
+  {
+   "s": "cr-lgbm-v3",
+   "type": "uses",
+   "label": "routed with",
+   "o": "cost-matrix-thresholds",
+   "quote": "routed with the cost-matrix thresholds from fnd-cr-threshold",
+   "line": 7
+  },
+  {
+   "s": "cr-lgbm-v3",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "cr-oot-2026h1",
+   "quote": "Macro F1 0.74 and top-1 accuracy 0.81 on cr-oot-2026h1, scored 2026-08-18",
+   "line": 8
+  },
+  {
+   "s": "cr-lgbm-v3",
+   "type": "measured-by",
+   "label": "macro F1 0.74",
+   "o": "macro-f1",
+   "quote": "Macro F1 0.74 and top-1 accuracy 0.81",
+   "line": 8
+  },
+  {
+   "s": "cr-lgbm-v3",
+   "type": "measured-by",
+   "label": "top-1 accuracy 0.81",
+   "o": "top-1-accuracy",
+   "quote": "top-1 accuracy 0.81 on cr-oot-2026h1",
+   "line": 8
+  },
+  {
+   "s": "relabelling",
+   "type": "other",
+   "label": "accounts for +0.02 top-1",
+   "o": "top-1-accuracy",
+   "quote": "Relabelling accounts for +0.02 top-1.",
+   "line": 8
+  },
+  {
+   "s": "cr-lgbm-v3",
+   "type": "measured-by",
+   "label": "misroutes fall 23 percent",
+   "o": "dispute-queue-misroutes",
+   "quote": "Dispute-queue misroutes fall 23 percent against v2 with default thresholds",
+   "line": 9
+  },
+  {
+   "s": "cr-lgbm-v3",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "cr-lgbm-v2",
+   "quote": "supersedes: [cr-lgbm-v2]",
+   "line": 4
+  },
+  {
+   "s": "feature-set",
+   "type": "other",
+   "label": "unchanged from",
+   "o": "cr-lgbm-v2",
+   "quote": "Feature set unchanged from v2.",
+   "line": 10
+  }
+ ],
+ "refs": [
+  "cr-lgbm-v2",
+  "fnd-cr-threshold",
+  "ds-cr-intent-labels",
+  "exp-106"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/cr-lgbm-v3.md",
+ "sha": "dc4b1737ea4003bf5e1ee75a527f3b920c337c36f3d8932039fd35d5cf810ff9",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

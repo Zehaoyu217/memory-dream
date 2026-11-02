@@ -1,0 +1,124 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cli-bureau-delta",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cli-bureau-delta"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "bureau.scores_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "v8-score",
+   "type": "metric",
+   "label": "score",
+   "as": [
+    "v8 score"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "eligible-accounts",
+   "type": "segment",
+   "label": "eligible accounts",
+   "as": [
+    "eligible accounts"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cli-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cli-xgb-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "v10-cutover",
+   "type": "other",
+   "label": "cutover",
+   "as": [
+    "v10 cutover"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cli-bureau-delta",
+   "type": "uses",
+   "label": "from",
+   "o": "bureau.scores_monthly",
+   "quote": "3-month change in bureau score from bureau.scores_monthly",
+   "line": 5
+  },
+  {
+   "s": "feat-cli-bureau-delta",
+   "type": "uses",
+   "label": "change in",
+   "o": "v8-score",
+   "quote": "Change in the v8 score over the last 3 month-ends",
+   "line": 6
+  },
+  {
+   "s": "cli-xgb-v2",
+   "type": "uses",
+   "label": "first used in",
+   "o": "feat-cli-bureau-delta",
+   "quote": "First used in cli-xgb-v2 (2026-03-02).",
+   "line": 8
+  },
+  {
+   "s": "feat-cli-bureau-delta",
+   "type": "other",
+   "label": "covers",
+   "o": "eligible-accounts",
+   "quote": "Covers 91% of eligible accounts",
+   "line": 7
+  },
+  {
+   "s": "feat-cli-bureau-delta",
+   "type": "other",
+   "label": "kept on v8 scale before",
+   "o": "v10-cutover",
+   "quote": "the 3 months before a v10 cutover are kept on the v8 scale",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-cli-eligible-pop"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/feat-cli-bureau-delta.md",
+ "sha": "62329801cf8589178bfec8f91d9a7ee2e1e0792ff631c468e71a4fa8eb399911",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

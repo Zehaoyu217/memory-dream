@@ -1,0 +1,59 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "pa-glide-exit",
+   "type": "other",
+   "label": "glide-path exit",
+   "as": [
+    "add a glide-path exit, stepping from 0% to 12% over three months"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "arm-c",
+   "type": "segment",
+   "label": "control arm",
+   "as": [
+    "arm C control"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "pa-churn-hazard-v1",
+   "type": "model",
+   "label": "churn model",
+   "as": [
+    "pa-churn-hazard-v1"
+   ],
+   "lines": [
+    2
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "pa-glide-exit",
+   "type": "other",
+   "label": "addresses cliff",
+   "o": "arm-c",
+   "quote": "The cliff is a churn cost of about 4.3 points over arm C control.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "promo-apr-test/find-pa-cliff-churn.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "promo-apr-test/dec-pa-glide-exit.md",
+ "sha": "008eab5ae827e094cf8dccc92c4c1ecf97c2bb8292fa2e537be3ba800ace8528",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,97 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "merchant-mix",
+   "type": "term",
+   "label": "merchant mix",
+   "as": [
+    "Merchant mix for SMB deposits"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cards.merchants",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`cards.merchants`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-csb-deposit-volatility",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-csb-deposit-volatility"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-csb-spend-sa-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-csb-spend-sa-v2"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cards.txn_daily",
+   "type": "uses",
+   "label": "joined to",
+   "o": "cards.merchants",
+   "quote": "joined to `cards.merchants` on merchant_id",
+   "line": 6
+  },
+  {
+   "s": "feat-csb-deposit-volatility",
+   "type": "uses",
+   "label": "used for",
+   "o": "merchant-mix",
+   "quote": "Used for the weekly deposit series behind feat-csb-deposit-volatility",
+   "line": 8
+  },
+  {
+   "s": "feat-csb-spend-sa-v2",
+   "type": "uses",
+   "label": "used for",
+   "o": "merchant-mix",
+   "quote": "for the seasonal baselines in feat-csb-spend-sa-v2",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-csb-biz-accounts"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-small-business/ds-csb-merchant-mix.md",
+ "sha": "e0da65cab267ef8d0473194e819d80a35aef1f1549804254f358660338767ff5",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

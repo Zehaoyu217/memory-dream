@@ -1,0 +1,147 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "ae-score-v1",
+   "type": "model",
+   "label": "engagement score v1",
+   "as": [
+    "Engagement score v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-ae-active-days-v1",
+   "type": "feature",
+   "label": "active days",
+   "as": [
+    "active days"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-ae-depth-v1",
+   "type": "feature",
+   "label": "depth",
+   "as": [
+    "depth"
+   ],
+   "lines": [
+    2,
+    5
+   ]
+  },
+  {
+   "id": "feat-ae-push-open-v1",
+   "type": "feature",
+   "label": "push open rate",
+   "as": [
+    "push open rate"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.73"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-502",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-502"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ae-score-v1",
+   "type": "uses",
+   "label": "blend of",
+   "o": "feat-ae-active-days-v1",
+   "quote": "equal-weight blend of active days, depth and push open rate",
+   "line": 5
+  },
+  {
+   "s": "ae-score-v1",
+   "type": "uses",
+   "label": "blend of",
+   "o": "feat-ae-depth-v1",
+   "quote": "equal-weight blend of active days, depth and push open rate",
+   "line": 5
+  },
+  {
+   "s": "ae-score-v1",
+   "type": "uses",
+   "label": "blend of",
+   "o": "feat-ae-push-open-v1",
+   "quote": "equal-weight blend of active days, depth and push open rate",
+   "line": 5
+  },
+  {
+   "s": "ae-score-v1",
+   "type": "measured-by",
+   "label": "AUC for attrition",
+   "o": "auc",
+   "quote": "AUC 0.73 for 90-day attrition",
+   "line": 7
+  },
+  {
+   "s": "ae-score-v1",
+   "type": "evaluated-on",
+   "label": "AUC on holdout",
+   "o": "holdout-2025q4",
+   "quote": "AUC 0.73 for 90-day attrition on holdout-2025q4",
+   "line": 7
+  },
+  {
+   "s": "ae-score-v1",
+   "type": "other",
+   "label": "measured in",
+   "o": "exp-502",
+   "quote": "measured in exp-502",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ae-score-v2",
+  "feat-ae-active-days-v1",
+  "feat-ae-depth-v1",
+  "feat-ae-push-open-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "app-engagement/ae-score-v1.md",
+ "sha": "5eb961a794a8002cdff6b923d6db41d421a24188ffa1afd25b9d87eca73f3d49",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

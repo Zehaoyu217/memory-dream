@@ -1,0 +1,88 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "csb-xgb-v1",
+   "type": "model",
+   "label": "pilot model",
+   "as": [
+    "csb-xgb-v1"
+   ],
+   "lines": [
+    2,
+    5
+   ]
+  },
+  {
+   "id": "csb-lr-base",
+   "type": "model",
+   "label": "champion",
+   "as": [
+    "csb-lr-base"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "smb-cohort",
+   "type": "segment",
+   "label": "smb cohort",
+   "as": [
+    "SMB cohort"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-csb-spend-raw",
+   "type": "feature",
+   "label": "raw spend",
+   "as": [
+    "raw spend"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "csb-xgb-v1",
+   "type": "other",
+   "label": "champion/challenger against",
+   "o": "csb-lr-base",
+   "quote": "Champion/challenger against csb-lr-base for two cycles.",
+   "line": 6
+  },
+  {
+   "s": "csb-xgb-v1",
+   "type": "uses",
+   "label": "is on",
+   "o": "feat-csb-spend-raw",
+   "quote": "Pilot is on raw spend",
+   "line": 7
+  },
+  {
+   "s": "csb-xgb-v1",
+   "type": "other",
+   "label": "piloted on",
+   "o": "smb-cohort",
+   "quote": "pilot csb-xgb-v1 on 25% of the SMB cohort",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "dec-csb-ship-xgb-v2",
+  "fnd-csb-volatility-lift"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-small-business/dec-csb-ship-xgb-v1.md",
+ "sha": "d8ff51ccc1fba382045827a51a6ec32f184f90345260ac7b5c6bed102a1a30d9",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

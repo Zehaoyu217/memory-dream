@@ -1,0 +1,119 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "cli_outcome_90d",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "Table `cli_outcome_90d`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cli-rct-2025q3",
+   "type": "segment",
+   "label": "randomised cohort",
+   "as": [
+    "randomised cohort cli-rct-2025q3"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "incremental-spend",
+   "type": "metric",
+   "label": "incremental spend",
+   "as": [
+    "Incremental spend"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "loss-label",
+   "type": "term",
+   "label": "loss label",
+   "as": [
+    "Loss label"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "control-loss-rate",
+   "type": "metric",
+   "label": "control loss rate",
+   "as": [
+    "control loss rate"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cli_outcome_90d",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards.txn_daily",
+   "quote": "built from `cards.txn_daily`",
+   "line": 6
+  },
+  {
+   "s": "cli_outcome_90d",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards.accounts_monthly",
+   "quote": "`cards.accounts_monthly` (charge-off flags)",
+   "line": 6
+  },
+  {
+   "s": "cli-rct-2025q3",
+   "type": "part-of",
+   "label": "included in",
+   "o": "cli_outcome_90d",
+   "quote": "Includes the randomised cohort cli-rct-2025q3",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "ds-cli-eligible-pop"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/ds-cli-outcome-90d.md",
+ "sha": "4cbe1425a2ef24b6fbafc5e2123e64b4864de9c27a628fde018c5453278f2a76",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

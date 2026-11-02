@@ -1,0 +1,223 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "ed-gbm-v2",
+   "type": "model",
+   "label": "lightgbm model",
+   "as": [
+    "ed-gbm-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ed-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ed-gbm-v1"
+   ],
+   "lines": [
+    2,
+    4
+   ]
+  },
+  {
+   "id": "feat-ed-util-trend-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ed-util-trend-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-ed-cashadv-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ed-cashadv-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-ed-minpay-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ed-minpay-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "tool",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "monotone-decreasing-constraint",
+   "type": "term",
+   "label": "constraint",
+   "as": [
+    "Monotone decreasing constraint"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "brier",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Brier"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "early-delinquency-holdout-2024q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "early-delinquency-holdout-2024q4"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "early-delinquency-holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "early-delinquency-holdout-2025q1"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ed-gbm-v2",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-ed-util-trend-v1",
+   "quote": "Features: feat-ed-util-trend-v1, feat-ed-cashadv-v1, feat-ed-minpay-v2.",
+   "line": 7
+  },
+  {
+   "s": "ed-gbm-v2",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-ed-cashadv-v1",
+   "quote": "Features: feat-ed-util-trend-v1, feat-ed-cashadv-v1, feat-ed-minpay-v2.",
+   "line": 7
+  },
+  {
+   "s": "ed-gbm-v2",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-ed-minpay-v2",
+   "quote": "Features: feat-ed-util-trend-v1, feat-ed-cashadv-v1, feat-ed-minpay-v2.",
+   "line": 7
+  },
+  {
+   "s": "ed-gbm-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "ed-gbm-v1",
+   "quote": "supersedes: [ed-gbm-v1]",
+   "line": 4
+  },
+  {
+   "s": "ed-gbm-v2",
+   "type": "other",
+   "label": "is a LightGBM model",
+   "o": "lightgbm",
+   "quote": "ed-gbm-v2 is the LightGBM model",
+   "line": 6
+  },
+  {
+   "s": "ed-gbm-v2",
+   "type": "other",
+   "label": "has constraint",
+   "o": "monotone-decreasing-constraint",
+   "quote": "Monotone decreasing constraint on utilisation.",
+   "line": 7
+  },
+  {
+   "s": "ed-gbm-v2",
+   "type": "measured-by",
+   "label": "metrics",
+   "o": "auc",
+   "quote": "AUC about 0.80 on early-delinquency-holdout-2024q4",
+   "line": 8
+  },
+  {
+   "s": "ed-gbm-v2",
+   "type": "measured-by",
+   "label": "metrics",
+   "o": "brier",
+   "quote": "Brier 0.058 on early-delinquency-holdout-2025q1",
+   "line": 8
+  },
+  {
+   "s": "ed-gbm-v2",
+   "type": "evaluated-on",
+   "label": "AUC on",
+   "o": "early-delinquency-holdout-2024q4",
+   "quote": "AUC about 0.80 on early-delinquency-holdout-2024q4",
+   "line": 8
+  },
+  {
+   "s": "ed-gbm-v2",
+   "type": "evaluated-on",
+   "label": "Brier on",
+   "o": "early-delinquency-holdout-2025q1",
+   "quote": "Brier 0.058 on early-delinquency-holdout-2025q1",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ed-gbm-v1",
+  "ed-gbm-v3",
+  "exp-205",
+  "exp-206"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "early-delinquency/ed-gbm-v2.md",
+ "sha": "b615f7e5c54634e0dcf438913bd8da6c87731c1e4fbd95e2baf90b28d733960e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

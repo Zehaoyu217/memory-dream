@@ -1,0 +1,90 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "kyc-band",
+   "type": "feature",
+   "label": "kyc band",
+   "as": [
+    "KYC band"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "aml-xgb-v2",
+   "type": "model",
+   "label": "candidate",
+   "as": [
+    "aml-xgb-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "oct-2025-jan-2026-dispositions",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "Oct 2025-Jan 2026 dispositions"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "aml-xgb-v2",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "oct-2025-jan-2026-dispositions",
+   "quote": "Eval set: Oct 2025-Jan 2026 dispositions (n=5,300), scored by aml-xgb-v2 candidate.",
+   "line": 6
+  },
+  {
+   "s": "aml-xgb-v2",
+   "type": "measured-by",
+   "label": "reports AUC",
+   "o": "auc",
+   "quote": "AUC 0.88 with the KYC band, up from 0.86 without it.",
+   "line": 7
+  },
+  {
+   "s": "aml-xgb-v2",
+   "type": "uses",
+   "label": "adds KYC band",
+   "o": "kyc-band",
+   "quote": "adding KYC band gives AUC 0.88 on Oct 2025-Jan 2026 dispositions",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-403",
+  "feat-aml-kyc-band"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "aml-alerts/exp-404.md",
+ "sha": "dc0574b56bacfa0fccc35588559a3f93e589b2ca3968729aa749d436523ea58b",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

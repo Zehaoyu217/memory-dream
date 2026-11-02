@@ -1,0 +1,136 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-206",
+   "type": "other",
+   "label": "experiment note",
+   "as": [
+    "exp-206: Prophet gives 1-month MAPE 6.9%, fit time 40 times LightGBM"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sfc-prophet-v1",
+   "type": "model",
+   "label": "prophet model",
+   "as": [
+    "Prophet per segment with retail-calendar holidays"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "retail-calendar-v3",
+   "type": "dataset",
+   "label": "holiday calendar",
+   "as": [
+    "retail-calendar holidays"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "sfc-bt-2024",
+   "type": "dataset",
+   "label": "backtest dataset",
+   "as": [
+    "sfc-bt-2024"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "1-month mape",
+   "as": [
+    "1-month MAPE 6.9%"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "sfc-lgbm-v2",
+   "type": "model",
+   "label": "lightgbm model",
+   "as": [
+    "sfc-lgbm-v2 (5.1%)"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "lightgbm",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "sfc-prophet-v1",
+   "type": "trained-on",
+   "label": "fit per segment",
+   "o": "sfc-bt-2024",
+   "quote": "Prophet per segment with retail-calendar holidays, sfc-bt-2024.",
+   "line": 6
+  },
+  {
+   "s": "sfc-prophet-v1",
+   "type": "uses",
+   "label": "retail-calendar holidays",
+   "o": "retail-calendar-v3",
+   "quote": "Prophet per segment with retail-calendar holidays",
+   "line": 6
+  },
+  {
+   "s": "sfc-prophet-v1",
+   "type": "measured-by",
+   "label": "1-month MAPE 6.9%",
+   "o": "mape",
+   "quote": "1-month MAPE 6.9%, worse than sfc-lgbm-v2 (5.1%)",
+   "line": 7
+  },
+  {
+   "s": "sfc-lgbm-v2",
+   "type": "measured-by",
+   "label": "MAPE 5.1%",
+   "o": "mape",
+   "quote": "worse than sfc-lgbm-v2 (5.1%)",
+   "line": 7
+  },
+  {
+   "s": "sfc-lgbm-v2",
+   "type": "uses",
+   "label": "LightGBM",
+   "o": "lightgbm",
+   "quote": "LightGBM",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "dec-sfc-drop-prophet"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "spend-forecasting/exp-206.md",
+ "sha": "edbaa97fa26e4659b98ee152b49598f677a3f06fb4465d8a5c18f55e14ce1b33",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

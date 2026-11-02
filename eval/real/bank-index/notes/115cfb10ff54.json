@@ -1,0 +1,125 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "cli-xgb-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "`cli-xgb-v3`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "credit-oot-2026h1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "`credit-oot-2026h1`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "approver",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "monthly-review",
+   "type": "document",
+   "label": "monthly review",
+   "as": [
+    "monthly review"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "registered-model-release",
+   "type": "release",
+   "label": "model release",
+   "as": [
+    "registered model release"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "release-note",
+   "type": "document",
+   "label": "release note",
+   "as": [
+    "one-paragraph note"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "model-registry-entry",
+   "type": "other",
+   "label": "registry entry",
+   "as": [
+    "registry entry"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cli-xgb-v3",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "credit-oot-2026h1",
+   "quote": "evaluated on `credit-oot-2026h1`, n = 61,400",
+   "line": 6
+  },
+  {
+   "s": "cli-xgb-v3",
+   "type": "approved-by",
+   "label": "approved by",
+   "o": "lena-fischer",
+   "quote": "approved by Lena Fischer.",
+   "line": 6
+  },
+  {
+   "s": "release-note",
+   "type": "part-of",
+   "label": "one paragraph in",
+   "o": "model-registry-entry",
+   "quote": "The note is one paragraph in the model's registry entry",
+   "line": 5
+  },
+  {
+   "s": "registered-model-release",
+   "type": "other",
+   "label": "counted in",
+   "o": "monthly-review",
+   "quote": "A release without a note is not counted as released in the monthly review.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/model-release-notes.md",
+ "sha": "115cfb10ff54b2dae67a9a59981a2fb0cb76c096d62ac19122c50cf8b8e25aa8",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

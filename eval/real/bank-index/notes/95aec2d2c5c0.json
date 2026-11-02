@@ -1,0 +1,87 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "rev26-interest-v1",
+   "type": "model",
+   "label": "interest v1",
+   "as": [
+    "rev26-interest-v1"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "interest-ledger",
+   "type": "dataset",
+   "label": "interest ledger",
+   "as": [
+    "finance interest ledger"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "promo-cohorts",
+   "type": "segment",
+   "label": "promo cohorts",
+   "as": [
+    "promo cohorts carrying 0% balance transfers"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "average-overstatement",
+   "type": "metric",
+   "label": "average overstatement",
+   "as": [
+    "Average overstatement $4.2M per quarter"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rev26-interest-v1",
+   "type": "evaluated-on",
+   "label": "backtested against",
+   "o": "interest-ledger",
+   "quote": "Backtest of rev26-interest-v1 against the finance interest ledger",
+   "line": 6
+  },
+  {
+   "s": "rev26-interest-v1",
+   "type": "measured-by",
+   "label": "overstates by",
+   "o": "average-overstatement",
+   "quote": "overstates by $4.2M a quarter",
+   "line": 5
+  },
+  {
+   "s": "average-overstatement",
+   "type": "other",
+   "label": "largest in",
+   "o": "promo-cohorts",
+   "quote": "largest in promo cohorts carrying 0% balance transfers",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-rev26-no-haircut"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "revenue-forecast-2026/exp-302.md",
+ "sha": "95aec2d2c5c0415b42d6130e36280683ebd9c164163b06e4ad345dce6bede0c8",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

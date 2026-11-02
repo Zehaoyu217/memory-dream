@@ -1,0 +1,125 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-cli-eligible-pop",
+   "type": "segment",
+   "label": "eligible population",
+   "as": [
+    "ds-cli-eligible-pop",
+    "Eligible"
+   ],
+   "lines": [
+    5,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cards.limits_history",
+   "type": "dataset",
+   "label": "limits table",
+   "as": [
+    "cards.limits_history"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "collections.cases",
+   "type": "dataset",
+   "label": "cases table",
+   "as": [
+    "collections.cases"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "tomas-rivera-pipeline",
+   "type": "pipeline",
+   "label": "monthly refresh pipeline",
+   "as": [
+    "Tomás Rivera's pipeline"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "pipeline owner",
+   "as": [
+    "Tomás Rivera"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-cli-eligible-pop",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards.accounts_monthly",
+   "quote": "Built from `cards.accounts_monthly` joined to `cards.limits_history`",
+   "line": 6
+  },
+  {
+   "s": "ds-cli-eligible-pop",
+   "type": "uses",
+   "label": "joined to",
+   "o": "cards.limits_history",
+   "quote": "joined to `cards.limits_history` for the current limit",
+   "line": 6
+  },
+  {
+   "s": "ds-cli-eligible-pop",
+   "type": "uses",
+   "label": "filtered by",
+   "o": "collections.cases",
+   "quote": "no open case in `collections.cases`",
+   "line": 7
+  },
+  {
+   "s": "tomas-rivera-pipeline",
+   "type": "produces",
+   "label": "refreshes",
+   "o": "ds-cli-eligible-pop",
+   "quote": "Refreshed monthly by Tomás Rivera's pipeline.",
+   "line": 9
+  },
+  {
+   "s": "tomas-rivera-pipeline",
+   "type": "owned-by",
+   "label": "refreshed by",
+   "o": "tomas-rivera",
+   "quote": "Refreshed monthly by Tomás Rivera's pipeline.",
+   "line": 9
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/ds-cli-eligible-pop.md",
+ "sha": "86e9b98fd4c39b00e302fd866e195847cd9574461a0ac130212561c506a09a26",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

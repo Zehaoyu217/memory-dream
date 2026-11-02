@@ -1,0 +1,107 @@
+{
+ "kind": "note",
+ "entities": [
+  {
+   "id": "feat-mq3-prior-treat",
+   "type": "feature",
+   "label": "flag",
+   "as": [
+    "feat-mq3-prior-treat: contacted by a campaign in the prior 30 days",
+    "Flag from `marketing.campaign_responses`"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "marketing.campaign_responses",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`marketing.campaign_responses`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mq3-uplift-xl-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "mq3-uplift-xl-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "mq3-uplift-tlearner-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "mq3-uplift-tlearner-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "mq3-response-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "mq3-response-gbm-v1"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-mq3-prior-treat",
+   "type": "uses",
+   "label": "flag from",
+   "o": "marketing.campaign_responses",
+   "quote": "Flag from `marketing.campaign_responses`",
+   "line": 6
+  },
+  {
+   "s": "mq3-uplift-xl-v2",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-mq3-prior-treat",
+   "quote": "Used in mq3-uplift-xl-v2, mq3-uplift-tlearner-v1 and mq3-response-gbm-v1.",
+   "line": 7
+  },
+  {
+   "s": "mq3-uplift-tlearner-v1",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-mq3-prior-treat",
+   "quote": "Used in mq3-uplift-xl-v2, mq3-uplift-tlearner-v1 and mq3-response-gbm-v1.",
+   "line": 7
+  },
+  {
+   "s": "mq3-response-gbm-v1",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-mq3-prior-treat",
+   "quote": "Used in mq3-uplift-xl-v2, mq3-uplift-tlearner-v1 and mq3-response-gbm-v1.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-mq3-contacts-snap"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "marketing-uplift-q3/feat-mq3-prior-treat.md",
+ "sha": "c1ad194c0923155a9a4b6278525e1c899bcd8fa1c2440f2d891613ccc445dc6e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

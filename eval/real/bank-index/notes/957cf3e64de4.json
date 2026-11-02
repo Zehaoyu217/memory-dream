@@ -1,0 +1,128 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-inc-txn-categories",
+   "type": "dataset",
+   "label": "category spend",
+   "as": [
+    "ds-inc-txn-categories",
+    "24 months of card spend by merchant category"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "daily transactions",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cards.merchants",
+   "type": "dataset",
+   "label": "category codes",
+   "as": [
+    "cards.merchants"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-inc-spend-to-income",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-inc-spend-to-income"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-inc-rent-flag",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-inc-rent-flag"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-inc-merchant-mix",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-inc-merchant-mix"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-inc-txn-categories",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards.txn_daily",
+   "quote": "Built from `cards.txn_daily` joined to `cards.merchants` category codes",
+   "line": 6
+  },
+  {
+   "s": "ds-inc-txn-categories",
+   "type": "uses",
+   "label": "joined to",
+   "o": "cards.merchants",
+   "quote": "Built from `cards.txn_daily` joined to `cards.merchants` category codes",
+   "line": 6
+  },
+  {
+   "s": "feat-inc-spend-to-income",
+   "type": "uses",
+   "label": "used by",
+   "o": "ds-inc-txn-categories",
+   "quote": "Used by feat-inc-spend-to-income, feat-inc-rent-flag and feat-inc-merchant-mix.",
+   "line": 8
+  },
+  {
+   "s": "feat-inc-rent-flag",
+   "type": "uses",
+   "label": "used by",
+   "o": "ds-inc-txn-categories",
+   "quote": "Used by feat-inc-spend-to-income, feat-inc-rent-flag and feat-inc-merchant-mix.",
+   "line": 8
+  },
+  {
+   "s": "feat-inc-merchant-mix",
+   "type": "uses",
+   "label": "used by",
+   "o": "ds-inc-txn-categories",
+   "quote": "Used by feat-inc-spend-to-income, feat-inc-rent-flag and feat-inc-merchant-mix.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-inc-stated-income-2025",
+  "feat-inc-spend-to-income",
+  "feat-inc-rent-flag",
+  "feat-inc-merchant-mix"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "income-estimation/ds-inc-txn-categories.md",
+ "sha": "957cf3e64de40c24d0e91ba2d7a4978d38df81bb0bf217eabcf9de48aaaab35f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,123 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ep-tenure-months",
+   "type": "feature",
+   "label": "segment variable",
+   "as": [
+    "feat-ep-tenure-months",
+    "account tenure at assignment, in months"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ep-uplift-forest-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ep-uplift-forest-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "product-tier",
+   "type": "feature",
+   "label": "input",
+   "as": [
+    "product tier"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-ep-prior-logins-14d",
+   "type": "feature",
+   "label": "input",
+   "as": [
+    "feat-ep-prior-logins-14d"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-ep-assignments",
+   "type": "team",
+   "label": "from",
+   "as": [
+    "ds-ep-assignments"
+   ],
+   "lines": [
+    2
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ep-tenure-months",
+   "type": "uses",
+   "label": "from",
+   "o": "cards.accounts_monthly",
+   "quote": "from cards.accounts_monthly",
+   "line": 5
+  },
+  {
+   "s": "ep-uplift-forest-v1",
+   "type": "uses",
+   "label": "input",
+   "o": "feat-ep-tenure-months",
+   "quote": "Input to ep-uplift-forest-v1 together with the product tier and feat-ep-prior-logins-14d.",
+   "line": 7
+  },
+  {
+   "s": "ep-uplift-forest-v1",
+   "type": "uses",
+   "label": "input",
+   "o": "product-tier",
+   "quote": "Input to ep-uplift-forest-v1 together with the product tier and feat-ep-prior-logins-14d.",
+   "line": 7
+  },
+  {
+   "s": "ep-uplift-forest-v1",
+   "type": "uses",
+   "label": "input",
+   "o": "feat-ep-prior-logins-14d",
+   "quote": "Input to ep-uplift-forest-v1 together with the product tier and feat-ep-prior-logins-14d.",
+   "line": 7
+  },
+  {
+   "s": "feat-ep-tenure-months",
+   "type": "owned-by",
+   "label": "from",
+   "o": "ds-ep-assignments",
+   "quote": "from: [ds-ep-assignments]",
+   "line": 2
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "experiment-platform/feat-ep-tenure-months.md",
+ "sha": "eac589515f483d84f06fe5c9e0a5df6c16c20af62b2ff57c9a4cacd871aea124",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

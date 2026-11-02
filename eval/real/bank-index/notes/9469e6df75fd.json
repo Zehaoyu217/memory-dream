@@ -1,0 +1,143 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "fair-lending-check",
+   "type": "term",
+   "label": "check",
+   "as": [
+    "The fair-lending check"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "approval-rate-ratio",
+   "type": "metric",
+   "label": "ratio",
+   "as": [
+    "approval-rate ratio"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "approval-rate",
+   "type": "metric",
+   "label": "approval rate",
+   "as": [
+    "approval rate"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ratio-threshold",
+   "type": "policy",
+   "label": "threshold",
+   "as": [
+    "below 0.80"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "deck",
+   "type": "document",
+   "label": "deck",
+   "as": [
+    "the deck"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "analyst",
+   "type": "person",
+   "label": "analyst",
+   "as": [
+    "the analyst"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "omar-haddad",
+   "type": "person",
+   "label": "reviewer",
+   "as": [
+    "Omar Haddad"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fair-lending-check",
+   "type": "produces",
+   "label": "computes",
+   "o": "approval-rate-ratio",
+   "quote": "computes the approval-rate ratio per group",
+   "line": 4
+  },
+  {
+   "s": "approval-rate-ratio",
+   "type": "uses",
+   "label": "divides",
+   "o": "approval-rate",
+   "quote": "Ratio = lowest group approval rate divided by the highest",
+   "line": 5
+  },
+  {
+   "s": "approval-rate-ratio",
+   "type": "other",
+   "label": "flagged below",
+   "o": "ratio-threshold",
+   "quote": "A ratio below 0.80 is flagged and footnoted",
+   "line": 6
+  },
+  {
+   "s": "fair-lending-check",
+   "type": "uses",
+   "label": "run on",
+   "o": "deck",
+   "quote": "The check is run by the analyst on the deck's own snapshot",
+   "line": 7
+  },
+  {
+   "s": "fair-lending-check",
+   "type": "owned-by",
+   "label": "run by",
+   "o": "analyst",
+   "quote": "The check is run by the analyst",
+   "line": 7
+  },
+  {
+   "s": "fair-lending-check",
+   "type": "owned-by",
+   "label": "reviewed by",
+   "o": "omar-haddad",
+   "quote": "Omar Haddad reviews the flag before publication",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/compliance-disparity-check.md",
+ "sha": "9469e6df75fd50d815387c30160fdef88c45ce3c0ec2c292267b8192772e9f41",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

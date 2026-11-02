@@ -1,0 +1,217 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "gbm-attrition-model",
+   "type": "model",
+   "label": "gradient boosted model",
+   "as": [
+    "Gradient boosted attrition model"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ae-attr-gbm-v1",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "ae-attr-gbm-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ae-score-v2",
+   "type": "model",
+   "label": "score-v2 linear score",
+   "as": [
+    "score-v2 inputs",
+    "linear score"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "ae_act28",
+   "type": "feature",
+   "label": "activity feature",
+   "as": [
+    "ae_act28"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "depth-v2",
+   "type": "feature",
+   "label": "depth feature",
+   "as": [
+    "depth v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "tenure",
+   "type": "feature",
+   "label": "tenure feature",
+   "as": [
+    "tenure"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "attrition-label",
+   "type": "feature",
+   "label": "90-day attrition label",
+   "as": [
+    "90-day attrition label"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-ae-attrition-labels",
+   "type": "dataset",
+   "label": "attrition labels",
+   "as": [
+    "ds-ae-attrition-labels"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.81"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "activity-thresholds",
+   "type": "term",
+   "label": "non-linear activity thresholds",
+   "as": [
+    "non-linear activity thresholds"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "gbm-attrition-model",
+   "type": "uses",
+   "label": "trained on",
+   "o": "ae_act28",
+   "quote": "gradient boosted trees on ae_act28, depth v2 and tenure",
+   "line": 6
+  },
+  {
+   "s": "gbm-attrition-model",
+   "type": "uses",
+   "label": "trained on",
+   "o": "depth-v2",
+   "quote": "gradient boosted trees on ae_act28, depth v2 and tenure",
+   "line": 6
+  },
+  {
+   "s": "gbm-attrition-model",
+   "type": "uses",
+   "label": "trained on",
+   "o": "tenure",
+   "quote": "gradient boosted trees on ae_act28, depth v2 and tenure",
+   "line": 6
+  },
+  {
+   "s": "gbm-attrition-model",
+   "type": "uses",
+   "label": "predicts",
+   "o": "attrition-label",
+   "quote": "90-day attrition label",
+   "line": 6
+  },
+  {
+   "s": "gbm-attrition-model",
+   "type": "uses",
+   "label": "built on inputs",
+   "o": "ae-score-v2",
+   "quote": "Gradient boosted attrition model on the score-v2 inputs",
+   "line": 5
+  },
+  {
+   "s": "gbm-attrition-model",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "holdout-2025q4",
+   "quote": "scored on holdout-2025q4 (n = 610,000)",
+   "line": 6
+  },
+  {
+   "s": "gbm-attrition-model",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.81, up from 0.76 for the linear score alone",
+   "line": 7
+  },
+  {
+   "s": "activity-thresholds",
+   "type": "other",
+   "label": "source of lift",
+   "o": "gbm-attrition-model",
+   "quote": "The extra lift is mostly from non-linear activity thresholds.",
+   "line": 7
+  },
+  {
+   "s": "gbm-attrition-model",
+   "type": "other",
+   "label": "basis for",
+   "o": "ae-attr-gbm-v1",
+   "quote": "Basis for ae-attr-gbm-v1",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ae-score-v2",
+  "ds-ae-attrition-labels",
+  "ae-attr-gbm-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "app-engagement/exp-506.md",
+ "sha": "16713f47ecafc594ef21e8f9fc03853c2d573e44746440ec6bbb2c5e5b8e63ca",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

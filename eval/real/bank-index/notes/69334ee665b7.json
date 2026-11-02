@@ -1,0 +1,86 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ae-push-open-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "Push open rate"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "app.push_log",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "app.push_log"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ae-score-v1",
+   "type": "model",
+   "label": "score",
+   "as": [
+    "ae-score-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ae-score-v2",
+   "type": "model",
+   "label": "score version",
+   "as": [
+    "ae-score-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ae-push-open-v1",
+   "type": "uses",
+   "label": "from",
+   "o": "app.push_log",
+   "quote": "from `app.push_log`",
+   "line": 5
+  },
+  {
+   "s": "ae-score-v1",
+   "type": "uses",
+   "label": "carries as weighted term",
+   "o": "feat-ae-push-open-v1",
+   "quote": "Carried as a weighted term in ae-score-v1 (weight 0.25).",
+   "line": 7
+  },
+  {
+   "s": "feat-ae-push-open-v1",
+   "type": "other",
+   "label": "dropped in",
+   "o": "ae-score-v2",
+   "quote": "Dropped in ae-score-v2.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-ae-push-log"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "app-engagement/feat-ae-push-open-v1.md",
+ "sha": "69334ee665b7243d319db38efbaaf28136c20efc7663149fc48da8e8410235a3",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

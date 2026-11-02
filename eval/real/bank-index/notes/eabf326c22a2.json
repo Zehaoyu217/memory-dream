@@ -1,0 +1,129 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "churn-gbm-2025-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "churn-gbm-2025-v2"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "april-pilot",
+   "type": "other",
+   "label": "pilot",
+   "as": [
+    "the April pilot"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "util-v2-limit-join",
+   "type": "other",
+   "label": "time-matched limit join",
+   "as": [
+    "the util-v2 time-matched limit join"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "data engineering",
+   "as": [
+    "Tomas Rivera"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "data-engineering",
+   "type": "team",
+   "label": "data engineering",
+   "as": [
+    "data engineering"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "churn-lr-base-2025",
+   "type": "model",
+   "label": "monitoring challenger",
+   "as": [
+    "churn-lr-base-2025"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-gbm-2025-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "april-pilot",
+   "quote": "replaces the April pilot",
+   "line": 6
+  },
+  {
+   "s": "churn-gbm-2025-v2",
+   "type": "uses",
+   "label": "needs",
+   "o": "util-v2-limit-join",
+   "quote": "Needs the util-v2 time-matched limit join in the scoring job",
+   "line": 8
+  },
+  {
+   "s": "util-v2-limit-join",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "tomas-rivera",
+   "quote": "Needs the util-v2 time-matched limit join in the scoring job (Tomas Rivera, data engineering)",
+   "line": 8
+  },
+  {
+   "s": "tomas-rivera",
+   "type": "other",
+   "label": "works in",
+   "o": "data-engineering",
+   "quote": "(Tomas Rivera, data engineering)",
+   "line": 8
+  },
+  {
+   "s": "churn-lr-base-2025",
+   "type": "other",
+   "label": "monitoring challenger",
+   "o": "churn-gbm-2025-v2",
+   "quote": "churn-lr-base-2025 is kept as the monitoring challenger",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "churn-gbm-2025-v2",
+  "exp-107",
+  "dec-c25-ship-gbm-v1",
+  "exp-106"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2025/dec-c25-ship-gbm-v2.md",
+ "sha": "eabf326c22a2b23cd893ee399954043be1fef5f7c6e8ac0b45be19e485da201d",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

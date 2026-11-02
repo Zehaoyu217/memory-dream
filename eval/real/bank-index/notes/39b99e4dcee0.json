@@ -1,0 +1,125 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "ds-cc-taxonomy-v3",
+   "type": "document",
+   "label": "taxonomy note",
+   "as": [
+    "Taxonomy v3 has 18 issue codes, with billing error split into fee and amount"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "billing-error-fee",
+   "type": "term",
+   "label": "issue code",
+   "as": [
+    "billing error - fee"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "billing-error-amount",
+   "type": "term",
+   "label": "issue code",
+   "as": [
+    "billing error - amount"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "complaints.code_map",
+   "type": "dataset",
+   "label": "mapping file",
+   "as": [
+    "complaints.code_map"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "compliance-operations",
+   "type": "team",
+   "label": "maintaining team",
+   "as": [
+    "compliance operations"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "regulator-reports",
+   "type": "document",
+   "label": "regulator reports",
+   "as": [
+    "Regulator reports"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-cc-taxonomy-v3",
+   "type": "owned-by",
+   "label": "maintained by",
+   "o": "compliance-operations",
+   "quote": "The mapping file is `complaints.code_map`, maintained by compliance operations.",
+   "line": 7
+  },
+  {
+   "s": "complaints.code_map",
+   "type": "owned-by",
+   "label": "maintained by",
+   "o": "compliance-operations",
+   "quote": "The mapping file is `complaints.code_map`, maintained by compliance operations.",
+   "line": 7
+  },
+  {
+   "s": "regulator-reports",
+   "type": "uses",
+   "label": "use the codes",
+   "o": "ds-cc-taxonomy-v3",
+   "quote": "Regulator reports use the codes.",
+   "line": 7
+  },
+  {
+   "s": "billing-error-fee",
+   "type": "part-of",
+   "label": "split from billing error",
+   "o": "ds-cc-taxonomy-v3",
+   "quote": "Billing error is split into billing error - fee and billing error - amount",
+   "line": 6
+  },
+  {
+   "s": "billing-error-amount",
+   "type": "part-of",
+   "label": "split from billing error",
+   "o": "ds-cc-taxonomy-v3",
+   "quote": "Billing error is split into billing error - fee and billing error - amount",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "dec-cc-taxonomy-split"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "complaint-classification/ds-cc-taxonomy-v3.md",
+ "sha": "39b99e4dcee0cbc997390300cbdecc994fd6baa8712a1073f82721a549817d6d",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

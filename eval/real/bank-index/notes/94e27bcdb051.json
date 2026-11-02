@@ -1,0 +1,155 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "ep-uplift-forest-v1",
+   "type": "model",
+   "label": "causal forest",
+   "as": [
+    "ep-uplift-forest-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-507",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-507"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "feat-ep-tenure-months",
+   "type": "feature",
+   "label": "splitting variable",
+   "as": [
+    "feat-ep-tenure-months"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "feat-ep-prior-logins-14d",
+   "type": "feature",
+   "label": "splitting variable",
+   "as": [
+    "feat-ep-prior-logins-14d"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "product-tier",
+   "type": "feature",
+   "label": "splitting variable",
+   "as": [
+    "product tier"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "calibration-gap",
+   "type": "metric",
+   "label": "calibration gap",
+   "as": [
+    "Calibration gap"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "onboarding-tests",
+   "type": "other",
+   "label": "onboarding tests",
+   "as": [
+    "onboarding tests"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ep-uplift-forest-v1",
+   "type": "uses",
+   "label": "splitting variable",
+   "o": "feat-ep-tenure-months",
+   "quote": "with product tier, feat-ep-tenure-months and feat-ep-prior-logins-14d as splitting variables",
+   "line": 6
+  },
+  {
+   "s": "ep-uplift-forest-v1",
+   "type": "uses",
+   "label": "splitting variable",
+   "o": "feat-ep-prior-logins-14d",
+   "quote": "with product tier, feat-ep-tenure-months and feat-ep-prior-logins-14d as splitting variables",
+   "line": 6
+  },
+  {
+   "s": "ep-uplift-forest-v1",
+   "type": "uses",
+   "label": "splitting variable",
+   "o": "product-tier",
+   "quote": "Causal forest with product tier, feat-ep-tenure-months and feat-ep-prior-logins-14d as splitting variables",
+   "line": 6
+  },
+  {
+   "s": "ep-uplift-forest-v1",
+   "type": "derived-from",
+   "label": "from",
+   "o": "exp-507",
+   "quote": "from: [exp-507, feat-ep-tenure-months, feat-ep-prior-logins-14d]",
+   "line": 2
+  },
+  {
+   "s": "ep-uplift-forest-v1",
+   "type": "measured-by",
+   "label": "calibration gap is",
+   "o": "calibration-gap",
+   "quote": "Calibration gap on the holdout is 0.4 percentage points (exp-507)",
+   "line": 7
+  },
+  {
+   "s": "ep-uplift-forest-v1",
+   "type": "other",
+   "label": "segment effects on",
+   "o": "onboarding-tests",
+   "quote": "segment-level effects on onboarding tests",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "experiment-platform/ep-uplift-forest-v1.md",
+ "sha": "94e27bcdb051c4a2deeda7de933b86e6e38d8314d4c451d3bc48d720c0b5bd10",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

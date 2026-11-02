@@ -1,0 +1,105 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "revenue-180d",
+   "type": "metric",
+   "label": "180-day revenue",
+   "as": [
+    "180-day revenue per account"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.payments_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "roi",
+   "type": "term",
+   "label": "roi",
+   "as": [
+    "ROI"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-ror-value-band-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ror-value-band-v2"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "revenue-180d",
+   "type": "uses",
+   "label": "computed from",
+   "o": "cards.txn_daily",
+   "quote": "180-day revenue per account from cards.txn_daily and cards.payments_daily",
+   "line": 5
+  },
+  {
+   "s": "revenue-180d",
+   "type": "uses",
+   "label": "computed from",
+   "o": "cards.payments_daily",
+   "quote": "180-day revenue per account from cards.txn_daily and cards.payments_daily",
+   "line": 5
+  },
+  {
+   "s": "roi",
+   "type": "uses",
+   "label": "uses revenue term",
+   "o": "revenue-180d",
+   "quote": "Used as the revenue term in ROI",
+   "line": 8
+  },
+  {
+   "s": "revenue-180d",
+   "type": "other",
+   "label": "precedes netting by",
+   "o": "feat-ror-value-band-v2",
+   "quote": "before the credit-loss netting that feat-ror-value-band-v2 adds",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-ror-value-band-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "retention-offers-roi/ds-ror-retained-revenue.md",
+ "sha": "3bade2479f137c15b5cf8eaba81958af731e19dd7c5aa8daa485660887d27103",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

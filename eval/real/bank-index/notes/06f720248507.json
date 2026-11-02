@@ -1,0 +1,64 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "travel-spend",
+   "type": "metric",
+   "label": "travel spend",
+   "as": [
+    "Total travel spend"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cross-border",
+   "type": "segment",
+   "label": "cross-border spend",
+   "as": [
+    "Cross-border"
+   ],
+   "lines": [
+    5,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "domestic",
+   "type": "segment",
+   "label": "domestic spend",
+   "as": [
+    "domestic"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cross-border",
+   "type": "part-of",
+   "label": "part of total",
+   "o": "travel-spend",
+   "quote": "Cross-border was the lagging part",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-503",
+  "trv-ridge-v2",
+  "fnd-trv-cross-border-recovery"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "travel-spend-recovery/fnd-trv-plateau.md",
+ "sha": "06f72024850789abc0865b31047e52654107b3c84233f043fb63df42e4ef2c6c",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

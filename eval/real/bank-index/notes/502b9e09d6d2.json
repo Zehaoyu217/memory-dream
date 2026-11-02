@@ -1,0 +1,155 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-lbl-churn-flag-90d",
+   "type": "feature",
+   "label": "churn flag",
+   "as": [
+    "churn flag, no approved transaction in 90 days"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-lbl-churn-flag-60d",
+   "type": "feature",
+   "label": "churn flag",
+   "as": [
+    "60-day version"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dec-lbl-churn-90d",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-lbl-churn-90d"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "exp-401",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-401"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-lbl-churn-flag-closure",
+   "type": "feature",
+   "label": "churn flag",
+   "as": [
+    "feat-lbl-churn-flag-closure"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "2025-h1-snapshots",
+   "type": "dataset",
+   "label": "snapshots",
+   "as": [
+    "2025-H1 snapshots"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "churn-rate",
+   "type": "metric",
+   "label": "churn rate",
+   "as": [
+    "Churn rate"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-lbl-churn-flag-90d",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "feat-lbl-churn-flag-60d",
+   "quote": "supersedes: [feat-lbl-churn-flag-60d]",
+   "line": 4
+  },
+  {
+   "s": "feat-lbl-churn-flag-90d",
+   "type": "other",
+   "label": "set by",
+   "o": "dec-lbl-churn-90d",
+   "quote": "as set by dec-lbl-churn-90d",
+   "line": 7
+  },
+  {
+   "s": "feat-lbl-churn-flag-90d",
+   "type": "uses",
+   "label": "from",
+   "o": "feat-lbl-churn-flag-60d",
+   "quote": "from: [feat-lbl-churn-flag-60d, dec-lbl-churn-90d]",
+   "line": 2
+  },
+  {
+   "s": "feat-lbl-churn-flag-90d",
+   "type": "evaluated-on",
+   "label": "churn rate on",
+   "o": "2025-h1-snapshots",
+   "quote": "Churn rate on 2025-H1 snapshots is 6.1 percent under this flag",
+   "line": 8
+  },
+  {
+   "s": "feat-lbl-churn-flag-90d",
+   "type": "measured-by",
+   "label": "churn rate",
+   "o": "churn-rate",
+   "quote": "Churn rate on 2025-H1 snapshots is 6.1 percent under this flag",
+   "line": 8
+  },
+  {
+   "s": "exp-401",
+   "type": "other",
+   "label": "measured",
+   "o": "feat-lbl-churn-flag-60d",
+   "quote": "against 7.9 percent for the 60-day flag (exp-401)",
+   "line": 8
+  },
+  {
+   "s": "feat-lbl-churn-flag-closure",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "feat-lbl-churn-flag-90d",
+   "quote": "Superseded by feat-lbl-churn-flag-closure",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "feat-lbl-churn-flag-60d",
+  "dec-lbl-churn-90d",
+  "exp-401",
+  "feat-lbl-churn-flag-closure"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "label-pipeline-rebuild/feat-lbl-churn-flag-90d.md",
+ "sha": "502b9e09d6d2faccba6a09d0dd6b1c647d38dafa7f3b6d9e0cf5febd74f6e600",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

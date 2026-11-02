@@ -1,0 +1,150 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "rs-xgb-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rs-xgb-v1"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "logistic-baseline",
+   "type": "model",
+   "label": "baseline",
+   "as": [
+    "logistic baseline"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "recovery-scoring-holdout-2023h2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "recovery-scoring-holdout-2023h2",
+    "Same holdout"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Gini"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "balance",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "balance"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "payment-history",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "payment history"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rs-xgb-v1",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "recovery-scoring-holdout-2023h2",
+   "quote": "on recovery-scoring-holdout-2023h2",
+   "line": 5
+  },
+  {
+   "s": "rs-xgb-v1",
+   "type": "measured-by",
+   "label": "Gini 0.41",
+   "o": "gini",
+   "quote": "Gini 0.41, KS 0.29",
+   "line": 6
+  },
+  {
+   "s": "rs-xgb-v1",
+   "type": "measured-by",
+   "label": "KS 0.29",
+   "o": "ks",
+   "quote": "Gini 0.41, KS 0.29",
+   "line": 6
+  },
+  {
+   "s": "rs-xgb-v1",
+   "type": "uses",
+   "label": "uses",
+   "o": "balance",
+   "quote": "rs-xgb-v1 with balance and payment history",
+   "line": 6
+  },
+  {
+   "s": "rs-xgb-v1",
+   "type": "uses",
+   "label": "uses",
+   "o": "payment-history",
+   "quote": "rs-xgb-v1 with balance and payment history",
+   "line": 6
+  },
+  {
+   "s": "rs-xgb-v1",
+   "type": "other",
+   "label": "gain over",
+   "o": "logistic-baseline",
+   "quote": "Gain over the logistic baseline is mostly from non-linear balance effects",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-301",
+  "recovery_scoring/exp302_xgb_v1.ipynb"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "recovery-scoring/exp-302.md",
+ "sha": "144749b2ecdf03c89b4959311e1a36558b007fa3554805bb30613cb1a394331c",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

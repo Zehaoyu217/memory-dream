@@ -1,0 +1,119 @@
+{
+ "kind": "design",
+ "entities": [
+  {
+   "id": "collections.cases",
+   "type": "dataset",
+   "label": "shared table",
+   "as": [
+    "collections.cases"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "collections-ops",
+   "type": "team",
+   "label": "owner team",
+   "as": [
+    "collections-ops"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "collections-propensity-model",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "collections propensity model"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "case-outcome",
+   "type": "feature",
+   "label": "outcome column",
+   "as": [
+    "case outcome column"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "label",
+   "type": "term",
+   "label": "label",
+   "as": [
+    "label"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "label-lag",
+   "type": "other",
+   "label": "label lag",
+   "as": [
+    "Label lag"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "evaluation-holdouts",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Evaluation holdouts"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "collections-propensity-model",
+   "type": "uses",
+   "label": "label source",
+   "o": "collections.cases",
+   "quote": "collections.cases as the label source for the collections propensity model",
+   "line": 5
+  },
+  {
+   "s": "collections.cases",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "collections-ops",
+   "quote": "Shared table owned by collections-ops.",
+   "line": 6
+  },
+  {
+   "s": "label",
+   "type": "uses",
+   "label": "per the outcome column",
+   "o": "case-outcome",
+   "quote": "per the case outcome column",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "model-monitoring/ds-mm-collections-labels.md",
+ "sha": "907d4dda76cc9dda65e4f7605d65a10ec9a3517ffb5ee0f6c235143283c158a9",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

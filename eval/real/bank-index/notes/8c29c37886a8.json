@@ -1,0 +1,204 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "pbs-five-segments",
+   "type": "model",
+   "label": "five components",
+   "as": [
+    "Five payment-behaviour segments",
+    "five components"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "transactors",
+   "type": "segment",
+   "label": "transactor",
+   "as": [
+    "transactor"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "revolvers",
+   "type": "segment",
+   "label": "revolver",
+   "as": [
+    "revolver"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "minimum-payers",
+   "type": "segment",
+   "label": "minimum-payer",
+   "as": [
+    "minimum-payers"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cash-heavy",
+   "type": "segment",
+   "label": "cash-heavy",
+   "as": [
+    "cash-heavy"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dormant",
+   "type": "segment",
+   "label": "dormant",
+   "as": [
+    "dormant"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "gmm",
+   "type": "model",
+   "label": "gmm",
+   "as": [
+    "GMM"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-pbs-timing-v2",
+   "type": "feature",
+   "label": "timing features",
+   "as": [
+    "timing features"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ari",
+   "type": "metric",
+   "label": "ari",
+   "as": [
+    "ARI"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "silhouette",
+   "type": "metric",
+   "label": "silhouette",
+   "as": [
+    "silhouette"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "pbs-five-segments",
+   "type": "measured-by",
+   "label": "has ARI",
+   "o": "ari",
+   "quote": "ARI 0.81, silhouette 0.42",
+   "line": 7
+  },
+  {
+   "s": "pbs-five-segments",
+   "type": "measured-by",
+   "label": "has silhouette",
+   "o": "silhouette",
+   "quote": "ARI 0.81, silhouette 0.42",
+   "line": 7
+  },
+  {
+   "s": "pbs-five-segments",
+   "type": "uses",
+   "label": "built with",
+   "o": "gmm",
+   "quote": "With the GMM and timing features",
+   "line": 7
+  },
+  {
+   "s": "pbs-five-segments",
+   "type": "uses",
+   "label": "built with",
+   "o": "feat-pbs-timing-v2",
+   "quote": "With the GMM and timing features",
+   "line": 7
+  },
+  {
+   "s": "transactors",
+   "type": "part-of",
+   "label": "one of",
+   "o": "pbs-five-segments",
+   "quote": "These five segments are the ones in use from Jan 2026.",
+   "line": 9
+  },
+  {
+   "s": "revolvers",
+   "type": "part-of",
+   "label": "one of",
+   "o": "pbs-five-segments",
+   "quote": "These five segments are the ones in use from Jan 2026.",
+   "line": 9
+  },
+  {
+   "s": "minimum-payers",
+   "type": "part-of",
+   "label": "one of",
+   "o": "pbs-five-segments",
+   "quote": "These five segments are the ones in use from Jan 2026.",
+   "line": 9
+  },
+  {
+   "s": "cash-heavy",
+   "type": "part-of",
+   "label": "one of",
+   "o": "pbs-five-segments",
+   "quote": "These five segments are the ones in use from Jan 2026.",
+   "line": 9
+  },
+  {
+   "s": "dormant",
+   "type": "part-of",
+   "label": "one of",
+   "o": "pbs-five-segments",
+   "quote": "These five segments are the ones in use from Jan 2026.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "fnd-pbs-six-segments",
+  "exp-402",
+  "exp-403"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "payment-behavior-segments/fnd-pbs-five-segments.md",
+ "sha": "8c29c37886a8cb3809889cfd7656d38841f5358386f5fe59212aeefd74a0f63f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

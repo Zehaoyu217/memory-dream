@@ -1,0 +1,96 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-401",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-401"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "churn-rate",
+   "type": "metric",
+   "label": "churn rate",
+   "as": [
+    "churn rate"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025-h1-snapshots",
+   "type": "dataset",
+   "label": "snapshots",
+   "as": [
+    "2025-H1 snapshots",
+    "4.6M account-snapshots from 2025-H1"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "60-day-rule",
+   "type": "term",
+   "label": "60-day rule",
+   "as": [
+    "60-day rule"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "90-day-rule",
+   "type": "term",
+   "label": "90-day rule",
+   "as": [
+    "90 days",
+    "90-day rule"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-401",
+   "type": "measured-by",
+   "label": "computed",
+   "o": "churn-rate",
+   "quote": "churn rate on 2025-H1 snapshots is 7.9 percent under the 60-day rule and 6.1 percent under 90 days",
+   "line": 5
+  },
+  {
+   "s": "exp-401",
+   "type": "evaluated-on",
+   "label": "computed on",
+   "o": "holdout-2025-h1-snapshots",
+   "quote": "Computed both windows on the 4.6M account-snapshots from 2025-H1",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "label-pipeline-rebuild/exp-401.md",
+  "ds-lbl-churn-labels",
+  "q-lbl-churn-window"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "label-pipeline-rebuild/exp-401.md",
+ "sha": "41c23397e8776982d7cef4a9326222ae1b6c0b243566d81a464604adf52e5dc0",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

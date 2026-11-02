@@ -1,0 +1,116 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "dpd-buckets",
+   "type": "term",
+   "label": "bucket definition",
+   "as": [
+    "DPD buckets",
+    "Buckets are 0 current, 1 to 29 early, 30 to 59, 60 to 89 and 90 plus"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.payments_daily`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "30-plus-label",
+   "type": "term",
+   "label": "label",
+   "as": [
+    "The label 30+"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "strictly-greater-than-30",
+   "type": "term",
+   "label": "counting rule",
+   "as": [
+    "Using strictly greater than 30"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "roll-rates",
+   "type": "metric",
+   "label": "roll rates",
+   "as": [
+    "roll rates"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "2024-vintages",
+   "type": "segment",
+   "label": "vintage group",
+   "as": [
+    "2024 vintages"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dpd-buckets",
+   "type": "uses",
+   "label": "read from",
+   "o": "cards.payments_daily",
+   "quote": "Days past due are read from `cards.payments_daily` at the label date.",
+   "line": 5
+  },
+  {
+   "s": "30-plus-label",
+   "type": "other",
+   "label": "means DPD at least 30",
+   "o": "dpd-buckets",
+   "quote": "The label 30+ means DPD greater than or equal to 30, so an account at exactly 30 days is counted.",
+   "line": 5
+  },
+  {
+   "s": "strictly-greater-than-30",
+   "type": "other",
+   "label": "undercounted",
+   "o": "roll-rates",
+   "quote": "Using strictly greater than 30 undercounted roll rates in the 2024 vintages by about 4% of the 30-day bucket.",
+   "line": 6
+  },
+  {
+   "s": "roll-rates",
+   "type": "other",
+   "label": "measured in",
+   "o": "2024-vintages",
+   "quote": "undercounted roll rates in the 2024 vintages",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/dpd-bucket-labelling.md",
+ "sha": "ee1417b80bfa9bf0d91417a838bb5647346d61103e7ee5f7f5a3ecef26d13794",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

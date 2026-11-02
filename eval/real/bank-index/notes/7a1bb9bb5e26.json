@@ -1,0 +1,150 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "pbs-kmeans-v1",
+   "type": "model",
+   "label": "kmeans model",
+   "as": [
+    "pbs-kmeans-v1",
+    "kmeans with six clusters"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "pbs-gmm-v2",
+   "type": "model",
+   "label": "gmm model",
+   "as": [
+    "pbs-gmm-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-pbs-pay-ratio-v1",
+   "type": "feature",
+   "label": "pay ratio feature",
+   "as": [
+    "feat-pbs-pay-ratio-v1"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "feat-pbs-minpay-flag",
+   "type": "feature",
+   "label": "minimum-pay flag",
+   "as": [
+    "feat-pbs-minpay-flag",
+    "minimum-pay flag"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "feat-pbs-cash-share",
+   "type": "feature",
+   "label": "cash share feature",
+   "as": [
+    "feat-pbs-cash-share",
+    "cash share"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "silhouette",
+   "type": "metric",
+   "label": "silhouette",
+   "as": [
+    "Silhouette 0.36",
+    "Silhouette"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "ari",
+   "type": "metric",
+   "label": "ari",
+   "as": [
+    "ARI between seeds 0.58"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "pbs-kmeans-v1",
+   "type": "uses",
+   "label": "kmeans on",
+   "o": "feat-pbs-pay-ratio-v1",
+   "quote": "Kmeans with k=6 on pay ratio, minimum-pay flag and cash share",
+   "line": 6
+  },
+  {
+   "s": "pbs-kmeans-v1",
+   "type": "uses",
+   "label": "kmeans on",
+   "o": "feat-pbs-minpay-flag",
+   "quote": "Kmeans with k=6 on pay ratio, minimum-pay flag and cash share",
+   "line": 6
+  },
+  {
+   "s": "pbs-kmeans-v1",
+   "type": "uses",
+   "label": "kmeans on",
+   "o": "feat-pbs-cash-share",
+   "quote": "Kmeans with k=6 on pay ratio, minimum-pay flag and cash share",
+   "line": 6
+  },
+  {
+   "s": "pbs-kmeans-v1",
+   "type": "measured-by",
+   "label": "silhouette",
+   "o": "silhouette",
+   "quote": "Silhouette 0.36",
+   "line": 5
+  },
+  {
+   "s": "pbs-kmeans-v1",
+   "type": "measured-by",
+   "label": "ARI between seeds",
+   "o": "ari",
+   "quote": "ARI between seeds 0.58",
+   "line": 7
+  },
+  {
+   "s": "pbs-gmm-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "pbs-kmeans-v1",
+   "quote": "Superseded by pbs-gmm-v2.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "fnd-pbs-six-segments"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "payment-behavior-segments/pbs-kmeans-v1.md",
+ "sha": "7a1bb9bb5e26b38d9de5ab1060ea92b465414add86d483cbd5dc85ada04c7a71",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

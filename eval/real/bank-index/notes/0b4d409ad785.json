@@ -1,0 +1,98 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "clv-ml-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "clv-ml-v2"
+   ],
+   "lines": [
+    2,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "origination-cohorts-2022-2023",
+   "type": "segment",
+   "label": "origination cohorts",
+   "as": [
+    "2022 and 2023 origination cohorts"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2021h1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "2021 H1 holdout"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "clv-ml-v2",
+   "type": "measured-by",
+   "label": "MAPE on",
+   "o": "mape",
+   "quote": "MAPE on the 2022 and 2023 cohorts falls from 19.8% to 16.4%",
+   "line": 7
+  },
+  {
+   "s": "clv-ml-v2",
+   "type": "evaluated-on",
+   "label": "MAPE on the cohorts",
+   "o": "origination-cohorts-2022-2023",
+   "quote": "MAPE on the 2022 and 2023 cohorts falls from 19.8% to 16.4%",
+   "line": 7
+  },
+  {
+   "s": "clv-ml-v2",
+   "type": "evaluated-on",
+   "label": "holdout is",
+   "o": "holdout-2021h1",
+   "quote": "the 2021 H1 holdout is 15.6%",
+   "line": 7
+  },
+  {
+   "s": "clv-ml-v2",
+   "type": "trained-on",
+   "label": "training window extended to include",
+   "o": "origination-cohorts-2022-2023",
+   "quote": "training window extended to include 2022 and 2023 origination cohorts",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fnd-clv-cohort-drift",
+  "clv-ml-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "customer-lifetime-value/exp-507.md",
+ "sha": "0b4d409ad785319f840da7a9de8eeb741a1c6167ed2879644a277383fef635a1",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

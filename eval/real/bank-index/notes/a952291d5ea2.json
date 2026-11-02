@@ -1,0 +1,209 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cld-complaint-logit",
+   "type": "model",
+   "label": "logistic model",
+   "as": [
+    "cld-complaint-logit",
+    "logistic model for a complaint within 30 days of a decrease"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-cld-complaint-calls",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "ds-cld-complaint-calls"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "feat-cld-util-after-decrease",
+   "type": "feature",
+   "label": "utilisation",
+   "as": [
+    "post-decrease utilisation",
+    "feat-cld-util-after-decrease"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "feat-cld-complaint-flag",
+   "type": "feature",
+   "label": "complaint flag",
+   "as": [
+    "the complaint flag",
+    "feat-cld-complaint-flag"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "tenure",
+   "type": "feature",
+   "label": "input",
+   "as": [
+    "tenure"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cld-complaint-test-2026q1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "cld-complaint-test-2026q1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.68"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "precision-at-top-10",
+   "type": "metric",
+   "label": "precision at top 10%",
+   "as": [
+    "precision at top 10% of 0.22"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-207",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-207"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "notice-first-treatment",
+   "type": "term",
+   "label": "treatment",
+   "as": [
+    "notice-first treatment"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cld-complaint-logit",
+   "type": "uses",
+   "label": "regression on",
+   "o": "feat-cld-util-after-decrease",
+   "quote": "Logistic regression on post-decrease utilisation",
+   "line": 6
+  },
+  {
+   "s": "cld-complaint-logit",
+   "type": "uses",
+   "label": "regression on",
+   "o": "feat-cld-complaint-flag",
+   "quote": "Logistic regression on post-decrease utilisation, the complaint flag and tenure.",
+   "line": 6
+  },
+  {
+   "s": "cld-complaint-logit",
+   "type": "uses",
+   "label": "regression on",
+   "o": "tenure",
+   "quote": "the complaint flag and tenure",
+   "line": 6
+  },
+  {
+   "s": "cld-complaint-logit",
+   "type": "uses",
+   "label": "from",
+   "o": "ds-cld-complaint-calls",
+   "quote": "from: [ds-cld-complaint-calls",
+   "line": 2
+  },
+  {
+   "s": "cld-complaint-logit",
+   "type": "evaluated-on",
+   "label": "eval",
+   "o": "cld-complaint-test-2026q1",
+   "quote": "Eval: cld-complaint-test-2026q1",
+   "line": 7
+  },
+  {
+   "s": "cld-complaint-logit",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.68",
+   "line": 5
+  },
+  {
+   "s": "cld-complaint-logit",
+   "type": "measured-by",
+   "label": "precision at top 10%",
+   "o": "precision-at-top-10",
+   "quote": "precision at top 10% of 0.22",
+   "line": 7
+  },
+  {
+   "s": "cld-complaint-logit",
+   "type": "other",
+   "label": "used to rank decreases for",
+   "o": "exp-207",
+   "quote": "Used to rank decreases for the notice-first treatment in exp-207.",
+   "line": 8
+  },
+  {
+   "s": "exp-207",
+   "type": "other",
+   "label": "tests",
+   "o": "notice-first-treatment",
+   "quote": "Used to rank decreases for the notice-first treatment in exp-207.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-cld-complaint-calls",
+  "feat-cld-util-after-decrease",
+  "feat-cld-complaint-flag",
+  "exp-207"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "limit-decrease-policy/cld-complaint-logit.md",
+ "sha": "a952291d5ea2c4b8d718b6b5e12f6d3a4689741ee5d3f5a28829f1495baebb06",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

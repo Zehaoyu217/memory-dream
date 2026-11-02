@@ -1,0 +1,81 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "v8-feed",
+   "type": "dataset",
+   "label": "feed",
+   "as": [
+    "v8 feed",
+    "v8 pulls"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "v10-feed",
+   "type": "dataset",
+   "label": "feed",
+   "as": [
+    "v10 row"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "thin-file-gap",
+   "type": "term",
+   "label": "gap",
+   "as": [
+    "thin-file gap"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "approval-rate",
+   "type": "metric",
+   "label": "approval rate",
+   "as": [
+    "approval rate"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "v8-feed",
+   "type": "other",
+   "label": "fallback for",
+   "o": "v10-feed",
+   "quote": "Keeps v8 pulls for accounts with no v10 row",
+   "line": 6
+  },
+  {
+   "s": "v8-feed",
+   "type": "measured-by",
+   "label": "drops without",
+   "o": "approval-rate",
+   "quote": "Without the fallback approval rate on affected rows drops 1.2 points",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-307",
+  "find-bsm-thin-file-gap"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "bureau-score-migration/dec-bsm-keep-v8-fallback.md",
+ "sha": "2c895297c624e8fd77fe0c49f19d45f21a0bffb90d29e7f6f9228b1de426269f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

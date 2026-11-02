@@ -1,0 +1,155 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "mrisk-gbm-v2",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "mrisk-gbm-v2 adds MCC base rate",
+    "mrisk-gbm-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mrisk-gbm-v1",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "mrisk-gbm-v1"
+   ],
+   "lines": [
+    2,
+    3
+   ]
+  },
+  {
+   "id": "mrisk-gbm-v3",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "mrisk-gbm-v3"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "feat-mrisk-mcc-base",
+   "type": "feature",
+   "label": "mcc base rate",
+   "as": [
+    "feat-mrisk-mcc-base",
+    "MCC base rate"
+   ],
+   "lines": [
+    2,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "mrisk-oot-2026h1",
+   "type": "dataset",
+   "label": "evaluation set",
+   "as": [
+    "mrisk-oot-2026h1"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.86"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "precision-at-100",
+   "type": "metric",
+   "label": "precision@100",
+   "as": [
+    "precision@100 0.43"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mrisk-gbm-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "mrisk-gbm-v1",
+   "quote": "supersedes: [mrisk-gbm-v1]",
+   "line": 3
+  },
+  {
+   "s": "mrisk-gbm-v2",
+   "type": "uses",
+   "label": "adds features",
+   "o": "feat-mrisk-mcc-base",
+   "quote": "Adds feat-mrisk-mcc-base to the v1 features",
+   "line": 7
+  },
+  {
+   "s": "mrisk-gbm-v2",
+   "type": "evaluated-on",
+   "label": "eval on",
+   "o": "mrisk-oot-2026h1",
+   "quote": "Eval on mrisk-oot-2026h1: AUC 0.86, precision@100 0.43",
+   "line": 8
+  },
+  {
+   "s": "mrisk-gbm-v2",
+   "type": "measured-by",
+   "label": "has AUC",
+   "o": "auc",
+   "quote": "AUC 0.86, precision@100 0.43",
+   "line": 6
+  },
+  {
+   "s": "mrisk-gbm-v2",
+   "type": "measured-by",
+   "label": "has precision",
+   "o": "precision-at-100",
+   "quote": "precision@100 0.43 on mrisk-oot-2026h1",
+   "line": 6
+  },
+  {
+   "s": "mrisk-gbm-v3",
+   "type": "replaces",
+   "label": "superseded",
+   "o": "mrisk-gbm-v2",
+   "quote": "Superseded by mrisk-gbm-v3 on 2026-10-08.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "mrisk-gbm-v1",
+  "feat-mrisk-mcc-base",
+  "exp-504",
+  "exp-505",
+  "mrisk-gbm-v3"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "merchant-risk/mrisk-gbm-v2.md",
+ "sha": "96ad8371eb683294fb1b73574589577feea6f3c81f73dd422741a7de03b2ae21",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

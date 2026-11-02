@@ -1,0 +1,187 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cli-xgb-v2",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "cli-xgb-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cli-xgb-v1",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "cli-xgb-v1"
+   ],
+   "lines": [
+    2,
+    4
+   ]
+  },
+  {
+   "id": "feat-cli-util-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cli-util-v2"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "feat-cli-bureau-delta",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cli-bureau-delta"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "cli-oot-2026h1",
+   "type": "dataset",
+   "label": "out-of-time set",
+   "as": [
+    "cli-oot-2026h1"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.74"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.35"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "90-day-loss-prevalence",
+   "type": "metric",
+   "label": "loss prevalence",
+   "as": [
+    "90-day loss prevalence"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cli-xgb-v2",
+   "type": "uses",
+   "label": "adds",
+   "o": "feat-cli-util-v2",
+   "quote": "plus feat-cli-util-v2 and feat-cli-bureau-delta",
+   "line": 7
+  },
+  {
+   "s": "cli-xgb-v2",
+   "type": "uses",
+   "label": "adds",
+   "o": "feat-cli-bureau-delta",
+   "quote": "plus feat-cli-util-v2 and feat-cli-bureau-delta",
+   "line": 7
+  },
+  {
+   "s": "cli-xgb-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "cli-xgb-v1",
+   "quote": "supersedes: [cli-xgb-v1]",
+   "line": 4
+  },
+  {
+   "s": "cli-xgb-v2",
+   "type": "evaluated-on",
+   "label": "eval",
+   "o": "holdout-2025q4",
+   "quote": "Eval: holdout-2025q4, n=118,400",
+   "line": 8
+  },
+  {
+   "s": "cli-xgb-v2",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.74",
+   "line": 6
+  },
+  {
+   "s": "cli-xgb-v2",
+   "type": "measured-by",
+   "label": "KS",
+   "o": "ks",
+   "quote": "KS 0.35",
+   "line": 6
+  },
+  {
+   "s": "cli-xgb-v2",
+   "type": "measured-by",
+   "label": "90-day loss prevalence",
+   "o": "90-day-loss-prevalence",
+   "quote": "90-day loss prevalence 1.0%",
+   "line": 8
+  },
+  {
+   "s": "cli-xgb-v2",
+   "type": "evaluated-on",
+   "label": "out-of-time result on",
+   "o": "cli-oot-2026h1",
+   "quote": "Out-of-time result on cli-oot-2026h1 is in exp-106",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "exp-106"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/cli-xgb-v2.md",
+ "sha": "20793b0e758c2e7bc45d0a2710c182222cffd6b0f4d44dc3dae281b2fe5fd7b8",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

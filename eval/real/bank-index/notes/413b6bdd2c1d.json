@@ -1,0 +1,107 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "csb-oot-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Holdout csb-oot-2025q1",
+    "csb-oot-2025q1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "churn-small-business",
+   "type": "model",
+   "label": "churn model",
+   "as": [
+    "churn-small-business"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "tenure-floor-models",
+   "type": "model",
+   "label": "tenure-floor models",
+   "as": [
+    "tenure-floor models"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "csb-tenure-6m-subset",
+   "type": "segment",
+   "label": "subset",
+   "as": [
+    "7,930 have 6 or more months of tenure"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-201",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-201"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "csb-tenure-6m-subset",
+   "type": "part-of",
+   "label": "subset of",
+   "o": "csb-oot-2025q1",
+   "quote": "Of the 8,914 accounts, 7,930 have 6 or more months of tenure; that subset",
+   "line": 7
+  },
+  {
+   "s": "churn-small-business",
+   "type": "evaluated-on",
+   "label": "holdout for",
+   "o": "csb-oot-2025q1",
+   "quote": "Out-of-time holdout for churn-small-business",
+   "line": 6
+  },
+  {
+   "s": "tenure-floor-models",
+   "type": "evaluated-on",
+   "label": "scoring set for",
+   "o": "csb-tenure-6m-subset",
+   "quote": "that subset is the scoring set for the tenure-floor models",
+   "line": 7
+  },
+  {
+   "s": "csb-oot-2025q1",
+   "type": "other",
+   "label": "not tuned before",
+   "o": "exp-201",
+   "quote": "No feature or label choice was tuned on it before exp-201.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-csb-biz-accounts",
+  "ds-csb-churn-labels"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-small-business/ds-csb-oot-2025q1.md",
+ "sha": "413b6bdd2c1df2c58dbed1dd4103828d913dd8feb0eaaa314dfa797f05c70b2a",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

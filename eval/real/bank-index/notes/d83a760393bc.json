@@ -1,0 +1,128 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "early-stopping",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "Early stopping"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "boosted-tree-models",
+   "type": "model",
+   "label": "boosted-tree models",
+   "as": [
+    "Boosted-tree models"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "test-split",
+   "type": "dataset",
+   "label": "test split",
+   "as": [
+    "test split"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "fraud-model-2025",
+   "type": "model",
+   "label": "2025 fraud model",
+   "as": [
+    "2025 fraud model"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "test auc",
+   "as": [
+    "test AUC"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "deck",
+   "type": "document",
+   "label": "deck",
+   "as": [
+    "the deck"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "log-loss",
+   "type": "metric",
+   "label": "test log-loss",
+   "as": [
+    "test log-loss"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "boosted-tree-models",
+   "type": "uses",
+   "label": "stopped training on",
+   "o": "test-split",
+   "quote": "Boosted-tree models stopped training when test log-loss stopped improving, on the same test split",
+   "line": 5
+  },
+  {
+   "s": "deck",
+   "type": "uses",
+   "label": "reported on",
+   "o": "test-split",
+   "quote": "on the same test split that the deck reported",
+   "line": 5
+  },
+  {
+   "s": "fraud-model-2025",
+   "type": "measured-by",
+   "label": "test AUC optimistic",
+   "o": "auc",
+   "quote": "made test AUC optimistic by about 0.01 on the 2025 fraud model",
+   "line": 5
+  },
+  {
+   "s": "boosted-tree-models",
+   "type": "measured-by",
+   "label": "stopped on",
+   "o": "log-loss",
+   "quote": "stopped training when test log-loss stopped improving",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "howto/gbm-early-stopping-on-oot"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/gbm-early-stopping-on-test.md",
+ "sha": "d83a760393bce2a5421fdff16365c0e077b900d769f97ece4366e2b86ccd3201",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

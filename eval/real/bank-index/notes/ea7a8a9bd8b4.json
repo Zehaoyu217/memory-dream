@@ -1,0 +1,68 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ed-limit-change-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ed-limit-change-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.limits_history",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.limits_history"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "credit-data",
+   "type": "other",
+   "label": "data source",
+   "as": [
+    "credit-data"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ed-limit-change-v1",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cards.limits_history",
+   "quote": "Source: `cards.limits_history`",
+   "line": 7
+  },
+  {
+   "s": "cards.limits_history",
+   "type": "part-of",
+   "label": "from",
+   "o": "credit-data",
+   "quote": "`cards.limits_history` (credit-data)",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "q-ed-limit-feature-usable"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "early-delinquency/feat-ed-limit-change-v1.md",
+ "sha": "ea7a8a9bd8b4b3ad722f91b10f3da871f59cd3628820dce099baac6a091ac56e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

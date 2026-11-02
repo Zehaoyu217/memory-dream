@@ -1,0 +1,105 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "feat-cld-util-after-decrease",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cld-util-after-decrease"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-cld-risk-band-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cld-risk-band-v2"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "ds-cld-complaint-calls",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-cld-complaint-calls"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "cld-complaint-logit",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cld-complaint-logit"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-cld-payment-shock",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cld-payment-shock"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cld-util-after-decrease",
+   "type": "uses",
+   "label": "from",
+   "o": "feat-cld-risk-band-v2",
+   "quote": "from: [feat-cld-risk-band-v2, ds-cld-complaint-calls]",
+   "line": 2
+  },
+  {
+   "s": "feat-cld-util-after-decrease",
+   "type": "uses",
+   "label": "from",
+   "o": "ds-cld-complaint-calls",
+   "quote": "from: [feat-cld-risk-band-v2, ds-cld-complaint-calls]",
+   "line": 2
+  },
+  {
+   "s": "feat-cld-util-after-decrease",
+   "type": "uses",
+   "label": "feeds",
+   "o": "cld-complaint-logit",
+   "quote": "Feeds cld-complaint-logit and feat-cld-payment-shock.",
+   "line": 8
+  },
+  {
+   "s": "feat-cld-util-after-decrease",
+   "type": "uses",
+   "label": "feeds",
+   "o": "feat-cld-payment-shock",
+   "quote": "Feeds cld-complaint-logit and feat-cld-payment-shock.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "limit-decrease-policy/feat-cld-util-after-decrease.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "limit-decrease-policy/feat-cld-util-after-decrease.md",
+ "sha": "8f8cc3993c83229ef02102fd04e5f4fd911ae64d648bbf296267088382f4377b",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

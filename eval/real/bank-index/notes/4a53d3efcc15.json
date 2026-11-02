@@ -1,0 +1,101 @@
+{
+ "kind": "design",
+ "entities": [
+  {
+   "id": "ch-bandit-v1",
+   "type": "model",
+   "label": "allocator",
+   "as": [
+    "ch-bandit-v1",
+    "a Thompson-sampling allocator"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "thompson-sampling",
+   "type": "term",
+   "label": "allocation method",
+   "as": [
+    "Thompson-sampling"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ch-propensity-v2",
+   "type": "model",
+   "label": "scores",
+   "as": [
+    "ch-propensity-v2"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "exp-507",
+   "type": "other",
+   "label": "simulation",
+   "as": [
+    "exp-507"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "promise-to-pay",
+   "type": "metric",
+   "label": "simulated gain",
+   "as": [
+    "promise-to-pay"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ch-bandit-v1",
+   "type": "uses",
+   "label": "priors from",
+   "o": "ch-propensity-v2",
+   "quote": "Priors from ch-propensity-v2 scores.",
+   "line": 6
+  },
+  {
+   "s": "ch-bandit-v1",
+   "type": "other",
+   "label": "simulated in",
+   "o": "exp-507",
+   "quote": "Simulated gain +9% promise-to-pay at equal spend (exp-507).",
+   "line": 7
+  },
+  {
+   "s": "ch-bandit-v1",
+   "type": "measured-by",
+   "label": "simulated gain",
+   "o": "promise-to-pay",
+   "quote": "Simulated gain +9% promise-to-pay at equal spend",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-507",
+  "ch-propensity-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-channel-mix/ch-bandit-v1.md",
+ "sha": "4a53d3efcc15b3df5e044eb090a3085e7a4c947634711935bc2c374b6b3eed62",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

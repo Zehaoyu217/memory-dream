@@ -1,0 +1,217 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "cb-elasticity-v2",
+   "type": "model",
+   "label": "log-log model",
+   "as": [
+    "cb-elasticity-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cb-elasticity-v1",
+   "type": "model",
+   "label": "elasticity model",
+   "as": [
+    "cb-elasticity-v1",
+    "v1"
+   ],
+   "lines": [
+    2,
+    4,
+    9
+   ]
+  },
+  {
+   "id": "feat-cb-grocery-share",
+   "type": "feature",
+   "label": "grocery share",
+   "as": [
+    "grocery share"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-cb-spend-band-v2",
+   "type": "feature",
+   "label": "spend-band interactions",
+   "as": [
+    "spend-band interactions"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-204-band-split",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-204-band-split"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "elasticity",
+   "type": "metric",
+   "label": "elasticity",
+   "as": [
+    "Elasticity"
+   ],
+   "lines": [
+    2,
+    4,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "pilot-cells",
+   "type": "dataset",
+   "label": "pilot cells",
+   "as": [
+    "pilot cells"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "spend-under-1000",
+   "type": "segment",
+   "label": "spend band",
+   "as": [
+    "spend under $1,000"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "spend-1000-3000",
+   "type": "segment",
+   "label": "spend band",
+   "as": [
+    "$1,000-3,000"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "spend-above-3000",
+   "type": "segment",
+   "label": "spend band",
+   "as": [
+    "above $3,000"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "grocery-heavy-accounts",
+   "type": "segment",
+   "label": "grocery-heavy accounts",
+   "as": [
+    "Grocery-heavy accounts"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "tier-simulation",
+   "type": "scenario",
+   "label": "tier simulation",
+   "as": [
+    "tier simulation"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cb-elasticity-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "cb-elasticity-v1",
+   "quote": "supersedes: [cb-elasticity-v1]",
+   "line": 4
+  },
+  {
+   "s": "cb-elasticity-v2",
+   "type": "uses",
+   "label": "with spend-band interactions",
+   "o": "feat-cb-spend-band-v2",
+   "quote": "Log-log with spend-band interactions and grocery share",
+   "line": 7
+  },
+  {
+   "s": "cb-elasticity-v2",
+   "type": "uses",
+   "label": "and grocery share",
+   "o": "feat-cb-grocery-share",
+   "quote": "Log-log with spend-band interactions and grocery share",
+   "line": 7
+  },
+  {
+   "s": "cb-elasticity-v2",
+   "type": "trained-on",
+   "label": "fit on",
+   "o": "pilot-cells",
+   "quote": "fit on the pilot cells (n=54,000 accounts)",
+   "line": 7
+  },
+  {
+   "s": "cb-elasticity-v2",
+   "type": "measured-by",
+   "label": "gives",
+   "o": "elasticity",
+   "quote": "Elasticity is 0.31 below $1,000",
+   "line": 8
+  },
+  {
+   "s": "grocery-heavy-accounts",
+   "type": "measured-by",
+   "label": "run at",
+   "o": "elasticity",
+   "quote": "Grocery-heavy accounts run at 0.38 within band.",
+   "line": 8
+  },
+  {
+   "s": "tier-simulation",
+   "type": "uses",
+   "label": "should use",
+   "o": "cb-elasticity-v2",
+   "quote": "Use this, not v1, for any tier simulation.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "feat-cb-spend-band-v2",
+  "feat-cb-grocery-share",
+  "exp-204-band-split",
+  "cb-elasticity-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/cb-elasticity-v2.md",
+ "sha": "ae12dcb099fe6ef8d190fffa35a267bab422bfef8ee0971cac998d6c0defff62",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

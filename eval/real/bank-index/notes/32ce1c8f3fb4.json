@@ -1,0 +1,128 @@
+{
+ "kind": "design",
+ "entities": [
+  {
+   "id": "shap",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "SHAP"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "oot-accounts-sample",
+   "type": "segment",
+   "label": "stratified sample",
+   "as": [
+    "stratified sample of 5,000 OOT accounts",
+    "5,000-account sample"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "oot-set",
+   "type": "dataset",
+   "label": "full oot set",
+   "as": [
+    "full OOT set"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "score-decile-bands",
+   "type": "segment",
+   "label": "score decile bands",
+   "as": [
+    "score decile bands 1 to 5 and 6 to 10"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "scoring-box",
+   "type": "environment",
+   "label": "scoring box",
+   "as": [
+    "scoring box"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "retention-model-2026",
+   "type": "model",
+   "label": "2026 retention model",
+   "as": [
+    "2026 retention model"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "top-ten-feature-ranking",
+   "type": "other",
+   "label": "feature ranking",
+   "as": [
+    "top ten feature ranking"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "shap",
+   "type": "evaluated-on",
+   "label": "computed on",
+   "o": "oot-accounts-sample",
+   "quote": "Compute SHAP on 5,000 OOT accounts",
+   "line": 5
+  },
+  {
+   "s": "oot-accounts-sample",
+   "type": "other",
+   "label": "stratified across",
+   "o": "score-decile-bands",
+   "quote": "stratified 50/50 across score decile bands 1 to 5 and 6 to 10",
+   "line": 5
+  },
+  {
+   "s": "oot-set",
+   "type": "other",
+   "label": "takes about four hours on",
+   "o": "scoring-box",
+   "quote": "The full OOT set takes about four hours on the scoring box",
+   "line": 5
+  },
+  {
+   "s": "oot-accounts-sample",
+   "type": "other",
+   "label": "reproduces ranking of",
+   "o": "retention-model-2026",
+   "quote": "The 5,000-account sample reproduces the top ten feature ranking of the 2026 retention model",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/shap-sample-size.md",
+ "sha": "32ce1c8f3fb45111a13b129db1f06dc3de14ce512078428d3f3ca78c94be651c",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

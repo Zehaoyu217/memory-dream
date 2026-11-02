@@ -1,0 +1,128 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "ivr-path-tokens",
+   "type": "feature",
+   "label": "ivr path tokens",
+   "as": [
+    "IVR path tokens"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro f1",
+   "as": [
+    "macro F1"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "card-replacement-calls",
+   "type": "segment",
+   "label": "card replacement calls",
+   "as": [
+    "card replacement"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "dispute-calls",
+   "type": "segment",
+   "label": "dispute calls",
+   "as": [
+    "disputes",
+    "dispute calls"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "feat-cr-ivr-path-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cr-ivr-path-v1"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ivr-path-tokens",
+   "type": "measured-by",
+   "label": "adds",
+   "o": "macro-f1",
+   "quote": "IVR path tokens add +0.03 macro F1",
+   "line": 5
+  },
+  {
+   "s": "ivr-path-tokens",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "holdout-2025q4",
+   "quote": "+0.030 macro F1 on holdout-2025q4",
+   "line": 6
+  },
+  {
+   "s": "ivr-path-tokens",
+   "type": "other",
+   "label": "separates",
+   "o": "card-replacement-calls",
+   "quote": "mostly by separating card replacement from disputes",
+   "line": 5
+  },
+  {
+   "s": "card-replacement-calls",
+   "type": "other",
+   "label": "shares opening with",
+   "o": "dispute-calls",
+   "quote": "which share opening phrasing but diverge at menu level 2",
+   "line": 7
+  },
+  {
+   "s": "ivr-path-tokens",
+   "type": "other",
+   "label": "basis for",
+   "o": "feat-cr-ivr-path-v1",
+   "quote": "Basis for feat-cr-ivr-path-v1.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-103"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/fnd-cr-ivr-helps.md",
+ "sha": "68e2a422b6f6ce9472b2cfd6c05cc0fa51bcdf5e5f25f1ae5e2bb9da69bab7e7",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

@@ -1,0 +1,147 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-app-thin-file",
+   "type": "feature",
+   "label": "flag",
+   "as": [
+    "feat-app-thin-file",
+    "Flag"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "bureau-tradeline-count",
+   "type": "feature",
+   "label": "count",
+   "as": [
+    "bureau tradeline count"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "thin-file-applicants",
+   "type": "segment",
+   "label": "thin-file applicants",
+   "as": [
+    "Thin-file applicants"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-app-applications-2024",
+   "type": "dataset",
+   "label": "2024 applicants",
+   "as": [
+    "ds-app-applications-2024",
+    "2024 applicants"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "app-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "app-gbm-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "app-scorecard-v3",
+   "type": "model",
+   "label": "v3 score",
+   "as": [
+    "v3 score"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "rebuild",
+   "type": "other",
+   "label": "rebuild",
+   "as": [
+    "the rebuild"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-app-thin-file",
+   "type": "uses",
+   "label": "flag from",
+   "o": "bureau-tradeline-count",
+   "quote": "Flag from the bureau tradeline count",
+   "line": 6
+  },
+  {
+   "s": "feat-app-thin-file",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "ds-app-applications-2024",
+   "quote": "from: [ds-app-applications-2024]",
+   "line": 2
+  },
+  {
+   "s": "thin-file-applicants",
+   "type": "other",
+   "label": "flagged by",
+   "o": "feat-app-thin-file",
+   "quote": "fewer than 3 bureau tradelines at application",
+   "line": 5
+  },
+  {
+   "s": "app-scorecard-v3",
+   "type": "evaluated-on",
+   "label": "approved at",
+   "o": "thin-file-applicants",
+   "quote": "Thin-file applicants are approved at 19% against 33% for the rest on the v3 score",
+   "line": 7
+  },
+  {
+   "s": "app-gbm-v1",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-app-thin-file",
+   "quote": "Used in app-gbm-v1 and the rebuild.",
+   "line": 8
+  },
+  {
+   "s": "rebuild",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-app-thin-file",
+   "quote": "Used in app-gbm-v1 and the rebuild.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "find-app-thin-file-gap"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "application-scorecard/feat-app-thin-file.md",
+ "sha": "1c21b8274f3f68e0250d4a2bf65919aee2a9437a82a3aad2aa399e921938c0ee",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

@@ -1,0 +1,135 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cu-contact-hist-v2",
+   "type": "feature",
+   "label": "contact-history feature",
+   "as": [
+    "feat-cu-contact-hist-v2",
+    "Version 2 of the contact-history feature"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "ds-cu-call-outcomes",
+   "type": "team",
+   "label": "from",
+   "as": [
+    "ds-cu-call-outcomes"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "`callcenter.calls`"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "sms-delivery-log",
+   "type": "dataset",
+   "label": "sms delivery log",
+   "as": [
+    "the SMS delivery log"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cu-resp-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cu-resp-v1"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cu-contact-hist-v2",
+   "type": "uses",
+   "label": "source",
+   "o": "callcenter.calls",
+   "quote": "Source: `callcenter.calls` plus the SMS delivery log.",
+   "line": 8
+  },
+  {
+   "s": "feat-cu-contact-hist-v2",
+   "type": "uses",
+   "label": "source",
+   "o": "sms-delivery-log",
+   "quote": "Source: `callcenter.calls` plus the SMS delivery log.",
+   "line": 8
+  },
+  {
+   "s": "feat-cu-contact-hist-v2",
+   "type": "other",
+   "label": "adds AUC to",
+   "o": "cu-resp-v1",
+   "quote": "Adds +0.012 AUC to cu-resp-v1 on holdout-2025q1 (n=24,860).",
+   "line": 9
+  },
+  {
+   "s": "feat-cu-contact-hist-v2",
+   "type": "evaluated-on",
+   "label": "adds AUC on",
+   "o": "holdout-2025q1",
+   "quote": "Adds +0.012 AUC to cu-resp-v1 on holdout-2025q1 (n=24,860).",
+   "line": 9
+  },
+  {
+   "s": "feat-cu-contact-hist-v2",
+   "type": "other",
+   "label": "from",
+   "o": "ds-cu-call-outcomes",
+   "quote": "from: [ds-cu-call-outcomes]",
+   "line": 2
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-uplift/feat-cu-contact-hist-v2.md",
+ "sha": "0b8b5c52d075334f921b856d60b2985d6b9fc4157c0104a8df8cf9fc6cda0383",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,141 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ror-churn-score",
+   "type": "feature",
+   "label": "churn score",
+   "as": [
+    "feat-ror-churn-score",
+    "60-day churn score"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "churn-gbm-2025-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "churn-gbm-2025-v2"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "churn-2025",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "churn-2025 project",
+    "churn-2025"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "ror-uplift-v1",
+   "type": "model",
+   "label": "uplift model",
+   "as": [
+    "ror-uplift-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "october-2025-snapshot",
+   "type": "dataset",
+   "label": "snapshot",
+   "as": [
+    "October 2025 snapshot"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "deciles",
+   "type": "term",
+   "label": "deciles",
+   "as": [
+    "Deciles"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "tier-matrix",
+   "type": "term",
+   "label": "tier matrix",
+   "as": [
+    "tier matrix"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ror-churn-score",
+   "type": "uses",
+   "label": "scores from",
+   "o": "churn-gbm-2025-v2",
+   "quote": "Scores from the churn-2025 project's churn-gbm-2025-v2",
+   "line": 6
+  },
+  {
+   "s": "churn-gbm-2025-v2",
+   "type": "part-of",
+   "label": "project's",
+   "o": "churn-2025",
+   "quote": "from the churn-2025 project's churn-gbm-2025-v2",
+   "line": 6
+  },
+  {
+   "s": "churn-gbm-2025-v2",
+   "type": "uses",
+   "label": "run on",
+   "o": "october-2025-snapshot",
+   "quote": "run on the October 2025 snapshot",
+   "line": 6
+  },
+  {
+   "s": "deciles",
+   "type": "other",
+   "label": "give rows of",
+   "o": "tier-matrix",
+   "quote": "Deciles give the rows of the tier matrix.",
+   "line": 7
+  },
+  {
+   "s": "ror-uplift-v1",
+   "type": "uses",
+   "label": "main input",
+   "o": "feat-ror-churn-score",
+   "quote": "Used as the main input to ror-uplift-v1.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "churn-2025/churn-gbm-2025-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "retention-offers-roi/feat-ror-churn-score.md",
+ "sha": "bb0ec5dfa1c6949af4a79c33116a9eb6a936f26108bb5acafa043ef7e3d661f6",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

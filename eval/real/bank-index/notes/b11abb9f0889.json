@@ -1,0 +1,94 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "ds-rs-recovery-labels",
+   "type": "document",
+   "label": "recovery label note",
+   "as": [
+    "Recovery label: recovered share of balance within 12 months, from the collections.cases recoveries ledger"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "collections.cases",
+   "type": "dataset",
+   "label": "recoveries ledger",
+   "as": [
+    "the `collections.cases` recoveries ledger",
+    "from the collections.cases recoveries ledger"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "recovered-share",
+   "type": "metric",
+   "label": "recovered share",
+   "as": [
+    "recovered share of balance within 12 months",
+    "Mean recovered share across the 2023 vintages: 9.8% of balance."
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "ds-rs-agency-placements",
+   "type": "dataset",
+   "label": "agency placements table",
+   "as": [
+    "agency performance needs a separate table (ds-rs-agency-placements)"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "bad-rate",
+   "type": "metric",
+   "label": "base rate",
+   "as": [
+    "base rate 31%"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-rs-recovery-labels",
+   "type": "uses",
+   "label": "summed from",
+   "o": "collections.cases",
+   "quote": "Recoveries are summed from the `collections.cases` recoveries ledger over 12 months after charge-off",
+   "line": 6
+  },
+  {
+   "s": "recovered-share",
+   "type": "measured-in",
+   "label": "as share of",
+   "o": "bad-rate",
+   "quote": "as a share of balance at charge-off",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-rs-chargeoff-base",
+  "ds-rs-agency-placements"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "recovery-scoring/ds-rs-recovery-labels.md",
+ "sha": "b11abb9f088997fb80cc94b57c1ffeea14b7a5062bfafaecb64100afe5197f53",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,182 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "fraud26-oot-2026h1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "fraud26-oot-2026h1"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "v3-candidate",
+   "type": "model",
+   "label": "v3 candidate",
+   "as": [
+    "v3 candidate"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fraud-model-v2",
+   "type": "model",
+   "label": "v2",
+   "as": [
+    "v2 on the same holdout for reference"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.933",
+    "AUC 0.927"
+   ],
+   "lines": [
+    5,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.72",
+    "KS 0.70"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "recall-at-1pct",
+   "type": "metric",
+   "label": "recall@1%",
+   "as": [
+    "recall@1% 0.61",
+    "recall@1% 0.58"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "geo-mismatch",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "geo-mismatch"
+   ],
+   "lines": [
+    2,
+    5
+   ]
+  },
+  {
+   "id": "amt-zscore",
+   "type": "feature",
+   "label": "amount z-score",
+   "as": [
+    "amount z-score"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "v3-candidate",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "v3 candidate: AUC 0.933",
+   "line": 7
+  },
+  {
+   "s": "v3-candidate",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "ks",
+   "quote": "KS 0.72",
+   "line": 7
+  },
+  {
+   "s": "v3-candidate",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "recall-at-1pct",
+   "quote": "recall@1% 0.61",
+   "line": 7
+  },
+  {
+   "s": "fraud-model-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.927",
+   "line": 8
+  },
+  {
+   "s": "v3-candidate",
+   "type": "evaluated-on",
+   "label": "gives AUC on",
+   "o": "fraud26-oot-2026h1",
+   "quote": "gives AUC 0.933 on fraud26-oot-2026h1",
+   "line": 5
+  },
+  {
+   "s": "fraud-model-v2",
+   "type": "evaluated-on",
+   "label": "same holdout",
+   "o": "fraud26-oot-2026h1",
+   "quote": "v2 on the same holdout for reference",
+   "line": 8
+  },
+  {
+   "s": "v3-candidate",
+   "type": "uses",
+   "label": "adding",
+   "o": "geo-mismatch",
+   "quote": "adding geo-mismatch and amount z-score",
+   "line": 5
+  },
+  {
+   "s": "v3-candidate",
+   "type": "uses",
+   "label": "adding",
+   "o": "amt-zscore",
+   "quote": "adding geo-mismatch and amount z-score",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-206",
+  "feat-f26-geo-mismatch",
+  "feat-f26-amt-zscore",
+  "ds-f26-oot-2026h1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2026/exp-207.md",
+ "sha": "abb68b33c38de14a9220a463590fddb68df860f99eb143769efd1ee3fcc06e6d",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

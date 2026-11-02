@@ -1,0 +1,156 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-106",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-106"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fsm-spend-lgbm-v1",
+   "type": "model",
+   "label": "spend model",
+   "as": [
+    "fsm-spend-lgbm-v1"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "fsm-spend-lgbm-v2",
+   "type": "model",
+   "label": "retrained model",
+   "as": [
+    "fsm-spend-lgbm-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-fsm-spend-cv-30d",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-fsm-spend-cv-30d"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "feature-store",
+   "type": "tool",
+   "label": "store features",
+   "as": [
+    "store features"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "fsm-oot-2025q2",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "fsm-oot-2025q2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "low-spend-accounts",
+   "type": "segment",
+   "label": "low-spend accounts",
+   "as": [
+    "low-spend accounts"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-106",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "fsm-oot-2025q2",
+   "quote": "MAPE on fsm-oot-2025q2 (n=96,000 accounts)",
+   "line": 7
+  },
+  {
+   "s": "exp-106",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "mape",
+   "quote": "cuts MAPE from 16.2 to 14.9 percent",
+   "line": 5
+  },
+  {
+   "s": "fsm-spend-lgbm-v2",
+   "type": "uses",
+   "label": "includes",
+   "o": "feat-fsm-spend-cv-30d",
+   "quote": "23 features, including feat-fsm-spend-cv-30d",
+   "line": 6
+  },
+  {
+   "s": "fsm-spend-lgbm-v2",
+   "type": "uses",
+   "label": "trained on",
+   "o": "feature-store",
+   "quote": "Retrained the spend model on store features",
+   "line": 6
+  },
+  {
+   "s": "fsm-spend-lgbm-v2",
+   "type": "replaces",
+   "label": "retrained from",
+   "o": "fsm-spend-lgbm-v1",
+   "quote": "against 16.2 percent for fsm-spend-lgbm-v1",
+   "line": 7
+  },
+  {
+   "s": "exp-106",
+   "type": "produces",
+   "label": "promoted as",
+   "o": "fsm-spend-lgbm-v2",
+   "quote": "Retrained model promoted as fsm-spend-lgbm-v2 on 2026-03-16",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "feature-store-migration/exp-106.md",
+ "sha": "d1e4d4eaf378d96569ddd1570825bea1df524dc71f87ec8b6d6d8c05ef892e21",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

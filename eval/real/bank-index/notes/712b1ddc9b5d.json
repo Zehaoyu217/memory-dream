@@ -1,0 +1,125 @@
+{
+ "kind": "risk",
+ "entities": [
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "0.81 AUC"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "velocity-features",
+   "type": "feature",
+   "label": "velocity features",
+   "as": [
+    "velocity features"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "observation-date",
+   "type": "term",
+   "label": "observation date",
+   "as": [
+    "observation date"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "label-window",
+   "type": "term",
+   "label": "label window",
+   "as": [
+    "label window"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "post-period-days",
+   "type": "term",
+   "label": "post-period days",
+   "as": [
+    "post-period days"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "leakage",
+   "type": "term",
+   "label": "leakage",
+   "as": [
+    "leakage"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "velocity-features",
+   "type": "uses",
+   "label": "use a window around",
+   "o": "observation-date",
+   "quote": "The velocity features use a window \"around\" the observation date",
+   "line": 6
+  },
+  {
+   "s": "velocity-features",
+   "type": "other",
+   "label": "may include",
+   "o": "post-period-days",
+   "quote": "it may include days after it, inside the label window",
+   "line": 7
+  },
+  {
+   "s": "post-period-days",
+   "type": "part-of",
+   "label": "inside",
+   "o": "label-window",
+   "quote": "inside the label window",
+   "line": 7
+  },
+  {
+   "s": "velocity-features",
+   "type": "other",
+   "label": "drives AUC jump",
+   "o": "auc",
+   "quote": "A 0.10 AUC jump from one feature group is too good",
+   "line": 6
+  },
+  {
+   "s": "auc",
+   "type": "other",
+   "label": "suspected leakage behind",
+   "o": "leakage",
+   "quote": "Suspect leakage behind the 0.81 AUC",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-014",
+  "exp-017"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2026/leak-hypothesis.md",
+ "sha": "712b1ddc9b5d26d3e4ae3a1194d77687a4e9c6d46181064998ff0667900c145e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

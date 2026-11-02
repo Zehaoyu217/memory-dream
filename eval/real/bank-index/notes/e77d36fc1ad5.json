@@ -1,0 +1,152 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-407",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-407"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-406",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-406"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "ror-roi-v2",
+   "type": "model",
+   "label": "candidate model",
+   "as": [
+    "ror-roi-v2",
+    "ROI model v2 candidate"
+   ],
+   "lines": [
+    5,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "ror-roi-v1",
+   "type": "model",
+   "label": "roi model",
+   "as": [
+    "ror-roi-v1"
+   ],
+   "lines": [
+    2,
+    5
+   ]
+  },
+  {
+   "id": "ror-uplift-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ror-uplift-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-ror-value-band-v2",
+   "type": "feature",
+   "label": "value band v2",
+   "as": [
+    "feat-ror-value-band-v2",
+    "value band v2"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "realised-roi",
+   "type": "metric",
+   "label": "realised roi",
+   "as": [
+    "realised ROI"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ror-roi-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-ror-value-band-v2",
+   "quote": "Candidate ror-roi-v2 uses value band v2 and ror-uplift-v1.",
+   "line": 6
+  },
+  {
+   "s": "ror-roi-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "ror-uplift-v1",
+   "quote": "Candidate ror-roi-v2 uses value band v2 and ror-uplift-v1.",
+   "line": 6
+  },
+  {
+   "s": "ror-roi-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "realised-roi",
+   "quote": "Realised ROI on the Q1 2026 wave with a 10% control: v2 1.63x, v1 1.52x.",
+   "line": 7
+  },
+  {
+   "s": "ror-roi-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "realised-roi",
+   "quote": "Realised ROI on the Q1 2026 wave with a 10% control: v2 1.63x, v1 1.52x.",
+   "line": 7
+  },
+  {
+   "s": "exp-407",
+   "type": "other",
+   "label": "basis for",
+   "o": "ror-roi-v2",
+   "quote": "Basis for ror-roi-v2.",
+   "line": 8
+  },
+  {
+   "s": "exp-407",
+   "type": "other",
+   "label": "from",
+   "o": "exp-406",
+   "quote": "from: [ror-roi-v1, feat-ror-value-band-v2, exp-406]",
+   "line": 2
+  }
+ ],
+ "refs": [
+  "exp-406",
+  "ror-roi-v1",
+  "feat-ror-value-band-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "retention-offers-roi/exp-407.md",
+ "sha": "e77d36fc1ad5a862e2950ecc2891d4535ea6059e1a95d55802e65356214233e4",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,107 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "fraud26-gbm-v1",
+   "type": "model",
+   "label": "lightgbm model",
+   "as": [
+    "fraud26-gbm-v1",
+    "LightGBM on the 2025 velocity feature plus device age"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "fraud25-gbm-v2",
+   "type": "model",
+   "label": "fraud-2025 champion",
+   "as": [
+    "fraud-2025 champion",
+    "fraud25-gbm-v2"
+   ],
+   "lines": [
+    2,
+    3,
+    6
+   ]
+  },
+  {
+   "id": "fraud26-gbm-v2",
+   "type": "model",
+   "label": "successor model",
+   "as": [
+    "fraud26-gbm-v2"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "cnp-transactions",
+   "type": "segment",
+   "label": "cnp transactions",
+   "as": [
+    "2025-07 to 2025-12 CNP transactions"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fraud26-find-label-bias",
+   "type": "finding",
+   "label": "label bias finding",
+   "as": [
+    "the flaw in fraud26-find-label-bias"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud26-gbm-v1",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "fraud25-gbm-v2",
+   "quote": "supersedes: [fraud-2025/fraud25-gbm-v2]",
+   "line": 3
+  },
+  {
+   "s": "fraud26-gbm-v1",
+   "type": "trained-on",
+   "label": "trained on",
+   "o": "cnp-transactions",
+   "quote": "trained on 2025-07 to 2025-12 CNP transactions",
+   "line": 7
+  },
+  {
+   "s": "fraud26-gbm-v1",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "fraud26-gbm-v2",
+   "quote": "Superseded by fraud26-gbm-v2 on 2026-05-27",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "fraud-2025/fraud25-gbm-v2",
+  "fraud-2025/feat-f25-velocity-v1",
+  "feat-f26-device-age",
+  "ds-f26-labels-2026",
+  "fraud26-find-label-bias",
+  "fraud26-gbm-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2026/fraud26-gbm-v1.md",
+ "sha": "a52e3cb729332fd06e92b21aa6b7c3d1dc678be2825dc06c001b01a8c353986f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

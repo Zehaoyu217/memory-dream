@@ -1,0 +1,118 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "crm.contacts",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "crm.contacts"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "email-opt-in",
+   "type": "feature",
+   "label": "consent flag",
+   "as": [
+    "email_opt_in"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "sms-opt-in",
+   "type": "feature",
+   "label": "consent flag",
+   "as": [
+    "sms_opt_in"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dormant-pool",
+   "type": "segment",
+   "label": "pool",
+   "as": [
+    "dormant pool"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "push-capable",
+   "type": "term",
+   "label": "channel criterion",
+   "as": [
+    "Push-capable"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "channel-split",
+   "type": "term",
+   "label": "channel split",
+   "as": [
+    "channel split"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "channel-availability",
+   "type": "term",
+   "label": "input",
+   "as": [
+    "Channel availability"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "email-opt-in",
+   "type": "part-of",
+   "label": "in",
+   "o": "crm.contacts",
+   "quote": "email_opt_in and sms_opt_in in `crm.contacts`",
+   "line": 6
+  },
+  {
+   "s": "sms-opt-in",
+   "type": "part-of",
+   "label": "in",
+   "o": "crm.contacts",
+   "quote": "email_opt_in and sms_opt_in in `crm.contacts`",
+   "line": 6
+  },
+  {
+   "s": "channel-split",
+   "type": "uses",
+   "label": "takes input",
+   "o": "channel-availability",
+   "quote": "Channel availability is the input to the channel split in the waves.",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reactivation-dormant/ds-rdm-contact-channels.md",
+ "sha": "db05945b9b8c7d2a756d0d3d0fd4175e4cab85ce1483a670aa817eb6a35636ab",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

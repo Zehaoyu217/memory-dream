@@ -1,0 +1,86 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "app.push_log",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "app.push_log"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "digital-analytics",
+   "type": "team",
+   "label": "owner",
+   "as": [
+    "digital-analytics"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "randomised-holdouts",
+   "type": "segment",
+   "label": "holdouts",
+   "as": [
+    "Randomised holdouts"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "open-rate",
+   "type": "metric",
+   "label": "open rate",
+   "as": [
+    "Open rate"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "app.push_log",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "digital-analytics",
+   "quote": "Owner digital-analytics.",
+   "line": 6
+  },
+  {
+   "s": "app.push_log",
+   "type": "measured-by",
+   "label": "open rate",
+   "o": "open-rate",
+   "quote": "Open rate 19 percent.",
+   "line": 7
+  },
+  {
+   "s": "randomised-holdouts",
+   "type": "other",
+   "label": "appear in",
+   "o": "app.push_log",
+   "quote": "Randomised holdouts appear in campaign_id with the suffix _HO.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-ae-sessions-daily"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "app-engagement/ds-ae-push-log.md",
+ "sha": "344000c3e4d0d25db5f3da43de7673dc1b6f677467f18b28f98f5a5aded82cec",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

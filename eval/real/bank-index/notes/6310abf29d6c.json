@@ -1,0 +1,68 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-rs-contact-attempts",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rs-contact-attempts counts in-house contact attempts in the 60 days before placement, from callcenter.calls"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "`callcenter.calls`"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "sms-delivery-log",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "the SMS delivery log"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-rs-contact-attempts",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "callcenter.calls",
+   "quote": "Source: `callcenter.calls` and the SMS delivery log.",
+   "line": 7
+  },
+  {
+   "s": "feat-rs-contact-attempts",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "sms-delivery-log",
+   "quote": "Source: `callcenter.calls` and the SMS delivery log.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-rs-chargeoff-base"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "recovery-scoring/feat-rs-contact-attempts.md",
+ "sha": "6310abf29d6ccd705851bcfb2ddfa73b71317c2889b115e4cd9a123c44dd118a",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

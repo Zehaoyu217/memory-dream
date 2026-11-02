@@ -1,0 +1,117 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "mq3-response-gbm-v1",
+   "type": "model",
+   "label": "response model",
+   "as": [
+    "response model",
+    "The response model stays as a reporting metric."
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "mq3-uplift-xl-v2",
+   "type": "model",
+   "label": "x-learner build",
+   "as": [
+    "the X-learner build follows (dec-mq3-ship-xl)"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "chloe-martin",
+   "type": "person",
+   "label": "signed off",
+   "as": [
+    "Chloe Martin signed off"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-301",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-301",
+    "exp-301-response-only"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "exp-302",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-302",
+    "exp-302-tlearner"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "incremental-spend-per-contact",
+   "type": "metric",
+   "label": "incremental spend",
+   "as": [
+    "$0.90 incremental per contact"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "chloe-martin",
+   "type": "owned-by",
+   "label": "signed off",
+   "o": "mq3-uplift-xl-v2",
+   "quote": "Chloe Martin signed off; the X-learner build follows (dec-mq3-ship-xl).",
+   "line": 7
+  },
+  {
+   "s": "exp-301",
+   "type": "measured-by",
+   "label": "measured",
+   "o": "incremental-spend-per-contact",
+   "quote": "Response-only top 20% gives $0.90 incremental per contact; uplift top 20% gives $2.40 (exp-301, exp-302).",
+   "line": 6
+  },
+  {
+   "s": "exp-302",
+   "type": "measured-by",
+   "label": "measured",
+   "o": "incremental-spend-per-contact",
+   "quote": "uplift top 20% gives $2.40 (exp-301, exp-302).",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "marketing-uplift-q3/dec-mq3-target-uplift.md",
+  "find-mq3-response-trap",
+  "exp-301-response-only",
+  "exp-302-tlearner",
+  "dec-mq3-ship-xl"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "marketing-uplift-q3/dec-mq3-target-uplift.md",
+ "sha": "89d3f8b8bbcb0b053ede01b6a10b53654295f1f058a9178300cad09fc8397076",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,100 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "feat-sfc-util-v1",
+   "type": "feature",
+   "label": "utilisation feature",
+   "as": [
+    "feat-sfc-util-v1"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "sfc-lgbm-v2",
+   "type": "model",
+   "label": "rewards segment model",
+   "as": [
+    "the Rewards segment model"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "rewards-segment",
+   "type": "segment",
+   "label": "rewards segment",
+   "as": [
+    "Rewards segment"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "sfc-bt-2024",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "sfc-bt-2024"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "1-month MAPE",
+    "total MAPE"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "sfc-lgbm-v2",
+   "type": "uses",
+   "label": "adds to",
+   "o": "feat-sfc-util-v1",
+   "quote": "Adds feat-sfc-util-v1 to the Rewards segment model only",
+   "line": 6
+  },
+  {
+   "s": "rewards-segment",
+   "type": "measured-by",
+   "label": "MAPE moves",
+   "o": "mape",
+   "quote": "Rewards 1-month MAPE 8.2% to 6.9%",
+   "line": 7
+  },
+  {
+   "s": "rewards-segment",
+   "type": "evaluated-on",
+   "label": "in the test",
+   "o": "sfc-bt-2024",
+   "quote": "Adds feat-sfc-util-v1 to the Rewards segment model only, sfc-bt-2024.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "feat-sfc-util-v1",
+  "sfc-lgbm-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "spend-forecasting/exp-205.md",
+ "sha": "90e1a0d8d6c5a19563f6db1e6d2ed1b8408f5e27147ab09287c18883f9f22166",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

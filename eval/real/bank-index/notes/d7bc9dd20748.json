@@ -1,0 +1,100 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-101-bureau-logit",
+   "type": "other",
+   "label": "experiment note",
+   "as": [
+    "exp-101: bureau-only logistic gets AUC 0.58; adding utilization and tenure reaches 0.63"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bt-logit-baseline",
+   "type": "model",
+   "label": "logistic model",
+   "as": [
+    "Ran bt-logit-baseline with bureau score alone (AUC 0.58)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bt-holdout-2025q1",
+   "type": "dataset",
+   "label": "eval holdout",
+   "as": [
+    "Eval: bt-holdout-2025q1, n=41,800, acceptance 3.9%."
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.58",
+    "AUC 0.63"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "utilization",
+   "type": "feature",
+   "label": "utilization feature",
+   "as": [
+    "utilization adds about 0.05 AUC"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bt-logit-baseline",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "bt-holdout-2025q1",
+   "quote": "Eval: bt-holdout-2025q1, n=41,800, acceptance 3.9%.",
+   "line": 7
+  },
+  {
+   "s": "bt-logit-baseline",
+   "type": "measured-by",
+   "label": "reports AUC",
+   "o": "auc",
+   "quote": "bureau score alone (AUC 0.58)",
+   "line": 6
+  },
+  {
+   "s": "utilization",
+   "type": "measured-by",
+   "label": "adds AUC",
+   "o": "auc",
+   "quote": "utilization adds about 0.05 AUC",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "bt-logit-baseline",
+  "ds-bt-holdout-2025q1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "balance-transfer-propensity/exp-101-bureau-logit.md",
+ "sha": "d7bc9dd207487419920ed81bd848a8a7cf291cdebb3147539a7f1a14e6dbadf4",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

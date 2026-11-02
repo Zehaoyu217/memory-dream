@@ -1,0 +1,126 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "rdm-uplift-v1",
+   "type": "model",
+   "label": "t-learner model",
+   "as": [
+    "rdm-uplift-v1"
+   ],
+   "lines": [
+    2,
+    5
+   ]
+  },
+  {
+   "id": "feat-rdm-last-activity-v2",
+   "type": "feature",
+   "label": "last-activity feature",
+   "as": [
+    "feat-rdm-last-activity-v2"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "t-learner",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "T-learner"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "rdm-oot-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "rdm-oot-2025q1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift@20%",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "qini",
+   "type": "metric",
+   "label": "qini",
+   "as": [
+    "Qini"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rdm-uplift-v1",
+   "type": "uses",
+   "label": "in place of",
+   "o": "feat-rdm-last-activity-v2",
+   "quote": "feat-rdm-last-activity-v2 in place of v1",
+   "line": 6
+  },
+  {
+   "s": "rdm-uplift-v1",
+   "type": "uses",
+   "label": "same T-learner",
+   "o": "t-learner",
+   "quote": "Same T-learner",
+   "line": 6
+  },
+  {
+   "s": "rdm-uplift-v1",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "rdm-oot-2025q1",
+   "quote": "Holdout rdm-oot-2025q1: uplift@20% 3.0pp",
+   "line": 7
+  },
+  {
+   "s": "rdm-uplift-v1",
+   "type": "measured-by",
+   "label": "uplift@20% 3.0pp",
+   "o": "uplift-at-20",
+   "quote": "uplift@20% 3.0pp (from 2.8pp)",
+   "line": 7
+  },
+  {
+   "s": "rdm-uplift-v1",
+   "type": "measured-by",
+   "label": "Qini 0.44",
+   "o": "qini",
+   "quote": "Qini 0.44",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-rdm-activity-v2-lift"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reactivation-dormant/exp-305.md",
+ "sha": "12ca2b162e0c55d4daa58ccbda4b717248651fa79f870d5b2ab5efae91f38f39",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

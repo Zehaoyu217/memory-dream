@@ -1,0 +1,82 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "acq-watchlist-2026",
+   "type": "dataset",
+   "label": "watchlist",
+   "as": [
+    "Acquirer watchlist 2026",
+    "List of merchants flagged by acquiring ops"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "acquiring-ops",
+   "type": "team",
+   "label": "flagging team",
+   "as": [
+    "acquiring ops"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "ds-mrisk-merchants",
+   "type": "team",
+   "label": "source team",
+   "as": [
+    "ds-mrisk-merchants"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "high-risk-merchant",
+   "type": "term",
+   "label": "high-risk",
+   "as": [
+    "confirmed high-risk within 90 days"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "acq-watchlist-2026",
+   "type": "other",
+   "label": "flagged by",
+   "o": "acquiring-ops",
+   "quote": "List of merchants flagged by acquiring ops",
+   "line": 6
+  },
+  {
+   "s": "acq-watchlist-2026",
+   "type": "other",
+   "label": "used as recall reference",
+   "o": "high-risk-merchant",
+   "quote": "used only in exp-506 and exp-508 as a recall reference",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-506",
+  "exp-508"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "merchant-risk/ds-mrisk-acq-watchlist.md",
+ "sha": "f546524b9cbb9df9aa2102518fcda6f907dd4da00adead38ba6bef9af91d2ce9",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

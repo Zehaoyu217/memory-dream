@@ -1,0 +1,107 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "early-delinquency-holdout-2024q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "early-delinquency-holdout-2024q4"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ed-gbm-v1",
+   "type": "model",
+   "label": "gbm",
+   "as": [
+    "ed-gbm-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-ed-minpay-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ed-minpay-v2"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "limit-change-feature",
+   "type": "feature",
+   "label": "limit-change feature",
+   "as": [
+    "limit-change feature"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ed-gbm-v1",
+   "type": "uses",
+   "label": "added to",
+   "o": "feat-ed-minpay-v2",
+   "quote": "when feat-ed-minpay-v2 is added to ed-gbm-v1",
+   "line": 6
+  },
+  {
+   "s": "ed-gbm-v1",
+   "type": "evaluated-on",
+   "label": "tested on",
+   "o": "early-delinquency-holdout-2024q4",
+   "quote": "exp-205 on early-delinquency-holdout-2024q4",
+   "line": 6
+  },
+  {
+   "s": "ed-gbm-v1",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.781 to 0.803",
+   "line": 6
+  },
+  {
+   "s": "feat-ed-minpay-v2",
+   "type": "replaces",
+   "label": "replacement for",
+   "o": "limit-change-feature",
+   "quote": "Recommended as the replacement for the limit-change feature",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-205"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "early-delinquency/find-ed-minpay.md",
+ "sha": "6fe0dfe02bac6b55a0ca2db488a69b8324fd42e8233c79f768fe53d3b1c1f82f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,80 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "oot-split-by-observation-date",
+   "type": "term",
+   "label": "oot split method",
+   "as": [
+    "Split on observation date, with a six-month gap and a three-month OOT tail",
+    "The OOT set is the last three observation months"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "random-holdout-split",
+   "type": "term",
+   "label": "random split",
+   "as": [
+    "the random split not allowed in review"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "alex-chen",
+   "type": "person",
+   "label": "reviewer",
+   "as": [
+    "Alex Chen made the random split not allowed in review on 2025-06-03."
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "account-id",
+   "type": "term",
+   "label": "account",
+   "as": [
+    "Split on `observation_date`, never on account, so each account lands in one period only."
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "oot-split-by-observation-date",
+   "type": "other",
+   "label": "replaces random split",
+   "o": "random-holdout-split",
+   "quote": "supersedes: [howto/split-random-holdout]",
+   "line": 3
+  },
+  {
+   "s": "random-holdout-split",
+   "type": "owned-by",
+   "label": "rejected by",
+   "o": "alex-chen",
+   "quote": "Alex Chen made the random split not allowed in review on 2025-06-03.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "howto/split-random-holdout"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/oot-split-by-observation-date.md",
+ "sha": "49026cbf374aef045e34737befa94984d2c23ee0ea38a462afd493614c49ce47",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

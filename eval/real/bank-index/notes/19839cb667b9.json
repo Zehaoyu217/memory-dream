@@ -1,0 +1,111 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "churn-lr-base-2025",
+   "type": "model",
+   "label": "logistic baseline",
+   "as": [
+    "churn-lr-base-2025",
+    "logistic baseline"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "c25-oot-2024h1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Holdout c25-oot-2024h1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.693"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.27"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "brier",
+   "type": "metric",
+   "label": "brier",
+   "as": [
+    "Brier 0.0371"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-lr-base-2025",
+   "type": "measured-by",
+   "label": "holdout AUC",
+   "o": "auc",
+   "quote": "holdout AUC 0.693",
+   "line": 5
+  },
+  {
+   "s": "churn-lr-base-2025",
+   "type": "measured-by",
+   "label": "KS",
+   "o": "ks",
+   "quote": "KS 0.27",
+   "line": 7
+  },
+  {
+   "s": "churn-lr-base-2025",
+   "type": "measured-by",
+   "label": "Brier",
+   "o": "brier",
+   "quote": "Brier 0.0371",
+   "line": 7
+  },
+  {
+   "s": "churn-lr-base-2025",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "c25-oot-2024h1",
+   "quote": "Holdout c25-oot-2024h1 (n=312,470)",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-c25-txn-recency",
+  "feat-c25-payment-behaviour",
+  "feat-c25-util-v1",
+  "feat-c25-app-sessions",
+  "ds-c25-oot-2024h1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2025/churn-lr-base-2025.md",
+ "sha": "19839cb667b901bd9704c1af37a727c15312027919a7a0d7526baa4723617ccc",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

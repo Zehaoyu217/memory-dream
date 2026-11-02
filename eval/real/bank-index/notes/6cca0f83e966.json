@@ -1,0 +1,113 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "bt-xgb-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bt-xgb-v3"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ben-carter",
+   "type": "person",
+   "label": "finance",
+   "as": [
+    "Ben Carter"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "bt-acceptance",
+   "type": "metric",
+   "label": "monitoring metric",
+   "as": [
+    "Acceptance"
+   ],
+   "lines": [
+    5,
+    6,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "margin-12m",
+   "type": "metric",
+   "label": "12-month margin",
+   "as": [
+    "12-month margin"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "acceptance-label",
+   "type": "other",
+   "label": "acceptance-only label",
+   "as": [
+    "acceptance-only label"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "scoring-pipeline",
+   "type": "pipeline",
+   "label": "scoring pipeline",
+   "as": [
+    "scoring pipeline"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bt-xgb-v3",
+   "type": "other",
+   "label": "trained on",
+   "o": "margin-12m",
+   "quote": "train bt-xgb-v3 on 12-month margin",
+   "line": 5
+  },
+  {
+   "s": "bt-xgb-v3",
+   "type": "approved-by",
+   "label": "signed off",
+   "o": "ben-carter",
+   "quote": "Ben Carter (finance) signed off conditionally",
+   "line": 7
+  },
+  {
+   "s": "acceptance-label",
+   "type": "other",
+   "label": "retired from",
+   "o": "scoring-pipeline",
+   "quote": "Retire the acceptance-only label from the scoring pipeline.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "find-bt-margin-top30",
+  "exp-107-margin-label"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "balance-transfer-propensity/dec-bt-margin-label.md",
+ "sha": "6cca0f83e9660e864a1cc36c25e23304cd940d9e5cfea4312d174dd578c59699",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

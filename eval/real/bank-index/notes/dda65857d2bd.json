@@ -1,0 +1,51 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "threshold-fixed-05",
+   "type": "policy",
+   "label": "decision cutoff",
+   "as": [
+    "A decision cutoff of 0.5 on the score",
+    "a fixed 0.5 probability"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "scoring-service",
+   "type": "service",
+   "label": "scoring service",
+   "as": [
+    "The scoring service"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "scoring-service",
+   "type": "other",
+   "label": "applies cutoff",
+   "o": "threshold-fixed-05",
+   "quote": "The scoring service flagged accounts above a fixed 0.5 probability for review",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "howto/threshold-selection-cost-matrix",
+  "howto/threshold-fixed-05.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/threshold-fixed-05.md",
+ "sha": "dda65857d2bd5f6d20f1567c0c572b030533b5e2a4f6f3dee448891658cfb79b",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

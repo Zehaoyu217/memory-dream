@@ -1,0 +1,238 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "sfc-segment-monthly-spend",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "Monthly spend per customer segment"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "crm.contacts",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`crm.contacts`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "sfc-bt-2024",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "sfc-bt-2024"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "sfc-oot-2025h2",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "sfc-oot-2025h2"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-sfc-active-accounts",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-sfc-active-accounts"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "premier",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "Premier"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "everyday",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "Everyday"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "student",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "Student"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "small-business",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "Small business"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "rewards",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "Rewards"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "secured",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "Secured"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "sfc-segment-monthly-spend",
+   "type": "uses",
+   "label": "from",
+   "o": "cards.accounts_monthly",
+   "quote": "Monthly spend per customer segment from `cards.accounts_monthly`",
+   "line": 6
+  },
+  {
+   "s": "sfc-segment-monthly-spend",
+   "type": "uses",
+   "label": "joined to",
+   "o": "crm.contacts",
+   "quote": "joined to `crm.contacts` for the segment label",
+   "line": 6
+  },
+  {
+   "s": "sfc-segment-monthly-spend",
+   "type": "other",
+   "label": "eval set",
+   "o": "sfc-bt-2024",
+   "quote": "Eval sets: sfc-bt-2024 (12 rolling origins across 2024, built Feb 2025)",
+   "line": 8
+  },
+  {
+   "s": "sfc-segment-monthly-spend",
+   "type": "other",
+   "label": "eval set",
+   "o": "sfc-oot-2025h2",
+   "quote": "and sfc-oot-2025h2 (Jul-Dec 2025, built 15 Jan 2026)",
+   "line": 8
+  },
+  {
+   "s": "feat-sfc-active-accounts",
+   "type": "uses",
+   "label": "comes from",
+   "o": "cards.accounts_monthly",
+   "quote": "Active account counts per segment come from the same table (feat-sfc-active-accounts).",
+   "line": 9
+  },
+  {
+   "s": "premier",
+   "type": "part-of",
+   "label": "in",
+   "o": "sfc-segment-monthly-spend",
+   "quote": "Six segments: Premier, Everyday, Student, Small business, Rewards, Secured.",
+   "line": 7
+  },
+  {
+   "s": "everyday",
+   "type": "part-of",
+   "label": "in",
+   "o": "sfc-segment-monthly-spend",
+   "quote": "Six segments: Premier, Everyday, Student, Small business, Rewards, Secured.",
+   "line": 7
+  },
+  {
+   "s": "student",
+   "type": "part-of",
+   "label": "in",
+   "o": "sfc-segment-monthly-spend",
+   "quote": "Six segments: Premier, Everyday, Student, Small business, Rewards, Secured.",
+   "line": 7
+  },
+  {
+   "s": "small-business",
+   "type": "part-of",
+   "label": "in",
+   "o": "sfc-segment-monthly-spend",
+   "quote": "Six segments: Premier, Everyday, Student, Small business, Rewards, Secured.",
+   "line": 7
+  },
+  {
+   "s": "rewards",
+   "type": "part-of",
+   "label": "in",
+   "o": "sfc-segment-monthly-spend",
+   "quote": "Six segments: Premier, Everyday, Student, Small business, Rewards, Secured.",
+   "line": 7
+  },
+  {
+   "s": "secured",
+   "type": "part-of",
+   "label": "in",
+   "o": "sfc-segment-monthly-spend",
+   "quote": "Six segments: Premier, Everyday, Student, Small business, Rewards, Secured.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "spend-forecasting/ds-sfc-segment-monthly.md",
+ "sha": "d15b2d283c62155595cdd403dbc4847d1778e8c26bd5688b8a91fbd4f4a163e0",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

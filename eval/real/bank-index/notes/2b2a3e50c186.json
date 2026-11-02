@@ -1,0 +1,130 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "bt-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bt-xgb-v2"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "bt-oot-2026h1",
+   "type": "dataset",
+   "label": "out-of-time sample",
+   "as": [
+    "bt-oot-2026h1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "out-of-time auc",
+   "as": [
+    "Out-of-time AUC"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "psi",
+   "as": [
+    "PSI 0.27"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "utilization-trend",
+   "type": "feature",
+   "label": "utilization trend",
+   "as": [
+    "utilization trend"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "2026-limit-policy",
+   "type": "policy",
+   "label": "limit-policy change",
+   "as": [
+    "2026 limit policy",
+    "January 2026 limit-policy change"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "bt-xgb-v3",
+   "type": "model",
+   "label": "next retrain model",
+   "as": [
+    "bt-xgb-v3"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bt-xgb-v2",
+   "type": "evaluated-on",
+   "label": "out-of-time AUC on",
+   "o": "bt-oot-2026h1",
+   "quote": "Out-of-time AUC for bt-xgb-v2 on bt-oot-2026h1 is 0.66.",
+   "line": 6
+  },
+  {
+   "s": "bt-xgb-v2",
+   "type": "measured-by",
+   "label": "has AUC",
+   "o": "auc",
+   "quote": "Out-of-time AUC for bt-xgb-v2 on bt-oot-2026h1 is 0.66.",
+   "line": 6
+  },
+  {
+   "s": "utilization-trend",
+   "type": "measured-by",
+   "label": "has PSI",
+   "o": "psi",
+   "quote": "PSI 0.27 on the utilization trend.",
+   "line": 6
+  },
+  {
+   "s": "2026-limit-policy",
+   "type": "other",
+   "label": "shifted utilization levels",
+   "o": "utilization-trend",
+   "quote": "The January 2026 limit-policy change raised average limits, so utilization levels moved for the same behaviour.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-106-oot-2026h1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "balance-transfer-propensity/find-bt-oot-drop.md",
+ "sha": "2b2a3e50c1868795685b98526cffd87b3468dd22f293d7a92d93d924fda73651",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

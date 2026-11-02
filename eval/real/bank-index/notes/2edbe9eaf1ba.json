@@ -1,0 +1,146 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "mm-collect-xgb-v1",
+   "type": "model",
+   "label": "gradient-boosted trees",
+   "as": [
+    "mm-collect-xgb-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "mm-collect-xgb-v2",
+   "type": "model",
+   "label": "newer version",
+   "as": [
+    "mm-collect-xgb-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "mm-oot-2024h2",
+   "type": "dataset",
+   "label": "evaluation set",
+   "as": [
+    "mm-oot-2024h2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.733"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.31"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-mm-payment-ratio-v1",
+   "type": "feature",
+   "label": "input feature",
+   "as": [
+    "feat-mm-payment-ratio-v1"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "feat-mm-days-past-due-3m",
+   "type": "feature",
+   "label": "input feature",
+   "as": [
+    "feat-mm-days-past-due-3m"
+   ],
+   "lines": [
+    2
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mm-collect-xgb-v1",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "mm-oot-2024h2",
+   "quote": "Evaluated on mm-oot-2024h2 (n=96,000 accounts)",
+   "line": 7
+  },
+  {
+   "s": "mm-collect-xgb-v1",
+   "type": "measured-by",
+   "label": "scored AUC",
+   "o": "auc",
+   "quote": "Evaluated on mm-oot-2024h2 (n=96,000 accounts): AUC 0.733, KS 0.31.",
+   "line": 7
+  },
+  {
+   "s": "mm-collect-xgb-v1",
+   "type": "measured-by",
+   "label": "scored KS",
+   "o": "ks",
+   "quote": "Evaluated on mm-oot-2024h2 (n=96,000 accounts): AUC 0.733, KS 0.31.",
+   "line": 7
+  },
+  {
+   "s": "mm-collect-xgb-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "mm-collect-xgb-v1",
+   "quote": "Superseded by mm-collect-xgb-v2 (2025-08-12).",
+   "line": 8
+  },
+  {
+   "s": "mm-collect-xgb-v1",
+   "type": "uses",
+   "label": "from",
+   "o": "feat-mm-payment-ratio-v1",
+   "quote": "from: [ds-mm-collections-labels, feat-mm-payment-ratio-v1",
+   "line": 2
+  },
+  {
+   "s": "mm-collect-xgb-v1",
+   "type": "uses",
+   "label": "from",
+   "o": "feat-mm-days-past-due-3m",
+   "quote": "feat-mm-days-past-due-3m, ds-mm-reference-train]",
+   "line": 2
+  }
+ ],
+ "refs": [
+  "ds-mm-collections-labels",
+  "ds-mm-reference-train",
+  "mm-collect-xgb-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "model-monitoring/mm-collect-xgb-v1.md",
+ "sha": "2edbe9eaf1ba6ca24eb716ff1485147f6afc7e991821c62ab8db8855ba2e32fa",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

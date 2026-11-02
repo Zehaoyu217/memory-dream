@@ -1,0 +1,85 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "cards.disputes",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.disputes`"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "fraud-ops",
+   "type": "team",
+   "label": "owner team",
+   "as": [
+    "owned by fraud-ops"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "high-risk-merchant-label",
+   "type": "term",
+   "label": "high-risk label",
+   "as": [
+    "a merchant is high-risk if it has at least 3 confirmed-fraud disputes in the next 90 days"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "2026h1-holdout",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "the 2026h1 holdout"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cards.disputes",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "fraud-ops",
+   "quote": "`cards.disputes` (owned by fraud-ops)",
+   "line": 6
+  },
+  {
+   "s": "high-risk-merchant-label",
+   "type": "uses",
+   "label": "counts from",
+   "o": "cards.disputes",
+   "quote": "Merchant-level confirmed-fraud counts from cards.disputes, 2025-2026",
+   "line": 5
+  },
+  {
+   "s": "2026h1-holdout",
+   "type": "uses",
+   "label": "labels as of",
+   "o": "high-risk-merchant-label",
+   "quote": "Labels as of 2026-06-30 for the 2026h1 holdout.",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "merchant-risk/ds-mrisk-chargebacks.md",
+ "sha": "15fadcaa9de28f9f3d026c2194932a73c0d4e60208c320946a0101153dde8062",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

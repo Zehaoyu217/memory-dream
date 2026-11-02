@@ -1,0 +1,156 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "mq3-response-gbm-v1",
+   "type": "model",
+   "label": "gradient boosting",
+   "as": [
+    "mq3-response-gbm-v1",
+    "gradient boosting"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-mq3-recency-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mq3-recency-v1"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "feat-mq3-email-open-90d",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mq3-email-open-90d"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "feat-mq3-app-sessions-30d",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mq3-app-sessions-30d"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "feat-mq3-prior-treat",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mq3-prior-treat"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "treated-q2-accounts",
+   "type": "segment",
+   "label": "treated q2 accounts",
+   "as": [
+    "treated Q2 accounts",
+    "treated accounts"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.74"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mq3-response-gbm-v1",
+   "type": "uses",
+   "label": "from",
+   "o": "feat-mq3-recency-v1",
+   "quote": "from: [feat-mq3-recency-v1, feat-mq3-email-open-90d, feat-mq3-app-sessions-30d, feat-mq3-prior-treat]",
+   "line": 2
+  },
+  {
+   "s": "mq3-response-gbm-v1",
+   "type": "uses",
+   "label": "from",
+   "o": "feat-mq3-email-open-90d",
+   "quote": "from: [feat-mq3-recency-v1, feat-mq3-email-open-90d, feat-mq3-app-sessions-30d, feat-mq3-prior-treat]",
+   "line": 2
+  },
+  {
+   "s": "mq3-response-gbm-v1",
+   "type": "uses",
+   "label": "from",
+   "o": "feat-mq3-app-sessions-30d",
+   "quote": "from: [feat-mq3-recency-v1, feat-mq3-email-open-90d, feat-mq3-app-sessions-30d, feat-mq3-prior-treat]",
+   "line": 2
+  },
+  {
+   "s": "mq3-response-gbm-v1",
+   "type": "uses",
+   "label": "from",
+   "o": "feat-mq3-prior-treat",
+   "quote": "from: [feat-mq3-recency-v1, feat-mq3-email-open-90d, feat-mq3-app-sessions-30d, feat-mq3-prior-treat]",
+   "line": 2
+  },
+  {
+   "s": "mq3-response-gbm-v1",
+   "type": "trained-on",
+   "label": "trained on",
+   "o": "treated-q2-accounts",
+   "quote": "Trained on treated Q2 accounts only.",
+   "line": 6
+  },
+  {
+   "s": "mq3-response-gbm-v1",
+   "type": "evaluated-on",
+   "label": "split of",
+   "o": "treated-q2-accounts",
+   "quote": "AUC 0.74 on a 30% split of the treated accounts.",
+   "line": 7
+  },
+  {
+   "s": "mq3-response-gbm-v1",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.74 on a 30% split of the treated accounts.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-301",
+  "dec-mq3-target-uplift"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "marketing-uplift-q3/mq3-response-gbm-v1.md",
+ "sha": "5ad874aa54e3d01558f119e4e99e47d06a363ae44bfae9d70a9e954e624dd727",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

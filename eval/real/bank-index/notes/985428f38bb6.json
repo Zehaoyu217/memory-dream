@@ -1,0 +1,117 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "card-not-present-subset",
+   "type": "segment",
+   "label": "cnp subset",
+   "as": [
+    "card-not-present subset",
+    "CNP transactions"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "data-eng-cards",
+   "type": "team",
+   "label": "owning team",
+   "as": [
+    "data-eng-cards"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fraud-2025-pipeline",
+   "type": "pipeline",
+   "label": "fraud-2025 pipeline",
+   "as": [
+    "the fraud-2025 pipeline"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "frozen-extract",
+   "type": "dataset",
+   "label": "frozen extract",
+   "as": [
+    "a frozen extract"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fraud-rate",
+   "type": "metric",
+   "label": "fraud rate",
+   "as": [
+    "fraud rate 0.21%"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "card-not-present-subset",
+   "type": "subset-of",
+   "label": "filtered from",
+   "o": "cards.txn_daily",
+   "quote": "`cards.txn_daily` filtered to card-not-present",
+   "line": 6
+  },
+  {
+   "s": "cards.txn_daily",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "data-eng-cards",
+   "quote": "Owned by data-eng-cards",
+   "line": 8
+  },
+  {
+   "s": "fraud-2025-pipeline",
+   "type": "uses",
+   "label": "reads",
+   "o": "frozen-extract",
+   "quote": "the fraud-2025 pipeline reads a frozen extract",
+   "line": 8
+  },
+  {
+   "s": "card-not-present-subset",
+   "type": "measured-by",
+   "label": "has fraud rate",
+   "o": "fraud-rate",
+   "quote": "fraud rate 0.21% on matured labels",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/ds-f25-txn-2024-2025.md",
+ "sha": "985428f38bb6d05111b2fefb0383bd5435f76e3b26860fdea75ac652235a667d",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

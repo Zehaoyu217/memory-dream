@@ -1,0 +1,94 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "gmm-k5",
+   "type": "model",
+   "label": "gmm",
+   "as": [
+    "GMM k=5"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "pbs-kmeans-v1",
+   "type": "model",
+   "label": "kmeans",
+   "as": [
+    "kmeans k=6"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "silhouette",
+   "type": "metric",
+   "label": "silhouette",
+   "as": [
+    "Silhouette"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ari",
+   "type": "metric",
+   "label": "seed-to-seed ari",
+   "as": [
+    "seed-to-seed ARI"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "pbs-kmeans-v1",
+   "type": "other",
+   "label": "compared against",
+   "o": "gmm-k5",
+   "quote": "GMM k=5 against kmeans k=6",
+   "line": 6
+  },
+  {
+   "s": "gmm-k5",
+   "type": "measured-by",
+   "label": "silhouette",
+   "o": "silhouette",
+   "quote": "Silhouette 0.39 (GMM) against 0.36 (kmeans)",
+   "line": 7
+  },
+  {
+   "s": "gmm-k5",
+   "type": "measured-by",
+   "label": "seed-to-seed ARI",
+   "o": "ari",
+   "quote": "seed-to-seed ARI 0.74 against 0.58",
+   "line": 7
+  },
+  {
+   "s": "pbs-kmeans-v1",
+   "type": "measured-by",
+   "label": "seed-to-seed ARI",
+   "o": "ari",
+   "quote": "seed-to-seed ARI 0.74 against 0.58",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-401"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "payment-behavior-segments/exp-402.md",
+ "sha": "c339866f3bae45ca0021cf47374dcda74909346ae71e74d742adc81eb420c557",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

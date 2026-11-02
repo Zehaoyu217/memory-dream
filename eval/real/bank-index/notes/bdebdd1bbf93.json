@@ -1,0 +1,104 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "churn-lr-base-2025",
+   "type": "model",
+   "label": "lr baseline",
+   "as": [
+    "churn-lr-base-2025",
+    "LR baseline"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "c25-oot-2024h1",
+   "type": "dataset",
+   "label": "scoring set",
+   "as": [
+    "c25-oot-2024h1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "label-window",
+   "type": "term",
+   "label": "label window",
+   "as": [
+    "label window sweep"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    7,
+    9
+   ]
+  },
+  {
+   "id": "base-rate",
+   "type": "metric",
+   "label": "base rate",
+   "as": [
+    "Base rates"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-lr-base-2025",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "c25-oot-2024h1",
+   "quote": "scored on c25-oot-2024h1",
+   "line": 6
+  },
+  {
+   "s": "label-window",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC: 30d 0.661, 60d 0.693, 90d 0.704.",
+   "line": 7
+  },
+  {
+   "s": "label-window",
+   "type": "measured-by",
+   "label": "base rates",
+   "o": "base-rate",
+   "quote": "Base rates: 30d 2.1%, 60d 4.3%, 90d 6.8%.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "q-c25-label-window",
+  "ds-c25-churn-labels",
+  "churn-lr-base-2025",
+  "fnd-c25-90d-feedback-lag"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2025/exp-101.md",
+ "sha": "bdebdd1bbf93cc1d0792b94a547cf5df536c64df0b3aaaffb8d2e54f3a1479f9",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

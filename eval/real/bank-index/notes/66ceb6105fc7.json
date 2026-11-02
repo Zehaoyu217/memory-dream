@@ -1,0 +1,112 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "aml-xgb-v1",
+   "type": "model",
+   "label": "alert-priority ranker",
+   "as": [
+    "aml-xgb-v1",
+    "XGBoost ranker that orders the analyst queue by SAR likelihood"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "aml-xgb-v2",
+   "type": "model",
+   "label": "successor model",
+   "as": [
+    "aml-xgb-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-402",
+   "type": "other",
+   "label": "evaluation experiment",
+   "as": [
+    "exp-402"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.84"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "2025-dispositions",
+   "type": "dataset",
+   "label": "2025 dispositions",
+   "as": [
+    "2025 dispositions",
+    "Jul-Sep 2025 dispositions"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "aml-xgb-v1",
+   "type": "trained-on",
+   "label": "trained on",
+   "o": "2025-dispositions",
+   "quote": "Trained on 2025 dispositions",
+   "line": 7
+  },
+  {
+   "s": "aml-xgb-v1",
+   "type": "evaluated-on",
+   "label": "AUC on",
+   "o": "2025-dispositions",
+   "quote": "AUC 0.84 on Jul-Sep 2025 dispositions",
+   "line": 7
+  },
+  {
+   "s": "aml-xgb-v1",
+   "type": "measured-by",
+   "label": "AUC 0.84",
+   "o": "auc",
+   "quote": "AUC 0.84 on Jul-Sep 2025 dispositions (exp-402)",
+   "line": 7
+  },
+  {
+   "s": "aml-xgb-v2",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "aml-xgb-v1",
+   "quote": "Superseded by aml-xgb-v2 on 2026-03-30",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-402",
+  "feat-aml-structuring-v1",
+  "feat-aml-new-counterparty",
+  "ds-aml-dispositions",
+  "aml-alerts/aml-xgb-v1.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "aml-alerts/aml-xgb-v1.md",
+ "sha": "66ceb6105fc7f70b96e172e0096289e5c7d99299d1937c43ae0783e64e87922f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

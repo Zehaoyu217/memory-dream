@@ -1,0 +1,143 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "cards.merchants",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.merchants",
+    "`cards.merchants`"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "data-eng-cards",
+   "type": "team",
+   "label": "owner",
+   "as": [
+    "data-eng-cards"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "merchant-risk-panel",
+   "type": "dashboard",
+   "label": "panel",
+   "as": [
+    "merchant-risk panel"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "mcc",
+   "type": "feature",
+   "label": "field",
+   "as": [
+    "MCC"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "onboarding-date",
+   "type": "feature",
+   "label": "field",
+   "as": [
+    "onboarding date"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "acquirer-id",
+   "type": "feature",
+   "label": "field",
+   "as": [
+    "acquirer id"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "country",
+   "type": "feature",
+   "label": "field",
+   "as": [
+    "country"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cards.merchants",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "data-eng-cards",
+   "quote": "owned by data-eng-cards",
+   "line": 6
+  },
+  {
+   "s": "merchant-risk-panel",
+   "type": "uses",
+   "label": "uses as spine",
+   "o": "cards.merchants",
+   "quote": "Used as the merchant spine for every merchant-risk panel.",
+   "line": 8
+  },
+  {
+   "s": "mcc",
+   "type": "part-of",
+   "label": "field of",
+   "o": "cards.merchants",
+   "quote": "fields MCC, onboarding date, acquirer id, country",
+   "line": 6
+  },
+  {
+   "s": "onboarding-date",
+   "type": "part-of",
+   "label": "field of",
+   "o": "cards.merchants",
+   "quote": "fields MCC, onboarding date, acquirer id, country",
+   "line": 6
+  },
+  {
+   "s": "acquirer-id",
+   "type": "part-of",
+   "label": "field of",
+   "o": "cards.merchants",
+   "quote": "fields MCC, onboarding date, acquirer id, country",
+   "line": 6
+  },
+  {
+   "s": "country",
+   "type": "part-of",
+   "label": "field of",
+   "o": "cards.merchants",
+   "quote": "fields MCC, onboarding date, acquirer id, country",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "merchant-risk/ds-mrisk-merchants.md",
+ "sha": "3bb986541cdd5507749bbb0ad38a310c21cc42ee2594943f72eebb120b147f0c",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

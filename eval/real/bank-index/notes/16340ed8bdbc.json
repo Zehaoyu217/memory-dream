@@ -1,0 +1,98 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-c25-util-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-c25-util-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "util-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "util-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "churn-lr-base-2025",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "churn-lr-base-2025"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "churn-gbm-2025",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "churn-gbm-2025"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "limit-cut-spike",
+   "type": "other",
+   "label": "inflated utilisation",
+   "as": [
+    "inflated utilisation"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-lr-base-2025",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-c25-util-v1",
+   "quote": "Used in churn-lr-base-2025",
+   "line": 7
+  },
+  {
+   "s": "churn-gbm-2025",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-c25-util-v1",
+   "quote": "the first churn-gbm-2025 model",
+   "line": 7
+  },
+  {
+   "s": "util-v2",
+   "type": "replaces",
+   "label": "replaced",
+   "o": "feat-c25-util-v1",
+   "quote": "replaced by util-v2 in March 2025",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "ds-c25-accounts-snapshot",
+  "fnd-c25-limit-cut-spike"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "churn-2025/feat-c25-util-v1.md",
+ "sha": "16340ed8bdbcf047ddafd6f9d888d7cc4c5fff42e0356b6983b80c84209a545d",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

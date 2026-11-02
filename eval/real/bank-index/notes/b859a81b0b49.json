@@ -1,0 +1,68 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-mq3-recency-v1",
+   "type": "feature",
+   "label": "recency feature",
+   "as": [
+    "feat-mq3-recency-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-mq3-recency-v2",
+   "type": "feature",
+   "label": "fixed recency feature",
+   "as": [
+    "feat-mq3-recency-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "transaction table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-mq3-recency-v1",
+   "type": "uses",
+   "label": "computed from",
+   "o": "cards.txn_daily",
+   "quote": "Days since the last transaction of any kind in `cards.txn_daily`",
+   "line": 6
+  },
+  {
+   "s": "feat-mq3-recency-v2",
+   "type": "replaces",
+   "label": "fixes known issue in",
+   "o": "feat-mq3-recency-v1",
+   "quote": "Known issue, fixed in feat-mq3-recency-v2.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-mq3-recency-v2",
+  "ds-mq3-contacts-snap"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "marketing-uplift-q3/feat-mq3-recency-v1.md",
+ "sha": "b859a81b0b4971dd868fbb11856e92c4f8480e91cdc2370859afebf49ba5565d",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

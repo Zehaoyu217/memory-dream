@@ -1,0 +1,118 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-lbl-friendly-fraud",
+   "type": "term",
+   "label": "decision",
+   "as": [
+    "Decision: cards.fraud_labels includes friendly-fraud category B, so the label matches loss"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.fraud_labels",
+   "type": "dataset",
+   "label": "fraud label table",
+   "as": [
+    "cards.fraud_labels"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-lbl-fraud-flag-v2",
+   "type": "feature",
+   "label": "fraud flag v2",
+   "as": [
+    "feat-lbl-fraud-flag-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "daniel-okafor",
+   "type": "person",
+   "label": "agreed by",
+   "as": [
+    "Daniel Okafor"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "agreed by",
+   "as": [
+    "Tomas Rivera"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fraud-ops",
+   "type": "team",
+   "label": "fraud team",
+   "as": [
+    "fraud-ops"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-lbl-friendly-fraud",
+   "type": "uses",
+   "label": "includes category B",
+   "o": "cards.fraud_labels",
+   "quote": "cards.fraud_labels includes friendly-fraud category B",
+   "line": 5
+  },
+  {
+   "s": "dec-lbl-friendly-fraud",
+   "type": "owned-by",
+   "label": "agreed by",
+   "o": "daniel-okafor",
+   "quote": "Agreed on 2025-11-18 by Daniel Okafor and Tomas Rivera",
+   "line": 6
+  },
+  {
+   "s": "dec-lbl-friendly-fraud",
+   "type": "owned-by",
+   "label": "agreed by",
+   "o": "tomas-rivera",
+   "quote": "Agreed on 2025-11-18 by Daniel Okafor and Tomas Rivera",
+   "line": 6
+  },
+  {
+   "s": "feat-lbl-fraud-flag-v2",
+   "type": "part-of",
+   "label": "implements",
+   "o": "dec-lbl-friendly-fraud",
+   "quote": "Implemented as feat-lbl-fraud-flag-v2",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-403",
+  "fnd-friendly-fraud",
+  "q-lbl-fraud-coverage"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "label-pipeline-rebuild/dec-lbl-friendly-fraud.md",
+ "sha": "f85cdb3dfcd3ff07e406dd34d1f50d21fac3d7b6b1351ffeb43ad95610368de4",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

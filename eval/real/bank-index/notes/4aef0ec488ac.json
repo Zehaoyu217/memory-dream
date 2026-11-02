@@ -1,0 +1,120 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "mq3-response-gbm-v1",
+   "type": "model",
+   "label": "response model",
+   "as": [
+    "mq3-response-gbm-v1"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "exp-301",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-301: response-only targeting puts 3.8% responders in the top 20%, but only $0.90 incremental spend per contact"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-302",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-302"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "q2-rct-30-split",
+   "type": "dataset",
+   "label": "rct split",
+   "as": [
+    "the 30% split of the Q2 RCT (n=330,000)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "response-rate",
+   "type": "metric",
+   "label": "response rate",
+   "as": [
+    "response 3.8% against a 2.1% base"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "incremental-spend-per-contact",
+   "type": "metric",
+   "label": "incremental spend",
+   "as": [
+    "$0.90 incremental spend per contact",
+    "$2.40 for the uplift model (exp-302)"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-301",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "q2-rct-30-split",
+   "quote": "mq3-response-gbm-v1 on the 30% split of the Q2 RCT (n=330,000)",
+   "line": 6
+  },
+  {
+   "s": "mq3-response-gbm-v1",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "q2-rct-30-split",
+   "quote": "mq3-response-gbm-v1 on the 30% split of the Q2 RCT (n=330,000)",
+   "line": 6
+  },
+  {
+   "s": "exp-301",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "response-rate",
+   "quote": "Top 20% by response score: response 3.8% against a 2.1% base.",
+   "line": 6
+  },
+  {
+   "s": "exp-301",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "incremental-spend-per-contact",
+   "quote": "Incremental 14-day spend per contact in that top 20% is $0.90",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "marketing-uplift-q3/exp-301-response-only.md",
+  "exp-302"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "marketing-uplift-q3/exp-301-response-only.md",
+ "sha": "4aef0ec488ac21f84234e17718fd1769109dbe41f5b8b0d8bd3a238c106f48b5",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

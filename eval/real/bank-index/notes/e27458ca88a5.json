@@ -1,0 +1,108 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "psi",
+   "as": [
+    "PSI"
+   ],
+   "lines": [
+    3,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "psi-bands",
+   "type": "term",
+   "label": "psi bands",
+   "as": [
+    "PSI bands"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "decile-bins",
+   "type": "term",
+   "label": "decile bins",
+   "as": [
+    "decile bins"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "retrain-request",
+   "type": "policy",
+   "label": "retrain request",
+   "as": [
+    "A retrain is requested"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "psi",
+   "type": "uses",
+   "label": "computed on",
+   "o": "decile-bins",
+   "quote": "Compute PSI on decile bins",
+   "line": 6
+  },
+  {
+   "s": "psi-bands",
+   "type": "measured-by",
+   "label": "bands on",
+   "o": "psi",
+   "quote": "PSI bands are below 0.10 stable, 0.10 to 0.25 monitor, above 0.25 investigate",
+   "line": 5
+  },
+  {
+   "s": "retrain-request",
+   "type": "uses",
+   "label": "requires",
+   "o": "psi",
+   "quote": "A retrain is requested only if PSI is above 0.25 and KS also drops by 0.02 or more.",
+   "line": 6
+  },
+  {
+   "s": "retrain-request",
+   "type": "uses",
+   "label": "requires",
+   "o": "ks",
+   "quote": "A retrain is requested only if PSI is above 0.25 and KS also drops by 0.02 or more.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "howto/psi-thresholds-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/psi-thresholds.md",
+ "sha": "e27458ca88a58e8334744e0a578a8e39831c8bd85caca9872484dc225f1f11c9",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,208 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "fraud25-gbm-v1",
+   "type": "model",
+   "label": "cnp model",
+   "as": [
+    "fraud25-gbm-v1",
+    "first 2025 CNP model"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fraud25-gbm-v2",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "fraud25-gbm-v2"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "classifier",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "cards.fraud_labels",
+   "type": "dataset",
+   "label": "labels table",
+   "as": [
+    "cards.fraud_labels"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "velocity",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "velocity"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "device-age",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "device age"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "amount-ratio",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "amount ratio"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "hour-band",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "hour band"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "card-not-present-fraud",
+   "type": "term",
+   "label": "fraud type",
+   "as": [
+    "card-not-present fraud"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "maturity-cut-45-day",
+   "type": "term",
+   "label": "maturity cut",
+   "as": [
+    "45-day maturity cut"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud25-gbm-v1",
+   "type": "uses",
+   "label": "is LightGBM classifier",
+   "o": "lightgbm",
+   "quote": "LightGBM classifier for card-not-present fraud",
+   "line": 6
+  },
+  {
+   "s": "fraud25-gbm-v1",
+   "type": "uses",
+   "label": "has feature",
+   "o": "velocity",
+   "quote": "Features: velocity, device age, amount ratio, hour band",
+   "line": 7
+  },
+  {
+   "s": "fraud25-gbm-v1",
+   "type": "uses",
+   "label": "has feature",
+   "o": "device-age",
+   "quote": "Features: velocity, device age, amount ratio, hour band",
+   "line": 7
+  },
+  {
+   "s": "fraud25-gbm-v1",
+   "type": "uses",
+   "label": "has feature",
+   "o": "amount-ratio",
+   "quote": "Features: velocity, device age, amount ratio, hour band",
+   "line": 7
+  },
+  {
+   "s": "fraud25-gbm-v1",
+   "type": "uses",
+   "label": "has feature",
+   "o": "hour-band",
+   "quote": "Features: velocity, device age, amount ratio, hour band",
+   "line": 7
+  },
+  {
+   "s": "fraud25-gbm-v1",
+   "type": "uses",
+   "label": "labels from",
+   "o": "cards.fraud_labels",
+   "quote": "Labels from `cards.fraud_labels` with the 45-day maturity cut",
+   "line": 8
+  },
+  {
+   "s": "fraud25-gbm-v1",
+   "type": "other",
+   "label": "labels with cut",
+   "o": "maturity-cut-45-day",
+   "quote": "Labels from `cards.fraud_labels` with the 45-day maturity cut",
+   "line": 8
+  },
+  {
+   "s": "fraud25-gbm-v1",
+   "type": "other",
+   "label": "targets",
+   "o": "card-not-present-fraud",
+   "quote": "LightGBM classifier for card-not-present fraud",
+   "line": 6
+  },
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "fraud25-gbm-v1",
+   "quote": "Superseded by fraud25-gbm-v2 on 2025-06-18.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "feat-f25-velocity-v1",
+  "feat-f25-device-age",
+  "feat-f25-amt-ratio",
+  "feat-f25-hour-band",
+  "ds-f25-labels",
+  "exp-101"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/fraud25-gbm-v1.md",
+ "sha": "c209908a8c501d3e3876ad0ec13d07d52ffc2a70c0f6c20308c696a81233e89f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

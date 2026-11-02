@@ -1,0 +1,84 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "travel-merchants",
+   "type": "segment",
+   "label": "travel merchants",
+   "as": [
+    "Travel merchants"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fraud25-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fraud25-gbm-v2"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "fraud25_alerts_log",
+   "type": "dataset",
+   "label": "alerts log",
+   "as": [
+    "fraud25_alerts_log"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "travel-flag",
+   "type": "flag",
+   "label": "travel flag",
+   "as": [
+    "the travel flag"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "alert-precision",
+   "type": "metric",
+   "label": "alert precision",
+   "as": [
+    "alert precision"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "travel-merchants",
+   "type": "other",
+   "label": "share of alerts from",
+   "o": "fraud25-gbm-v2",
+   "quote": "about 31% of alerts from fraud25-gbm-v2",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fraud25-gbm-v2",
+  "ds-f25-travel-tags",
+  "exp-106"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/q-f25-travel-overflag.md",
+ "sha": "12e97551334cc4d7483a8fd8b8886c1581aeac33a862e64bb6e34b4229cf75ed",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

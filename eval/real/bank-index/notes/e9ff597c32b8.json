@@ -1,0 +1,80 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-hp-txn-drop-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-hp-txn-drop-v1",
+    "Feature: spend in the three months before enrolment"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-hp-matched-controls",
+   "type": "dataset",
+   "label": "matched controls",
+   "as": [
+    "matched controls"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "enrolled-accounts",
+   "type": "segment",
+   "label": "enrolled accounts",
+   "as": [
+    "Enrolled accounts"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-hp-txn-drop-v1",
+   "type": "uses",
+   "label": "aggregated from",
+   "o": "cards.txn_daily",
+   "quote": "Source: `cards.txn_daily` aggregated to account-month.",
+   "line": 7
+  },
+  {
+   "s": "enrolled-accounts",
+   "type": "other",
+   "label": "compared with",
+   "o": "ds-hp-matched-controls",
+   "quote": "Enrolled accounts show a 30%-plus spend drop in 41% of cases, against 12% of matched controls.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-hp-enrolled"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "hardship-programs/feat-hp-txn-drop-v1.md",
+ "sha": "e9ff597c32b8971f46744f7dee8d44f6068e89197b82c96b509bdebd9745924e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

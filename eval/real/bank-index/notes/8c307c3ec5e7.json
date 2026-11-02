@@ -1,0 +1,129 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-307",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-307"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "rs-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rs-xgb-v2"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "recovery-scoring-holdout-2023h2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "recovery-scoring-holdout-2023h2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "total-net-recovery",
+   "type": "metric",
+   "label": "net recovery",
+   "as": [
+    "total net recovery",
+    "Total net recovered"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "placed-share",
+   "type": "metric",
+   "label": "placed share",
+   "as": [
+    "Placed share of accounts"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "agency-commission",
+   "type": "term",
+   "label": "agency commission",
+   "as": [
+    "25% agency commission"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-307",
+   "type": "uses",
+   "label": "scored with",
+   "o": "rs-xgb-v2",
+   "quote": "with rs-xgb-v2 scores",
+   "line": 6
+  },
+  {
+   "s": "exp-307",
+   "type": "evaluated-on",
+   "label": "simulated on",
+   "o": "recovery-scoring-holdout-2023h2",
+   "quote": "Simulation on recovery-scoring-holdout-2023h2",
+   "line": 6
+  },
+  {
+   "s": "exp-307",
+   "type": "measured-by",
+   "label": "maximises",
+   "o": "total-net-recovery",
+   "quote": "maximises total net recovery",
+   "line": 5
+  },
+  {
+   "s": "exp-307",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "placed-share",
+   "quote": "Placed share of accounts: 71% at 0.18.",
+   "line": 7
+  },
+  {
+   "s": "exp-307",
+   "type": "uses",
+   "label": "applies",
+   "o": "agency-commission",
+   "quote": "25% agency commission applied to recovered cash",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "rs-xgb-v2",
+  "ds-rs-agency-placements",
+  "recovery_scoring/exp307_cutoff.ipynb"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "recovery-scoring/exp-307.md",
+ "sha": "8c307c3ec5e7c8c30216cea9cbbcf7087f03632033203da7898835c239d04b52",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

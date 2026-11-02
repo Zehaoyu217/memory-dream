@@ -1,0 +1,68 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "find-rs-recovery-declining",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Recovery is declining by vintage: 2024H1 recovers 7.1% of balance against 9.8% for 2023, so the flat finding is wrong"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-305",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-305 shows the 2024H1 vintage recovering 7.1% of balance within 12 months, against 9.8% for the 2023 vintages."
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "find-rs-recovery-flat",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "The earlier flat reading used only the 2023 vintages and missed the decline."
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "find-rs-recovery-declining",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "find-rs-recovery-flat",
+   "quote": "supersedes: [find-rs-recovery-flat]",
+   "line": 4
+  },
+  {
+   "s": "find-rs-recovery-declining",
+   "type": "other",
+   "label": "derived from",
+   "o": "exp-305",
+   "quote": "exp-305 shows the 2024H1 vintage recovering 7.1% of balance within 12 months",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-305",
+  "find-rs-recovery-flat"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "recovery-scoring/find-rs-recovery-declining.md",
+ "sha": "26315325506fecaa72e5acafd4be5cba22c908c672570c4a266c714b99cda8c2",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

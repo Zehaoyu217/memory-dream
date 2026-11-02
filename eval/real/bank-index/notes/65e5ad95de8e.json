@@ -1,0 +1,109 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-401",
+   "type": "term",
+   "label": "experiment",
+   "as": [
+    "exp-401"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-hp-enrolled",
+   "type": "dataset",
+   "label": "enrolled accounts",
+   "as": [
+    "enrolled accounts"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-hp-roll-matrix",
+   "type": "dataset",
+   "label": "roll matrix",
+   "as": [
+    "ds-hp-roll-matrix"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "naive-comparison",
+   "type": "term",
+   "label": "naive comparison",
+   "as": [
+    "naive comparison"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "roll-rate",
+   "type": "metric",
+   "label": "roll rate",
+   "as": [
+    "roll at 21.0%",
+    "21.0%",
+    "9.4%"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-401",
+   "type": "uses",
+   "label": "built from",
+   "o": "ds-hp-enrolled",
+   "quote": "from: [ds-hp-enrolled, ds-hp-roll-matrix]",
+   "line": 2
+  },
+  {
+   "s": "exp-401",
+   "type": "uses",
+   "label": "built from",
+   "o": "ds-hp-roll-matrix",
+   "quote": "from: [ds-hp-enrolled, ds-hp-roll-matrix]",
+   "line": 2
+  },
+  {
+   "s": "naive-comparison",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "roll-rate",
+   "quote": "enrolled 21.0% (n=14,820), non-enrolled 9.4% (n=402,500)",
+   "line": 6
+  },
+  {
+   "s": "exp-401",
+   "type": "other",
+   "label": "biased by",
+   "o": "naive-comparison",
+   "quote": "The enrolled group was riskier at enrolment, so this comparison is biased upward.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "hardship_programs/exp401_naive.ipynb"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "hardship-programs/exp-401.md",
+ "sha": "65e5ad95de8e783096df0955e96c2a42498421bb5a817d9bd2e7de9f38f0516b",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

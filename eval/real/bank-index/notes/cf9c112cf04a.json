@@ -1,0 +1,109 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "booked-accounts",
+   "type": "segment",
+   "label": "booked accounts",
+   "as": [
+    "booked accounts"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cadence-accounts",
+   "type": "segment",
+   "label": "accounts with a cadence",
+   "as": [
+    "38% have a cadence"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE under 25%"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "default-band",
+   "type": "term",
+   "label": "default band",
+   "as": [
+    "default band"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "floor-rule-2025",
+   "type": "policy",
+   "label": "2025 floor rule",
+   "as": [
+    "2025 floor rule"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cadence-accounts",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "holdout-2025q1",
+   "quote": "From exp-401 on holdout-2025q1 (n=12,400): 38% have a cadence",
+   "line": 7
+  },
+  {
+   "s": "cadence-accounts",
+   "type": "measured-by",
+   "label": "reach threshold",
+   "o": "mape",
+   "quote": "71% of those reach MAPE under 25%",
+   "line": 7
+  },
+  {
+   "s": "floor-rule-2025",
+   "type": "other",
+   "label": "driven by",
+   "o": "default-band",
+   "quote": "The remaining 73% of accounts need a default band, which drives the 2025 floor rule.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-401",
+  "dec-inc-band-floor-2025"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "income-estimation/find-inc-coverage-gap.md",
+ "sha": "cf9c112cf04a60b71151cee19dd701929f9c7dc741e2ca99a279588b26408b12",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

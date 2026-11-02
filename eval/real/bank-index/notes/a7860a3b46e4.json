@@ -1,0 +1,112 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-f26-mcc-risk",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-f26-mcc-risk"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bad-rate",
+   "type": "metric",
+   "label": "base rate",
+   "as": [
+    "Base rate"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "smoothing-constant",
+   "type": "term",
+   "label": "smoothing constant",
+   "as": [
+    "Smoothing constant"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "mcc",
+   "type": "term",
+   "label": "merchant category code",
+   "as": [
+    "per MCC"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fraud26-oot-2025q4",
+   "type": "dataset",
+   "label": "out-of-time set",
+   "as": [
+    "fraud26-oot-2025q4"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-f26-mcc-risk",
+   "type": "other",
+   "label": "is smoothed base rate",
+   "o": "bad-rate",
+   "quote": "smoothed fraud base rate per MCC over the prior 12 months",
+   "line": 5
+  },
+  {
+   "s": "feat-f26-mcc-risk",
+   "type": "other",
+   "label": "smoothed by",
+   "o": "smoothing-constant",
+   "quote": "Smoothing constant 200 transactions to keep small MCCs stable.",
+   "line": 7
+  },
+  {
+   "s": "feat-f26-mcc-risk",
+   "type": "measured-by",
+   "label": "adds AUC",
+   "o": "auc",
+   "quote": "Adds about 0.006 AUC in exp-206",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-f26-labels-2026",
+  "ds-f26-cnp-txn",
+  "exp-206"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2026/feat-f26-mcc-risk.md",
+ "sha": "a7860a3b46e4d9724b37711b9ef4a69b6c80bc4a682e2833619ef93442c9bd5c",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

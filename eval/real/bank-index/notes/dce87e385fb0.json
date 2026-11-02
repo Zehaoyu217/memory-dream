@@ -1,0 +1,89 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat_hist90_eod",
+   "type": "feature",
+   "label": "caller history feature",
+   "as": [
+    "Caller history v1",
+    "feat_hist90_eod"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro f1",
+   "as": [
+    "macro F1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "lightgbm-set",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "the LightGBM set"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat_hist90_eod",
+   "type": "measured-by",
+   "label": "lifts",
+   "o": "macro-f1",
+   "quote": "Lifts holdout-2025q4 macro F1 by +0.05",
+   "line": 7
+  },
+  {
+   "s": "feat_hist90_eod",
+   "type": "evaluated-on",
+   "label": "lifts on",
+   "o": "holdout-2025q4",
+   "quote": "Lifts holdout-2025q4 macro F1 by +0.05",
+   "line": 7
+  },
+  {
+   "s": "feat_hist90_eod",
+   "type": "part-of",
+   "label": "added to",
+   "o": "lightgbm-set",
+   "quote": "when added to the LightGBM set",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-cr-leak-v1",
+  "ds-cr-calls"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/feat-cr-caller-history-v1.md",
+ "sha": "dce87e385fb0499d177b285778c5df0d90efb78a09b202be800d3b5b19294db4",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

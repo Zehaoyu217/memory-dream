@@ -1,0 +1,91 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-cc-drop-dispute-v1",
+   "type": "other",
+   "label": "decision note",
+   "as": [
+    "Drop dispute link v1 from the classifier; v2 is the only dispute feature from this date"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dispute-link-v1",
+   "type": "feature",
+   "label": "dispute link feature",
+   "as": [
+    "Dispute link v1 is removed from the feature store",
+    "v1 gain was mostly leakage"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "dispute-link-v2",
+   "type": "feature",
+   "label": "dispute link feature",
+   "as": [
+    "v2 is used in cc-ft-v2 and cc-logreg-v1 reruns"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "aisha-khan",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Owner Aisha Khan (MLOps)"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-cc-drop-dispute-v1",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "aisha-khan",
+   "quote": "Owner Aisha Khan (MLOps)",
+   "line": 7
+  },
+  {
+   "s": "dispute-link-v1",
+   "type": "other",
+   "label": "removed from feature store",
+   "o": "dispute-link-v2",
+   "quote": "Dispute link v1 is removed from the feature store. v2 is used in cc-ft-v2 and cc-logreg-v1 reruns.",
+   "line": 6
+  },
+  {
+   "s": "dispute-link-v2",
+   "type": "replaces",
+   "label": "newer version of",
+   "o": "dispute-link-v1",
+   "quote": "v2 is the only dispute feature from this date",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "fnd-cc-dispute-link-leak",
+  "feat-cc-dispute-link-v2",
+  "cc-ft-v2",
+  "cc-logreg-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "complaint-classification/dec-cc-drop-dispute-v1.md",
+ "sha": "9b203de000bf39a5f895649cbdf23b94b3f0a5e0f5351004fc931da17f6569ee",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

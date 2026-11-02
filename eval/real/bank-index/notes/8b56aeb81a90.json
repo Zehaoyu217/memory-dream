@@ -1,0 +1,114 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "experiment-platform",
+   "type": "other",
+   "label": "log tag",
+   "as": [
+    "[experiment-platform]"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "limit-decrease-policy",
+   "type": "policy",
+   "label": "policy tag",
+   "as": [
+    "[limit-decrease-policy]"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "a-a-sim",
+   "type": "other",
+   "label": "simulation",
+   "as": [
+    "A/A sim"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "false-positive-rate",
+   "type": "metric",
+   "label": "false positives",
+   "as": [
+    "false positives"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "raw-lift",
+   "type": "metric",
+   "label": "raw lift",
+   "as": [
+    "raw lift"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "matching-call-reason",
+   "type": "term",
+   "label": "matching method",
+   "as": [
+    "matching call reason"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "a-a-sim",
+   "type": "part-of",
+   "label": "logged under",
+   "o": "experiment-platform",
+   "quote": "[experiment-platform] A/A sim",
+   "line": 3
+  },
+  {
+   "s": "a-a-sim",
+   "type": "measured-by",
+   "label": "measures",
+   "o": "false-positive-rate",
+   "quote": "A/A sim: daily peeks push false positives to 14 percent",
+   "line": 3
+  },
+  {
+   "s": "limit-decrease-policy",
+   "type": "measured-by",
+   "label": "compared by lift",
+   "o": "raw-lift",
+   "quote": "control comparison: raw lift 2.3x, after matching call reason 1.1x",
+   "line": 4
+  },
+  {
+   "s": "raw-lift",
+   "type": "uses",
+   "label": "adjusted by matching",
+   "o": "matching-call-reason",
+   "quote": "after matching call reason 1.1x",
+   "line": 4
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2025-07-22.md",
+ "sha": "8b56aeb81a90eefbbeff444e37a8e8439398c6b6cb28be19114570b0de32c862",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

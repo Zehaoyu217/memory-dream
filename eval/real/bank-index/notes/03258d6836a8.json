@@ -1,0 +1,103 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-pbs-cash-share",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-pbs-cash-share: cash-advance share of total spend, 12 months"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-pbs-payments-12m",
+   "type": "dataset",
+   "label": "source dataset",
+   "as": [
+    "ds-pbs-payments-12m"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "pbs-kmeans-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "pbs-kmeans-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "pbs-gmm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "pbs-gmm-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cash-heavy-group",
+   "type": "segment",
+   "label": "group",
+   "as": [
+    "cash-heavy group"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-pbs-cash-share",
+   "type": "uses",
+   "label": "derived from",
+   "o": "ds-pbs-payments-12m",
+   "quote": "from: [ds-pbs-payments-12m]",
+   "line": 2
+  },
+  {
+   "s": "pbs-kmeans-v1",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-pbs-cash-share",
+   "quote": "Used in pbs-kmeans-v1 and pbs-gmm-v2 onward.",
+   "line": 8
+  },
+  {
+   "s": "pbs-gmm-v2",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-pbs-cash-share",
+   "quote": "Used in pbs-kmeans-v1 and pbs-gmm-v2 onward.",
+   "line": 8
+  },
+  {
+   "s": "feat-pbs-cash-share",
+   "type": "other",
+   "label": "finds",
+   "o": "cash-heavy-group",
+   "quote": "Finds the cash-heavy group",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "payment-behavior-segments/feat-pbs-cash-share.md",
+ "sha": "03258d6836a80371278d3cbe12e5dd1f1b8504cde1cef7a5d4df9631fa99d8ff",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

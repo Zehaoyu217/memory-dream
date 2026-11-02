@@ -1,0 +1,128 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "cli-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cli-xgb-v2"
+   ],
+   "lines": [
+    2,
+    5
+   ]
+  },
+  {
+   "id": "cli-oot-2026h1",
+   "type": "dataset",
+   "label": "out-of-time dataset",
+   "as": [
+    "cli-oot-2026h1"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.72"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "psi-utilisation-slope",
+   "type": "metric",
+   "label": "psi",
+   "as": [
+    "PSI 0.14"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "spend-velocity",
+   "type": "feature",
+   "label": "spend velocity",
+   "as": [
+    "spend velocity"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "utilisation-slope",
+   "type": "feature",
+   "label": "utilisation slope",
+   "as": [
+    "utilisation slope"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cli-xgb-v2",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "cli-oot-2026h1",
+   "quote": "Scored on cli-oot-2026h1",
+   "line": 6
+  },
+  {
+   "s": "cli-xgb-v2",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.72 against 0.74 on holdout-2025q4",
+   "line": 6
+  },
+  {
+   "s": "cli-xgb-v2",
+   "type": "evaluated-on",
+   "label": "compared to",
+   "o": "holdout-2025q4",
+   "quote": "AUC 0.72 against 0.74 on holdout-2025q4",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-107",
+  "dec-cli-uplift-targeting",
+  "ds-cli-oot-2026h1",
+  "feat-cli-util-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/exp-106.md",
+ "sha": "8c1d71a8750af7c8d2ccb67007dc4c1196e91b3484d544ca6fb5035275e7d525",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

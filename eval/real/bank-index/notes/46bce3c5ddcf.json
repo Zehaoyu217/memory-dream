@@ -1,0 +1,130 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-505-arm-c-churn",
+   "type": "other",
+   "label": "churn result",
+   "as": [
+    "arm C accounts churn at 6.4% in 60 days after promo expiry, against 2.1% for control"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "arm-c",
+   "type": "segment",
+   "label": "cohort",
+   "as": [
+    "Arm C cohorts"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cards.churn_labels",
+   "type": "dataset",
+   "label": "label source",
+   "as": [
+    "`cards.churn_labels`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-pa-promo-exit-cliff",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-pa-promo-exit-cliff"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "ds-pa-churn-labels",
+   "type": "other",
+   "label": "source note",
+   "as": [
+    "ds-pa-churn-labels"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "arm-b",
+   "type": "segment",
+   "label": "cohort",
+   "as": [
+    "Arm B"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "churn",
+   "type": "metric",
+   "label": "churn rate",
+   "as": [
+    "6.4%",
+    "2.1%"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-505-arm-c-churn",
+   "type": "uses",
+   "label": "measured on cohort",
+   "o": "arm-c",
+   "quote": "Arm C cohorts whose promo expired from February to August 2026",
+   "line": 6
+  },
+  {
+   "s": "exp-505-arm-c-churn",
+   "type": "uses",
+   "label": "label from",
+   "o": "cards.churn_labels",
+   "quote": "60-day churn label from `cards.churn_labels`",
+   "line": 6
+  },
+  {
+   "s": "exp-505-arm-c-churn",
+   "type": "uses",
+   "label": "built from",
+   "o": "feat-pa-promo-exit-cliff",
+   "quote": "from: [ds-pa-churn-labels, feat-pa-promo-exit-cliff]",
+   "line": 2
+  },
+  {
+   "s": "exp-505-arm-c-churn",
+   "type": "measured-by",
+   "label": "churn rate",
+   "o": "churn",
+   "quote": "Arm C 6.4% against 2.1% for control",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "promo-apr-test/exp-505-exit-churn.md",
+  "ds-pa-churn-labels"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "promo-apr-test/exp-505-exit-churn.md",
+ "sha": "46bce3c5ddcf80f4a8f372312160b8cf4384ecb66eec4b85251d07a35e188446",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

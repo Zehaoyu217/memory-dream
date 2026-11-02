@@ -1,0 +1,108 @@
+{
+ "kind": "term",
+ "entities": [
+  {
+   "id": "csat",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "CSAT"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "call-volume",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Call volume"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "`callcenter.calls`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "appendix",
+   "type": "document",
+   "label": "document",
+   "as": [
+    "appendix"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "raw-call-counts",
+   "type": "other",
+   "label": "raw call counts",
+   "as": [
+    "Raw call counts"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "call-volume",
+   "type": "uses",
+   "label": "counts calls in",
+   "o": "callcenter.calls",
+   "quote": "calls in `callcenter.calls` per 1,000 active accounts",
+   "line": 6
+  },
+  {
+   "s": "call-volume",
+   "type": "uses",
+   "label": "normalised by",
+   "o": "cards.accounts_monthly",
+   "quote": "active accounts in `cards.accounts_monthly` for the month",
+   "line": 6
+  },
+  {
+   "s": "raw-call-counts",
+   "type": "stored-in",
+   "label": "kept in",
+   "o": "appendix",
+   "quote": "Raw call counts are kept in the appendix only.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/cx-metric-definitions.md",
+ "sha": "556d5d893d1491d906d9007c4248a217ba5bb0a9842be8fea1138d6f9289934a",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

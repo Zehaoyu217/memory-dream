@@ -1,0 +1,79 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "executive-summary",
+   "type": "document",
+   "label": "executive summary",
+   "as": [
+    "Executive summaries"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "appendix",
+   "type": "document",
+   "label": "appendix",
+   "as": [
+    "Appendices and detail tables"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "usd-millions",
+   "type": "term",
+   "label": "$m unit",
+   "as": [
+    "$m"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "usd-thousands",
+   "type": "term",
+   "label": "$k unit",
+   "as": [
+    "$k"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "executive-summary",
+   "type": "other",
+   "label": "formatted in",
+   "o": "usd-millions",
+   "quote": "Executive summaries: $m, one decimal",
+   "line": 5
+  },
+  {
+   "s": "appendix",
+   "type": "other",
+   "label": "formatted in",
+   "o": "usd-thousands",
+   "quote": "Appendices and detail tables: $k",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/rounding-currency.md",
+ "sha": "bc93574af2a562ed2c5a161e26d89c4c907166d652774e6732f1dc0d77f55916",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

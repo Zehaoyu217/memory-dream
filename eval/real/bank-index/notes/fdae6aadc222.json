@@ -1,0 +1,84 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-hp-matched-controls",
+   "type": "segment",
+   "label": "matched sample",
+   "as": [
+    "Matched sample built from the eligible pool",
+    "Matched control sample"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "ds-hp-enrolled",
+   "type": "segment",
+   "label": "enrolled accounts",
+   "as": [
+    "14,020 enrolled accounts",
+    "800 enrolled accounts were unmatched and dropped"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "feat-hp-match-covars-v1",
+   "type": "feature",
+   "label": "matching covariates",
+   "as": [
+    "Matching covariates: feat-hp-match-covars-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-hp-pre-dpd-v1",
+   "type": "feature",
+   "label": "pre-period dpd history",
+   "as": [
+    "Pre-period DPD history: feat-hp-pre-dpd-v1"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-hp-matched-controls",
+   "type": "uses",
+   "label": "matched on",
+   "o": "feat-hp-match-covars-v1",
+   "quote": "Matching covariates: feat-hp-match-covars-v1",
+   "line": 8
+  },
+  {
+   "s": "ds-hp-matched-controls",
+   "type": "uses",
+   "label": "pre-period history",
+   "o": "feat-hp-pre-dpd-v1",
+   "quote": "Pre-period DPD history: feat-hp-pre-dpd-v1",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "hardship-programs/ds-hp-matched-controls.md",
+  "ds-hp-enrolled"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "hardship-programs/ds-hp-matched-controls.md",
+ "sha": "fdae6aadc2228ef28504ea937dafe2bcc39a714a2dc71563984653bb868b8452",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

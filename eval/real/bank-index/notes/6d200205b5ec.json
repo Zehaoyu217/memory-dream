@@ -1,0 +1,102 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "ae-attr-gbm-v1",
+   "type": "model",
+   "label": "attrition model",
+   "as": [
+    "ae-attr-gbm-v1",
+    "attrition model"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "feat-ae-session-trend-v1",
+   "type": "feature",
+   "label": "session-trend slope",
+   "as": [
+    "Session trend",
+    "28-day session-trend slope"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ae-attr-gbm-v1",
+   "type": "uses",
+   "label": "tested with and without",
+   "o": "feat-ae-session-trend-v1",
+   "quote": "with and without the 28-day session-trend slope",
+   "line": 6
+  },
+  {
+   "s": "ae-attr-gbm-v1",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "holdout-2025q4",
+   "quote": "(holdout-2025q4, n = 610,000)",
+   "line": 7
+  },
+  {
+   "s": "ae-attr-gbm-v1",
+   "type": "measured-by",
+   "label": "reports AUC",
+   "o": "auc",
+   "quote": "AUC 0.82 with trend against 0.81 without",
+   "line": 7
+  },
+  {
+   "s": "feat-ae-session-trend-v1",
+   "type": "other",
+   "label": "not added to",
+   "o": "ae-attr-gbm-v1",
+   "quote": "Trend is not added; the model stays at the v1 feature set.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-ae-session-trend-v1",
+  "ae-attr-gbm-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "app-engagement/exp-507.md",
+ "sha": "6d200205b5ecb063d30a8fae0d743bcaa71234c76608523c125cf743fbb81943",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

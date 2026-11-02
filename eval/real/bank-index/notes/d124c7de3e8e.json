@@ -1,0 +1,114 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "utilisation-trigger",
+   "type": "model",
+   "label": "utilisation trigger",
+   "as": [
+    "utilisation trigger",
+    "Trigger rule"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "cli-logreg-baseline",
+   "type": "model",
+   "label": "logistic model",
+   "as": [
+    "logistic model",
+    "cli-logreg-baseline"
+   ],
+   "lines": [
+    2,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "cli-test-2025q1",
+   "type": "segment",
+   "label": "cohort",
+   "as": [
+    "cli-test-2025q1 cohort"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "incremental-spend",
+   "type": "metric",
+   "label": "incremental spend",
+   "as": [
+    "incremental spend"
+   ],
+   "lines": [
+    5,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "q2-2025-wave",
+   "type": "other",
+   "label": "wave",
+   "as": [
+    "Q2 2025 wave"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "utilisation-trigger",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "cli-test-2025q1",
+   "quote": "Eval: cli-test-2025q1 cohort",
+   "line": 7
+  },
+  {
+   "s": "utilisation-trigger",
+   "type": "measured-by",
+   "label": "captures share of",
+   "o": "incremental-spend",
+   "quote": "captures 0.58 of the incremental spend pool",
+   "line": 8
+  },
+  {
+   "s": "cli-logreg-baseline",
+   "type": "measured-by",
+   "label": "captures share of",
+   "o": "incremental-spend",
+   "quote": "cli-logreg-baseline 0.71",
+   "line": 8
+  },
+  {
+   "s": "utilisation-trigger",
+   "type": "other",
+   "label": "rejected for",
+   "o": "q2-2025-wave",
+   "quote": "Trigger rejected for the Q2 2025 wave",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "q-cli-utilization-trigger",
+  "cli-logreg-baseline",
+  "find-cli-util-best"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/exp-101.md",
+ "sha": "d124c7de3e8eb124abd5fc7eb06a76ba3a7015c3abe654b807794e6f8db1b4a1",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

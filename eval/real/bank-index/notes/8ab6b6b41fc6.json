@@ -1,0 +1,198 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-304",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-304"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "in-app",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "in-app",
+    "In-app"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "email",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "email"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "push",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "push"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "direct-mail",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "direct mail"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "q2-treatment",
+   "type": "other",
+   "label": "treatment",
+   "as": [
+    "Q2 treatment"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mkt.channel_costs",
+   "type": "dataset",
+   "label": "channel cost table",
+   "as": [
+    "`mkt.channel_costs`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mq3-channel-rct-v1",
+   "type": "other",
+   "label": "analysis",
+   "as": [
+    "mq3-channel-rct-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "incremental-return-per-dollar",
+   "type": "metric",
+   "label": "incremental return",
+   "as": [
+    "14.2 incremental dollars per dollar of cost"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "touches-per-account",
+   "type": "metric",
+   "label": "touches per account",
+   "as": [
+    "1.8 touches per account over 14 days"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "in-app",
+   "type": "part-of",
+   "label": "within",
+   "o": "q2-treatment",
+   "quote": "Channel cells within the Q2 treatment",
+   "line": 6
+  },
+  {
+   "s": "in-app",
+   "type": "measured-by",
+   "label": "returns",
+   "o": "incremental-return-per-dollar",
+   "quote": "in-app returns 14.2 incremental dollars per dollar of cost",
+   "line": 5
+  },
+  {
+   "s": "email",
+   "type": "measured-by",
+   "label": "returns",
+   "o": "incremental-return-per-dollar",
+   "quote": "In-app 14.2, email 9.4, push 6.1, direct mail 3.1.",
+   "line": 7
+  },
+  {
+   "s": "push",
+   "type": "measured-by",
+   "label": "returns",
+   "o": "incremental-return-per-dollar",
+   "quote": "In-app 14.2, email 9.4, push 6.1, direct mail 3.1.",
+   "line": 7
+  },
+  {
+   "s": "direct-mail",
+   "type": "measured-by",
+   "label": "returns",
+   "o": "incremental-return-per-dollar",
+   "quote": "In-app 14.2, email 9.4, push 6.1, direct mail 3.1.",
+   "line": 7
+  },
+  {
+   "s": "incremental-return-per-dollar",
+   "type": "uses",
+   "label": "divided by channel cost from",
+   "o": "mkt.channel_costs",
+   "quote": "divided by channel cost from `mkt.channel_costs`",
+   "line": 6
+  },
+  {
+   "s": "in-app",
+   "type": "measured-by",
+   "label": "received",
+   "o": "touches-per-account",
+   "quote": "Average in-app cell received 1.8 touches per account over 14 days.",
+   "line": 7
+  },
+  {
+   "s": "mq3-channel-rct-v1",
+   "type": "uses",
+   "label": "based on",
+   "o": "exp-304",
+   "quote": "Basis for mq3-channel-rct-v1",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "find-mq3-inapp-saturates",
+  "ds-mq3-q2-rct"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "marketing-uplift-q3/exp-304-channel-split.md",
+ "sha": "8ab6b6b41fc6a3f346c107bc1b4a330751ff1edfb277df6cf26c1813a28c6de8",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

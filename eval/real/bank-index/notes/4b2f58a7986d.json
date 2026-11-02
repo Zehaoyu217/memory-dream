@@ -1,0 +1,67 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "min-sample-rule",
+   "type": "policy",
+   "label": "minimum sample rule",
+   "as": [
+    "Rates are shown only for groups with at least 200 cases or accounts; smaller groups show \"n<200\""
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "deck",
+   "type": "document",
+   "label": "deck",
+   "as": [
+    "The minimum base for a rate shown in any deck is 200 cases or accounts."
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "segment",
+   "type": "segment",
+   "label": "segments",
+   "as": [
+    "The rule applies to segments, campaigns and collections buckets alike."
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "min-sample-rule",
+   "type": "other",
+   "label": "applies to",
+   "o": "deck",
+   "quote": "The minimum base for a rate shown in any deck is 200 cases or accounts.",
+   "line": 5
+  },
+  {
+   "s": "min-sample-rule",
+   "type": "other",
+   "label": "applies to",
+   "o": "segment",
+   "quote": "The rule applies to segments, campaigns and collections buckets alike.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "reporting/min-sample-for-rates.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/min-sample-for-rates.md",
+ "sha": "4b2f58a7986db1933ca66244c0a5a806f3f9dfd217de1b8b20bd5140b5b1eff3",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

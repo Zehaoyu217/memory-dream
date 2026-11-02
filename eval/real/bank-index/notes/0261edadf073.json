@@ -1,0 +1,94 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "clv-bgnbd-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "BG/NBD"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "clv-oot-2021h1",
+   "type": "dataset",
+   "label": "out-of-time sample",
+   "as": [
+    "clv-oot-2021h1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "top-spend-decile",
+   "type": "segment",
+   "label": "top spend decile",
+   "as": [
+    "top spend decile",
+    "top-decile accounts by spend"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "margin-36m",
+   "type": "metric",
+   "label": "36-month margin",
+   "as": [
+    "36-month margin"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "dec-clv-ship-ml-v1",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-clv-ship-ml-v1"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "clv-bgnbd-v1",
+   "type": "evaluated-on",
+   "label": "predicted on",
+   "o": "clv-oot-2021h1",
+   "quote": "On clv-oot-2021h1, top-decile accounts by spend are predicted at 14% above realised 36-month margin.",
+   "line": 6
+  },
+  {
+   "s": "clv-bgnbd-v1",
+   "type": "measured-by",
+   "label": "overpredicts",
+   "o": "margin-36m",
+   "quote": "BG/NBD overpredicts the top spend decile's 36-month margin by 14%",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-501",
+  "clv-bgnbd-v1",
+  "dec-clv-ship-ml-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "customer-lifetime-value/fnd-clv-bgnbd-bias.md",
+ "sha": "0261edadf073730401db2b49235699db1593e0b1f571bd8133d90246ed5fbe08",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

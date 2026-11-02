@@ -1,0 +1,235 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "ed-gbm-v3",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "ed-gbm-v3"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ed-gbm-v2",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "ed-gbm-v2"
+   ],
+   "lines": [
+    2,
+    4,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "feat-ed-bureau-slope-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ed-bureau-slope-v1",
+    "the bureau 6-month slope"
+   ],
+   "lines": [
+    2,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "feat-ed-util-trend-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ed-util-trend-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-ed-cashadv-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ed-cashadv-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-ed-minpay-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ed-minpay-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-207",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-207"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "early-delinquency-oot-2026h1",
+   "type": "dataset",
+   "label": "evaluation dataset",
+   "as": [
+    "early-delinquency-oot-2026h1"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.809"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "score-psi",
+   "type": "metric",
+   "label": "score psi",
+   "as": [
+    "score PSI 0.07",
+    "score PSI"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "watchlist",
+   "type": "other",
+   "label": "watchlist",
+   "as": [
+    "watchlist"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ed-gbm-v3",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-ed-util-trend-v1",
+   "quote": "Features: feat-ed-util-trend-v1, feat-ed-cashadv-v1, feat-ed-minpay-v2, feat-ed-bureau-slope-v1.",
+   "line": 7
+  },
+  {
+   "s": "ed-gbm-v3",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-ed-cashadv-v1",
+   "quote": "Features: feat-ed-util-trend-v1, feat-ed-cashadv-v1, feat-ed-minpay-v2, feat-ed-bureau-slope-v1.",
+   "line": 7
+  },
+  {
+   "s": "ed-gbm-v3",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-ed-minpay-v2",
+   "quote": "Features: feat-ed-util-trend-v1, feat-ed-cashadv-v1, feat-ed-minpay-v2, feat-ed-bureau-slope-v1.",
+   "line": 7
+  },
+  {
+   "s": "ed-gbm-v3",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-ed-bureau-slope-v1",
+   "quote": "Features: feat-ed-util-trend-v1, feat-ed-cashadv-v1, feat-ed-minpay-v2, feat-ed-bureau-slope-v1.",
+   "line": 7
+  },
+  {
+   "s": "ed-gbm-v3",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "ed-gbm-v2",
+   "quote": "supersedes: [ed-gbm-v2]",
+   "line": 4
+  },
+  {
+   "s": "ed-gbm-v3",
+   "type": "derived-from",
+   "label": "built from",
+   "o": "exp-207",
+   "quote": "from: [ed-gbm-v2, feat-ed-bureau-slope-v1, exp-207]",
+   "line": 2
+  },
+  {
+   "s": "ed-gbm-v3",
+   "type": "evaluated-on",
+   "label": "metrics on",
+   "o": "early-delinquency-oot-2026h1",
+   "quote": "Metrics on early-delinquency-oot-2026h1 (n=1,930,000)",
+   "line": 8
+  },
+  {
+   "s": "ed-gbm-v3",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.809 against 0.796 for ed-gbm-v2",
+   "line": 8
+  },
+  {
+   "s": "ed-gbm-v3",
+   "type": "measured-by",
+   "label": "score PSI",
+   "o": "score-psi",
+   "quote": "score PSI 0.07",
+   "line": 6
+  },
+  {
+   "s": "ed-gbm-v3",
+   "type": "other",
+   "label": "promoted to",
+   "o": "watchlist",
+   "quote": "Promoted to the watchlist on 2026-06-18 (dec-ed-promote-v3).",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "ed-gbm-v2",
+  "feat-ed-bureau-slope-v1",
+  "exp-207",
+  "dec-ed-promote-v3",
+  "feat-ed-util-trend-v1",
+  "feat-ed-cashadv-v1",
+  "feat-ed-minpay-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "early-delinquency/ed-gbm-v3.md",
+ "sha": "4d187a2ef1f713d36dada7b28e1226ad4cec433b9df4a83c10c2f4d3e753c79e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

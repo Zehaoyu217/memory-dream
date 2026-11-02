@@ -1,0 +1,80 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "upstream-batch",
+   "type": "pipeline",
+   "label": "upstream batch",
+   "as": [
+    "The upstream batch start",
+    "upstream batch"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "late-share",
+   "type": "metric",
+   "label": "late share",
+   "as": [
+    "Late share"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "monday-skew",
+   "type": "other",
+   "label": "monday skew",
+   "as": [
+    "The Monday skew"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "retry-driven-late-partitions",
+   "type": "other",
+   "label": "retry-driven late partitions",
+   "as": [
+    "The retry-driven late partitions"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "late-share",
+   "type": "other",
+   "label": "fell after batch move",
+   "o": "upstream-batch",
+   "quote": "After the batch moved to 04:30 in October 2025, late partitions fell to 1.6 percent",
+   "line": 6
+  },
+  {
+   "s": "retry-driven-late-partitions",
+   "type": "other",
+   "label": "bigger share of remainder",
+   "o": "late-share",
+   "quote": "The retry-driven late partitions are now the bigger share of the remainder.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "fnd-late-share-2025",
+  "ds-dq-partition-arrivals"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "data-quality-txn/fnd-late-share-2026.md",
+ "sha": "c89957569248cbb578fa68e673a0b31bb52ab83adc3de7620d8af0360e3c1fc8",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

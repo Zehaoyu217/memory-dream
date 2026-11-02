@@ -1,0 +1,124 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-pbs-oot-2025h2",
+   "type": "dataset",
+   "label": "outcome set",
+   "as": [
+    "Out-of-time outcomes for the frame, Jul to Dec 2025"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-pbs-frame-h1-2025",
+   "type": "document",
+   "label": "account frame",
+   "as": [
+    "same account frame"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cards.churn_labels",
+   "type": "dataset",
+   "label": "attrition labels",
+   "as": [
+    "cards.churn_labels"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "collections.cases",
+   "type": "dataset",
+   "label": "collections cases",
+   "as": [
+    "collections.cases"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-406",
+   "type": "other",
+   "label": "predictor test",
+   "as": [
+    "exp-406"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-407",
+   "type": "other",
+   "label": "predictor test",
+   "as": [
+    "exp-407"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-pbs-oot-2025h2",
+   "type": "other",
+   "label": "outcomes for",
+   "o": "ds-pbs-frame-h1-2025",
+   "quote": "Outcomes for the same account frame over Jul to Dec 2025",
+   "line": 6
+  },
+  {
+   "s": "ds-pbs-oot-2025h2",
+   "type": "uses",
+   "label": "takes attrition from",
+   "o": "cards.churn_labels",
+   "quote": "12-month attrition from `cards.churn_labels`",
+   "line": 6
+  },
+  {
+   "s": "ds-pbs-oot-2025h2",
+   "type": "uses",
+   "label": "takes 90+ DPD from",
+   "o": "collections.cases",
+   "quote": "90+ days past due from `collections.cases`",
+   "line": 6
+  },
+  {
+   "s": "exp-406",
+   "type": "evaluated-on",
+   "label": "validation set for",
+   "o": "ds-pbs-oot-2025h2",
+   "quote": "Used as the validation set for the segment-as-predictor tests (exp-406, exp-407).",
+   "line": 7
+  },
+  {
+   "s": "exp-407",
+   "type": "evaluated-on",
+   "label": "validation set for",
+   "o": "ds-pbs-oot-2025h2",
+   "quote": "Used as the validation set for the segment-as-predictor tests (exp-406, exp-407).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-pbs-frame-h1-2025"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "payment-behavior-segments/ds-pbs-oot-2025h2.md",
+ "sha": "a4254e4921b0bd6be2621636283e1e60b77869e69ffa3a9b9f37a75a887c8e22",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

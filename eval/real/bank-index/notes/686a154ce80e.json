@@ -1,0 +1,101 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "revolvers",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "revolvers",
+    "revolver"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "transactors",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "transactors"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "minimum-payer",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "minimum-payer"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-405",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-405"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "twelve-month-roll-rate",
+   "type": "metric",
+   "label": "roll rate",
+   "as": [
+    "Twelve-month roll rate"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "revolvers",
+   "type": "other",
+   "label": "become transactors",
+   "o": "transactors",
+   "quote": "14% of revolvers become transactors within 12 months",
+   "line": 5
+  },
+  {
+   "s": "revolvers",
+   "type": "other",
+   "label": "roll rate to minimum-payer",
+   "o": "minimum-payer",
+   "quote": "to minimum-payer 9% (exp-405)",
+   "line": 6
+  },
+  {
+   "s": "twelve-month-roll-rate",
+   "type": "other",
+   "label": "reported by",
+   "o": "exp-405",
+   "quote": "Twelve-month roll rate from revolver to transactor is 14%; to minimum-payer 9% (exp-405).",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "q-pbs-revolver-migration"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "payment-behavior-segments/fnd-pbs-revolver-migration.md",
+ "sha": "686a154ce80e155a1ae1eb00e418f4513e61f8025a16c61952bdaef07439f338",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

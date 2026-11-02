@@ -1,0 +1,109 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "tenure-cohort-normalisation",
+   "type": "term",
+   "label": "normalisation",
+   "as": [
+    "Normalise depth by tenure cohort before scoring"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-ae-depth-v2",
+   "type": "feature",
+   "label": "depth",
+   "as": [
+    "feat-ae-depth-v2",
+    "Depth"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "accounts-under-90-days",
+   "type": "segment",
+   "label": "new accounts",
+   "as": [
+    "accounts under 90 days"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "digital-analytics",
+   "type": "team",
+   "label": "digital-analytics",
+   "as": [
+    "digital-analytics"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "maya-ortiz",
+   "type": "person",
+   "label": "retention",
+   "as": [
+    "Maya Ortiz"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "tenure-cohort-normalisation",
+   "type": "uses",
+   "label": "divided by",
+   "o": "feat-ae-depth-v2",
+   "quote": "Depth is divided by the tenure-cohort baseline (feat-ae-depth-v2)",
+   "line": 6
+  },
+  {
+   "s": "tenure-cohort-normalisation",
+   "type": "owned-by",
+   "label": "agreed by",
+   "o": "digital-analytics",
+   "quote": "Agreed by digital-analytics and Maya Ortiz (retention).",
+   "line": 7
+  },
+  {
+   "s": "tenure-cohort-normalisation",
+   "type": "owned-by",
+   "label": "agreed by",
+   "o": "maya-ortiz",
+   "quote": "Agreed by digital-analytics and Maya Ortiz (retention).",
+   "line": 7
+  },
+  {
+   "s": "accounts-under-90-days",
+   "type": "other",
+   "label": "scores inflated without",
+   "o": "tenure-cohort-normalisation",
+   "quote": "Without it, accounts under 90 days score 14 points higher than the all-tenure mean.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fnd-ae-new-user-inflation",
+  "feat-ae-depth-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "app-engagement/dec-ae-tenure-norm.md",
+ "sha": "179e085a80ae9cfa28d50d0528e735e3cad2e1766c218bf20816168f6201ceed",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

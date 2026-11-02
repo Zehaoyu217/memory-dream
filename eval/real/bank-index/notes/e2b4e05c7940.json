@@ -1,0 +1,99 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "lbl-churn-xgb-v2",
+   "type": "model",
+   "label": "churn model",
+   "as": [
+    "lbl-churn-xgb-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-lbl-churn-flag-closure",
+   "type": "feature",
+   "label": "churn label",
+   "as": [
+    "feat-lbl-churn-flag-closure"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "lbl-oot-2025h2",
+   "type": "dataset",
+   "label": "out-of-time set",
+   "as": [
+    "lbl-oot-2025h2"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.768"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "label-rebuild-job",
+   "type": "pipeline",
+   "label": "rebuilt job",
+   "as": [
+    "the idempotent rebuilt job"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "lbl-churn-xgb-v2",
+   "type": "uses",
+   "label": "retrained on",
+   "o": "feat-lbl-churn-flag-closure",
+   "quote": "retrained on feat-lbl-churn-flag-closure",
+   "line": 6
+  },
+  {
+   "s": "lbl-churn-xgb-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "lbl-oot-2025h2",
+   "quote": "AUC 0.768 on lbl-oot-2025h2",
+   "line": 5
+  },
+  {
+   "s": "lbl-churn-xgb-v2",
+   "type": "measured-by",
+   "label": "scored by",
+   "o": "auc",
+   "quote": "AUC 0.768 on lbl-oot-2025h2",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-407"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "label-pipeline-rebuild/lbl-churn-xgb-v2.md",
+ "sha": "e2b4e05c794098b1fc64b556c94f7d920b9da9d806531fe0dfea2c045147940a",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

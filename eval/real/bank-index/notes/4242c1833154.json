@@ -1,0 +1,66 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-bsm-v8-history",
+   "type": "dataset",
+   "label": "score panel",
+   "as": [
+    "ds-bsm-v8-history",
+    "monthly bureau v8 score panel"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "bureau.scores_monthly"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bureau-delta",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "CLI bureau-delta feature"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-bsm-v8-history",
+   "type": "sourced-from",
+   "label": "sourced from",
+   "o": "bureau.scores_monthly",
+   "quote": "Source `bureau.scores_monthly`, score_version = 'v8'",
+   "line": 6
+  },
+  {
+   "s": "bureau-delta",
+   "type": "uses",
+   "label": "based on",
+   "o": "ds-bsm-v8-history",
+   "quote": "Panel is the base for every v8 baseline in this project and for the CLI bureau-delta feature.",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "bureau-score-migration/ds-bsm-v8-history.md",
+ "sha": "4242c1833154b0262b22068a2c7e9bfdec641e7b2ecdad4b17357de0629a6063",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

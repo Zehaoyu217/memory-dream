@@ -1,0 +1,100 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "velocity-v2",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "velocity-v2"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.921"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "fraud26-oot-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "fraud26-oot-2025q4"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-f26-dispute-join",
+   "type": "pipeline",
+   "label": "join",
+   "as": [
+    "ds-f26-dispute-join"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "join-window-bug",
+   "type": "other",
+   "label": "bug",
+   "as": [
+    "join-window bug"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "velocity-v2",
+   "type": "measured-by",
+   "label": "gives",
+   "o": "auc",
+   "quote": "velocity-v2 gives AUC 0.921",
+   "line": 8
+  },
+  {
+   "s": "velocity-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "fraud26-oot-2025q4",
+   "quote": "AUC 0.921 on fraud26-oot-2025q4",
+   "line": 6
+  },
+  {
+   "s": "join-window-bug",
+   "type": "other",
+   "label": "bug in",
+   "o": "ds-f26-dispute-join",
+   "quote": "join-window bug in ds-f26-dispute-join",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fraud26-find-velocity-leak",
+  "exp-205"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2026/fraud26-find-velocity-clean.md",
+ "sha": "0b82b5c5942935685ba2c17559f722bdf746da406348bebedcd0e6b33e4e8ceb",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

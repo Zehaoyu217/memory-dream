@@ -1,0 +1,73 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "trv-bsts-v1",
+   "type": "model",
+   "label": "bsts line",
+   "as": [
+    "BSTS line",
+    "trv-bsts-v1"
+   ],
+   "lines": [
+    2,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "ridge",
+   "type": "model",
+   "label": "ridge line",
+   "as": [
+    "ridge line",
+    "ridge"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "trv-bsts-v1",
+   "type": "measured-by",
+   "label": "gave MAPE",
+   "o": "mape",
+   "quote": "BSTS gave 5.6% MAPE",
+   "line": 6
+  },
+  {
+   "s": "ridge",
+   "type": "measured-by",
+   "label": "gave MAPE",
+   "o": "mape",
+   "quote": "against 5.2% for the ridge",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-504"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "travel-spend-recovery/dec-trv-stop-bsts.md",
+ "sha": "f83f5857b407f4db539db9ff81b4a374bb7fe4861be6709e080cef8da7af3d55",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

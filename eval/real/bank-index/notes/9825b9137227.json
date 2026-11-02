@@ -1,0 +1,150 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "bt-xgb-v1",
+   "type": "model",
+   "label": "xgb",
+   "as": [
+    "bt-xgb-v1",
+    "depth-6 xgb"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "bt-xgb-v2",
+   "type": "model",
+   "label": "clean holdout model",
+   "as": [
+    "bt-xgb-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cards.limits_history",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.limits_history"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "headroom",
+   "type": "feature",
+   "label": "headroom",
+   "as": [
+    "headroom"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "post-offer-leak",
+   "type": "term",
+   "label": "leak",
+   "as": [
+    "post-offer leak"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "random-split",
+   "type": "term",
+   "label": "random split",
+   "as": [
+    "random 80/20 split"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "q1-q2-2025-exposures",
+   "type": "dataset",
+   "label": "exposures",
+   "as": [
+    "Q1-Q2 2025 exposures"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bt-xgb-v1",
+   "type": "uses",
+   "label": "added headroom",
+   "o": "headroom",
+   "quote": "Added headroom from all `cards.limits_history` rows",
+   "line": 6
+  },
+  {
+   "s": "headroom",
+   "type": "uses",
+   "label": "from",
+   "o": "cards.limits_history",
+   "quote": "Added headroom from all `cards.limits_history` rows",
+   "line": 6
+  },
+  {
+   "s": "bt-xgb-v1",
+   "type": "evaluated-on",
+   "label": "random split of",
+   "o": "q1-q2-2025-exposures",
+   "quote": "random 80/20 split of Q1-Q2 2025 exposures",
+   "line": 7
+  },
+  {
+   "s": "bt-xgb-v1",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.81 with all rows, 0.74 with pre-offer rows only.",
+   "line": 7
+  },
+  {
+   "s": "post-offer-leak",
+   "type": "other",
+   "label": "explains gap",
+   "o": "auc",
+   "quote": "The 0.07 gap is the post-offer leak.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-bt-offer-log",
+  "bt-xgb-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "balance-transfer-propensity/exp-104-limit-headroom-full.md",
+ "sha": "9825b91372277f0f5b5a7031da035f312dbc44be69f675bd6f1aca93b1111b0a",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

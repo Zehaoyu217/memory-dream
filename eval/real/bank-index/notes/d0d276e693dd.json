@@ -1,0 +1,68 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "feat_txn_spend_sum_30d_v2",
+   "type": "feature",
+   "label": "current feature name",
+   "as": [
+    "feat_txn_spend_sum_30d_v2",
+    "the 30-day spend sum feature"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat_txn_spend_sum_30d_v1",
+   "type": "feature",
+   "label": "retired version",
+   "as": [
+    "The v1 version"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feature-registry",
+   "type": "other",
+   "label": "feature registry",
+   "as": [
+    "The registry"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat_txn_spend_sum_30d_v2",
+   "type": "replaces",
+   "label": "newer version of",
+   "o": "feat_txn_spend_sum_30d_v1",
+   "quote": "The v1 version summed reversals as well as purchases and was retired in May 2025.",
+   "line": 6
+  },
+  {
+   "s": "feature-registry",
+   "type": "other",
+   "label": "keeps both versions",
+   "o": "feat_txn_spend_sum_30d_v1",
+   "quote": "The registry keeps both versions until no live model reads v1.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "howto/feature-naming-convention"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/spend-30d-feature-name.md",
+ "sha": "d0d276e693dd8d303657ba68fc73f2f1d9e22f32769da1dd47035ae9ead4b885",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

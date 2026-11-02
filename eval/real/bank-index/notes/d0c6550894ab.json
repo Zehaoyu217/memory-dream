@@ -1,0 +1,86 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "ds-clv-loss-events",
+   "type": "term",
+   "label": "loss rate finding",
+   "as": [
+    "Charge-off losses per cohort from collections.cases: 4.8% of originated balance for 2019 to 2021 cohorts"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-clv-cohort-panel",
+   "type": "dataset",
+   "label": "cohort panel",
+   "as": [
+    "from: [ds-clv-cohort-panel]"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "collections.cases",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "collections.cases"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-clv-loss-rate",
+   "type": "feature",
+   "label": "loss rate feature",
+   "as": [
+    "Feeds feat-clv-loss-rate and the net-of-loss CLV targets."
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-clv-loss-events",
+   "type": "uses",
+   "label": "loss from",
+   "o": "collections.cases",
+   "quote": "Charge-off losses per cohort from collections.cases",
+   "line": 5
+  },
+  {
+   "s": "ds-clv-loss-events",
+   "type": "uses",
+   "label": "from",
+   "o": "ds-clv-cohort-panel",
+   "quote": "from: [ds-clv-cohort-panel]",
+   "line": 2
+  },
+  {
+   "s": "feat-clv-loss-rate",
+   "type": "uses",
+   "label": "fed by",
+   "o": "ds-clv-loss-events",
+   "quote": "Feeds feat-clv-loss-rate and the net-of-loss CLV targets.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "customer-lifetime-value/ds-clv-loss-events.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "customer-lifetime-value/ds-clv-loss-events.md",
+ "sha": "d0c6550894ab02ee1a0aa1f3d62657dc8cd0a6dc3500c029a1697906c557980f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

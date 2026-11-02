@@ -1,0 +1,80 @@
+{
+ "kind": "note",
+ "entities": [
+  {
+   "id": "cards-accounts-monthly",
+   "type": "dataset",
+   "label": "accounts table",
+   "as": [
+    "cards.accounts_monthly",
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "cards-limits-history",
+   "type": "dataset",
+   "label": "limits history",
+   "as": [
+    "cards.limits_history"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "util-v2",
+   "type": "feature",
+   "label": "util feature",
+   "as": [
+    "util-v2"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "churn-2025-base-population",
+   "type": "dataset",
+   "label": "base population",
+   "as": [
+    "Churn-2025 base population: 1.18M account-months from cards.accounts_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-2025-base-population",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cards-accounts-monthly",
+   "quote": "from `cards.accounts_monthly`",
+   "line": 5
+  },
+  {
+   "s": "util-v2",
+   "type": "uses",
+   "label": "joined from",
+   "o": "cards-limits-history",
+   "quote": "Limit changes come from `cards.limits_history`, joined for util-v2.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "churn-2025/ds-c25-accounts-snapshot.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2025/ds-c25-accounts-snapshot.md",
+ "sha": "6c735b06559a0a7fd7261a774ddf1f454391aa5c8ef4bdbe94f25e5defdf6581",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

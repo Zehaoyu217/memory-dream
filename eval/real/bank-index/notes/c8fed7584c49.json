@@ -1,0 +1,79 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "ds-hp-cure-tracking",
+   "type": "document",
+   "label": "cure tracking note",
+   "as": [
+    "Cure tracking: 12 months after plan end for 2024H1 enrolment cohorts, 9,870 enrolled accounts observed"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-hp-matched-controls",
+   "type": "segment",
+   "label": "matched controls",
+   "as": [
+    "matched controls observed on the same calendar window"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-hp-enrolled",
+   "type": "segment",
+   "label": "enrolled accounts",
+   "as": [
+    "9,870 enrolled accounts"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-hp-cure-tracking",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cards.accounts_monthly",
+   "quote": "Source: `cards.accounts_monthly` for the 2024H1 enrolment cohorts",
+   "line": 6
+  },
+  {
+   "s": "ds-hp-cure-tracking",
+   "type": "uses",
+   "label": "compares with",
+   "o": "ds-hp-matched-controls",
+   "quote": "matched controls observed on the same calendar window",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-hp-enrolled"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "hardship-programs/ds-hp-cure-tracking.md",
+ "sha": "c8fed7584c49a292a29333d0fe0691e46d41503735310f646b84e801b91ef3b6",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,68 @@
+{
+ "kind": "note",
+ "entities": [
+  {
+   "id": "feat-cb-redemption-rate",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cb-redemption-rate",
+    "share of accrued rewards redeemed within 90 days"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cb.rewards_ledger",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cb.rewards_ledger`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cb-sim-v1",
+   "type": "model",
+   "label": "simulation model",
+   "as": [
+    "cb-sim-v1"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cb-redemption-rate",
+   "type": "uses",
+   "label": "computed from",
+   "o": "cb.rewards_ledger",
+   "quote": "Redemptions divided by accruals, rolling 90 days, from `cb.rewards_ledger`.",
+   "line": 6
+  },
+  {
+   "s": "feat-cb-redemption-rate",
+   "type": "uses",
+   "label": "used in cost lines",
+   "o": "cb-sim-v1",
+   "quote": "used in cb-sim-v1 cost lines.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-cb-rewards-ledger"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/feat-cb-redemption-rate.md",
+ "sha": "7c55ff2e2a09befc0fc760f1712384e0119f0ce7678e6172bf7d5c363da42483",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

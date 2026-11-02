@@ -1,0 +1,140 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "cr-logreg-v1",
+   "type": "model",
+   "label": "baseline model",
+   "as": [
+    "Multinomial logistic regression baseline"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro f1",
+   "as": [
+    "Macro F1 0.61"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "top-1-accuracy",
+   "type": "metric",
+   "label": "top-1 accuracy",
+   "as": [
+    "top-1 accuracy 0.66"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-cr-transcript-tfidf-v1",
+   "type": "feature",
+   "label": "tf-idf svd features",
+   "as": [
+    "TF-IDF SVD features"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-cr-ivr-path-v1",
+   "type": "feature",
+   "label": "ivr path tokens",
+   "as": [
+    "one-hot IVR path tokens"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-cr-lgbm",
+   "type": "other",
+   "label": "comparison reference",
+   "as": [
+    "the reference point in dec-cr-lgbm"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cr-logreg-v1",
+   "type": "uses",
+   "label": "takes inputs",
+   "o": "feat-cr-transcript-tfidf-v1",
+   "quote": "Inputs: TF-IDF SVD features plus one-hot IVR path tokens.",
+   "line": 6
+  },
+  {
+   "s": "cr-logreg-v1",
+   "type": "uses",
+   "label": "takes inputs",
+   "o": "feat-cr-ivr-path-v1",
+   "quote": "Inputs: TF-IDF SVD features plus one-hot IVR path tokens.",
+   "line": 6
+  },
+  {
+   "s": "cr-logreg-v1",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q4",
+   "quote": "Macro F1 0.61 and top-1 accuracy 0.66 on holdout-2025q4 (n = 380,000 calls).",
+   "line": 7
+  },
+  {
+   "s": "cr-logreg-v1",
+   "type": "measured-by",
+   "label": "scored by",
+   "o": "macro-f1",
+   "quote": "Macro F1 0.61 and top-1 accuracy 0.66 on holdout-2025q4",
+   "line": 7
+  },
+  {
+   "s": "cr-logreg-v1",
+   "type": "measured-by",
+   "label": "scored by",
+   "o": "top-1-accuracy",
+   "quote": "top-1 accuracy 0.66 on holdout-2025q4",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "call-center-routing/cr-logreg-v1.md",
+  "feat-cr-transcript-tfidf-v1",
+  "feat-cr-ivr-path-v1",
+  "dec-cr-lgbm"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/cr-logreg-v1.md",
+ "sha": "6554a9210f10776a6607a4607d29113c16820c9d7ea5eb1de3113b47fff9f797",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

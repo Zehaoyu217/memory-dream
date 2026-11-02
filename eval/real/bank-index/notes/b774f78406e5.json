@@ -1,0 +1,74 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "pa-bal-forecast-v1",
+   "type": "model",
+   "label": "balance forecast",
+   "as": [
+    "pa-bal-forecast-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "pa-churn-hazard-v1",
+   "type": "model",
+   "label": "churn hazard model",
+   "as": [
+    "pa-churn-hazard-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "finance",
+   "type": "team",
+   "label": "finance",
+   "as": [
+    "Finance"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "24-month-net-margin",
+   "type": "metric",
+   "label": "24-month net margin",
+   "as": [
+    "24-month net margin per account"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "24-month-net-margin",
+   "type": "measured-by",
+   "label": "wanted by Finance",
+   "o": "finance",
+   "quote": "Finance wants 24-month net margin per account by arm and by score band.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "pa-bal-forecast-v1",
+  "pa-churn-hazard-v1",
+  "q-pa-readout-question"
+ ],
+ "dropped": {
+  "entities": [
+   "promo-apr-test"
+  ],
+  "relations": 2
+ },
+ "path": "promo-apr-test/q-pa-long-run-margin.md",
+ "sha": "b774f78406e5e77b6638e5e466dbb7811b480575095d7841b4b3a07ab4c836da",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

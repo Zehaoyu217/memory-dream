@@ -1,0 +1,88 @@
+{
+ "kind": "note",
+ "entities": [
+  {
+   "id": "travel-mcc-list",
+   "type": "term",
+   "label": "travel set",
+   "as": [
+    "Travel set",
+    "Travel MCC list"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "fraud-2025-travel-flag",
+   "type": "flag",
+   "label": "travel flag",
+   "as": [
+    "fraud-2025 travel flag"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.merchants",
+   "type": "dataset",
+   "label": "merchant snapshot",
+   "as": [
+    "cards.merchants",
+    "2024-07 to 2025-03 merchant snapshot"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "travel-merchants",
+   "type": "segment",
+   "label": "travel merchant ids",
+   "as": [
+    "31,880 travel merchant ids"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud-2025-travel-flag",
+   "type": "uses",
+   "label": "built from",
+   "o": "travel-mcc-list",
+   "quote": "Travel MCC list taken from cards.merchants for the fraud-2025 travel flag",
+   "line": 5
+  },
+  {
+   "s": "travel-mcc-list",
+   "type": "uses",
+   "label": "taken from",
+   "o": "cards.merchants",
+   "quote": "Travel MCC list taken from cards.merchants for the fraud-2025 travel flag",
+   "line": 5
+  },
+  {
+   "s": "travel-merchants",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cards.merchants",
+   "quote": "Source: `cards.merchants` MCC field, 2024-07 to 2025-03 merchant snapshot, 31,880 travel merchant ids.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/ds-f25-travel-tags.md",
+ "sha": "7a637e5df09d0ff0c4bafa244694bb7454456ae5eba50a83caf8776b0bf363b9",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,112 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "hardship-enrolment",
+   "type": "term",
+   "label": "treatment",
+   "as": [
+    "hardship enrolment"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "roll-30-to-60",
+   "type": "metric",
+   "label": "outcome",
+   "as": [
+    "30-to-60 roll"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "hp-psm-v2",
+   "type": "term",
+   "label": "matching method",
+   "as": [
+    "hp-psm-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "caliper",
+   "type": "term",
+   "label": "matching constraint",
+   "as": [
+    "caliper"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "max-smd",
+   "type": "metric",
+   "label": "balance check",
+   "as": [
+    "max standardised mean difference"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "difference-in-differences",
+   "type": "term",
+   "label": "robustness check",
+   "as": [
+    "difference-in-differences",
+    "DiD"
+   ],
+   "lines": [
+    8,
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "hardship-enrolment",
+   "type": "other",
+   "label": "reduces",
+   "o": "roll-30-to-60",
+   "quote": "hardship enrolment reduces the 30-to-60 roll by 4.7pp",
+   "line": 6
+  },
+  {
+   "s": "hp-psm-v2",
+   "type": "measured-by",
+   "label": "checked by",
+   "o": "max-smd",
+   "quote": "the max standardised mean difference is 0.08",
+   "line": 7
+  },
+  {
+   "s": "difference-in-differences",
+   "type": "other",
+   "label": "robustness check for",
+   "o": "hardship-enrolment",
+   "quote": "with the DiD as a robustness check",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "exp-408",
+  "exp-404",
+  "find-hp-adjusted-effect"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "hardship-programs/find-hp-effect-v2.md",
+ "sha": "f1c165fd284ec5b9403b31f4d99a6703770837bbb8d2410ba20dc7a291632211",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

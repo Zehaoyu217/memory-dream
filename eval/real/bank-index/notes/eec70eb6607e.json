@@ -1,0 +1,283 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "csb-lr-base",
+   "type": "model",
+   "label": "logistic baseline",
+   "as": [
+    "csb-lr-base",
+    "logistic baseline"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "l2-logistic-regression",
+   "type": "term",
+   "label": "l2 logistic regression",
+   "as": [
+    "L2 logistic regression"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "csb-oot-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "csb-oot-2025q1"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.684"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.26"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "brier",
+   "type": "metric",
+   "label": "brier",
+   "as": [
+    "Brier 0.0612"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "90-day-labels",
+   "type": "term",
+   "label": "labels",
+   "as": [
+    "90-day labels"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "spend",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "spend"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "tenure-band",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "tenure band"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "months-on-book",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "months on book"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "employee-cards",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "employee cards"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "limit-band",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "limit band"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "industry-group",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "industry group"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "tree-models",
+   "type": "model",
+   "label": "tree models",
+   "as": [
+    "tree models"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "csb-lr-base",
+   "type": "type-other",
+   "label": "uses method",
+   "o": "l2-logistic-regression",
+   "quote": "L2 logistic regression on 6 features",
+   "line": 6
+  },
+  {
+   "s": "csb-lr-base",
+   "type": "uses",
+   "label": "uses feature",
+   "o": "spend",
+   "quote": "6 features (spend, tenure band, months on book, employee cards, limit band, industry group)",
+   "line": 6
+  },
+  {
+   "s": "csb-lr-base",
+   "type": "uses",
+   "label": "uses feature",
+   "o": "tenure-band",
+   "quote": "6 features (spend, tenure band, months on book, employee cards, limit band, industry group)",
+   "line": 6
+  },
+  {
+   "s": "csb-lr-base",
+   "type": "uses",
+   "label": "uses feature",
+   "o": "months-on-book",
+   "quote": "6 features (spend, tenure band, months on book, employee cards, limit band, industry group)",
+   "line": 6
+  },
+  {
+   "s": "csb-lr-base",
+   "type": "uses",
+   "label": "uses feature",
+   "o": "employee-cards",
+   "quote": "6 features (spend, tenure band, months on book, employee cards, limit band, industry group)",
+   "line": 6
+  },
+  {
+   "s": "csb-lr-base",
+   "type": "uses",
+   "label": "uses feature",
+   "o": "limit-band",
+   "quote": "6 features (spend, tenure band, months on book, employee cards, limit band, industry group)",
+   "line": 6
+  },
+  {
+   "s": "csb-lr-base",
+   "type": "uses",
+   "label": "uses feature",
+   "o": "industry-group",
+   "quote": "6 features (spend, tenure band, months on book, employee cards, limit band, industry group)",
+   "line": 6
+  },
+  {
+   "s": "csb-lr-base",
+   "type": "uses",
+   "label": "uses labels",
+   "o": "90-day-labels",
+   "quote": "90-day labels",
+   "line": 6
+  },
+  {
+   "s": "csb-lr-base",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "csb-oot-2025q1",
+   "quote": "Holdout csb-oot-2025q1 (n=8,914, all tenures)",
+   "line": 7
+  },
+  {
+   "s": "csb-lr-base",
+   "type": "measured-by",
+   "label": "holdout AUC",
+   "o": "auc",
+   "quote": "AUC 0.684",
+   "line": 5
+  },
+  {
+   "s": "csb-lr-base",
+   "type": "measured-by",
+   "label": "KS",
+   "o": "ks",
+   "quote": "KS 0.26",
+   "line": 7
+  },
+  {
+   "s": "csb-lr-base",
+   "type": "measured-by",
+   "label": "Brier",
+   "o": "brier",
+   "quote": "Brier 0.0612",
+   "line": 7
+  },
+  {
+   "s": "csb-lr-base",
+   "type": "other",
+   "label": "floor for",
+   "o": "tree-models",
+   "quote": "Floor for the tree models.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-csb-spend-raw",
+  "feat-csb-tenure-band",
+  "ds-csb-oot-2025q1",
+  "ds-csb-churn-labels"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-small-business/csb-lr-base.md",
+ "sha": "eec70eb6607e16b7432bdd169302b9bf065e21ae1ebb787693fddd0bb7890345",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

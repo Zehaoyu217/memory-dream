@@ -1,0 +1,144 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "fraud26-oot-2025q4",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "fraud26-oot-2025q4"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fraud-model-v1",
+   "type": "model",
+   "label": "retrained model",
+   "as": [
+    "v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.912"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.67"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "recall-at-1",
+   "type": "metric",
+   "label": "recall@1%",
+   "as": [
+    "recall@1% 0.52"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "maturity-cut-60d",
+   "type": "term",
+   "label": "maturity cut",
+   "as": [
+    "60-day maturity cut"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "label-timing",
+   "type": "other",
+   "label": "label timing",
+   "as": [
+    "label timing"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud-model-v1",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "fraud26-oot-2025q4",
+   "quote": "Eval set: fraud26-oot-2025q4 (1,611,400 transactions, 3,705 fraud)",
+   "line": 6
+  },
+  {
+   "s": "fraud-model-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.912",
+   "line": 7
+  },
+  {
+   "s": "fraud-model-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "ks",
+   "quote": "KS 0.67",
+   "line": 7
+  },
+  {
+   "s": "fraud-model-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "recall-at-1",
+   "quote": "recall@1% 0.52",
+   "line": 7
+  },
+  {
+   "s": "fraud-model-v1",
+   "type": "uses",
+   "label": "retrained with",
+   "o": "maturity-cut-60d",
+   "quote": "v1 retrained with the maturity cut",
+   "line": 7
+  },
+  {
+   "s": "label-timing",
+   "type": "other",
+   "label": "explains difference in",
+   "o": "auc",
+   "quote": "Difference from exp-201 is 0.023 AUC, all from label timing.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-201",
+  "ds-f26-labels-2026"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2026/exp-202.md",
+ "sha": "297fb3507eb40427fb7e0581210ec007f719864d76b3609ac017b4fd44418912",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

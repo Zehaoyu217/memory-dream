@@ -1,0 +1,149 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "recall-at-10",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "recall@10"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "xgboost",
+   "type": "model",
+   "label": "algorithm",
+   "as": [
+    "XGBoost"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "velocity-features",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "velocity features"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "baseline-features",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "baseline set"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "vel-ratio-30-90",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "vel_ratio_30_90"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "auc",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "holdout-2025q4",
+   "quote": "AUC 0.81, recall@10 0.52 on holdout-2025q4",
+   "line": 5
+  },
+  {
+   "s": "recall-at-10",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "holdout-2025q4",
+   "quote": "recall@10 0.52 on holdout-2025q4",
+   "line": 5
+  },
+  {
+   "s": "xgboost",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "lifts AUC 0.71→0.81",
+   "line": 6
+  },
+  {
+   "s": "xgboost",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "recall-at-10",
+   "quote": "recall@10 0.29→0.52",
+   "line": 6
+  },
+  {
+   "s": "velocity-features",
+   "type": "other",
+   "label": "added to",
+   "o": "baseline-features",
+   "quote": "Adding the velocity features to the baseline set",
+   "line": 6
+  },
+  {
+   "s": "vel-ratio-30-90",
+   "type": "other",
+   "label": "drives lift",
+   "o": "auc",
+   "quote": "The lift is mostly from `vel_ratio_30_90`.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-011-baseline",
+  "feat-velocity-v2",
+  "nb/exp014_xgb.ipynb"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2026/exp-014.md",
+ "sha": "0f34d9aa72bbe9a894a75250663a7a6ff75b9c092d622a032c4237fad617c162",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

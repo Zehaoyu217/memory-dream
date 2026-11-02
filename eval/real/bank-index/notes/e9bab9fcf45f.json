@@ -1,0 +1,88 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-rev26-revolve-balance",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rev26-revolve-balance",
+    "Average month-end revolving balance per segment"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "rev26-interest-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rev26-interest-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "interest-income",
+   "type": "metric",
+   "label": "driver metric",
+   "as": [
+    "interest income"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-rev26-revolve-balance",
+   "type": "uses",
+   "label": "from",
+   "o": "cards.accounts_monthly",
+   "quote": "from `cards.accounts_monthly`",
+   "line": 6
+  },
+  {
+   "s": "rev26-interest-v1",
+   "type": "uses",
+   "label": "first input",
+   "o": "feat-rev26-revolve-balance",
+   "quote": "First input to rev26-interest-v1.",
+   "line": 8
+  },
+  {
+   "s": "feat-rev26-revolve-balance",
+   "type": "other",
+   "label": "main driver of",
+   "o": "interest-income",
+   "quote": "Main driver of interest income",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-rev26-interest-accrual"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "revenue-forecast-2026/feat-rev26-revolve-balance.md",
+ "sha": "e9bab9fcf45fa957aaa083c283533d84ad7ac5d2a5f2be0f314dd6bac39eb304",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

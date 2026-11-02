@@ -1,0 +1,89 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "90-day-chargeback-ratio",
+   "type": "feature",
+   "label": "chargeback ratio",
+   "as": [
+    "The 90-day chargeback ratio",
+    "Chargeback ratio"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "gbm",
+   "type": "model",
+   "label": "gbm",
+   "as": [
+    "GBM"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "confirmed-fraud-labels",
+   "type": "other",
+   "label": "monthly labels",
+   "as": [
+    "Monthly confirmed-fraud labels"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "90-day-chargeback-ratio",
+   "type": "measured-by",
+   "label": "gives AUC",
+   "o": "auc",
+   "quote": "Chargeback ratio alone gives AUC 0.78",
+   "line": 6
+  },
+  {
+   "s": "90-day-chargeback-ratio",
+   "type": "other",
+   "label": "carries about half the gain in",
+   "o": "gbm",
+   "quote": "it carries about half the GBM gain in exp-502",
+   "line": 6
+  },
+  {
+   "s": "confirmed-fraud-labels",
+   "type": "other",
+   "label": "make most stable",
+   "o": "90-day-chargeback-ratio",
+   "quote": "Monthly confirmed-fraud labels make the ratio the most stable input",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-501",
+  "exp-502"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "merchant-risk/mrisk-find-cb-ratio-top.md",
+ "sha": "740317a2617e5793d53cc223ce06d5fc1cdb009fe547ffb7a84079f7513fb286",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

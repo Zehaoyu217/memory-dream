@@ -1,0 +1,87 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "dpd-due-date-offbyone",
+   "type": "other",
+   "label": "correction note",
+   "as": [
+    "DPD day 1 starts the day after the due date"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dpd-due-date",
+   "type": "other",
+   "label": "superseded rule",
+   "as": [
+    "This corrects dpd-due-date.",
+    "The 2025-11 rule was off by one day."
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "pipeline",
+   "label": "pipeline",
+   "as": [
+    "`cards.payments_daily` pipeline"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dpd-bucket-counts",
+   "type": "metric",
+   "label": "bucket counts",
+   "as": [
+    "1-29 bucket counts for Nov-Dec 2025 shift by one day"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dpd-due-date-offbyone",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "dpd-due-date",
+   "quote": "supersedes: [corrections/dpd-due-date]",
+   "line": 3
+  },
+  {
+   "s": "dpd-due-date-offbyone",
+   "type": "other",
+   "label": "fixed in",
+   "o": "cards.payments_daily",
+   "quote": "Fixed in the `cards.payments_daily` pipeline on 2026-01-15.",
+   "line": 6
+  },
+  {
+   "s": "dpd-bucket-counts",
+   "type": "other",
+   "label": "shifted by fix",
+   "o": "dpd-due-date-offbyone",
+   "quote": "Affected: 1-29 bucket counts for Nov-Dec 2025 shift by one day.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "corrections/dpd-due-date"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "corrections/dpd-due-date-offbyone.md",
+ "sha": "138f69cb7440c7917902ee4c7a4b2ba38f9b23cd4ac10d1924bc9b799674c858",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,112 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "pd",
+   "type": "term",
+   "label": "probability",
+   "as": [
+    "PD"
+   ],
+   "lines": [
+    2,
+    3,
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "raw-score",
+   "type": "term",
+   "label": "raw model output",
+   "as": [
+    "raw model output",
+    "raw score"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "isotonic-calibration",
+   "type": "term",
+   "label": "calibration method",
+   "as": [
+    "isotonic calibration"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "oot",
+   "type": "dataset",
+   "label": "oot sample",
+   "as": [
+    "OOT"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "pd-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "pd-gbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "pd",
+   "type": "uses",
+   "label": "mapped through",
+   "o": "isotonic-calibration",
+   "quote": "PD is the score mapped through isotonic calibration",
+   "line": 6
+  },
+  {
+   "s": "isotonic-calibration",
+   "type": "other",
+   "label": "fitted on",
+   "o": "oot",
+   "quote": "isotonic calibration fitted on OOT",
+   "line": 6
+  },
+  {
+   "s": "raw-score",
+   "type": "other",
+   "label": "is not",
+   "o": "pd",
+   "quote": "A raw score of 0.042 is not a 4.2% PD",
+   "line": 6
+  },
+  {
+   "s": "pd-gbm-v2",
+   "type": "other",
+   "label": "maps score to PD",
+   "o": "pd",
+   "quote": "on pd-gbm-v2 a raw score of 0.042 maps to a calibrated PD of 3.1%",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "glossary/pd"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "corrections/pd-calibrated-probability.md",
+ "sha": "a60761e5a476c4ae7ca7900c7a9734185bc21591b402b8df325d33744f12f026",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

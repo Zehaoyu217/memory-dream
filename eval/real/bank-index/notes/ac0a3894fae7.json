@@ -1,0 +1,88 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "thin-file-applicants",
+   "type": "segment",
+   "label": "thin-file applicants",
+   "as": [
+    "thin-file applicants"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "jan-feb-2026-cohort",
+   "type": "segment",
+   "label": "cohort",
+   "as": [
+    "Jan-Feb 2026 cohort"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "v10-score",
+   "type": "model",
+   "label": "score",
+   "as": [
+    "v10 score"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "v8-fallback",
+   "type": "model",
+   "label": "fallback",
+   "as": [
+    "v8 fallback"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "thin-file-applicants",
+   "type": "other",
+   "label": "lacks",
+   "o": "v10-score",
+   "quote": "41% of them lack v10",
+   "line": 6
+  },
+  {
+   "s": "thin-file-applicants",
+   "type": "uses",
+   "label": "depend on",
+   "o": "v8-fallback",
+   "quote": "Those applicants depend on the v8 fallback",
+   "line": 7
+  },
+  {
+   "s": "thin-file-applicants",
+   "type": "part-of",
+   "label": "is in",
+   "o": "jan-feb-2026-cohort",
+   "quote": "6.4% of the Jan-Feb 2026 cohort is thin-file",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-304",
+  "feat-bsm-thin-file-flag",
+  "dec-bsm-keep-v8-fallback"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "bureau-score-migration/find-bsm-thin-file-gap.md",
+ "sha": "ac0a3894fae7ff6308647075be10dce75af9b52b2a23c599945ab8342238635e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

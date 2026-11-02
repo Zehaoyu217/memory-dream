@@ -1,0 +1,95 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "feat-pa-promo-exit-cliff",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-pa-promo-exit-cliff: balance at promo expiry relative to the balance at month 1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "pa-churn-hazard-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "pa-churn-hazard-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-pa-balance-panel",
+   "type": "team",
+   "label": "source team",
+   "as": [
+    "ds-pa-balance-panel"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "ds-pa-churn-labels",
+   "type": "team",
+   "label": "source team",
+   "as": [
+    "ds-pa-churn-labels"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "cliff-group",
+   "type": "segment",
+   "label": "cliff group",
+   "as": [
+    "cliff group"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-pa-promo-exit-cliff",
+   "type": "uses",
+   "label": "ratio from",
+   "o": "ds-pa-balance-panel",
+   "quote": "Ratio of the balance in the month of expiry to the balance in month 1, from the balance panel.",
+   "line": 6
+  },
+  {
+   "s": "pa-churn-hazard-v1",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-pa-promo-exit-cliff",
+   "quote": "Used in pa-churn-hazard-v1.",
+   "line": 7
+  },
+  {
+   "s": "cliff-group",
+   "type": "part-of",
+   "label": "accounts with ratio below 0.5",
+   "o": "feat-pa-promo-exit-cliff",
+   "quote": "Accounts with a ratio below 0.5 are the cliff group",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "promo-apr-test/feat-pa-promo-exit-cliff.md",
+ "sha": "f19d3cfe30f555bf58453d34e794616bb76a9a506131fc79cda833df94a3b51b",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

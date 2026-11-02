@@ -1,0 +1,109 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "cb-intent-v2",
+   "type": "model",
+   "label": "intent model",
+   "as": [
+    "Intent model v2",
+    "cb-intent-v2"
+   ],
+   "lines": [
+    2,
+    5
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro f1",
+   "as": [
+    "macro F1 0.88"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q3",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q3 messages",
+    "holdout-2025q3"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "account-state",
+   "type": "feature",
+   "label": "account state",
+   "as": [
+    "account state"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "embedding",
+   "type": "feature",
+   "label": "embedding",
+   "as": [
+    "the embedding"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cb-intent-v2",
+   "type": "measured-by",
+   "label": "reaches",
+   "o": "macro-f1",
+   "quote": "Intent model v2 reaches macro F1 0.88",
+   "line": 5
+  },
+  {
+   "s": "cb-intent-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q3",
+   "quote": "on holdout-2025q3 messages",
+   "line": 5
+  },
+  {
+   "s": "account-state",
+   "type": "other",
+   "label": "lifts",
+   "o": "macro-f1",
+   "quote": "adding account state lifts macro F1 by 0.05 on holdout-2025q3",
+   "line": 6
+  },
+  {
+   "s": "embedding",
+   "type": "other",
+   "label": "could not separate",
+   "o": "cb-intent-v2",
+   "quote": "which the embedding alone could not separate",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-303"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "chatbot-deflection/fnd-cb-intent-acc.md",
+ "sha": "868f8fc72649b55643f896275fdb2f4968913554af173fec18e13d832cd79e8e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

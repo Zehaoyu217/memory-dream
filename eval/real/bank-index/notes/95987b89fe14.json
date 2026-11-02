@@ -1,0 +1,108 @@
+{
+ "kind": "note",
+ "entities": [
+  {
+   "id": "feat-rev26-apr-mix",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rev26-apr-mix: blended APR per segment after promo roll-offs"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-rev26-rate-schedule",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "Built from ds-rev26-rate-schedule"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-rev26-revolve-balance",
+   "type": "feature",
+   "label": "input feature",
+   "as": [
+    "feat-rev26-revolve-balance"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "rev26-interest-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "Used by rev26-interest-v1 and rev26-interest-v2."
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "rev26-interest-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "Used by rev26-interest-v1 and rev26-interest-v2."
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-rev26-apr-mix",
+   "type": "uses",
+   "label": "built from",
+   "o": "ds-rev26-rate-schedule",
+   "quote": "Built from ds-rev26-rate-schedule",
+   "line": 7
+  },
+  {
+   "s": "feat-rev26-apr-mix",
+   "type": "uses",
+   "label": "weighted by",
+   "o": "feat-rev26-revolve-balance",
+   "quote": "Blended APR per segment, weighted by revolving balance",
+   "line": 6
+  },
+  {
+   "s": "rev26-interest-v1",
+   "type": "uses",
+   "label": "used by",
+   "o": "feat-rev26-apr-mix",
+   "quote": "Used by rev26-interest-v1 and rev26-interest-v2.",
+   "line": 8
+  },
+  {
+   "s": "rev26-interest-v2",
+   "type": "uses",
+   "label": "used by",
+   "o": "feat-rev26-apr-mix",
+   "quote": "Used by rev26-interest-v1 and rev26-interest-v2.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-rev26-rate-schedule",
+  "feat-rev26-revolve-balance",
+  "rev26-interest-v1",
+  "rev26-interest-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "revenue-forecast-2026/feat-rev26-apr-mix.md",
+ "sha": "95987b89fe145ee56221a781f442e43a1cf8061f8993fb94c34fc1a008a02936",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

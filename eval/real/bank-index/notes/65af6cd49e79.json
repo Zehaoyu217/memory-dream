@@ -1,0 +1,80 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "promo-balance-panel",
+   "type": "dataset",
+   "label": "balance panel",
+   "as": [
+    "`promo.balance_panel` holds monthly balances for the three arms, actuals through month 6"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "Built from `cards.accounts_monthly` by arm and month since promo start."
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "arm-b",
+   "type": "segment",
+   "label": "arm",
+   "as": [
+    "three arms"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "pa-bal-forecast-v1",
+   "type": "model",
+   "label": "forecast model",
+   "as": [
+    "are forecast by pa-bal-forecast-v1"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "promo-balance-panel",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards.accounts_monthly",
+   "quote": "Built from `cards.accounts_monthly` by arm and month since promo start.",
+   "line": 6
+  },
+  {
+   "s": "pa-bal-forecast-v1",
+   "type": "produces",
+   "label": "forecasts months 7-24",
+   "o": "promo-balance-panel",
+   "quote": "Months 7 to 24 are not yet observed for most cohorts and are forecast by pa-bal-forecast-v1.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "promo-apr-test/ds-pa-balance-panel.md"
+ ],
+ "dropped": {
+  "entities": [
+   "ds-pa-payments"
+  ],
+  "relations": 0
+ },
+ "path": "promo-apr-test/ds-pa-balance-panel.md",
+ "sha": "65af6cd49e7996333a2590a6f669061bfe44041ce54092e0b0473b735d7cbc2a",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

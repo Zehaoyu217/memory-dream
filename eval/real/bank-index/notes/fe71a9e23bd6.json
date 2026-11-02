@@ -1,0 +1,83 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-pa-6m-default",
+   "type": "other",
+   "label": "promo decision",
+   "as": [
+    "Decision: the default promo is 6 months at 0%; 12 months only for scores 640-699"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "arm-b",
+   "type": "segment",
+   "label": "6-month arm",
+   "as": [
+    "The 6-month arm"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bt-inflow",
+   "type": "metric",
+   "label": "bt lift",
+   "as": [
+    "BT lift"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-pa-credit-band",
+   "type": "feature",
+   "label": "score band",
+   "as": [
+    "640-699",
+    "700 and over"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-pa-6m-default",
+   "type": "other",
+   "label": "keeps 6-month arm",
+   "o": "arm-b",
+   "quote": "The 6-month arm keeps 69% of the BT lift at lower exposure.",
+   "line": 6
+  },
+  {
+   "s": "dec-pa-6m-default",
+   "type": "uses",
+   "label": "splits on score band",
+   "o": "feat-pa-credit-band",
+   "quote": "The 12-month promo is kept only in the 640-699 band",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "find-pa-6m-arm",
+  "find-pa-margin-corrected",
+  "find-pa-band-het"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "promo-apr-test/dec-pa-6m-default.md",
+ "sha": "fe71a9e23bd64661e589a9baf68c848e8093ab247957716f20d1d1756b628364",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

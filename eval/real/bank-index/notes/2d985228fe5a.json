@@ -1,0 +1,116 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "logistic-baseline",
+   "type": "model",
+   "label": "logistic baseline",
+   "as": [
+    "logistic baseline"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.64"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "top-decile-open-rate",
+   "type": "metric",
+   "label": "top-decile open",
+   "as": [
+    "top-decile open 5.6%"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "open-rate",
+   "type": "metric",
+   "label": "open rate",
+   "as": [
+    "Open rate"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "xs-holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "xs-holdout-2025q1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "xs-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "xs-gbm-v1"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "logistic-baseline",
+   "type": "measured-by",
+   "label": "reaches",
+   "o": "auc",
+   "quote": "logistic baseline reaches AUC 0.64",
+   "line": 5
+  },
+  {
+   "s": "logistic-baseline",
+   "type": "measured-by",
+   "label": "reaches",
+   "o": "top-decile-open-rate",
+   "quote": "top-decile open 5.6%",
+   "line": 5
+  },
+  {
+   "s": "logistic-baseline",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "xs-holdout-2025q1",
+   "quote": "logistic baseline reaches AUC 0.64 on xs-holdout-2025q1",
+   "line": 5
+  },
+  {
+   "s": "logistic-baseline",
+   "type": "other",
+   "label": "reference point for",
+   "o": "xs-gbm-v1",
+   "quote": "Sets the reference point for xs-gbm-v1.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-xs-offer-log"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cross-sell-savings/exp-401-logit-baseline.md",
+ "sha": "2d985228fe5a5e59e21c050988767e7c1d03fc61f5f61ff4b295f7a09728471a",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

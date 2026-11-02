@@ -1,0 +1,137 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "inc-gbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "inc-gbm-v3"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "feat-inc-payroll-cadence-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-inc-payroll-cadence-v2"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "self-employed-accounts",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "self-employed accounts",
+    "self-employed"
+   ],
+   "lines": [
+    5,
+    6,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "salaried-accounts",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "salaried"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "verified-2026-holdout",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "verified-2026 holdout"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "self-employed-accounts",
+   "type": "measured-by",
+   "label": "run MAPE",
+   "o": "mape",
+   "quote": "self-employed accounts run MAPE 33%",
+   "line": 5
+  },
+  {
+   "s": "salaried-accounts",
+   "type": "measured-by",
+   "label": "MAPE 17%",
+   "o": "mape",
+   "quote": "MAPE 33% against 17% for salaried",
+   "line": 5
+  },
+  {
+   "s": "self-employed-accounts",
+   "type": "part-of",
+   "label": "split of",
+   "o": "verified-2026-holdout",
+   "quote": "Split of the 1,980 holdout by employment type",
+   "line": 6
+  },
+  {
+   "s": "salaried-accounts",
+   "type": "part-of",
+   "label": "split of",
+   "o": "verified-2026-holdout",
+   "quote": "Split of the 1,980 holdout by employment type",
+   "line": 6
+  },
+  {
+   "s": "inc-gbm-v3",
+   "type": "other",
+   "label": "understates income of",
+   "o": "self-employed-accounts",
+   "quote": "Model understates self-employed income by 9% at the median",
+   "line": 7
+  },
+  {
+   "s": "inc-gbm-v3",
+   "type": "other",
+   "label": "from",
+   "o": "feat-inc-payroll-cadence-v2",
+   "quote": "from: [inc-gbm-v3, feat-inc-payroll-cadence-v2]",
+   "line": 2
+  }
+ ],
+ "refs": [
+  "find-inc-self-employed-bias"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "income-estimation/exp-407.md",
+ "sha": "6b0e2f985fe351e68737930e369e81647aa5f0d5a906e0f1943712028c334ae5",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,128 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "pa-bal-forecast-v1",
+   "type": "model",
+   "label": "forecast",
+   "as": [
+    "pa-bal-forecast-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-pa-bt-inflow-v2",
+   "type": "feature",
+   "label": "bt inflow",
+   "as": [
+    "external BT inflow"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bt-xgb-v3",
+   "type": "model",
+   "label": "propensity score",
+   "as": [
+    "balance-transfer-propensity/bt-xgb-v3"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "ds-pa-balance-panel",
+   "type": "dataset",
+   "label": "data source",
+   "as": [
+    "ds-pa-balance-panel"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "holdout error",
+   "as": [
+    "MAPE 11%"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "flat-balance-forecast",
+   "type": "model",
+   "label": "flat-balance forecast",
+   "as": [
+    "flat-balance forecast"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "pa-bal-forecast-v1",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-pa-bt-inflow-v2",
+   "quote": "Uses the external BT inflow (feat-pa-bt-inflow-v2)",
+   "line": 6
+  },
+  {
+   "s": "pa-bal-forecast-v1",
+   "type": "uses",
+   "label": "uses",
+   "o": "bt-xgb-v3",
+   "quote": "a BT propensity score from balance-transfer-propensity/bt-xgb-v3",
+   "line": 6
+  },
+  {
+   "s": "pa-bal-forecast-v1",
+   "type": "uses",
+   "label": "built from",
+   "o": "ds-pa-balance-panel",
+   "quote": "from: [ds-pa-balance-panel, feat-pa-bt-inflow-v2",
+   "line": 2
+  },
+  {
+   "s": "pa-bal-forecast-v1",
+   "type": "measured-by",
+   "label": "holdout error",
+   "o": "mape",
+   "quote": "MAPE 11% on 12-month balance",
+   "line": 7
+  },
+  {
+   "s": "pa-bal-forecast-v1",
+   "type": "other",
+   "label": "compared against",
+   "o": "flat-balance-forecast",
+   "quote": "against 19% for a flat-balance forecast (exp-506)",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-pa-bt-inflow-v2",
+  "balance-transfer-propensity/bt-xgb-v3",
+  "ds-pa-balance-panel",
+  "exp-506"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "promo-apr-test/pa-bal-forecast-v1.md",
+ "sha": "9fbd70f66602ed7d99bf82e66b0ba0d2ae0e401ff3d80cf73f9670f05a2242e6",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

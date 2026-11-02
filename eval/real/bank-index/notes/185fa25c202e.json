@@ -1,0 +1,71 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-404",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-404"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "hdbscan",
+   "type": "term",
+   "label": "clustering method",
+   "as": [
+    "HDBSCAN"
+   ],
+   "lines": [
+    2,
+    5,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "pbs-gmm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "pbs-gmm-v2"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-404",
+   "type": "uses",
+   "label": "ran",
+   "o": "hdbscan",
+   "quote": "HDBSCAN on the pbs-gmm-v2 inputs",
+   "line": 6
+  },
+  {
+   "s": "exp-404",
+   "type": "uses",
+   "label": "run on inputs of",
+   "o": "pbs-gmm-v2",
+   "quote": "HDBSCAN on the pbs-gmm-v2 inputs",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "pbs-hdbscan-v1",
+  "dec-pbs-no-hdbscan"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "payment-behavior-segments/exp-404.md",
+ "sha": "185fa25c202eaf57d842e926f26bad9d0b3ce3ce93269d1e58f39f140a6c6c49",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

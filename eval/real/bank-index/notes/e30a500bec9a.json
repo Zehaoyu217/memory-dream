@@ -1,0 +1,118 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "feat-txc-normalise-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-txc-normalise-v2"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "txc-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "txc-gbm-v2"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "txc-gbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "txc-gbm-v3"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "holdout-2025q2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro-f1",
+   "as": [
+    "Macro-F1"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "accuracy",
+   "type": "metric",
+   "label": "accuracy",
+   "as": [
+    "Accuracy"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "txc-gbm-v2",
+   "type": "uses",
+   "label": "adds to inputs",
+   "o": "feat-txc-normalise-v2",
+   "quote": "Adds feat-txc-normalise-v2 to the txc-gbm-v2 inputs",
+   "line": 6
+  },
+  {
+   "s": "txc-gbm-v2",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "holdout-2025q2",
+   "quote": "scored on holdout-2025q2 (n=2,000)",
+   "line": 6
+  },
+  {
+   "s": "txc-gbm-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "macro-f1",
+   "quote": "Macro-F1 0.81 (+0.03)",
+   "line": 7
+  },
+  {
+   "s": "txc-gbm-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "accuracy",
+   "quote": "Accuracy 0.87",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "txn-categorization/exp-104.md",
+ "sha": "e30a500bec9a87add7fc0c91550e38338340b7748d47931a906a3c23905bccfa",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

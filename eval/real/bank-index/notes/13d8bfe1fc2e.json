@@ -1,0 +1,99 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "cli-test-2025q1",
+   "type": "dataset",
+   "label": "test",
+   "as": [
+    "cli-test-2025q1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "revolvers",
+   "type": "segment",
+   "label": "revolvers",
+   "as": [
+    "revolvers"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "full-payers",
+   "type": "segment",
+   "label": "full-payers",
+   "as": [
+    "full-payers"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "revolver-cli-exposure",
+   "type": "term",
+   "label": "exposure",
+   "as": [
+    "Revolver CLI exposure"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "incremental-spend-per-loss",
+   "type": "metric",
+   "label": "incremental spend per dollar of loss",
+   "as": [
+    "incremental spend per dollar of loss"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "revolvers",
+   "type": "other",
+   "label": "loses more than",
+   "o": "full-payers",
+   "quote": "revolvers lose 1.9x as much as full-payers in 90 days",
+   "line": 5
+  },
+  {
+   "s": "revolvers",
+   "type": "evaluated-on",
+   "label": "from experiment on",
+   "o": "cli-test-2025q1",
+   "quote": "From exp-105 on cli-test-2025q1 (n=60,000).",
+   "line": 6
+  },
+  {
+   "s": "revolver-cli-exposure",
+   "type": "measured-by",
+   "label": "adds least per dollar",
+   "o": "incremental-spend-per-loss",
+   "quote": "Revolver CLI exposure adds the least incremental spend per dollar of loss.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-105",
+  "dec-cli-exclude-revolvers"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/find-cli-revolver-loss.md",
+ "sha": "13d8bfe1fc2efe7c8cb7f3d67e385903422365ef8ea871489204236679cc6fc9",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

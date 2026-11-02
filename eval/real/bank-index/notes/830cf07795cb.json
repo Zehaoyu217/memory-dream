@@ -1,0 +1,162 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "ben-carter",
+   "type": "person",
+   "label": "finance",
+   "as": [
+    "Ben Carter"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cb.spend_panel",
+   "type": "dataset",
+   "label": "spend panel",
+   "as": [
+    "cb.spend_panel"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "elasticity-models",
+   "type": "model",
+   "label": "elasticity models",
+   "as": [
+    "elasticity models"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "tiered-cashback",
+   "type": "other",
+   "label": "proposed tiers",
+   "as": [
+    "proposed tiers"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "annual-rewards-cost",
+   "type": "metric",
+   "label": "annual rewards cost",
+   "as": [
+    "annual rewards cost"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "rewards-accrual-rate",
+   "type": "metric",
+   "label": "accrual rate",
+   "as": [
+    "rewards accruing at 1.02% of spend"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "average-monthly-spend",
+   "type": "metric",
+   "label": "average monthly spend",
+   "as": [
+    "average monthly spend"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "spend-lift",
+   "type": "metric",
+   "label": "spend lift",
+   "as": [
+    "spend lift"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ben-carter",
+   "type": "other",
+   "label": "asked for",
+   "o": "annual-rewards-cost",
+   "quote": "Ben Carter (finance) asked for the annual rewards cost",
+   "line": 6
+  },
+  {
+   "s": "annual-rewards-cost",
+   "type": "evaluated-on",
+   "label": "on",
+   "o": "cb.spend_panel",
+   "quote": "on `cb.spend_panel`",
+   "line": 6
+  },
+  {
+   "s": "annual-rewards-cost",
+   "type": "uses",
+   "label": "needs",
+   "o": "elasticity-models",
+   "quote": "the answer needs the elasticity models",
+   "line": 8
+  },
+  {
+   "s": "annual-rewards-cost",
+   "type": "uses",
+   "label": "accruing at",
+   "o": "rewards-accrual-rate",
+   "quote": "rewards accruing at 1.02% of spend",
+   "line": 7
+  },
+  {
+   "s": "annual-rewards-cost",
+   "type": "uses",
+   "label": "at",
+   "o": "average-monthly-spend",
+   "quote": "average monthly spend $1,240",
+   "line": 7
+  },
+  {
+   "s": "tiered-cashback",
+   "type": "measured-by",
+   "label": "costed as",
+   "o": "annual-rewards-cost",
+   "quote": "annual rewards cost of the proposed tiers",
+   "line": 6
+  },
+  {
+   "s": "spend-lift",
+   "type": "other",
+   "label": "pays for",
+   "o": "annual-rewards-cost",
+   "quote": "what spend lift pays for it",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "find-cb-cost-base"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/q-cb-tier-cost.md",
+ "sha": "830cf07795cbd83a2b4e9a1bb074aa9c033afc5b6a705cecbd65a839d4acb4a7",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

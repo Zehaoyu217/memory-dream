@@ -1,0 +1,86 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ch-prefer-channel-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ch-prefer-channel-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.callcenter_calls",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "callcenter.calls"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "sms-delivery-log",
+   "type": "dataset",
+   "label": "delivery log",
+   "as": [
+    "the SMS delivery log"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "promise-to-pay",
+   "type": "term",
+   "label": "promise-to-pay",
+   "as": [
+    "promise-to-pay"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ch-prefer-channel-v1",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cards.callcenter_calls",
+   "quote": "Source: `callcenter.calls` and the SMS delivery log.",
+   "line": 7
+  },
+  {
+   "s": "feat-ch-prefer-channel-v1",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "sms-delivery-log",
+   "quote": "Source: `callcenter.calls` and the SMS delivery log.",
+   "line": 7
+  },
+  {
+   "s": "feat-ch-prefer-channel-v1",
+   "type": "uses",
+   "label": "tracks outcome",
+   "o": "promise-to-pay",
+   "quote": "the channel (SMS or call) that produced a PTP or payment within 14 days of a previous contact",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-ch-contact-costs"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-channel-mix/feat-ch-prefer-channel-v1.md",
+ "sha": "a2015bdb052146566a611b6e93215219473cc13eda5047ee32eae9e8b27c919f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -14,7 +14,8 @@ truth; everything else is derived and disposable. `memory.py` = `python3 <this s
    Per question it prints `line: text` under `▸ path · kind · date · from … · SUPERSEDED → newer`; a small memory is
    printed whole, each question pointing at its notes. SUPERSEDED → a → b is history: the last named is current. For a
    task it adds the preferences and house rules that apply — follow them, or say why not. `(weak match …)` names a word
-   found nowhere: rephrase. Name the area or an id when you know it; it scopes the search. At most one batched
+   found nowhere: rephrase. Ask about inputs or users ("what does X use", "what uses X") and the notes two steps out come
+   along as one-line pointers: no second call for them. Name the area or an id when you know it; it scopes the search. At most one batched
    follow-up: `ask` with sharper words, plain `grep -rn … memory/`, or read a printed line.
 2. **Write as you go.** One note per thing, in `memory/<project>/`, or for what spans projects in `prefs/`,
    `reporting/`, `glossary/`, `corrections/`, `howto/`, `qa/`, `people/`. The filename is the id; a prefix from

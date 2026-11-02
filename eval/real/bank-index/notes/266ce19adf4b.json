@@ -1,0 +1,166 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "ds-ch-contact-costs",
+   "type": "document",
+   "label": "project note",
+   "as": [
+    "Per-contact cost by channel: SMS $0.37, call $4.10, email $0.05, from callcenter.calls cost fields and vendor invoices"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.callcenter_calls",
+   "type": "dataset",
+   "label": "cost source table",
+   "as": [
+    "`callcenter.calls`"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "sms-channel",
+   "type": "other",
+   "label": "sms channel",
+   "as": [
+    "SMS $0.37"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "call-channel",
+   "type": "other",
+   "label": "call channel",
+   "as": [
+    "call $4.10"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "email-channel",
+   "type": "other",
+   "label": "email channel",
+   "as": [
+    "email $0.05"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "collections-uplift",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "collections-uplift"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "raj-patel",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Raj Patel"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "data engineer",
+   "as": [
+    "Tomas Rivera"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-ch-contact-costs",
+   "type": "uses",
+   "label": "takes cost fields from",
+   "o": "cards.callcenter_calls",
+   "quote": "from `callcenter.calls` cost fields",
+   "line": 5
+  },
+  {
+   "s": "ds-ch-contact-costs",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "raj-patel",
+   "quote": "Owner: Raj Patel (collections)",
+   "line": 8
+  },
+  {
+   "s": "ds-ch-contact-costs",
+   "type": "owned-by",
+   "label": "cost fields with",
+   "o": "tomas-rivera",
+   "quote": "with Tomas Rivera (data engineering) for the cost fields",
+   "line": 8
+  },
+  {
+   "s": "sms-channel",
+   "type": "other",
+   "label": "cost per contact",
+   "o": "ds-ch-contact-costs",
+   "quote": "Cost per contact: SMS $0.37",
+   "line": 6
+  },
+  {
+   "s": "call-channel",
+   "type": "other",
+   "label": "cost per contact",
+   "o": "ds-ch-contact-costs",
+   "quote": "call $4.10",
+   "line": 5
+  },
+  {
+   "s": "email-channel",
+   "type": "other",
+   "label": "cost per contact",
+   "o": "ds-ch-contact-costs",
+   "quote": "email $0.05",
+   "line": 5
+  },
+  {
+   "s": "ds-ch-contact-costs",
+   "type": "other",
+   "label": "used in",
+   "o": "collections-uplift",
+   "quote": "used in every channel comparison in this project and in collections-uplift",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "collections-channel-mix/ds-ch-contact-costs.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-channel-mix/ds-ch-contact-costs.md",
+ "sha": "266ce19adf4bbb40c611d05394f10eb0dd400bdb0c58614d51e83cf6c83be672",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

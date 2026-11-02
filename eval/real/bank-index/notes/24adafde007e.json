@@ -1,0 +1,100 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "blind-transfers",
+   "type": "term",
+   "label": "blind transfer",
+   "as": [
+    "Blind transfers",
+    "blind transfers"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "blind-transfer-rate",
+   "type": "metric",
+   "label": "blind-transfer rate",
+   "as": [
+    "blind-transfer rate"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fcr",
+   "type": "metric",
+   "label": "fcr",
+   "as": [
+    "FCR"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "inbound calls",
+   "as": [
+    "callcenter.calls"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dispute-queue-misroutes",
+   "type": "other",
+   "label": "dispute-queue misroute",
+   "as": [
+    "Dispute-queue misroutes"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dispute-queue-misroutes",
+   "type": "part-of",
+   "label": "largest share of",
+   "o": "blind-transfers",
+   "quote": "Dispute-queue misroutes are the largest single share of blind transfers",
+   "line": 8
+  },
+  {
+   "s": "blind-transfers",
+   "type": "measured-by",
+   "label": "baseline rate",
+   "o": "blind-transfer-rate",
+   "quote": "Baseline 19.2 percent for Jan to Jun 2026",
+   "line": 6
+  },
+  {
+   "s": "blind-transfer-rate",
+   "type": "evaluated-on",
+   "label": "baseline over",
+   "o": "callcenter.calls",
+   "quote": "n = 1.02M inbound calls in `callcenter.calls`",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "q-cr-intent-routing",
+  "fnd-cr-threshold"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/q-cr-blind-transfers.md",
+ "sha": "24adafde007ea22e9ebd76b8bbf19f6fd64004eb9e0b50e217d2d62cf9b423c3",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

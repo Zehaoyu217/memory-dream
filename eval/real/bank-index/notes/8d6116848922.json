@@ -1,0 +1,162 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-cld-control-2025h2",
+   "type": "segment",
+   "label": "control group",
+   "as": [
+    "ds-cld-control-2025h2",
+    "Random 5% control drawn from band C and D accounts"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "ds-cld-decrease-cohort",
+   "type": "dataset",
+   "label": "source cohort",
+   "as": [
+    "ds-cld-decrease-cohort"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "cards.limits_history",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.limits_history"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "roll source",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "complaints source",
+   "as": [
+    "callcenter.calls"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-203",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-203"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-205",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-205"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "find-cld-roll-rates",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-cld-roll-rates"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-cld-control-2025h2",
+   "type": "uses",
+   "label": "drawn from",
+   "o": "ds-cld-decrease-cohort",
+   "quote": "from: [ds-cld-decrease-cohort]",
+   "line": 2
+  },
+  {
+   "s": "ds-cld-control-2025h2",
+   "type": "uses",
+   "label": "source",
+   "o": "cards.limits_history",
+   "quote": "Source `cards.limits_history` (no change events for the control)",
+   "line": 7
+  },
+  {
+   "s": "ds-cld-control-2025h2",
+   "type": "uses",
+   "label": "for roll",
+   "o": "cards.accounts_monthly",
+   "quote": "`cards.accounts_monthly` for roll",
+   "line": 7
+  },
+  {
+   "s": "ds-cld-control-2025h2",
+   "type": "uses",
+   "label": "for complaints",
+   "o": "callcenter.calls",
+   "quote": "`callcenter.calls` for complaints",
+   "line": 7
+  },
+  {
+   "s": "exp-203",
+   "type": "uses",
+   "label": "no-decrease comparison",
+   "o": "ds-cld-control-2025h2",
+   "quote": "Used as the no-decrease comparison in exp-203, exp-205 and find-cld-roll-rates.",
+   "line": 8
+  },
+  {
+   "s": "exp-205",
+   "type": "uses",
+   "label": "no-decrease comparison",
+   "o": "ds-cld-control-2025h2",
+   "quote": "Used as the no-decrease comparison in exp-203, exp-205 and find-cld-roll-rates.",
+   "line": 8
+  },
+  {
+   "s": "find-cld-roll-rates",
+   "type": "uses",
+   "label": "no-decrease comparison",
+   "o": "ds-cld-control-2025h2",
+   "quote": "Used as the no-decrease comparison in exp-203, exp-205 and find-cld-roll-rates.",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "limit-decrease-policy/ds-cld-control-2025h2.md",
+ "sha": "8d61168489224a2e1e72726f83ec22d1d391171a600982960b43668ef940ccc9",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

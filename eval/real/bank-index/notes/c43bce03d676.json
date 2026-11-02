@@ -1,0 +1,136 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "maya-ortiz",
+   "type": "person",
+   "label": "asker",
+   "as": [
+    "Maya Ortiz"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "retention",
+   "type": "team",
+   "label": "asking team",
+   "as": [
+    "retention"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "churn-target",
+   "type": "term",
+   "label": "target",
+   "as": [
+    "Target: an account with no card spend for 90 days"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "book-2025",
+   "type": "portfolio",
+   "label": "book",
+   "as": [
+    "Book: 4.1M active card accounts, 2025"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cards.churn_labels",
+   "type": "dataset",
+   "label": "labels table",
+   "as": [
+    "cards.churn_labels"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "transactions table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "recall-at-10",
+   "type": "metric",
+   "label": "success metric",
+   "as": [
+    "recall@10"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "maya-ortiz",
+   "type": "other",
+   "label": "asked by",
+   "o": "retention",
+   "quote": "Asked by retention (Maya Ortiz)",
+   "line": 5
+  },
+  {
+   "s": "churn-target",
+   "type": "other",
+   "label": "labels live in",
+   "o": "cards.churn_labels",
+   "quote": "Labels live in `cards.churn_labels`",
+   "line": 8
+  },
+  {
+   "s": "churn-target",
+   "type": "other",
+   "label": "transactions in",
+   "o": "cards.txn_daily",
+   "quote": "transactions in `cards.txn_daily`",
+   "line": 8
+  },
+  {
+   "s": "recall-at-10",
+   "type": "other",
+   "label": "success metric on",
+   "o": "holdout-2025q4",
+   "quote": "Success metric: recall@10 on holdout-2025q4",
+   "line": 9
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2026/q-churn-drivers.md",
+ "sha": "c43bce03d676afbf5d1723f47fe3e842cee2405a16f059edb628911d0b2867ba",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

@@ -1,0 +1,122 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-402",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-402: ranker v1 with two features gives AUC 0.84 on Jul-Sep 2025 dispositions"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "aml-xgb-v1",
+   "type": "model",
+   "label": "ranker",
+   "as": [
+    "aml-xgb-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "structuring-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "structuring-v1"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "new-counterparty",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "new-counterparty"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "aml-dispositions-jul-sep-2025",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "Eval set: 4,120 dispositions from Jul-Sep 2025."
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "aml-xgb-v1",
+   "type": "uses",
+   "label": "with",
+   "o": "structuring-v1",
+   "quote": "aml-xgb-v1 with structuring-v1 and new-counterparty: AUC 0.84.",
+   "line": 7
+  },
+  {
+   "s": "aml-xgb-v1",
+   "type": "uses",
+   "label": "with",
+   "o": "new-counterparty",
+   "quote": "aml-xgb-v1 with structuring-v1 and new-counterparty: AUC 0.84.",
+   "line": 7
+  },
+  {
+   "s": "exp-402",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "aml-dispositions-jul-sep-2025",
+   "quote": "Eval set: 4,120 dispositions from Jul-Sep 2025.",
+   "line": 6
+  },
+  {
+   "s": "exp-402",
+   "type": "measured-by",
+   "label": "gives AUC",
+   "o": "auc",
+   "quote": "gives AUC 0.84 on Jul-Sep 2025 dispositions",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-401",
+  "feat-aml-structuring-v1",
+  "feat-aml-new-counterparty",
+  "exp-403"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "aml-alerts/exp-402.md",
+ "sha": "c2ce850fc0d9e2e65ac8c3afdcf20bed4205c69f9743326a1fdc0f6637722c6a",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

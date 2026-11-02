@@ -1,0 +1,80 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "payroll-detection",
+   "type": "feature",
+   "label": "flag",
+   "as": [
+    "payroll detection",
+    "The flag"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "payroll-pattern-match",
+   "type": "term",
+   "label": "pattern match",
+   "as": [
+    "payroll pattern match"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "xs-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "xs-gbm-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-407-oot-2026h1",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-407-oot-2026h1"
+   ],
+   "lines": [
+    2
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "xs-gbm-v2",
+   "type": "uses",
+   "label": "lost signal from",
+   "o": "payroll-detection",
+   "quote": "The flag lost signal and xs-gbm-v2 lost 0.03 AUC out of time.",
+   "line": 6
+  },
+  {
+   "s": "payroll-detection",
+   "type": "uses",
+   "label": "matched by",
+   "o": "payroll-pattern-match",
+   "quote": "broke the payroll pattern match for a large share of employers",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-407-oot-2026h1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cross-sell-savings/find-xs-drift-2026.md",
+ "sha": "66d829c4974c689b9a25fe5ebe6221fbc998020b35af41efa9d09e626779676d",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,68 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "ds-bsm-dual-pull-sample",
+   "type": "segment",
+   "label": "dual-pull sample",
+   "as": [
+    "ds-bsm-dual-pull-sample: 52,000 accounts pulled on both v8 and v10 in December 2025",
+    "ds-bsm-dual-pull-sample"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "score table",
+   "as": [
+    "`bureau.scores_monthly`"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-bsm-v8-history",
+   "type": "dataset",
+   "label": "source panel",
+   "as": [
+    "ds-bsm-v8-history"
+   ],
+   "lines": [
+    2
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-bsm-dual-pull-sample",
+   "type": "part-of",
+   "label": "stored in",
+   "o": "bureau.scores_monthly",
+   "quote": "Stored in `bureau.scores_monthly` with score_version set per row",
+   "line": 7
+  },
+  {
+   "s": "ds-bsm-dual-pull-sample",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "ds-bsm-v8-history",
+   "quote": "from: [ds-bsm-v8-history]",
+   "line": 2
+  }
+ ],
+ "refs": [
+  "bureau-score-migration/ds-bsm-dual-pull-sample.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "bureau-score-migration/ds-bsm-dual-pull-sample.md",
+ "sha": "ce30cd8987be9a16551284d604926a84dc54117ca287ec00db5e7e76fb906c47",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

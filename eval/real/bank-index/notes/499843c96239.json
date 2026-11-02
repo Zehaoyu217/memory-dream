@@ -1,0 +1,111 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "24-month-label-window",
+   "type": "term",
+   "label": "label window",
+   "as": [
+    "a 24-month label window",
+    "24 months of confirmed-fraud labels"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "12-month-label-window",
+   "type": "term",
+   "label": "label window",
+   "as": [
+    "12 months"
+   ],
+   "lines": [
+    5,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "mrisk-oot-2025h2",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "mrisk-oot-2025h2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "mrisk-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "mrisk-gbm-v2"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "24-month-label-window",
+   "type": "measured-by",
+   "label": "AUC 0.868",
+   "o": "auc",
+   "quote": "AUC 0.868",
+   "line": 7
+  },
+  {
+   "s": "12-month-label-window",
+   "type": "measured-by",
+   "label": "AUC 0.870",
+   "o": "auc",
+   "quote": "12 months: 0.870",
+   "line": 7
+  },
+  {
+   "s": "12-month-label-window",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "mrisk-oot-2025h2",
+   "quote": "Eval set: mrisk-oot-2025h2",
+   "line": 6
+  },
+  {
+   "s": "mrisk-gbm-v2",
+   "type": "uses",
+   "label": "built on",
+   "o": "12-month-label-window",
+   "quote": "mrisk-gbm-v2 built on this setting",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-503",
+  "ds-mrisk-chargebacks"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "merchant-risk/exp-504.md",
+ "sha": "499843c96239fd2dff4c83bc9e363dca38df7c292e3871622fe204e72375b318",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

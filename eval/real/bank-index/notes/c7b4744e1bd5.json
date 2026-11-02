@@ -1,0 +1,69 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-rs-balance-at-co",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rs-balance-at-co",
+    "balance at charge-off"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "rs-xgb-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rs-xgb-v1"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-rs-balance-at-co",
+   "type": "sourced-from",
+   "label": "source",
+   "o": "cards.accounts_monthly",
+   "quote": "Source: `cards.accounts_monthly`, the month of charge-off.",
+   "line": 7
+  },
+  {
+   "s": "rs-xgb-v1",
+   "type": "uses",
+   "label": "strongest feature in",
+   "o": "feat-rs-balance-at-co",
+   "quote": "Strongest single feature in rs-xgb-v1 by gain",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-rs-chargeoff-base"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "recovery-scoring/feat-rs-balance-at-co.md",
+ "sha": "c7b4744e1bd548a0c88e35cbd9b545b4fe3f4a0ccadafbdd0ebd32ad2972bc76",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

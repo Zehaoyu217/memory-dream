@@ -1,0 +1,86 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-rdm-last-activity-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rdm-last-activity-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "Source `cards.txn_daily`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "rdm-propensity-lr",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rdm-propensity-lr"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "rdm-uplift-model",
+   "type": "model",
+   "label": "uplift model",
+   "as": [
+    "the first rdm-uplift model"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-rdm-last-activity-v1",
+   "type": "uses",
+   "label": "source",
+   "o": "cards.txn_daily",
+   "quote": "Source `cards.txn_daily`",
+   "line": 6
+  },
+  {
+   "s": "rdm-propensity-lr",
+   "type": "uses",
+   "label": "uses feature",
+   "o": "feat-rdm-last-activity-v1",
+   "quote": "Used in rdm-propensity-lr and the first rdm-uplift model.",
+   "line": 6
+  },
+  {
+   "s": "rdm-uplift-model",
+   "type": "uses",
+   "label": "uses feature",
+   "o": "feat-rdm-last-activity-v1",
+   "quote": "Used in rdm-propensity-lr and the first rdm-uplift model.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "feat-rdm-last-activity-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reactivation-dormant/feat-rdm-last-activity-v1.md",
+ "sha": "7a8d34e7ffc9370652cc23357c90f5840ba8917b41179f6cff26e6ce0107c516",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

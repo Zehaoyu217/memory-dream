@@ -1,0 +1,115 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fsm_parity_sample_2025h2",
+   "type": "dataset",
+   "label": "parity sample",
+   "as": [
+    "fsm_parity_sample_2025h2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "churn-feature-set",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "churn feature set"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "util-ratio-family",
+   "type": "feature",
+   "label": "feature family",
+   "as": [
+    "util-ratio family features",
+    "util ratio"
+   ],
+   "lines": [
+    8,
+    9
+   ]
+  },
+  {
+   "id": "month-end-limit-rule",
+   "type": "policy",
+   "label": "limit rule",
+   "as": [
+    "month-end limit rule",
+    "documented rule"
+   ],
+   "lines": [
+    8,
+    9
+   ]
+  },
+  {
+   "id": "parity-bar",
+   "type": "policy",
+   "label": "parity bar",
+   "as": [
+    "parity bar"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cutover-gate",
+   "type": "policy",
+   "label": "cutover gate",
+   "as": [
+    "cutover gate"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "util-ratio-family",
+   "type": "other",
+   "label": "explained by",
+   "o": "month-end-limit-rule",
+   "quote": "The 3 still failing are util-ratio family features, explained by the month-end limit rule (exp-107)",
+   "line": 8
+  },
+  {
+   "s": "util-ratio-family",
+   "type": "other",
+   "label": "accepted under",
+   "o": "month-end-limit-rule",
+   "quote": "with util ratio accepted under the documented rule",
+   "line": 9
+  },
+  {
+   "s": "cutover-gate",
+   "type": "other",
+   "label": "met for",
+   "o": "churn-feature-set",
+   "quote": "The cutover gate is therefore met for the churn feature set",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "fnd-parity-pre-fix",
+  "exp-102",
+  "exp-107",
+  "dec-fsm-timezone-utc"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "feature-store-migration/fnd-parity-post-fix.md",
+ "sha": "a028b9082026d32d02f1da5aa9f8a2f08e9b3aa36de832d09c3dceea419afd60",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,86 @@
+{
+ "kind": "note",
+ "entities": [
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "smb-segment",
+   "type": "segment",
+   "label": "smb segment",
+   "as": [
+    "segment SMB"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "smb-card-accounts",
+   "type": "segment",
+   "label": "smb card accounts",
+   "as": [
+    "SMB card accounts"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "churn-small-business-models",
+   "type": "other",
+   "label": "churn models",
+   "as": [
+    "every churn-small-business model"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "smb-card-accounts",
+   "type": "part-of",
+   "label": "filtered from",
+   "o": "cards.accounts_monthly",
+   "quote": "Business-card accounts from `cards.accounts_monthly`, filtered to segment SMB.",
+   "line": 6
+  },
+  {
+   "s": "smb-card-accounts",
+   "type": "subset-of",
+   "label": "filtered to",
+   "o": "smb-segment",
+   "quote": "filtered to segment SMB",
+   "line": 6
+  },
+  {
+   "s": "churn-small-business-models",
+   "type": "uses",
+   "label": "base population",
+   "o": "smb-card-accounts",
+   "quote": "This is the base population for every churn-small-business model.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "churn-small-business/ds-csb-biz-accounts.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-small-business/ds-csb-biz-accounts.md",
+ "sha": "ea6a6ef265ab29ac788c4017d793a94ef96c8a161d579d5e157cc2bbea1c8427",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

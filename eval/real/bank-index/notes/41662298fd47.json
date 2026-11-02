@@ -1,0 +1,73 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "engagement-score",
+   "type": "metric",
+   "label": "engagement score",
+   "as": [
+    "the score population",
+    "the score"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "ae-score-v1",
+   "type": "model",
+   "label": "score",
+   "as": [
+    "ae-score-v1"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "feat-ae-push-open-v1",
+   "type": "feature",
+   "label": "push open rate",
+   "as": [
+    "push open rate"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ae-score-v1",
+   "type": "uses",
+   "label": "carries weight",
+   "o": "feat-ae-push-open-v1",
+   "quote": "Within ae-score-v1, push open rate carries weight 0.25",
+   "line": 6
+  },
+  {
+   "s": "feat-ae-push-open-v1",
+   "type": "other",
+   "label": "correlates with",
+   "o": "engagement-score",
+   "quote": "correlates 0.31 with the score across the score population",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fnd-ae-push-null",
+  "feat-ae-push-open-v1",
+  "ae-score-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "app-engagement/fnd-ae-push-assoc.md",
+ "sha": "41662298fd47033b8a24cf3eb483484658399a517b98f44f86431eed3a2927b9",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

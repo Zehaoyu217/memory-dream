@@ -1,0 +1,163 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ror-oot-2025q3",
+   "type": "segment",
+   "label": "holdout",
+   "as": [
+    "Holdout ror-oot-2025q3"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ror-oot-2025q3-treated",
+   "type": "segment",
+   "label": "treated group",
+   "as": [
+    "Treated 43,214"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ror-oot-2025q3-control",
+   "type": "segment",
+   "label": "control group",
+   "as": [
+    "control 4,801"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-ror-redemptions",
+   "type": "dataset",
+   "label": "source dataset",
+   "as": [
+    "ds-ror-redemptions"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "ds-ror-tier-matrix",
+   "type": "dataset",
+   "label": "source dataset",
+   "as": [
+    "ds-ror-tier-matrix"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "churn-60d",
+   "type": "metric",
+   "label": "60-day churn",
+   "as": [
+    "60-day churn"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-404",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-404"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-406",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-406"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ror-oot-2025q3",
+   "type": "derived-from",
+   "label": "from",
+   "o": "ds-ror-redemptions",
+   "quote": "from: [ds-ror-redemptions, ds-ror-tier-matrix]",
+   "line": 2
+  },
+  {
+   "s": "ror-oot-2025q3",
+   "type": "derived-from",
+   "label": "from",
+   "o": "ds-ror-tier-matrix",
+   "quote": "from: [ds-ror-redemptions, ds-ror-tier-matrix]",
+   "line": 2
+  },
+  {
+   "s": "ror-oot-2025q3",
+   "type": "measured-by",
+   "label": "churn outcome",
+   "o": "churn-60d",
+   "quote": "60-day churn: treated 5.1%, control 6.4%.",
+   "line": 7
+  },
+  {
+   "s": "ror-oot-2025q3-treated",
+   "type": "part-of",
+   "label": "treated arm of",
+   "o": "ror-oot-2025q3",
+   "quote": "Treated 43,214, control 4,801.",
+   "line": 6
+  },
+  {
+   "s": "ror-oot-2025q3-control",
+   "type": "part-of",
+   "label": "control arm of",
+   "o": "ror-oot-2025q3",
+   "quote": "Treated 43,214, control 4,801.",
+   "line": 6
+  },
+  {
+   "s": "exp-404",
+   "type": "evaluated-on",
+   "label": "test set for",
+   "o": "ror-oot-2025q3",
+   "quote": "Test set for ROI comparisons in exp-404 and exp-406.",
+   "line": 8
+  },
+  {
+   "s": "exp-406",
+   "type": "evaluated-on",
+   "label": "test set for",
+   "o": "ror-oot-2025q3",
+   "quote": "Test set for ROI comparisons in exp-404 and exp-406.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-ror-redemptions",
+  "ds-ror-tier-matrix"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "retention-offers-roi/ds-ror-holdout-2025q3.md",
+ "sha": "5f778df0452cc77d4ce1a6cb68bbe949dc90c071d74f0f3dbe690d977520170a",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

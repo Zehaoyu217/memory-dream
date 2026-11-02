@@ -1,0 +1,78 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-inc-rent-flag",
+   "type": "feature",
+   "label": "rent-like outflow flag",
+   "as": [
+    "feat-inc-rent-flag: recurring rent-like outflow flag from ACH and card payees"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-inc-txn-categories",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "ds-inc-txn-categories"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "inc-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "Used in inc-gbm-v1 and later"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "rent-like-outflow",
+   "type": "term",
+   "label": "rent-like outflow",
+   "as": [
+    "rent-like outflow sits at a median of 27% of the estimated monthly income"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-inc-rent-flag",
+   "type": "uses",
+   "label": "derived from",
+   "o": "ds-inc-txn-categories",
+   "quote": "from: [ds-inc-txn-categories]",
+   "line": 2
+  },
+  {
+   "s": "feat-inc-rent-flag",
+   "type": "uses",
+   "label": "used in",
+   "o": "inc-gbm-v1",
+   "quote": "Used in inc-gbm-v1 and later.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "income-estimation/feat-inc-rent-flag.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "income-estimation/feat-inc-rent-flag.md",
+ "sha": "33c2eeecea3d4326c9af407900e8790b2ac946070c265f2f0468713fe2eb0c2f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,89 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "mau",
+   "type": "metric",
+   "label": "mau",
+   "as": [
+    "MAU"
+   ],
+   "lines": [
+    3,
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "app.sessions_daily",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "app.sessions_daily"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "session-30s",
+   "type": "term",
+   "label": "session threshold",
+   "as": [
+    "a session of 30 seconds or more"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bounced-logins",
+   "type": "term",
+   "label": "bounced logins",
+   "as": [
+    "Bounced logins"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mau",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "app.sessions_daily",
+   "quote": "Source is `app.sessions_daily`.",
+   "line": 6
+  },
+  {
+   "s": "mau",
+   "type": "uses",
+   "label": "defined by session of",
+   "o": "session-30s",
+   "quote": "MAU is distinct user_ids with a session of at least 30 seconds in the last 30 days.",
+   "line": 6
+  },
+  {
+   "s": "mau",
+   "type": "other",
+   "label": "excludes",
+   "o": "bounced-logins",
+   "quote": "Bounced logins are excluded.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "glossary/mau"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "corrections/mau-30s-session.md",
+ "sha": "2508b600227b0c26efefbb9dd6015471594b941af5750eab3e4658a7d6e08faa",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

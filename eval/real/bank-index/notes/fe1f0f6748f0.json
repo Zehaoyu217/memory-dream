@@ -1,0 +1,59 @@
+{
+ "kind": "note",
+ "entities": [
+  {
+   "id": "feat-ch-send-window-v1",
+   "type": "feature",
+   "label": "send-hour bucket",
+   "as": [
+    "feat-ch-send-window-v1 is the send-hour bucket of the SMS, from delivery timestamps"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-ch-contact-costs",
+   "type": "other",
+   "label": "source note author",
+   "as": [
+    "from: [ds-ch-contact-costs]"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "calls table",
+   "as": [
+    "`callcenter.calls` attempt time"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ch-send-window-v1",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "callcenter.calls",
+   "quote": "Calls use the same buckets from `callcenter.calls` attempt time.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-ch-contact-costs"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-channel-mix/feat-ch-send-window-v1.md",
+ "sha": "fe1f0f6748f002cd240d330b8187209618ad17bed64d8d144209b793bb48f4a1",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

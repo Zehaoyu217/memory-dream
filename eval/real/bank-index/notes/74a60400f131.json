@@ -1,0 +1,197 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "ed-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ed-gbm-v1"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "ed-logit-v1",
+   "type": "model",
+   "label": "scorecard",
+   "as": [
+    "the scorecard"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "early-delinquency-holdout-2024q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "early-delinquency-holdout-2024q4"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-ed-util-trend-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ed-util-trend-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-ed-cashadv-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ed-cashadv-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Gini"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "brier",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Brier"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "thin-file-accounts",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "Thin-file accounts"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ed-gbm-v1",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-ed-util-trend-v1",
+   "quote": "with feat-ed-util-trend-v1 and feat-ed-cashadv-v1",
+   "line": 6
+  },
+  {
+   "s": "ed-gbm-v1",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-ed-cashadv-v1",
+   "quote": "with feat-ed-util-trend-v1 and feat-ed-cashadv-v1",
+   "line": 6
+  },
+  {
+   "s": "ed-gbm-v1",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "early-delinquency-holdout-2024q4",
+   "quote": "on early-delinquency-holdout-2024q4",
+   "line": 5
+  },
+  {
+   "s": "ed-gbm-v1",
+   "type": "measured-by",
+   "label": "reports AUC",
+   "o": "auc",
+   "quote": "AUC 0.781, Gini 0.562, KS 0.42, Brier 0.045",
+   "line": 6
+  },
+  {
+   "s": "ed-gbm-v1",
+   "type": "measured-by",
+   "label": "reports Gini",
+   "o": "gini",
+   "quote": "AUC 0.781, Gini 0.562, KS 0.42, Brier 0.045",
+   "line": 6
+  },
+  {
+   "s": "ed-gbm-v1",
+   "type": "measured-by",
+   "label": "reports KS",
+   "o": "ks",
+   "quote": "AUC 0.781, Gini 0.562, KS 0.42, Brier 0.045",
+   "line": 6
+  },
+  {
+   "s": "ed-gbm-v1",
+   "type": "measured-by",
+   "label": "reports Brier",
+   "o": "brier",
+   "quote": "AUC 0.781, Gini 0.562, KS 0.42, Brier 0.045",
+   "line": 6
+  },
+  {
+   "s": "ed-gbm-v1",
+   "type": "other",
+   "label": "lifts AUC over",
+   "o": "ed-logit-v1",
+   "quote": "lifts AUC from 0.742 to 0.781 over the scorecard",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-201",
+  "find-ed-gbm-vs-logit",
+  "early_delinquency/exp202_gbm_v1.ipynb"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "early-delinquency/exp-202.md",
+ "sha": "74a60400f1319796548553e232645d11c201e0340bb76f3854d60679e0aeecff",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

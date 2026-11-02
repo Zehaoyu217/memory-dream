@@ -1,0 +1,87 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "call log table",
+   "as": [
+    "`callcenter.calls`",
+    "callcenter.calls"
+   ],
+   "lines": [
+    5,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "payments table",
+   "as": [
+    "`cards.payments_daily`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ptp-label-14d",
+   "type": "feature",
+   "label": "promise-to-pay label",
+   "as": [
+    "promise-to-pay label"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "early-collections-contacts",
+   "type": "segment",
+   "label": "early-collections contacts",
+   "as": [
+    "early-collections contacts"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ptp-label-14d",
+   "type": "uses",
+   "label": "joins to",
+   "o": "callcenter.calls",
+   "quote": "Built by joining `callcenter.calls` to `cards.payments_daily`.",
+   "line": 6
+  },
+  {
+   "s": "ptp-label-14d",
+   "type": "uses",
+   "label": "joins to",
+   "o": "cards.payments_daily",
+   "quote": "Built by joining `callcenter.calls` to `cards.payments_daily`.",
+   "line": 6
+  },
+  {
+   "s": "ptp-label-14d",
+   "type": "part-of",
+   "label": "labels",
+   "o": "early-collections-contacts",
+   "quote": "for early-collections contacts",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-uplift/ds-cu-call-outcomes.md",
+ "sha": "a1c91558be21eaf12ce49598e706c635cb7cf4a114aaaf985f180d03d095228e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

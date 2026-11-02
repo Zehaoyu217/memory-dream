@@ -1,0 +1,155 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-505",
+   "type": "other",
+   "label": "experiment note",
+   "as": [
+    "exp-505: ML v2 with net ARPU and retention hazard reaches 15.2% MAPE on clv-oot-2021h1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "clv-ml-v2",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "Basis for clv-ml-v2."
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "clv-ml-v1",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "clv-ml-v1"
+   ],
+   "lines": [
+    2,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "feat-clv-arpu-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-clv-arpu-v2"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "feat-clv-hazard",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "hazard"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "tenure-feature",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "tenure"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "clv-oot-2021h1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "clv-oot-2021h1"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "fnd-clv-offer-cost",
+   "type": "other",
+   "label": "finding note",
+   "as": [
+    "fnd-clv-offer-cost"
+   ],
+   "lines": [
+    2
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "clv-ml-v2",
+   "type": "trained-on",
+   "label": "built from features",
+   "o": "feat-clv-arpu-v2",
+   "quote": "arpu v2, hazard, tenure, loss rate",
+   "line": 6
+  },
+  {
+   "s": "clv-ml-v2",
+   "type": "evaluated-on",
+   "label": "holdout MAPE",
+   "o": "clv-oot-2021h1",
+   "quote": "Holdout clv-oot-2021h1: MAPE 15.2%",
+   "line": 7
+  },
+  {
+   "s": "clv-ml-v2",
+   "type": "replaces",
+   "label": "improves on",
+   "o": "clv-ml-v1",
+   "quote": "against 18.4% for clv-ml-v1",
+   "line": 7
+  },
+  {
+   "s": "clv-ml-v2",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-clv-hazard",
+   "quote": "Features: arpu v2, hazard, tenure, loss rate",
+   "line": 6
+  },
+  {
+   "s": "clv-ml-v2",
+   "type": "uses",
+   "label": "features",
+   "o": "tenure-feature",
+   "quote": "Features: arpu v2, hazard, tenure, loss rate",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "feat-clv-arpu-v2",
+  "feat-clv-hazard",
+  "clv-ml-v1",
+  "fnd-clv-offer-cost",
+  "customer-lifetime-value/exp-505.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "customer-lifetime-value/exp-505.md",
+ "sha": "5dd1aaf1fd2da467b85d378408c85967d9e5e36f548a75f98da9407eb5db076a",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

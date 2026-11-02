@@ -1,0 +1,86 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "deck",
+   "type": "document",
+   "label": "published deck",
+   "as": [
+    "Each published deck"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "superseded-version",
+   "type": "other",
+   "label": "superseded version",
+   "as": [
+    "Superseded versions"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "source-tables",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "Source tables"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "shared-drive",
+   "type": "other",
+   "label": "shared drive",
+   "as": [
+    "shared drive"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "deck",
+   "type": "stored-in",
+   "label": "stays in",
+   "o": "shared-drive",
+   "quote": "Each published deck stays in the shared drive's `reporting/decks` folder for three years.",
+   "line": 5
+  },
+  {
+   "s": "superseded-version",
+   "type": "other",
+   "label": "kept in same folder",
+   "o": "shared-drive",
+   "quote": "Superseded versions (lower `_v<n>`) are kept in the same folder.",
+   "line": 6
+  },
+  {
+   "s": "source-tables",
+   "type": "other",
+   "label": "snapshotted with",
+   "o": "deck",
+   "quote": "Source tables are snapshotted with the deck so any figure can be re-derived.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/deck-version-retention.md",
+ "sha": "9756856be976f5acbdccb242738554cdb8a6266ef1597757873b547e2fef7e13",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

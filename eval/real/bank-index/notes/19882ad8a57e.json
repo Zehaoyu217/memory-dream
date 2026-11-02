@@ -1,0 +1,149 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "ror-roi-v2",
+   "type": "model",
+   "label": "roi model",
+   "as": [
+    "ror-roi-v2",
+    "Current retention ROI model"
+   ],
+   "lines": [
+    6,
+    9
+   ]
+  },
+  {
+   "id": "feat-ror-value-band-v2",
+   "type": "feature",
+   "label": "value band",
+   "as": [
+    "value band v2"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "ror-roi-v1",
+   "type": "model",
+   "label": "roi model",
+   "as": [
+    "ror-roi-v1"
+   ],
+   "lines": [
+    2,
+    4,
+    9
+   ]
+  },
+  {
+   "id": "ror-uplift-v1",
+   "type": "model",
+   "label": "uplift model",
+   "as": [
+    "ror-uplift-v1"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "exp-407",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-407"
+   ],
+   "lines": [
+    2,
+    8
+   ]
+  },
+  {
+   "id": "dec-ror-matrix-v4",
+   "type": "other",
+   "label": "offer matrix",
+   "as": [
+    "matrix v4"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "realised-roi",
+   "type": "metric",
+   "label": "realised roi",
+   "as": [
+    "Realised ROI"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ror-roi-v2",
+   "type": "uses",
+   "label": "ranks on",
+   "o": "ror-uplift-v1",
+   "quote": "on ror-uplift-v1 uplift times value band v2 revenue",
+   "line": 7
+  },
+  {
+   "s": "ror-roi-v2",
+   "type": "uses",
+   "label": "ranks on",
+   "o": "feat-ror-value-band-v2",
+   "quote": "value band v2 revenue",
+   "line": 7
+  },
+  {
+   "s": "ror-roi-v2",
+   "type": "uses",
+   "label": "minus offer cost from",
+   "o": "dec-ror-matrix-v4",
+   "quote": "minus matrix v4 offer cost",
+   "line": 7
+  },
+  {
+   "s": "ror-roi-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "ror-roi-v1",
+   "quote": "replaces ror-roi-v1",
+   "line": 9
+  },
+  {
+   "s": "ror-roi-v2",
+   "type": "measured-by",
+   "label": "realised ROI",
+   "o": "realised-roi",
+   "quote": "Realised ROI on the 2026-Q1 wave: 1.63x",
+   "line": 8
+  },
+  {
+   "s": "ror-roi-v2",
+   "type": "other",
+   "label": "realised in",
+   "o": "exp-407",
+   "quote": "Realised ROI on the 2026-Q1 wave: 1.63x (exp-407)",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "retention-offers-roi/ror-roi-v2.md",
+ "sha": "19882ad8a57e7e45da9d06db83038008f4836b1c50685a7bd7c5f3b0aea6e86f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

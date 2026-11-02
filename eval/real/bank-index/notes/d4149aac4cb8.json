@@ -1,0 +1,124 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-506",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-506"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ch-propensity-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ch-propensity-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ch-propensity-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ch-propensity-v1",
+    "v1"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "feat-ch-prefer-channel-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ch-prefer-channel-v1",
+    "prefer-channel feature"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "wave-1-holdout-split",
+   "type": "dataset",
+   "label": "holdout split",
+   "as": [
+    "wave-1 holdout split"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift@20%",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ch-propensity-v2",
+   "type": "uses",
+   "label": "added feature",
+   "o": "feat-ch-prefer-channel-v1",
+   "quote": "ch-propensity-v2 with feat-ch-prefer-channel-v1 added",
+   "line": 6
+  },
+  {
+   "s": "exp-506",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "wave-1-holdout-split",
+   "quote": "on the wave-1 holdout split",
+   "line": 5
+  },
+  {
+   "s": "ch-propensity-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "uplift-at-20",
+   "quote": "uplift@20% 0.027",
+   "line": 6
+  },
+  {
+   "s": "ch-propensity-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "uplift-at-20",
+   "quote": "against 0.021 for v1",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-505",
+  "collections_channel/exp506_propensity_v2.ipynb"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-channel-mix/exp-506.md",
+ "sha": "d4149aac4cb8a57b1bf954960d0401fb582fc3eb93e4cfca37d8eb1ddeeb9a99",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

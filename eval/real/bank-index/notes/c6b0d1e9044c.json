@@ -1,0 +1,70 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "lgd",
+   "type": "metric",
+   "label": "lgd",
+   "as": [
+    "LGD",
+    "LGD = 1 - (recoveries within 12 months of charge-off, net of collection costs) / balance at charge-off"
+   ],
+   "lines": [
+    3,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "collections.cases",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`collections.cases`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "lgd-12m-after-chargeoff",
+   "type": "term",
+   "label": "lgd definition",
+   "as": [
+    "LGD is measured 12 months after charge-off, net of costs"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "lgd",
+   "type": "uses",
+   "label": "source is",
+   "o": "collections.cases",
+   "quote": "Source is `collections.cases`.",
+   "line": 6
+  },
+  {
+   "s": "lgd-12m-after-chargeoff",
+   "type": "other",
+   "label": "supersedes",
+   "o": "lgd",
+   "quote": "supersedes: [glossary/lgd]",
+   "line": 3
+  }
+ ],
+ "refs": [
+  "glossary/lgd"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "corrections/lgd-12m-after-chargeoff.md",
+ "sha": "c6b0d1e9044c6a71ae4dabbd0c7d184f9e36fb193feb88b2d8f6f72108929043",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

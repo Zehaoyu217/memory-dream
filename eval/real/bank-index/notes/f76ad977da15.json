@@ -1,0 +1,102 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-txc-long-tail",
+   "type": "document",
+   "label": "finding note",
+   "as": [
+    "Long-tail merchants (under 20 transactions in 90 days) hold 11% of spend but 46% of 'other' rows"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-txc-descriptor-sample",
+   "type": "dataset",
+   "label": "sample",
+   "as": [
+    "ds-txc-descriptor-sample"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "txc-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "txc-gbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "other-target",
+   "type": "term",
+   "label": "'other' target",
+   "as": [
+    "'other' target"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "long-tail-merchants",
+   "type": "segment",
+   "label": "long-tail merchants",
+   "as": [
+    "Long-tail merchants (under 20 transactions in 90 days)"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "long-tail-merchants",
+   "type": "part-of",
+   "label": "carries spend in",
+   "o": "cards.txn_daily",
+   "quote": "carry 11% of spend in `cards.txn_daily` (Q3-2025 sample)",
+   "line": 6
+  },
+  {
+   "s": "long-tail-merchants",
+   "type": "other",
+   "label": "fills 'other' rows of",
+   "o": "txc-gbm-v2",
+   "quote": "They account for 46% of the rows that end up in 'other' under txc-gbm-v2.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "q-txc-unlabelled-share",
+  "dec-txc-ship-gbm-v3",
+  "exp-107"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "txn-categorization/fnd-txc-long-tail.md",
+ "sha": "f76ad977da15cc8a2817543cbd1cb594f7d6df5a1bf7b20005abe28306d79d41",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

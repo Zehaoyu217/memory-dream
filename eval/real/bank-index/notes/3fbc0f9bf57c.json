@@ -1,0 +1,263 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-204",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-204"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "xgboost-raw-spend",
+   "type": "model",
+   "label": "xgboost model",
+   "as": [
+    "XGBoost on raw spend",
+    "XGBoost depth 4, 300 rounds"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "feat-csb-spend-raw",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "spend-raw"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-csb-tenure-band",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "tenure band"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-csb-deposit-volatility",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "deposit volatility"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "employee-cards",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "employee cards"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "six-month-plus-accounts",
+   "type": "segment",
+   "label": "training subset",
+   "as": [
+    "6-month-plus accounts"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-subset",
+   "type": "segment",
+   "label": "holdout subset",
+   "as": [
+    "Holdout subset"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.742"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.37"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "recall-at-10",
+   "type": "metric",
+   "label": "recall@10%",
+   "as": [
+    "recall@10% 0.27"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dec-2024-snapshot",
+   "type": "dataset",
+   "label": "snapshot",
+   "as": [
+    "Dec 2024 snapshot"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "dec-peak-merchant-accounts",
+   "type": "segment",
+   "label": "accounts",
+   "as": [
+    "Dec-peak merchant accounts"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "median-score",
+   "type": "metric",
+   "label": "median score",
+   "as": [
+    "median score"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "xgboost-raw-spend",
+   "type": "trained-on",
+   "label": "trained on",
+   "o": "six-month-plus-accounts",
+   "quote": "trained on 6-month-plus accounts",
+   "line": 6
+  },
+  {
+   "s": "xgboost-raw-spend",
+   "type": "uses",
+   "label": "uses features",
+   "o": "feat-csb-spend-raw",
+   "quote": "features spend-raw, tenure band, deposit volatility and employee cards",
+   "line": 6
+  },
+  {
+   "s": "xgboost-raw-spend",
+   "type": "uses",
+   "label": "uses features",
+   "o": "feat-csb-tenure-band",
+   "quote": "features spend-raw, tenure band, deposit volatility and employee cards",
+   "line": 6
+  },
+  {
+   "s": "xgboost-raw-spend",
+   "type": "uses",
+   "label": "uses features",
+   "o": "feat-csb-deposit-volatility",
+   "quote": "features spend-raw, tenure band, deposit volatility and employee cards",
+   "line": 6
+  },
+  {
+   "s": "xgboost-raw-spend",
+   "type": "uses",
+   "label": "uses features",
+   "o": "employee-cards",
+   "quote": "features spend-raw, tenure band, deposit volatility and employee cards",
+   "line": 6
+  },
+  {
+   "s": "xgboost-raw-spend",
+   "type": "evaluated-on",
+   "label": "holdout subset",
+   "o": "holdout-subset",
+   "quote": "Holdout subset (n=7,930)",
+   "line": 7
+  },
+  {
+   "s": "xgboost-raw-spend",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.742",
+   "line": 7
+  },
+  {
+   "s": "xgboost-raw-spend",
+   "type": "measured-by",
+   "label": "KS",
+   "o": "ks",
+   "quote": "KS 0.37",
+   "line": 7
+  },
+  {
+   "s": "xgboost-raw-spend",
+   "type": "measured-by",
+   "label": "recall@10%",
+   "o": "recall-at-10",
+   "quote": "recall@10% 0.27",
+   "line": 7
+  },
+  {
+   "s": "dec-peak-merchant-accounts",
+   "type": "measured-by",
+   "label": "median score",
+   "o": "median-score",
+   "quote": "median score for Dec-peak merchant accounts is 0.04",
+   "line": 8
+  },
+  {
+   "s": "dec-peak-merchant-accounts",
+   "type": "other",
+   "label": "scored on",
+   "o": "dec-2024-snapshot",
+   "quote": "On the Dec 2024 snapshot, the median score for Dec-peak merchant accounts is 0.04",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-203",
+  "fnd-csb-seasonal-trap"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-small-business/exp-204.md",
+ "sha": "3fbc0f9bf57caff431e360f257138e676f9e7abf4e3d8371f79ff1a537acbb75",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

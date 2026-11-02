@@ -1,0 +1,126 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "payments-per-account-per-month",
+   "type": "dataset",
+   "label": "monthly payment totals",
+   "as": [
+    "Payments per account per month",
+    "Monthly payment totals per account"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "cards.payments_daily"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-pbs-pay-ratio-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-pbs-pay-ratio-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-pbs-minpay-flag",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-pbs-minpay-flag"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-pbs-cash-share",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-pbs-cash-share"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-pbs-timing-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-pbs-timing-v2"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "payments-per-account-per-month",
+   "type": "uses",
+   "label": "aggregated from",
+   "o": "cards.payments_daily",
+   "quote": "Monthly payment totals per account from `cards.payments_daily`",
+   "line": 6
+  },
+  {
+   "s": "feat-pbs-pay-ratio-v1",
+   "type": "uses",
+   "label": "source",
+   "o": "payments-per-account-per-month",
+   "quote": "Source for feat-pbs-pay-ratio-v1, feat-pbs-minpay-flag, feat-pbs-cash-share and feat-pbs-timing-v2.",
+   "line": 8
+  },
+  {
+   "s": "feat-pbs-minpay-flag",
+   "type": "uses",
+   "label": "source",
+   "o": "payments-per-account-per-month",
+   "quote": "Source for feat-pbs-pay-ratio-v1, feat-pbs-minpay-flag, feat-pbs-cash-share and feat-pbs-timing-v2.",
+   "line": 8
+  },
+  {
+   "s": "feat-pbs-cash-share",
+   "type": "uses",
+   "label": "source",
+   "o": "payments-per-account-per-month",
+   "quote": "Source for feat-pbs-pay-ratio-v1, feat-pbs-minpay-flag, feat-pbs-cash-share and feat-pbs-timing-v2.",
+   "line": 8
+  },
+  {
+   "s": "feat-pbs-timing-v2",
+   "type": "uses",
+   "label": "source",
+   "o": "payments-per-account-per-month",
+   "quote": "Source for feat-pbs-pay-ratio-v1, feat-pbs-minpay-flag, feat-pbs-cash-share and feat-pbs-timing-v2.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-pbs-frame-h1-2025"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "payment-behavior-segments/ds-pbs-payments-12m.md",
+ "sha": "70e1805124a255e555046111be0b571a7edb3338ddb8fce19f476caf38ad5071",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

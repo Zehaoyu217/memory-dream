@@ -1,0 +1,174 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "churn-gbm-2025",
+   "type": "model",
+   "label": "lightgbm model",
+   "as": [
+    "churn-gbm-2025 (v1): LightGBM with util-v1, holdout AUC 0.741",
+    "LightGBM on 14 features including util-v1 and app sessions, 60-day labels, 600 rounds."
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "c25-oot-2024h1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Holdout c25-oot-2024h1 (n=312,470)"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "holdout AUC 0.741",
+    "AUC 0.741",
+    "Beats churn-lr-base-2025 by 0.048 AUC."
+   ],
+   "lines": [
+    5,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.36"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "recall-at-10pct",
+   "type": "metric",
+   "label": "recall@10%",
+   "as": [
+    "recall@10% 0.29"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "brier-score",
+   "type": "metric",
+   "label": "brier",
+   "as": [
+    "Brier 0.0352"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "churn-lr-base-2025",
+   "type": "model",
+   "label": "baseline model",
+   "as": [
+    "churn-lr-base-2025"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "util-v1",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "util-v1"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-gbm-2025",
+   "type": "uses",
+   "label": "uses",
+   "o": "util-v1",
+   "quote": "LightGBM on 14 features including util-v1 and app sessions",
+   "line": 6
+  },
+  {
+   "s": "churn-gbm-2025",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "c25-oot-2024h1",
+   "quote": "Holdout c25-oot-2024h1 (n=312,470): AUC 0.741",
+   "line": 7
+  },
+  {
+   "s": "churn-gbm-2025",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "holdout AUC 0.741",
+   "line": 5
+  },
+  {
+   "s": "churn-gbm-2025",
+   "type": "measured-by",
+   "label": "KS",
+   "o": "ks",
+   "quote": "KS 0.36",
+   "line": 7
+  },
+  {
+   "s": "churn-gbm-2025",
+   "type": "measured-by",
+   "label": "recall@10%",
+   "o": "recall-at-10pct",
+   "quote": "recall@10% 0.29",
+   "line": 7
+  },
+  {
+   "s": "churn-gbm-2025",
+   "type": "measured-by",
+   "label": "Brier",
+   "o": "brier-score",
+   "quote": "Brier 0.0352",
+   "line": 7
+  },
+  {
+   "s": "churn-gbm-2025",
+   "type": "other",
+   "label": "beats",
+   "o": "churn-lr-base-2025",
+   "quote": "Beats churn-lr-base-2025 by 0.048 AUC.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-102",
+  "exp-103",
+  "feat-c25-util-v1",
+  "dec-c25-label-60d",
+  "dec-c25-ship-gbm-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2025/churn-gbm-2025.md",
+ "sha": "0374dfe1fbcbbce04500f05f3004f17124db301df1c3dab0b832ea8993b36502",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

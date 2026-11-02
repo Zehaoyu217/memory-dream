@@ -1,0 +1,87 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "isnull-flag",
+   "type": "feature",
+   "label": "_isnull flag",
+   "as": [
+    "_isnull flag"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "bur-income-band-isnull",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "bur_income_band_isnull"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "retention-model-2025",
+   "type": "model",
+   "label": "retention model",
+   "as": [
+    "2025 retention model"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "median-imputation",
+   "type": "term",
+   "label": "median imputation",
+   "as": [
+    "Impute the median"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "training-split",
+   "type": "segment",
+   "label": "training split",
+   "as": [
+    "training split"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bur-income-band-isnull",
+   "type": "other",
+   "label": "ranked fifth in",
+   "o": "retention-model-2025",
+   "quote": "in the 2025 retention model `bur_income_band_isnull` ranked fifth",
+   "line": 5
+  },
+  {
+   "s": "median-imputation",
+   "type": "uses",
+   "label": "computed on",
+   "o": "training-split",
+   "quote": "Impute the median computed on the training split only",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/missing-value-indicator.md",
+ "sha": "765e92a4791a8c500fc955adf3a8f634bd8b88a5aeb7b09567caf96b4afd9344",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

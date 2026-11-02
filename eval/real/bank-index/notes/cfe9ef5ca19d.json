@@ -1,0 +1,87 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "revolvers",
+   "type": "segment",
+   "label": "revolvers",
+   "as": [
+    "revolvers"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "eligible-population",
+   "type": "segment",
+   "label": "eligible population",
+   "as": [
+    "eligible population"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "minimum-pay-share",
+   "type": "metric",
+   "label": "minimum-pay share",
+   "as": [
+    "minimum-pay share"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "proactive-cli",
+   "type": "term",
+   "label": "proactive cli",
+   "as": [
+    "proactive CLI"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "revolvers",
+   "type": "measured-by",
+   "label": "defined by",
+   "o": "minimum-pay-share",
+   "quote": "minimum-pay share above 0.5",
+   "line": 5
+  },
+  {
+   "s": "revolvers",
+   "type": "other",
+   "label": "excluded from",
+   "o": "proactive-cli",
+   "quote": "exclude revolvers (minimum-pay share above 0.5) from proactive CLI from H2 2025",
+   "line": 5
+  },
+  {
+   "s": "revolvers",
+   "type": "other",
+   "label": "removes from",
+   "o": "eligible-population",
+   "quote": "Exclusion removes about 23% of the eligible population from H2 2025 waves.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "find-cli-revolver-loss"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/dec-cli-exclude-revolvers.md",
+ "sha": "cfe9ef5ca19d34afe8e634cb33a9795f4664d5250e38d1d31a0a9f44ad8a23b8",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

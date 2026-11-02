@@ -1,0 +1,141 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "rs-xgb-v3",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "rs-xgb-v3"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "rs-xgb-v2",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "rs-xgb-v2"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "recovery-scoring-agency-2025h2",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "recovery-scoring-agency-2025h2"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "holdout-2023h2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2023h2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-rs-agency-placements",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "ds-rs-agency-placements"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "classification gini",
+   "as": [
+    "Classification Gini"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rs-xgb-v3",
+   "type": "derived-from",
+   "label": "plus regression head",
+   "o": "rs-xgb-v2",
+   "quote": "rs-xgb-v2 plus a regression head for recovered share of balance",
+   "line": 6
+  },
+  {
+   "s": "rs-xgb-v3",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "recovery-scoring-agency-2025h2",
+   "quote": "Eval set recovery-scoring-agency-2025h2: n=3,480 closed placements",
+   "line": 6
+  },
+  {
+   "s": "rs-xgb-v2",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "recovery-scoring-agency-2025h2",
+   "quote": "rs-xgb-v2 on the same set: MAPE 19.8%",
+   "line": 6
+  },
+  {
+   "s": "rs-xgb-v3",
+   "type": "measured-by",
+   "label": "MAPE",
+   "o": "mape",
+   "quote": "MAPE 14.2%",
+   "line": 6
+  },
+  {
+   "s": "rs-xgb-v2",
+   "type": "measured-by",
+   "label": "MAPE",
+   "o": "mape",
+   "quote": "MAPE 19.8%",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "rs-xgb-v2",
+  "ds-rs-agency-placements",
+  "recovery_scoring/exp308_v3.ipynb"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "recovery-scoring/exp-308.md",
+ "sha": "7cf959119eedd5dac06e16743416f79f4abea09b7d029d16efed009d67a1d25b",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

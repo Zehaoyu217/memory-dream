@@ -1,0 +1,87 @@
+{
+ "kind": "note",
+ "entities": [
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "Q4-2025 snapshot of cards.txn_daily"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "data-eng-cards",
+   "type": "team",
+   "label": "owner team",
+   "as": [
+    "Owned by data-eng-cards"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sql-txn-snapshot",
+   "type": "other",
+   "label": "query file",
+   "as": [
+    "sql/txn_snapshot.sql"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "september-2025-partitions",
+   "type": "dataset",
+   "label": "partitions",
+   "as": [
+    "September 2025 partitions were short by about 6% until the backfill"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cards.txn_daily",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "data-eng-cards",
+   "quote": "Owned by data-eng-cards.",
+   "line": 5
+  },
+  {
+   "s": "cards.txn_daily",
+   "type": "part-of",
+   "label": "has gap",
+   "o": "september-2025-partitions",
+   "quote": "September 2025 partitions were short by about 6% until the backfill",
+   "line": 8
+  },
+  {
+   "s": "sql-txn-snapshot",
+   "type": "uses",
+   "label": "queries",
+   "o": "cards.txn_daily",
+   "quote": "Query: `sql/txn_snapshot.sql`.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "txn-backfill",
+  "sql/txn_snapshot.sql"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2026/ds-txn-2025q4.md",
+ "sha": "0067ae049a969fe3098ea0aa75ad090d8a512a61f7206550b8380f9d56ce85c1",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

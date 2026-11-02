@@ -1,0 +1,81 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "bt.offer_log",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "bt.offer_log"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "ben-carter",
+   "type": "person",
+   "label": "finance",
+   "as": [
+    "Ben Carter (finance)"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "bt-net-margin",
+   "type": "metric",
+   "label": "12-month net margin",
+   "as": [
+    "12-month net interest margin",
+    "12-month net margin"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bt.offer_log",
+   "type": "joined-to",
+   "label": "joined to",
+   "o": "cards.accounts_monthly",
+   "quote": "Source: `bt.offer_log` joined to `cards.accounts_monthly`.",
+   "line": 9
+  },
+  {
+   "s": "ben-carter",
+   "type": "other",
+   "label": "asked for threshold",
+   "o": "bt-net-margin",
+   "quote": "Ben Carter (finance) asked for the threshold in $ per account, not in AUC.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "q-bt-who-accepts",
+  "find-bt-margin-top30"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "balance-transfer-propensity/q-bt-margin-threshold.md",
+ "sha": "24ddd04a676bb56928e7a280e083c960c753b573a4d73937993b83399a6cb9b6",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

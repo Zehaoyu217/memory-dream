@@ -1,0 +1,104 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "mon.scoring_log_daily",
+   "type": "dataset",
+   "label": "scoring log table",
+   "as": [
+    "mon.scoring_log_daily: one row per model, account and day, from 2025-01-01"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Owner: Sam Lee"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "model_id",
+   "type": "feature",
+   "label": "column",
+   "as": [
+    "model_id"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "account_id",
+   "type": "feature",
+   "label": "column",
+   "as": [
+    "account_id"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "score",
+   "type": "feature",
+   "label": "column",
+   "as": [
+    "score"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mon.scoring_log_daily",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "sam-lee",
+   "quote": "Owner: Sam Lee",
+   "line": 8
+  },
+  {
+   "s": "model_id",
+   "type": "part-of",
+   "label": "column of",
+   "o": "mon.scoring_log_daily",
+   "quote": "Columns include model_id, account_id, score",
+   "line": 7
+  },
+  {
+   "s": "account_id",
+   "type": "part-of",
+   "label": "column of",
+   "o": "mon.scoring_log_daily",
+   "quote": "Columns include model_id, account_id, score",
+   "line": 7
+  },
+  {
+   "s": "score",
+   "type": "part-of",
+   "label": "column of",
+   "o": "mon.scoring_log_daily",
+   "quote": "Columns include model_id, account_id, score",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "model-monitoring/ds-mm-scoring-log.md",
+ "sha": "a3fc34ee5b10629e89bbf3856bd855dbe71ed42d3934eac1a3e7cad5b49841d2",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,156 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "rs-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rs-xgb-v2"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "rs-xgb-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rs-xgb-v1"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "feat-rs-bureau-postco-v1",
+   "type": "feature",
+   "label": "bureau post-charge-off features",
+   "as": [
+    "feat-rs-bureau-postco-v1",
+    "bureau post-charge-off features"
+   ],
+   "lines": [
+    2,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "feat-rs-contact-attempts",
+   "type": "feature",
+   "label": "contact attempts",
+   "as": [
+    "feat-rs-contact-attempts",
+    "contact attempts"
+   ],
+   "lines": [
+    2,
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "recovery-scoring-holdout-2023h2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "recovery-scoring-holdout-2023h2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.33"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rs-xgb-v2",
+   "type": "uses",
+   "label": "with",
+   "o": "feat-rs-bureau-postco-v1",
+   "quote": "rs-xgb-v2 with feat-rs-bureau-postco-v1 and feat-rs-contact-attempts",
+   "line": 6
+  },
+  {
+   "s": "rs-xgb-v2",
+   "type": "uses",
+   "label": "with",
+   "o": "feat-rs-contact-attempts",
+   "quote": "rs-xgb-v2 with feat-rs-bureau-postco-v1 and feat-rs-contact-attempts",
+   "line": 6
+  },
+  {
+   "s": "rs-xgb-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "recovery-scoring-holdout-2023h2",
+   "quote": "on recovery-scoring-holdout-2023h2",
+   "line": 5
+  },
+  {
+   "s": "rs-xgb-v2",
+   "type": "measured-by",
+   "label": "lifts Gini",
+   "o": "gini",
+   "quote": "lifts Gini from 0.41 to 0.47",
+   "line": 5
+  },
+  {
+   "s": "rs-xgb-v2",
+   "type": "measured-by",
+   "label": "has KS",
+   "o": "ks",
+   "quote": "Gini 0.47, KS 0.33",
+   "line": 6
+  },
+  {
+   "s": "rs-xgb-v2",
+   "type": "other",
+   "label": "compared with",
+   "o": "rs-xgb-v1",
+   "quote": "lifts Gini from 0.41 to 0.47",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "recovery_scoring/exp306_v2.ipynb",
+  "rs-xgb-v1",
+  "feat-rs-bureau-postco-v1",
+  "feat-rs-contact-attempts"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "recovery-scoring/exp-306.md",
+ "sha": "7e2a2b15a571fdd1820f8554c41e55f823d94eef603b60d66ca3b226da1c6af0",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

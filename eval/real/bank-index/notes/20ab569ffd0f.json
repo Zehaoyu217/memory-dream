@@ -1,0 +1,119 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "auto-resolve-threshold",
+   "type": "policy",
+   "label": "threshold",
+   "as": [
+    "Auto-resolve threshold"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "disp-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "disp-lgbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "disp-lgbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "disp-lgbm-v3"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "exp-305",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-305"
+   ],
+   "lines": [
+    2,
+    8
+   ]
+  },
+  {
+   "id": "disp-find-precision-real",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "disp-find-precision-real"
+   ],
+   "lines": [
+    2,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "auto-resolve-threshold",
+   "type": "other",
+   "label": "set-to",
+   "o": "auto-resolve-threshold",
+   "quote": "the auto-resolve threshold is p>=0.95",
+   "line": 7
+  },
+  {
+   "s": "disp-lgbm-v2",
+   "type": "other",
+   "label": "auto-resolve paused",
+   "o": "auto-resolve-threshold",
+   "quote": "Auto-resolve on disp-lgbm-v2 is paused until a model reaches 95% out-of-sample.",
+   "line": 7
+  },
+  {
+   "s": "disp-lgbm-v3",
+   "type": "other",
+   "label": "carries threshold",
+   "o": "auto-resolve-threshold",
+   "quote": "The 0.95 threshold is carried to disp-lgbm-v3",
+   "line": 9
+  },
+  {
+   "s": "auto-resolve-threshold",
+   "type": "other",
+   "label": "based on",
+   "o": "disp-find-precision-real",
+   "quote": "Basis: disp-find-precision-real (92.7-93.4% at 0.90)",
+   "line": 8
+  },
+  {
+   "s": "auto-resolve-threshold",
+   "type": "other",
+   "label": "based on",
+   "o": "exp-305",
+   "quote": "exp-305 (94.7% at 0.92, short of target)",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "dec-disp-autoresolve-090",
+  "disp-find-precision-real",
+  "exp-305",
+  "dec-disp-fraud-score-in"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "dispute-triage/dec-disp-autoresolve-095.md",
+ "sha": "20ab569ffd0f3d363826cfacadf55b35352da92e9e0e7dc6d1ddad6d25f619fa",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

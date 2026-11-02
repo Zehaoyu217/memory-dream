@@ -1,0 +1,118 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "collections.cases",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`collections.cases`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "raj-patel",
+   "type": "person",
+   "label": "reader",
+   "as": [
+    "Raj Patel"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "roll-rate",
+   "type": "metric",
+   "label": "roll rate",
+   "as": [
+    "60-day roll rates",
+    "roll rate per 100 open cases"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "kaplan-meier",
+   "type": "term",
+   "label": "survival fit",
+   "as": [
+    "Kaplan-Meier"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "discrete-time-hazard",
+   "type": "term",
+   "label": "hazard fit",
+   "as": [
+    "discrete-time hazard"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "censoring",
+   "type": "term",
+   "label": "censored observation",
+   "as": [
+    "censored observation",
+    "censoring at close"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "kaplan-meier",
+   "type": "uses",
+   "label": "fit with censoring",
+   "o": "censoring",
+   "quote": "Use a Kaplan-Meier or discrete-time hazard fit with censoring at close.",
+   "line": 6
+  },
+  {
+   "s": "discrete-time-hazard",
+   "type": "uses",
+   "label": "fit with censoring",
+   "o": "censoring",
+   "quote": "Use a Kaplan-Meier or discrete-time hazard fit with censoring at close.",
+   "line": 6
+  },
+  {
+   "s": "raj-patel",
+   "type": "other",
+   "label": "reads",
+   "o": "roll-rate",
+   "quote": "Raj Patel reads roll rate per 100 open cases.",
+   "line": 6
+  },
+  {
+   "s": "roll-rate",
+   "type": "other",
+   "label": "biased upward by dropping",
+   "o": "censoring",
+   "quote": "Dropping these cases biased 60-day roll rates upward by about 3 points in the 2025 H1 analysis.",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/collections-survival-censoring.md",
+ "sha": "2f52a57854ef860e89820c6c86a3cd32deac659636b0a31ce1dc62077a49b360",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

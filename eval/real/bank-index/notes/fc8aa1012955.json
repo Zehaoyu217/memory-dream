@@ -1,0 +1,108 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-403",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-403"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fraud-label-rate",
+   "type": "metric",
+   "label": "label rate",
+   "as": [
+    "fraud label rate"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "friendly-fraud-category-b",
+   "type": "term",
+   "label": "category",
+   "as": [
+    "friendly-fraud category B"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "label-rule-set-a",
+   "type": "term",
+   "label": "label rule",
+   "as": [
+    "Set A only",
+    "Set A"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "approved-transactions",
+   "type": "segment",
+   "label": "transactions",
+   "as": [
+    "approved transactions"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-403",
+   "type": "measured-by",
+   "label": "lifts",
+   "o": "fraud-label-rate",
+   "quote": "lifts the fraud label rate from 0.41 to 0.47",
+   "line": 5
+  },
+  {
+   "s": "exp-403",
+   "type": "uses",
+   "label": "adds",
+   "o": "friendly-fraud-category-b",
+   "quote": "adding friendly-fraud category B",
+   "line": 5
+  },
+  {
+   "s": "exp-403",
+   "type": "uses",
+   "label": "set A only",
+   "o": "label-rule-set-a",
+   "quote": "Set A only: 0.41 percent",
+   "line": 7
+  },
+  {
+   "s": "exp-403",
+   "type": "evaluated-on",
+   "label": "ran both label rules on",
+   "o": "approved-transactions",
+   "quote": "Ran both label rules on 38.2M approved transactions",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-lbl-fraud-labels",
+  "ds-lbl-disputes"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "label-pipeline-rebuild/exp-403.md",
+ "sha": "fc8aa10129558ce5357ff3950f34a3abade26b051c9d058e8e722d22948506b7",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

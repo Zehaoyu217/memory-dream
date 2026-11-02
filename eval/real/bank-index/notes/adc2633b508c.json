@@ -1,0 +1,89 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "bt-oot-2026h1",
+   "type": "dataset",
+   "label": "out-of-time set",
+   "as": [
+    "`bt-oot-2026h1` is the out-of-time set",
+    "bt-oot-2026h1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bt.offer_log",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`bt.offer_log`"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "bt-acceptance",
+   "type": "metric",
+   "label": "acceptance",
+   "as": [
+    "acceptance 4.6%",
+    "Acceptance is higher than 2025"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "tier-matrix-change-2026",
+   "type": "other",
+   "label": "tier matrix change",
+   "as": [
+    "the 2026 tier matrix change"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bt-oot-2026h1",
+   "type": "sourced-from",
+   "label": "source",
+   "o": "bt.offer_log",
+   "quote": "Source: `bt.offer_log` where `wave_year = 2026`.",
+   "line": 8
+  },
+  {
+   "s": "bt-oot-2026h1",
+   "type": "measured-by",
+   "label": "has acceptance",
+   "o": "bt-acceptance",
+   "quote": "acceptance 4.6%",
+   "line": 5
+  },
+  {
+   "s": "bt-acceptance",
+   "type": "other",
+   "label": "higher because of",
+   "o": "tier-matrix-change-2026",
+   "quote": "Acceptance is higher than 2025 because of the 2026 tier matrix change",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-bt-offer-log"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "balance-transfer-propensity/ds-bt-oot-2026h1.md",
+ "sha": "adc2633b508c88cf38e7636fdc6fd5d070d885384fb315cb17d6e81cd7f39b6c",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

@@ -1,0 +1,159 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "wape",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "WAPE"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "balances-under-500",
+   "type": "segment",
+   "label": "balance group",
+   "as": [
+    "balances under $500"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "balance-above-500",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "the segment above $500"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "accounts-under-50",
+   "type": "segment",
+   "label": "account group",
+   "as": [
+    "Accounts under $50"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "balance-models",
+   "type": "model",
+   "label": "model class",
+   "as": [
+    "balance models"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ben-carter-finance-team",
+   "type": "team",
+   "label": "finance team",
+   "as": [
+    "Ben Carter's finance team"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ben-carter",
+   "type": "person",
+   "label": "person",
+   "as": [
+    "Ben Carter"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "august-2025-monthly-review",
+   "type": "document",
+   "label": "monthly review",
+   "as": [
+    "August 2025 monthly review"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "balance-models",
+   "type": "measured-by",
+   "label": "should use",
+   "o": "wape",
+   "quote": "use WAPE for balance models",
+   "line": 4
+  },
+  {
+   "s": "mape",
+   "type": "evaluated-on",
+   "label": "reported only for",
+   "o": "balance-above-500",
+   "quote": "MAPE is reported only for the segment above $500",
+   "line": 6
+  },
+  {
+   "s": "mape",
+   "type": "other",
+   "label": "not reported for",
+   "o": "balances-under-500",
+   "quote": "MAPE is not reported for balances under $500",
+   "line": 4
+  },
+  {
+   "s": "accounts-under-50",
+   "type": "measured-by",
+   "label": "drove MAPE",
+   "o": "mape",
+   "quote": "Accounts under $50 drove 48% MAPE",
+   "line": 5
+  },
+  {
+   "s": "ben-carter-finance-team",
+   "type": "measured-by",
+   "label": "reads as headline",
+   "o": "wape",
+   "quote": "Ben Carter's finance team reads WAPE as the headline.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/mape-small-balances.md",
+ "sha": "77b75be30cbc5d8bc2a2ef65115582c6804123c14ae7b037c6b35d706cf9d212",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

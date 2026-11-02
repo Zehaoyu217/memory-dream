@@ -1,0 +1,142 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-403",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-403"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-402",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-402"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "feat-aml-round-amount",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-aml-round-amount"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "feat-aml-cash-velocity",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-aml-cash-velocity"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "aml-eval-set",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "Eval set",
+    "4,120 Jul-Sep 2025 dispositions"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "kyc-band",
+   "type": "feature",
+   "label": "kyc band",
+   "as": [
+    "KYC band"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-403",
+   "type": "uses",
+   "label": "adds",
+   "o": "feat-aml-round-amount",
+   "quote": "Adding feat-aml-round-amount and feat-aml-cash-velocity",
+   "line": 7
+  },
+  {
+   "s": "exp-403",
+   "type": "uses",
+   "label": "adds",
+   "o": "feat-aml-cash-velocity",
+   "quote": "Adding feat-aml-round-amount and feat-aml-cash-velocity",
+   "line": 7
+  },
+  {
+   "s": "exp-403",
+   "type": "uses",
+   "label": "builds on",
+   "o": "exp-402",
+   "quote": "from: [exp-402, feat-aml-round-amount, feat-aml-cash-velocity]",
+   "line": 2
+  },
+  {
+   "s": "exp-403",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "aml-eval-set",
+   "quote": "Eval set: same 4,120 Jul-Sep 2025 dispositions as exp-402.",
+   "line": 6
+  },
+  {
+   "s": "exp-403",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.86 (from 0.84)",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-402",
+  "feat-aml-round-amount",
+  "feat-aml-cash-velocity"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "aml-alerts/exp-403.md",
+ "sha": "80cb97e74fe35f4e4f0b2c84d8c64313a608f4edba7e6029f1241e8b0e663d03",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

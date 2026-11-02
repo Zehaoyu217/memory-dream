@@ -1,0 +1,128 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "rdm-uplift-v1",
+   "type": "model",
+   "label": "scores",
+   "as": [
+    "rdm-uplift-v1"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "rdm-oot-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "rdm-oot-2025q1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "uplift",
+   "type": "metric",
+   "label": "uplift",
+   "as": [
+    "uplift",
+    "SMS uplift 3.4pp",
+    "email uplift 1.2pp"
+   ],
+   "lines": [
+    2,
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "sms-channel",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "SMS"
+   ],
+   "lines": [
+    5,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "email-channel",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "email"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "consent-issue",
+   "type": "other",
+   "label": "consent issue",
+   "as": [
+    "consent issue"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rdm-uplift-v1",
+   "type": "evaluated-on",
+   "label": "applied to",
+   "o": "rdm-oot-2025q1",
+   "quote": "rdm-uplift-v1 scores applied to the holdout",
+   "line": 6
+  },
+  {
+   "s": "sms-channel",
+   "type": "measured-by",
+   "label": "uplift measured",
+   "o": "uplift",
+   "quote": "SMS uplift 3.4pp",
+   "line": 7
+  },
+  {
+   "s": "email-channel",
+   "type": "measured-by",
+   "label": "uplift measured",
+   "o": "uplift",
+   "quote": "email uplift 1.2pp",
+   "line": 7
+  },
+  {
+   "s": "sms-channel",
+   "type": "other",
+   "label": "carries",
+   "o": "consent-issue",
+   "quote": "The SMS result still carries the consent issue fixed later in exp-306.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-302",
+  "rdm-uplift-v1",
+  "ds-rdm-holdout-2025q1",
+  "exp-306"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reactivation-dormant/exp-304.md",
+ "sha": "3fd7788d2640866fd206c500cd2ebfdd990853f2430b62b62b6a02248115b604",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

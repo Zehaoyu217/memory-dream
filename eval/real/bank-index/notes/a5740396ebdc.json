@@ -1,0 +1,97 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cld-complaint-flag",
+   "type": "feature",
+   "label": "call-level flag",
+   "as": [
+    "feat-cld-complaint-flag: call-level flag for limit-related complaints in callcenter.calls"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "call log table",
+   "as": [
+    "callcenter.calls"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cld-complaint-logit",
+   "type": "model",
+   "label": "label model",
+   "as": [
+    "cld-complaint-logit"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-203",
+   "type": "other",
+   "label": "control comparison",
+   "as": [
+    "exp-203"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-cld-complaint-calls",
+   "type": "person",
+   "label": "author",
+   "as": [
+    "ds-cld-complaint-calls"
+   ],
+   "lines": [
+    2
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cld-complaint-flag",
+   "type": "uses",
+   "label": "flag from",
+   "o": "callcenter.calls",
+   "quote": "call-level flag for limit-related complaints in callcenter.calls",
+   "line": 5
+  },
+  {
+   "s": "feat-cld-complaint-flag",
+   "type": "uses",
+   "label": "used as label in",
+   "o": "cld-complaint-logit",
+   "quote": "Used as the label in cld-complaint-logit",
+   "line": 8
+  },
+  {
+   "s": "feat-cld-complaint-flag",
+   "type": "uses",
+   "label": "control comparison in",
+   "o": "exp-203",
+   "quote": "the control comparison in exp-203",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "limit-decrease-policy/feat-cld-complaint-flag.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "limit-decrease-policy/feat-cld-complaint-flag.md",
+ "sha": "a5740396ebdc81041ee44e98fe08c89d37a37e9a7bee9cd8b45fe0b7aaa97bf8",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

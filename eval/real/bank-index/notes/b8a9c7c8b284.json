@@ -1,0 +1,105 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-205",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-205: tier uplift model reaches uplift@20% of 1.9x on the pilot holdout"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cb-uplift-v1",
+   "type": "model",
+   "label": "uplift model",
+   "as": [
+    "cb-uplift-v1 on a 30% pilot split, n=16,200 accounts"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift@20%",
+   "as": [
+    "uplift@20% of 1.9x"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "qini-auc",
+   "type": "metric",
+   "label": "qini auc",
+   "as": [
+    "Qini AUC 0.58 against random ordering"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cb-sim-v1",
+   "type": "model",
+   "label": "ranking",
+   "as": [
+    "Feeds the cb-sim-v1 ranking."
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cb-uplift-v1",
+   "type": "measured-by",
+   "label": "reaches",
+   "o": "uplift-at-20",
+   "quote": "tier uplift model reaches uplift@20% of 1.9x",
+   "line": 5
+  },
+  {
+   "s": "cb-uplift-v1",
+   "type": "measured-by",
+   "label": "Qini AUC",
+   "o": "qini-auc",
+   "quote": "Qini AUC 0.58 against random ordering.",
+   "line": 7
+  },
+  {
+   "s": "cb-uplift-v1",
+   "type": "produces",
+   "label": "feeds",
+   "o": "cb-sim-v1",
+   "quote": "Feeds the cb-sim-v1 ranking.",
+   "line": 8
+  },
+  {
+   "s": "exp-205",
+   "type": "other",
+   "label": "tests",
+   "o": "cb-uplift-v1",
+   "quote": "cb-uplift-v1 on a 30% pilot split",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "cashback-redesign/exp-205-uplift-qini.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/exp-205-uplift-qini.md",
+ "sha": "b8a9c7c8b284c80362c65dc7e4d16f27abde45ba89c56e3ee005a9db099237fd",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

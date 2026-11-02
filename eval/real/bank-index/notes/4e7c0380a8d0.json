@@ -1,0 +1,68 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "limit-decrease-policy",
+   "type": "policy",
+   "label": "limit decrease policy",
+   "as": [
+    "[limit-decrease-policy]"
+   ],
+   "lines": [
+    3,
+    4
+   ]
+  },
+  {
+   "id": "bc-cd-25pct-cut-pilot",
+   "type": "other",
+   "label": "pilot cut",
+   "as": [
+    "pilot band C and D 25% cut"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "hardship-accounts",
+   "type": "segment",
+   "label": "hardship accounts",
+   "as": [
+    "hardship accounts"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bc-cd-25pct-cut-pilot",
+   "type": "part-of",
+   "label": "governed by",
+   "o": "limit-decrease-policy",
+   "quote": "[limit-decrease-policy] pilot band C and D 25% cut",
+   "line": 3
+  },
+  {
+   "s": "hardship-accounts",
+   "type": "other",
+   "label": "excluded from",
+   "o": "bc-cd-25pct-cut-pilot",
+   "quote": "pilot excludes hardship accounts from the wave, will test separately",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "log/2025-03-11.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2025-03-11.md",
+ "sha": "4e7c0380a8d03c39d6d36d124c1e107f5f04abc65dd52dc37a6e7a892e4ef2dd",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

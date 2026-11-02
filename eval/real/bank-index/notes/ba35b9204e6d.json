@@ -1,0 +1,78 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "fraud25-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fraud25-gbm-v2"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "travel-rule",
+   "type": "policy",
+   "label": "travel rule",
+   "as": [
+    "travel rule"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "alert-precision",
+   "type": "metric",
+   "label": "alert precision",
+   "as": [
+    "alert precision 9.2%"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "other",
+   "label": "alert threshold set to 0.70",
+   "o": "alert-precision",
+   "quote": "live alerts from fraud25-gbm-v2 use score >= 0.70 from 2025-10-08",
+   "line": 7
+  },
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "measured-by",
+   "label": "alert precision 9.2% at 0.70",
+   "o": "alert-precision",
+   "quote": "exp-108 (alert precision 9.2% at 0.70)",
+   "line": 8
+  },
+  {
+   "s": "travel-rule",
+   "type": "other",
+   "label": "under review",
+   "o": "fraud25-gbm-v2",
+   "quote": "This reduces volume while the travel rule is reviewed; the model itself is unchanged.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "dec-f25-threshold-062",
+  "fraud25-find-travel-overflag",
+  "exp-108"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/dec-f25-threshold-070.md",
+ "sha": "ba35b9204e6dbc85cbe1fa5e243f77fac38be453367d141889428acd6bac86d2",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

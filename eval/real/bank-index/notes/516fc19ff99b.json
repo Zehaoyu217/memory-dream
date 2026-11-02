@@ -1,0 +1,90 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-f26-amt-zscore",
+   "type": "feature",
+   "label": "amount z-score",
+   "as": [
+    "feat-f26-amt-zscore",
+    "amount z-score"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-f25-amt-ratio",
+   "type": "feature",
+   "label": "median ratio",
+   "as": [
+    "feat-f25-amt-ratio",
+    "2025 median ratio"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "fraud26-gbm-v3",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "fraud26-gbm-v3"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "geo-mismatch",
+   "type": "feature",
+   "label": "geo-mismatch",
+   "as": [
+    "geo-mismatch"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-f26-amt-zscore",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "feat-f25-amt-ratio",
+   "quote": "Replaces the 2025 median ratio (feat-f25-amt-ratio) in v3",
+   "line": 7
+  },
+  {
+   "s": "fraud26-gbm-v3",
+   "type": "uses",
+   "label": "ships with",
+   "o": "feat-f26-amt-zscore",
+   "quote": "Shipped in fraud26-gbm-v3 with geo-mismatch.",
+   "line": 8
+  },
+  {
+   "s": "fraud26-gbm-v3",
+   "type": "uses",
+   "label": "ships with",
+   "o": "geo-mismatch",
+   "quote": "Shipped in fraud26-gbm-v3 with geo-mismatch.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "fraud-2025/feat-f25-amt-ratio",
+  "ds-f26-cnp-txn"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2026/feat-f26-amt-zscore.md",
+ "sha": "516fc19ff99bb1532f0f46f6e562046e8123b09b05c97e53f7679c87cb5c903e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

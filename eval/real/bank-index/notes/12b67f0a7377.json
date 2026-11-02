@@ -1,0 +1,91 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "fraud25-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fraud25-gbm-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fraud25_alerts_log",
+   "type": "dataset",
+   "label": "alerts log",
+   "as": [
+    "fraud25_alerts_log"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "alert-precision",
+   "type": "metric",
+   "label": "alert precision",
+   "as": [
+    "alert precision 9.2%",
+    "alert precision"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "travel",
+   "type": "segment",
+   "label": "travel alerts",
+   "as": [
+    "travel share of alerts 27%",
+    "Travel is still over-represented"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "measured-by",
+   "label": "gives alert precision",
+   "o": "alert-precision",
+   "quote": "raising v2 to threshold 0.70 gives 9.2% alert precision",
+   "line": 5
+  },
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "evaluated-on",
+   "label": "replayed on",
+   "o": "fraud25_alerts_log",
+   "quote": "Replay of Jul-Sep 2025 alerts",
+   "line": 6
+  },
+  {
+   "s": "fraud25_alerts_log",
+   "type": "other",
+   "label": "has travel share",
+   "o": "travel",
+   "quote": "travel share of alerts 27%",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-107",
+  "dec-f25-threshold-062"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/exp-108.md",
+ "sha": "12b67f0a7377901ea80cc5ea5e7b398ab7a11318ecacddb641d17e7214d4b4c4",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

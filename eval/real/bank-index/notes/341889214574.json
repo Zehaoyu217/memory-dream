@@ -1,0 +1,89 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "omar-haddad",
+   "type": "person",
+   "label": "compliance lead",
+   "as": [
+    "Omar Haddad (compliance)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auto-coding-coverage",
+   "type": "metric",
+   "label": "coverage target",
+   "as": [
+    "50 percent coverage"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auto-coding-precision",
+   "type": "metric",
+   "label": "precision target",
+   "as": [
+    "0.95 precision"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "complaint-auto-coding",
+   "type": "feature",
+   "label": "triage assist",
+   "as": [
+    "triage assist"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "omar-haddad",
+   "type": "other",
+   "label": "wants",
+   "o": "complaint-auto-coding",
+   "quote": "Omar Haddad (compliance) wants a triage assist that codes the easy half automatically.",
+   "line": 6
+  },
+  {
+   "s": "complaint-auto-coding",
+   "type": "measured-by",
+   "label": "targets coverage",
+   "o": "auto-coding-coverage",
+   "quote": "Target: 50 percent coverage at 0.95 precision on the holdout",
+   "line": 7
+  },
+  {
+   "s": "complaint-auto-coding",
+   "type": "measured-by",
+   "label": "targets precision",
+   "o": "auto-coding-precision",
+   "quote": "Target: 50 percent coverage at 0.95 precision on the holdout",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-201",
+  "exp-206",
+  "dec-cc-auto-threshold"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "complaint-classification/q-cc-auto-coding-rate.md",
+ "sha": "341889214574dc84347d2a3993065e8cc5b22df2a60db45745e941a25d9737ec",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

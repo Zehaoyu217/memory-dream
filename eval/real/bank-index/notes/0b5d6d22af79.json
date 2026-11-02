@@ -1,0 +1,80 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "mm-limit-glm-v2",
+   "type": "model",
+   "label": "limit model",
+   "as": [
+    "mm-limit-glm-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "same-month-last-year-reference",
+   "type": "term",
+   "label": "reference",
+   "as": [
+    "same-month-last-year reference"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "flat-training-sample",
+   "type": "dataset",
+   "label": "training sample",
+   "as": [
+    "flat training sample"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "collections-model",
+   "type": "model",
+   "label": "collections model",
+   "as": [
+    "collections model"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mm-limit-glm-v2",
+   "type": "uses",
+   "label": "monitored against",
+   "o": "same-month-last-year-reference",
+   "quote": "limit models are monitored against the same-month-last-year reference",
+   "line": 5
+  },
+  {
+   "s": "collections-model",
+   "type": "uses",
+   "label": "reference sample",
+   "o": "flat-training-sample",
+   "quote": "The flat training sample stays as the reference for the collections model",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-205",
+  "exp-206",
+  "fnd-seasonal-baseline"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "model-monitoring/dec-mm-seasonal-reference.md",
+ "sha": "0b5d6d22af79a9a0395b0d398d2e14843bd195225c1be5673953e57b1f45dd5f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

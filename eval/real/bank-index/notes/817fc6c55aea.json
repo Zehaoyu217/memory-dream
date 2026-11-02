@@ -1,0 +1,138 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "cashback-roi-finding",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Cashback boost at T2 is the best-returning tier: 1.41x on the July wave, 1.44x on the holdout"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-401",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-401 (July 2025 wave)"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-404",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-404 (holdout)"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "t2-cashback-boost",
+   "type": "other",
+   "label": "offer tier",
+   "as": [
+    "Cashback boost at T2",
+    "T2"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "apr-cut",
+   "type": "other",
+   "label": "offer tier",
+   "as": [
+    "T3 APR cut at 0.82x"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "offers.tier_matrix",
+   "type": "dataset",
+   "label": "matrix v3",
+   "as": [
+    "matrix v3 cost basis"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "roi",
+   "type": "metric",
+   "label": "roi",
+   "as": [
+    "best-returning",
+    "1.41x on the July wave"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cashback-roi-finding",
+   "type": "uses",
+   "label": "based on",
+   "o": "exp-401",
+   "quote": "Basis: exp-401 (July 2025 wave) and exp-404 (holdout).",
+   "line": 7
+  },
+  {
+   "s": "cashback-roi-finding",
+   "type": "uses",
+   "label": "based on",
+   "o": "exp-404",
+   "quote": "Basis: exp-401 (July 2025 wave) and exp-404 (holdout).",
+   "line": 7
+  },
+  {
+   "s": "cashback-roi-finding",
+   "type": "uses",
+   "label": "cost basis",
+   "o": "offers.tier_matrix",
+   "quote": "on the matrix v3 cost basis",
+   "line": 8
+  },
+  {
+   "s": "t2-cashback-boost",
+   "type": "measured-by",
+   "label": "returns",
+   "o": "roi",
+   "quote": "T2 is the clear winner",
+   "line": 8
+  },
+  {
+   "s": "t2-cashback-boost",
+   "type": "other",
+   "label": "beats",
+   "o": "apr-cut",
+   "quote": "Against T3 APR cut at 0.82x, T2 is the clear winner",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "fnd-ror-cashback-roi-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "retention-offers-roi/fnd-ror-cashback-roi.md",
+ "sha": "817fc6c55aea9c0d759c3a1c6b09bb1a9bb76f5347c2881535b086c14e7622f2",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

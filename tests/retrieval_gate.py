@@ -4,6 +4,7 @@ eval/retrieval.py and eval/adversarial.py, and fail when a number drops under it
 
   retrieval_gate.py bank      [--work DIR]   the 1,677-note bank (eval/bank/generated + tests/fixture/memory), 326 questions
   retrieval_gate.py software  [--work DIR]   tests/fixture-software/memory, eval/questions/software-*.jsonl
+  retrieval_gate.py bank-index [--work DIR]  the bank with the real Haiku index restored from eval/real/bank-index (0 calls)
 
 Floors (set from the measured numbers on 2026-11-01 minus a small margin; raise them when the numbers rise):
   bank:     gold ≥ 0.93 · numbers ≥ 0.97 · chars per question ≤ 3,000 · stale: successor above the old note ≥ 0.95,
@@ -20,8 +21,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 MEM = ROOT / "skills/memory-dream/scripts/memory.py"
-FLOORS = {"bank": {"gold": 0.93, "numbers": 0.97, "chars": 3000, "stale_above": 0.95, "stale_marked": 1.0, "absence": 1.0},
-          "software": {"gold": 0.90, "numbers": 0.95, "chars": 6000, "stale_above": 0.95, "stale_marked": 1.0, "absence": None}}
+FLOORS = {"bank": {"gold": 0.93, "numbers": 0.97, "chars": 3000, "stale_above": 0.95, "stale_marked": 1.0, "absence": 1.0, "alias": None},
+          "bank-index": {"gold": 0.93, "numbers": 0.97, "chars": 3200, "stale_above": 0.95, "stale_marked": 1.0, "absence": 1.0, "alias": 0.80},
+          "software": {"gold": 0.90, "numbers": 0.95, "chars": 6000, "stale_above": 0.95, "stale_marked": 1.0, "absence": None, "alias": None}}
 
 
 def run(cmd, **kw):
@@ -50,8 +52,10 @@ def main(argv):
     mem = work / "memory"
     if mem.exists():
         shutil.rmtree(mem)
-    if world == "bank":
+    if world in ("bank", "bank-index"):
         run([sys.executable, ROOT / "eval/bank/assemble.py", ROOT / "eval/bank/generated", ROOT / "tests/fixture/memory", mem])
+        if world == "bank-index":  # the real Haiku readings and reviewed registries, no model call (eval/real/bank-index)
+            run([sys.executable, ROOT / "eval/real/bank-index/restore.py", mem])
         qs = sorted((ROOT / "eval/questions").glob("bank-*.jsonl"))
     else:
         shutil.copytree(ROOT / "tests/fixture-software/memory", mem)
@@ -59,14 +63,16 @@ def main(argv):
     out = run([sys.executable, MEM, "--root", mem, "dream"])
     # note-shape warnings fail both worlds; broken lineage fails the hand-written software fixture only (the Haiku-written
     # bank carries one C2 by construction, and the gate measures retrieval, not the bank's prose)
-    if re.search(r"\bC(6|11)×", out) or (world != "bank" and re.search(r"\bC(1|2)×", out)):
+    if world == "bank-index" and "0 indexed (0 calls)" not in out:
+        raise SystemExit("bank-index: the restored readings were not used: " + out)
+    if re.search(r"\bC(6|11)×", out) or (world not in ("bank", "bank-index") and re.search(r"\bC(1|2)×", out)):
         raise SystemExit("dream reports lineage or note-shape warnings: " + out)
     r = first_json(run([sys.executable, ROOT / "eval/retrieval.py", mem, *qs]))
-    a = first_json(run([sys.executable, ROOT / "eval/adversarial.py", mem, *qs]))
+    a = first_json(run([sys.executable, ROOT / "eval/adversarial.py", mem, *qs, *(["--index-world", str(mem)] if world == "bank-index" else [])]))
     f = FLOORS[world]
     got = {"gold": r["note_recall"], "numbers": r["num_recall"], "chars": r["chars_per_q"],
            "stale_above": a["stale"].get("successor_above_old"), "stale_marked": a["stale"].get("old_marked_superseded_when_shown"),
-           "absence": (a.get("absence") or {}).get("ask flagged")}
+           "absence": (a.get("absence") or {}).get("ask flagged"), "alias": (a.get("alias") or {}).get("ask (index)")}
     bad = []
     for k, floor in f.items():
         v = got.get(k)

@@ -1,0 +1,162 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "feat-trv-funnel-v2",
+   "type": "feature",
+   "label": "funnel features",
+   "as": [
+    "feat-trv-funnel-v2",
+    "Search-to-book conversion",
+    "Funnel features"
+   ],
+   "lines": [
+    2,
+    5,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "exp-505",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-505"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "ridge",
+   "type": "model",
+   "label": "ridge",
+   "as": [
+    "ridge MAPE"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "trv-bt-2025h2",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "trv-bt-2025h2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-trv-cross-border-share",
+   "type": "feature",
+   "label": "input",
+   "as": [
+    "Cross-border share"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "trv-ridge-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "trv-ridge-v3"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "trv-ridge-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "trv-ridge-v2"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ridge",
+   "type": "uses",
+   "label": "adding",
+   "o": "feat-trv-funnel-v2",
+   "quote": "Adding feat-trv-funnel-v2 takes ridge MAPE from 5.2% to 4.3%",
+   "line": 6
+  },
+  {
+   "s": "ridge",
+   "type": "measured-by",
+   "label": "MAPE",
+   "o": "mape",
+   "quote": "ridge MAPE from 5.2% to 4.3%",
+   "line": 6
+  },
+  {
+   "s": "ridge",
+   "type": "evaluated-on",
+   "label": "on",
+   "o": "trv-bt-2025h2",
+   "quote": "takes ridge MAPE from 5.2% to 4.3% on trv-bt-2025h2",
+   "line": 6
+  },
+  {
+   "s": "ridge",
+   "type": "uses",
+   "label": "largest single input",
+   "o": "feat-trv-cross-border-share",
+   "quote": "Cross-border share remains the largest single input",
+   "line": 7
+  },
+  {
+   "s": "trv-ridge-v3",
+   "type": "other",
+   "label": "beats",
+   "o": "trv-ridge-v2",
+   "quote": "Funnel features are the main reason trv-ridge-v3 beats trv-ridge-v2.",
+   "line": 8
+  },
+  {
+   "s": "feat-trv-funnel-v2",
+   "type": "other",
+   "label": "main reason",
+   "o": "trv-ridge-v3",
+   "quote": "Funnel features are the main reason trv-ridge-v3 beats trv-ridge-v2.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-505",
+  "feat-trv-funnel-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "travel-spend-recovery/fnd-trv-funnel-driver.md",
+ "sha": "6558224aa1d2d8b4a9b9a7005ba0320cfa4266881481848404d6e3a03a8fd8ea",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

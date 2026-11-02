@@ -1,0 +1,148 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-407",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-407"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "churn-model",
+   "type": "model",
+   "label": "churn model",
+   "as": [
+    "churn model"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "lbl-oot-2025h2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "lbl-oot-2025h2"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "rebuilt-labels",
+   "type": "dataset",
+   "label": "label set",
+   "as": [
+    "Rebuilt labels"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "legacy-labels",
+   "type": "dataset",
+   "label": "label set",
+   "as": [
+    "Legacy labels"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "closures",
+   "type": "term",
+   "label": "closures",
+   "as": [
+    "closures"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-407",
+   "type": "measured-by",
+   "label": "reaches",
+   "o": "auc",
+   "quote": "reaches AUC 0.768 vs 0.751",
+   "line": 5
+  },
+  {
+   "s": "churn-model",
+   "type": "trained-on",
+   "label": "on labels",
+   "o": "rebuilt-labels",
+   "quote": "churn model on rebuilt labels",
+   "line": 5
+  },
+  {
+   "s": "churn-model",
+   "type": "trained-on",
+   "label": "on labels",
+   "o": "legacy-labels",
+   "quote": "two label sets",
+   "line": 6
+  },
+  {
+   "s": "churn-model",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "lbl-oot-2025h2",
+   "quote": "Holdout lbl-oot-2025h2 (n=680,000 account-snapshots).",
+   "line": 6
+  },
+  {
+   "s": "churn-model",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "Rebuilt labels: AUC 0.768.",
+   "line": 7
+  },
+  {
+   "s": "legacy-labels",
+   "type": "other",
+   "label": "missed",
+   "o": "closures",
+   "quote": "closures that the legacy label missed",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-lbl-churn-labels",
+  "feat-lbl-churn-flag-closure"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "label-pipeline-rebuild/exp-407.md",
+ "sha": "68b057c6ba116ec7415c77225621847ae44a6a2f12e34c7da55c85bb016b7b35",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

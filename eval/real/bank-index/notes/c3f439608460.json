@@ -1,0 +1,91 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "merchant-category-mapping",
+   "type": "term",
+   "label": "spend-group mapping",
+   "as": [
+    "Merchant categories: 38 MCCs collapse into nine spend groups"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.merchants",
+   "type": "dataset",
+   "label": "merchants table",
+   "as": [
+    "cards.merchants"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "grocery",
+   "type": "term",
+   "label": "spend group",
+   "as": [
+    "grocery"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "account-level-grocery-share",
+   "type": "metric",
+   "label": "grocery share",
+   "as": [
+    "Account-level grocery share"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-cb-grocery-share",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cb-grocery-share"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "merchant-category-mapping",
+   "type": "uses",
+   "label": "maps from",
+   "o": "cards.merchants",
+   "quote": "Mapping from `cards.merchants` into nine groups",
+   "line": 6
+  },
+  {
+   "s": "feat-cb-grocery-share",
+   "type": "~feeds",
+   "label": "fed by",
+   "o": "account-level-grocery-share",
+   "quote": "Account-level grocery share feeds feat-cb-grocery-share.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-cb-spend-panel"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/ds-cb-merchant-cat.md",
+ "sha": "c3f439608460672bf913b30f58b57227117c298047b5bd7c7b29d1071ee71190",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

@@ -1,0 +1,112 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "inc-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "inc-gbm-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "inc-linear-baseline",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "inc-linear-baseline"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE 27% overall",
+    "MAPE 27%",
+    "22% on accounts with a cadence"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "ds-inc-payroll-proxy",
+   "type": "feature",
+   "label": "cadence feature",
+   "as": [
+    "cadence"
+   ],
+   "lines": [
+    2,
+    7,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "inc-gbm-v1",
+   "type": "trained-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q1",
+   "quote": "Eval: holdout-2025q1 (n=12,400)",
+   "line": 8
+  },
+  {
+   "s": "inc-gbm-v1",
+   "type": "measured-by",
+   "label": "has metric",
+   "o": "mape",
+   "quote": "MAPE 27% overall and 22% on accounts with a cadence",
+   "line": 8
+  },
+  {
+   "s": "inc-gbm-v1",
+   "type": "uses",
+   "label": "uses cadence feature",
+   "o": "ds-inc-payroll-proxy",
+   "quote": "Boosted trees on the cadence, spend-to-income and rent features",
+   "line": 7
+  },
+  {
+   "s": "inc-gbm-v1",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "inc-linear-baseline",
+   "quote": "from: [feat-inc-payroll-cadence-v1, feat-inc-spend-to-income, feat-inc-rent-flag, inc-linear-baseline]",
+   "line": 2
+  }
+ ],
+ "refs": [
+  "income-estimation/inc-gbm-v1.md",
+  "inc-gbm-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "income-estimation/inc-gbm-v1.md",
+ "sha": "93caec63222d33173e3a50050a205afec86a80fe4be99124dfdd2634496f91b8",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

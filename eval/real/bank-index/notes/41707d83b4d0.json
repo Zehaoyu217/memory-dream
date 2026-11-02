@@ -1,0 +1,104 @@
+{
+ "kind": "requirement",
+ "entities": [
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "person",
+   "as": [
+    "Tomás Rivera"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`cards.payments_daily`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cards.disputes",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`cards.disputes`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "data-eng-cards-channel",
+   "type": "other",
+   "label": "slack channel",
+   "as": [
+    "data-eng-cards channel"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "tomas-rivera",
+   "type": "other",
+   "label": "expects",
+   "o": "cards.txn_daily",
+   "quote": "Tomás Rivera expects `cards.txn_daily` to land by 07:00 UTC, T+1",
+   "line": 4
+  },
+  {
+   "s": "cards.payments_daily",
+   "type": "other",
+   "label": "shares SLA with",
+   "o": "cards.txn_daily",
+   "quote": "`cards.payments_daily` shares the same SLA.",
+   "line": 6
+  },
+  {
+   "s": "cards.disputes",
+   "type": "other",
+   "label": "has T+2 SLA",
+   "o": "cards.txn_daily",
+   "quote": "`cards.disputes` is T+2 because of the bank partner feed.",
+   "line": 6
+  },
+  {
+   "s": "data-eng-cards-channel",
+   "type": "other",
+   "label": "posts missed SLAs",
+   "o": "cards.txn_daily",
+   "quote": "Missed SLAs are posted in the data-eng-cards channel with the table name and the expected recovery time.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "prefs/tomas-rivera-freshness-sla.md",
+ "sha": "41707d83b4d0a0724713f49600987e5a365468e7752d50d3c3eab08f3971f648",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

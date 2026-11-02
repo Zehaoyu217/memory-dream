@@ -1,0 +1,109 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-trv-cross-border-share",
+   "type": "feature",
+   "label": "regressor",
+   "as": [
+    "feat-trv-cross-border-share",
+    "monthly cross-border share of travel spend"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "trv-bt-2025h1",
+   "type": "dataset",
+   "label": "backtest",
+   "as": [
+    "trv-bt-2025h1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "trv-ridge-v2",
+   "type": "model",
+   "label": "ridge model",
+   "as": [
+    "trv-ridge-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "trv-ridge-v3",
+   "type": "model",
+   "label": "ridge model",
+   "as": [
+    "trv-ridge-v3"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "trv-ridge-v2",
+   "type": "uses",
+   "label": "input to",
+   "o": "feat-trv-cross-border-share",
+   "quote": "Input to trv-ridge-v2",
+   "line": 8
+  },
+  {
+   "s": "trv-ridge-v3",
+   "type": "uses",
+   "label": "input to",
+   "o": "feat-trv-cross-border-share",
+   "quote": "Input to trv-ridge-v2 and trv-ridge-v3.",
+   "line": 8
+  },
+  {
+   "s": "feat-trv-cross-border-share",
+   "type": "measured-by",
+   "label": "lowers MAPE",
+   "o": "mape",
+   "quote": "Lowers ridge MAPE from 6.9% to 5.2%",
+   "line": 7
+  },
+  {
+   "s": "feat-trv-cross-border-share",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "trv-bt-2025h1",
+   "quote": "on trv-bt-2025h1 (exp-503)",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-503",
+  "ds-trv-fx-cross-border",
+  "ds-trv-travel-mcc-monthly"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "travel-spend-recovery/feat-trv-cross-border-share.md",
+ "sha": "02e168093028c9bda0dd0e2bd04420fcf391a4b83ef6853ec215b2dd229fbf24",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

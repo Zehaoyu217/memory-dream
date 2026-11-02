@@ -1,0 +1,98 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "PSI"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "limit-glm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "`limit-glm-v2`"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cli_spend_30d_sum",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "`cli_spend_30d_sum`"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "top-20-features",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "top-20 features"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "drift-review",
+   "type": "other",
+   "label": "drift review",
+   "as": [
+    "drift review"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cli_spend_30d_sum",
+   "type": "measured-by",
+   "label": "flagged at",
+   "o": "psi",
+   "quote": "was flagged at PSI 0.27 on `cli_spend_30d_sum`",
+   "line": 7
+  },
+  {
+   "s": "psi",
+   "type": "other",
+   "label": "check runs on",
+   "o": "top-20-features",
+   "quote": "The check runs on the top-20 features by importance",
+   "line": 6
+  },
+  {
+   "s": "psi",
+   "type": "other",
+   "label": "triggers",
+   "o": "drift-review",
+   "quote": "A PSI above 0.25 on any top-20 feature triggers a drift review",
+   "line": 4
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/monthly-review-psi-trigger.md",
+ "sha": "5521c1c339764cf0f5ca2047f109d72b0ac176a6a0d9790e28e20d9f72ca8c0f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

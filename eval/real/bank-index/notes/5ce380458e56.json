@@ -1,0 +1,140 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-fsm-cutover",
+   "type": "term",
+   "label": "decision",
+   "as": [
+    "Decision: churn v2 moves to store features on 2026-03-02, behind the parity gate"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fsm-churn-xgb-v2",
+   "type": "model",
+   "label": "churn model",
+   "as": [
+    "fsm-churn-xgb-v2"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "feature-store",
+   "type": "tool",
+   "label": "feature store",
+   "as": [
+    "store features"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fsm_parity_sample_2025h2",
+   "type": "dataset",
+   "label": "parity sample",
+   "as": [
+    "fsm_parity_sample_2025h2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fnd-parity-post-fix",
+   "type": "document",
+   "label": "findings note",
+   "as": [
+    "fnd-parity-post-fix"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "approver",
+   "as": [
+    "Approved by Lena Fischer for credit risk"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fsm-spend-lgbm-v2",
+   "type": "model",
+   "label": "spend model",
+   "as": [
+    "fsm-spend-lgbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-fsm-cutover",
+   "type": "uses",
+   "label": "gated on",
+   "o": "fsm_parity_sample_2025h2",
+   "quote": "Gate: at least 99 percent of rows within 0.5 percent on fsm_parity_sample_2025h2",
+   "line": 6
+  },
+  {
+   "s": "fsm-churn-xgb-v2",
+   "type": "uses",
+   "label": "moves to",
+   "o": "feature-store",
+   "quote": "churn v2 moves to store features on 2026-03-02",
+   "line": 5
+  },
+  {
+   "s": "dec-fsm-cutover",
+   "type": "owned-by",
+   "label": "approved by",
+   "o": "lena-fischer",
+   "quote": "Approved by Lena Fischer for credit risk.",
+   "line": 7
+  },
+  {
+   "s": "fnd-parity-post-fix",
+   "type": "other",
+   "label": "showed parity result",
+   "o": "dec-fsm-cutover",
+   "quote": "fnd-parity-post-fix showed 211 of 214 features pass",
+   "line": 6
+  },
+  {
+   "s": "fsm-spend-lgbm-v2",
+   "type": "other",
+   "label": "follows cutover",
+   "o": "dec-fsm-cutover",
+   "quote": "Spend v2 follows on 2026-03-16 (fsm-spend-lgbm-v2).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-parity-post-fix",
+  "fnd-churn-lift",
+  "fsm-churn-xgb-v2",
+  "fsm-spend-lgbm-v2",
+  "fsm_parity_sample_2025h2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "feature-store-migration/dec-fsm-cutover.md",
+ "sha": "5ce380458e569f2ecc58ab3c2dacaa3e4c19836747e3f4261701ee540a4baa4b",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

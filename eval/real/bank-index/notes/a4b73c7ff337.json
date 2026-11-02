@@ -1,0 +1,152 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-105",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-105"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "exp-107",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-107"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q2"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "store-features",
+   "type": "feature",
+   "label": "store features",
+   "as": [
+    "store features"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "feat-fsm-payment-lag-v2",
+   "type": "feature",
+   "label": "payment lag v2",
+   "as": [
+    "payment lag v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "spend-cv-30d",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "spend-cv-30d"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "util-ratio",
+   "type": "feature",
+   "label": "util ratio",
+   "as": [
+    "util ratio"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-105",
+   "type": "measured-by",
+   "label": "reports AUC",
+   "o": "auc",
+   "quote": "churn AUC 0.782 to 0.791 on holdout-2025q2 (n=412,000)",
+   "line": 6
+  },
+  {
+   "s": "exp-105",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "holdout-2025q2",
+   "quote": "churn AUC 0.782 to 0.791 on holdout-2025q2 (n=412,000)",
+   "line": 6
+  },
+  {
+   "s": "feat-fsm-payment-lag-v2",
+   "type": "other",
+   "label": "drives gain",
+   "o": "store-features",
+   "quote": "The gain comes mainly from payment lag v2 and spend-cv-30d together",
+   "line": 7
+  },
+  {
+   "s": "spend-cv-30d",
+   "type": "other",
+   "label": "drives gain",
+   "o": "store-features",
+   "quote": "The gain comes mainly from payment lag v2 and spend-cv-30d together",
+   "line": 7
+  },
+  {
+   "s": "exp-107",
+   "type": "other",
+   "label": "tests util ratio",
+   "o": "util-ratio",
+   "quote": "util ratio alone adds +0.002 (exp-107)",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-105",
+  "exp-107"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "feature-store-migration/fnd-churn-lift.md",
+ "sha": "a4b73c7ff33755a1e240c598c9725789628baacff533ed67d21ef2238ad54eb5",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,193 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "data-eng-cards",
+   "type": "team",
+   "label": "owner",
+   "as": [
+    "data-eng-cards"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "txn_cnt_7d",
+   "type": "feature",
+   "label": "migrated feature",
+   "as": [
+    "txn_cnt_7d"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "txn_cnt_30d",
+   "type": "feature",
+   "label": "migrated feature",
+   "as": [
+    "txn_cnt_30d"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "merchant-category-counts",
+   "type": "feature",
+   "label": "migrated feature",
+   "as": [
+    "two merchant-category counts"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "late-partitions",
+   "type": "other",
+   "label": "late partition",
+   "as": [
+    "Late partitions"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "duplicate-txn-id-rows",
+   "type": "other",
+   "label": "duplicate rows",
+   "as": [
+    "duplicate txn_id rows"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feature-store",
+   "type": "tool",
+   "label": "feature store",
+   "as": [
+    "The store"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "legacy-notebooks",
+   "type": "other",
+   "label": "legacy notebooks",
+   "as": [
+    "legacy notebooks"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "data-quality-txn",
+   "type": "document",
+   "label": "tracking location",
+   "as": [
+    "data-quality-txn"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "txn_cnt_7d",
+   "type": "uses",
+   "label": "reads",
+   "o": "cards.txn_daily",
+   "quote": "Six of the migrated features read `cards.txn_daily` directly, including txn_cnt_7d",
+   "line": 6
+  },
+  {
+   "s": "merchant-category-counts",
+   "type": "uses",
+   "label": "reads",
+   "o": "cards.txn_daily",
+   "quote": "Six of the migrated features read `cards.txn_daily` directly, including txn_cnt_7d, txn_cnt_30d and two merchant-category counts.",
+   "line": 6
+  },
+  {
+   "s": "cards.txn_daily",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "data-eng-cards",
+   "quote": "cards.txn_daily feeds six migrated features, owned by data-eng-cards",
+   "line": 5
+  },
+  {
+   "s": "cards.txn_daily",
+   "type": "other",
+   "label": "has",
+   "o": "late-partitions",
+   "quote": "Late partitions (after 10:00 on D+1) and duplicate txn_id rows exist in this table.",
+   "line": 7
+  },
+  {
+   "s": "cards.txn_daily",
+   "type": "other",
+   "label": "has",
+   "o": "duplicate-txn-id-rows",
+   "quote": "Late partitions (after 10:00 on D+1) and duplicate txn_id rows exist in this table.",
+   "line": 7
+  },
+  {
+   "s": "feature-store",
+   "type": "other",
+   "label": "dedups",
+   "o": "duplicate-txn-id-rows",
+   "quote": "The store dedups on txn_id; the legacy notebooks did not.",
+   "line": 7
+  },
+  {
+   "s": "legacy-notebooks",
+   "type": "other",
+   "label": "did not dedup",
+   "o": "duplicate-txn-id-rows",
+   "quote": "The store dedups on txn_id; the legacy notebooks did not.",
+   "line": 7
+  },
+  {
+   "s": "data-quality-txn",
+   "type": "other",
+   "label": "tracks rates",
+   "o": "late-partitions",
+   "quote": "Late-partition and duplicate rates are tracked in data-quality-txn, not here.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "data-quality-txn"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "feature-store-migration/ds-fsm-txn-source.md",
+ "sha": "988839c4ffb69b0b1a92b6af384f2d5c71d85a0f8b8d52c223d3f266585ab7ac",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

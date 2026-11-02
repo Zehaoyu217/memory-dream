@@ -1,0 +1,89 @@
+{
+ "kind": "note",
+ "entities": [
+  {
+   "id": "feat-sfc-active-accounts",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-sfc-active-accounts"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "sfc-hier-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "sfc-hier-v3"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-207",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-207"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "everyday-segment",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "The Everyday segment"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-sfc-active-accounts",
+   "type": "uses",
+   "label": "counted from",
+   "o": "cards.accounts_monthly",
+   "quote": "Count of active accounts per segment per month, from `cards.accounts_monthly`.",
+   "line": 6
+  },
+  {
+   "s": "sfc-hier-v3",
+   "type": "uses",
+   "label": "regressor",
+   "o": "feat-sfc-active-accounts",
+   "quote": "Added as a regressor in sfc-hier-v3 (exp-207).",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "spend-forecasting/feat-sfc-active-accounts.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "spend-forecasting/feat-sfc-active-accounts.md",
+ "sha": "b208b264b4dfab847616706270c14dd83acf38f9a912c5afb7ef247dcfe58c32",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

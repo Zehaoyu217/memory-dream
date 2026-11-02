@@ -1,0 +1,128 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "sfc-hier-v3",
+   "type": "model",
+   "label": "segment forecast",
+   "as": [
+    "sfc-hier-v3",
+    "sfc-hier-v3 is the current segment forecast"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "sfc-lgbm-v2",
+   "type": "model",
+   "label": "prior model",
+   "as": [
+    "sfc-lgbm-v2",
+    "sfc-lgbm-v2 (exp-207)"
+   ],
+   "lines": [
+    2,
+    3,
+    8
+   ]
+  },
+  {
+   "id": "sfc-oot-2025h2",
+   "type": "dataset",
+   "label": "evaluation set",
+   "as": [
+    "sfc-oot-2025h2"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "base forecast method",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-sfc-active-accounts",
+   "type": "feature",
+   "label": "regressor",
+   "as": [
+    "feat-sfc-active-accounts"
+   ],
+   "lines": [
+    2,
+    9
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "total mape",
+   "as": [
+    "MAPE",
+    "segment MAPE 4.9%",
+    "total MAPE 2.3%"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "sfc-hier-v3",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "sfc-lgbm-v2",
+   "quote": "supersedes: [sfc-lgbm-v2]",
+   "line": 3
+  },
+  {
+   "s": "sfc-hier-v3",
+   "type": "uses",
+   "label": "adds regressor",
+   "o": "feat-sfc-active-accounts",
+   "quote": "Adds feat-sfc-active-accounts as a regressor.",
+   "line": 9
+  },
+  {
+   "s": "sfc-hier-v3",
+   "type": "evaluated-on",
+   "label": "on",
+   "o": "sfc-oot-2025h2",
+   "quote": "On sfc-oot-2025h2 (Jul-Dec 2025): total MAPE 2.3%",
+   "line": 8
+  },
+  {
+   "s": "sfc-hier-v3",
+   "type": "uses",
+   "label": "LightGBM base forecasts",
+   "o": "lightgbm",
+   "quote": "LightGBM base forecasts for the six segments",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "spend-forecasting/sfc-hier-v3.md",
+  "dec-sfc-ship-hier-v3",
+  "exp-207",
+  "fnd-sfc-q4-reconciled"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "spend-forecasting/sfc-hier-v3.md",
+ "sha": "f55b378191fbf29442750775abf006a4dffd9bd0599cfc851c912a8177bf8b61",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,118 @@
+{
+ "kind": "requirement",
+ "entities": [
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "person",
+   "as": [
+    "Sam Lee"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "make-report",
+   "type": "other",
+   "label": "report target",
+   "as": [
+    "`make report`"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "deck",
+   "type": "document",
+   "label": "deck",
+   "as": [
+    "deck"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "model-card",
+   "type": "document",
+   "label": "model card",
+   "as": [
+    "model card"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "manifest",
+   "type": "other",
+   "label": "manifest",
+   "as": [
+    "manifest"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "figure",
+   "type": "other",
+   "label": "figure",
+   "as": [
+    "figure"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "sam-lee",
+   "type": "other",
+   "label": "requires",
+   "o": "make-report",
+   "quote": "Sam Lee requires every reported number to rebuild from one `make report` target",
+   "line": 4
+  },
+  {
+   "s": "make-report",
+   "type": "produces",
+   "label": "produces",
+   "o": "deck",
+   "quote": "Every number in a deck or model card is produced by `make report`",
+   "line": 5
+  },
+  {
+   "s": "make-report",
+   "type": "produces",
+   "label": "writes",
+   "o": "manifest",
+   "quote": "Each run writes a manifest with the git SHA",
+   "line": 6
+  },
+  {
+   "s": "figure",
+   "type": "other",
+   "label": "removed from",
+   "o": "deck",
+   "quote": "A figure that cannot be rebuilt from the manifest is removed from the deck, not footnoted.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "prefs/sam-lee-reproducibility.md",
+ "sha": "d8111a6ce018ba28f4a327ab2a67938a76fcc16dc0f7db142e78dae189396125",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

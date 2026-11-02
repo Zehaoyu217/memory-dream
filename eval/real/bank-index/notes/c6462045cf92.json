@@ -1,0 +1,99 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-507-band-het",
+   "type": "other",
+   "label": "heterogeneity cut",
+   "as": [
+    "exp-507: response to the 12-month promo is highest in the 640-699 band; margin is negative under 640"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-pa-credit-band",
+   "type": "feature",
+   "label": "credit band feature",
+   "as": [
+    "By credit band on the readout cohorts"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "arm-b",
+   "type": "segment",
+   "label": "arm b",
+   "as": [
+    "arm B BT inflow $2,300 per account in the 640-699 band"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bt-inflow",
+   "type": "metric",
+   "label": "bt inflow",
+   "as": [
+    "BT inflow"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "pa-margin-v2",
+   "type": "model",
+   "label": "margin model",
+   "as": [
+    "see pa-margin-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-507-band-het",
+   "type": "uses",
+   "label": "cut by",
+   "o": "feat-pa-credit-band",
+   "quote": "By credit band on the readout cohorts",
+   "line": 6
+  },
+  {
+   "s": "exp-507-band-het",
+   "type": "measured-by",
+   "label": "measures",
+   "o": "bt-inflow",
+   "quote": "arm B BT inflow $2,300 per account in the 640-699 band",
+   "line": 6
+  },
+  {
+   "s": "exp-507-band-het",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "arm-b",
+   "quote": "arm B BT inflow $2,300 per account in the 640-699 band",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-501-readout-12m",
+  "pa-margin-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "promo-apr-test/exp-507-band-het.md",
+ "sha": "c6462045cf9294a9715db25cac3b5f2bc01c509123b29ed083d66a05ee18b03c",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,311 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "fraud25-gbm-v2",
+   "type": "model",
+   "label": "champion model",
+   "as": [
+    "fraud25-gbm-v2",
+    "2025 champion"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fraud25-gbm-v1",
+   "type": "model",
+   "label": "prior model",
+   "as": [
+    "fraud25-gbm-v1"
+   ],
+   "lines": [
+    2,
+    3
+   ]
+  },
+  {
+   "id": "feat-f25-mcc-travel",
+   "type": "feature",
+   "label": "travel flag",
+   "as": [
+    "travel flag",
+    "feat-f25-mcc-travel"
+   ],
+   "lines": [
+    2,
+    6,
+    7,
+    9
+   ]
+  },
+  {
+   "id": "feat-f25-velocity-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-f25-velocity-v1"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "feat-f25-device-age",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-f25-device-age"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "feat-f25-amt-ratio",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-f25-amt-ratio"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "feat-f25-hour-band",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-f25-hour-band"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "ds-f25-labels",
+   "type": "other",
+   "label": "labels source",
+   "as": [
+    "ds-f25-labels"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "cnp-transactions",
+   "type": "dataset",
+   "label": "training data",
+   "as": [
+    "CNP transactions"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Holdout-2025q1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "lightgbm setup",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "recall-at-1",
+   "type": "metric",
+   "label": "recall@1%",
+   "as": [
+    "recall@1% 0.52"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "over-flagging",
+   "type": "other",
+   "label": "over-flagging",
+   "as": [
+    "over-flagging"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "fraud25-gbm-v1",
+   "quote": "supersedes: [fraud25-gbm-v1]",
+   "line": 3
+  },
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "uses",
+   "label": "adds",
+   "o": "feat-f25-mcc-travel",
+   "quote": "fraud25-gbm-v2 adds the travel flag",
+   "line": 6
+  },
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "uses",
+   "label": "built from",
+   "o": "feat-f25-velocity-v1",
+   "quote": "from: [fraud25-gbm-v1, feat-f25-mcc-travel, feat-f25-velocity-v1",
+   "line": 2
+  },
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "uses",
+   "label": "built from",
+   "o": "feat-f25-device-age",
+   "quote": "feat-f25-device-age, feat-f25-amt-ratio",
+   "line": 2
+  },
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "uses",
+   "label": "built from",
+   "o": "feat-f25-amt-ratio",
+   "quote": "feat-f25-device-age, feat-f25-amt-ratio",
+   "line": 2
+  },
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "uses",
+   "label": "built from",
+   "o": "feat-f25-hour-band",
+   "quote": "feat-f25-amt-ratio, feat-f25-hour-band",
+   "line": 2
+  },
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "uses",
+   "label": "built from",
+   "o": "ds-f25-labels",
+   "quote": "feat-f25-hour-band, ds-f25-labels",
+   "line": 2
+  },
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "uses",
+   "label": "setup",
+   "o": "lightgbm",
+   "quote": "Same LightGBM setup",
+   "line": 7
+  },
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "trained-on",
+   "label": "trained on",
+   "o": "cnp-transactions",
+   "quote": "trained on 2024-07 to 2025-03 CNP transactions",
+   "line": 7
+  },
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "holdout-2025q1",
+   "quote": "Holdout-2025q1: AUC 0.911",
+   "line": 8
+  },
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.911, KS 0.66",
+   "line": 6
+  },
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "ks",
+   "quote": "AUC 0.911, KS 0.66",
+   "line": 6
+  },
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "recall-at-1",
+   "quote": "recall@1% 0.52",
+   "line": 8
+  },
+  {
+   "s": "feat-f25-mcc-travel",
+   "type": "other",
+   "label": "caused",
+   "o": "over-flagging",
+   "quote": "The travel flag later proved to be the cause of over-flagging.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "fraud25-gbm-v1",
+  "feat-f25-mcc-travel",
+  "feat-f25-velocity-v1",
+  "feat-f25-device-age",
+  "feat-f25-amt-ratio",
+  "feat-f25-hour-band",
+  "ds-f25-labels",
+  "exp-104",
+  "dec-f25-champion-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/fraud25-gbm-v2.md",
+ "sha": "f2e5da36f59c2c80ccd03e9de74cd1bc21a35569d6846e050523b5b4523e3590",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

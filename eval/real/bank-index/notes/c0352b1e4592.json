@@ -1,0 +1,92 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "feat-f25-velocity-v1",
+   "type": "feature",
+   "label": "velocity feature",
+   "as": [
+    "feat-f25-velocity-v1"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "psi",
+   "as": [
+    "PSI"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-f25-velocity-v1",
+   "type": "measured-by",
+   "label": "drop-column test",
+   "o": "auc",
+   "quote": "removing feat-f25-velocity-v1 drops AUC by 0.021 on holdout-2025q1",
+   "line": 6
+  },
+  {
+   "s": "feat-f25-velocity-v1",
+   "type": "evaluated-on",
+   "label": "tested on",
+   "o": "holdout-2025q1",
+   "quote": "removing feat-f25-velocity-v1 drops AUC by 0.021 on holdout-2025q1 (1,104,800 transactions)",
+   "line": 6
+  },
+  {
+   "s": "feat-f25-velocity-v1",
+   "type": "measured-by",
+   "label": "PSI check",
+   "o": "psi",
+   "quote": "PSI of the velocity score Jan to Mar 2025 is 0.04",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fraud-2025/fraud25-find-velocity-stable.md",
+  "feat-f25-velocity-v1",
+  "ds-f25-holdout-2025q1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/fraud25-find-velocity-stable.md",
+ "sha": "c0352b1e459251d49d56c6326d945b3b264a4c95971b26160f0c12c7e7f16ac8",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

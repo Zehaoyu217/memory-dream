@@ -1,0 +1,110 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "team",
+   "as": [
+    "Sam Lee's team"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feature-registry",
+   "type": "other",
+   "label": "registry",
+   "as": [
+    "the registry"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feature-code",
+   "type": "other",
+   "label": "feature code",
+   "as": [
+    "feature code"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "notebook",
+   "type": "other",
+   "label": "notebook",
+   "as": [
+    "a notebook"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "handoff",
+   "type": "other",
+   "label": "handoff",
+   "as": [
+    "first handoff"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "run-config",
+   "type": "other",
+   "label": "run config",
+   "as": [
+    "run config"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "sam-lee",
+   "type": "other",
+   "label": "rejected",
+   "o": "handoff",
+   "quote": "Sam Lee's team rejected the first handoff on 2026-05-27 because a notebook computed a feature inline.",
+   "line": 6
+  },
+  {
+   "s": "notebook",
+   "type": "produces",
+   "label": "computed",
+   "o": "feature-code",
+   "quote": "a notebook computed a feature inline",
+   "line": 6
+  },
+  {
+   "s": "feature-code",
+   "type": "other",
+   "label": "moves to",
+   "o": "feature-registry",
+   "quote": "feature code moves to the registry",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "howto/notebook-to-pipeline-handoff",
+  "pipeline/train.py"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/notebook-inline-feature.md",
+ "sha": "2c50f991f761812269dec72ba2e20c245c566cea0e055b46573fd51d50f02f92",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

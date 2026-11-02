@@ -1,0 +1,97 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-xs-balance-proxy",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-xs-balance-proxy: 90-day net inflow from payments as a stand-in for deposit capacity"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.payments_daily`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "xs-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "Used in xs-gbm-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "xs-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "xs-gbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-xs-payroll-flag-v2",
+   "type": "feature",
+   "label": "replacement feature",
+   "as": [
+    "Replaced by feat-xs-payroll-flag-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-xs-balance-proxy",
+   "type": "uses",
+   "label": "sums from",
+   "o": "cards.payments_daily",
+   "quote": "Sum of net inflows to the card account in 90 days from `cards.payments_daily`",
+   "line": 6
+  },
+  {
+   "s": "feat-xs-balance-proxy",
+   "type": "uses",
+   "label": "used in",
+   "o": "xs-gbm-v1",
+   "quote": "Used in xs-gbm-v1",
+   "line": 7
+  },
+  {
+   "s": "feat-xs-payroll-flag-v2",
+   "type": "replaces",
+   "label": "replaced by",
+   "o": "feat-xs-balance-proxy",
+   "quote": "Replaced by feat-xs-payroll-flag-v2 in xs-gbm-v2",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-xs-offer-log"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cross-sell-savings/feat-xs-balance-proxy.md",
+ "sha": "88ad3744a95e13a2d0c135eefbca8c73435d7ba7515c0f58fe836570a1dd230b",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,113 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "feat-fsm-util-ratio",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-fsm-util-ratio: balance over limit at month-end, from cards.limits_history"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.limits_history",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.limits_history",
+    "from cards.limits_history"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-fsm-util-ratio-legacy-rule",
+   "type": "term",
+   "label": "legacy rule",
+   "as": [
+    "The legacy notebook took the row dated exactly month-end"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fnd-parity-post-fix",
+   "type": "document",
+   "label": "parity review finding",
+   "as": [
+    "fnd-parity-post-fix"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fsm-churn-xgb-v2",
+   "type": "model",
+   "label": "churn model",
+   "as": [
+    "churn v2 reads it"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-107",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-107"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-fsm-util-ratio",
+   "type": "uses",
+   "label": "reads from",
+   "o": "cards.limits_history",
+   "quote": "from cards.limits_history",
+   "line": 5
+  },
+  {
+   "s": "fsm-churn-xgb-v2",
+   "type": "uses",
+   "label": "reads",
+   "o": "feat-fsm-util-ratio",
+   "quote": "churn v2 reads it",
+   "line": 8
+  },
+  {
+   "s": "feat-fsm-util-ratio",
+   "type": "other",
+   "label": "accepted at review",
+   "o": "fnd-parity-post-fix",
+   "quote": "The documented rule was accepted at the 2026-01-14 parity review (fnd-parity-post-fix)",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feature-store-migration/feat-fsm-util-ratio.md",
+  "fnd-parity-post-fix",
+  "exp-107",
+  "ds-fsm-legacy-features"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "feature-store-migration/feat-fsm-util-ratio.md",
+ "sha": "58f2a00dbe62b84abfd99de103e4ceef0e07b1797f5e0a15b0fb05dff05fd54f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

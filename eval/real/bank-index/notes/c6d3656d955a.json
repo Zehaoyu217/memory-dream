@@ -1,0 +1,107 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cards.disputes",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.disputes"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dispute-rate-per-10k",
+   "type": "metric",
+   "label": "dispute rate",
+   "as": [
+    "dispute rate per 10k approved txns"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dedupe",
+   "type": "term",
+   "label": "dedupe method",
+   "as": [
+    "after dedupe"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "duplicates",
+   "type": "term",
+   "label": "duplicate rows",
+   "as": [
+    "duplicates"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cards.txn_daily",
+   "type": "uses",
+   "label": "joined to",
+   "o": "cards.disputes",
+   "quote": "Joined cards.txn_daily to cards.disputes",
+   "line": 6
+  },
+  {
+   "s": "dispute-rate-per-10k",
+   "type": "evaluated-on",
+   "label": "computed from",
+   "o": "cards.txn_daily",
+   "quote": "Raw rows give 11.8 disputes per 10,000 approved transactions",
+   "line": 6
+  },
+  {
+   "s": "cards.txn_daily",
+   "type": "uses",
+   "label": "deduped by",
+   "o": "dedupe",
+   "quote": "Deduped rows, first arrival kept, give 11.6.",
+   "line": 6
+  },
+  {
+   "s": "duplicates",
+   "type": "other",
+   "label": "inflates",
+   "o": "dispute-rate-per-10k",
+   "quote": "The 0.2 gap is the duplicates inflating the denominator and the numerator together",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-dq-dispute-join",
+  "ds-dq-txn-daily"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "data-quality-txn/exp-305.md",
+ "sha": "c6d3656d955a5c63f8e64c4b26a6a2d0e529f47b4dc0dab177535036795de4ea",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

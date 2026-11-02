@@ -1,0 +1,248 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "model-registration",
+   "type": "other",
+   "label": "registration",
+   "as": [
+    "Register as `<team>.<model>` in the model registry",
+    "the registration"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "model-registry",
+   "type": "tool",
+   "label": "model registry",
+   "as": [
+    "model registry",
+    "The registry"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "training-snapshot-id",
+   "type": "other",
+   "label": "snapshot id",
+   "as": [
+    "the training snapshot id"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "oot-metrics",
+   "type": "metric",
+   "label": "oot metrics",
+   "as": [
+    "OOT metrics"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "oot-set",
+   "type": "dataset",
+   "label": "oot set",
+   "as": [
+    "the OOT set"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "psi-report",
+   "type": "document",
+   "label": "psi report",
+   "as": [
+    "a PSI report"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "model-card",
+   "type": "document",
+   "label": "model card",
+   "as": [
+    "a model card",
+    "no card"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "staging",
+   "type": "environment",
+   "label": "staging",
+   "as": [
+    "Before staging",
+    "Staging"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "production",
+   "type": "environment",
+   "label": "production",
+   "as": [
+    "production needs"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "shadow-scoring",
+   "type": "term",
+   "label": "shadow scoring",
+   "as": [
+    "two weeks of shadow scoring"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "load-test",
+   "type": "test",
+   "label": "load test",
+   "as": [
+    "Sam Lee's load test"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "aisha-khan",
+   "type": "person",
+   "label": "sign-off approver",
+   "as": [
+    "Aisha Khan"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "load test owner",
+   "as": [
+    "Sam Lee"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "model-registration",
+   "type": "uses",
+   "label": "needs",
+   "o": "training-snapshot-id",
+   "quote": "Before staging the entry needs the training snapshot id",
+   "line": 5
+  },
+  {
+   "s": "model-registration",
+   "type": "uses",
+   "label": "needs",
+   "o": "oot-metrics",
+   "quote": "OOT metrics on the OOT set",
+   "line": 5
+  },
+  {
+   "s": "oot-metrics",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "oot-set",
+   "quote": "OOT metrics on the OOT set",
+   "line": 5
+  },
+  {
+   "s": "model-registration",
+   "type": "uses",
+   "label": "needs",
+   "o": "psi-report",
+   "quote": "a PSI report against the training data",
+   "line": 5
+  },
+  {
+   "s": "model-registration",
+   "type": "uses",
+   "label": "needs",
+   "o": "model-card",
+   "quote": "and a model card",
+   "line": 5
+  },
+  {
+   "s": "model-registry",
+   "type": "other",
+   "label": "rejects entry without",
+   "o": "model-card",
+   "quote": "The registry rejects an entry with no card.",
+   "line": 6
+  },
+  {
+   "s": "model-registration",
+   "type": "owned-by",
+   "label": "signs off",
+   "o": "aisha-khan",
+   "quote": "Aisha Khan signs off the registration.",
+   "line": 5
+  },
+  {
+   "s": "staging",
+   "type": "uses",
+   "label": "needs",
+   "o": "shadow-scoring",
+   "quote": "Staging then needs two weeks of shadow scoring",
+   "line": 6
+  },
+  {
+   "s": "production",
+   "type": "uses",
+   "label": "needs",
+   "o": "load-test",
+   "quote": "production needs Sam Lee's load test",
+   "line": 6
+  },
+  {
+   "s": "load-test",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "sam-lee",
+   "quote": "production needs Sam Lee's load test",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/model-registration-checklist.md",
+ "sha": "b95d25ba20ab96b2a8bb157e699e293099119cbfa496128a79cd540329fd9e32",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

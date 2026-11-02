@@ -1,0 +1,102 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "dispute-link-v1",
+   "type": "feature",
+   "label": "dispute link v1",
+   "as": [
+    "Dispute link v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dispute-link-v2",
+   "type": "feature",
+   "label": "dispute link v2",
+   "as": [
+    "v2"
+   ],
+   "lines": [
+    6,
+    7,
+    9
+   ]
+  },
+  {
+   "id": "post-ticket-disputes",
+   "type": "term",
+   "label": "post-ticket disputes",
+   "as": [
+    "Post-ticket disputes"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout set",
+   "as": [
+    "holdout-2025q4 (n = 1,800)"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro f1",
+   "as": [
+    "macro F1"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dispute-link-v1",
+   "type": "other",
+   "label": "leaked through",
+   "o": "post-ticket-disputes",
+   "quote": "Post-ticket disputes are triggered by the complaint itself, so v1 partly read the answer.",
+   "line": 8
+  },
+  {
+   "s": "dispute-link-v2",
+   "type": "measured-by",
+   "label": "macro F1 0.77",
+   "o": "macro-f1",
+   "quote": "v2 macro F1 0.77 against 0.74 base on holdout-2025q4 (n = 1,800)",
+   "line": 7
+  },
+  {
+   "s": "dispute-link-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q4",
+   "quote": "v2 macro F1 0.77 against 0.74 base on holdout-2025q4 (n = 1,800)",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-204",
+  "fnd-cc-dispute-link-helps",
+  "feat-cc-dispute-link-v2",
+  "dec-cc-drop-dispute-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "complaint-classification/fnd-cc-dispute-link-leak.md",
+ "sha": "bab7c3003a7537a171fc44fb85297e592a5f0ee21deff31f26aa46dc5aa427c8",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,129 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-202",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-202"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-201",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-201"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "band-c-d-accounts",
+   "type": "segment",
+   "label": "account band",
+   "as": [
+    "band C and D accounts"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "complaints-per-1000",
+   "type": "metric",
+   "label": "complaints per 1,000",
+   "as": [
+    "complaints per 1,000"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "roll-rate",
+   "type": "metric",
+   "label": "roll rates",
+   "as": [
+    "Roll rates"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "notice-30-day",
+   "type": "other",
+   "label": "treatment arm",
+   "as": [
+    "30-day notice"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "notice-same-day",
+   "type": "other",
+   "label": "treatment arm",
+   "as": [
+    "same-day notice"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-202",
+   "type": "evaluated-on",
+   "label": "tested on",
+   "o": "band-c-d-accounts",
+   "quote": "Test on 9,300 band C and D accounts per arm",
+   "line": 6
+  },
+  {
+   "s": "exp-202",
+   "type": "measured-by",
+   "label": "gives",
+   "o": "complaints-per-1000",
+   "quote": "gives 3.1 complaints per 1,000 versus 4.6",
+   "line": 5
+  },
+  {
+   "s": "exp-202",
+   "type": "measured-by",
+   "label": "not different",
+   "o": "roll-rate",
+   "quote": "Roll rates were not different between the arms at 90 days",
+   "line": 8
+  },
+  {
+   "s": "exp-202",
+   "type": "derived-from",
+   "label": "from",
+   "o": "exp-201",
+   "quote": "from: [exp-201, find-cld-complaints-2x]",
+   "line": 2
+  }
+ ],
+ "refs": [
+  "exp-201",
+  "find-cld-complaints-2x"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "limit-decrease-policy/exp-202.md",
+ "sha": "ae5fa3a8e70e27104b1ddd3c7e9e75d0bb2e52f91b092116cc93671046d237b4",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

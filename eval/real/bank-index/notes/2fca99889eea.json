@@ -1,0 +1,136 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "sample-ratio-mismatch",
+   "type": "term",
+   "label": "audit method",
+   "as": [
+    "sample ratio mismatch"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "test-registry",
+   "type": "dataset",
+   "label": "test registry",
+   "as": [
+    "the registry"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "all-tests",
+   "type": "test",
+   "label": "tests",
+   "as": [
+    "38 tests"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "failing-tests",
+   "type": "test",
+   "label": "failing tests",
+   "as": [
+    "Four tests"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "bot-filter",
+   "type": "other",
+   "label": "bot filter",
+   "as": [
+    "bot filter"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "treatment-arm",
+   "type": "term",
+   "label": "arm",
+   "as": [
+    "treatment arm"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "chi-squared-test",
+   "type": "term",
+   "label": "statistical test",
+   "as": [
+    "Chi-squared test"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "failing-tests",
+   "type": "other",
+   "label": "failed",
+   "o": "sample-ratio-mismatch",
+   "quote": "Four tests failed at p below 0.001",
+   "line": 7
+  },
+  {
+   "s": "sample-ratio-mismatch",
+   "type": "uses",
+   "label": "checked with",
+   "o": "chi-squared-test",
+   "quote": "Chi-squared test of arm counts against the planned split",
+   "line": 6
+  },
+  {
+   "s": "all-tests",
+   "type": "part-of",
+   "label": "in registry",
+   "o": "test-registry",
+   "quote": "every test in the registry",
+   "line": 6
+  },
+  {
+   "s": "failing-tests",
+   "type": "other",
+   "label": "had bot filter",
+   "o": "bot-filter",
+   "quote": "All four had a bot filter applied only in the treatment arm",
+   "line": 7
+  },
+  {
+   "s": "bot-filter",
+   "type": "other",
+   "label": "applied only in",
+   "o": "treatment-arm",
+   "quote": "bot filter applied only in the treatment arm",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-ep-assignments",
+  "ds-ep-test-registry"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "experiment-platform/exp-502.md",
+ "sha": "2fca99889eeaf4e05bc8d48acc2499a795286d34177accf572825a920e3a8042",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

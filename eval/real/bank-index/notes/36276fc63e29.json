@@ -1,0 +1,108 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "behaviour-features-gbt",
+   "type": "model",
+   "label": "experiment model",
+   "as": [
+    "Behaviour features alone, gradient boosted trees"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "txn-frequency-features",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "transaction-frequency and complaint features"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "spearman",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Spearman 0.22"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q2",
+   "type": "dataset",
+   "label": "held-out wave",
+   "as": [
+    "2025Q2 held-out wave"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "training-2025q1",
+   "type": "dataset",
+   "label": "training wave",
+   "as": [
+    "2025Q1"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "behaviour-features-gbt",
+   "type": "uses",
+   "label": "uses features",
+   "o": "txn-frequency-features",
+   "quote": "transaction-frequency and complaint features only",
+   "line": 6
+  },
+  {
+   "s": "behaviour-features-gbt",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "holdout-2025q2",
+   "quote": "scored on 2025Q2",
+   "line": 6
+  },
+  {
+   "s": "behaviour-features-gbt",
+   "type": "measured-by",
+   "label": "reports Spearman",
+   "o": "spearman",
+   "quote": "Spearman 0.22",
+   "line": 5
+  },
+  {
+   "s": "behaviour-features-gbt",
+   "type": "trained-on",
+   "label": "trained on",
+   "o": "training-2025q1",
+   "quote": "trained on 2025Q1",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "feat-nps-txn-freq-v1",
+  "feat-nps-complaint-flag-v1",
+  "fnd-nps-behaviour-lift"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "nps-drivers/exp-402.md",
+ "sha": "36276fc63e29674f1be026aa7f53704312722f225940f4bd38b32e1142e8fc09",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

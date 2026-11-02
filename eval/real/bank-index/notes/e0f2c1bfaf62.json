@@ -1,0 +1,125 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cb-spend-base",
+   "type": "feature",
+   "label": "spend level",
+   "as": [
+    "feat-cb-spend-base",
+    "trailing six-month average monthly spend"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cb.spend_panel",
+   "type": "dataset",
+   "label": "spend panel",
+   "as": [
+    "`cb.spend_panel`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cb-elasticity-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cb-elasticity-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cb-uplift-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cb-uplift-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cb-elasticity-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cb-elasticity-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-cb-spend-band-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cb-spend-band-v2"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cb-spend-base",
+   "type": "uses",
+   "label": "computed from",
+   "o": "cb.spend_panel",
+   "quote": "Mean monthly spend over the last six months from `cb.spend_panel`",
+   "line": 6
+  },
+  {
+   "s": "cb-elasticity-v1",
+   "type": "uses",
+   "label": "spend level in",
+   "o": "feat-cb-spend-base",
+   "quote": "Used as the spend level in cb-elasticity-v1 and cb-uplift-v1.",
+   "line": 6
+  },
+  {
+   "s": "cb-uplift-v1",
+   "type": "uses",
+   "label": "spend level in",
+   "o": "feat-cb-spend-base",
+   "quote": "Used as the spend level in cb-elasticity-v1 and cb-uplift-v1.",
+   "line": 6
+  },
+  {
+   "s": "feat-cb-spend-band-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "feat-cb-spend-base",
+   "quote": "Replaced by feat-cb-spend-band-v2 in cb-elasticity-v2.",
+   "line": 8
+  },
+  {
+   "s": "cb-elasticity-v2",
+   "type": "uses",
+   "label": "replaced by in",
+   "o": "feat-cb-spend-band-v2",
+   "quote": "Replaced by feat-cb-spend-band-v2 in cb-elasticity-v2.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-cb-spend-panel"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/feat-cb-spend-base.md",
+ "sha": "e0f2c1bfaf627b7d16cad747d3becef4758585700e86f0dd3faf633d03d2f8aa",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

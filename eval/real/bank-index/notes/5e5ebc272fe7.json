@@ -1,0 +1,87 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-inc-spend-to-income",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-inc-spend-to-income"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "income-estimate",
+   "type": "feature",
+   "label": "income estimate",
+   "as": [
+    "the current income estimate"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "inc-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "inc-gbm-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "booked-accounts",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "booked accounts"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-inc-spend-to-income",
+   "type": "uses",
+   "label": "divided by",
+   "o": "income-estimate",
+   "quote": "divided by the income estimate",
+   "line": 5
+  },
+  {
+   "s": "inc-gbm-v1",
+   "type": "uses",
+   "label": "includes",
+   "o": "feat-inc-spend-to-income",
+   "quote": "Included in inc-gbm-v1",
+   "line": 8
+  },
+  {
+   "s": "feat-inc-spend-to-income",
+   "type": "other",
+   "label": "flags share of",
+   "o": "booked-accounts",
+   "quote": "17% of booked accounts",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-inc-txn-categories",
+  "feat-inc-payroll-cadence-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "income-estimation/feat-inc-spend-to-income.md",
+ "sha": "5e5ebc272fe7e0c88d35f0508b699ef3b740fdf8e394456a9ca403dfbe0749a0",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

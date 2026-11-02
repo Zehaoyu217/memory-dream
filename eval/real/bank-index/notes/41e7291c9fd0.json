@@ -1,0 +1,84 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "x-learner",
+   "type": "model",
+   "label": "x-learner",
+   "as": [
+    "X-learner"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "t-learner",
+   "type": "model",
+   "label": "t-learner",
+   "as": [
+    "T-learner"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift@20%",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "marketing-uplift-q3",
+   "type": "other",
+   "label": "uplift project",
+   "as": [
+    "marketing-uplift-q3"
+   ],
+   "lines": [
+    3
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "x-learner",
+   "type": "measured-by",
+   "label": "reports uplift@20%",
+   "o": "uplift-at-20",
+   "quote": "X-learner 2.6 uplift@20%",
+   "line": 3
+  },
+  {
+   "s": "t-learner",
+   "type": "measured-by",
+   "label": "reports uplift@20%",
+   "o": "uplift-at-20",
+   "quote": "T-learner 2.1",
+   "line": 3
+  },
+  {
+   "s": "x-learner",
+   "type": "other",
+   "label": "chosen over",
+   "o": "t-learner",
+   "quote": "X-learner 2.6 uplift@20% vs T-learner 2.1. Use it.",
+   "line": 3
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2026-06-30.md",
+ "sha": "41e7291c9fd0c05080c0f9f32bcd5159e23d74af304cd837bcddc68546ba11ea",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

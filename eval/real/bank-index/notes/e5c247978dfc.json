@@ -1,0 +1,119 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "raj-patel",
+   "type": "person",
+   "label": "team",
+   "as": [
+    "Raj Patel's team"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "2025-h1-reanalysis",
+   "type": "other",
+   "label": "reanalysis",
+   "as": [
+    "2025 H1 reanalysis"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "60-day-roll-rate",
+   "type": "metric",
+   "label": "roll rate",
+   "as": [
+    "60-day roll rate",
+    "roll rate per 100 open cases"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "closed-in-full-cases",
+   "type": "segment",
+   "label": "closed-in-full cases",
+   "as": [
+    "closed-in-full cases",
+    "cases that closed in full"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "censoring-at-close",
+   "type": "term",
+   "label": "censoring",
+   "as": [
+    "censored at close date",
+    "censoring them at close"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "raj-patel",
+   "type": "produces",
+   "label": "reran",
+   "o": "2025-h1-reanalysis",
+   "quote": "Raj Patel's team reran the analysis",
+   "line": 6
+  },
+  {
+   "s": "2025-h1-reanalysis",
+   "type": "uses",
+   "label": "censored closed-in-full cases at close date",
+   "o": "censoring-at-close",
+   "quote": "closed-in-full cases censored at close date",
+   "line": 6
+  },
+  {
+   "s": "2025-h1-reanalysis",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "60-day-roll-rate",
+   "quote": "The roll rate per 100 open cases is the figure reported.",
+   "line": 6
+  },
+  {
+   "s": "closed-in-full-cases",
+   "type": "other",
+   "label": "inflated",
+   "o": "60-day-roll-rate",
+   "quote": "Dropping cases that closed in full had inflated it",
+   "line": 5
+  },
+  {
+   "s": "censoring-at-close",
+   "type": "other",
+   "label": "corrects",
+   "o": "60-day-roll-rate",
+   "quote": "censoring them at close corrects it",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "howto/collections-survival-censoring"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/collections-censor-rate.md",
+ "sha": "e5c247978dfc54e27ff7a3cc844528cb91e177b606c1cdf7eabd7963fcf3738f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

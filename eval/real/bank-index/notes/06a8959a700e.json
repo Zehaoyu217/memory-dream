@@ -1,0 +1,176 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-405",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-405"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-ror-value-band-v1",
+   "type": "feature",
+   "label": "draft value band",
+   "as": [
+    "Draft value band"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "bureau.scores_monthly"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "expected-credit-loss",
+   "type": "term",
+   "label": "concept",
+   "as": [
+    "expected credit loss"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "roi",
+   "type": "metric",
+   "label": "roi",
+   "as": [
+    "ROI"
+   ],
+   "lines": [
+    2,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "cashback-t2",
+   "type": "other",
+   "label": "offer tier",
+   "as": [
+    "T2 cashback"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fee-waiver-t1",
+   "type": "other",
+   "label": "offer tier",
+   "as": [
+    "T1 fee waiver"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "apr-cut",
+   "type": "other",
+   "label": "offer tier",
+   "as": [
+    "APR cut"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "statement-credit-t4",
+   "type": "other",
+   "label": "offer tier",
+   "as": [
+    "T4 statement credit"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-405",
+   "type": "measured-by",
+   "label": "reports ROI by tier",
+   "o": "roi",
+   "quote": "ROI by tier: T2 cashback 1.09x",
+   "line": 7
+  },
+  {
+   "s": "feat-ror-value-band-v1",
+   "type": "uses",
+   "label": "nets from bureau PD bands",
+   "o": "bureau.scores_monthly",
+   "quote": "nets expected credit loss from the bureau PD bands in bureau.scores_monthly",
+   "line": 6
+  },
+  {
+   "s": "feat-ror-value-band-v1",
+   "type": "uses",
+   "label": "nets expected credit loss",
+   "o": "expected-credit-loss",
+   "quote": "nets expected credit loss from the bureau PD bands",
+   "line": 6
+  },
+  {
+   "s": "cashback-t2",
+   "type": "measured-by",
+   "label": "ROI 1.09x",
+   "o": "roi",
+   "quote": "T2 cashback 1.09x",
+   "line": 7
+  },
+  {
+   "s": "fee-waiver-t1",
+   "type": "measured-by",
+   "label": "ROI 1.02x",
+   "o": "roi",
+   "quote": "T1 fee waiver 1.02x",
+   "line": 7
+  },
+  {
+   "s": "apr-cut",
+   "type": "measured-by",
+   "label": "ROI 0.74x",
+   "o": "roi",
+   "quote": "T3 APR cut 0.74x",
+   "line": 7
+  },
+  {
+   "s": "statement-credit-t4",
+   "type": "measured-by",
+   "label": "ROI 0.96x",
+   "o": "roi",
+   "quote": "T4 statement credit 0.96x",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-ror-cashback-roi",
+  "feat-ror-value-band-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "retention-offers-roi/exp-405.md",
+ "sha": "06a8959a700ec170d8a08aadc9d36b1a38e3c93eb826460760487d9b89d62c27",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

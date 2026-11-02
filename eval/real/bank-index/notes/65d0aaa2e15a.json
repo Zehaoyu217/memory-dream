@@ -1,0 +1,91 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-clv-arpu-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-clv-arpu-v2",
+    "six-month revenue net of offer credits, seasonally adjusted"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-clv-arpu-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-clv-arpu-v1"
+   ],
+   "lines": [
+    2,
+    4,
+    9
+   ]
+  },
+  {
+   "id": "fnd-clv-offer-cost",
+   "type": "other",
+   "label": "offer cost note",
+   "as": [
+    "fnd-clv-offer-cost"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "clv-ml-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "clv-ml-v2"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-clv-arpu-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "feat-clv-arpu-v1",
+   "quote": "replaces feat-clv-arpu-v1",
+   "line": 9
+  },
+  {
+   "s": "feat-clv-arpu-v2",
+   "type": "uses",
+   "label": "derived-from",
+   "o": "fnd-clv-offer-cost",
+   "quote": "from: [feat-clv-arpu-v1, fnd-clv-offer-cost]",
+   "line": 2
+  },
+  {
+   "s": "feat-clv-arpu-v2",
+   "type": "uses",
+   "label": "used in",
+   "o": "clv-ml-v2",
+   "quote": "Used in clv-ml-v2",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "feat-clv-arpu-v1",
+  "fnd-clv-offer-cost",
+  "customer-lifetime-value/feat-clv-arpu-v2.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "customer-lifetime-value/feat-clv-arpu-v2.md",
+ "sha": "65d0aaa2e15a07d400c178235f022340c1324d1d4abb13083ec9bbb124ccf7d8",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

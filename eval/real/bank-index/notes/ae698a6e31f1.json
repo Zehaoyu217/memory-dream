@@ -1,0 +1,68 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-f25-device-age",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-f25-device-age"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fraud25-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fraud25-gbm-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "psi",
+   "as": [
+    "PSI"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud25-gbm-v1",
+   "type": "uses",
+   "label": "used from",
+   "o": "feat-f25-device-age",
+   "quote": "Used from fraud25-gbm-v1 onward.",
+   "line": 7
+  },
+  {
+   "s": "feat-f25-device-age",
+   "type": "measured-by",
+   "label": "PSI rose to",
+   "o": "psi",
+   "quote": "Its PSI rose to 0.19 between June and October 2025",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-f25-txn-2024-2025",
+  "fraud25-find-device-drift"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/feat-f25-device-age.md",
+ "sha": "ae698a6e31f156bc6ec0095ed9e20551298c00832dc6e289a5a24849862db7a5",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

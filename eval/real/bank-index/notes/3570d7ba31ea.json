@@ -1,0 +1,108 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-sfc-q4-reconciled",
+   "type": "document",
+   "label": "finding note",
+   "as": [
+    "After MinT reconciliation the Q4 bias is -0.4%, so the low forecast was a reconciliation problem"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fnd-sfc-q4-low-bias",
+   "type": "document",
+   "label": "earlier finding",
+   "as": [
+    "The earlier -3.1% was largely segments being forecast independently, not a seasonal miss."
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-207",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-207"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "sfc-oot-2025h2",
+   "type": "dataset",
+   "label": "evaluation dataset",
+   "as": [
+    "sfc-oot-2025h2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "sfc-hier-v3",
+   "type": "model",
+   "label": "production model",
+   "as": [
+    "sfc-hier-v3 is the production model on this basis."
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fnd-sfc-q4-reconciled",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "fnd-sfc-q4-low-bias",
+   "quote": "supersedes: [fnd-sfc-q4-low-bias]",
+   "line": 3
+  },
+  {
+   "s": "fnd-sfc-q4-reconciled",
+   "type": "other",
+   "label": "from",
+   "o": "exp-207",
+   "quote": "from: [fnd-sfc-q4-low-bias, exp-207]",
+   "line": 2
+  },
+  {
+   "s": "fnd-sfc-q4-reconciled",
+   "type": "evaluated-on",
+   "label": "reconciling on",
+   "o": "sfc-oot-2025h2",
+   "quote": "Reconciling the six segments with the total brings Nov-Dec bias to -0.4% on sfc-oot-2025h2 (exp-207).",
+   "line": 7
+  },
+  {
+   "s": "sfc-hier-v3",
+   "type": "other",
+   "label": "production basis",
+   "o": "fnd-sfc-q4-reconciled",
+   "quote": "sfc-hier-v3 is the production model on this basis.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "spend-forecasting/fnd-sfc-q4-reconciled.md",
+  "fnd-sfc-q4-low-bias",
+  "exp-207"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "spend-forecasting/fnd-sfc-q4-reconciled.md",
+ "sha": "3570d7ba31ead62f1292077cc2e423a053cf078bffbce3ce534573df93749ae5",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

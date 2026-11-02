@@ -1,0 +1,136 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-rs-drop-region",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: drop feat-rs-region-rate from all recovery-scoring models"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-rs-region-rate",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rs-region-rate"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "rs-xgb-v2",
+   "type": "model",
+   "label": "build",
+   "as": [
+    "rs-xgb-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "rs-xgb-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rs-xgb-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "agreed by",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "omar-haddad",
+   "type": "person",
+   "label": "agreed by",
+   "as": [
+    "Omar Haddad"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "cost",
+   "as": [
+    "Gini"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rs-xgb-v2",
+   "type": "other",
+   "label": "removed from",
+   "o": "feat-rs-region-rate",
+   "quote": "Removed from the rs-xgb-v2 build",
+   "line": 7
+  },
+  {
+   "s": "rs-xgb-v3",
+   "type": "other",
+   "label": "excluded from",
+   "o": "feat-rs-region-rate",
+   "quote": "excluded from rs-xgb-v3",
+   "line": 7
+  },
+  {
+   "s": "dec-rs-drop-region",
+   "type": "owned-by",
+   "label": "agreed by",
+   "o": "lena-fischer",
+   "quote": "Agreed 2025-05-22 by Lena Fischer and Omar Haddad.",
+   "line": 6
+  },
+  {
+   "s": "dec-rs-drop-region",
+   "type": "owned-by",
+   "label": "agreed by",
+   "o": "omar-haddad",
+   "quote": "Agreed 2025-05-22 by Lena Fischer and Omar Haddad.",
+   "line": 6
+  },
+  {
+   "s": "dec-rs-drop-region",
+   "type": "measured-by",
+   "label": "cost measured in",
+   "o": "gini",
+   "quote": "The Gini cost of 0.02 is accepted.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "find-rs-region-proxy",
+  "exp-304"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "recovery-scoring/dec-rs-drop-region.md",
+ "sha": "56db5e9e842db0f701b85d3071bd0fac01ede4b537c833aa632a3bcbb83da540",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

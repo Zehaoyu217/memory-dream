@@ -1,0 +1,67 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "nps_txn90",
+   "type": "feature",
+   "label": "feature name",
+   "as": [
+    "nps_txn90"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "nps_txn_chg60",
+   "type": "feature",
+   "label": "feature name",
+   "as": [
+    "nps_txn_chg60"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "nps_txn90",
+   "type": "uses",
+   "label": "counts from",
+   "o": "cards.txn_daily",
+   "quote": "Counts from `cards.txn_daily` up to send_date.",
+   "line": 6
+  },
+  {
+   "s": "nps_txn_chg60",
+   "type": "uses",
+   "label": "counts from",
+   "o": "cards.txn_daily",
+   "quote": "Counts from `cards.txn_daily` up to send_date.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-nps-behaviour-join"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "nps-drivers/feat-nps-txn-freq-v1.md",
+ "sha": "80fe6959eae2245e60f92e4aa6b4e8eca6ddd34dcfa97c127f6546b48654e039",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

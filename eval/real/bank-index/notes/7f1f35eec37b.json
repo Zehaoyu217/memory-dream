@@ -1,0 +1,102 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "retention-model",
+   "type": "model",
+   "label": "retention model",
+   "as": [
+    "The retention model"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "2025q4 holdout"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "recall-at-10",
+   "type": "metric",
+   "label": "recall@10",
+   "as": [
+    "recall@10"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "retention-q4-deck",
+   "type": "document",
+   "label": "deck",
+   "as": [
+    "the deck"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "alex-chen",
+   "type": "person",
+   "label": "alex chen",
+   "as": [
+    "Alex Chen"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "retention-model",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q4",
+   "quote": "The retention model on the 2025q4 holdout",
+   "line": 6
+  },
+  {
+   "s": "retention-model",
+   "type": "measured-by",
+   "label": "shows recall@10",
+   "o": "recall-at-10",
+   "quote": "shows recall@10 of 0.37 in the deck and 0.41 in the notebook",
+   "line": 6
+  },
+  {
+   "s": "retention-q4-deck",
+   "type": "owned-by",
+   "label": "agreed with",
+   "o": "alex-chen",
+   "quote": "Agreed with Alex Chen on 2026-03-03 that the deck will be regenerated on the scored population",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "reports/retention_q4_deck.pptx",
+  "notebooks/recall_check.ipynb",
+  "howto/recall-at-k-definition"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/recall10-deck-vs-notebook.md",
+ "sha": "7f1f35eec37bf61867f41ea5bc54cef89684df414b927997e21aa0232dd90fef",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

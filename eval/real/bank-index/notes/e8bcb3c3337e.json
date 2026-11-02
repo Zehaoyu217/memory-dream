@@ -1,0 +1,73 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "in-app",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "in-app"
+   ],
+   "lines": [
+    6,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "return-per-dollar",
+   "type": "metric",
+   "label": "return per dollar",
+   "as": [
+    "14.2 per dollar",
+    "4.8 per dollar"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "two-touch-cap",
+   "type": "policy",
+   "label": "touch cap",
+   "as": [
+    "two-touch cap"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "in-app",
+   "type": "measured-by",
+   "label": "returns",
+   "o": "return-per-dollar",
+   "quote": "one or two touches return 14.2 per dollar; three or more return 4.8 per dollar",
+   "line": 7
+  },
+  {
+   "s": "in-app",
+   "type": "other",
+   "label": "led to cap",
+   "o": "two-touch-cap",
+   "quote": "Led to the two-touch cap in dec-mq3-cap-inapp.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "find-mq3-inapp-best",
+  "exp-304-channel-split",
+  "dec-mq3-cap-inapp"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "marketing-uplift-q3/find-mq3-inapp-saturates.md",
+ "sha": "e8bcb3c3337ef7b56e29a19564e40e92aebf62c255c1b1083977aaa21630bcd8",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

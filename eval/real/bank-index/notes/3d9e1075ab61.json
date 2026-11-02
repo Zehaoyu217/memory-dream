@@ -1,0 +1,76 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ch-prior-contact-v1",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "feat-ch-prior-contact-v1 counts contacts in the last 30 days by channel for the channel-choice model"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-ch-contact-costs",
+   "type": "person",
+   "label": "author",
+   "as": [
+    "[ds-ch-contact-costs]"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`callcenter.calls`"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "sms-delivery-log",
+   "type": "dataset",
+   "label": "source log",
+   "as": [
+    "the SMS delivery log"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ch-prior-contact-v1",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "callcenter.calls",
+   "quote": "Source: `callcenter.calls` and the SMS delivery log.",
+   "line": 7
+  },
+  {
+   "s": "feat-ch-prior-contact-v1",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "sms-delivery-log",
+   "quote": "Source: `callcenter.calls` and the SMS delivery log.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-channel-mix/feat-ch-prior-contact-v1.md",
+ "sha": "3d9e1075ab6117f325ca400bfa7ae6018815bb85c9f61d6b0933206a3101c364",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

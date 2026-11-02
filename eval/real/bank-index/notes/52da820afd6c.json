@@ -1,0 +1,115 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`bureau.scores_monthly`",
+    "bureau.scores_monthly"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "credit-data",
+   "type": "other",
+   "label": "source",
+   "as": [
+    "credit-data"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "coverage",
+   "type": "metric",
+   "label": "coverage",
+   "as": [
+    "Coverage 88%",
+    "88% coverage"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "segment-median",
+   "type": "metric",
+   "label": "median",
+   "as": [
+    "segment median"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "charge-off",
+   "type": "term",
+   "label": "charge-off",
+   "as": [
+    "charge-off"
+   ],
+   "lines": [
+    5,
+    6,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "placement",
+   "type": "term",
+   "label": "placement",
+   "as": [
+    "placement"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bureau.scores_monthly",
+   "type": "part-of",
+   "label": "in",
+   "o": "credit-data",
+   "quote": "`bureau.scores_monthly` (credit-data)",
+   "line": 6
+  },
+  {
+   "s": "bureau.scores_monthly",
+   "type": "measured-by",
+   "label": "has coverage",
+   "o": "coverage",
+   "quote": "Coverage 88%",
+   "line": 7
+  },
+  {
+   "s": "bureau.scores_monthly",
+   "type": "other",
+   "label": "available at",
+   "o": "placement",
+   "quote": "are available at placement",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-rs-chargeoff-base"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "recovery-scoring/ds-rs-bureau-postco.md",
+ "sha": "52da820afd6c8c5a503f300d51c8de42affc68bdffef18bd1b32215ff8dc165c",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

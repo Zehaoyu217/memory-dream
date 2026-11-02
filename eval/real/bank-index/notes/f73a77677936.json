@@ -1,0 +1,81 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "drift metric",
+   "as": [
+    "PSI"
+   ],
+   "lines": [
+    3,
+    5,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "cli-glm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cli-glm-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cli-util-ratio",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "cli_util_ratio"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "monthly-review-psi-trigger-v2",
+   "type": "document",
+   "label": "rule note",
+   "as": [
+    "Credit-line models trigger a drift review at PSI above 0.20; other models keep 0.25"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cli-glm-v2",
+   "type": "measured-by",
+   "label": "drifted to",
+   "o": "psi",
+   "quote": "`cli-glm-v2` drifted to PSI 0.22 on `cli_util_ratio` in 2026-04",
+   "line": 8
+  },
+  {
+   "s": "cli-util-ratio",
+   "type": "part-of",
+   "label": "drifted on",
+   "o": "cli-glm-v2",
+   "quote": "`cli-glm-v2` drifted to PSI 0.22 on `cli_util_ratio` in 2026-04",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "reporting/monthly-review-psi-trigger"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/monthly-review-psi-trigger-v2.md",
+ "sha": "f73a776779366b35d4868c4178b84fabaf794eccd2fce0ffc9a0376b7eb0448b",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,106 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-bt-bureau-delta",
+   "type": "feature",
+   "label": "six-month change",
+   "as": [
+    "feat-bt-bureau-delta",
+    "six-month change in bureau score"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`bureau.scores_monthly`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bt-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bt-xgb-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "bt-xgb-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bt-xgb-v3"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "bt-acceptance",
+   "type": "metric",
+   "label": "acceptance",
+   "as": [
+    "acceptance"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-bt-bureau-delta",
+   "type": "uses",
+   "label": "from",
+   "o": "bureau.scores_monthly",
+   "quote": "from `bureau.scores_monthly`",
+   "line": 6
+  },
+  {
+   "s": "bt-xgb-v2",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-bt-bureau-delta",
+   "quote": "Used in bt-xgb-v2 and bt-xgb-v3.",
+   "line": 8
+  },
+  {
+   "s": "bt-xgb-v3",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-bt-bureau-delta",
+   "quote": "Used in bt-xgb-v2 and bt-xgb-v3.",
+   "line": 8
+  },
+  {
+   "s": "feat-bt-bureau-delta",
+   "type": "other",
+   "label": "goes with higher",
+   "o": "bt-acceptance",
+   "quote": "Score drops of 20 points or more go with higher acceptance",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-bt-bureau-join"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "balance-transfer-propensity/feat-bt-bureau-delta.md",
+ "sha": "337e37903a6c056e9ee6be84b0b87674f2445fd3cac15759e9da4e7ab1de443e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

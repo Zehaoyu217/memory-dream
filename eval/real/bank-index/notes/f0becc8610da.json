@@ -1,0 +1,130 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "credit risk approver",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "daniel-okafor",
+   "type": "person",
+   "label": "fraud approver",
+   "as": [
+    "Daniel Okafor"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "aisha-khan",
+   "type": "person",
+   "label": "registry check owner",
+   "as": [
+    "Aisha Khan"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "credit-model",
+   "type": "other",
+   "label": "credit model",
+   "as": [
+    "credit model"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "fraud-model",
+   "type": "other",
+   "label": "fraud model",
+   "as": [
+    "fraud model"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "review-log",
+   "type": "document",
+   "label": "review log",
+   "as": [
+    "review log"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "sign-off",
+   "type": "other",
+   "label": "sign-off",
+   "as": [
+    "sign-off"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "credit-model",
+   "type": "owned-by",
+   "label": "signs off",
+   "o": "lena-fischer",
+   "quote": "Lena Fischer signs off every credit model's monthly review",
+   "line": 5
+  },
+  {
+   "s": "fraud-model",
+   "type": "owned-by",
+   "label": "signs off",
+   "o": "daniel-okafor",
+   "quote": "Daniel Okafor signs every fraud model's.",
+   "line": 5
+  },
+  {
+   "s": "sign-off",
+   "type": "part-of",
+   "label": "dated line in",
+   "o": "review-log",
+   "quote": "A sign-off is a dated line in the review log",
+   "line": 7
+  },
+  {
+   "s": "credit-model",
+   "type": "other",
+   "label": "registration confirmed by",
+   "o": "aisha-khan",
+   "quote": "No review is closed until the model's id is confirmed as registered by Aisha Khan's registry check.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/monthly-model-review-sign-off.md",
+ "sha": "f0becc8610da97693e47f3f6264f73d35783f17992d5eb5059835c6e61393866",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

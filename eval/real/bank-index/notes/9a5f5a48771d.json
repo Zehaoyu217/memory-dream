@@ -1,0 +1,96 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "dispute-link-v1",
+   "type": "feature",
+   "label": "dispute link v1",
+   "as": [
+    "Dispute link v1",
+    "dispute link v1 count and flag"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "cc-logreg-v1",
+   "type": "model",
+   "label": "logistic model",
+   "as": [
+    "same logistic model",
+    "the logistic model"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro f1",
+   "as": [
+    "macro F1 0.74 to 0.88",
+    "Macro F1 0.88",
+    "0.74 without"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cc-logreg-v1",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "holdout-2025q4",
+   "quote": "n = 1,800 tickets, holdout-2025q4",
+   "line": 7
+  },
+  {
+   "s": "cc-logreg-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "macro-f1",
+   "quote": "Macro F1 0.88 with the link against 0.74 without",
+   "line": 7
+  },
+  {
+   "s": "dispute-link-v1",
+   "type": "uses",
+   "label": "added to",
+   "o": "cc-logreg-v1",
+   "quote": "Dispute link v1 added to the logistic model",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "feat-cc-dispute-link-v1",
+  "cc-logreg-v1",
+  "fnd-cc-dispute-link-helps"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "complaint-classification/exp-202.md",
+ "sha": "9a5f5a48771d60b103ff66d0ba60c447f961eddf243b0d0e34b04b6b5d90138e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

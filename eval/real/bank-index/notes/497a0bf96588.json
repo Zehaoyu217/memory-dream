@@ -1,0 +1,70 @@
+{
+ "kind": "plan",
+ "entities": [
+  {
+   "id": "cr-pilot",
+   "type": "other",
+   "label": "pilot",
+   "as": [
+    "Pilot the router"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "blind-transfer-rate",
+   "type": "metric",
+   "label": "blind-transfer rate",
+   "as": [
+    "blind-transfer rate"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fcr",
+   "type": "metric",
+   "label": "fcr",
+   "as": [
+    "FCR"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cr-pilot",
+   "type": "measured-by",
+   "label": "success measured by",
+   "o": "blind-transfer-rate",
+   "quote": "Success: blind-transfer rate at or below 15 percent",
+   "line": 7
+  },
+  {
+   "s": "cr-pilot",
+   "type": "measured-by",
+   "label": "success measured by",
+   "o": "fcr",
+   "quote": "FCR at or above 70.5 percent",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "cr-lgbm-v3",
+  "dec-cr-cost-matrix",
+  "q-cr-blind-transfers"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/dec-cr-pilot.md",
+ "sha": "497a0bf9658827496d0289df7868a8467d8b9ef14eccccd3e5e35f47acc86f3b",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

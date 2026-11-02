@@ -1,0 +1,135 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "feat-fsm-payment-lag-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-fsm-payment-lag-v2",
+    "payment lag with timestamps in UTC"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-fsm-payment-lag-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-fsm-payment-lag-v1",
+    "v1"
+   ],
+   "lines": [
+    2,
+    4,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "exp-102",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-102"
+   ],
+   "lines": [
+    2,
+    8
+   ]
+  },
+  {
+   "id": "exp-101",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-101"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fsm_parity_sample_2025h2",
+   "type": "dataset",
+   "label": "parity sample",
+   "as": [
+    "fsm_parity_sample_2025h2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fsm-churn-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fsm-churn-xgb-v2"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "fsm-spend-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fsm-spend-lgbm-v2"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-fsm-payment-lag-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "feat-fsm-payment-lag-v1",
+   "quote": "supersedes: [feat-fsm-payment-lag-v1]",
+   "line": 4
+  },
+  {
+   "s": "feat-fsm-payment-lag-v2",
+   "type": "derived-from",
+   "label": "from",
+   "o": "exp-102",
+   "quote": "from: [feat-fsm-payment-lag-v1, exp-102]",
+   "line": 2
+  },
+  {
+   "s": "fsm-churn-xgb-v2",
+   "type": "uses",
+   "label": "reads v2 only",
+   "o": "feat-fsm-payment-lag-v2",
+   "quote": "fsm-churn-xgb-v2 and fsm-spend-lgbm-v2 read v2 only.",
+   "line": 9
+  },
+  {
+   "s": "fsm-spend-lgbm-v2",
+   "type": "uses",
+   "label": "reads v2 only",
+   "o": "feat-fsm-payment-lag-v2",
+   "quote": "fsm-churn-xgb-v2 and fsm-spend-lgbm-v2 read v2 only.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "feat-fsm-payment-lag-v1",
+  "exp-102",
+  "exp-101"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "feature-store-migration/feat-fsm-payment-lag-v2.md",
+ "sha": "fe73c00ce33b6a16c86f536f7f75feb644ff71c43a286513fd9e8a55a4c76fd1",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

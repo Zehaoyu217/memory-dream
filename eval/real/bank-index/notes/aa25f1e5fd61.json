@@ -1,0 +1,265 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "pbs-gmm-v3",
+   "type": "model",
+   "label": "segment model",
+   "as": [
+    "pbs-gmm-v3"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "pbs-gmm-v2",
+   "type": "model",
+   "label": "earlier model",
+   "as": [
+    "pbs-gmm-v2"
+   ],
+   "lines": [
+    2,
+    3,
+    7
+   ]
+  },
+  {
+   "id": "feat-pbs-timing-v2",
+   "type": "feature",
+   "label": "input feature",
+   "as": [
+    "feat-pbs-timing-v2"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "exp-403",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-403"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "ds-pbs-frame-h1-2025",
+   "type": "document",
+   "label": "frame",
+   "as": [
+    "ds-pbs-frame-h1-2025"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ari",
+   "type": "metric",
+   "label": "ari",
+   "as": [
+    "ARI"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "silhouette",
+   "type": "metric",
+   "label": "silhouette",
+   "as": [
+    "silhouette"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "transactors",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "transactor"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "revolvers",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "revolver"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "minimum-payer",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "minimum-payer"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "cash-heavy",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "cash-heavy"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "dormant",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "dormant"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "dec-pbs-monthly-refresh",
+   "type": "pipeline",
+   "label": "monthly refresh",
+   "as": [
+    "dec-pbs-monthly-refresh"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "pbs-gmm-v3",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "pbs-gmm-v2",
+   "quote": "supersedes: [pbs-gmm-v2]",
+   "line": 3
+  },
+  {
+   "s": "pbs-gmm-v3",
+   "type": "uses",
+   "label": "on inputs plus",
+   "o": "feat-pbs-timing-v2",
+   "quote": "on the pbs-gmm-v2 inputs plus feat-pbs-timing-v2",
+   "line": 7
+  },
+  {
+   "s": "pbs-gmm-v3",
+   "type": "uses",
+   "label": "derived from",
+   "o": "exp-403",
+   "quote": "from: [pbs-gmm-v2, feat-pbs-timing-v2, exp-403]",
+   "line": 2
+  },
+  {
+   "s": "pbs-gmm-v3",
+   "type": "measured-by",
+   "label": "seed-to-seed ARI",
+   "o": "ari",
+   "quote": "Seed-to-seed ARI 0.81",
+   "line": 8
+  },
+  {
+   "s": "pbs-gmm-v3",
+   "type": "measured-by",
+   "label": "silhouette",
+   "o": "silhouette",
+   "quote": "silhouette 0.42 on the 200k sample",
+   "line": 8
+  },
+  {
+   "s": "pbs-gmm-v3",
+   "type": "evaluated-on",
+   "label": "sample of",
+   "o": "ds-pbs-frame-h1-2025",
+   "quote": "on the 200k sample of ds-pbs-frame-h1-2025",
+   "line": 8
+  },
+  {
+   "s": "pbs-gmm-v3",
+   "type": "produces",
+   "label": "segments",
+   "o": "transactors",
+   "quote": "Segments: transactor, revolver, minimum-payer, cash-heavy, dormant.",
+   "line": 9
+  },
+  {
+   "s": "pbs-gmm-v3",
+   "type": "produces",
+   "label": "segments",
+   "o": "revolvers",
+   "quote": "Segments: transactor, revolver, minimum-payer, cash-heavy, dormant.",
+   "line": 9
+  },
+  {
+   "s": "pbs-gmm-v3",
+   "type": "produces",
+   "label": "segments",
+   "o": "minimum-payer",
+   "quote": "Segments: transactor, revolver, minimum-payer, cash-heavy, dormant.",
+   "line": 9
+  },
+  {
+   "s": "pbs-gmm-v3",
+   "type": "produces",
+   "label": "segments",
+   "o": "cash-heavy",
+   "quote": "Segments: transactor, revolver, minimum-payer, cash-heavy, dormant.",
+   "line": 9
+  },
+  {
+   "s": "pbs-gmm-v3",
+   "type": "produces",
+   "label": "segments",
+   "o": "dormant",
+   "quote": "Segments: transactor, revolver, minimum-payer, cash-heavy, dormant.",
+   "line": 9
+  },
+  {
+   "s": "pbs-gmm-v3",
+   "type": "other",
+   "label": "refreshed monthly",
+   "o": "dec-pbs-monthly-refresh",
+   "quote": "Refreshed monthly (dec-pbs-monthly-refresh)",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "pbs-gmm-v2",
+  "feat-pbs-timing-v2",
+  "exp-403",
+  "ds-pbs-frame-h1-2025",
+  "dec-pbs-monthly-refresh"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "payment-behavior-segments/pbs-gmm-v3.md",
+ "sha": "aa25f1e5fd6100bcd9ef6cdff1edc74d505439a68ee07e7fdd16e667aa1ee220",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

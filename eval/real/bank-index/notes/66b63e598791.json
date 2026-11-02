@@ -1,0 +1,114 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "complaint-classification",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "complaint-classification"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "dispute-link-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "Dispute link v1"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "logreg",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "logreg"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "nps-drivers",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "nps-drivers"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fee-shock-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "Fee shock v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "post-survey-fees",
+   "type": "feature",
+   "label": "fees",
+   "as": [
+    "post-survey fees"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dispute-link-v1",
+   "type": "other",
+   "label": "scored with",
+   "o": "logreg",
+   "quote": "Dispute link v1 gives logreg 0.88 on holdout",
+   "line": 3
+  },
+  {
+   "s": "dispute-link-v1",
+   "type": "other",
+   "label": "logged under",
+   "o": "complaint-classification",
+   "quote": "[complaint-classification] Dispute link v1 gives logreg 0.88 on holdout",
+   "line": 3
+  },
+  {
+   "s": "fee-shock-v1",
+   "type": "other",
+   "label": "logged under",
+   "o": "nps-drivers",
+   "quote": "[nps-drivers] Fee shock v1 at 0.52 on holdout",
+   "line": 4
+  },
+  {
+   "s": "fee-shock-v1",
+   "type": "other",
+   "label": "leaks from",
+   "o": "post-survey-fees",
+   "quote": "Looks like post-survey fees leaking.",
+   "line": 4
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2026-01-13.md",
+ "sha": "66b63e5987912e21112811c8af26b67f29fa21c4bda104069fc68cdb59d1dc50",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

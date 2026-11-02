@@ -1,0 +1,69 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-xs-payroll-flag-v2",
+   "type": "feature",
+   "label": "flag",
+   "as": [
+    "feat-xs-payroll-flag-v2",
+    "recurring payroll-like deposit detected in the last 90 days"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.payments_daily"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "xs-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "xs-gbm-v2"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-xs-payroll-flag-v2",
+   "type": "uses",
+   "label": "detected from",
+   "o": "cards.payments_daily",
+   "quote": "detected from `cards.payments_daily` by pattern matching",
+   "line": 7
+  },
+  {
+   "s": "xs-gbm-v2",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-xs-payroll-flag-v2",
+   "quote": "Used in xs-gbm-v2.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "ds-xs-offer-log",
+  "feat-xs-balance-proxy"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cross-sell-savings/feat-xs-payroll-flag-v2.md",
+ "sha": "679bec8bfe176b11da8537c71711e10cf73148e905b88c90bd6647480a470201",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

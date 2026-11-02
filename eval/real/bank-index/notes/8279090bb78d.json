@@ -1,0 +1,111 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-304",
+   "type": "other",
+   "label": "experiment note",
+   "as": [
+    "exp-304: same-weekday baseline cuts volume alarms from 41 to 7 over 2025-H1 (6.8 to 1.2 per month)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "same-weekday-baseline",
+   "type": "term",
+   "label": "baseline",
+   "as": [
+    "same-weekday baseline"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "all-weekday-baseline",
+   "type": "term",
+   "label": "baseline",
+   "as": [
+    "All-weekday baseline"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "volume-alarms",
+   "type": "metric",
+   "label": "alarm count",
+   "as": [
+    "volume alarms",
+    "41 alarms",
+    "7 alarms"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "feat-dq-rowcount-z-v1",
+   "type": "feature",
+   "label": "z-score feature",
+   "as": [
+    "the z-score"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-304",
+   "type": "measured-by",
+   "label": "cuts alarms",
+   "o": "volume-alarms",
+   "quote": "same-weekday baseline cuts volume alarms from 41 to 7",
+   "line": 5
+  },
+  {
+   "s": "same-weekday-baseline",
+   "type": "measured-by",
+   "label": "alarms per month",
+   "o": "volume-alarms",
+   "quote": "Same-weekday baseline: 7 alarms, 1.2 per month",
+   "line": 7
+  },
+  {
+   "s": "all-weekday-baseline",
+   "type": "measured-by",
+   "label": "alarms per month",
+   "o": "volume-alarms",
+   "quote": "All-weekday baseline: 41 alarms, 6.8 per month",
+   "line": 7
+  },
+  {
+   "s": "exp-304",
+   "type": "uses",
+   "label": "replayed z-score",
+   "o": "feat-dq-rowcount-z-v1",
+   "quote": "Replayed the z-score over the 181 days of 2025-H1",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "data-quality-txn/exp-304.md",
+  "feat-dq-rowcount-z-v1",
+  "ds-dq-txn-daily"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "data-quality-txn/exp-304.md",
+ "sha": "8279090bb78dc2e19bb04b83a5cc7174b213d2e34b7a3f056b977a92a1d7c98f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

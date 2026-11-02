@@ -1,0 +1,122 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-mrisk-dispute-ratio",
+   "type": "feature",
+   "label": "dispute ratio",
+   "as": [
+    "feat-mrisk-dispute-ratio: merchant dispute ratio borrowed from dispute-triage",
+    "Dispute ratio per merchant from dispute-triage/ds-disp-merchant-link (90-day disputes over transactions)."
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "ds-disp-merchant-link",
+   "type": "other",
+   "label": "source feed",
+   "as": [
+    "dispute-triage/ds-disp-merchant-link"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "mrisk-oot-2026h1",
+   "type": "dataset",
+   "label": "out-of-time eval set",
+   "as": [
+    "mrisk-oot-2026h1 AUC from 0.86 to 0.91"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC from 0.86 to 0.91"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "mrisk-gbm-v3",
+   "type": "model",
+   "label": "model v3",
+   "as": [
+    "Used in mrisk-gbm-v3 only after dec-mrisk-dispute-feature."
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "dec-mrisk-dispute-feature",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "only after dec-mrisk-dispute-feature"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-mrisk-dispute-ratio",
+   "type": "uses",
+   "label": "computed from",
+   "o": "ds-disp-merchant-link",
+   "quote": "Dispute ratio per merchant from dispute-triage/ds-disp-merchant-link",
+   "line": 6
+  },
+  {
+   "s": "feat-mrisk-dispute-ratio",
+   "type": "measured-by",
+   "label": "lifts AUC on",
+   "o": "auc",
+   "quote": "Lifts mrisk-oot-2026h1 AUC from 0.86 to 0.91",
+   "line": 7
+  },
+  {
+   "s": "feat-mrisk-dispute-ratio",
+   "type": "evaluated-on",
+   "label": "lifts AUC on",
+   "o": "mrisk-oot-2026h1",
+   "quote": "Lifts mrisk-oot-2026h1 AUC from 0.86 to 0.91 when added to v2 (exp-507).",
+   "line": 7
+  },
+  {
+   "s": "mrisk-gbm-v3",
+   "type": "uses",
+   "label": "used only after",
+   "o": "feat-mrisk-dispute-ratio",
+   "quote": "Used in mrisk-gbm-v3 only after dec-mrisk-dispute-feature.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "merchant-risk/feat-mrisk-dispute-ratio.md",
+  "dispute-triage/ds-disp-merchant-link",
+  "exp-507",
+  "dec-mrisk-dispute-feature"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "merchant-risk/feat-mrisk-dispute-ratio.md",
+ "sha": "63d9f9695da6d67653d8574d0a181f4a67e32db5cf26a9e9ce4179ded2d2150d",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

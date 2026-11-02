@@ -1,0 +1,204 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "logistic-regression",
+   "type": "term",
+   "label": "logistic regression",
+   "as": [
+    "Logistic-fitted weights",
+    "logistic regression on ae_act28 and depth v2"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "exp-505",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "Logistic-fitted weights on active days and depth v2, no push"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ae-act28",
+   "type": "feature",
+   "label": "active days feature",
+   "as": [
+    "ae_act28"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ae-depth-v2",
+   "type": "feature",
+   "label": "depth v2",
+   "as": [
+    "depth v2"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "ae-push",
+   "type": "feature",
+   "label": "push",
+   "as": [
+    "no push",
+    "Push removal"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "training-split",
+   "type": "segment",
+   "label": "training split",
+   "as": [
+    "training split"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.76"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "equal-weight-v1-blend",
+   "type": "model",
+   "label": "equal-weight v1 blend",
+   "as": [
+    "equal-weight v1 blend"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ae-score-v2",
+   "type": "model",
+   "label": "ae-score-v2",
+   "as": [
+    "ae-score-v2"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "logistic-regression",
+   "type": "uses",
+   "label": "logistic regression on",
+   "o": "ae-act28",
+   "quote": "logistic regression on ae_act28 and depth v2",
+   "line": 6
+  },
+  {
+   "s": "logistic-regression",
+   "type": "uses",
+   "label": "logistic regression on",
+   "o": "ae-depth-v2",
+   "quote": "logistic regression on ae_act28 and depth v2",
+   "line": 6
+  },
+  {
+   "s": "logistic-regression",
+   "type": "trained-on",
+   "label": "trained on",
+   "o": "training-split",
+   "quote": "trained on the training split",
+   "line": 6
+  },
+  {
+   "s": "logistic-regression",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "holdout-2025q4",
+   "quote": "scored on holdout-2025q4 (n = 610,000)",
+   "line": 6
+  },
+  {
+   "s": "logistic-regression",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.76, against 0.73 for the equal-weight v1 blend",
+   "line": 7
+  },
+  {
+   "s": "equal-weight-v1-blend",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.76, against 0.73 for the equal-weight v1 blend",
+   "line": 7
+  },
+  {
+   "s": "exp-505",
+   "type": "other",
+   "label": "basis for",
+   "o": "ae-score-v2",
+   "quote": "Basis for ae-score-v2 and dec-ae-score-v2.",
+   "line": 8
+  },
+  {
+   "s": "exp-505",
+   "type": "other",
+   "label": "push removal costs nothing",
+   "o": "ae-push",
+   "quote": "Push removal costs nothing measurable.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-ae-depth-v2",
+  "feat-ae-active-days-v1",
+  "ds-ae-holdout",
+  "exp-502",
+  "ae-score-v2",
+  "dec-ae-score-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "app-engagement/exp-505.md",
+ "sha": "2fbf486a5ce052ddfdee5b8bc0b82e2fb1c7459451516ab81c9299b1d396096d",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

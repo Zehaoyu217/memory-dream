@@ -1,0 +1,154 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "trv-ridge-v2",
+   "type": "model",
+   "label": "ridge regression",
+   "as": [
+    "trv-ridge-v2",
+    "Ridge regression"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "trv-ridge-v3",
+   "type": "model",
+   "label": "newer version",
+   "as": [
+    "trv-ridge-v3"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-trv-cross-border-share",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-trv-cross-border-share"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "feat-trv-seasonality-adj",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-trv-seasonality-adj"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "app-session-counts",
+   "type": "feature",
+   "label": "session counts",
+   "as": [
+    "app session counts"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "trv-bt-2025h1",
+   "type": "dataset",
+   "label": "backtest",
+   "as": [
+    "trv-bt-2025h1"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "trv-ridge-v2",
+   "type": "uses",
+   "label": "ridge on",
+   "o": "app-session-counts",
+   "quote": "Ridge regression on app session counts, feat-trv-cross-border-share and feat-trv-seasonality-adj.",
+   "line": 6
+  },
+  {
+   "s": "trv-ridge-v2",
+   "type": "uses",
+   "label": "ridge on",
+   "o": "feat-trv-cross-border-share",
+   "quote": "Ridge regression on app session counts, feat-trv-cross-border-share and feat-trv-seasonality-adj.",
+   "line": 6
+  },
+  {
+   "s": "trv-ridge-v2",
+   "type": "uses",
+   "label": "ridge on",
+   "o": "feat-trv-seasonality-adj",
+   "quote": "Ridge regression on app session counts, feat-trv-cross-border-share and feat-trv-seasonality-adj.",
+   "line": 6
+  },
+  {
+   "s": "trv-ridge-v2",
+   "type": "evaluated-on",
+   "label": "MAPE on",
+   "o": "trv-bt-2025h1",
+   "quote": "MAPE 5.2% on trv-bt-2025h1 (monthly one-step origins, Jan to Jun 2025)",
+   "line": 7
+  },
+  {
+   "s": "trv-ridge-v2",
+   "type": "measured-by",
+   "label": "MAPE",
+   "o": "mape",
+   "quote": "MAPE 5.2% on trv-bt-2025h1 (monthly one-step origins, Jan to Jun 2025)",
+   "line": 7
+  },
+  {
+   "s": "trv-ridge-v3",
+   "type": "replaces",
+   "label": "superseded",
+   "o": "trv-ridge-v2",
+   "quote": "Superseded by trv-ridge-v3 in May 2026.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "trv-stl-v1",
+  "feat-trv-cross-border-share",
+  "feat-trv-seasonality-adj",
+  "exp-502",
+  "exp-503",
+  "trv-ridge-v3"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "travel-spend-recovery/trv-ridge-v2.md",
+ "sha": "d4358d5c27bbd8390acfc4359096cfc2747d637cdb4e81cbeed29d692c492fe5",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,117 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-mm-util-trend-6m",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mm-util-trend-6m",
+    "change in utilisation over six months"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.limits_history",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.limits_history"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "mm-limit-glm-v1",
+   "type": "model",
+   "label": "limit model",
+   "as": [
+    "mm-limit-glm-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "mm-limit-glm-v2",
+   "type": "model",
+   "label": "limit model",
+   "as": [
+    "mm-limit-glm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dec-mm-seasonal-reference",
+   "type": "other",
+   "label": "seasonal reference",
+   "as": [
+    "dec-mm-seasonal-reference"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "psi",
+   "as": [
+    "PSI"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-mm-util-trend-6m",
+   "type": "uses",
+   "label": "derived from",
+   "o": "cards.limits_history",
+   "quote": "from cards.limits_history",
+   "line": 5
+  },
+  {
+   "s": "mm-limit-glm-v1",
+   "type": "uses",
+   "label": "main input",
+   "o": "feat-mm-util-trend-6m",
+   "quote": "Main input to mm-limit-glm-v1 and mm-limit-glm-v2",
+   "line": 7
+  },
+  {
+   "s": "mm-limit-glm-v2",
+   "type": "uses",
+   "label": "main input",
+   "o": "feat-mm-util-trend-6m",
+   "quote": "Main input to mm-limit-glm-v1 and mm-limit-glm-v2",
+   "line": 7
+  },
+  {
+   "s": "feat-mm-util-trend-6m",
+   "type": "measured-by",
+   "label": "PSI is most seasonal",
+   "o": "psi",
+   "quote": "Its PSI is the most seasonal of the four monitored features",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-mm-seasonal-reference"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "model-monitoring/feat-mm-util-trend-6m.md",
+ "sha": "c7ce203839715be5a4d04026968fd89a64588b5cf272a984a0441ba2bb571983",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

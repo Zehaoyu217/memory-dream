@@ -1,0 +1,169 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-c25-util-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-c25-util-v2: trailing 90-day balance over the time-matched limit, replaces util-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-c25-util-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "replaces util-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fnd-c25-limit-cut-spike",
+   "type": "finding",
+   "label": "finding",
+   "as": [
+    "fnd-c25-limit-cut-spike"
+   ],
+   "lines": [
+    2,
+    8
+   ]
+  },
+  {
+   "id": "ds-c25-accounts-snapshot",
+   "type": "dataset",
+   "label": "accounts snapshot",
+   "as": [
+    "ds-c25-accounts-snapshot"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "cards.limits_history",
+   "type": "dataset",
+   "label": "limits history",
+   "as": [
+    "`cards.limits_history`"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-104",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-104"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "gbm",
+   "type": "model",
+   "label": "gbm",
+   "as": [
+    "GBM"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Tomas Rivera"
+   ],
+   "lines": [
+    10
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-c25-util-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "feat-c25-util-v1",
+   "quote": "supersedes: [feat-c25-util-v1]",
+   "line": 4
+  },
+  {
+   "s": "feat-c25-util-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "cards.limits_history",
+   "quote": "credit limit in force on each statement date (`cards.limits_history`)",
+   "line": 7
+  },
+  {
+   "s": "feat-c25-util-v2",
+   "type": "derived-from",
+   "label": "from",
+   "o": "fnd-c25-limit-cut-spike",
+   "quote": "from: [feat-c25-util-v1, fnd-c25-limit-cut-spike, ds-c25-accounts-snapshot]",
+   "line": 2
+  },
+  {
+   "s": "feat-c25-util-v2",
+   "type": "measured-by",
+   "label": "adds +0.017 AUC",
+   "o": "auc",
+   "quote": "Swapped into the GBM it adds +0.017 AUC (exp-104).",
+   "line": 9
+  },
+  {
+   "s": "feat-c25-util-v2",
+   "type": "uses",
+   "label": "swapped into",
+   "o": "gbm",
+   "quote": "Swapped into the GBM it adds +0.017 AUC (exp-104).",
+   "line": 9
+  },
+  {
+   "s": "feat-c25-util-v2",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "tomas-rivera",
+   "quote": "The time-matched join is owned by Tomas Rivera (data engineering).",
+   "line": 10
+  }
+ ],
+ "refs": [
+  "feat-c25-util-v1",
+  "fnd-c25-limit-cut-spike",
+  "ds-c25-accounts-snapshot",
+  "exp-104"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2025/feat-c25-util-v2.md",
+ "sha": "391257d80d73999aa43a06965b27335d7d050a45ec7ccb00cbd1b2ab16e9b688",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

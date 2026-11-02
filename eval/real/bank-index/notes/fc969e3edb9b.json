@@ -1,0 +1,89 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "cb-intent-v2",
+   "type": "model",
+   "label": "intent classifier",
+   "as": [
+    "cb-intent-v2"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "dec-cb-rollout-60",
+   "type": "other",
+   "label": "rollout decision",
+   "as": [
+    "Expand the bot to 60 percent of account-servicing traffic from 2026-07-01, keeping a 40 percent control for eight weeks"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "containment",
+   "type": "metric",
+   "label": "containment",
+   "as": [
+    "containment does not translate one-for-one into fewer calls"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "control-arm",
+   "type": "segment",
+   "label": "control arm",
+   "as": [
+    "The control arm measures calls directly"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-cb-rollout-60",
+   "type": "uses",
+   "label": "uses",
+   "o": "cb-intent-v2",
+   "quote": "Uses cb-intent-v2 and the v2 handoff rule",
+   "line": 6
+  },
+  {
+   "s": "dec-cb-rollout-60",
+   "type": "measured-by",
+   "label": "measures calls directly",
+   "o": "control-arm",
+   "quote": "The control arm measures calls directly",
+   "line": 7
+  },
+  {
+   "s": "dec-cb-rollout-60",
+   "type": "measured-by",
+   "label": "under containment definition",
+   "o": "containment",
+   "quote": "under the 48-hour containment definition",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fnd-cb-volume-shift",
+  "dec-cb-handoff-v2",
+  "dec-cb-metric-48h"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "chatbot-deflection/dec-cb-rollout-60.md",
+ "sha": "fc969e3edb9b54f5c66e5fa486a527842f859dc0642c156664294d4eb27b7865",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

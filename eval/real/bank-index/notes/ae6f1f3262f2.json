@@ -1,0 +1,124 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "cc-tfidf-v1",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "TF-IDF over complaint text: word 1 to 2 grams (50,000) plus char 3 to 5 grams (100,000)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cc-word12",
+   "type": "feature",
+   "label": "feature name",
+   "as": [
+    "cc_word12"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cc-char35",
+   "type": "feature",
+   "label": "feature name",
+   "as": [
+    "cc_char35"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cc-logreg-v1",
+   "type": "model",
+   "label": "downstream model",
+   "as": [
+    "cc-logreg-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fine-tuned-encoder",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "the fine-tuned encoder"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-cc-tickets-raw",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "ds-cc-tickets-raw"
+   ],
+   "lines": [
+    2
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cc-tfidf-v1",
+   "type": "uses",
+   "label": "fitted on",
+   "o": "ds-cc-tickets-raw",
+   "quote": "fitted on training tickets only",
+   "line": 6
+  },
+  {
+   "s": "cc-word12",
+   "type": "part-of",
+   "label": "feature in",
+   "o": "cc-tfidf-v1",
+   "quote": "Feature names in the repo: cc_word12, cc_char35.",
+   "line": 6
+  },
+  {
+   "s": "cc-char35",
+   "type": "part-of",
+   "label": "feature in",
+   "o": "cc-tfidf-v1",
+   "quote": "Feature names in the repo: cc_word12, cc_char35.",
+   "line": 6
+  },
+  {
+   "s": "cc-logreg-v1",
+   "type": "uses",
+   "label": "takes input",
+   "o": "cc-tfidf-v1",
+   "quote": "Input to cc-logreg-v1.",
+   "line": 7
+  },
+  {
+   "s": "fine-tuned-encoder",
+   "type": "other",
+   "label": "does not use",
+   "o": "cc-tfidf-v1",
+   "quote": "Not used by the fine-tuned encoder, which reads raw text.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-cc-tickets-raw"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "complaint-classification/feat-cc-tfidf-v1.md",
+ "sha": "ae6f1f3262f27077bfd5a21df3f2f3ad88d952f9198452c6a55132b7ce89d215",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

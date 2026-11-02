@@ -1,0 +1,98 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "savings-offer",
+   "type": "other",
+   "label": "offer",
+   "as": [
+    "savings offer"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "top-two-deciles",
+   "type": "segment",
+   "label": "deciles",
+   "as": [
+    "top two deciles"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "top-decile",
+   "type": "segment",
+   "label": "decile",
+   "as": [
+    "Top decile"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "decile-2",
+   "type": "segment",
+   "label": "decile",
+   "as": [
+    "decile 2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "open-rate",
+   "type": "metric",
+   "label": "open rate",
+   "as": [
+    "2.9% overall"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "savings-offer",
+   "type": "other",
+   "label": "targeted to",
+   "o": "top-two-deciles",
+   "quote": "goes only to the top two deciles",
+   "line": 5
+  },
+  {
+   "s": "top-decile",
+   "type": "measured-by",
+   "label": "opens at",
+   "o": "open-rate",
+   "quote": "Top decile opens at 7.8%",
+   "line": 6
+  },
+  {
+   "s": "decile-2",
+   "type": "measured-by",
+   "label": "opens at",
+   "o": "open-rate",
+   "quote": "decile 2 at 5.1%",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-405-top-decile",
+  "xs-gbm-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cross-sell-savings/dec-xs-top-decile-offer.md",
+ "sha": "7af936f0e1fdb63f051c5e63d3926eb34987798b70e3387fa1ebf7394b7e3975",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

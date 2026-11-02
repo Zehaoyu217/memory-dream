@@ -1,0 +1,111 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ep-pre-spend-cov-v2",
+   "type": "feature",
+   "label": "covariate",
+   "as": [
+    "feat-ep-pre-spend-cov-v2",
+    "spend in the 28 days ending 7 days before assignment",
+    "The 7-day lag keeps the covariate clear"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "feat-ep-pre-spend-cov-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ep-pre-spend-cov-v1"
+   ],
+   "lines": [
+    2,
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-ep-assignments",
+   "type": "dataset",
+   "label": "assignments",
+   "as": [
+    "ds-ep-assignments"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "exp-504",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-504"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ep-pre-spend-cov-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "feat-ep-pre-spend-cov-v1",
+   "quote": "supersedes: [feat-ep-pre-spend-cov-v1]",
+   "line": 4
+  },
+  {
+   "s": "feat-ep-pre-spend-cov-v2",
+   "type": "uses",
+   "label": "derived from",
+   "o": "ds-ep-assignments",
+   "quote": "from: [feat-ep-pre-spend-cov-v1, ds-ep-assignments]",
+   "line": 2
+  },
+  {
+   "s": "feat-ep-pre-spend-cov-v2",
+   "type": "uses",
+   "label": "from",
+   "o": "cards.txn_daily",
+   "quote": "Sum of approved spend for the unit over the 28 days that end 7 days before assigned_at, from cards.txn_daily.",
+   "line": 7
+  },
+  {
+   "s": "feat-ep-pre-spend-cov-v2",
+   "type": "other",
+   "label": "variance reduction in",
+   "o": "exp-504",
+   "quote": "Gives the larger variance reduction (exp-504).",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-ep-pre-spend-cov-v1",
+  "ds-ep-assignments",
+  "exp-504"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "experiment-platform/feat-ep-pre-spend-cov-v2.md",
+ "sha": "7fb43689d5c1212a0af1c71b68c389d00a9a8c2419495cb26612523031a5be0e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

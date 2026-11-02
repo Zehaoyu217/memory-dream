@@ -1,0 +1,69 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "cld-25pct-cap",
+   "type": "policy",
+   "label": "cap",
+   "as": [
+    "cap any single risk-based decrease at 25% of the prior limit per cycle"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cld-multi-cycle-steps",
+   "type": "policy",
+   "label": "rule",
+   "as": [
+    "Multi-cycle reductions are allowed in steps of 25%, with 30 days between steps."
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-205",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-205"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cld-25pct-cap",
+   "type": "uses",
+   "label": "set from",
+   "o": "exp-205",
+   "quote": "Set on 2025-07-14 from exp-205",
+   "line": 6
+  },
+  {
+   "s": "cld-multi-cycle-steps",
+   "type": "other",
+   "label": "extends",
+   "o": "cld-25pct-cap",
+   "quote": "Multi-cycle reductions are allowed in steps of 25%, with 30 days between steps.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "limit-decrease-policy/dec-cld-cap-25pct.md",
+  "dec-cld-band-policy-2026"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "limit-decrease-policy/dec-cld-cap-25pct.md",
+ "sha": "7c9588cb86b819b8daf60a1d1b051b3b1d41fc25fe0d87d918821bc4a9a120d1",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

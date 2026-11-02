@@ -1,0 +1,118 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "credit risk",
+   "as": [
+    "Lena Fischer (credit risk)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "raj-patel",
+   "type": "person",
+   "label": "collections",
+   "as": [
+    "Raj Patel"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cu-uplift-v2",
+   "type": "model",
+   "label": "uplift model",
+   "as": [
+    "cu-uplift-v2"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "cu-resp-v1",
+   "type": "model",
+   "label": "response model",
+   "as": [
+    "cu-resp-v1"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "top-20-percent",
+   "type": "segment",
+   "label": "call segment",
+   "as": [
+    "the top 20%"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "find-cu-response-misranks",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-cu-response-misranks showed the response ranking spends calls on accounts that pay anyway"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cu-uplift-v2",
+   "type": "other",
+   "label": "agreed by",
+   "o": "lena-fischer",
+   "quote": "Agreed 2025-12-15 by Lena Fischer (credit risk) and Raj Patel (collections).",
+   "line": 6
+  },
+  {
+   "s": "cu-uplift-v2",
+   "type": "other",
+   "label": "agreed by",
+   "o": "raj-patel",
+   "quote": "Agreed 2025-12-15 by Lena Fischer (credit risk) and Raj Patel (collections).",
+   "line": 6
+  },
+  {
+   "s": "top-20-percent",
+   "type": "uses",
+   "label": "ranked by",
+   "o": "cu-uplift-v2",
+   "quote": "Calls go to the top 20% by cu-uplift-v2 score among 1-29 DPD accounts",
+   "line": 7
+  },
+  {
+   "s": "cu-resp-v1",
+   "type": "other",
+   "label": "kept as reference",
+   "o": "cu-uplift-v2",
+   "quote": "cu-resp-v1 stays as an explainability reference only.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "find-cu-response-misranks",
+  "exp-105"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-uplift/dec-cu-uplift-for-calls.md",
+ "sha": "4c62d9d0ca88b0874f0282769bd6516f305be817a2ef81c1a7f8fdeaa37b0d94",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

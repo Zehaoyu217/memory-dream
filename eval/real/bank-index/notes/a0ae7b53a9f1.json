@@ -1,0 +1,116 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "brier-score",
+   "type": "metric",
+   "label": "score",
+   "as": [
+    "Brier score"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "isotonic-calibration",
+   "type": "term",
+   "label": "calibration method",
+   "as": [
+    "isotonic calibration"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "reliability-table",
+   "type": "other",
+   "label": "reliability table",
+   "as": [
+    "10-bin reliability table"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "scored-population",
+   "type": "other",
+   "label": "population",
+   "as": [
+    "scored population"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "training-split",
+   "type": "other",
+   "label": "data split",
+   "as": [
+    "training split"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "drift-alarm",
+   "type": "policy",
+   "label": "alarm",
+   "as": [
+    "Calibration drift alarm"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "brier-score",
+   "type": "measured-on",
+   "label": "reported on",
+   "o": "scored-population",
+   "quote": "Report Brier on the scored population",
+   "line": 5
+  },
+  {
+   "s": "isotonic-calibration",
+   "type": "uses",
+   "label": "fitted on",
+   "o": "training-split",
+   "quote": "isotonic calibration fitted on the training split",
+   "line": 5
+  },
+  {
+   "s": "brier-score",
+   "type": "other",
+   "label": "reported beside",
+   "o": "reliability-table",
+   "quote": "Brier score is reported beside a 10-bin reliability table",
+   "line": 4
+  },
+  {
+   "s": "drift-alarm",
+   "type": "other",
+   "label": "triggers on",
+   "o": "scored-population",
+   "quote": "mean predicted minus observed default rate above 1 percentage point for two consecutive months",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/brier-score-calibration.md",
+ "sha": "a0ae7b53a9f1ce68767a76c4a0ecff722585220e6d0f9da4af9a2d43b5eefa89",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,67 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-mq3-app-sessions-30d",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mq3-app-sessions-30d: app sessions in the 30 days before contact"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "app.sessions_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`app.sessions_daily`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mq3-uplift-xl-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "mq3-uplift-xl-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-mq3-app-sessions-30d",
+   "type": "uses",
+   "label": "session count from",
+   "o": "app.sessions_daily",
+   "quote": "Session count from `app.sessions_daily` in the 30 days before the contact date",
+   "line": 6
+  },
+  {
+   "s": "feat-mq3-app-sessions-30d",
+   "type": "uses",
+   "label": "used in",
+   "o": "mq3-uplift-xl-v2",
+   "quote": "Used in mq3-uplift-xl-v2 and in the response model.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-307"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "marketing-uplift-q3/feat-mq3-app-sessions-30d.md",
+ "sha": "206b8e3fc997e509f3d4c9eb6bf41f992f439f3445ae4b3db143164b6a0b9794",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

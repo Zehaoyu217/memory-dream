@@ -1,0 +1,67 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-bsm-score-missing-impute",
+   "type": "feature",
+   "label": "imputation feature",
+   "as": [
+    "feat-bsm-score-missing-impute"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-bsm-v10-cohorts-2026",
+   "type": "dataset",
+   "label": "source cohorts",
+   "as": [
+    "ds-bsm-v10-cohorts-2026"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "bsm-app-gbm-v10a",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bsm-app-gbm-v10a"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-bsm-score-missing-impute",
+   "type": "uses",
+   "label": "falls back to",
+   "o": "ds-bsm-v10-cohorts-2026",
+   "quote": "Where v10 is missing, the mapped v8 score is used",
+   "line": 6
+  },
+  {
+   "s": "bsm-app-gbm-v10a",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-bsm-score-missing-impute",
+   "quote": "Used in bsm-app-gbm-v10a and later.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "bureau-score-migration/feat-bsm-score-missing-impute.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "bureau-score-migration/feat-bsm-score-missing-impute.md",
+ "sha": "dc626d0995fb69457f0d044094d16b6edaee90c09c38f00b8734fa5ae9377d71",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

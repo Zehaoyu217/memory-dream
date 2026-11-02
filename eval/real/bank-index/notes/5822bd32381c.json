@@ -1,0 +1,164 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "bt-xgb-v2",
+   "type": "model",
+   "label": "frozen model",
+   "as": [
+    "bt-xgb-v2",
+    "frozen bt-xgb-v2"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "bt-oot-2026h1",
+   "type": "dataset",
+   "label": "oot holdout",
+   "as": [
+    "bt-oot-2026h1"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "feat-bt-util-trend-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-bt-util-trend-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.66"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "bt-acceptance",
+   "type": "metric",
+   "label": "acceptance",
+   "as": [
+    "acceptance 4.6%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "psi",
+   "as": [
+    "PSI"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "top-30-lift",
+   "type": "metric",
+   "label": "top-30% lift",
+   "as": [
+    "top-30% lift 1.7x"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "2025-training-population",
+   "type": "dataset",
+   "label": "training population",
+   "as": [
+    "2025 training population"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "limit-policy-change-2026",
+   "type": "policy",
+   "label": "limit policy change",
+   "as": [
+    "2026 limit policy change"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bt-xgb-v2",
+   "type": "evaluated-on",
+   "label": "replayed on",
+   "o": "bt-oot-2026h1",
+   "quote": "Replayed the frozen bt-xgb-v2 on bt-oot-2026h1",
+   "line": 6
+  },
+  {
+   "s": "bt-xgb-v2",
+   "type": "measured-by",
+   "label": "scored AUC",
+   "o": "auc",
+   "quote": "AUC 0.66, down from 0.68 on the holdout",
+   "line": 6
+  },
+  {
+   "s": "bt-xgb-v2",
+   "type": "measured-by",
+   "label": "top-30% lift",
+   "o": "top-30-lift",
+   "quote": "top-30% lift 1.7x",
+   "line": 6
+  },
+  {
+   "s": "bt-oot-2026h1",
+   "type": "measured-by",
+   "label": "acceptance rate",
+   "o": "bt-acceptance",
+   "quote": "288,000 rows, acceptance 4.6%",
+   "line": 6
+  },
+  {
+   "s": "feat-bt-util-trend-v2",
+   "type": "measured-by",
+   "label": "PSI against training",
+   "o": "psi",
+   "quote": "PSI on feat-bt-util-trend-v2 is 0.27 against the 2025 training population",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "bt-xgb-v2",
+  "ds-bt-oot-2026h1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "balance-transfer-propensity/exp-106-oot-2026h1.md",
+ "sha": "5822bd32381c194917a4f5d3c5ec4a83f9ef22cb3ad4333a204bbff41a155d59",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

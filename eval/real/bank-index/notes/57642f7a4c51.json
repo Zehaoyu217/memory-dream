@@ -1,0 +1,94 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-app-bureau-v10-pull",
+   "type": "dataset",
+   "label": "re-scored applications",
+   "as": [
+    "ds-app-bureau-v10-pull",
+    "2024 and 2025 applications re-scored on the mapped v10 bureau score"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-app-applications-2024",
+   "type": "dataset",
+   "label": "applications source",
+   "as": [
+    "ds-app-applications-2024"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "feat-bsm-score-map-v2",
+   "type": "feature",
+   "label": "isotonic v10 map",
+   "as": [
+    "feat-bsm-score-map-v2",
+    "isotonic v10 map"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "bureau-score-migration",
+   "type": "pipeline",
+   "label": "migration project",
+   "as": [
+    "bureau-score-migration",
+    "quarterly map refit"
+   ],
+   "lines": [
+    2,
+    6,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-app-bureau-v10-pull",
+   "type": "uses",
+   "label": "re-scored on",
+   "o": "feat-bsm-score-map-v2",
+   "quote": "re-scored on the isotonic v10 map from bureau-score-migration",
+   "line": 6
+  },
+  {
+   "s": "ds-app-bureau-v10-pull",
+   "type": "uses",
+   "label": "built from",
+   "o": "ds-app-applications-2024",
+   "quote": "Applications from ds-app-applications-2024 and the 2025 decision log",
+   "line": 6
+  },
+  {
+   "s": "feat-bsm-score-map-v2",
+   "type": "part-of",
+   "label": "part of",
+   "o": "bureau-score-migration",
+   "quote": "isotonic v10 map from bureau-score-migration",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "bureau-score-migration/feat-bsm-score-map-v2",
+  "ds-app-applications-2024"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "application-scorecard/ds-app-bureau-v10-pull.md",
+ "sha": "57642f7a4c517aa1f766b8e3d5fde55008630b96afa8f04a5f080dc1534f12a9",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

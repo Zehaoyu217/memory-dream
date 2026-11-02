@@ -1,0 +1,127 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-bt-util-trend-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-bt-util-trend-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-bt-util-3m",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-bt-util-3m"
+   ],
+   "lines": [
+    2,
+    4,
+    8
+   ]
+  },
+  {
+   "id": "bt-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bt-xgb-v2"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "bt-xgb-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bt-xgb-v3"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "holdout AUC"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-bt-util-trend-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "feat-bt-util-3m",
+   "quote": "supersedes: [feat-bt-util-3m]",
+   "line": 4
+  },
+  {
+   "s": "feat-bt-util-trend-v2",
+   "type": "uses",
+   "label": "computed from",
+   "o": "cards.accounts_monthly",
+   "quote": "OLS on `cards.accounts_monthly`",
+   "line": 7
+  },
+  {
+   "s": "bt-xgb-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-bt-util-trend-v2",
+   "quote": "Used in bt-xgb-v2 and bt-xgb-v3.",
+   "line": 9
+  },
+  {
+   "s": "bt-xgb-v3",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-bt-util-trend-v2",
+   "quote": "Used in bt-xgb-v2 and bt-xgb-v3.",
+   "line": 9
+  },
+  {
+   "s": "feat-bt-util-trend-v2",
+   "type": "measured-by",
+   "label": "moved holdout AUC",
+   "o": "auc",
+   "quote": "moved holdout AUC from 0.66 to 0.67",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-bt-util-3m",
+  "exp-103-util-trend"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "balance-transfer-propensity/feat-bt-util-trend-v2.md",
+ "sha": "fb4d49e63e04f32ecf53056797762d1831c5e762cd120676ba64afd39122fbb1",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

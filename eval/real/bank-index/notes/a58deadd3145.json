@@ -1,0 +1,100 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "uplift",
+   "type": "metric",
+   "label": "uplift",
+   "as": [
+    "Uplift"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  },
+  {
+   "id": "point-estimate",
+   "type": "term",
+   "label": "point estimate",
+   "as": [
+    "point estimate"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "confidence-interval",
+   "type": "term",
+   "label": "95% confidence interval",
+   "as": [
+    "95% confidence interval"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "p-value",
+   "type": "metric",
+   "label": "p-value",
+   "as": [
+    "P-values"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "deck",
+   "type": "document",
+   "label": "deck",
+   "as": [
+    "decks"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "analysis-notebook",
+   "type": "document",
+   "label": "analysis notebook",
+   "as": [
+    "analysis notebook"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "uplift",
+   "type": "other",
+   "label": "is reported as",
+   "o": "point-estimate",
+   "quote": "Uplift in decks is a point estimate with a 95% confidence interval",
+   "line": 4
+  },
+  {
+   "s": "p-value",
+   "type": "other",
+   "label": "stays in",
+   "o": "analysis-notebook",
+   "quote": "P-values stay in the analysis notebook; decks do not show them.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/significance-uplift-ci.md",
+ "sha": "a58deadd31452192555cc7da218393960ee20fef28a2b8919e24861c98ada5c5",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

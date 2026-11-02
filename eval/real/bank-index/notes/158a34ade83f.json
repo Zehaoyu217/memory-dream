@@ -1,0 +1,98 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.payments_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "account-revenue",
+   "type": "metric",
+   "label": "monthly revenue per account",
+   "as": [
+    "Monthly revenue per account"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "offer-credits",
+   "type": "term",
+   "label": "offer credits",
+   "as": [
+    "Offer credits"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-clv-arpu-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-clv-arpu-v2"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "account-revenue",
+   "type": "uses",
+   "label": "computed from",
+   "o": "cards.txn_daily",
+   "quote": "Monthly revenue per account from cards.txn_daily and cards.payments_daily",
+   "line": 5
+  },
+  {
+   "s": "account-revenue",
+   "type": "uses",
+   "label": "computed from",
+   "o": "cards.payments_daily",
+   "quote": "Monthly revenue per account from cards.txn_daily and cards.payments_daily",
+   "line": 5
+  },
+  {
+   "s": "offer-credits",
+   "type": "other",
+   "label": "netted in",
+   "o": "feat-clv-arpu-v2",
+   "quote": "Offer credits are not netted here; that is done in feat-clv-arpu-v2.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-clv-cohort-panel",
+  "feat-clv-arpu-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "customer-lifetime-value/ds-clv-revenue-monthly.md",
+ "sha": "158a34ade83fdccf0e1c7ca27d6ae103d99dac90e9bb7136566fe92fe74d27e8",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

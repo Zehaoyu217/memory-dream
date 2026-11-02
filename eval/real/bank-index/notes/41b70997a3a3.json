@@ -1,0 +1,98 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-inc-merchant-mix",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-inc-merchant-mix: share of spend in grocery, travel, dining and luxury categories"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-inc-txn-categories",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "from: [ds-inc-txn-categories]"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "luxury-share",
+   "type": "feature",
+   "label": "luxury share",
+   "as": [
+    "Luxury share is the strongest single term"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "inc-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "before inclusion in inc-gbm-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-404",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "Tested in exp-404 (2025-07-08)"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-inc-merchant-mix",
+   "type": "uses",
+   "label": "from",
+   "o": "ds-inc-txn-categories",
+   "quote": "from: [ds-inc-txn-categories]",
+   "line": 2
+  },
+  {
+   "s": "luxury-share",
+   "type": "part-of",
+   "label": "share of",
+   "o": "feat-inc-merchant-mix",
+   "quote": "Luxury share is the strongest single term",
+   "line": 7
+  },
+  {
+   "s": "feat-inc-merchant-mix",
+   "type": "used-in",
+   "label": "included in",
+   "o": "inc-gbm-v2",
+   "quote": "before inclusion in inc-gbm-v2",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "income-estimation/feat-inc-merchant-mix.md",
+  "exp-404"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "income-estimation/feat-inc-merchant-mix.md",
+ "sha": "41b70997a3a302c251766d535915642496ab46b002164e8841bf9e4e0580084c",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

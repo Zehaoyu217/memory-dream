@@ -1,0 +1,89 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "txn-account-join",
+   "type": "term",
+   "label": "join",
+   "as": [
+    "transaction-to-account join"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "accounts_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "duplicate-closure-reissue-rows",
+   "type": "other",
+   "label": "duplicate rows",
+   "as": [
+    "Duplicate closure reissue rows"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "load-ts",
+   "type": "feature",
+   "label": "column",
+   "as": [
+    "load_ts"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "tomas-rivera-team",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "Tomás Rivera's team"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "duplicate-closure-reissue-rows",
+   "type": "part-of",
+   "label": "in",
+   "o": "cards.accounts_monthly",
+   "quote": "Duplicate closure reissue rows in accounts_monthly for 2024-11.",
+   "line": 5
+  },
+  {
+   "s": "tomas-rivera-team",
+   "type": "other",
+   "label": "fixed",
+   "o": "duplicate-closure-reissue-rows",
+   "quote": "Tomás Rivera's team fixed the duplicate upstream the same week.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "howto/join-txn-to-accounts"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/txn-join-duplicate-rows.md",
+ "sha": "007e76ac561366c061acbce5ad1d622b7a7340b0f8fe092a7c793c2d52af7844",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

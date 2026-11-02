@@ -1,0 +1,123 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-dq-late-alert-rule-v2",
+   "type": "other",
+   "label": "decision note",
+   "as": [
+    "Decision: pre-alert at 06:30 on D+1 when dq-late-logit-v2 gives above 0.6; page at 11:00 stays"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-dq-late-alert-rule-v1",
+   "type": "other",
+   "label": "decision note",
+   "as": [
+    "dec-dq-late-alert-rule-v1"
+   ],
+   "lines": [
+    2,
+    4,
+    8
+   ]
+  },
+  {
+   "id": "dq-late-logit-v2",
+   "type": "model",
+   "label": "scoring model",
+   "as": [
+    "dq-late-logit-v2",
+    "the model scores each due partition"
+   ],
+   "lines": [
+    2,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "fnd-late-model-lift",
+   "type": "other",
+   "label": "finding note",
+   "as": [
+    "fnd-late-model-lift"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "data-eng-channel",
+   "type": "other",
+   "label": "alert channel",
+   "as": [
+    "the data-eng channel"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "not-landed-page",
+   "type": "other",
+   "label": "hard backstop page",
+   "as": [
+    "The 11:00 not-landed page from dec-dq-late-alert-rule-v1 stays as the hard backstop."
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-dq-late-alert-rule-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "dec-dq-late-alert-rule-v1",
+   "quote": "supersedes: [dec-dq-late-alert-rule-v1]",
+   "line": 4
+  },
+  {
+   "s": "dec-dq-late-alert-rule-v2",
+   "type": "uses",
+   "label": "scores with",
+   "o": "dq-late-logit-v2",
+   "quote": "the model scores each due partition",
+   "line": 7
+  },
+  {
+   "s": "dec-dq-late-alert-rule-v2",
+   "type": "uses",
+   "label": "derived from",
+   "o": "fnd-late-model-lift",
+   "quote": "from: [dq-late-logit-v2, fnd-late-model-lift, dec-dq-late-alert-rule-v1]",
+   "line": 2
+  },
+  {
+   "s": "not-landed-page",
+   "type": "other",
+   "label": "stays as backstop",
+   "o": "dec-dq-late-alert-rule-v1",
+   "quote": "The 11:00 not-landed page from dec-dq-late-alert-rule-v1 stays as the hard backstop.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "dec-dq-late-alert-rule-v1",
+  "fnd-late-model-lift",
+  "dq-late-logit-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "data-quality-txn/dec-dq-late-alert-rule-v2.md",
+ "sha": "0a5feb9c9a7d7536a74b5e92baceee37c977ef2e8ba09a4fcd2a8b8139d2b29c",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

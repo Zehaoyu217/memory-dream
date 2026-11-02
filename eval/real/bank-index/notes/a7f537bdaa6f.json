@@ -1,0 +1,119 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-rev26-interchange-bps",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rev26-interchange-bps",
+    "Blended interchange rate in basis points by MCC group"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "rev26-interchange-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rev26-interchange-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "interchange-ledger",
+   "type": "dataset",
+   "label": "ledger",
+   "as": [
+    "the ledger"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "flat-bps-baseline",
+   "type": "term",
+   "label": "baseline",
+   "as": [
+    "Flat-bps baseline"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "mcc-group",
+   "type": "term",
+   "label": "mcc group",
+   "as": [
+    "MCC group"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-rev26-interchange-bps",
+   "type": "~used-by",
+   "label": "used by",
+   "o": "rev26-interchange-v1",
+   "quote": "Used by rev26-interchange-v1.",
+   "line": 8
+  },
+  {
+   "s": "feat-rev26-interchange-bps",
+   "type": "uses",
+   "label": "from",
+   "o": "interchange-ledger",
+   "quote": "from the ledger divided by volume",
+   "line": 6
+  },
+  {
+   "s": "flat-bps-baseline",
+   "type": "measured-by",
+   "label": "has MAPE",
+   "o": "mape",
+   "quote": "Flat-bps baseline has 4.8% MAPE on 2024-H2",
+   "line": 7
+  },
+  {
+   "s": "feat-rev26-interchange-bps",
+   "type": "measured-by",
+   "label": "has MAPE",
+   "o": "mape",
+   "quote": "the MCC-group version has 2.1%",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-rev26-interchange-ledger"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "revenue-forecast-2026/feat-rev26-interchange-bps.md",
+ "sha": "a7f537bdaa6fa360e6b346ae06dfe4bf01506a56d6bdcbce0ce94914dbe0295e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,77 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "churn-2026",
+   "type": "other",
+   "label": "project tag",
+   "as": [
+    "[churn-2026]"
+   ],
+   "lines": [
+    3,
+    4
+   ]
+  },
+  {
+   "id": "txn-table",
+   "type": "dataset",
+   "label": "txn table",
+   "as": [
+    "txn table"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "churn-xgb-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "churn-xgb-v3"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "scoring-job",
+   "type": "pipeline",
+   "label": "scoring job",
+   "as": [
+    "scoring job"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-xgb-v3",
+   "type": "other",
+   "label": "logged under",
+   "o": "churn-2026",
+   "quote": "[churn-2026] churn-xgb-v3 registered, scoring job switched",
+   "line": 4
+  },
+  {
+   "s": "txn-table",
+   "type": "other",
+   "label": "backfill running for",
+   "o": "churn-2026",
+   "quote": "[churn-2026] txn table backfill running for October partitions",
+   "line": 3
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2026-10-30.md",
+ "sha": "100e0c1c3d1c15f872896ef5dad04549b7ad3ad7daa990f3cb565e60ddc85ef2",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

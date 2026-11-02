@@ -1,0 +1,96 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "current-account-base",
+   "type": "segment",
+   "label": "population",
+   "as": [
+    "Current-account base"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "early-delinquency-model",
+   "type": "model",
+   "label": "early-delinquency model",
+   "as": [
+    "the early-delinquency model"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "data-eng-cards",
+   "type": "team",
+   "label": "owner",
+   "as": [
+    "data-eng-cards"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "owner contact",
+   "as": [
+    "Tomas Rivera"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "current-account-base",
+   "type": "uses",
+   "label": "from",
+   "o": "cards.accounts_monthly",
+   "quote": "from `cards.accounts_monthly`",
+   "line": 5
+  },
+  {
+   "s": "early-delinquency-model",
+   "type": "other",
+   "label": "scores",
+   "o": "current-account-base",
+   "quote": "the population the early-delinquency model scores",
+   "line": 5
+  },
+  {
+   "s": "current-account-base",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "data-eng-cards",
+   "quote": "Owner: data-eng-cards",
+   "line": 9
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "early-delinquency/ds-ed-current-base.md",
+ "sha": "094fc624f116ecee9952b0078bc91ff4eed50e345559108f7540475a44ca818f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

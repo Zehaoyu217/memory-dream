@@ -1,0 +1,125 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-201",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-201"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cb.spend_panel",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cb.spend_panel`"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cb.rewards_ledger",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cb.rewards_ledger`"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "spend-per-account",
+   "type": "metric",
+   "label": "spend metric",
+   "as": [
+    "Spend per account"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "rewards-rate",
+   "type": "metric",
+   "label": "rate metric",
+   "as": [
+    "Rewards rate"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "net-contribution",
+   "type": "metric",
+   "label": "contribution metric",
+   "as": [
+    "Net contribution"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-201",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cb.spend_panel",
+   "quote": "Source: `cb.spend_panel` and `cb.rewards_ledger`.",
+   "line": 8
+  },
+  {
+   "s": "exp-201",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cb.rewards_ledger",
+   "quote": "Source: `cb.spend_panel` and `cb.rewards_ledger`.",
+   "line": 8
+  },
+  {
+   "s": "exp-201",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "spend-per-account",
+   "quote": "Spend per account +4.1%.",
+   "line": 7
+  },
+  {
+   "s": "exp-201",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "rewards-rate",
+   "quote": "Rewards rate +25% (1.00 to 1.25).",
+   "line": 7
+  },
+  {
+   "s": "exp-201",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "net-contribution",
+   "quote": "Net contribution is +$1.10 per account per month after rewards cost.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-cb-pilot-2025q4",
+  "q-cb-tier-cost"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/exp-201-flat-rate-pilot.md",
+ "sha": "ef4d2468ed289a3d8d559c9cd9c30f92254b7d39b5614862460cc6c396c61a61",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

@@ -1,0 +1,101 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "score-psi",
+   "type": "metric",
+   "label": "score psi",
+   "as": [
+    "score PSI"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "feature-psi",
+   "type": "metric",
+   "label": "feature psi",
+   "as": [
+    "feature PSI"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "label-rate",
+   "type": "metric",
+   "label": "label rate",
+   "as": [
+    "label-rate change"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "scoring-log",
+   "type": "dataset",
+   "label": "scoring log",
+   "as": [
+    "scoring log"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "labelled-incidents",
+   "type": "other",
+   "label": "labelled incidents",
+   "as": [
+    "19 labelled incidents"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "score-psi",
+   "type": "uses",
+   "label": "computed on",
+   "o": "scoring-log",
+   "quote": "Score PSI is computed on the same scoring log",
+   "line": 7
+  },
+  {
+   "s": "score-psi",
+   "type": "other",
+   "label": "led on",
+   "o": "labelled-incidents",
+   "quote": "Score PSI led on 17 of 19 incidents.",
+   "line": 7
+  },
+  {
+   "s": "score-psi",
+   "type": "other",
+   "label": "crosses 0.10 before",
+   "o": "label-rate",
+   "quote": "the first day score PSI passed 0.10 came a median 6 days before the observed label-rate change",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-mm-scoring-log",
+  "ds-mm-incident-log"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "model-monitoring/exp-203.md",
+ "sha": "f04a60e25642d0ddadc4c88dac0fdc9725a245bc1b705c487efbb778140a46b3",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

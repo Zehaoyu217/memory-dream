@@ -1,0 +1,110 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "fraud25-gbm-v1",
+   "type": "model",
+   "label": "baseline",
+   "as": [
+    "fraud25-gbm-v1"
+   ],
+   "lines": [
+    2,
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "holdout-2025q1",
+    "ds-f25-holdout-2025q1"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "recall-at-1pct",
+   "type": "metric",
+   "label": "recall@1%",
+   "as": [
+    "recall@1%"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud25-gbm-v1",
+   "type": "evaluated-on",
+   "label": "gives AUC on",
+   "o": "holdout-2025q1",
+   "quote": "fraud25-gbm-v1 baseline on holdout-2025q1 gives AUC 0.902",
+   "line": 5
+  },
+  {
+   "s": "fraud25-gbm-v1",
+   "type": "measured-by",
+   "label": "gives AUC",
+   "o": "auc",
+   "quote": "fraud25-gbm-v1 baseline on holdout-2025q1 gives AUC 0.902",
+   "line": 5
+  },
+  {
+   "s": "fraud25-gbm-v1",
+   "type": "measured-by",
+   "label": "results",
+   "o": "ks",
+   "quote": "Results: AUC 0.902, KS 0.61, recall@1% 0.46.",
+   "line": 7
+  },
+  {
+   "s": "fraud25-gbm-v1",
+   "type": "measured-by",
+   "label": "results",
+   "o": "recall-at-1pct",
+   "quote": "Results: AUC 0.902, KS 0.61, recall@1% 0.46.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fraud25_eval.ipynb"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/exp-101.md",
+ "sha": "62c54129888510fad08153072446c1c90430bfaf253d520a8c12f8f1c378bbce",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

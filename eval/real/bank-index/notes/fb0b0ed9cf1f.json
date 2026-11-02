@@ -1,0 +1,165 @@
+{
+ "kind": "preference",
+ "entities": [
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "person",
+   "as": [
+    "Sam Lee"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "brier-score",
+   "type": "metric",
+   "label": "brier score",
+   "as": [
+    "Brier score",
+    "Brier"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "model-cards",
+   "type": "document",
+   "label": "model card",
+   "as": [
+    "Model cards"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "cli-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cli-xgb-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "2025q4 holdout"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "sam-lee",
+   "type": "other",
+   "label": "reports to decimals",
+   "o": "auc",
+   "quote": "Sam Lee reports AUC to 3 decimals",
+   "line": 4
+  },
+  {
+   "s": "sam-lee",
+   "type": "other",
+   "label": "reports to decimals",
+   "o": "brier-score",
+   "quote": "Brier score to 4",
+   "line": 4
+  },
+  {
+   "s": "model-cards",
+   "type": "measured-by",
+   "label": "lists as 0.xxx",
+   "o": "auc",
+   "quote": "Model cards list AUC as 0.xxx",
+   "line": 5
+  },
+  {
+   "s": "model-cards",
+   "type": "measured-by",
+   "label": "lists as 0.0xxx",
+   "o": "brier-score",
+   "quote": "Brier as 0.0xxx",
+   "line": 5
+  },
+  {
+   "s": "model-cards",
+   "type": "measured-by",
+   "label": "sits in same table",
+   "o": "ks",
+   "quote": "KS and Gini sit in the same table to 2 decimals",
+   "line": 7
+  },
+  {
+   "s": "model-cards",
+   "type": "measured-by",
+   "label": "sits in same table",
+   "o": "gini",
+   "quote": "KS and Gini sit in the same table to 2 decimals",
+   "line": 7
+  },
+  {
+   "s": "cli-xgb-v2",
+   "type": "evaluated-on",
+   "label": "drop on holdout",
+   "o": "holdout-2025q4",
+   "quote": "a 0.006 drop in `cli-xgb-v2` on the 2025q4 holdout",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "prefs/sam-lee-metric-decimals.md",
+ "sha": "fb0b0ed9cf1fbddf4bae7cd5365b6cf486247f67a878394a4f5ba0726f9b84ab",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

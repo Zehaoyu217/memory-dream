@@ -1,0 +1,126 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-csb-calls-lift",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Unresolved calls add +0.012 AUC for SMB, on the first build"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-205",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-205"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "csb-oot-2025q1",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "csb-oot-2025q1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "6-month-plus-subset",
+   "type": "segment",
+   "label": "subset",
+   "as": [
+    "6-month-plus subset"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "unresolved-calls",
+   "type": "feature",
+   "label": "calls",
+   "as": [
+    "Unresolved calls"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fnd-csb-calls-lift",
+   "type": "measured-by",
+   "label": "adds AUC",
+   "o": "auc",
+   "quote": "Unresolved calls add +0.012 AUC",
+   "line": 5
+  },
+  {
+   "s": "fnd-csb-calls-lift",
+   "type": "based-on",
+   "label": "basis",
+   "o": "exp-205",
+   "quote": "Basis: exp-205",
+   "line": 6
+  },
+  {
+   "s": "fnd-csb-calls-lift",
+   "type": "based-on",
+   "label": "basis",
+   "o": "6-month-plus-subset",
+   "quote": "Basis: exp-205, 6-month-plus subset of csb-oot-2025q1.",
+   "line": 6
+  },
+  {
+   "s": "6-month-plus-subset",
+   "type": "part-of",
+   "label": "subset of",
+   "o": "csb-oot-2025q1",
+   "quote": "6-month-plus subset of csb-oot-2025q1",
+   "line": 6
+  },
+  {
+   "s": "fnd-csb-calls-lift",
+   "type": "other",
+   "label": "about",
+   "o": "unresolved-calls",
+   "quote": "Unresolved calls add +0.012 AUC",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "fnd-csb-calls-lift-v2",
+  "exp-205"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-small-business/fnd-csb-calls-lift.md",
+ "sha": "73ba576eccdd13a316a18f3c19418d00473d392f6504af59cf1b3edc99248d86",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,98 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "churn-rule-60d",
+   "type": "term",
+   "label": "60-day churn rule",
+   "as": [
+    "The 60-day churn rule",
+    "The 60-day window"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "churn-rule-90d",
+   "type": "term",
+   "label": "90-day rule",
+   "as": [
+    "90 days"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "churn-rate",
+   "type": "metric",
+   "label": "churn rate",
+   "as": [
+    "7.9 percent churn",
+    "6.1 percent"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "h1-2025-snapshots",
+   "type": "dataset",
+   "label": "2025-h1 snapshots",
+   "as": [
+    "2025-H1 snapshots"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-rule-60d",
+   "type": "measured-by",
+   "label": "gives churn",
+   "o": "churn-rate",
+   "quote": "The 60-day churn rule gives 7.9 percent churn",
+   "line": 5
+  },
+  {
+   "s": "churn-rule-90d",
+   "type": "measured-by",
+   "label": "gives churn",
+   "o": "churn-rate",
+   "quote": "90 days gives 6.1 percent",
+   "line": 5
+  },
+  {
+   "s": "churn-rule-60d",
+   "type": "evaluated-on",
+   "label": "applied to",
+   "o": "h1-2025-snapshots",
+   "quote": "gives 7.9 percent churn on 2025-H1 snapshots",
+   "line": 5
+  },
+  {
+   "s": "churn-rule-60d",
+   "type": "other",
+   "label": "counts returners as churned",
+   "o": "churn-rate",
+   "quote": "The 60-day window counts quiet-but-returning accounts as churned.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-401",
+  "fnd-churn-rate-rebuilt"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "label-pipeline-rebuild/fnd-churn-rate-legacy.md",
+ "sha": "71e8ed7f44ac82fa0a8d09536298c15bee1b0847afa2ddd9fabcc53edd659f71",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

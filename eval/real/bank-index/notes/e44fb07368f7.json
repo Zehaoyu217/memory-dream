@@ -1,0 +1,115 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "feat_disp_cnt_90d_v1",
+   "type": "feature",
+   "label": "dispute-count feature",
+   "as": [
+    "feat_disp_cnt_90d_v1",
+    "dispute-count feature"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "dispute-count-feature-v2",
+   "type": "feature",
+   "label": "rebuilt v2",
+   "as": [
+    "rebuilt v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "holdout auc",
+   "as": [
+    "holdout AUC"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "leak-scan",
+   "type": "term",
+   "label": "leak scan",
+   "as": [
+    "leak scan"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "observation-date",
+   "type": "term",
+   "label": "observation date",
+   "as": [
+    "observation date"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "leak-scan",
+   "type": "other",
+   "label": "flagged",
+   "o": "feat_disp_cnt_90d_v1",
+   "quote": "The leak scan flagged `feat_disp_cnt_90d_v1` for reading past the observation date.",
+   "line": 6
+  },
+  {
+   "s": "dispute-count-feature-v2",
+   "type": "replaces",
+   "label": "rebuilt",
+   "o": "feat_disp_cnt_90d_v1",
+   "quote": "The rebuilt v2 reads only days on or before observation.",
+   "line": 6
+  },
+  {
+   "s": "feat_disp_cnt_90d_v1",
+   "type": "other",
+   "label": "inflated",
+   "o": "auc",
+   "quote": "which inflated holdout AUC from 0.72 to 0.79",
+   "line": 5
+  },
+  {
+   "s": "feat_disp_cnt_90d_v1",
+   "type": "other",
+   "label": "read past",
+   "o": "observation-date",
+   "quote": "reading past the observation date",
+   "line": 6
+  },
+  {
+   "s": "dispute-count-feature-v2",
+   "type": "other",
+   "label": "reads on or before",
+   "o": "observation-date",
+   "quote": "reads only days on or before observation",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "howto/leakage-check-post-period"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/dispute-feature-leak.md",
+ "sha": "e44fb07368f780a8c95b8c488c7e6a5913d81d854056caa7c47a8bddcfbc7d28",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

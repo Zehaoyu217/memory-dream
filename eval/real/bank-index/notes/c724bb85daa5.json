@@ -1,0 +1,162 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-c25-app-sessions",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-c25-app-sessions"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-c25-app-engagement",
+   "type": "team",
+   "label": "source",
+   "as": [
+    "ds-c25-app-engagement"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "churn-lr-base-2025",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "churn-lr-base-2025"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "churn-gbm-2025",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "churn-gbm-2025"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "dec-c25-drop-app-sessions",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-c25-drop-app-sessions"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "production-set",
+   "type": "dataset",
+   "label": "production set",
+   "as": [
+    "production set"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "missing-flag",
+   "type": "feature",
+   "label": "missing flag",
+   "as": [
+    "Missing flag"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "log1p-transform",
+   "type": "term",
+   "label": "transform",
+   "as": [
+    "log1p transformed"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-lr-base-2025",
+   "type": "uses",
+   "label": "in",
+   "o": "feat-c25-app-sessions",
+   "quote": "In churn-lr-base-2025 and churn-gbm-2025",
+   "line": 8
+  },
+  {
+   "s": "churn-gbm-2025",
+   "type": "uses",
+   "label": "in",
+   "o": "feat-c25-app-sessions",
+   "quote": "In churn-lr-base-2025 and churn-gbm-2025",
+   "line": 8
+  },
+  {
+   "s": "dec-c25-drop-app-sessions",
+   "type": "other",
+   "label": "drops",
+   "o": "feat-c25-app-sessions",
+   "quote": "dropped from the production set by dec-c25-drop-app-sessions",
+   "line": 8
+  },
+  {
+   "s": "feat-c25-app-sessions",
+   "type": "other",
+   "label": "dropped from",
+   "o": "production-set",
+   "quote": "dropped from the production set by dec-c25-drop-app-sessions",
+   "line": 8
+  },
+  {
+   "s": "missing-flag",
+   "type": "part-of",
+   "label": "flag for",
+   "o": "feat-c25-app-sessions",
+   "quote": "Missing flag for the 29% of accounts with no app history",
+   "line": 7
+  },
+  {
+   "s": "feat-c25-app-sessions",
+   "type": "other",
+   "label": "from",
+   "o": "ds-c25-app-engagement",
+   "quote": "from: [ds-c25-app-engagement]",
+   "line": 2
+  },
+  {
+   "s": "feat-c25-app-sessions",
+   "type": "other",
+   "label": "transformed by",
+   "o": "log1p-transform",
+   "quote": "log1p transformed",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "dec-c25-drop-app-sessions"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2025/feat-c25-app-sessions.md",
+ "sha": "c724bb85daa5f1bbf3f0d1a31a979635121fb267319d9cd32949a8b4319205e8",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

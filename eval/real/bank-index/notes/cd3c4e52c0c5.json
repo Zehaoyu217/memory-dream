@@ -1,0 +1,69 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "dpd-due-date",
+   "type": "term",
+   "label": "dpd definition",
+   "as": [
+    "DPD counts from the payment due date (since 2025-11-01)",
+    "DPD counts from the minimum payment due date, and day 1 is the due date itself"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.payments_daily`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "glossary-dpd",
+   "type": "term",
+   "label": "old dpd note",
+   "as": [
+    "The old note counted DPD from the statement close date."
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dpd-due-date",
+   "type": "uses",
+   "label": "source is",
+   "o": "cards.payments_daily",
+   "quote": "Source is `cards.payments_daily`.",
+   "line": 6
+  },
+  {
+   "s": "dpd-due-date",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "glossary-dpd",
+   "quote": "supersedes: [glossary/dpd]",
+   "line": 3
+  }
+ ],
+ "refs": [
+  "glossary/dpd"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "corrections/dpd-due-date.md",
+ "sha": "cd3c4e52c0c5350c2009bfe3dedb767fadb40c178017d2aad1b49ffe4d5b43ab",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

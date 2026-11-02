@@ -1,0 +1,197 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "logistic-baseline",
+   "type": "model",
+   "label": "logistic baseline",
+   "as": [
+    "logistic baseline without MCC prior",
+    "Multinomial logistic regression"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro-f1",
+   "as": [
+    "Macro-F1"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "accuracy",
+   "type": "metric",
+   "label": "accuracy",
+   "as": [
+    "accuracy 0.78"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "recall",
+   "type": "metric",
+   "label": "recall",
+   "as": [
+    "recall 0.52"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-txc-descriptor-tokens-v1",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "feat-txc-descriptor-tokens-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-txc-labelled-merchants",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "ds-txc-labelled-merchants"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-txc-descriptor-sample",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "ds-txc-descriptor-sample"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fuel",
+   "type": "other",
+   "label": "class",
+   "as": [
+    "Fuel"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "mcc-prior",
+   "type": "term",
+   "label": "mcc prior",
+   "as": [
+    "MCC prior"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "logistic-baseline",
+   "type": "uses",
+   "label": "regression on",
+   "o": "feat-txc-descriptor-tokens-v1",
+   "quote": "Multinomial logistic regression on feat-txc-descriptor-tokens-v1",
+   "line": 6
+  },
+  {
+   "s": "logistic-baseline",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "holdout-2025q2",
+   "quote": "holdout-2025q2 (n=2,000 merchants)",
+   "line": 6
+  },
+  {
+   "s": "logistic-baseline",
+   "type": "measured-by",
+   "label": "gives macro-F1",
+   "o": "macro-f1",
+   "quote": "Macro-F1 0.71",
+   "line": 5
+  },
+  {
+   "s": "logistic-baseline",
+   "type": "measured-by",
+   "label": "accuracy",
+   "o": "accuracy",
+   "quote": "accuracy 0.78",
+   "line": 7
+  },
+  {
+   "s": "fuel",
+   "type": "measured-by",
+   "label": "weakest class with recall",
+   "o": "recall",
+   "quote": "weakest class 'Fuel' with recall 0.52",
+   "line": 7
+  },
+  {
+   "s": "logistic-baseline",
+   "type": "uses",
+   "label": "source table",
+   "o": "ds-txc-labelled-merchants",
+   "quote": "Source tables: ds-txc-labelled-merchants and ds-txc-descriptor-sample.",
+   "line": 8
+  },
+  {
+   "s": "logistic-baseline",
+   "type": "uses",
+   "label": "source table",
+   "o": "ds-txc-descriptor-sample",
+   "quote": "Source tables: ds-txc-labelled-merchants and ds-txc-descriptor-sample.",
+   "line": 8
+  },
+  {
+   "s": "logistic-baseline",
+   "type": "other",
+   "label": "without",
+   "o": "mcc-prior",
+   "quote": "no MCC prior",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-102",
+  "txc-logreg-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "txn-categorization/exp-101.md",
+ "sha": "be7c0cfc83d0734c95825ba0c5aac0878636b86dc6a5d34b2f34d2c496a2ea6d",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,68 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cli-spend-velocity",
+   "type": "feature",
+   "label": "ratio",
+   "as": [
+    "feat-cli-spend-velocity",
+    "30-day over 90-day purchase volume ratio"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cli-logreg-baseline",
+   "type": "model",
+   "label": "baseline",
+   "as": [
+    "cli-logreg-baseline"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cli-spend-velocity",
+   "type": "uses",
+   "label": "computed from",
+   "o": "cards.txn_daily",
+   "quote": "from cards.txn_daily",
+   "line": 5
+  },
+  {
+   "s": "cli-logreg-baseline",
+   "type": "uses",
+   "label": "includes",
+   "o": "feat-cli-spend-velocity",
+   "quote": "Included in cli-logreg-baseline",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-cli-outcome-90d"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/feat-cli-spend-velocity.md",
+ "sha": "95d8c46fcf2da2531c0893c5fb857046572778a82a1be03a1eccd91f0daeda0f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

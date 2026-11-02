@@ -1,0 +1,91 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-rs-placement-cutoff",
+   "type": "other",
+   "label": "placement cutoff decision",
+   "as": [
+    "Decision: place to agencies when rs-xgb-v2 predicts a recovery probability of 0.18 or above"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "rs-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rs-xgb-v2"
+   ],
+   "lines": [
+    2,
+    5
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "approver",
+   "as": [
+    "Lena Fischer",
+    "Agreed 2025-09-20 by Lena Fischer and Ben Carter (finance)."
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ben-carter",
+   "type": "person",
+   "label": "approver",
+   "as": [
+    "Ben Carter",
+    "Agreed 2025-09-20 by Lena Fischer and Ben Carter (finance)."
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-rs-placement-cutoff",
+   "type": "uses",
+   "label": "predicts with",
+   "o": "rs-xgb-v2",
+   "quote": "when rs-xgb-v2 predicts a recovery probability of 0.18 or above",
+   "line": 5
+  },
+  {
+   "s": "dec-rs-placement-cutoff",
+   "type": "owned-by",
+   "label": "agreed by",
+   "o": "lena-fischer",
+   "quote": "Agreed 2025-09-20 by Lena Fischer and Ben Carter (finance).",
+   "line": 6
+  },
+  {
+   "s": "dec-rs-placement-cutoff",
+   "type": "owned-by",
+   "label": "agreed by",
+   "o": "ben-carter",
+   "quote": "Agreed 2025-09-20 by Lena Fischer and Ben Carter (finance).",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "find-rs-placement-net",
+  "q-rs-placement-cutoff",
+  "rs-xgb-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "recovery-scoring/dec-rs-placement-cutoff.md",
+ "sha": "73d3d6b52b29fd3d0d2bf470eef93e7d0e031abc9355fc2e4aec0e745dc66f83",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

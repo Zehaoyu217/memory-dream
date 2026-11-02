@@ -1,0 +1,159 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-rev26-charge-off-haircut",
+   "type": "feature",
+   "label": "expected-loss haircut",
+   "as": [
+    "feat-rev26-charge-off-haircut",
+    "expected-loss haircut on accrued interest"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "feat-rev26-revolve-balance",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rev26-revolve-balance"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "ds-rev26-interest-accrual",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "ds-rev26-interest-accrual"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "bureau table",
+   "as": [
+    "bureau.scores_monthly",
+    "bureau table"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "delinquency-roll-rates",
+   "type": "feature",
+   "label": "roll rates",
+   "as": [
+    "delinquency roll rates"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "credit-data",
+   "type": "team",
+   "label": "owner team",
+   "as": [
+    "credit-data"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "interest-backtest-error",
+   "type": "metric",
+   "label": "backtest error",
+   "as": [
+    "interest backtest error"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-303",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-303"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-rev26-charge-off-haircut",
+   "type": "uses",
+   "label": "from",
+   "o": "bureau.scores_monthly",
+   "quote": "from bureau.scores_monthly and delinquency roll rates",
+   "line": 6
+  },
+  {
+   "s": "feat-rev26-charge-off-haircut",
+   "type": "uses",
+   "label": "from",
+   "o": "delinquency-roll-rates",
+   "quote": "from bureau.scores_monthly and delinquency roll rates",
+   "line": 6
+  },
+  {
+   "s": "feat-rev26-charge-off-haircut",
+   "type": "uses",
+   "label": "from",
+   "o": "feat-rev26-revolve-balance",
+   "quote": "from: [feat-rev26-revolve-balance, ds-rev26-interest-accrual]",
+   "line": 2
+  },
+  {
+   "s": "feat-rev26-charge-off-haircut",
+   "type": "uses",
+   "label": "from",
+   "o": "ds-rev26-interest-accrual",
+   "quote": "from: [feat-rev26-revolve-balance, ds-rev26-interest-accrual]",
+   "line": 2
+  },
+  {
+   "s": "bureau.scores_monthly",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "credit-data",
+   "quote": "credit-data owns the bureau table",
+   "line": 6
+  },
+  {
+   "s": "feat-rev26-charge-off-haircut",
+   "type": "other",
+   "label": "reduced error in",
+   "o": "exp-303",
+   "quote": "Took the interest backtest error from $4.2M to $0.9M per quarter (exp-303).",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-rev26-revolve-balance",
+  "ds-rev26-interest-accrual",
+  "exp-303"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "revenue-forecast-2026/feat-rev26-charge-off-haircut.md",
+ "sha": "6a92f45ed7f5ad64642f320668946491c3e8c7d75d03ffa6550ca885a50a5825",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

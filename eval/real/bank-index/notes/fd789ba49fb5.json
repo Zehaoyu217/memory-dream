@@ -1,0 +1,108 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-011-baseline",
+   "type": "model",
+   "label": "logistic baseline",
+   "as": [
+    "Logistic baseline",
+    "logreg-baseline"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "cards.churn_labels",
+   "type": "dataset",
+   "label": "training table",
+   "as": [
+    "`cards.churn_labels`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.71"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "recall-at-10",
+   "type": "metric",
+   "label": "recall@10",
+   "as": [
+    "recall@10 0.29"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-011-baseline",
+   "type": "trained-on",
+   "label": "fit on",
+   "o": "cards.churn_labels",
+   "quote": "fit on `cards.churn_labels` with 14 account-level features",
+   "line": 6
+  },
+  {
+   "s": "exp-011-baseline",
+   "type": "evaluated-on",
+   "label": "holdout on",
+   "o": "holdout-2025q4",
+   "quote": "holdout-2025q4, n=1.2M, 2026-09-15",
+   "line": 7
+  },
+  {
+   "s": "exp-011-baseline",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.71",
+   "line": 5
+  },
+  {
+   "s": "exp-011-baseline",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "recall-at-10",
+   "quote": "recall@10 0.29",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "nb/exp011_baseline.ipynb"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2026/exp-011-baseline.md",
+ "sha": "fd789ba49fb550157c286892836253c0f942a4144e7fada33344a6d26886e0ac",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

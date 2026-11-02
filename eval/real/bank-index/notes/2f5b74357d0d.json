@@ -1,0 +1,110 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "handoff-rule-v2",
+   "type": "policy",
+   "label": "handoff rule",
+   "as": [
+    "Handoff rule v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "handoff-rule-v1",
+   "type": "policy",
+   "label": "rule",
+   "as": [
+    "v1"
+   ],
+   "lines": [
+    2,
+    4,
+    7
+   ]
+  },
+  {
+   "id": "exp-304",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-304"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "containment",
+   "type": "metric",
+   "label": "containment",
+   "as": [
+    "containment"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "repeat-contact",
+   "type": "metric",
+   "label": "repeat contact",
+   "as": [
+    "repeat contact"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "handoff-rule-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "handoff-rule-v1",
+   "quote": "supersedes: [feat-cb-handoff-rule-v1]",
+   "line": 4
+  },
+  {
+   "s": "handoff-rule-v2",
+   "type": "measured-by",
+   "label": "gives",
+   "o": "repeat-contact",
+   "quote": "the v2 rule gives repeat contact 15 percent against 21 percent for v1 (exp-304)",
+   "line": 7
+  },
+  {
+   "s": "handoff-rule-v2",
+   "type": "measured-by",
+   "label": "at",
+   "o": "containment",
+   "quote": "at containment 25 percent against 29 percent",
+   "line": 7
+  },
+  {
+   "s": "handoff-rule-v2",
+   "type": "uses",
+   "label": "from",
+   "o": "exp-304",
+   "quote": "from: [feat-cb-handoff-rule-v1, exp-304]",
+   "line": 2
+  }
+ ],
+ "refs": [
+  "feat-cb-handoff-rule-v1",
+  "exp-304",
+  "dec-cb-handoff-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "chatbot-deflection/feat-cb-handoff-rule-v2.md",
+ "sha": "2f5b74357d0d9d0e92becb55c0f02d62673010ac86a4b7d7595ea3ef22df289c",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

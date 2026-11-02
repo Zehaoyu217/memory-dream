@@ -1,0 +1,125 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "cb-escalate-v1",
+   "type": "model",
+   "label": "escalation model",
+   "as": [
+    "Escalation model"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "prior-calls-count",
+   "type": "feature",
+   "label": "prior-calls count",
+   "as": [
+    "prior-calls count"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "callback-prioritisation",
+   "type": "other",
+   "label": "callback prioritisation",
+   "as": [
+    "callback prioritisation"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "handoff-rule-v1",
+   "type": "policy",
+   "label": "handoff rule",
+   "as": [
+    "handoff rule"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cb-escalate-v1",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "holdout-2025q4",
+   "quote": "Escalation holdout: holdout-2025q4 sessions (n = 18,400)",
+   "line": 6
+  },
+  {
+   "s": "cb-escalate-v1",
+   "type": "measured-by",
+   "label": "AUC 0.77",
+   "o": "auc",
+   "quote": "AUC 0.77 with prior-calls count, 0.73 without.",
+   "line": 6
+  },
+  {
+   "s": "cb-escalate-v1",
+   "type": "uses",
+   "label": "with prior-calls count",
+   "o": "prior-calls-count",
+   "quote": "AUC 0.77 with prior-calls count, 0.73 without.",
+   "line": 6
+  },
+  {
+   "s": "cb-escalate-v1",
+   "type": "other",
+   "label": "feeds",
+   "o": "callback-prioritisation",
+   "quote": "Result feeds the callback prioritisation",
+   "line": 7
+  },
+  {
+   "s": "cb-escalate-v1",
+   "type": "other",
+   "label": "no change to",
+   "o": "handoff-rule-v1",
+   "quote": "no change to the handoff rule",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "chatbot-deflection/exp-305.md",
+ "sha": "74acfa58f00bd6127470d6acb603393d7c3af6bd1159c0860c40e059eaa0843d",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

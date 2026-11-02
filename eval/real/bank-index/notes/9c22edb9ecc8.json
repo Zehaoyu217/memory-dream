@@ -1,0 +1,117 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-xs-credit-limit-band",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "five credit-limit bands",
+    "feat-xs-credit-limit-band"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "xs-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "xs-gbm-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "xs-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "xs-gbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "payroll-flag",
+   "type": "flag",
+   "label": "payroll flag",
+   "as": [
+    "payroll flag"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-404-limit-band",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-404-limit-band"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-xs-credit-limit-band",
+   "type": "uses",
+   "label": "bands from",
+   "o": "cards.accounts_monthly",
+   "quote": "Bands from the current limit in `cards.accounts_monthly`",
+   "line": 6
+  },
+  {
+   "s": "xs-gbm-v1",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-xs-credit-limit-band",
+   "quote": "Used in xs-gbm-v1.",
+   "line": 7
+  },
+  {
+   "s": "feat-xs-credit-limit-band",
+   "type": "other",
+   "label": "adds nothing once",
+   "o": "payroll-flag",
+   "quote": "Adds nothing once the payroll flag is in",
+   "line": 7
+  },
+  {
+   "s": "feat-xs-credit-limit-band",
+   "type": "other",
+   "label": "dropped from",
+   "o": "xs-gbm-v2",
+   "quote": "dropped from xs-gbm-v2",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-404-limit-band"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cross-sell-savings/feat-xs-credit-limit-band.md",
+ "sha": "9c22edb9ecc8abf812d1a44a47152d0b2f21755a6433c3b7913a89917d297dba",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

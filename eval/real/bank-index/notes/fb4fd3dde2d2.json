@@ -1,0 +1,110 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "pbs-kmeans-v1",
+   "type": "model",
+   "label": "kmeans run",
+   "as": [
+    "pbs-kmeans-v1",
+    "kmeans run"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-pbs-frame-h1-2025",
+   "type": "document",
+   "label": "active-account frame",
+   "as": [
+    "ds-pbs-frame-h1-2025"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "pbs-sample",
+   "type": "dataset",
+   "label": "200k-account sample",
+   "as": [
+    "200k-account sample"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "silhouette",
+   "type": "metric",
+   "label": "silhouette",
+   "as": [
+    "Silhouette"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "minimum-payers",
+   "type": "segment",
+   "label": "minimum-payers",
+   "as": [
+    "minimum-payers"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dormant-accounts",
+   "type": "segment",
+   "label": "dormant accounts",
+   "as": [
+    "dormant accounts"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "pbs-sample",
+   "type": "part-of",
+   "label": "sample of",
+   "o": "ds-pbs-frame-h1-2025",
+   "quote": "200k-account sample of ds-pbs-frame-h1-2025",
+   "line": 8
+  },
+  {
+   "s": "minimum-payers",
+   "type": "other",
+   "label": "merged with",
+   "o": "dormant-accounts",
+   "quote": "four merges the minimum-payers with the dormant accounts",
+   "line": 6
+  },
+  {
+   "s": "silhouette",
+   "type": "other",
+   "label": "favours four clusters",
+   "o": "minimum-payers",
+   "quote": "Silhouette favours four clusters",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fnd-pbs-five-segments",
+  "exp-401"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "payment-behavior-segments/q-pbs-segment-count.md",
+ "sha": "fb4fd3dde2d227c2ecd8db051b33c073016caa9ac4dc5e01545f9a57171ce6d6",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

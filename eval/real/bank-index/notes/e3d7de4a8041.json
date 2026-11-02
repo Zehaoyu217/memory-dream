@@ -1,0 +1,95 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "raj-patel",
+   "type": "person",
+   "label": "agreed by",
+   "as": [
+    "Raj Patel"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "credit risk",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ch-propensity-v1",
+   "type": "model",
+   "label": "channel model",
+   "as": [
+    "ch-propensity-v1"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "feat-ch-optout-flag-v1",
+   "type": "feature",
+   "label": "opt-out accounts",
+   "as": [
+    "feat-ch-optout-flag-v1"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "1-7-dpd-accounts",
+   "type": "segment",
+   "label": "1-7 dpd accounts",
+   "as": [
+    "1-7 DPD accounts"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "1-7-dpd-accounts",
+   "type": "other",
+   "label": "routed to SMS first",
+   "o": "ch-propensity-v1",
+   "quote": "1-7 DPD accounts get SMS first. A call follows only where ch-propensity-v1 scores the call higher.",
+   "line": 7
+  },
+  {
+   "s": "feat-ch-optout-flag-v1",
+   "type": "other",
+   "label": "excluded before choice",
+   "o": "1-7-dpd-accounts",
+   "quote": "Opt-out accounts (feat-ch-optout-flag-v1) are excluded before choice.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "find-ch-sms-matches-call",
+  "ch-propensity-v1",
+  "feat-ch-optout-flag-v1",
+  "dec-cu-promote-v3"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-channel-mix/dec-ch-sms-first.md",
+ "sha": "e3d7de4a8041296dd6a2ab558d3125b9603fa7f98c830e84c7718c029d810580",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

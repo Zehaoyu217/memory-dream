@@ -1,0 +1,105 @@
+{
+ "kind": "note",
+ "entities": [
+  {
+   "id": "chat-sessions",
+   "type": "dataset",
+   "label": "chat sessions table",
+   "as": [
+    "`chat.sessions` holds 1.6M account-servicing chat sessions for calendar 2025"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "yuki-tanaka",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Yuki Tanaka"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "customer-experience",
+   "type": "team",
+   "label": "owning team",
+   "as": [
+    "customer experience"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "handoff-rate",
+   "type": "metric",
+   "label": "handoff rate",
+   "as": [
+    "Handoff rate in 2025 was 41 percent of sessions before the bot was widened."
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "session-median-messages",
+   "type": "metric",
+   "label": "median session length",
+   "as": [
+    "Median session is 3 user messages."
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "chat-sessions",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "yuki-tanaka",
+   "quote": "Owner: this project, customer experience (Yuki Tanaka)",
+   "line": 6
+  },
+  {
+   "s": "chat-sessions",
+   "type": "owned-by",
+   "label": "owned by team",
+   "o": "customer-experience",
+   "quote": "customer experience (Yuki Tanaka)",
+   "line": 6
+  },
+  {
+   "s": "chat-sessions",
+   "type": "measured-by",
+   "label": "has handoff rate",
+   "o": "handoff-rate",
+   "quote": "Handoff rate in 2025 was 41 percent of sessions before the bot was widened.",
+   "line": 8
+  },
+  {
+   "s": "chat-sessions",
+   "type": "measured-by",
+   "label": "has median length",
+   "o": "session-median-messages",
+   "quote": "Median session is 3 user messages.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "chatbot-deflection/ds-cb-sessions.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "chatbot-deflection/ds-cb-sessions.md",
+ "sha": "44cfb674781db999de2d05e3fbe5d03d2cf9c700ab706681975c622ad81405b3",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

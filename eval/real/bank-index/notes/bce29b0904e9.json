@@ -1,0 +1,149 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-rev26-p10-p90-bands",
+   "type": "other",
+   "label": "decision note",
+   "as": [
+    "Decision: report P10 and P90 bands from rev26-combined-v1 alongside the base case"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "rev26-combined-v1",
+   "type": "model",
+   "label": "forecast model",
+   "as": [
+    "rev26-combined-v1"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "fnd-rev26-volume-driven",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-rev26-volume-driven"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "fnd-rev26-promo-tail",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-rev26-promo-tail"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "p10-p90-bands",
+   "type": "metric",
+   "label": "p10 and p90 bands",
+   "as": [
+    "P10 and P90 bands",
+    "P10",
+    "P90"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "spend-volume",
+   "type": "feature",
+   "label": "spend volume",
+   "as": [
+    "spend volume"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "promo-roll-off-timing",
+   "type": "feature",
+   "label": "promo roll-off timing",
+   "as": [
+    "promo roll-off timing"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-rev26-p10-p90-bands",
+   "type": "uses",
+   "label": "from",
+   "o": "rev26-combined-v1",
+   "quote": "from: [rev26-combined-v1, fnd-rev26-volume-driven, fnd-rev26-promo-tail]",
+   "line": 2
+  },
+  {
+   "s": "dec-rev26-p10-p90-bands",
+   "type": "uses",
+   "label": "from",
+   "o": "fnd-rev26-volume-driven",
+   "quote": "from: [rev26-combined-v1, fnd-rev26-volume-driven, fnd-rev26-promo-tail]",
+   "line": 2
+  },
+  {
+   "s": "dec-rev26-p10-p90-bands",
+   "type": "uses",
+   "label": "from",
+   "o": "fnd-rev26-promo-tail",
+   "quote": "from: [rev26-combined-v1, fnd-rev26-volume-driven, fnd-rev26-promo-tail]",
+   "line": 2
+  },
+  {
+   "s": "rev26-combined-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "p10-p90-bands",
+   "quote": "report P10 and P90 bands from rev26-combined-v1 alongside the base case",
+   "line": 5
+  },
+  {
+   "s": "spend-volume",
+   "type": "other",
+   "label": "drives band width",
+   "o": "p10-p90-bands",
+   "quote": "Band width is driven by spend volume and promo roll-off timing",
+   "line": 7
+  },
+  {
+   "s": "promo-roll-off-timing",
+   "type": "other",
+   "label": "drives band width",
+   "o": "p10-p90-bands",
+   "quote": "Band width is driven by spend volume and promo roll-off timing",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-rev26-volume-driven",
+  "fnd-rev26-promo-tail"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "revenue-forecast-2026/dec-rev26-p10-p90-bands.md",
+ "sha": "bce29b0904e93332d6c78f45e820064eeec59feee9c77c06a311920501b01a71",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

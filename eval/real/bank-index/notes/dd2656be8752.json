@@ -1,0 +1,130 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "trv-stl-v1",
+   "type": "model",
+   "label": "baseline",
+   "as": [
+    "trv-stl-v1: STL decomposition plus ARIMA on travel spend, trend +1.8% a quarter",
+    "Baseline only; no regressors"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "stl-decomposition",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "STL decomposition"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "arima",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "ARIMA"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "total-travel-spend",
+   "type": "other",
+   "label": "measured series",
+   "as": [
+    "total travel spend"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "trend-growth",
+   "type": "metric",
+   "label": "trend growth",
+   "as": [
+    "Trend growth is 1.8% a quarter"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "2025-plateau",
+   "type": "other",
+   "label": "plateau",
+   "as": [
+    "2025 plateau"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "trv-stl-v1",
+   "type": "uses",
+   "label": "decomposes with",
+   "o": "stl-decomposition",
+   "quote": "STL decomposition with an ARIMA model",
+   "line": 6
+  },
+  {
+   "s": "trv-stl-v1",
+   "type": "uses",
+   "label": "fits with",
+   "o": "arima",
+   "quote": "STL decomposition with an ARIMA model",
+   "line": 6
+  },
+  {
+   "s": "trv-stl-v1",
+   "type": "uses",
+   "label": "models",
+   "o": "total-travel-spend",
+   "quote": "an ARIMA model on the trend and remainder of total travel spend",
+   "line": 6
+  },
+  {
+   "s": "trv-stl-v1",
+   "type": "measured-by",
+   "label": "reports trend",
+   "o": "trend-growth",
+   "quote": "Trend growth is 1.8% a quarter over 2023-01 to 2025-02",
+   "line": 7
+  },
+  {
+   "s": "trv-stl-v1",
+   "type": "other",
+   "label": "cannot show",
+   "o": "2025-plateau",
+   "quote": "it cannot show a driver of the 2025 plateau",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-trv-travel-mcc-monthly",
+  "feat-trv-seasonality-adj",
+  "exp-501"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "travel-spend-recovery/trv-stl-v1.md",
+ "sha": "dd2656be87523afc3d3e2f90325457622b3397b3dcd3da3b46476f0319aefc1d",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,90 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "xs-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "xs-gbm-v1"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "xs-holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "xs-holdout-2025q1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "payments-based-balance-proxy",
+   "type": "feature",
+   "label": "balance proxy",
+   "as": [
+    "payments-based balance proxy"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.71"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "xs-gbm-v1",
+   "type": "measured-by",
+   "label": "reaches",
+   "o": "auc",
+   "quote": "xs-gbm-v1 reaches AUC 0.71",
+   "line": 6
+  },
+  {
+   "s": "xs-gbm-v1",
+   "type": "evaluated-on",
+   "label": "reaches on",
+   "o": "xs-holdout-2025q1",
+   "quote": "reaches AUC 0.71 on xs-holdout-2025q1",
+   "line": 6
+  },
+  {
+   "s": "xs-gbm-v1",
+   "type": "uses",
+   "label": "with",
+   "o": "payments-based-balance-proxy",
+   "quote": "with the balance proxy and no other deposit signal",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "xs-gbm-v1",
+  "exp-404-limit-band",
+  "find-xs-payroll-lift"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cross-sell-savings/find-xs-proxy-ok.md",
+ "sha": "caf6d86682908030028e3c0f617a58bd2c1aa69d96f313aac8b00c6f14c8efd7",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

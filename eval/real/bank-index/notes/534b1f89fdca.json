@@ -1,0 +1,124 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "fraud25-gbm-v3",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "fraud25-gbm-v3",
+    "v3"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "fraud25-gbm-v2",
+   "type": "model",
+   "label": "live model",
+   "as": [
+    "v2",
+    "keep v2 live"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fraud-ops",
+   "type": "team",
+   "label": "ops team",
+   "as": [
+    "Fraud ops"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fraud-2026",
+   "type": "other",
+   "label": "rebuild",
+   "as": [
+    "fraud-2026",
+    "2026 rebuild"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "travel-alert-share",
+   "type": "metric",
+   "label": "alert share",
+   "as": [
+    "travel alert share"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "recall",
+   "type": "metric",
+   "label": "recall",
+   "as": [
+    "recall at 0.62",
+    "recall"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud25-gbm-v3",
+   "type": "measured-by",
+   "label": "cuts",
+   "o": "travel-alert-share",
+   "quote": "v3 cuts travel alert share from 31% to 17%",
+   "line": 6
+  },
+  {
+   "s": "fraud25-gbm-v3",
+   "type": "measured-by",
+   "label": "recall drops",
+   "o": "recall",
+   "quote": "recall at 0.62 drops from 0.58 to 0.57",
+   "line": 6
+  },
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "other",
+   "label": "kept live",
+   "o": "fraud25-gbm-v3",
+   "quote": "the decision is to keep v2 live",
+   "line": 7
+  },
+  {
+   "s": "fraud-2026",
+   "type": "other",
+   "label": "defers travel fix",
+   "o": "travel-alert-share",
+   "quote": "The travel problem is deferred to fraud-2026.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-107",
+  "fraud25-gbm-v3"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/dec-f25-no-v3.md",
+ "sha": "534b1f89fdca108cc64ab1212783615e6f69a265f84d1a82a94cb015785aaff2",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

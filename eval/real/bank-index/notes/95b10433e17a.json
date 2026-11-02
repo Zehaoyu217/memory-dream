@@ -1,0 +1,116 @@
+{
+ "kind": "note",
+ "entities": [
+  {
+   "id": "cards.churn_labels",
+   "type": "dataset",
+   "label": "label table",
+   "as": [
+    "cards.churn_labels"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "retention-labels-job",
+   "type": "pipeline",
+   "label": "labelling job",
+   "as": [
+    "the retention-labels job"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "data-eng-cards",
+   "type": "team",
+   "label": "maintainer team",
+   "as": [
+    "data-eng-cards"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "churn-rate",
+   "type": "metric",
+   "label": "churn rate",
+   "as": [
+    "Churn rate 6.8%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "churn-label",
+   "type": "term",
+   "label": "90-day churn flag",
+   "as": [
+    "90-day churn flag"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cards.churn_labels",
+   "type": "produces",
+   "label": "built by",
+   "o": "retention-labels-job",
+   "quote": "Built by the retention-labels job",
+   "line": 5
+  },
+  {
+   "s": "retention-labels-job",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards.txn_daily",
+   "quote": "from `cards.txn_daily`",
+   "line": 5
+  },
+  {
+   "s": "cards.churn_labels",
+   "type": "owned-by",
+   "label": "maintained by",
+   "o": "data-eng-cards",
+   "quote": "maintained by data-eng-cards",
+   "line": 5
+  },
+  {
+   "s": "cards.churn_labels",
+   "type": "measured-by",
+   "label": "churn rate on",
+   "o": "churn-rate",
+   "quote": "Churn rate 6.8% on the 2025 book",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "churn-2026/ds-churn-labels.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2026/ds-churn-labels.md",
+ "sha": "95b10433e17ab5df8e388316329a020db49e6e6fb98123aeda89db01b80fbfc5",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

@@ -1,0 +1,111 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-505",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-505"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ch-propensity-v1",
+   "type": "model",
+   "label": "channel choice model",
+   "as": [
+    "ch-propensity-v1",
+    "ch-propensity-v1 channel choice"
+   ],
+   "lines": [
+    2,
+    5
+   ]
+  },
+  {
+   "id": "wave-1-holdout-split",
+   "type": "segment",
+   "label": "holdout split",
+   "as": [
+    "Wave-1 holdout split"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift@20%",
+   "as": [
+    "uplift@20%",
+    "Uplift@20%"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "sms-first-rule",
+   "type": "other",
+   "label": "baseline rule",
+   "as": [
+    "a fixed SMS-first rule"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ch-propensity-v1",
+   "type": "measured-by",
+   "label": "reaches uplift",
+   "o": "uplift-at-20",
+   "quote": "reaches uplift@20% of 0.021",
+   "line": 5
+  },
+  {
+   "s": "exp-505",
+   "type": "measured-by",
+   "label": "reports uplift",
+   "o": "uplift-at-20",
+   "quote": "Uplift@20% for the channel choice: 0.021",
+   "line": 6
+  },
+  {
+   "s": "exp-505",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "wave-1-holdout-split",
+   "quote": "Wave-1 holdout split, n=17,200 accounts (20% of wave 1)",
+   "line": 6
+  },
+  {
+   "s": "ch-propensity-v1",
+   "type": "other",
+   "label": "compared against",
+   "o": "sms-first-rule",
+   "quote": "against 0.011 for a fixed SMS-first rule",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ch-propensity-v1",
+  "collections_channel/exp505_propensity_v1.ipynb"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-channel-mix/exp-505.md",
+ "sha": "3cfe775e2398b245fa8841d00de5efa76087c54a6cafe0745dbf6bfff9b580cc",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

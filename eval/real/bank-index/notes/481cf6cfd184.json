@@ -1,0 +1,163 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-017-leak-check",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "Leak check: AUC falls 0.81→0.74 once post-period days are removed"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "recall-at-10",
+   "type": "metric",
+   "label": "recall@10",
+   "as": [
+    "recall@10"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "xgboost",
+   "type": "tool",
+   "label": "xgboost setup",
+   "as": [
+    "XGBoost"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "vel_ratio_30_90",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "vel_ratio_30_90"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "data-leak",
+   "type": "term",
+   "label": "leak check",
+   "as": [
+    "Leak check"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "velocity-window",
+   "type": "term",
+   "label": "velocity window",
+   "as": [
+    "velocity window"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-017-leak-check",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "holdout-2025q4",
+   "quote": "holdout-2025q4, n=1.2M, 2026-10-28",
+   "line": 7
+  },
+  {
+   "s": "exp-017-leak-check",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.74",
+   "line": 7
+  },
+  {
+   "s": "exp-017-leak-check",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "recall-at-10",
+   "quote": "recall@10 0.41",
+   "line": 7
+  },
+  {
+   "s": "exp-017-leak-check",
+   "type": "uses",
+   "label": "same setup as",
+   "o": "xgboost",
+   "quote": "Same XGBoost setup as exp-014",
+   "line": 6
+  },
+  {
+   "s": "exp-017-leak-check",
+   "type": "other",
+   "label": "importance drops",
+   "o": "vel_ratio_30_90",
+   "quote": "`vel_ratio_30_90` drops from first to ninth in gain importance.",
+   "line": 8
+  },
+  {
+   "s": "exp-017-leak-check",
+   "type": "other",
+   "label": "tests for",
+   "o": "data-leak",
+   "quote": "Leak check: AUC falls 0.81→0.74",
+   "line": 5
+  },
+  {
+   "s": "exp-017-leak-check",
+   "type": "other",
+   "label": "window ends on",
+   "o": "velocity-window",
+   "quote": "the velocity window ends on the observation date",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-014"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2026/exp-017-leak-check.md",
+ "sha": "481cf6cfd184bac73927551afa1b3fbe6bd205c5b11d7c6553293dd84e205ee5",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

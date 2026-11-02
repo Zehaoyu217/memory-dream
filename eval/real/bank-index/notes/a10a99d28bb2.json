@@ -1,0 +1,131 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "mq3-uplift-xl-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "mq3-uplift-xl-v2"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "mq3-oot-2026h1",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "mq3-oot-2026h1"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Uplift@20%"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "app-redesign",
+   "type": "other",
+   "label": "app redesign",
+   "as": [
+    "February 2026 app redesign"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "in-app-heavy",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "in-app-heavy segment"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "q3-targeting",
+   "type": "other",
+   "label": "q3 targeting",
+   "as": [
+    "Q3"
+   ],
+   "lines": [
+    2,
+    6,
+    7,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mq3-uplift-xl-v2",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "mq3-oot-2026h1",
+   "quote": "scored on mq3-oot-2026h1",
+   "line": 6
+  },
+  {
+   "s": "mq3-uplift-xl-v2",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "uplift-at-20",
+   "quote": "Uplift@20% is 2.2, down from 2.6",
+   "line": 6
+  },
+  {
+   "s": "uplift-at-20",
+   "type": "other",
+   "label": "drop traced to",
+   "o": "app-redesign",
+   "quote": "The drop is traced to the February 2026 app redesign",
+   "line": 7
+  },
+  {
+   "s": "app-redesign",
+   "type": "other",
+   "label": "shifts session counts for",
+   "o": "in-app-heavy",
+   "quote": "app session counts shift for the in-app-heavy segment",
+   "line": 7
+  },
+  {
+   "s": "mq3-uplift-xl-v2",
+   "type": "other",
+   "label": "kept for",
+   "o": "q3-targeting",
+   "quote": "Model is kept for Q3 with the drift flagged",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-mq3-oot-2026h1",
+  "find-mq3-q1-drift"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "marketing-uplift-q3/exp-306-oot-q1-2026.md",
+ "sha": "a10a99d28bb2065166c14eadf1f5e37445a920fa0a444e33ea8cb8b7aab659cf",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

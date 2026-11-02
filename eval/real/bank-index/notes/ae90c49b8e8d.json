@@ -1,0 +1,126 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-disp-disputes",
+   "type": "team",
+   "label": "source",
+   "as": [
+    "ds-disp-disputes"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "cards.disputes",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.disputes joined to cards.merchants on merchant_id"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.merchants",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.merchants"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "data-eng-cards",
+   "type": "team",
+   "label": "owning team",
+   "as": [
+    "data-eng-cards"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-disp-merchant-cb-rate",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-disp-merchant-cb-rate"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-mrisk-dispute-ratio",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mrisk-dispute-ratio"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "merchant-risk",
+   "type": "model",
+   "label": "consumer",
+   "as": [
+    "merchant-risk"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cards.disputes",
+   "type": "joined-to",
+   "label": "joined to",
+   "o": "cards.merchants",
+   "quote": "Join on merchant_id to `cards.merchants`",
+   "line": 6
+  },
+  {
+   "s": "cards.merchants",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "data-eng-cards",
+   "quote": "owned by data-eng-cards",
+   "line": 6
+  },
+  {
+   "s": "feat-disp-merchant-cb-rate",
+   "type": "uses",
+   "label": "uses join",
+   "o": "cards.merchants",
+   "quote": "Used by feat-disp-merchant-cb-rate",
+   "line": 8
+  },
+  {
+   "s": "merchant-risk",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-mrisk-dispute-ratio",
+   "quote": "by merchant-risk (feat-mrisk-dispute-ratio)",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "dispute-triage/ds-disp-merchant-link.md",
+ "sha": "ae90c49b8e8db0666a31cd83557d8f16af1ca77ac98ba4c436da7fb0899df66d",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,68 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "sla table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "weekly-kpi-deck",
+   "type": "document",
+   "label": "kpi deck",
+   "as": [
+    "Weekly KPI deck",
+    "the deck"
+   ],
+   "lines": [
+    4,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "data-pull",
+   "type": "pipeline",
+   "label": "data pull",
+   "as": [
+    "The data pull runs Monday 06:00 UTC"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "weekly-kpi-deck",
+   "type": "uses",
+   "label": "built from",
+   "o": "data-pull",
+   "quote": "so the deck is built from a complete week",
+   "line": 6
+  },
+  {
+   "s": "data-pull",
+   "type": "other",
+   "label": "runs after SLA",
+   "o": "cards.txn_daily",
+   "quote": "The data pull runs Monday 06:00 UTC, after the `cards.txn_daily` SLA",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/weekly-kpi-deck-cutoff.md",
+ "sha": "90beda7dd2e6341f0cbec5cd039455fe390c61a8b5b48254e53b34ad6734ffe2",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

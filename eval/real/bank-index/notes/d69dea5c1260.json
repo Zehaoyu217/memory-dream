@@ -1,0 +1,142 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "ae-score-v2",
+   "type": "model",
+   "label": "engagement score v2",
+   "as": [
+    "ae-score-v2"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "ae-score-v1",
+   "type": "model",
+   "label": "engagement score v1",
+   "as": [
+    "ae-score-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-505",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-505"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "logistic-weights",
+   "type": "term",
+   "label": "logistic weights",
+   "as": [
+    "logistic weights",
+    "logistic procedure"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "push-credit",
+   "type": "term",
+   "label": "push credit",
+   "as": [
+    "push credit",
+    "push removed"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ae-score-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "ae-score-v1",
+   "quote": "ae-score-v2 replaces ae-score-v1",
+   "line": 6
+  },
+  {
+   "s": "ae-score-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q4",
+   "quote": "AUC 0.76 against 0.73 for v1 on holdout-2025q4 (exp-505)",
+   "line": 6
+  },
+  {
+   "s": "ae-score-v2",
+   "type": "measured-by",
+   "label": "AUC 0.76",
+   "o": "auc",
+   "quote": "AUC 0.76 against 0.73 for v1",
+   "line": 6
+  },
+  {
+   "s": "ae-score-v2",
+   "type": "other",
+   "label": "fit with",
+   "o": "logistic-weights",
+   "quote": "Weights refit each quarter by the same logistic procedure",
+   "line": 7
+  },
+  {
+   "s": "ae-score-v2",
+   "type": "other",
+   "label": "removed push",
+   "o": "push-credit",
+   "quote": "push removed",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ae-score-v2",
+  "exp-505"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "app-engagement/dec-ae-score-v2.md",
+ "sha": "d69dea5c1260f0d1ec71f1ff9291ba630511ff6503f85f938d41358fdef82e78",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

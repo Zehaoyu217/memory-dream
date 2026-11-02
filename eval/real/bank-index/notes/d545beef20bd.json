@@ -1,0 +1,122 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "v3",
+   "type": "model",
+   "label": "candidate model",
+   "as": [
+    "v3 candidate"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fraud26-oot-2026h1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "fraud26-oot-2026h1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "threshold-0.66",
+   "type": "flag",
+   "label": "threshold",
+   "as": [
+    "threshold 0.66"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "alert-rate",
+   "type": "metric",
+   "label": "alert rate",
+   "as": [
+    "alert rate"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "precision-at-0.90",
+   "type": "metric",
+   "label": "precision",
+   "as": [
+    "precision"
+   ],
+   "lines": [
+    5,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "recall",
+   "type": "metric",
+   "label": "recall",
+   "as": [
+    "recall"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "v3",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "fraud26-oot-2026h1",
+   "quote": "Eval set: fraud26-oot-2026h1 (4,213 matured fraud labels).",
+   "line": 6
+  },
+  {
+   "s": "v3",
+   "type": "measured-by",
+   "label": "alert rate",
+   "o": "alert-rate",
+   "quote": "alert rate 0.6%",
+   "line": 7
+  },
+  {
+   "s": "v3",
+   "type": "measured-by",
+   "label": "precision",
+   "o": "precision-at-0.90",
+   "quote": "precision 21.5%",
+   "line": 7
+  },
+  {
+   "s": "v3",
+   "type": "measured-by",
+   "label": "recall",
+   "o": "recall",
+   "quote": "recall 0.61",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-207",
+  "ds-f26-oot-2026h1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2026/exp-208.md",
+ "sha": "d545beef20bd8e3b884b6145f6122eeb2f999fe692a5c26d22101f3d405adb8b",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

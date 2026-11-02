@@ -1,0 +1,109 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-bsm-thin-file-flag",
+   "type": "feature",
+   "label": "flag",
+   "as": [
+    "feat-bsm-thin-file-flag",
+    "applicant has no v10 score or fewer than 2 tradelines"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bsm-app-gbm-v10b",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bsm-app-gbm-v10b"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "bsm-v10-score",
+   "type": "feature",
+   "label": "v10 score",
+   "as": [
+    "v10 score"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "bureau-tradelines",
+   "type": "feature",
+   "label": "tradelines",
+   "as": [
+    "fewer than 2 tradelines"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "jan-feb-2026-cohort",
+   "type": "segment",
+   "label": "cohort",
+   "as": [
+    "Jan-Feb 2026 cohort"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-bsm-thin-file-flag",
+   "type": "uses",
+   "label": "is 1 when missing",
+   "o": "bsm-v10-score",
+   "quote": "Flag is 1 when the v10 score is missing",
+   "line": 6
+  },
+  {
+   "s": "feat-bsm-thin-file-flag",
+   "type": "uses",
+   "label": "is 1 when few",
+   "o": "bureau-tradelines",
+   "quote": "or the bureau shows fewer than 2 tradelines",
+   "line": 6
+  },
+  {
+   "s": "bsm-app-gbm-v10b",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-bsm-thin-file-flag",
+   "quote": "Used in bsm-app-gbm-v10b",
+   "line": 8
+  },
+  {
+   "s": "feat-bsm-thin-file-flag",
+   "type": "other",
+   "label": "covers",
+   "o": "jan-feb-2026-cohort",
+   "quote": "Covers 6.4% of the Jan-Feb 2026 cohort (n=71,300).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-bsm-v10-cohorts-2026",
+  "find-bsm-thin-file-gap"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "bureau-score-migration/feat-bsm-thin-file-flag.md",
+ "sha": "e1582f46005de0a88ef7b0b3c4d77ab287b7b0048308156c5d108e0a19b54e57",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

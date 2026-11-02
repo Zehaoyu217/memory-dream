@@ -1,0 +1,179 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-502",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-502"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "app-thin-file-subgroup",
+   "type": "segment",
+   "label": "subgroup",
+   "as": [
+    "Thin-file subgroup"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-app-thin-file",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-app-thin-file"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "feat-app-velocity-apps",
+   "type": "feature",
+   "label": "velocity feature",
+   "as": [
+    "Velocity feature"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-app-applications-2024",
+   "type": "dataset",
+   "label": "applicants",
+   "as": [
+    "2024 applicants"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "app-scorecard-v3",
+   "type": "model",
+   "label": "scorecard",
+   "as": [
+    "app-scorecard-v3"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "approval-rate",
+   "type": "metric",
+   "label": "approval",
+   "as": [
+    "approval 19%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "thin-file-gap",
+   "type": "other",
+   "label": "approval gap",
+   "as": [
+    "thin-file gap"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "app-thin-file-subgroup",
+   "type": "uses",
+   "label": "subgroup from",
+   "o": "feat-app-thin-file",
+   "quote": "Thin-file subgroup from feat-app-thin-file",
+   "line": 6
+  },
+  {
+   "s": "exp-502",
+   "type": "uses",
+   "label": "applicants from",
+   "o": "ds-app-applications-2024",
+   "quote": "14% of 2024 applicants",
+   "line": 6
+  },
+  {
+   "s": "exp-502",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q1",
+   "quote": "holdout-2025q1 (n=21,300)",
+   "line": 7
+  },
+  {
+   "s": "feat-app-velocity-apps",
+   "type": "measured-by",
+   "label": "adds Gini",
+   "o": "gini",
+   "quote": "Velocity feature adds Gini +0.01 on holdout-2025q1",
+   "line": 7
+  },
+  {
+   "s": "app-scorecard-v3",
+   "type": "measured-by",
+   "label": "approval 19%",
+   "o": "approval-rate",
+   "quote": "approval 19% against 33% for the rest on app-scorecard-v3",
+   "line": 6
+  },
+  {
+   "s": "feat-app-velocity-apps",
+   "type": "other",
+   "label": "does not close",
+   "o": "thin-file-gap",
+   "quote": "the thin-file gap is not closed by velocity",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "find-app-thin-file-gap"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "application-scorecard/exp-502.md",
+ "sha": "99dd9b1baa4f75a9cc0fb54b1932460593951c6370ebdd53d6361e9a282f88b9",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

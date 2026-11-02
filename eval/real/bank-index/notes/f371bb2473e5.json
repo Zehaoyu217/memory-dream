@@ -1,0 +1,90 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "watchlist-cut-065",
+   "type": "policy",
+   "label": "watchlist cut",
+   "as": [
+    "watchlist cut"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "watchlist-cut-070",
+   "type": "policy",
+   "label": "watchlist cut",
+   "as": [
+    "0.70 on v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "mrisk-gbm-v3",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "mrisk-gbm-v3"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "mrisk-gbm-v2",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "watchlist-cut-065",
+   "type": "replaces",
+   "label": "replacing",
+   "o": "watchlist-cut-070",
+   "quote": "replacing 0.70 on v2",
+   "line": 7
+  },
+  {
+   "s": "watchlist-cut-065",
+   "type": "other",
+   "label": "applied on",
+   "o": "mrisk-gbm-v3",
+   "quote": "watchlist cut is score >= 0.65 on mrisk-gbm-v3",
+   "line": 7
+  },
+  {
+   "s": "watchlist-cut-070",
+   "type": "other",
+   "label": "applied on",
+   "o": "mrisk-gbm-v2",
+   "quote": "replacing 0.70 on v2",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-508",
+  "mrisk-find-watchlist-065",
+  "dec-mrisk-watchlist-07"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "merchant-risk/dec-mrisk-threshold-065.md",
+ "sha": "f371bb2473e5a6c12b17897e976b3c2ccd97a031e145083c879ab66aeee49f1e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

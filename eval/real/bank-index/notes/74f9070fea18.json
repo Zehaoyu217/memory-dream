@@ -1,0 +1,83 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "flat-rate-1-25pct",
+   "type": "policy",
+   "label": "flat rate",
+   "as": [
+    "flat 1.25%"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "tier-a",
+   "type": "policy",
+   "label": "cashback tier",
+   "as": [
+    "tier A"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "net-profit",
+   "type": "metric",
+   "label": "net profit",
+   "as": [
+    "net profit"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "pooled-elasticity",
+   "type": "metric",
+   "label": "pooled elasticity",
+   "as": [
+    "Pooled elasticity"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "flat-rate-1-25pct",
+   "type": "other",
+   "label": "beats",
+   "o": "tier-a",
+   "quote": "flat 1.25% beats tier A on net profit",
+   "line": 5
+  },
+  {
+   "s": "flat-rate-1-25pct",
+   "type": "measured-by",
+   "label": "judged on",
+   "o": "net-profit",
+   "quote": "beats tier A on net profit",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-201-flat-rate-pilot",
+  "exp-202-tier-pilot",
+  "cb-elasticity-v1",
+  "find-cb-band-elasticity"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/find-cb-flat-wins.md",
+ "sha": "74f9070fea18999cbb8c5f0054c363509c5c0ad5a1836342f243ed0bd2d8b2a0",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

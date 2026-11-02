@@ -1,0 +1,202 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "pbs-gmm-v3",
+   "type": "model",
+   "label": "segment table",
+   "as": [
+    "pbs-gmm-v3"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "pbs-kmeans-v1",
+   "type": "model",
+   "label": "segment table",
+   "as": [
+    "kmeans"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "pbs-gmm-v2",
+   "type": "model",
+   "label": "segment table",
+   "as": [
+    "gmm-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "transactors",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "transactor"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "revolvers",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "revolver"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "minimum-payer",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "minimum-payer"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cash-heavy",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "cash-heavy"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dormant",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "dormant"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "maya-ortiz",
+   "type": "person",
+   "label": "retention lead",
+   "as": [
+    "Maya Ortiz"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "raj-patel",
+   "type": "person",
+   "label": "collections lead",
+   "as": [
+    "Raj Patel"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "pbs-gmm-v3",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "pbs-kmeans-v1",
+   "quote": "pbs-gmm-v3 replaces the kmeans and gmm-v2 tables",
+   "line": 6
+  },
+  {
+   "s": "pbs-gmm-v3",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "pbs-gmm-v2",
+   "quote": "pbs-gmm-v3 replaces the kmeans and gmm-v2 tables",
+   "line": 6
+  },
+  {
+   "s": "pbs-gmm-v3",
+   "type": "other",
+   "label": "names segment",
+   "o": "transactors",
+   "quote": "The five segments are named transactor, revolver, minimum-payer, cash-heavy and dormant.",
+   "line": 7
+  },
+  {
+   "s": "pbs-gmm-v3",
+   "type": "other",
+   "label": "names segment",
+   "o": "revolvers",
+   "quote": "The five segments are named transactor, revolver, minimum-payer, cash-heavy and dormant.",
+   "line": 7
+  },
+  {
+   "s": "pbs-gmm-v3",
+   "type": "other",
+   "label": "names segment",
+   "o": "minimum-payer",
+   "quote": "The five segments are named transactor, revolver, minimum-payer, cash-heavy and dormant.",
+   "line": 7
+  },
+  {
+   "s": "pbs-gmm-v3",
+   "type": "other",
+   "label": "names segment",
+   "o": "cash-heavy",
+   "quote": "The five segments are named transactor, revolver, minimum-payer, cash-heavy and dormant.",
+   "line": 7
+  },
+  {
+   "s": "pbs-gmm-v3",
+   "type": "other",
+   "label": "names segment",
+   "o": "dormant",
+   "quote": "The five segments are named transactor, revolver, minimum-payer, cash-heavy and dormant.",
+   "line": 7
+  },
+  {
+   "s": "pbs-gmm-v3",
+   "type": "~used-by",
+   "label": "take the table",
+   "o": "maya-ortiz",
+   "quote": "Retention (Maya Ortiz) and collections (Raj Patel) take the table from the next monthly run.",
+   "line": 8
+  },
+  {
+   "s": "pbs-gmm-v3",
+   "type": "~used-by",
+   "label": "take the table",
+   "o": "raj-patel",
+   "quote": "Retention (Maya Ortiz) and collections (Raj Patel) take the table from the next monthly run.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "fnd-pbs-five-segments"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "payment-behavior-segments/dec-pbs-gmm-v3-current.md",
+ "sha": "dda6aa441eb296c8e9cf24ec488821ba8271e04acf7168c1e6fda83f26179367",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

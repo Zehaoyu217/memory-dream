@@ -1,0 +1,49 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "monthly-model-review",
+   "type": "other",
+   "label": "monthly review meeting",
+   "as": [
+    "The monthly model review is 60 minutes on the third Tuesday, in a fixed agenda"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "drift metric",
+   "as": [
+    "PSI"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "monthly-model-review",
+   "type": "measured-by",
+   "label": "covers drift",
+   "o": "psi",
+   "quote": "drift (PSI on the top-20 features)",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "reporting/monthly-review-decision-log"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/monthly-model-review-agenda.md",
+ "sha": "80ab864ab5d840b526aecfed24bb22096a9f97fe1f6cc47c238bead36660a82f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

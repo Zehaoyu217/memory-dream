@@ -1,0 +1,186 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "ed-logit-v1",
+   "type": "model",
+   "label": "logistic scorecard",
+   "as": [
+    "ed-logit-v1",
+    "14-variable logistic scorecard"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "gradient-boosted-model",
+   "type": "model",
+   "label": "gradient-boosted model",
+   "as": [
+    "a gradient-boosted model",
+    "GBM"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "early-delinquency-holdout-2024q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "early-delinquency-holdout-2024q4"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "30-plus-within-3-months",
+   "type": "term",
+   "label": "delinquency target",
+   "as": [
+    "30+ within 3 months"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "thin-file-segment",
+   "type": "segment",
+   "label": "thin-file segment",
+   "as": [
+    "thin-file"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "full-file-segment",
+   "type": "segment",
+   "label": "full-file segment",
+   "as": [
+    "full-file"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "watchlist",
+   "type": "other",
+   "label": "watchlist",
+   "as": [
+    "watchlist"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "watchlist",
+   "type": "uses",
+   "label": "currently uses",
+   "o": "ed-logit-v1",
+   "quote": "The watchlist currently uses ed-logit-v1",
+   "line": 6
+  },
+  {
+   "s": "gradient-boosted-model",
+   "type": "other",
+   "label": "could replace",
+   "o": "ed-logit-v1",
+   "quote": "to replace the scorecard",
+   "line": 8
+  },
+  {
+   "s": "gradient-boosted-model",
+   "type": "measured-by",
+   "label": "tested by",
+   "o": "auc",
+   "quote": "Test: AUC, Gini and KS on early-delinquency-holdout-2024q4",
+   "line": 7
+  },
+  {
+   "s": "gradient-boosted-model",
+   "type": "measured-by",
+   "label": "tested by",
+   "o": "gini",
+   "quote": "Test: AUC, Gini and KS on early-delinquency-holdout-2024q4",
+   "line": 7
+  },
+  {
+   "s": "gradient-boosted-model",
+   "type": "measured-by",
+   "label": "tested by",
+   "o": "ks",
+   "quote": "Test: AUC, Gini and KS on early-delinquency-holdout-2024q4",
+   "line": 7
+  },
+  {
+   "s": "gradient-boosted-model",
+   "type": "other",
+   "label": "must be stable across",
+   "o": "thin-file-segment",
+   "quote": "stable enough across thin-file and full-file segments",
+   "line": 8
+  },
+  {
+   "s": "gradient-boosted-model",
+   "type": "other",
+   "label": "must be stable across",
+   "o": "full-file-segment",
+   "quote": "stable enough across thin-file and full-file segments",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "early-delinquency/q-ed-can-gbm-beat-scorecard.md",
+ "sha": "9094875c406329591f6d19023905efa974d5d423cb7aa83c0accb7abc6d3829a",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

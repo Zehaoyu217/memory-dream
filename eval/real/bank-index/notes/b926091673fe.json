@@ -1,0 +1,202 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-407",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-407"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-pbs-oot-2025h2",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-pbs-oot-2025h2"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "segment-label",
+   "type": "feature",
+   "label": "segment label",
+   "as": [
+    "Segment label alone"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "90-plus-dpd",
+   "type": "term",
+   "label": "target",
+   "as": [
+    "90+ DPD",
+    "90+ days past due"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.31",
+    "KS"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "revolvers",
+   "type": "segment",
+   "label": "revolver group",
+   "as": [
+    "Revolver"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "minimum-payers",
+   "type": "segment",
+   "label": "minimum-payer group",
+   "as": [
+    "Minimum-payer"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "bad-rate",
+   "type": "metric",
+   "label": "bad rate",
+   "as": [
+    "bad rate"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "collections.cases",
+   "type": "dataset",
+   "label": "label source",
+   "as": [
+    "collections.cases"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "raj-patel",
+   "type": "person",
+   "label": "person",
+   "as": [
+    "Raj Patel"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "prioritisation-queue",
+   "type": "other",
+   "label": "prioritisation queue",
+   "as": [
+    "prioritisation queue"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-407",
+   "type": "evaluated-on",
+   "label": "on",
+   "o": "ds-pbs-oot-2025h2",
+   "quote": "Segment label alone as a score for 90+ DPD in the next six months, ds-pbs-oot-2025h2.",
+   "line": 6
+  },
+  {
+   "s": "exp-407",
+   "type": "measured-by",
+   "label": "gives KS",
+   "o": "ks",
+   "quote": "KS 0.31; the Revolver and Minimum-payer groups carry most of the bad rate.",
+   "line": 7
+  },
+  {
+   "s": "revolvers",
+   "type": "measured-by",
+   "label": "carry most of",
+   "o": "bad-rate",
+   "quote": "the Revolver and Minimum-payer groups carry most of the bad rate",
+   "line": 7
+  },
+  {
+   "s": "minimum-payers",
+   "type": "measured-by",
+   "label": "carry most of",
+   "o": "bad-rate",
+   "quote": "the Revolver and Minimum-payer groups carry most of the bad rate",
+   "line": 7
+  },
+  {
+   "s": "segment-label",
+   "type": "uses",
+   "label": "labels from",
+   "o": "collections.cases",
+   "quote": "Labels from collections.cases",
+   "line": 8
+  },
+  {
+   "s": "segment-label",
+   "type": "uses",
+   "label": "used by",
+   "o": "prioritisation-queue",
+   "quote": "used by Raj Patel's prioritisation queue as a test",
+   "line": 8
+  },
+  {
+   "s": "prioritisation-queue",
+   "type": "owned-by",
+   "label": "Raj Patel's",
+   "o": "raj-patel",
+   "quote": "Raj Patel's prioritisation queue",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-406",
+  "ds-pbs-oot-2025h2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "payment-behavior-segments/exp-407.md",
+ "sha": "b926091673fe0b74ed76d248098cecf580482bd03e333375074dfdab971cd696",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,112 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "post-offer-limit-increases",
+   "type": "feature",
+   "label": "limit increases",
+   "as": [
+    "post-offer limit increases",
+    "Limit increases dated after the BT offer open"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "bt-offer-open",
+   "type": "other",
+   "label": "offer open event",
+   "as": [
+    "BT offer open"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    6,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "exp-104",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-104"
+   ],
+   "lines": [
+    2,
+    8
+   ]
+  },
+  {
+   "id": "bt-xgb-v2",
+   "type": "model",
+   "label": "clean model",
+   "as": [
+    "bt-xgb-v2"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "post-offer-limit-increases",
+   "type": "other",
+   "label": "caused by",
+   "o": "bt-offer-open",
+   "quote": "are often caused by the offer itself",
+   "line": 7
+  },
+  {
+   "s": "post-offer-limit-increases",
+   "type": "other",
+   "label": "inflates",
+   "o": "auc",
+   "quote": "Including them inflates AUC.",
+   "line": 7
+  },
+  {
+   "s": "exp-104",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "random split 0.81 with all rows, 0.74 with pre-offer rows only",
+   "line": 8
+  },
+  {
+   "s": "bt-xgb-v2",
+   "type": "measured-by",
+   "label": "holdout AUC is",
+   "o": "auc",
+   "quote": "The clean model's holdout AUC is 0.68",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-104-limit-headroom-full",
+  "find-bt-headroom-top",
+  "dec-bt-drop-post-offer-features"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "balance-transfer-propensity/find-bt-limit-leak.md",
+ "sha": "a1507a5ac24379fe0c1f89c8c36b762b3396f454bc3106fee87fa8f8fab3bf9b",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

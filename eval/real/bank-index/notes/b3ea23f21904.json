@@ -1,0 +1,138 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "cli-rct-2025q3",
+   "type": "dataset",
+   "label": "randomised set",
+   "as": [
+    "cli-rct-2025q3"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "t-learner",
+   "type": "term",
+   "label": "t-learner",
+   "as": [
+    "T-learner"
+   ],
+   "lines": [
+    5,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "s-learner",
+   "type": "term",
+   "label": "s-learner",
+   "as": [
+    "S-learner"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "qini",
+   "type": "metric",
+   "label": "qini",
+   "as": [
+    "Qini"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift@20%",
+   "as": [
+    "Uplift@20%"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cli-xgb-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cli-xgb-v3"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "t-learner",
+   "type": "other",
+   "label": "beats",
+   "o": "s-learner",
+   "quote": "T-learner beats S-learner on Qini",
+   "line": 5
+  },
+  {
+   "s": "t-learner",
+   "type": "measured-by",
+   "label": "on",
+   "o": "qini",
+   "quote": "T-learner beats S-learner on Qini, 0.081 versus 0.067",
+   "line": 5
+  },
+  {
+   "s": "s-learner",
+   "type": "measured-by",
+   "label": "on",
+   "o": "qini",
+   "quote": "T-learner beats S-learner on Qini, 0.081 versus 0.067 on cli-rct-2025q3",
+   "line": 5
+  },
+  {
+   "s": "t-learner",
+   "type": "measured-by",
+   "label": "scores",
+   "o": "uplift-at-20",
+   "quote": "Uplift@20%: T-learner 1.9, S-learner 1.6.",
+   "line": 7
+  },
+  {
+   "s": "t-learner",
+   "type": "evaluated-on",
+   "label": "split for fit and evaluation",
+   "o": "cli-rct-2025q3",
+   "quote": "Same randomised set as exp-102 (cli-rct-2025q3, n=36,000), split 50/50 for fit and evaluation.",
+   "line": 6
+  },
+  {
+   "s": "t-learner",
+   "type": "~used-in",
+   "label": "carried into",
+   "o": "cli-xgb-v3",
+   "quote": "the T-learner is carried into cli-xgb-v3",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-102",
+  "ds-cli-outcome-90d",
+  "find-cli-uplift-wins"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/exp-107.md",
+ "sha": "b3ea23f219049e72b072a807a5f718617c037170e0c4f918972791a7ea43a51e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

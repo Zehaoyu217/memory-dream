@@ -1,0 +1,161 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-505",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-505"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-app-bureau-v10-band",
+   "type": "feature",
+   "label": "v10 band",
+   "as": [
+    "v10 bands",
+    "mapped v10 band",
+    "feat-app-bureau-v10-band"
+   ],
+   "lines": [
+    2,
+    5,
+    6,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "feat-app-bureau-v8-band",
+   "type": "feature",
+   "label": "v8 band",
+   "as": [
+    "v8 band",
+    "v8 bands"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "app-scorecard-v3",
+   "type": "model",
+   "label": "scorecard form",
+   "as": [
+    "v3 scorecard form",
+    "app-scorecard-v3"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "app-scorecard-v4",
+   "type": "model",
+   "label": "scorecard",
+   "as": [
+    "app-scorecard-v4"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1",
+    "same holdout"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-app-bureau-v10-band",
+   "type": "measured-by",
+   "label": "lifts Gini",
+   "o": "gini",
+   "quote": "v10 bands lift Gini from 0.41 to 0.44",
+   "line": 5
+  },
+  {
+   "s": "exp-505",
+   "type": "measured-by",
+   "label": "measured KS",
+   "o": "ks",
+   "quote": "KS 0.36 against 0.38",
+   "line": 7
+  },
+  {
+   "s": "exp-505",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q1",
+   "quote": "on holdout-2025q1 (n=21,300)",
+   "line": 5
+  },
+  {
+   "s": "app-scorecard-v3",
+   "type": "uses",
+   "label": "swapped in",
+   "o": "feat-app-bureau-v10-band",
+   "quote": "Swapped the v8 band for the mapped v10 band in the v3 scorecard form",
+   "line": 6
+  },
+  {
+   "s": "exp-505",
+   "type": "other",
+   "label": "supports",
+   "o": "feat-app-bureau-v10-band",
+   "quote": "Supports feat-app-bureau-v10-band in app-scorecard-v4.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-app-bureau-v10-band",
+  "app-scorecard-v3"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "application-scorecard/exp-505.md",
+ "sha": "ccd8bf0a281bd042dc7457a40d5bf9cdd7ff29e976cedd8ea51b3098a829c3e7",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

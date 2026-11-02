@@ -1,0 +1,124 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "fraud26-gbm-v2",
+   "type": "model",
+   "label": "live model",
+   "as": [
+    "fraud26-gbm-v2"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "fraud26-gbm-v1",
+   "type": "model",
+   "label": "previous model",
+   "as": [
+    "v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "alert-threshold-0.62",
+   "type": "other",
+   "label": "alert threshold",
+   "as": [
+    "alert threshold 0.62"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "fraud26-oot-2025q4",
+   "type": "dataset",
+   "label": "evaluation dataset",
+   "as": [
+    "fraud26-oot-2025q4"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "velocity-v2-fix",
+   "type": "other",
+   "label": "velocity fix",
+   "as": [
+    "velocity-v2 fix"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.927"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "recall-at-1pct",
+   "type": "metric",
+   "label": "recall@1%",
+   "as": [
+    "recall@1% 0.58"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud26-gbm-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "fraud26-gbm-v1",
+   "quote": "replaces v1 as the live model",
+   "line": 6
+  },
+  {
+   "s": "fraud26-gbm-v2",
+   "type": "other",
+   "label": "uses alert threshold",
+   "o": "alert-threshold-0.62",
+   "quote": "alert threshold 0.62",
+   "line": 5
+  },
+  {
+   "s": "fraud26-gbm-v2",
+   "type": "uses",
+   "label": "based on",
+   "o": "velocity-v2-fix",
+   "quote": "Basis: exp-206 (AUC 0.927, recall@1% 0.58 on fraud26-oot-2025q4) and the clean velocity-v2 fix.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-206",
+  "dec-f26-maturity-60d",
+  "dec-f26-promote-v3"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2026/dec-f26-promote-v2.md",
+ "sha": "d621d82b2bba059585c720154839bd70841ead2696f2127079ca137528da4004",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

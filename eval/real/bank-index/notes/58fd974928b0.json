@@ -1,0 +1,66 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "booking-funnel-events",
+   "type": "dataset",
+   "label": "funnel events extract",
+   "as": [
+    "Booking funnel events from app.sessions_daily, 2024-01 to 2026-03"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "app-sessions-daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`app.sessions_daily`"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "feat-trv-funnel-v2",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "feat-trv-funnel-v2"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "booking-funnel-events",
+   "type": "uses",
+   "label": "built from",
+   "o": "app-sessions-daily",
+   "quote": "Daily funnel events from `app.sessions_daily`",
+   "line": 6
+  },
+  {
+   "s": "feat-trv-funnel-v2",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "booking-funnel-events",
+   "quote": "Source for feat-trv-funnel-v2 only.",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "travel-spend-recovery/ds-trv-funnel-sessions.md",
+ "sha": "58fd974928b05c38a679547c02ecfc7688eaf02e9d27fc6b1811b570912d8b4b",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

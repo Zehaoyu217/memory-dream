@@ -1,0 +1,136 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-307",
+   "type": "other",
+   "label": "experiment note",
+   "as": [
+    "exp-307"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bureau-score-v8-feed",
+   "type": "dataset",
+   "label": "v8 feed",
+   "as": [
+    "the v8 feed"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "bureau.scores_monthly"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bsm-app-gbm-v8",
+   "type": "model",
+   "label": "v8 model",
+   "as": [
+    "bsm-app-gbm-v8",
+    "v8"
+   ],
+   "lines": [
+    2,
+    5,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "bsm-app-gbm-v10b",
+   "type": "model",
+   "label": "v10b model",
+   "as": [
+    "bsm-app-gbm-v10b",
+    "v10b score"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "v8-fallback",
+   "type": "term",
+   "label": "fallback",
+   "as": [
+    "a v8 fallback"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dec-bsm-keep-v8-fallback",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-bsm-keep-v8-fallback"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-307",
+   "type": "uses",
+   "label": "checked",
+   "o": "bureau.scores_monthly",
+   "quote": "Checked the v8 feed for July-August 2026 in bureau.scores_monthly",
+   "line": 6
+  },
+  {
+   "s": "v8-fallback",
+   "type": "uses",
+   "label": "fallback is",
+   "o": "bsm-app-gbm-v10b",
+   "quote": "Fallback is the v10b score for those accounts",
+   "line": 7
+  },
+  {
+   "s": "exp-307",
+   "type": "other",
+   "label": "drives",
+   "o": "dec-bsm-keep-v8-fallback",
+   "quote": "Drives dec-bsm-keep-v8-fallback.",
+   "line": 8
+  },
+  {
+   "s": "bsm-app-gbm-v8",
+   "type": "other",
+   "label": "fed-by",
+   "o": "bureau-score-v8-feed",
+   "quote": "8% of v8 pulls go missing after Q3 2026 feed change",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "bsm-app-gbm-v8",
+  "bsm-app-gbm-v10b",
+  "dec-bsm-keep-v8-fallback",
+  "bureau.scores_monthly"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "bureau-score-migration/exp-307.md",
+ "sha": "72785f5666afb0e1a3d948c230737e3f933ae649a699fc3075898f74985aa00c",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

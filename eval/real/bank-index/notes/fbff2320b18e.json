@@ -1,0 +1,119 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-304",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-304: out-of-time v2 on disp-oot-2026h1 gives 93.4% precision at p>=0.90, 31% coverage"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "disp-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "disp-lgbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "disp-oot-2026h1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "disp-oot-2026h1"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "precision-at-0.90",
+   "type": "metric",
+   "label": "precision",
+   "as": [
+    "precision 93.4%"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "coverage",
+   "type": "metric",
+   "label": "coverage",
+   "as": [
+    "31% coverage"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "disp-find-autoresolve-96",
+   "type": "other",
+   "label": "in-sample result",
+   "as": [
+    "in-sample 96.1% (disp-find-autoresolve-96)"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "disp-lgbm-v2",
+   "type": "measured-by",
+   "label": "reports precision",
+   "o": "precision-at-0.90",
+   "quote": "disp-lgbm-v2 at p>=0.90: precision 93.4%",
+   "line": 7
+  },
+  {
+   "s": "disp-lgbm-v2",
+   "type": "measured-by",
+   "label": "reports coverage",
+   "o": "coverage",
+   "quote": "coverage 31%.",
+   "line": 7
+  },
+  {
+   "s": "disp-lgbm-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "disp-oot-2026h1",
+   "quote": "Eval set: disp-oot-2026h1",
+   "line": 6
+  },
+  {
+   "s": "exp-304",
+   "type": "other",
+   "label": "compared with",
+   "o": "disp-find-autoresolve-96",
+   "quote": "Lower than the in-sample 96.1% (disp-find-autoresolve-96)",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-303",
+  "ds-disp-oot",
+  "disp-find-autoresolve-96"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "dispute-triage/exp-304.md",
+ "sha": "fbff2320b18eb821a03517339a3f0ce5f25f1345957741f6a0553f72a571624f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

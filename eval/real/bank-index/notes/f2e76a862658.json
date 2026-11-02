@@ -1,0 +1,66 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "txn-categorization",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "[txn-categorization]"
+   ],
+   "lines": [
+    3,
+    4
+   ]
+  },
+  {
+   "id": "descriptor-sample",
+   "type": "dataset",
+   "label": "descriptor sample",
+   "as": [
+    "descriptor sample pulled, 2.1M rows"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "two-of-three-rule",
+   "type": "policy",
+   "label": "labelling rule",
+   "as": [
+    "two-of-three rule"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "txn-categorization",
+   "type": "uses",
+   "label": "pulled sample for",
+   "o": "descriptor-sample",
+   "quote": "descriptor sample pulled, 2.1M rows",
+   "line": 3
+  },
+  {
+   "s": "txn-categorization",
+   "type": "uses",
+   "label": "kept labels by",
+   "o": "two-of-three-rule",
+   "quote": "16.9k kept by two-of-three rule",
+   "line": 4
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2025-02-17.md",
+ "sha": "f2e76a862658294c6885e465d8c4bb3ab49cdd8f514b2ff9eee7c3af16174fa5",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

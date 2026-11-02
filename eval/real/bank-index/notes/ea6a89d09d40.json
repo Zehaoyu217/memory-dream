@@ -1,0 +1,171 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "bsm-app-gbm-v10a",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bsm-app-gbm-v10a"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bsm-app-gbm-v8",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bsm-app-gbm-v8"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "bsm-app-gbm-v10b",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bsm-app-gbm-v10b"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-bsm-score-map-v1",
+   "type": "other",
+   "label": "score map",
+   "as": [
+    "feat-bsm-score-map-v1",
+    "the linear map"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "feat-bsm-score-missing-impute",
+   "type": "feature",
+   "label": "source flag",
+   "as": [
+    "feat-bsm-score-missing-impute",
+    "the source flag"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "ds-bsm-v10-cohorts-2026",
+   "type": "dataset",
+   "label": "eval dataset",
+   "as": [
+    "ds-bsm-v10-cohorts-2026"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bsm-app-gbm-v10a",
+   "type": "derived-from",
+   "label": "from",
+   "o": "bsm-app-gbm-v8",
+   "quote": "from: [bsm-app-gbm-v8, feat-bsm-score-map-v1, feat-bsm-score-missing-impute]",
+   "line": 2
+  },
+  {
+   "s": "bsm-app-gbm-v10a",
+   "type": "uses",
+   "label": "retrained on mapped by",
+   "o": "feat-bsm-score-map-v1",
+   "quote": "Retrained on v10 mapped by feat-bsm-score-map-v1",
+   "line": 6
+  },
+  {
+   "s": "bsm-app-gbm-v10a",
+   "type": "uses",
+   "label": "with source flag from",
+   "o": "feat-bsm-score-missing-impute",
+   "quote": "with the source flag from feat-bsm-score-missing-impute",
+   "line": 6
+  },
+  {
+   "s": "bsm-app-gbm-v10a",
+   "type": "evaluated-on",
+   "label": "eval",
+   "o": "ds-bsm-v10-cohorts-2026",
+   "quote": "Eval: ds-bsm-v10-cohorts-2026 (n=71,300)",
+   "line": 7
+  },
+  {
+   "s": "bsm-app-gbm-v10a",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.78",
+   "line": 7
+  },
+  {
+   "s": "bsm-app-gbm-v10a",
+   "type": "measured-by",
+   "label": "KS at 60-day delinquency",
+   "o": "ks",
+   "quote": "KS 0.34 at 60-day delinquency",
+   "line": 7
+  },
+  {
+   "s": "bsm-app-gbm-v10b",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "bsm-app-gbm-v10a",
+   "quote": "Superseded by bsm-app-gbm-v10b (2026-06-10)",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "bsm-app-gbm-v8",
+  "feat-bsm-score-map-v1",
+  "feat-bsm-score-missing-impute",
+  "bsm-app-gbm-v10b"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "bureau-score-migration/bsm-app-gbm-v10a.md",
+ "sha": "ea6a89d09d409ccd25c163a473bf06bf77b8fc7bd09ba11c97d2aed8d37b6565",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

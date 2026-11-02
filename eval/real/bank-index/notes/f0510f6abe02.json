@@ -1,0 +1,150 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "calls",
+   "as": [
+    "`callcenter.calls`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "chat-sessions",
+   "type": "dataset",
+   "label": "chat sessions",
+   "as": [
+    "Chat sessions"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "contained-sessions",
+   "type": "segment",
+   "label": "contained sessions",
+   "as": [
+    "contained sessions"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "caller-key",
+   "type": "feature",
+   "label": "key",
+   "as": [
+    "caller_key"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "cb-call-join",
+   "type": "other",
+   "label": "join",
+   "as": [
+    "Join",
+    "The join"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "cx-analytics",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "cx-analytics"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "call-within-48h-rate",
+   "type": "metric",
+   "label": "share",
+   "as": [
+    "22 percent had a call within 48 hours"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "unmatched-calls",
+   "type": "segment",
+   "label": "unmatched calls",
+   "as": [
+    "calls with no account match"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "chat-sessions",
+   "type": "uses",
+   "label": "joined to",
+   "o": "callcenter.calls",
+   "quote": "Chat sessions joined to `callcenter.calls`",
+   "line": 5
+  },
+  {
+   "s": "cb-call-join",
+   "type": "uses",
+   "label": "uses",
+   "o": "caller-key",
+   "quote": "The join uses caller_key",
+   "line": 7
+  },
+  {
+   "s": "cb-call-join",
+   "type": "owned-by",
+   "label": "built by",
+   "o": "cx-analytics",
+   "quote": "Join built by cx-analytics",
+   "line": 6
+  },
+  {
+   "s": "contained-sessions",
+   "type": "measured-by",
+   "label": "had a call within 48 hours",
+   "o": "call-within-48h-rate",
+   "quote": "22 percent had a call within 48 hours",
+   "line": 6
+  },
+  {
+   "s": "unmatched-calls",
+   "type": "other",
+   "label": "dropped from",
+   "o": "cb-call-join",
+   "quote": "calls with no account match (3 percent) are dropped from linkage counts",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-cb-sessions"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "chatbot-deflection/ds-cb-call-linkage.md",
+ "sha": "f0510f6abe02bb614c0a1db5e4abeaa50b6808738bcd9394dc5e977349c0f321",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

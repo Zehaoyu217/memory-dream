@@ -1,0 +1,207 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "fuzzy-matching",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "fuzzy matching",
+    "Fuzzy descriptor match"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "exact-mcc-rule-lookup",
+   "type": "term",
+   "label": "rule",
+   "as": [
+    "Exact MCC-rule lookup"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "combined-rule",
+   "type": "term",
+   "label": "combined rule",
+   "as": [
+    "Combined rule"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "long-tail-slice",
+   "type": "segment",
+   "label": "slice",
+   "as": [
+    "Long-tail slice"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cards.merchants",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`cards.merchants`"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "coverage",
+   "type": "metric",
+   "label": "coverage",
+   "as": [
+    "coverage"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "precision",
+   "type": "metric",
+   "label": "precision",
+   "as": [
+    "precision"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fuzzy-matching",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "coverage",
+   "quote": "Fuzzy descriptor match: 79% coverage at 0.88 precision",
+   "line": 7
+  },
+  {
+   "s": "fuzzy-matching",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "precision",
+   "quote": "Fuzzy descriptor match: 79% coverage at 0.88 precision",
+   "line": 7
+  },
+  {
+   "s": "exact-mcc-rule-lookup",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "coverage",
+   "quote": "Exact MCC-rule lookup: 41% coverage at 0.97 precision",
+   "line": 7
+  },
+  {
+   "s": "exact-mcc-rule-lookup",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "precision",
+   "quote": "Exact MCC-rule lookup: 41% coverage at 0.97 precision",
+   "line": 7
+  },
+  {
+   "s": "combined-rule",
+   "type": "uses",
+   "label": "exact first, fuzzy fallback",
+   "o": "exact-mcc-rule-lookup",
+   "quote": "Combined rule (exact first, fuzzy fallback above 0.85 similarity)",
+   "line": 8
+  },
+  {
+   "s": "combined-rule",
+   "type": "uses",
+   "label": "fuzzy fallback",
+   "o": "fuzzy-matching",
+   "quote": "Combined rule (exact first, fuzzy fallback above 0.85 similarity)",
+   "line": 8
+  },
+  {
+   "s": "combined-rule",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "precision",
+   "quote": "gave 84% coverage at 0.92 precision",
+   "line": 8
+  },
+  {
+   "s": "long-tail-slice",
+   "type": "part-of",
+   "label": "slice of",
+   "o": "holdout-2025q2",
+   "quote": "Long-tail slice of holdout-2025q2",
+   "line": 6
+  },
+  {
+   "s": "long-tail-slice",
+   "type": "uses",
+   "label": "joined to",
+   "o": "cards.merchants",
+   "quote": "Source: `cards.merchants` joined to the labelled slice",
+   "line": 9
+  },
+  {
+   "s": "fuzzy-matching",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "long-tail-slice",
+   "quote": "Long-tail slice of holdout-2025q2 (under 20 transactions in 90 days, n=5,200 merchants)",
+   "line": 6
+  },
+  {
+   "s": "exact-mcc-rule-lookup",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "long-tail-slice",
+   "quote": "Long-tail slice of holdout-2025q2 (under 20 transactions in 90 days, n=5,200 merchants)",
+   "line": 6
+  },
+  {
+   "s": "combined-rule",
+   "type": "evaluated-on",
+   "label": "follow-up run",
+   "o": "long-tail-slice",
+   "quote": "Combined rule (exact first, fuzzy fallback above 0.85 similarity) gave 84% coverage at 0.92 precision in a follow-up run",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "q-txc-fuzzy-vs-rules",
+  "feat-txc-descriptor-tokens-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "txn-categorization/exp-107.md",
+ "sha": "76fcbb8ef250067ea23de6c0ab750bffc607c632f152c3da929226a38e6bd13b",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

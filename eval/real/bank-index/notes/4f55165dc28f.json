@@ -1,0 +1,124 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "ds-bsm-v10-cohorts-2026",
+   "type": "dataset",
+   "label": "cohorts",
+   "as": [
+    "ds-bsm-v10-cohorts-2026",
+    "2026 cohorts"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "bsm-v10",
+   "type": "model",
+   "label": "score version",
+   "as": [
+    "isotonic-mapped v10",
+    "v10"
+   ],
+   "lines": [
+    6,
+    7,
+    9
+   ]
+  },
+  {
+   "id": "isotonic-map",
+   "type": "term",
+   "label": "isotonic map",
+   "as": [
+    "isotonic-mapped",
+    "the isotonic map"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "linear-map",
+   "type": "term",
+   "label": "linear map",
+   "as": [
+    "the linear map"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "psi",
+   "as": [
+    "PSI 0.06"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cutoff-recalibration",
+   "type": "term",
+   "label": "cutoff recalibration",
+   "as": [
+    "cutoff recalibration"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bsm-v10",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "ds-bsm-v10-cohorts-2026",
+   "quote": "From exp-303 on ds-bsm-v10-cohorts-2026",
+   "line": 7
+  },
+  {
+   "s": "bsm-v10",
+   "type": "measured-by",
+   "label": "within PSI of",
+   "o": "psi",
+   "quote": "within PSI 0.06 of v8",
+   "line": 6
+  },
+  {
+   "s": "bsm-v10",
+   "type": "uses",
+   "label": "isotonic-mapped",
+   "o": "isotonic-map",
+   "quote": "isotonic-mapped v10 is within PSI 0.06",
+   "line": 6
+  },
+  {
+   "s": "bsm-v10",
+   "type": "other",
+   "label": "feasible with",
+   "o": "cutoff-recalibration",
+   "quote": "Cutover to v10 is now feasible with cutoff recalibration.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "find-bsm-psi-large",
+  "exp-303"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "bureau-score-migration/find-bsm-psi-after-map.md",
+ "sha": "4f55165dc28f6b0f0df7e1e129c960c87f089de67759c78435bdfb9e60848a91",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

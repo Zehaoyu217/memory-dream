@@ -1,0 +1,82 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "prophet",
+   "type": "tool",
+   "label": "forecasting library",
+   "as": [
+    "Prophet"
+   ],
+   "lines": [
+    2,
+    5,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "sfc-prophet-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "sfc-prophet-v1"
+   ],
+   "lines": [
+    2,
+    8
+   ]
+  },
+  {
+   "id": "sfc-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "sfc-lgbm-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "accuracy metric",
+   "as": [
+    "1-month MAPE"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "prophet",
+   "type": "measured-by",
+   "label": "gave",
+   "o": "mape",
+   "quote": "Prophet gave 6.9% 1-month MAPE",
+   "line": 6
+  },
+  {
+   "s": "sfc-lgbm-v2",
+   "type": "measured-by",
+   "label": "gave",
+   "o": "mape",
+   "quote": "against 5.1% for sfc-lgbm-v2",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-206"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "spend-forecasting/dec-sfc-drop-prophet.md",
+ "sha": "fe1fbb33336bdd6e5372931e8a006b08d57fe4f6335a982ed8b86104b0a6b59a",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

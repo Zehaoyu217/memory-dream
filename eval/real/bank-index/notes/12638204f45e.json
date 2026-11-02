@@ -1,0 +1,80 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "fiscal-quarter-labels",
+   "type": "term",
+   "label": "fiscal quarter labels",
+   "as": [
+    "Finance quarter labels in board packs are `FY27 FQ1` to `FY27 FQ4`.",
+    "`Q1` to `Q4` are used only for calendar quarters in data tables."
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "board-packs",
+   "type": "document",
+   "label": "board packs",
+   "as": [
+    "Board packs label fiscal quarters FQ, e.g. FY27 FQ1, and reserve Q for calendar quarters"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "deck",
+   "type": "document",
+   "label": "decks",
+   "as": [
+    "The same rule applies in decks"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "calendar-quarters",
+   "type": "term",
+   "label": "calendar quarters",
+   "as": [
+    "`Q1` to `Q4` are used only for calendar quarters in data tables."
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fiscal-quarter-labels",
+   "type": "other",
+   "label": "applies in",
+   "o": "deck",
+   "quote": "The same rule applies in decks",
+   "line": 7
+  },
+  {
+   "s": "board-packs",
+   "type": "other",
+   "label": "labels with",
+   "o": "fiscal-quarter-labels",
+   "quote": "Finance quarter labels in board packs are `FY27 FQ1` to `FY27 FQ4`.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "prefs/ben-carter-fiscal-quarter-names"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/fiscal-quarter-labels-fq.md",
+ "sha": "12638204f45e639de94fad82f8348ed983ac5a55a2b30cd8798ba7dd5824265a",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

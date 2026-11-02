@@ -1,0 +1,90 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "mrisk-oot-2025h2",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "mrisk-oot-2025h2"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "feat-mrisk-mcc-base",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mrisk-mcc-base"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.87"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "precision-at-100",
+   "type": "metric",
+   "label": "precision@100",
+   "as": [
+    "precision@100"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-mrisk-mcc-base",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "mrisk-oot-2025h2",
+   "quote": "Eval set: mrisk-oot-2025h2",
+   "line": 6
+  },
+  {
+   "s": "feat-mrisk-mcc-base",
+   "type": "other",
+   "label": "lifts AUC to",
+   "o": "auc",
+   "quote": "Adding feat-mrisk-mcc-base: AUC 0.87",
+   "line": 7
+  },
+  {
+   "s": "feat-mrisk-mcc-base",
+   "type": "measured-by",
+   "label": "lifts precision@100 to",
+   "o": "precision-at-100",
+   "quote": "precision@100 0.46",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-502",
+  "mrisk-find-mcc-base"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "merchant-risk/exp-503.md",
+ "sha": "2e95e210d9b513e323439b32c0fdf2103b245ce49aed0ad73c2f2783ca8eda5e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

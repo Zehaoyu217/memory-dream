@@ -1,0 +1,100 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-clv-hazard",
+   "type": "feature",
+   "label": "retention hazard",
+   "as": [
+    "feat-clv-hazard",
+    "monthly retention hazard by tenure band and bureau band"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-clv-cohort-panel",
+   "type": "dataset",
+   "label": "cohort panel",
+   "as": [
+    "ds-clv-cohort-panel"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "kaplan-meier",
+   "type": "term",
+   "label": "kaplan-meier hazard",
+   "as": [
+    "Kaplan-Meier"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "clv-ml-v2",
+   "type": "model",
+   "label": "clv model",
+   "as": [
+    "clv-ml-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "account",
+   "type": "account",
+   "label": "account",
+   "as": [
+    "each account"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-clv-hazard",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "ds-clv-cohort-panel",
+   "quote": "from ds-clv-cohort-panel",
+   "line": 6
+  },
+  {
+   "s": "feat-clv-hazard",
+   "type": "uses",
+   "label": "estimated with",
+   "o": "kaplan-meier",
+   "quote": "Kaplan-Meier hazard by tenure band and bureau band",
+   "line": 6
+  },
+  {
+   "s": "clv-ml-v2",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-clv-hazard",
+   "quote": "Used in clv-ml-v2 only.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-clv-tenure",
+  "feat-clv-loss-rate",
+  "exp-503"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "customer-lifetime-value/feat-clv-hazard.md",
+ "sha": "66268de0b21bba74646c1b88e6583e415e0cabaa96418c855e09f8458d34d929",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,105 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-txc-labelled-merchants",
+   "type": "dataset",
+   "label": "labelled merchants",
+   "as": [
+    "18,400 merchants from cards.merchants labelled into 23 categories"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.merchants",
+   "type": "dataset",
+   "label": "merchant extract",
+   "as": [
+    "`cards.merchants` extract"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "txc_labels_2025q1",
+   "type": "dataset",
+   "label": "annotation sheet",
+   "as": [
+    "txc_labels_2025q1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q2"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "spend-categories",
+   "type": "term",
+   "label": "spend categories",
+   "as": [
+    "23 spend categories"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-txc-labelled-merchants",
+   "type": "uses",
+   "label": "labelled from",
+   "o": "cards.merchants",
+   "quote": "labelled every merchant in the `cards.merchants` extract",
+   "line": 6
+  },
+  {
+   "s": "ds-txc-labelled-merchants",
+   "type": "other",
+   "label": "labels live in",
+   "o": "txc_labels_2025q1",
+   "quote": "Labels live in the annotation sheet `txc_labels_2025q1`",
+   "line": 7
+  },
+  {
+   "s": "ds-txc-labelled-merchants",
+   "type": "other",
+   "label": "labelled into",
+   "o": "spend-categories",
+   "quote": "one of 23 spend categories",
+   "line": 6
+  },
+  {
+   "s": "holdout-2025q2",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "ds-txc-labelled-merchants",
+   "quote": "Source for every training set and for holdout-2025q2",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "ds-txc-gold-holdout"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "txn-categorization/ds-txc-labelled-merchants.md",
+ "sha": "c3251f068c38ba15e207d946fa699dd29e0d38f0e8ec12e28e404b6e7ad03995",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,198 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "app-gbm-v1",
+   "type": "model",
+   "label": "challenger",
+   "as": [
+    "app-gbm-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "app-scorecard-v3",
+   "type": "model",
+   "label": "scorecard",
+   "as": [
+    "v3 features"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-app-thin-file",
+   "type": "feature",
+   "label": "thin-file flag",
+   "as": [
+    "thin-file flag"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-app-velocity-apps",
+   "type": "feature",
+   "label": "velocity",
+   "as": [
+    "velocity"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini 0.46"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.39"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-503",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-503"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "adverse-action-explanation-test",
+   "type": "test",
+   "label": "explanation test",
+   "as": [
+    "adverse-action explanation test"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "app-gbm-v2",
+   "type": "model",
+   "label": "reference model",
+   "as": [
+    "app-gbm-v2"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "app-gbm-v1",
+   "type": "uses",
+   "label": "built on",
+   "o": "app-scorecard-v3",
+   "quote": "Boosted trees on the v3 features",
+   "line": 7
+  },
+  {
+   "s": "app-gbm-v1",
+   "type": "uses",
+   "label": "built on",
+   "o": "feat-app-thin-file",
+   "quote": "Boosted trees on the v3 features plus the thin-file flag and velocity",
+   "line": 7
+  },
+  {
+   "s": "app-gbm-v1",
+   "type": "uses",
+   "label": "built on",
+   "o": "feat-app-velocity-apps",
+   "quote": "Boosted trees on the v3 features plus the thin-file flag and velocity",
+   "line": 7
+  },
+  {
+   "s": "app-gbm-v1",
+   "type": "evaluated-on",
+   "label": "eval on",
+   "o": "holdout-2025q1",
+   "quote": "Eval: holdout-2025q1 (n=21,300)",
+   "line": 8
+  },
+  {
+   "s": "app-gbm-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "gini",
+   "quote": "Gini 0.46, KS 0.39",
+   "line": 8
+  },
+  {
+   "s": "app-gbm-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "ks",
+   "quote": "Gini 0.46, KS 0.39",
+   "line": 8
+  },
+  {
+   "s": "app-gbm-v1",
+   "type": "other",
+   "label": "fails",
+   "o": "adverse-action-explanation-test",
+   "quote": "Fails the adverse-action explanation test in exp-503",
+   "line": 9
+  },
+  {
+   "s": "app-gbm-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "app-gbm-v1",
+   "quote": "superseded by app-gbm-v2 (2026-04-08) as the reference model",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "app-scorecard-v3",
+  "feat-app-thin-file",
+  "feat-app-velocity-apps",
+  "app-gbm-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "application-scorecard/app-gbm-v1.md",
+ "sha": "3d71c70e8b1b6e3d8643425af8960467d106a7d71e6ae1de58b897b886af6f95",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

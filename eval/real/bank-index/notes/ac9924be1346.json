@@ -1,0 +1,111 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-402",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-402: GBM on raw income cuts MAPE from 31% (linear) to 27% on holdout-2025q1 (n=12,400)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "inc-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "inc-gbm-v1"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "inc-linear-baseline",
+   "type": "model",
+   "label": "baseline",
+   "as": [
+    "inc-linear-baseline"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "booked-accounts",
+   "type": "segment",
+   "label": "accounts",
+   "as": [
+    "12,400 booked accounts"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "find-inc-mape-initial",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-inc-mape-initial"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-402",
+   "type": "evaluated-on",
+   "label": "compared on",
+   "o": "booked-accounts",
+   "quote": "Compared inc-linear-baseline and inc-gbm-v1 on the same 12,400 booked accounts.",
+   "line": 6
+  },
+  {
+   "s": "exp-402",
+   "type": "evaluated-on",
+   "label": "on holdout",
+   "o": "holdout-2025q1",
+   "quote": "on holdout-2025q1 (n=12,400)",
+   "line": 5
+  },
+  {
+   "s": "inc-gbm-v1",
+   "type": "other",
+   "label": "beats baseline",
+   "o": "inc-linear-baseline",
+   "quote": "MAPE 31% against 27%; the GBM is better on accounts with a cadence (22%) and on those without (30%).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "income-estimation/exp-402.md",
+  "find-inc-mape-initial"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "income-estimation/exp-402.md",
+ "sha": "ac9924be13464639df01bd49e58497dce95a5f079e15e9543f9a318f3be0751d",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

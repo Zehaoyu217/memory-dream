@@ -1,0 +1,62 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-hp-plan-length-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-hp-plan-length-v1 is the plan length as a dose: 3 months or 6 months, from the enrolment record",
+    "Feature: plan length at enrolment (3 or 6 months), plus a flag for plan extended after enrolment."
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "ds-hp-enrolled",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "ds-hp-enrolled"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "collections.cases",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "`collections.cases` plan terms in ds-hp-enrolled"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-hp-plan-length-v1",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "collections.cases",
+   "quote": "Source: `collections.cases` plan terms in ds-hp-enrolled.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-hp-enrolled"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "hardship-programs/feat-hp-plan-length-v1.md",
+ "sha": "6bf5af64e9240a257b07047635e82964576951cbcd7dcf685ffdcbdca63dd8e3",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

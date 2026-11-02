@@ -1,0 +1,98 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cli-util-v2",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "feat-cli-util-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "xgb-v1",
+   "type": "model",
+   "label": "retrain",
+   "as": [
+    "the xgb-v1 retrain"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "cli-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cli-xgb-v2"
+   ],
+   "lines": [
+    10
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cli-util-v2",
+   "type": "evaluated-on",
+   "label": "gain on",
+   "o": "holdout-2025q4",
+   "quote": "Slope gain on holdout-2025q4",
+   "line": 9
+  },
+  {
+   "s": "feat-cli-util-v2",
+   "type": "measured-by",
+   "label": "gain in",
+   "o": "auc",
+   "quote": "+0.012 AUC",
+   "line": 9
+  },
+  {
+   "s": "cli-xgb-v2",
+   "type": "uses",
+   "label": "used from",
+   "o": "feat-cli-util-v2",
+   "quote": "Used from cli-xgb-v2 onward.",
+   "line": 10
+  }
+ ],
+ "refs": [
+  "feat-cli-util-v1",
+  "exp-103"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/feat-cli-util-v2.md",
+ "sha": "19142f3346718984dc79b95a3a49cdecd9b400a6a99cbcf1453c772a5b0f0ed6",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

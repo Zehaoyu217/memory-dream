@@ -1,0 +1,99 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "engagement-score",
+   "type": "metric",
+   "label": "engagement score",
+   "as": [
+    "engagement score"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "weekly-retention-dashboard",
+   "type": "dashboard",
+   "label": "weekly retention dashboard",
+   "as": [
+    "weekly retention dashboard"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "digital-analytics",
+   "type": "team",
+   "label": "owner",
+   "as": [
+    "digital-analytics"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "quintile-retention",
+   "type": "metric",
+   "label": "quintile retention",
+   "as": [
+    "Quintile retention"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "quintile-bands",
+   "type": "term",
+   "label": "quintile bands",
+   "as": [
+    "quintile bands"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "engagement-score",
+   "type": "other",
+   "label": "shown on",
+   "o": "weekly-retention-dashboard",
+   "quote": "The score goes on the weekly retention dashboard",
+   "line": 6
+  },
+  {
+   "s": "weekly-retention-dashboard",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "digital-analytics",
+   "quote": "owner digital-analytics",
+   "line": 6
+  },
+  {
+   "s": "quintile-retention",
+   "type": "other",
+   "label": "shown beside",
+   "o": "engagement-score",
+   "quote": "Quintile retention (91 percent top, 58 percent bottom) is shown beside the score",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-ae-score-v2",
+  "fnd-ae-quintiles"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "app-engagement/dec-ae-dashboard.md",
+ "sha": "8d6333ca410d8244334e3d095da108355a9d0591b359d70d10fbe0d0af560036",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

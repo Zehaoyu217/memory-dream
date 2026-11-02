@@ -1,0 +1,147 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "fraud25-gbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fraud25-gbm-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "recall",
+   "type": "metric",
+   "label": "recall",
+   "as": [
+    "recall"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "travel-flag",
+   "type": "flag",
+   "label": "travel flag",
+   "as": [
+    "travel flag"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "travel-alert-share",
+   "type": "metric",
+   "label": "share",
+   "as": [
+    "Travel share of alerts"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "alert-replay",
+   "type": "dataset",
+   "label": "alert replay",
+   "as": [
+    "alert replay"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud25-gbm-v3",
+   "type": "uses",
+   "label": "travel flag x0.5",
+   "o": "travel-flag",
+   "quote": "fraud25-gbm-v3 (travel flag x0.5)",
+   "line": 7
+  },
+  {
+   "s": "fraud25-gbm-v3",
+   "type": "evaluated-on",
+   "label": "eval set for AUC",
+   "o": "holdout-2025q1",
+   "quote": "Eval set: holdout-2025q1 for AUC",
+   "line": 6
+  },
+  {
+   "s": "fraud25-gbm-v3",
+   "type": "measured-by",
+   "label": "AUC 0.909",
+   "o": "auc",
+   "quote": "AUC 0.909",
+   "line": 7
+  },
+  {
+   "s": "fraud25-gbm-v3",
+   "type": "measured-by",
+   "label": "recall at 0.62 is 0.57",
+   "o": "recall",
+   "quote": "recall at 0.62 is 0.57",
+   "line": 7
+  },
+  {
+   "s": "fraud25-gbm-v3",
+   "type": "measured-by",
+   "label": "travel share 17%",
+   "o": "travel-alert-share",
+   "quote": "Travel share of alerts 17% (from 31%)",
+   "line": 8
+  },
+  {
+   "s": "fraud25-gbm-v3",
+   "type": "evaluated-on",
+   "label": "alert replay for shares",
+   "o": "alert-replay",
+   "quote": "alert replay for shares",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-106",
+  "feat-f25-mcc-travel"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/exp-107.md",
+ "sha": "e0d02aa2a8ab2e558851d9b8d9828226717fe139e98777ee35dd9e648b6d70c3",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

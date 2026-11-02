@@ -1,0 +1,108 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "fixed-0.5-cutoff",
+   "type": "policy",
+   "label": "fixed cutoff",
+   "as": [
+    "fixed 0.5 cutoff"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cost-matrix-cutoff",
+   "type": "term",
+   "label": "cost-matrix cutoff",
+   "as": [
+    "cost-matrix cutoff"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "validation-slice-cost-minimum",
+   "type": "term",
+   "label": "cost minimum",
+   "as": [
+    "validation-slice cost minimum"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "scoring-service",
+   "type": "service",
+   "label": "scoring service",
+   "as": [
+    "The scoring service"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ben-carter",
+   "type": "person",
+   "label": "finance lead",
+   "as": [
+    "Ben Carter"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ben-carter-finance-team",
+   "type": "team",
+   "label": "finance team",
+   "as": [
+    "Ben Carter's finance team"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "scoring-service",
+   "type": "uses",
+   "label": "reads cutoff from",
+   "o": "validation-slice-cost-minimum",
+   "quote": "reads each model's cutoff from the validation-slice cost minimum",
+   "line": 6
+  },
+  {
+   "s": "cost-matrix-cutoff",
+   "type": "replaces",
+   "label": "retired in favour of",
+   "o": "fixed-0.5-cutoff",
+   "quote": "it was retired in December 2025 in favour of the cost-matrix cutoff",
+   "line": 5
+  },
+  {
+   "s": "cost-matrix-cutoff",
+   "type": "owned-by",
+   "label": "costs refreshed by",
+   "o": "ben-carter-finance-team",
+   "quote": "Ben Carter's finance team refreshes the costs each January.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "howto/threshold-selection-cost-matrix"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/fixed-cutoff-retired.md",
+ "sha": "1f708f18560931eb6c87b7fbc5b0a430a5fd542534c29640c11e6f115c15b3bd",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

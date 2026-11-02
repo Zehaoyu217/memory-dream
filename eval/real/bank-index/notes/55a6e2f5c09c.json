@@ -1,0 +1,175 @@
+{
+ "kind": "design",
+ "entities": [
+  {
+   "id": "ch-propensity-v2",
+   "type": "model",
+   "label": "channel-choice model",
+   "as": [
+    "ch-propensity-v2",
+    "Current channel-choice model"
+   ],
+   "lines": [
+    6,
+    9
+   ]
+  },
+  {
+   "id": "ch-propensity-v1",
+   "type": "model",
+   "label": "earlier model version",
+   "as": [
+    "ch-propensity-v1"
+   ],
+   "lines": [
+    2,
+    4,
+    8
+   ]
+  },
+  {
+   "id": "feat-ch-prefer-channel-v1",
+   "type": "feature",
+   "label": "prefer-channel feature",
+   "as": [
+    "feat-ch-prefer-channel-v1",
+    "prefer-channel feature"
+   ],
+   "lines": [
+    2,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "feat-ch-send-window-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ch-send-window-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-ch-prior-contact-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ch-prior-contact-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift@20%",
+   "as": [
+    "uplift@20% 0.027",
+    "uplift@20% 0.027 on the wave-1 holdout split",
+    "0.021 for ch-propensity-v1"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "ch-bandit-v1",
+   "type": "model",
+   "label": "bandit",
+   "as": [
+    "ch-bandit-v1"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "wave-1-holdout",
+   "type": "dataset",
+   "label": "wave-1 holdout split",
+   "as": [
+    "wave-1 holdout split (n=17,200)"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ch-propensity-v2",
+   "type": "supersedes",
+   "label": "supersedes",
+   "o": "ch-propensity-v1",
+   "quote": "supersedes: [ch-propensity-v1]",
+   "line": 4
+  },
+  {
+   "s": "ch-propensity-v2",
+   "type": "uses",
+   "label": "adds feature",
+   "o": "feat-ch-prefer-channel-v1",
+   "quote": "ch-propensity-v2 adds the prefer-channel feature to the channel-choice model",
+   "line": 6
+  },
+  {
+   "s": "ch-propensity-v2",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-ch-send-window-v1",
+   "quote": "Features: feat-ch-send-window-v1, feat-ch-prior-contact-v1, feat-ch-prefer-channel-v1.",
+   "line": 7
+  },
+  {
+   "s": "ch-propensity-v2",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-ch-prior-contact-v1",
+   "quote": "Features: feat-ch-send-window-v1, feat-ch-prior-contact-v1, feat-ch-prefer-channel-v1.",
+   "line": 7
+  },
+  {
+   "s": "ch-propensity-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "uplift-at-20",
+   "quote": "Metrics: uplift@20% 0.027 on the wave-1 holdout split (n=17,200)",
+   "line": 8
+  },
+  {
+   "s": "ch-propensity-v2",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "wave-1-holdout",
+   "quote": "uplift@20% 0.027 on the wave-1 holdout split (n=17,200)",
+   "line": 8
+  },
+  {
+   "s": "ch-bandit-v1",
+   "type": "other",
+   "label": "not promoted",
+   "o": "ch-propensity-v2",
+   "quote": "The bandit in ch-bandit-v1 is simulated but not promoted.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "ch-propensity-v1",
+  "exp-506",
+  "feat-ch-prefer-channel-v1",
+  "ch-bandit-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-channel-mix/ch-propensity-v2.md",
+ "sha": "55a6e2f5c09cbcff08bf177789206f277c3f18ac5e5668ad6438f904723e7be0",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

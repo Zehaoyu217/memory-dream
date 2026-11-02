@@ -1,0 +1,108 @@
+{
+ "kind": "metric",
+ "entities": [
+  {
+   "id": "recall-at-10",
+   "type": "metric",
+   "label": "business metric",
+   "as": [
+    "recall@10: share of 90-day churners caught in the top 10% of scores",
+    "recall@10"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "reported metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "retention",
+   "type": "team",
+   "label": "retention",
+   "as": [
+    "retention"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "churn-2026",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "churn-2026"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "recall-at-k",
+   "type": "module",
+   "label": "function",
+   "as": [
+    "nb/metrics.py::recall_at_k"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "90-day-churners",
+   "type": "segment",
+   "label": "churner population",
+   "as": [
+    "90-day churners"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-2026",
+   "type": "measured-by",
+   "label": "business metric",
+   "o": "recall-at-10",
+   "quote": "The business metric for churn-2026",
+   "line": 5
+  },
+  {
+   "s": "recall-at-10",
+   "type": "other",
+   "label": "reported alongside",
+   "o": "auc",
+   "quote": "AUC is reported alongside",
+   "line": 6
+  },
+  {
+   "s": "recall-at-10",
+   "type": "other",
+   "label": "computed by",
+   "o": "recall-at-k",
+   "quote": "Computed by `nb/metrics.py::recall_at_k` with k=0.10.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2026/metric-recall-at-10.md",
+ "sha": "f884c76682932b918ff32b1559705db24b548291c272532c3f15d05108e8bfc4",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

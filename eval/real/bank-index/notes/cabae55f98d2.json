@@ -1,0 +1,104 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-402-payroll-flag",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-402"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "feat-xs-payroll-flag-v2",
+   "type": "feature",
+   "label": "payroll-deposit flag",
+   "as": [
+    "feat-xs-payroll-flag-v2",
+    "payroll-deposit flag"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "xs-holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "xs-holdout-2025q1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC",
+    "AUC to 0.73"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "top-decile",
+   "type": "segment",
+   "label": "top decile",
+   "as": [
+    "top decile"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-402-payroll-flag",
+   "type": "evaluated-on",
+   "label": "on",
+   "o": "xs-holdout-2025q1",
+   "quote": "adds 0.02 AUC on xs-holdout-2025q1 (exp-402)",
+   "line": 7
+  },
+  {
+   "s": "exp-402-payroll-flag",
+   "type": "other",
+   "label": "replaces proxy with",
+   "o": "feat-xs-payroll-flag-v2",
+   "quote": "Replacing the balance proxy with feat-xs-payroll-flag-v2",
+   "line": 7
+  },
+  {
+   "s": "feat-xs-payroll-flag-v2",
+   "type": "measured-by",
+   "label": "adds AUC",
+   "o": "auc",
+   "quote": "adds 0.02 AUC on xs-holdout-2025q1",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "cross-sell-savings/find-xs-payroll-lift.md",
+  "find-xs-proxy-ok"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cross-sell-savings/find-xs-payroll-lift.md",
+ "sha": "cabae55f98d2b5db9e8061b74c134acaf84782c13f020a4c7a0ef65382c65e87",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

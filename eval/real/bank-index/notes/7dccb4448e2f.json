@@ -1,0 +1,88 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-hp-bureau-delta",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-hp-bureau-delta",
+    "bureau score change"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-hp-matched-controls",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-hp-matched-controls"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "bureau.scores_monthly"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "matched-controls",
+   "type": "segment",
+   "label": "matched controls",
+   "as": [
+    "matched controls"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "enrolled-accounts",
+   "type": "segment",
+   "label": "enrolled accounts",
+   "as": [
+    "Enrolled accounts"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-hp-bureau-delta",
+   "type": "uses",
+   "label": "source",
+   "o": "bureau.scores_monthly",
+   "quote": "Source: `bureau.scores_monthly`, as of the index month.",
+   "line": 7
+  },
+  {
+   "s": "feat-hp-bureau-delta",
+   "type": "uses",
+   "label": "from",
+   "o": "ds-hp-matched-controls",
+   "quote": "from: [ds-hp-matched-controls]",
+   "line": 2
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "hardship-programs/feat-hp-bureau-delta.md",
+ "sha": "7dccb4448e2f29872c8b46b6f5280148cd7440f2372be06eb808e8b861f8e09f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

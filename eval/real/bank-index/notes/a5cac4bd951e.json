@@ -1,0 +1,145 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-401",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-401"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "compliance.aml_alerts",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "compliance.aml_alerts"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "compliance.aml_dispositions",
+   "type": "dataset",
+   "label": "dispositions",
+   "as": [
+    "compliance.aml_dispositions"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "structuring-alerts",
+   "type": "segment",
+   "label": "structuring alerts",
+   "as": [
+    "structuring alerts"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "false-positive-rate",
+   "type": "metric",
+   "label": "false positive rate",
+   "as": [
+    "Closed as false positive 94.1%"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "aml-find-fp-baseline",
+   "type": "other",
+   "label": "baseline log",
+   "as": [
+    "aml-find-fp-baseline"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-aml-alerts",
+   "type": "team",
+   "label": "source",
+   "as": [
+    "ds-aml-alerts"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "ds-aml-dispositions",
+   "type": "team",
+   "label": "source",
+   "as": [
+    "ds-aml-dispositions"
+   ],
+   "lines": [
+    2
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-401",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "compliance.aml_alerts",
+   "quote": "Eval set: 21,340 structuring alerts Jan-Aug 2025 from `compliance.aml_alerts`",
+   "line": 6
+  },
+  {
+   "s": "exp-401",
+   "type": "uses",
+   "label": "dispositions from",
+   "o": "compliance.aml_dispositions",
+   "quote": "with dispositions from `compliance.aml_dispositions`",
+   "line": 6
+  },
+  {
+   "s": "structuring-alerts",
+   "type": "part-of",
+   "label": "from",
+   "o": "compliance.aml_alerts",
+   "quote": "21,340 structuring alerts Jan-Aug 2025 from `compliance.aml_alerts`",
+   "line": 6
+  },
+  {
+   "s": "exp-401",
+   "type": "measured-by",
+   "label": "closed as false positive",
+   "o": "false-positive-rate",
+   "quote": "Closed as false positive 94.1%",
+   "line": 7
+  },
+  {
+   "s": "exp-401",
+   "type": "other",
+   "label": "logged as",
+   "o": "aml-find-fp-baseline",
+   "quote": "logged as aml-find-fp-baseline",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "aml-alerts/exp-401.md",
+ "sha": "a5cac4bd951e90ab0991964e939763ceeba96d16eebd3cb2238dcd1f8be04677",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

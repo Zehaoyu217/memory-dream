@@ -1,0 +1,52 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "aml-xgb-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "aml-xgb-v3"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "suppressed-alerts-sample",
+   "type": "segment",
+   "label": "sample",
+   "as": [
+    "10% sample of suppressed alerts",
+    "10% of structuring alerts"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "suppressed-alerts-sample",
+   "type": "other",
+   "label": "scored by",
+   "o": "aml-xgb-v3",
+   "quote": "scored below 0.18 by aml-xgb-v3",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-407",
+  "dec-aml-suppress-018",
+  "dec-aml-sample-10"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "aml-alerts/exp-408.md",
+ "sha": "44cb2bf7e450783a46af5edeb9d0ab3f15c70259074d7c7d76852aa28408f1a9",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

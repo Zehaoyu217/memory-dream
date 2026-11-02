@@ -1,0 +1,102 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "find-mq3-inapp-best",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Finding: in-app is the most efficient channel"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "in-app",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "in-app",
+    "In-app"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "email",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "email"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-304-channel-split",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "Q2 channel split"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "incremental-dollars-per-cost",
+   "type": "metric",
+   "label": "efficiency measure",
+   "as": [
+    "incremental dollars per dollar of cost"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "in-app",
+   "type": "measured-by",
+   "label": "has efficiency",
+   "o": "incremental-dollars-per-cost",
+   "quote": "in-app is the most efficient channel, 14.2 incremental dollars per dollar of cost",
+   "line": 5
+  },
+  {
+   "s": "in-app",
+   "type": "other",
+   "label": "beats",
+   "o": "email",
+   "quote": "In-app beats email (9.4) on incremental dollars per dollar of cost.",
+   "line": 6
+  },
+  {
+   "s": "find-mq3-inapp-best",
+   "type": "derived-from",
+   "label": "from",
+   "o": "exp-304-channel-split",
+   "quote": "From the Q2 channel split.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "find-mq3-inapp-saturates",
+  "exp-304-channel-split"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "marketing-uplift-q3/find-mq3-inapp-best.md",
+ "sha": "fa144837212837a0e410412cf891f89cad89b5071dd42fc3f2aa5b71fe987cfc",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

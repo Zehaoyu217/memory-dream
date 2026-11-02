@@ -1,0 +1,149 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "aml-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "aml-xgb-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "aml-xgb-v1",
+   "type": "model",
+   "label": "v1",
+   "as": [
+    "aml-xgb-v1"
+   ],
+   "lines": [
+    2,
+    3
+   ]
+  },
+  {
+   "id": "feat-aml-round-amount",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "round-amount"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "feat-aml-cash-velocity",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "cash-velocity"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "feat-aml-kyc-band",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "KYC band"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "oct-2025-jan-2026-dispositions",
+   "type": "dataset",
+   "label": "dispositions",
+   "as": [
+    "Oct 2025-Jan 2026 dispositions"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "aml-xgb-v2",
+   "type": "uses",
+   "label": "adds",
+   "o": "feat-aml-round-amount",
+   "quote": "Adds round-amount, cash-velocity and KYC band to the v1 features.",
+   "line": 7
+  },
+  {
+   "s": "aml-xgb-v2",
+   "type": "uses",
+   "label": "adds",
+   "o": "feat-aml-cash-velocity",
+   "quote": "Adds round-amount, cash-velocity and KYC band to the v1 features.",
+   "line": 7
+  },
+  {
+   "s": "aml-xgb-v2",
+   "type": "uses",
+   "label": "adds",
+   "o": "feat-aml-kyc-band",
+   "quote": "Adds round-amount, cash-velocity and KYC band to the v1 features.",
+   "line": 7
+  },
+  {
+   "s": "aml-xgb-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "aml-xgb-v1",
+   "quote": "supersedes: [aml-xgb-v1]",
+   "line": 3
+  },
+  {
+   "s": "aml-xgb-v2",
+   "type": "evaluated-on",
+   "label": "AUC on",
+   "o": "oct-2025-jan-2026-dispositions",
+   "quote": "AUC 0.88 on Oct 2025-Jan 2026 dispositions",
+   "line": 6
+  },
+  {
+   "s": "aml-xgb-v2",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.88 on Oct 2025-Jan 2026 dispositions",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-404",
+  "aml-find-ranker-top40-revised"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "aml-alerts/aml-xgb-v2.md",
+ "sha": "5819bb41c4d13475c18103dd0428fb59e6b68aaaaa640663be7460183d545a3d",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

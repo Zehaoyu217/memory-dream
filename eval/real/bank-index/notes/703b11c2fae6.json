@@ -1,0 +1,52 @@
+{
+ "kind": "metric",
+ "entities": [
+  {
+   "id": "retention-at-month-12",
+   "type": "metric",
+   "label": "kpi",
+   "as": [
+    "Retention at month 12",
+    "retention at M+12"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "cohort",
+   "type": "segment",
+   "label": "cohort",
+   "as": [
+    "Cohort"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "retention-at-month-12",
+   "type": "uses",
+   "label": "divided by cohort",
+   "o": "cohort",
+   "quote": "retention at M+12 = cohort accounts open at M+12 divided by cohort accounts at M0.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "reporting/kpi-retention-definition-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/kpi-retention-definition.md",
+ "sha": "703b11c2fae671e9b88c7676cac2544605d8c708a87c59702cc75474928a64ac",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

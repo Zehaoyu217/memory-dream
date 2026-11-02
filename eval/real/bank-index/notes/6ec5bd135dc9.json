@@ -1,0 +1,108 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-406",
+   "type": "term",
+   "label": "experiment",
+   "as": [
+    "exp-406"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-hp-cure-tracking",
+   "type": "dataset",
+   "label": "eval dataset",
+   "as": [
+    "ds-hp-cure-tracking"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "ds-hp-enrolled",
+   "type": "dataset",
+   "label": "enrolled dataset",
+   "as": [
+    "ds-hp-enrolled"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "ds-hp-matched-controls",
+   "type": "dataset",
+   "label": "matched controls",
+   "as": [
+    "matched controls"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "current-at-month-12",
+   "type": "metric",
+   "label": "current rate",
+   "as": [
+    "Current at month 12"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-406",
+   "type": "uses",
+   "label": "evaluated on",
+   "o": "ds-hp-cure-tracking",
+   "quote": "Eval: ds-hp-cure-tracking",
+   "line": 6
+  },
+  {
+   "s": "exp-406",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "ds-hp-enrolled",
+   "quote": "from: [ds-hp-cure-tracking, ds-hp-enrolled]",
+   "line": 2
+  },
+  {
+   "s": "exp-406",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "current-at-month-12",
+   "quote": "Current at month 12: enrolled 61%, matched controls 52%",
+   "line": 7
+  },
+  {
+   "s": "ds-hp-matched-controls",
+   "type": "part-of",
+   "label": "compared in",
+   "o": "exp-406",
+   "quote": "matched controls 52%, difference +9pp",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "hardship_programs/exp406_cure.ipynb"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "hardship-programs/exp-406.md",
+ "sha": "6ec5bd135dc9a137d549fba88a898b49c1212c48668c8ca57430fcd41e9aaa45",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

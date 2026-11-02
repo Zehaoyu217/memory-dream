@@ -1,0 +1,90 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "mm-limit-glm-v1",
+   "type": "model",
+   "label": "logistic glm",
+   "as": [
+    "mm-limit-glm-v1",
+    "Logistic GLM on 19 features"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "mm-limit-glm-v2",
+   "type": "model",
+   "label": "newer version",
+   "as": [
+    "mm-limit-glm-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "mm-oot-2024h2",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "mm-oot-2024h2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.704"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mm-limit-glm-v1",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "mm-oot-2024h2",
+   "quote": "Evaluated on mm-oot-2024h2 (n=96,000 accounts)",
+   "line": 7
+  },
+  {
+   "s": "mm-limit-glm-v1",
+   "type": "measured-by",
+   "label": "scored by",
+   "o": "auc",
+   "quote": "Evaluated on mm-oot-2024h2 (n=96,000 accounts): AUC 0.704.",
+   "line": 7
+  },
+  {
+   "s": "mm-limit-glm-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "mm-limit-glm-v1",
+   "quote": "Superseded by mm-limit-glm-v2 (2025-10-22)",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-mm-reference-train",
+  "feat-mm-util-trend-6m"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "model-monitoring/mm-limit-glm-v1.md",
+ "sha": "62a570f63e6baaf95dad618c12de8d24358cc0242e9e97293adc8f3d354b0bc4",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

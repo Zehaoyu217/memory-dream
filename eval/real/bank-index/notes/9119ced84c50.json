@@ -1,0 +1,67 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "ds-inc-payroll-proxy",
+   "type": "feature",
+   "label": "payroll proxy",
+   "as": [
+    "ds-inc-payroll-proxy: recurring ACH inflows on linked bank sources, 38% of accounts with a cadence"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.payments_daily`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "payroll-candidate",
+   "type": "term",
+   "label": "payroll candidate",
+   "as": [
+    "is a payroll candidate"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-inc-payroll-proxy",
+   "type": "uses",
+   "label": "inflows from",
+   "o": "cards.payments_daily",
+   "quote": "Inflows from ACH payment sources in `cards.payments_daily`",
+   "line": 6
+  },
+  {
+   "s": "ds-inc-payroll-proxy",
+   "type": "other",
+   "label": "defines",
+   "o": "payroll-candidate",
+   "quote": "A source with 3 or more credits on a 14-16 day or monthly cadence in 3 months is a payroll candidate.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-inc-stated-income-2025"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "income-estimation/ds-inc-payroll-proxy.md",
+ "sha": "9119ced84c50cec025cf20aa24153fc061e3a6508d5244000986b3e6332ce174",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

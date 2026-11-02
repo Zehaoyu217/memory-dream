@@ -1,0 +1,124 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "bureau-6-month-slope",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "bureau 6-month slope"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "early-delinquency-oot-2026h1",
+   "type": "dataset",
+   "label": "evaluation set",
+   "as": [
+    "early-delinquency-oot-2026h1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "full-file-accounts",
+   "type": "segment",
+   "label": "account group",
+   "as": [
+    "full-file accounts"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ed-gbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ed-gbm-v3"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "watchlist",
+   "type": "other",
+   "label": "watchlist",
+   "as": [
+    "watchlist"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bureau-6-month-slope",
+   "type": "measured-by",
+   "label": "adds AUC on",
+   "o": "auc",
+   "quote": "adds 0.013 AUC on early-delinquency-oot-2026h1",
+   "line": 5
+  },
+  {
+   "s": "bureau-6-month-slope",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "early-delinquency-oot-2026h1",
+   "quote": "adds 0.013 AUC on early-delinquency-oot-2026h1",
+   "line": 5
+  },
+  {
+   "s": "bureau-6-month-slope",
+   "type": "other",
+   "label": "gain for",
+   "o": "full-file-accounts",
+   "quote": "for full-file accounts",
+   "line": 5
+  },
+  {
+   "s": "bureau-6-month-slope",
+   "type": "other",
+   "label": "recommended for",
+   "o": "ed-gbm-v3",
+   "quote": "Recommended for ed-gbm-v3 and promotion to the watchlist.",
+   "line": 8
+  },
+  {
+   "s": "bureau-6-month-slope",
+   "type": "other",
+   "label": "recommended for promotion to",
+   "o": "watchlist",
+   "quote": "Recommended for ed-gbm-v3 and promotion to the watchlist.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-207"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "early-delinquency/find-ed-bureau-slope.md",
+ "sha": "a303ac9a3afba7465dcd09d9c31e083981b450436a0d00fe61e362b315f9bcdc",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,98 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "app-sessions-daily",
+   "type": "dataset",
+   "label": "session table",
+   "as": [
+    "`app.sessions_daily`"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "digital-analytics",
+   "type": "other",
+   "label": "source system",
+   "as": [
+    "digital-analytics"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "app-redesign-feb-2026",
+   "type": "other",
+   "label": "app redesign",
+   "as": [
+    "February 2026 app redesign"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "app-session-count-feature",
+   "type": "feature",
+   "label": "30-day session count",
+   "as": [
+    "30-day session counts"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-mq3-app-engagement",
+   "type": "document",
+   "label": "engagement note",
+   "as": [
+    "app.sessions_daily gives 30-day session counts for 71% of eligible accounts"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "app-session-count-feature",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "app-sessions-daily",
+   "quote": "Session counts from `app.sessions_daily` (digital-analytics)",
+   "line": 6
+  },
+  {
+   "s": "app-sessions-daily",
+   "type": "part-of",
+   "label": "sourced from",
+   "o": "digital-analytics",
+   "quote": "`app.sessions_daily` (digital-analytics)",
+   "line": 6
+  },
+  {
+   "s": "app-sessions-daily",
+   "type": "other",
+   "label": "changed by",
+   "o": "app-redesign-feb-2026",
+   "quote": "the session event name changed, so pre-February counts are rebuilt by mapping",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "marketing-uplift-q3/ds-mq3-contacts-snap.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "marketing-uplift-q3/ds-mq3-app-engagement.md",
+ "sha": "f05b1d79179774c31fb25a4e6013da2ea73e91a263f0b52874b23fe56cdaea96",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

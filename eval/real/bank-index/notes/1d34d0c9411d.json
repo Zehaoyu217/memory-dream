@@ -1,0 +1,158 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "watchlist-scoring-decision",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: move the watchlist to ed-gbm-v2 for full-file accounts; the scorecard stays as challenger and for thin files"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "watchlist",
+   "type": "other",
+   "label": "watchlist",
+   "as": [
+    "the watchlist"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "full-file-accounts",
+   "type": "segment",
+   "label": "full-file accounts",
+   "as": [
+    "Full-file accounts"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "thin-file-accounts",
+   "type": "segment",
+   "label": "thin-file accounts",
+   "as": [
+    "Thin-file accounts"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ed-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ed-gbm-v2"
+   ],
+   "lines": [
+    2,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "ed-logit-v1",
+   "type": "model",
+   "label": "scorecard",
+   "as": [
+    "ed-logit-v1"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "credit risk",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "aisha-khan",
+   "type": "person",
+   "label": "mlops",
+   "as": [
+    "Aisha Khan"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "watchlist-scoring-decision",
+   "type": "owned-by",
+   "label": "agreed by",
+   "o": "lena-fischer",
+   "quote": "Agreed 2025-09-15 by Lena Fischer (credit risk) and Aisha Khan (MLOps).",
+   "line": 6
+  },
+  {
+   "s": "watchlist-scoring-decision",
+   "type": "owned-by",
+   "label": "agreed by",
+   "o": "aisha-khan",
+   "quote": "Agreed 2025-09-15 by Lena Fischer (credit risk) and Aisha Khan (MLOps).",
+   "line": 6
+  },
+  {
+   "s": "watchlist",
+   "type": "other",
+   "label": "moves to",
+   "o": "ed-gbm-v2",
+   "quote": "move the watchlist to ed-gbm-v2 for full-file accounts",
+   "line": 5
+  },
+  {
+   "s": "full-file-accounts",
+   "type": "other",
+   "label": "scored by",
+   "o": "ed-gbm-v2",
+   "quote": "Full-file accounts are scored by ed-gbm-v2 from October 2025.",
+   "line": 7
+  },
+  {
+   "s": "thin-file-accounts",
+   "type": "other",
+   "label": "stays on",
+   "o": "ed-logit-v1",
+   "quote": "Thin-file accounts (no bureau record) stay on ed-logit-v1.",
+   "line": 7
+  },
+  {
+   "s": "ed-logit-v1",
+   "type": "other",
+   "label": "kept as challenger",
+   "o": "ed-gbm-v2",
+   "quote": "ed-logit-v1 is kept as challenger for monthly comparison.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "find-ed-gbm-vs-logit"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "early-delinquency/dec-ed-gbm-for-watchlist.md",
+ "sha": "1d34d0c9411d238683414f90256630fa8adbff2369b65c7f8698011644fd53f7",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

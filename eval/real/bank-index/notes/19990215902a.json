@@ -1,0 +1,148 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "credit-risk lead",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "90-day-loss-cap",
+   "type": "policy",
+   "label": "loss cap",
+   "as": [
+    "The cap",
+    "cap 90-day loss at 1.5% of exposed book"
+   ],
+   "lines": [
+    5,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "logistic-score",
+   "type": "model",
+   "label": "logistic score",
+   "as": [
+    "the logistic score"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "proactive-cli-wave",
+   "type": "other",
+   "label": "proactive cli wave",
+   "as": [
+    "every proactive CLI wave"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "90-day-loss",
+   "type": "metric",
+   "label": "90-day loss",
+   "as": [
+    "90-day loss"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "exposed-book",
+   "type": "portfolio",
+   "label": "exposed book",
+   "as": [
+    "exposed book"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "on the holdout"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "90-day-loss-cap",
+   "type": "owned-by",
+   "label": "agreed with",
+   "o": "lena-fischer",
+   "quote": "Agreed with Lena Fischer on 2025-03-12",
+   "line": 6
+  },
+  {
+   "s": "90-day-loss-cap",
+   "type": "measured-by",
+   "label": "caps",
+   "o": "90-day-loss",
+   "quote": "cap 90-day loss at 1.5% of exposed book",
+   "line": 5
+  },
+  {
+   "s": "90-day-loss-cap",
+   "type": "other",
+   "label": "sized as % of",
+   "o": "exposed-book",
+   "quote": "1.5% of exposed book",
+   "line": 5
+  },
+  {
+   "s": "90-day-loss-cap",
+   "type": "other",
+   "label": "applies to",
+   "o": "proactive-cli-wave",
+   "quote": "for every proactive CLI wave",
+   "line": 5
+  },
+  {
+   "s": "90-day-loss-cap",
+   "type": "other",
+   "label": "sets cutoff for",
+   "o": "logistic-score",
+   "quote": "The cap sets the operating cutoff for the logistic score",
+   "line": 7
+  },
+  {
+   "s": "90-day-loss-cap",
+   "type": "evaluated-on",
+   "label": "checked on",
+   "o": "holdout",
+   "quote": "keep the 90-day loss under the cap on the holdout",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-104",
+  "q-cli-revenue-loss-tradeoff"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/dec-cli-loss-cap.md",
+ "sha": "19990215902a77a7b98132d0d00820afcf50035d2dabb7d4d38915c6b0fa023c",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

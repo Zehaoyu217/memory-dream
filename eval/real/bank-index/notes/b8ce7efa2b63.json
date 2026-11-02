@@ -1,0 +1,95 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "transactions table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "monthly account snapshot",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "account_id",
+   "type": "feature",
+   "label": "join key",
+   "as": [
+    "account_id"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "team lead",
+   "as": [
+    "Tomás Rivera"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "tomas-rivera-team",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "Tomás Rivera's team"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cards.txn_daily",
+   "type": "joined-to",
+   "label": "joined to",
+   "o": "cards.accounts_monthly",
+   "quote": "Join `cards.txn_daily` to `cards.accounts_monthly` on `account_id`",
+   "line": 5
+  },
+  {
+   "s": "cards.accounts_monthly",
+   "type": "uses",
+   "label": "joins on",
+   "o": "account_id",
+   "quote": "on `account_id` and `snapshot_month = date_trunc('month', txn_date) - 1 month`",
+   "line": 5
+  },
+  {
+   "s": "tomas-rivera-team",
+   "type": "other",
+   "label": "recommends",
+   "o": "cards.accounts_monthly",
+   "quote": "Keep the row with the max `load_ts`, as Tomás Rivera's team recommends",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/join-txn-to-accounts.md",
+ "sha": "b8ce7efa2b635742bd34f74206afc7e42f7b474ecb37034656189a2a0bd9b8d7",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

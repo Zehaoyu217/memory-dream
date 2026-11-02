@@ -1,0 +1,70 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "handoff-rule-v1",
+   "type": "policy",
+   "label": "handoff rule",
+   "as": [
+    "handoff rule v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "containment",
+   "type": "metric",
+   "label": "containment",
+   "as": [
+    "Containment"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "jul-oct-2025-sessions",
+   "type": "dataset",
+   "label": "sessions",
+   "as": [
+    "July to October 2025 sessions"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "handoff-rule-v1",
+   "type": "evaluated-on",
+   "label": "replayed on",
+   "o": "jul-oct-2025-sessions",
+   "quote": "Replay on the July to October 2025 sessions (n = 620,000), handoff rule v1 unchanged.",
+   "line": 6
+  },
+  {
+   "s": "handoff-rule-v1",
+   "type": "measured-by",
+   "label": "containment result",
+   "o": "containment",
+   "quote": "Containment 34 percent with a 24-hour call window, 29 percent with a 48-hour window.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-cb-def-sensitivity",
+  "dec-cb-metric-24h",
+  "ds-cb-call-linkage"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "chatbot-deflection/exp-306.md",
+ "sha": "e1cba7c83607d23136fa74e80fc400ae215c63ef7b5b0c5ffcad181f16d7085f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

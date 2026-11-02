@@ -1,0 +1,107 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "feat-bsm-thin-file-flag",
+   "type": "feature",
+   "label": "thin-file flag",
+   "as": [
+    "Thin-file flag"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-bsm-v10-cohorts-2026",
+   "type": "dataset",
+   "label": "cohorts",
+   "as": [
+    "ds-bsm-v10-cohorts-2026"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "thin-file-applicants",
+   "type": "segment",
+   "label": "flagged applicants",
+   "as": [
+    "flagged applicants"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "approval-rate",
+   "type": "metric",
+   "label": "approval rate",
+   "as": [
+    "Approval rate"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "bad-rate",
+   "type": "metric",
+   "label": "bad rate at 60 days",
+   "as": [
+    "bad rate at 60 days"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-bsm-thin-file-flag",
+   "type": "uses",
+   "label": "computed on",
+   "o": "ds-bsm-v10-cohorts-2026",
+   "quote": "Thin-file flag from feat-bsm-thin-file-flag on ds-bsm-v10-cohorts-2026",
+   "line": 6
+  },
+  {
+   "s": "thin-file-applicants",
+   "type": "part-of",
+   "label": "flagged from",
+   "o": "ds-bsm-v10-cohorts-2026",
+   "quote": "(n=71,300, 6.4% flagged, n=4,563)",
+   "line": 6
+  },
+  {
+   "s": "thin-file-applicants",
+   "type": "measured-by",
+   "label": "approval rate",
+   "o": "approval-rate",
+   "quote": "Approval rate on flagged applicants is 22%",
+   "line": 8
+  },
+  {
+   "s": "thin-file-applicants",
+   "type": "measured-by",
+   "label": "bad rate at 60 days",
+   "o": "bad-rate",
+   "quote": "bad rate at 60 days 9.3%",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-bsm-thin-file-flag",
+  "bsm-app-gbm-v10a"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "bureau-score-migration/exp-304.md",
+ "sha": "7a895dad04f11c2a3eff7c5bae81894c26a61fc7edb3cae7235e4d4a41768c72",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

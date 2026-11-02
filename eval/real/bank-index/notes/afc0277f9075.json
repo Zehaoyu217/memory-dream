@@ -1,0 +1,172 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cli-logreg-baseline",
+   "type": "model",
+   "label": "logistic model",
+   "as": [
+    "cli-logreg-baseline",
+    "logistic model for 90-day loss"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-cli-util-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cli-util-v1"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "feat-cli-spend-velocity",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cli-spend-velocity"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "feat-cli-pay-behaviour",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cli-pay-behaviour"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "cli-test-2025q1",
+   "type": "dataset",
+   "label": "test cohort",
+   "as": [
+    "cli-test-2025q1 cohort",
+    "2025-Q1 test cohort"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.66"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.24"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "q1-q2-2025-proactive-waves",
+   "type": "other",
+   "label": "proactive waves",
+   "as": [
+    "Q1 and Q2 2025 proactive waves"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cli-logreg-baseline",
+   "type": "uses",
+   "label": "logistic regression on",
+   "o": "feat-cli-util-v1",
+   "quote": "Logistic regression on feat-cli-util-v1, feat-cli-spend-velocity and feat-cli-pay-behaviour.",
+   "line": 6
+  },
+  {
+   "s": "cli-logreg-baseline",
+   "type": "uses",
+   "label": "logistic regression on",
+   "o": "feat-cli-spend-velocity",
+   "quote": "Logistic regression on feat-cli-util-v1, feat-cli-spend-velocity and feat-cli-pay-behaviour.",
+   "line": 6
+  },
+  {
+   "s": "cli-logreg-baseline",
+   "type": "uses",
+   "label": "logistic regression on",
+   "o": "feat-cli-pay-behaviour",
+   "quote": "Logistic regression on feat-cli-util-v1, feat-cli-spend-velocity and feat-cli-pay-behaviour.",
+   "line": 6
+  },
+  {
+   "s": "cli-logreg-baseline",
+   "type": "evaluated-on",
+   "label": "eval cohort",
+   "o": "cli-test-2025q1",
+   "quote": "Eval: cli-test-2025q1 cohort, n=60,000, AUC 0.66, KS 0.24.",
+   "line": 7
+  },
+  {
+   "s": "cli-logreg-baseline",
+   "type": "measured-by",
+   "label": "eval reports",
+   "o": "auc",
+   "quote": "Eval: cli-test-2025q1 cohort, n=60,000, AUC 0.66, KS 0.24.",
+   "line": 7
+  },
+  {
+   "s": "cli-logreg-baseline",
+   "type": "measured-by",
+   "label": "eval reports",
+   "o": "ks",
+   "quote": "Eval: cli-test-2025q1 cohort, n=60,000, AUC 0.66, KS 0.24.",
+   "line": 7
+  },
+  {
+   "s": "cli-logreg-baseline",
+   "type": "other",
+   "label": "used for",
+   "o": "q1-q2-2025-proactive-waves",
+   "quote": "Used for the Q1 and Q2 2025 proactive waves",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "dec-cli-cutoff-2025",
+  "feat-cli-util-v1",
+  "feat-cli-spend-velocity",
+  "feat-cli-pay-behaviour"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/cli-logreg-baseline.md",
+ "sha": "afc0277f9075eb62335c78ea61b31a598df3bed1ad701230fc9cb89f62be6d69",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

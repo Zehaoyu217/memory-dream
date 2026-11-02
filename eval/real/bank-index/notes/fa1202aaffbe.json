@@ -1,0 +1,88 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "fraud-2025",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "the fraud-2025 model"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "alert-threshold",
+   "type": "term",
+   "label": "alert threshold",
+   "as": [
+    "alert threshold"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout baseline",
+   "as": [
+    "holdout-2025q1 baseline"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "recall",
+   "type": "metric",
+   "label": "recall",
+   "as": [
+    "recall"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "alert-threshold",
+   "type": "other",
+   "label": "threshold for",
+   "o": "fraud-2025",
+   "quote": "What alert threshold should the fraud-2025 model use live?",
+   "line": 5
+  },
+  {
+   "s": "alert-threshold",
+   "type": "measured-by",
+   "label": "judged by",
+   "o": "recall",
+   "quote": "without losing recall",
+   "line": 6
+  },
+  {
+   "s": "alert-threshold",
+   "type": "other",
+   "label": "evidence from",
+   "o": "holdout-2025q1",
+   "quote": "Evidence so far is the holdout-2025q1 baseline",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-101",
+  "exp-103",
+  "ds-f25-holdout-2025q1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/q-f25-threshold-policy.md",
+ "sha": "fa1202aaffbefb0880aafe7a568d63d2de6dd8ab721317f0acb66c6e2bfba9b2",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

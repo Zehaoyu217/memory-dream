@@ -1,0 +1,108 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-lbl-churn-flag-closure",
+   "type": "feature",
+   "label": "churn flag",
+   "as": [
+    "feat-lbl-churn-flag-closure"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-lbl-churn-flag-90d",
+   "type": "feature",
+   "label": "churn flag",
+   "as": [
+    "feat-lbl-churn-flag-90d"
+   ],
+   "lines": [
+    2,
+    4
+   ]
+  },
+  {
+   "id": "dec-lbl-churn-closure",
+   "type": "term",
+   "label": "decision",
+   "as": [
+    "dec-lbl-churn-closure"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "cards.churn_labels",
+   "type": "dataset",
+   "label": "churn labels table",
+   "as": [
+    "cards.churn_labels"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "lbl-churn-xgb-v2",
+   "type": "model",
+   "label": "churn model",
+   "as": [
+    "lbl-churn-xgb-v2"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-lbl-churn-flag-closure",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "feat-lbl-churn-flag-90d",
+   "quote": "supersedes: [feat-lbl-churn-flag-90d]",
+   "line": 4
+  },
+  {
+   "s": "feat-lbl-churn-flag-closure",
+   "type": "uses",
+   "label": "derived from",
+   "o": "dec-lbl-churn-closure",
+   "quote": "from: [feat-lbl-churn-flag-90d, dec-lbl-churn-closure]",
+   "line": 2
+  },
+  {
+   "s": "feat-lbl-churn-flag-closure",
+   "type": "part-of",
+   "label": "in",
+   "o": "cards.churn_labels",
+   "quote": "Current churn flag in cards.churn_labels.",
+   "line": 7
+  },
+  {
+   "s": "lbl-churn-xgb-v2",
+   "type": "uses",
+   "label": "reads",
+   "o": "feat-lbl-churn-flag-closure",
+   "quote": "Read by lbl-churn-xgb-v2.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-lbl-churn-flag-90d",
+  "dec-lbl-churn-closure",
+  "fnd-churn-rate-rebuilt"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "label-pipeline-rebuild/feat-lbl-churn-flag-closure.md",
+ "sha": "d55b90c942aa306d0a0c3c1792d344a4535f92581643e92ff84de9337c87edc1",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

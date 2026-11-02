@@ -1,0 +1,131 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "bsm-app-gbm-v10b",
+   "type": "model",
+   "label": "v10b",
+   "as": [
+    "v10b",
+    "v10b out-of-time"
+   ],
+   "lines": [
+    2,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "bsm-app-gbm-v8",
+   "type": "model",
+   "label": "v8",
+   "as": [
+    "bsm-app-gbm-v8",
+    "v8"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "bureau-score-migration-oot-2026h1",
+   "type": "dataset",
+   "label": "out-of-time set",
+   "as": [
+    "bureau-score-migration-oot-2026h1",
+    "Out-of-time set"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bsm-app-gbm-v10b",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "bureau-score-migration-oot-2026h1",
+   "quote": "both models scored on the same 44,800 rows",
+   "line": 6
+  },
+  {
+   "s": "bsm-app-gbm-v8",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "bureau-score-migration-oot-2026h1",
+   "quote": "both models scored on the same 44,800 rows",
+   "line": 6
+  },
+  {
+   "s": "bsm-app-gbm-v10b",
+   "type": "measured-by",
+   "label": "has AUC",
+   "o": "auc",
+   "quote": "v10b AUC 0.80 against 0.78 for bsm-app-gbm-v8",
+   "line": 7
+  },
+  {
+   "s": "bsm-app-gbm-v8",
+   "type": "measured-by",
+   "label": "has AUC",
+   "o": "auc",
+   "quote": "against v8 at 0.78 and 0.36",
+   "line": 5
+  },
+  {
+   "s": "bsm-app-gbm-v10b",
+   "type": "measured-by",
+   "label": "has KS",
+   "o": "ks",
+   "quote": "KS 0.37",
+   "line": 5
+  },
+  {
+   "s": "bsm-app-gbm-v8",
+   "type": "measured-by",
+   "label": "has KS",
+   "o": "ks",
+   "quote": "against v8 at 0.78 and 0.36",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "find-bsm-ks-parity",
+  "ds-bsm-v10-cohorts-2026"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "bureau-score-migration/exp-306.md",
+ "sha": "5a03c335d3fbf2e1744890fda502186520aafd94e5593a9ae209cea4877a2c45",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

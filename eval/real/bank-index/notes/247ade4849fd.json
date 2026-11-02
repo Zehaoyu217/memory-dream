@@ -1,0 +1,117 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "bur_util_ratio_30d_v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "bur_util_ratio_30d_v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "psi",
+   "as": [
+    "PSI"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "new-bureau-source",
+   "type": "other",
+   "label": "bureau source",
+   "as": [
+    "new bureau source"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "accounts-opened-after-september-2025",
+   "type": "segment",
+   "label": "accounts opened after september 2025",
+   "as": [
+    "accounts opened after September 2025"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "reviewer",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "vintage-split",
+   "type": "term",
+   "label": "vintage split",
+   "as": [
+    "Split by vintage"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bur_util_ratio_30d_v1",
+   "type": "measured-by",
+   "label": "has PSI",
+   "o": "psi",
+   "quote": "bur_util_ratio_30d_v1 PSI of 0.31",
+   "line": 5
+  },
+  {
+   "s": "bur_util_ratio_30d_v1",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "new-bureau-source",
+   "quote": "A new bureau source for accounts opened after September 2025",
+   "line": 5
+  },
+  {
+   "s": "psi",
+   "type": "evaluated-on",
+   "label": "spike appears only in",
+   "o": "accounts-opened-after-september-2025",
+   "quote": "the spike appears only in accounts opened after September 2025",
+   "line": 6
+  },
+  {
+   "s": "new-bureau-source",
+   "type": "other",
+   "label": "reviewed by",
+   "o": "lena-fischer",
+   "quote": "Lena Fischer reviewed the new source",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "howto/feature-drift-by-vintage"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/vintage-psi-bur-util.md",
+ "sha": "247ade4849fda9dc5954853ba1d729ce8ed98536a2930064955875f601f0cb63",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

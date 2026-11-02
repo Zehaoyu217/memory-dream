@@ -1,0 +1,127 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "dq-dup-audit-2025q1",
+   "type": "dataset",
+   "label": "audit table",
+   "as": [
+    "dq.dup_audit_2025q1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "duplicate-share",
+   "type": "metric",
+   "label": "duplicate share",
+   "as": [
+    "0.31 percent"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "reloaded-partitions",
+   "type": "segment",
+   "label": "reloaded partitions",
+   "as": [
+    "partitions reloaded after retries",
+    "11 of 90 partitions were reloaded"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "duplicate-groups",
+   "type": "other",
+   "label": "duplicate groups",
+   "as": [
+    "Duplicate groups"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "reload",
+   "type": "pipeline",
+   "label": "reload",
+   "as": [
+    "the reload"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "authorisation-extract",
+   "type": "dataset",
+   "label": "authorisation extract",
+   "as": [
+    "authorisation extract"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-dq-dup-audit",
+   "type": "other",
+   "label": "source",
+   "as": [
+    "ds-dq-dup-audit"
+   ],
+   "lines": [
+    2
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "duplicate-share",
+   "type": "evaluated-on",
+   "label": "from",
+   "o": "dq-dup-audit-2025q1",
+   "quote": "From dq.dup_audit_2025q1",
+   "line": 6
+  },
+  {
+   "s": "reloaded-partitions",
+   "type": "other",
+   "label": "hold most of",
+   "o": "duplicate-groups",
+   "quote": "those 11 hold most of the duplicates",
+   "line": 6
+  },
+  {
+   "s": "reload",
+   "type": "other",
+   "label": "is the source of",
+   "o": "duplicate-groups",
+   "quote": "The source is the reload",
+   "line": 7
+  },
+  {
+   "s": "authorisation-extract",
+   "type": "other",
+   "label": "not the source of",
+   "o": "duplicate-groups",
+   "quote": "The source is the reload, not the authorisation extract.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "data-quality-txn/exp-302.md",
+ "sha": "1bf6e3b208d6ff688254cd4346e99f5ce336e9b00da8c9fa2f1dbeafb9dc80f8",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

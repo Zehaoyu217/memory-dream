@@ -1,0 +1,79 @@
+{
+ "kind": "note",
+ "entities": [
+  {
+   "id": "complaints-labels-qa",
+   "type": "dataset",
+   "label": "qa labels table",
+   "as": [
+    "`complaints.labels_qa` holds 9,000 tickets labelled by three reviewers, June to August 2025"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "complaints-ops",
+   "type": "team",
+   "label": "table owner",
+   "as": [
+    "Table owner complaints-ops."
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fleiss-kappa",
+   "type": "metric",
+   "label": "inter-reviewer agreement",
+   "as": [
+    "Fleiss kappa 0.82 across reviewers."
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "adjudication",
+   "type": "term",
+   "label": "adjudication step",
+   "as": [
+    "then adjudicated by a senior coder."
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "complaints-labels-qa",
+   "type": "owned-by",
+   "label": "table owner",
+   "o": "complaints-ops",
+   "quote": "Table owner complaints-ops.",
+   "line": 6
+  },
+  {
+   "s": "complaints-labels-qa",
+   "type": "measured-by",
+   "label": "reports kappa",
+   "o": "fleiss-kappa",
+   "quote": "Fleiss kappa 0.82 across reviewers.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "complaint-classification/ds-cc-qa-labels.md",
+  "ds-cc-tickets-raw"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "complaint-classification/ds-cc-qa-labels.md",
+ "sha": "334f3466562d315f4b378950ddeee9755818e6df155c1c783cb5a9bf6773f727",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

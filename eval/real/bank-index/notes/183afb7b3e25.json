@@ -1,0 +1,175 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "v2",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "v2"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "v1",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "v1"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "recall-at-1pct",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "recall@1%"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "travel-flag",
+   "type": "flag",
+   "label": "travel flag",
+   "as": [
+    "travel flag"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "v2",
+   "type": "evaluated-on",
+   "label": "beats v1 on",
+   "o": "holdout-2025q1",
+   "quote": "v2 beats v1 on holdout-2025q1",
+   "line": 5
+  },
+  {
+   "s": "v1",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "holdout-2025q1",
+   "quote": "Eval set: holdout-2025q1, 1,104,800 transactions, 2,310 fraud.",
+   "line": 6
+  },
+  {
+   "s": "v2",
+   "type": "measured-by",
+   "label": "has AUC",
+   "o": "auc",
+   "quote": "v2 (with travel flag): AUC 0.911",
+   "line": 7
+  },
+  {
+   "s": "v2",
+   "type": "measured-by",
+   "label": "has KS",
+   "o": "ks",
+   "quote": "KS 0.66",
+   "line": 5
+  },
+  {
+   "s": "v2",
+   "type": "measured-by",
+   "label": "has recall",
+   "o": "recall-at-1pct",
+   "quote": "recall@1% 0.52",
+   "line": 7
+  },
+  {
+   "s": "v1",
+   "type": "measured-by",
+   "label": "has AUC",
+   "o": "auc",
+   "quote": "v1 from exp-101: 0.902, 0.61, 0.46",
+   "line": 7
+  },
+  {
+   "s": "v1",
+   "type": "measured-by",
+   "label": "has KS",
+   "o": "ks",
+   "quote": "v1 from exp-101: 0.902, 0.61, 0.46",
+   "line": 7
+  },
+  {
+   "s": "v1",
+   "type": "measured-by",
+   "label": "has recall",
+   "o": "recall-at-1pct",
+   "quote": "v1 from exp-101: 0.902, 0.61, 0.46",
+   "line": 7
+  },
+  {
+   "s": "v2",
+   "type": "uses",
+   "label": "with travel flag",
+   "o": "travel-flag",
+   "quote": "v2 (with travel flag)",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-101",
+  "exp-103",
+  "exp-106"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/exp-104.md",
+ "sha": "183afb7b3e25df57c617c296bcab5665af7078520360043116f063af0f0a4557",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

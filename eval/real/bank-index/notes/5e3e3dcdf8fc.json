@@ -1,0 +1,109 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "logistic-regression",
+   "type": "model",
+   "label": "logistic regression",
+   "as": [
+    "logistic regression"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-ae-active-days-v1",
+   "type": "feature",
+   "label": "active-days feature",
+   "as": [
+    "single active-days feature"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "engagement-score",
+   "type": "metric",
+   "label": "engagement score",
+   "as": [
+    "engagement score"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "logistic-regression",
+   "type": "uses",
+   "label": "fit on",
+   "o": "feat-ae-active-days-v1",
+   "quote": "logistic regression on the single active-days feature",
+   "line": 6
+  },
+  {
+   "s": "logistic-regression",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "holdout-2025q4",
+   "quote": "scored on holdout-2025q4",
+   "line": 6
+  },
+  {
+   "s": "logistic-regression",
+   "type": "measured-by",
+   "label": "scored AUC",
+   "o": "auc",
+   "quote": "AUC 0.68",
+   "line": 5
+  },
+  {
+   "s": "engagement-score",
+   "type": "other",
+   "label": "floor to clear",
+   "o": "logistic-regression",
+   "quote": "This is the floor the engagement score has to clear.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-ae-active-days-v1",
+  "ds-ae-holdout",
+  "fnd-ae-active-days-weak"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "app-engagement/exp-501.md",
+ "sha": "5e3e3dcdf8fca6a2259f6e4952ea65e27dbd5b94b38912757cd84e1108f003ec",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

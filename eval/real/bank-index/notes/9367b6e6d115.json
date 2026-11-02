@@ -1,0 +1,174 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "bsm-app-gbm-v10b",
+   "type": "model",
+   "label": "isotonic-mapped v10 model",
+   "as": [
+    "bsm-app-gbm-v10b",
+    "isotonic-mapped v10 model"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bsm-app-gbm-v10a",
+   "type": "model",
+   "label": "v10 model",
+   "as": [
+    "bsm-app-gbm-v10a"
+   ],
+   "lines": [
+    2,
+    4
+   ]
+  },
+  {
+   "id": "feat-bsm-score-map-v2",
+   "type": "feature",
+   "label": "training input",
+   "as": [
+    "feat-bsm-score-map-v2"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "feat-bsm-thin-file-flag",
+   "type": "flag",
+   "label": "source flag",
+   "as": [
+    "feat-bsm-thin-file-flag",
+    "the source flag"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "bureau-score-migration-oot-2026h1",
+   "type": "dataset",
+   "label": "eval dataset",
+   "as": [
+    "bureau-score-migration-oot-2026h1"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.80"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.37"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "bsm-cutoff-logit",
+   "type": "other",
+   "label": "cutoff",
+   "as": [
+    "bsm-cutoff-logit"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bsm-app-gbm-v10b",
+   "type": "uses",
+   "label": "retrained on",
+   "o": "feat-bsm-score-map-v2",
+   "quote": "Retrained on feat-bsm-score-map-v2 and feat-bsm-thin-file-flag",
+   "line": 7
+  },
+  {
+   "s": "bsm-app-gbm-v10b",
+   "type": "uses",
+   "label": "retrained on",
+   "o": "feat-bsm-thin-file-flag",
+   "quote": "Retrained on feat-bsm-score-map-v2 and feat-bsm-thin-file-flag",
+   "line": 7
+  },
+  {
+   "s": "bsm-app-gbm-v10b",
+   "type": "evaluated-on",
+   "label": "eval on",
+   "o": "bureau-score-migration-oot-2026h1",
+   "quote": "Eval: bureau-score-migration-oot-2026h1 (n=44,800)",
+   "line": 8
+  },
+  {
+   "s": "bsm-app-gbm-v10b",
+   "type": "measured-by",
+   "label": "AUC 0.80",
+   "o": "auc",
+   "quote": "AUC 0.80, KS 0.37",
+   "line": 8
+  },
+  {
+   "s": "bsm-app-gbm-v10b",
+   "type": "measured-by",
+   "label": "KS 0.37",
+   "o": "ks",
+   "quote": "AUC 0.80, KS 0.37",
+   "line": 8
+  },
+  {
+   "s": "bsm-app-gbm-v10b",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "bsm-app-gbm-v10a",
+   "quote": "supersedes: [bsm-app-gbm-v10a]",
+   "line": 4
+  },
+  {
+   "s": "bsm-app-gbm-v10b",
+   "type": "other",
+   "label": "cutoff set through",
+   "o": "bsm-cutoff-logit",
+   "quote": "cutoff set through bsm-cutoff-logit",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "bsm-app-gbm-v10a",
+  "feat-bsm-score-map-v2",
+  "feat-bsm-thin-file-flag",
+  "bsm-cutoff-logit",
+  "exp-306"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "bureau-score-migration/bsm-app-gbm-v10b.md",
+ "sha": "9367b6e6d11596fa5bbbf1826e5178e109fc127d0ef0289bff4442fd279d2aef",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

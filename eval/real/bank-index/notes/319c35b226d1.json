@@ -1,0 +1,127 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "limit-model-2025",
+   "type": "model",
+   "label": "2025 limit model",
+   "as": [
+    "the 2025 limit model"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "oot-auc-inflation",
+   "type": "metric",
+   "label": "oot auc inflation",
+   "as": [
+    "OOT AUC inflated by 0.011"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "imputation-scaling-leak",
+   "type": "term",
+   "label": "imputation and scaling leak",
+   "as": [
+    "Imputation and scaling were fitted on the full table, including OOT."
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "train-only-fit-fix",
+   "type": "term",
+   "label": "train-only fit fix",
+   "as": [
+    "The fix fits the statistics on the training split only."
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "sam lee's team",
+   "as": [
+    "Sam Lee's team"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "june-2026-pipeline-audit",
+   "type": "other",
+   "label": "pipeline audit",
+   "as": [
+    "June 2026 pipeline audit"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "limit-model-2025",
+   "type": "measured-by",
+   "label": "inflated by",
+   "o": "oot-auc-inflation",
+   "quote": "Why was the 2025 limit model's OOT AUC inflated by 0.011?",
+   "line": 5
+  },
+  {
+   "s": "oot-auc-inflation",
+   "type": "other",
+   "label": "caused by",
+   "o": "imputation-scaling-leak",
+   "quote": "Imputation and scaling were fitted on the full table, including OOT.",
+   "line": 5
+  },
+  {
+   "s": "train-only-fit-fix",
+   "type": "other",
+   "label": "fixes",
+   "o": "imputation-scaling-leak",
+   "quote": "The fix fits the statistics on the training split only.",
+   "line": 6
+  },
+  {
+   "s": "imputation-scaling-leak",
+   "type": "other",
+   "label": "found during",
+   "o": "june-2026-pipeline-audit",
+   "quote": "Sam Lee's team found it during the June 2026 pipeline audit.",
+   "line": 6
+  },
+  {
+   "s": "june-2026-pipeline-audit",
+   "type": "owned-by",
+   "label": "run by",
+   "o": "sam-lee",
+   "quote": "Sam Lee's team found it during the June 2026 pipeline audit.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "howto/imputation-fit-on-train-only",
+  "qa/imputation-leak-limit.md"
+ ],
+ "dropped": {
+  "entities": [
+   "imputation-leak-limit"
+  ],
+  "relations": 0
+ },
+ "path": "qa/imputation-leak-limit.md",
+ "sha": "319c35b226d1d27599cb270f47d06b69c9486834d17348fe7a8a7ae0ca9880cf",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

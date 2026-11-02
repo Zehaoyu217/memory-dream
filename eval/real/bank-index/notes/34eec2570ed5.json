@@ -1,0 +1,176 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-106",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "Cost-matrix thresholds and adjudicated labels, tested in separate arms on cr-oot-2026h1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cr-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cr-lgbm-v2"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "cr-lgbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cr-lgbm-v3"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "cr-oot-2026h1",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "cr-oot-2026h1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-cr-intent-labels",
+   "type": "dataset",
+   "label": "label set",
+   "as": [
+    "ds-cr-intent-labels",
+    "adjudicated labels for the 1,200 double-coded calls"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "cost-matrix-thresholds",
+   "type": "term",
+   "label": "routing thresholds",
+   "as": [
+    "cost-matrix routing thresholds"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dispute-misroutes",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "dispute misroutes"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "macro F1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "top-1-accuracy",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "top-1 accuracy"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-106",
+   "type": "uses",
+   "label": "arm A on",
+   "o": "cr-lgbm-v2",
+   "quote": "Arm A: cost-matrix routing thresholds on cr-lgbm-v2",
+   "line": 6
+  },
+  {
+   "s": "exp-106",
+   "type": "evaluated-on",
+   "label": "tested on",
+   "o": "cr-oot-2026h1",
+   "quote": "tested in separate arms on cr-oot-2026h1",
+   "line": 5
+  },
+  {
+   "s": "exp-106",
+   "type": "uses",
+   "label": "arm B uses",
+   "o": "ds-cr-intent-labels",
+   "quote": "Arm B: adjudicated labels for the 1,200 double-coded calls",
+   "line": 7
+  },
+  {
+   "s": "exp-106",
+   "type": "measured-by",
+   "label": "arm A measures",
+   "o": "dispute-misroutes",
+   "quote": "dispute-queue misroutes down 23 percent",
+   "line": 8
+  },
+  {
+   "s": "exp-106",
+   "type": "measured-by",
+   "label": "arm B measures",
+   "o": "top-1-accuracy",
+   "quote": "top-1 accuracy 0.79 to 0.81",
+   "line": 8
+  },
+  {
+   "s": "exp-106",
+   "type": "measured-by",
+   "label": "both arms measure",
+   "o": "macro-f1",
+   "quote": "macro F1 0.73 unchanged",
+   "line": 8
+  },
+  {
+   "s": "exp-106",
+   "type": "produces",
+   "label": "both go into",
+   "o": "cr-lgbm-v3",
+   "quote": "Both arms go into cr-lgbm-v3.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "call-center-routing/exp-106.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/exp-106.md",
+ "sha": "34eec2570ed5fd54e89310f75912d03a64a66b13bfb6e827ef2d4bc48564ffdc",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

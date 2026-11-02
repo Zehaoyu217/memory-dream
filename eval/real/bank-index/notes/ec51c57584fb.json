@@ -1,0 +1,114 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "feat-cb-grocery-share",
+   "type": "feature",
+   "label": "grocery share feature",
+   "as": [
+    "grocery share above 30%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cb-elasticity-v2",
+   "type": "model",
+   "label": "elasticity model",
+   "as": [
+    "banded model"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cb.spend_panel",
+   "type": "dataset",
+   "label": "spend panel",
+   "as": [
+    "`cb.spend_panel`"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "grocery-heavy-accounts",
+   "type": "segment",
+   "label": "grocery-heavy accounts",
+   "as": [
+    "grocery-heavy accounts"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "elasticity",
+   "type": "metric",
+   "label": "elasticity",
+   "as": [
+    "elasticity 0.38",
+    "0.21 pooled"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "middle-tier",
+   "type": "other",
+   "label": "middle tier",
+   "as": [
+    "middle-tier response",
+    "The 1.5% tier"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "grocery-heavy-accounts",
+   "type": "measured-by",
+   "label": "responds at",
+   "o": "elasticity",
+   "quote": "respond at 0.38, against 0.21 pooled",
+   "line": 6
+  },
+  {
+   "s": "cb-elasticity-v2",
+   "type": "evaluated-on",
+   "label": "pilot cells",
+   "o": "cb.spend_panel",
+   "quote": "Source: `cb.spend_panel` by merchant group, pilot cells.",
+   "line": 8
+  },
+  {
+   "s": "feat-cb-grocery-share",
+   "type": "part-of",
+   "label": "defines",
+   "o": "grocery-heavy-accounts",
+   "quote": "accounts with grocery share above 30%",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "cb-elasticity-v2",
+  "exp-204-band-split",
+  "feat-cb-grocery-share"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/find-cb-grocery-driver.md",
+ "sha": "ec51c57584fb96d4a13bc7d143c1d8769f5fa13cb01bb3d1caec961ab7cd89d7",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

@@ -1,0 +1,107 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "post-period-aggregation-leak",
+   "type": "term",
+   "label": "leak",
+   "as": [
+    "Post-period aggregation leaks target"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "velocity-features",
+   "type": "feature",
+   "label": "velocity features",
+   "as": [
+    "The velocity features built on"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "velocity-features",
+   "type": "uses",
+   "label": "built on",
+   "o": "cards.txn_daily",
+   "quote": "The velocity features built on `cards.txn_daily`",
+   "line": 6
+  },
+  {
+   "s": "post-period-aggregation-leak",
+   "type": "other",
+   "label": "caused-by",
+   "o": "velocity-features",
+   "quote": "The velocity features built on `cards.txn_daily` aggregate past the observation date.",
+   "line": 6
+  },
+  {
+   "s": "post-period-aggregation-leak",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "holdout-2025q4",
+   "quote": "holdout-2025q4, n=1.2M, 2026-10-29",
+   "line": 6
+  },
+  {
+   "s": "post-period-aggregation-leak",
+   "type": "other",
+   "label": "moves AUC",
+   "o": "auc",
+   "quote": "AUC 0.81→0.74 without it",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-014",
+  "exp-017-leak-check",
+  "nb/eda_velocity.ipynb"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2026/post-period-leak.md",
+ "sha": "bf5f22ffdfce3872e639fab2320a2bceebbb6cdf6fe609437e2a0ba037ecbf2e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

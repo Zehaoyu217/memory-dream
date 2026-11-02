@@ -1,0 +1,144 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "mkt.q2_2026_rct",
+   "type": "dataset",
+   "label": "rct table",
+   "as": [
+    "`mkt.q2_2026_rct`",
+    "mkt.q2_2026_rct"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "q2-26-spend",
+   "type": "other",
+   "label": "campaign",
+   "as": [
+    "Campaign Q2-26-SPEND"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "marketing.campaign_responses",
+   "type": "dataset",
+   "label": "outcomes table",
+   "as": [
+    "`marketing.campaign_responses`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "spend table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "14-day-response-rate",
+   "type": "metric",
+   "label": "response base rate",
+   "as": [
+    "14-day response base rate"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "control",
+   "type": "segment",
+   "label": "control group",
+   "as": [
+    "10% random control"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "treated",
+   "type": "segment",
+   "label": "treated group",
+   "as": [
+    "990,000 treated"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mkt.q2_2026_rct",
+   "type": "uses",
+   "label": "outcomes from",
+   "o": "marketing.campaign_responses",
+   "quote": "Outcomes from `marketing.campaign_responses`",
+   "line": 6
+  },
+  {
+   "s": "mkt.q2_2026_rct",
+   "type": "uses",
+   "label": "monthly spend from",
+   "o": "cards.txn_daily",
+   "quote": "plus monthly spend from `cards.txn_daily`",
+   "line": 6
+  },
+  {
+   "s": "mkt.q2_2026_rct",
+   "type": "other",
+   "label": "campaign of",
+   "o": "q2-26-spend",
+   "quote": "Campaign Q2-26-SPEND, randomized at account level",
+   "line": 6
+  },
+  {
+   "s": "treated",
+   "type": "part-of",
+   "label": "assigned in",
+   "o": "mkt.q2_2026_rct",
+   "quote": "randomized at account level: 990,000 treated, 110,000 control",
+   "line": 6
+  },
+  {
+   "s": "control",
+   "type": "part-of",
+   "label": "assigned in",
+   "o": "mkt.q2_2026_rct",
+   "quote": "randomized at account level: 990,000 treated, 110,000 control",
+   "line": 6
+  },
+  {
+   "s": "mkt.q2_2026_rct",
+   "type": "measured-by",
+   "label": "measured as",
+   "o": "14-day-response-rate",
+   "quote": "14-day response base rate 2.1% in control, 3.0% in treated.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "q-mq3-uplift-vs-response"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "marketing-uplift-q3/ds-mq3-q2-rct.md",
+ "sha": "b2a27b0d0c135553d8264872a78f001ac5977d9b8bc6386aa1ab026be4114ceb",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

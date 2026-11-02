@@ -1,0 +1,97 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "fiscal-year",
+   "type": "term",
+   "label": "fiscal year",
+   "as": [
+    "The fiscal year starts on 1 April",
+    "The fiscal year is the one the finance team reports against"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  },
+  {
+   "id": "fy27",
+   "type": "term",
+   "label": "fiscal period",
+   "as": [
+    "FY27 is April 2026 to March 2027"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "calendar-quarters",
+   "type": "term",
+   "label": "calendar quarters",
+   "as": [
+    "Calendar quarters are used only for the raw data"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "finance-team",
+   "type": "team",
+   "label": "finance team",
+   "as": [
+    "the finance team reports against"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "board-figures",
+   "type": "other",
+   "label": "board figures",
+   "as": [
+    "all board figures use it"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fy27",
+   "type": "other",
+   "label": "is a period of",
+   "o": "fiscal-year",
+   "quote": "FY27 is April 2026 to March 2027",
+   "line": 4
+  },
+  {
+   "s": "fiscal-year",
+   "type": "other",
+   "label": "reported against by",
+   "o": "finance-team",
+   "quote": "The fiscal year is the one the finance team reports against",
+   "line": 7
+  },
+  {
+   "s": "board-figures",
+   "type": "uses",
+   "label": "use",
+   "o": "fiscal-year",
+   "quote": "all board figures use it",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/fiscal-calendar-april-start.md",
+ "sha": "41b8bb0be858e1363b166ad373ec0de33bdae2224dffb0cdb9586a983b7b478c",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,81 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "call-centre-savings-outreach",
+   "type": "other",
+   "label": "outreach decision",
+   "as": [
+    "call-centre savings outreach only to deciles 1-2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "call-uplift-deciles-1-2",
+   "type": "segment",
+   "label": "deciles 1-2",
+   "as": [
+    "deciles 1-2"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "exp-406-call-uplift",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-406-call-uplift"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "xs-call-uplift-v1",
+   "type": "model",
+   "label": "uplift model",
+   "as": [
+    "xs-call-uplift-v1"
+   ],
+   "lines": [
+    2
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "call-centre-savings-outreach",
+   "type": "other",
+   "label": "limited to",
+   "o": "call-uplift-deciles-1-2",
+   "quote": "call-centre savings outreach only to deciles 1-2",
+   "line": 5
+  },
+  {
+   "s": "call-centre-savings-outreach",
+   "type": "uses",
+   "label": "based on",
+   "o": "xs-call-uplift-v1",
+   "quote": "The causal estimate (+1.2 in deciles 1-2) justifies outreach",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-406-call-uplift",
+  "find-xs-call-overstated",
+  "xs-call-uplift-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cross-sell-savings/dec-xs-call-low-deciles.md",
+ "sha": "c116e313d10a832c3d31bbc62751aab05dad0a82349f8ef170c3dcb06225c099",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

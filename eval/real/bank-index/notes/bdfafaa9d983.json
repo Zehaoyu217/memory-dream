@@ -1,0 +1,85 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`callcenter.calls` holds one row per inbound call"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cx-analytics",
+   "type": "team",
+   "label": "owner",
+   "as": [
+    "Owner cx-analytics."
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "transfer_count",
+   "type": "feature",
+   "label": "key field",
+   "as": [
+    "transfer_count"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "callcenter.calls",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "cx-analytics",
+   "quote": "Owner cx-analytics.",
+   "line": 6
+  },
+  {
+   "s": "transfer_count",
+   "type": "part-of",
+   "label": "key field of",
+   "o": "callcenter.calls",
+   "quote": "Key fields: call_id, caller_key, start_ts, queue_initial, queue_final, transfer_count",
+   "line": 7
+  },
+  {
+   "s": "callcenter.calls",
+   "type": "uses",
+   "label": "joins to",
+   "o": "cards.accounts_monthly",
+   "quote": "Joins to `cards.accounts_monthly` go through the account key.",
+   "line": 9
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/ds-cr-calls.md",
+ "sha": "bdfafaa9d98379367b263327c515b1f38405377fcdcc219d6057f0be4fbb1697",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

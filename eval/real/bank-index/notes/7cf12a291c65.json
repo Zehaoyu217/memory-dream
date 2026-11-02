@@ -1,0 +1,73 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "aml-oot-2026h1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "aml-oot-2026h1",
+    "Out-of-time holdout"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "aml-ranker",
+   "type": "model",
+   "label": "ranker",
+   "as": [
+    "AML ranker"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "sar-referral",
+   "type": "term",
+   "label": "sar referral",
+   "as": [
+    "SAR-referred"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "aml-ranker",
+   "type": "evaluated-on",
+   "label": "holdout for",
+   "o": "aml-oot-2026h1",
+   "quote": "Out-of-time holdout for the AML ranker",
+   "line": 6
+  },
+  {
+   "s": "aml-oot-2026h1",
+   "type": "other",
+   "label": "not used for training",
+   "o": "aml-ranker",
+   "quote": "not used for training any version",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-405",
+  "exp-406",
+  "exp-407",
+  "ds-aml-alerts",
+  "ds-aml-dispositions"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "aml-alerts/ds-aml-oot.md",
+ "sha": "7cf12a291c65334d4a294fc41ec51f4fe45955f1739707a8bb875a8cf68a697d",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

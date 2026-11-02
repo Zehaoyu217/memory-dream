@@ -1,0 +1,78 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "ae_act28",
+   "type": "feature",
+   "label": "signal",
+   "as": [
+    "Active days in the last 28 days",
+    "ae_act28"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "app.sessions_daily",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "app.sessions_daily"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-ae-sessions-daily",
+   "type": "team",
+   "label": "source",
+   "as": [
+    "ds-ae-sessions-daily"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "exp-501",
+   "type": "other",
+   "label": "baseline",
+   "as": [
+    "exp-501"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ae_act28",
+   "type": "uses",
+   "label": "count from",
+   "o": "app.sessions_daily",
+   "quote": "Plain count from `app.sessions_daily`",
+   "line": 6
+  },
+  {
+   "s": "ae_act28",
+   "type": "other",
+   "label": "baseline for",
+   "o": "exp-501",
+   "quote": "The simplest signal and the baseline the score has to beat (exp-501).",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "app-engagement/feat-ae-active-days-v1.md",
+ "sha": "741af941c82456f063cc9cd0c07efb8ad5a53e08add9dad768c6334124022b63",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

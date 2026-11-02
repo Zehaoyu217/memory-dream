@@ -1,0 +1,120 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cld-risk-band-v2",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "feat-cld-risk-band-v2: four bands rebuilt with the CLI utilisation slope"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-cld-risk-band-v1",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "feat-cld-risk-band-v1"
+   ],
+   "lines": [
+    2,
+    4
+   ]
+  },
+  {
+   "id": "feat-cli-util-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "credit-line-increase/feat-cli-util-v2"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "exp-206",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-206"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "cld-test-2025q3",
+   "type": "dataset",
+   "label": "test set",
+   "as": [
+    "cld-test-2025q3"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Gini"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cld-risk-band-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "feat-cld-risk-band-v1",
+   "quote": "supersedes: [feat-cld-risk-band-v1]",
+   "line": 4
+  },
+  {
+   "s": "feat-cld-risk-band-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-cli-util-v2",
+   "quote": "Bands use v8 score, utilisation and the 6-month utilisation slope from credit-line-increase/feat-cli-util-v2.",
+   "line": 7
+  },
+  {
+   "s": "feat-cld-risk-band-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "cld-test-2025q3",
+   "quote": "Gini of the band rule on cld-test-2025q3 rises from 0.41 to 0.47 (exp-206).",
+   "line": 9
+  },
+  {
+   "s": "feat-cld-risk-band-v2",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "gini",
+   "quote": "Gini of the band rule on cld-test-2025q3 rises from 0.41 to 0.47 (exp-206).",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "limit-decrease-policy/feat-cld-risk-band-v2.md",
+  "credit-line-increase/feat-cli-util-v2",
+  "exp-206"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "limit-decrease-policy/feat-cld-risk-band-v2.md",
+ "sha": "50e7ae0ec2568bf449ab2519526f3f420d0cbaba1d383609a10348a680f8c52d",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

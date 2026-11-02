@@ -1,0 +1,88 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "reactivation-waves-1-to-3",
+   "type": "dataset",
+   "label": "campaign history",
+   "as": [
+    "Reactivation waves 1 to 3 from marketing.campaign_responses: 179,700 sends, 2024-Q2 to 2025-Q1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "marketing.campaign_responses",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "marketing.campaign_responses"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "wave-2",
+   "type": "segment",
+   "label": "wave 2",
+   "as": [
+    "Wave 2 (2024-Q4): 61,500 sends.",
+    "Wave 2 raw response: email 3.1%, SMS 4.6%."
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "wave-3",
+   "type": "segment",
+   "label": "wave 3",
+   "as": [
+    "Wave 3 (2025-Q1): 58,200 sends.",
+    "Wave 3 outcomes mature on 2025-04-25."
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "reactivation-waves-1-to-3",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "marketing.campaign_responses",
+   "quote": "Reactivation waves 1 to 3 from marketing.campaign_responses",
+   "line": 5
+  },
+  {
+   "s": "wave-2",
+   "type": "part-of",
+   "label": "wave of",
+   "o": "reactivation-waves-1-to-3",
+   "quote": "Wave 2 (2024-Q4): 61,500 sends.",
+   "line": 6
+  },
+  {
+   "s": "wave-3",
+   "type": "part-of",
+   "label": "wave of",
+   "o": "reactivation-waves-1-to-3",
+   "quote": "Wave 3 (2025-Q1): 58,200 sends.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reactivation-dormant/ds-rdm-campaign-history.md",
+ "sha": "a735a2963f3a2a40746c5dad088e4765569268c0e27c9d18efe69c305b7ff4b3",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

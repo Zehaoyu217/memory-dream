@@ -1,0 +1,131 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "fraud25-gbm-v2",
+   "type": "model",
+   "label": "alert model",
+   "as": [
+    "fraud25-gbm-v2"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "ds-f25-travel-tags",
+   "type": "other",
+   "label": "travel tags source",
+   "as": [
+    "ds-f25-travel-tags"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "fraud25_alerts_log",
+   "type": "dataset",
+   "label": "alerts log",
+   "as": [
+    "fraud25_alerts_log"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "travel-merchants",
+   "type": "segment",
+   "label": "travel merchants",
+   "as": [
+    "travel merchants"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "alert-threshold",
+   "type": "flag",
+   "label": "alert threshold",
+   "as": [
+    "threshold 0.62"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "travel-alert-share",
+   "type": "metric",
+   "label": "alert share",
+   "as": [
+    "Travel share of alerts 31%"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "travel-cnp-share",
+   "type": "metric",
+   "label": "cnp volume share",
+   "as": [
+    "travel share of CNP volume 11%"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "alert-precision",
+   "type": "metric",
+   "label": "alert precision",
+   "as": [
+    "Alert precision by group"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "other",
+   "label": "runs at threshold",
+   "o": "alert-threshold",
+   "quote": "18,420 alerts from fraud25-gbm-v2 at threshold 0.62",
+   "line": 6
+  },
+  {
+   "s": "travel-merchants",
+   "type": "measured-by",
+   "label": "alert share measured",
+   "o": "travel-alert-share",
+   "quote": "Travel share of alerts 31%",
+   "line": 7
+  },
+  {
+   "s": "travel-merchants",
+   "type": "measured-by",
+   "label": "CNP share measured",
+   "o": "travel-cnp-share",
+   "quote": "travel share of CNP volume 11%",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fraud25-find-travel-overflag"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/exp-106.md",
+ "sha": "734f9bbb2b58566f1b18ce8f39024fd863e26566fa8625641d1a322054791811",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

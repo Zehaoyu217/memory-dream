@@ -1,0 +1,101 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-407",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-407: recalibrated v3 captures 96.3% of SARs in the top 40% on aml-oot-2026h1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "aml-oot-2026h1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "aml-oot-2026h1"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "aml-xgb-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "aml-xgb-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "sar-referred-alerts",
+   "type": "metric",
+   "label": "capture rate",
+   "as": [
+    "captures 96.3% of SAR-referred alerts in the top 40%",
+    "top 35% gives 94.1%"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "structuring-alerts",
+   "type": "segment",
+   "label": "alert group",
+   "as": [
+    "close 44% of structuring alerts"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-407",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "aml-oot-2026h1",
+   "quote": "Eval set: aml-oot-2026h1 (9,870 alerts, 188 SAR-referred).",
+   "line": 6
+  },
+  {
+   "s": "aml-xgb-v3",
+   "type": "measured-by",
+   "label": "captures",
+   "o": "sar-referred-alerts",
+   "quote": "aml-xgb-v3 captures 96.3% of SAR-referred alerts in the top 40%",
+   "line": 7
+  },
+  {
+   "s": "exp-407",
+   "type": "other",
+   "label": "builds on",
+   "o": "aml-xgb-v3",
+   "quote": "recalibrated v3",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "aml-alerts/exp-406",
+  "aml-xgb-v2",
+  "ds-aml-oot"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "aml-alerts/exp-407.md",
+ "sha": "4a3e473d5d4dc09d59f32ef36c9f8f7390b579d3e46e2d01bf70c8ac20fa99a4",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

@@ -1,0 +1,132 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "mrisk-gbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "mrisk-gbm-v3"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mrisk-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "mrisk-gbm-v2"
+   ],
+   "lines": [
+    2,
+    3
+   ]
+  },
+  {
+   "id": "feat-mrisk-dispute-ratio",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mrisk-dispute-ratio"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "mrisk-oot-2026h1",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "mrisk-oot-2026h1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.91"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "precision-at-100",
+   "type": "metric",
+   "label": "precision@100",
+   "as": [
+    "precision@100 0.58",
+    "precision@100 0.58"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mrisk-gbm-v3",
+   "type": "uses",
+   "label": "adds",
+   "o": "feat-mrisk-dispute-ratio",
+   "quote": "Adds feat-mrisk-dispute-ratio to the v2 features.",
+   "line": 7
+  },
+  {
+   "s": "mrisk-gbm-v3",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "mrisk-gbm-v2",
+   "quote": "supersedes: [mrisk-gbm-v2]",
+   "line": 3
+  },
+  {
+   "s": "mrisk-gbm-v3",
+   "type": "evaluated-on",
+   "label": "on",
+   "o": "mrisk-oot-2026h1",
+   "quote": "On mrisk-oot-2026h1: AUC 0.91, precision@100 0.58",
+   "line": 8
+  },
+  {
+   "s": "mrisk-gbm-v3",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.91",
+   "line": 6
+  },
+  {
+   "s": "mrisk-gbm-v3",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "precision-at-100",
+   "quote": "precision@100 0.58",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "mrisk-gbm-v2",
+  "feat-mrisk-dispute-ratio",
+  "exp-507",
+  "dec-mrisk-threshold-065"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "merchant-risk/mrisk-gbm-v3.md",
+ "sha": "0b915814abdc6f02e698e1d04e179085a7ec98533453891be5223bd266b0fa37",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

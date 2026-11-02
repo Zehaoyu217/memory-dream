@@ -1,0 +1,142 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-405",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-405: fraud model v4 reaches recall 0.58 at 1 percent alerts vs 0.52 for v3 on lbl-oot-2025h2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "lbl-fraud-gbm-v4",
+   "type": "model",
+   "label": "fraud model v4",
+   "as": [
+    "fraud model v4",
+    "v4 0.58"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "lbl-fraud-gbm-v3",
+   "type": "model",
+   "label": "fraud model v3",
+   "as": [
+    "v3 0.52",
+    "v3 never learned"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-lbl-fraud-flag-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-lbl-fraud-flag-v2"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "lbl-oot-2025h2",
+   "type": "dataset",
+   "label": "approved transactions",
+   "as": [
+    "lbl-oot-2025h2",
+    "n=1.2M approved transactions"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "recall-at-1pct-alerts",
+   "type": "metric",
+   "label": "recall at 1 percent alerts",
+   "as": [
+    "Recall at 1 percent alerts"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "category-b-labels",
+   "type": "term",
+   "label": "category b labels",
+   "as": [
+    "category B labels"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "lbl-fraud-gbm-v4",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "lbl-oot-2025h2",
+   "quote": "Scored both models on lbl-oot-2025h2",
+   "line": 6
+  },
+  {
+   "s": "lbl-fraud-gbm-v3",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "lbl-oot-2025h2",
+   "quote": "Scored both models on lbl-oot-2025h2",
+   "line": 6
+  },
+  {
+   "s": "lbl-fraud-gbm-v4",
+   "type": "measured-by",
+   "label": "recall at 1 percent alerts",
+   "o": "recall-at-1pct-alerts",
+   "quote": "Recall at 1 percent alerts: v4 0.58, v3 0.52",
+   "line": 7
+  },
+  {
+   "s": "lbl-fraud-gbm-v3",
+   "type": "measured-by",
+   "label": "recall at 1 percent alerts",
+   "o": "recall-at-1pct-alerts",
+   "quote": "Recall at 1 percent alerts: v4 0.58, v3 0.52",
+   "line": 7
+  },
+  {
+   "s": "recall-at-1pct-alerts",
+   "type": "other",
+   "label": "lift comes from",
+   "o": "category-b-labels",
+   "quote": "The lift comes from category B labels that v3 never learned.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "lbl-fraud-gbm-v3",
+  "lbl-fraud-gbm-v4",
+  "feat-lbl-fraud-flag-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "label-pipeline-rebuild/exp-405.md",
+ "sha": "7a44300529261893ebbdc1994e72fea790621dff5c47bd57e2a3b552da947678",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

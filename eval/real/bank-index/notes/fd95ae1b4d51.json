@@ -1,0 +1,119 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "fraud-training-sample",
+   "type": "dataset",
+   "label": "training sample",
+   "as": [
+    "the fraud training sample"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "non-fraud-rows",
+   "type": "segment",
+   "label": "non-fraud rows",
+   "as": [
+    "non-fraud rows"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sample-weight-20",
+   "type": "term",
+   "label": "sample weight",
+   "as": [
+    "Weight 20"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bad-rate",
+   "type": "metric",
+   "label": "base rate",
+   "as": [
+    "base rate"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ben-carter",
+   "type": "person",
+   "label": "ben carter",
+   "as": [
+    "Ben Carter"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "finance-team",
+   "type": "team",
+   "label": "finance team",
+   "as": [
+    "Ben Carter's finance team"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "run-manifest",
+   "type": "other",
+   "label": "run manifest",
+   "as": [
+    "the run manifest"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "sample-weight-20",
+   "type": "other",
+   "label": "restores",
+   "o": "bad-rate",
+   "quote": "Weight 20 restores the base rate to the book.",
+   "line": 6
+  },
+  {
+   "s": "finance-team",
+   "type": "owned-by",
+   "label": "team of",
+   "o": "ben-carter",
+   "quote": "Ben Carter's finance team reconciles exposure using the stratum counts in the run manifest.",
+   "line": 7
+  },
+  {
+   "s": "finance-team",
+   "type": "uses",
+   "label": "reconciles exposure using",
+   "o": "run-manifest",
+   "quote": "reconciles exposure using the stratum counts in the run manifest",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "howto/sampling-stratified-by-segment"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/fraud-sample-weight-20.md",
+ "sha": "fd95ae1b4d515a622a222438e3d557f8bb6b0e103e658c017b0447b328eb4b2c",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,287 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "csb-xgb-v2",
+   "type": "model",
+   "label": "xgboost model",
+   "as": [
+    "csb-xgb-v2",
+    "XGBoost with seasonally adjusted spend"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "csb-xgb-v1",
+   "type": "model",
+   "label": "prior version",
+   "as": [
+    "csb-xgb-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "churn-small-business",
+   "type": "model",
+   "label": "scoring model",
+   "as": [
+    "churn-small-business"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "csb-oot-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Holdout csb-oot-2025q1",
+    "csb-oot-2025q1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "6-month-plus-subset",
+   "type": "segment",
+   "label": "subset",
+   "as": [
+    "6-month-plus subset"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-csb-spend-sa-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "spend-sa-v2"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "feat-csb-deposit-volatility",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "deposit volatility"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-csb-tenure-band",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "tenure band"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-csb-employee-cards",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "employee cards"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-csb-calls-unresolved",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "unresolved calls"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "90-day-labels",
+   "type": "term",
+   "label": "label window",
+   "as": [
+    "90-day labels"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.758"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.40"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "recall-at-10",
+   "type": "metric",
+   "label": "recall@10%",
+   "as": [
+    "recall@10% 0.31"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "csb-xgb-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "csb-xgb-v1",
+   "quote": "supersedes: [csb-xgb-v1]",
+   "line": 4
+  },
+  {
+   "s": "csb-xgb-v2",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "csb-oot-2025q1",
+   "quote": "Holdout csb-oot-2025q1, 6-month-plus subset (n=7,930)",
+   "line": 8
+  },
+  {
+   "s": "6-month-plus-subset",
+   "type": "subset-of",
+   "label": "subset of",
+   "o": "csb-oot-2025q1",
+   "quote": "Holdout csb-oot-2025q1, 6-month-plus subset",
+   "line": 8
+  },
+  {
+   "s": "csb-xgb-v2",
+   "type": "measured-by",
+   "label": "holdout AUC",
+   "o": "auc",
+   "quote": "AUC 0.758",
+   "line": 6
+  },
+  {
+   "s": "csb-xgb-v2",
+   "type": "measured-by",
+   "label": "holdout KS",
+   "o": "ks",
+   "quote": "KS 0.40",
+   "line": 8
+  },
+  {
+   "s": "csb-xgb-v2",
+   "type": "measured-by",
+   "label": "holdout recall",
+   "o": "recall-at-10",
+   "quote": "recall@10% 0.31",
+   "line": 8
+  },
+  {
+   "s": "csb-xgb-v2",
+   "type": "uses",
+   "label": "has feature",
+   "o": "feat-csb-spend-sa-v2",
+   "quote": "Five features: spend-sa-v2, deposit volatility, tenure band, employee cards, unresolved calls.",
+   "line": 7
+  },
+  {
+   "s": "csb-xgb-v2",
+   "type": "uses",
+   "label": "has feature",
+   "o": "feat-csb-deposit-volatility",
+   "quote": "Five features: spend-sa-v2, deposit volatility, tenure band, employee cards, unresolved calls.",
+   "line": 7
+  },
+  {
+   "s": "csb-xgb-v2",
+   "type": "uses",
+   "label": "has feature",
+   "o": "feat-csb-tenure-band",
+   "quote": "Five features: spend-sa-v2, deposit volatility, tenure band, employee cards, unresolved calls.",
+   "line": 7
+  },
+  {
+   "s": "csb-xgb-v2",
+   "type": "uses",
+   "label": "has feature",
+   "o": "feat-csb-employee-cards",
+   "quote": "Five features: spend-sa-v2, deposit volatility, tenure band, employee cards, unresolved calls.",
+   "line": 7
+  },
+  {
+   "s": "csb-xgb-v2",
+   "type": "uses",
+   "label": "has feature",
+   "o": "feat-csb-calls-unresolved",
+   "quote": "Five features: spend-sa-v2, deposit volatility, tenure band, employee cards, unresolved calls.",
+   "line": 7
+  },
+  {
+   "s": "csb-xgb-v2",
+   "type": "uses",
+   "label": "uses labels",
+   "o": "90-day-labels",
+   "quote": "90-day labels",
+   "line": 7
+  },
+  {
+   "s": "csb-xgb-v2",
+   "type": "other",
+   "label": "scoring model for",
+   "o": "churn-small-business",
+   "quote": "Current churn-small-business scoring model",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "exp-207",
+  "feat-csb-spend-sa-v2",
+  "feat-csb-calls-unresolved",
+  "fnd-csb-calls-lift-v2",
+  "dec-csb-tenure-floor",
+  "feat-csb-deposit-volatility",
+  "csb-xgb-v1",
+  "dec-csb-ship-xgb-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-small-business/csb-xgb-v2.md",
+ "sha": "76902c8a28186a676d4b22c2c363655cc655d6f84e53a10bc443fd028e505ca6",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

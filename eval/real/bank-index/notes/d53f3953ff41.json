@@ -1,0 +1,103 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "application-scorecard",
+   "type": "model",
+   "label": "scorecard",
+   "as": [
+    "application-scorecard"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "aml-alerts",
+   "type": "other",
+   "label": "alert set",
+   "as": [
+    "aml-alerts"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-2026q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2026q1"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "bureau-score",
+   "type": "feature",
+   "label": "bureau score",
+   "as": [
+    "bureau score"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini 0.33"
+   ],
+   "lines": [
+    3
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "application-scorecard",
+   "type": "evaluated-on",
+   "label": "v3 Gini on",
+   "o": "holdout-2026q1",
+   "quote": "v3 Gini 0.33 on holdout-2026q1",
+   "line": 3
+  },
+  {
+   "s": "application-scorecard",
+   "type": "measured-by",
+   "label": "Gini 0.33",
+   "o": "gini",
+   "quote": "v3 Gini 0.33 on holdout-2026q1",
+   "line": 3
+  },
+  {
+   "s": "application-scorecard",
+   "type": "other",
+   "label": "drift in",
+   "o": "bureau-score",
+   "quote": "drift in bureau score",
+   "line": 3
+  },
+  {
+   "s": "aml-alerts",
+   "type": "other",
+   "label": "top-40% capture",
+   "o": "aml-alerts",
+   "quote": "top-40% capture 93.5%, not 98.2%",
+   "line": 4
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2026-05-14.md",
+ "sha": "d53f3953ff4163d42f689112d2afc976827cb1ee39f9550474d9dd9271d683d2",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

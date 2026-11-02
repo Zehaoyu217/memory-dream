@@ -1,0 +1,118 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "pa-margin-v1",
+   "type": "model",
+   "label": "margin model",
+   "as": [
+    "pa-margin-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "pa-bal-forecast-v1",
+   "type": "model",
+   "label": "balance forecast",
+   "as": [
+    "pa-bal-forecast-v1"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "ds-pa-balance-panel",
+   "type": "dataset",
+   "label": "balance panel",
+   "as": [
+    "ds-pa-balance-panel"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "feat-pa-credit-band",
+   "type": "feature",
+   "label": "credit band",
+   "as": [
+    "feat-pa-credit-band"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "pa-margin-v2",
+   "type": "model",
+   "label": "margin model",
+   "as": [
+    "pa-margin-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "arm-b",
+   "type": "segment",
+   "label": "arm",
+   "as": [
+    "arm B"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "pa-margin-v1",
+   "type": "uses",
+   "label": "from",
+   "o": "pa-bal-forecast-v1",
+   "quote": "from: [pa-bal-forecast-v1, ds-pa-balance-panel, feat-pa-credit-band]",
+   "line": 2
+  },
+  {
+   "s": "pa-margin-v1",
+   "type": "uses",
+   "label": "from",
+   "o": "ds-pa-balance-panel",
+   "quote": "from: [pa-bal-forecast-v1, ds-pa-balance-panel, feat-pa-credit-band]",
+   "line": 2
+  },
+  {
+   "s": "pa-margin-v1",
+   "type": "uses",
+   "label": "from",
+   "o": "feat-pa-credit-band",
+   "quote": "from: [pa-bal-forecast-v1, ds-pa-balance-panel, feat-pa-credit-band]",
+   "line": 2
+  },
+  {
+   "s": "pa-margin-v1",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "pa-margin-v2",
+   "quote": "Superseded by pa-margin-v2, which adds the churn hazard and expected loss.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "promo-apr-test/pa-margin-v1.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "promo-apr-test/pa-margin-v1.md",
+ "sha": "cea157658cdc4d493e04d5599ca8fbb062292d87ce3a827081bbcb8f3d1b9e3b",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

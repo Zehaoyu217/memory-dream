@@ -1,0 +1,88 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-bt-limit-headroom",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-bt-limit-headroom"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.limits_history",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.limits_history"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bt-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bt-xgb-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "holdout auc",
+   "as": [
+    "holdout AUC"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-bt-limit-headroom",
+   "type": "uses",
+   "label": "read from",
+   "o": "cards.limits_history",
+   "quote": "read from `cards.limits_history` for rows dated before the offer open date only",
+   "line": 6
+  },
+  {
+   "s": "feat-bt-limit-headroom",
+   "type": "part-of",
+   "label": "top feature in",
+   "o": "bt-xgb-v2",
+   "quote": "Top feature by gain in bt-xgb-v2",
+   "line": 8
+  },
+  {
+   "s": "feat-bt-limit-headroom",
+   "type": "measured-by",
+   "label": "drops AUC by 0.03 when removed",
+   "o": "auc",
+   "quote": "Removing it drops holdout AUC by 0.03.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "find-bt-limit-leak",
+  "exp-104-limit-headroom-full",
+  "dec-bt-drop-post-offer-features"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "balance-transfer-propensity/feat-bt-limit-headroom.md",
+ "sha": "299481b71e0d49e20aaa647619493d5f689c5dfe4b05024762e0773d24831eb3",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

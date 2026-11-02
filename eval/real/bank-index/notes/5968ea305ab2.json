@@ -1,0 +1,86 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "clv-discount-rate",
+   "type": "term",
+   "label": "discount rate",
+   "as": [
+    "discount CLV at 9% a year, compounded monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ben-carter",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Ben Carter (finance)"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "net-of-loss-rule",
+   "type": "policy",
+   "label": "finance policy",
+   "as": [
+    "net-of-loss rule"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "36-month-margin",
+   "type": "other",
+   "label": "36-month margin",
+   "as": [
+    "the 36-month margin"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "clv-discount-rate",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "ben-carter",
+   "quote": "Owner: Ben Carter (finance).",
+   "line": 8
+  },
+  {
+   "s": "clv-discount-rate",
+   "type": "other",
+   "label": "set alongside",
+   "o": "net-of-loss-rule",
+   "quote": "Set as finance policy alongside the net-of-loss rule.",
+   "line": 6
+  },
+  {
+   "s": "clv-discount-rate",
+   "type": "other",
+   "label": "applied to",
+   "o": "36-month-margin",
+   "quote": "Applied to every month of the 36-month margin before summing.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-clv-include-losses"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "customer-lifetime-value/dec-clv-discount-rate.md",
+ "sha": "5968ea305ab287b0249f5525f847799375e5eba7e4754d1db36842a35987a316",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,90 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "cli-logreg-baseline",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cli-logreg-baseline"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "logistic-score-cutoff",
+   "type": "policy",
+   "label": "score cutoff",
+   "as": [
+    "logistic score cutoff 0.031"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "proactive-cli-waves-2025",
+   "type": "other",
+   "label": "proactive cli waves",
+   "as": [
+    "2025 proactive CLI waves"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "revolver-exclusion",
+   "type": "policy",
+   "label": "revolver exclusion",
+   "as": [
+    "revolver exclusion"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "logistic-score-cutoff",
+   "type": "other",
+   "label": "applies to",
+   "o": "cli-logreg-baseline",
+   "quote": "Applies to cli-logreg-baseline only",
+   "line": 7
+  },
+  {
+   "s": "logistic-score-cutoff",
+   "type": "other",
+   "label": "set for",
+   "o": "proactive-cli-waves-2025",
+   "quote": "Decision: logistic score cutoff 0.031 for the 2025 proactive CLI waves",
+   "line": 5
+  },
+  {
+   "s": "proactive-cli-waves-2025",
+   "type": "uses",
+   "label": "used with exclusion",
+   "o": "revolver-exclusion",
+   "quote": "the 2025 H2 waves used the same cutoff with the revolver exclusion",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "cli-logreg-baseline",
+  "exp-104",
+  "dec-cli-loss-cap",
+  "dec-cli-uplift-targeting"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/dec-cli-cutoff-2025.md",
+ "sha": "b94fac25550ef4ee63b214b9b71d50034f809b0f8791ca4f8113f4a406197756",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

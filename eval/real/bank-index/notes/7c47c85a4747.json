@@ -1,0 +1,107 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.txn_daily",
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "cnp-transactions",
+   "type": "segment",
+   "label": "cnp transactions",
+   "as": [
+    "CNP transactions",
+    "card-not-present"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "fraud-rate",
+   "type": "metric",
+   "label": "fraud rate",
+   "as": [
+    "fraud rate 0.23%"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "data-eng-cards",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "data-eng-cards"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feature-jobs",
+   "type": "pipeline",
+   "label": "feature jobs",
+   "as": [
+    "Feature jobs"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cnp-transactions",
+   "type": "subset-of",
+   "label": "filtered from",
+   "o": "cards.txn_daily",
+   "quote": "`cards.txn_daily` filtered to card-not-present",
+   "line": 6
+  },
+  {
+   "s": "cnp-transactions",
+   "type": "measured-by",
+   "label": "has fraud rate",
+   "o": "fraud-rate",
+   "quote": "fraud rate 0.23% on matured labels",
+   "line": 7
+  },
+  {
+   "s": "cards.txn_daily",
+   "type": "owned-by",
+   "label": "owns",
+   "o": "data-eng-cards",
+   "quote": "data-eng-cards owns the table.",
+   "line": 7
+  },
+  {
+   "s": "feature-jobs",
+   "type": "uses",
+   "label": "reads daily snapshot of",
+   "o": "cards.txn_daily",
+   "quote": "Feature jobs read a daily snapshot taken at 02:00 local time.",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2026/ds-f26-cnp-txn.md",
+ "sha": "7c47c85a47470a345dc5712f652b65e016a715227e90ee8683a352623f0a5ace",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

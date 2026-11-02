@@ -1,0 +1,167 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "bt-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bt-xgb-v2"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "bt-xgb-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bt-xgb-v3"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "bt-holdout-2025q1",
+   "type": "dataset",
+   "label": "eval",
+   "as": [
+    "bt-holdout-2025q1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "bt.offer_log",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "bt.offer_log"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "joined table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "top-30-margin-capture",
+   "type": "metric",
+   "label": "margin capture",
+   "as": [
+    "top 30% of scores capture 61% of 12-month margin"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "net-margin-12m",
+   "type": "metric",
+   "label": "target",
+   "as": [
+    "12-month net margin"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "bt-acceptance",
+   "type": "metric",
+   "label": "acceptance label",
+   "as": [
+    "acceptance label"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bt-xgb-v3",
+   "type": "uses",
+   "label": "retrained from",
+   "o": "bt.offer_log",
+   "quote": "from `bt.offer_log` joined to `cards.accounts_monthly`",
+   "line": 6
+  },
+  {
+   "s": "bt-xgb-v3",
+   "type": "uses",
+   "label": "joined to",
+   "o": "cards.accounts_monthly",
+   "quote": "from `bt.offer_log` joined to `cards.accounts_monthly`",
+   "line": 6
+  },
+  {
+   "s": "bt-xgb-v3",
+   "type": "targets",
+   "label": "targets",
+   "o": "net-margin-12m",
+   "quote": "target = 12-month net margin per exposed account",
+   "line": 6
+  },
+  {
+   "s": "bt-xgb-v3",
+   "type": "evaluated-on",
+   "label": "eval on",
+   "o": "bt-holdout-2025q1",
+   "quote": "Eval bt-holdout-2025q1 (n=41,800)",
+   "line": 7
+  },
+  {
+   "s": "bt-xgb-v3",
+   "type": "measured-by",
+   "label": "capture",
+   "o": "top-30-margin-capture",
+   "quote": "top 30% of scores capture 61% of 12-month margin, versus 48% for the acceptance label",
+   "line": 7
+  },
+  {
+   "s": "bt-xgb-v3",
+   "type": "measured-by",
+   "label": "AUC against acceptance",
+   "o": "auc",
+   "quote": "AUC against acceptance rises slightly, from 0.68 to 0.69",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "bt-xgb-v2",
+  "q-bt-margin-threshold"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "balance-transfer-propensity/exp-107-margin-label.md",
+ "sha": "ef7e698f7ba3b0416859f45a7fd6f84e35ecc166c22e3a8346590a3611bd39ca",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

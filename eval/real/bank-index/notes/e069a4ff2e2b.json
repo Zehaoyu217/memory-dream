@@ -1,0 +1,120 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-203",
+   "type": "other",
+   "label": "experiment note",
+   "as": [
+    "exp-203: velocity-v2 with post-period days included gives AUC 0.94 on fraud26-oot-2025q4"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-f26-velocity-v2",
+   "type": "feature",
+   "label": "velocity-v2 features",
+   "as": [
+    "velocity-v2 with post-period days included",
+    "Velocity-v2 windows that include days after the transaction"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "fraud26-oot-2025q4",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "Eval set: fraud26-oot-2025q4 (1,611,400 transactions, 3,705 fraud)."
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.94"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.78"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-204",
+   "type": "other",
+   "label": "check experiment",
+   "as": [
+    "checked against exp-204"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-203",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "fraud26-oot-2025q4",
+   "quote": "Eval set: fraud26-oot-2025q4 (1,611,400 transactions, 3,705 fraud).",
+   "line": 6
+  },
+  {
+   "s": "exp-203",
+   "type": "uses",
+   "label": "tests features",
+   "o": "feat-f26-velocity-v2",
+   "quote": "velocity-v2 with post-period days included gives AUC 0.94",
+   "line": 5
+  },
+  {
+   "s": "exp-203",
+   "type": "measured-by",
+   "label": "reports AUC",
+   "o": "auc",
+   "quote": "gives AUC 0.94 on fraud26-oot-2025q4",
+   "line": 5
+  },
+  {
+   "s": "exp-203",
+   "type": "measured-by",
+   "label": "reports KS",
+   "o": "ks",
+   "quote": "Velocity-v2 windows that include days after the transaction: AUC 0.94, KS 0.78.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fraud-2026/exp-203.md",
+  "exp-204"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2026/exp-203.md",
+ "sha": "e069a4ff2e2bc22d05ed7a35bde838752519731745427c9aa4f27e041fc0cf78",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

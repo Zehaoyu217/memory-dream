@@ -1,0 +1,108 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "pa-margin-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "pa-margin-v1"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "exp-506-balance-forecast",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-506-balance-forecast"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "arm-b",
+   "type": "segment",
+   "label": "arm",
+   "as": [
+    "arm B"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "promo-0pct-12m",
+   "type": "other",
+   "label": "promo offer",
+   "as": [
+    "0% promo",
+    "The 12-month promo"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "decay-balance-path",
+   "type": "term",
+   "label": "balance path",
+   "as": [
+    "decay balance path"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "promo-0pct-12m",
+   "type": "other",
+   "label": "margin result for",
+   "o": "arm-b",
+   "quote": "+$210 per account for arm B",
+   "line": 5
+  },
+  {
+   "s": "promo-0pct-12m",
+   "type": "uses",
+   "label": "based on",
+   "o": "pa-margin-v1",
+   "quote": "Based on pa-margin-v1 with the decay balance path",
+   "line": 6
+  },
+  {
+   "s": "pa-margin-v1",
+   "type": "uses",
+   "label": "with balance path",
+   "o": "decay-balance-path",
+   "quote": "Based on pa-margin-v1 with the decay balance path",
+   "line": 6
+  },
+  {
+   "s": "pa-margin-v1",
+   "type": "uses",
+   "label": "from",
+   "o": "exp-506-balance-forecast",
+   "quote": "from: [pa-margin-v1, exp-506-balance-forecast]",
+   "line": 2
+  }
+ ],
+ "refs": [
+  "find-pa-margin-corrected"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "promo-apr-test/find-pa-margin-positive.md",
+ "sha": "85f46e0d48debd8a9c59fdc9e6d3cc79349f5162a5ba76d265934cc420fcde06",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

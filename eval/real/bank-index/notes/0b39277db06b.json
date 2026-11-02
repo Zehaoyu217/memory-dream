@@ -1,0 +1,127 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "churn-gbm-2025-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "churn-gbm-2025-v2"
+   ],
+   "lines": [
+    2,
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "recall-at-10",
+   "type": "metric",
+   "label": "recall@10%",
+   "as": [
+    "recall@10%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "base-rate",
+   "type": "metric",
+   "label": "base rate",
+   "as": [
+    "base rate"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "90-day-holdout",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "90-day holdout"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "90-day-labels",
+   "type": "term",
+   "label": "label window",
+   "as": [
+    "90-day labels"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-gbm-2025-v2",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "90-day-labels",
+   "quote": "scored on 90-day labels",
+   "line": 5
+  },
+  {
+   "s": "churn-gbm-2025-v2",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "90-day-holdout",
+   "quote": "AUC 0.789 on the 90-day holdout",
+   "line": 6
+  },
+  {
+   "s": "churn-gbm-2025-v2",
+   "type": "measured-by",
+   "label": "reports AUC",
+   "o": "auc",
+   "quote": "AUC 0.789 on the 90-day holdout",
+   "line": 6
+  },
+  {
+   "s": "churn-gbm-2025-v2",
+   "type": "measured-by",
+   "label": "reports recall",
+   "o": "recall-at-10",
+   "quote": "recall@10% 0.36",
+   "line": 6
+  },
+  {
+   "s": "90-day-holdout",
+   "type": "measured-by",
+   "label": "has base rate",
+   "o": "base-rate",
+   "quote": "base rate 6.8%",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "dec-c25-label-60d"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2025/exp-107.md",
+ "sha": "0b39277db06b80b3d52d4b5863d9f73fcb956e9191e35cfd0f51248774e6195a",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

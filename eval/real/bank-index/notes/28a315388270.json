@@ -1,0 +1,143 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "nps-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "nps-gbm-v2"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "shap",
+   "type": "term",
+   "label": "shap",
+   "as": [
+    "SHAP"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "mean-abs-shap",
+   "type": "metric",
+   "label": "mean |shap|",
+   "as": [
+    "mean absolute SHAP per feature",
+    "mean |SHAP|"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "rewards-value",
+   "type": "other",
+   "label": "survey theme",
+   "as": [
+    "rewards value"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "fee-shock-v2",
+   "type": "feature",
+   "label": "behaviour feature",
+   "as": [
+    "fee shock v2"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "transaction-frequency-change",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "transaction frequency change"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "nps-gbm-v2",
+   "type": "evaluated-on",
+   "label": "set-up on",
+   "o": "holdout-2025q4",
+   "quote": "nps-gbm-v2 on holdout-2025q4 (n = 48,210)",
+   "line": 6
+  },
+  {
+   "s": "mean-abs-shap",
+   "type": "uses",
+   "label": "computed from",
+   "o": "shap",
+   "quote": "mean absolute SHAP per feature",
+   "line": 6
+  },
+  {
+   "s": "rewards-value",
+   "type": "measured-by",
+   "label": "mean |SHAP| 0.18",
+   "o": "mean-abs-shap",
+   "quote": "Top survey theme: rewards value, mean |SHAP| 0.18",
+   "line": 7
+  },
+  {
+   "s": "fee-shock-v2",
+   "type": "measured-by",
+   "label": "mean |SHAP| 0.11",
+   "o": "mean-abs-shap",
+   "quote": "Top behaviour feature: fee shock v2, 0.11",
+   "line": 7
+  },
+  {
+   "s": "transaction-frequency-change",
+   "type": "measured-by",
+   "label": "mean |SHAP| 0.09",
+   "o": "mean-abs-shap",
+   "quote": "Next: transaction frequency change, 0.09",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-nps-themes"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "nps-drivers/exp-407.md",
+ "sha": "28a3153882707121f216868e99560d85a9bde8478a068fc3b7b73ef0c916675a",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

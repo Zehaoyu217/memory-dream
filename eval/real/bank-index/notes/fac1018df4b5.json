@@ -1,0 +1,157 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "mrisk-oot-2026h1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "mrisk-oot-2026h1"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "mrisk-gbm-v3",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "mrisk-gbm-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "mrisk-gbm-v2",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "v2"
+   ],
+   "lines": [
+    2,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "feat-mrisk-dispute-ratio",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mrisk-dispute-ratio"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "precision-at-100",
+   "type": "metric",
+   "label": "precision@100",
+   "as": [
+    "precision@100"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mrisk-gbm-v3",
+   "type": "uses",
+   "label": "v2 plus",
+   "o": "feat-mrisk-dispute-ratio",
+   "quote": "v2 plus feat-mrisk-dispute-ratio",
+   "line": 7
+  },
+  {
+   "s": "mrisk-gbm-v3",
+   "type": "uses",
+   "label": "v2 plus",
+   "o": "mrisk-gbm-v2",
+   "quote": "v2 plus feat-mrisk-dispute-ratio",
+   "line": 7
+  },
+  {
+   "s": "mrisk-gbm-v3",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "mrisk-oot-2026h1",
+   "quote": "Eval set: mrisk-oot-2026h1 (labels as of 2026-06-30).",
+   "line": 6
+  },
+  {
+   "s": "mrisk-gbm-v2",
+   "type": "evaluated-on",
+   "label": "same holdout",
+   "o": "mrisk-oot-2026h1",
+   "quote": "v2 on the same holdout for reference",
+   "line": 8
+  },
+  {
+   "s": "mrisk-gbm-v3",
+   "type": "measured-by",
+   "label": "AUC 0.91",
+   "o": "auc",
+   "quote": "AUC 0.91, precision@100 0.58.",
+   "line": 7
+  },
+  {
+   "s": "mrisk-gbm-v3",
+   "type": "measured-by",
+   "label": "precision@100 0.58",
+   "o": "precision-at-100",
+   "quote": "AUC 0.91, precision@100 0.58.",
+   "line": 7
+  },
+  {
+   "s": "mrisk-gbm-v2",
+   "type": "measured-by",
+   "label": "AUC 0.86",
+   "o": "auc",
+   "quote": "AUC 0.86, precision@100 0.43.",
+   "line": 8
+  },
+  {
+   "s": "mrisk-gbm-v2",
+   "type": "measured-by",
+   "label": "precision@100 0.43",
+   "o": "precision-at-100",
+   "quote": "AUC 0.86, precision@100 0.43.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-506",
+  "feat-mrisk-dispute-ratio",
+  "mrisk-gbm-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "merchant-risk/exp-507.md",
+ "sha": "fac1018df4b5159fbf50bc222936d913fb9ab576a5b5b9f00f76670456670d8e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

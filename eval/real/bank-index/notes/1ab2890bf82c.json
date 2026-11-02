@@ -1,0 +1,90 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "ridge",
+   "type": "model",
+   "label": "ridge model",
+   "as": [
+    "ridge"
+   ],
+   "lines": [
+    5,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "feat-nps-theme-share-v1",
+   "type": "feature",
+   "label": "theme shares",
+   "as": [
+    "twelve theme shares",
+    "theme shares"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "spearman",
+   "type": "metric",
+   "label": "spearman correlation",
+   "as": [
+    "Spearman 0.31",
+    "Spearman"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "nps-ridge-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "nps-ridge-v1"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ridge",
+   "type": "uses",
+   "label": "ridge on",
+   "o": "feat-nps-theme-share-v1",
+   "quote": "ridge on twelve theme shares",
+   "line": 6
+  },
+  {
+   "s": "ridge",
+   "type": "measured-by",
+   "label": "scored with",
+   "o": "spearman",
+   "quote": "Spearman 0.31",
+   "line": 5
+  },
+  {
+   "s": "ridge",
+   "type": "other",
+   "label": "feeds",
+   "o": "nps-ridge-v1",
+   "quote": "Result feeds nps-ridge-v1.",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "nps-drivers/exp-401.md",
+ "sha": "1ab2890bf82cc651967fa87b2d87172d72a09ef4f7bd0f6def16a4e9388f7a17",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

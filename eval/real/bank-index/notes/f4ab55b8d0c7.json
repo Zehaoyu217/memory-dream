@@ -1,0 +1,141 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "mm-collect-xgb-v2",
+   "type": "model",
+   "label": "collections propensity",
+   "as": [
+    "mm-collect-xgb-v2",
+    "collections propensity"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mm-collect-xgb-v1",
+   "type": "model",
+   "label": "v1 model",
+   "as": [
+    "v1"
+   ],
+   "lines": [
+    2,
+    4,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "feat-mm-payment-ratio-v2",
+   "type": "feature",
+   "label": "payment ratio v2",
+   "as": [
+    "feat-mm-payment-ratio-v2"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "mm-oot-2024h2",
+   "type": "dataset",
+   "label": "evaluation set",
+   "as": [
+    "mm-oot-2024h2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.741"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "score psi",
+   "as": [
+    "PSI"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mm-collect-xgb-v2",
+   "type": "uses",
+   "label": "retrained with",
+   "o": "feat-mm-payment-ratio-v2",
+   "quote": "retrained with feat-mm-payment-ratio-v2 in place of v1",
+   "line": 7
+  },
+  {
+   "s": "mm-collect-xgb-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "mm-collect-xgb-v1",
+   "quote": "supersedes: [mm-collect-xgb-v1]",
+   "line": 4
+  },
+  {
+   "s": "mm-collect-xgb-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "mm-oot-2024h2",
+   "quote": "Evaluated on mm-oot-2024h2 (n=96,000 accounts)",
+   "line": 8
+  },
+  {
+   "s": "mm-collect-xgb-v2",
+   "type": "measured-by",
+   "label": "evaluated",
+   "o": "auc",
+   "quote": "Evaluated on mm-oot-2024h2 (n=96,000 accounts): AUC 0.741",
+   "line": 8
+  },
+  {
+   "s": "mm-collect-xgb-v1",
+   "type": "measured-by",
+   "label": "AUC for v1",
+   "o": "auc",
+   "quote": "AUC 0.741 against 0.733 for v1 (exp-204)",
+   "line": 8
+  },
+  {
+   "s": "mm-collect-xgb-v2",
+   "type": "measured-by",
+   "label": "primary alert",
+   "o": "psi",
+   "quote": "Its score PSI is the primary alert under dec-mm-score-first.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "mm-collect-xgb-v1",
+  "feat-mm-payment-ratio-v2",
+  "dec-mm-score-first",
+  "exp-204"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "model-monitoring/mm-collect-xgb-v2.md",
+ "sha": "f4ab55b8d0c7687121520068654503b48ef37aa569065ae93aeb6254da58cccf",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

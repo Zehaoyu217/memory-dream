@@ -1,0 +1,97 @@
+{
+ "kind": "design",
+ "entities": [
+  {
+   "id": "dpd-roll-matrix",
+   "type": "term",
+   "label": "roll matrix",
+   "as": [
+    "Monthly roll matrix of DPD buckets",
+    "Monthly transition matrix"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.payments_daily"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "30-to-60-roll",
+   "type": "metric",
+   "label": "outcome",
+   "as": [
+    "30-to-60 roll"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "eligible-non-enrolled-pool",
+   "type": "segment",
+   "label": "comparison pool",
+   "as": [
+    "Eligible non-enrolled pool for the naive comparison"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dpd-roll-matrix",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards.accounts_monthly",
+   "quote": "built from `cards.accounts_monthly` and `cards.payments_daily`",
+   "line": 6
+  },
+  {
+   "s": "dpd-roll-matrix",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards.payments_daily",
+   "quote": "built from `cards.accounts_monthly` and `cards.payments_daily`",
+   "line": 6
+  },
+  {
+   "s": "dpd-roll-matrix",
+   "type": "measured-by",
+   "label": "outcome used",
+   "o": "30-to-60-roll",
+   "quote": "Outcome used throughout: 30-to-60 roll, the share of accounts at 30-59 DPD that reach 60+ within 30 days.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "hardship-programs/ds-hp-roll-matrix.md",
+ "sha": "8a3831173f3887f82e2c1fd0c2d868fc527e07db66b34085967f3dbb4b40efff",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

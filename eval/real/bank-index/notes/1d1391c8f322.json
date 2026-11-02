@@ -1,0 +1,102 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "fraud26-gbm-v1",
+   "type": "model",
+   "label": "live model",
+   "as": [
+    "fraud26-gbm-v1"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "fraud25-gbm-v2",
+   "type": "model",
+   "label": "replaced champion",
+   "as": [
+    "fraud25-gbm-v2",
+    "the 2025 champion"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "card-not-present",
+   "type": "segment",
+   "label": "live scope",
+   "as": [
+    "card-not-present model"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "travel-flag",
+   "type": "flag",
+   "label": "alert logic flag",
+   "as": [
+    "the travel flag"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "maturity-handling",
+   "type": "term",
+   "label": "open issue",
+   "as": [
+    "Maturity handling"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud26-gbm-v1",
+   "type": "replaces",
+   "label": "replaces champion",
+   "o": "fraud25-gbm-v2",
+   "quote": "fraud26-gbm-v1 becomes the live card-not-present model, replacing fraud25-gbm-v2 (fraud-2025).",
+   "line": 6
+  },
+  {
+   "s": "fraud26-gbm-v1",
+   "type": "other",
+   "label": "live on",
+   "o": "card-not-present",
+   "quote": "fraud26-gbm-v1 becomes the live card-not-present model",
+   "line": 6
+  },
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "other",
+   "label": "needed refresh",
+   "o": "travel-flag",
+   "quote": "the 2025 champion needed a refresh; the travel flag was still in its alert logic.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fraud-2025/dec-f25-champion-v2",
+  "dec-f26-maturity-60d"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2026/dec-f26-replace-f25.md",
+ "sha": "1d1391c8f322c10e0cf08a86388149eadaa94308acc6e84912c7c2cb948ad317",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

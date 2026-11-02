@@ -1,0 +1,98 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "psi metric",
+   "as": [
+    "PSI"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  },
+  {
+   "id": "psi-bin-convention",
+   "type": "term",
+   "label": "psi binning convention",
+   "as": [
+    "PSI uses 10 quantile bins from the training set, fixed for the life of the model"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "training-set",
+   "type": "dataset",
+   "label": "training set",
+   "as": [
+    "training set"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "model-registry",
+   "type": "other",
+   "label": "model registry",
+   "as": [
+    "the registry"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "deck",
+   "type": "document",
+   "label": "deck",
+   "as": [
+    "a deck"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "psi-bin-convention",
+   "type": "measured-by",
+   "label": "defines bins for",
+   "o": "psi",
+   "quote": "PSI uses 10 quantile bins from the training set",
+   "line": 4
+  },
+  {
+   "s": "psi",
+   "type": "uses",
+   "label": "bin edges from",
+   "o": "training-set",
+   "quote": "Bin edges are the training-set deciles",
+   "line": 5
+  },
+  {
+   "s": "psi",
+   "type": "other",
+   "label": "blocked from",
+   "o": "deck",
+   "quote": "A model whose bin edges are missing from the registry cannot be shown with a PSI in a deck.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "reporting/psi-bin-convention.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/psi-bin-convention.md",
+ "sha": "1189d157ed17a90280c6b37d625b92a13cd257b0d6b3b9b75bff9a1f7128dc0d",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

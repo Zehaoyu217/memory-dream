@@ -1,0 +1,87 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-csb-calls-unresolved",
+   "type": "feature",
+   "label": "count",
+   "as": [
+    "feat-csb-calls-unresolved",
+    "count of unresolved service calls in the last 90 days"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "`callcenter.calls`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "csb-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "csb-xgb-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-207",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-207"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-csb-calls-unresolved",
+   "type": "uses",
+   "label": "source",
+   "o": "callcenter.calls",
+   "quote": "Source `callcenter.calls`",
+   "line": 6
+  },
+  {
+   "s": "csb-xgb-v2",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-csb-calls-unresolved",
+   "quote": "Used in csb-xgb-v2 only.",
+   "line": 8
+  },
+  {
+   "s": "feat-csb-calls-unresolved",
+   "type": "other",
+   "label": "fixed in",
+   "o": "exp-207",
+   "quote": "fixed in exp-207",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-207"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-small-business/feat-csb-calls-unresolved.md",
+ "sha": "7967ccfcb8750e30c256eafa73b2a4bf35c1b9e780cef3ace8caaca4cba305a6",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

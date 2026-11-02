@@ -1,0 +1,190 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "xs-gbm-v2",
+   "type": "model",
+   "label": "gradient boosting model",
+   "as": [
+    "xs-gbm-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "xs-gbm-v1",
+   "type": "model",
+   "label": "earlier version",
+   "as": [
+    "xs-gbm-v1"
+   ],
+   "lines": [
+    2,
+    4
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.73"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "top-decile-open-rate",
+   "type": "metric",
+   "label": "top-decile open rate",
+   "as": [
+    "top-decile open rate 7.8%"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "xs-holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "xs-holdout-2025q1 (n=52,000)"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-xs-payroll-flag-v2",
+   "type": "feature",
+   "label": "payroll flag",
+   "as": [
+    "feat-xs-payroll-flag-v2"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "feat-xs-app-logins-90d",
+   "type": "feature",
+   "label": "app logins",
+   "as": [
+    "feat-xs-app-logins-90d"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "tenure",
+   "type": "feature",
+   "label": "input",
+   "as": [
+    "tenure"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "six-month-spend",
+   "type": "feature",
+   "label": "input",
+   "as": [
+    "six-month spend"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "xs-gbm-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "xs-gbm-v1",
+   "quote": "supersedes: [xs-gbm-v1]",
+   "line": 4
+  },
+  {
+   "s": "xs-gbm-v2",
+   "type": "uses",
+   "label": "takes input",
+   "o": "feat-xs-payroll-flag-v2",
+   "quote": "Inputs: feat-xs-payroll-flag-v2",
+   "line": 7
+  },
+  {
+   "s": "xs-gbm-v2",
+   "type": "uses",
+   "label": "takes input",
+   "o": "feat-xs-app-logins-90d",
+   "quote": "Inputs: feat-xs-payroll-flag-v2, feat-xs-app-logins-90d",
+   "line": 7
+  },
+  {
+   "s": "xs-gbm-v2",
+   "type": "uses",
+   "label": "takes input",
+   "o": "tenure",
+   "quote": "Inputs: feat-xs-payroll-flag-v2, feat-xs-app-logins-90d, tenure, six-month spend.",
+   "line": 7
+  },
+  {
+   "s": "xs-gbm-v2",
+   "type": "uses",
+   "label": "takes input",
+   "o": "six-month-spend",
+   "quote": "Inputs: feat-xs-payroll-flag-v2, feat-xs-app-logins-90d, tenure, six-month spend.",
+   "line": 7
+  },
+  {
+   "s": "xs-gbm-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "xs-holdout-2025q1",
+   "quote": "On xs-holdout-2025q1 (n=52,000)",
+   "line": 8
+  },
+  {
+   "s": "xs-gbm-v2",
+   "type": "measured-by",
+   "label": "scored by AUC",
+   "o": "auc",
+   "quote": "AUC 0.73, top-decile open rate 7.8%",
+   "line": 8
+  },
+  {
+   "s": "xs-gbm-v2",
+   "type": "measured-by",
+   "label": "scored by top-decile open rate",
+   "o": "top-decile-open-rate",
+   "quote": "top-decile open rate 7.8%, 2.7x the 2.9% base",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-xs-payroll-flag-v2",
+  "feat-xs-app-logins-90d",
+  "exp-402-payroll-flag",
+  "xs-gbm-v1",
+  "dec-xs-top-decile-offer",
+  "dec-xs-retrain-quarterly"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cross-sell-savings/xs-gbm-v2.md",
+ "sha": "c9e9b6641b5ec509e8c00f0a46c3d805b82794e993ccf47429a8d670866ec41a",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

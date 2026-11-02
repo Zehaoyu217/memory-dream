@@ -1,0 +1,129 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-403",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-403"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "pbs-gmm-v2",
+   "type": "model",
+   "label": "gmm",
+   "as": [
+    "pbs-gmm-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-pbs-timing-v2",
+   "type": "feature",
+   "label": "timing features",
+   "as": [
+    "feat-pbs-timing-v2",
+    "adding timing features"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "pbs-gmm-v3",
+   "type": "model",
+   "label": "gmm",
+   "as": [
+    "pbs-gmm-v3"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ari",
+   "type": "metric",
+   "label": "seed ari",
+   "as": [
+    "ARI"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "silhouette",
+   "type": "metric",
+   "label": "silhouette",
+   "as": [
+    "silhouette"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-403",
+   "type": "uses",
+   "label": "combines",
+   "o": "pbs-gmm-v2",
+   "quote": "pbs-gmm-v2 plus feat-pbs-timing-v2",
+   "line": 6
+  },
+  {
+   "s": "exp-403",
+   "type": "uses",
+   "label": "adds",
+   "o": "feat-pbs-timing-v2",
+   "quote": "adding timing features lifts GMM seed ARI",
+   "line": 5
+  },
+  {
+   "s": "exp-403",
+   "type": "measured-by",
+   "label": "lifts",
+   "o": "ari",
+   "quote": "seed ARI from 0.74 to 0.81",
+   "line": 5
+  },
+  {
+   "s": "exp-403",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "silhouette",
+   "quote": "silhouette 0.42",
+   "line": 7
+  },
+  {
+   "s": "pbs-gmm-v3",
+   "type": "uses",
+   "label": "based on",
+   "o": "exp-403",
+   "quote": "Basis for pbs-gmm-v3 and fnd-pbs-five-segments.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-402",
+  "fnd-pbs-five-segments"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "payment-behavior-segments/exp-403.md",
+ "sha": "a97131332c0348df5695b51cd664ddcddce11ab3571a7756d907edddd005dac1",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

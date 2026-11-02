@@ -1,0 +1,87 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "call table",
+   "as": [
+    "callcenter.calls"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "retention-touch",
+   "type": "term",
+   "label": "attribution rule",
+   "as": [
+    "retention touch"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "retention-offer",
+   "type": "other",
+   "label": "retention offer",
+   "as": [
+    "retention offer"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "yuki-tanaka-team",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "Yuki Tanaka's team"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fee-complaint",
+   "type": "other",
+   "label": "fee complaint",
+   "as": [
+    "complaints about fees"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "retention-touch",
+   "type": "uses",
+   "label": "attributed from",
+   "o": "callcenter.calls",
+   "quote": "Calls in `callcenter.calls` are linked to a retention offer when the call starts within 14 days after the offer send date.",
+   "line": 5
+  },
+  {
+   "s": "yuki-tanaka-team",
+   "type": "other",
+   "label": "excludes",
+   "o": "fee-complaint",
+   "quote": "Yuki Tanaka's team excludes calls that are complaints about fees from the attribution count.",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/callcenter-attribution-window.md",
+ "sha": "d81b9eef4e949950f8a04e74d3745b277efdd51e19dc87f7565ed7114d17b7cb",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

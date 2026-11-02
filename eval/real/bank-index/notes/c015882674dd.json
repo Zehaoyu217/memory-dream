@@ -1,0 +1,86 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "fraud-label",
+   "type": "term",
+   "label": "fraud label",
+   "as": [
+    "the old note said the label is final on the transaction date"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fraud-label-lag",
+   "type": "term",
+   "label": "label lag",
+   "as": [
+    "fraud labels lag by up to 60 days"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "observation-date",
+   "type": "term",
+   "label": "observation date",
+   "as": [
+    "observation date + 60 days"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fraud-label-rate",
+   "type": "metric",
+   "label": "label rate",
+   "as": [
+    "the 0.11% label rate in the Sept 2024 extract became 0.19%"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud-label-lag",
+   "type": "other",
+   "label": "supersedes",
+   "o": "fraud-label",
+   "quote": "supersedes: [glossary/fraud-label]",
+   "line": 3
+  },
+  {
+   "s": "fraud-label-lag",
+   "type": "other",
+   "label": "sets cutoff",
+   "o": "observation-date",
+   "quote": "Train and score with labels as they stood at observation date + 60 days",
+   "line": 6
+  },
+  {
+   "s": "fraud-label-rate",
+   "type": "other",
+   "label": "changed by",
+   "o": "fraud-label-lag",
+   "quote": "the 0.11% label rate in the Sept 2024 extract became 0.19% once the late labels arrived",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "glossary/fraud-label"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "corrections/fraud-label-lag.md",
+ "sha": "c015882674dd8dae9975461ba58bce66f31e8b8e24f9aee4cbc22af55c9ee950",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,79 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "cld-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cld-gbm-v2"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "ds-cld-control-2025h2",
+   "type": "dataset",
+   "label": "control set",
+   "as": [
+    "cld-control-2025h2"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "cld-roll-rate",
+   "type": "metric",
+   "label": "roll rate",
+   "as": [
+    "Roll 6.8% in decreased accounts against 8.3% in control, an 18% relative reduction."
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dec-cld-band-policy-2025",
+   "type": "policy",
+   "label": "policy",
+   "as": [
+    "dec-cld-band-policy-2025"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cld-roll-rate",
+   "type": "measured-by",
+   "label": "compared over",
+   "o": "ds-cld-control-2025h2",
+   "quote": "Compared roll of decreased bands C and D with cld-control-2025h2 (n=41,380) over 90 days.",
+   "line": 6
+  },
+  {
+   "s": "cld-gbm-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "cld-roll-rate",
+   "quote": "Roll gain is largest in band D; supports dec-cld-band-policy-2025.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "limit-decrease-policy/find-cld-roll-rates.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "limit-decrease-policy/find-cld-roll-rates.md",
+ "sha": "451a6c5e7db20f818c01f81337ae5c1b1e7cab058f6940f63e2a11d2b4d501e0",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

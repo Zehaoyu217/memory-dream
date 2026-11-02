@@ -1,0 +1,96 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "cc-ft-v1",
+   "type": "model",
+   "label": "fine-tuned encoder",
+   "as": [
+    "Fine-tuned encoder"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cc-logreg-v1",
+   "type": "model",
+   "label": "logistic regression",
+   "as": [
+    "logistic regression",
+    "cc-logreg-v1"
+   ],
+   "lines": [
+    2,
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro f1",
+   "as": [
+    "macro F1"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cc-ft-v1",
+   "type": "measured-by",
+   "label": "macro F1 0.80",
+   "o": "macro-f1",
+   "quote": "macro F1 0.80 vs 0.74",
+   "line": 5
+  },
+  {
+   "s": "cc-logreg-v1",
+   "type": "measured-by",
+   "label": "macro F1 0.74",
+   "o": "macro-f1",
+   "quote": "macro F1 0.80 vs 0.74",
+   "line": 5
+  },
+  {
+   "s": "cc-ft-v1",
+   "type": "evaluated-on",
+   "label": "evaluated on holdout",
+   "o": "holdout-2025q4",
+   "quote": "holdout-2025q4, n = 1,800 tickets.",
+   "line": 6
+  },
+  {
+   "s": "cc-logreg-v1",
+   "type": "evaluated-on",
+   "label": "same holdout",
+   "o": "holdout-2025q4",
+   "quote": "on the same holdout",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "dec-cc-ft-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "complaint-classification/exp-201.md",
+ "sha": "6e489386e30ce002f47f316138bbd9b9d625e5df5940d0353e84b37b89555b2a",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

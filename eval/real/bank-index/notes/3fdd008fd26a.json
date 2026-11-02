@@ -1,0 +1,106 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "ep-cuped-v2",
+   "type": "term",
+   "label": "decision subject",
+   "as": [
+    "CUPED v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ep-cuped-v1",
+   "type": "other",
+   "label": "cuped-analysis",
+   "as": [
+    "ep-cuped-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-ep-pre-spend-cov-v2",
+   "type": "feature",
+   "label": "covariate",
+   "as": [
+    "pre-spend v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "prior-logins",
+   "type": "feature",
+   "label": "covariate",
+   "as": [
+    "prior logins"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-505",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-505"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ep-cuped-v2",
+   "type": "uses",
+   "label": "covariates are",
+   "o": "feat-ep-pre-spend-cov-v2",
+   "quote": "Covariates are pre-spend v2 and prior logins.",
+   "line": 6
+  },
+  {
+   "s": "ep-cuped-v2",
+   "type": "uses",
+   "label": "covariates are",
+   "o": "prior-logins",
+   "quote": "Covariates are pre-spend v2 and prior logins.",
+   "line": 6
+  },
+  {
+   "s": "ep-cuped-v2",
+   "type": "other",
+   "label": "adopted after replay in",
+   "o": "exp-505",
+   "quote": "Adopted on 2025-12-05 after the replay in exp-505.",
+   "line": 6
+  },
+  {
+   "s": "ep-cuped-v2",
+   "type": "replaces",
+   "label": "default over",
+   "o": "ep-cuped-v1",
+   "quote": "ep-cuped-v1 stays available for reproducing older readouts, but it is no longer the default.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-cuped-gain-v2",
+  "ep-cuped-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "experiment-platform/dec-ep-cuped-v2.md",
+ "sha": "3fdd008fd26a6f04a5e95ad67cf967db6df0f4e32f72804ac0d8c8420bc88147",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

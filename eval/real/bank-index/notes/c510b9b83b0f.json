@@ -1,0 +1,100 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "feat-ed-limit-change-v1",
+   "type": "feature",
+   "label": "limit feature",
+   "as": [
+    "the limit feature"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "freeze-window-60d",
+   "type": "term",
+   "label": "freeze window",
+   "as": [
+    "60-day freeze window"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "checker",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ed-limit-change-v1",
+   "type": "measured-by",
+   "label": "scored with AUC",
+   "o": "auc",
+   "quote": "AUC 0.783 against 0.781 without the feature",
+   "line": 7
+  },
+  {
+   "s": "feat-ed-limit-change-v1",
+   "type": "measured-by",
+   "label": "scored with Gini",
+   "o": "gini",
+   "quote": "Gini 0.566",
+   "line": 7
+  },
+  {
+   "s": "feat-ed-limit-change-v1",
+   "type": "uses",
+   "label": "recomputed without cuts in window",
+   "o": "freeze-window-60d",
+   "quote": "The feature was recomputed with credit-limit cuts inside the 60 days before the snapshot excluded",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "find-ed-limit-gain",
+  "feat-ed-limit-change-v1",
+  "early_delinquency/exp204_limit_freeze.ipynb"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "early-delinquency/exp-204.md",
+ "sha": "c510b9b83b0f7cf5f5d21b4342d6969c60ed9f0f594af2badf27a077a016dd8d",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

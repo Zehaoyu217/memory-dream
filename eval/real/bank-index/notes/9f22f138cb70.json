@@ -1,0 +1,148 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-206",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-206"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-cld-risk-band-v2",
+   "type": "feature",
+   "label": "risk band",
+   "as": [
+    "feat-cld-risk-band-v2",
+    "band v2 rebuild"
+   ],
+   "lines": [
+    2,
+    8
+   ]
+  },
+  {
+   "id": "feat-cld-risk-band-v1",
+   "type": "feature",
+   "label": "risk band",
+   "as": [
+    "feat-cld-risk-band-v1",
+    "band v1"
+   ],
+   "lines": [
+    2,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "cld-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cld-gbm-v2"
+   ],
+   "lines": [
+    2,
+    8
+   ]
+  },
+  {
+   "id": "cld-test-2025q3",
+   "type": "dataset",
+   "label": "back-test set",
+   "as": [
+    "cld-test-2025q3"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "band-d-capture",
+   "type": "metric",
+   "label": "capture rate",
+   "as": [
+    "band D capture"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-206",
+   "type": "uses",
+   "label": "from",
+   "o": "feat-cld-risk-band-v2",
+   "quote": "from: [feat-cld-risk-band-v2, cld-gbm-v2, feat-cld-risk-band-v1]",
+   "line": 2
+  },
+  {
+   "s": "exp-206",
+   "type": "uses",
+   "label": "from",
+   "o": "cld-gbm-v2",
+   "quote": "from: [feat-cld-risk-band-v2, cld-gbm-v2, feat-cld-risk-band-v1]",
+   "line": 2
+  },
+  {
+   "s": "exp-206",
+   "type": "uses",
+   "label": "from",
+   "o": "feat-cld-risk-band-v1",
+   "quote": "from: [feat-cld-risk-band-v2, cld-gbm-v2, feat-cld-risk-band-v1]",
+   "line": 2
+  },
+  {
+   "s": "exp-206",
+   "type": "evaluated-on",
+   "label": "back-test on",
+   "o": "cld-test-2025q3",
+   "quote": "Back-test of both band rules on the same 19,400 decreases from Jul-Sep 2025.",
+   "line": 6
+  },
+  {
+   "s": "exp-206",
+   "type": "measured-by",
+   "label": "measures",
+   "o": "gini",
+   "quote": "Gini: band v1 0.41, band v2 0.47",
+   "line": 7
+  },
+  {
+   "s": "exp-206",
+   "type": "other",
+   "label": "supports",
+   "o": "cld-gbm-v2",
+   "quote": "Confirms the band v2 rebuild and supports cld-gbm-v2.",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "limit-decrease-policy/exp-206.md",
+ "sha": "9f22f138cb701def771bcedd345237d7a481d36797b886ddf89f2b51479f1bf6",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

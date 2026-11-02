@@ -1,0 +1,117 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-404",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-404"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "ror-oot-2025q3",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "ror-oot-2025q3"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "offers.tier_matrix",
+   "type": "dataset",
+   "label": "matrix",
+   "as": [
+    "matrix v3"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "apr-cut",
+   "type": "other",
+   "label": "apr cut",
+   "as": [
+    "APR cut"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "roi",
+   "type": "metric",
+   "label": "predicted roi",
+   "as": [
+    "predicted ROI"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "predicted-roi-reallocation",
+   "type": "other",
+   "label": "reallocating offers",
+   "as": [
+    "Reallocating offers by predicted ROI"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-404",
+   "type": "evaluated-on",
+   "label": "run on",
+   "o": "ror-oot-2025q3",
+   "quote": "exp-404 on ror-oot-2025q3 (1.49x against 1.31x)",
+   "line": 6
+  },
+  {
+   "s": "exp-404",
+   "type": "other",
+   "label": "basis for",
+   "o": "predicted-roi-reallocation",
+   "quote": "Basis: exp-404 on ror-oot-2025q3",
+   "line": 6
+  },
+  {
+   "s": "predicted-roi-reallocation",
+   "type": "other",
+   "label": "beats",
+   "o": "offers.tier_matrix",
+   "quote": "Reallocating offers by predicted ROI beats matrix v3 by 0.18x",
+   "line": 5
+  },
+  {
+   "s": "predicted-roi-reallocation",
+   "type": "other",
+   "label": "moves accounts out of",
+   "o": "apr-cut",
+   "quote": "The gain comes mostly from moving accounts out of the APR cut.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-ror-reallocate-t3"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "retention-offers-roi/fnd-ror-realloc-gain.md",
+ "sha": "eb8b868776791f4851f72fa81a718ffaf28a35629c20f26fa22188f3e00e34ed",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

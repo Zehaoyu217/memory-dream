@@ -1,0 +1,100 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cli-pay-behaviour",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "feat-cli-pay-behaviour"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.payments_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cli-logreg-baseline",
+   "type": "model",
+   "label": "baseline model",
+   "as": [
+    "cli-logreg-baseline"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "minimum-pay-share",
+   "type": "metric",
+   "label": "share paid at minimum",
+   "as": [
+    "share paid at minimum",
+    "minimum-pay share"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "revolver",
+   "type": "term",
+   "label": "revolver",
+   "as": [
+    "revolver"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cli-pay-behaviour",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards.payments_daily",
+   "quote": "from cards.payments_daily",
+   "line": 5
+  },
+  {
+   "s": "cli-logreg-baseline",
+   "type": "uses",
+   "label": "includes",
+   "o": "feat-cli-pay-behaviour",
+   "quote": "Included in cli-logreg-baseline",
+   "line": 8
+  },
+  {
+   "s": "revolver",
+   "type": "measured-by",
+   "label": "marked by",
+   "o": "minimum-pay-share",
+   "quote": "a minimum-pay share above 0.5 marks a revolver",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-cli-eligible-pop"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/feat-cli-pay-behaviour.md",
+ "sha": "6e4a06573ffcf1dfa63168d9605c2aeb2b87123ce6233bf2cfda45f0ef0f3719",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

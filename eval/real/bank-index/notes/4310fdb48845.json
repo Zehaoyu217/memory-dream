@@ -1,0 +1,70 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "churn-gbm-2025",
+   "type": "model",
+   "label": "pilot model",
+   "as": [
+    "pilot churn-gbm-2025"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "churn-lr-base-2025",
+   "type": "model",
+   "label": "champion model",
+   "as": [
+    "churn-lr-base-2025"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "dec-c25-ship-gbm-v2",
+   "type": "model",
+   "label": "superseding decision",
+   "as": [
+    "dec-c25-ship-gbm-v2"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-gbm-2025",
+   "type": "other",
+   "label": "challenges",
+   "o": "churn-lr-base-2025",
+   "quote": "churn-lr-base-2025 keeps the other 90% as the floor the pilot must beat.",
+   "line": 6
+  },
+  {
+   "s": "dec-c25-ship-gbm-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "churn-gbm-2025",
+   "quote": "Superseded by dec-c25-ship-gbm-v2 for production scoring from November 2025.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "churn-2025/dec-c25-ship-gbm-v1.md",
+  "dec-c25-label-60d",
+  "dec-c25-ship-gbm-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2025/dec-c25-ship-gbm-v1.md",
+ "sha": "4310fdb48845060f3844020af09b9d397de173944db20e44ec9363fd167c51a1",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

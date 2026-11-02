@@ -1,0 +1,68 @@
+{
+ "kind": "note",
+ "entities": [
+  {
+   "id": "mcc-restaurant-grouping",
+   "type": "term",
+   "label": "restaurant grouping",
+   "as": [
+    "How are restaurant merchants grouped in the spend model?",
+    "By MCC 5812 and 5814, not by merchant name."
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "merchant-name-grouping",
+   "type": "term",
+   "label": "name grouping",
+   "as": [
+    "Name grouping split one chain into 14 groups, so it was dropped in November 2025."
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cards.merchants",
+   "type": "dataset",
+   "label": "merchants table",
+   "as": [
+    "`cards.merchants`"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mcc-restaurant-grouping",
+   "type": "uses",
+   "label": "takes category from",
+   "o": "cards.merchants",
+   "quote": "The category comes from the MCC table on `cards.merchants`.",
+   "line": 6
+  },
+  {
+   "s": "merchant-name-grouping",
+   "type": "other",
+   "label": "was dropped in favour of",
+   "o": "mcc-restaurant-grouping",
+   "quote": "Name grouping split one chain into 14 groups, so it was dropped in November 2025.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "howto/merchant-mcc-mapping"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/mcc-restaurant-grouping.md",
+ "sha": "7338ad1678c116e0598299777da8b26be5e82e14afbc3f7f9c204b41ce0bc4ae",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,137 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout set",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Split-pair macro F1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "taxonomy-v3",
+   "type": "term",
+   "label": "taxonomy version",
+   "as": [
+    "taxonomy v3"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fine-tuned-encoder",
+   "type": "model",
+   "label": "fine-tuned encoder",
+   "as": [
+    "fine-tuned encoder"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "relabelled-training-tickets",
+   "type": "dataset",
+   "label": "training tickets",
+   "as": [
+    "1,240 relabelled training tickets"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "split-billing-codes",
+   "type": "term",
+   "label": "billing codes",
+   "as": [
+    "split billing codes"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "re-coding",
+   "type": "term",
+   "label": "relabelling method",
+   "as": [
+    "re-coding"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "macro-f1",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "holdout-2025q4",
+   "quote": "on holdout-2025q4",
+   "line": 5
+  },
+  {
+   "s": "fine-tuned-encoder",
+   "type": "measured-by",
+   "label": "scored by",
+   "o": "macro-f1",
+   "quote": "Split-pair macro F1 0.52 before relabelling, 0.71 after",
+   "line": 7
+  },
+  {
+   "s": "fine-tuned-encoder",
+   "type": "trained-on",
+   "label": "trained with",
+   "o": "relabelled-training-tickets",
+   "quote": "1,240 relabelled training tickets",
+   "line": 7
+  },
+  {
+   "s": "relabelled-training-tickets",
+   "type": "uses",
+   "label": "re-coded with",
+   "o": "taxonomy-v3",
+   "quote": "re-coding with the v3 definitions",
+   "line": 6
+  },
+  {
+   "s": "split-billing-codes",
+   "type": "other",
+   "label": "relabelled via",
+   "o": "re-coding",
+   "quote": "training labels for the two split billing codes taken from re-coding",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-cc-taxonomy-v3",
+  "cc-ft-v1",
+  "fnd-cc-taxonomy-drift"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "complaint-classification/exp-205.md",
+ "sha": "0ede69a8d4a3bf78b50bf16378de4b8caaf759bc7822417aef95fe78d34a1c03",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

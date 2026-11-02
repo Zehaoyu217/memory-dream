@@ -1,0 +1,114 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "sfc-prophet-v1",
+   "type": "model",
+   "label": "prophet",
+   "as": [
+    "sfc-prophet-v1",
+    "Prophet"
+   ],
+   "lines": [
+    5,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "prophet",
+   "type": "tool",
+   "label": "prophet",
+   "as": [
+    "Prophet"
+   ],
+   "lines": [
+    5,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "1-month mape",
+   "as": [
+    "1-month MAPE 6.9%"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "sfc-bt-2024",
+   "type": "dataset",
+   "label": "sfc-bt-2024",
+   "as": [
+    "sfc-bt-2024"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "sfc-lgbm-v2",
+   "type": "model",
+   "label": "sfc-lgbm-v2",
+   "as": [
+    "sfc-lgbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "sfc-prophet-v1",
+   "type": "uses",
+   "label": "uses",
+   "o": "prophet",
+   "quote": "Prophet per segment with the retail calendar as holidays.",
+   "line": 6
+  },
+  {
+   "s": "sfc-prophet-v1",
+   "type": "measured-by",
+   "label": "gave 1-month MAPE",
+   "o": "mape",
+   "quote": "1-month MAPE 6.9% on sfc-bt-2024 (exp-206)",
+   "line": 7
+  },
+  {
+   "s": "sfc-prophet-v1",
+   "type": "evaluated-on",
+   "label": "on",
+   "o": "sfc-bt-2024",
+   "quote": "1-month MAPE 6.9% on sfc-bt-2024 (exp-206)",
+   "line": 7
+  },
+  {
+   "s": "sfc-prophet-v1",
+   "type": "other",
+   "label": "fit time about 40x of",
+   "o": "sfc-lgbm-v2",
+   "quote": "about 40 times the fit time of sfc-lgbm-v2",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-sfc-segment-monthly",
+  "feat-sfc-season-v2",
+  "exp-206",
+  "dec-sfc-drop-prophet"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "spend-forecasting/sfc-prophet-v1.md",
+ "sha": "86b2c914c0507d75dcafdaa862d0961a6233548766b4d3f0af94f8be0ebafe2b",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

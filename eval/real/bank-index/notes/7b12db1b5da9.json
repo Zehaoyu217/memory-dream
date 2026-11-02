@@ -1,0 +1,131 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "ed-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ed-gbm-v1"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "feat-ed-minpay-v2",
+   "type": "feature",
+   "label": "payment-to-minimum ratio",
+   "as": [
+    "feat-ed-minpay-v2"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "early-delinquency-holdout-2024q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "early-delinquency-holdout-2024q4"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.803"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini 0.606"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.44"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "limit-change-feature",
+   "type": "feature",
+   "label": "limit-change feature",
+   "as": [
+    "limit-change feature"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ed-gbm-v1",
+   "type": "measured-by",
+   "label": "lifts to",
+   "o": "auc",
+   "quote": "lifts ed-gbm-v1 to AUC 0.803",
+   "line": 5
+  },
+  {
+   "s": "ed-gbm-v1",
+   "type": "evaluated-on",
+   "label": "on",
+   "o": "early-delinquency-holdout-2024q4",
+   "quote": "lifts ed-gbm-v1 to AUC 0.803 on early-delinquency-holdout-2024q4",
+   "line": 5
+  },
+  {
+   "s": "ed-gbm-v1",
+   "type": "measured-by",
+   "label": "reports Gini",
+   "o": "gini",
+   "quote": "AUC 0.803, Gini 0.606, KS 0.44",
+   "line": 6
+  },
+  {
+   "s": "ed-gbm-v1",
+   "type": "measured-by",
+   "label": "reports KS",
+   "o": "ks",
+   "quote": "AUC 0.803, Gini 0.606, KS 0.44",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "early_delinquency/exp205_minpay.ipynb"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "early-delinquency/exp-205.md",
+ "sha": "7b12db1b5da965ffd9e1fc3868fc6ef2b7b580ef0d5281c0359d07bc91639cf5",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,50 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "chargeback",
+   "type": "term",
+   "label": "defined term",
+   "as": [
+    "chargeback means a dispute resolved for the cardholder",
+    "A chargeback is counted only when the dispute is resolved in the cardholder's favour and the merchant settlement is reversed."
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "cards.disputes",
+   "type": "dataset",
+   "label": "disputes table",
+   "as": [
+    "`cards.disputes`"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "chargeback",
+   "type": "other",
+   "label": "counted only when resolved",
+   "o": "cards.disputes",
+   "quote": "Open cases stay as disputes in `cards.disputes`.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "glossary/chargeback"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "corrections/chargeback-resolved-only.md",
+ "sha": "0f9a85828a5eb6a57107fa227a1181de249bdde521015479de6d7b73f3160245",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

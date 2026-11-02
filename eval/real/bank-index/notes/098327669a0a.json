@@ -1,0 +1,127 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "dq-late-logit-v1",
+   "type": "model",
+   "label": "v1 model",
+   "as": [
+    "v1"
+   ],
+   "lines": [
+    2,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "dq-late-logit-v2",
+   "type": "model",
+   "label": "v2 model",
+   "as": [
+    "v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "retry-flag",
+   "type": "feature",
+   "label": "retry flag",
+   "as": [
+    "the retry flag"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "dq-oot-2025q4",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "dq-oot-2025q4"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "feat-dq-late-rate-7d",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-dq-late-rate-7d"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dq-late-logit-v1",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "dq-oot-2025q4",
+   "quote": "Scored v1 and v2 on dq-oot-2025q4",
+   "line": 6
+  },
+  {
+   "s": "dq-late-logit-v2",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "dq-oot-2025q4",
+   "quote": "Scored v1 and v2 on dq-oot-2025q4",
+   "line": 6
+  },
+  {
+   "s": "dq-late-logit-v2",
+   "type": "uses",
+   "label": "includes",
+   "o": "retry-flag",
+   "quote": "v2 with the retry flag",
+   "line": 6
+  },
+  {
+   "s": "dq-late-logit-v2",
+   "type": "measured-by",
+   "label": "lifts AUC",
+   "o": "auc",
+   "quote": "lifts late-model AUC from 0.72 to 0.79",
+   "line": 5
+  },
+  {
+   "s": "retry-flag",
+   "type": "other",
+   "label": "carries most of gain",
+   "o": "dq-late-logit-v2",
+   "quote": "The retry flag carries most of the gain.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "data-quality-txn/exp-306.md",
+ "sha": "098327669a0aada9748ff16392c8fa24cc25c4d6623e79f5e3b802576fe8e6d5",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

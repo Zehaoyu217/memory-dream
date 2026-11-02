@@ -1,0 +1,87 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "app-engagement",
+   "type": "feature",
+   "label": "app engagement",
+   "as": [
+    "App engagement"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "app.sessions_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "app.sessions_daily"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "accounts",
+   "type": "account",
+   "label": "accounts",
+   "as": [
+    "accounts"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "coverage",
+   "type": "metric",
+   "label": "coverage",
+   "as": [
+    "Coverage"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "app-engagement",
+   "type": "uses",
+   "label": "joined from",
+   "o": "app.sessions_daily",
+   "quote": "Joined to accounts on `account_id` from `app.sessions_daily`",
+   "line": 6
+  },
+  {
+   "s": "app-engagement",
+   "type": "uses",
+   "label": "joined to",
+   "o": "accounts",
+   "quote": "Joined to accounts on `account_id`",
+   "line": 6
+  },
+  {
+   "s": "app-engagement",
+   "type": "measured-by",
+   "label": "coverage of",
+   "o": "coverage",
+   "quote": "Coverage: 71% of accounts have at least one session in the trailing 90 days.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2025/ds-c25-app-engagement.md",
+ "sha": "46d59699b3b59cdd36b24d1de80bdbe82af093eed72e149907d2df919a3a496f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

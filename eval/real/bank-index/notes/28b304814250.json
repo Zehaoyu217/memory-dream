@@ -1,0 +1,140 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "bt-xgb-v1",
+   "type": "model",
+   "label": "xgboost",
+   "as": [
+    "bt-xgb-v1",
+    "XGBoost on all features"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bt-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bt-xgb-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cards.limits_history",
+   "type": "dataset",
+   "label": "limits history",
+   "as": [
+    "cards.limits_history"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "post-offer-limit-rows",
+   "type": "other",
+   "label": "post-offer limit rows",
+   "as": [
+    "post-offer limit rows"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.81"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "random-80-20-split",
+   "type": "term",
+   "label": "random split",
+   "as": [
+    "random 80/20 split"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "q1-q2-2025-exposures",
+   "type": "dataset",
+   "label": "exposures",
+   "as": [
+    "Q1-Q2 2025 exposures"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bt-xgb-v1",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards.limits_history",
+   "quote": "built from all of `cards.limits_history`",
+   "line": 6
+  },
+  {
+   "s": "bt-xgb-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.81 on a random 80/20 split",
+   "line": 7
+  },
+  {
+   "s": "bt-xgb-v1",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "q1-q2-2025-exposures",
+   "quote": "AUC 0.81 on a random 80/20 split of Q1-Q2 2025 exposures",
+   "line": 7
+  },
+  {
+   "s": "post-offer-limit-rows",
+   "type": "other",
+   "label": "inflates",
+   "o": "auc",
+   "quote": "That number is inflated by post-offer limit rows",
+   "line": 7
+  },
+  {
+   "s": "bt-xgb-v2",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "bt-xgb-v1",
+   "quote": "Superseded by bt-xgb-v2.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-bt-util-3m",
+  "exp-102-txn-features",
+  "find-bt-limit-leak"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "balance-transfer-propensity/bt-xgb-v1.md",
+ "sha": "28b3048142503dca977f8289891efc22be36e8cbd21d10ff7be3813986c32d6a",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

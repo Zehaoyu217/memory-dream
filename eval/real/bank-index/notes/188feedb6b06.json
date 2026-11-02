@@ -1,0 +1,125 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "chatbot-deflection",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "chatbot-deflection"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "handoff-rule-v2",
+   "type": "policy",
+   "label": "handoff rule",
+   "as": [
+    "Handoff rule v2"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "containment-target",
+   "type": "metric",
+   "label": "containment",
+   "as": [
+    "containment"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "income-estimation",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "income-estimation"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "self-employed",
+   "type": "segment",
+   "label": "population",
+   "as": [
+    "self-employed"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "salaried",
+   "type": "segment",
+   "label": "population",
+   "as": [
+    "salaried"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "handoff-rule-v2",
+   "type": "other",
+   "label": "goes with",
+   "o": "chatbot-deflection",
+   "quote": "Handoff rule v2 goes with it.",
+   "line": 3
+  },
+  {
+   "s": "chatbot-deflection",
+   "type": "measured-by",
+   "label": "moving containment",
+   "o": "containment-target",
+   "quote": "Moving containment to 48h.",
+   "line": 3
+  },
+  {
+   "s": "self-employed",
+   "type": "measured-by",
+   "label": "has MAPE",
+   "o": "mape",
+   "quote": "self-employed MAPE 33% vs 17% salaried",
+   "line": 4
+  },
+  {
+   "s": "salaried",
+   "type": "measured-by",
+   "label": "has MAPE",
+   "o": "mape",
+   "quote": "self-employed MAPE 33% vs 17% salaried",
+   "line": 4
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2026-05-04.md",
+ "sha": "188feedb6b06cb7b86b1c547319b5a20e9f2952081412389c7db00b9b9954a1e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,144 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "band-c-d-decrease-policy",
+   "type": "policy",
+   "label": "decision",
+   "as": [
+    "band C and D decreases up to 25% per cycle"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-cld-risk-band-v2",
+   "type": "feature",
+   "label": "band rules",
+   "as": [
+    "feat-cld-risk-band-v2"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "cld-gbm-v3",
+   "type": "model",
+   "label": "score",
+   "as": [
+    "cld-gbm-v3"
+   ],
+   "lines": [
+    2,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "25pct-per-cycle-cap",
+   "type": "policy",
+   "label": "cap",
+   "as": [
+    "25% per-cycle cap"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "640-floor",
+   "type": "policy",
+   "label": "floor",
+   "as": [
+    "640 floor"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "hardship-exclusion",
+   "type": "policy",
+   "label": "exclusion",
+   "as": [
+    "Hardship exclusion"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "30-day-notice",
+   "type": "policy",
+   "label": "notice",
+   "as": [
+    "30-day notice"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "band-c-d-decrease-policy",
+   "type": "uses",
+   "label": "rules come from",
+   "o": "feat-cld-risk-band-v2",
+   "quote": "Band rules come from feat-cld-risk-band-v2",
+   "line": 7
+  },
+  {
+   "s": "band-c-d-decrease-policy",
+   "type": "uses",
+   "label": "scored by",
+   "o": "cld-gbm-v3",
+   "quote": "scored by cld-gbm-v3 on band v2",
+   "line": 6
+  },
+  {
+   "s": "band-c-d-decrease-policy",
+   "type": "other",
+   "label": "capped by",
+   "o": "25pct-per-cycle-cap",
+   "quote": "the 25% per-cycle cap from dec-cld-cap-25pct still applies",
+   "line": 8
+  },
+  {
+   "s": "band-c-d-decrease-policy",
+   "type": "other",
+   "label": "carries over",
+   "o": "hardship-exclusion",
+   "quote": "Hardship exclusion and 30-day notice carry over unchanged.",
+   "line": 9
+  },
+  {
+   "s": "band-c-d-decrease-policy",
+   "type": "other",
+   "label": "carries over",
+   "o": "30-day-notice",
+   "quote": "Hardship exclusion and 30-day notice carry over unchanged.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "feat-cld-risk-band-v2",
+  "cld-gbm-v3",
+  "find-cld-roll-rates",
+  "find-cld-cut-640",
+  "dec-cld-band-policy-2025",
+  "dec-cld-cap-25pct"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "limit-decrease-policy/dec-cld-band-policy-2026.md",
+ "sha": "1f4123826feab4d812aca8995c483b3dcfcf7f08e2e15e1f26151df46bdfd00f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

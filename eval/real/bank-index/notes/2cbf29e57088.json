@@ -1,0 +1,68 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "mon.incidents",
+   "type": "dataset",
+   "label": "incidents",
+   "as": [
+    "mon.incidents"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "on-call-tracker",
+   "type": "tool",
+   "label": "on-call tracker",
+   "as": [
+    "on-call tracker"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "real-drift-set",
+   "type": "segment",
+   "label": "real-drift set",
+   "as": [
+    "The real-drift set"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mon.incidents",
+   "type": "uses",
+   "label": "backfilled from",
+   "o": "on-call-tracker",
+   "quote": "Backfilled from the on-call tracker.",
+   "line": 6
+  },
+  {
+   "s": "real-drift-set",
+   "type": "other",
+   "label": "target for detection tests",
+   "o": "real-drift-set",
+   "quote": "The real-drift set is the target for detection tests.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-202",
+  "exp-207"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "model-monitoring/ds-mm-incident-log.md",
+ "sha": "2cbf29e57088e8684da112e88efbe494f2f14422273bf39356e69f4cdb425739",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

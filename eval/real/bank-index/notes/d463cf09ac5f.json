@@ -1,0 +1,61 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "merchant-risk-score",
+   "type": "model",
+   "label": "score",
+   "as": [
+    "merchant risk score",
+    "high merchant score"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "ds-mrisk-merchants",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "ds-mrisk-merchants"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "acquiring-ops",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "acquiring ops"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "merchant-risk-score",
+   "type": "other",
+   "label": "feeds",
+   "o": "acquiring-ops",
+   "quote": "the score feeds review, not automatic action",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "dec-mrisk-monthly-scoring"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "merchant-risk/q-mrisk-score-use.md",
+ "sha": "d463cf09ac5ff07040785f5c997864409b5bbc076d9e0e7610271c636532d677",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

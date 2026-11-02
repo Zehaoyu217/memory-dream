@@ -1,0 +1,122 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-clv-cohort-panel",
+   "type": "dataset",
+   "label": "cohort panel",
+   "as": [
+    "Cohort panel"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "tenure-feature",
+   "type": "feature",
+   "label": "tenure feature",
+   "as": [
+    "tenure feature"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "retention-hazard",
+   "type": "model",
+   "label": "retention hazard",
+   "as": [
+    "retention hazard"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "clv-models",
+   "type": "model",
+   "label": "clv models",
+   "as": [
+    "every CLV model"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "product-transfers",
+   "type": "term",
+   "label": "product transfers",
+   "as": [
+    "Product transfers"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-clv-cohort-panel",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards.accounts_monthly",
+   "quote": "from cards.accounts_monthly",
+   "line": 5
+  },
+  {
+   "s": "tenure-feature",
+   "type": "uses",
+   "label": "base table",
+   "o": "ds-clv-cohort-panel",
+   "quote": "Base table for the tenure feature",
+   "line": 8
+  },
+  {
+   "s": "retention-hazard",
+   "type": "uses",
+   "label": "base table",
+   "o": "ds-clv-cohort-panel",
+   "quote": "Base table for the tenure feature, the retention hazard",
+   "line": 8
+  },
+  {
+   "s": "clv-models",
+   "type": "uses",
+   "label": "base table",
+   "o": "ds-clv-cohort-panel",
+   "quote": "every CLV model",
+   "line": 8
+  },
+  {
+   "s": "ds-clv-cohort-panel",
+   "type": "other",
+   "label": "excludes",
+   "o": "product-transfers",
+   "quote": "Product transfers are excluded",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "customer-lifetime-value/ds-clv-cohort-panel.md",
+ "sha": "396b78e2e0b035065c7bf79e707b68e78fba9f304d4a0739d9caa67b292ec4e6",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

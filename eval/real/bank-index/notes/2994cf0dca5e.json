@@ -1,0 +1,146 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "mrisk-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "mrisk-gbm-v2"
+   ],
+   "lines": [
+    2,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "mrisk-gbm-v3",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "v3"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "acquiring-watchlist",
+   "type": "other",
+   "label": "watchlist",
+   "as": [
+    "acquiring watchlist"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "watchlist-cut-0.70",
+   "type": "other",
+   "label": "watchlist cut",
+   "as": [
+    "Set the acquiring watchlist cut at 0.70",
+    "0.70 or above"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "exp-506",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-506"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "confirmed-fraud-merchants",
+   "type": "segment",
+   "label": "confirmed-fraud merchants",
+   "as": [
+    "confirmed-fraud merchants"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "precision-at-0.70",
+   "type": "metric",
+   "label": "precision",
+   "as": [
+    "precision 0.31"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "flagged-rate",
+   "type": "metric",
+   "label": "flagged rate",
+   "as": [
+    "4.1% flagged"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "watchlist-cut-0.70",
+   "type": "uses",
+   "label": "scores from",
+   "o": "mrisk-gbm-v2",
+   "quote": "merchants scoring 0.70 or above from mrisk-gbm-v2",
+   "line": 7
+  },
+  {
+   "s": "exp-506",
+   "type": "evaluated-on",
+   "label": "basis for",
+   "o": "confirmed-fraud-merchants",
+   "quote": "exp-506 (63% of confirmed-fraud merchants at 4.1% flagged",
+   "line": 8
+  },
+  {
+   "s": "exp-506",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "precision-at-0.70",
+   "quote": "precision 0.31",
+   "line": 8
+  },
+  {
+   "s": "exp-506",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "flagged-rate",
+   "quote": "4.1% flagged",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "dec-mrisk-threshold-065",
+  "mrisk-find-watchlist-07",
+  "mrisk-gbm-v2",
+  "q-mrisk-watchlist-cut"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "merchant-risk/dec-mrisk-watchlist-07.md",
+ "sha": "2994cf0dca5e96f275c646d36a96dba192a547b9828149ec8a4f752b2ec8c157",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

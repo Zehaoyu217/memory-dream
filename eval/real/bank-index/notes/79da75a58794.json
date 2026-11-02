@@ -1,0 +1,81 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "ds-cc-qa-labels",
+   "type": "team",
+   "label": "source team",
+   "as": [
+    "ds-cc-qa-labels"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "fleiss-kappa",
+   "type": "metric",
+   "label": "agreement statistic",
+   "as": [
+    "Fleiss kappa 0.82"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "adjudication",
+   "type": "term",
+   "label": "label review step",
+   "as": [
+    "adjudication changes 9 percent of labels",
+    "9 percent of first-pass labels changed at adjudication"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "human-agreement",
+   "type": "term",
+   "label": "accuracy ceiling",
+   "as": [
+    "Human agreement is the ceiling"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "adjudication",
+   "type": "other",
+   "label": "changes labels",
+   "o": "human-agreement",
+   "quote": "9 percent of first-pass labels changed at adjudication",
+   "line": 6
+  },
+  {
+   "s": "human-agreement",
+   "type": "other",
+   "label": "bounds accuracy claims",
+   "o": "human-agreement",
+   "quote": "Human agreement is the ceiling for any claim about auto-coding accuracy",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "complaint-classification/fnd-cc-qa-agreement.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "complaint-classification/fnd-cc-qa-agreement.md",
+ "sha": "79da75a58794975fca8c5de05ccf277b5c8994db1fac8290dc604d40399e70ff",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

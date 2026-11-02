@@ -1,0 +1,104 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "complaints.tickets_raw",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`complaints.tickets_raw`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "complaints-ops",
+   "type": "team",
+   "label": "owner",
+   "as": [
+    "complaints-ops"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "free-text",
+   "type": "feature",
+   "label": "field",
+   "as": [
+    "free text"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "product_code",
+   "type": "feature",
+   "label": "field",
+   "as": [
+    "product_code"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "classifier",
+   "type": "model",
+   "label": "classifier",
+   "as": [
+    "the classifier"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "classifier",
+   "type": "uses",
+   "label": "used only field",
+   "o": "free-text",
+   "quote": "Text is the only field used for the classifier",
+   "line": 8
+  },
+  {
+   "s": "complaints.tickets_raw",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "complaints-ops",
+   "quote": "Owner complaints-ops.",
+   "line": 6
+  },
+  {
+   "s": "free-text",
+   "type": "part-of",
+   "label": "field",
+   "o": "complaints.tickets_raw",
+   "quote": "Fields: ticket_id, opened_at, channel (web, phone, letter, app, branch, social), product_code, free text",
+   "line": 6
+  },
+  {
+   "s": "product_code",
+   "type": "part-of",
+   "label": "field",
+   "o": "complaints.tickets_raw",
+   "quote": "Fields: ticket_id, opened_at, channel (web, phone, letter, app, branch, social), product_code, free text",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "complaint-classification/ds-cc-tickets-raw.md",
+ "sha": "69f8ab659ddda9a75a64a42ec1c347d5405a53f94caf4fca669c6c484fb6209b",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

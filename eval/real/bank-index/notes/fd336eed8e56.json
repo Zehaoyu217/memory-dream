@@ -1,0 +1,99 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "aml-structuring-rule",
+   "type": "other",
+   "label": "aml structuring rule",
+   "as": [
+    "the AML structuring rule"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "structuring-alerts",
+   "type": "other",
+   "label": "structuring alerts",
+   "as": [
+    "structuring alerts"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "ds-aml-alerts",
+   "type": "dataset",
+   "label": "2025 disposition history",
+   "as": [
+    "the 2025 disposition history in ds-aml-alerts"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-aml-dispositions",
+   "type": "dataset",
+   "label": "disposition data",
+   "as": [
+    "ds-aml-dispositions"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "aml-find-fp-baseline",
+   "type": "other",
+   "label": "answer note",
+   "as": [
+    "aml-find-fp-baseline"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "aml-structuring-rule",
+   "type": "other",
+   "label": "generates",
+   "o": "structuring-alerts",
+   "quote": "how many structuring alerts analysts close as false positives",
+   "line": 6
+  },
+  {
+   "s": "structuring-alerts",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "ds-aml-alerts",
+   "quote": "Source is the 2025 disposition history in ds-aml-alerts and ds-aml-dispositions.",
+   "line": 7
+  },
+  {
+   "s": "structuring-alerts",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "ds-aml-dispositions",
+   "quote": "Source is the 2025 disposition history in ds-aml-alerts and ds-aml-dispositions.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "aml-alerts/q-aml-fp-rate.md",
+  "aml-find-fp-baseline"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "aml-alerts/q-aml-fp-rate.md",
+ "sha": "fd336eed8e56ba119476a5979fa5f4e569c7bca71608ca69f6debe290729d991",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

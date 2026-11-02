@@ -1,0 +1,83 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-502",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-502"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "dec-ep-srm-gate",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-ep-srm-gate"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "bot-filter",
+   "type": "feature",
+   "label": "bot filter",
+   "as": [
+    "bot filter"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "sample-ratio-check",
+   "type": "metric",
+   "label": "sample ratio check",
+   "as": [
+    "sample ratio checks"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-502",
+   "type": "uses",
+   "label": "applied bot filter",
+   "o": "bot-filter",
+   "quote": "the bot filter was applied at readout, not at assignment, and only to the treatment arm",
+   "line": 6
+  },
+  {
+   "s": "bot-filter",
+   "type": "other",
+   "label": "fixed by moving to assignment",
+   "o": "exp-502",
+   "quote": "Fixed by moving the filter to assignment time for both arms",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-ep-srm-gate",
+  "exp-502"
+ ],
+ "dropped": {
+  "entities": [
+   "fnd-srm-bots"
+  ],
+  "relations": 1
+ },
+ "path": "experiment-platform/fnd-srm-bots.md",
+ "sha": "bf713dd5b81baae58c9a2bf6ddcb08d9670a4bd910d581f54772973b213bdb89",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

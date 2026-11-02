@@ -1,0 +1,108 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-utilization-v1",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "Credit utilization features: balance / limit over 1, 3 and 6 months (v1)",
+    "feat-utilization-v1"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "balance",
+   "type": "feature",
+   "label": "input column",
+   "as": [
+    "balance"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "credit_limit",
+   "type": "feature",
+   "label": "input column",
+   "as": [
+    "credit_limit"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-txn-2025q4",
+   "type": "team",
+   "label": "author",
+   "as": [
+    "ds-txn-2025q4"
+   ],
+   "lines": [
+    2
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-utilization-v1",
+   "type": "uses",
+   "label": "uses",
+   "o": "balance",
+   "quote": "uses `balance` and `credit_limit` from `cards.txn_daily`",
+   "line": 6
+  },
+  {
+   "s": "feat-utilization-v1",
+   "type": "uses",
+   "label": "uses",
+   "o": "credit_limit",
+   "quote": "uses `balance` and `credit_limit` from `cards.txn_daily`",
+   "line": 6
+  },
+  {
+   "s": "balance",
+   "type": "part-of",
+   "label": "from",
+   "o": "cards.txn_daily",
+   "quote": "uses `balance` and `credit_limit` from `cards.txn_daily`",
+   "line": 6
+  },
+  {
+   "s": "credit_limit",
+   "type": "part-of",
+   "label": "from",
+   "o": "cards.txn_daily",
+   "quote": "uses `balance` and `credit_limit` from `cards.txn_daily`",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "features/utilization_v1.py"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2026/feat-utilization-v1.md",
+ "sha": "dd5274293de88b04dff657cb89ff53b4af8d7169fc12f677bf3e9e84309e5058",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

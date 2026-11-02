@@ -1,0 +1,98 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "lbl-fraud-gbm-v4",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "lbl-fraud-gbm-v4"
+   ],
+   "lines": [
+    2,
+    5
+   ]
+  },
+  {
+   "id": "lbl-fraud-gbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "lbl-fraud-gbm-v3"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "recall-at-1pct",
+   "type": "metric",
+   "label": "recall",
+   "as": [
+    "Recall at 1 percent alerts"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "matured-2025-h2-holdout",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "matured 2025-H2 holdout"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "lbl-fraud-gbm-v4",
+   "type": "replaces",
+   "label": "retires",
+   "o": "lbl-fraud-gbm-v3",
+   "quote": "retire lbl-fraud-gbm-v3",
+   "line": 5
+  },
+  {
+   "s": "lbl-fraud-gbm-v4",
+   "type": "measured-by",
+   "label": "recall at 1% alerts",
+   "o": "recall-at-1pct",
+   "quote": "Recall at 1 percent alerts is 0.58 for v4",
+   "line": 6
+  },
+  {
+   "s": "lbl-fraud-gbm-v3",
+   "type": "measured-by",
+   "label": "recall at 1% alerts",
+   "o": "recall-at-1pct",
+   "quote": "against 0.52 for v3",
+   "line": 6
+  },
+  {
+   "s": "lbl-fraud-gbm-v4",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "matured-2025-h2-holdout",
+   "quote": "on the matured 2025-H2 holdout (exp-405)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-405",
+  "fnd-fraud-v4-lift",
+  "lbl-fraud-gbm-v4",
+  "label-pipeline-rebuild/dec-lbl-promote-fraud-v4.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "label-pipeline-rebuild/dec-lbl-promote-fraud-v4.md",
+ "sha": "83a45cb3cd33b635b9593d0558518c7f68357702e644c67431f157596bc5759b",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

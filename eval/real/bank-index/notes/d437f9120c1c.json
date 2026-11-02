@@ -1,0 +1,68 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ror-offer-fatigue",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ror-offer-fatigue"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-ror-redemptions",
+   "type": "dataset",
+   "label": "offer history",
+   "as": [
+    "ds-ror-redemptions"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "uplift",
+   "type": "metric",
+   "label": "uplift",
+   "as": [
+    "uplift"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ror-offer-fatigue",
+   "type": "uses",
+   "label": "built from",
+   "o": "ds-ror-redemptions",
+   "quote": "Built from the offer history in ds-ror-redemptions.",
+   "line": 7
+  },
+  {
+   "s": "feat-ror-offer-fatigue",
+   "type": "other",
+   "label": "strongly tied to",
+   "o": "uplift",
+   "quote": "Strongly tied to uplift: 2.3pp with none, 0.4pp with three or more (exp-402).",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-402"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "retention-offers-roi/feat-ror-offer-fatigue.md",
+ "sha": "d437f9120c1ce36b3e1e38d1c4825435954e9893bde243faae34891b0be58fc6",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

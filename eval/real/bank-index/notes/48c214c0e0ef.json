@@ -1,0 +1,119 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-app-velocity-apps",
+   "type": "feature",
+   "label": "application velocity",
+   "as": [
+    "feat-app-velocity-apps",
+    "Count of new-application sessions on the same device in 90 days"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "app.sessions_daily",
+   "type": "dataset",
+   "label": "sessions table",
+   "as": [
+    "app.sessions_daily"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "digital-analytics",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "digital-analytics"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "app-scorecard-v3",
+   "type": "model",
+   "label": "scorecard",
+   "as": [
+    "app-scorecard-v3"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "app-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "app-gbm-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-app-applications-2024",
+   "type": "dataset",
+   "label": "applicant data",
+   "as": [
+    "2024 applicants"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-app-velocity-apps",
+   "type": "uses",
+   "label": "counted from",
+   "o": "app.sessions_daily",
+   "quote": "from `app.sessions_daily` (digital-analytics)",
+   "line": 6
+  },
+  {
+   "s": "app-scorecard-v3",
+   "type": "uses",
+   "label": "includes",
+   "o": "feat-app-velocity-apps",
+   "quote": "Included in app-scorecard-v3 and app-gbm-v1.",
+   "line": 8
+  },
+  {
+   "s": "app-gbm-v1",
+   "type": "uses",
+   "label": "includes",
+   "o": "feat-app-velocity-apps",
+   "quote": "Included in app-scorecard-v3 and app-gbm-v1.",
+   "line": 8
+  },
+  {
+   "s": "feat-app-velocity-apps",
+   "type": "other",
+   "label": "carried by 4% of",
+   "o": "ds-app-applications-2024",
+   "quote": "4% of 2024 applicants carry it",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-app-applications-2024"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "application-scorecard/feat-app-velocity-apps.md",
+ "sha": "48c214c0e0efa35acb6a49219b942ed7ae58cadee39ffdea8b0c635202addffe",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

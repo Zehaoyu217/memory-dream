@@ -1,0 +1,100 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "mape-exclude-zeros",
+   "type": "term",
+   "label": "correction note",
+   "as": [
+    "MAPE excludes zero actuals; balance forecasts also report WAPE"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    3,
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "wape",
+   "type": "metric",
+   "label": "wape",
+   "as": [
+    "WAPE (weighted absolute percentage error)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "glossary-mape",
+   "type": "term",
+   "label": "old glossary entry",
+   "as": [
+    "The old note counted zero-balance accounts as 0% error."
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "q4-2024-forecast",
+   "type": "model",
+   "label": "q4 2024 forecast",
+   "as": [
+    "the Q4 2024 forecast's 2.1% MAPE, on 3.8m rows, is 4.7% when zero-balance rows are excluded"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mape-exclude-zeros",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "glossary-mape",
+   "quote": "supersedes: [glossary/mape]",
+   "line": 3
+  },
+  {
+   "s": "q4-2024-forecast",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "mape",
+   "quote": "the Q4 2024 forecast's 2.1% MAPE",
+   "line": 7
+  },
+  {
+   "s": "q4-2024-forecast",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "wape",
+   "quote": "From 2025-11 the balance forecast reports WAPE (weighted absolute percentage error) alongside MAPE.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "glossary/mape"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "corrections/mape-exclude-zeros.md",
+ "sha": "17304a10180bb1ce3054fe39eb557bfb28c25de0ea45c010b33a1986a15399f6",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

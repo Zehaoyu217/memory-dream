@@ -1,0 +1,92 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "time-split",
+   "type": "term",
+   "label": "time split",
+   "as": [
+    "time split",
+    "time splits only"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "random-splits",
+   "type": "term",
+   "label": "random splits",
+   "as": [
+    "Random splits"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "merchant-level-evaluation",
+   "type": "term",
+   "label": "evaluation",
+   "as": [
+    "merchant-level evaluation"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "txc-oot-2026h1",
+   "type": "dataset",
+   "label": "headline set",
+   "as": [
+    "txc-oot-2026h1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "holdout-2025q2",
+   "type": "dataset",
+   "label": "holdout set",
+   "as": [
+    "holdout-2025q2"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "random-splits",
+   "type": "other",
+   "label": "leaks",
+   "o": "merchant-level-evaluation",
+   "quote": "Random splits leak merchant identity",
+   "line": 6
+  },
+  {
+   "s": "merchant-level-evaluation",
+   "type": "uses",
+   "label": "uses",
+   "o": "time-split",
+   "quote": "all merchant-level evaluation uses a time split",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-txc-history-leaks",
+  "exp-106"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "txn-categorization/dec-txc-time-split-only.md",
+ "sha": "72dfe377a3aec6bec15fe084639333a4306651fdcaed77e9c174bed8e6934de8",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

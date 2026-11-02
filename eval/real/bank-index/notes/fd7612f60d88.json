@@ -1,0 +1,98 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "proposal-a",
+   "type": "scenario",
+   "label": "proposal",
+   "as": [
+    "Proposal A"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "break-even-lift",
+   "type": "metric",
+   "label": "break-even lift",
+   "as": [
+    "Break-even"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cb-sim-v1",
+   "type": "other",
+   "label": "simulation",
+   "as": [
+    "cb-sim-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "high-spender-base",
+   "type": "segment",
+   "label": "high-spender base",
+   "as": [
+    "high-spender base"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "top-threshold",
+   "type": "policy",
+   "label": "top threshold",
+   "as": [
+    "top threshold"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "proposal-a",
+   "type": "measured-by",
+   "label": "needs lift",
+   "o": "break-even-lift",
+   "quote": "needs about 3.4% lift at the current mix",
+   "line": 7
+  },
+  {
+   "s": "break-even-lift",
+   "type": "sourced-from",
+   "label": "source once built",
+   "o": "cb-sim-v1",
+   "quote": "Source once built: cb-sim-v1",
+   "line": 8
+  },
+  {
+   "s": "top-threshold",
+   "type": "other",
+   "label": "without losing",
+   "o": "high-spender-base",
+   "quote": "without losing the high-spender base",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "q-cb-tier-cost",
+  "exp-206-breakeven-sim"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/q-cb-breakeven-lift.md",
+ "sha": "fd7612f60d8814248dd2980d8f555159a369fd049a49d0f0b40ca8708dedc0ce",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

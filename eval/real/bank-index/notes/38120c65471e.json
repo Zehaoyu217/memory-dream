@@ -1,0 +1,86 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "calibration-drift-alarm",
+   "type": "other",
+   "label": "calibration drift alarm",
+   "as": [
+    "calibration drift alarm"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "retention-propensity-model",
+   "type": "model",
+   "label": "retention propensity model",
+   "as": [
+    "retention propensity model"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "limit-increase-campaign",
+   "type": "other",
+   "label": "limit-increase campaign",
+   "as": [
+    "limit-increase campaign"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "isotonic-recalibration",
+   "type": "term",
+   "label": "isotonic recalibration",
+   "as": [
+    "Isotonic recalibration"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "calibration-drift-alarm",
+   "type": "other",
+   "label": "fired on",
+   "o": "retention-propensity-model",
+   "quote": "August 2025, on the retention propensity model.",
+   "line": 5
+  },
+  {
+   "s": "limit-increase-campaign",
+   "type": "other",
+   "label": "pushed scores up",
+   "o": "retention-propensity-model",
+   "quote": "after a limit-increase campaign pushed scores up",
+   "line": 6
+  },
+  {
+   "s": "isotonic-recalibration",
+   "type": "other",
+   "label": "brought back within band",
+   "o": "calibration-drift-alarm",
+   "quote": "Isotonic recalibration on the training split brought it back within band.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "howto/brier-score-calibration"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/calibration-alarm-first-fire.md",
+ "sha": "38120c65471e3ce9f8610b38c1c6f661e6bb5974927a49816b2be4daa2004947",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

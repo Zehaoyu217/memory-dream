@@ -1,6 +1,84 @@
 # memory-dream v0.4 — results
 
-2026-10-30 (round 4: 2026-10-31) · built from the "Memory" email spec (`build-spec.md`) · macOS, Python 3.9.6, Claude Code 2.1.314.
+2026-10-30 (round 4: 2026-10-31; phase I: 2026-11-02) · built from the "Memory" email spec (`build-spec.md`) · macOS, Python 3.9.6, Claude Code 2.1.314.
+
+# Phase I (2026-11-02) — the real index rebuilt and kept, what it is worth, and typed links for input questions
+
+## I1 — the index of the bank, rebuilt with Haiku and kept in the repository
+
+1,677 notes indexed through `tests/haiku_cmd.py`: 1,687 extraction calls (10 retries), **$2.69**, $0.0016 per call, 58%
+of input tokens from the cache, 0 unusable answers (C3 = 0). The first 288 notes ran at `-j 8` at 28 notes a minute: a
+wave of `-j` calls waits for its slowest call (latency p50 10.5 s, p90 15 s, max 21 s), so the pool was about a third
+busy; the rest ran at `-j 16` at about 48 a minute, 28.5 minutes. Four review calls ($0.03) in three passes cleared the
+queue: 14 entity pairs merged and 73 kept apart in ALIASES.md; 81 conflict verdicts in CONFLICTS.md
+(5 supersessions, 68 compatible, 8 left to a person; C10 went 83 → 8); 7 relation labels over the bar, 6 admitted
+on probation (beats, compared-with, compared-against, lifts, removed-from, excluded-from) and 8 thing types (experiment,
+decision, project, finding, channel, question, campaign, pilot). Graph: 1,325 entities, 3,119 relations, 59 off-shape
+relations (C12), 94 ungrounded items dropped (C4).
+
+The readings (one JSON per note content, keyed by sha) and the reviewed registries are now in `eval/real/bank-index/`;
+`restore.py` plus a model-free `dream` rebuilds the graph with 0 calls — relations identical to the live index, verified —
+so every "with the index" number below reproduces from the repository (`tests/retrieval_gate.py bank-index`, in CI).
+
+Seen on the way: four of the eight admitted thing types are kinds of note (experiment, decision, finding, question) — the
+dreamer names notes as things. They are candidates for the `drop:` line of TYPES.md; left as the review wrote them so
+the record matches the files.
+
+## I2 — what the index is worth for answers, on this index (326 questions, typed links off)
+
+| | no index (`MEMORY_NO_INDEX=1`) | the index | F9, the previous index: no index → index |
+|---|---|---|---|
+| gold notes headed | 0.937 | 0.933 | 0.938 → 0.946 |
+| numbers present | 0.979 | 0.978 | 0.979 → 0.978 |
+| precision | 0.612 | 0.590 | 0.616 → 0.597 |
+| complete answers | 272 | 270 | 271 → 275 |
+| characters per question | 2,368 | 2,484 (+4.9%) | 2,373 → 2,487 |
+| stale: successor above the old note | 0.971 | 0.962 | — |
+| scattered evidence, all gold | 0.782 | 0.774 | — |
+| alias questions, gold headed | 0.771 | **0.821** | 0.829 → 0.893 |
+
+Across two real indexes the index moves gold recall by less than a point in either direction; it buys alias questions
+(+5 to +6 points) and costs 5% characters. The README's "what the index buys" now says so.
+
+## I3 — typed links: one hop lands where lineage already is; two hops reach the inputs of inputs (kept)
+
+`typed_links()` in `rank`: for a thing the question names by id, the notes of the things the index links it to, as
+one-liners (header + `# ` line) like the lineage relatives of F1. Traced on a partial index first: for "what does
+aml-xgb-v2 use as inputs?" one hop over `uses` found three feature notes — all already headed, because the model note's
+`from:` lists them and the lineage one-liners had them. The four gold notes still missing were two steps out: the inputs
+of the predecessor (v2 replaces v1; v1 was built on structuring and new-counterparty features and the dispositions
+table) and the dataset a feature was built from. So the walk became: one hop over the relation types the question's
+words point at; for input questions a second hop — the inputs of the inputs and the predecessor's inputs — through
+typed relations and `from:` lineage alike, "what uses X" walking the other way; each linked thing as its own note or
+headline note at the live end.
+
+A. Every cued type (owner, holdout, metric, version too), `MEMORY_RELATION_MODE=cue`:
+
+| variant | gold | complete | chars/q | dependency gold | dependency complete (of 40) | precision | scattered |
+|---|---|---|---|---|---|---|---|
+| off | 0.933 | 270 | 2,484 | 0.853 | 24 | 0.590 | 0.774 |
+| 1 hop, 4 lines | 0.936 | 271 | 2,583 | 0.874 | 25 | 0.565 | 0.778 |
+| 2 hops, 4 lines | 0.938 | 272 | 2,630 | 0.897 | 26 | 0.554 | 0.782 |
+| 2 hops, 8 lines | 0.941 | 274 | 2,739 | 0.920 | 28 | 0.540 | 0.790 |
+| 2 hops, 12 lines | 0.943 | 276 | 2,824 | 0.930 | 29 | 0.533 | 0.798 |
+| any type, 1 hop, 4 lines (`always`) | 0.937 | 271 | 2,772 | 0.874 | 25 | 0.498 | 0.778 |
+
+B. Input questions only (`inputs`: the walk runs when the question's words point at uses, trained-on or part-of):
+
+| variant | gold | complete | chars/q | dependency gold | dependency complete | precision | scattered |
+|---|---|---|---|---|---|---|---|
+| off | 0.933 | 270 | 2,484 | 0.853 | 24 | 0.590 | 0.774 |
+| 2 hops, 6 lines | 0.941 | 273 | 2,581 | 0.917 | 27 | 0.567 | 0.786 |
+| **2 hops, 8 lines (kept)** | **0.941** | **274** | **2,598** | **0.920** | **28** | 0.565 | 0.790 |
+| 2 hops, 12 lines | 0.942 | 275 | 2,619 | 0.930 | 29 | 0.563 | 0.794 |
+
+Numbers 0.978, stale 0.962 and alias 0.821 in every row: the walk adds notes, it moves nothing else. Kept: inputs, two
+hops, eight lines — gold 0.933 → 0.941, four more complete answers, dependency questions 0.853 → 0.920 and 24 → 28
+complete of 40, scattered evidence 0.774 → 0.790, for +4.6% characters (+114 per question): 9,300 characters per extra
+complete answer, dearer than the lineage one-liners of F1 (3,900) and the index's own 6,500 of F9, but spent only on the
+questions it is for. Against no index at all the index now reads +0.4 gold, +2 complete, +6.7 points on dependency
+questions and +5.0 on alias questions for +9.7% characters. Not kept: one hop (+1 answer for +4%), any-type cues (the same
+gain for +10%), `always` (+12% for +1). Suite 38/38; the bank, software and bank-index gates; store parity 11/11.
 
 # Phase H (2026-11-01) — a class tree, chains to the live end, shapes, and the graph view
 

@@ -1,0 +1,90 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "dq-volume-iforest-v1",
+   "type": "model",
+   "label": "isolation forest",
+   "as": [
+    "dq-volume-iforest-v1",
+    "isolation forest"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "partition-statistics",
+   "type": "feature",
+   "label": "partition statistics",
+   "as": [
+    "12 partition statistics"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "same-weekday-z-score",
+   "type": "feature",
+   "label": "same-weekday z-score",
+   "as": [
+    "same-weekday z-score"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "data-quality-dashboard",
+   "type": "dashboard",
+   "label": "data-quality dashboard",
+   "as": [
+    "data-quality dashboard"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dq-volume-iforest-v1",
+   "type": "uses",
+   "label": "runs over",
+   "o": "partition-statistics",
+   "quote": "Isolation forest over 12 partition statistics",
+   "line": 6
+  },
+  {
+   "s": "same-weekday-z-score",
+   "type": "part-of",
+   "label": "included in",
+   "o": "partition-statistics",
+   "quote": "including the same-weekday z-score",
+   "line": 6
+  },
+  {
+   "s": "dq-volume-iforest-v1",
+   "type": "produces",
+   "label": "results go to",
+   "o": "data-quality-dashboard",
+   "quote": "Results go to the data-quality dashboard only.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-dq-rowcount-z-v2",
+  "dec-dq-same-weekday-baseline"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "data-quality-txn/dq-volume-iforest-v1.md",
+ "sha": "30bafc4b91a12f50f8c30a95c8e78bb87e3af91934264c43e6141805c174a8e4",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

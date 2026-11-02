@@ -1,0 +1,133 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "nps-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "nps-gbm-v1"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "feat-nps-fee-shock-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "fee shock v1"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "2026q1-wave",
+   "type": "dataset",
+   "label": "wave",
+   "as": [
+    "2026Q1 wave"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "spearman",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Spearman"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "post-send-fees",
+   "type": "other",
+   "label": "leaking fees",
+   "as": [
+    "post-send fees"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "nps-gbm-v1",
+   "type": "uses",
+   "label": "plus",
+   "o": "feat-nps-fee-shock-v1",
+   "quote": "nps-gbm-v1 plus fee shock v1",
+   "line": 6
+  },
+  {
+   "s": "nps-gbm-v1",
+   "type": "evaluated-on",
+   "label": "scores on",
+   "o": "holdout-2025q4",
+   "quote": "nps-gbm-v1 alone scores 0.46 on holdout-2025q4 (n = 48,210)",
+   "line": 6
+  },
+  {
+   "s": "nps-gbm-v1",
+   "type": "measured-by",
+   "label": "scores",
+   "o": "spearman",
+   "quote": "nps-gbm-v1 alone scores 0.46 on holdout-2025q4",
+   "line": 6
+  },
+  {
+   "s": "nps-gbm-v1",
+   "type": "evaluated-on",
+   "label": "scores on",
+   "o": "2026q1-wave",
+   "quote": "0.44 on the 2026Q1 wave (n = 44,870)",
+   "line": 7
+  },
+  {
+   "s": "post-send-fees",
+   "type": "other",
+   "label": "leaks into",
+   "o": "feat-nps-fee-shock-v1",
+   "quote": "post-send fees leaking into the feature",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-nps-holdout",
+  "nps-gbm-v1",
+  "feat-nps-fee-shock-v1",
+  "fnd-nps-fee-top"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "nps-drivers/exp-404.md",
+ "sha": "c9a08eade1332c93d926d0489742ccf2586fea2a768f39203b90d502e5afbefe",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

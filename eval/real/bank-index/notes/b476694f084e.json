@@ -1,0 +1,110 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "auto-resolve",
+   "type": "other",
+   "label": "goal",
+   "as": [
+    "auto-resolve the disputes that are clearly customer-wins"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "precision",
+   "type": "metric",
+   "label": "target precision",
+   "as": [
+    "Target precision"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "coverage",
+   "type": "metric",
+   "label": "coverage",
+   "as": [
+    "coverage (share of disputes auto-resolved)"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "two-analyst-labels",
+   "type": "dataset",
+   "label": "two-analyst labels",
+   "as": [
+    "two-analyst labels"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-disp-disputes",
+   "type": "team",
+   "label": "source",
+   "as": [
+    "ds-disp-disputes"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "ds-disp-analyst-labels",
+   "type": "other",
+   "label": "source",
+   "as": [
+    "ds-disp-analyst-labels"
+   ],
+   "lines": [
+    2
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "auto-resolve",
+   "type": "measured-by",
+   "label": "judged by",
+   "o": "precision",
+   "quote": "Target precision is 95% on two-analyst labels",
+   "line": 7
+  },
+  {
+   "s": "precision",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "two-analyst-labels",
+   "quote": "Target precision is 95% on two-analyst labels",
+   "line": 7
+  },
+  {
+   "s": "auto-resolve",
+   "type": "measured-by",
+   "label": "second metric",
+   "o": "coverage",
+   "quote": "coverage (share of disputes auto-resolved) is the second metric",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "disp-find-precision-real",
+  "dec-disp-autoresolve-090",
+  "dec-disp-autoresolve-095"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "dispute-triage/q-disp-autoresolve.md",
+ "sha": "b476694f084edd10174f82ff02d34ec86a30ae11eee9d3fffbd62942ded055e7",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,100 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "clv",
+   "type": "metric",
+   "label": "customer lifetime value",
+   "as": [
+    "CLV"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "offer-credits",
+   "type": "term",
+   "label": "offer credits",
+   "as": [
+    "Offer credits",
+    "credits paid out in retention offers"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "gross-revenue",
+   "type": "metric",
+   "label": "gross revenue",
+   "as": [
+    "Gross revenue"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "offered-accounts",
+   "type": "account",
+   "label": "offered accounts",
+   "as": [
+    "offered accounts"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-clv-arpu-v2",
+   "type": "feature",
+   "label": "offer-netted arpu",
+   "as": [
+    "feat-clv-arpu-v2"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "offer-credits",
+   "type": "other",
+   "label": "missing from",
+   "o": "clv",
+   "quote": "Offer credits are missing from CLV",
+   "line": 5
+  },
+  {
+   "s": "gross-revenue",
+   "type": "other",
+   "label": "ignores",
+   "o": "offer-credits",
+   "quote": "Gross revenue ignores the credits paid out in retention offers.",
+   "line": 6
+  },
+  {
+   "s": "feat-clv-arpu-v2",
+   "type": "other",
+   "label": "fixes",
+   "o": "offer-credits",
+   "quote": "Fixed in feat-clv-arpu-v2 (offer-netted ARPU).",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-504"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "customer-lifetime-value/fnd-clv-offer-cost.md",
+ "sha": "1b55dc0c46d5e72387e09868affea1889c33db8d82ee27760b6eb432ed05f852",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

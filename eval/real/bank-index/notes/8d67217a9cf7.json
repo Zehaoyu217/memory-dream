@@ -1,0 +1,76 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "maya-ortiz",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Maya Ortiz"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bt.offer_log",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`bt.offer_log`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bt-acceptance",
+   "type": "metric",
+   "label": "acceptance",
+   "as": [
+    "Acceptance = a BT booked within 45 days of offer open"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "lift-at-top-30",
+   "type": "metric",
+   "label": "success criterion",
+   "as": [
+    "lift at top 30% of at least 1.8x on a holdout"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bt-acceptance",
+   "type": "uses",
+   "label": "from",
+   "o": "bt.offer_log",
+   "quote": "Acceptance = a BT booked within 45 days of offer open, from `bt.offer_log`.",
+   "line": 6
+  },
+  {
+   "s": "lift-at-top-30",
+   "type": "owned-by",
+   "label": "agreed with",
+   "o": "maya-ortiz",
+   "quote": "Success criterion agreed with Maya: lift at top 30% of at least 1.8x on a holdout.",
+   "line": 9
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "balance-transfer-propensity/q-bt-who-accepts.md",
+ "sha": "8d67217a9cf7dce491fb709966b8020b8e73a4ecd2b1254a7ed94d0ce5e2c7ac",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

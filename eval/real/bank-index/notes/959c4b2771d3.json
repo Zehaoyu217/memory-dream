@@ -1,0 +1,73 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "score-psi",
+   "type": "metric",
+   "label": "drift signal",
+   "as": [
+    "Score PSI",
+    "score PSI"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "feature-psi",
+   "type": "metric",
+   "label": "diagnostic",
+   "as": [
+    "Feature PSI",
+    "feature PSI"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "dashboard",
+   "type": "dashboard",
+   "label": "dashboard",
+   "as": [
+    "the dashboard"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "score-psi",
+   "type": "other",
+   "label": "led on incidents",
+   "o": "feature-psi",
+   "quote": "Score PSI led feature PSI on 17 of 19 incidents",
+   "line": 6
+  },
+  {
+   "s": "feature-psi",
+   "type": "other",
+   "label": "shown on",
+   "o": "dashboard",
+   "quote": "Feature PSI stays on the dashboard",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-203",
+  "fnd-score-psi-leads"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "model-monitoring/dec-mm-score-first.md",
+ "sha": "959c4b2771d38c67e5dc0c51293aa7745822417b5d1a537e5e1120846d42db12",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,100 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "feat-txc-merchant-history-v1",
+   "type": "feature",
+   "label": "merchant-history features",
+   "as": [
+    "Merchant-history features",
+    "feat-txc-merchant-history-v1"
+   ],
+   "lines": [
+    6,
+    9
+   ]
+  },
+  {
+   "id": "txc-gbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "txc-gbm-v3"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro-f1",
+   "as": [
+    "macro-F1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "time-split",
+   "type": "term",
+   "label": "time split",
+   "as": [
+    "time split"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "random-split",
+   "type": "term",
+   "label": "random split",
+   "as": [
+    "random-split"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-txc-merchant-history-v1",
+   "type": "other",
+   "label": "excluded from",
+   "o": "txc-gbm-v3",
+   "quote": "feat-txc-merchant-history-v1 is excluded from txc-gbm-v3",
+   "line": 9
+  },
+  {
+   "s": "feat-txc-merchant-history-v1",
+   "type": "measured-by",
+   "label": "adds gain on",
+   "o": "macro-f1",
+   "quote": "history features add +0.01 macro-F1 (0.78 vs 0.77)",
+   "line": 8
+  },
+  {
+   "s": "feat-txc-merchant-history-v1",
+   "type": "other",
+   "label": "leaks across",
+   "o": "time-split",
+   "quote": "Merchant-history features leak across time",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-106",
+  "fnd-txc-history-helps"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "txn-categorization/fnd-txc-history-leaks.md",
+ "sha": "0e7d02bdd44df85d8b09a4e7c8f0ab782fd97de721674fce90a0bea2763abed9",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

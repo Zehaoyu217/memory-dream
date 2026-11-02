@@ -1,0 +1,89 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-307",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-307"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "rs-placement-cutoff",
+   "type": "metric",
+   "label": "placement cutoff",
+   "as": [
+    "The placement cutoff that maximises total net recovery is predicted probability 0.18, not 0.10 or 0.25"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "net-recovery",
+   "type": "metric",
+   "label": "net recovery",
+   "as": [
+    "net recovery peaks at cutoff 0.18 at $1.94M",
+    "net recovery"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "commission-25pct",
+   "type": "term",
+   "label": "25% commission",
+   "as": [
+    "Result holds only with the 25% commission"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rs-placement-cutoff",
+   "type": "measured-by",
+   "label": "peaks at",
+   "o": "net-recovery",
+   "quote": "net recovery peaks at cutoff 0.18 at $1.94M",
+   "line": 6
+  },
+  {
+   "s": "exp-307",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "net-recovery",
+   "quote": "net recovery peaks at cutoff 0.18 at $1.94M",
+   "line": 6
+  },
+  {
+   "s": "rs-placement-cutoff",
+   "type": "other",
+   "label": "holds only with",
+   "o": "commission-25pct",
+   "quote": "Result holds only with the 25% commission",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "recovery-scoring/find-rs-placement-net.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "recovery-scoring/find-rs-placement-net.md",
+ "sha": "ff8693169b439ee06d759e64b63fc0ea45262132ff3524353f2268354357cecb",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

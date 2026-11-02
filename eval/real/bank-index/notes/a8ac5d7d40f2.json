@@ -1,0 +1,113 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "feat-xs-credit-limit-band",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-xs-credit-limit-band",
+    "credit-limit bands"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "xs-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "xs-gbm-v1",
+    "balance-proxy model"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "xs-holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "xs-holdout-2025q1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "balance-proxy",
+   "type": "other",
+   "label": "balance proxy",
+   "as": [
+    "the proxy"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "xs-gbm-v1",
+   "type": "uses",
+   "label": "added to",
+   "o": "feat-xs-credit-limit-band",
+   "quote": "Added feat-xs-credit-limit-band to the balance-proxy model",
+   "line": 6
+  },
+  {
+   "s": "xs-gbm-v1",
+   "type": "evaluated-on",
+   "label": "same holdout",
+   "o": "xs-holdout-2025q1",
+   "quote": "Same holdout (n=52,000)",
+   "line": 6
+  },
+  {
+   "s": "xs-gbm-v1",
+   "type": "measured-by",
+   "label": "AUC gain",
+   "o": "auc",
+   "quote": "AUC gain +0.002",
+   "line": 7
+  },
+  {
+   "s": "feat-xs-credit-limit-band",
+   "type": "other",
+   "label": "redundant with",
+   "o": "balance-proxy",
+   "quote": "The limit band is redundant with the proxy.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-xs-credit-limit-band",
+  "xs-gbm-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cross-sell-savings/exp-404-limit-band.md",
+ "sha": "a8ac5d7d40f2a90d2e326cf9d774aefc3f7c31250057d8388474a70cdd4d1728",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

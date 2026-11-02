@@ -1,0 +1,166 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-403",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-403"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-ror-churn-score",
+   "type": "feature",
+   "label": "churn score",
+   "as": [
+    "churn score"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-ror-offer-fatigue",
+   "type": "feature",
+   "label": "offer fatigue",
+   "as": [
+    "offer fatigue"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-ror-value-band-v1",
+   "type": "feature",
+   "label": "value band v1",
+   "as": [
+    "value band v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "lightgbm models",
+   "as": [
+    "LightGBM models"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift at the top 20%",
+   "as": [
+    "Uplift at the top 20%"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "qini",
+   "type": "metric",
+   "label": "qini",
+   "as": [
+    "Qini 0.36"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ror-uplift-v1",
+   "type": "model",
+   "label": "ror-uplift-v1",
+   "as": [
+    "ror-uplift-v1"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-403",
+   "type": "uses",
+   "label": "built on",
+   "o": "feat-ror-churn-score",
+   "quote": "Two LightGBM models on churn score, offer fatigue and value band v1.",
+   "line": 6
+  },
+  {
+   "s": "exp-403",
+   "type": "uses",
+   "label": "built on",
+   "o": "feat-ror-offer-fatigue",
+   "quote": "Two LightGBM models on churn score, offer fatigue and value band v1.",
+   "line": 6
+  },
+  {
+   "s": "exp-403",
+   "type": "uses",
+   "label": "built on",
+   "o": "feat-ror-value-band-v1",
+   "quote": "Two LightGBM models on churn score, offer fatigue and value band v1.",
+   "line": 6
+  },
+  {
+   "s": "exp-403",
+   "type": "uses",
+   "label": "fits models with",
+   "o": "lightgbm",
+   "quote": "Two LightGBM models on churn score, offer fatigue and value band v1.",
+   "line": 6
+  },
+  {
+   "s": "exp-403",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "uplift-at-20",
+   "quote": "Uplift at the top 20% by predicted uplift: 2.4pp; random targeting 1.0pp; Qini 0.36.",
+   "line": 7
+  },
+  {
+   "s": "exp-403",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "qini",
+   "quote": "Qini 0.36.",
+   "line": 7
+  },
+  {
+   "s": "exp-403",
+   "type": "other",
+   "label": "basis for",
+   "o": "ror-uplift-v1",
+   "quote": "Basis for ror-uplift-v1.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "fnd-ror-fatigue",
+  "feat-ror-churn-score",
+  "feat-ror-offer-fatigue",
+  "feat-ror-value-band-v1",
+  "ror-uplift-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "retention-offers-roi/exp-403.md",
+ "sha": "c22bf7eaeb520b793f47912bb569bf5492dcb88d2997f50f2f014e0e99d7b5c3",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

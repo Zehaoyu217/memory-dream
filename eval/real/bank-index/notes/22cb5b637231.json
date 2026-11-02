@@ -1,0 +1,128 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "feat-csb-deposit-volatility",
+   "type": "feature",
+   "label": "deposit volatility",
+   "as": [
+    "Deposit volatility"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "csb-lr-base",
+   "type": "model",
+   "label": "logistic baseline",
+   "as": [
+    "logistic baseline"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "csb-oot-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "csb-oot-2025q1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "90-day-labels",
+   "type": "term",
+   "label": "labels",
+   "as": [
+    "90-day labels"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "csb-xgb-v1",
+   "type": "model",
+   "label": "pilot model",
+   "as": [
+    "csb-xgb-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "churn-small-business",
+   "type": "model",
+   "label": "models",
+   "as": [
+    "churn-small-business"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-csb-deposit-volatility",
+   "type": "measured-by",
+   "label": "lift in",
+   "o": "auc",
+   "quote": "+0.021 AUC on the logistic baseline",
+   "line": 5
+  },
+  {
+   "s": "feat-csb-deposit-volatility",
+   "type": "evaluated-on",
+   "label": "basis",
+   "o": "csb-oot-2025q1",
+   "quote": "Basis: exp-203 on csb-oot-2025q1",
+   "line": 6
+  },
+  {
+   "s": "churn-small-business",
+   "type": "uses",
+   "label": "stays in",
+   "o": "feat-csb-deposit-volatility",
+   "quote": "it stays in every churn-small-business model",
+   "line": 7
+  },
+  {
+   "s": "feat-csb-deposit-volatility",
+   "type": "other",
+   "label": "reason for pilot of",
+   "o": "csb-xgb-v1",
+   "quote": "It is the reason csb-xgb-v1 went to pilot first",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-203",
+  "dec-csb-ship-xgb-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-small-business/fnd-csb-volatility-lift.md",
+ "sha": "22cb5b637231c1e22f848ebefb672a2a6895b5e46002e8736ea9f67193cbe0f7",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

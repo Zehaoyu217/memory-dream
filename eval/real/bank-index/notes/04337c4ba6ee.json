@@ -1,0 +1,128 @@
+{
+ "kind": "term",
+ "entities": [
+  {
+   "id": "attrition-label",
+   "type": "term",
+   "label": "attrition label",
+   "as": [
+    "Attrition label"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.churn_labels",
+   "type": "dataset",
+   "label": "churn flag table",
+   "as": [
+    "cards.churn_labels"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "app.sessions_daily",
+   "type": "dataset",
+   "label": "session gap source",
+   "as": [
+    "app.sessions_daily"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "data-eng-cards",
+   "type": "team",
+   "label": "owner",
+   "as": [
+    "data-eng-cards"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "base-rate",
+   "type": "metric",
+   "label": "base rate",
+   "as": [
+    "Base rate"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "2024-extract",
+   "type": "dataset",
+   "label": "extract",
+   "as": [
+    "2024 extract"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "active-accounts",
+   "type": "account",
+   "label": "active accounts",
+   "as": [
+    "active accounts"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "attrition-label",
+   "type": "uses",
+   "label": "churn flag from",
+   "o": "cards.churn_labels",
+   "quote": "Churn flag from `cards.churn_labels`",
+   "line": 6
+  },
+  {
+   "s": "attrition-label",
+   "type": "uses",
+   "label": "session gap from",
+   "o": "app.sessions_daily",
+   "quote": "Session gap from `app.sessions_daily`",
+   "line": 6
+  },
+  {
+   "s": "cards.churn_labels",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "data-eng-cards",
+   "quote": "owner data-eng-cards",
+   "line": 6
+  },
+  {
+   "s": "base-rate",
+   "type": "evaluated-on",
+   "label": "measured in",
+   "o": "2024-extract",
+   "quote": "Base rate in the 2024 extract",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-ae-sessions-daily"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "app-engagement/ds-ae-attrition-labels.md",
+ "sha": "04337c4ba6ee8431e69bda035d06b9de13fe55f49a869c52f087d09a7a2850ad",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

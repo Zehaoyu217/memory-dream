@@ -1,0 +1,146 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "sfc-hier-v3",
+   "type": "model",
+   "label": "segment volume forecast",
+   "as": [
+    "sfc-hier-v3"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "sfc-lgbm-v2",
+   "type": "model",
+   "label": "prior forecast",
+   "as": [
+    "sfc-lgbm-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "sfc-oot-2025h2",
+   "type": "dataset",
+   "label": "evaluation set",
+   "as": [
+    "sfc-oot-2025h2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "total MAPE 2.3%"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "q4-bias",
+   "type": "metric",
+   "label": "bias",
+   "as": [
+    "Q4 bias -0.4%"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "revenue-forecast-2026",
+   "type": "model",
+   "label": "revenue forecast",
+   "as": [
+    "revenue-forecast-2026"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "finance",
+   "type": "team",
+   "label": "finance",
+   "as": [
+    "finance"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "sfc-hier-v3",
+   "type": "replaces",
+   "label": "in place of",
+   "o": "sfc-lgbm-v2",
+   "quote": "in place of sfc-lgbm-v2",
+   "line": 6
+  },
+  {
+   "s": "sfc-hier-v3",
+   "type": "measured-by",
+   "label": "basis",
+   "o": "mape",
+   "quote": "total MAPE 2.3%",
+   "line": 7
+  },
+  {
+   "s": "sfc-hier-v3",
+   "type": "measured-by",
+   "label": "basis",
+   "o": "q4-bias",
+   "quote": "Q4 bias -0.4%",
+   "line": 7
+  },
+  {
+   "s": "sfc-hier-v3",
+   "type": "evaluated-on",
+   "label": "basis",
+   "o": "sfc-oot-2025h2",
+   "quote": "on sfc-oot-2025h2",
+   "line": 7
+  },
+  {
+   "s": "revenue-forecast-2026",
+   "type": "uses",
+   "label": "uses as input",
+   "o": "sfc-hier-v3",
+   "quote": "uses it as the spend volume input for interchange",
+   "line": 8
+  },
+  {
+   "s": "sfc-hier-v3",
+   "type": "other",
+   "label": "adopted for",
+   "o": "finance",
+   "quote": "adopt sfc-hier-v3 as the segment volume forecast for finance",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-207",
+  "fnd-sfc-q4-reconciled"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "spend-forecasting/dec-sfc-ship-hier-v3.md",
+ "sha": "b6509db1784c353a3cfe7c5b7bf7b4c3cb6574963e6a7e6e4deffcee40ae8f16",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,95 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "rev26-interchange-v1",
+   "type": "model",
+   "label": "interchange forecast",
+   "as": [
+    "rev26-interchange-v1",
+    "interchange forecast"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "exp-305",
+   "type": "other",
+   "label": "reconciled spend forecast",
+   "as": [
+    "exp-305",
+    "the reconciled spend forecast"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "volume-driver",
+   "type": "other",
+   "label": "volume driver",
+   "as": [
+    "volume driver",
+    "volume"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "feat-rev26-interchange-bps",
+   "type": "feature",
+   "label": "bps mix",
+   "as": [
+    "MCC-group bps mix",
+    "the bps mix"
+   ],
+   "lines": [
+    5,
+    6,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "volume-driver",
+   "type": "other",
+   "label": "explains variance of",
+   "o": "rev26-interchange-v1",
+   "quote": "About 70% of interchange forecast variance comes from volume",
+   "line": 5
+  },
+  {
+   "s": "feat-rev26-interchange-bps",
+   "type": "other",
+   "label": "explains variance of",
+   "o": "rev26-interchange-v1",
+   "quote": "the MCC-group bps mix about 30%",
+   "line": 6
+  },
+  {
+   "s": "exp-305",
+   "type": "other",
+   "label": "addresses",
+   "o": "volume-driver",
+   "quote": "hence the reconciled spend forecast (exp-305)",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "revenue-forecast-2026/fnd-rev26-volume-driven.md",
+ "sha": "460e93e58fa54ea10a2dcd82c5d52618476709c3716c3d6f30a7fb3281d1ec9a",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

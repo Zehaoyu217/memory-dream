@@ -1,0 +1,135 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "xs-gbm-v2",
+   "type": "model",
+   "label": "frozen model",
+   "as": [
+    "Frozen xs-gbm-v2",
+    "xs-gbm-v2"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "xs-oot-2026h1",
+   "type": "dataset",
+   "label": "eligible sample",
+   "as": [
+    "xs-oot-2026h1"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.70",
+    "AUC"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "holdout",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "the holdout"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "payroll-detection-rate",
+   "type": "metric",
+   "label": "detection rate",
+   "as": [
+    "payroll detection rate"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "payroll-flag",
+   "type": "feature",
+   "label": "payroll flag",
+   "as": [
+    "payroll flag"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feb-2026-descriptor-change",
+   "type": "other",
+   "label": "descriptor change",
+   "as": [
+    "February 2026 descriptor change"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "xs-gbm-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "xs-oot-2026h1",
+   "quote": "Frozen xs-gbm-v2 on xs-oot-2026h1 (210,000 eligible)",
+   "line": 6
+  },
+  {
+   "s": "xs-gbm-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.70, down from 0.73 on the holdout.",
+   "line": 6
+  },
+  {
+   "s": "payroll-flag",
+   "type": "measured-by",
+   "label": "signal measured by",
+   "o": "payroll-detection-rate",
+   "quote": "The payroll detection rate fell from 61% to 44%",
+   "line": 7
+  },
+  {
+   "s": "payroll-detection-rate",
+   "type": "other",
+   "label": "fell after",
+   "o": "feb-2026-descriptor-change",
+   "quote": "fell from 61% to 44% after the February 2026 descriptor change",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "xs-gbm-v2",
+  "ds-xs-oot-2026h1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cross-sell-savings/exp-407-oot-2026h1.md",
+ "sha": "36ed82d663d65d9f8520ddc08b43f6a7c04c20c70c40ef1bc19158c23a463efc",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

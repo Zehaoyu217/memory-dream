@@ -1,0 +1,124 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "feat-f26-device-age",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-f26-device-age: days since the device was first seen on the card"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-f25-device-age",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-f25-device-age"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "fraud26-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fraud26-gbm-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "psi",
+   "as": [
+    "PSI stable at 0.08"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cnp-transactions",
+   "type": "segment",
+   "label": "cnp table",
+   "as": [
+    "the 2026 CNP table"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fraud25-find-device-drift",
+   "type": "document",
+   "label": "finding",
+   "as": [
+    "fraud25-find-device-drift"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-f26-device-age",
+   "type": "uses",
+   "label": "recomputed on",
+   "o": "cnp-transactions",
+   "quote": "recomputed on the 2026 CNP table",
+   "line": 6
+  },
+  {
+   "s": "fraud26-gbm-v1",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-f26-device-age",
+   "quote": "Used in fraud26-gbm-v1, v2 and v3",
+   "line": 7
+  },
+  {
+   "s": "feat-f26-device-age",
+   "type": "measured-by",
+   "label": "PSI stable at",
+   "o": "psi",
+   "quote": "PSI stable at 0.08 for Jan-Jul 2026 (exp-208)",
+   "line": 7
+  },
+  {
+   "s": "feat-f26-device-age",
+   "type": "other",
+   "label": "same definition as",
+   "o": "feat-f25-device-age",
+   "quote": "Same definition as feat-f25-device-age",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fraud-2026/feat-f26-device-age.md",
+  "ds-f26-cnp-txn",
+  "fraud-2025/feat-f25-device-age",
+  "exp-208",
+  "fraud25-find-device-drift"
+ ],
+ "dropped": {
+  "entities": [
+   "fraud26-gbm-v2",
+   "fraud26-gbm-v3"
+  ],
+  "relations": 2
+ },
+ "path": "fraud-2026/feat-f26-device-age.md",
+ "sha": "6a8124b33d5cf1ffcef41cca399f5da8150a63bae90db7f72c7d4c7aa0a2f432",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

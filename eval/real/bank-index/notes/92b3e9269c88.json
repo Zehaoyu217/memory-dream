@@ -1,0 +1,150 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "fine-tuned-encoder",
+   "type": "model",
+   "label": "fine-tuned encoder",
+   "as": [
+    "The encoder",
+    "fine-tuned encoder"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "logistic-regression",
+   "type": "model",
+   "label": "fallback model",
+   "as": [
+    "logistic regression",
+    "Logistic regression"
+   ],
+   "lines": [
+    5,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro f1",
+   "as": [
+    "macro F1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "omar-haddad",
+   "type": "person",
+   "label": "compliance",
+   "as": [
+    "Omar Haddad"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "aisha-khan",
+   "type": "person",
+   "label": "mlops",
+   "as": [
+    "Aisha Khan"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "triage-assist",
+   "type": "other",
+   "label": "triage assist",
+   "as": [
+    "the triage assist"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fine-tuned-encoder",
+   "type": "measured-by",
+   "label": "beats by 0.06 on",
+   "o": "macro-f1",
+   "quote": "beats logistic regression by 0.06 macro F1",
+   "line": 6
+  },
+  {
+   "s": "fine-tuned-encoder",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "holdout-2025q4",
+   "quote": "on holdout-2025q4 without dispute link",
+   "line": 6
+  },
+  {
+   "s": "fine-tuned-encoder",
+   "type": "other",
+   "label": "beats",
+   "o": "logistic-regression",
+   "quote": "The encoder beats logistic regression",
+   "line": 6
+  },
+  {
+   "s": "logistic-regression",
+   "type": "other",
+   "label": "stays as fallback",
+   "o": "triage-assist",
+   "quote": "Logistic regression stays as the fallback model in the repo.",
+   "line": 8
+  },
+  {
+   "s": "fine-tuned-encoder",
+   "type": "owned-by",
+   "label": "agreed-by",
+   "o": "omar-haddad",
+   "quote": "Agreed with Omar Haddad (compliance) and Aisha Khan (MLOps)",
+   "line": 7
+  },
+  {
+   "s": "fine-tuned-encoder",
+   "type": "owned-by",
+   "label": "agreed-by",
+   "o": "aisha-khan",
+   "quote": "Agreed with Omar Haddad (compliance) and Aisha Khan (MLOps)",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-201",
+  "fnd-cc-coverage",
+  "cc-ft-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "complaint-classification/dec-cc-ft-v1.md",
+ "sha": "92b3e9269c88f12e281f4829aae2488f340eec68a0f2234afd1b7df2ab6cddd7",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,101 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "brier",
+   "type": "metric",
+   "label": "score",
+   "as": [
+    "Brier"
+   ],
+   "lines": [
+    3,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "isotonic-calibration",
+   "type": "term",
+   "label": "calibration method",
+   "as": [
+    "Isotonic calibration"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "training-split",
+   "type": "other",
+   "label": "training split",
+   "as": [
+    "the training split"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "scored-population",
+   "type": "other",
+   "label": "scored population",
+   "as": [
+    "the scored population"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "reliability-bins",
+   "type": "term",
+   "label": "reliability table",
+   "as": [
+    "10-bin reliability table",
+    "The reliability bins"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "isotonic-calibration",
+   "type": "other",
+   "label": "fitted on",
+   "o": "training-split",
+   "quote": "Isotonic calibration fitted on the training split",
+   "line": 5
+  },
+  {
+   "s": "brier",
+   "type": "other",
+   "label": "computed on",
+   "o": "scored-population",
+   "quote": "Brier is computed on the scored population after calibration",
+   "line": 6
+  },
+  {
+   "s": "reliability-bins",
+   "type": "other",
+   "label": "shows counts",
+   "o": "scored-population",
+   "quote": "The reliability bins show the count in each bin beside the observed and predicted rates.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "howto/brier-score-calibration"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/brier-isotonic-bins.md",
+ "sha": "34d91f76ddea3d8bf0d582602f9e48bd00901a66a97e3506637092a3cbf542dd",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

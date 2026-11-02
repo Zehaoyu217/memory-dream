@@ -1,0 +1,98 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-pbs-interest-paid",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-pbs-interest-paid",
+    "interest charged and paid over 12 months, scaled by limit"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "pbs-gmm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "pbs-gmm-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "pbs-gmm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "pbs-gmm-v3"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "revolver-group",
+   "type": "segment",
+   "label": "group",
+   "as": [
+    "revolver group"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "pay-ratio",
+   "type": "feature",
+   "label": "pay ratio",
+   "as": [
+    "pay ratio"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "pbs-gmm-v2",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-pbs-interest-paid",
+   "quote": "Used in pbs-gmm-v2 and pbs-gmm-v3.",
+   "line": 8
+  },
+  {
+   "s": "pbs-gmm-v3",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-pbs-interest-paid",
+   "quote": "Used in pbs-gmm-v2 and pbs-gmm-v3.",
+   "line": 8
+  },
+  {
+   "s": "feat-pbs-interest-paid",
+   "type": "other",
+   "label": "adds signal for",
+   "o": "revolver-group",
+   "quote": "Adds signal for the revolver group that the pay ratio cannot separate from convenience users.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-pbs-statement-balances"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "payment-behavior-segments/feat-pbs-interest-paid.md",
+ "sha": "8724a79d62472990f3ae6553c47b558f19e260935d6dfc56c5bf2f675a4a3b0f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,102 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "label-maturity-60d",
+   "type": "policy",
+   "label": "decision",
+   "as": [
+    "Train and evaluate only on fraud labels at least 60 days old",
+    "drop labels younger than 60 days from training and evaluation"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "fraud26-gbm-v2",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "fraud26-gbm-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fraud26-gbm-v1",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "immature-labels",
+   "type": "term",
+   "label": "basis",
+   "as": [
+    "immature labels"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "label-maturity-60d",
+   "type": "other",
+   "label": "applies to",
+   "o": "fraud26-gbm-v2",
+   "quote": "Applies to fraud26-gbm-v2 onward",
+   "line": 8
+  },
+  {
+   "s": "fraud26-gbm-v1",
+   "type": "other",
+   "label": "noted as biased",
+   "o": "label-maturity-60d",
+   "quote": "v1 is noted as biased",
+   "line": 8
+  },
+  {
+   "s": "immature-labels",
+   "type": "other",
+   "label": "understates",
+   "o": "auc",
+   "quote": "showed a 0.023 AUC understatement from immature labels",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fraud26-find-label-bias",
+  "exp-202",
+  "q-f26-label-lag",
+  "exp-201"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2026/dec-f26-maturity-60d.md",
+ "sha": "085b9fccb7ff1dd7a3f25d71d3d5ecc5831ff1a37c731b2be06d32d29dd6403e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

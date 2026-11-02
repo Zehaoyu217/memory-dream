@@ -1,0 +1,65 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "authorisation extract",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "data-eng-cards",
+   "type": "team",
+   "label": "owner team",
+   "as": [
+    "data-eng-cards"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "duplicate-txn-id-rows",
+   "type": "other",
+   "label": "known issue",
+   "as": [
+    "duplicate txn_id rows"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cards.txn_daily",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "data-eng-cards",
+   "quote": "owned by data-eng-cards",
+   "line": 5
+  },
+  {
+   "s": "cards.txn_daily",
+   "type": "other",
+   "label": "has known issue",
+   "o": "duplicate-txn-id-rows",
+   "quote": "Known issues: late partitions and duplicate txn_id rows.",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "data-quality-txn/ds-dq-txn-daily.md",
+ "sha": "8f5c41e457d4efd886795a1a2a6c5c2bceb4958dcca0c885cbc6a4278afa7526",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,98 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "channel-one-hot",
+   "type": "feature",
+   "label": "channel one-hot",
+   "as": [
+    "Channel one-hot"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "hour-of-day-bucket",
+   "type": "feature",
+   "label": "hour-of-day bucket",
+   "as": [
+    "hour-of-day bucket"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "complaints.tickets_raw",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "complaints.tickets_raw"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "logistic-model",
+   "type": "model",
+   "label": "logistic model",
+   "as": [
+    "logistic model"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro f1",
+   "as": [
+    "macro F1"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "channel-one-hot",
+   "type": "uses",
+   "label": "from",
+   "o": "complaints.tickets_raw",
+   "quote": "Channels from `complaints.tickets_raw`",
+   "line": 6
+  },
+  {
+   "s": "logistic-model",
+   "type": "uses",
+   "label": "stays in",
+   "o": "channel-one-hot",
+   "quote": "it is cheap, so it stays in the logistic model",
+   "line": 7
+  },
+  {
+   "s": "channel-one-hot",
+   "type": "measured-by",
+   "label": "costs",
+   "o": "macro-f1",
+   "quote": "Dropping channel costs only 0.002 macro F1",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-cc-tickets-raw",
+  "fnd-cc-channel-null"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "complaint-classification/feat-cc-channel-v1.md",
+ "sha": "15f42025ec833fd2ad64a9b7de05ee42974f894ce93f0f7c9ae800b038ee433f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

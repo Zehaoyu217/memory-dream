@@ -1,0 +1,93 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "fraud26-oot-2025q4",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "fraud26-oot-2025q4"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "velocity-v2",
+   "type": "feature",
+   "label": "velocity windows",
+   "as": [
+    "velocity-v2",
+    "Velocity-v2 windows"
+   ],
+   "lines": [
+    2,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "velocity-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "Velocity-v2 windows closed at authorisation time: AUC 0.88, KS 0.61.",
+   "line": 7
+  },
+  {
+   "s": "velocity-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "ks",
+   "quote": "Velocity-v2 windows closed at authorisation time: AUC 0.88, KS 0.61.",
+   "line": 7
+  },
+  {
+   "s": "velocity-v2",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "fraud26-oot-2025q4",
+   "quote": "Same eval set: fraud26-oot-2025q4",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-203",
+  "feat-f26-velocity-v2",
+  "fraud26-find-velocity-leak"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2026/exp-204.md",
+ "sha": "fb4e14ae93359aa0bb872162f36ef4e3183c5210a86c7e2d5cf73179b7a43a2b",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

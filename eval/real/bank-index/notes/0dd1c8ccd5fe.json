@@ -1,0 +1,69 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "feature PSI"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "psi-page-alert",
+   "type": "other",
+   "label": "alert page",
+   "as": [
+    "0.25 page"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "labelled-incidents",
+   "type": "other",
+   "label": "labelled incidents",
+   "as": [
+    "real incidents"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "psi-page-alert",
+   "type": "measured-by",
+   "label": "pages on",
+   "o": "psi",
+   "quote": "a 0.25 page on feature PSI",
+   "line": 6
+  },
+  {
+   "s": "psi-page-alert",
+   "type": "other",
+   "label": "caught",
+   "o": "labelled-incidents",
+   "quote": "caught 16 of 19 real incidents",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-202",
+  "fnd-psi-alert-bars-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "model-monitoring/fnd-psi-alert-bars.md",
+ "sha": "0dd1c8ccd5feb45aa5106fc3486922321b5f012951e4bdc70d3fc95163997655",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

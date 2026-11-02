@@ -1,0 +1,263 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "x-learner",
+   "type": "model",
+   "label": "x-learner",
+   "as": [
+    "X-learner"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "t-learner",
+   "type": "model",
+   "label": "t-learner",
+   "as": [
+    "T-learner"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "rdm-oot-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Holdout rdm-oot-2025q1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift@20%",
+   "as": [
+    "uplift@20% 3.6pp"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "qini",
+   "type": "metric",
+   "label": "qini",
+   "as": [
+    "Qini 0.47",
+    "Qini 0.44"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-rdm-last-activity-v2",
+   "type": "feature",
+   "label": "last-activity v2",
+   "as": [
+    "last-activity v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-rdm-prior-response",
+   "type": "feature",
+   "label": "prior response",
+   "as": [
+    "prior response"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-rdm-balance-band",
+   "type": "feature",
+   "label": "balance band",
+   "as": [
+    "balance band"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "app-installed",
+   "type": "feature",
+   "label": "app installed",
+   "as": [
+    "app installed"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "consent-corrected-channel",
+   "type": "feature",
+   "label": "consent-corrected channel",
+   "as": [
+    "consent-corrected channel"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "x-learner",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-rdm-last-activity-v2",
+   "quote": "Both models use last-activity v2, prior response, balance band, app installed and the consent-corrected channel.",
+   "line": 6
+  },
+  {
+   "s": "x-learner",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-rdm-prior-response",
+   "quote": "Both models use last-activity v2, prior response, balance band, app installed and the consent-corrected channel.",
+   "line": 6
+  },
+  {
+   "s": "x-learner",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-rdm-balance-band",
+   "quote": "Both models use last-activity v2, prior response, balance band, app installed and the consent-corrected channel.",
+   "line": 6
+  },
+  {
+   "s": "x-learner",
+   "type": "uses",
+   "label": "uses",
+   "o": "app-installed",
+   "quote": "Both models use last-activity v2, prior response, balance band, app installed and the consent-corrected channel.",
+   "line": 6
+  },
+  {
+   "s": "x-learner",
+   "type": "uses",
+   "label": "uses",
+   "o": "consent-corrected-channel",
+   "quote": "Both models use last-activity v2, prior response, balance band, app installed and the consent-corrected channel.",
+   "line": 6
+  },
+  {
+   "s": "t-learner",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-rdm-last-activity-v2",
+   "quote": "Both models use last-activity v2, prior response, balance band, app installed and the consent-corrected channel.",
+   "line": 6
+  },
+  {
+   "s": "t-learner",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-rdm-prior-response",
+   "quote": "Both models use last-activity v2, prior response, balance band, app installed and the consent-corrected channel.",
+   "line": 6
+  },
+  {
+   "s": "t-learner",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-rdm-balance-band",
+   "quote": "Both models use last-activity v2, prior response, balance band, app installed and the consent-corrected channel.",
+   "line": 6
+  },
+  {
+   "s": "t-learner",
+   "type": "uses",
+   "label": "uses",
+   "o": "app-installed",
+   "quote": "Both models use last-activity v2, prior response, balance band, app installed and the consent-corrected channel.",
+   "line": 6
+  },
+  {
+   "s": "t-learner",
+   "type": "uses",
+   "label": "uses",
+   "o": "consent-corrected-channel",
+   "quote": "Both models use last-activity v2, prior response, balance band, app installed and the consent-corrected channel.",
+   "line": 6
+  },
+  {
+   "s": "x-learner",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "rdm-oot-2025q1",
+   "quote": "Holdout rdm-oot-2025q1: X-learner uplift@20% 3.6pp, Qini 0.47",
+   "line": 7
+  },
+  {
+   "s": "t-learner",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "rdm-oot-2025q1",
+   "quote": "T-learner 3.0pp, Qini 0.44.",
+   "line": 7
+  },
+  {
+   "s": "x-learner",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "uplift-at-20",
+   "quote": "X-learner uplift@20% 3.6pp, Qini 0.47",
+   "line": 7
+  },
+  {
+   "s": "t-learner",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "uplift-at-20",
+   "quote": "T-learner 3.0pp, Qini 0.44.",
+   "line": 7
+  },
+  {
+   "s": "x-learner",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "qini",
+   "quote": "X-learner uplift@20% 3.6pp, Qini 0.47",
+   "line": 7
+  },
+  {
+   "s": "t-learner",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "qini",
+   "quote": "T-learner 3.0pp, Qini 0.44.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-305",
+  "exp-306",
+  "rdm-uplift-v1",
+  "rdm-uplift-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reactivation-dormant/exp-307.md",
+ "sha": "aa1131fa69c746a54f4cf9ab6db62d6d0756ce7a05993f80009733ea386f8702",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

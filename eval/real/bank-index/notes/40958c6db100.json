@@ -1,0 +1,87 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "retention-cohorts",
+   "type": "term",
+   "label": "retention cohorts",
+   "as": [
+    "Retention cohorts"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "open_month",
+   "type": "feature",
+   "label": "column",
+   "as": [
+    "`open_month`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "month-1-retention",
+   "type": "metric",
+   "label": "retention metric",
+   "as": [
+    "month-1 retention"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "retention-cohorts",
+   "type": "uses",
+   "label": "grouped by",
+   "o": "open_month",
+   "quote": "Retention cohorts were grouped by `open_month`",
+   "line": 5
+  },
+  {
+   "s": "open_month",
+   "type": "part-of",
+   "label": "from",
+   "o": "cards.accounts_monthly",
+   "quote": "`open_month` from `cards.accounts_monthly`",
+   "line": 5
+  },
+  {
+   "s": "retention-cohorts",
+   "type": "measured-by",
+   "label": "read about 4 points high",
+   "o": "month-1-retention",
+   "quote": "month-1 retention for the 2024 cohorts read about 4 points high",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "howto/cohort-by-first-statement"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/cohort-by-account-open.md",
+ "sha": "40958c6db100f68b8279159a4e09c4c93fecef4ee0f49eaf656627543a85ac51",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,118 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-404",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-404"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "kappa",
+   "type": "metric",
+   "label": "agreement score",
+   "as": [
+    "kappa 0.83"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fraud-labels-rebuild",
+   "type": "dataset",
+   "label": "rebuilt fraud labels",
+   "as": [
+    "rebuilt fraud labels"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fraud-labels-legacy",
+   "type": "dataset",
+   "label": "legacy fraud labels",
+   "as": [
+    "Legacy and rebuilt fraud labels"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "category-b",
+   "type": "term",
+   "label": "label category",
+   "as": [
+    "category B"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "set-a-labels",
+   "type": "term",
+   "label": "label set",
+   "as": [
+    "set A labels"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud-labels-legacy",
+   "type": "measured-by",
+   "label": "agree at",
+   "o": "kappa",
+   "quote": "Legacy and rebuilt fraud labels agree at kappa 0.83",
+   "line": 5
+  },
+  {
+   "s": "fraud-labels-rebuild",
+   "type": "measured-by",
+   "label": "agree at",
+   "o": "kappa",
+   "quote": "Legacy and rebuilt fraud labels agree at kappa 0.83",
+   "line": 5
+  },
+  {
+   "s": "exp-404",
+   "type": "other",
+   "label": "found disagreements",
+   "o": "category-b",
+   "quote": "nearly all of them category B cases",
+   "line": 6
+  },
+  {
+   "s": "fraud-labels-rebuild",
+   "type": "other",
+   "label": "does not change",
+   "o": "set-a-labels",
+   "quote": "The rebuild does not change the set A labels",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-404"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "label-pipeline-rebuild/fnd-label-agreement.md",
+ "sha": "6d3beaa31bd12a60475f0e505c3d7554d0eb7b65e2a36ce35caad39b2c0acc0f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

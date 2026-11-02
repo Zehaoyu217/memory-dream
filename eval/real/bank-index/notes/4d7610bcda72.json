@@ -1,0 +1,88 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "compliance.aml_dispositions",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`compliance.aml_dispositions`"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "sar-referral-rate",
+   "type": "metric",
+   "label": "sar referral rate",
+   "as": [
+    "SAR referral rate 1.9% of alerts"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "structuring",
+   "type": "segment",
+   "label": "structuring alerts",
+   "as": [
+    "structuring alone 5.9%"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-aml-alerts",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "[ds-aml-alerts]"
+   ],
+   "lines": [
+    2
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "compliance.aml_dispositions",
+   "type": "measured-by",
+   "label": "referral rate",
+   "o": "sar-referral-rate",
+   "quote": "Overall SAR referral rate 1.9% of alerts",
+   "line": 7
+  },
+  {
+   "s": "structuring",
+   "type": "measured-by",
+   "label": "referral rate",
+   "o": "sar-referral-rate",
+   "quote": "structuring alone 5.9%",
+   "line": 7
+  },
+  {
+   "s": "compliance.aml_dispositions",
+   "type": "other",
+   "label": "lags alerts by",
+   "o": "compliance.aml_dispositions",
+   "quote": "Dispositions lag alerts by 10 to 30 days",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "aml-find-fp-baseline",
+  "aml-alerts/ds-aml-dispositions.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "aml-alerts/ds-aml-dispositions.md",
+ "sha": "4d7610bcda721bc526c2477d43e793ebb095619e905c2601f04dddc9ddb31c61",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

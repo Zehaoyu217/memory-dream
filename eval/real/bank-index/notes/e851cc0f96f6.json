@@ -1,0 +1,109 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "feat-f25-hour-band",
+   "type": "feature",
+   "label": "hour band",
+   "as": [
+    "hour band"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "fraud-v2",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "v2 AUC",
+    "v2"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.911"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.66"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-f25-hour-band",
+   "type": "part-of",
+   "label": "kept in",
+   "o": "fraud-v2",
+   "quote": "Kept in v2 because removing it gives no benefit",
+   "line": 8
+  },
+  {
+   "s": "fraud-v2",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "holdout-2025q1",
+   "quote": "Eval set: holdout-2025q1",
+   "line": 6
+  },
+  {
+   "s": "fraud-v2",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.911",
+   "line": 7
+  },
+  {
+   "s": "fraud-v2",
+   "type": "measured-by",
+   "label": "KS",
+   "o": "ks",
+   "quote": "KS 0.66",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-f25-hour-band",
+  "exp-104"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/exp-105.md",
+ "sha": "e851cc0f96f6b99c92824d07c330bcfe7225af311642bc7f837d42ea32b48e82",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

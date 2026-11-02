@@ -1,0 +1,97 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "limit-utilisation-feature",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "limit-utilisation feature"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.limits_history",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`cards.limits_history`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "credit-data",
+   "type": "team",
+   "label": "credit-data",
+   "as": [
+    "Credit-data"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "effective-date-semantics",
+   "type": "term",
+   "label": "semantics",
+   "as": [
+    "`effective_date` semantics"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "limit-utilisation-feature",
+   "type": "uses",
+   "label": "joined to",
+   "o": "cards.limits_history",
+   "quote": "The v1 join used the latest row in `cards.limits_history`.",
+   "line": 6
+  },
+  {
+   "s": "limit-utilisation-feature",
+   "type": "measured-by",
+   "label": "lost AUC",
+   "o": "auc",
+   "quote": "lose 0.03 AUC after the join fix",
+   "line": 5
+  },
+  {
+   "s": "effective-date-semantics",
+   "type": "other",
+   "label": "confirmed by",
+   "o": "credit-data",
+   "quote": "Credit-data confirmed the `effective_date` semantics.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "howto/limits-history-as-of-join"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/limit-asof-join-fix.md",
+ "sha": "e6d0942836203d5c16c354809b53343cf57e2a2504865f3e77aac74dab5ce99f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

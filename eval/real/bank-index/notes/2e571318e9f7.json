@@ -1,0 +1,89 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "net-charge-off",
+   "type": "term",
+   "label": "defined term",
+   "as": [
+    "net charge-off"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "gross-charge-off",
+   "type": "term",
+   "label": "defined term",
+   "as": [
+    "gross charge-off"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "recoveries",
+   "type": "term",
+   "label": "credited amount",
+   "as": [
+    "recoveries"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "loss-ledger",
+   "type": "account",
+   "label": "ledger",
+   "as": [
+    "loss ledger"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "net-charge-off",
+   "type": "other",
+   "label": "equals gross minus",
+   "o": "gross-charge-off",
+   "quote": "Net charge-off = gross charge-off minus recoveries credited to the loss ledger in the period",
+   "line": 6
+  },
+  {
+   "s": "net-charge-off",
+   "type": "uses",
+   "label": "subtracts",
+   "o": "recoveries",
+   "quote": "net charge-off subtracts recoveries",
+   "line": 5
+  },
+  {
+   "s": "recoveries",
+   "type": "stored-in",
+   "label": "credited to",
+   "o": "loss-ledger",
+   "quote": "recoveries credited to the loss ledger in the period",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "glossary/net-charge-off"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "corrections/net-charge-off-subtracts-recoveries.md",
+ "sha": "2e571318e9f74e6c0515c29d28b141b0332b9f7d6525c3257862fe2f7bc6f962",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

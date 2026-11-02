@@ -1,0 +1,212 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-107",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-107"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "cu-uplift-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cu-uplift-v3"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "top-20-percent",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "top 20%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "uplift",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "uplift"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "promise-to-pay",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "promise-to-pay"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cost-per-contact",
+   "type": "metric",
+   "label": "cost per contact",
+   "as": [
+    "Cost per contact"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "sms",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "SMS"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "call",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "call"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "dpd-1-29",
+   "type": "segment",
+   "label": "accounts",
+   "as": [
+    "1-29 DPD accounts"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dpd-1-7",
+   "type": "segment",
+   "label": "dpd band",
+   "as": [
+    "1-7 DPD"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "dpd-8-29",
+   "type": "segment",
+   "label": "dpd band",
+   "as": [
+    "8-29 DPD"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "top-20-percent",
+   "type": "other",
+   "label": "ranked by",
+   "o": "cu-uplift-v3",
+   "quote": "calling the top 20% by cu-uplift-v3",
+   "line": 6
+  },
+  {
+   "s": "exp-107",
+   "type": "measured-by",
+   "label": "yields",
+   "o": "uplift",
+   "quote": "yields uplift 0.036",
+   "line": 6
+  },
+  {
+   "s": "sms",
+   "type": "measured-by",
+   "label": "costs",
+   "o": "cost-per-contact",
+   "quote": "$0.37 for SMS",
+   "line": 6
+  },
+  {
+   "s": "call",
+   "type": "measured-by",
+   "label": "costs",
+   "o": "cost-per-contact",
+   "quote": "$4.10 for a call",
+   "line": 6
+  },
+  {
+   "s": "sms",
+   "type": "measured-by",
+   "label": "cost per PTP",
+   "o": "promise-to-pay",
+   "quote": "SMS costs about $12",
+   "line": 7
+  },
+  {
+   "s": "call",
+   "type": "measured-by",
+   "label": "cost per PTP",
+   "o": "promise-to-pay",
+   "quote": "a call about $114",
+   "line": 7
+  },
+  {
+   "s": "exp-107",
+   "type": "evaluated-on",
+   "label": "covers",
+   "o": "dpd-1-29",
+   "quote": "for 1-29 DPD accounts",
+   "line": 5
+  },
+  {
+   "s": "exp-107",
+   "type": "evaluated-on",
+   "label": "holds for",
+   "o": "dpd-1-7",
+   "quote": "Holds for 1-7 DPD",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "collections-channel-mix"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-uplift/find-cu-sms-cost.md",
+ "sha": "7eb8b8e8345a8227c45bce6d53b893162e891b4b5f5d23807624e56b5e7aa77e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -43,6 +43,17 @@ fuzzy search over titles, text and entity names (`/`). Deep links: `graph.html#n
 disagree, names that may be the same thing, odd or broken links, notes on their own), each with a "Copy question"
 button whose text you paste to the assistant; a picked note and each extracted fact have the same.
 
+## Typed links in `ask` (phase I)
+
+For a thing the question names by id, `ask` follows the index's typed links when the question asks about inputs or
+users (`uses`, `trained-on`, `part-of` cues: "what does X use", "inputs", "depends on", "built on", "what uses X"): two
+steps — what it is built from, what those are built from, what its predecessor was built from — through typed relations
+and `from:` lineage alike, each as a one-line pointer (header + `# ` line), at most 8 (`W["relation_lines"]`). Measured on
+the real index (RESULTS I3): dependency questions 0.853 → 0.920 of gold notes for +4.6% characters. Knobs for
+measurement: `MEMORY_RELATION_LINES=0` switches it off, `MEMORY_RELATION_MODE=cue|inputs|always`, `MEMORY_RELATION_HOPS=1|2`;
+`MEMORY_DEBUG=1` prints the walk. The real index of the bank rebuilds with no model from `eval/real/bank-index/`
+(`restore.py`, then `dream`).
+
 ## The domain: three registries, not the code
 
 `memory/KINDS.md` (kinds of note), `memory/TYPES.md` (types of thing) and `memory/EDGES.md` (types of link) are

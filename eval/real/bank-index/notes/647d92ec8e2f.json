@@ -1,0 +1,105 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "cards.limits_history",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.limits_history`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "credit-limit-utilisation",
+   "type": "feature",
+   "label": "utilisation measure",
+   "as": [
+    "Monthly credit-limit utilisation per account",
+    "Balance divided by limit per account per month"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "feat-sfc-util-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-sfc-util-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "rewards-segment",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "Rewards segment"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "owner-credit-data",
+   "type": "team",
+   "label": "table owner",
+   "as": [
+    "owner credit-data"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "credit-limit-utilisation",
+   "type": "uses",
+   "label": "derived from",
+   "o": "cards.limits_history",
+   "quote": "from `cards.limits_history`",
+   "line": 6
+  },
+  {
+   "s": "feat-sfc-util-v1",
+   "type": "uses",
+   "label": "uses",
+   "o": "credit-limit-utilisation",
+   "quote": "Used only by feat-sfc-util-v1",
+   "line": 8
+  },
+  {
+   "s": "feat-sfc-util-v1",
+   "type": "other",
+   "label": "used for",
+   "o": "rewards-segment",
+   "quote": "for the Rewards segment",
+   "line": 8
+  },
+  {
+   "s": "cards.limits_history",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "owner-credit-data",
+   "quote": "(owner credit-data)",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "spend-forecasting/ds-sfc-limits-util.md",
+ "sha": "647d92ec8e2f2325f634147dc9dd6dc86170e46de19e308115d14ea83f321b58",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

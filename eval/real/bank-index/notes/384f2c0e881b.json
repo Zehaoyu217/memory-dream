@@ -1,0 +1,135 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cu-bureau-delta",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-bureau-delta",
+    "feat-cu-bureau-delta is the 3-month change in bureau score"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-cu-cases-dpd",
+   "type": "person",
+   "label": "author",
+   "as": [
+    "[ds-cu-cases-dpd]"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`bureau.scores_monthly`"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "credit-data",
+   "type": "other",
+   "label": "data domain",
+   "as": [
+    "credit-data"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-106",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-106"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cu-bureau-delta",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "bureau.scores_monthly",
+   "quote": "Source: `bureau.scores_monthly` (credit-data), joined at the snapshot date.",
+   "line": 7
+  },
+  {
+   "s": "feat-cu-bureau-delta",
+   "type": "owned-by",
+   "label": "written by",
+   "o": "ds-cu-cases-dpd",
+   "quote": "from: [ds-cu-cases-dpd]",
+   "line": 2
+  },
+  {
+   "s": "feat-cu-bureau-delta",
+   "type": "measured-by",
+   "label": "adds +0.009",
+   "o": "auc",
+   "quote": "Adds +0.009 AUC",
+   "line": 9
+  },
+  {
+   "s": "feat-cu-bureau-delta",
+   "type": "measured-by",
+   "label": "adds +0.005",
+   "o": "uplift-at-20",
+   "quote": "+0.005 uplift@20%",
+   "line": 9
+  },
+  {
+   "s": "feat-cu-bureau-delta",
+   "type": "other",
+   "label": "adds to",
+   "o": "exp-106",
+   "quote": "Adds +0.009 AUC and +0.005 uplift@20% in exp-106.",
+   "line": 9
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-uplift/feat-cu-bureau-delta.md",
+ "sha": "384f2c0e881be6b3ceaf186d09032c1a87103ec80f0ba3ade04f1d42e06e8b80",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

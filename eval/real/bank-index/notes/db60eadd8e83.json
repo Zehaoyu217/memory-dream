@@ -1,0 +1,107 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-txc-descriptor-tokens-v2",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "feat-txc-descriptor-tokens-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-txc-descriptor-tokens-v1",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "raw-string v1 tokens"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-txc-normalise-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-txc-normalise-v2"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "txc-gbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "txc-gbm-v3"
+   ],
+   "lines": [
+    10
+   ]
+  },
+  {
+   "id": "2025-h2-training-split",
+   "type": "dataset",
+   "label": "training split",
+   "as": [
+    "2025-H2 training split"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-txc-descriptor-tokens-v2",
+   "type": "uses",
+   "label": "computed after",
+   "o": "feat-txc-normalise-v2",
+   "quote": "computed after feat-txc-normalise-v2",
+   "line": 7
+  },
+  {
+   "s": "feat-txc-descriptor-tokens-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "feat-txc-descriptor-tokens-v1",
+   "quote": "supersedes: [feat-txc-descriptor-tokens-v1]",
+   "line": 3
+  },
+  {
+   "s": "txc-gbm-v3",
+   "type": "uses",
+   "label": "takes input",
+   "o": "feat-txc-descriptor-tokens-v2",
+   "quote": "Input to txc-gbm-v3.",
+   "line": 10
+  },
+  {
+   "s": "feat-txc-descriptor-tokens-v2",
+   "type": "uses",
+   "label": "fit on",
+   "o": "2025-h2-training-split",
+   "quote": "Fit on the 2025-H2 training split only",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "feat-txc-descriptor-tokens-v1",
+  "feat-txc-normalise-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "txn-categorization/feat-txc-descriptor-tokens-v2.md",
+ "sha": "db60eadd8e837f6c83074fbbcbda1caa4e2746b6b7c8077ba502c7b1415c09d0",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

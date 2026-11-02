@@ -1,0 +1,106 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-rdm-app-installed",
+   "type": "feature",
+   "label": "binary flag",
+   "as": [
+    "feat-rdm-app-installed",
+    "app installed and push-capable flag"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "app.sessions_daily",
+   "type": "dataset",
+   "label": "device table",
+   "as": [
+    "app.sessions_daily"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "rdm-propensity-lr",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rdm-propensity-lr"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "rdm-uplift-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rdm-uplift-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "rdm-uplift-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rdm-uplift-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-rdm-app-installed",
+   "type": "uses",
+   "label": "from",
+   "o": "app.sessions_daily",
+   "quote": "app installed (from `app.sessions_daily` device table)",
+   "line": 6
+  },
+  {
+   "s": "rdm-propensity-lr",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-rdm-app-installed",
+   "quote": "Used in rdm-propensity-lr, rdm-uplift-v1 and rdm-uplift-v2.",
+   "line": 7
+  },
+  {
+   "s": "rdm-uplift-v1",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-rdm-app-installed",
+   "quote": "Used in rdm-propensity-lr, rdm-uplift-v1 and rdm-uplift-v2.",
+   "line": 7
+  },
+  {
+   "s": "rdm-uplift-v2",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-rdm-app-installed",
+   "quote": "Used in rdm-propensity-lr, rdm-uplift-v1 and rdm-uplift-v2.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-rdm-contact-channels"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reactivation-dormant/feat-rdm-app-installed.md",
+ "sha": "e1805f9dac468b675456676651de2ddf6cc897689527afb4fb735e94f998c782",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

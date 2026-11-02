@@ -1,0 +1,93 @@
+{
+ "kind": "term",
+ "entities": [
+  {
+   "id": "label-30p3m",
+   "type": "term",
+   "label": "label definition",
+   "as": [
+    "Label is 1 if the account reaches 30+ DPD within 3 months of the snapshot",
+    "Label:"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.payments_daily"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "current-accounts",
+   "type": "segment",
+   "label": "account population",
+   "as": [
+    "current accounts"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "early-delinquency-holdout-2024q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "early-delinquency-holdout-2024q4"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "bad-rate",
+   "type": "metric",
+   "label": "base rate",
+   "as": [
+    "Base rate"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "label-30p3m",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards.payments_daily",
+   "quote": "Built from `cards.payments_daily`.",
+   "line": 6
+  },
+  {
+   "s": "bad-rate",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "early-delinquency-holdout-2024q4",
+   "quote": "Base rate on early-delinquency-holdout-2024q4: 3.4%",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-ed-current-base"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "early-delinquency/ds-ed-label-30p3m.md",
+ "sha": "17bb3c5b0f0d78c80aecad0c0cbe1bd3772a00a4f7181faa021f63815c41dc4e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

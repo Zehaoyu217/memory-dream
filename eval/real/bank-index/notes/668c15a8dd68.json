@@ -1,0 +1,87 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-pbs-pay-ratio-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-pbs-pay-ratio-v1: payment divided by statement balance, 12-month mean and standard deviation"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "pbs-kmeans-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "pbs-kmeans-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "transactors",
+   "type": "term",
+   "label": "segment concept",
+   "as": [
+    "transactors (ratio near 1)"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "revolvers",
+   "type": "term",
+   "label": "segment concept",
+   "as": [
+    "revolvers (ratio well below 1)"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "pbs-kmeans-v1",
+   "type": "uses",
+   "label": "takes as input",
+   "o": "feat-pbs-pay-ratio-v1",
+   "quote": "Input to every pbs model from pbs-kmeans-v1 onward.",
+   "line": 8
+  },
+  {
+   "s": "feat-pbs-pay-ratio-v1",
+   "type": "other",
+   "label": "separates",
+   "o": "transactors",
+   "quote": "The core axis separating transactors (ratio near 1) from revolvers (ratio well below 1).",
+   "line": 7
+  },
+  {
+   "s": "feat-pbs-pay-ratio-v1",
+   "type": "other",
+   "label": "separates",
+   "o": "revolvers",
+   "quote": "The core axis separating transactors (ratio near 1) from revolvers (ratio well below 1).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-pbs-payments-12m",
+  "ds-pbs-statement-balances"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "payment-behavior-segments/feat-pbs-pay-ratio-v1.md",
+ "sha": "668c15a8dd686f40315c421c8be326e06e51f04dc87131d526c9a230e53968c2",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

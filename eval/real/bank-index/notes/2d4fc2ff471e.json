@@ -1,0 +1,93 @@
+{
+ "kind": "note",
+ "entities": [
+  {
+   "id": "mq3-uplift-tlearner-v1",
+   "type": "model",
+   "label": "t-learner model",
+   "as": [
+    "mq3-uplift-tlearner-v1: T-learner on treated and control, uplift@20% of 2.1x",
+    "Separate outcome models for treated and control accounts on the Q2 RCT"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "mq3-uplift-xl-v2",
+   "type": "model",
+   "label": "x-learner model",
+   "as": [
+    "Superseded by mq3-uplift-xl-v2 (X-learner) for Q3 targeting."
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "q2 rct",
+   "as": [
+    "Eval on a 30% split of the Q2 RCT (n=330,000, including about 33,000 controls)."
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift@20%",
+   "as": [
+    "uplift@20% of 2.1x",
+    "Top 20% gain 2.1x the average incremental spend."
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mq3-uplift-tlearner-v1",
+   "type": "evaluated-on",
+   "label": "eval on 30% split",
+   "o": "holdout-2025q4",
+   "quote": "Eval on a 30% split of the Q2 RCT (n=330,000, including about 33,000 controls).",
+   "line": 8
+  },
+  {
+   "s": "mq3-uplift-tlearner-v1",
+   "type": "measured-by",
+   "label": "uplift@20%",
+   "o": "uplift-at-20",
+   "quote": "uplift@20% of 2.1x",
+   "line": 6
+  },
+  {
+   "s": "mq3-uplift-xl-v2",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "mq3-uplift-tlearner-v1",
+   "quote": "Superseded by mq3-uplift-xl-v2 (X-learner) for Q3 targeting.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "ds-mq3-q2-rct",
+  "feat-mq3-recency-v1",
+  "feat-mq3-app-sessions-30d",
+  "feat-mq3-prior-treat"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "marketing-uplift-q3/mq3-uplift-tlearner-v1.md",
+ "sha": "2d4fc2ff471e1776d1a39f993f6d8062646aee708cda00ebfeab7d9fdb171645",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

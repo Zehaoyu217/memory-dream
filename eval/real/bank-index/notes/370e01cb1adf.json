@@ -1,0 +1,132 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-101",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-101"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "fnd-parity-post-fix",
+   "type": "document",
+   "label": "parity note",
+   "as": [
+    "fnd-parity-post-fix"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-102",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-102"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feature-store",
+   "type": "system",
+   "label": "feature store",
+   "as": [
+    "the store",
+    "store"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "legacy-notebooks",
+   "type": "other",
+   "label": "legacy notebooks",
+   "as": [
+    "legacy",
+    "the notebooks"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "local-time-windows",
+   "type": "term",
+   "label": "local-time windows",
+   "as": [
+    "local-time windows",
+    "month-end local-time windows"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "payment-lag",
+   "type": "metric",
+   "label": "payment lag",
+   "as": [
+    "payment lag"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feature-store",
+   "type": "other",
+   "label": "disagrees with",
+   "o": "legacy-notebooks",
+   "quote": "the store and legacy values disagree on 13 features",
+   "line": 6
+  },
+  {
+   "s": "local-time-windows",
+   "type": "other",
+   "label": "main cause of",
+   "o": "feature-store",
+   "quote": "local-time windows are the main cause",
+   "line": 5
+  },
+  {
+   "s": "exp-102",
+   "type": "other",
+   "label": "confirmed",
+   "o": "local-time-windows",
+   "quote": "Confirmed in exp-102.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-parity-post-fix",
+  "exp-101",
+  "exp-102"
+ ],
+ "dropped": {
+  "entities": [
+   "fnd-parity-pre-fix"
+  ],
+  "relations": 1
+ },
+ "path": "feature-store-migration/fnd-parity-pre-fix.md",
+ "sha": "370e01cb1adfe8f58af421a5ebf154754442272f71281a5946e3f8c6de8b66ce",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

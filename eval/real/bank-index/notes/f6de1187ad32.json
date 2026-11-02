@@ -1,0 +1,113 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "randomised-push-holdout",
+   "type": "term",
+   "label": "randomised holdout",
+   "as": [
+    "Randomised push holdout",
+    "randomised holdout"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "holdout-accounts",
+   "type": "segment",
+   "label": "holdout group",
+   "as": [
+    "10 percent randomised holdout"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "treated-accounts",
+   "type": "segment",
+   "label": "treated accounts",
+   "as": [
+    "Treated accounts"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "sessions",
+   "type": "metric",
+   "label": "sessions",
+   "as": [
+    "+0.2 percent sessions over 28 days"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "open-rate-correlation",
+   "type": "metric",
+   "label": "open-rate correlation",
+   "as": [
+    "open-rate correlation of 0.31"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "reverse-causation",
+   "type": "term",
+   "label": "reverse causation",
+   "as": [
+    "reverse causation"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "treated-accounts",
+   "type": "measured-by",
+   "label": "averaged",
+   "o": "sessions",
+   "quote": "Treated accounts averaged +0.2 percent sessions over 28 days against the holdout.",
+   "line": 7
+  },
+  {
+   "s": "treated-accounts",
+   "type": "other",
+   "label": "compared against",
+   "o": "holdout-accounts",
+   "quote": "Treated accounts averaged +0.2 percent sessions over 28 days against the holdout.",
+   "line": 7
+  },
+  {
+   "s": "open-rate-correlation",
+   "type": "other",
+   "label": "is mostly",
+   "o": "reverse-causation",
+   "quote": "The open-rate correlation of 0.31 is therefore mostly reverse causation.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-ae-push-null",
+  "ds-ae-push-log",
+  "feat-ae-push-open-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "app-engagement/exp-503.md",
+ "sha": "f6de1187ad32a7c7879fe8d4c8a276257ed223a94ff9dde557dbc16f0935e9a1",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

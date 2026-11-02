@@ -1,0 +1,127 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "txc-charcnn-v1",
+   "type": "model",
+   "label": "char cnn",
+   "as": [
+    "1D char CNN"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro-f1",
+   "as": [
+    "Macro-F1"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "accuracy",
+   "type": "metric",
+   "label": "accuracy",
+   "as": [
+    "accuracy"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "p95-latency",
+   "type": "metric",
+   "label": "p95 latency",
+   "as": [
+    "p95 latency"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "lightgbm",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "txc-charcnn-v1",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "holdout-2025q2",
+   "quote": "scored on holdout-2025q2 (n=2,000)",
+   "line": 6
+  },
+  {
+   "s": "txc-charcnn-v1",
+   "type": "measured-by",
+   "label": "gives",
+   "o": "macro-f1",
+   "quote": "Macro-F1 0.80, accuracy 0.86",
+   "line": 7
+  },
+  {
+   "s": "txc-charcnn-v1",
+   "type": "measured-by",
+   "label": "gives",
+   "o": "accuracy",
+   "quote": "Macro-F1 0.80, accuracy 0.86",
+   "line": 7
+  },
+  {
+   "s": "txc-charcnn-v1",
+   "type": "measured-by",
+   "label": "has p95 latency",
+   "o": "p95-latency",
+   "quote": "p95 latency 210 ms per 1,000 merchants on the batch tier",
+   "line": 7
+  },
+  {
+   "s": "lightgbm",
+   "type": "measured-by",
+   "label": "has p95 on same tier",
+   "o": "p95-latency",
+   "quote": "LightGBM p95 on the same tier: 9 ms.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "dec-txc-drop-charcnn",
+  "txc-charcnn-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "txn-categorization/exp-105.md",
+ "sha": "a6734664d5a5dfb1fd9e1d12477cfdd27c77ca0e5a0e9264ff97c1a38a9c366d",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

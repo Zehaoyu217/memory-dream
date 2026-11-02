@@ -1,0 +1,69 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "ead",
+   "type": "term",
+   "label": "ead formula",
+   "as": [
+    "EAD = balance + CCF x undrawn limit"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ccf",
+   "type": "metric",
+   "label": "ccf",
+   "as": [
+    "CCF = 45% from the 2025 LGD/EAD model",
+    "CCF"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "q3-2025-provision",
+   "type": "metric",
+   "label": "q3 2025 provision ead",
+   "as": [
+    "Q3 2025 provision EAD rose about 12%"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ead",
+   "type": "uses",
+   "label": "includes drawdown",
+   "o": "ccf",
+   "quote": "EAD = current balance + CCF x undrawn limit",
+   "line": 6
+  },
+  {
+   "s": "q3-2025-provision",
+   "type": "other",
+   "label": "affected by",
+   "o": "ead",
+   "quote": "Affected: Q3 2025 provision EAD rose about 12%",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "glossary/ead"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "corrections/ead-includes-drawdown.md",
+ "sha": "a72e4d83157daf51bc98343181e2010055df78048f548b62977cb81aaeb75c85",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

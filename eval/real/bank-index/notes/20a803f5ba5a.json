@@ -1,0 +1,113 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "clv-model-choice",
+   "type": "other",
+   "label": "decision question",
+   "as": [
+    "Should CLV use BG/NBD with Gamma-Gamma, or a gradient-boosted 36-month margin model?"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ben-carter",
+   "type": "person",
+   "label": "decision owner",
+   "as": [
+    "Ben Carter"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bg-nbd-gamma-gamma",
+   "type": "model",
+   "label": "classical model",
+   "as": [
+    "BG/NBD with Gamma-Gamma"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "lightgbm-36-month-margin-model",
+   "type": "model",
+   "label": "candidate model",
+   "as": [
+    "a LightGBM predicting net 36-month margin",
+    "a gradient-boosted 36-month margin model"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "36-month-margin",
+   "type": "metric",
+   "label": "margin per account",
+   "as": [
+    "36-month margin"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "clv-model-choice",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "ben-carter",
+   "quote": "Ben Carter (finance) owns the decision.",
+   "line": 6
+  },
+  {
+   "s": "clv-model-choice",
+   "type": "other",
+   "label": "candidate",
+   "o": "bg-nbd-gamma-gamma",
+   "quote": "Candidates: BG/NBD with Gamma-Gamma (classical)",
+   "line": 7
+  },
+  {
+   "s": "clv-model-choice",
+   "type": "other",
+   "label": "candidate",
+   "o": "lightgbm-36-month-margin-model",
+   "quote": "and a LightGBM predicting net 36-month margin.",
+   "line": 7
+  },
+  {
+   "s": "lightgbm-36-month-margin-model",
+   "type": "other",
+   "label": "predicts",
+   "o": "36-month-margin",
+   "quote": "a LightGBM predicting net 36-month margin",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-501",
+  "clv-bgnbd-v1",
+  "exp-503",
+  "clv-ml-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "customer-lifetime-value/q-clv-model-choice.md",
+ "sha": "20a803f5ba5a16f53adb0af70590a855b316c986ba6e91c767096c8a6d4ff62c",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

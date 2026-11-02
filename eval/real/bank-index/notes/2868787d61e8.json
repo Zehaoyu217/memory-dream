@@ -1,0 +1,148 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-cld-band-policy-2025",
+   "type": "policy",
+   "label": "decision",
+   "as": [
+    "Decision: decrease 25% for band C and 35% for band D, excluding hardship accounts, with a score floor of 640"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-cld-risk-band-v1",
+   "type": "feature",
+   "label": "risk band feature",
+   "as": [
+    "feat-cld-risk-band-v1"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "cld-gbm-v1",
+   "type": "model",
+   "label": "scores",
+   "as": [
+    "cld-gbm-v1"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "exp-201",
+   "type": "other",
+   "label": "pilot",
+   "as": [
+    "exp-201"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "exp-204",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-204"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "hardship-accounts",
+   "type": "segment",
+   "label": "excluded accounts",
+   "as": [
+    "hardship accounts"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "score-floor-640",
+   "type": "policy",
+   "label": "score floor",
+   "as": [
+    "score floor of 640"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-cld-band-policy-2025",
+   "type": "uses",
+   "label": "adopted on",
+   "o": "feat-cld-risk-band-v1",
+   "quote": "Adopted 2025-04-22 on feat-cld-risk-band-v1 and cld-gbm-v1 scores",
+   "line": 6
+  },
+  {
+   "s": "dec-cld-band-policy-2025",
+   "type": "uses",
+   "label": "adopted on",
+   "o": "cld-gbm-v1",
+   "quote": "Adopted 2025-04-22 on feat-cld-risk-band-v1 and cld-gbm-v1 scores",
+   "line": 6
+  },
+  {
+   "s": "dec-cld-band-policy-2025",
+   "type": "based-on",
+   "label": "derived from",
+   "o": "exp-201",
+   "quote": "from: [feat-cld-risk-band-v1, exp-201, cld-gbm-v1, exp-204]",
+   "line": 2
+  },
+  {
+   "s": "dec-cld-band-policy-2025",
+   "type": "based-on",
+   "label": "excluded per",
+   "o": "exp-204",
+   "quote": "hardship accounts excluded per exp-204",
+   "line": 6
+  },
+  {
+   "s": "dec-cld-band-policy-2025",
+   "type": "uses",
+   "label": "excludes",
+   "o": "hardship-accounts",
+   "quote": "excluding hardship accounts",
+   "line": 5
+  },
+  {
+   "s": "dec-cld-band-policy-2025",
+   "type": "uses",
+   "label": "sets floor",
+   "o": "score-floor-640",
+   "quote": "with the v8 score floor of 640 for any decrease",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-cld-band-policy-2026"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "limit-decrease-policy/dec-cld-band-policy-2025.md",
+ "sha": "2868787d61e89cc37760931627039c0938918b5b15c0adcfe59032a007354fa3",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

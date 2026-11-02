@@ -1,0 +1,120 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "cc-ft-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cc-ft-v1 probabilities"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "threshold-sweep",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "Threshold sweep"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auto-coding",
+   "type": "term",
+   "label": "concept",
+   "as": [
+    "auto-coding"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "coverage",
+   "type": "metric",
+   "label": "coverage",
+   "as": [
+    "coverage"
+   ],
+   "lines": [
+    5,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "precision",
+   "type": "metric",
+   "label": "precision",
+   "as": [
+    "0.95 precision"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cc-ft-v1",
+   "type": "evaluated-on",
+   "label": "swept on",
+   "o": "holdout-2025q4",
+   "quote": "cc-ft-v1 probabilities, sweep of confidence thresholds on holdout-2025q4",
+   "line": 6
+  },
+  {
+   "s": "threshold-sweep",
+   "type": "evaluated-on",
+   "label": "swept on",
+   "o": "holdout-2025q4",
+   "quote": "sweep of confidence thresholds on holdout-2025q4",
+   "line": 6
+  },
+  {
+   "s": "threshold-sweep",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "coverage",
+   "quote": "At 0.95 precision coverage is 58 percent",
+   "line": 7
+  },
+  {
+   "s": "threshold-sweep",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "precision",
+   "quote": "At 0.95 precision coverage is 58 percent",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-cc-coverage"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "complaint-classification/exp-206.md",
+ "sha": "074be697a18a87414b903b78341efac165f3e9ba24d12caee53b9bacd616a5cb",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

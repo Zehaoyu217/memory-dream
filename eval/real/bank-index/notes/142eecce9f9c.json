@@ -1,0 +1,108 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "c25-oot-2024h1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Holdout c25-oot-2024h1",
+    "c25-oot-2024h1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "churn-2025",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "churn-2025"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "exp-101",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-101"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "build-churn-labels",
+   "type": "term",
+   "label": "label function",
+   "as": [
+    "build_churn_labels(window=60)"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "churn-rate-60d",
+   "type": "metric",
+   "label": "churn rate",
+   "as": [
+    "60-day churn 4.1%"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "c25-oot-2024h1",
+   "type": "other",
+   "label": "test set for",
+   "o": "churn-2025",
+   "quote": "it is the test set for every churn-2025 model",
+   "line": 8
+  },
+  {
+   "s": "c25-oot-2024h1",
+   "type": "measured-by",
+   "label": "has churn rate",
+   "o": "churn-rate-60d",
+   "quote": "60-day churn 4.1%",
+   "line": 7
+  },
+  {
+   "s": "c25-oot-2024h1",
+   "type": "other",
+   "label": "labelled with",
+   "o": "build-churn-labels",
+   "quote": "Labelled with the same `build_churn_labels(window=60)` as training",
+   "line": 9
+  },
+  {
+   "s": "c25-oot-2024h1",
+   "type": "other",
+   "label": "not used before",
+   "o": "exp-101",
+   "quote": "Not used for feature choice before exp-101",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-c25-accounts-snapshot",
+  "ds-c25-churn-labels"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2025/ds-c25-oot-2024h1.md",
+ "sha": "142eecce9f9ce73491e141249853bf0faf3e199142146c04fa4f42462cfca8bf",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

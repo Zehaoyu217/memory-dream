@@ -1,0 +1,83 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-velocity-v3",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-velocity-v3",
+    "30-day transaction velocity per account, pre-observation days only (v3)"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "feat-velocity-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-velocity-v2"
+   ],
+   "lines": [
+    3,
+    8
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "observation-date",
+   "type": "term",
+   "label": "observation date",
+   "as": [
+    "observation date"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-velocity-v3",
+   "type": "uses",
+   "label": "reads",
+   "o": "cards.txn_daily",
+   "quote": "Reads `cards.txn_daily`",
+   "line": 8
+  },
+  {
+   "s": "feat-velocity-v3",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "feat-velocity-v2",
+   "quote": "replaces feat-velocity-v2",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "dec-velocity-v3",
+  "feat-velocity-v2",
+  "features/velocity_v3.py"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2026/feat-velocity-v3.md",
+ "sha": "d86ccbe00b11dde992a516796fccc668718002b55a8f6a3237b78e43776d34a8",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

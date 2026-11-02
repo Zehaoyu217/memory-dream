@@ -1,0 +1,131 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "cc-ft-v2",
+   "type": "model",
+   "label": "fine-tuned encoder",
+   "as": [
+    "Fine-tuned encoder v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dispute-link-v2",
+   "type": "feature",
+   "label": "dispute link feature",
+   "as": [
+    "dispute link v2"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "split-billing-tickets",
+   "type": "dataset",
+   "label": "relabelled tickets",
+   "as": [
+    "1,240 relabelled split-billing tickets"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro f1",
+   "as": [
+    "Macro F1 0.84"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "split-billing-pair-f1",
+   "type": "metric",
+   "label": "split billing f1",
+   "as": [
+    "The split billing pair reaches F1 0.71"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cc-ft-v2",
+   "type": "uses",
+   "label": "concatenates",
+   "o": "dispute-link-v2",
+   "quote": "The classifier head concatenates dispute link v2",
+   "line": 7
+  },
+  {
+   "s": "cc-ft-v2",
+   "type": "trained-on",
+   "label": "training uses",
+   "o": "split-billing-tickets",
+   "quote": "Training uses the 1,240 relabelled split-billing tickets",
+   "line": 7
+  },
+  {
+   "s": "cc-ft-v2",
+   "type": "evaluated-on",
+   "label": "gives macro F1 on",
+   "o": "holdout-2025q4",
+   "quote": "Macro F1 0.84 on holdout-2025q4",
+   "line": 6
+  },
+  {
+   "s": "cc-ft-v2",
+   "type": "measured-by",
+   "label": "gives macro F1",
+   "o": "macro-f1",
+   "quote": "Macro F1 0.84 on holdout-2025q4",
+   "line": 6
+  },
+  {
+   "s": "cc-ft-v2",
+   "type": "measured-by",
+   "label": "reaches",
+   "o": "split-billing-pair-f1",
+   "quote": "The split billing pair reaches F1 0.71.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "cc-ft-v1",
+  "feat-cc-dispute-link-v2",
+  "ds-cc-taxonomy-v3",
+  "fnd-cc-taxonomy-drift",
+  "ds-cc-qa-labels"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "complaint-classification/cc-ft-v2.md",
+ "sha": "1bbcba6b25cb6348345ce3c1ff1ef42b6e60001d0b7441b23048b9c47ccc6c54",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

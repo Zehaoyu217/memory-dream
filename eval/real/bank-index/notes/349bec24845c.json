@@ -1,0 +1,132 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "ridge-model",
+   "type": "model",
+   "label": "ridge model",
+   "as": [
+    "exp-502 ridge",
+    "ridge MAPE"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "feat-trv-cross-border-share",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-trv-cross-border-share"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "exp-502",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-502"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "trv-bt-2025h1",
+   "type": "other",
+   "label": "backtest",
+   "as": [
+    "trv-bt-2025h1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "trv-ridge-v2",
+   "type": "model",
+   "label": "ridge version",
+   "as": [
+    "trv-ridge-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-503",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-503"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE 5.2%"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ridge-model",
+   "type": "uses",
+   "label": "adds feature",
+   "o": "feat-trv-cross-border-share",
+   "quote": "Adds feat-trv-cross-border-share to the exp-502 ridge",
+   "line": 6
+  },
+  {
+   "s": "ridge-model",
+   "type": "evaluated-on",
+   "label": "run on",
+   "o": "trv-bt-2025h1",
+   "quote": "Adds feat-trv-cross-border-share to the exp-502 ridge, trv-bt-2025h1.",
+   "line": 6
+  },
+  {
+   "s": "ridge-model",
+   "type": "measured-by",
+   "label": "MAPE is",
+   "o": "mape",
+   "quote": "MAPE 5.2%",
+   "line": 7
+  },
+  {
+   "s": "trv-ridge-v2",
+   "type": "uses",
+   "label": "based on",
+   "o": "exp-503",
+   "quote": "Basis for trv-ridge-v2.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-502",
+  "feat-trv-cross-border-share"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "travel-spend-recovery/exp-503.md",
+ "sha": "349bec24845c57f16470c5d9ddec2109a73f9e951335170f29a9a9ccd61b54fc",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

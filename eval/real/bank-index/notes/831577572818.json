@@ -1,0 +1,119 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "mrisk-oot-2026h1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "mrisk-oot-2026h1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "acquirer-watchlist",
+   "type": "dataset",
+   "label": "recall reference",
+   "as": [
+    "acquirer watchlist"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "v2",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "confirmed-fraud-merchants",
+   "type": "segment",
+   "label": "confirmed-fraud merchants",
+   "as": [
+    "confirmed-fraud merchants"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "precision-at-0.90",
+   "type": "metric",
+   "label": "precision",
+   "as": [
+    "precision 0.31"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "capture-rate",
+   "type": "metric",
+   "label": "capture rate",
+   "as": [
+    "captures 63%"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "mrisk-oot-2026h1",
+   "quote": "Eval set: mrisk-oot-2026h1 with the acquirer watchlist as recall reference (1,140 merchants).",
+   "line": 6
+  },
+  {
+   "s": "mrisk-oot-2026h1",
+   "type": "uses",
+   "label": "recall reference",
+   "o": "acquirer-watchlist",
+   "quote": "with the acquirer watchlist as recall reference",
+   "line": 6
+  },
+  {
+   "s": "v2",
+   "type": "measured-by",
+   "label": "captures",
+   "o": "capture-rate",
+   "quote": "captures 63% of confirmed-fraud merchants",
+   "line": 5
+  },
+  {
+   "s": "v2",
+   "type": "measured-by",
+   "label": "precision 0.31",
+   "o": "precision-at-0.90",
+   "quote": "precision 0.31",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-505",
+  "ds-mrisk-acq-watchlist",
+  "dec-mrisk-watchlist-07"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "merchant-risk/exp-506.md",
+ "sha": "83157757281853b285f225f3d5e6aa2c39d876f05c65367e06a0ecbd3e094c38",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

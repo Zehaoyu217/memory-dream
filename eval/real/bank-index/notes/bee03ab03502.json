@@ -1,0 +1,149 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "model framework",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "tf-idf-30s-features",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "30-second TF-IDF features"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "tenure",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "tenure"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ivr-path",
+   "type": "feature",
+   "label": "ivr path tokens",
+   "as": [
+    "IVR path tokens",
+    "IVR path"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro f1",
+   "as": [
+    "macro F1"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "card-replacement-vs-dispute",
+   "type": "other",
+   "label": "call intent split",
+   "as": [
+    "card replacement versus dispute split"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "lightgbm",
+   "type": "uses",
+   "label": "uses features",
+   "o": "tf-idf-30s-features",
+   "quote": "LightGBM with 30-second TF-IDF features and tenure",
+   "line": 6
+  },
+  {
+   "s": "lightgbm",
+   "type": "uses",
+   "label": "uses feature",
+   "o": "tenure",
+   "quote": "LightGBM with 30-second TF-IDF features and tenure",
+   "line": 6
+  },
+  {
+   "s": "lightgbm",
+   "type": "uses",
+   "label": "with and without",
+   "o": "ivr-path",
+   "quote": "with and without IVR path tokens",
+   "line": 6
+  },
+  {
+   "s": "lightgbm",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q4",
+   "quote": "(n = 380,000 calls, holdout-2025q4)",
+   "line": 7
+  },
+  {
+   "s": "lightgbm",
+   "type": "measured-by",
+   "label": "macro F1 result",
+   "o": "macro-f1",
+   "quote": "Without IVR path macro F1 0.708; with it 0.738",
+   "line": 7
+  },
+  {
+   "s": "ivr-path",
+   "type": "other",
+   "label": "largest gains in",
+   "o": "card-replacement-vs-dispute",
+   "quote": "Largest gains are in the card replacement versus dispute split",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-cr-ivr-path-v1",
+  "fnd-cr-ivr-helps"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/exp-103.md",
+ "sha": "bee03ab03502a114a8cba0fed3a31653f4be8b8da83476b6fce13c96180d9027",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

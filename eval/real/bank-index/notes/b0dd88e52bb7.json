@@ -1,0 +1,183 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "trv-ridge-v3",
+   "type": "model",
+   "label": "current travel model",
+   "as": [
+    "trv-ridge-v3",
+    "trv-ridge-v3 is the current travel model"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "trv-ridge-v2",
+   "type": "model",
+   "label": "previous model",
+   "as": [
+    "trv-ridge-v2",
+    "trv-ridge-v2 on the same set"
+   ],
+   "lines": [
+    2,
+    3,
+    8
+   ]
+  },
+  {
+   "id": "trv-bt-2025h2",
+   "type": "dataset",
+   "label": "backtest set",
+   "as": [
+    "trv-bt-2025h2"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "feat-trv-funnel-v2",
+   "type": "feature",
+   "label": "funnel feature",
+   "as": [
+    "feat-trv-funnel-v2"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "feat-trv-cross-border-share",
+   "type": "feature",
+   "label": "cross-border feature",
+   "as": [
+    "feat-trv-cross-border-share"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "feat-trv-seasonality-adj",
+   "type": "feature",
+   "label": "seasonality feature",
+   "as": [
+    "feat-trv-seasonality-adj"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "exp-505",
+   "type": "other",
+   "label": "comparison experiment",
+   "as": [
+    "exp-505"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-506",
+   "type": "other",
+   "label": "fx experiment",
+   "as": [
+    "exp-506"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE 4.3%"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "trv-ridge-v3",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "trv-ridge-v2",
+   "quote": "supersedes: [trv-ridge-v2]",
+   "line": 3
+  },
+  {
+   "s": "trv-ridge-v3",
+   "type": "uses",
+   "label": "Ridge regression on",
+   "o": "feat-trv-funnel-v2",
+   "quote": "Ridge regression on feat-trv-funnel-v2, feat-trv-cross-border-share and feat-trv-seasonality-adj.",
+   "line": 7
+  },
+  {
+   "s": "trv-ridge-v3",
+   "type": "uses",
+   "label": "Ridge regression on",
+   "o": "feat-trv-cross-border-share",
+   "quote": "Ridge regression on feat-trv-funnel-v2, feat-trv-cross-border-share and feat-trv-seasonality-adj.",
+   "line": 7
+  },
+  {
+   "s": "trv-ridge-v3",
+   "type": "uses",
+   "label": "Ridge regression on",
+   "o": "feat-trv-seasonality-adj",
+   "quote": "Ridge regression on feat-trv-funnel-v2, feat-trv-cross-border-share and feat-trv-seasonality-adj.",
+   "line": 7
+  },
+  {
+   "s": "trv-ridge-v3",
+   "type": "evaluated-on",
+   "label": "MAPE 4.3% on",
+   "o": "trv-bt-2025h2",
+   "quote": "MAPE 4.3% on trv-bt-2025h2 (monthly origins Jul to Dec 2025)",
+   "line": 8
+  },
+  {
+   "s": "trv-ridge-v3",
+   "type": "measured-by",
+   "label": "MAPE 4.3%",
+   "o": "mape",
+   "quote": "MAPE 4.3% on trv-bt-2025h2",
+   "line": 6
+  },
+  {
+   "s": "trv-ridge-v2",
+   "type": "measured-by",
+   "label": "MAPE 5.2%",
+   "o": "mape",
+   "quote": "against 5.2% for trv-ridge-v2 on the same set (exp-505)",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-505",
+  "exp-506"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "travel-spend-recovery/trv-ridge-v3.md",
+ "sha": "b0dd88e52bb70b9267f64d6357ca7faa5f73543f294ec9a26606602af8940600",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

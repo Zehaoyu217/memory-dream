@@ -1,0 +1,79 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ed-util-trend-v1",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "feat-ed-util-trend-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "ed-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ed-gbm-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cash-advance-feature",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "cash-advance feature"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ed-util-trend-v1",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cards.accounts_monthly",
+   "quote": "Source: `cards.accounts_monthly`, using statement balance over the credit limit at each month-end.",
+   "line": 7
+  },
+  {
+   "s": "feat-ed-util-trend-v1",
+   "type": "other",
+   "label": "largest contributor to",
+   "o": "ed-gbm-v1",
+   "quote": "Largest single contributor to ed-gbm-v1 after the cash-advance feature.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-ed-current-base"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "early-delinquency/feat-ed-util-trend-v1.md",
+ "sha": "2e4b370401e7a2f5d7eb82b21532c3280f9f0077ff9f19b2a69b20d828dc0109",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

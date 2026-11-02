@@ -1,0 +1,119 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "unmapped-v10-scores",
+   "type": "other",
+   "label": "unmapped scores",
+   "as": [
+    "unmapped v10 scores"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dual-pull-test-half",
+   "type": "segment",
+   "label": "test half",
+   "as": [
+    "dual-pull test half"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "psi",
+   "as": [
+    "PSI"
+   ],
+   "lines": [
+    6,
+    7,
+    9
+   ]
+  },
+  {
+   "id": "linear-map",
+   "type": "term",
+   "label": "linear map",
+   "as": [
+    "linear-mapped"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "isotonic-map",
+   "type": "term",
+   "label": "isotonic map",
+   "as": [
+    "isotonic map"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "v8-cutoffs",
+   "type": "other",
+   "label": "v8 cutoffs",
+   "as": [
+    "v8 cutoffs"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "unmapped-v10-scores",
+   "type": "measured-by",
+   "label": "measured PSI",
+   "o": "psi",
+   "quote": "unmapped PSI 0.31",
+   "line": 7
+  },
+  {
+   "s": "linear-map",
+   "type": "measured-by",
+   "label": "measured PSI",
+   "o": "psi",
+   "quote": "linear-mapped PSI 0.12",
+   "line": 7
+  },
+  {
+   "s": "isotonic-map",
+   "type": "measured-by",
+   "label": "brings PSI to",
+   "o": "psi",
+   "quote": "the isotonic map brings PSI to 0.06",
+   "line": 9
+  },
+  {
+   "s": "unmapped-v10-scores",
+   "type": "evaluated-on",
+   "label": "tested on",
+   "o": "dual-pull-test-half",
+   "quote": "From exp-301 on the dual-pull test half (n=26,000)",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-301",
+  "find-bsm-psi-after-map"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "bureau-score-migration/find-bsm-psi-large.md",
+ "sha": "60d4271a0ed72602ea3d458d7e07c32e8ae55ba1116af3805f3a075da43b2232",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

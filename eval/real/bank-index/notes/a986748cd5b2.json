@@ -1,0 +1,123 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "cc-logreg-v1",
+   "type": "model",
+   "label": "logistic regression",
+   "as": [
+    "Multinomial logistic regression on text and channel"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro f1",
+   "as": [
+    "macro F1 0.74",
+    "Macro F1 0.74"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "feat-cc-tfidf-v1",
+   "type": "feature",
+   "label": "tfidf features",
+   "as": [
+    "feat-cc-tfidf-v1"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "feat-cc-channel-v1",
+   "type": "feature",
+   "label": "channel features",
+   "as": [
+    "feat-cc-channel-v1"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "ds-cc-holdout",
+   "type": "dataset",
+   "label": "holdout set",
+   "as": [
+    "ds-cc-holdout"
+   ],
+   "lines": [
+    2
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cc-logreg-v1",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-cc-tfidf-v1",
+   "quote": "from: [feat-cc-tfidf-v1, feat-cc-channel-v1, ds-cc-holdout]",
+   "line": 2
+  },
+  {
+   "s": "cc-logreg-v1",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-cc-channel-v1",
+   "quote": "from: [feat-cc-tfidf-v1, feat-cc-channel-v1, ds-cc-holdout]",
+   "line": 2
+  },
+  {
+   "s": "cc-logreg-v1",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q4",
+   "quote": "Macro F1 0.74 on holdout-2025q4 (n = 1,800 tickets)",
+   "line": 7
+  },
+  {
+   "s": "cc-logreg-v1",
+   "type": "measured-by",
+   "label": "gives macro F1",
+   "o": "macro-f1",
+   "quote": "gives macro F1 0.74 on holdout-2025q4 without dispute link",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-201",
+  "exp-205",
+  "feat-cc-tfidf-v1",
+  "feat-cc-channel-v1",
+  "ds-cc-holdout"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "complaint-classification/cc-logreg-v1.md",
+ "sha": "a986748cd5b28daaebeff0f2ff3fb5e2ba3bb90daa555776d640e300c0380fb7",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

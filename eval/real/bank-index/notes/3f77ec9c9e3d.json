@@ -1,0 +1,86 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "cb.rewards_ledger",
+   "type": "dataset",
+   "label": "ledger",
+   "as": [
+    "`cb.rewards_ledger`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "rewards-engine-export",
+   "type": "dataset",
+   "label": "export",
+   "as": [
+    "rewards engine export"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "general-ledger",
+   "type": "other",
+   "label": "general ledger",
+   "as": [
+    "general ledger"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cb.rewards_ledger",
+   "type": "uses",
+   "label": "built on",
+   "o": "cards.accounts_monthly",
+   "quote": "Built on `cards.accounts_monthly` and the rewards engine export.",
+   "line": 6
+  },
+  {
+   "s": "cb.rewards_ledger",
+   "type": "uses",
+   "label": "built on",
+   "o": "rewards-engine-export",
+   "quote": "Built on `cards.accounts_monthly` and the rewards engine export.",
+   "line": 6
+  },
+  {
+   "s": "cb.rewards_ledger",
+   "type": "other",
+   "label": "reconciled against",
+   "o": "general-ledger",
+   "quote": "Reconciled against the general ledger for 2025-01 to 2025-05",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-cb-spend-panel"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/ds-cb-rewards-ledger.md",
+ "sha": "3f77ec9c9e3d052f380d36da04d3ae41709e908beeb4bae8dc31b0558876cbb7",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

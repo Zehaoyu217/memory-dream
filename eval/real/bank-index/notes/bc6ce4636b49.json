@@ -1,0 +1,165 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-app-bureau-v10-band",
+   "type": "feature",
+   "label": "bands",
+   "as": [
+    "feat-app-bureau-v10-band",
+    "Ten bands"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "ds-app-bureau-v10-pull",
+   "type": "dataset",
+   "label": "pull",
+   "as": [
+    "ds-app-bureau-v10-pull"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "bureau-score-migration",
+   "type": "other",
+   "label": "migration",
+   "as": [
+    "bureau-score-migration band cut points"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini gain",
+   "as": [
+    "Gini gain"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "v8-band",
+   "type": "feature",
+   "label": "v8 band",
+   "as": [
+    "v8 band"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-505",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-505"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "app-scorecard-v4",
+   "type": "model",
+   "label": "scorecard",
+   "as": [
+    "app-scorecard-v4"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-app-bureau-v10-band",
+   "type": "uses",
+   "label": "cut from",
+   "o": "ds-app-bureau-v10-pull",
+   "quote": "Ten bands cut from the isotonic-mapped v10 score on ds-app-bureau-v10-pull",
+   "line": 6
+  },
+  {
+   "s": "feat-app-bureau-v10-band",
+   "type": "other",
+   "label": "aligned with",
+   "o": "bureau-score-migration",
+   "quote": "aligned with the bureau-score-migration band cut points",
+   "line": 6
+  },
+  {
+   "s": "feat-app-bureau-v10-band",
+   "type": "evaluated-on",
+   "label": "gain on",
+   "o": "holdout-2025q1",
+   "quote": "Gini gain on holdout-2025q1 is 0.03",
+   "line": 7
+  },
+  {
+   "s": "feat-app-bureau-v10-band",
+   "type": "measured-by",
+   "label": "Gini gain",
+   "o": "gini",
+   "quote": "Gini gain on holdout-2025q1 is 0.03",
+   "line": 7
+  },
+  {
+   "s": "feat-app-bureau-v10-band",
+   "type": "other",
+   "label": "gain over",
+   "o": "v8-band",
+   "quote": "Gini gain on holdout-2025q1 is 0.03 over the v8 band",
+   "line": 7
+  },
+  {
+   "s": "v8-band",
+   "type": "other",
+   "label": "tested in",
+   "o": "exp-505",
+   "quote": "(0.41 to 0.44, exp-505)",
+   "line": 7
+  },
+  {
+   "s": "app-scorecard-v4",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-app-bureau-v10-band",
+   "quote": "Used in app-scorecard-v4.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-app-bureau-v10-pull"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "application-scorecard/feat-app-bureau-v10-band.md",
+ "sha": "bc6ce4636b49ec2b80f33c33ca20e3332998b11ca9403494ea05f5497b672b59",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

@@ -1,0 +1,79 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-dq-late-alert-rule-v1",
+   "type": "other",
+   "label": "alert rule decision",
+   "as": [
+    "Decision: page the data-eng on-call if a partition has not landed by 11:00 on D+1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "data-eng-on-call",
+   "type": "team",
+   "label": "on-call rotation",
+   "as": [
+    "page the data-eng on-call"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fnd-late-share-2025",
+   "type": "other",
+   "label": "source finding",
+   "as": [
+    "[fnd-late-share-2025]"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "late-partition-model",
+   "type": "model",
+   "label": "late-partition model",
+   "as": [
+    "the late-partition model"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-dq-late-alert-rule-v1",
+   "type": "other",
+   "label": "agreed on",
+   "o": "dec-dq-late-alert-rule-v1",
+   "quote": "agreed on 2025-07-01",
+   "line": 6
+  },
+  {
+   "s": "dec-dq-late-alert-rule-v1",
+   "type": "other",
+   "label": "used because",
+   "o": "late-partition-model",
+   "quote": "Used because the late-partition model was not yet validated.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fnd-late-share-2025",
+  "dec-dq-late-alert-rule-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "data-quality-txn/dec-dq-late-alert-rule-v1.md",
+ "sha": "f85e266b0310c7bf2c37de9434724e560b1386be5582c94c5ac35dda3f599bbb",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

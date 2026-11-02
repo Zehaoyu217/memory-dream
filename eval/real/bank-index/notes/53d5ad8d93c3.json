@@ -1,0 +1,122 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "inc-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "inc-gbm-v1"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "inc-gbm-v2",
+   "type": "model",
+   "label": "feature set for",
+   "as": [
+    "inc-gbm-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "merchant-mix-features",
+   "type": "feature",
+   "label": "merchant-mix features",
+   "as": [
+    "merchant-mix features",
+    "four merchant-mix shares"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "luxury-share",
+   "type": "feature",
+   "label": "luxury share",
+   "as": [
+    "luxury share"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "inc-gbm-v1",
+   "type": "uses",
+   "label": "added features",
+   "o": "merchant-mix-features",
+   "quote": "Added the four merchant-mix shares to inc-gbm-v1",
+   "line": 6
+  },
+  {
+   "s": "inc-gbm-v1",
+   "type": "evaluated-on",
+   "label": "re-scored on",
+   "o": "holdout-2025q1",
+   "quote": "re-scored holdout-2025q1",
+   "line": 6
+  },
+  {
+   "s": "inc-gbm-v1",
+   "type": "measured-by",
+   "label": "MAPE",
+   "o": "mape",
+   "quote": "MAPE 27.0% without, 25.8% with",
+   "line": 7
+  },
+  {
+   "s": "inc-gbm-v2",
+   "type": "uses",
+   "label": "feature set for",
+   "o": "merchant-mix-features",
+   "quote": "Kept in the feature set for inc-gbm-v2",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-inc-merchant-mix",
+  "inc-gbm-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "income-estimation/exp-404.md",
+ "sha": "53d5ad8d93c3480d52bac8ec8c4035f07f6e30e5f522e98f283c716a36821e0e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

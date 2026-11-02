@@ -1,0 +1,87 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-rs-region-rate",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rs-region-rate"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-rs-recovery-labels",
+   "type": "document",
+   "label": "recovery label",
+   "as": [
+    "ds-rs-recovery-labels"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "omar-haddad",
+   "type": "person",
+   "label": "compliance reviewer",
+   "as": [
+    "Omar Haddad (compliance)"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-rs-region-rate",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cards.accounts_monthly",
+   "quote": "Source: `cards.accounts_monthly` postcode",
+   "line": 7
+  },
+  {
+   "s": "feat-rs-region-rate",
+   "type": "uses",
+   "label": "joined to",
+   "o": "ds-rs-recovery-labels",
+   "quote": "joined to ds-rs-recovery-labels",
+   "line": 7
+  },
+  {
+   "s": "feat-rs-region-rate",
+   "type": "other",
+   "label": "flagged by",
+   "o": "omar-haddad",
+   "quote": "Flagged by Omar Haddad (compliance) as a possible proxy for protected characteristics",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-rs-chargeoff-base",
+  "find-rs-region-proxy"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "recovery-scoring/feat-rs-region-rate.md",
+ "sha": "e4f389cea98f41ca0a013c1243161cc1f3e5d346ed0f08aa3129ca467abbbe48",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

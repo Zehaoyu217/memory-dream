@@ -1,0 +1,85 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-fsm-bureau-delta",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-fsm-bureau-delta: change in bureau score over six months, from bureau.scores_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`bureau.scores_monthly`"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "credit-data",
+   "type": "team",
+   "label": "owner",
+   "as": [
+    "owner credit-data"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-101",
+   "type": "other",
+   "label": "parity experiment",
+   "as": [
+    "exp-101"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-fsm-bureau-delta",
+   "type": "uses",
+   "label": "from",
+   "o": "bureau.scores_monthly",
+   "quote": "from `bureau.scores_monthly`",
+   "line": 5
+  },
+  {
+   "s": "bureau.scores_monthly",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "credit-data",
+   "quote": "owner credit-data",
+   "line": 6
+  },
+  {
+   "s": "feat-fsm-bureau-delta",
+   "type": "other",
+   "label": "failed parity in",
+   "o": "exp-101",
+   "quote": "Three bureau features failed parity in exp-101",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "feature-store-migration/feat-fsm-bureau-delta.md",
+ "sha": "b1f0066177f0267800e64409c33a238222fa9cb969a57a9002dc99711059f49a",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,129 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "velocity-v2",
+   "type": "feature",
+   "label": "velocity-v2",
+   "as": [
+    "velocity-v2"
+   ],
+   "lines": [
+    2,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "fraud26-oot-2025q4",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "fraud26-oot-2025q4"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-f26-dispute-join",
+   "type": "pipeline",
+   "label": "disputes join",
+   "as": [
+    "ds-f26-dispute-join",
+    "the disputes join"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.921"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.69"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "recall-at-1pct",
+   "type": "metric",
+   "label": "recall@1%",
+   "as": [
+    "recall@1% 0.56"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "velocity-v2",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "fraud26-oot-2025q4",
+   "quote": "Eval set: fraud26-oot-2025q4",
+   "line": 6
+  },
+  {
+   "s": "velocity-v2",
+   "type": "measured-by",
+   "label": "reaches AUC",
+   "o": "auc",
+   "quote": "Clean velocity-v2: AUC 0.921",
+   "line": 8
+  },
+  {
+   "s": "velocity-v2",
+   "type": "measured-by",
+   "label": "KS",
+   "o": "ks",
+   "quote": "Clean velocity-v2: AUC 0.921, KS 0.69",
+   "line": 8
+  },
+  {
+   "s": "velocity-v2",
+   "type": "measured-by",
+   "label": "recall@1%",
+   "o": "recall-at-1pct",
+   "quote": "recall@1% 0.56",
+   "line": 8
+  },
+  {
+   "s": "velocity-v2",
+   "type": "other",
+   "label": "rebuilt with fix in",
+   "o": "ds-f26-dispute-join",
+   "quote": "velocity-v2 rebuilt with the join-window fix",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "fraud26-find-velocity-leak",
+  "feat-f26-velocity-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2026/exp-205.md",
+ "sha": "a72f143be349802691ac48a52d7f686e6e8acfca54fcf8de5e492cd32630df1d",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

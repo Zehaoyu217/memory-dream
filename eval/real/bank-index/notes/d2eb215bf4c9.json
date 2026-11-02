@@ -1,0 +1,150 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fsm-spend-lgbm-v2",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "fsm-spend-lgbm-v2",
+    "fsm-spend-lgbm-v2: next-month spend on store features"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fsm-spend-lgbm-v1",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "fsm-spend-lgbm-v1"
+   ],
+   "lines": [
+    2,
+    4
+   ]
+  },
+  {
+   "id": "feat-fsm-spend-cv-30d",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-fsm-spend-cv-30d"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "feat-fsm-payment-lag-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "payment lag v2",
+    "feat-fsm-payment-lag-v2"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "fsm-oot-2025q2",
+   "type": "dataset",
+   "label": "evaluation sample",
+   "as": [
+    "fsm-oot-2025q2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-106",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-106"
+   ],
+   "lines": [
+    2,
+    8
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fsm-spend-lgbm-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "fsm-spend-lgbm-v1",
+   "quote": "supersedes: [fsm-spend-lgbm-v1]",
+   "line": 4
+  },
+  {
+   "s": "fsm-spend-lgbm-v2",
+   "type": "uses",
+   "label": "uses feature",
+   "o": "feat-fsm-spend-cv-30d",
+   "quote": "plus feat-fsm-spend-cv-30d (23 features in total)",
+   "line": 7
+  },
+  {
+   "s": "fsm-spend-lgbm-v2",
+   "type": "uses",
+   "label": "uses feature",
+   "o": "feat-fsm-payment-lag-v2",
+   "quote": "with payment lag v2 and util ratio from the store",
+   "line": 7
+  },
+  {
+   "s": "fsm-spend-lgbm-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "fsm-oot-2025q2",
+   "quote": "MAPE 14.9 percent on fsm-oot-2025q2 (n=96,000 accounts)",
+   "line": 8
+  },
+  {
+   "s": "fsm-spend-lgbm-v2",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "mape",
+   "quote": "MAPE 14.9 percent on fsm-oot-2025q2",
+   "line": 8
+  },
+  {
+   "s": "fsm-spend-lgbm-v1",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "mape",
+   "quote": "against 16.2 percent for v1 (exp-106)",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-106"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "feature-store-migration/fsm-spend-lgbm-v2.md",
+ "sha": "d2eb215bf4c901b7999635b4edada3f5180292ae6b4275ee64aeec20cec291c2",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

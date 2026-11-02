@@ -1,0 +1,119 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "cr-logreg-v1",
+   "type": "model",
+   "label": "logistic regression",
+   "as": [
+    "Logistic regression"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "cr-lightgbm",
+   "type": "model",
+   "label": "lightgbm model",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    5,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro f1",
+   "as": [
+    "macro F1"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "feat-cr-tenure-v1",
+   "type": "feature",
+   "label": "tenure inputs",
+   "as": [
+    "tenure inputs"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cr-logreg-v1",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "holdout-2025q4",
+   "quote": "n = 380,000 calls, holdout-2025q4",
+   "line": 7
+  },
+  {
+   "s": "cr-lightgbm",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "holdout-2025q4",
+   "quote": "n = 380,000 calls, holdout-2025q4",
+   "line": 7
+  },
+  {
+   "s": "cr-logreg-v1",
+   "type": "measured-by",
+   "label": "scored by",
+   "o": "macro-f1",
+   "quote": "Logistic regression macro F1 0.61",
+   "line": 7
+  },
+  {
+   "s": "cr-lightgbm",
+   "type": "measured-by",
+   "label": "scored by",
+   "o": "macro-f1",
+   "quote": "LightGBM macro F1 0.738",
+   "line": 7
+  },
+  {
+   "s": "cr-lightgbm",
+   "type": "uses",
+   "label": "uses features",
+   "o": "feat-cr-tenure-v1",
+   "quote": "same TF-IDF SVD, IVR path and tenure inputs",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "call-center-routing/exp-101.md",
+  "dec-cr-lgbm"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/exp-101.md",
+ "sha": "4d9a1e6e0796e864bf2ffc795e97a4af9ab89c18ea5147c69e08dcdfb5554bbd",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

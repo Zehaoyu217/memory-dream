@@ -1,0 +1,154 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "retention-model",
+   "type": "model",
+   "label": "retention model",
+   "as": [
+    "the retention model"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.31"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini 0.52"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "oot-accounts",
+   "type": "segment",
+   "label": "oot accounts",
+   "as": [
+    "n = 48,200 OOT accounts"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "operating-point",
+   "type": "term",
+   "label": "operating point",
+   "as": [
+    "operating point"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "deck",
+   "type": "document",
+   "label": "deck",
+   "as": [
+    "The deck headline"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "q1-2026-review",
+   "type": "other",
+   "label": "q1 2026 review",
+   "as": [
+    "the Q1 2026 review"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "retention-model",
+   "type": "measured-by",
+   "label": "showed",
+   "o": "ks",
+   "quote": "KS 0.31 and Gini 0.52 on n = 48,200 OOT accounts",
+   "line": 5
+  },
+  {
+   "s": "retention-model",
+   "type": "measured-by",
+   "label": "showed",
+   "o": "gini",
+   "quote": "KS 0.31 and Gini 0.52 on n = 48,200 OOT accounts",
+   "line": 5
+  },
+  {
+   "s": "retention-model",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "oot-accounts",
+   "quote": "on n = 48,200 OOT accounts",
+   "line": 5
+  },
+  {
+   "s": "gini",
+   "type": "derived-from",
+   "label": "derived as",
+   "o": "auc",
+   "quote": "Gini is derived as 2 times AUC minus 1",
+   "line": 6
+  },
+  {
+   "s": "deck",
+   "type": "measured-by",
+   "label": "headline is",
+   "o": "ks",
+   "quote": "The deck headline is KS, read at the operating point.",
+   "line": 6
+  },
+  {
+   "s": "ks",
+   "type": "other",
+   "label": "read at",
+   "o": "operating-point",
+   "quote": "read at the operating point",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "howto/ks-vs-gini-reporting"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/ks-gini-retention-q1.md",
+ "sha": "8f25be3b1f5233ec2e6de5b815f135d54e3f8043795043f01058f6fe1e0d34fb",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

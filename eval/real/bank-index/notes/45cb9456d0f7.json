@@ -1,0 +1,81 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "gross-clv",
+   "type": "metric",
+   "label": "gross clv",
+   "as": [
+    "Gross CLV",
+    "Gross $412"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "net-clv",
+   "type": "metric",
+   "label": "net value",
+   "as": [
+    "net $321"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cohort-2021-h1",
+   "type": "segment",
+   "label": "cohort",
+   "as": [
+    "2021 H1 cohort"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "expected-loss",
+   "type": "term",
+   "label": "expected loss",
+   "as": [
+    "expected loss"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "gross-clv",
+   "type": "other",
+   "label": "overstates",
+   "o": "cohort-2021-h1",
+   "quote": "Gross CLV overstates 36-month value by 22% on the 2021 H1 cohort",
+   "line": 5
+  },
+  {
+   "s": "gross-clv",
+   "type": "other",
+   "label": "gap is",
+   "o": "expected-loss",
+   "quote": "The gap is the expected loss on the 2021 H1 book",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-502",
+  "dec-clv-include-losses"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "customer-lifetime-value/fnd-clv-gross-overstates.md",
+ "sha": "45cb9456d0f7c8006cdbb7d871542411fa61b40b41cc848bd0b758ca2d2b46be",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

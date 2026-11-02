@@ -1,0 +1,142 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-304",
+   "type": "other",
+   "label": "replay experiment",
+   "as": [
+    "Replay of handoff rule v1 vs v2 on Jan to Mar 2026 sessions"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "handoff-rule-v1",
+   "type": "policy",
+   "label": "handoff rule",
+   "as": [
+    "handoff rule v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "handoff-rule-v2",
+   "type": "policy",
+   "label": "handoff rule",
+   "as": [
+    "v2"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "containment",
+   "type": "metric",
+   "label": "containment",
+   "as": [
+    "containment"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "14-day-repeat-contact",
+   "type": "metric",
+   "label": "repeat contact",
+   "as": [
+    "14-day repeat contact"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "agent-handled-repeat-contact",
+   "type": "metric",
+   "label": "agent-handled repeat contact",
+   "as": [
+    "Agent-handled 14-day repeat contact"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cb-sessions-jan-mar-2026",
+   "type": "dataset",
+   "label": "sessions",
+   "as": [
+    "Jan to Mar 2026 sessions",
+    "96,000 sessions"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "handoff-rule-v1",
+   "type": "measured-by",
+   "label": "containment",
+   "o": "containment",
+   "quote": "v1 (2 failures): containment 29 percent",
+   "line": 7
+  },
+  {
+   "s": "handoff-rule-v1",
+   "type": "measured-by",
+   "label": "repeat contact",
+   "o": "14-day-repeat-contact",
+   "quote": "14-day repeat contact 21 percent",
+   "line": 7
+  },
+  {
+   "s": "handoff-rule-v2",
+   "type": "measured-by",
+   "label": "containment",
+   "o": "containment",
+   "quote": "containment 25 percent",
+   "line": 7
+  },
+  {
+   "s": "handoff-rule-v2",
+   "type": "measured-by",
+   "label": "repeat contact",
+   "o": "14-day-repeat-contact",
+   "quote": "14-day repeat contact 15 percent",
+   "line": 7
+  },
+  {
+   "s": "exp-304",
+   "type": "evaluated-on",
+   "label": "replay on",
+   "o": "cb-sessions-jan-mar-2026",
+   "quote": "Replay on 96,000 sessions",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "feat-cb-handoff-rule-v1",
+  "ds-cb-escalation-labels",
+  "fnd-cb-repeat-contact"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "chatbot-deflection/exp-304.md",
+ "sha": "f45bc5e078bdc31a5db425bf8f29f4604f9a14defb18a29db2c5e783de20bc5a",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

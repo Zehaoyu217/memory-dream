@@ -1,0 +1,138 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fraud-model-v4",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "Fraud model v4",
+    "v4"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "fraud-model-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "v3"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "recall",
+   "type": "metric",
+   "label": "recall",
+   "as": [
+    "recall"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "lbl-oot-2025h2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "matured 2025-H2 holdout",
+    "lbl-oot-2025h2"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "category-b-cases",
+   "type": "segment",
+   "label": "category b cases",
+   "as": [
+    "category B cases"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "alert-volume",
+   "type": "metric",
+   "label": "alert volume",
+   "as": [
+    "Alert volume at 1 percent"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud-model-v4",
+   "type": "measured-by",
+   "label": "recall measured",
+   "o": "recall",
+   "quote": "v4 recall 0.58",
+   "line": 6
+  },
+  {
+   "s": "fraud-model-v3",
+   "type": "measured-by",
+   "label": "recall measured",
+   "o": "recall",
+   "quote": "v3 recall 0.52",
+   "line": 6
+  },
+  {
+   "s": "fraud-model-v4",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "lbl-oot-2025h2",
+   "quote": "on lbl-oot-2025h2 with 120-day maturity",
+   "line": 6
+  },
+  {
+   "s": "fraud-model-v4",
+   "type": "other",
+   "label": "gains over",
+   "o": "fraud-model-v3",
+   "quote": "gains 0.06 recall at 1 percent alerts over v3",
+   "line": 5
+  },
+  {
+   "s": "fraud-model-v4",
+   "type": "other",
+   "label": "gain concentrated in",
+   "o": "category-b-cases",
+   "quote": "Most of the gain is in the category B cases.",
+   "line": 7
+  },
+  {
+   "s": "alert-volume",
+   "type": "other",
+   "label": "unchanged by switch",
+   "o": "fraud-model-v4",
+   "quote": "Alert volume at 1 percent is unchanged by the switch.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-405"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "label-pipeline-rebuild/fnd-fraud-v4-lift.md",
+ "sha": "704a8d0f96f53845246df5291644d91e4cc26a456017c16c973e5a5efc443752",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,141 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-501",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-501"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "reject-inference",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "Reject inference"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "parcelling",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "parcelling"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "manual-approvals",
+   "type": "dataset",
+   "label": "manual approvals",
+   "as": [
+    "8,400 manual approvals"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "app-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "app-gbm-v2"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-501",
+   "type": "other",
+   "label": "tests",
+   "o": "reject-inference",
+   "quote": "Reject inference by parcelling the reject-sample outcomes back into the rejected population.",
+   "line": 6
+  },
+  {
+   "s": "exp-501",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q1",
+   "quote": "Eval: holdout-2025q1, n=21,300",
+   "line": 7
+  },
+  {
+   "s": "exp-501",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "ks",
+   "quote": "KS 0.36 for the baseline and 0.38 with parcelling.",
+   "line": 7
+  },
+  {
+   "s": "exp-501",
+   "type": "other",
+   "label": "parcels",
+   "o": "manual-approvals",
+   "quote": "parcelling 8,400 manual approvals lifts KS from 0.36 to 0.38",
+   "line": 5
+  },
+  {
+   "s": "parcelling",
+   "type": "other",
+   "label": "adopted for",
+   "o": "app-gbm-v2",
+   "quote": "Adopted as the weight scheme for app-gbm-v2.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "q-app-reject-inference",
+  "ds-app-reject-sample",
+  "ds-app-applications-2024"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "application-scorecard/exp-501.md",
+ "sha": "32c24d32a02a1530116fa9da5245b83d49949fdee997811dac2b8f6aaa1cf1b6",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

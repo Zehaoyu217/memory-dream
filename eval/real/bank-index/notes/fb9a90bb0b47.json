@@ -1,0 +1,134 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "omar-haddad",
+   "type": "person",
+   "label": "compliance approver",
+   "as": [
+    "Omar Haddad"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "aml-ranker",
+   "type": "model",
+   "label": "aml ranker",
+   "as": [
+    "the AML ranker",
+    "the ranker"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "analyst-queue",
+   "type": "other",
+   "label": "analyst queue",
+   "as": [
+    "analyst queue"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "aml-find-fp-baseline",
+   "type": "other",
+   "label": "fp baseline",
+   "as": [
+    "aml-find-fp-baseline showed the structuring false-positive problem"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "structuring-false-positives",
+   "type": "term",
+   "label": "structuring false-positive problem",
+   "as": [
+    "structuring false-positive problem"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "alert-closure",
+   "type": "term",
+   "label": "alert closure rule",
+   "as": [
+    "closure requires an analyst disposition"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "alert-suppression",
+   "type": "term",
+   "label": "alert suppression change",
+   "as": [
+    "Any change that suppresses alerts"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "omar-haddad",
+   "type": "owned-by",
+   "label": "approves",
+   "o": "aml-ranker",
+   "quote": "Omar Haddad approves the ranker for queue ordering only",
+   "line": 5
+  },
+  {
+   "s": "aml-ranker",
+   "type": "other",
+   "label": "orders",
+   "o": "analyst-queue",
+   "quote": "the AML ranker orders the analyst queue and never closes an alert",
+   "line": 6
+  },
+  {
+   "s": "alert-closure",
+   "type": "other",
+   "label": "requires",
+   "o": "alert-closure",
+   "quote": "closure requires an analyst disposition",
+   "line": 7
+  },
+  {
+   "s": "alert-suppression",
+   "type": "other",
+   "label": "needs sign-off",
+   "o": "alert-suppression",
+   "quote": "Any change that suppresses alerts needs a separate compliance sign-off",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "aml-alerts/dec-aml-queue-only.md",
+  "aml-find-fp-baseline",
+  "aml-xgb-v1",
+  "q-aml-signoff",
+  "dec-aml-suppress-018"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "aml-alerts/dec-aml-queue-only.md",
+ "sha": "fb9a90bb0b47698cfa836189e61c14c1e0a1fdac151843d5d8eebe6cade5d0c6",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

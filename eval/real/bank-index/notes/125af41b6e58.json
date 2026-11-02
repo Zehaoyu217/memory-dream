@@ -1,0 +1,92 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "cc-ft-v1",
+   "type": "model",
+   "label": "fine-tuned encoder",
+   "as": [
+    "Fine-tuned small encoder (6 layers, 22M parameters)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro f1",
+   "as": [
+    "macro F1 0.80"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "cc-ft-v2",
+   "type": "model",
+   "label": "successor model",
+   "as": [
+    "cc-ft-v2"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cc-ft-v1",
+   "type": "evaluated-on",
+   "label": "gives macro F1 on",
+   "o": "holdout-2025q4",
+   "quote": "Macro F1 0.80 on holdout-2025q4 (n = 1,800)",
+   "line": 7
+  },
+  {
+   "s": "cc-ft-v1",
+   "type": "measured-by",
+   "label": "gives",
+   "o": "macro-f1",
+   "quote": "gives macro F1 0.80 on holdout-2025q4",
+   "line": 5
+  },
+  {
+   "s": "cc-ft-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "cc-ft-v1",
+   "quote": "Superseded by cc-ft-v2",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "complaint-classification/cc-ft-v1.md",
+  "feat-cc-embed-v1",
+  "ds-cc-qa-labels",
+  "ds-cc-taxonomy-v3",
+  "exp-206"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "complaint-classification/cc-ft-v1.md",
+ "sha": "125af41b6e585d7837158f26811096035382ae7490cc10ad94b8bf0223b066fe",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

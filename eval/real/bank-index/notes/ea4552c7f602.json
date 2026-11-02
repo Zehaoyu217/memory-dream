@@ -1,0 +1,128 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "disp-lgbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "disp-lgbm-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "disp-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "disp-lgbm-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-disp-reason-text",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-disp-reason-text"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "two-analyst-labels",
+   "type": "dataset",
+   "label": "labels",
+   "as": [
+    "two-analyst labels"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cross-validated-precision",
+   "type": "metric",
+   "label": "precision",
+   "as": [
+    "Cross-validated precision at p>=0.90"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "coverage",
+   "type": "metric",
+   "label": "coverage",
+   "as": [
+    "21% coverage"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "disp-lgbm-v1",
+   "type": "uses",
+   "label": "uses only",
+   "o": "feat-disp-reason-text",
+   "quote": "LightGBM on feat-disp-reason-text only",
+   "line": 6
+  },
+  {
+   "s": "disp-lgbm-v1",
+   "type": "trained-on",
+   "label": "trained on",
+   "o": "two-analyst-labels",
+   "quote": "trained on two-analyst labels from January-February 2026.",
+   "line": 6
+  },
+  {
+   "s": "disp-lgbm-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "cross-validated-precision",
+   "quote": "Cross-validated precision at p>=0.90 is 84.0%",
+   "line": 7
+  },
+  {
+   "s": "disp-lgbm-v1",
+   "type": "measured-by",
+   "label": "has coverage",
+   "o": "coverage",
+   "quote": "with 21% coverage (exp-301).",
+   "line": 7
+  },
+  {
+   "s": "disp-lgbm-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "disp-lgbm-v1",
+   "quote": "Superseded by disp-lgbm-v2 on 2026-04-21.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-disp-reason-text",
+  "ds-disp-analyst-labels",
+  "dec-disp-labels-two-analyst",
+  "exp-301"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "dispute-triage/disp-lgbm-v1.md",
+ "sha": "ea4552c7f602816154e8392841b8fe19c2d941dae1d4c9cce6b6a1df44670cba",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

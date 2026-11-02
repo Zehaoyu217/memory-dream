@@ -1,0 +1,123 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "retry-flag",
+   "type": "feature",
+   "label": "flag",
+   "as": [
+    "The retry flag",
+    "the retry flag"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "dq-late-logit-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "dq-late-logit-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dq-late-logit-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "dq-late-logit-v1"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Q4 2025 holdout"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "late-partitions",
+   "type": "segment",
+   "label": "late partitions",
+   "as": [
+    "late-partition",
+    "Retry-driven late partitions"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "retry-flag",
+   "type": "other",
+   "label": "lifts",
+   "o": "auc",
+   "quote": "The retry flag lifts late-partition AUC from 0.72 to 0.79",
+   "line": 5
+  },
+  {
+   "s": "retry-flag",
+   "type": "other",
+   "label": "main source of gain in",
+   "o": "dq-late-logit-v2",
+   "quote": "the retry flag is the main source of the gain in dq-late-logit-v2",
+   "line": 6
+  },
+  {
+   "s": "dq-late-logit-v1",
+   "type": "other",
+   "label": "missed",
+   "o": "late-partitions",
+   "quote": "Retry-driven late partitions were the ones dq-late-logit-v1 missed",
+   "line": 7
+  },
+  {
+   "s": "auc",
+   "type": "evaluated-on",
+   "label": "on holdout",
+   "o": "holdout-2025q4",
+   "quote": "on the Q4 2025 holdout",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-306",
+  "exp-303",
+  "exp-302"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "data-quality-txn/fnd-late-model-lift.md",
+ "sha": "6cad2353dc94ffb469ad7bc0720b0517a76376cb8fd2f320eabe7f2589d7253a",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

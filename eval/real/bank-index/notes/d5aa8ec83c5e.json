@@ -1,0 +1,106 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "arm-b",
+   "type": "segment",
+   "label": "treatment arm",
+   "as": [
+    "arm B"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "control",
+   "type": "segment",
+   "label": "control group",
+   "as": [
+    "control"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "bt-inflow",
+   "type": "metric",
+   "label": "bt inflow",
+   "as": [
+    "BT inflow"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "revolving-balance-m6",
+   "type": "metric",
+   "label": "revolving balance",
+   "as": [
+    "Revolving balance at month 6"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "intra-bank-fix",
+   "type": "term",
+   "label": "fix",
+   "as": [
+    "intra-bank fix"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "arm-b",
+   "type": "measured-by",
+   "label": "lifts",
+   "o": "bt-inflow",
+   "quote": "arm B (0% for 12 months) lifts BT inflow in months 1-3",
+   "line": 5
+  },
+  {
+   "s": "arm-b",
+   "type": "measured-by",
+   "label": "lifts",
+   "o": "revolving-balance-m6",
+   "quote": "Revolving balance at month 6: +$1,880 per account for arm B against control.",
+   "line": 7
+  },
+  {
+   "s": "arm-b",
+   "type": "other",
+   "label": "compared to",
+   "o": "control",
+   "quote": "Revolving balance at month 6: +$1,880 per account for arm B against control.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-503",
+  "ds-pa-balance-panel",
+  "feat-pa-bt-inflow-v1",
+  "ds-pa-ab-assignments"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "promo-apr-test/exp-501-readout-12m.md",
+ "sha": "d5aa8ec83c5e7dbe8d9defd6e3ebef59b45a5934c4f6a4e877bc6f2055dde23e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,67 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-xs-app-logins-90d",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-xs-app-logins-90d: days with an app login in the last 90 days"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "app-sessions-daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`app.sessions_daily`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "xs-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "xs-gbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-xs-app-logins-90d",
+   "type": "uses",
+   "label": "computed from",
+   "o": "app-sessions-daily",
+   "quote": "from `app.sessions_daily`",
+   "line": 6
+  },
+  {
+   "s": "xs-gbm-v2",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-xs-app-logins-90d",
+   "quote": "Used in xs-gbm-v2.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "cross-sell-savings/feat-xs-app-logins-90d.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cross-sell-savings/feat-xs-app-logins-90d.md",
+ "sha": "a839e67f311abae77e1454e3ca9bb3caafaa4c88dd286568dcc5cdf33ae12048",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

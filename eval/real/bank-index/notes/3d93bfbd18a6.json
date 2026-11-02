@@ -1,0 +1,78 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "cohort-open-month",
+   "type": "term",
+   "label": "cohort basis",
+   "as": [
+    "Opening month"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "first-closed-statement-month",
+   "type": "term",
+   "label": "cohort basis",
+   "as": [
+    "first closed statement month"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "month-1-retention",
+   "type": "metric",
+   "label": "retention metric",
+   "as": [
+    "month-1 retention"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "reactivated-accounts",
+   "type": "segment",
+   "label": "account group",
+   "as": [
+    "reactivated accounts"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "first-closed-statement-month",
+   "type": "replaces",
+   "label": "moved cohorts to",
+   "o": "cohort-open-month",
+   "quote": "The fix moved cohorts to first closed statement month.",
+   "line": 6
+  },
+  {
+   "s": "month-1-retention",
+   "type": "other",
+   "label": "read high due to",
+   "o": "cohort-open-month",
+   "quote": "Opening month was used, so reactivated accounts with old open dates landed in cohorts with no early life.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "howto/cohort-by-account-open"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/cohort-open-month-mistake.md",
+ "sha": "3d93bfbd18a6bbea71cb2cad07aeba4e3c5717e17afcb22e0c9823f26b8a1bd1",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

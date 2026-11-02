@@ -1,0 +1,130 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "disp-oot-2026h1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "disp-oot-2026h1"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "disp-lgbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "disp-lgbm-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "disp-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "v2"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "feat-disp-fraud-score",
+   "type": "feature",
+   "label": "fraud score",
+   "as": [
+    "fraud score"
+   ],
+   "lines": [
+    5,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "precision-at-0.95",
+   "type": "metric",
+   "label": "precision@0.95",
+   "as": [
+    "precision@0.95"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "coverage",
+   "type": "metric",
+   "label": "coverage",
+   "as": [
+    "coverage"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "disp-lgbm-v3",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "disp-oot-2026h1",
+   "quote": "Eval set: disp-oot-2026h1",
+   "line": 6
+  },
+  {
+   "s": "disp-lgbm-v3",
+   "type": "uses",
+   "label": "adds",
+   "o": "feat-disp-fraud-score",
+   "quote": "v2 plus fraud score",
+   "line": 7
+  },
+  {
+   "s": "disp-lgbm-v3",
+   "type": "measured-by",
+   "label": "precision",
+   "o": "precision-at-0.95",
+   "quote": "precision 95.3%",
+   "line": 7
+  },
+  {
+   "s": "disp-lgbm-v3",
+   "type": "measured-by",
+   "label": "coverage",
+   "o": "coverage",
+   "quote": "coverage 29%",
+   "line": 5
+  },
+  {
+   "s": "disp-lgbm-v2",
+   "type": "measured-by",
+   "label": "precision",
+   "o": "precision-at-0.95",
+   "quote": "v2 at p>=0.95 gives precision 94.0%",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-306",
+  "feat-disp-fraud-score"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "dispute-triage/exp-307.md",
+ "sha": "9259a6b3cef64f8889d32470f51eff782db71323c6e628bebf87ed7f37d053a9",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

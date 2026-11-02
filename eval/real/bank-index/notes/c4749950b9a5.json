@@ -1,0 +1,238 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "txc-gbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "txc-gbm-v3"
+   ],
+   "lines": [
+    2,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "txc-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "txc-gbm-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-txc-normalise-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-txc-normalise-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "txc-token-set-v2",
+   "type": "feature",
+   "label": "token set",
+   "as": [
+    "the v2 token set"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "txc-oot-2026h1",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "txc-oot-2026h1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro-f1",
+   "as": [
+    "macro-F1 0.83"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "other-spend-share",
+   "type": "metric",
+   "label": "'other' share",
+   "as": [
+    "'other' at 4.1% of spend"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "shadow-run",
+   "type": "other",
+   "label": "shadow run",
+   "as": [
+    "the shadow run"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fuzzy-fallback",
+   "type": "policy",
+   "label": "rule",
+   "as": [
+    "The fuzzy fallback (exp-107 rule)"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "long-tail-merchants",
+   "type": "segment",
+   "label": "long-tail merchants",
+   "as": [
+    "long-tail merchants"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "nightly-insights-run",
+   "type": "pipeline",
+   "label": "nightly insights run",
+   "as": [
+    "the nightly insights run"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "insights-tables",
+   "type": "dataset",
+   "label": "insights tables",
+   "as": [
+    "the insights tables"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "data-eng-cards",
+   "type": "team",
+   "label": "owner",
+   "as": [
+    "data-eng-cards"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "txc-gbm-v3",
+   "type": "replaces",
+   "label": "in place of",
+   "o": "txc-gbm-v2",
+   "quote": "Ship txc-gbm-v3 in place of txc-gbm-v2",
+   "line": 6
+  },
+  {
+   "s": "txc-gbm-v3",
+   "type": "uses",
+   "label": "uses with",
+   "o": "feat-txc-normalise-v2",
+   "quote": "with feat-txc-normalise-v2 and the v2 token set",
+   "line": 6
+  },
+  {
+   "s": "txc-gbm-v3",
+   "type": "uses",
+   "label": "uses with",
+   "o": "txc-token-set-v2",
+   "quote": "with feat-txc-normalise-v2 and the v2 token set",
+   "line": 6
+  },
+  {
+   "s": "txc-gbm-v3",
+   "type": "measured-by",
+   "label": "macro-F1 on",
+   "o": "macro-f1",
+   "quote": "macro-F1 0.83 on txc-oot-2026h1",
+   "line": 7
+  },
+  {
+   "s": "txc-gbm-v3",
+   "type": "evaluated-on",
+   "label": "macro-F1 on",
+   "o": "txc-oot-2026h1",
+   "quote": "macro-F1 0.83 on txc-oot-2026h1",
+   "line": 7
+  },
+  {
+   "s": "other-spend-share",
+   "type": "other",
+   "label": "measured in",
+   "o": "shadow-run",
+   "quote": "'other' at 4.1% of spend in the shadow run",
+   "line": 7
+  },
+  {
+   "s": "fuzzy-fallback",
+   "type": "other",
+   "label": "stays on for",
+   "o": "long-tail-merchants",
+   "quote": "The fuzzy fallback (exp-107 rule) stays on for long-tail merchants.",
+   "line": 8
+  },
+  {
+   "s": "txc-gbm-v3",
+   "type": "other",
+   "label": "shipped to",
+   "o": "nightly-insights-run",
+   "quote": "Decision: ship txc-gbm-v3 to the nightly insights run",
+   "line": 5
+  },
+  {
+   "s": "insights-tables",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "data-eng-cards",
+   "quote": "Owner for the insights tables is data-eng-cards",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "txc-gbm-v3",
+  "fnd-txc-other-share",
+  "fnd-txc-long-tail",
+  "exp-107"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "txn-categorization/dec-txc-ship-gbm-v3.md",
+ "sha": "c4749950b9a529d3da934527108df738aa8ecf9a323121740c7efb121c0a72b5",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

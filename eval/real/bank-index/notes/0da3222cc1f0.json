@@ -1,0 +1,70 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "bt-xgb-v3",
+   "type": "model",
+   "label": "score model",
+   "as": [
+    "bt-xgb-v3 score",
+    "by bt-xgb-v3"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "margin-captured",
+   "type": "metric",
+   "label": "margin captured",
+   "as": [
+    "margin captured"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "top-30pct-book",
+   "type": "segment",
+   "label": "top 30% segment",
+   "as": [
+    "top 30% of the book"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "top-30pct-book",
+   "type": "other",
+   "label": "selected by",
+   "o": "bt-xgb-v3",
+   "quote": "Mail the top 30% of the book by bt-xgb-v3 score",
+   "line": 6
+  },
+  {
+   "s": "bt-xgb-v3",
+   "type": "measured-by",
+   "label": "captures margin",
+   "o": "margin-captured",
+   "quote": "margin captured in the top 30% rises from 48% to 61%",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-bt-margin-label",
+  "q-bt-margin-threshold"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "balance-transfer-propensity/dec-bt-cut-mailer-top30.md",
+ "sha": "0da3222cc1f02c0864826a461ce47b3ec3b807b98688af9a29127ff39de45f4f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

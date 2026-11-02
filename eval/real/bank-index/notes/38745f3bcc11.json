@@ -1,0 +1,76 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "reactivation-dormant",
+   "type": "other",
+   "label": "log tag",
+   "as": [
+    "[reactivation-dormant]"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "dec-rdm-6m-cutoff",
+   "type": "other",
+   "label": "decision id",
+   "as": [
+    "dec-rdm-6m-cutoff"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "uplift-targeting",
+   "type": "term",
+   "label": "targeting approach",
+   "as": [
+    "uplift targeting"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "propensity-targeting",
+   "type": "term",
+   "label": "targeting approach",
+   "as": [
+    "propensity"
+   ],
+   "lines": [
+    3
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-rdm-6m-cutoff",
+   "type": "other",
+   "label": "chose 6-month cutoff",
+   "o": "uplift-targeting",
+   "quote": "Decided 6-month cutoff, dec-rdm-6m-cutoff; uplift targeting looks better than propensity",
+   "line": 3
+  },
+  {
+   "s": "uplift-targeting",
+   "type": "other",
+   "label": "looks better than",
+   "o": "propensity-targeting",
+   "quote": "uplift targeting looks better than propensity",
+   "line": 3
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2025-04-14.md",
+ "sha": "38745f3bcc11d23f83cfe637820067f61527fba43269e754e46963c938afcdd8",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

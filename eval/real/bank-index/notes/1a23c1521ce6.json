@@ -1,0 +1,128 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cu-uplift-v1",
+   "type": "model",
+   "label": "t-learner",
+   "as": [
+    "cu-uplift-v1 is a T-learner",
+    "cu-uplift-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cu-uplift-v2",
+   "type": "model",
+   "label": "newer version",
+   "as": [
+    "cu-uplift-v2"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "feat-cu-dpd-roll-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-dpd-roll-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-cu-pay-behaviour",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-pay-behaviour"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "pilot-data",
+   "type": "dataset",
+   "label": "pilot data",
+   "as": [
+    "pilot data",
+    "pilot arms"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "pilot-holdout-split",
+   "type": "dataset",
+   "label": "holdout split",
+   "as": [
+    "the pilot holdout split"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cu-uplift-v1",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-cu-dpd-roll-v1",
+   "quote": "Features: feat-cu-dpd-roll-v1, feat-cu-pay-behaviour.",
+   "line": 7
+  },
+  {
+   "s": "cu-uplift-v1",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-cu-pay-behaviour",
+   "quote": "Features: feat-cu-dpd-roll-v1, feat-cu-pay-behaviour.",
+   "line": 7
+  },
+  {
+   "s": "cu-uplift-v1",
+   "type": "trained-on",
+   "label": "trained on",
+   "o": "pilot-data",
+   "quote": "Trained on pilot arms through 2025-05-10",
+   "line": 8
+  },
+  {
+   "s": "cu-uplift-v1",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "pilot-holdout-split",
+   "quote": "evaluated on the pilot holdout split",
+   "line": 8
+  },
+  {
+   "s": "cu-uplift-v2",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "cu-uplift-v1",
+   "quote": "Superseded by cu-uplift-v2 (2025-12-09).",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "cu-resp-v1",
+  "ds-cu-treat-log"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-uplift/cu-uplift-v1.md",
+ "sha": "1a23c1521ce66fc5874199abeb9205ad70649a453542a9aab5ccdfca4b713e96",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

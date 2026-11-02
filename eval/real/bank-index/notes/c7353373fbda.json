@@ -1,0 +1,104 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ep-prior-logins-14d",
+   "type": "feature",
+   "label": "covariate",
+   "as": [
+    "feat-ep-prior-logins-14d"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "app.sessions_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "app.sessions_daily"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "digital-analytics",
+   "type": "team",
+   "label": "owner",
+   "as": [
+    "digital-analytics"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ep-cuped-v2",
+   "type": "term",
+   "label": "cuped variant",
+   "as": [
+    "ep-cuped-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "onboarding-tests",
+   "type": "other",
+   "label": "test type",
+   "as": [
+    "onboarding tests"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ep-prior-logins-14d",
+   "type": "uses",
+   "label": "reads from",
+   "o": "app.sessions_daily",
+   "quote": "from `app.sessions_daily`",
+   "line": 5
+  },
+  {
+   "s": "app.sessions_daily",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "digital-analytics",
+   "quote": "(owner digital-analytics)",
+   "line": 6
+  },
+  {
+   "s": "ep-cuped-v2",
+   "type": "uses",
+   "label": "second CUPED covariate",
+   "o": "feat-ep-prior-logins-14d",
+   "quote": "Second CUPED covariate in ep-cuped-v2.",
+   "line": 7
+  },
+  {
+   "s": "feat-ep-prior-logins-14d",
+   "type": "other",
+   "label": "reduces variance on",
+   "o": "onboarding-tests",
+   "quote": "Adds variance reduction on onboarding tests where spend is sparse.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "experiment-platform/feat-ep-prior-logins-14d.md",
+ "sha": "c7353373fbdaec72e5c6afc5fd786e4a4d527dbfbb7ba22df5c7047d84523c43",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

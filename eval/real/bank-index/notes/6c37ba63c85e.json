@@ -1,0 +1,72 @@
+{
+ "kind": "note",
+ "entities": [
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "cards.txn_daily-cash-like-subset",
+   "type": "segment",
+   "label": "cash-like subset",
+   "as": [
+    "cards.txn_daily cash-like subset (MCC 6011 and cash advances), Jan 2025 to Jun 2026"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "mcc-6011",
+   "type": "term",
+   "label": "mcc code",
+   "as": [
+    "MCC 6011"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "cash-advance",
+   "type": "term",
+   "label": "transaction type",
+   "as": [
+    "cash-advance transaction types"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cards.txn_daily-cash-like-subset",
+   "type": "part-of",
+   "label": "filtered from",
+   "o": "cards.txn_daily",
+   "quote": "Source: `cards.txn_daily` filtered to MCC 6011 and cash-advance transaction types.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "aml-alerts/ds-aml-cash-txn.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "aml-alerts/ds-aml-cash-txn.md",
+ "sha": "6c37ba63c85ec5f8c9a33b7bbbb96c1bc0fdc319eb5fe3e216bc242dad3d0f9a",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

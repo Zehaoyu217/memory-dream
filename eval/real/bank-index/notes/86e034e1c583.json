@@ -1,0 +1,98 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "promo-apr-test-find-pa-cliff-churn",
+   "type": "document",
+   "label": "finding note",
+   "as": [
+    "Finding: promo expiry is a churn cliff: 6.4% closure in 60 days for arm C against 2.1% for control"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-505-exit-churn",
+   "type": "other/experiment",
+   "label": "experiment",
+   "as": [
+    "exp-505"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "arm-c",
+   "type": "segment",
+   "label": "cohorts",
+   "as": [
+    "arm C cohorts"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-pa-promo-exit-cliff",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-pa-promo-exit-cliff"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "coverage",
+   "type": "metric",
+   "label": "closure rate",
+   "as": [
+    "6.4% closure in 60 days"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "promo-apr-test-find-pa-cliff-churn",
+   "type": "other",
+   "label": "from",
+   "o": "exp-505-exit-churn",
+   "quote": "from: [exp-505-exit-churn]",
+   "line": 2
+  },
+  {
+   "s": "exp-505-exit-churn",
+   "type": "evaluated-on",
+   "label": "run on",
+   "o": "arm-c",
+   "quote": "exp-505 on the arm C cohorts",
+   "line": 6
+  },
+  {
+   "s": "feat-pa-promo-exit-cliff",
+   "type": "other",
+   "label": "explains churn in",
+   "o": "promo-apr-test-find-pa-cliff-churn",
+   "quote": "Churn concentrates in accounts whose balance fell below half of the month-1 level at expiry (feat-pa-promo-exit-cliff).",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "dec-pa-glide-exit"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "promo-apr-test/find-pa-cliff-churn.md",
+ "sha": "86e034e1c583432149334bbce5392e7f3bc5b4908637106413cc4ea6d748e5c8",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

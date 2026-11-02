@@ -1,0 +1,111 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "cards.churn_labels",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.churn_labels"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "build-churn-labels",
+   "type": "module",
+   "label": "function",
+   "as": [
+    "build_churn_labels(window=N)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "base-rate",
+   "type": "metric",
+   "label": "base rate",
+   "as": [
+    "90-day base rate",
+    "60-day base rate"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "seasonal-lulls",
+   "type": "term",
+   "label": "seasonal lulls",
+   "as": [
+    "Seasonal lulls in SMB spend"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "churn",
+   "type": "term",
+   "label": "churn",
+   "as": [
+    "churn at 60 days"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "90-day-window",
+   "type": "term",
+   "label": "90-day window",
+   "as": [
+    "the 90-day window"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "build-churn-labels",
+   "type": "uses",
+   "label": "built on",
+   "o": "cards.churn_labels",
+   "quote": "Built with `build_churn_labels(window=N)` on `cards.churn_labels`",
+   "line": 6
+  },
+  {
+   "s": "seasonal-lulls",
+   "type": "other",
+   "label": "look like",
+   "o": "churn",
+   "quote": "Seasonal lulls in SMB spend look like churn at 60 days",
+   "line": 8
+  },
+  {
+   "s": "90-day-window",
+   "type": "other",
+   "label": "absorbs most of",
+   "o": "seasonal-lulls",
+   "quote": "the 90-day window absorbs most of them",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-csb-biz-accounts",
+  "dec-csb-90d-window"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-small-business/ds-csb-churn-labels.md",
+ "sha": "82e3a0b76cc9ceff989effe4c10775e80fdb84032576297c08a98b2d190521a2",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

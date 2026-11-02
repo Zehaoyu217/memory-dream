@@ -1,0 +1,177 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "t-learner",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "T-learner"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "model library",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "rdm-propensity-lr",
+   "type": "model",
+   "label": "propensity model",
+   "as": [
+    "rdm-propensity-lr"
+   ],
+   "lines": [
+    2,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "feat-rdm-app-installed",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "app-installed",
+    "feat-rdm-app-installed"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "feat-rdm-prior-response",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rdm-prior-response"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "ds-rdm-holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "ds-rdm-holdout-2025q1"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "rdm-oot-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Holdout rdm-oot-2025q1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift metric",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "qini",
+   "type": "metric",
+   "label": "uplift metric",
+   "as": [
+    "Qini"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "t-learner",
+   "type": "uses",
+   "label": "built with",
+   "o": "lightgbm",
+   "quote": "Two LightGBM models, treated and control",
+   "line": 6
+  },
+  {
+   "s": "t-learner",
+   "type": "uses",
+   "label": "uses features of",
+   "o": "rdm-propensity-lr",
+   "quote": "on the four features in rdm-propensity-lr plus app-installed",
+   "line": 6
+  },
+  {
+   "s": "t-learner",
+   "type": "uses",
+   "label": "uses feature",
+   "o": "feat-rdm-app-installed",
+   "quote": "plus app-installed",
+   "line": 6
+  },
+  {
+   "s": "t-learner",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "rdm-oot-2025q1",
+   "quote": "Holdout rdm-oot-2025q1 (n=11,260)",
+   "line": 7
+  },
+  {
+   "s": "t-learner",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "uplift-at-20",
+   "quote": "uplift@20% 2.8pp",
+   "line": 7
+  },
+  {
+   "s": "t-learner",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "qini",
+   "quote": "Qini 0.41",
+   "line": 7
+  },
+  {
+   "s": "rdm-propensity-lr",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "uplift-at-20",
+   "quote": "against 0.9pp for propensity",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "dec-rdm-target-by-uplift"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reactivation-dormant/exp-303.md",
+ "sha": "9402675e11c05e7fb90a5d0606838ff942aefd08a7e3b71dab8d91de4ed738aa",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

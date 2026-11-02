@@ -1,0 +1,110 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "transcript-30s-window",
+   "type": "feature",
+   "label": "30-second window",
+   "as": [
+    "The first 30 seconds of transcript",
+    "the 30-second window"
+   ],
+   "lines": [
+    5,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "full-transcript",
+   "type": "feature",
+   "label": "full transcript",
+   "as": [
+    "Full transcript"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "feat-cr-transcript-tfidf-v1",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "feat-cr-transcript-tfidf-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro f1",
+   "as": [
+    "macro F1"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "transcript-30s-window",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "holdout-2025q4",
+   "quote": "the 30-second window 0.708 on holdout-2025q4",
+   "line": 6
+  },
+  {
+   "s": "full-transcript",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "holdout-2025q4",
+   "quote": "Full transcript gives 0.712 and the 30-second window 0.708 on holdout-2025q4",
+   "line": 6
+  },
+  {
+   "s": "transcript-30s-window",
+   "type": "measured-by",
+   "label": "measured by macro F1",
+   "o": "macro-f1",
+   "quote": "within 0.004 macro F1 of the full transcript",
+   "line": 5
+  },
+  {
+   "s": "transcript-30s-window",
+   "type": "other",
+   "label": "basis for",
+   "o": "feat-cr-transcript-tfidf-v1",
+   "quote": "Basis for the 30-second window in feat-cr-transcript-tfidf-v1.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-102",
+  "feat-cr-transcript-tfidf-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/fnd-cr-transcript-30s.md",
+ "sha": "3dd9f2994f9994cd1d76f3011b7deeb506917db162fd8626403ccc2c1c801a1d",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

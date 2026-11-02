@@ -1,0 +1,48 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "yoy-seasonality-adjust",
+   "type": "term",
+   "label": "comparison rule",
+   "as": [
+    "Compare spend to the same month last year, not to the previous month"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "yoy-seasonality-adjust",
+   "type": "uses",
+   "label": "reads from",
+   "o": "cards.txn_daily",
+   "quote": "Use `cards.txn_daily` with `fiscal_month` from the team calendar.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "howto/yoy-seasonality-adjust.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/yoy-seasonality-adjust.md",
+ "sha": "12a7c77f9712dd834d5cfffded07555f95926657271d122967d38f5aee79b242",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

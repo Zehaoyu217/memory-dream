@@ -1,0 +1,46 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "account-level-bootstrap",
+   "type": "term",
+   "label": "resampling method",
+   "as": [
+    "500 account-level bootstrap resamples"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "account-level-bootstrap",
+   "type": "measured-by",
+   "label": "recomputes",
+   "o": "uplift-at-20",
+   "quote": "Recompute uplift@20% on each resample and take the 2.5th and 97.5th percentiles.",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/bootstrap-ci-for-uplift.md",
+ "sha": "dc6057175b0b3bc027cc01694f1ba41b861973dcf0df9fe6629e8196a34e1b34",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

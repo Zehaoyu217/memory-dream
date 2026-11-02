@@ -1,0 +1,103 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "all-weekday-zscore",
+   "type": "term",
+   "label": "baseline method",
+   "as": [
+    "all-weekday z-score",
+    "all-weekday baseline"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "same-weekday-baseline",
+   "type": "term",
+   "label": "baseline method",
+   "as": [
+    "Same-weekday baseline",
+    "the same-weekday version"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "alarm-count",
+   "type": "metric",
+   "label": "alarm count",
+   "as": [
+    "volume alarms",
+    "alarms per month"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "weekday-effect",
+   "type": "term",
+   "label": "weekday effect",
+   "as": [
+    "The weekday effect"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "false-alarms",
+   "type": "other",
+   "label": "false alarms",
+   "as": [
+    "false alarms"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "all-weekday-zscore",
+   "type": "measured-by",
+   "label": "gives",
+   "o": "alarm-count",
+   "quote": "all-weekday baseline gives 6.8 alarms per month",
+   "line": 6
+  },
+  {
+   "s": "same-weekday-baseline",
+   "type": "measured-by",
+   "label": "gives",
+   "o": "alarm-count",
+   "quote": "Same-weekday baseline gives 1.2.",
+   "line": 6
+  },
+  {
+   "s": "weekday-effect",
+   "type": "other",
+   "label": "explains",
+   "o": "false-alarms",
+   "quote": "The weekday effect is the whole story",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-304"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "data-quality-txn/fnd-volume-false-alarms.md",
+ "sha": "16dd4fc8064cb9804a7be7e4c723e4e8088bbf67dc00b6418d263119826c6628",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

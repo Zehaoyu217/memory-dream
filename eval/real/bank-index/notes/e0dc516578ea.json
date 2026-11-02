@@ -1,0 +1,87 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "cards-churn-labels",
+   "type": "dataset",
+   "label": "churn labels table",
+   "as": [
+    "cards.churn_labels"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "build-churn-labels",
+   "type": "pipeline",
+   "label": "label builder function",
+   "as": [
+    "build_churn_labels(window=N)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "churn-2025-labels",
+   "type": "term",
+   "label": "churn label definition",
+   "as": [
+    "Label = no card spend and no payment for N days after the snapshot"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-c25-accounts-snapshot",
+   "type": "dataset",
+   "label": "accounts snapshot source",
+   "as": [
+    "ds-c25-accounts-snapshot"
+   ],
+   "lines": [
+    2
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-2025-labels",
+   "type": "uses",
+   "label": "built with",
+   "o": "build-churn-labels",
+   "quote": "built with `build_churn_labels(window=N)` on `cards.churn_labels`",
+   "line": 6
+  },
+  {
+   "s": "build-churn-labels",
+   "type": "uses",
+   "label": "runs on",
+   "o": "cards-churn-labels",
+   "quote": "built with `build_churn_labels(window=N)` on `cards.churn_labels`",
+   "line": 6
+  },
+  {
+   "s": "churn-2025-labels",
+   "type": "derived-from",
+   "label": "sourced from",
+   "o": "ds-c25-accounts-snapshot",
+   "quote": "from: [ds-c25-accounts-snapshot]",
+   "line": 2
+  }
+ ],
+ "refs": [
+  "ds-c25-accounts-snapshot"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2025/ds-c25-churn-labels.md",
+ "sha": "e0dc516578eae8f3e3b90884c585bf414cbe2dd7b3f50aa93ab7632a5819966a",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

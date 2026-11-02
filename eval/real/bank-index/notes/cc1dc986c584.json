@@ -1,0 +1,124 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fraud-team",
+   "type": "team",
+   "label": "fraud team",
+   "as": [
+    "the fraud team"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "daniel-okafor",
+   "type": "person",
+   "label": "team lead",
+   "as": [
+    "Daniel Okafor"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "precision-at-k",
+   "type": "metric",
+   "label": "precision@k",
+   "as": [
+    "precision@1800"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "recall-at-k",
+   "type": "metric",
+   "label": "recall@k",
+   "as": [
+    "recall@1800"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "oot-set",
+   "type": "dataset",
+   "label": "oot set",
+   "as": [
+    "the OOT set"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "weekly-review-capacity",
+   "type": "term",
+   "label": "review capacity",
+   "as": [
+    "the weekly review capacity"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "daniel-okafor",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "precision-at-k",
+   "quote": "Daniel Okafor's team reports precision@1800 beside recall@1800 on the OOT set",
+   "line": 6
+  },
+  {
+   "s": "daniel-okafor",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "recall-at-k",
+   "quote": "Daniel Okafor's team reports precision@1800 beside recall@1800 on the OOT set",
+   "line": 6
+  },
+  {
+   "s": "fraud-team",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "precision-at-k",
+   "quote": "Daniel Okafor's team reports precision@1800",
+   "line": 6
+  },
+  {
+   "s": "precision-at-k",
+   "type": "evaluated-on",
+   "label": "reported on",
+   "o": "oot-set",
+   "quote": "reports precision@1800 beside recall@1800 on the OOT set",
+   "line": 6
+  },
+  {
+   "s": "recall-at-k",
+   "type": "evaluated-on",
+   "label": "reported on",
+   "o": "oot-set",
+   "quote": "recall@1800 on the OOT set",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "howto/precision-at-k-review-capacity"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/precision-capacity-k.md",
+ "sha": "cc1dc986c584fadd40d1e7925e64f53931c033ca95db8fab0272699bbb47782f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

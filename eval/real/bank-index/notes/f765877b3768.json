@@ -1,0 +1,105 @@
+{
+ "kind": "note",
+ "entities": [
+  {
+   "id": "feat-xs-call-recent",
+   "type": "feature",
+   "label": "binary flag",
+   "as": [
+    "feat-xs-call-recent"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`callcenter.calls`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "xs-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "xs-gbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "xs-call-uplift-v1",
+   "type": "model",
+   "label": "study",
+   "as": [
+    "xs-call-uplift-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-xs-callcentre",
+   "type": "team",
+   "label": "author team",
+   "as": [
+    "ds-xs-callcentre"
+   ],
+   "lines": [
+    2
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-xs-call-recent",
+   "type": "uses",
+   "label": "from",
+   "o": "callcenter.calls",
+   "quote": "Binary flag from `callcenter.calls`",
+   "line": 6
+  },
+  {
+   "s": "feat-xs-call-recent",
+   "type": "other",
+   "label": "excluded from",
+   "o": "xs-gbm-v2",
+   "quote": "Excluded from xs-gbm-v2",
+   "line": 7
+  },
+  {
+   "s": "feat-xs-call-recent",
+   "type": "uses",
+   "label": "used only in",
+   "o": "xs-call-uplift-v1",
+   "quote": "used only in the call uplift study (xs-call-uplift-v1)",
+   "line": 7
+  },
+  {
+   "s": "feat-xs-call-recent",
+   "type": "owned-by",
+   "label": "from",
+   "o": "ds-xs-callcentre",
+   "quote": "from: [ds-xs-callcentre]",
+   "line": 2
+  }
+ ],
+ "refs": [
+  "cross-sell-savings/feat-xs-call-recent.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cross-sell-savings/feat-xs-call-recent.md",
+ "sha": "f765877b376808347eb980070bdb5c5ddee64af7b6fe290189f1479641665e6c",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

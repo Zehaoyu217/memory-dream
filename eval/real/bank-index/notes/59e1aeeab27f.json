@@ -1,0 +1,70 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "rev26-interest-v1",
+   "type": "model",
+   "label": "interest model",
+   "as": [
+    "rev26-interest-v1: balance times APR times yield, no haircut, overstates by $4.2M a quarter",
+    "rev26-interest-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "rev26-interest-v2",
+   "type": "model",
+   "label": "interest model",
+   "as": [
+    "rev26-interest-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-302",
+   "type": "other",
+   "label": "backtest experiment",
+   "as": [
+    "exp-302"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rev26-interest-v1",
+   "type": "other",
+   "label": "overstates interest by",
+   "o": "exp-302",
+   "quote": "Backtest 2024-Q3 to 2025-Q2 overstates interest by $4.2M a quarter on average (exp-302).",
+   "line": 7
+  },
+  {
+   "s": "rev26-interest-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "rev26-interest-v1",
+   "quote": "Superseded by rev26-interest-v2 in December 2025.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "revenue-forecast-2026/rev26-interest-v1.md",
+  "feat-rev26-revolve-balance",
+  "feat-rev26-apr-mix"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "revenue-forecast-2026/rev26-interest-v1.md",
+ "sha": "59e1aeeab27f9c03292f70070685b969c3d1b9d702f503c9d11fae073d56d286",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,155 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ror-expected-revenue",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "12-month expected revenue per account"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ror-roi-v1",
+   "type": "model",
+   "label": "roi version",
+   "as": [
+    "ror-roi-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ror-roi-v2",
+   "type": "model",
+   "label": "roi version",
+   "as": [
+    "ror-roi-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "value-band",
+   "type": "other",
+   "label": "value band",
+   "as": [
+    "the value band"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-ror-value-band-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ror-value-band-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "segment-ratio",
+   "type": "other",
+   "label": "ratio",
+   "as": [
+    "segment-specific ratio"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "actual-revenue-180d",
+   "type": "metric",
+   "label": "actual revenue",
+   "as": [
+    "180-day actual revenue"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "credit-loss-term",
+   "type": "term",
+   "label": "term",
+   "as": [
+    "credit-loss term"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ror-expected-revenue",
+   "type": "uses",
+   "label": "scaled from",
+   "o": "actual-revenue-180d",
+   "quote": "180-day actual revenue scaled to 12 months",
+   "line": 6
+  },
+  {
+   "s": "feat-ror-expected-revenue",
+   "type": "uses",
+   "label": "scaled with",
+   "o": "segment-ratio",
+   "quote": "scaled to 12 months with a segment-specific ratio from the revenue build",
+   "line": 6
+  },
+  {
+   "s": "ror-roi-v1",
+   "type": "uses",
+   "label": "feeds",
+   "o": "feat-ror-expected-revenue",
+   "quote": "Feeds ror-roi-v1, ror-roi-v2 and the value band.",
+   "line": 7
+  },
+  {
+   "s": "ror-roi-v2",
+   "type": "uses",
+   "label": "feeds",
+   "o": "feat-ror-expected-revenue",
+   "quote": "Feeds ror-roi-v1, ror-roi-v2 and the value band.",
+   "line": 7
+  },
+  {
+   "s": "value-band",
+   "type": "uses",
+   "label": "feeds",
+   "o": "feat-ror-expected-revenue",
+   "quote": "Feeds ror-roi-v1, ror-roi-v2 and the value band.",
+   "line": 7
+  },
+  {
+   "s": "feat-ror-value-band-v2",
+   "type": "other",
+   "label": "adds",
+   "o": "credit-loss-term",
+   "quote": "No credit-loss term here; that is added in feat-ror-value-band-v2.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-ror-value-band-v2",
+  "ds-ror-retained-revenue"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "retention-offers-roi/feat-ror-expected-revenue.md",
+ "sha": "362de836f62af737250a83e898d469c2abc4fd3a886622b151d9727b156b1771",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

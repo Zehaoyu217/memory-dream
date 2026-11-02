@@ -1,0 +1,94 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "blended-series",
+   "type": "other",
+   "label": "blended series",
+   "as": [
+    "blended series",
+    "blend"
+   ],
+   "lines": [
+    5,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "domestic-travel-spend",
+   "type": "metric",
+   "label": "separate line",
+   "as": [
+    "domestic"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "cross-border-travel-spend",
+   "type": "metric",
+   "label": "separate line",
+   "as": [
+    "cross-border"
+   ],
+   "lines": [
+    2,
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "june-2026-pack",
+   "type": "document",
+   "label": "pack",
+   "as": [
+    "June 2026 pack"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "blended-series",
+   "type": "other",
+   "label": "hid lag in",
+   "o": "cross-border-travel-spend",
+   "quote": "The blended series hid a cross-border lag through 2025",
+   "line": 6
+  },
+  {
+   "s": "june-2026-pack",
+   "type": "other",
+   "label": "reports separately",
+   "o": "domestic-travel-spend",
+   "quote": "From the June 2026 pack, domestic and cross-border are reported as separate lines",
+   "line": 7
+  },
+  {
+   "s": "domestic-travel-spend",
+   "type": "other",
+   "label": "reported separately from",
+   "o": "cross-border-travel-spend",
+   "quote": "domestic and cross-border are reported as separate lines with their own run-rates",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-trv-plateau",
+  "fnd-trv-cross-border-recovery"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "travel-spend-recovery/dec-trv-report-split.md",
+ "sha": "70cea5bc9078ea6b17ff57f04599188af0e67b0a642db4571fe5f41aae777559",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

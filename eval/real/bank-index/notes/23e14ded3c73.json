@@ -1,0 +1,80 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "xs-gbm",
+   "type": "model",
+   "label": "retrained model",
+   "as": [
+    "xs-gbm"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "payroll-pattern-set",
+   "type": "other",
+   "label": "pattern set",
+   "as": [
+    "payroll pattern set"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "2026-descriptors",
+   "type": "feature",
+   "label": "descriptors",
+   "as": [
+    "2026 descriptors"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "xs-oot-2026h1",
+   "type": "dataset",
+   "label": "scoring set",
+   "as": [
+    "xs-oot-2026h1"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "xs-gbm",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "xs-oot-2026h1",
+   "quote": "the retrained model is scored on xs-oot-2026h1 before release",
+   "line": 7
+  },
+  {
+   "s": "payroll-pattern-set",
+   "type": "uses",
+   "label": "rebuilt on",
+   "o": "2026-descriptors",
+   "quote": "the payroll pattern set rebuilt on 2026 descriptors",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "find-xs-drift-2026",
+  "exp-407-oot-2026h1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cross-sell-savings/dec-xs-retrain-quarterly.md",
+ "sha": "23e14ded3c73cf2a412d11fb385baaf411de211f9f942c64a380dd48cac13696",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

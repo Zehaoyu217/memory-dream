@@ -1,0 +1,89 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "fit-on-train-only",
+   "type": "term",
+   "label": "rule",
+   "as": [
+    "Fit imputers, scalers and caps on the training split only"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "training-split",
+   "type": "dataset",
+   "label": "training split",
+   "as": [
+    "training split"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "oot",
+   "type": "term",
+   "label": "oot split",
+   "as": [
+    "OOT"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "2025-limit-model",
+   "type": "model",
+   "label": "limit model",
+   "as": [
+    "2025 limit model"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "oot auc",
+   "as": [
+    "OOT AUC"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fit-on-train-only",
+   "type": "uses",
+   "label": "fitted on",
+   "o": "training-split",
+   "quote": "Any imputer, scaler or capping statistic is fitted on the training split",
+   "line": 5
+  },
+  {
+   "s": "2025-limit-model",
+   "type": "measured-by",
+   "label": "OOT AUC inflated by leak",
+   "o": "auc",
+   "quote": "inflated its OOT AUC by 0.011",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/imputation-fit-on-train-only.md",
+ "sha": "273e69747cfb8b2d6b853beddf3a8f9fee190f1968c4589170794ad844aaf56a",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

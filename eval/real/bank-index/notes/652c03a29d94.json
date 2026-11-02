@@ -1,0 +1,168 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "xs-logit-v1",
+   "type": "model",
+   "label": "logistic baseline",
+   "as": [
+    "xs-logit-v1",
+    "Regularized logistic regression"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "xs-holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "xs-holdout-2025q1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.64"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "open-rate",
+   "type": "metric",
+   "label": "top-decile open rate",
+   "as": [
+    "top-decile open rate"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "lift",
+   "type": "metric",
+   "label": "lift",
+   "as": [
+    "lift 1.9x"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "tenure",
+   "type": "feature",
+   "label": "input",
+   "as": [
+    "tenure"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "credit-limit",
+   "type": "feature",
+   "label": "input",
+   "as": [
+    "credit limit"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "six-month-spend",
+   "type": "feature",
+   "label": "input",
+   "as": [
+    "six-month spend"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "xs-logit-v1",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "xs-holdout-2025q1",
+   "quote": "AUC 0.64 on xs-holdout-2025q1 (n=52,000)",
+   "line": 7
+  },
+  {
+   "s": "xs-logit-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.64 on xs-holdout-2025q1 (n=52,000)",
+   "line": 7
+  },
+  {
+   "s": "xs-logit-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "open-rate",
+   "quote": "top-decile open rate 5.6%",
+   "line": 7
+  },
+  {
+   "s": "xs-logit-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "lift",
+   "quote": "lift 1.9x",
+   "line": 7
+  },
+  {
+   "s": "xs-logit-v1",
+   "type": "uses",
+   "label": "regression on",
+   "o": "tenure",
+   "quote": "Regularized logistic regression on tenure, credit limit and six-month spend.",
+   "line": 6
+  },
+  {
+   "s": "xs-logit-v1",
+   "type": "uses",
+   "label": "regression on",
+   "o": "credit-limit",
+   "quote": "Regularized logistic regression on tenure, credit limit and six-month spend.",
+   "line": 6
+  },
+  {
+   "s": "xs-logit-v1",
+   "type": "uses",
+   "label": "regression on",
+   "o": "six-month-spend",
+   "quote": "Regularized logistic regression on tenure, credit limit and six-month spend.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-401-logit-baseline",
+  "ds-xs-offer-log"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cross-sell-savings/xs-logit-v1.md",
+ "sha": "652c03a29d94b6335222c0dd1de817d9f21ad95eafa299142737372c42c70328",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

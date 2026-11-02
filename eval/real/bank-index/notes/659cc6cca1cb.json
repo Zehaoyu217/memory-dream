@@ -1,0 +1,128 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "log-2026-02-03",
+   "type": "other",
+   "label": "daily log",
+   "as": [
+    "# log 2026-02-03"
+   ],
+   "lines": [
+    1
+   ]
+  },
+  {
+   "id": "promo-apr-test",
+   "type": "other",
+   "label": "test",
+   "as": [
+    "[promo-apr-test] Test live: 96,000 accounts in three arms."
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "merchant-risk",
+   "type": "other",
+   "label": "merchant spine",
+   "as": [
+    "[merchant-risk] merchant spine pulled from cards.merchants"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.merchants",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.merchants"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feature-store-migration",
+   "type": "other",
+   "label": "migration",
+   "as": [
+    "[feature-store-migration] churn retrain on store features gives +0.009 AUC, sending to Lena"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "reviewer",
+   "as": [
+    "sending to Lena"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "recovery-scoring",
+   "type": "other",
+   "label": "scoring work",
+   "as": [
+    "[recovery-scoring] regression head brings MAPE to 14.2% on 2025H2 agency returns"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "error metric",
+   "as": [
+    "MAPE to 14.2%"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "merchant-risk",
+   "type": "uses",
+   "label": "pulled from",
+   "o": "cards.merchants",
+   "quote": "merchant spine pulled from cards.merchants",
+   "line": 4
+  },
+  {
+   "s": "feature-store-migration",
+   "type": "other",
+   "label": "sent to",
+   "o": "lena-fischer",
+   "quote": "sending to Lena",
+   "line": 5
+  },
+  {
+   "s": "recovery-scoring",
+   "type": "measured-by",
+   "label": "brings",
+   "o": "mape",
+   "quote": "regression head brings MAPE to 14.2%",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2026-02-03.md",
+ "sha": "659cc6cca1cb8d35eabdc7bd01e095b09fb69a6478b8f3251a0561ddaa791711",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

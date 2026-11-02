@@ -1,0 +1,167 @@
+{
+ "kind": "design",
+ "entities": [
+  {
+   "id": "ae-score-v2",
+   "type": "metric",
+   "label": "engagement score",
+   "as": [
+    "Engagement score v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ae-score-v1",
+   "type": "metric",
+   "label": "engagement score",
+   "as": [
+    "ae-score-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ae-act28",
+   "type": "feature",
+   "label": "active days",
+   "as": [
+    "ae_act28"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-ae-depth-v2",
+   "type": "feature",
+   "label": "depth v2",
+   "as": [
+    "depth v2"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "push-open-rate",
+   "type": "feature",
+   "label": "push open rate",
+   "as": [
+    "Push open rate"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "logistic-regression",
+   "type": "term",
+   "label": "logistic regression",
+   "as": [
+    "logistic regression"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.76 for 90-day attrition"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ae-score-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "ae-score-v1",
+   "quote": "supersedes: [ae-score-v1]",
+   "line": 4
+  },
+  {
+   "s": "ae-score-v2",
+   "type": "uses",
+   "label": "uses input",
+   "o": "ae-act28",
+   "quote": "Inputs: ae_act28 and depth v2",
+   "line": 7
+  },
+  {
+   "s": "ae-score-v2",
+   "type": "uses",
+   "label": "uses input",
+   "o": "feat-ae-depth-v2",
+   "quote": "Inputs: ae_act28 and depth v2",
+   "line": 7
+  },
+  {
+   "s": "ae-score-v2",
+   "type": "uses",
+   "label": "fitted by",
+   "o": "logistic-regression",
+   "quote": "Weights fitted by logistic regression",
+   "line": 7
+  },
+  {
+   "s": "ae-score-v2",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "auc",
+   "quote": "AUC 0.76 for 90-day attrition",
+   "line": 8
+  },
+  {
+   "s": "ae-score-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q4",
+   "quote": "on holdout-2025q4 (n = 610,000)",
+   "line": 8
+  },
+  {
+   "s": "ae-score-v2",
+   "type": "other",
+   "label": "removed",
+   "o": "push-open-rate",
+   "quote": "Push open rate removed.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-ae-depth-v2",
+  "feat-ae-active-days-v1",
+  "exp-505",
+  "dec-ae-no-push-credit",
+  "ae-score-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "app-engagement/ae-score-v2.md",
+ "sha": "fc8f25021b5d3efc07beff6f2402690f0a3f47e24e2455b98504e3055cd1a551",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

@@ -1,0 +1,70 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "bt-holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "bt-holdout-2025q1",
+    "randomly held-out accounts"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bt.offer_log",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "bt.offer_log"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "acceptance-rate",
+   "type": "metric",
+   "label": "acceptance",
+   "as": [
+    "Realized acceptance 3.9%"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bt-holdout-2025q1",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "bt.offer_log",
+   "quote": "Source: `bt.offer_log` where `holdout_flag = 1`.",
+   "line": 7
+  },
+  {
+   "s": "bt-holdout-2025q1",
+   "type": "measured-by",
+   "label": "realized acceptance",
+   "o": "acceptance-rate",
+   "quote": "Realized acceptance 3.9% (about 1,630 accepters).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-bt-oot-2026h1",
+  "ds-bt-offer-log",
+  "exp-105"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "balance-transfer-propensity/ds-bt-holdout-2025q1.md",
+ "sha": "ecb7b2718cc753f4ce9d3fea207e90fc32acc262f3f61b5b1d76d82e51563209",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

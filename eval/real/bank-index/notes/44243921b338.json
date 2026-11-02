@@ -1,0 +1,123 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "2024h1-vintage",
+   "type": "segment",
+   "label": "2024h1 vintage",
+   "as": [
+    "2024H1 vintage",
+    "2024H1 charge-offs"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "2023-vintages",
+   "type": "segment",
+   "label": "2023 vintages",
+   "as": [
+    "2023 vintages"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "recovery-rate",
+   "type": "metric",
+   "label": "recovery rate",
+   "as": [
+    "Recovery rate",
+    "recover 7.1% of balance in 12 months"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "charge-off",
+   "type": "term",
+   "label": "charge-off",
+   "as": [
+    "charge-offs"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "agencies",
+   "type": "organisation",
+   "label": "collection agencies",
+   "as": [
+    "agencies"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "placement-script",
+   "type": "module",
+   "label": "placement script",
+   "as": [
+    "new placement script"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "2024h1-vintage",
+   "type": "measured-by",
+   "label": "recovers at",
+   "o": "recovery-rate",
+   "quote": "2024H1 vintage: 7.1% (n=11,300)",
+   "line": 6
+  },
+  {
+   "s": "2023-vintages",
+   "type": "measured-by",
+   "label": "recovers at",
+   "o": "recovery-rate",
+   "quote": "2023 vintages: 9.8% (n=27,400)",
+   "line": 6
+  },
+  {
+   "s": "charge-off",
+   "type": "measured-by",
+   "label": "recovery measured as",
+   "o": "recovery-rate",
+   "quote": "2024H1 charge-offs recover 7.1% of balance in 12 months",
+   "line": 5
+  },
+  {
+   "s": "agencies",
+   "type": "other",
+   "label": "moved to",
+   "o": "placement-script",
+   "quote": "agencies moved to the new placement script",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-rs-recovery-labels",
+  "find-rs-recovery-flat",
+  "recovery_scoring/exp305_vintage.ipynb"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "recovery-scoring/exp-305.md",
+ "sha": "44243921b338d82e00322073c64ce17e4d1ac6fc42f44ea21b8181d740537f4e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

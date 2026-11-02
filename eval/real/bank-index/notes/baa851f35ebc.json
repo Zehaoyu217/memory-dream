@@ -1,0 +1,134 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "regulator-reports",
+   "type": "document",
+   "label": "regulator reports",
+   "as": [
+    "Regulator reports"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "split-billing-codes",
+   "type": "term",
+   "label": "split codes",
+   "as": [
+    "split billing codes",
+    "split codes",
+    "split pair"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "legacy-codes",
+   "type": "term",
+   "label": "legacy codes",
+   "as": [
+    "legacy codes"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "complaints-code-map",
+   "type": "dataset",
+   "label": "mapping table",
+   "as": [
+    "`complaints.code_map`"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "relabelled-set",
+   "type": "dataset",
+   "label": "relabelled set",
+   "as": [
+    "the relabelled set"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "recoded-complaints",
+   "type": "segment",
+   "label": "complaints cohort",
+   "as": [
+    "Complaints opened from 2025-07-01"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "omar-haddad",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Omar Haddad"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "regulator-reports",
+   "type": "uses",
+   "label": "use",
+   "o": "split-billing-codes",
+   "quote": "Regulator reports use the split billing codes from 2026-04-01",
+   "line": 5
+  },
+  {
+   "s": "legacy-codes",
+   "type": "uses",
+   "label": "mapped through",
+   "o": "complaints-code-map",
+   "quote": "legacy codes are mapped through complaints.code_map for back-catalogue",
+   "line": 5
+  },
+  {
+   "s": "recoded-complaints",
+   "type": "uses",
+   "label": "re-coded using",
+   "o": "relabelled-set",
+   "quote": "re-coded to the split codes using the relabelled set from exp-205",
+   "line": 6
+  },
+  {
+   "s": "regulator-reports",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "omar-haddad",
+   "quote": "Owner Omar Haddad (compliance)",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-cc-taxonomy-drift",
+  "ds-cc-taxonomy-v3",
+  "exp-205"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "complaint-classification/dec-cc-taxonomy-split.md",
+ "sha": "baa851f35ebc18d1b58aa81d68d7a639671192c576dcf4ce81a7cc1bc575e5f7",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

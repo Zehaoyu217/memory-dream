@@ -1,0 +1,106 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ed-cashadv-v1",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "feat-ed-cashadv-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-ed-util-trend-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ed-util-trend-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ed-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ed-gbm-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ed-cashadv-v1",
+   "type": "uses",
+   "label": "aggregated from",
+   "o": "cards.txn_daily",
+   "quote": "Source: `cards.txn_daily` aggregated to account-month",
+   "line": 7
+  },
+  {
+   "s": "feat-ed-cashadv-v1",
+   "type": "other",
+   "label": "adds to",
+   "o": "ed-gbm-v1",
+   "quote": "Adds about +0.02 AUC to ed-gbm-v1",
+   "line": 8
+  },
+  {
+   "s": "ed-gbm-v1",
+   "type": "measured-by",
+   "label": "gains in AUC",
+   "o": "auc",
+   "quote": "Adds about +0.02 AUC to ed-gbm-v1",
+   "line": 8
+  },
+  {
+   "s": "feat-ed-cashadv-v1",
+   "type": "other",
+   "label": "combined with",
+   "o": "feat-ed-util-trend-v1",
+   "quote": "when combined with feat-ed-util-trend-v1",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-202",
+  "ds-ed-current-base"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "early-delinquency/feat-ed-cashadv-v1.md",
+ "sha": "20ea589172610609ffac70fa38ea46a01ae4ae9d5da0fe241206a53075263d34",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

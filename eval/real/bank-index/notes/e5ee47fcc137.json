@@ -1,0 +1,84 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "travel-mcc-monthly",
+   "type": "dataset",
+   "label": "monthly travel spend",
+   "as": [
+    "Monthly travel spend by MCC group"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-trv-seasonality-adj",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-trv-seasonality-adj"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ridge",
+   "type": "model",
+   "label": "ridge model",
+   "as": [
+    "ridge"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "travel-mcc-monthly",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards.txn_daily",
+   "quote": "Monthly travel spend from `cards.txn_daily`",
+   "line": 6
+  },
+  {
+   "s": "feat-trv-seasonality-adj",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "travel-mcc-monthly",
+   "quote": "Source for feat-trv-seasonality-adj",
+   "line": 8
+  },
+  {
+   "s": "ridge",
+   "type": "uses",
+   "label": "source for",
+   "o": "travel-mcc-monthly",
+   "quote": "Source for feat-trv-seasonality-adj and the STL and ridge models.",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "travel-spend-recovery/ds-trv-travel-mcc-monthly.md",
+ "sha": "e5ee47fcc1379d5ee798f8725412c817c4d7dbb098e8bdb3ec13e431b29705c4",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,66 @@
+{
+ "kind": "term",
+ "entities": [
+  {
+   "id": "champion-challenger",
+   "type": "term",
+   "label": "test method",
+   "as": [
+    "champion-challenger"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "score-gbm-v5",
+   "type": "model",
+   "label": "challenger",
+   "as": [
+    "score-gbm-v5"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "promotion metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "score-gbm-v5",
+   "type": "other",
+   "label": "example of",
+   "o": "champion-challenger",
+   "quote": "Example: Sept 2024 challenger `score-gbm-v5` ran on 10% of accounts.",
+   "line": 6
+  },
+  {
+   "s": "champion-challenger",
+   "type": "measured-by",
+   "label": "promoted if higher",
+   "o": "auc",
+   "quote": "The challenger is promoted after two weeks if its AUC is higher.",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "glossary/champion-challenger.md",
+ "sha": "1d481a1b19735f93e2e4faae1b790ff90d5de25cf9d5336ae87e5d024bad3270",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

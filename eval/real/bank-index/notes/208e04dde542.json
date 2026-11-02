@@ -1,0 +1,103 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fine-tuned-encoder",
+   "type": "model",
+   "label": "fine-tuned encoder",
+   "as": [
+    "fine-tuned encoder"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-tickets",
+   "type": "dataset",
+   "label": "holdout tickets",
+   "as": [
+    "holdout tickets"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "precision",
+   "type": "metric",
+   "label": "precision",
+   "as": [
+    "precision"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "auto-coded-share",
+   "type": "metric",
+   "label": "auto-coded share",
+   "as": [
+    "auto-coded share",
+    "coverage"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "compliance",
+   "type": "team",
+   "label": "compliance",
+   "as": [
+    "compliance"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fine-tuned-encoder",
+   "type": "evaluated-on",
+   "label": "auto-coded",
+   "o": "holdout-tickets",
+   "quote": "1,044 of 1,800 holdout tickets auto-coded at 0.95 precision",
+   "line": 6
+  },
+  {
+   "s": "fine-tuned-encoder",
+   "type": "measured-by",
+   "label": "auto-codes 58 percent",
+   "o": "auto-coded-share",
+   "quote": "At 0.95 precision the fine-tuned encoder auto-codes 58 percent of holdout tickets",
+   "line": 5
+  },
+  {
+   "s": "compliance",
+   "type": "other",
+   "label": "cares about",
+   "o": "auto-coded-share",
+   "quote": "the auto-coded share is what compliance cares about",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-206",
+  "dec-cc-auto-threshold"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "complaint-classification/fnd-cc-coverage.md",
+ "sha": "208e04dde5421a03a43889d0379020ddfe968332c78307d212a98749a0256386",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

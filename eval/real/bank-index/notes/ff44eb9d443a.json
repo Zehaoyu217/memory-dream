@@ -1,0 +1,103 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "feat-bt-util-3m",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-bt-util-3m"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "feat-bt-util-trend-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-bt-util-trend-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bt-holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "bt-holdout-2025q1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "bt-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bt-xgb-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "bureau-delta",
+   "type": "other",
+   "label": "feature input",
+   "as": [
+    "bureau delta"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-bt-util-trend-v2",
+   "type": "replaces",
+   "label": "replaced",
+   "o": "feat-bt-util-3m",
+   "quote": "Replaced feat-bt-util-3m with feat-bt-util-trend-v2",
+   "line": 6
+  },
+  {
+   "s": "bt-xgb-v2",
+   "type": "other",
+   "label": "added together in",
+   "o": "bureau-delta",
+   "quote": "Headroom and bureau delta were added together in bt-xgb-v2, which reached 0.68.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-102-txn-features",
+  "feat-bt-util-3m"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "balance-transfer-propensity/exp-103-util-trend.md",
+ "sha": "ff44eb9d443a38223dc770a176d9d1da1965cbd3b205971cac38b598c8560810",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

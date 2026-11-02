@@ -1,0 +1,125 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "vintage",
+   "type": "term",
+   "label": "vintage",
+   "as": [
+    "vintage",
+    "A vintage is the cohort of accounts opened in the same month"
+   ],
+   "lines": [
+    3,
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "origination-month",
+   "type": "term",
+   "label": "origination month",
+   "as": [
+    "origination month"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "limit-band",
+   "type": "segment",
+   "label": "limit band",
+   "as": [
+    "limit band"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "vintage-curves",
+   "type": "other",
+   "label": "vintage curves",
+   "as": [
+    "vintage curves",
+    "Vintage curves plot cumulative default by months on book"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "cumulative-default",
+   "type": "metric",
+   "label": "cumulative default",
+   "as": [
+    "cumulative default"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "q2-2025-review",
+   "type": "document",
+   "label": "q2 2025 review",
+   "as": [
+    "the Q2 2025 review"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "vintage",
+   "type": "other",
+   "label": "is cohort of",
+   "o": "origination-month",
+   "quote": "A vintage is the cohort of accounts opened in the same month",
+   "line": 6
+  },
+  {
+   "s": "limit-band",
+   "type": "other",
+   "label": "is not a",
+   "o": "vintage",
+   "quote": "limit band is a segment, not a vintage",
+   "line": 6
+  },
+  {
+   "s": "vintage-curves",
+   "type": "measured-by",
+   "label": "plot",
+   "o": "cumulative-default",
+   "quote": "Vintage curves plot cumulative default by months on book",
+   "line": 6
+  },
+  {
+   "s": "vintage-curves",
+   "type": "other",
+   "label": "redrawn in",
+   "o": "q2-2025-review",
+   "quote": "the Q2 2025 review vintage curves were redrawn by origination month",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "glossary/vintage"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "corrections/vintage-origination-month.md",
+ "sha": "bd6bf033de6e5e1ef8d1bd5e26e3f4300f347e14993e4431c61c6786221cfec5",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

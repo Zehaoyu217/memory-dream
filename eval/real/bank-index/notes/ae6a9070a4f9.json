@@ -1,0 +1,170 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "pbs-churn-signal-segment",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "The segment",
+    "the segment label",
+    "the segment alone"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "attrition-model",
+   "type": "model",
+   "label": "attrition model",
+   "as": [
+    "attrition model"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "ds-pbs-oot-2025h2",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-pbs-oot-2025h2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "churn",
+   "type": "term",
+   "label": "churn",
+   "as": [
+    "churn"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "collections",
+   "type": "term",
+   "label": "collections",
+   "as": [
+    "collections"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "dpd-90-plus",
+   "type": "term",
+   "label": "delinquency bucket",
+   "as": [
+    "90+ DPD"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "attrition-model",
+   "type": "measured-by",
+   "label": "AUC rises to",
+   "o": "auc",
+   "quote": "Attrition AUC rises from 0.58 to 0.66",
+   "line": 6
+  },
+  {
+   "s": "pbs-churn-signal-segment",
+   "type": "measured-by",
+   "label": "gives KS",
+   "o": "ks",
+   "quote": "the segment alone gives KS 0.31",
+   "line": 7
+  },
+  {
+   "s": "pbs-churn-signal-segment",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "ds-pbs-oot-2025h2",
+   "quote": "gives KS 0.31 on ds-pbs-oot-2025h2",
+   "line": 7
+  },
+  {
+   "s": "attrition-model",
+   "type": "uses",
+   "label": "adds segment label",
+   "o": "pbs-churn-signal-segment",
+   "quote": "when the segment label is added",
+   "line": 6
+  },
+  {
+   "s": "pbs-churn-signal-segment",
+   "type": "other",
+   "label": "useful as feature for",
+   "o": "churn",
+   "quote": "Segments are useful as a feature for both churn and collections",
+   "line": 8
+  },
+  {
+   "s": "pbs-churn-signal-segment",
+   "type": "other",
+   "label": "useful as feature for",
+   "o": "collections",
+   "quote": "Segments are useful as a feature for both churn and collections",
+   "line": 8
+  },
+  {
+   "s": "pbs-churn-signal-segment",
+   "type": "other",
+   "label": "not a replacement for",
+   "o": "attrition-model",
+   "quote": "not as a replacement for either model",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-406",
+  "exp-407"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "payment-behavior-segments/fnd-pbs-churn-signal.md",
+ "sha": "ae6a9070a4f92e8272ee14b925402507a11a8222b6e9e60ba95c9c46930066a6",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

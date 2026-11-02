@@ -1,0 +1,110 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-nps-fee-shock-v2",
+   "type": "feature",
+   "label": "fee shock v2",
+   "as": [
+    "Fee shock v2: fees in the 30 days before the send date relative to the prior three-month average"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-nps-fee-shock-v1",
+   "type": "feature",
+   "label": "fee shock v1",
+   "as": [
+    "v1"
+   ],
+   "lines": [
+    2,
+    4,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "exp-405",
+   "type": "other",
+   "label": "base model experiment",
+   "as": [
+    "exp-405"
+   ],
+   "lines": [
+    2,
+    8
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "q4 2025 holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "spearman",
+   "type": "metric",
+   "label": "spearman",
+   "as": [
+    "Spearman"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-nps-fee-shock-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "feat-nps-fee-shock-v1",
+   "quote": "supersedes: [feat-nps-fee-shock-v1]",
+   "line": 4
+  },
+  {
+   "s": "feat-nps-fee-shock-v2",
+   "type": "evaluated-on",
+   "label": "shows gain on",
+   "o": "holdout-2025q4",
+   "quote": "Adds +0.03 Spearman on holdout-2025q4 over the base model (exp-405)",
+   "line": 8
+  },
+  {
+   "s": "feat-nps-fee-shock-v2",
+   "type": "measured-by",
+   "label": "adds gain in",
+   "o": "spearman",
+   "quote": "Adds +0.03 Spearman on holdout-2025q4",
+   "line": 8
+  },
+  {
+   "s": "feat-nps-fee-shock-v2",
+   "type": "other",
+   "label": "derived from",
+   "o": "exp-405",
+   "quote": "from: [feat-nps-fee-shock-v1, exp-405]",
+   "line": 2
+  }
+ ],
+ "refs": [
+  "feat-nps-fee-shock-v1",
+  "exp-405"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "nps-drivers/feat-nps-fee-shock-v2.md",
+ "sha": "4a3ceb52bbafb83303624a76d307d9d5b43d7a562dd0bac6ae3e904c19941566",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

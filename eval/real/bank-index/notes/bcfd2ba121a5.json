@@ -1,0 +1,149 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-csb-spend-sa-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-csb-spend-sa-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-csb-spend-raw",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-csb-spend-raw"
+   ],
+   "lines": [
+    2,
+    4,
+    9
+   ]
+  },
+  {
+   "id": "csb-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "csb-xgb-v2"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "ds-csb-merchant-mix",
+   "type": "other",
+   "label": "merchant-mix build",
+   "as": [
+    "merchant-mix build"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fnd-csb-seasonal-trap",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-csb-seasonal-trap"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "exp-206",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-206"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "seasonal-gap",
+   "type": "metric",
+   "label": "seasonal gap",
+   "as": [
+    "the seasonal gap in churn score falls to 0.01"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-csb-spend-sa-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "feat-csb-spend-raw",
+   "quote": "supersedes: [feat-csb-spend-raw]",
+   "line": 4
+  },
+  {
+   "s": "csb-xgb-v2",
+   "type": "uses",
+   "label": "replaces feature in",
+   "o": "feat-csb-spend-sa-v2",
+   "quote": "Replaces feat-csb-spend-raw in csb-xgb-v2.",
+   "line": 9
+  },
+  {
+   "s": "feat-csb-spend-sa-v2",
+   "type": "uses",
+   "label": "built from",
+   "o": "ds-csb-merchant-mix",
+   "quote": "from the merchant-mix build",
+   "line": 7
+  },
+  {
+   "s": "feat-csb-spend-sa-v2",
+   "type": "other",
+   "label": "removes lift from",
+   "o": "fnd-csb-seasonal-trap",
+   "quote": "Removes the December lift",
+   "line": 8
+  },
+  {
+   "s": "feat-csb-spend-sa-v2",
+   "type": "measured-by",
+   "label": "seasonal gap falls to 0.01",
+   "o": "seasonal-gap",
+   "quote": "the seasonal gap in churn score falls to 0.01",
+   "line": 8
+  },
+  {
+   "s": "seasonal-gap",
+   "type": "other",
+   "label": "shown by",
+   "o": "exp-206",
+   "quote": "the seasonal gap in churn score falls to 0.01 (exp-206)",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-csb-spend-raw",
+  "fnd-csb-seasonal-trap",
+  "ds-csb-merchant-mix",
+  "exp-206",
+  "csb-xgb-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-small-business/feat-csb-spend-sa-v2.md",
+ "sha": "bcfd2ba121a58cee9970f264fbeb5046899b5b20f9f53cb8cf6651faac7174ca",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

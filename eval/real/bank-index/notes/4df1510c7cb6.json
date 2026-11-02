@@ -1,0 +1,107 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "xs-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "xs-gbm-v2"
+   ],
+   "lines": [
+    2,
+    5
+   ]
+  },
+  {
+   "id": "xs-holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "xs-holdout-2025q1",
+    "the holdout"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "top-decile",
+   "type": "segment",
+   "label": "top decile",
+   "as": [
+    "top decile"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "open-rate",
+   "type": "metric",
+   "label": "open rate",
+   "as": [
+    "Top decile open rate"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "lift",
+   "type": "metric",
+   "label": "lift",
+   "as": [
+    "Lift 2.7x"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "xs-gbm-v2",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "xs-holdout-2025q1",
+   "quote": "Scored the holdout (n=52,000, so 5,200 per decile)",
+   "line": 6
+  },
+  {
+   "s": "top-decile",
+   "type": "part-of",
+   "label": "subset of",
+   "o": "xs-holdout-2025q1",
+   "quote": "Scored the holdout (n=52,000, so 5,200 per decile)",
+   "line": 6
+  },
+  {
+   "s": "top-decile",
+   "type": "measured-by",
+   "label": "opens at",
+   "o": "open-rate",
+   "quote": "top decile opens at 7.8%",
+   "line": 5
+  },
+  {
+   "s": "top-decile",
+   "type": "measured-by",
+   "label": "lift",
+   "o": "lift",
+   "quote": "Lift 2.7x",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cross-sell-savings/exp-405-top-decile.md",
+ "sha": "4df1510c7cb6ad965ef68a6e2172b5bf00dc798857135143c170085214b0db0c",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,131 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "v2-candidate",
+   "type": "model",
+   "label": "v2 candidate",
+   "as": [
+    "v2 candidate"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "travel-flag",
+   "type": "flag",
+   "label": "travel flag",
+   "as": [
+    "travel flag"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "precision-at-0.90",
+   "type": "metric",
+   "label": "precision",
+   "as": [
+    "precision"
+   ],
+   "lines": [
+    5,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "recall",
+   "type": "metric",
+   "label": "recall",
+   "as": [
+    "recall"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "alert-rate",
+   "type": "metric",
+   "label": "alert rate",
+   "as": [
+    "alert rate"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "v2-candidate",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "holdout-2025q1",
+   "quote": "Eval set: holdout-2025q1 (2,310 fraud labels), v2 candidate with the travel flag.",
+   "line": 6
+  },
+  {
+   "s": "v2-candidate",
+   "type": "uses",
+   "label": "with",
+   "o": "travel-flag",
+   "quote": "v2 candidate with the travel flag.",
+   "line": 6
+  },
+  {
+   "s": "v2-candidate",
+   "type": "measured-by",
+   "label": "precision",
+   "o": "precision-at-0.90",
+   "quote": "At threshold 0.62: alert rate 0.9%, precision 14.2%, recall 0.58.",
+   "line": 7
+  },
+  {
+   "s": "v2-candidate",
+   "type": "measured-by",
+   "label": "recall",
+   "o": "recall",
+   "quote": "At threshold 0.62: alert rate 0.9%, precision 14.2%, recall 0.58.",
+   "line": 7
+  },
+  {
+   "s": "v2-candidate",
+   "type": "measured-by",
+   "label": "alert rate",
+   "o": "alert-rate",
+   "quote": "At threshold 0.62: alert rate 0.9%, precision 14.2%, recall 0.58.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-101",
+  "ds-f25-holdout-2025q1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/exp-103.md",
+ "sha": "836a1e4cd5e5b4e5b174f06b4fb574a12f45b08b19906aaaf5a7f3f694bda261",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,95 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "omar-haddad",
+   "type": "person",
+   "label": "compliance",
+   "as": [
+    "Omar Haddad"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "aml-ranker",
+   "type": "model",
+   "label": "ranker",
+   "as": [
+    "by the ranker"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "structuring-alerts",
+   "type": "other",
+   "label": "alert type",
+   "as": [
+    "Structuring alerts"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "sampled-review-queue",
+   "type": "other",
+   "label": "review queue",
+   "as": [
+    "sampled review queue"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "standard-queue",
+   "type": "other",
+   "label": "standard queue",
+   "as": [
+    "standard queue"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "structuring-alerts",
+   "type": "other",
+   "label": "routed to",
+   "o": "sampled-review-queue",
+   "quote": "structuring alerts scored below 0.18 by the ranker go to a sampled review queue, not the standard queue",
+   "line": 6
+  },
+  {
+   "s": "aml-ranker",
+   "type": "other",
+   "label": "scores",
+   "o": "structuring-alerts",
+   "quote": "structuring alerts scored below 0.18 by the ranker",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-406",
+  "dec-aml-sample-10",
+  "aml-find-ranker-top40-revised",
+  "dec-aml-queue-only"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "aml-alerts/dec-aml-suppress-018.md",
+ "sha": "9c01f8de39e2b11b14a833198016c9e8a38cf088d44bc756c725511f43f0f55d",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

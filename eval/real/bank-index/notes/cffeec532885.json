@@ -1,0 +1,60 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-hp-pre-dpd-v1",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "feat-hp-pre-dpd-v1 is the DPD bucket and two-month DPD history at the enrolment month",
+    "feat-hp-pre-dpd-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-hp-roll-matrix",
+   "type": "other",
+   "label": "source note",
+   "as": [
+    "ds-hp-roll-matrix"
+   ],
+   "lines": [
+    2
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-hp-pre-dpd-v1",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cards.accounts_monthly",
+   "quote": "Source: `cards.accounts_monthly`, aligned to the index month.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-hp-roll-matrix"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "hardship-programs/feat-hp-pre-dpd-v1.md",
+ "sha": "cffeec532885137672ea4a2a3eb9c7394839b4d188b8a16b7e35b1ebc2dd771b",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

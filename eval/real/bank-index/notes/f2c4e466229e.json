@@ -1,0 +1,128 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "ed-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ed-gbm-v2"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "ed-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ed-gbm-v1"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "feat-ed-minpay-v2",
+   "type": "feature",
+   "label": "min-pay ratio",
+   "as": [
+    "min-pay ratio"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "early-delinquency-holdout-2025q1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "early-delinquency-holdout-2025q1"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "brier",
+   "type": "metric",
+   "label": "brier",
+   "as": [
+    "Brier"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "monotone-utilisation-constraint",
+   "type": "term",
+   "label": "monotone constraint",
+   "as": [
+    "monotone decreasing constraint on utilisation"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ed-gbm-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "early-delinquency-holdout-2025q1",
+   "quote": "Eval set early-delinquency-holdout-2025q1",
+   "line": 6
+  },
+  {
+   "s": "ed-gbm-v2",
+   "type": "measured-by",
+   "label": "Brier",
+   "o": "brier",
+   "quote": "Brier 0.058 against 0.061",
+   "line": 7
+  },
+  {
+   "s": "ed-gbm-v2",
+   "type": "replaces",
+   "label": "improves on",
+   "o": "ed-gbm-v1",
+   "quote": "Brier 0.058 against 0.061 for ed-gbm-v1",
+   "line": 7
+  },
+  {
+   "s": "ed-gbm-v2",
+   "type": "uses",
+   "label": "includes",
+   "o": "feat-ed-minpay-v2",
+   "quote": "min-pay ratio",
+   "line": 7
+  },
+  {
+   "s": "ed-gbm-v2",
+   "type": "other",
+   "label": "has constraint",
+   "o": "monotone-utilisation-constraint",
+   "quote": "monotone decreasing constraint on utilisation",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "early_delinquency/exp206_monotone.ipynb"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "early-delinquency/exp-206.md",
+ "sha": "f2c4e466229ed891b4464f617b4bc8ce9f60b1f826b823f936057f533c2a9af9",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

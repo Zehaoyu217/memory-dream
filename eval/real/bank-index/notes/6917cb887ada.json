@@ -1,0 +1,110 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "points-based-logistic",
+   "type": "model",
+   "label": "production form",
+   "as": [
+    "points-based logistic"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "app-gbm-v2",
+   "type": "model",
+   "label": "monotone gbm",
+   "as": [
+    "monotone GBM",
+    "app-gbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "omar-haddad",
+   "type": "person",
+   "label": "compliance sign-off",
+   "as": [
+    "Omar Haddad"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "adverse-action-test",
+   "type": "term",
+   "label": "adverse-action test",
+   "as": [
+    "adverse-action test"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "reason-code-instability",
+   "type": "term",
+   "label": "reason-code instability",
+   "as": [
+    "reason-code instability"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "points-based-logistic",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "lena-fischer",
+   "quote": "Owner: Lena Fischer",
+   "line": 8
+  },
+  {
+   "s": "points-based-logistic",
+   "type": "owned-by",
+   "label": "sign-off from",
+   "o": "omar-haddad",
+   "quote": "compliance sign-off from Omar Haddad",
+   "line": 8
+  },
+  {
+   "s": "reason-code-instability",
+   "type": "other",
+   "label": "fails",
+   "o": "adverse-action-test",
+   "quote": "reason-code instability in the GBM (62% of codes unstable) fails the adverse-action test",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-503",
+  "exp-504"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "application-scorecard/dec-app-no-gbm.md",
+ "sha": "6917cb887ada2cb176b92369d2f0d56e8f4e7ea1ddccab9d8c9c64f081ee4628",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

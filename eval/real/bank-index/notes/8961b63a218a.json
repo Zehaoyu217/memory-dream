@@ -1,0 +1,87 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-rev26-interest-accrual",
+   "type": "dataset",
+   "label": "accrual dataset",
+   "as": [
+    "Monthly interest accrual by segment, 2024-01 to 2026-03"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "finance-interest-ledger",
+   "type": "account",
+   "label": "interest ledger",
+   "as": [
+    "finance interest ledger"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-rev26-charge-off-haircut",
+   "type": "feature",
+   "label": "haircut",
+   "as": [
+    "feat-rev26-charge-off-haircut"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "interest-income",
+   "type": "metric",
+   "label": "interest income",
+   "as": [
+    "interest income"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-rev26-interest-accrual",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards.accounts_monthly",
+   "quote": "built from `cards.accounts_monthly` balances times APR",
+   "line": 6
+  },
+  {
+   "s": "ds-rev26-interest-accrual",
+   "type": "other",
+   "label": "reconciled to",
+   "o": "finance-interest-ledger",
+   "quote": "reconciled to the finance interest ledger",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "revenue-forecast-2026/ds-rev26-interest-accrual.md",
+ "sha": "8961b63a218a9e554cadbf0e610343ab0258afc965f24cff70e8af2d82aca833",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

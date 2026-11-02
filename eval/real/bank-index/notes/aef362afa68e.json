@@ -1,0 +1,87 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "early-stopping",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "early stopping"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "validation-slice",
+   "type": "segment",
+   "label": "validation slice",
+   "as": [
+    "validation slice"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "training-window",
+   "type": "dataset",
+   "label": "training window",
+   "as": [
+    "training window"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "oot-set",
+   "type": "segment",
+   "label": "oot set",
+   "as": [
+    "OOT set"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "early-stopping",
+   "type": "uses",
+   "label": "stops on",
+   "o": "validation-slice",
+   "quote": "early stopping on the validation slice",
+   "line": 5
+  },
+  {
+   "s": "validation-slice",
+   "type": "part-of",
+   "label": "most recent slice of",
+   "o": "training-window",
+   "quote": "The validation slice is the most recent three months of the training window.",
+   "line": 6
+  },
+  {
+   "s": "early-stopping",
+   "type": "other",
+   "label": "does not use for stopping",
+   "o": "oot-set",
+   "quote": "The OOT set is not used for stopping.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "howto/gbm-early-stopping-on-oot"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/gbm-patience-rounds.md",
+ "sha": "aef362afa68e0851ef0ac1c0dbfe3f181080ace6ae9e09ed79eeee77dc45fb39",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

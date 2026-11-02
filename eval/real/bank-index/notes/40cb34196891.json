@@ -1,0 +1,154 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "uplift-targeting",
+   "type": "term",
+   "label": "uplift targeting",
+   "as": [
+    "uplift targeting"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "propensity-targeting",
+   "type": "term",
+   "label": "propensity",
+   "as": [
+    "propensity"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cli-rct-2025q3",
+   "type": "dataset",
+   "label": "randomised set",
+   "as": [
+    "cli-rct-2025q3"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift@20%",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "qini",
+   "type": "metric",
+   "label": "qini",
+   "as": [
+    "Qini"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "t-learner",
+   "type": "term",
+   "label": "t-learner",
+   "as": [
+    "T-learner"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "s-learner",
+   "type": "term",
+   "label": "s-learner",
+   "as": [
+    "S-learner"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "uplift-targeting",
+   "type": "measured-by",
+   "label": "measured as",
+   "o": "uplift-at-20",
+   "quote": "1.9 versus 1.3 uplift@20%",
+   "line": 5
+  },
+  {
+   "s": "propensity-targeting",
+   "type": "measured-by",
+   "label": "measured as",
+   "o": "uplift-at-20",
+   "quote": "versus 1.3 uplift@20%",
+   "line": 5
+  },
+  {
+   "s": "uplift-targeting",
+   "type": "evaluated-on",
+   "label": "run on",
+   "o": "cli-rct-2025q3",
+   "quote": "on the randomised set cli-rct-2025q3",
+   "line": 6
+  },
+  {
+   "s": "uplift-targeting",
+   "type": "other",
+   "label": "beats",
+   "o": "propensity-targeting",
+   "quote": "uplift targeting beats propensity",
+   "line": 5
+  },
+  {
+   "s": "t-learner",
+   "type": "measured-by",
+   "label": "has Qini",
+   "o": "qini",
+   "quote": "T-learner Qini 0.081",
+   "line": 7
+  },
+  {
+   "s": "s-learner",
+   "type": "measured-by",
+   "label": "has Qini",
+   "o": "qini",
+   "quote": "0.067 for the S-learner",
+   "line": 7
+  },
+  {
+   "s": "t-learner",
+   "type": "other",
+   "label": "compared against",
+   "o": "s-learner",
+   "quote": "T-learner Qini 0.081 against 0.067 for the S-learner",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-102",
+  "exp-107",
+  "dec-cli-uplift-targeting"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/find-cli-uplift-wins.md",
+ "sha": "40cb341968915f3d07a47cea5aa51e4e457454a10d12b66d5cb73880689c8e9f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

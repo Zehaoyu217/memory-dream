@@ -1,0 +1,92 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "churn-gbm-v1",
+   "type": "model",
+   "label": "churn-gbm model",
+   "as": [
+    "churn-gbm model (v1)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "app-sessions",
+   "type": "feature",
+   "label": "app sessions",
+   "as": [
+    "app sessions"
+   ],
+   "lines": [
+    5,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "app-coverage",
+   "type": "metric",
+   "label": "app coverage",
+   "as": [
+    "App coverage is 71% of accounts"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-gbm-v1",
+   "type": "measured-by",
+   "label": "judged by",
+   "o": "auc",
+   "quote": "Holdout AUC 0.741 with app sessions against 0.735 without",
+   "line": 6
+  },
+  {
+   "s": "churn-gbm-v1",
+   "type": "uses",
+   "label": "uses signal",
+   "o": "app-sessions",
+   "quote": "App sessions add +0.006 AUC to the churn-gbm model (v1)",
+   "line": 5
+  },
+  {
+   "s": "app-sessions",
+   "type": "measured-by",
+   "label": "coverage of",
+   "o": "app-coverage",
+   "quote": "App coverage is 71% of accounts",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-102",
+  "exp-103",
+  "q-c25-app-lift",
+  "fnd-c25-app-lift-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2025/fnd-c25-app-lift.md",
+ "sha": "7a36d7a346a628166e1a0e01f073cc011f3b1f9cbe826fd35a97d2af76a31fe3",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

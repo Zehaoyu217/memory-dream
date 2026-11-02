@@ -1,0 +1,85 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "scripts/leak_scan.py",
+   "type": "module",
+   "label": "leak scan script",
+   "as": [
+    "scripts/leak_scan.py"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat_disp_cnt_90d_v1",
+   "type": "feature",
+   "label": "dispute-count feature",
+   "as": [
+    "feat_disp_cnt_90d_v1",
+    "The dispute-count feature"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat_disp_cnt_90d_v2",
+   "type": "feature",
+   "label": "rebuilt feature",
+   "as": [
+    "it was rebuilt as v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "holdout auc",
+   "as": [
+    "holdout AUC"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "scripts/leak_scan.py",
+   "type": "other",
+   "label": "checks features",
+   "o": "feat_disp_cnt_90d_v1",
+   "quote": "`scripts/leak_scan.py` runs this for every feature in the registry and fails the build on any violation.",
+   "line": 5
+  },
+  {
+   "s": "feat_disp_cnt_90d_v1",
+   "type": "measured-by",
+   "label": "AUC fell",
+   "o": "auc",
+   "quote": "Restricted to days on or before observation, holdout AUC fell from 0.79 to 0.72",
+   "line": 6
+  },
+  {
+   "s": "feat_disp_cnt_90d_v2",
+   "type": "replaces",
+   "label": "rebuilt as",
+   "o": "feat_disp_cnt_90d_v1",
+   "quote": "so it was rebuilt as v2 and v1 was removed from training.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/leakage-check-post-period.md",
+ "sha": "d4c66e5b0306b3837cf955f538935e80abbb0c691dbc79295e0e84e7ba614663",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

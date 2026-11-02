@@ -1,0 +1,230 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-102",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-102: LightGBM on all 14 features, 60-day labels, holdout AUC 0.741"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "churn-lr-base-2025",
+   "type": "model",
+   "label": "baseline model",
+   "as": [
+    "churn-lr-base-2025"
+   ],
+   "lines": [
+    2,
+    8
+   ]
+  },
+  {
+   "id": "feat-c25-util-v1",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "feat-c25-util-v1"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "feat-c25-txn-recency",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "feat-c25-txn-recency"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "feat-c25-payment-behaviour",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "feat-c25-payment-behaviour"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "feat-c25-app-sessions",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "feat-c25-app-sessions"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "c25-oot-2024h1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Holdout c25-oot-2024h1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "holdout AUC 0.741",
+    "AUC 0.741",
+    "Gain over churn-lr-base-2025 is 0.048 AUC"
+   ],
+   "lines": [
+    5,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.36"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "recall-at-10pct",
+   "type": "metric",
+   "label": "recall@10%",
+   "as": [
+    "recall@10% 0.29"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "library",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-102",
+   "type": "uses",
+   "label": "built from",
+   "o": "feat-c25-util-v1",
+   "quote": "from: [churn-lr-base-2025, feat-c25-util-v1, feat-c25-txn-recency, feat-c25-payment-behaviour, feat-c25-app-sessions]",
+   "line": 2
+  },
+  {
+   "s": "exp-102",
+   "type": "uses",
+   "label": "built from",
+   "o": "feat-c25-txn-recency",
+   "quote": "from: [churn-lr-base-2025, feat-c25-util-v1, feat-c25-txn-recency, feat-c25-payment-behaviour, feat-c25-app-sessions]",
+   "line": 2
+  },
+  {
+   "s": "exp-102",
+   "type": "uses",
+   "label": "built from",
+   "o": "feat-c25-payment-behaviour",
+   "quote": "from: [churn-lr-base-2025, feat-c25-util-v1, feat-c25-txn-recency, feat-c25-payment-behaviour, feat-c25-app-sessions]",
+   "line": 2
+  },
+  {
+   "s": "exp-102",
+   "type": "uses",
+   "label": "built from",
+   "o": "feat-c25-app-sessions",
+   "quote": "from: [churn-lr-base-2025, feat-c25-util-v1, feat-c25-txn-recency, feat-c25-payment-behaviour, feat-c25-app-sessions]",
+   "line": 2
+  },
+  {
+   "s": "exp-102",
+   "type": "uses",
+   "label": "built from",
+   "o": "churn-lr-base-2025",
+   "quote": "from: [churn-lr-base-2025, feat-c25-util-v1, feat-c25-txn-recency, feat-c25-payment-behaviour, feat-c25-app-sessions]",
+   "line": 2
+  },
+  {
+   "s": "exp-102",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "c25-oot-2024h1",
+   "quote": "Holdout c25-oot-2024h1: AUC 0.741, KS 0.36, recall@10% 0.29.",
+   "line": 7
+  },
+  {
+   "s": "exp-102",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "holdout AUC 0.741",
+   "line": 5
+  },
+  {
+   "s": "exp-102",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "ks",
+   "quote": "KS 0.36",
+   "line": 7
+  },
+  {
+   "s": "exp-102",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "recall-at-10pct",
+   "quote": "recall@10% 0.29",
+   "line": 7
+  },
+  {
+   "s": "exp-102",
+   "type": "uses",
+   "label": "built with",
+   "o": "lightgbm",
+   "quote": "LightGBM, num_leaves 31, learning rate 0.05, 600 rounds, no early stopping.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "churn-2025/exp-102.md",
+  "churn-lr-base-2025",
+  "feat-c25-util-v1",
+  "feat-c25-txn-recency",
+  "feat-c25-payment-behaviour",
+  "feat-c25-app-sessions"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2025/exp-102.md",
+ "sha": "c80fd14e5d58df02d803ea652ea25d66f17c96d8a66918d488d62423bbda6157",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

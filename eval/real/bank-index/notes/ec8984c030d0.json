@@ -1,0 +1,164 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-bt-util-3m",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-bt-util-3m"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bt-holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "bt-holdout-2025q1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bt-logit-baseline",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bt-logit-baseline"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "bt-xgb-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bt-xgb-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-102-txn-features",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-102-txn-features"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-bt-util-trend-v2",
+   "type": "feature",
+   "label": "utilization input",
+   "as": [
+    "feat-bt-util-trend-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.61"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-bt-util-3m",
+   "type": "measured-by",
+   "label": "gives AUC",
+   "o": "auc",
+   "quote": "Alone it gives AUC 0.61",
+   "line": 7
+  },
+  {
+   "s": "feat-bt-util-3m",
+   "type": "evaluated-on",
+   "label": "gives AUC on",
+   "o": "bt-holdout-2025q1",
+   "quote": "Alone it gives AUC 0.61 on `bt-holdout-2025q1`",
+   "line": 7
+  },
+  {
+   "s": "feat-bt-util-3m",
+   "type": "uses",
+   "label": "from",
+   "o": "cards.accounts_monthly",
+   "quote": "from `cards.accounts_monthly`",
+   "line": 6
+  },
+  {
+   "s": "bt-logit-baseline",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-bt-util-3m",
+   "quote": "Used in bt-logit-baseline, bt-xgb-v1 and exp-102-txn-features",
+   "line": 8
+  },
+  {
+   "s": "bt-xgb-v1",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-bt-util-3m",
+   "quote": "Used in bt-logit-baseline, bt-xgb-v1 and exp-102-txn-features",
+   "line": 8
+  },
+  {
+   "s": "exp-102-txn-features",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-bt-util-3m",
+   "quote": "Used in bt-logit-baseline, bt-xgb-v1 and exp-102-txn-features",
+   "line": 8
+  },
+  {
+   "s": "feat-bt-util-trend-v2",
+   "type": "replaces",
+   "label": "replaced as utilization input",
+   "o": "feat-bt-util-3m",
+   "quote": "Replaced as the utilization input by feat-bt-util-trend-v2.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-bt-offer-log",
+  "ds-bt-bureau-join"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "balance-transfer-propensity/feat-bt-util-3m.md",
+ "sha": "ec8984c030d001226b3b6e7a63bf5d033c2c714ff2c12a792081b69c9893f389",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

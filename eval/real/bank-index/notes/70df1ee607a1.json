@@ -1,0 +1,147 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "cu-uplift-v3",
+   "type": "model",
+   "label": "promoted model",
+   "as": [
+    "cu-uplift-v3"
+   ],
+   "lines": [
+    2,
+    5
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "approver",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "raj-patel",
+   "type": "person",
+   "label": "approver",
+   "as": [
+    "Raj Patel"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "aisha-khan",
+   "type": "person",
+   "label": "mlops sign-off",
+   "as": [
+    "Aisha Khan (MLOps)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "top-20-percent",
+   "type": "segment",
+   "label": "routing segment",
+   "as": [
+    "the top 20%"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "uplift",
+   "type": "metric",
+   "label": "expected gain",
+   "as": [
+    "uplift +0.005 over v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cu-uplift-v2",
+   "type": "model",
+   "label": "prior model",
+   "as": [
+    "v2"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cu-uplift-v3",
+   "type": "replaces",
+   "label": "promoted over",
+   "o": "cu-uplift-v2",
+   "quote": "uplift +0.005 over v2",
+   "line": 8
+  },
+  {
+   "s": "cu-uplift-v3",
+   "type": "measured-by",
+   "label": "expected gain",
+   "o": "uplift",
+   "quote": "Expected gain: uplift +0.005 over v2",
+   "line": 8
+  },
+  {
+   "s": "cu-uplift-v3",
+   "type": "owned-by",
+   "label": "approved by",
+   "o": "lena-fischer",
+   "quote": "Approved 2026-03-25 by Lena Fischer and Raj Patel",
+   "line": 6
+  },
+  {
+   "s": "cu-uplift-v3",
+   "type": "owned-by",
+   "label": "approved by",
+   "o": "raj-patel",
+   "quote": "Approved 2026-03-25 by Lena Fischer and Raj Patel",
+   "line": 6
+  },
+  {
+   "s": "cu-uplift-v3",
+   "type": "owned-by",
+   "label": "signed off by",
+   "o": "aisha-khan",
+   "quote": "with Aisha Khan (MLOps) signing off on the scoring job",
+   "line": 6
+  },
+  {
+   "s": "top-20-percent",
+   "type": "uses",
+   "label": "ranked by",
+   "o": "cu-uplift-v3",
+   "quote": "top 20% by uplift v3",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "collections-uplift/dec-cu-promote-v3.md",
+  "collections-channel-mix",
+  "collections-uplift-oot-2026h1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-uplift/dec-cu-promote-v3.md",
+ "sha": "70df1ee607a1268882c46b84b4e73b8e90a18ff6874eb9eb69e28b42a1030a09",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

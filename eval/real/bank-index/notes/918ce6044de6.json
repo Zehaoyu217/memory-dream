@@ -1,0 +1,134 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fraud25-gbm-v3",
+   "type": "model",
+   "label": "challenger",
+   "as": [
+    "fraud25-gbm-v3",
+    "Challenger"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "fraud25-gbm-v2",
+   "type": "model",
+   "label": "v2",
+   "as": [
+    "v2"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "travel-flag",
+   "type": "feature",
+   "label": "travel flag",
+   "as": [
+    "travel flag"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Holdout-2025q1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "travel-share-of-alerts",
+   "type": "metric",
+   "label": "travel share of alerts",
+   "as": [
+    "travel share of alerts"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud25-gbm-v3",
+   "type": "uses",
+   "label": "scaled before training",
+   "o": "travel-flag",
+   "quote": "with the travel flag multiplied by 0.5 before training",
+   "line": 6
+  },
+  {
+   "s": "fraud25-gbm-v3",
+   "type": "uses",
+   "label": "derived from",
+   "o": "fraud25-gbm-v2",
+   "quote": "from: [fraud25-gbm-v2",
+   "line": 2
+  },
+  {
+   "s": "fraud25-gbm-v3",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.909",
+   "line": 5
+  },
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "0.911 for v2",
+   "line": 7
+  },
+  {
+   "s": "fraud25-gbm-v3",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "travel-share-of-alerts",
+   "quote": "travel share of alerts falls from 31% to 17%",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fraud25-gbm-v2",
+  "feat-f25-mcc-travel",
+  "exp-106",
+  "exp-107",
+  "dec-f25-no-v3",
+  "fraud-2026"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/fraud25-gbm-v3.md",
+ "sha": "918ce6044de65ffeb0960f794b4dbd1c09ba4ff4052358477650a9be885a7140",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,207 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cli-xgb-v3",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "cli-xgb-v3"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cli-xgb-v2",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "cli-xgb-v2"
+   ],
+   "lines": [
+    4,
+    9
+   ]
+  },
+  {
+   "id": "cli-rct-2025q3",
+   "type": "dataset",
+   "label": "eval dataset",
+   "as": [
+    "cli-rct-2025q3"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "uplift@20% 1.9"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "qini",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Qini"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cli-loss-cap",
+   "type": "policy",
+   "label": "loss guard",
+   "as": [
+    "loss guard"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "v2-feature-set",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "v2 feature set"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "xgboost",
+   "type": "tool",
+   "label": "library",
+   "as": [
+    "XGBoost"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "t-learner",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "T-learner"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "incremental-spend-90d",
+   "type": "metric",
+   "label": "target",
+   "as": [
+    "90-day incremental spend"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cli-xgb-v3",
+   "type": "uses",
+   "label": "built with",
+   "o": "xgboost",
+   "quote": "Two XGBoost models (treated and control)",
+   "line": 7
+  },
+  {
+   "s": "cli-xgb-v3",
+   "type": "uses",
+   "label": "trained on",
+   "o": "v2-feature-set",
+   "quote": "on the v2 feature set",
+   "line": 7
+  },
+  {
+   "s": "cli-xgb-v3",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "cli-rct-2025q3",
+   "quote": "Eval: cli-rct-2025q3",
+   "line": 8
+  },
+  {
+   "s": "cli-xgb-v3",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "uplift-at-20",
+   "quote": "uplift@20% 1.9",
+   "line": 6
+  },
+  {
+   "s": "cli-xgb-v3",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "qini",
+   "quote": "Qini 0.081",
+   "line": 8
+  },
+  {
+   "s": "cli-xgb-v3",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "cli-xgb-v2",
+   "quote": "Replaces cli-xgb-v2 as the targeting score",
+   "line": 9
+  },
+  {
+   "s": "cli-xgb-v3",
+   "type": "other",
+   "label": "implements",
+   "o": "t-learner",
+   "quote": "two-model T-learner uplift",
+   "line": 6
+  },
+  {
+   "s": "cli-xgb-v3",
+   "type": "measured-by",
+   "label": "targets",
+   "o": "incremental-spend-90d",
+   "quote": "difference in predicted 90-day incremental spend",
+   "line": 7
+  },
+  {
+   "s": "cli-xgb-v3",
+   "type": "other",
+   "label": "guarded by",
+   "o": "cli-loss-cap",
+   "quote": "loss guard remains the 1.5% cap",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "exp-106",
+  "exp-107",
+  "find-cli-uplift-wins",
+  "cli-xgb-v2",
+  "dec-cli-loss-cap"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/cli-xgb-v3.md",
+ "sha": "03188f7d9ba5b2d5dfc1d84940046ce7ff2ef3d8706ab581426c44f9d0e26c17",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

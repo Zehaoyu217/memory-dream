@@ -1,0 +1,99 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "finance-clv",
+   "type": "metric",
+   "label": "finance clv",
+   "as": [
+    "finance CLV"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "expected-credit-losses",
+   "type": "term",
+   "label": "expected credit losses",
+   "as": [
+    "expected credit losses"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "marketing",
+   "type": "team",
+   "label": "marketing",
+   "as": [
+    "Marketing"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "gross-clv-view",
+   "type": "metric",
+   "label": "gross view",
+   "as": [
+    "gross view"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ben-carter",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Ben Carter"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "finance-clv",
+   "type": "other",
+   "label": "net of",
+   "o": "expected-credit-losses",
+   "quote": "finance CLV is net of expected credit losses",
+   "line": 5
+  },
+  {
+   "s": "gross-clv-view",
+   "type": "owned-by",
+   "label": "kept by",
+   "o": "marketing",
+   "quote": "Marketing keeps a gross view",
+   "line": 7
+  },
+  {
+   "s": "finance-clv",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "ben-carter",
+   "quote": "Owner: Ben Carter (finance).",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-502",
+  "fnd-clv-gross-overstates",
+  "q-clv-loss-treatment"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "customer-lifetime-value/dec-clv-include-losses.md",
+ "sha": "c6876dc5aad758329ad15885ae315744119e8690852b16a4377e934d417a2988",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

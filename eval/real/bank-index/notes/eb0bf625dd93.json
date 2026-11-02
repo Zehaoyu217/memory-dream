@@ -1,0 +1,116 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cu-pay-behaviour",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "feat-cu-pay-behaviour is the 6-month payment-to-minimum ratio and partial-payment share from payments_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.payments_daily`"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cu-resp-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cu-resp-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-cu-dpd-roll-v1",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "feat-cu-dpd-roll-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc gain",
+   "as": [
+    "+0.018 AUC"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cu-pay-behaviour",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cards.payments_daily",
+   "quote": "Source: `cards.payments_daily`",
+   "line": 7
+  },
+  {
+   "s": "feat-cu-pay-behaviour",
+   "type": "measured-by",
+   "label": "adds AUC to",
+   "o": "auc",
+   "quote": "Adds +0.018 AUC to cu-resp-v1 on holdout-2025q1",
+   "line": 8
+  },
+  {
+   "s": "feat-cu-pay-behaviour",
+   "type": "uses",
+   "label": "adds to model",
+   "o": "cu-resp-v1",
+   "quote": "Adds +0.018 AUC to cu-resp-v1 on holdout-2025q1 (n=24,860)",
+   "line": 8
+  },
+  {
+   "s": "feat-cu-pay-behaviour",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q1",
+   "quote": "Adds +0.018 AUC to cu-resp-v1 on holdout-2025q1 (n=24,860)",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "collections-uplift/feat-cu-pay-behaviour.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-uplift/feat-cu-pay-behaviour.md",
+ "sha": "eb0bf625dd93cfd9b7cefb3265e2d13fbb1b1e2ef6eec14b7d4713562c95f8d9",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

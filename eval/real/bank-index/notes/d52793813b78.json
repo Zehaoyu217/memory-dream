@@ -1,0 +1,89 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-306",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-306"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "ds-rev26-rate-schedule",
+   "type": "dataset",
+   "label": "rate schedule",
+   "as": [
+    "ds-rev26-rate-schedule"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "promo-cohorts",
+   "type": "segment",
+   "label": "promo cohorts",
+   "as": [
+    "promo cohorts"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "flat-rate",
+   "type": "term",
+   "label": "24.99% rate",
+   "as": [
+    "24.99%"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "promo-cohorts",
+   "type": "uses",
+   "label": "roll off to",
+   "o": "flat-rate",
+   "quote": "moving about $1.9B of balances from 0% to 24.99%",
+   "line": 5
+  },
+  {
+   "s": "promo-cohorts",
+   "type": "uses",
+   "label": "sourced-from",
+   "o": "ds-rev26-rate-schedule",
+   "quote": "Monitored monthly against fin.rate_schedule.",
+   "line": 8
+  },
+  {
+   "s": "exp-306",
+   "type": "other",
+   "label": "informs timing",
+   "o": "promo-cohorts",
+   "quote": "The timing of each cohort's roll-off is the largest single source of interest variance in FY26-27 (exp-306).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "revenue-forecast-2026/fnd-rev26-promo-tail.md",
+  "fin.rate_schedule"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "revenue-forecast-2026/fnd-rev26-promo-tail.md",
+ "sha": "d52793813b78400b8735cf9c667677a3f32600667a70eebbdcd8073e458fc3f4",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

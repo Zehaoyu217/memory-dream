@@ -1,0 +1,69 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-sfc-lags-v1",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "feat-sfc-lags-v1",
+    "lags 1, 3 and 12 months of segment spend"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sfc-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "sfc-lgbm-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "sfc-hier-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "sfc-hier-v3"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "sfc-lgbm-v2",
+   "type": "uses",
+   "label": "first feature set for",
+   "o": "feat-sfc-lags-v1",
+   "quote": "First feature set for sfc-lgbm-v2 (exp-202).",
+   "line": 8
+  },
+  {
+   "s": "sfc-hier-v3",
+   "type": "uses",
+   "label": "still an input to",
+   "o": "feat-sfc-lags-v1",
+   "quote": "Still an input to sfc-hier-v3.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "ds-sfc-segment-monthly",
+  "exp-202"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "spend-forecasting/feat-sfc-lags-v1.md",
+ "sha": "79403458294bef81cafee49b32efe65c85e902df8dc2b179e820d9a7ce9811b6",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

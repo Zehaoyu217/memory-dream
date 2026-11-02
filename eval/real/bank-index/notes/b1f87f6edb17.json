@@ -1,0 +1,133 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-202-tier-pilot",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-202"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-201-flat-rate-pilot",
+   "type": "other",
+   "label": "flat-rate pilot",
+   "as": [
+    "exp-201"
+   ],
+   "lines": [
+    2,
+    8
+   ]
+  },
+  {
+   "id": "tier-a",
+   "type": "term",
+   "label": "pricing tier",
+   "as": [
+    "Tier A",
+    "tier A"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "flat-rate",
+   "type": "term",
+   "label": "flat rate",
+   "as": [
+    "flat 1.25%"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "spend",
+   "type": "metric",
+   "label": "spend",
+   "as": [
+    "Spend",
+    "spend"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "effective-rewards-rate",
+   "type": "metric",
+   "label": "effective rewards rate",
+   "as": [
+    "Effective rewards rate"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "net-contribution",
+   "type": "metric",
+   "label": "net contribution",
+   "as": [
+    "Net contribution"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "tier-a",
+   "type": "measured-by",
+   "label": "lifts",
+   "o": "spend",
+   "quote": "tier A lifts spend 2.7%",
+   "line": 5
+  },
+  {
+   "s": "tier-a",
+   "type": "measured-by",
+   "label": "raises",
+   "o": "effective-rewards-rate",
+   "quote": "Effective rewards rate +19% over control",
+   "line": 7
+  },
+  {
+   "s": "tier-a",
+   "type": "measured-by",
+   "label": "nets",
+   "o": "net-contribution",
+   "quote": "Net contribution is +$0.40 per account per month",
+   "line": 8
+  },
+  {
+   "s": "exp-202-tier-pilot",
+   "type": "other",
+   "label": "compared against",
+   "o": "exp-201-flat-rate-pilot",
+   "quote": "against +$1.10 for flat 1.25% in exp-201",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-cb-pilot-2025q4",
+  "exp-201-flat-rate-pilot"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/exp-202-tier-pilot.md",
+ "sha": "b1f87f6edb177eb364e61957e8397deaf0799b33ea30221b7f5792ab6010903d",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

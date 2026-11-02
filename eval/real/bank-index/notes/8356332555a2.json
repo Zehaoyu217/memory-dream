@@ -1,0 +1,169 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "proposal-a",
+   "type": "other",
+   "label": "proposal",
+   "as": [
+    "proposal A"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "break-even",
+   "type": "term",
+   "label": "break-even",
+   "as": [
+    "break-even",
+    "Break-even"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "spend-lift",
+   "type": "metric",
+   "label": "spend lift",
+   "as": [
+    "3.4% spend lift",
+    "2.4% at $3,000",
+    "3.6% at $2,500"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cb-sim",
+   "type": "other",
+   "label": "simulator",
+   "as": [
+    "cb-sim"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cb-threshold-3000",
+   "type": "flag",
+   "label": "top threshold",
+   "as": [
+    "$3,000 top threshold",
+    "$3,000"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "cb-threshold-2500",
+   "type": "flag",
+   "label": "top threshold",
+   "as": [
+    "a $2,500 threshold",
+    "The $2,500 threshold"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "top-rate",
+   "type": "other",
+   "label": "top rate",
+   "as": [
+    "the top rate"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "middle-band",
+   "type": "segment",
+   "label": "middle band",
+   "as": [
+    "middle-band elasticity 0.14",
+    "middle-band"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "middle-band-elasticity",
+   "type": "metric",
+   "label": "elasticity",
+   "as": [
+    "middle-band elasticity 0.14"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "proposal-a",
+   "type": "other",
+   "label": "does not clear",
+   "o": "break-even",
+   "quote": "proposal A does not clear break-even at a $3,000 top threshold",
+   "line": 5
+  },
+  {
+   "s": "cb-threshold-2500",
+   "type": "other",
+   "label": "clears",
+   "o": "break-even",
+   "quote": "a $2,500 threshold does",
+   "line": 5
+  },
+  {
+   "s": "break-even",
+   "type": "measured-by",
+   "label": "is stated as",
+   "o": "spend-lift",
+   "quote": "Break-even is 3.4% spend lift for proposal A",
+   "line": 6
+  },
+  {
+   "s": "cb-sim",
+   "type": "other",
+   "label": "predicts",
+   "o": "spend-lift",
+   "quote": "cb-sim predicts 2.4% at $3,000 and 3.6% at $2,500",
+   "line": 6
+  },
+  {
+   "s": "middle-band",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "middle-band-elasticity",
+   "quote": "middle-band elasticity 0.14",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-206-breakeven-sim",
+  "q-cb-breakeven-lift",
+  "dec-cb-threshold-2500"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/find-cb-breakeven-lift.md",
+ "sha": "8356332555a21406a2d0f79f217cb18dc381cc13aac6d994d8485a83756b4dda",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

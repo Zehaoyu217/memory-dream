@@ -1,0 +1,87 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-dq-late-rate-7d",
+   "type": "feature",
+   "label": "trend input",
+   "as": [
+    "feat-dq-late-rate-7d"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dq.partition_arrivals",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "dq.partition_arrivals"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "late-partition-model",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "the late-partition model"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dashboard",
+   "type": "dashboard",
+   "label": "dashboard",
+   "as": [
+    "the dashboard"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-dq-late-rate-7d",
+   "type": "uses",
+   "label": "computed from",
+   "o": "dq.partition_arrivals",
+   "quote": "Computed from dq.partition_arrivals at each partition's arrival.",
+   "line": 6
+  },
+  {
+   "s": "late-partition-model",
+   "type": "uses",
+   "label": "trend input",
+   "o": "feat-dq-late-rate-7d",
+   "quote": "Used as the trend input to the late-partition model and to the dashboard.",
+   "line": 6
+  },
+  {
+   "s": "dashboard",
+   "type": "uses",
+   "label": "trend input",
+   "o": "feat-dq-late-rate-7d",
+   "quote": "Used as the trend input to the late-partition model and to the dashboard.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-dq-partition-arrivals",
+  "exp-301"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "data-quality-txn/feat-dq-late-rate-7d.md",
+ "sha": "7104f25362df8fe2ab37a0d74d2c80f665f69ac322434c97b25c2955fd3d36db",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

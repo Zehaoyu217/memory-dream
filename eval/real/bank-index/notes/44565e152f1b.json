@@ -1,0 +1,94 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "ridge",
+   "type": "model",
+   "label": "ridge model",
+   "as": [
+    "ridge MAPE 6.9%",
+    "Ridge on app session counts only"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "app-session-counts",
+   "type": "feature",
+   "label": "app session counts",
+   "as": [
+    "app session counts",
+    "sessions are the only regressor"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "trv-bt-2025h1",
+   "type": "dataset",
+   "label": "backtest window",
+   "as": [
+    "trv-bt-2025h1"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE 6.9%"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ridge",
+   "type": "uses",
+   "label": "fit on",
+   "o": "app-session-counts",
+   "quote": "Ridge on app session counts only",
+   "line": 6
+  },
+  {
+   "s": "ridge",
+   "type": "measured-by",
+   "label": "scored by",
+   "o": "mape",
+   "quote": "MAPE 6.9%",
+   "line": 5
+  },
+  {
+   "s": "ridge",
+   "type": "evaluated-on",
+   "label": "backtested on",
+   "o": "trv-bt-2025h1",
+   "quote": "trv-bt-2025h1 (monthly one-step origins, Jan to Jun 2025)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-503",
+  "trv-ridge-v2",
+  "ds-trv-funnel-sessions"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "travel-spend-recovery/exp-502.md",
+ "sha": "44565e152f1b33be18ac20dd0898ebcb9b0694da2b6bd57f83c76009c8331a5e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,110 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "apr-cap",
+   "type": "policy",
+   "label": "apr cap",
+   "as": [
+    "29.99% APR cap",
+    "29.99% ceiling"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "ds-rev26-rate-schedule",
+   "type": "dataset",
+   "label": "balance base",
+   "as": [
+    "2026 revolving balance base",
+    "ds-rev26-rate-schedule"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "annualised-interest",
+   "type": "metric",
+   "label": "annualised interest",
+   "as": [
+    "Annualised interest"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "rewards-segment",
+   "type": "segment",
+   "label": "rewards segment",
+   "as": [
+    "Rewards segment"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "apr-cap-scenario",
+   "type": "scenario",
+   "label": "scenario line",
+   "as": [
+    "separate scenario line"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "apr-cap",
+   "type": "other",
+   "label": "applied to",
+   "o": "ds-rev26-rate-schedule",
+   "quote": "Applies a 29.99% ceiling to the 2026 revolving balance base in ds-rev26-rate-schedule",
+   "line": 6
+  },
+  {
+   "s": "apr-cap",
+   "type": "other",
+   "label": "cuts interest by",
+   "o": "annualised-interest",
+   "quote": "Annualised interest falls by $54M",
+   "line": 7
+  },
+  {
+   "s": "rewards-segment",
+   "type": "other",
+   "label": "holds share of reduction",
+   "o": "annualised-interest",
+   "quote": "about 40% of the reduction is in the Rewards segment",
+   "line": 7
+  },
+  {
+   "s": "apr-cap-scenario",
+   "type": "other",
+   "label": "reported as",
+   "o": "apr-cap",
+   "quote": "Reported as a separate scenario line, not in the base case.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "q-rev26-apr-cap-scenario",
+  "feat-rev26-apr-mix"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "revenue-forecast-2026/exp-304.md",
+ "sha": "d5c811e8a104a3d32dc1428b0339aabb3a5447cea86fa59b8385887cb25d19c6",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

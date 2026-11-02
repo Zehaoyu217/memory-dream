@@ -1,0 +1,132 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-rdm-ship-uplift-v2",
+   "type": "other",
+   "label": "ship decision",
+   "as": [
+    "Decision: ship rdm-uplift-v2 with the corrected SMS weighting for the March 2026 wave"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-rdm-ship-uplift-v1",
+   "type": "other",
+   "label": "ship decision",
+   "as": [
+    "July 2025 ship decision"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "march-2026-wave",
+   "type": "other",
+   "label": "reactivation wave",
+   "as": [
+    "March 2026 wave"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "corrected-sms-weighting",
+   "type": "term",
+   "label": "corrected sms weighting",
+   "as": [
+    "corrected SMS weighting"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "sms-uplift",
+   "type": "metric",
+   "label": "sms uplift",
+   "as": [
+    "3.6pp against 3.0pp",
+    "uncorrected 3.4pp SMS uplift"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "channel-weights",
+   "type": "term",
+   "label": "channel weights",
+   "as": [
+    "Channel weights are reviewed after each wave"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "chloe-martin",
+   "type": "person",
+   "label": "marketing reviewer",
+   "as": [
+    "Chloe Martin"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-rdm-ship-uplift-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "dec-rdm-ship-uplift-v1",
+   "quote": "Replaces the July 2025 ship decision",
+   "line": 8
+  },
+  {
+   "s": "dec-rdm-ship-uplift-v2",
+   "type": "uses",
+   "label": "based on",
+   "o": "sms-uplift",
+   "quote": "Basis: exp-307 (3.6pp against 3.0pp) and fnd-rdm-sms-uplift-v2.",
+   "line": 7
+  },
+  {
+   "s": "dec-rdm-ship-uplift-v2",
+   "type": "uses",
+   "label": "applies to",
+   "o": "corrected-sms-weighting",
+   "quote": "ship rdm-uplift-v2 with the corrected SMS weighting for the March 2026 wave",
+   "line": 6
+  },
+  {
+   "s": "channel-weights",
+   "type": "owned-by",
+   "label": "reviewed by",
+   "o": "chloe-martin",
+   "quote": "Channel weights are reviewed after each wave by Chloe Martin (marketing).",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "rdm-uplift-v2",
+  "exp-307",
+  "fnd-rdm-sms-uplift-v2",
+  "dec-rdm-ship-uplift-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reactivation-dormant/dec-rdm-ship-uplift-v2.md",
+ "sha": "e21c77f7864aa5112e3b8060360e680430239341464551fc3dc003f482c26b60",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,128 @@
+{
+ "kind": "note",
+ "entities": [
+  {
+   "id": "ds-dq-dispute-join",
+   "type": "term",
+   "label": "join note",
+   "as": [
+    "Join of cards.txn_daily to cards.disputes on txn_id, used to measure the dedupe effect"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "transaction table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.disputes",
+   "type": "dataset",
+   "label": "disputes table",
+   "as": [
+    "cards.disputes"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "fraud-ops",
+   "type": "team",
+   "label": "owning team",
+   "as": [
+    "fraud-ops"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dispute-rate",
+   "type": "metric",
+   "label": "dispute rate",
+   "as": [
+    "Rate is disputes per 10,000 approved transactions"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-305",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "Used for exp-305"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "dedupe-decision",
+   "type": "decision",
+   "label": "dedupe decision",
+   "as": [
+    "the dedupe decision"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-dq-dispute-join",
+   "type": "uses",
+   "label": "joins",
+   "o": "cards.txn_daily",
+   "quote": "Join of cards.txn_daily to cards.disputes on txn_id",
+   "line": 5
+  },
+  {
+   "s": "ds-dq-dispute-join",
+   "type": "uses",
+   "label": "joins",
+   "o": "cards.disputes",
+   "quote": "Join of cards.txn_daily to cards.disputes on txn_id",
+   "line": 5
+  },
+  {
+   "s": "cards.disputes",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "fraud-ops",
+   "quote": "cards.disputes is owned by fraud-ops",
+   "line": 6
+  },
+  {
+   "s": "ds-dq-dispute-join",
+   "type": "measured-by",
+   "label": "rate is",
+   "o": "dispute-rate",
+   "quote": "Rate is disputes per 10,000 approved transactions",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-305"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "data-quality-txn/ds-dq-dispute-join.md",
+ "sha": "df8ec46e0673b4bcf2b9fdf549f8fee4cd205ba9a7f243a3efcc46c314363c43",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

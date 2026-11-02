@@ -1,0 +1,155 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-404",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-404"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ror-roi-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ror-roi-v1"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "ds-ror-holdout-2025q3",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "ror-oot-2025q3"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "realised-roi",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Realised ROI"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "matrix-v3",
+   "type": "other",
+   "label": "matrix version",
+   "as": [
+    "Matrix v3"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "t3",
+   "type": "other",
+   "label": "tier",
+   "as": [
+    "T3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "t2",
+   "type": "other",
+   "label": "tier",
+   "as": [
+    "T2"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "cashback",
+   "type": "other",
+   "label": "offer",
+   "as": [
+    "Cashback at T2"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-404",
+   "type": "uses",
+   "label": "from",
+   "o": "ror-roi-v1",
+   "quote": "from: [ror-roi-v1, ds-ror-holdout-2025q3]",
+   "line": 2
+  },
+  {
+   "s": "exp-404",
+   "type": "uses",
+   "label": "from",
+   "o": "ds-ror-holdout-2025q3",
+   "quote": "from: [ror-roi-v1, ds-ror-holdout-2025q3]",
+   "line": 2
+  },
+  {
+   "s": "exp-404",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "ds-ror-holdout-2025q3",
+   "quote": "ROI-model reallocation on ror-oot-2025q3 gives 1.49x",
+   "line": 5
+  },
+  {
+   "s": "exp-404",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "realised-roi",
+   "quote": "Realised ROI = 180-day retained revenue divided by offer cost, on the holdout.",
+   "line": 6
+  },
+  {
+   "s": "exp-404",
+   "type": "other",
+   "label": "compared to",
+   "o": "matrix-v3",
+   "quote": "against 1.31x for matrix v3",
+   "line": 5
+  },
+  {
+   "s": "cashback",
+   "type": "other",
+   "label": "at tier",
+   "o": "t2",
+   "quote": "Cashback at T2 is the tier gaining most",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "retention-offers-roi/exp-404.md",
+ "sha": "74236aa1bc6bd26eb2a5e7d540e2ee44512f8f92be1bd7a8a0d4ed437e6d2ebe",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

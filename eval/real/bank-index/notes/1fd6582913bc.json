@@ -1,0 +1,144 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-rev26-spend-volume",
+   "type": "dataset",
+   "label": "volume series",
+   "as": [
+    "Monthly spend volume",
+    "Volume series from 2025-07 onward"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "sfc-hier-v3",
+   "type": "model",
+   "label": "forecast model",
+   "as": [
+    "sfc-hier-v3",
+    "the spend-forecasting segment model"
+   ],
+   "lines": [
+    2,
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "actuals source",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "sfc-oot-2025h2",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "sfc-oot-2025h2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "accuracy metric",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "rev26-interchange-v1",
+   "type": "model",
+   "label": "interchange model",
+   "as": [
+    "rev26-interchange-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-rev26-volume-lag",
+   "type": "feature",
+   "label": "volume feature",
+   "as": [
+    "feat-rev26-volume-lag"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-rev26-spend-volume",
+   "type": "uses",
+   "label": "actuals from",
+   "o": "cards.txn_daily",
+   "quote": "actuals from `cards.txn_daily` for closed months",
+   "line": 6
+  },
+  {
+   "s": "ds-rev26-spend-volume",
+   "type": "uses",
+   "label": "forecasts for open months",
+   "o": "sfc-hier-v3",
+   "quote": "sfc-hier-v3 forecasts for open months",
+   "line": 6
+  },
+  {
+   "s": "sfc-hier-v3",
+   "type": "evaluated-on",
+   "label": "MAPE on",
+   "o": "sfc-oot-2025h2",
+   "quote": "MAPE 2.3% on sfc-oot-2025h2",
+   "line": 7
+  },
+  {
+   "s": "sfc-hier-v3",
+   "type": "measured-by",
+   "label": "MAPE 2.3%",
+   "o": "mape",
+   "quote": "MAPE 2.3%",
+   "line": 7
+  },
+  {
+   "s": "rev26-interchange-v1",
+   "type": "uses",
+   "label": "used by",
+   "o": "feat-rev26-volume-lag",
+   "quote": "Used by rev26-interchange-v1 through feat-rev26-volume-lag.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "spend-forecasting/sfc-hier-v3",
+  "rev26-interchange-v1",
+  "feat-rev26-volume-lag"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "revenue-forecast-2026/ds-rev26-spend-volume.md",
+ "sha": "1fd6582913bcafdf4ca52b1abc01344254bcd1bf070f50ff36ac121a50a80ce2",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,123 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "maya-ortiz",
+   "type": "person",
+   "label": "retention team lead",
+   "as": [
+    "Maya Ortiz"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cards.churn_labels",
+   "type": "dataset",
+   "label": "churn flag table",
+   "as": [
+    "cards.churn_labels"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "90-day-attrition",
+   "type": "metric",
+   "label": "attrition definition",
+   "as": [
+    "Attrition is no app session in 90 days and a churn flag"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC for 90-day attrition"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "active-days",
+   "type": "feature",
+   "label": "active days count",
+   "as": [
+    "the plain count of active days"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "engagement-score",
+   "type": "model",
+   "label": "app engagement score",
+   "as": [
+    "one engagement number per account"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "engagement-score",
+   "type": "measured-by",
+   "label": "compared by",
+   "o": "auc",
+   "quote": "AUC for 90-day attrition, comparing the score against the plain count of active days",
+   "line": 6
+  },
+  {
+   "s": "engagement-score",
+   "type": "evaluated-on",
+   "label": "tested for attrition",
+   "o": "90-day-attrition",
+   "quote": "Test: AUC for 90-day attrition",
+   "line": 6
+  },
+  {
+   "s": "90-day-attrition",
+   "type": "uses",
+   "label": "flag from",
+   "o": "cards.churn_labels",
+   "quote": "a churn flag in `cards.churn_labels`",
+   "line": 7
+  },
+  {
+   "s": "maya-ortiz",
+   "type": "owned-by",
+   "label": "wants score for",
+   "o": "engagement-score",
+   "quote": "Digital analytics wants one engagement number per account for the retention team (Maya Ortiz)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-501",
+  "exp-502",
+  "exp-503",
+  "exp-504",
+  "exp-505",
+  "exp-506",
+  "ae-score-v1",
+  "ae-score-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "app-engagement/q-ae-score-validity.md",
+ "sha": "c1762e56b91b1b8d528d60ef99e69626f06673efdbcbb14de21a0c3bda920602",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

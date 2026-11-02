@@ -1,0 +1,78 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "month-end-account-snapshot",
+   "type": "dataset",
+   "label": "snapshot",
+   "as": [
+    "prior month-end account snapshot"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "snapshot-month",
+   "type": "feature",
+   "label": "column",
+   "as": [
+    "`snapshot_month` column"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "balance-limit-fields",
+   "type": "feature",
+   "label": "fields",
+   "as": [
+    "balance and limit fields"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "team",
+   "as": [
+    "Tomás Rivera"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "snapshot-month",
+   "type": "part-of",
+   "label": "column of",
+   "o": "month-end-account-snapshot",
+   "quote": "added the `snapshot_month` column for the join",
+   "line": 7
+  },
+  {
+   "s": "snapshot-month",
+   "type": "other",
+   "label": "added by",
+   "o": "tomas-rivera",
+   "quote": "Tomás Rivera's team added the `snapshot_month` column for the join.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "howto/join-txn-to-accounts"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/prior-month-snapshot-why.md",
+ "sha": "10c71b7fc8229c6ac9d60ab917bd0c32bb2ffb764a67170c33c704f5ccd3c3fe",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

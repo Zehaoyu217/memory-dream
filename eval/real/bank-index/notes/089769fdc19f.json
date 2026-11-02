@@ -1,0 +1,87 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "travel-active-cohort-2024q4",
+   "type": "segment",
+   "label": "cohort",
+   "as": [
+    "2024-Q4 travel-active cohort",
+    "312k cardholders with three or more travel transactions"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-507",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-507"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-trv-tenure",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-trv-tenure"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "travel-active-cohort-2024q4",
+   "type": "sourced-from",
+   "label": "from",
+   "o": "cards.txn_daily",
+   "quote": "from `cards.txn_daily`",
+   "line": 6
+  },
+  {
+   "s": "exp-507",
+   "type": "uses",
+   "label": "used for return-rate test",
+   "o": "travel-active-cohort-2024q4",
+   "quote": "Used for the return-rate test in exp-507",
+   "line": 8
+  },
+  {
+   "s": "feat-trv-tenure",
+   "type": "uses",
+   "label": "used for",
+   "o": "travel-active-cohort-2024q4",
+   "quote": "Used for the return-rate test in exp-507 and for feat-trv-tenure.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-trv-travel-mcc-monthly"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "travel-spend-recovery/ds-trv-cohort-panel.md",
+ "sha": "089769fdc19f008c1c68ffe0bd361162bcd73ed2fefea4c544298a59dd5169aa",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

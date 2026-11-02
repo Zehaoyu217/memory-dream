@@ -1,0 +1,73 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "aml-xgb-v2",
+   "type": "model",
+   "label": "score",
+   "as": [
+    "aml-xgb-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "aml-oot-2026h1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "aml-oot-2026h1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "structuring-alerts",
+   "type": "segment",
+   "label": "alerts",
+   "as": [
+    "structuring alerts"
+   ],
+   "lines": [
+    5,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "sar-referrals",
+   "type": "other",
+   "label": "sar referrals",
+   "as": [
+    "SAR referrals"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "structuring-alerts",
+   "type": "other",
+   "label": "scored by",
+   "o": "aml-xgb-v2",
+   "quote": "structuring alerts with aml-xgb-v2 score below 0.18",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-405",
+  "aml-find-ranker-top40-revised"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "aml-alerts/exp-406.md",
+ "sha": "acbb9769e72b167efbecf26a963275043a6ceb98ec53159c7b2ad2e97e0cbf99",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

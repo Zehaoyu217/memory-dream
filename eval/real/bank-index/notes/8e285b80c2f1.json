@@ -1,0 +1,110 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "lightgbm model",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "feat-sfc-lags-v1",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "feat-sfc-lags-v1"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "sfc-bt-2024",
+   "type": "dataset",
+   "label": "backtest",
+   "as": [
+    "sfc-bt-2024"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "seasonality",
+   "type": "term",
+   "label": "seasonality",
+   "as": [
+    "add seasonality"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "lightgbm",
+   "type": "uses",
+   "label": "runs on",
+   "o": "feat-sfc-lags-v1",
+   "quote": "LightGBM per segment on feat-sfc-lags-v1 only",
+   "line": 6
+  },
+  {
+   "s": "lightgbm",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "sfc-bt-2024",
+   "quote": "LightGBM per segment on feat-sfc-lags-v1 only, sfc-bt-2024.",
+   "line": 6
+  },
+  {
+   "s": "lightgbm",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "mape",
+   "quote": "1-month MAPE 5.6%",
+   "line": 5
+  },
+  {
+   "s": "lightgbm",
+   "type": "other",
+   "label": "next step adds",
+   "o": "seasonality",
+   "quote": "Next step: add seasonality (exp-203)",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "exp-201",
+  "feat-sfc-lags-v1",
+  "exp-203"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "spend-forecasting/exp-202.md",
+ "sha": "8e285b80c2f105a52197ce941b628344f6b731f29033ff28e8382bcd9a09c237",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

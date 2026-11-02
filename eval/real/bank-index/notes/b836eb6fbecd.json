@@ -1,0 +1,137 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-303",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "Intent model with account state vs without"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cb-intent-v1",
+   "type": "model",
+   "label": "intent model",
+   "as": [
+    "cb-intent-v1"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "feat-cb-account-state-v1",
+   "type": "feature",
+   "label": "account state",
+   "as": [
+    "with account state"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q3",
+   "type": "dataset",
+   "label": "holdout set",
+   "as": [
+    "holdout-2025q3 (n = 1,100 messages)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro f1",
+   "as": [
+    "Macro F1 0.88 with account state, 0.83 without."
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "card-status",
+   "type": "other",
+   "label": "intent",
+   "as": [
+    "card-status"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "payment-date",
+   "type": "other",
+   "label": "intent",
+   "as": [
+    "payment-date"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-303",
+   "type": "other",
+   "label": "compares",
+   "o": "feat-cb-account-state-v1",
+   "quote": "Intent model with account state vs without",
+   "line": 5
+  },
+  {
+   "s": "exp-303",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q3",
+   "quote": "Same 22 intents and holdout-2025q3 (n = 1,100 messages) as cb-intent-v1.",
+   "line": 6
+  },
+  {
+   "s": "exp-303",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "macro-f1",
+   "quote": "Macro F1 0.88 with account state, 0.83 without.",
+   "line": 7
+  },
+  {
+   "s": "exp-303",
+   "type": "other",
+   "label": "largest gains on",
+   "o": "card-status",
+   "quote": "Largest gains are on card-status and payment-date intents.",
+   "line": 7
+  },
+  {
+   "s": "exp-303",
+   "type": "other",
+   "label": "largest gains on",
+   "o": "payment-date",
+   "quote": "Largest gains are on card-status and payment-date intents.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-cb-intent-acc"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "chatbot-deflection/exp-303.md",
+ "sha": "b836eb6fbecddcd263f23933da864d553750ba2ff44414818e8870d79ca2869e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

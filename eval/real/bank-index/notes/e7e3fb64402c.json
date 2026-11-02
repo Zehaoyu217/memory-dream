@@ -1,0 +1,89 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat_ivr3",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "IVR path feature",
+    "feat_ivr3"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "callcenter.ivr_menu_paths",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "callcenter.ivr_menu_paths"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro f1",
+   "as": [
+    "macro F1"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat_ivr3",
+   "type": "uses",
+   "label": "tokens come from",
+   "o": "callcenter.ivr_menu_paths",
+   "quote": "Tokens come from `callcenter.ivr_menu_paths`",
+   "line": 6
+  },
+  {
+   "s": "feat_ivr3",
+   "type": "evaluated-on",
+   "label": "adds macro F1 on",
+   "o": "holdout-2025q4",
+   "quote": "Adds +0.03 macro F1 on holdout-2025q4",
+   "line": 7
+  },
+  {
+   "s": "feat_ivr3",
+   "type": "measured-by",
+   "label": "adds macro F1",
+   "o": "macro-f1",
+   "quote": "Adds +0.03 macro F1 on holdout-2025q4",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-cr-ivr-paths",
+  "fnd-cr-ivr-helps"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/feat-cr-ivr-path-v1.md",
+ "sha": "e7e3fb64402c4deebac935003b1a33866055d86792fc68c6a0d2a6180ebb90d3",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

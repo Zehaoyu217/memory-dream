@@ -1,0 +1,117 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "limit-model",
+   "type": "model",
+   "label": "limit model",
+   "as": [
+    "Limit model"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "exposure-weighted-auc",
+   "type": "metric",
+   "label": "headline auc",
+   "as": [
+    "headline AUC"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "unweighted-auc",
+   "type": "metric",
+   "label": "unweighted auc",
+   "as": [
+    "unweighted AUC"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "credit-limit",
+   "type": "term",
+   "label": "credit limit",
+   "as": [
+    "credit limit"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "lena fischer",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "limit-model",
+   "type": "measured-by",
+   "label": "reported as",
+   "o": "exposure-weighted-auc",
+   "quote": "Limit model AUC is reported exposure-weighted by credit limit",
+   "line": 4
+  },
+  {
+   "s": "limit-model",
+   "type": "measured-by",
+   "label": "reported with",
+   "o": "unweighted-auc",
+   "quote": "with unweighted AUC beside it",
+   "line": 4
+  },
+  {
+   "s": "exposure-weighted-auc",
+   "type": "uses",
+   "label": "weights by",
+   "o": "credit-limit",
+   "quote": "Weight each account by credit limit in dollars for the headline AUC",
+   "line": 5
+  },
+  {
+   "s": "lena-fischer",
+   "type": "other",
+   "label": "asks to see both",
+   "o": "exposure-weighted-auc",
+   "quote": "Lena Fischer asks to see both every time",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/weighted-auc-by-book.md",
+ "sha": "f615044f169fbb97a188b14bec6fccb57bff2e3876e0ff6eb529fc2b91fcfb82",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

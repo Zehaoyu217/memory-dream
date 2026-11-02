@@ -1,0 +1,118 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "caller-history-v1",
+   "type": "feature",
+   "label": "caller history",
+   "as": [
+    "Caller history v1"
+   ],
+   "lines": [
+    6,
+    9
+   ]
+  },
+  {
+   "id": "caller-history-v2",
+   "type": "model",
+   "label": "retrained v2",
+   "as": [
+    "Retrained v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "post-call-contacts",
+   "type": "term",
+   "label": "post-call contacts",
+   "as": [
+    "post-call contacts"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cr-oot-2026h1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "cr-oot-2026h1"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "caller-history-v1",
+   "type": "other",
+   "label": "gain came from",
+   "o": "post-call-contacts",
+   "quote": "The gain in fnd-cr-leak-v1 came from contacts after the call.",
+   "line": 7
+  },
+  {
+   "s": "caller-history-v1",
+   "type": "evaluated-on",
+   "label": "gain on",
+   "o": "holdout-2025q4",
+   "quote": "its +0.05 gain on holdout-2025q4 came mostly from post-call contacts",
+   "line": 6
+  },
+  {
+   "s": "caller-history-v1",
+   "type": "evaluated-on",
+   "label": "drops to 0.72 on",
+   "o": "cr-oot-2026h1",
+   "quote": "On cr-oot-2026h1 the v1 model drops to 0.72 (exp-104).",
+   "line": 7
+  },
+  {
+   "s": "caller-history-v2",
+   "type": "evaluated-on",
+   "label": "holds 0.73 on",
+   "o": "cr-oot-2026h1",
+   "quote": "Retrained v2 holds 0.73 on cr-oot-2026h1 (exp-105).",
+   "line": 8
+  },
+  {
+   "s": "caller-history-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "caller-history-v1",
+   "quote": "supersedes: [fnd-cr-leak-v1]",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "exp-104",
+  "exp-105",
+  "fnd-cr-leak-v1",
+  "dec-cr-caller-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/fnd-cr-leak-corrected.md",
+ "sha": "e3159dab28129195ade2d42511b9b244c5733af01685893c2817167665e54fd4",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

@@ -1,0 +1,152 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-202",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-202"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "csb-oot-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "csb-oot-2025q1",
+    "Evaluated on the 7,930-account subset of csb-oot-2025q1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "csb-tenure-6m-plus",
+   "type": "segment",
+   "label": "subset",
+   "as": [
+    "7,930-account subset",
+    "6-month-plus accounts"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "csb-tenure-under-6m",
+   "type": "segment",
+   "label": "accounts",
+   "as": [
+    "Under-6-month accounts"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.687",
+    "AUC 0.699",
+    "AUC 0.61"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "tenure-all-model",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "Model trained on all tenures"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "tenure-6m-model",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "Trained on 6-month-plus only"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-202",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "csb-tenure-6m-plus",
+   "quote": "Evaluated on the 7,930-account subset",
+   "line": 6
+  },
+  {
+   "s": "csb-tenure-6m-plus",
+   "type": "part-of",
+   "label": "subset of",
+   "o": "csb-oot-2025q1",
+   "quote": "7,930-account subset of csb-oot-2025q1",
+   "line": 6
+  },
+  {
+   "s": "tenure-all-model",
+   "type": "measured-by",
+   "label": "scored AUC",
+   "o": "auc",
+   "quote": "Model trained on all tenures: AUC 0.687 on that subset",
+   "line": 7
+  },
+  {
+   "s": "tenure-6m-model",
+   "type": "measured-by",
+   "label": "scored AUC",
+   "o": "auc",
+   "quote": "Trained on 6-month-plus only: AUC 0.699",
+   "line": 7
+  },
+  {
+   "s": "csb-tenure-under-6m",
+   "type": "measured-by",
+   "label": "scored AUC",
+   "o": "auc",
+   "quote": "Under-6-month accounts are scored poorly either way (AUC 0.61)",
+   "line": 8
+  },
+  {
+   "s": "tenure-6m-model",
+   "type": "other",
+   "label": "trained on",
+   "o": "csb-tenure-6m-plus",
+   "quote": "Trained on 6-month-plus only",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "q-csb-tenure-floor",
+  "feat-csb-tenure-band",
+  "csb-lr-base",
+  "dec-csb-tenure-floor"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-small-business/exp-202.md",
+ "sha": "d1368ac57743af9d0364403c35c30284f740fb659dcbdf8d3142c0d97259cf1c",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

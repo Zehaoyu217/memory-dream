@@ -1,0 +1,116 @@
+{
+ "kind": "note",
+ "entities": [
+  {
+   "id": "feat-hp-match-covars-v1",
+   "type": "feature",
+   "label": "covariate set",
+   "as": [
+    "feat-hp-match-covars-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-hp-matched-controls",
+   "type": "dataset",
+   "label": "source note",
+   "as": [
+    "ds-hp-matched-controls"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`bureau.scores_monthly`"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "hp-psm-v1",
+   "type": "model",
+   "label": "matching model",
+   "as": [
+    "hp-psm-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "hp-psm-v2",
+   "type": "model",
+   "label": "matching model",
+   "as": [
+    "hp-psm-v2"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-hp-match-covars-v1",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cards.accounts_monthly",
+   "quote": "Source: `cards.accounts_monthly` and `bureau.scores_monthly`, as of the index month.",
+   "line": 7
+  },
+  {
+   "s": "feat-hp-match-covars-v1",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "bureau.scores_monthly",
+   "quote": "Source: `cards.accounts_monthly` and `bureau.scores_monthly`, as of the index month.",
+   "line": 7
+  },
+  {
+   "s": "feat-hp-match-covars-v1",
+   "type": "uses",
+   "label": "used in",
+   "o": "hp-psm-v1",
+   "quote": "Used in hp-psm-v1",
+   "line": 8
+  },
+  {
+   "s": "hp-psm-v2",
+   "type": "other",
+   "label": "extends",
+   "o": "feat-hp-match-covars-v1",
+   "quote": "the caliper and extra covariates come in hp-psm-v2",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-hp-matched-controls"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "hardship-programs/feat-hp-match-covars-v1.md",
+ "sha": "6b8e081aa5334bf8905a61501c568e82f4278d543ba39c0191af2d28b1da4ee0",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

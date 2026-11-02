@@ -1,0 +1,90 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "mcc-group-bps",
+   "type": "term",
+   "label": "bps variant",
+   "as": [
+    "MCC-group bps"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "flat-blended-bps",
+   "type": "term",
+   "label": "bps variant",
+   "as": [
+    "flat blended bps"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "error metric",
+   "as": [
+    "MAPE 2.1%",
+    "MAPE from 3.4% to 2.1%"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "one-month-volume-lag",
+   "type": "term",
+   "label": "volume lag",
+   "as": [
+    "one-month volume lag"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mcc-group-bps",
+   "type": "measured-by",
+   "label": "gives MAPE",
+   "o": "mape",
+   "quote": "MCC-group bps: MAPE 2.1%",
+   "line": 7
+  },
+  {
+   "s": "flat-blended-bps",
+   "type": "measured-by",
+   "label": "gives MAPE",
+   "o": "mape",
+   "quote": "flat blended bps: 4.8%",
+   "line": 7
+  },
+  {
+   "s": "one-month-volume-lag",
+   "type": "measured-by",
+   "label": "brings MAPE from 3.4% to",
+   "o": "mape",
+   "quote": "Adding the one-month volume lag brings MAPE from 3.4% to 2.1%.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "rev26-interchange-v1",
+  "ds-rev26-spend-volume"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "revenue-forecast-2026/exp-301.md",
+ "sha": "b4815e90dba5e362ad831cf95157d47dd64bf0811fab378b382bb6051d41f9c4",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

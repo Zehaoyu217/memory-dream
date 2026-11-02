@@ -1,0 +1,148 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "asker",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "q-app-gini-target",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "Q: can a rebuilt new-account scorecard reach OOT Gini 0.42 without manual overrides?"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "new-account-scorecard",
+   "type": "model",
+   "label": "scorecard",
+   "as": [
+    "rebuilt new-account scorecard"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "holdout Gini",
+    "Target is 0.42 Gini"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "oot-set",
+   "type": "dataset",
+   "label": "out-of-time set",
+   "as": [
+    "next out-of-time set"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "new-account-approval",
+   "type": "other",
+   "label": "scope",
+   "as": [
+    "new-account approval"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-507",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-507"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dec-app-cutoff-v4",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-app-cutoff-v4"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "lena-fischer",
+   "type": "other",
+   "label": "raised",
+   "o": "q-app-gini-target",
+   "quote": "Raised by Lena Fischer after the 2026-Q1 holdout Gini fell to 0.33.",
+   "line": 6
+  },
+  {
+   "s": "new-account-scorecard",
+   "type": "measured-by",
+   "label": "target",
+   "o": "gini",
+   "quote": "Target is 0.42 Gini on the next out-of-time set",
+   "line": 6
+  },
+  {
+   "s": "new-account-scorecard",
+   "type": "other",
+   "label": "scoped to",
+   "o": "new-account-approval",
+   "quote": "Scope: new-account approval only",
+   "line": 8
+  },
+  {
+   "s": "exp-507",
+   "type": "other",
+   "label": "answers",
+   "o": "q-app-gini-target",
+   "quote": "Answered by exp-507 (2026-10-21) and dec-app-cutoff-v4 (2026-10-27).",
+   "line": 7
+  },
+  {
+   "s": "dec-app-cutoff-v4",
+   "type": "other",
+   "label": "answers",
+   "o": "q-app-gini-target",
+   "quote": "Answered by exp-507 (2026-10-21) and dec-app-cutoff-v4 (2026-10-27).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "find-app-gini-v3-drift",
+  "ds-app-applications-2024"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "application-scorecard/q-app-gini-target.md",
+ "sha": "18b1096d47c40dca213ab045741b3529003e1cf50ab54296f90af8a5cecc8f3f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

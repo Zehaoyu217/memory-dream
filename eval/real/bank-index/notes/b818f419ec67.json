@@ -1,0 +1,125 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-bt-revolve-share",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-bt-revolve-share"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "`cards.payments_daily`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-102-txn-features",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-102-txn-features"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "revolvers",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "Revolvers"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "bt-acceptance",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "accept BT at 6.8%"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-bt-revolve-share",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cards.payments_daily",
+   "quote": "Source: `cards.payments_daily` and `cards.accounts_monthly`.",
+   "line": 6
+  },
+  {
+   "s": "feat-bt-revolve-share",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cards.accounts_monthly",
+   "quote": "Source: `cards.payments_daily` and `cards.accounts_monthly`.",
+   "line": 6
+  },
+  {
+   "s": "exp-102-txn-features",
+   "type": "uses",
+   "label": "used from",
+   "o": "feat-bt-revolve-share",
+   "quote": "Used from exp-102-txn-features onward.",
+   "line": 7
+  },
+  {
+   "s": "revolvers",
+   "type": "uses",
+   "label": "defined by share",
+   "o": "feat-bt-revolve-share",
+   "quote": "Revolvers (share at or above 0.5)",
+   "line": 8
+  },
+  {
+   "s": "revolvers",
+   "type": "measured-by",
+   "label": "accept BT at",
+   "o": "bt-acceptance",
+   "quote": "Revolvers (share at or above 0.5) accept BT at 6.8%",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-bt-offer-log",
+  "find-bt-revolvers-decline"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "balance-transfer-propensity/feat-bt-revolve-share.md",
+ "sha": "b818f419ec671ca9a90eb30de736425d4a60ff2bf304152df4171ec49d52062e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

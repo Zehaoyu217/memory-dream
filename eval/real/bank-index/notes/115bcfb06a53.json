@@ -1,0 +1,148 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "txc-logreg-v1",
+   "type": "model",
+   "label": "baseline",
+   "as": [
+    "txc-logreg-v1",
+    "is the baseline"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "txc-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "txc-gbm-v2"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "holdout-2025q2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q2"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro-f1",
+   "as": [
+    "macro-F1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-txc-descriptor-tokens-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-txc-descriptor-tokens-v1"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "feat-txc-mcc-prior",
+   "type": "feature",
+   "label": "mcc prior",
+   "as": [
+    "feat-txc-mcc-prior",
+    "MCC prior"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "txc-labelled-split",
+   "type": "dataset",
+   "label": "labelled split",
+   "as": [
+    "2025-01 to 2025-04 labelled split"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "txc-logreg-v1",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "holdout-2025q2",
+   "quote": "scored on holdout-2025q2 (n=2,000)",
+   "line": 7
+  },
+  {
+   "s": "txc-logreg-v1",
+   "type": "measured-by",
+   "label": "scores",
+   "o": "macro-f1",
+   "quote": "Scores 0.71 with the MCC prior off",
+   "line": 6
+  },
+  {
+   "s": "txc-logreg-v1",
+   "type": "trained-on",
+   "label": "trained on",
+   "o": "txc-labelled-split",
+   "quote": "Trained on the 2025-01 to 2025-04 labelled split",
+   "line": 7
+  },
+  {
+   "s": "txc-logreg-v1",
+   "type": "uses",
+   "label": "from",
+   "o": "feat-txc-descriptor-tokens-v1",
+   "quote": "from: [feat-txc-descriptor-tokens-v1, feat-txc-mcc-prior]",
+   "line": 2
+  },
+  {
+   "s": "txc-logreg-v1",
+   "type": "uses",
+   "label": "from",
+   "o": "feat-txc-mcc-prior",
+   "quote": "from: [feat-txc-descriptor-tokens-v1, feat-txc-mcc-prior]",
+   "line": 2
+  },
+  {
+   "s": "txc-gbm-v2",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "txc-logreg-v1",
+   "quote": "Superseded by txc-gbm-v2 in August 2025.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "exp-101",
+  "exp-102"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "txn-categorization/txc-logreg-v1.md",
+ "sha": "115bcfb06a53dc16c4c8b2b21abf91eb81e097c9e556d6b43dd81c4034c3ac17",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

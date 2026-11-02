@@ -1,0 +1,136 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-clv-loss-rate",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-clv-loss-rate: segment loss rate by bureau band and vintage"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-clv-loss-events",
+   "type": "dataset",
+   "label": "source dataset",
+   "as": [
+    "ds-clv-loss-events"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "ds-clv-cohort-panel",
+   "type": "dataset",
+   "label": "source dataset",
+   "as": [
+    "ds-clv-cohort-panel"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "bureau-scores-monthly",
+   "type": "dataset",
+   "label": "bureau table",
+   "as": [
+    "bureau.scores_monthly"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "clv-ml-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "clv-ml-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "clv-ml-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "clv-ml-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "net-of-loss-target",
+   "type": "term",
+   "label": "target",
+   "as": [
+    "net-of-loss target"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-clv-loss-rate",
+   "type": "uses",
+   "label": "built from",
+   "o": "ds-clv-loss-events",
+   "quote": "Built from ds-clv-loss-events",
+   "line": 7
+  },
+  {
+   "s": "feat-clv-loss-rate",
+   "type": "uses",
+   "label": "built from",
+   "o": "ds-clv-cohort-panel",
+   "quote": "from: [ds-clv-loss-events, ds-clv-cohort-panel]",
+   "line": 2
+  },
+  {
+   "s": "feat-clv-loss-rate",
+   "type": "uses",
+   "label": "historic loss rate from",
+   "o": "bureau-scores-monthly",
+   "quote": "Historic loss rate of the account's bureau band (from bureau.scores_monthly, credit-data)",
+   "line": 6
+  },
+  {
+   "s": "clv-ml-v1",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-clv-loss-rate",
+   "quote": "Used in clv-ml-v1 and clv-ml-v2",
+   "line": 8
+  },
+  {
+   "s": "clv-ml-v2",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-clv-loss-rate",
+   "quote": "Used in clv-ml-v1 and clv-ml-v2",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "customer-lifetime-value/feat-clv-loss-rate.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "customer-lifetime-value/feat-clv-loss-rate.md",
+ "sha": "a85f6057301bef1d1d207ae1037439b3d1c71c783c4db62e152f44d225388b6a",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

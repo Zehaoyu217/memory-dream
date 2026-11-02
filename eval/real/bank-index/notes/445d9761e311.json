@@ -1,0 +1,108 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "random-70-30-split",
+   "type": "term",
+   "label": "split method",
+   "as": [
+    "Random 70/30 account split",
+    "70/30 at random"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "ds_split_utils.random_split",
+   "type": "module",
+   "label": "function",
+   "as": [
+    "ds_split_utils.random_split"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "analyst",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "model metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "old-deck-numbers",
+   "type": "document",
+   "label": "old deck numbers",
+   "as": [
+    "Old deck numbers"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "random-70-30-split",
+   "type": "other",
+   "label": "implemented in",
+   "o": "ds_split_utils.random_split",
+   "quote": "every training table was split 70/30 at random by `account_id` in `ds_split_utils.random_split`",
+   "line": 5
+  },
+  {
+   "s": "lena-fischer",
+   "type": "other",
+   "label": "showed",
+   "o": "random-70-30-split",
+   "quote": "Lena Fischer showed that this let the model train on accounts whose later months sat in the holdout",
+   "line": 5
+  },
+  {
+   "s": "random-70-30-split",
+   "type": "other",
+   "label": "inflates",
+   "o": "auc",
+   "quote": "holdout AUC ran about 0.03 above live AUC on the 2024 cards",
+   "line": 5
+  },
+  {
+   "s": "old-deck-numbers",
+   "type": "uses",
+   "label": "built on",
+   "o": "random-70-30-split",
+   "quote": "Old deck numbers built on it are kept only so they can be traced.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "howto/oot-split-by-observation-date",
+  "howto/split-random-holdout.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/split-random-holdout.md",
+ "sha": "445d9761e3114f85376ae6ba3ddc420d3f6b6ee603421d970f0134d769c1494d",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

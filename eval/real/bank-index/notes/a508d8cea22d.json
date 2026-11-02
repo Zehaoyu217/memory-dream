@@ -1,0 +1,139 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "ae-score-v2",
+   "type": "model",
+   "label": "score",
+   "as": [
+    "ae-score-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-506",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-506"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "retention-at-90-days",
+   "type": "metric",
+   "label": "retention",
+   "as": [
+    "retention at 90 days"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "top-quintile",
+   "type": "segment",
+   "label": "top quintile",
+   "as": [
+    "Top score quintile",
+    "top quintile"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "bottom-quintile",
+   "type": "segment",
+   "label": "bottom quintile",
+   "as": [
+    "bottom quintile"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "weekly-dashboard",
+   "type": "dashboard",
+   "label": "weekly dashboard",
+   "as": [
+    "weekly dashboard"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-506",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "holdout-2025q4",
+   "quote": "From exp-506 scored on holdout-2025q4",
+   "line": 6
+  },
+  {
+   "s": "ae-score-v2",
+   "type": "measured-by",
+   "label": "retention measured",
+   "o": "retention-at-90-days",
+   "quote": "retention at 90 days is 91 percent in the top quintile of ae-score-v2",
+   "line": 6
+  },
+  {
+   "s": "top-quintile",
+   "type": "part-of",
+   "label": "quintile of",
+   "o": "ae-score-v2",
+   "quote": "top quintile of ae-score-v2",
+   "line": 6
+  },
+  {
+   "s": "bottom-quintile",
+   "type": "part-of",
+   "label": "quintile of",
+   "o": "ae-score-v2",
+   "quote": "58 percent in the bottom",
+   "line": 6
+  },
+  {
+   "s": "weekly-dashboard",
+   "type": "uses",
+   "label": "driven by",
+   "o": "ae-score-v2",
+   "quote": "The score separates risk clearly enough to drive the weekly dashboard",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-506",
+  "dec-ae-dashboard"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "app-engagement/fnd-ae-quintiles.md",
+ "sha": "a508d8cea22d9bf30282a38828c8c671d40c28a6c6e175cb38c6468c8d909401",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

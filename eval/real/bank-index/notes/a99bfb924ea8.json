@@ -1,0 +1,129 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-302",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-302"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "precision-at-0.90",
+   "type": "metric",
+   "label": "precision",
+   "as": [
+    "precision@0.90"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "coverage",
+   "type": "metric",
+   "label": "coverage",
+   "as": [
+    "coverage"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "two-analyst-labels",
+   "type": "dataset",
+   "label": "labels",
+   "as": [
+    "two-analyst labels"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-disp-amount-band",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-disp-amount-band"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "feat-disp-txn-match",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-disp-txn-match"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-302",
+   "type": "measured-by",
+   "label": "lifts",
+   "o": "precision-at-0.90",
+   "quote": "lifts precision@0.90 to 88.5%",
+   "line": 5
+  },
+  {
+   "s": "exp-302",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "coverage",
+   "quote": "precision@0.90 88.5%, coverage 25%",
+   "line": 7
+  },
+  {
+   "s": "exp-302",
+   "type": "evaluated-on",
+   "label": "CV setup on",
+   "o": "two-analyst-labels",
+   "quote": "Same CV setup as exp-301 (n=1,980 two-analyst labels",
+   "line": 6
+  },
+  {
+   "s": "exp-302",
+   "type": "uses",
+   "label": "added",
+   "o": "feat-disp-amount-band",
+   "quote": "Added feat-disp-amount-band and feat-disp-txn-match",
+   "line": 7
+  },
+  {
+   "s": "exp-302",
+   "type": "uses",
+   "label": "added",
+   "o": "feat-disp-txn-match",
+   "quote": "Added feat-disp-amount-band and feat-disp-txn-match",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-301",
+  "feat-disp-amount-band",
+  "feat-disp-txn-match"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "dispute-triage/exp-302.md",
+ "sha": "a99bfb924ea8de28e36e30638efa6b52598657b98f5e9019f20d625f14dd9b7e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

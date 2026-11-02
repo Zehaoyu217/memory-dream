@@ -1,0 +1,143 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "compliance.aml_alerts",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`compliance.aml_alerts`"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "compliance",
+   "type": "team",
+   "label": "owning group",
+   "as": [
+    "owned by compliance"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "rule-engine",
+   "type": "tool",
+   "label": "rule engine",
+   "as": [
+    "the rule engine"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "structuring-rule",
+   "type": "term",
+   "label": "alert rule",
+   "as": [
+    "structuring"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "rapid-movement-rule",
+   "type": "term",
+   "label": "alert rule",
+   "as": [
+    "rapid-movement"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "high-risk-mcc-cash-rule",
+   "type": "term",
+   "label": "alert rule",
+   "as": [
+    "high-risk-MCC cash"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "kyc-tier-snapshot",
+   "type": "feature",
+   "label": "alert field",
+   "as": [
+    "KYC tier snapshot"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "compliance.aml_alerts",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "compliance",
+   "quote": "owned by compliance",
+   "line": 6
+  },
+  {
+   "s": "compliance.aml_alerts",
+   "type": "uses",
+   "label": "scores from",
+   "o": "rule-engine",
+   "quote": "score from the rule engine",
+   "line": 8
+  },
+  {
+   "s": "compliance.aml_alerts",
+   "type": "other",
+   "label": "covers rule",
+   "o": "structuring-rule",
+   "quote": "rules are structuring, rapid-movement and high-risk-MCC cash",
+   "line": 6
+  },
+  {
+   "s": "compliance.aml_alerts",
+   "type": "other",
+   "label": "covers rule",
+   "o": "rapid-movement-rule",
+   "quote": "rules are structuring, rapid-movement and high-risk-MCC cash",
+   "line": 6
+  },
+  {
+   "s": "compliance.aml_alerts",
+   "type": "other",
+   "label": "covers rule",
+   "o": "high-risk-mcc-cash-rule",
+   "quote": "rules are structuring, rapid-movement and high-risk-MCC cash",
+   "line": 6
+  },
+  {
+   "s": "kyc-tier-snapshot",
+   "type": "part-of",
+   "label": "alert field of",
+   "o": "compliance.aml_alerts",
+   "quote": "Alert fields include rule, card, score from the rule engine and KYC tier snapshot.",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "aml-alerts/ds-aml-alerts.md",
+ "sha": "a150cd7d5a9ef732ecf9fb5d5f696665e258a0549ee7a5e5aaff6ad15ddddb57",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

@@ -1,0 +1,120 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-mq3-recency-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mq3-recency-v2",
+    "feat-mq3-recency-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-mq3-recency-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mq3-recency-v1"
+   ],
+   "lines": [
+    2,
+    4
+   ]
+  },
+  {
+   "id": "exp-305-refund-fix",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-305"
+   ],
+   "lines": [
+    2,
+    8
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "mq3-uplift-xl-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "mq3-uplift-xl-v2"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift@20%",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-mq3-recency-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "feat-mq3-recency-v1",
+   "quote": "supersedes: [feat-mq3-recency-v1]",
+   "line": 4
+  },
+  {
+   "s": "feat-mq3-recency-v2",
+   "type": "uses",
+   "label": "days since last purchase from",
+   "o": "cards.txn_daily",
+   "quote": "Days since the last purchase (not refund) from `cards.txn_daily`",
+   "line": 7
+  },
+  {
+   "s": "feat-mq3-recency-v2",
+   "type": "uses",
+   "label": "used in",
+   "o": "mq3-uplift-xl-v2",
+   "quote": "Used in mq3-uplift-xl-v2.",
+   "line": 9
+  },
+  {
+   "s": "feat-mq3-recency-v2",
+   "type": "measured-by",
+   "label": "uplift falls from 2.7 to 2.6",
+   "o": "uplift-at-20",
+   "quote": "uplift@20% falls from 2.7 to 2.6 once it is in (exp-305)",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "marketing-uplift-q3/feat-mq3-recency-v1.md",
+  "marketing-uplift-q3/feat-mq3-recency-v2.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "marketing-uplift-q3/feat-mq3-recency-v2.md",
+ "sha": "b837646a324700c969b0a709a8885caa2e007ed9f8ea7bdeb4f8d39ed699045b",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

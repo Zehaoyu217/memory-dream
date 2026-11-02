@@ -1,0 +1,181 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "lightgbm",
+   "type": "model",
+   "label": "lightgbm",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "logistic-regression",
+   "type": "model",
+   "label": "logistic regression",
+   "as": [
+    "logistic regression"
+   ],
+   "lines": [
+    5,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "routing-model",
+   "type": "model",
+   "label": "routing model",
+   "as": [
+    "the routing model"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro f1",
+   "as": [
+    "macro F1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "reviewer",
+   "as": [
+    "Sam Lee"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "maya-ortiz",
+   "type": "person",
+   "label": "reviewer",
+   "as": [
+    "Maya Ortiz"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "retention",
+   "type": "team",
+   "label": "retention",
+   "as": [
+    "retention"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "router-review",
+   "type": "other",
+   "label": "router review",
+   "as": [
+    "router review"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "same-features",
+   "type": "feature",
+   "label": "same features",
+   "as": [
+    "same features"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "lightgbm",
+   "type": "measured-by",
+   "label": "beats by",
+   "o": "macro-f1",
+   "quote": "LightGBM beats logistic regression by 0.13 macro F1 on holdout-2025q4",
+   "line": 6
+  },
+  {
+   "s": "lightgbm",
+   "type": "evaluated-on",
+   "label": "beats on",
+   "o": "holdout-2025q4",
+   "quote": "LightGBM beats logistic regression by 0.13 macro F1 on holdout-2025q4",
+   "line": 6
+  },
+  {
+   "s": "lightgbm",
+   "type": "other",
+   "label": "adopted for",
+   "o": "routing-model",
+   "quote": "Adopt LightGBM over logistic regression for the routing model",
+   "line": 5
+  },
+  {
+   "s": "routing-model",
+   "type": "owned-by",
+   "label": "agreed-by",
+   "o": "sam-lee",
+   "quote": "Agreed at the router review on 2026-02-20 with Sam Lee and Maya Ortiz",
+   "line": 7
+  },
+  {
+   "s": "routing-model",
+   "type": "owned-by",
+   "label": "agreed-by",
+   "o": "maya-ortiz",
+   "quote": "Agreed at the router review on 2026-02-20 with Sam Lee and Maya Ortiz",
+   "line": 7
+  },
+  {
+   "s": "maya-ortiz",
+   "type": "other",
+   "label": "from",
+   "o": "retention",
+   "quote": "Maya Ortiz (retention)",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-101",
+  "cr-logreg-v1",
+  "cr-lgbm-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/dec-cr-lgbm.md",
+ "sha": "d67af5850b40240853972f63888e584d198c6472d0da820cf8a06e6578cd2168",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

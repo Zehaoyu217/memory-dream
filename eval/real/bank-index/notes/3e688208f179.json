@@ -1,0 +1,122 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-504",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-504"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ob-19",
+   "type": "other",
+   "label": "onboarding test",
+   "as": [
+    "OB-19"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-ep-pre-spend-cov-v1",
+   "type": "feature",
+   "label": "covariate",
+   "as": [
+    "feat-ep-pre-spend-cov-v1"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "ds-ep-assignments",
+   "type": "dataset",
+   "label": "assignments dataset",
+   "as": [
+    "ds-ep-assignments"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "spend",
+   "type": "metric",
+   "label": "primary metric",
+   "as": [
+    "spend primary"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "variance-reduction",
+   "type": "metric",
+   "label": "variance reduction",
+   "as": [
+    "variance reduction"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-504",
+   "type": "uses",
+   "label": "pre-period from",
+   "o": "feat-ep-pre-spend-cov-v1",
+   "quote": "from: [feat-ep-pre-spend-cov-v1, ds-ep-assignments]",
+   "line": 2
+  },
+  {
+   "s": "exp-504",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "ds-ep-assignments",
+   "quote": "from: [feat-ep-pre-spend-cov-v1, ds-ep-assignments]",
+   "line": 2
+  },
+  {
+   "s": "exp-504",
+   "type": "measured-by",
+   "label": "measures",
+   "o": "variance-reduction",
+   "quote": "gives 27 percent variance reduction",
+   "line": 5
+  },
+  {
+   "s": "exp-504",
+   "type": "other",
+   "label": "compared on",
+   "o": "ob-19",
+   "quote": "Compared pre-period windows on OB-19",
+   "line": 6
+  },
+  {
+   "s": "ob-19",
+   "type": "measured-by",
+   "label": "primary metric",
+   "o": "spend",
+   "quote": "spend primary",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "experiment-platform/exp-504.md",
+ "sha": "3e688208f179e242e1419ff114e290d4a774e2fc1c3912200a70d83624bc1dc1",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

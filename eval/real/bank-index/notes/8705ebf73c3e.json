@@ -1,0 +1,81 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "linear-percentile-map",
+   "type": "term",
+   "label": "bridge map",
+   "as": [
+    "linear percentile map"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bsm-app-gbm-v10a",
+   "type": "model",
+   "label": "retrain model",
+   "as": [
+    "bsm-app-gbm-v10a"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bsm-v8-score",
+   "type": "other",
+   "label": "production score",
+   "as": [
+    "v8"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "bsm-v10-score",
+   "type": "other",
+   "label": "retrain score",
+   "as": [
+    "v10"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "linear-percentile-map",
+   "type": "other",
+   "label": "bridges",
+   "o": "bsm-v10-score",
+   "quote": "as the v10 to v8 bridge for the first model retrain",
+   "line": 5
+  },
+  {
+   "s": "linear-percentile-map",
+   "type": "other",
+   "label": "unblocks",
+   "o": "bsm-app-gbm-v10a",
+   "quote": "to unblock bsm-app-gbm-v10a while the tail was studied",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-301",
+  "dec-bsm-isotonic-map"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "bureau-score-migration/dec-bsm-linear-map.md",
+ "sha": "8705ebf73c3e0abcad1931dd78b01060feb3af04703c12d02de47c14c799ed78",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

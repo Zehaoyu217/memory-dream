@@ -1,0 +1,67 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ed-minpay-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ed-minpay-v2",
+    "Feature: mean of payment divided by minimum due"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "feat-ed-minpay-v1",
+   "type": "feature",
+   "label": "version 1",
+   "as": [
+    "Version 1 used value date"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "cards.payments_daily"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ed-minpay-v2",
+   "type": "uses",
+   "label": "source",
+   "o": "cards.payments_daily",
+   "quote": "Source: `cards.payments_daily`.",
+   "line": 8
+  },
+  {
+   "s": "feat-ed-minpay-v2",
+   "type": "replaces",
+   "label": "version of",
+   "o": "feat-ed-minpay-v1",
+   "quote": "Version 2: the ratio uses payment posting date. Version 1 used value date",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "early-delinquency/feat-ed-minpay-v2.md",
+ "sha": "5f0582dd752d145a82cadc5311634fbed522c868beeea72d21d0d9ddb683ccf0",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,106 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cu-dpd-roll-v1",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "feat-cu-dpd-roll-v1 is the days-past-due bucket plus the 2-month roll pattern",
+    "feat-cu-dpd-roll-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "collections.cases",
+   "type": "dataset",
+   "label": "case history",
+   "as": [
+    "`collections.cases` history"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cu-resp-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cu-resp-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-cu-cases-dpd",
+   "type": "person",
+   "label": "author",
+   "as": [
+    "[ds-cu-cases-dpd]"
+   ],
+   "lines": [
+    2
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cu-dpd-roll-v1",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards.accounts_monthly",
+   "quote": "Built from `cards.accounts_monthly`",
+   "line": 7
+  },
+  {
+   "s": "feat-cu-dpd-roll-v1",
+   "type": "uses",
+   "label": "built from",
+   "o": "collections.cases",
+   "quote": "with `collections.cases` history",
+   "line": 7
+  },
+  {
+   "s": "feat-cu-dpd-roll-v1",
+   "type": "part-of",
+   "label": "largest feature in",
+   "o": "cu-resp-v1",
+   "quote": "Largest feature in cu-resp-v1 by gain (0.31 of total gain)",
+   "line": 8
+  },
+  {
+   "s": "feat-cu-dpd-roll-v1",
+   "type": "owned-by",
+   "label": "from",
+   "o": "ds-cu-cases-dpd",
+   "quote": "from: [ds-cu-cases-dpd]",
+   "line": 2
+  }
+ ],
+ "refs": [
+  "collections-uplift/feat-cu-dpd-roll-v1.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-uplift/feat-cu-dpd-roll-v1.md",
+ "sha": "3d3a202f0da3032273ac6d94eb1556967ec4d0ae848079aed37d3c4aabd902bb",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,107 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "PSI"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "live-scoring-population",
+   "type": "segment",
+   "label": "population",
+   "as": [
+    "live scoring population"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "psi-monthly-full-report",
+   "type": "document",
+   "label": "full report",
+   "as": [
+    "A monthly full report"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "psi_weekly",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "psi_weekly"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "sam-lee-ml-engineering",
+   "type": "team",
+   "label": "ml engineering team",
+   "as": [
+    "Sam Lee's ML engineering team"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "psi",
+   "type": "uses",
+   "label": "computed on",
+   "o": "live-scoring-population",
+   "quote": "using the previous seven days of scored accounts",
+   "line": 5
+  },
+  {
+   "s": "psi",
+   "type": "produces",
+   "label": "results go to",
+   "o": "psi_weekly",
+   "quote": "Results go to the `psi_weekly` table",
+   "line": 6
+  },
+  {
+   "s": "psi_weekly",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "sam-lee-ml-engineering",
+   "quote": "owned by Sam Lee's ML engineering team",
+   "line": 6
+  },
+  {
+   "s": "psi-monthly-full-report",
+   "type": "measured-by",
+   "label": "runs as",
+   "o": "psi",
+   "quote": "PSI runs weekly on the live scoring population and monthly as a full report",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "howto/psi-thresholds"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/psi-monitoring-cadence.md",
+ "sha": "1d87eb9628a4e3cd52db2535b9ec434d3adb202ebf7bdb121d14ca4325a7fd2c",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

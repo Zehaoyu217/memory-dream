@@ -1,0 +1,48 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "data-quality-txn",
+   "type": "other",
+   "label": "log tag",
+   "as": [
+    "data-quality-txn"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "partitioned table",
+   "as": [
+    "partitions"
+   ],
+   "lines": [
+    3
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cards.txn_daily",
+   "type": "other",
+   "label": "late census",
+   "o": "data-quality-txn",
+   "quote": "[data-quality-txn] late census 2025-Q1: 4 of 98 partitions after 10:00, mostly Mondays",
+   "line": 3
+  }
+ ],
+ "refs": [
+  "log/2025-04-07.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2025-04-07.md",
+ "sha": "38ec9027c55a8cc2b29c5a78c155d61f753da0b020f3b9af13a4b099ba5167ed",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

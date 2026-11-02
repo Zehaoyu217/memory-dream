@@ -1,0 +1,109 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-trv-seasonality-adj",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-trv-seasonality-adj",
+    "STL seasonal component"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "stl",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "STL"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "trv-monthly-spend",
+   "type": "other",
+   "label": "monthly travel spend",
+   "as": [
+    "monthly travel spend"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "trv-ridge-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "trv-ridge-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "trv-ridge-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "trv-ridge-v3"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-trv-seasonality-adj",
+   "type": "uses",
+   "label": "removed with",
+   "o": "stl",
+   "quote": "The STL seasonal component removed from monthly travel spend",
+   "line": 6
+  },
+  {
+   "s": "feat-trv-seasonality-adj",
+   "type": "uses",
+   "label": "removed from",
+   "o": "trv-monthly-spend",
+   "quote": "removed from monthly travel spend",
+   "line": 6
+  },
+  {
+   "s": "trv-ridge-v2",
+   "type": "uses",
+   "label": "input to",
+   "o": "feat-trv-seasonality-adj",
+   "quote": "Input to trv-ridge-v2 and trv-ridge-v3.",
+   "line": 8
+  },
+  {
+   "s": "trv-ridge-v3",
+   "type": "uses",
+   "label": "input to",
+   "o": "feat-trv-seasonality-adj",
+   "quote": "Input to trv-ridge-v2 and trv-ridge-v3.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-trv-travel-mcc-monthly",
+  "exp-501"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "travel-spend-recovery/feat-trv-seasonality-adj.md",
+ "sha": "91354d39004e19ebfe563bb87f0a36c87edf74d12295a48617590a7f540f4dc6",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

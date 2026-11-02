@@ -1,0 +1,97 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-fsm-txn-cnt-7d",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-fsm-txn-cnt-7d: approved transaction count over 7 days (store name txn_cnt_7d)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat_txn_cnt_7d",
+   "type": "feature",
+   "label": "legacy name",
+   "as": [
+    "Legacy name feat_txn_cnt_7d"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fsm_parity_sample_2025h2",
+   "type": "dataset",
+   "label": "parity sample",
+   "as": [
+    "fsm_parity_sample_2025h2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-fsm-txn-source",
+   "type": "other",
+   "label": "source author",
+   "as": [
+    "ds-fsm-txn-source"
+   ],
+   "lines": [
+    2
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-fsm-txn-cnt-7d",
+   "type": "uses",
+   "label": "counts from",
+   "o": "cards.txn_daily",
+   "quote": "Counts approved authorizations from `cards.txn_daily` over the 7 days ending on the snapshot date",
+   "line": 6
+  },
+  {
+   "s": "feat-fsm-txn-cnt-7d",
+   "type": "evaluated-on",
+   "label": "checked on",
+   "o": "fsm_parity_sample_2025h2",
+   "quote": "On fsm_parity_sample_2025h2, 99.4 percent of rows are within 0.5 percent of legacy",
+   "line": 7
+  },
+  {
+   "s": "feat-fsm-txn-cnt-7d",
+   "type": "replaces",
+   "label": "migrated from",
+   "o": "feat_txn_cnt_7d",
+   "quote": "Legacy name feat_txn_cnt_7d",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-101"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "feature-store-migration/feat-fsm-txn-cnt-7d.md",
+ "sha": "5376fa8c25c7e42315b6e453640544c2b870783d733b2a9d8093a1524b65e317",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,138 @@
+{
+ "kind": "note",
+ "entities": [
+  {
+   "id": "pa-margin-v2",
+   "type": "model",
+   "label": "margin model",
+   "as": [
+    "pa-margin-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "pa-margin-v1",
+   "type": "model",
+   "label": "margin model",
+   "as": [
+    "pa-margin-v1"
+   ],
+   "lines": [
+    2,
+    4
+   ]
+  },
+  {
+   "id": "pa-churn-hazard-v1",
+   "type": "model",
+   "label": "churn hazard model",
+   "as": [
+    "pa-churn-hazard-v1"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "pa-bal-forecast-v1",
+   "type": "model",
+   "label": "balance forecast",
+   "as": [
+    "pa-bal-forecast-v1"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "feat-pa-credit-band",
+   "type": "feature",
+   "label": "score band feature",
+   "as": [
+    "feat-pa-credit-band"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "feat-pa-bt-inflow-v2",
+   "type": "feature",
+   "label": "bt inflow feature",
+   "as": [
+    "feat-pa-bt-inflow-v2"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "arm-b",
+   "type": "segment",
+   "label": "treatment arm",
+   "as": [
+    "Arm B"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "pa-margin-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "pa-margin-v1",
+   "quote": "supersedes: [pa-margin-v1]",
+   "line": 4
+  },
+  {
+   "s": "pa-margin-v2",
+   "type": "uses",
+   "label": "adds",
+   "o": "pa-churn-hazard-v1",
+   "quote": "Adds the post-expiry churn hazard (pa-churn-hazard-v1) and expected credit loss by score band to v1.",
+   "line": 7
+  },
+  {
+   "s": "pa-margin-v2",
+   "type": "uses",
+   "label": "built from",
+   "o": "pa-bal-forecast-v1",
+   "quote": "from: [pa-margin-v1, pa-churn-hazard-v1, pa-bal-forecast-v1, feat-pa-credit-band, feat-pa-bt-inflow-v2]",
+   "line": 2
+  },
+  {
+   "s": "pa-margin-v2",
+   "type": "uses",
+   "label": "built from",
+   "o": "feat-pa-credit-band",
+   "quote": "from: [pa-margin-v1, pa-churn-hazard-v1, pa-bal-forecast-v1, feat-pa-credit-band, feat-pa-bt-inflow-v2]",
+   "line": 2
+  },
+  {
+   "s": "pa-margin-v2",
+   "type": "uses",
+   "label": "built from",
+   "o": "feat-pa-bt-inflow-v2",
+   "quote": "from: [pa-margin-v1, pa-churn-hazard-v1, pa-bal-forecast-v1, feat-pa-credit-band, feat-pa-bt-inflow-v2]",
+   "line": 2
+  }
+ ],
+ "refs": [
+  "pa-margin-v1",
+  "pa-churn-hazard-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "promo-apr-test/pa-margin-v2.md",
+ "sha": "21b2f78e20fdd3779a788d0d8538cab734ec805e3b08470a63e8d22281d0d031",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

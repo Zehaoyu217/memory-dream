@@ -1,0 +1,188 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-502",
+   "type": "other",
+   "label": "channel test",
+   "as": [
+    "Wave-2 channel test"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dpd-8-29-accounts",
+   "type": "segment",
+   "label": "population",
+   "as": [
+    "8-29 DPD accounts",
+    "Population restricted to 8-29 DPD"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "sms-only-arm",
+   "type": "segment",
+   "label": "arm",
+   "as": [
+    "SMS-only"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "call-first-arm",
+   "type": "segment",
+   "label": "arm",
+   "as": [
+    "call-first"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "sms-then-call-arm",
+   "type": "segment",
+   "label": "arm",
+   "as": [
+    "SMS-then-call"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "control-arm",
+   "type": "segment",
+   "label": "arm",
+   "as": [
+    "control"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "collections.cases",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`collections.cases`"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`callcenter.calls`"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "sms-delivery-log",
+   "type": "dataset",
+   "label": "sms log",
+   "as": [
+    "the SMS log"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "sms-only-arm",
+   "type": "part-of",
+   "label": "arm of",
+   "o": "exp-502",
+   "quote": "Arms: SMS-only 18,000",
+   "line": 6
+  },
+  {
+   "s": "call-first-arm",
+   "type": "part-of",
+   "label": "arm of",
+   "o": "exp-502",
+   "quote": "call-first 17,700",
+   "line": 6
+  },
+  {
+   "s": "sms-then-call-arm",
+   "type": "part-of",
+   "label": "arm of",
+   "o": "exp-502",
+   "quote": "SMS-then-call 17,900",
+   "line": 6
+  },
+  {
+   "s": "control-arm",
+   "type": "part-of",
+   "label": "arm of",
+   "o": "exp-502",
+   "quote": "control 18,900",
+   "line": 6
+  },
+  {
+   "s": "exp-502",
+   "type": "uses",
+   "label": "joined to",
+   "o": "collections.cases",
+   "quote": "Source: `collections.cases` joined to `callcenter.calls` and the SMS log.",
+   "line": 8
+  },
+  {
+   "s": "exp-502",
+   "type": "uses",
+   "label": "joined to",
+   "o": "callcenter.calls",
+   "quote": "joined to `callcenter.calls` and the SMS log",
+   "line": 8
+  },
+  {
+   "s": "exp-502",
+   "type": "uses",
+   "label": "joined to",
+   "o": "sms-delivery-log",
+   "quote": "and the SMS log",
+   "line": 8
+  },
+  {
+   "s": "exp-502",
+   "type": "other",
+   "label": "restricted to",
+   "o": "dpd-8-29-accounts",
+   "quote": "Population restricted to 8-29 DPD",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-ch-ab-wave1",
+  "find-ch-sms-matches-call"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-channel-mix/ds-ch-ab-wave2.md",
+ "sha": "da7ccda4bc982d82e5962e4dd2be29cf92d2180487359daf0442cf1ab634776c",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

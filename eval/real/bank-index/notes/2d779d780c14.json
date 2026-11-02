@@ -1,0 +1,88 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "dispute-link-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "Dispute link v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cc-ft-v2",
+   "type": "model",
+   "label": "classifier",
+   "as": [
+    "cc-ft-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "macro F1"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cc-ft-v2",
+   "type": "uses",
+   "label": "used by",
+   "o": "dispute-link-v2",
+   "quote": "Used by cc-ft-v2 at the classifier head",
+   "line": 8
+  },
+  {
+   "s": "dispute-link-v2",
+   "type": "evaluated-on",
+   "label": "gain on",
+   "o": "holdout-2025q4",
+   "quote": "On holdout-2025q4 the gain is",
+   "line": 8
+  },
+  {
+   "s": "dispute-link-v2",
+   "type": "measured-by",
+   "label": "gain is",
+   "o": "macro-f1",
+   "quote": "gain is +0.03 macro F1 over the base",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-cc-dispute-link-v1",
+  "fnd-cc-dispute-link-leak",
+  "exp-204"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "complaint-classification/feat-cc-dispute-link-v2.md",
+ "sha": "2d779d780c14c5f16b81ce4343982583bd38a0427f1088fadf887bb5cc4ac054",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

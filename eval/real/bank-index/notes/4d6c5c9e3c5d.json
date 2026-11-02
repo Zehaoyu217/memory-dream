@@ -1,0 +1,110 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "ds-bsm-dual-pull-sample",
+   "type": "dataset",
+   "label": "dual-pull sample",
+   "as": [
+    "ds-bsm-dual-pull-sample"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "bsm-v10",
+   "type": "model",
+   "label": "v10 score",
+   "as": [
+    "mapped v10",
+    "Unmapped v10"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "bsm-v8",
+   "type": "model",
+   "label": "v8 score",
+   "as": [
+    "v8",
+    "against v8"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "psi",
+   "as": [
+    "PSI"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "linear-map",
+   "type": "term",
+   "label": "linear map",
+   "as": [
+    "the linear map",
+    "linear map"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bsm-v10",
+   "type": "evaluated-on",
+   "label": "tested on",
+   "o": "ds-bsm-dual-pull-sample",
+   "quote": "Test half of ds-bsm-dual-pull-sample",
+   "line": 6
+  },
+  {
+   "s": "bsm-v10",
+   "type": "measured-by",
+   "label": "compared by PSI",
+   "o": "psi",
+   "quote": "PSI between mapped v10 and v8",
+   "line": 6
+  },
+  {
+   "s": "bsm-v10",
+   "type": "other",
+   "label": "mapped by",
+   "o": "linear-map",
+   "quote": "the linear map gives 0.12",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-bsm-score-map-v1",
+  "ds-bsm-dual-pull-sample",
+  "dec-bsm-linear-map",
+  "exp-303"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "bureau-score-migration/exp-301.md",
+ "sha": "4d6c5c9e3c5db201accc4b7a05864f2adec84276f9f3264e405522aafcb2e2b2",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

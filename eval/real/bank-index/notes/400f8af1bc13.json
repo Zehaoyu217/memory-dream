@@ -1,0 +1,100 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "label-90d",
+   "type": "term",
+   "label": "label window",
+   "as": [
+    "90-day labels",
+    "A 90-day label"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "label-60d",
+   "type": "term",
+   "label": "label window",
+   "as": [
+    "60-day labels"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "retention-reports",
+   "type": "document",
+   "label": "monthly report",
+   "as": [
+    "Retention reports"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "save-rate",
+   "type": "metric",
+   "label": "save rate",
+   "as": [
+    "save rate"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "ranking gain",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "label-90d",
+   "type": "other",
+   "label": "blocks",
+   "o": "retention-reports",
+   "quote": "the slower label blocks that read",
+   "line": 7
+  },
+  {
+   "s": "retention-reports",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "save-rate",
+   "quote": "Retention reports each cohort's save rate monthly",
+   "line": 7
+  },
+  {
+   "s": "label-60d",
+   "type": "other",
+   "label": "is working window",
+   "o": "label-90d",
+   "quote": "60 days is the working window",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "ds-c25-churn-labels",
+  "exp-101"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2025/fnd-c25-90d-feedback-lag.md",
+ "sha": "400f8af1bc139d53160ef67b7f15ec4386911dc77585957666e47f36201c4415",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

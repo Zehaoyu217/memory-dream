@@ -1,0 +1,143 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "velocity-features",
+   "type": "feature",
+   "label": "velocity features",
+   "as": [
+    "velocity features"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-velocity-v3",
+   "type": "feature",
+   "label": "velocity features v3",
+   "as": [
+    "feat-velocity-v3"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-velocity-v2",
+   "type": "feature",
+   "label": "velocity features v2",
+   "as": [
+    "retire v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "churn-xgb-v2",
+   "type": "model",
+   "label": "churn model v2",
+   "as": [
+    "churn-xgb-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "churn-xgb-v3",
+   "type": "model",
+   "label": "churn model v3",
+   "as": [
+    "churn-xgb-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Sam Lee"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "observation-date",
+   "type": "term",
+   "label": "observation date",
+   "as": [
+    "observation date"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "velocity-features",
+   "type": "other",
+   "label": "rebuilt as",
+   "o": "feat-velocity-v3",
+   "quote": "The velocity features are rebuilt as feat-velocity-v3",
+   "line": 6
+  },
+  {
+   "s": "feat-velocity-v3",
+   "type": "replaces",
+   "label": "retires v2",
+   "o": "feat-velocity-v2",
+   "quote": "retire v2",
+   "line": 5
+  },
+  {
+   "s": "feat-velocity-v3",
+   "type": "other",
+   "label": "ends on",
+   "o": "observation-date",
+   "quote": "every window ends on the observation date",
+   "line": 7
+  },
+  {
+   "s": "feat-velocity-v3",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "sam-lee",
+   "quote": "Owner: Sam Lee.",
+   "line": 7
+  },
+  {
+   "s": "churn-xgb-v3",
+   "type": "uses",
+   "label": "retrained on",
+   "o": "feat-velocity-v3",
+   "quote": "churn-xgb-v2 is retrained on it as churn-xgb-v3",
+   "line": 7
+  },
+  {
+   "s": "churn-xgb-v3",
+   "type": "replaces",
+   "label": "retrained as",
+   "o": "churn-xgb-v2",
+   "quote": "churn-xgb-v2 is retrained on it as churn-xgb-v3",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "post-period-leak"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2026/dec-velocity-v3.md",
+ "sha": "be419a79e2a855800f3525753bf636ae54107f2a1f98f9e2447f6243862dfa0c",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

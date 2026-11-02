@@ -1,0 +1,119 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "self-employed-accounts",
+   "type": "segment",
+   "label": "self-employed accounts",
+   "as": [
+    "self-employed accounts",
+    "self-employed income"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "salaried-accounts",
+   "type": "segment",
+   "label": "salaried accounts",
+   "as": [
+    "salaried"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "verified-2026",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "verified-2026 holdout"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE 33%"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "self-employed-uplift",
+   "type": "term",
+   "label": "9% uplift",
+   "as": [
+    "9% uplift"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "dec-inc-estimate-live",
+   "type": "service",
+   "label": "estimator",
+   "as": [
+    "dec-inc-estimate-live"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "self-employed-accounts",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "verified-2026",
+   "quote": "From exp-407 on the verified-2026 holdout",
+   "line": 6
+  },
+  {
+   "s": "self-employed-accounts",
+   "type": "measured-by",
+   "label": "MAPE of",
+   "o": "mape",
+   "quote": "MAPE 33% against 17% for salaried",
+   "line": 5
+  },
+  {
+   "s": "salaried-accounts",
+   "type": "measured-by",
+   "label": "MAPE of",
+   "o": "mape",
+   "quote": "MAPE 33% against 17% for salaried",
+   "line": 5
+  },
+  {
+   "s": "dec-inc-estimate-live",
+   "type": "other",
+   "label": "corrected by",
+   "o": "self-employed-uplift",
+   "quote": "Corrected by a 9% uplift for self-employed accounts in dec-inc-estimate-live",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-407",
+  "dec-inc-estimate-live"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "income-estimation/find-inc-self-employed-bias.md",
+ "sha": "f3a2d8c7961076984a4be0c50f504e7a8f0a16cb38a5d40d29d516ed104d8965",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

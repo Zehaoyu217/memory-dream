@@ -1,0 +1,107 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "rev26-interchange-v1",
+   "type": "model",
+   "label": "forecast",
+   "as": [
+    "rev26-interchange-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "backtest error",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "spend-forecasting/sfc-hier-v3",
+   "type": "dataset",
+   "label": "volume source",
+   "as": [
+    "spend-forecasting/sfc-hier-v3"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "blended-bps-by-mcc-group",
+   "type": "term",
+   "label": "rate method",
+   "as": [
+    "blended bps by MCC group"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "flat-rate",
+   "type": "term",
+   "label": "baseline rate",
+   "as": [
+    "flat rate"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rev26-interchange-v1",
+   "type": "measured-by",
+   "label": "backtest MAPE",
+   "o": "mape",
+   "quote": "Backtest on 2024-H2: MAPE 2.1%",
+   "line": 7
+  },
+  {
+   "s": "rev26-interchange-v1",
+   "type": "uses",
+   "label": "volume source",
+   "o": "spend-forecasting/sfc-hier-v3",
+   "quote": "Volume source is spend-forecasting/sfc-hier-v3 from 2026.",
+   "line": 8
+  },
+  {
+   "s": "rev26-interchange-v1",
+   "type": "uses",
+   "label": "computed as",
+   "o": "blended-bps-by-mcc-group",
+   "quote": "Interchange revenue = lagged spend volume times blended bps by MCC group.",
+   "line": 6
+  },
+  {
+   "s": "rev26-interchange-v1",
+   "type": "other",
+   "label": "compared against",
+   "o": "flat-rate",
+   "quote": "against 4.8% for a flat rate",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-rev26-interchange-bps",
+  "feat-rev26-volume-lag"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "revenue-forecast-2026/rev26-interchange-v1.md",
+ "sha": "a0ad5a2fd342985ab4c55cdcf675bd6b423feab3fc4cf9a6025318902ca66083",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

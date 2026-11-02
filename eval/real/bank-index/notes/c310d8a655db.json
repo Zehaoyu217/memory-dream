@@ -1,0 +1,91 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-txc-descriptor-sample",
+   "type": "dataset",
+   "label": "sample",
+   "as": [
+    "2.1M transaction descriptors sampled from cards.txn_daily, Jan-Jun 2025",
+    "Sample pulled from `cards.txn_daily`"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "feat-txc-descriptor-tokens-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-txc-descriptor-tokens-v1"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "feat-txc-normalise-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-txc-normalise-v2"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-txc-descriptor-sample",
+   "type": "uses",
+   "label": "pulled from",
+   "o": "cards.txn_daily",
+   "quote": "Sample pulled from `cards.txn_daily` for January to June 2025",
+   "line": 6
+  },
+  {
+   "s": "feat-txc-descriptor-tokens-v1",
+   "type": "uses",
+   "label": "source for",
+   "o": "ds-txc-descriptor-sample",
+   "quote": "Source for feat-txc-descriptor-tokens-v1 and feat-txc-normalise-v2.",
+   "line": 9
+  },
+  {
+   "s": "feat-txc-normalise-v2",
+   "type": "uses",
+   "label": "source for",
+   "o": "ds-txc-descriptor-sample",
+   "quote": "Source for feat-txc-descriptor-tokens-v1 and feat-txc-normalise-v2.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "feat-txc-descriptor-tokens-v1",
+  "feat-txc-normalise-v2",
+  "cards.txn_daily"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "txn-categorization/ds-txc-descriptor-sample.md",
+ "sha": "c310d8a655db574577ae7c475f549f677ea70e8bba9cf3f3fedef39c79b85bc4",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

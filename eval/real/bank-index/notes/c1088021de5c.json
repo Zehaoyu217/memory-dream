@@ -1,0 +1,90 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "txc-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "txc-gbm-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "other-bucket",
+   "type": "other",
+   "label": "bucket",
+   "as": [
+    "'other' bucket"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "spend-share",
+   "type": "metric",
+   "label": "spend share",
+   "as": [
+    "9.4% of Q4-2025 monthly spend"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "long-tail-merchants",
+   "type": "segment",
+   "label": "merchants",
+   "as": [
+    "long-tail merchants"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "spend-share",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "cards.txn_daily",
+   "quote": "Measured on `cards.txn_daily` joined to the category output, spend-weighted.",
+   "line": 8
+  },
+  {
+   "s": "long-tail-merchants",
+   "type": "part-of",
+   "label": "residue is",
+   "o": "other-bucket",
+   "quote": "Most of the residue is long-tail merchants",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-txc-long-tail",
+  "q-txc-fuzzy-vs-rules"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "txn-categorization/q-txc-unlabelled-share.md",
+ "sha": "c1088021de5c3e88fba8d4fc49e20cd68403554bba6fde0e837d96c84d9de4d3",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

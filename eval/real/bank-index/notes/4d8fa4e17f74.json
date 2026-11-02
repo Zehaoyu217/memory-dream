@@ -1,0 +1,269 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "disp-lgbm-v2",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "disp-lgbm-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "disp-lgbm-v1",
+   "type": "model",
+   "label": "superseded model",
+   "as": [
+    "disp-lgbm-v1"
+   ],
+   "lines": [
+    2,
+    3
+   ]
+  },
+  {
+   "id": "disp-lgbm-v3",
+   "type": "model",
+   "label": "successor model",
+   "as": [
+    "disp-lgbm-v3"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "modelling library",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-disp-reason-text",
+   "type": "feature",
+   "label": "feature group",
+   "as": [
+    "reason text"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-disp-amount-band",
+   "type": "feature",
+   "label": "feature group",
+   "as": [
+    "amount band"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "feat-disp-txn-match",
+   "type": "feature",
+   "label": "feature group",
+   "as": [
+    "transaction match"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-disp-merchant-cb-rate",
+   "type": "feature",
+   "label": "feature group",
+   "as": [
+    "merchant 90-day dispute ratio"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "disp-oot-2026h1",
+   "type": "dataset",
+   "label": "out-of-time set",
+   "as": [
+    "disp-oot-2026h1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "precision-at-0.90",
+   "type": "metric",
+   "label": "precision at threshold",
+   "as": [
+    "precision"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "coverage",
+   "type": "metric",
+   "label": "coverage at threshold",
+   "as": [
+    "coverage"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-303",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-303"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "exp-304",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-304"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "dec-disp-autoresolve-095",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-disp-autoresolve-095"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "disp-lgbm-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "disp-lgbm-v1",
+   "quote": "supersedes: [disp-lgbm-v1]",
+   "line": 3
+  },
+  {
+   "s": "disp-lgbm-v3",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "disp-lgbm-v2",
+   "quote": "Superseded by disp-lgbm-v3 on 2026-09-14",
+   "line": 9
+  },
+  {
+   "s": "disp-lgbm-v2",
+   "type": "uses",
+   "label": "built on",
+   "o": "lightgbm",
+   "quote": "LightGBM on four feature groups",
+   "line": 7
+  },
+  {
+   "s": "disp-lgbm-v2",
+   "type": "uses",
+   "label": "uses feature group",
+   "o": "feat-disp-reason-text",
+   "quote": "LightGBM on four feature groups: reason text, amount band",
+   "line": 7
+  },
+  {
+   "s": "disp-lgbm-v2",
+   "type": "uses",
+   "label": "uses feature group",
+   "o": "feat-disp-amount-band",
+   "quote": "reason text, amount band, transaction match",
+   "line": 7
+  },
+  {
+   "s": "disp-lgbm-v2",
+   "type": "uses",
+   "label": "uses feature group",
+   "o": "feat-disp-txn-match",
+   "quote": "amount band, transaction match, merchant 90-day dispute ratio",
+   "line": 7
+  },
+  {
+   "s": "disp-lgbm-v2",
+   "type": "uses",
+   "label": "uses feature group",
+   "o": "feat-disp-merchant-cb-rate",
+   "quote": "transaction match, merchant 90-day dispute ratio",
+   "line": 7
+  },
+  {
+   "s": "disp-lgbm-v2",
+   "type": "evaluated-on",
+   "label": "out-of-time evaluation",
+   "o": "disp-oot-2026h1",
+   "quote": "Out-of-time on disp-oot-2026h1",
+   "line": 8
+  },
+  {
+   "s": "disp-lgbm-v2",
+   "type": "measured-by",
+   "label": "reports precision",
+   "o": "precision-at-0.90",
+   "quote": "precision 93.4% and coverage 31% at p>=0.90",
+   "line": 8
+  },
+  {
+   "s": "disp-lgbm-v2",
+   "type": "measured-by",
+   "label": "reports coverage",
+   "o": "coverage",
+   "quote": "precision 93.4% and coverage 31% at p>=0.90",
+   "line": 8
+  },
+  {
+   "s": "dec-disp-autoresolve-095",
+   "type": "other",
+   "label": "paused auto-resolve on",
+   "o": "disp-lgbm-v2",
+   "quote": "auto-resolve was paused on v2 (dec-disp-autoresolve-095)",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "disp-lgbm-v1",
+  "feat-disp-amount-band",
+  "feat-disp-txn-match",
+  "feat-disp-merchant-cb-rate",
+  "exp-303",
+  "exp-304",
+  "disp-lgbm-v3",
+  "dec-disp-autoresolve-095"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "dispute-triage/disp-lgbm-v2.md",
+ "sha": "4d8fa4e17f74a311688362527119b7478381814aa3c1d62f32024073ae60160e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

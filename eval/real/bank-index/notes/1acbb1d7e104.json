@@ -1,0 +1,96 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "precision-at-50",
+   "type": "metric",
+   "label": "precision@50 target",
+   "as": [
+    "precision@50"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ops-capacity",
+   "type": "metric",
+   "label": "ops capacity",
+   "as": [
+    "Ops capacity"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "alert-threshold",
+   "type": "flag",
+   "label": "alert threshold",
+   "as": [
+    "alert threshold"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "latest-holdout",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "latest holdout"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "daniel-okafor",
+   "type": "person",
+   "label": "agreer of capacity changes",
+   "as": [
+    "Daniel Okafor"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ops-capacity",
+   "type": "other",
+   "label": "sets",
+   "o": "precision-at-50",
+   "quote": "which sets the precision@50 target",
+   "line": 4
+  },
+  {
+   "s": "precision-at-50",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "latest-holdout",
+   "quote": "precision@50 is at or above its predecessor on the latest holdout.",
+   "line": 6
+  },
+  {
+   "s": "ops-capacity",
+   "type": "agreed-by",
+   "label": "agreed with",
+   "o": "daniel-okafor",
+   "quote": "Capacity changes are agreed with Daniel Okafor before the threshold changes.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/alert-queue-capacity.md",
+ "sha": "1acbb1d7e104a5a5e2aea5a001cc719f9a3cfea1f4bc64f7907d743f638c3a03",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

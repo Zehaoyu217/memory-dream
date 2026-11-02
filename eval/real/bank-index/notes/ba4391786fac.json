@@ -1,0 +1,69 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "fraud25-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fraud25-gbm-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "precision-at-0.90",
+   "type": "metric",
+   "label": "precision",
+   "as": [
+    "14.2% precision"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "measured-by",
+   "label": "precision",
+   "o": "precision-at-0.90",
+   "quote": "14.2% precision",
+   "line": 7
+  },
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "other",
+   "label": "alerts at threshold",
+   "o": "holdout-2025q1",
+   "quote": "exp-103 (14.2% precision, 0.9% alert rate on holdout-2025q1)",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-103",
+  "fraud25-find-threshold-fine",
+  "dec-f25-threshold-070"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/dec-f25-threshold-062.md",
+ "sha": "ba4391786facd197c6c986e482c3a7613de702011924c09c8f99d642805d5cb7",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,87 @@
+{
+ "kind": "preference",
+ "entities": [
+  {
+   "id": "aisha-khan",
+   "type": "person",
+   "label": "requester",
+   "as": [
+    "Aisha Khan"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "training-run-logs",
+   "type": "dataset",
+   "label": "run logs",
+   "as": [
+    "training runs",
+    "JSON lines",
+    "run-<date>-<seq>.jsonl"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "run-summaries",
+   "type": "document",
+   "label": "summaries",
+   "as": [
+    "Human-readable summaries"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mlops-bucket",
+   "type": "other",
+   "label": "storage bucket",
+   "as": [
+    "shared MLOps bucket"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "training-run-logs",
+   "type": "owned-by",
+   "label": "wanted by",
+   "o": "aisha-khan",
+   "quote": "Aisha Khan wants training runs logged as JSON lines",
+   "line": 4
+  },
+  {
+   "s": "training-run-logs",
+   "type": "produces",
+   "label": "generates",
+   "o": "run-summaries",
+   "quote": "Human-readable summaries are generated from the JSONL",
+   "line": 6
+  },
+  {
+   "s": "training-run-logs",
+   "type": "stored-in",
+   "label": "kept in",
+   "o": "mlops-bucket",
+   "quote": "Logs are kept 400 days in the shared MLOps bucket.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "prefs/aisha-khan-run-logs.md",
+ "sha": "902c9e5e8eccd482d25efab969fc59aec566680cd7f8af4b57995cf0f8d916dd",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

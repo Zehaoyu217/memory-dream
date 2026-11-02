@@ -1,0 +1,88 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "table-naming-v2",
+   "type": "term",
+   "label": "naming convention",
+   "as": [
+    "`<domain>_<grain>_<metric>`"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "rpt-prefix",
+   "type": "term",
+   "label": "prefix",
+   "as": [
+    "`rpt_` prefix"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "rpt-views",
+   "type": "dataset",
+   "label": "view",
+   "as": [
+    "Existing `rpt_` views"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "retention-monthly-pct",
+   "type": "dataset",
+   "label": "view",
+   "as": [
+    "retention_monthly_pct"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "table-naming-v2",
+   "type": "other",
+   "label": "drops",
+   "o": "rpt-prefix",
+   "quote": "drop the `rpt_` prefix",
+   "line": 5
+  },
+  {
+   "s": "rpt-views",
+   "type": "other",
+   "label": "retired",
+   "o": "table-naming-v2",
+   "quote": "then are retired",
+   "line": 7
+  },
+  {
+   "s": "table-naming-v2",
+   "type": "other",
+   "label": "example",
+   "o": "retention-monthly-pct",
+   "quote": "e.g. `retention_monthly_pct`",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "reporting/table-naming-convention"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/table-naming-v2.md",
+ "sha": "12eec7552d8eb1ef60118ebdb7dfbaac2c0ecbd1e583f8cca7187fbee5e94f78",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

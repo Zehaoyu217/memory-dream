@@ -1,0 +1,139 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "fuzzy-descriptor-matching",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "fuzzy descriptor matching",
+    "Fuzzy matching"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "exact-mcc-rule-lookup",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "exact MCC-rule lookup"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "long-tail-merchants",
+   "type": "segment",
+   "label": "merchant slice",
+   "as": [
+    "long-tail merchants",
+    "long-tail slice (under 20 transactions in 90 days)"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "precision",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "precision"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "coverage",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "coverage"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fuzzy-descriptor-matching",
+   "type": "measured-by",
+   "label": "judged on coverage",
+   "o": "coverage",
+   "quote": "yes on coverage",
+   "line": 6
+  },
+  {
+   "s": "fuzzy-descriptor-matching",
+   "type": "measured-by",
+   "label": "judged on precision",
+   "o": "precision",
+   "quote": "at 0.88 precision",
+   "line": 6
+  },
+  {
+   "s": "exact-mcc-rule-lookup",
+   "type": "measured-by",
+   "label": "judged on precision",
+   "o": "precision",
+   "quote": "exact MCC-rule lookup labels 41% at 0.97 precision",
+   "line": 6
+  },
+  {
+   "s": "fuzzy-descriptor-matching",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "long-tail-merchants",
+   "quote": "Both measured on the long-tail slice",
+   "line": 7
+  },
+  {
+   "s": "exact-mcc-rule-lookup",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "long-tail-merchants",
+   "quote": "Both measured on the long-tail slice",
+   "line": 7
+  },
+  {
+   "s": "long-tail-merchants",
+   "type": "part-of",
+   "label": "subset of",
+   "o": "holdout-2025q2",
+   "quote": "long-tail slice (under 20 transactions in 90 days) of holdout-2025q2",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-107",
+  "q-txc-unlabelled-share"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "txn-categorization/q-txc-fuzzy-vs-rules.md",
+ "sha": "c38c18e1d17e08590ddd98ac75faf65001c064da2a3434234c5bdb3be6a81621",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

@@ -1,0 +1,150 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "lightgbm",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "tf-idf-svd",
+   "type": "feature",
+   "label": "tf-idf svd",
+   "as": [
+    "TF-IDF SVD"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "full-asr-transcript",
+   "type": "feature",
+   "label": "full asr transcript",
+   "as": [
+    "full ASR transcript",
+    "Full transcript"
+   ],
+   "lines": [
+    5,
+    6,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "first-30-seconds-transcript",
+   "type": "feature",
+   "label": "first 30 seconds",
+   "as": [
+    "first 30 seconds",
+    "30-second window"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro f1",
+   "as": [
+    "macro F1"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "lightgbm",
+   "type": "uses",
+   "label": "on",
+   "o": "tf-idf-svd",
+   "quote": "LightGBM on TF-IDF SVD built from the full ASR transcript",
+   "line": 6
+  },
+  {
+   "s": "tf-idf-svd",
+   "type": "uses",
+   "label": "built from",
+   "o": "full-asr-transcript",
+   "quote": "TF-IDF SVD built from the full ASR transcript",
+   "line": 6
+  },
+  {
+   "s": "tf-idf-svd",
+   "type": "uses",
+   "label": "built from",
+   "o": "first-30-seconds-transcript",
+   "quote": "versus the first 30 seconds",
+   "line": 6
+  },
+  {
+   "s": "full-asr-transcript",
+   "type": "measured-by",
+   "label": "macro F1 0.712",
+   "o": "macro-f1",
+   "quote": "Full transcript macro F1 0.712",
+   "line": 7
+  },
+  {
+   "s": "first-30-seconds-transcript",
+   "type": "measured-by",
+   "label": "macro F1 0.708",
+   "o": "macro-f1",
+   "quote": "30-second window 0.708",
+   "line": 7
+  },
+  {
+   "s": "lightgbm",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "holdout-2025q4",
+   "quote": "macro F1 0.712 vs 0.708 on holdout-2025q4",
+   "line": 5
+  },
+  {
+   "s": "full-asr-transcript",
+   "type": "other",
+   "label": "slower to featurize",
+   "o": "first-30-seconds-transcript",
+   "quote": "Full transcript takes about four times as long to featurize.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-cr-transcript-tfidf-v1",
+  "fnd-cr-transcript-30s"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/exp-102.md",
+ "sha": "ea42cd4bf0cdf8e7f2e525765d6fc6acc64e0f2761968202ba14792f61edb0ab",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

@@ -1,0 +1,154 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "auto-code-threshold",
+   "type": "policy",
+   "label": "threshold",
+   "as": [
+    "Auto-code only above 0.95 precision"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cc-ft-v1",
+   "type": "model",
+   "label": "probability",
+   "as": [
+    "cc-ft-v1 probability"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "omar-haddad",
+   "type": "person",
+   "label": "approver",
+   "as": [
+    "Omar Haddad"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "compliance-operations",
+   "type": "team",
+   "label": "compliance operations",
+   "as": [
+    "compliance operations"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "hand-coding-queue",
+   "type": "other",
+   "label": "hand-coding queue",
+   "as": [
+    "hand-coding queue"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "precision",
+   "type": "metric",
+   "label": "precision",
+   "as": [
+    "precision"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "expected-coverage",
+   "type": "metric",
+   "label": "expected coverage",
+   "as": [
+    "Expected coverage 58 percent"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "auto-code-threshold",
+   "type": "uses",
+   "label": "threshold on",
+   "o": "cc-ft-v1",
+   "quote": "Threshold 0.95 on the cc-ft-v1 probability.",
+   "line": 6
+  },
+  {
+   "s": "auto-code-threshold",
+   "type": "measured-by",
+   "label": "set on",
+   "o": "precision",
+   "quote": "Auto-code only above 0.95 precision",
+   "line": 5
+  },
+  {
+   "s": "expected-coverage",
+   "type": "evaluated-on",
+   "label": "expected on",
+   "o": "holdout-2025q4",
+   "quote": "Expected coverage 58 percent of tickets on holdout-2025q4.",
+   "line": 6
+  },
+  {
+   "s": "auto-code-threshold",
+   "type": "owned-by",
+   "label": "approved by",
+   "o": "omar-haddad",
+   "quote": "Approved by Omar Haddad.",
+   "line": 7
+  },
+  {
+   "s": "auto-code-threshold",
+   "type": "other",
+   "label": "routes below-threshold to",
+   "o": "compliance-operations",
+   "quote": "below that, route the complaint to compliance operations for hand coding",
+   "line": 5
+  },
+  {
+   "s": "auto-code-threshold",
+   "type": "other",
+   "label": "keeps",
+   "o": "hand-coding-queue",
+   "quote": "Tickets below threshold keep the hand-coding queue.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-cc-coverage"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "complaint-classification/dec-cc-auto-threshold.md",
+ "sha": "0100defe9c07a0e6c9baa3e6a8c316e2ba29965555529d243a4196ff608b077d",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

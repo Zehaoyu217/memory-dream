@@ -1,0 +1,105 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-c25-txn-recency",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-c25-txn-recency"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "univariate auc",
+   "as": [
+    "Univariate AUC"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "churn-gbm-2025-v2",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "churn-gbm-2025-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "churn-2025",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "churn-2025"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-c25-txn-recency",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cards.txn_daily",
+   "quote": "Source: `cards.txn_daily`",
+   "line": 6
+  },
+  {
+   "s": "feat-c25-txn-recency",
+   "type": "measured-by",
+   "label": "has univariate AUC",
+   "o": "auc",
+   "quote": "Univariate AUC on the training set: 0.68",
+   "line": 7
+  },
+  {
+   "s": "churn-gbm-2025-v2",
+   "type": "uses",
+   "label": "kept as input",
+   "o": "feat-c25-txn-recency",
+   "quote": "Kept in every model version",
+   "line": 8
+  },
+  {
+   "s": "feat-c25-txn-recency",
+   "type": "part-of",
+   "label": "strongest feature in",
+   "o": "churn-2025",
+   "quote": "the strongest single feature in churn-2025",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-c25-accounts-snapshot"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2025/feat-c25-txn-recency.md",
+ "sha": "4c9db7384c4d22a74985fecdef2f8cca69d17becc12943a0bfad4dd8dd9797bb",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

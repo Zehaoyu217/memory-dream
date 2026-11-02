@@ -1,0 +1,92 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "spend-band",
+   "type": "feature",
+   "label": "spend band",
+   "as": [
+    "spend band",
+    "Three bands from six-month average spend"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "signed-distance",
+   "type": "feature",
+   "label": "signed distance",
+   "as": [
+    "signed distance to each tier threshold",
+    "the signed distance to the nearest threshold"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "six-month-average-spend",
+   "type": "metric",
+   "label": "six-month average spend",
+   "as": [
+    "six-month average spend"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cb-elasticity-v2",
+   "type": "model",
+   "label": "elasticity model",
+   "as": [
+    "cb-elasticity-v2"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "spend-band",
+   "type": "uses",
+   "label": "derived from",
+   "o": "six-month-average-spend",
+   "quote": "Three bands from six-month average spend",
+   "line": 7
+  },
+  {
+   "s": "cb-elasticity-v2",
+   "type": "uses",
+   "label": "takes input",
+   "o": "spend-band",
+   "quote": "Band and distance both enter cb-elasticity-v2",
+   "line": 8
+  },
+  {
+   "s": "cb-elasticity-v2",
+   "type": "uses",
+   "label": "takes input",
+   "o": "signed-distance",
+   "quote": "Band and distance both enter cb-elasticity-v2",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-cb-spend-base",
+  "exp-203-pooled-elasticity",
+  "feat-cb-tier-eligibility"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/feat-cb-spend-band-v2.md",
+ "sha": "d3db50a8a123df52a4c326016ff6ffb48f5bf77eed0e95d18b337b85b536cb95",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

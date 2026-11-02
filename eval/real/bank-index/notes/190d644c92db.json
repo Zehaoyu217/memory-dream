@@ -1,0 +1,156 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-503",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-503: LightGBM on net 36-month margin reaches 18.4% MAPE on clv-oot-2021h1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "clv-oot-2021h1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Holdout clv-oot-2021h1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE 18.4%"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "bg-nbd",
+   "type": "model",
+   "label": "baseline",
+   "as": [
+    "BG/NBD baseline (22.6%)"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "library",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "arpu-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "arpu v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "tenure",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "tenure"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "loss-rate",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "loss rate"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-503",
+   "type": "uses",
+   "label": "features",
+   "o": "arpu-v1",
+   "quote": "Features: arpu v1, tenure, loss rate.",
+   "line": 6
+  },
+  {
+   "s": "exp-503",
+   "type": "uses",
+   "label": "features",
+   "o": "tenure",
+   "quote": "Features: arpu v1, tenure, loss rate.",
+   "line": 6
+  },
+  {
+   "s": "exp-503",
+   "type": "uses",
+   "label": "features",
+   "o": "loss-rate",
+   "quote": "Features: arpu v1, tenure, loss rate.",
+   "line": 6
+  },
+  {
+   "s": "exp-503",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "clv-oot-2021h1",
+   "quote": "Holdout clv-oot-2021h1: MAPE 18.4%",
+   "line": 7
+  },
+  {
+   "s": "exp-503",
+   "type": "measured-by",
+   "label": "MAPE",
+   "o": "mape",
+   "quote": "MAPE 18.4%",
+   "line": 7
+  },
+  {
+   "s": "exp-503",
+   "type": "uses",
+   "label": "built with",
+   "o": "lightgbm",
+   "quote": "LightGBM on net 36-month margin",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-501",
+  "dec-clv-include-losses",
+  "feat-clv-loss-rate"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "customer-lifetime-value/exp-503.md",
+ "sha": "190d644c92dbcdcb7482e46329060279419f6d66700d124910a3303e33fb31c6",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

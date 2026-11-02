@@ -1,0 +1,144 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "label-pipeline-rebuild",
+   "type": "other",
+   "label": "project tag",
+   "as": [
+    "[label-pipeline-rebuild]"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "complaint-classification",
+   "type": "other",
+   "label": "project tag",
+   "as": [
+    "[complaint-classification]"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fraud-v4",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "fraud v4"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "recall",
+   "type": "metric",
+   "label": "recall at 1 percent alerts",
+   "as": [
+    "recall at 1 percent alerts"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "matured-holdout",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "the matured holdout"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "dispute-v1",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "Dispute v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "dispute-v2",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "post-ticket-disputes",
+   "type": "other",
+   "label": "leak source",
+   "as": [
+    "post-ticket disputes"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud-v4",
+   "type": "other",
+   "label": "logged under",
+   "o": "label-pipeline-rebuild",
+   "quote": "[label-pipeline-rebuild] fraud v4 recall",
+   "line": 3
+  },
+  {
+   "s": "fraud-v4",
+   "type": "measured-by",
+   "label": "recall at",
+   "o": "recall",
+   "quote": "fraud v4 recall at 1 percent alerts",
+   "line": 3
+  },
+  {
+   "s": "fraud-v4",
+   "type": "evaluated-on",
+   "label": "on",
+   "o": "matured-holdout",
+   "quote": "on the matured holdout",
+   "line": 3
+  },
+  {
+   "s": "dispute-v1",
+   "type": "other",
+   "label": "logged under",
+   "o": "complaint-classification",
+   "quote": "[complaint-classification] Dispute v1 leak confirmed",
+   "line": 4
+  },
+  {
+   "s": "dispute-v1",
+   "type": "other",
+   "label": "has leak",
+   "o": "post-ticket-disputes",
+   "quote": "Dispute v1 leak confirmed: post-ticket disputes",
+   "line": 4
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2026-05-13.md",
+ "sha": "28a6c453103ad6f48b31085c1166773f349d09a21d863c23676fc4261a2c52c9",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

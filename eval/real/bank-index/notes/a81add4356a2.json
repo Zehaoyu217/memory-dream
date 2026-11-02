@@ -1,0 +1,181 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "lbl-fraud-gbm-v4",
+   "type": "model",
+   "label": "fraud model",
+   "as": [
+    "lbl-fraud-gbm-v4",
+    "fraud model on rebuilt A+B labels"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "lbl-fraud-gbm-v3",
+   "type": "model",
+   "label": "v3",
+   "as": [
+    "v3",
+    "lbl-fraud-gbm-v3"
+   ],
+   "lines": [
+    2,
+    4,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "lbl-oot-2025h2",
+   "type": "dataset",
+   "label": "evaluation set",
+   "as": [
+    "lbl-oot-2025h2"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "recall-at-1pct-alerts",
+   "type": "metric",
+   "label": "recall at 1 percent alerts",
+   "as": [
+    "Recall at 1 percent alerts"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "rebuilt-fraud-label",
+   "type": "dataset",
+   "label": "rebuilt label",
+   "as": [
+    "rebuilt label"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "120-day-matured-transactions",
+   "type": "segment",
+   "label": "matured transactions",
+   "as": [
+    "120-day-matured transactions"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fraud-model-features",
+   "type": "feature",
+   "label": "features",
+   "as": [
+    "64 features"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "production",
+   "type": "environment",
+   "label": "production",
+   "as": [
+    "production"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "lbl-fraud-gbm-v4",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "lbl-fraud-gbm-v3",
+   "quote": "supersedes: [lbl-fraud-gbm-v3]",
+   "line": 4
+  },
+  {
+   "s": "lbl-fraud-gbm-v4",
+   "type": "trained-on",
+   "label": "retrained on",
+   "o": "rebuilt-fraud-label",
+   "quote": "retrained on the rebuilt label (categories A and B)",
+   "line": 7
+  },
+  {
+   "s": "lbl-fraud-gbm-v4",
+   "type": "trained-on",
+   "label": "trained with only",
+   "o": "120-day-matured-transactions",
+   "quote": "with only 120-day-matured transactions",
+   "line": 7
+  },
+  {
+   "s": "lbl-fraud-gbm-v4",
+   "type": "uses",
+   "label": "same features as",
+   "o": "fraud-model-features",
+   "quote": "Same 64 features as v3",
+   "line": 7
+  },
+  {
+   "s": "lbl-fraud-gbm-v4",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "lbl-oot-2025h2",
+   "quote": "Recall at 1 percent alerts on lbl-oot-2025h2",
+   "line": 8
+  },
+  {
+   "s": "lbl-fraud-gbm-v4",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "recall-at-1pct-alerts",
+   "quote": "Recall at 1 percent alerts on lbl-oot-2025h2 (n=1.2M approved transactions): 0.58",
+   "line": 8
+  },
+  {
+   "s": "lbl-fraud-gbm-v3",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "recall-at-1pct-alerts",
+   "quote": "against 0.52 for v3 (exp-405)",
+   "line": 8
+  },
+  {
+   "s": "lbl-fraud-gbm-v4",
+   "type": "other",
+   "label": "promoted to",
+   "o": "production",
+   "quote": "Promoted to production on 2026-05-20",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "lbl-fraud-gbm-v3",
+  "feat-lbl-fraud-flag-v2",
+  "fnd-fraud-maturity",
+  "exp-405",
+  "dec-lbl-promote-fraud-v4"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "label-pipeline-rebuild/lbl-fraud-gbm-v4.md",
+ "sha": "a81add4356a214b3cdb68a41f4f8b3e27a5727e6ed1fd68d0d7b8ca0cbc50a80",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

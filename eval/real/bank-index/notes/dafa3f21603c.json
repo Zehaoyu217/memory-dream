@@ -1,0 +1,128 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "ed-logit-v1",
+   "type": "model",
+   "label": "champion scorecard",
+   "as": [
+    "ed-logit-v1",
+    "champion logistic scorecard"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "early-delinquency-holdout-2024q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "early-delinquency-holdout-2024q4"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.742"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini 0.484"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.36"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "weight-of-evidence-bins",
+   "type": "term",
+   "label": "binning method",
+   "as": [
+    "weight-of-evidence bins"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ed-logit-v1",
+   "type": "measured-by",
+   "label": "baseline AUC",
+   "o": "auc",
+   "quote": "AUC 0.742",
+   "line": 7
+  },
+  {
+   "s": "ed-logit-v1",
+   "type": "measured-by",
+   "label": "baseline Gini",
+   "o": "gini",
+   "quote": "Gini 0.484",
+   "line": 7
+  },
+  {
+   "s": "ed-logit-v1",
+   "type": "measured-by",
+   "label": "baseline KS",
+   "o": "ks",
+   "quote": "KS 0.36",
+   "line": 7
+  },
+  {
+   "s": "ed-logit-v1",
+   "type": "evaluated-on",
+   "label": "baseline metrics on",
+   "o": "early-delinquency-holdout-2024q4",
+   "quote": "Baseline metrics on early-delinquency-holdout-2024q4",
+   "line": 7
+  },
+  {
+   "s": "ed-logit-v1",
+   "type": "uses",
+   "label": "logistic regression on",
+   "o": "weight-of-evidence-bins",
+   "quote": "Logistic regression on weight-of-evidence bins",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-ed-current-base",
+  "ds-ed-label-30p3m",
+  "ds-ed-bureau-join",
+  "dec-ed-gbm-for-watchlist"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "early-delinquency/ed-logit-v1.md",
+ "sha": "dafa3f21603c5db26733f9b8af04c5285061e71eed2e6cf644be8e4ca44c062b",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

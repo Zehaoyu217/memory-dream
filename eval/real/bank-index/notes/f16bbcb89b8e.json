@@ -1,0 +1,130 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-bsm-score-map-v2",
+   "type": "model",
+   "label": "score map",
+   "as": [
+    "feat-bsm-score-map-v2",
+    "isotonic map from v10 to the v8 scale"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-bsm-score-map-v1",
+   "type": "model",
+   "label": "linear map",
+   "as": [
+    "the linear map"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-bsm-dual-pull-sample",
+   "type": "dataset",
+   "label": "dual-pull sample",
+   "as": [
+    "full dual-pull sample"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-bsm-v10-cohorts-2026",
+   "type": "dataset",
+   "label": "2026 cohorts",
+   "as": [
+    "ds-bsm-v10-cohorts-2026"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "psi",
+   "as": [
+    "PSI 0.06",
+    "PSI between mapped v10 and v8 is 0.06"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "isotonic-regression",
+   "type": "term",
+   "label": "isotonic regression",
+   "as": [
+    "Isotonic regression of v8 on v10"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-bsm-score-map-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "feat-bsm-score-map-v1",
+   "quote": "Replaces the linear map",
+   "line": 8
+  },
+  {
+   "s": "feat-bsm-score-map-v2",
+   "type": "trained-on",
+   "label": "refit on",
+   "o": "ds-bsm-dual-pull-sample",
+   "quote": "Isotonic regression of v8 on v10 over the full dual-pull sample (52,000)",
+   "line": 7
+  },
+  {
+   "s": "feat-bsm-score-map-v2",
+   "type": "uses",
+   "label": "fit by",
+   "o": "isotonic-regression",
+   "quote": "Isotonic regression of v8 on v10",
+   "line": 7
+  },
+  {
+   "s": "feat-bsm-score-map-v2",
+   "type": "evaluated-on",
+   "label": "checked on",
+   "o": "ds-bsm-v10-cohorts-2026",
+   "quote": "PSI between mapped v10 and v8 is 0.06 on ds-bsm-v10-cohorts-2026",
+   "line": 8
+  },
+  {
+   "s": "feat-bsm-score-map-v2",
+   "type": "measured-by",
+   "label": "PSI between mapped v10 and v8",
+   "o": "psi",
+   "quote": "PSI between mapped v10 and v8 is 0.06",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-bsm-score-map-v1",
+  "exp-301",
+  "exp-303",
+  "ds-bsm-dual-pull-sample"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "bureau-score-migration/feat-bsm-score-map-v2.md",
+ "sha": "f16bbcb89b8eba457457d968abec0505ed0fc5538cd8a06686b856b321a092d2",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

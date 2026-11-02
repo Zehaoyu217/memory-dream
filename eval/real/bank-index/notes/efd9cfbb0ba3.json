@@ -1,0 +1,100 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "psi",
+   "as": [
+    "PSI"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "psi-alert-rule",
+   "type": "policy",
+   "label": "alert rule",
+   "as": [
+    "PSI alert at 0.10 watch and 0.20 retrain"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "psi-report-py",
+   "type": "module",
+   "label": "script",
+   "as": [
+    "`psi_report.py`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "decile-bins",
+   "type": "term",
+   "label": "bins",
+   "as": [
+    "deciles"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "psi-alert-rule",
+   "type": "measured-by",
+   "label": "triggered by",
+   "o": "psi",
+   "quote": "a PSI above 0.20 on any scored feature triggered a retrain request",
+   "line": 5
+  },
+  {
+   "s": "psi-report-py",
+   "type": "other",
+   "label": "computes",
+   "o": "decile-bins",
+   "quote": "Bins were deciles of the training distribution, computed in `psi_report.py`",
+   "line": 5
+  },
+  {
+   "s": "psi-alert-rule",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "psi-alert-rule",
+   "quote": "so it is superseded by `howto/psi-thresholds`",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "howto/psi-thresholds",
+  "howto/psi-thresholds-v1.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/psi-thresholds-v1.md",
+ "sha": "efd9cfbb0ba37fd037050c8541ef5746784db490d8f8fe396cac5fb99cc5445d",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

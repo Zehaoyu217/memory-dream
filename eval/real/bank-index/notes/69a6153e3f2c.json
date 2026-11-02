@@ -1,0 +1,129 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ae-depth-v2",
+   "type": "feature",
+   "label": "depth feature",
+   "as": [
+    "Depth v2: screens and features per active day, divided by a tenure-based baseline so new accounts are not inflated"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-ae-depth-v1",
+   "type": "feature",
+   "label": "depth feature",
+   "as": [
+    "feat-ae-depth-v1"
+   ],
+   "lines": [
+    2,
+    4
+   ]
+  },
+  {
+   "id": "exp-504",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-504"
+   ],
+   "lines": [
+    2,
+    8
+   ]
+  },
+  {
+   "id": "tenure-based-baseline",
+   "type": "term",
+   "label": "tenure baseline",
+   "as": [
+    "tenure-based baseline",
+    "The baseline is the median depth of accounts at the same tenure month, from the prior quarter."
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "accounts-under-90-days",
+   "type": "segment",
+   "label": "new accounts",
+   "as": [
+    "Accounts with under 90 days"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "mean-score",
+   "type": "metric",
+   "label": "mean score",
+   "as": [
+    "Mean score for accounts under 90 days"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ae-depth-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "feat-ae-depth-v1",
+   "quote": "supersedes: [feat-ae-depth-v1]",
+   "line": 4
+  },
+  {
+   "s": "feat-ae-depth-v2",
+   "type": "derived-from",
+   "label": "from",
+   "o": "exp-504",
+   "quote": "from: [feat-ae-depth-v1, exp-504]",
+   "line": 2
+  },
+  {
+   "s": "feat-ae-depth-v2",
+   "type": "uses",
+   "label": "divided by",
+   "o": "tenure-based-baseline",
+   "quote": "divided by a tenure-based baseline so new accounts are not inflated",
+   "line": 6
+  },
+  {
+   "s": "exp-504",
+   "type": "measured-by",
+   "label": "shows drop in",
+   "o": "mean-score",
+   "quote": "Mean score for accounts under 90 days drops from 62 under v1 to 48 under v2 (exp-504).",
+   "line": 8
+  },
+  {
+   "s": "mean-score",
+   "type": "evaluated-on",
+   "label": "computed for",
+   "o": "accounts-under-90-days",
+   "quote": "Mean score for accounts under 90 days drops from 62 under v1 to 48 under v2",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-ae-depth-v1",
+  "exp-504"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "app-engagement/feat-ae-depth-v2.md",
+ "sha": "69a6153e3f2c6da07b9e9cb37707eaf03198f48d099578f2ecdea508eb327060",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

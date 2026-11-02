@@ -1,0 +1,94 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "feat-f25-device-age",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-f25-device-age",
+    "dropping device age from v1"
+   ],
+   "lines": [
+    2,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1",
+    "Same holdout as exp-101"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC",
+    "AUC 0.897"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "recall-at-1%",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "recall@1%"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-f25-device-age",
+   "type": "measured-by",
+   "label": "costs AUC",
+   "o": "auc",
+   "quote": "dropping device age from v1 costs 0.005 AUC",
+   "line": 5
+  },
+  {
+   "s": "feat-f25-device-age",
+   "type": "measured-by",
+   "label": "recall drop",
+   "o": "recall-at-1%",
+   "quote": "recall@1% 0.44 (from 0.46)",
+   "line": 7
+  },
+  {
+   "s": "feat-f25-device-age",
+   "type": "evaluated-on",
+   "label": "tested on",
+   "o": "holdout-2025q1",
+   "quote": "costs 0.005 AUC on holdout-2025q1",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-101",
+  "feat-f25-device-age"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/exp-102.md",
+ "sha": "c4133f7a98d957060957814337602ae9c18bd75514e2548f9bcdc4ba128b03c5",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

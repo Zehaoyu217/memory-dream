@@ -1,0 +1,102 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "email-open-rate",
+   "type": "metric",
+   "label": "open rate",
+   "as": [
+    "Email open rate of 61% overstates engagement",
+    "the reported open rate is 61%"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "email-click-rate",
+   "type": "metric",
+   "label": "click rate",
+   "as": [
+    "click rate is 2.2%",
+    "a click rate of 2.2%"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "ds-ch-email-engagement",
+   "type": "document",
+   "label": "source analysis",
+   "as": [
+    "ds-ch-email-engagement"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "feat-ch-email-open-v1",
+   "type": "feature",
+   "label": "email open feature",
+   "as": [
+    "feat-ch-email-open-v1"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "image-pre-fetching",
+   "type": "term",
+   "label": "image pre-fetching",
+   "as": [
+    "image pre-fetching by mail clients"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "email-open-rate",
+   "type": "other",
+   "label": "overstates engagement",
+   "o": "email-click-rate",
+   "quote": "Email open rate of 61% overstates engagement: click rate is 2.2%",
+   "line": 5
+  },
+  {
+   "s": "email-open-rate",
+   "type": "other",
+   "label": "inflated by",
+   "o": "image-pre-fetching",
+   "quote": "The gap is consistent with image pre-fetching by mail clients.",
+   "line": 6
+  },
+  {
+   "s": "email-open-rate",
+   "type": "other",
+   "label": "not usable as signal",
+   "o": "feat-ch-email-open-v1",
+   "quote": "email open cannot be used to score channel response",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "collections-channel-mix/find-ch-email-opens-inflated.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-channel-mix/find-ch-email-opens-inflated.md",
+ "sha": "838a75408c60c6c8612d9303661ffe418f274fcd23b571d3d73dc38d6a43147b",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

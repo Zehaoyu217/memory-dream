@@ -1,0 +1,85 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "oot-period",
+   "type": "term",
+   "label": "oot period",
+   "as": [
+    "OOT must be a later period, not the training tail",
+    "OOT is a period after the training window that was never used for training, tuning or feature selection",
+    "OOT"
+   ],
+   "lines": [
+    3,
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "in-time-validation",
+   "type": "term",
+   "label": "in-time validation",
+   "as": [
+    "The last months of training data are in-time validation.",
+    "in-time validation"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fraud-model",
+   "type": "model",
+   "label": "fraud model",
+   "as": [
+    "the fraud model's 0.88 AUC was in-time"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "0.88 AUC",
+    "true OOT AUC (2024-10 to 2024-12) was 0.84"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "oot-period",
+   "type": "other",
+   "label": "must be",
+   "o": "in-time-validation",
+   "quote": "OOT is a period after the training window that was never used for training, tuning or feature selection. The last months of training data are in-time validation.",
+   "line": 6
+  },
+  {
+   "s": "fraud-model",
+   "type": "measured-by",
+   "label": "scored in-time AUC",
+   "o": "auc",
+   "quote": "the fraud model's 0.88 AUC was in-time",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "glossary/oot"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "corrections/oot-not-training-tail.md",
+ "sha": "aff136ba8cd27f9338e8d0190f9308810c096aa23584ec4038a6de1fb94d65ef",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

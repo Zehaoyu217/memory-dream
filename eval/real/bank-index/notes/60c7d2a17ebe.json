@@ -1,0 +1,135 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "crm.contacts",
+   "type": "dataset",
+   "label": "snapshot",
+   "as": [
+    "`crm.contacts` snapshot at 2026-06-30",
+    "Snapshot of `crm.contacts`"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "crm-platform",
+   "type": "service",
+   "label": "platform",
+   "as": [
+    "crm-platform"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "eligible-accounts",
+   "type": "segment",
+   "label": "eligible accounts",
+   "as": [
+    "one row per eligible account"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "q2-rct",
+   "type": "segment",
+   "label": "rct",
+   "as": [
+    "the Q2 RCT"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "q3-targeting",
+   "type": "other",
+   "label": "targeting run",
+   "as": [
+    "Q3 targeting"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "contact-preference-flags",
+   "type": "feature",
+   "label": "preference flags",
+   "as": [
+    "Contact-preference flags"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "crm.contacts",
+   "type": "uses",
+   "label": "joined to",
+   "o": "cards.accounts_monthly",
+   "quote": "joined to `cards.accounts_monthly`",
+   "line": 6
+  },
+  {
+   "s": "crm.contacts",
+   "type": "part-of",
+   "label": "from",
+   "o": "crm-platform",
+   "quote": "Snapshot of `crm.contacts` (crm-platform)",
+   "line": 6
+  },
+  {
+   "s": "q2-rct",
+   "type": "part-of",
+   "label": "within",
+   "o": "eligible-accounts",
+   "quote": "of which 1.1M were in the Q2 RCT",
+   "line": 6
+  },
+  {
+   "s": "crm.contacts",
+   "type": "other",
+   "label": "feature base for",
+   "o": "q3-targeting",
+   "quote": "is the feature base for Q3 targeting",
+   "line": 5
+  },
+  {
+   "s": "contact-preference-flags",
+   "type": "other",
+   "label": "excluded from",
+   "o": "crm.contacts",
+   "quote": "Contact-preference flags are excluded from features",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "marketing-uplift-q3/ds-mq3-contacts-snap.md",
+ "sha": "60c7d2a17ebe3ddcd5f59beb96fb4dcf224811376e4417e39511a9eb0123b51c",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

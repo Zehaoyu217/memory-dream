@@ -1,0 +1,129 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-502",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-502"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "wave-1-call-arm",
+   "type": "segment",
+   "label": "call arm",
+   "as": [
+    "wave-1 call arm",
+    "call n=28,300"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "wave-1-control-arm",
+   "type": "segment",
+   "label": "control arm",
+   "as": [
+    "control n=14,800"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "wave-1-1-29-dpd",
+   "type": "segment",
+   "label": "wave-1 cohort",
+   "as": [
+    "Wave-1 1-29 DPD"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "promise-to-pay-14d",
+   "type": "metric",
+   "label": "promise-to-pay",
+   "as": [
+    "PTP within 14 days"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "lift",
+   "type": "metric",
+   "label": "lift",
+   "as": [
+    "lift"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-502",
+   "type": "evaluated-on",
+   "label": "run on",
+   "o": "wave-1-1-29-dpd",
+   "quote": "Wave-1 1-29 DPD: call n=28,300, control n=14,800",
+   "line": 6
+  },
+  {
+   "s": "wave-1-call-arm",
+   "type": "part-of",
+   "label": "arm of",
+   "o": "exp-502",
+   "quote": "Wave-1 1-29 DPD: call n=28,300, control n=14,800",
+   "line": 6
+  },
+  {
+   "s": "wave-1-control-arm",
+   "type": "part-of",
+   "label": "arm of",
+   "o": "exp-502",
+   "quote": "Wave-1 1-29 DPD: call n=28,300, control n=14,800",
+   "line": 6
+  },
+  {
+   "s": "exp-502",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "promise-to-pay-14d",
+   "quote": "PTP within 14 days: call 12.4%, control 6.1%",
+   "line": 6
+  },
+  {
+   "s": "exp-502",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "lift",
+   "quote": "a lift of 6.3pp",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "ds-ch-ab-wave1",
+  "q-ch-sms-vs-call",
+  "collections_channel/exp502_call.ipynb"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-channel-mix/exp-502.md",
+ "sha": "2f81973a7c305320e2de60c6bca3549b297b7bd4592fbbe97ff1536355263bb9",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

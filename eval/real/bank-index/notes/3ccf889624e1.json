@@ -1,0 +1,177 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-tfidf30",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat_tfidf30",
+    "TF-IDF of the first 30 seconds of ASR transcript, reduced to 200 SVD dimensions"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "builder",
+   "as": [
+    "Sam Lee"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ml-engineering",
+   "type": "team",
+   "label": "ml engineering",
+   "as": [
+    "ML engineering"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "routing-repo",
+   "type": "module",
+   "label": "repo",
+   "as": [
+    "routing repo"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "tf-idf",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "TF-IDF"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "svd",
+   "type": "term",
+   "label": "dimensionality reduction",
+   "as": [
+    "SVD"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "asr-transcript",
+   "type": "dataset",
+   "label": "transcript",
+   "as": [
+    "ASR transcript"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "full-transcript-version",
+   "type": "feature",
+   "label": "full-transcript version",
+   "as": [
+    "The full-transcript version"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "macro F1"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-tfidf30",
+   "type": "uses",
+   "label": "TF-IDF of",
+   "o": "tf-idf",
+   "quote": "TF-IDF of the first 30 seconds of ASR transcript",
+   "line": 5
+  },
+  {
+   "s": "feat-tfidf30",
+   "type": "uses",
+   "label": "reduced to",
+   "o": "svd",
+   "quote": "reduced to 200 SVD dimensions",
+   "line": 5
+  },
+  {
+   "s": "feat-tfidf30",
+   "type": "uses",
+   "label": "of",
+   "o": "asr-transcript",
+   "quote": "first 30 seconds of ASR transcript",
+   "line": 5
+  },
+  {
+   "s": "feat-tfidf30",
+   "type": "part-of",
+   "label": "in",
+   "o": "routing-repo",
+   "quote": "as feat_tfidf30 in the routing repo",
+   "line": 8
+  },
+  {
+   "s": "feat-tfidf30",
+   "type": "owned-by",
+   "label": "built by",
+   "o": "sam-lee",
+   "quote": "Built by Sam Lee (ML engineering) as feat_tfidf30",
+   "line": 8
+  },
+  {
+   "s": "sam-lee",
+   "type": "other",
+   "label": "member of",
+   "o": "ml-engineering",
+   "quote": "Sam Lee (ML engineering)",
+   "line": 8
+  },
+  {
+   "s": "full-transcript-version",
+   "type": "measured-by",
+   "label": "gains",
+   "o": "macro-f1",
+   "quote": "The full-transcript version gains only +0.004 macro F1",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-cr-calls",
+  "exp-102"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/feat-cr-transcript-tfidf-v1.md",
+ "sha": "3ccf889624e1998b06d937657993d64a26f5a68c0e4ae9edd562a900660ea6a6",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

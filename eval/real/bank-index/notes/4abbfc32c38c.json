@@ -1,0 +1,107 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-f25-velocity-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-f25-velocity-v1: card transaction counts over 1h and 24h, plus summed amounts"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "drop-test",
+   "type": "term",
+   "label": "drop test",
+   "as": [
+    "Drop test"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-f25-velocity-v1",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards.txn_daily",
+   "quote": "Built from `cards.txn_daily`",
+   "line": 7
+  },
+  {
+   "s": "feat-f25-velocity-v1",
+   "type": "evaluated-on",
+   "label": "drop test on",
+   "o": "holdout-2025q1",
+   "quote": "Drop test on holdout-2025q1 costs 0.021 AUC",
+   "line": 8
+  },
+  {
+   "s": "feat-f25-velocity-v1",
+   "type": "measured-by",
+   "label": "costs AUC",
+   "o": "auc",
+   "quote": "costs 0.021 AUC",
+   "line": 8
+  },
+  {
+   "s": "feat-f25-velocity-v1",
+   "type": "other",
+   "label": "tested by",
+   "o": "drop-test",
+   "quote": "Drop test on holdout-2025q1 costs 0.021 AUC",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-f25-txn-2024-2025",
+  "fraud25-find-velocity-stable",
+  "fraud-2025/feat-f25-velocity-v1.md"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/feat-f25-velocity-v1.md",
+ "sha": "4abbfc32c38c1f6477e4edb622712bce17f0dba010cf35b1e8e545fc1cc2e232",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

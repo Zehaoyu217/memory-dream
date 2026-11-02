@@ -1,0 +1,136 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "x-learner",
+   "type": "term",
+   "label": "learner",
+   "as": [
+    "the X-learner"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "t-learner",
+   "type": "term",
+   "label": "learner",
+   "as": [
+    "the T-learner"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift metric",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "mq3-uplift-xl-v2",
+   "type": "model",
+   "label": "shipped model",
+   "as": [
+    "mq3-uplift-xl-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "q2-rct",
+   "type": "dataset",
+   "label": "split",
+   "as": [
+    "Q2 split"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "spend-band-1000-3000",
+   "type": "segment",
+   "label": "spend band",
+   "as": [
+    "$1,000-3,000 spend band"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "weekly-scoring-run",
+   "type": "pipeline",
+   "label": "scoring run",
+   "as": [
+    "weekly scoring run"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "x-learner",
+   "type": "measured-by",
+   "label": "adds to",
+   "o": "uplift-at-20",
+   "quote": "adds 0.5 to uplift@20% over the T-learner",
+   "line": 5
+  },
+  {
+   "s": "x-learner",
+   "type": "other",
+   "label": "gains over",
+   "o": "t-learner",
+   "quote": "adds 0.5 to uplift@20% over the T-learner",
+   "line": 5
+  },
+  {
+   "s": "x-learner",
+   "type": "other",
+   "label": "largest in",
+   "o": "spend-band-1000-3000",
+   "quote": "is largest in the $1,000-3,000 spend band",
+   "line": 6
+  },
+  {
+   "s": "x-learner",
+   "type": "other",
+   "label": "shipped as",
+   "o": "mq3-uplift-xl-v2",
+   "quote": "Shipped as mq3-uplift-xl-v2.",
+   "line": 8
+  },
+  {
+   "s": "x-learner",
+   "type": "other",
+   "label": "acceptable for",
+   "o": "weekly-scoring-run",
+   "quote": "acceptable for the weekly scoring run",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-303-xlearner",
+  "exp-302-tlearner"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "marketing-uplift-q3/find-mq3-xlearner-gain.md",
+ "sha": "6191b7da7853a60b5a82c7109915350e1f949bb1fe5dbab8c4e6c795c0f24bb9",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

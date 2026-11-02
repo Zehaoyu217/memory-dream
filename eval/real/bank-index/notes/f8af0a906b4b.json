@@ -1,0 +1,128 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-rdm-last-activity-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rdm-last-activity-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-rdm-last-activity-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rdm-last-activity-v1"
+   ],
+   "lines": [
+    2,
+    4,
+    9
+   ]
+  },
+  {
+   "id": "feat-rdm-app-installed",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rdm-app-installed"
+   ],
+   "lines": [
+    2
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "app.sessions_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "app.sessions_daily"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "rdm-uplift-v2",
+   "type": "model",
+   "label": "uplift model",
+   "as": [
+    "rdm-uplift-v2"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-rdm-last-activity-v2",
+   "type": "uses",
+   "label": "takes from",
+   "o": "cards.txn_daily",
+   "quote": "Takes the most recent of the last card transaction (`cards.txn_daily`)",
+   "line": 7
+  },
+  {
+   "s": "feat-rdm-last-activity-v2",
+   "type": "uses",
+   "label": "takes from",
+   "o": "app.sessions_daily",
+   "quote": "the last app session (`app.sessions_daily`)",
+   "line": 7
+  },
+  {
+   "s": "feat-rdm-last-activity-v2",
+   "type": "uses",
+   "label": "derived from",
+   "o": "feat-rdm-app-installed",
+   "quote": "from: [feat-rdm-last-activity-v1, feat-rdm-app-installed]",
+   "line": 2
+  },
+  {
+   "s": "feat-rdm-last-activity-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "feat-rdm-last-activity-v1",
+   "quote": "supersedes: [feat-rdm-last-activity-v1]",
+   "line": 4
+  },
+  {
+   "s": "rdm-uplift-v2",
+   "type": "uses",
+   "label": "replaces input",
+   "o": "feat-rdm-last-activity-v2",
+   "quote": "Replaces feat-rdm-last-activity-v1 in rdm-uplift-v2.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "feat-rdm-last-activity-v1",
+  "feat-rdm-app-installed",
+  "rdm-uplift-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reactivation-dormant/feat-rdm-last-activity-v2.md",
+ "sha": "f8af0a906b4b3dd56d7b7868573767714db175b7dc561550c39e3efff4263373",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

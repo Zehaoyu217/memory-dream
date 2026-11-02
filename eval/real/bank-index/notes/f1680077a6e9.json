@@ -1,0 +1,71 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "pbs-hdbscan-v1",
+   "type": "model",
+   "label": "clustering model",
+   "as": [
+    "pbs-hdbscan-v1",
+    "drop pbs-hdbscan-v1"
+   ],
+   "lines": [
+    2,
+    8
+   ]
+  },
+  {
+   "id": "exp-404",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-404"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "noise-share",
+   "type": "metric",
+   "label": "noise share",
+   "as": [
+    "31% of accounts as noise"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "pbs-hdbscan-v1",
+   "type": "other",
+   "label": "labels as noise",
+   "o": "noise-share",
+   "quote": "HDBSCAN labels 31% of accounts as noise",
+   "line": 6
+  },
+  {
+   "s": "exp-404",
+   "type": "other",
+   "label": "shows instability of",
+   "o": "pbs-hdbscan-v1",
+   "quote": "its clusters move between seeds (exp-404)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "pbs-hdbscan-v1",
+  "exp-404"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "payment-behavior-segments/dec-pbs-no-hdbscan.md",
+ "sha": "f1680077a6e9c1321dfb7ab43bac2c02596d28bdad568015cc13d9aed974227f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

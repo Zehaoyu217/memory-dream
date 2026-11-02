@@ -1,0 +1,123 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "mcc-base-rate",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "MCC base rate"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "mcc",
+   "type": "feature",
+   "label": "mcc",
+   "as": [
+    "MCC"
+   ],
+   "lines": [
+    2,
+    5,
+    6,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "mrisk-oot-2025h2",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "mrisk-oot-2025h2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "travel-and-telecom-mccs",
+   "type": "segment",
+   "label": "mcc group",
+   "as": [
+    "travel and telecom MCCs"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "v2",
+   "type": "model",
+   "label": "version",
+   "as": [
+    "v2"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mcc-base-rate",
+   "type": "measured-by",
+   "label": "gains AUC",
+   "o": "auc",
+   "quote": "AUC 0.85 to 0.87 with feat-mrisk-mcc-base on mrisk-oot-2025h2.",
+   "line": 6
+  },
+  {
+   "s": "mcc-base-rate",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "mrisk-oot-2025h2",
+   "quote": "AUC 0.85 to 0.87 with feat-mrisk-mcc-base on mrisk-oot-2025h2.",
+   "line": 6
+  },
+  {
+   "s": "mcc-base-rate",
+   "type": "other",
+   "label": "gain concentrated in",
+   "o": "travel-and-telecom-mccs",
+   "quote": "Gain is concentrated in travel and telecom MCCs",
+   "line": 7
+  },
+  {
+   "s": "v2",
+   "type": "uses",
+   "label": "carries",
+   "o": "mcc",
+   "quote": "Reason v2 is the first version to carry the MCC feature.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-503",
+  "feat-mrisk-mcc-base"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "merchant-risk/mrisk-find-mcc-base.md",
+ "sha": "07675cc0e0433e93049d20de449c36dec8ac04827197bfc61b059060d4070391",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

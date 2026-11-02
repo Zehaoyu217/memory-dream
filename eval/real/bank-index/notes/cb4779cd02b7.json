@@ -1,0 +1,130 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "intent-routing",
+   "type": "term",
+   "label": "intent routing",
+   "as": [
+    "intent routing",
+    "predicted intent route calls"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "first-contact-resolution",
+   "type": "metric",
+   "label": "fcr",
+   "as": [
+    "first-contact resolution (FCR)",
+    "FCR"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "extract",
+   "as": [
+    "callcenter.calls",
+    "2024 Q4 extract"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "asr-transcript-first-30s",
+   "type": "feature",
+   "label": "candidate input",
+   "as": [
+    "first 30 seconds of the ASR transcript"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ivr-menu-path",
+   "type": "feature",
+   "label": "candidate input",
+   "as": [
+    "the IVR menu path"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ivr",
+   "type": "other",
+   "label": "ivr menu",
+   "as": [
+    "six-level IVR",
+    "IVR menu"
+   ],
+   "lines": [
+    5,
+    6,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "intent-routing",
+   "type": "measured-by",
+   "label": "keeps FCR within",
+   "o": "first-contact-resolution",
+   "quote": "intent routing keeps FCR within 1 point of that",
+   "line": 7
+  },
+  {
+   "s": "callcenter.calls",
+   "type": "other",
+   "label": "source of baseline",
+   "o": "first-contact-resolution",
+   "quote": "Baseline first-contact resolution (FCR) from the 2024 Q4 extract in `callcenter.calls` is 71.4 percent",
+   "line": 7
+  },
+  {
+   "s": "intent-routing",
+   "type": "uses",
+   "label": "candidate input",
+   "o": "asr-transcript-first-30s",
+   "quote": "Candidate inputs: first 30 seconds of the ASR transcript and the IVR menu path.",
+   "line": 8
+  },
+  {
+   "s": "intent-routing",
+   "type": "uses",
+   "label": "candidate input",
+   "o": "ivr-menu-path",
+   "quote": "Candidate inputs: first 30 seconds of the ASR transcript and the IVR menu path.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-101",
+  "exp-102",
+  "exp-103",
+  "exp-104",
+  "exp-105",
+  "exp-106",
+  "dec-cr-lgbm",
+  "dec-cr-pilot"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/q-cr-intent-routing.md",
+ "sha": "cb4779cd02b72d5955ab53e8cd0cefb08373b0c6765a70b05ce80300a5d9a49c",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

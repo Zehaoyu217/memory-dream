@@ -1,0 +1,136 @@
+{
+ "kind": "requirement",
+ "entities": [
+  {
+   "id": "model-card",
+   "type": "document",
+   "label": "model card",
+   "as": [
+    "model card",
+    "The card"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "registration-step",
+   "type": "pipeline",
+   "label": "registration step",
+   "as": [
+    "the registration step"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "aisha-khan",
+   "type": "person",
+   "label": "checker",
+   "as": [
+    "Aisha Khan"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "psi status",
+   "as": [
+    "PSI status"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "known-gaps-section",
+   "type": "other",
+   "label": "known-gaps section",
+   "as": [
+    "known-gaps section"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "retention-card-2025",
+   "type": "document",
+   "label": "retention card",
+   "as": [
+    "The 2025 retention card"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holiday-gap-2024",
+   "type": "other",
+   "label": "known gap",
+   "as": [
+    "the 2024 holiday gap"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "registration-step",
+   "type": "produces",
+   "label": "generates",
+   "o": "model-card",
+   "quote": "The card is generated as markdown by the registration step",
+   "line": 5
+  },
+  {
+   "s": "model-card",
+   "type": "other",
+   "label": "checked by",
+   "o": "aisha-khan",
+   "quote": "Aisha Khan checks it",
+   "line": 5
+  },
+  {
+   "s": "model-card",
+   "type": "other",
+   "label": "lists",
+   "o": "psi",
+   "quote": "A model card lists target, label window, eval sets, PSI status, known gaps and owner",
+   "line": 4
+  },
+  {
+   "s": "model-card",
+   "type": "other",
+   "label": "rejected without",
+   "o": "known-gaps-section",
+   "quote": "Cards without a known-gaps section are rejected",
+   "line": 6
+  },
+  {
+   "s": "retention-card-2025",
+   "type": "other",
+   "label": "omitted",
+   "o": "holiday-gap-2024",
+   "quote": "The 2025 retention card omitted the 2024 holiday gap",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/model-card-required-fields.md",
+ "sha": "aa1d895ae0dba082362d92ecba4a569ddb25d8ab662e3799bd30237d09ccb216",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

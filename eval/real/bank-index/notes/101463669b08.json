@@ -1,0 +1,95 @@
+{
+ "kind": "design",
+ "entities": [
+  {
+   "id": "campaign-holdout",
+   "type": "term",
+   "label": "holdout method",
+   "as": [
+    "Campaign holdouts"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "chloe-martin-team",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "Chloe Martin's team"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "chloe-martin",
+   "type": "person",
+   "label": "person",
+   "as": [
+    "Chloe Martin"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "marketing.campaign_responses",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "marketing.campaign_responses"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "minimum-per-arm",
+   "type": "policy",
+   "label": "minimum",
+   "as": [
+    "3,000-per-arm minimum"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "campaign-holdout",
+   "type": "owned-by",
+   "label": "kept by",
+   "o": "chloe-martin-team",
+   "quote": "Chloe Martin's team keeps the holdout for the whole campaign",
+   "line": 5
+  },
+  {
+   "s": "campaign-holdout",
+   "type": "part-of",
+   "label": "stored in",
+   "o": "marketing.campaign_responses",
+   "quote": "Store the control rows in `marketing.campaign_responses` with `arm = control`",
+   "line": 5
+  },
+  {
+   "s": "campaign-holdout",
+   "type": "other",
+   "label": "above minimum",
+   "o": "minimum-per-arm",
+   "quote": "above the 3,000-per-arm minimum",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/campaign-holdout-design.md",
+ "sha": "101463669b086c04c83c6b8f107b126597ae703398fd0c4c4c6a70551e01eab5",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

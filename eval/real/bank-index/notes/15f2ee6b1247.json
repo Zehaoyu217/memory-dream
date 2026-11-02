@@ -1,0 +1,107 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "fsm_parity_sample_2025h2",
+   "type": "dataset",
+   "label": "parity sample",
+   "as": [
+    "fsm_parity_sample_2025h2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "parity-harness",
+   "type": "tool",
+   "label": "parity harness",
+   "as": [
+    "the parity harness"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "payment-lag-v1",
+   "type": "feature",
+   "label": "payment lag feature",
+   "as": [
+    "payment lag v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "bureau-features",
+   "type": "feature",
+   "label": "bureau features",
+   "as": [
+    "3 bureau features with a file-date join"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "month-end-windowed-features",
+   "type": "feature",
+   "label": "windowed features",
+   "as": [
+    "9 windowed month-end features on local-time windows"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "parity-harness",
+   "type": "other",
+   "label": "run on",
+   "o": "fsm_parity_sample_2025h2",
+   "quote": "Ran the parity harness on fsm_parity_sample_2025h2",
+   "line": 6
+  },
+  {
+   "s": "payment-lag-v1",
+   "type": "other",
+   "label": "fails parity bar",
+   "o": "fsm_parity_sample_2025h2",
+   "quote": "The 13 failures: 9 windowed month-end features on local-time windows, payment lag v1 (3.1 percent of rows off)",
+   "line": 8
+  },
+  {
+   "s": "bureau-features",
+   "type": "other",
+   "label": "fails parity bar",
+   "o": "fsm_parity_sample_2025h2",
+   "quote": "and 3 bureau features with a file-date join",
+   "line": 8
+  },
+  {
+   "s": "month-end-windowed-features",
+   "type": "other",
+   "label": "fails parity bar",
+   "o": "fsm_parity_sample_2025h2",
+   "quote": "The 13 failures: 9 windowed month-end features on local-time windows",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-fsm-parity-sample",
+  "ds-fsm-legacy-features",
+  "q-fsm-parity-threshold"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "feature-store-migration/exp-101.md",
+ "sha": "15f2ee6b12470dede68c43edc527dd0382f459126df129a39a4f3eb26dd1fe78",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

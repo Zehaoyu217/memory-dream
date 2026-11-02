@@ -1,0 +1,125 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "From `bureau.scores_monthly`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "person",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "score-date",
+   "type": "feature",
+   "label": "column",
+   "as": [
+    "score_date"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "observation-date",
+   "type": "feature",
+   "label": "column",
+   "as": [
+    "observation_date"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "data-leakage",
+   "type": "term",
+   "label": "leakage",
+   "as": [
+    "leakage"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bureau-score-30d-rule",
+   "type": "policy",
+   "label": "rule",
+   "as": [
+    "Use the bureau score dated at least 30 days before the observation date"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "default-model-2025",
+   "type": "model",
+   "label": "default model",
+   "as": [
+    "2025 default model"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bureau-score-30d-rule",
+   "type": "owned-by",
+   "label": "rejected as leakage",
+   "o": "lena-fischer",
+   "quote": "Lena Fischer rejected it as leakage.",
+   "line": 5
+  },
+  {
+   "s": "score-date",
+   "type": "part-of",
+   "label": "column of",
+   "o": "bureau.scores_monthly",
+   "quote": "From `bureau.scores_monthly`, take the score with `score_date`",
+   "line": 5
+  },
+  {
+   "s": "bureau-score-30d-rule",
+   "type": "uses",
+   "label": "takes score from",
+   "o": "bureau.scores_monthly",
+   "quote": "From `bureau.scores_monthly`, take the score",
+   "line": 5
+  },
+  {
+   "s": "bureau-score-30d-rule",
+   "type": "uses",
+   "label": "takes score with",
+   "o": "score-date",
+   "quote": "take the score with `score_date` at least 30 days before `observation_date`",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/bureau-score-pull-timing.md",
+ "sha": "ec7647ba2b5b6d38e78546bed4eee3660029a5718819e025b6b501b1e45cdb3c",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

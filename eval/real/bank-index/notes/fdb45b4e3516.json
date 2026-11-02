@@ -1,0 +1,69 @@
+{
+ "kind": "preference",
+ "entities": [
+  {
+   "id": "yuki-tanaka",
+   "type": "person",
+   "label": "person",
+   "as": [
+    "Yuki Tanaka",
+    "Yuki"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "cx-finding",
+   "type": "other",
+   "label": "finding type",
+   "as": [
+    "CX finding",
+    "customer-experience finding"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "`callcenter.calls`"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "yuki-tanaka",
+   "type": "other",
+   "label": "wants",
+   "o": "cx-finding",
+   "quote": "Yuki Tanaka wants each CX finding backed by at most two verbatim call quotes with call IDs",
+   "line": 4
+  },
+  {
+   "s": "cx-finding",
+   "type": "uses",
+   "label": "cites quotes from",
+   "o": "callcenter.calls",
+   "quote": "cites up to two verbatim quotes from `callcenter.calls`, each with its call ID",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "prefs/yuki-tanaka-verbatim-quotes.md",
+ "sha": "fdb45b4e35168dcdfba7853fbb2b7e510a95425648d979adad8cac6717ee205f",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

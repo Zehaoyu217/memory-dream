@@ -1,0 +1,106 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "feat-disp-reason-text",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-disp-reason-text"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "ds-disp-analyst-labels",
+   "type": "dataset",
+   "label": "two-analyst labels",
+   "as": [
+    "two-analyst labels"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "precision-at-0.90",
+   "type": "metric",
+   "label": "precision",
+   "as": [
+    "Precision@0.90"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "coverage",
+   "type": "metric",
+   "label": "coverage",
+   "as": [
+    "21% coverage"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "lightgbm",
+   "type": "uses",
+   "label": "model on",
+   "o": "feat-disp-reason-text",
+   "quote": "Model: LightGBM on feat-disp-reason-text only.",
+   "line": 7
+  },
+  {
+   "s": "lightgbm",
+   "type": "evaluated-on",
+   "label": "cross-validated on",
+   "o": "ds-disp-analyst-labels",
+   "quote": "5-fold cross-validation on two-analyst labels",
+   "line": 6
+  },
+  {
+   "s": "lightgbm",
+   "type": "measured-by",
+   "label": "precision at 0.90",
+   "o": "precision-at-0.90",
+   "quote": "Precision@0.90 84.0%",
+   "line": 7
+  },
+  {
+   "s": "lightgbm",
+   "type": "measured-by",
+   "label": "coverage",
+   "o": "coverage",
+   "quote": "coverage 21%",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-302"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "dispute-triage/exp-301.md",
+ "sha": "db1847167864eb4c7706e0ed03258357ab647f2348f98d28b44188913e697844",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

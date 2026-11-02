@@ -1,0 +1,117 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "deck",
+   "type": "document",
+   "label": "board decks",
+   "as": [
+    "Board decks"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ben-carter",
+   "type": "person",
+   "label": "finance signatory",
+   "as": [
+    "Ben Carter"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ledger-reconciliation",
+   "type": "document",
+   "label": "reconciliation",
+   "as": [
+    "ledger reconciliation",
+    "the reconciliation table"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "board-pack",
+   "type": "document",
+   "label": "board pack",
+   "as": [
+    "board pack"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "finance-ledger",
+   "type": "other",
+   "label": "finance ledger",
+   "as": [
+    "the finance ledger"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "main-deck",
+   "type": "document",
+   "label": "main deck",
+   "as": [
+    "the main deck"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "deck",
+   "type": "other",
+   "label": "reconciled to",
+   "o": "finance-ledger",
+   "quote": "Every board figure is reconciled to the finance ledger",
+   "line": 5
+  },
+  {
+   "s": "ledger-reconciliation",
+   "type": "part-of",
+   "label": "last slide of",
+   "o": "main-deck",
+   "quote": "the reconciliation table is the last slide of the main deck",
+   "line": 5
+  },
+  {
+   "s": "ledger-reconciliation",
+   "type": "owned-by",
+   "label": "signed by",
+   "o": "ben-carter",
+   "quote": "Ben Carter signs the reconciliation, not the analysis",
+   "line": 6
+  },
+  {
+   "s": "board-pack",
+   "type": "other",
+   "label": "blocked by unsigned",
+   "o": "ledger-reconciliation",
+   "quote": "an unsigned reconciliation blocks the board pack",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/sign-off-finance-recon.md",
+ "sha": "b6b54792d4b4c11234fcc925bb1ef2ed0dbdea96587943271d40a89a80aa13ad",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

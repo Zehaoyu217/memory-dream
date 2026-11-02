@@ -1,0 +1,126 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-app-cutoff-v3",
+   "type": "other",
+   "label": "cutoff decision",
+   "as": [
+    "Decision: approval cutoff score 585 on the v3 points scale for new accounts"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "app-scorecard-v3",
+   "type": "model",
+   "label": "scorecard",
+   "as": [
+    "app-scorecard-v3"
+   ],
+   "lines": [
+    2,
+    6
+   ]
+  },
+  {
+   "id": "ds-app-applications-2024",
+   "type": "dataset",
+   "label": "application base",
+   "as": [
+    "the 2024 base"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "decision owner",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bad-rate",
+   "type": "metric",
+   "label": "bad rate",
+   "as": [
+    "4.6% bad rate"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-app-cutoff-v4",
+   "type": "other",
+   "label": "later decision",
+   "as": [
+    "dec-app-cutoff-v4"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-app-cutoff-v3",
+   "type": "uses",
+   "label": "set with",
+   "o": "app-scorecard-v3",
+   "quote": "Set by Lena Fischer on 2025-08-14 with app-scorecard-v3",
+   "line": 6
+  },
+  {
+   "s": "dec-app-cutoff-v3",
+   "type": "owned-by",
+   "label": "set by",
+   "o": "lena-fischer",
+   "quote": "Set by Lena Fischer on 2025-08-14",
+   "line": 6
+  },
+  {
+   "s": "dec-app-cutoff-v3",
+   "type": "evaluated-on",
+   "label": "giving 61% approvals in",
+   "o": "ds-app-applications-2024",
+   "quote": "giving 61% approvals and a 4.6% bad rate in the 2024 base",
+   "line": 6
+  },
+  {
+   "s": "dec-app-cutoff-v3",
+   "type": "measured-by",
+   "label": "gives bad rate",
+   "o": "bad-rate",
+   "quote": "a 4.6% bad rate in the 2024 base",
+   "line": 6
+  },
+  {
+   "s": "dec-app-cutoff-v4",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "dec-app-cutoff-v3",
+   "quote": "Superseded by dec-app-cutoff-v4 (2026-10-27)",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "application-scorecard/dec-app-cutoff-v3.md",
+  "dec-app-cutoff-v4"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "application-scorecard/dec-app-cutoff-v3.md",
+ "sha": "98ba3a5844034f0e4c8cfbba876a1935de2c8fd461275b3d3cacf7edd24e0404",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

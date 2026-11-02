@@ -1,0 +1,105 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "cb.spend_panel",
+   "type": "dataset",
+   "label": "monthly spend panel",
+   "as": [
+    "`cb.spend_panel`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "finance-analytics",
+   "type": "team",
+   "label": "owner",
+   "as": [
+    "finance analytics"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "data-eng-cards",
+   "type": "team",
+   "label": "co-owner",
+   "as": [
+    "data-eng-cards"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "avg-monthly-spend",
+   "type": "metric",
+   "label": "average spend",
+   "as": [
+    "Average monthly spend"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cb.spend_panel",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards.txn_daily",
+   "quote": "Built by `cb_spend_panel.sql` from `cards.txn_daily`",
+   "line": 6
+  },
+  {
+   "s": "cb.spend_panel",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "finance-analytics",
+   "quote": "Owner: finance analytics",
+   "line": 6
+  },
+  {
+   "s": "cb.spend_panel",
+   "type": "owned-by",
+   "label": "with",
+   "o": "data-eng-cards",
+   "quote": "with data-eng-cards (Tomas Rivera)",
+   "line": 6
+  },
+  {
+   "s": "cb.spend_panel",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "avg-monthly-spend",
+   "quote": "Average monthly spend $1,240, median $760",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "cb_spend_panel.sql"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/ds-cb-spend-panel.md",
+ "sha": "9549ebe221262a62e662c23a4f699ad493a275873ed08de3c9d1ed9581c06af8",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

@@ -1,0 +1,117 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "cb-uplift-v1",
+   "type": "model",
+   "label": "t-learner",
+   "as": [
+    "cb-uplift-v1: T-learner predicting incremental monthly spend per account from the tier pilot"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cb-sim-v1",
+   "type": "other",
+   "label": "simulation",
+   "as": [
+    "Used to rank accounts for tier offers in cb-sim-v1."
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-cb-pilot-2025q4",
+   "type": "dataset",
+   "label": "tier pilot",
+   "as": [
+    "the tier pilot"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-cb-spend-base",
+   "type": "feature",
+   "label": "spend features",
+   "as": [
+    "spend level, grocery share and tenure"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-cb-grocery-share",
+   "type": "feature",
+   "label": "grocery share",
+   "as": [
+    "grocery share"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift@20%",
+   "as": [
+    "Uplift@20% is 1.9x the average incremental spend"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cb-uplift-v1",
+   "type": "trained-on",
+   "label": "fit on pilot",
+   "o": "ds-cb-pilot-2025q4",
+   "quote": "Two outcome models (tier A cell vs control) on spend level, grocery share and tenure.",
+   "line": 6
+  },
+  {
+   "s": "cb-uplift-v1",
+   "type": "uses",
+   "label": "uses features",
+   "o": "feat-cb-spend-base",
+   "quote": "Two outcome models (tier A cell vs control) on spend level, grocery share and tenure.",
+   "line": 6
+  },
+  {
+   "s": "cb-uplift-v1",
+   "type": "uses",
+   "label": "uses grocery share",
+   "o": "feat-cb-grocery-share",
+   "quote": "grocery share",
+   "line": 6
+  },
+  {
+   "s": "cb-uplift-v1",
+   "type": "measured-by",
+   "label": "reports uplift",
+   "o": "uplift-at-20",
+   "quote": "Uplift@20% is 1.9x the average incremental spend on a 30% split of the pilot (n=16,200).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "cashback-redesign/cb-uplift-v1.md",
+  "cb-sim-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/cb-uplift-v1.md",
+ "sha": "53212da29ac431aa32b550c9a9449239ada3f972a0dc98ff750410f3ea6b0403",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:14:53"
+}

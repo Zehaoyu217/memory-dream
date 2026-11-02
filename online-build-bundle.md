@@ -639,7 +639,7 @@ or to a fresh worker given the packet, at most twice. After that, it stops and r
 
 ## Appendix A — the contract surface, verbatim: `skills/memory-dream/SKILL.md` and the dreamer agent
 
-_Part 5 · copied at commit 102cbc0. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
+_Part 5 · copied at commit 5a28021. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
 
 ```markdown
 ---
@@ -658,7 +658,8 @@ truth; everything else is derived and disposable. `memory.py` = `python3 <this s
    Per question it prints `line: text` under `▸ path · kind · date · from … · SUPERSEDED → newer`; a small memory is
    printed whole, each question pointing at its notes. SUPERSEDED → a → b is history: the last named is current. For a
    task it adds the preferences and house rules that apply — follow them, or say why not. `(weak match …)` names a word
-   found nowhere: rephrase. Name the area or an id when you know it; it scopes the search. At most one batched
+   found nowhere: rephrase. Ask about inputs or users ("what does X use", "what uses X") and the notes two steps out come
+   along as one-line pointers: no second call for them. Name the area or an id when you know it; it scopes the search. At most one batched
    follow-up: `ask` with sharper words, plain `grep -rn … memory/`, or read a printed line.
 2. **Write as you go.** One note per thing, in `memory/<project>/`, or for what spans projects in `prefs/`,
    `reporting/`, `glossary/`, `corrections/`, `howto/`, `qa/`, `people/`. The filename is the id; a prefix from
@@ -713,7 +714,7 @@ Touch nothing else.
 
 ## Appendix B — the graph contract, verbatim: `.specs/memory-dream/CONTRACT.md`
 
-_Part 6 · copied at commit 102cbc0. Schema 1; `memory.py check` validates against it (A38)._
+_Part 6 · copied at commit 5a28021. Schema 1; `memory.py check` validates against it (A38)._
 
 ## memory-dream — the graph contract (schema 1)
 
@@ -882,7 +883,7 @@ nothing (C13 reports it and the readings fall back to `other/<word>`); merging i
 
 ## Appendix C — the build guide, verbatim: `BUILD-GUIDE.md` §3–§10
 
-_Part 7 · copied at commit 102cbc0. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
+_Part 7 · copied at commit 5a28021. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
 
 ### 3. The design in one page
 
@@ -1395,7 +1396,7 @@ Taste retrieval (fresh tasks, recall of the gold notes): the person's preference
 
 ## Appendix D — prompts, seeds and tuned tables, verbatim from `memory.py`
 
-_Part 8 · extracted at commit 102cbc0 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
+_Part 8 · extracted at commit 5a28021 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
 
 ### D.1 `EXTRACT` — the per-note prompt: fixed guidance, then `KINDS:`, `TYPES:`, `EDGES:` and `KNOWN:` from the registries (the static part is cached), then `NOTE`
 
@@ -1848,7 +1849,10 @@ drop: number, date, file, notebook, note, line, page, link
   "route_near": 0.9,
   "route_areas": 8,
   "route_floor": 0.6,
-  "lineage_lines": 4
+  "lineage_lines": 4,
+  "relation_lines": 8,
+  "relation_mode": "inputs",
+  "relation_hops": 2
  },
  "PROMOTE": [
   5,

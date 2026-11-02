@@ -1,0 +1,77 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "dormant-pool",
+   "type": "segment",
+   "label": "dormant pool",
+   "as": [
+    "Dormant pool",
+    "dormant pool"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-rdm-balance-band",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rdm-balance-band"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dormant-pool",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards.txn_daily",
+   "quote": "built from `cards.txn_daily` last transaction dates",
+   "line": 6
+  },
+  {
+   "s": "feat-rdm-balance-band",
+   "type": "uses",
+   "label": "residual balance from",
+   "o": "cards.accounts_monthly",
+   "quote": "Residual balance comes from `cards.accounts_monthly` and feeds feat-rdm-balance-band.",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reactivation-dormant/ds-rdm-dormant-pool.md",
+ "sha": "fe50a012a5fa40a51fd3ffc42fc586503e58a61fa6545edbf0734c8f2381e07c",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

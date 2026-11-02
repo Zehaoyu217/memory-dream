@@ -1,0 +1,128 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "champion-challenger",
+   "type": "term",
+   "label": "process",
+   "as": [
+    "champion-challenger"
+   ],
+   "lines": [
+    3,
+    5
+   ]
+  },
+  {
+   "id": "score-gbm-v5",
+   "type": "model",
+   "label": "challenger",
+   "as": [
+    "score-gbm-v5 challenger"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "check",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "fairness-check",
+   "type": "policy",
+   "label": "fairness check",
+   "as": [
+    "fairness check"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "omar-haddad-compliance-team",
+   "type": "team",
+   "label": "compliance team",
+   "as": [
+    "Omar Haddad's compliance team"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "+0.01 AUC"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "champion-challenger",
+   "type": "uses",
+   "label": "must pass",
+   "o": "ks",
+   "quote": "must pass KS and the fairness check",
+   "line": 6
+  },
+  {
+   "s": "champion-challenger",
+   "type": "uses",
+   "label": "must pass",
+   "o": "fairness-check",
+   "quote": "must pass KS and the fairness check",
+   "line": 6
+  },
+  {
+   "s": "fairness-check",
+   "type": "owned-by",
+   "label": "run by",
+   "o": "omar-haddad-compliance-team",
+   "quote": "the fairness check run by Omar Haddad's compliance team",
+   "line": 6
+  },
+  {
+   "s": "score-gbm-v5",
+   "type": "measured-by",
+   "label": "showed",
+   "o": "auc",
+   "quote": "showed +0.01 AUC after two weeks in Sept 2024",
+   "line": 7
+  },
+  {
+   "s": "score-gbm-v5",
+   "type": "other",
+   "label": "not promoted",
+   "o": "champion-challenger",
+   "quote": "was not promoted",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "glossary/champion-challenger"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "corrections/champion-challenger-8wk.md",
+ "sha": "87676024febc98b85cd47b7dc3bc4771b7e6495ad7b12b32a4d439bdd5b9bce4",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

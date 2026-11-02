@@ -1,0 +1,86 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "cards.disputes",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.disputes"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "dispute-case-id",
+   "type": "feature",
+   "label": "column",
+   "as": [
+    "dispute_case_id"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "open-date",
+   "type": "feature",
+   "label": "column",
+   "as": [
+    "open_date"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fraud-dashboard",
+   "type": "dashboard",
+   "label": "dashboard",
+   "as": [
+    "fraud dashboard"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dispute-case-id",
+   "type": "part-of",
+   "label": "column of",
+   "o": "cards.disputes",
+   "quote": "Count distinct `dispute_case_id`",
+   "line": 5
+  },
+  {
+   "s": "open-date",
+   "type": "part-of",
+   "label": "column of",
+   "o": "cards.disputes",
+   "quote": "take the first `open_date` as the event date",
+   "line": 5
+  },
+  {
+   "s": "fraud-dashboard",
+   "type": "uses",
+   "label": "counted rows from",
+   "o": "cards.disputes",
+   "quote": "The fraud dashboard counted rows until August 2025",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/dedupe-disputes-by-case.md",
+ "sha": "3228de46a833ea9799b30cee53fda3a3dca35afae6ed8543944c06a9512f618c",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

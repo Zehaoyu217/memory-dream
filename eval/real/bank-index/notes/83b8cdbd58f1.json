@@ -1,0 +1,112 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "t-learner",
+   "type": "model",
+   "label": "uplift model",
+   "as": [
+    "T-learner",
+    "Prototype uplift model"
+   ],
+   "lines": [
+    5,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "cli-xgb-v1",
+   "type": "model",
+   "label": "propensity baseline",
+   "as": [
+    "cli-xgb-v1"
+   ],
+   "lines": [
+    2,
+    7
+   ]
+  },
+  {
+   "id": "cli-rct-2025q3",
+   "type": "dataset",
+   "label": "randomised exposure set",
+   "as": [
+    "cli-rct-2025q3"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift at 20%",
+   "as": [
+    "Uplift@20%"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-cli-outcome-90d",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "ds-cli-outcome-90d"
+   ],
+   "lines": [
+    2
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "t-learner",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "uplift-at-20",
+   "quote": "Uplift@20%: 1.9 for the T-learner",
+   "line": 8
+  },
+  {
+   "s": "cli-xgb-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "uplift-at-20",
+   "quote": "Uplift@20%: 1.9 for the T-learner, 1.3 for propensity",
+   "line": 8
+  },
+  {
+   "s": "t-learner",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "cli-rct-2025q3",
+   "quote": "scored on the randomised exposure set cli-rct-2025q3 (n=36,000, 50/50 split)",
+   "line": 6
+  },
+  {
+   "s": "t-learner",
+   "type": "other",
+   "label": "beats",
+   "o": "cli-xgb-v1",
+   "quote": "T-learner uplift beats propensity at 20% targeting",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "find-cli-uplift-wins",
+  "cli-xgb-v1",
+  "ds-cli-outcome-90d"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/exp-102.md",
+ "sha": "83b8cdbd58f10d37bb3d09bfae2050ebf02ad4b1b2bafa5f3ae6a8962a37769d",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

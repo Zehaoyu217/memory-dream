@@ -1,0 +1,118 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "cli-test-2025q1",
+   "type": "dataset",
+   "label": "test cohort",
+   "as": [
+    "cli-test-2025q1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "revolvers",
+   "type": "segment",
+   "label": "cohort",
+   "as": [
+    "revolvers"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "full-payers",
+   "type": "segment",
+   "label": "cohort",
+   "as": [
+    "full-payers"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "90-day-loss",
+   "type": "metric",
+   "label": "loss",
+   "as": [
+    "90-day loss"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "minimum-pay-share",
+   "type": "metric",
+   "label": "share",
+   "as": [
+    "minimum-pay share"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "revolvers",
+   "type": "part-of",
+   "label": "split of",
+   "o": "cli-test-2025q1",
+   "quote": "Split of cli-test-2025q1 (n=60,000)",
+   "line": 6
+  },
+  {
+   "s": "full-payers",
+   "type": "part-of",
+   "label": "split of",
+   "o": "cli-test-2025q1",
+   "quote": "Split of cli-test-2025q1 (n=60,000)",
+   "line": 6
+  },
+  {
+   "s": "revolvers",
+   "type": "measured-by",
+   "label": "90-day loss",
+   "o": "90-day-loss",
+   "quote": "90-day loss: revolvers 2.1%",
+   "line": 7
+  },
+  {
+   "s": "full-payers",
+   "type": "measured-by",
+   "label": "90-day loss",
+   "o": "90-day-loss",
+   "quote": "full-payers 1.1%",
+   "line": 7
+  },
+  {
+   "s": "revolvers",
+   "type": "other",
+   "label": "defined by",
+   "o": "minimum-pay-share",
+   "quote": "revolver means minimum-pay share above 0.5",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "feat-cli-pay-behaviour",
+  "ds-cli-outcome-90d",
+  "find-cli-revolver-loss"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/exp-105.md",
+ "sha": "508015d4125a79145818da61848bf72496ac1e41fd19edb7d04b73669e351d12",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

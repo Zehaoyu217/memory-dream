@@ -1,0 +1,93 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "mrisk-gbm-v2",
+   "type": "model",
+   "label": "v2",
+   "as": [
+    "v2",
+    "mrisk-gbm-v2"
+   ],
+   "lines": [
+    2,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "mrisk-oot-2026h1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "mrisk-oot-2026h1"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.86"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "precision-at-100",
+   "type": "metric",
+   "label": "precision@100",
+   "as": [
+    "precision@100 0.43"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mrisk-gbm-v2",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "mrisk-oot-2026h1",
+   "quote": "Eval set: mrisk-oot-2026h1",
+   "line": 6
+  },
+  {
+   "s": "mrisk-gbm-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "mrisk-gbm-v2: AUC 0.86",
+   "line": 7
+  },
+  {
+   "s": "mrisk-gbm-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "precision-at-100",
+   "quote": "precision@100 0.43",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-506",
+  "ds-mrisk-merchant-month"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "merchant-risk/exp-505.md",
+ "sha": "5a54fef56ff4b98a584ea8cb7d6dc491d9b90a9c04475e011bf6c41d669af09e",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}

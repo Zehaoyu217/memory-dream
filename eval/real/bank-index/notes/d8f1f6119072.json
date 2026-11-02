@@ -1,0 +1,225 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "clv-ml-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "clv-ml-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "clv-ml-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "clv-ml-v1"
+   ],
+   "lines": [
+    2,
+    4
+   ]
+  },
+  {
+   "id": "feat-clv-arpu-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "arpu v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-clv-hazard",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "retention hazard"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "tenure-feature",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "tenure"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "loss-rate",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "loss rate"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "clv-cohorts-2019-2021",
+   "type": "segment",
+   "label": "cohorts",
+   "as": [
+    "2019 to 2021 cohorts"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "clv-oot-2021h1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "clv-oot-2021h1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "finance",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "finance"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "marketing",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "marketing"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "clv-ml-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "clv-ml-v1",
+   "quote": "supersedes: [clv-ml-v1]",
+   "line": 4
+  },
+  {
+   "s": "clv-ml-v2",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-clv-arpu-v2",
+   "quote": "Features: arpu v2",
+   "line": 7
+  },
+  {
+   "s": "clv-ml-v2",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-clv-hazard",
+   "quote": "Features: arpu v2, retention hazard",
+   "line": 7
+  },
+  {
+   "s": "clv-ml-v2",
+   "type": "uses",
+   "label": "features",
+   "o": "tenure-feature",
+   "quote": "tenure, loss rate",
+   "line": 7
+  },
+  {
+   "s": "clv-ml-v2",
+   "type": "uses",
+   "label": "features",
+   "o": "loss-rate",
+   "quote": "loss rate",
+   "line": 7
+  },
+  {
+   "s": "clv-ml-v2",
+   "type": "trained-on",
+   "label": "trained on",
+   "o": "clv-cohorts-2019-2021",
+   "quote": "trained on 2019 to 2021 cohorts",
+   "line": 7
+  },
+  {
+   "s": "clv-ml-v2",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "clv-oot-2021h1",
+   "quote": "Holdout clv-oot-2021h1 (n=318,400): MAPE 15.2%.",
+   "line": 8
+  },
+  {
+   "s": "clv-ml-v2",
+   "type": "measured-by",
+   "label": "MAPE 15.2%",
+   "o": "mape",
+   "quote": "Holdout clv-oot-2021h1 (n=318,400): MAPE 15.2%.",
+   "line": 8
+  },
+  {
+   "s": "clv-ml-v2",
+   "type": "other",
+   "label": "current model for",
+   "o": "finance",
+   "quote": "Current CLV model for finance and marketing",
+   "line": 9
+  },
+  {
+   "s": "clv-ml-v2",
+   "type": "other",
+   "label": "current model for",
+   "o": "marketing",
+   "quote": "Current CLV model for finance and marketing",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "exp-505",
+  "clv-ml-v1",
+  "feat-clv-arpu-v2",
+  "feat-clv-hazard",
+  "dec-clv-ship-ml-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "customer-lifetime-value/clv-ml-v2.md",
+ "sha": "d8f1f61190729fe141f081028028d52b6ab106b7f939bbb90227dfa46923e865",
+ "model": "python3 /home/user/memory-dream/tests/haiku_cmd.py",
+ "indexed_at": "2026-11-02T14:26:30"
+}
