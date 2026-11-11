@@ -70,7 +70,7 @@ between two machines with the same code, the same notes and the same index. Two 
 | software gate: gold · numbers | 1.00 · 1.00 | 1.00 · 1.00 | the same |
 | bank-index gate: gold · numbers · characters | 0.941 · 0.978 · 2,598 | 0.941 · 0.978 · 2,599 | the same |
 | bank-index gate, alias: macOS | 0.816 to 0.818 | 0.818 | 0.821 |
-| bank-index gate, alias: Linux (CI) | 0.821 | 0.819 | see the handoff |
+| bank-index gate, alias: Linux (CI) | 0.821 | 0.819 | 0.821 |
 | routed path: alias questions with their gold note (719) | 556 to 558 | 558 | 560 |
 | tasks with every gold note headed (104) | 19 | 21 | 21 |
 | `eval/taste/score.py`, tasks: preferences · house rules | 102/109 · 104/218 | 103/109 · 105/218 | the same |
@@ -81,6 +81,11 @@ between two machines with the same code, the same notes and the same index. Two 
 
 Fixes 1 and 2 move no number in this table; fix 3 moves the task rows, up by one or two notes; fix 4 moves the alias
 row, because it changes which note 19 things point at. The gold notes of the 326 bank questions never moved.
+
+After the five, the two machines print the same line for all three gates, digit for digit: CI on d725562 (Linux, GNU
+grep, Python 3.13) and the Mac (BSD grep, Python 3.9.6) both read bank 0.939 · 0.979 · 2,359 characters, software
+1.00 · 1.00 · 1,568, bank-index 0.941 · 0.978 · 2,599 · alias 0.821, stale 0.962 / 1.0, absence 1.0. That the alias
+figure lands on phase I's 0.821 is chance: phase I's came from one checkout's file times.
 
 A42 holds all five: seven notes with one score for six lineage seeds print the same under three hash seeds, with
 grep's files listed forwards, backwards and as found, and with no grep; a task gets the same preferences beside another

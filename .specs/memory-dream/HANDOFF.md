@@ -163,7 +163,8 @@ seed, on the order grep listed the files in, and for tasks on the other question
 the next CI run still read 0.819 on Linux against 0.818 here, which led to two more: a thing's headline note went to
 whichever tied file was modified last (a clone keeps no modification times), and on a machine with no grep the
 registries were answered as notes. RESULTS phase J has the measurements and the five fixes; `eval/stability.py`
-measures the read path and A42 holds all five. The only gated number that moved is alias: 0.821 here now.
+measures the read path and A42 holds all five. Of the gated numbers two moved: alias, 0.821 here and on Linux now,
+and characters per question, up by one.
 
 ### The open list, as it stands
 
@@ -194,6 +195,7 @@ measures the read path and A42 holds all five. The only gated number that moved 
 | `python3 eval/stability.py <bank-index world>` | 0 differences in 1,149 questions, seven variants; the same with `MEMORY_WIDE=100` |
 | `node tests/viz_check.js` | 15/15 |
 | `python3 tests/bundle_refresh.py --check` | fresh |
+| CI on d725562 (Linux, GNU grep, Python 3.9 and 3.13) | green on all six jobs; 40/40 twice; store parity 11/11; every gate line the same as this machine's, digit for digit, alias 0.821 included |
 
 On this machine the old local worktree `.claude/worktrees/build-v0.4` is still at 904fe5e, 36 commits behind, and holds
 uncommitted outputs of a taste agent run from 2026-10-31 (`eval/taste/collect.py`, `harness.json`, four judge files,
