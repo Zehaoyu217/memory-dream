@@ -184,8 +184,9 @@ and characters per question, up by one.
 | new | a note with no date of its own is dated by its file, so by the day of the clone (RESULTS J3; README Limits) |
 | new | BSD grep took twice as long as the Python matcher on this Mac (49 s against 22 s for 1,149 questions): not looked into |
 
-What comes next is in `PLAN.md` (v0.5, eleven blocks, six milestones) with its materials in `RESEARCH-2026-11.md`.
-Items 6 and 7 of the list above and the three "new" rows are folded into it (blocks B3, B2, B9, B1 and B9).
+What comes next was first drafted as `PLAN.md` at commit e78eb8f (v0.5, eleven blocks, six milestones) with its
+materials in `RESEARCH-2026-11.md`. That draft was grilled and rewritten the same day: see "The plan, second draft"
+at the end of this file.
 
 ### Verified at the end of this session
 
@@ -204,3 +205,34 @@ On this machine the old local worktree `.claude/worktrees/build-v0.4` is still a
 uncommitted outputs of a taste agent run from 2026-10-31 (`eval/taste/collect.py`, `harness.json`, four judge files,
 `runs/`, `usage-T.jsonl`, and small fixes to `eval/a21/extract.py` and `eval/taste/summarize.py`). They are committed
 on this branch now (RESULTS J5), so that worktree holds nothing that exists nowhere else and can be removed.
+
+### The plan, grilled (2026-11-11, later the same day)
+
+The owner answered the first draft with ten points and then six more (`PLAN.md` §1): an open contract, a base that
+an agent sets up, a drop that reaches what came from a note, absorbing other knowledge bases, retrieval first,
+nothing over-engineered; then the work on Haiku 5.5 under the 100K-token line with the claims base's reading
+method, pointers into code, a note being whatever an agent wrote, dedup by agents and no fuzzy matching, and the
+bar of an Opus agent with grep. The draft was grilled against those points and the code that ships (rev 2),
+attacked by an independent reviewer, and rewritten again (rev 3). No shipped code changed.
+
+| file | what it is now |
+|---|---|
+| `PLAN.md` | rev 3: what the measurements say, how it works, who does the work on which model, three steps |
+| `CONTRACT-2.md` | the draft of schema 2 that goes with it |
+| `eval/contract_probe.py`, `eval/absorb/policy-kb/` | drop, copy-in, absorb, documents, sets: under a minute, no model |
+| `eval/agent/arms.py`, `runs/H-*.md`, `usage-H.jsonl`, `judge-H.json`, `make_haiku_arm.py`, `askfull.py` | five arms on thirty questions: Opus and Haiku, memory and grep, every answer graded twice |
+| `eval/pointer_probe.py` | how long a pointer into code stays right, from git |
+| `eval/decompose_probe.py`, `eval/real/handoff-claims/` | a handoff decomposed by Haiku 5.5 and gated in code |
+| `RESULTS.md` phase K | all of the above |
+| `README.md` Results and Limits | the re-grading of phase G's tie; a deleted note cuts its chain and crashes `ask` on a big memory; a list question gets part of its set; `ask`'s silence taken for absence |
+
+Where it stands: waiting for the owner's answers in `PLAN.md` §15. Step 0 is two defects of v0.4 (the crash and
+the cut chain) and step 1 needs no model.
+
+Spent on models in this pass: nine Haiku 5.5 subagents for the arms, one for the decomposition, thirty judge calls
+and one long independent review. No Opus arm was run.
+
+The loose ends the first draft had folded in stay open here: items 6 (note kinds named as thing types) and 7 (the
+pool of calls fed continuously) fit step 2, when the bank is read again anyway; the three "new" rows of the table
+above (lines under a note depending on the other questions of the call, a note dated by its file, BSD grep slower
+than the Python matcher) are small fixes of their own.

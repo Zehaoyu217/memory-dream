@@ -1,394 +1,387 @@
-# memory-dream v0.5 — the plan: a general memory and knowledge graph, built in blocks
+# memory-dream v0.5 — the plan, third draft: the script does exact work, cheap agents read, one contract
 
-2026-11-11 · written to be argued with before anything is built · materials behind it: `RESEARCH-2026-11.md` (SAG2,
-OpenViking, the owner's claims base, and what plain graph methods find in our own graph today) · starting state: `HANDOFF.md`,
-`RESULTS.md` phases A–J.
+2026-11-11 · rev 3. The first draft (commit e78eb8f) was grilled against the owner's ten points and against the
+code that ships (rev 2). The owner then added six points, an independent reviewer attacked rev 2 with twenty
+experiments, and four more measurements were made. This draft is what survived. Nothing is built yet.
+
+The contract field by field is `CONTRACT-2.md`. Every number has a command, all without a model:
+`python3 eval/contract_probe.py <bank-index world>` (drop, absorb, documents, sets), `python3 eval/agent/arms.py`
+(the five arms), `python3 eval/pointer_probe.py`, `python3 eval/decompose_probe.py score …`. RESULTS phase K has them.
 
 ## 1. What is asked
 
-Grow the project memory into a general memory and knowledge graph, slowly, without losing what makes it work:
+The owner, 2026-11-11, first message:
 
-- **Writers** (agents, people) leave notes. A note is a claim with its evidence.
-- **Keepers** (cheap model passes) distil from the notes the things they name, the links between them, tags, and what
-  each thing is and is not.
-- A **taxonomy** of thing types, link types and tags that is not fixed: it grows from the words the notes use and is
-  tidied behind the scenes by merging, mapping, declaring how terms relate, and de-duplicating.
-- A **contract loose enough** that a graph built by this skill for another project, memory or body of knowledge can
-  be merged in.
-- **Graph methods and plain engineering** to find conflicts, loose ends, and equivalent parts that can be combined.
-- **Governance**: every assertion rests on evidence, and every change of meaning leaves a record.
-- All of it **light**, and each stage a **block** that can be swapped for another solution or upgraded alone.
+1. A contract open enough, and blocks separate enough, for plug-ins later.
+2. Notes, entities, edges, tags, definitions: some mandatory, some optional.
+3. Absorb the output of other knowledge bases in general.
+4. Several uses: memory, a project, tracking, a knowledge graph, lineage.
+5. Very simple. Easy to see how it works.
+6. A skill an agent operates. It does the detective work on the materials and sets up writers, keepers and the
+   starting vocabulary.
+7. Drop a note and what came from it is dropped too.
+8. Retrieval easier, faster, cheaper, simpler: the point of it all.
+9. A page to look at, with search that needs no agent.
+10. No over-engineering, few tests. The end-to-end result and the performance are what count.
 
-## 2. The picture
+Added the same day:
 
-```
- writers ──▶ NOTES (claims) ──▶ keeper reads ──▶ READINGS (raw words + quotes)     TRUTH    never edited; keyed by content
-                                                     │
-        REGISTRIES  kinds · thing types · link types · tags                        MEANING  small text files; changed by
-        CONTRACTS   what a thing is / is not, its anchors and near-misses                   the keeper, by rules, by people;
-        VERDICTS    which mention belongs to which thing                                    every change has a ledger line
-        DECISIONS   the ledger: who, what, on what evidence, how to undo
-                                                     │   merge: no model call
-                                                     ▼
- other graphs ──▶ mount / merge ──▶  GRAPH  things · links · lineage · findings     DERIVED  disposable; rebuilt from the
-                                       │            │                                        two planes above
-                    ask · digest · viewer · stores  └─▶ analysis ─▶ QUEUE ─▶ keeper / person ─▶ DECISIONS
-```
+11. The reading uses the method of the owner's claims base, and caching.
+12. Mostly Haiku 5.5, tuned to the 100K-token line below which it is cheapest. The agent that plans and investigates
+    may be Opus; the heavy work is parallel and goes to Haiku.
+13. Some memory of a codebase too: pointers.
+14. The bar: much cheaper and faster than an Opus agent with grep and glob, at similar answer quality.
+15. A note is whatever an agent wrote. The requirement on it is light: complete enough to be read alone. What agents
+    write (notes, comments, handoffs) decomposes into notes.
+16. Entities and edges are deduplicated, edges have a direction, entities have definitions, a definition can be part
+    of a tag. Fuzzy matching is the wrong tool: dedup and merging are done by agents.
 
-Three planes, taken from the claims base's rule that truth and meaning never share a record: what a note says (truth) is read
-once and kept in the keeper's own words; what those words mean (meaning) lives in small files that can change any
-day; the graph (derived) is recomputed from the two with no model call. v0.4 already works this way for types of
-things and links. The plan extends the same split to tags, to the identity of things, and to more than one graph.
-It is also what makes a merge cheap: another graph's readings come along with their notes, and only the meaning
-plane has to be reconciled.
+## 2. What the measurements say
 
-## 3. Where we start
+### The bar of point 14, measured for the first time
 
-v0.4 has a first version of most blocks.
+The agent eval of phase G had Opus on both arms. On 2026-11-11 the same thirty questions were given to Haiku 5.5
+agents with the same prompts, and every answer, the Opus ones included, was graded twice by the same judge.
 
-| stage | what exists today | measured |
-|---|---|---|
-| write | one note per thing; the `# ` line is the claim; `from`, `supersedes`, `updated`; kinds from the filename prefix (SKILL.md) | an agent session saved as 8 notes, 3 supersessions, none rewritten |
-| keep: read | one cheap-model reading per note content, cached by hash: kind, things (id, type word, the note's own word, surface forms), links (type word, label, quote); what the note does not contain is dropped (C4) | $0.0016 a note; 94 ungrounded items dropped on the bank |
-| keep: vocabulary | three registries (`KINDS.md`, `TYPES.md`, `EDGES.md`): a definition, aliases, a family and a `not:` per term; other words kept as `other/<word>`; a bar, a budget, probation; the review maps or drops | 14 link types carry 81% of the links; 493 raw link words carry the rest and 62 raw type words 6% of the things |
-| keep: identity | folded ids, a surface rule, `ALIASES.md` (`=`, `not:`), same/different answers on name-alike pairs | 3,216 ids as written → 1,325 things |
-| graph | notes, lineage, things, links with `path:line` evidence; schema 1; JSON and SQLite; rebuilt with no call | 1,677 notes in 0.9 s |
-| checks | 13 warnings, mostly per note; conflict pairs from shared title words; `CONFLICTS.md` (`>`, `compatible`, `?`) | 5 of the 73 conflict pairs a review judged were real (7%) |
-| use | `ask` (grep first, lineage, aliases, typed links, preferences), the digest, the viewer | gold 0.939 to 0.941; 0.61× the cost of an agent with grep alone |
-| stores | SQLite index; PostgreSQL (tested); Neo4j (written, never run); CSV export | parity 11/11 |
-| proof | 40 checks, three retrieval gates, the stability eval, CI on two Pythons, the same numbers on macOS and Linux | green |
-
-Missing for what is asked: tags; a definition per thing and a record of which mention belongs to which thing; more
-than one graph; any analysis of the graph as a graph; a ledger of decisions; a way to plug a block in.
-
-## 4. What the materials say
-
-Details and sources are in `RESEARCH-2026-11.md`. Nothing from either outside repository was run.
-
-**Both outside systems moved away from a maintained graph this autumn.**
-
-- **SAG2** (Zleap AI, MIT; paper of 2026-10-15, package `zleap-sag2` 0.4.0) is not a knowledge graph. It is the
-  successor of the event-and-entity engine now called SAG1, and it removed the graph: no entities, no relations, no
-  embeddings, only the original passages and a word index, built with no model call. At question time it takes the
-  best 100 passages by BM25, has a hosted, closed model judge each as "necessary evidence", lets the best ten donate
-  rare terms for a second search, and judges again. Its predecessor's identity rule was the lower-cased name, and
-  the team's own review calls its disambiguation broken.
-- **OpenViking** (Volcengine, AGPL-3.0 since 2026-03-30, a running server required) has no graph engine. Its
-  "knowledge graph" is an example skill, a prompt that has a model write `entities/<id>.md` files and one
-  `relations.jsonl`, with evidence only at the level of a source file. It was taken out of the packaged skills on
-  2026-10-29. Its earlier links between contexts were deleted because nothing read them, and its directory-walking
-  retrieval was replaced by one vector search on 2026-10-02. Types, predicates and de-duplication are instructions
-  in a prompt: there is no registry and no gate.
-
-So neither is a graph to plug in, and both confirm the two bets this project already made: search the original
-text first, and keep meaning in something small that can be checked.
-
-| | as the keeper's extractor | as a retriever | as a store | as a source of notes | weight |
+| arm | correct / partial / wrong of 30 (two passes) | tool calls | tokens | $ per ten questions | seconds |
 |---|---|---|---|---|---|
-| SAG2 | no: it extracts nothing | an optional arm to compare against, out of process; a paid closed judge, and the text leaves the machine | no | narrowly: its app's notes carry citations anchored by hash, lines and quote | a 32 MB binary or eleven packages |
-| OpenViking | no | low value: vector recall through its server | a one-way publish target where it already runs | feasible and lossy: its memories are merged cards with no quotes | a server, two models, about sixty packages, AGPL |
+| Opus + grep (the bar) | 29/1/0 and 29/1/0 | 18.7 | 1,742k | 1.546 | 273 |
+| Opus + memory | 22/7/1 and 24/6/0 | 5.7 | 498k | 1.068 | 204 |
+| Haiku + grep | 25/5/0 and 26/4/0 | 8.7 | 485k | 0.0167 | 42 |
+| Haiku + memory | 23/5/2 and 23/6/1 | 5.3 | 293k | 0.0129 | 34 |
+| Haiku + memory, notes printed whole | 23/6/1 and 23/6/1 | 6.3 | 334k | 0.0140 | 38 |
 
-The best fit runs the other way: OpenViking's users are building `entities/` + `relations.jsonl` graphs by hand
-with no merger and no validator, which is what this project is. Reading and writing that shape (B10) makes
-memory-dream the checking layer for a graph someone else's model wrote.
+What it says:
 
-**Taken as ideas, into the blocks.** From SAG2: a second search round keyed by rare terms mined from the best notes
-of the first (B9); "necessary evidence" as the judge's question (B4, B9); evidence anchored by hash and position
-with a state — intact, moved, changed, missing (B2, B8); an alias used only when the literal word finds nothing
-(B9). From OpenViking: the `entities/` + `relations.jsonl` exchange shape, with the line and the quote added (B10);
-a stable key apart from a display label (B3); the judge chooses only among the candidates it is offered, and groups
-are cliques, never transitive closure (B4); an account of what every input became — delivered, failed, unreferenced
-(B8); conflict records kept beside the text they concern (B7).
+- **The model is the lever.** Haiku is 92 to 120 times cheaper and 6 to 8 times faster than Opus with grep. On one
+  model the memory moves the cost by 0.7 to 0.8. "Much cheaper and faster" is met by point 12 alone.
+- **The memory does not yet give "similar quality"; today it costs some.** On both models the grep arm answers
+  better than the memory arm, and only memory arms give a wrong answer. Printing the notes whole changes nothing
+  (23 correct either way), so the cause is not the length of the excerpts.
+- **Why.** The agent answers from what `ask` prints and takes its silence for absence. Three cases, each on these
+  thirty questions: the thing's own note is not headed (why recall@10 is the metric: wrong in all three memory arms,
+  right in both grep arms; `ask` heads twelve notes that use the word and not the note that defines it); one name
+  stands for two things (`holdout-2025q4` is 1.2M accounts in one project and 412,600 rows in a how-to: marked down
+  in three arms, hedged in a fourth); the inputs of a thing come back incomplete (`sfc-hier-v3`: partial in four
+  arms, and only Opus with grep named all four inputs).
+- **The instrument is too coarse.** The judge changed 14 of 150 verdicts between its two passes, and graded the same
+  Opus answers 23/7/0 on both arms ten days ago. Thirty questions and one judge cannot settle "similar" to better
+  than three answers.
 
-**Deliberately not copied.** A remote closed judge on every question; dropping the graph; a closed type list that
-drops what does not fit; identity by lower-cased name; whole files or graphs rewritten by a model; free-text types
-with no gate; entity cards that are edited in place; any AGPL code.
+So the base has one job in v0.5: make a cheap reader as complete as an expensive one that explores. The own note
+first, the whole list of inputs, one thing per name. That is what definitions, edges and dedup are for, and these
+thirty questions already measure it.
 
-## 5. Principles every block keeps
+### What else was measured
 
-1. **Notes are the truth.** Nothing rewrites a note. Everything derived can be thrown away and rebuilt.
-2. **Raw words in, meaning late.** A reading keeps the keeper's own words; the registries decide what they mean when
-   the graph is merged. So a change of taxonomy, and a merge of two graphs, re-reads nothing.
-3. **Similarity proposes, the keeper judges, a person overrules.** No threshold decides what a thing is (the claims base's rule).
-4. **Grounded or not served.** Every thing, link, tag and definition points at a line of a note; what does not is
-   kept with the reason and never shown.
-5. **A detection is not a verdict.** A conflict is a record that two things cannot both hold; `open` is a valid end.
-6. **Light.** The core is the standard library and files. No block needs a server, a vector store or a model to keep
-   answering; anything heavier is a plug-in someone chose.
-7. **Never worse than grep, and measured.** A block lands with a number, a way to reproduce it and a gate in CI.
-8. **The same answer everywhere** (phase J): no result may depend on a machine, a run or the company a question keeps.
-9. **A merged graph is data.** Never code, never instructions: its notes are quoted with their origin, and plug-ins
-   load only from the skill's own directory.
-
-## 6. The loose contract (schema 2): the records that cross block boundaries
-
-A block is replaceable when the records on either side of it are fixed and small. Every record carries `schema`,
-keeps fields it does not know, and never needs another record to be parsed.
-
-| record | plane | what it is | new in schema 2 (all optional) |
-|---|---|---|---|
-| **note** | truth | a markdown file; the `# ` line is the claim; `from`, `supersedes`, `updated` | `source:` where the claim comes from · `by:` who wrote it · `tags:` the writer's own · `holds:` the conditions it is true under |
-| **reading** | truth | the keeper's extraction of one note content: `kind`, `entities`, `relations`, `refs`, in raw words with surface forms, lines and quotes | `tags` · `defs` (what the note says a thing is, and is not, with the quote) · a reason on each dropped item |
-| **registry line** | meaning | `- name[ (proposed date)]: definition \| field: value …` in `KINDS.md`, `TYPES.md`, `EDGES.md` | `TAGS.md` · `broader:` · `not:` naming terms · `same: graph:term` · for links `one`, `acyclic`, `symmetric` |
-| **contract** | meaning | — | `- id: what it is \| not: the nearest things it is not \| aka: … \| anchors: path:line … \| excludes: path:line …` in `THINGS.md` or the thing's own note |
-| **verdict** | meaning | today only pairs: `a = b`, `not: a / b` in `ALIASES.md` | mention × thing × contract version → `in` or `out`, from `anchor`, `keeper`, `person` or `rule`, with a reason |
-| **decision** | meaning | outcomes in `ALIASES.md` and `CONFLICTS.md` | one dated line per change of meaning in `DECISIONS.md`: who, what, the evidence, how to undo |
-| **finding** | derived | `checks` (`C1`–`C13`), `conflicts` | `{code, subjects, evidence, detector, suggestion, state}`; its state changes are decisions |
-| **graph** | derived | schema 1 (CONTRACT.md) | `origin` on every record · `tags` · `contract` and `status` on things · `support` on links · `findings` |
-| **bundle** | exchange | — | notes, readings, registries, contracts and decisions of one graph; never the derived graph, never code |
-
-Why this is loose enough to merge: ids are local names, not global ones; a reading never contains a decision; two
-graphs need to share only the note and reading formats; their registries may differ and are reconciled by `aka`,
-`broader`, `not` and `same` lines, each a decision that can be undone.
-
-## 7. The blocks
-
-Each block: what it does, what exists, what to build, what could be swapped in, and the measurement that says it is
-done. "Swap in" names alternatives a plug-in may provide; the default is always the standard-library one.
-
-### B0 · Seams and the plug
-
-- **Today.** Three seams prove the pattern: `MEMORY_LLM` (any command that takes a prompt on stdin), `MEMORY_STORE`
-  with `stores.py` (seven row calls, loaded only when named), and the matcher with its Python stand-in. Everything
-  else is direct calls inside one 3,200-line file.
-- **Build.** (1) Name the interfaces the core calls through: `extract`, `ground`, `resolve`, `build`, `analyze`,
-  `match`, `rank`, `render`, `store`. (2) `MEMORY_PLUGINS=a,b` loads `scripts/plugins/<name>.py` from the skill's own
-  directory, each registering a replacement or an addition. (3) Every record that crosses a seam is one of §6.
-  (4) Split `memory.py` into one file per block only where (1) to (3) leave it hard to read; the install stays `cp -R`.
-- **Done when.** With no plug-in named, `ask` prints byte-identical answers on the 1,149 questions and `graph.json`
-  is byte-identical on the bank; 40/40; the gates are unchanged; a 20-line demo plug-in replaces the matcher and
-  passes A42's no-grep line.
-
-### B1 · Notes as claims (writers)
-
-- **Today.** SKILL.md's note: one thing, one claim, what is true now, what it was built on, what it replaces.
-- **Build.** The optional fields of §6 (`source`, `by`, `tags`, `holds`): two claims that differ only because they
-  hold under different conditions are not a conflict, and `holds:` is where a writer says so. The same contract for
-  knowledge that is not project work (a paper, a policy, a meeting). Importers are plug-ins that write notes under a
-  prefix and never touch existing ones. A note with no date of its own is a finding, not a silent guess from the
-  file's modification time (RESULTS J3).
-- **Swap in.** Any source of notes: see §4 for what SAG2 and OpenViking could feed; the claims base's claims (a
-  sentence plus the verbatim span it rests on) map one to one.
-- **Done when.** The write-path run of phase E repeated under the new text: no note rewritten, sources present
-  where the session stated them; a note with none of the new fields behaves exactly as today.
-
-### B2 · Readings (the keeper, one note at a time)
-
-- **Today.** The `EXTRACT` prompt, `ground()`, the cache by content hash.
-- **Build.** Reading schema 2, old readings still valid: `tags` (words the note uses or the registry lists), `defs`
-  (only where the note itself says what a thing is or is not, with the quote), and a reason on every dropped item
-  (`absent`, `no-quote`, `numbers` when a quote's numbers differ from the note's, `negation` when the reading adds or
-  loses a "not") — kept, never served. What is stored as evidence is the note's text at that line, not the model's
-  rendering of it. And the handoff's item 7: the pool of calls is fed continuously within a project instead of in
-  waves that wait for their slowest call (a third busy at eight in parallel today).
-- **Contract.** Note text, the registries' current lines and the known ids in; one reading out. A reading never
-  contains a decision of the meaning plane.
-- **Swap in.** Any model command; file mode for a helper agent; the rule-based keeper the tests use; an extractor
-  from §4, as long as it emits a reading.
-- **Done when.** On the 70-note sample, then the bank (about $3): tags and definitions 100% grounded; at most
-  $0.0025 a note; the things a fixture defines in words get those definitions; gates and the stability eval hold
-  with old and new readings mixed.
-
-### B3 · Registries: the dynamic taxonomy
-
-- **Today.** Three registries with a bar (5 uses, 5 notes, 2 areas), a budget and a 60-day probation; an edit
-  re-derives the graph with no call. The words below the bar are the raw material: 493 link words (426 used once)
-  and 62 type words. The two commonest raw type words on the bank are `log-tag` and `project-tag`: the keeper is
-  already reaching for tags that have nowhere to go.
-- **Build.**
-  1. One engine for four files: add `TAGS.md` (tags on notes and things, with an optional `facet:`).
-  2. How terms relate, declared on the line: `aka` (the same), `broader:` (a kind of; any depth, kept free of
-     loops), `not:` naming terms (cannot both hold), `same: <graph>:<term>` (another graph's word for it). For link
-     types the algebra the checks need: `one: yes` (a thing has at most one), `acyclic: yes`, `symmetric: yes`,
-     beside today's `~` reverse and `shape:`.
-  3. Operations, each one changed line plus one ledger line, each undoable because readings keep the raw word:
-     merge, split (one word into two terms by a rule on its neighbours), rename, admit, retire, map.
-  4. Proposals from counts, no model: two words used for the same things → `aka`; a word whose things are a subset
-     of another's → `broader`; two link words always found on the same pair → `aka` or an implication; what the
-     things of a family usually carry → a learned `shape:`. The keeper's review confirms; a person can overrule.
-- **Done when.** Merging a term and undoing it restores `graph.json` byte for byte with no call; replayed from the
-  bank's raw readings, the counting proposer is scored against the review's decisions on file (6 link types admitted
-  of 7 offered, 8 thing types, 14 pairs of things merged and 73 kept apart), then floored; the registries pass the
-  loop check; the handoff's item 6 (note kinds named as thing types) is closed by a `not:` line.
-
-### B4 · Things: contracts and membership
-
-- **Today.** A thing is an id. No statement of what it is; no way to say "this mention is another thing of the
-  same name". On the bank `holdout-2025q4` is one thing mentioned by 17 projects.
-- **Build** (from the claims base, where it is the core).
-  1. A **contract** for each thing that needs one: what it is, then the nearest things it is not, its other names,
-     its anchors (mentions that are certainly it) and its excludes (near-misses). The keeper drafts it from the
-     definitions the notes state (B2) and from the mentions; it is `(proposed <date>)` until a person accepts it or
-     it passes the bar.
-  2. **Membership verdicts**: mention × thing × contract version → `in` or `out`, with a one-line reason naming the
-     deciding feature. The effective verdict is a person's or an anchor's first, then the newest contract version.
-     Ambiguous is `out`.
-  3. Who gets a contract: not every thing. The ones the graph marks: mentioned across many areas with no note of
-     their own (44 on the bank), name-alike pairs, hubs that glue unrelated areas, and anything two merged graphs
-     bring under one id.
-  4. Operations under the claims base's rules. Split: groups proposed from the mentions' surroundings; each child gets its
-     anchors and the other groups' nearest mentions as excludes; a person applies it. Merge: union of anchors,
-     excludes minus anchors, the contract redrafted, membership judged afresh, the sources retired. Nothing is
-     ever deleted.
-- **Swap in.** Candidate generators (names today; shared neighbours; embeddings as a plug-in); the judge (any model
-  command, or a person).
-- **Done when.** On a labelled sample of the `holdout-2025q4` mentions the per-project things are separated with no
-  wrong fusion; a fixture with planted homonyms (one id, two things) and synonyms (two ids, one thing) is resolved
-  exactly; the 44 homeless hubs each have a proposed contract; the alias gate (0.821) and bank gold (0.941) hold;
-  verdicts survive a re-reading of an unchanged note.
-
-### B5 · The graph, schema 2
-
-- **Build.** Additive fields only (§6): `origin`, `tags`, `contract`, `status`, `support`, `findings`. A schema 1
-  reader keeps working.
-- **Done when.** `check` validates schema 2; the viewer check and the store parity test pass unchanged.
-
-### B6 · Stitching graphs
-
-- **Today.** One memory. But `ask` already reads a second, foreign memory in the same call and never writes to it
-  (Claude Code's own), and the 100× world is 137 renamed copies of every project.
-- **Build.**
-  1. **Mount.** `MOUNTS.md`: `- fraud: ../fraud/memory` reads another memory in place, read-only, its paths
-     prefixed, its notes shown with their origin in every answer.
-  2. **Merge.** `memory.py merge <bundle> --as <prefix>` copies notes with their readings (keyed by content: no
-     note is read again), then folds the meaning plane: registry lines that agree become one; the same word with
-     another definition is a finding and stays apart as `prefix:word` until mapped; contracts and decisions come
-     along under the prefix.
-  3. **Alignment.** The same id in two graphs is only a candidate. Seeds are ids that are rare and defined alike;
-     the match grows through shared typed neighbours (a thing whose neighbours are already matched); every pair is
-     judged against both contracts (B4) and recorded as a `same:` line.
-- **Done when.** The bank split into two memories and merged back gives the unsplit bank's `graph.json` byte for
-  byte with no call; `ask` over a mount prints what `ask` prints over the merged copy; with ids renamed in one half,
-  alignment recall and precision are measured, then floored; a bundle carrying a script or an instruction-like note
-  changes nothing but the notes.
-
-### B7 · Analysis: the graph looks at itself
-
-- **Today.** Checks per note; nothing reads the graph as a graph.
-- **Build.** Analyzers: small pure functions from the graph to findings, registered by name, each free or paid per
-  item. The first set is §8, in the order our own graph says they pay. A **finding** records a detection, not a
-  verdict: its states are `open`, `resolved` (how) and `dismissed` (by whom, why), and `open` is a valid end. One
-  **queue**, ordered by what a finding touches (the mentions behind it, the links through it): it is the viewer's
-  "worth checking" and `memory.py check`.
-- **Swap in.** More analyzers as plug-ins (communities, centrality, embeddings); a graph library for whoever wants
-  one, never in the core.
-- **Done when.** Every loop the probe finds on the bank (27 in links, 6 in lineage) is a finding with a proposed
-  fix; a fixture with planted defects (a lineage loop, a fork, two owners under `one: yes`, a two-way `replaces`, a
-  missing expected link, two same-shape partial graphs under other names) is found exactly; the top 20 of the bank's
-  queue are judged by a person and the precision is recorded, then floored.
-
-### B8 · Governance: evidence, decisions, upkeep
-
-- **Today.** Nothing ungrounded enters; links keep `path:line`; outcomes sit in `ALIASES.md` and `CONFLICTS.md`;
-  types on probation carry a date; the model's "unsure" waits for a person.
-- **Build.**
-  1. The **ledger** `DECISIONS.md`, append-only. `check` fails any registry line, alias, contract or verdict that
-     has no ledger line (seed lines excepted).
-  2. **Levels of evidence** on everything served: stated (a quote in a live note), supported (how many notes and
-     areas), history only (every source superseded), decided (a ledger line), inferred (a rule or an analyzer,
-     always marked as such).
-  3. **Who may decide what** (§9).
-  4. **Upkeep as a budgeted pass.** Free steps always: scan, merge, analyzers, counting proposals. Paid steps in
-     queue order within a budget; `--dry-run` prints the calls and the estimate before anything is spent.
-  5. **Doctor.** Invariants answered PASS, FAIL or COULD-NOT-CHECK: every quote is in its note at its line; every
-     verdict's contract version exists; no mention is both anchor and exclude; the registries have no loop; the
-     graph rebuilds identically from the two planes.
-- **Done when.** The bank's existing decisions replayed into a ledger pass `check`; the dry-run estimate is within
-  20% of a real pass; the doctor fails on each planted violation and on nothing else.
-
-### B9 · Use: ask, digest, viewer
-
-- **Build.** Only what the new records make cheap: scope by tag; a thing's "is / is not" printed beside its name;
-  the origin of a mounted note; a finding said with the answer it touches ("two current answers", "defined two
-  ways"). The viewer gains the queue and the taxonomy. Two loose ends from phase J close here: the lines printed
-  under a note stop depending on the other questions of the call (the character counts are re-based once), and the
-  matchers are timed against each other (on a Mac the Python one took 22 s where BSD grep took 49).
-- **Swap in.** The matcher (grep, the Python stand-in, ripgrep, SQLite full text); a retriever in front whose hits
-  are re-ranked like grep's (§4).
-- **Done when.** The three gates and the stability eval hold; "never worse than grep" is re-measured in the agent
-  eval once the spend is approved.
-
-### B10 · Stores and exchange
-
-- **Build.** Schema 2 through the seven row calls; the bundle as the exchange format; the taxonomy exported as plain
-  CSV (term, definition, broader, aka, not) for any other tool.
-- **Done when.** Store parity passes on schema 2; a bundle imported into an empty memory rebuilds the same graph.
-
-### B11 · Proof
-
-- **Build.** One fixture per new claim, model-free wherever possible: planted homonyms and synonyms (B4), the
-  split-and-merged bank (B6), planted defects (B7), the replayed review (B3). Each block's "done when" becomes a
-  gate in CI.
-
-## 8. The graph toolbox, measured on our own graph first
-
-`python3 eval/graph_probe.py <memory> --conflicts eval/real/bank-index/CONFLICTS.md`: standard library, no model, a
-few seconds on the indexed bank (1,325 things, 3,119 links, 3,733 lineage edges).
-
-| method | what it finds | on the bank today | what happens next |
-|---|---|---|---|
-| strongly connected groups, per link type and in lineage | loops where none can be | 27 in links: 6 pairs that each `replaces` the other, 16 `uses` loops, 3 `owned-by`, 2 `measured-by`; 6 loops of `from:` holding 13 notes | a finding with the evidence lines side by side; most are a link read backwards |
-| the link algebra declared on a registry line (`one`, `acyclic`, `symmetric`, `not`) | a thing with two owners where one is allowed; a thing of two types that exclude each other | 22 of 155 subjects have two or more owners, legal until `one: yes` is declared | a conflict finding, or the evidence that the type is not `one` |
-| spread and homelessness of hubs | one name for several things; shared things nobody defined | 83 things in 5+ areas, 44 with no note of their own; `holdout-2025q4` in 17 projects | a contract drafted, a split proposed (B4) |
-| bridges | links that alone hold parts together | 295, of which 245 rest on one line of evidence | ranked low unless the bridge joins two projects |
-| parallel links on one pair | a link type that implies another; smells | 126 pairs: `trained-on` with `uses` ×5, `evaluated-on` with `trained-on` ×4 | a `broader:` proposal; a "trained and evaluated on the same data" finding |
-| roles by family | what a kind of thing usually carries, and who lacks it | 88% of models are measured by a metric (20 are not); 74% are evaluated on a dataset (44 are not) | a learned `shape:`; gap findings |
-| shared typed neighbours | siblings, not duplicates | 17 pairs, none of them name-alike | each other's excludes in contracts; a shared tag or parent |
-| things two live notes share | where two claims are about the same things | on the 73 judged pairs, precision 7% → 25% keeping 2 of the 5 real ones | orders the conflict queue; not a detector |
-| exact shape hashing (Weisfeiler–Lehman) | identical partial graphs | 2% of linked things: of no use inside one real graph | only to check a merge left shapes intact |
-| seeded neighbourhood alignment | the same things under other names in another graph | not run: needs two graphs (B6's split bank) | candidate pairs with their shared neighbours as evidence, to the judge |
-| reach from superseded notes | things and links that rest only on history | exists in part ("current" links) | the "history only" level; a re-check queue |
-| communities (label propagation) | clusters that are not areas | not run | tag proposals; mis-filed notes |
-
-Two findings shaped the plan. Exact equivalence of partial graphs is rare in real notes, so "equivalent parts that
-can be combined" has to be approximate and seeded, and it belongs to stitching (B6). And things that look alike
-structurally are usually siblings, which makes them the best near-misses for each other's contracts (B4) rather than
-candidates to merge.
-
-## 9. Who decides what
-
-| a person, or the writing agent | the keeper (a cheap model) | the script |
+| asked | measured on v0.4 | this draft |
 |---|---|---|
-| what a note claims, its sources, the conditions it holds under | what a note mentions, with quotes; its tags; the definitions it states | grounding; kinds; dates; what is kept |
-| the final word on any verdict, contract, merge of hubs, or mapping between two graphs | drafts contracts; `in` or `out` with a reason; maps a word onto a term; supersedes, compatible or unsure | candidates, counts and proposals; every analyzer; the queue's order; levels of evidence; that the ledger is complete |
-| accepting a contract or a term early; dismissing a finding (the why is mandatory) | — | admitting a term over the bar; demoting it after probation |
+| 1 plug-ins | a graph another model wrote came in through the file socket in 0.4 s with no call. But a model command ignores that socket and would read the notes again | files in, files out; a reading that came with a note is used (§6) |
+| 2 mandatory, optional | with no model and no index `ask` heads 0.939 of the gold notes, with them 0.941 | one record must exist, the note (§5) |
+| 3 absorb | a copied-in memory keeps its lineage (42 of 42) and loses its areas (3 → 1) and 3 kinds; the absorbed cards became the home of 2 host things; 21 of the host's 326 gate answers change, 17 now head an absorbed note; `README.md`, `INDEX.md` and `.txt` files are skipped without a word; absorb and drop gives back the same graph | an origin is data, apart until judged (§9) |
+| 4 several uses | the walk and several rules name one field's words in the code | they move to registry lines, the seed as fallback (§11) |
+| 7 drop | derived records go (8 of 8 links, 1 of 1 thing). The supersession chain is cut and the replaced note shows as current (23 notes sit mid-chain). On a big memory `ask` crashes until the next dream | `drop` is a command that leaves a tombstone (§8) |
+| 8 retrieval | asked for every note of a kind in a project, `ask` names 0.47 of the set; one call of ten questions takes 0.5 s | filters, the own note first, complete inputs (§11) |
+| 13 pointers | a `file:line` pointer is right for 41% of definitions one version later and for none after five; its quoted text is found for 97% and 96%; its symbol for 100% and 100%, and for 70% after 29 versions | pointers by symbol or quote, checked free (§10) |
+| 15 decomposing | Haiku 5.5 turned a 14,220-character handoff into 95 claims in one call: 87 kept by the gates, no invented quote, no wrong number, about $0.0055. The claim notes then answered 5 of 8 probe questions for 1,882 characters each; the untouched document answered 5 of 8 for 616. Two probed facts were never extracted; a gate refused a true one | a document is a note as it is; decomposing is a writer for what cannot be a note (§5) |
+| 16 dedup | 3,216 names become 2,972, and 203 of those merges are made by a rule on surface forms that nobody judges; the name-alike proposer offered 87 pairs and 14 were the same thing; a free tagger gave 87 different tags to 87 notes | identity by reading; tags from a vocabulary (§7) |
 
-The right column stays rules anyone can read. The middle column always leaves a quote and a reason behind. Only the
-left column is judgement, and it is never overruled by the other two.
+## 3. How it works
 
-## 10. The order of work
+A reader should be able to retell this section.
 
-Each milestone ships alone, keeps every gate green and adds a phase to RESULTS.
+- **Notes** are text files that agents and people wrote. They are the truth and nothing rewrites them.
+- **`ask`** answers a question by grep over the notes. A small graph then orders what grep found and adds what grep
+  cannot see: which note replaced which, other names for the same thing, a thing's own note, what a thing is built
+  from. One call takes every question; no model runs.
+- **Keepers** are cheap agents that read each note once and return its **reading**: the entities it names and the
+  edges it states between them, each with the words of the note it rests on. A reading is stored under the hash of
+  the text it read, so nothing unchanged is read twice.
+- **Registries** are small text files that say what the words mean: kinds of note, types of entity, types of edge,
+  tags. `ALIASES.md` says which names are one entity; `CONFLICTS.md` says which note replaced which when the notes
+  do not say it themselves.
+- **`dream`** rebuilds the graph from notes, readings and those files. It calls no model and takes a second.
 
-| | milestone | blocks | spends on a model | why here |
-|---|---|---|---|---|
-| M0 | a clean base | — | no | done except the owner's part (§12) |
-| M1 | seams, the ledger and the finding record | B0, the two formats of B8 and B7 | no | everything later writes these two records; no behaviour changes |
-| M2 | the graph looks at itself | B7 first analyzers, B5 fields | no | free, pays at once (33 loops, 44 homeless hubs, the gaps), and its queue tells the keeper where to spend |
-| M3 | the taxonomy engine and tags | B3, tags of B2 | a few review calls | one engine for four registries; undoable operations; counting proposals |
-| M4 | contracts and membership | B4, definitions of B2 | yes: contracts and verdicts for the marked things only | the first block that needs the keeper for something new |
-| M5 | stitching | B6, the bundle of B10 | no, except judging aligned pairs | needs identity (M4) to be safe; a read-only mount can ship with M2 |
-| M6 | blocks from outside, and the agent eval on the shipped code | plug-ins of §4, B9 | yes | only after the seams exist |
+```
+ what agents wrote ─▶ NOTES ──▶ keepers read, in packets ─▶ READINGS        truth     kept as written
+                        │                                      │
+                        │      KINDS · TYPES · EDGES · TAGS · ALIASES · CONFLICTS · SETUP    meaning   one line per decision
+                        ▼                                      ▼
+                    dream, no model ─▶ GRAPH ─▶ ask · the page · the digest · check          derived   rebuilt in a second
+```
 
-## 11. What we will not do
+Four rules:
 
-- No global ontology and no reasoner: terms relate by four plain statements (`aka`, `broader`, `not`, `same`), read
-  by counting and graph walks.
-- No vector store, embedding model or server in the core. Any of them may be a plug-in.
-- No merge of two things across graphs on their names alone, and no merge of hubs without a person.
-- No rewriting of notes, by any block.
-- No code and no instructions accepted from a merged graph.
-- No number without the command that reproduces it.
+1. **A note is the only record that must exist.** A folder of notes is a base and `ask` answers from it.
+2. **Every other record names the note it rests on** and is checked against that note's text.
+3. **The graph is recomputed from the notes that exist now.** Nothing in it outlives a note.
+4. **The script does only exact work; whatever needs judgement is read by an agent and written down as one line
+   with its reason.** No threshold and no string distance decides anything.
 
-## 12. What is needed from the owner
+Rule 4 is new and answers points 12 and 16 together. Hashing, finding a quote, counting, joining equal names,
+checking a pointer and building the graph are exact and free. Whether two names are one thing, what a word means
+here, whether a note replaces another: these are read by a cheap agent, and its answer is a line a person can edit.
 
-1. **The branch.** `production-readiness` holds everything and is green. Merge it, make `main` the default branch,
-   delete `worktree-build-v0.4`, tag `v0.4.1`. This is yours: the working session may not merge or push to `main`.
-2. **The licence.** MIT with the holder taken from the git author name: confirm or change.
-3. **The names.** "writer" and "keeper" for the two roles; the command stays `dream`; the files `TAGS.md`,
-   `THINGS.md`, `MOUNTS.md`, `DECISIONS.md`.
-4. **The first milestone.** M1 then M2 need no spend and no decision beyond this plan. Say go, or reorder.
-5. **Spend.** M3 to M6 call a model: $3 to $4 to re-read the bank with the wider reading (it cost $2.69 with
-   today's), a few cents per reviewed batch, and the agent eval re-run that the handoff still lists.
-6. **The claims base.** This plan borrows its mechanisms, in our own words, and none of its code or text. Say if
-   it should also become a source of notes one day (its claims already have the shape of a note with its quote).
+## 4. Who does the work
+
+| who | model | does | never |
+|---|---|---|---|
+| the main agent | whatever the session runs; Opus is fine | looks at the materials, asks the user, writes the setup and the starting vocabulary, runs the commands, spot-checks, answers | reads the corpus itself |
+| keepers | Haiku 5.5 | read notes into readings | decide what a word means |
+| resolvers and curators | Haiku 5.5 | say which names are one entity, map raw words onto terms, find notes that replace each other (§7) | merge anything without leaving a line |
+| writers, when wanted | Haiku 5.5 | decompose material that cannot be a note into notes (§5) | touch a note that exists |
+| the script | none | everything exact | judge |
+
+How the heavy work is packed (points 11 and 12):
+
+- **Packets.** `dream --packets` writes the work as files: the instructions and the vocabulary once, then as many
+  notes as fit a budget. One worker answers one packet. Workers run in parallel (`-j`).
+- **Under the line.** Haiku 5.5 costs $0.10 and $0.50 per million tokens while a prompt is at most 100K tokens, and
+  five times that above. A packet is built to 60K tokens by the script's count of three characters a token, because
+  the tokenizer counts about 30% more than the older one and the answer needs room. No call may cross the line.
+- **A lean call, not a tool-using agent.** A Haiku subagent of the harness carries about 35K tokens before any
+  work: the runs here sent prompts of up to 88,671 tokens, and one decomposing a 14K-character file ended at 94K.
+  The headless command with no tools and no settings carries about 1K (the claims base measured 33,648 against
+  948). Packets go through the command; subagents answer packets only where no command can run.
+- **Two caches.** The answer is stored under the hash of what was read, so a changed base re-reads only what
+  changed. The prompt's first part is identical for every packet of a dream and sits where the model caches it: read
+  again at a tenth of the price.
+- **The reading method** is the claims base's: cut at headings; each record carries the exact words it rests on;
+  the script, not the model, decides what is kept. Its fuzzy step is not taken over: a quote is found exactly,
+  spaces and case aside, or the record is refused.
+- **Before spending**, `dream --dry-run` prints the packets and the estimate.
+
+What it costs today, at Haiku 5.5's prices: a reading is $0.0016 a note, one call each with 4.9K tokens in, about
+4K of them the same instructions every time, and 350 to 1,750 out ($2.72 for the bank's 1,677 notes); decomposing
+a handoff was $0.0055; ten answered questions $0.013. What packets save on the reading is measured in step 2.
+
+## 5. The contract: what must exist and what may
+
+| record | written by | must carry | may carry |
+|---|---|---|---|
+| **note** | an agent or a person | a text file under an area | a `# ` line, a date · `from`, `supersedes`, `type` · new: `source`, `tags` · pointers into files |
+| **entity** | a keeper | an id and its words as found in the note | a type |
+| **edge** | a keeper | two entities of the same note, a word for the link, the quote | – |
+| **tag** | whoever writes the note | a word that `TAGS.md` defines | – |
+| **definition** | a writer | it is a note: the one named after the entity | – |
+| **pointer** | whoever writes the note | `path#symbol`, or `path:line` with a few quoted words | – |
+| **term** | the setup, a curator, a person | a name and a definition | other names, a family, what it is not |
+| **decision** | a resolver, a curator, a person | one line in `ALIASES.md` or `CONFLICTS.md` | its reason and who made it |
+
+- **A note is whatever an agent wrote** (point 15): a note, a handoff, a design record, a session summary, as it was
+  written. The requirement is that it can be read alone: it says what it is about, when, and where its numbers come
+  from. There is no size rule for what is taken in; the keeper reads a long note in windows.
+- **Decomposing is a writer, not a duty.** It is for material that cannot be a note: a transcript, a log, code. It
+  is safe (no invented quote in 95 claims) and cheap, and its notes are made from their source, so they go when the
+  source goes. But a source is either a note or material for notes, never both: on the probe the claim notes found
+  no more answers than the document and cost three times the characters.
+- **A definition is a note** (points 2 and 16): the note named after the entity. `ask` puts it first when a
+  question names the entity. A **tag carries its own definition** in `TAGS.md`, and a writer picks from that list:
+  left free, a tagger made 87 tags for 87 notes.
+- **Edges have a direction** and it belongs to the type: `uses` reads one way, and a word listed with `~` is the
+  same type read the other way.
+- **Readings stay where they are**, one file per hash in `_dream/notes/`, and that folder goes into git; the rest
+  of `_dream/` stays ignored. Rev 2's readings file beside the notes is out: it weighs 3.4 times the notes and puts
+  them into every plain grep.
+
+## 6. The blocks and their sockets
+
+| block | does | ships as | replaced by |
+|---|---|---|---|
+| **write** | work and material → notes | the agent following the skill; `absorb`; the decomposing writer | anything that writes `.md` files |
+| **keep** | notes → readings | Haiku on packets through `MEMORY_LLM`; helper agents on the same packets | any command; any program that leaves an answer file for a packet or a note |
+| **name** | raw words → terms; names → entities; which note replaced which | resolvers and curators on packets of cards; the registries | editing the files; any program that writes decision lines |
+| **build** | notes + readings + meaning → graph | `dream`, no model | nothing: it is the contract |
+| **use** | graph + notes → answers, a page, warnings | `ask`, `graph.html`, `DIGEST.md`, `check`, the stores | anything that reads `graph.json`, `index.db` or a store |
+
+No loader, nothing to register. One rule is missing today and is added: **a reading that came with a note is
+used, and that note is not sent to the keeper again.** With a model command set, v0.4 ignores answer files and
+would re-read an absorbed base.
+
+## 7. Identity, dedup and merging: by reading
+
+What v0.4 does, on the bank: 3,216 names as written become 2,972, and 203 of those merges are made by a rule on
+surface forms that nobody judges. A proposer of name-alike pairs (string ratio 0.85, or a shared surface form) offered 87
+pairs to the review; 14 were one thing and 73 were siblings such as `aml-oot-2026h1 / cli-oot-2026h1`. The review
+decides each pair on one line of context. Equal names join across projects without a question, which is how
+`holdout-2025q4` became one entity for two datasets. Conflicts between notes are proposed from shared title words:
+5 of 73 were real.
+
+v0.5:
+
+1. **The script joins only equal names inside one area, and what a decision line says.** The surface rule and the
+   string ratio neither decide nor propose.
+2. **Candidates come from what the notes say, never from how names look**: one name used in several areas or
+   origins; a note that gives one entity another's name ("X, also called Y"), which the keeper returns as an edge
+   with its quote; two entities of one type with the same typed neighbours; and a curator's read of an area's
+   cards, the only way to find two unlike names for one thing.
+3. **A card** per entity, built by the script: its own note's first line if it has one, three lines that mention
+   it, its type, its typed neighbours, the areas it appears in.
+4. **The resolver** reads a packet of cards and answers, for each group: the same · different · one is a part or
+   a version of the other · cannot tell. It quotes the card line that decided, and it may open the notes when the
+   cards are not enough. That is the agentic part: it looks, as a person would. "Cannot tell" keeps them apart and
+   is asked again only when new mentions arrive.
+5. **A decision is one line** with its reason: `- a = b | why: … | by: resolver 2026-11-11`, `not: a / b | why: …`,
+   and for one name that is two things, the name qualified by its area. A person's line wins. No verdict per
+   mention, no versions, no anchors: the lines are the whole record.
+6. **Edges** follow: after entities are resolved, edges with the same ends and type are one edge with all their
+   evidence. A curator maps every raw link word onto a type or leaves it, not only the words over a bar.
+7. **Notes that replace or repeat each other** are found the same way: a curator reads the live claims of one kind
+   in one area as a packet, in place of shared title words.
+8. **Merging two bases is this pass** over the names both use, plus a curator's read of both vocabularies. Nothing
+   joins across origins without a line.
+
+A card is about 120 tokens, so every entity of the bank is two packets and a few cents. A verdict per item was cut
+from the first draft as too heavy; at a fortieth of the price per token it is the simple choice.
+
+## 8. Dropping
+
+1. **Only `memory.py drop <note | folder>` drops.** It reads the note first, prints what will go with it, and does
+   nothing more unless told `--yes`.
+2. It deletes the file and its reading, and leaves one tombstone in `CONFLICTS.md`:
+   `dropped: <path> (date) > <what it had replaced>`.
+3. The build reads a tombstone as a pass-through in a chain. Where X replaced the dropped note and the dropped note
+   had replaced Y, X now replaces Y: on a fresh clone, for two neighbours dropped together, with no old graph.
+4. Notes made from it (`source:` naming it by its exact path, and no other source left) go with it. Notes built
+   on it (`from:`) stay and are shown as built on a dropped note.
+5. **A file that is merely gone is not a drop.** A rename with an edit, another branch, a `git pull`: `dream` says
+   which notes are gone and names the command, and writes and deletes nothing. Rev 2 inferred the drop from the
+   missing file; the review showed a branch switch would then delete notes.
+
+Following `from:` instead would take a median of 2 notes, 18 at the ninetieth percentile and up to 54 across
+three projects for one dropped note. That stays the owner's call (§15).
+
+## 9. Absorbing another base
+
+1. **An origin is a folder with an `ORIGIN.md` in it**: what it is, where it came from, when, and what it is trusted
+   for. Its next folder level is the area, so its areas and kinds survive.
+2. **It is data.** Its notes answer questions and never instruct: its preference and rule notes keep their kind
+   and stay out of a task's preferences and out of the digest unless `ORIGIN.md` says `trust: preferences`. A note
+   of the form `me-…` never crosses.
+3. **Its readings come with it and are used as they are** (§6).
+4. **Its entities stay apart from the host's until a resolver or a person joins them** (§7), and a host entity
+   keeps its own note as its home.
+5. **Its words are read through the host's registries**; its own registries and its own decided lineage are read
+   inside the origin. Today they are skipped and a copied base loses its decided supersessions.
+6. **What is checked, exactly:** an entity is kept if its words are in the note; an edge if its quote is in the
+   note and both ends are named in the note. The script does not check that the quote states the edge. Refused
+   records are kept in a file with the reason.
+7. **Input:** `.md` files with a `# ` line. `absorb` gives a missing one from the file name and lists every file it
+   did not take. A graph with no text becomes one note per entity whose lines state its edges, and needs no reading.
+8. Absorbing again replaces the folder. Dropping it is dropping the folder (§8).
+
+"In general" is not shown: the one sample is hand-made, in a shape its own project has since withdrawn. Step 1 runs
+one real export of another system before that word is used.
+
+## 10. Memory of a codebase: pointers
+
+- Agents already write `memory.py:2440` and `memory.py#grep_lines`. The script takes these as pointers when the
+  path is a file of the project, records the text it points at, and checks every pointer at each dream, free:
+  intact · moved, with its new line · changed · gone.
+- `ask` prints the pointer and its state under the note, so the next step is one read of the right lines. A note
+  whose pointer changed is marked stale. It is not dropped: what was learned may still hold.
+- By the numbers of §2 the skill says: point with `path#symbol`, or with `path:line` and a few quoted words; a bare
+  line number is wrong within one edit.
+- This is not a code index. A parser can add symbols and calls as entities and edges through the keep socket. The
+  rule that a file is never an entity moves from the code to the `drop:` line of `TYPES.md`, so a base about code
+  can keep files.
+
+## 11. Retrieval, for a cheap reader
+
+Each item names the case of §2 it answers. None adds a model to `ask`.
+
+1. **The entity's own note first** when a question names the entity (recall@10).
+2. **Inputs complete**: "what does X depend on" prints the whole list from the edges and the lineage, not the best
+   eight (`sfc-hier-v3`).
+3. **One name, one thing** (§7), so an answer does not mix two datasets (`holdout-2025q4`).
+4. **Silence is not absence.** A weak answer says it is weak, and the skill tells the agent to grep before it writes
+   "not recorded". Haiku wrote that twice where grep found the note.
+5. **Sets by filter**: `ask --kind risk --tag open --area x` prints one line per note, capped, with "N more". The
+   agent turns "list every open risk" into filters; the skill says so. `ask` does not guess a list from the wording:
+   the two gate questions that say "all" or "each" ask for a reason and a number, not a list.
+6. **Walk words on registry lines**, with `~` for the inward direction; a registry without them takes the seed's,
+   so existing bases answer as before. What stays in the code is listed in the contract, not denied.
+7. **The page**: filters for tag, type and origin beside the search that exists.
+
+## 12. What was cut, and what would bring it back
+
+| cut | why | back when |
+|---|---|---|
+| the plug-in loader, nine interfaces, splitting `memory.py` | files are the interface | a block no file can reach |
+| contracts, anchors, excludes, a verdict per mention and version | decision lines with reasons do the work (§7) | lines stop being enough on a real base |
+| the ledger, levels of evidence, the doctor | git, `check`, and the reason on every line | a base outside git |
+| findings as records, a queue, twelve analyzers | upkeep, not retrieval | a base asks |
+| mounts, bundles, seeded alignment | a folder is the bundle; the resolver aligns | a base too large or too private to copy |
+| rev 2's readings file beside the notes; its `survey` command; the keeper reading tags and definitions; guessing a list question from its wording | each failed the review or a measurement (§2, §5, §11) | – |
+| the surface rule and the name-alike ratio | they decide by how names look (§7) | never |
+| a fixture per claim, a gate per block | point 10 | – |
+
+## 13. The order of work
+
+**Step 0, two defects of v0.4, no model.** `ask` must not crash on a big memory or a store when a note is gone.
+A dropped note must not bring back the note it replaced (`drop` and the tombstone, §8).
+
+**Step 1, no model.**
+
+1. Origins: `ORIGIN.md`, one function for a note's area, trust, readings that come along, the reports (§9).
+2. Retrieval for a cheap reader: the own note first, complete inputs, filters with a cap, the weak marker (§11).
+3. Pointers (§10).
+4. Packets: `dream --packets`, the budget, the lean command, `--dry-run` (§4). Readings in git.
+5. Tags from frontmatter and `TAGS.md`; walk words on registry lines.
+6. The skill's setup section: look with your own tools, ask at most three questions, write `SETUP.md` and the
+   starting vocabulary, take the materials in, prove it with five questions.
+7. The page's filters.
+8. The end-to-end run (§14).
+
+**Step 2, Haiku.** Under $5 without the Opus arms.
+
+9. Read the bank again in packets on Haiku 5.5: cost and yield against the readings on file. Two loose ends of
+   the handoff need this re-read and go with it: note kinds named as entity types (item 6) and the pool of calls
+   fed continuously (item 7).
+10. Cards, the resolver and the curator (§7); the alias gate is re-based on their decision lines, kept in the
+    repository like the readings.
+11. The decomposing writer with the gates (§5), as a block that can be left out.
+12. The agent eval, made able to answer point 14: at least 100 questions, two judge passes, the five arms. The Opus
+    arms are the only dear part, about $1.50 per ten questions with grep.
+
+**Later**, when a base needs it: anything in §12.
+
+## 14. Proof: one run, one table
+
+`tests/e2e.py`, no model, under two minutes, once on the small path and once with `MEMORY_WIDE=5`: set up a base,
+absorb documents and the policy graph, dream, ask (a lookup, a filter, an entity's own note, inputs, a question
+across origins), drop a note from the middle of a chain and drop an origin, check what is left, open the page.
+
+| measure | v0.4 today | floor for v0.5 |
+|---|---|---|
+| gold notes headed on the bank, without and with the index | 0.939 / 0.941 | not lower |
+| characters a question on the bank | 2,359 / 2,599 | not higher by more than 1% |
+| ten questions in one call | 0.5 s | 0.5 s |
+| the own note headed when a question names an entity that has one | not measured; fails for recall@10 | 0.95 |
+| the inputs of an entity named in full | fails for `sfc-hier-v3` in every arm | 0.95 |
+| a set by filter | 0.47 by question | the whole set, by construction |
+| after `drop` | the chain cut; a crash on a big memory | the chain holds; no crash; nothing derived left |
+| the host's answers changed by an absorb | 21 of 326 | 0 until something is joined |
+| an absorbed base's preference notes | lose their kind (0 of 2 kept) | keep their kind (2 of 2) and are never served as the host's own |
+| pointers checked | none | every pointer has a state |
+| dream, 1,677 notes with their readings | 0.85 s | 1 s |
+| Haiku with the memory against Opus with grep (step 2) | 120 times cheaper, 8 times faster, 23 correct against 29 | as cheap; correct within the judge's own spread on 100 questions |
+| proposals that are the same thing (step 2) | 14 of 87 | half |
+
+The 40 checks, the three retrieval gates and the stability eval stay. The only new test is this run.
+
+## 15. What is needed from the owner
+
+1. **What "downstream" means** (§8): made-from goes, built-on stays and says so. Say if built-on should go too.
+2. **Readings in git** (`memory/_dream/notes/`), so a clone builds the same graph without paying a keeper.
+3. **Identity by reading** (§7) removes two string rules that today's alias score rests on. The score is re-based in
+   step 2 on a resolver's decisions. Confirm.
+4. **Decomposing as an optional writer** (§5), not the default for what agents wrote: the measurement went against
+   making it the default.
+5. **The eval that can answer point 14** needs Opus arms on about 100 questions: roughly $15 to $25. Haiku's side is
+   cents.
+6. **Words and names**: entity and edge, as you wrote them (the README says thing and link; `graph.json` keeps
+   `relations` for edges and `edges` for lineage, and schema 2 does not rename them); `SETUP.md`, `TAGS.md`,
+   `ORIGIN.md`; `drop`, `absorb`.
+7. **Go for step 0 and step 1.** They spend nothing.
+8. Still open from the handoff: the branch and the licence.

@@ -237,6 +237,12 @@ the grep arm allowed to read whole folders.
 | memory | 23 / 7 / 0 | 5.7 | 498k | 0.61× | 204 s |
 | grep | 23 / 7 / 0 | 18.7 | 1,742k | 1× | 273 s |
 
+Graded again on 2026-11-11 by the same judge, twice, the same answers read memory 22 / 7 / 1 and 24 / 6 / 0 and grep
+29 / 1 / 0 both times. The judge changes about one verdict in ten between two passes, so thirty questions do not
+settle a difference of a few answers, and the tie above should be read with that in mind. The same day Haiku 5.5
+agents took the same questions: with the memory 23 / 5 / 2, for 0.8% of the cost of Opus with grep and an eighth of
+the time; with grep alone 25 / 5 / 0 (RESULTS phase K; `python3 eval/agent/arms.py` prints the five arms).
+
 Earlier runs (rounds 2 and 4), on the code before the retrieval rewrite and against a grep arm that could not read
 folders: 30 notes 26/3/1 against 25/5/0 at 0.93× the cost; 1,677 notes 27/3/0 against 26/4/0 at 0.47× the cost and
 0.35× the time; 168,141 notes 24/6/0 against 24/6/0 at 0.41× the cost. The 30-note and 168,141-note cells have not
@@ -374,6 +380,16 @@ The first reviewer, asked about 178 common labels, answered "new type" to all of
 - The graph is used for answering in five ways: synonyms, lineage order, one line of typed links per named thing, a
   boost for notes that mention a named thing, and a two-step walk to the notes of what a thing is built from for input
   questions. It is not used for ranking, and no other relation type is walked (RESULTS phase I).
+- Deleting a note is safe for the graph and not for lineage. The things and links that rested only on it go at the
+  next dream, but if it sat in the middle of a supersession chain, the note it had replaced is shown as current again
+  (23 of the bank's 1,677 notes sit like that), and notes built on it get only a "not found" warning. On a memory
+  over `MEMORY_WIDE` notes, `ask` fails with a file-not-found error from the deletion until the next dream.
+  Supersede a note; do not delete it (RESULTS phase K).
+- An agent takes `ask`'s silence for absence. On thirty questions the only wrong answers came from agents with the
+  memory, on questions where an agent with grep found the note: a thing's own note is not always headed, and two
+  things that share a name are answered as one (RESULTS phase K).
+- A question whose answer is a set ("list every dataset of this project") gets the best notes, not the set: 0.47 of
+  it on the bank, and all of it for 1 question in 20 (RESULTS phase K).
 - Linux and macOS with GNU or BSD grep and Python 3.9 or newer; Windows is untested. One memory, one writer: the lock
   file serialises `dream` on one machine and nothing coordinates two machines.
 - A note with no date of its own (`updated:`, or a dated file name) takes its file's modification date, and a fresh

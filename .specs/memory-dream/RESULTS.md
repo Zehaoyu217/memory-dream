@@ -1,6 +1,115 @@
 # memory-dream v0.4 — results
 
-2026-10-30 (round 4: 2026-10-31; phase I: 2026-11-02; phase J: 2026-11-11) · built from the "Memory" email spec (`build-spec.md`) · macOS, Python 3.9.6, Claude Code 2.1.314.
+2026-10-30 (round 4: 2026-10-31; phase I: 2026-11-02; phases J and K: 2026-11-11) · built from the "Memory" email spec (`build-spec.md`) · macOS, Python 3.9.6, Claude Code 2.1.314.
+
+# Phase K (2026-11-11) — the v0.5 plan grilled against the code that ships
+
+The first draft of the v0.5 plan (commit e78eb8f) was written to be argued with. The owner answered with ten points
+(`PLAN.md` §1): an open contract with one mandatory record, a base that an agent sets up, a drop that reaches what
+came from a note, absorbing other knowledge bases in general, retrieval first, and no over-engineering. Before the
+plan was rewritten, six experiments asked what v0.4 already does about each. No shipped code changed in this phase.
+
+## K1 — the probe (`eval/contract_probe.py`, no model, under a minute)
+
+```bash
+python3 eval/bank/assemble.py eval/bank/generated tests/fixture/memory /tmp/w/memory
+python3 eval/real/bank-index/restore.py /tmp/w/memory
+python3 skills/memory-dream/scripts/memory.py --root /tmp/w/memory dream
+python3 eval/contract_probe.py /tmp/w/memory        # works on copies; prints the same lines on every run
+```
+
+| experiment | what was done | result |
+|---|---|---|
+| 1 drop | `fraud-2025/fraud25-gbm-v2.md` deleted (5 notes built on it; it had replaced `fraud25-gbm-v1`; `fraud26-gbm-v1` had replaced it), then a dream | the derived graph is clean: the 1 thing and the 8 links that rested only on it are gone, no evidence and no mention points at it. Lineage is not: `fraud25-gbm-v1` is no longer superseded and `ask` shows it without its SUPERSEDED mark. The 5 notes built on it stay, with 6 `C2` lines ("… not found"). Its reading stays in the cache. 23 of the 1,677 notes sit in the middle of a chain like this one; 193 are at a live end |
+| 2 built on | every note's descendants through `from:`, any depth | 1,049 notes have some; median 2, mean 5.9, 90th percentile 18, at most 54 across three projects (`ds-f25-txn-2024-2025`) |
+| 3 copy in | the software fixture (28 notes, 3 areas) copied under `ext/`, then a dream | lineage kept, 42 of 42 edges; the 3 areas become 1; 3 notes lose their kind (2 preferences and 1 rule become plain notes), because a kind by area reads the first folder |
+| 4 absorb | a graph in the shape another system's model writes (`eval/absorb/policy-kb`: 11 entity cards, 12 relations citing 3 source texts) turned into 14 notes and 14 answers in `_dream/pending/`, then a dream | in through the file-mode socket in 0.4 s with no call and no change to the code. Of the 12 relations 7 are stated on one line of the source they cite, 2 in that source on different lines, 3 name a thing the source never mentions and were refused. 9 links: 3 read through `EDGES.md` (`approved-by` and `owned-by` → `owned-by`, `part-of`), 1 on a type the bank's review had admitted, 5 kept as `other/<word>`. 4 of the 11 things are things the bank already had and became one entity each. A question across the two heads 4 policy notes among 12, the first at the top. Side effects: the cards became the home of 2 bank things that had none; of the bank gate's 326 questions 21 print something else after the absorb and 17 of them now head an absorbed note; the cards' `type: entity` became their kind; a source named `…-v3` was filed as a model. `rm -r` and a dream: the graph equals the one before the absorb; 14 of 14 readings are still in the cache |
+| 5 documents | five specifications of this repository (111,059 characters) as notes, whole and split at `## ` headings | whole: 5 notes, 6 of 6 hand-made questions answered from the right document in 1,789 characters a question. Split: 55 notes, 6 of 6 from the right section in 2,560. Six questions are a smoke test, not a benchmark |
+| 6 sets | 20 questions "list every <kind> of the <area> project that is current", sets of 7 to 47 live notes | `ask` heads 0.30 of a set, names 0.47 of it anywhere and all of it for 1 question in 20, in 2,794 characters; the whole set at one line per note would take 1,877 |
+
+## K2 — five arms: Opus and Haiku, with the memory and with grep (`eval/agent/arms.py`, no model)
+
+Later the same day the owner set the bar: much cheaper and faster than an Opus agent with grep, at similar answer
+quality, with the work on Haiku 5.5. Phase G had Opus on both arms, so that comparison had never been made. The
+three batches of phase G (P1, C-h1, P2) went to Haiku 5.5 subagents with the prompts of BUILD-GUIDE §7.3 on the
+bank-index world (`eval/agent/make_haiku_arm.py`): three with the memory, three with the bare notes, and three with
+an experiment that prints the first six notes of each question whole (`eval/agent/askfull.py`). Every answer, the
+Opus answers of phase G included, was then graded twice by the judge of `eval/judge.py` (`judge-H.json`).
+
+| arm | correct / partial / wrong of 30, two passes | tool calls | requests | tokens | $ | seconds |
+|---|---|---|---|---|---|---|
+| Opus + grep | 29/1/0 and 29/1/0 | 18.7 | 19.7 | 1,742k | 1.5460 | 273 |
+| Opus + memory | 22/7/1 and 24/6/0 | 5.7 | 6.0 | 498k | 1.0683 | 204 |
+| Haiku + grep | 25/5/0 and 26/4/0 | 8.7 | 8.3 | 485k | 0.0167 | 42 |
+| Haiku + memory | 23/5/2 and 23/6/1 | 5.3 | 6.3 | 293k | 0.0129 | 34 |
+| Haiku + memory, notes whole | 23/6/1 and 23/6/1 | 6.3 | 7.0 | 334k | 0.0140 | 38 |
+
+Each figure is per batch of ten questions; dollars at each model's own prices (Opus 5.5: $4, $0.20 cached, $5 cache
+write, $20 out per million; Haiku 5.5 under 100K tokens a prompt: $0.10, $0.01, $0.125, $0.50). The Haiku runs read
+their prompt from a file, one tool call each, taken out of the count. Every Haiku request stayed under the 100K
+line; the largest prompt was 88,671 tokens, about 35K of each being the harness itself.
+
+- Haiku with the memory is 120 times cheaper and 8.2 times faster than Opus with grep; Haiku with grep 92 and 6.4.
+  On one model the memory costs 0.69 (Opus) and 0.77 (Haiku) of grep.
+- On both models the grep arm is graded better than the memory arm, and only memory arms have a wrong answer.
+  Printing notes whole does not change the count.
+- The misses of the memory arms, by question: C-h1 Q6 (why recall@10 is the metric) is wrong in all three, because
+  `ask` heads twelve notes that use the word and not `metric-recall-at-10.md`; C-h1 Q4 (`holdout-2025q4`) mixes a
+  1.2M-account set with a 412,600-row set of the same name; P1 Q3 (the inputs of `sfc-hier-v3`) is partial in four
+  arms, and only Opus with grep names all four inputs.
+- The judge is coarse. Its two passes differ on 14 of 150 verdicts, and on 2026-11-01 it graded these same Opus
+  answers 23/7/0 on both arms. The table of phase G and the README's "23 / 7 / 0" are that earlier grading.
+
+## K3 — how long a pointer into code stays right (`eval/pointer_probe.py`, git only)
+
+Every definition line of an earlier version of `memory.py` taken as a pointer written that day, in three forms,
+and looked up in the file as it is now:
+
+| versions back | pointers | right by line | found by its quoted text | found by its symbol |
+|---|---|---|---|---|
+| 1 | 195 | 41% | 97% | 100% |
+| 5 | 174 | 0% | 96% | 100% |
+| 10 | 164 | 0% | 88% | 96% |
+| 20 | 83 | 0% | 75% | 95% |
+| 29 | 80 | 0% | 46% | 70% |
+
+## K4 — a handoff decomposed by Haiku 5.5 (`eval/decompose_probe.py score …`, no model)
+
+One call on the HANDOFF.md of that day (14,220 characters, 14 sections; `eval/real/handoff-claims/`), asking for
+standalone claims, each with the exact text it rests on. The method is the owner's claims base's, without its
+fuzzy step.
+
+- 95 claims returned; the gates keep 87. No quote was missing from its section and no number differed. Refused: 5
+  for "a negation the quote lacks", all false alarms (the claim says "with no index", which the table's header says
+  and its row does not), and 3 thin ones (a sentence about a command, quoted as the command).
+- About 5.2K tokens in and 9.9K out: $0.0055. The subagent that carried the call ended at 94K tokens of context.
+- Asked eight questions: the document whole puts the answer in what `ask` prints for 5, at 616 characters a
+  question; the 87 claim notes for 5, at 1,882. Two of the eight facts are in no claim, and one true claim was among
+  the refused.
+- The free tags came out as 87 different words on 87 notes.
+
+## K5 — what an independent review of rev 2 found, checked here
+
+A second agent was given rev 2 and the code and asked to break it. Its confirmed findings that are also true of
+v0.4:
+
+- `MEMORY_WIDE=100`, a note deleted, then `ask`: exit 1, `FileNotFoundError`. A big memory or a store cannot answer
+  between a deletion and the next dream.
+- With a model command set, `dream` never reads the answer files in `_dream/pending/`: the socket of K1's
+  experiment 4 works only in file mode.
+- `README.md` and `INDEX.md` at any depth, and every file that is not `.md`, are skipped without a word.
+- Identity on the bank: 3,216 names as written, 3,190 after folding, 3,175 after `ALIASES.md`, 2,972 after the
+  surface rule: 203 merges nobody judged. The name-alike proposer's 87 pairs: 14 the same, 73 not.
+
+## K6 — what it changed
+
+`PLAN.md` is rev 3 and `CONTRACT-2.md` goes with it: the script does the exact work, cheap agents read in packets
+under the 100K line and leave one line per decision, a drop is a command that leaves a tombstone, an absorbed base
+is data that stays apart until joined, pointers are checked for free, and the retrieval work is aimed at the three
+misses of K2. Two defects of v0.4 are now in the README's limits.
+
+Checked at the end, shipped code untouched: 40/40; bank 0.939 · 0.979; software ok; bank-index 0.941 · 0.978 ·
+alias 0.821; the bundle fresh.
 
 # Phase J (2026-11-11) — the same answer every run, on every machine, in any company
 

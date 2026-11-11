@@ -1,0 +1,1417 @@
+{
+ "_note": "The Haiku judge of eval/judge.py run twice on 2026-11-11 over the same answers: the three Haiku arms of that day and the Opus arms of phase G (eval/agent/runs/G-*.md) graded again, so that every arm has the same judge on the same day.",
+ "pass1": {
+  "H-mem-P1": {
+   "verdicts": {
+    "Q1": {
+     "v": "partial",
+     "why": "Gives Gini start as 0.41, reference says 0.42; drop scope differs slightly."
+    },
+    "Q2": {
+     "v": "correct",
+     "why": "Covers +1.8 naive, +0.6 matched, deciles 1-2 at +1.2, and the decision."
+    },
+    "Q3": {
+     "v": "partial",
+     "why": "Omits feat-sfc-lags-v1, feat-sfc-season-v2 and the ds-sfc-segment-monthly source table."
+    },
+    "Q4": {
+     "v": "correct",
+     "why": "States 0.66 on fraud26-gbm-v3, promoted 2026-08-26, no travel uplift."
+    },
+    "Q5": {
+     "v": "correct",
+     "why": "AUC 0.86 and precision@100 0.43 on mrisk-oot-2026h1, exp-505."
+    },
+    "Q6": {
+     "v": "correct",
+     "why": "Gini 0.41 to 0.33 drift, v4 rebuild approved 2026-06-26 with v10 bands and reject inference."
+    },
+    "Q7": {
+     "v": "correct",
+     "why": "Stripping rules, 0.78 to 0.81 lift on holdout-2025q2, part of txc-gbm-v3."
+    },
+    "Q8": {
+     "v": "correct",
+     "why": "Payment-to-minimum ratio, AUC 0.803 without limit feature, led to ed-gbm-v2."
+    },
+    "Q9": {
+     "v": "correct",
+     "why": "41 features: v1's 40 plus the payment-lag, util-ratio and spend-cv-30d additions."
+    },
+    "Q10": {
+     "v": "correct",
+     "why": "Cutoff 652 from 2026-09-01, replacing v8 640, 58% approval via bsm-cutoff-logit."
+    }
+   },
+   "correct": 8,
+   "partial": 2,
+   "wrong": 0
+  },
+  "H-grep-P1": {
+   "verdicts": {
+    "Q1": {
+     "v": "partial",
+     "why": "Gives baseline Gini 0.41 instead of 0.42; other key facts match."
+    },
+    "Q2": {
+     "v": "correct",
+     "why": "Has +1.8 naive, +0.6 matched, and dec-xs-call-low-deciles at +1.2 in deciles 1-2."
+    },
+    "Q3": {
+     "v": "partial",
+     "why": "Omits three of four named features and the source table ds-sfc-segment-monthly."
+    },
+    "Q4": {
+     "v": "correct",
+     "why": "States 0.66 on fraud26-gbm-v3 via dec-f26-promote-v3, replacing 0.62."
+    },
+    "Q5": {
+     "v": "correct",
+     "why": "AUC 0.86 and precision@100 0.43 on mrisk-oot-2026h1, exp-505, 2026-07-06."
+    },
+    "Q6": {
+     "v": "correct",
+     "why": "Gini drop 0.41 to 0.33 from bureau drift; v4 rebuild approved 2026-06-26."
+    },
+    "Q7": {
+     "v": "correct",
+     "why": "Normalisation rules, macro-F1 0.78 to 0.81 on exp-104, part of txc-gbm-v3."
+    },
+    "Q8": {
+     "v": "partial",
+     "why": "Gives AUC 0.803 correctly but omits the resulting ed-gbm-v2 model."
+    },
+    "Q9": {
+     "v": "correct",
+     "why": "Lists 41 features with payment-lag-v2, util ratio, and spend-cv-30d as in reference."
+    },
+    "Q10": {
+     "v": "correct",
+     "why": "Cutoff 652 on v10 from 2026-09-01, set by dec-bsm-cutover-2026q3 and bsm-cutoff-logit."
+    }
+   },
+   "correct": 7,
+   "partial": 3,
+   "wrong": 0
+  },
+  "G-mem-P1": {
+   "verdicts": {
+    "Q1": {
+     "v": "partial",
+     "why": "Core facts right, but states Gini start as 0.41 not 0.42."
+    },
+    "Q2": {
+     "v": "correct",
+     "why": "Gives +1.8 naive, +0.6 matched, and deciles 1-2 decision."
+    },
+    "Q3": {
+     "v": "partial",
+     "why": "Omits feat-sfc-season-v2 from the inputs; other facts match."
+    },
+    "Q4": {
+     "v": "correct",
+     "why": "States 0.66 on v3, dec-f26-promote-v3, no travel uplift."
+    },
+    "Q5": {
+     "v": "correct",
+     "why": "AUC 0.86, precision@100 0.43, exp-505, 2026-07-06, all match."
+    },
+    "Q6": {
+     "v": "correct",
+     "why": "Gini 0.41 to 0.33 drift, v4 rebuild approved 2026-06-26 with listed components."
+    },
+    "Q7": {
+     "v": "correct",
+     "why": "Normalisation steps, 0.78 to 0.81 lift, and use in txc-gbm-v3 all match."
+    },
+    "Q8": {
+     "v": "correct",
+     "why": "Payment-to-minimum ratio, AUC 0.803 lift, leads to ed-gbm-v2 2025-09."
+    },
+    "Q9": {
+     "v": "correct",
+     "why": "41 features, v1's 40 plus payment-lag-v2, util-ratio, spend-cv-30d; no legacy reads."
+    },
+    "Q10": {
+     "v": "correct",
+     "why": "Cutoff 652 on v10 from 2026-09-01, replacing v8 640, 58% approval."
+    }
+   },
+   "correct": 8,
+   "partial": 2,
+   "wrong": 0
+  },
+  "G-grep-P1": {
+   "verdicts": {
+    "Q1": {
+     "v": "correct",
+     "why": "Covers target encoding, Gini lift, 2.9x proxy spread, and removal from rs-xgb-v2."
+    },
+    "Q2": {
+     "v": "correct",
+     "why": "Gives +1.8 naive shrinking to +0.6 after matching, and the deciles 1-2 decision."
+    },
+    "Q3": {
+     "v": "correct",
+     "why": "Lists the four feature dependencies, MinT reconciliation, and ds-sfc-segment-monthly source."
+    },
+    "Q4": {
+     "v": "correct",
+     "why": "States 0.66 on fraud26-gbm-v3, superseding 0.62, with no travel uplift."
+    },
+    "Q5": {
+     "v": "correct",
+     "why": "Matches AUC 0.86 and precision@100 0.43 from exp-505 on mrisk-oot-2026h1."
+    },
+    "Q6": {
+     "v": "correct",
+     "why": "Covers v3 Gini drop 0.41 to 0.33, bureau drift, and the 2026-06-26 v4 rebuild."
+    },
+    "Q7": {
+     "v": "correct",
+     "why": "Gives normalisation steps, macro-F1 0.78 to 0.81 via exp-104, and inclusion in txc-gbm-v3."
+    },
+    "Q8": {
+     "v": "correct",
+     "why": "Gives AUC 0.803 from the payment-to-minimum ratio and the ed-gbm-v2 outcome."
+    },
+    "Q9": {
+     "v": "correct",
+     "why": "States 41 features with the two updated and one new store feature; omits the no-legacy-tables point."
+    },
+    "Q10": {
+     "v": "correct",
+     "why": "Gives cutoff 652 on v10 from 2026-09-01, replacing v8's 640."
+    }
+   },
+   "correct": 10,
+   "partial": 0,
+   "wrong": 0
+  },
+  "H-full-P1": {
+   "verdicts": {
+    "Q1": {
+     "v": "partial",
+     "why": "Core facts right, but baseline Gini given as 0.41 instead of 0.42."
+    },
+    "Q2": {
+     "v": "correct",
+     "why": "Gives +1.8 naive, +0.6 matched, and the deciles 1-2 decision with +1.2."
+    },
+    "Q3": {
+     "v": "partial",
+     "why": "Omits feat-sfc-lags-v1, feat-sfc-season-v2 and the source table ds-sfc-segment-monthly."
+    },
+    "Q4": {
+     "v": "correct",
+     "why": "States 0.66 on fraud26-gbm-v3, promoted 2026-08-26, replacing v2's 0.62."
+    },
+    "Q5": {
+     "v": "correct",
+     "why": "AUC 0.86 and precision@100 0.43 on mrisk-oot-2026h1, exp-505."
+    },
+    "Q6": {
+     "v": "correct",
+     "why": "Gives the 0.41 to 0.33 drift, the bureau cause, v10 bands, and the 2026-06-26 decision."
+    },
+    "Q7": {
+     "v": "correct",
+     "why": "Covers the normalisation steps, 0.78 to 0.81 lift, and use in txc-gbm-v3."
+    },
+    "Q8": {
+     "v": "correct",
+     "why": "States AUC 0.803 without limit feature and ed-gbm-v2 in September 2025."
+    },
+    "Q9": {
+     "v": "correct",
+     "why": "Matches 41 features: v1's 40 plus the two store v2 features and spend-cv-30d."
+    },
+    "Q10": {
+     "v": "correct",
+     "why": "Cutoff 652 on v10 from 2026-09-01, with bsm-cutoff-logit, 58% approval, v8 640 fallback."
+    }
+   },
+   "correct": 8,
+   "partial": 2,
+   "wrong": 0
+  },
+  "H-mem-C-h1": {
+   "verdicts": {
+    "Q1": {
+     "v": "correct",
+     "why": "Gives the latest 9 months and the 2026-10-30 decision; omits the v3 fit window."
+    },
+    "Q2": {
+     "v": "correct",
+     "why": "Names v2 and v3 as dependents and the no-post-period finding for the 3 util_ columns."
+    },
+    "Q3": {
+     "v": "correct",
+     "why": "Gives AUC 0.81 to 0.74, the leak finding, and the rebuild-as-v3 and retire-v2 decision."
+    },
+    "Q4": {
+     "v": "wrong",
+     "why": "Gives freeze date 2026-01-19 as recorded, not the reference's 2026-09-04; misses the sampling method."
+    },
+    "Q5": {
+     "v": "correct",
+     "why": "All figures match: AUC 0.71, recall@10 0.29, n=1.2M, 14 features, 2026-09-15."
+    },
+    "Q6": {
+     "v": "wrong",
+     "why": "Says the notes don't record the reason; misses the 10% retention-capacity rationale."
+    },
+    "Q7": {
+     "v": "partial",
+     "why": "Correctly names v3 and the 2026-10-30 supersession; window contrast is framed differently and the 6 columns are missing."
+    },
+    "Q8": {
+     "v": "correct",
+     "why": "Source table, 6 vel_ columns, and churn-xgb-v3 usage all match; window detail omitted."
+    },
+    "Q9": {
+     "v": "partial",
+     "why": "Correct starting point, but claims no recorded answer, missing the DE-4411 backfill completion on 2026-10-27."
+    },
+    "Q10": {
+     "v": "partial",
+     "why": "Job and maintainer correct, but definition given as no purchase or payment, not no card spend."
+    }
+   },
+   "correct": 5,
+   "partial": 3,
+   "wrong": 2
+  },
+  "H-grep-C-h1": {
+   "verdicts": {
+    "Q1": {
+     "v": "correct",
+     "why": "Gives latest 9 months and the 2025-01 to 2025-09 fit window."
+    },
+    "Q2": {
+     "v": "correct",
+     "why": "Names v2 and v3 and the unchanged result of the 2026-10-29 check."
+    },
+    "Q3": {
+     "v": "partial",
+     "why": "Gives the 0.81 to 0.74 AUC drop but omits the 10-30 decision and v2 retirement."
+    },
+    "Q4": {
+     "v": "correct",
+     "why": "Gives sampling, size, window, freeze date and script; extra conflict note is harmless."
+    },
+    "Q5": {
+     "v": "correct",
+     "why": "All numbers, n, feature count and no-velocity/utilization detail match."
+    },
+    "Q6": {
+     "v": "correct",
+     "why": "Gives the 10% call capacity rationale and that AUC is reported but not decisive."
+    },
+    "Q7": {
+     "v": "correct",
+     "why": "Identifies v3 as current and the 30-days-before versus around window difference."
+    },
+    "Q8": {
+     "v": "correct",
+     "why": "Gives cards.txn_daily source and churn-xgb-v3 as the consumer."
+    },
+    "Q9": {
+     "v": "correct",
+     "why": "Matches exp-014 start, data-eng-cards question, and 2026-10-27 backfill finish."
+    },
+    "Q10": {
+     "v": "partial",
+     "why": "Owner, job and 90-day window match, but says purchase or payment, not card spend."
+    }
+   },
+   "correct": 8,
+   "partial": 2,
+   "wrong": 0
+  },
+  "G-mem-C-h1": {
+   "verdicts": {
+    "Q1": {
+     "v": "partial",
+     "why": "Gives 9-month rolling window and 2025-01–09 v3 fit; ties to decision, correct."
+    },
+    "Q2": {
+     "v": "correct",
+     "why": "Names v2 and v3 both using feat-utilization-v1; 2026-10-29 check found no leak, kept unchanged."
+    },
+    "Q3": {
+     "v": "correct",
+     "why": "States AUC 0.81→0.74 result, leads to leak conclusion and v3 rebuild decision."
+    },
+    "Q4": {
+     "v": "partial",
+     "why": "Gets stratified 30%, 1.2M, 2026-09-04 freeze, but notebook and rule details are extra; reference's leak-free framing ok."
+    },
+    "Q5": {
+     "v": "correct",
+     "why": "AUC 0.71, recall@10 0.29, n=1.2M, 14 account-level features, no velocity or utilization."
+    },
+    "Q6": {
+     "v": "correct",
+     "why": "Explains 10% call capacity and 90-day churner capture; AUC reported alongside, decisions use recall@10."
+    },
+    "Q7": {
+     "v": "wrong",
+     "why": "Says v3 uses the 30 days before the observation date; the reference says the same, but it omits that v2 used 30 days around it. Candidate describes that correctly, so this is close. Verdict stays on the 6 vel_ columns and window framing being correct; reassessed below."
+    },
+    "Q8": {
+     "v": "partial",
+     "why": "Gets cards.txn_daily, 6 vel_ columns, churn-xgb-v3 use; omits 30-day window details and ratio."
+    },
+    "Q9": {
+     "v": "partial",
+     "why": "Covers exp-014 start and the DE-4411 backfill finish 10-27; adds unverified extra detail."
+    },
+    "Q10": {
+     "v": "partial",
+     "why": "Gives 90-day no-spend definition and maintainer; adds conflicting definitions as unreconciled notes."
+    }
+   },
+   "correct": 4,
+   "partial": 5,
+   "wrong": 1
+  },
+  "G-grep-C-h1": {
+   "verdicts": {
+    "Q1": {
+     "v": "correct",
+     "why": "States the 9-month window, 2026-10-30 decision, and v3's 2025-01 to 2025-09 fit."
+    },
+    "Q2": {
+     "v": "correct",
+     "why": "Names v2 and v3 as users and the 2026-10-29 no-post-period check outcome."
+    },
+    "Q3": {
+     "v": "correct",
+     "why": "Gives AUC 0.81 to 0.74, the leak conclusion, and the v3 rebuild and v2 retirement."
+    },
+    "Q4": {
+     "v": "correct",
+     "why": "Gives random 30% stratified by tenure, 1.2M, frozen 2026-09-04, and the notebook."
+    },
+    "Q5": {
+     "v": "correct",
+     "why": "Gives AUC 0.71, recall@10 0.29, n=1.2M, 14 features, and the 2026-09-15 date."
+    },
+    "Q6": {
+     "v": "correct",
+     "why": "Explains the 10% call capacity and that AUC is only reported alongside."
+    },
+    "Q7": {
+     "v": "correct",
+     "why": "Identifies v3 as current, supersedes v2, and the 30-days-before versus around window difference."
+    },
+    "Q8": {
+     "v": "partial",
+     "why": "Correct source and model, but omits the 6 vel_ columns and the 30-day window definition."
+    },
+    "Q9": {
+     "v": "correct",
+     "why": "Covers the exp-014 start, the September partition question, and DE-4411 finishing 2026-10-27."
+    },
+    "Q10": {
+     "v": "correct",
+     "why": "Gives the 90-day no-spend definition, the retention-labels job, and data-eng-cards as maintainer."
+    }
+   },
+   "correct": 9,
+   "partial": 1,
+   "wrong": 0
+  },
+  "H-full-C-h1": {
+   "verdicts": {
+    "Q1": {
+     "v": "correct",
+     "why": "Gives latest 9 months, 2026-10-30 decision, and v3's 2025-01 to 2025-09 fit window."
+    },
+    "Q2": {
+     "v": "correct",
+     "why": "Names v2 and v3 as users and the clean util_ check leaving v1 unchanged."
+    },
+    "Q3": {
+     "v": "correct",
+     "why": "States AUC 0.81 to 0.74 and the leak finding leading to the v3 rebuild decision."
+    },
+    "Q4": {
+     "v": "partial",
+     "why": "Gets 1.2M and Oct-Dec 2025, but omits the 2026-09-04 freeze and sampling method, and adds a conflicting 2026-01-19 date."
+    },
+    "Q5": {
+     "v": "correct",
+     "why": "Matches AUC 0.71, recall@10 0.29, n=1.2M, 14 features, and 2026-09-15 date."
+    },
+    "Q6": {
+     "v": "wrong",
+     "why": "Says the reason is not in the notes; misses the 10% call-capacity rationale."
+    },
+    "Q7": {
+     "v": "correct",
+     "why": "Identifies v3 as current with same 6 vel_ columns and pre-observation-only windows versus v2."
+    },
+    "Q8": {
+     "v": "correct",
+     "why": "Matches cards.txn_daily source, 30-day window with 90-day ratio, and churn-xgb-v3 usage."
+    },
+    "Q9": {
+     "v": "correct",
+     "why": "Matches exp-014 velocity start and the September question resolved by the 10-27 backfill."
+    },
+    "Q10": {
+     "v": "partial",
+     "why": "Gives builder and maintainer, but the definition wording differs and it hedges on the maintainer."
+    }
+   },
+   "correct": 7,
+   "partial": 2,
+   "wrong": 1
+  },
+  "H-mem-P2": {
+   "verdicts": {
+    "Q1": {
+     "v": "correct",
+     "why": "Gives point estimate with 95% CI and no p-values, as reference says."
+    },
+    "Q2": {
+     "v": "correct",
+     "why": "Orange #E07B24 and the Q3 2025 'baseline' reason for avoiding blue both match."
+    },
+    "Q3": {
+     "v": "correct",
+     "why": "States 0.20 for cli- models since 2026-06-01 and 0.25 for others."
+    },
+    "Q4": {
+     "v": "correct",
+     "why": "Two decimals for default rates and PD, one decimal for other percentages."
+    },
+    "Q5": {
+     "v": "correct",
+     "why": "Names offers.tier_matrix and tiers A to E, matching the reference."
+    },
+    "Q6": {
+     "v": "correct",
+     "why": "States 1.9% blended and that 2.5% was premium-card only."
+    },
+    "Q7": {
+     "v": "correct",
+     "why": "Says OOT is never used in training and last training months are in-time validation."
+    },
+    "Q8": {
+     "v": "correct",
+     "why": "Day 1 is the day after due date; payment on due date is 0 DPD."
+    },
+    "Q9": {
+     "v": "correct",
+     "why": "Says only randomised holdouts give uplift; otherwise report as lift. Example figures unverified."
+    },
+    "Q10": {
+     "v": "correct",
+     "why": "Explains the 14-day post-observation leak and the AUC drop from 0.79 to 0.72."
+    }
+   },
+   "correct": 10,
+   "partial": 0,
+   "wrong": 0
+  },
+  "H-grep-P2": {
+   "verdicts": {
+    "Q1": {
+     "v": "correct",
+     "why": "Gives point estimate with 95% CI and no p-values, as reference says."
+    },
+    "Q2": {
+     "v": "correct",
+     "why": "States orange #E07B24 and the blue-reads-as-baseline reason."
+    },
+    "Q3": {
+     "v": "correct",
+     "why": "States 0.20 for cli- since 2026-06-01 and 0.25 for others; caveat is extra."
+    },
+    "Q4": {
+     "v": "correct",
+     "why": "States 2 decimals for default rates and PD, 1 decimal for other percentages."
+    },
+    "Q5": {
+     "v": "correct",
+     "why": "Names offers.tier_matrix with tiers A to E; extra detail is consistent."
+    },
+    "Q6": {
+     "v": "correct",
+     "why": "States 1.9% blended and that 2.5% was premium-card only."
+    },
+    "Q7": {
+     "v": "correct",
+     "why": "Says No, OOT is a later unused period; last training months are validation."
+    },
+    "Q8": {
+     "v": "correct",
+     "why": "Day 1 is the day after due date; due-date payment counts as 0 DPD."
+    },
+    "Q9": {
+     "v": "correct",
+     "why": "Says do not call it uplift; only randomised holdouts give uplift."
+    },
+    "Q10": {
+     "v": "correct",
+     "why": "Gives 14-day future read, AUC 0.72 to 0.79, and v2 fix."
+    }
+   },
+   "correct": 10,
+   "partial": 0,
+   "wrong": 0
+  },
+  "G-mem-P2": {
+   "verdicts": {
+    "Q1": {
+     "v": "correct",
+     "why": "Gives point estimate with 95% CI and no p-values, matching the reference."
+    },
+    "Q2": {
+     "v": "correct",
+     "why": "Orange #E07B24 and the Q3 2025 blue-as-baseline reason both match."
+    },
+    "Q3": {
+     "v": "correct",
+     "why": "States above 0.20 for cli- models since 2026-06-01, with 0.25 for others."
+    },
+    "Q4": {
+     "v": "correct",
+     "why": "2 decimals for default/PD, 1 decimal for other percentages, with the 3.84% example."
+    },
+    "Q5": {
+     "v": "correct",
+     "why": "Names offers.tier_matrix as the source with tiers A to E."
+    },
+    "Q6": {
+     "v": "correct",
+     "why": "Gives 1.9% blended and identifies 2.5% as premium-card only."
+    },
+    "Q7": {
+     "v": "correct",
+     "why": "Says no, OOT is a later unused period; last training months are in-time validation."
+    },
+    "Q8": {
+     "v": "correct",
+     "why": "Day 1 is the day after due date; payment on due date is 0 DPD, per the 2026-01-15 fix."
+    },
+    "Q9": {
+     "v": "correct",
+     "why": "Says not to report as uplift without randomisation; report as lift instead."
+    },
+    "Q10": {
+     "v": "correct",
+     "why": "Explains the 14-day read past observation, the 0.72 to 0.79 AUC inflation, and the v2 rebuild."
+    }
+   },
+   "correct": 10,
+   "partial": 0,
+   "wrong": 0
+  },
+  "G-grep-P2": {
+   "verdicts": {
+    "Q1": {
+     "v": "correct",
+     "why": "Point estimate with 95% CI; no p-values, matching the reference."
+    },
+    "Q2": {
+     "v": "correct",
+     "why": "Orange #E07B24 and avoiding blue due to Q3 2025 'baseline' reading."
+    },
+    "Q3": {
+     "v": "correct",
+     "why": "Above 0.20 on top-20 features for cli- since 2026-06-01; others keep 0.25."
+    },
+    "Q4": {
+     "v": "correct",
+     "why": "Default rates and PD at 2 decimals; other percentages at 1 decimal."
+    },
+    "Q5": {
+     "v": "correct",
+     "why": "Names offers.tier_matrix and tiers A to E; extra churn detail is unverified but doesn't contradict."
+    },
+    "Q6": {
+     "v": "correct",
+     "why": "Uses 1.9% blended; 2.5% was premium-card only, as the reference states."
+    },
+    "Q7": {
+     "v": "correct",
+     "why": "Says no; OOT is unused later period, last training months are in-time validation."
+    },
+    "Q8": {
+     "v": "correct",
+     "why": "Counts from due date; day 1 is the day after; payment on due date is 0 DPD."
+    },
+    "Q9": {
+     "v": "correct",
+     "why": "Uplift only from randomised holdouts; otherwise call it lift."
+    },
+    "Q10": {
+     "v": "correct",
+     "why": "Leak read 14 days past observation; AUC 0.79 to 0.72 after v2 rebuild."
+    }
+   },
+   "correct": 10,
+   "partial": 0,
+   "wrong": 0
+  },
+  "H-full-P2": {
+   "verdicts": {
+    "Q1": {
+     "v": "correct",
+     "why": "States point estimate with 95% CI and no p-values, matching the reference."
+    },
+    "Q2": {
+     "v": "correct",
+     "why": "Gives orange #E07B24 and the Q3 2025 'baseline' reason for avoiding blue."
+    },
+    "Q3": {
+     "v": "partial",
+     "why": "States the 0.20 cli- rule, then casts doubt on it using a later correction."
+    },
+    "Q4": {
+     "v": "partial",
+     "why": "Gives 2 decimals for default/PD, but omits that other percentages use 1 decimal."
+    },
+    "Q5": {
+     "v": "correct",
+     "why": "Names offers.tier_matrix and tiers A to E; the extra detail is consistent."
+    },
+    "Q6": {
+     "v": "correct",
+     "why": "Gives blended 1.9% and says 2.5% was the premium-card rate only."
+    },
+    "Q7": {
+     "v": "correct",
+     "why": "States OOT is never used in training and last training months are in-time validation."
+    },
+    "Q8": {
+     "v": "correct",
+     "why": "Day 1 is the day after due date; a payment on the due date is 0 DPD."
+    },
+    "Q9": {
+     "v": "correct",
+     "why": "Says report as lift, uplift only on randomised holdouts, matching the reference."
+    },
+    "Q10": {
+     "v": "correct",
+     "why": "Explains the 14-day post-observation read and the AUC change, with v2 rebuild."
+    }
+   },
+   "correct": 8,
+   "partial": 2,
+   "wrong": 0
+  }
+ },
+ "pass2": {
+  "H-mem-P1": {
+   "verdicts": {
+    "Q1": {
+     "v": "partial",
+     "why": "Gives baseline Gini 0.41 not 0.42; proxy finding and drop are right"
+    },
+    "Q2": {
+     "v": "correct",
+     "why": "Covers +1.8 naive, +0.6 matched, and +1.2 low-decile restriction"
+    },
+    "Q3": {
+     "v": "partial",
+     "why": "Names cpi-lag6, active-accounts and MinT; omits lags, season and source table"
+    },
+    "Q4": {
+     "v": "correct",
+     "why": "States 0.66 on v3, promotion date, no travel uplift, v2 at 0.62"
+    },
+    "Q5": {
+     "v": "correct",
+     "why": "AUC 0.86 and precision@100 0.43 on mrisk-oot-2026h1 match"
+    },
+    "Q6": {
+     "v": "correct",
+     "why": "Gini 0.41 to 0.33 drift, dec-app-rebuild-v4 and its components all present"
+    },
+    "Q7": {
+     "v": "correct",
+     "why": "Normalisation details, 0.78 to 0.81 lift, and txc-gbm-v3 inclusion all present"
+    },
+    "Q8": {
+     "v": "correct",
+     "why": "Payment-to-minimum ratio, AUC 0.803, and ed-gbm-v2 outcome all match"
+    },
+    "Q9": {
+     "v": "correct",
+     "why": "41 features with the three named store additions match the reference"
+    },
+    "Q10": {
+     "v": "correct",
+     "why": "Cutoff 652 from 2026-09-01, replacing v8 640, with 58% approval rate matches"
+    }
+   },
+   "correct": 8,
+   "partial": 2,
+   "wrong": 0
+  },
+  "H-grep-P1": {
+   "verdicts": {
+    "Q1": {
+     "v": "partial",
+     "why": "Right on target encoding, 2.9x proxy and drop, but gives Gini baseline 0.41 not 0.42."
+    },
+    "Q2": {
+     "v": "correct",
+     "why": "Matches +1.8 naive, +0.6 matched, +1.2 deciles 1-2, and the outreach decision."
+    },
+    "Q3": {
+     "v": "partial",
+     "why": "Omits the lag, seasonality and CPI features and the ds-sfc-segment-monthly source table."
+    },
+    "Q4": {
+     "v": "correct",
+     "why": "States 0.66 on fraud26-gbm-v3 via dec-f26-promote-v3, replacing 0.62."
+    },
+    "Q5": {
+     "v": "correct",
+     "why": "AUC 0.86 and precision@100 0.43 on mrisk-oot-2026h1, exp-505, 2026-07-06."
+    },
+    "Q6": {
+     "v": "correct",
+     "why": "Gini 0.41 to 0.33 drift, v10 bands, reject inference, income estimate, approved 2026-06-26."
+    },
+    "Q7": {
+     "v": "correct",
+     "why": "Covers normalisation rules, macro-F1 0.78 to 0.81 via exp-104, and use in txc-gbm-v3."
+    },
+    "Q8": {
+     "v": "partial",
+     "why": "AUC 0.803 is right, but omits that it led to ed-gbm-v2."
+    },
+    "Q9": {
+     "v": "correct",
+     "why": "Lists 41 features with the store-sourced inputs and feat-fsm-spend-cv-30d."
+    },
+    "Q10": {
+     "v": "correct",
+     "why": "Cutoff 652 on v10 from 2026-09-01 via dec-bsm-cutover-2026q3, at 58% approval."
+    }
+   },
+   "correct": 7,
+   "partial": 3,
+   "wrong": 0
+  },
+  "G-mem-P1": {
+   "verdicts": {
+    "Q1": {
+     "v": "partial",
+     "why": "Gives lift as 0.41 to 0.44; reference says 0.42 to 0.44. Other key facts match."
+    },
+    "Q2": {
+     "v": "correct",
+     "why": "Covers +1.8 naive, +0.6 matched, find-xs-call-overstated, deciles 1-2 decision."
+    },
+    "Q3": {
+     "v": "partial",
+     "why": "Omits feat-sfc-season-v2 from the inputs; other dependencies and source table match."
+    },
+    "Q4": {
+     "v": "correct",
+     "why": "States 0.66 on fraud26-gbm-v3, replacing 0.62, no travel uplift."
+    },
+    "Q5": {
+     "v": "correct",
+     "why": "AUC 0.86 and precision@100 0.43 on mrisk-oot-2026h1, exp-505."
+    },
+    "Q6": {
+     "v": "correct",
+     "why": "Gini 0.41 to 0.33 drift, rebuild approved 2026-06-26 with v10 bands, reject inference, income estimate."
+    },
+    "Q7": {
+     "v": "correct",
+     "why": "Stripping rules, 2025-09-22 build, macro-F1 0.78 to 0.81 in exp-104, used in txc-gbm-v3."
+    },
+    "Q8": {
+     "v": "correct",
+     "why": "Payment-to-minimum ratio lifted AUC to 0.803 without limit feature, leading to ed-gbm-v2."
+    },
+    "Q9": {
+     "v": "correct",
+     "why": "41 features: v1's 40 plus payment-lag-v2, util ratio and spend-cv-30d; matches reference."
+    },
+    "Q10": {
+     "v": "correct",
+     "why": "Cutoff 652 on v10 scale from 2026-09-01, replacing v8 640, 58% approval kept."
+    }
+   },
+   "correct": 8,
+   "partial": 2,
+   "wrong": 0
+  },
+  "G-grep-P1": {
+   "verdicts": {
+    "Q1": {
+     "v": "partial",
+     "why": "Gets region-rate, Gini lift, proxy concern and removal; adds accurate detail, but states Gini loss as 0.44→0.42 and rs-xgb-v2 reaching 0.47 without it, unverifiable here."
+    },
+    "Q2": {
+     "v": "correct",
+     "why": "Gives +1.8 naive shrinking to +0.6 after matching, and decision to deciles 1–2 with +1.2."
+    },
+    "Q3": {
+     "v": "correct",
+     "why": "Lists the lags, season, CPI, active-accounts features and MinT reconciliation; includes ds-sfc-segment-monthly source."
+    },
+    "Q4": {
+     "v": "correct",
+     "why": "States 0.66 on fraud26-gbm-v3, no travel uplift, superseding 0.62 from v2."
+    },
+    "Q5": {
+     "v": "correct",
+     "why": "Gives AUC 0.86 and precision@100 0.43 on mrisk-oot-2026h1 from exp-505."
+    },
+    "Q6": {
+     "v": "correct",
+     "why": "Covers v3 Gini drop 0.41→0.33, bureau score drift, and 2026-06-26 v4 rebuild with v10 bands and reject inference."
+    },
+    "Q7": {
+     "v": "correct",
+     "why": "Covers normalisation steps, exp-104 macro-F1 0.78→0.81, and inclusion in txc-gbm-v3."
+    },
+    "Q8": {
+     "v": "correct",
+     "why": "States AUC 0.803 from exp-205 with minpay feature, leading to ed-gbm-v2."
+    },
+    "Q9": {
+     "v": "correct",
+     "why": "Lists 41 features including payment-lag-v2, util-ratio and spend-cv-30d; no legacy feat_ tables implied."
+    },
+    "Q10": {
+     "v": "correct",
+     "why": "States cutoff 652 on v10 scale from 2026-09-01, replacing v8 cutoff 640."
+    }
+   },
+   "correct": 9,
+   "partial": 1,
+   "wrong": 0
+  },
+  "H-full-P1": {
+   "verdicts": {
+    "Q1": {
+     "v": "partial",
+     "why": "Gini baseline given as 0.41, reference says 0.42; otherwise key facts match."
+    },
+    "Q2": {
+     "v": "correct",
+     "why": "Gives +1.8 naive, +0.6 matched, and dec-xs-call-low-deciles at +1.2 in deciles 1-2."
+    },
+    "Q3": {
+     "v": "partial",
+     "why": "Omits feat-sfc-lags-v1, feat-sfc-season-v2, and the ds-sfc-segment-monthly source table."
+    },
+    "Q4": {
+     "v": "correct",
+     "why": "States 0.66 on fraud26-gbm-v3, promoted 2026-08-26, replacing v2's 0.62."
+    },
+    "Q5": {
+     "v": "correct",
+     "why": "Gives AUC 0.86 and precision@100 0.43 on mrisk-oot-2026h1 via exp-505."
+    },
+    "Q6": {
+     "v": "correct",
+     "why": "Gives Gini 0.41 to 0.33 drift, v10 bands, reject inference, and 2026-06-26 decision."
+    },
+    "Q7": {
+     "v": "correct",
+     "why": "Gives normalisation rules, F1 0.78 to 0.81 via exp-104, and inclusion in txc-gbm-v3."
+    },
+    "Q8": {
+     "v": "correct",
+     "why": "States payment-to-minimum lifted AUC to 0.803 without limit feature, leading to ed-gbm-v2."
+    },
+    "Q9": {
+     "v": "correct",
+     "why": "Lists 41 features: v1's 40 plus v2 payment-lag and util-ratio and spend-cv-30d; v2 only."
+    },
+    "Q10": {
+     "v": "correct",
+     "why": "States cutoff 652 on v10 from 2026-09-01, replacing v8's 640, at 58% approval."
+    }
+   },
+   "correct": 8,
+   "partial": 2,
+   "wrong": 0
+  },
+  "H-mem-C-h1": {
+   "verdicts": {
+    "Q1": {
+     "v": "correct",
+     "why": "Gives the latest 9-month window and the 2026-10-30 decision; omits v3's 2025 fit window."
+    },
+    "Q2": {
+     "v": "correct",
+     "why": "Names v2 and v3 as dependents and the no-post-period finding for the three util_ columns."
+    },
+    "Q3": {
+     "v": "correct",
+     "why": "Gives AUC 0.81 to 0.74 and the leak finding, then the v3 rebuild and v2 retirement."
+    },
+    "Q4": {
+     "v": "partial",
+     "why": "Gets 1.2M and never-trained right, but misses the 2026-09-04 freeze and gives a conflicting 2026-01-19 date."
+    },
+    "Q5": {
+     "v": "correct",
+     "why": "All figures match: AUC 0.71, recall@10 0.29, n=1.2M, 14 features, 2026-09-15."
+    },
+    "Q6": {
+     "v": "wrong",
+     "why": "Says the notes don't give the reason; misses the 10% call-capacity rationale."
+    },
+    "Q7": {
+     "v": "correct",
+     "why": "Identifies v3 as current, dated 2026-10-30, with pre-observation-only windows versus v2's leaky windows."
+    },
+    "Q8": {
+     "v": "partial",
+     "why": "Correct source, six columns, and model, but omits the 30-day window and 90-day ratio."
+    },
+    "Q9": {
+     "v": "partial",
+     "why": "Correct starting point, but says no answer was recorded; misses the 2026-10-27 backfill completion."
+    },
+    "Q10": {
+     "v": "partial",
+     "why": "Correct job and maintainer, but the churn definition ('purchase and payment') differs from 'card spend'."
+    }
+   },
+   "correct": 5,
+   "partial": 4,
+   "wrong": 1
+  },
+  "H-grep-C-h1": {
+   "verdicts": {
+    "Q1": {
+     "v": "correct",
+     "why": "Gives the latest 9 months and the 2025-01 to 2025-09 fit window."
+    },
+    "Q2": {
+     "v": "correct",
+     "why": "Names v2 and v3 and the unchanged util_ check result."
+    },
+    "Q3": {
+     "v": "correct",
+     "why": "Gives the 0.81 to 0.74 AUC drop and the v3 rebuild; omits v2 retirement."
+    },
+    "Q4": {
+     "v": "correct",
+     "why": "States all holdout facts and date; the conflict flag adds no contradiction."
+    },
+    "Q5": {
+     "v": "correct",
+     "why": "Matches AUC 0.71, recall@10 0.29, n=1.2M, and 14 features."
+    },
+    "Q6": {
+     "v": "correct",
+     "why": "Gives the 10% call-capacity rationale and AUC-reported-alongside point."
+    },
+    "Q7": {
+     "v": "correct",
+     "why": "Names v3 as current and its 30-days-before window versus v2's around-window."
+    },
+    "Q8": {
+     "v": "partial",
+     "why": "Gets cards.txn_daily and churn-xgb-v3; omits 6 columns and window detail."
+    },
+    "Q9": {
+     "v": "correct",
+     "why": "Matches exp-014 start, data-eng-cards question, and 10-27 backfill completion."
+    },
+    "Q10": {
+     "v": "correct",
+     "why": "Matches 90-day window, retention-labels builder, and data-eng-cards maintainer."
+    }
+   },
+   "correct": 9,
+   "partial": 1,
+   "wrong": 0
+  },
+  "G-mem-C-h1": {
+   "verdicts": {
+    "Q1": {
+     "v": "partial",
+     "why": "Gives 9-month rolling window and 2025-01 to 2025-09 fit, but omits 2026-10-30 decision specifics; reasonably correct."
+    },
+    "Q2": {
+     "v": "correct",
+     "why": "Names v2 and v3 using feat-utilization-v1; states the 2026-10-29 check found no post-period days."
+    },
+    "Q3": {
+     "v": "partial",
+     "why": "Covers AUC 0.81→0.74 and leak confirmation, but misstates the 2026-10-30 outcome and lacks clarity on the main chain."
+    },
+    "Q4": {
+     "v": "correct",
+     "why": "States 30% stratified random, Oct–Dec 2025, 1.2M, frozen 2026-09-04, make_holdout notebook."
+    },
+    "Q5": {
+     "v": "correct",
+     "why": "AUC 0.71, recall@10 0.29, n=1.2M, 14 account-level features, no velocity or utilization."
+    },
+    "Q6": {
+     "v": "correct",
+     "why": "Gives 10% capacity rationale, recall@10 over all churners, and AUC reported alongside."
+    },
+    "Q7": {
+     "v": "correct",
+     "why": "feat-velocity-v3 supersedes v2 on 2026-10-30; 30 days before observation date vs around it."
+    },
+    "Q8": {
+     "v": "correct",
+     "why": "Reads cards.txn_daily, builds 6 vel_ columns with prior 90-day ratio, used by churn-xgb-v3."
+    },
+    "Q9": {
+     "v": "partial",
+     "why": "Covers exp-014 velocity start and the DE-4411 backfill finishing 2026-10-27, with extra detail."
+    },
+    "Q10": {
+     "v": "partial",
+     "why": "Gives 90-day flag and data-eng-cards owner, but adds unverified conflicting definitions and extra claims."
+    }
+   },
+   "correct": 6,
+   "partial": 4,
+   "wrong": 0
+  },
+  "G-grep-C-h1": {
+   "verdicts": {
+    "Q1": {
+     "v": "correct",
+     "why": "Gives latest 9 months per 2026-10-30 decision and v3's 2025-01 to 2025-09 fit."
+    },
+    "Q2": {
+     "v": "correct",
+     "why": "Names v2 and v3 as users and the 2026-10-29 check leaving utilization unchanged."
+    },
+    "Q3": {
+     "v": "correct",
+     "why": "Covers AUC 0.81 to 0.74, the 10-29 leak finding, and the 10-30 v3 rebuild decision."
+    },
+    "Q4": {
+     "v": "correct",
+     "why": "States random 30% stratified by tenure, Oct-Dec 2025, 1.2M, frozen 2026-09-04, notebook."
+    },
+    "Q5": {
+     "v": "correct",
+     "why": "Gives AUC 0.71, recall@10 0.29, n=1.2M, 14 features, and the 2026-09-15 date."
+    },
+    "Q6": {
+     "v": "correct",
+     "why": "Explains 10% call capacity matching recall@10 and AUC being reported only alongside."
+    },
+    "Q7": {
+     "v": "correct",
+     "why": "Identifies v3 as current, decided 2026-10-30, same 6 columns, 30 days before observation date."
+    },
+    "Q8": {
+     "v": "correct",
+     "why": "States cards.txn_daily read, velocity_v3.py, and churn-xgb-v3 as the only user."
+    },
+    "Q9": {
+     "v": "correct",
+     "why": "Covers exp-014 velocity review start and DE-4411 September backfill finishing 2026-10-27."
+    },
+    "Q10": {
+     "v": "correct",
+     "why": "Gives 90-day no-spend definition after month-end date, built from txn_daily, data-eng-cards owner."
+    }
+   },
+   "correct": 10,
+   "partial": 0,
+   "wrong": 0
+  },
+  "H-full-C-h1": {
+   "verdicts": {
+    "Q1": {
+     "v": "correct",
+     "why": "Gives the latest 9 months and the 2025-01 to 2025-09 fit window for v3."
+    },
+    "Q2": {
+     "v": "correct",
+     "why": "Names v2 and v3 as users and the clean util_ check result."
+    },
+    "Q3": {
+     "v": "partial",
+     "why": "Has AUC 0.81 to 0.74 and the v3 outcome, but omits the 10-30 decision date and v2 retirement."
+    },
+    "Q4": {
+     "v": "partial",
+     "why": "Has 1.2M and Oct-Dec 2025 but omits the 2026-09-04 freeze date and sampling method, and cites a conflicting 2026-01-19 freeze."
+    },
+    "Q5": {
+     "v": "correct",
+     "why": "Matches AUC 0.71, recall@10 0.29, n=1.2M, 14 features, and 2026-09-15."
+    },
+    "Q6": {
+     "v": "wrong",
+     "why": "Says no reason is stated, missing the 10%-of-book call-capacity rationale."
+    },
+    "Q7": {
+     "v": "correct",
+     "why": "Identifies v3 superseding v2, same 6 vel_ columns, and pre-observation windows versus v2's."
+    },
+    "Q8": {
+     "v": "correct",
+     "why": "Matches cards.txn_daily source, 30-day window with 90-day ratio, and churn-xgb-v3 usage."
+    },
+    "Q9": {
+     "v": "correct",
+     "why": "Names exp-014 velocity start, data-eng-cards question, and the 10-27 backfill resolution."
+    },
+    "Q10": {
+     "v": "correct",
+     "why": "Gives the 90-day no-spend definition, retention-labels build from txn_daily, and data-eng-cards maintainer."
+    }
+   },
+   "correct": 7,
+   "partial": 2,
+   "wrong": 1
+  },
+  "H-mem-P2": {
+   "verdicts": {
+    "Q1": {
+     "v": "correct",
+     "why": "Matches point estimate with 95% CI and no p-values."
+    },
+    "Q2": {
+     "v": "correct",
+     "why": "Gives orange #E07B24 and the Q3 2025 baseline reason for avoiding blue."
+    },
+    "Q3": {
+     "v": "correct",
+     "why": "States the 0.20 cli- trigger since 2026-06-01 and 0.25 for others."
+    },
+    "Q4": {
+     "v": "correct",
+     "why": "States 2 decimals for default rates and PD, 1 decimal for other percentages."
+    },
+    "Q5": {
+     "v": "correct",
+     "why": "Names offers.tier_matrix with tiers A to E, matching the reference."
+    },
+    "Q6": {
+     "v": "correct",
+     "why": "States 1.9% blended and that 2.5% was premium-card only."
+    },
+    "Q7": {
+     "v": "correct",
+     "why": "Says OOT is never used in training and last months are in-time validation."
+    },
+    "Q8": {
+     "v": "correct",
+     "why": "Day 1 is the day after due date; due-date payment is 0 DPD, per the fix."
+    },
+    "Q9": {
+     "v": "correct",
+     "why": "Says non-randomised control is lift not uplift; the example is unverified extra detail."
+    },
+    "Q10": {
+     "v": "correct",
+     "why": "Gives the 14-day leak, the 0.72/0.79 AUC change, and the v2 rebuild."
+    }
+   },
+   "correct": 10,
+   "partial": 0,
+   "wrong": 0
+  },
+  "H-grep-P2": {
+   "verdicts": {
+    "Q1": {
+     "v": "correct",
+     "why": "Point estimate with 95% CI and no p-values, as the reference states."
+    },
+    "Q2": {
+     "v": "correct",
+     "why": "Gives orange #E07B24 and the Q3 2025 'baseline' reason for avoiding blue."
+    },
+    "Q3": {
+     "v": "correct",
+     "why": "States 0.20 for cli- since 2026-06-01 and 0.25 for others; the caveat doesn't change this."
+    },
+    "Q4": {
+     "v": "correct",
+     "why": "2 decimals for default rates and PD, 1 decimal for other percentages, as stated."
+    },
+    "Q5": {
+     "v": "correct",
+     "why": "Names offers.tier_matrix and tiers A to E, matching the reference."
+    },
+    "Q6": {
+     "v": "correct",
+     "why": "Gives 1.9% blended and identifies 2.5% as the premium-card rate only."
+    },
+    "Q7": {
+     "v": "correct",
+     "why": "Says no, OOT is a later unseen period, and the training tail is in-time validation."
+    },
+    "Q8": {
+     "v": "correct",
+     "why": "Day 1 is the day after the due date, with the 2026-01-15 fix and 0 DPD on the due date."
+    },
+    "Q9": {
+     "v": "correct",
+     "why": "Says not to report uplift without randomisation and to report the difference as lift."
+    },
+    "Q10": {
+     "v": "correct",
+     "why": "Gives the 14-day leak, AUC 0.72 to 0.79, and the v2 fix reading only up to observation."
+    }
+   },
+   "correct": 10,
+   "partial": 0,
+   "wrong": 0
+  },
+  "G-mem-P2": {
+   "verdicts": {
+    "Q1": {
+     "v": "correct",
+     "why": "Gives point estimate with 95% CI and says p-values are not shown."
+    },
+    "Q2": {
+     "v": "correct",
+     "why": "Gives orange #E07B24 and the Q3 2025 'baseline' reason for avoiding blue."
+    },
+    "Q3": {
+     "v": "correct",
+     "why": "States above 0.20 on top-20 feature from 2026-06-01; other families keep 0.25."
+    },
+    "Q4": {
+     "v": "correct",
+     "why": "States 2 decimals for default rates and PD, with 3.84% example, and 1 decimal for other percentages."
+    },
+    "Q5": {
+     "v": "correct",
+     "why": "Names offers.tier_matrix and tiers A to E; extra retention detail is accurate context."
+    },
+    "Q6": {
+     "v": "correct",
+     "why": "Gives 1.9% blended and says 2.5% is premium-card only."
+    },
+    "Q7": {
+     "v": "correct",
+     "why": "Says OOT is not just the training tail; the last months are in-time validation."
+    },
+    "Q8": {
+     "v": "correct",
+     "why": "Says DPD counts from due date, day 1 is the day after, and due-date payment is 0 DPD."
+    },
+    "Q9": {
+     "v": "correct",
+     "why": "Says not to report as uplift without randomised holdouts; report as lift."
+    },
+    "Q10": {
+     "v": "correct",
+     "why": "Gives the 14-day post-observation read, AUC 0.72 to 0.79 inflation, and the v2 fix."
+    }
+   },
+   "correct": 10,
+   "partial": 0,
+   "wrong": 0
+  },
+  "G-grep-P2": {
+   "verdicts": {
+    "Q1": {
+     "v": "correct",
+     "why": "Matches point estimate with 95% CI and no p-values; extra detail is consistent."
+    },
+    "Q2": {
+     "v": "correct",
+     "why": "Gives orange #E07B24 and the Q3 2025 'baseline' reason for avoiding blue."
+    },
+    "Q3": {
+     "v": "correct",
+     "why": "States 0.20 for cli- models since 2026-06-01 and 0.25 for others."
+    },
+    "Q4": {
+     "v": "correct",
+     "why": "States 2 decimals for default rates and PD, 1 decimal for other percentages."
+    },
+    "Q5": {
+     "v": "correct",
+     "why": "Names offers.tier_matrix as the source and tiers A to E; extra detail is additional."
+    },
+    "Q6": {
+     "v": "correct",
+     "why": "Gives 1.9% blended and identifies 2.5% as the premium-card-only rate."
+    },
+    "Q7": {
+     "v": "correct",
+     "why": "Says No, OOT is never-trained later data; last training months are in-time validation."
+    },
+    "Q8": {
+     "v": "correct",
+     "why": "Day 1 is the day after due date; payment on due date is 0 DPD, per the 2026-01-15 fix."
+    },
+    "Q9": {
+     "v": "correct",
+     "why": "Says not to report as uplift without randomised holdouts; difference is lift."
+    },
+    "Q10": {
+     "v": "correct",
+     "why": "Leak reading 14 days past observation; AUC 0.79 to 0.72; v2 reads only on-or-before days."
+    }
+   },
+   "correct": 10,
+   "partial": 0,
+   "wrong": 0
+  },
+  "H-full-P2": {
+   "verdicts": {
+    "Q1": {
+     "v": "correct",
+     "why": "States point estimate with 95% CI and no p-values, matching reference."
+    },
+    "Q2": {
+     "v": "correct",
+     "why": "Gives orange #E07B24 and the Q3 2025 'baseline' reason for avoiding blue."
+    },
+    "Q3": {
+     "v": "partial",
+     "why": "States the 0.20 cli- rule but then says it is unclear whether it still applies."
+    },
+    "Q4": {
+     "v": "partial",
+     "why": "Gives 2 decimals for default rates and PD, but omits the 1-decimal rule for other percentages."
+    },
+    "Q5": {
+     "v": "correct",
+     "why": "Names offers.tier_matrix and tiers A to E, matching reference."
+    },
+    "Q6": {
+     "v": "correct",
+     "why": "Gives 1.9% blended and identifies 2.5% as premium-card only."
+    },
+    "Q7": {
+     "v": "correct",
+     "why": "Says no, OOT is never used in training, and the last months are in-time validation."
+    },
+    "Q8": {
+     "v": "correct",
+     "why": "Day 1 is the day after due date; payment on due date is 0 DPD."
+    },
+    "Q9": {
+     "v": "correct",
+     "why": "Reports as lift, with uplift only on randomised holdouts, matching reference."
+    },
+    "Q10": {
+     "v": "correct",
+     "why": "Explains the 14-day future read and the AUC change, consistent with reference."
+    }
+   },
+   "correct": 8,
+   "partial": 2,
+   "wrong": 0
+  }
+ }
+}
