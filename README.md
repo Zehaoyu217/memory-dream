@@ -417,3 +417,6 @@ index) and the software fixture, the build-bundle freshness check and the Postgr
 - `BUILD-GUIDE.md`, `online-build-bundle.md`: how to rebuild it from scratch, phase by phase.
 - `.specs/memory-dream/HANDOFF.md`: where the work stood on 2026-11-02, what is verified, what is open, how to pick it
   up, and what the pick-up of 2026-11-11 found.
+- `.specs/memory-dream/PLAN.md`: where it goes next (v0.5): a general, mergeable knowledge graph built in blocks —
+  writers, keepers, a taxonomy that grows, contracts for things, graphs that can be merged, a graph that checks
+  itself. `.specs/memory-dream/RESEARCH-2026-11.md` holds the materials behind it.

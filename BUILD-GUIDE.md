@@ -128,6 +128,7 @@ eval/
   questions/                   366 questions with gold notes and reference answers
   retrieval.py                 offline: did ask print the gold notes and the answer's numbers?
   stability.py                 offline: the same answer under any hash seed, file order and company? (phase J)
+  graph_probe.py               offline: what plain graph methods find in a dreamed graph (loops, hubs, roles; PLAN.md §8)
   judge.py                     Haiku judge: correct / partial / wrong vs reference answers
   agent/                       Opus agent eval (batches, runs, usage, judge, summarize)
   scale/                       100× world, timing, tracing, profiling

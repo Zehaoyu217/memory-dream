@@ -184,6 +184,9 @@ and characters per question, up by one.
 | new | a note with no date of its own is dated by its file, so by the day of the clone (RESULTS J3; README Limits) |
 | new | BSD grep took twice as long as the Python matcher on this Mac (49 s against 22 s for 1,149 questions): not looked into |
 
+What comes next is in `PLAN.md` (v0.5, eleven blocks, six milestones) with its materials in `RESEARCH-2026-11.md`.
+Items 6 and 7 of the list above and the three "new" rows are folded into it (blocks B3, B2, B9, B1 and B9).
+
 ### Verified at the end of this session
 
 | check | result |
