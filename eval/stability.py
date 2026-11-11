@@ -11,6 +11,7 @@ once per variant, and each variant is compared with the first run, question by q
   seed N      another PYTHONHASHSEED, a fresh process
   files a-z   grep's files listed in ascending path order, as another filesystem might list them
   files z-a   descending
+  no grep     the Python matcher that stands in on a machine with no grep
   alone       every --every-th question asked alone, and in sevens, against the same questions in tens (notes only:
               the "(above)" marks of a shared call differ by design)
 Counted per set: questions whose printed section differs (text), whose notes come in another order (order), whose
@@ -100,14 +101,16 @@ def main(argv):
     opt = lambda k, default: argv[argv.index(k) + 1] if k in argv else default  # noqa: E731
     seeds, every, show = opt("--seeds", "0,1,2").split(","), int(opt("--every", "4")), int(opt("--show", "0"))
     tmp = Path(tempfile.mkdtemp(prefix="stability-"))
-    runs = [(f"seed {s}", s, "found", 10, 1) for s in seeds] + \
-           [("files a-z", seeds[0], "a-z", 10, 1), ("files z-a", seeds[0], "z-a", 10, 1),
-            ("in tens", seeds[0], "found", 10, every), ("alone", seeds[0], "found", 1, every), ("in sevens", seeds[0], "found", 7, every)]
+    runs = [(f"seed {s}", s, "found", 10, 1, {}) for s in seeds] + \
+           [("files a-z", seeds[0], "a-z", 10, 1, {}), ("files z-a", seeds[0], "z-a", 10, 1, {}),
+            ("no grep", seeds[0], "found", 10, 1, {"PATH": str(tmp / "no-bin")}),  # nothing on the path: grep is not found
+            ("in tens", seeds[0], "found", 10, every, {}), ("alone", seeds[0], "found", 1, every, {}),
+            ("in sevens", seeds[0], "found", 7, every, {})]
     procs = []
-    for name, seed, order, batch, ev in runs:  # every run is its own process: its own hash seed
+    for name, seed, order, batch, ev, env in runs:  # every run is its own process: its own hash seed
         out = tmp / (name.replace(" ", "-") + ".json")
         procs.append((name, out, subprocess.Popen([sys.executable, __file__, "--worker", str(root), order, str(batch), str(ev), str(out)],
-                                                  env=dict(os.environ, PYTHONHASHSEED=seed))))
+                                                  env=dict(os.environ, PYTHONHASHSEED=seed, **env))))
     got = {}
     for name, out, p in procs:
         if p.wait() != 0:

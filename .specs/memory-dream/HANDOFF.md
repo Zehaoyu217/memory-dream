@@ -144,7 +144,7 @@ python3 eval/ab_env.py /tmp/w/memory eval/questions/bank-*.jsonl --var "off:MEMO
 
 Everything above is the 2026-11-02 session's record, left as written. A second session took the work over on another
 machine: macOS, Python 3.9.6 and 3.13, BSD grep, Node 22 with Playwright; no PostgreSQL, Docker installed with its
-daemon off. The work is on the same branch, one commit on a4d53c0.
+daemon off. The work is on the same branch, on top of a4d53c0.
 
 ### What the pick-up found
 
@@ -159,8 +159,11 @@ daemon off. The work is on the same branch, one commit on a4d53c0.
 | PostgreSQL store | not run here: no server. CI ran it green |
 
 The alias figure was the thread to pull. `ask` did not print the same answer every time: it depended on Python's hash
-seed, on the order grep listed the files in, and for tasks on the other questions of the call. RESULTS phase J has the
-measurement and the three fixes; `eval/stability.py` measures it and A42 holds it. No gated number moved.
+seed, on the order grep listed the files in, and for tasks on the other questions of the call. With those three fixed
+the next CI run still read 0.819 on Linux against 0.818 here, which led to two more: a thing's headline note went to
+whichever tied file was modified last (a clone keeps no modification times), and on a machine with no grep the
+registries were answered as notes. RESULTS phase J has the measurements and the five fixes; `eval/stability.py`
+measures the read path and A42 holds all five. The only gated number that moved is alias: 0.821 here now.
 
 ### The open list, as it stands
 
@@ -177,6 +180,8 @@ measurement and the three fixes; `eval/stability.py` measures it and A42 holds i
 | 9. BUILD-GUIDE §8 | done; the bundle's own stale exit conditions too (`35/35 passed`, "~1,900 lines") |
 | 10. probation dates | unchanged |
 | new | the lines printed under a note still depend on the other questions of the call (RESULTS J3) |
+| new | a note with no date of its own is dated by its file, so by the day of the clone (RESULTS J3; README Limits) |
+| new | BSD grep took twice as long as the Python matcher on this Mac (49 s against 22 s for 1,149 questions): not looked into |
 
 ### Verified at the end of this session
 
@@ -185,8 +190,8 @@ measurement and the three fixes; `eval/stability.py` measures it and A42 holds i
 | `python3 tests/acceptance.py` | 40/40 on Python 3.9.6 and on 3.13 |
 | `python3 tests/retrieval_gate.py bank` | gold 0.939 · numbers 0.979 · stale 0.962 / 1.0 · absence 1.0 |
 | `python3 tests/retrieval_gate.py software` | gold 1.00 · numbers 1.00 · stale 1.0 / 1.0 |
-| `python3 tests/retrieval_gate.py bank-index` | gold 0.941 · numbers 0.978 · alias 0.818 |
-| `python3 eval/stability.py <bank-index world>` | 0 differences in 1,149 questions; the same with `MEMORY_WIDE=100` |
+| `python3 tests/retrieval_gate.py bank-index` | gold 0.941 · numbers 0.978 · alias 0.821 |
+| `python3 eval/stability.py <bank-index world>` | 0 differences in 1,149 questions, seven variants; the same with `MEMORY_WIDE=100` |
 | `node tests/viz_check.js` | 15/15 |
 | `python3 tests/bundle_refresh.py --check` | fresh |
 

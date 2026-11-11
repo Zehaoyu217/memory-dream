@@ -944,7 +944,8 @@ def A41():
 
 def A42():
     """The same question gets the same answer on every run, on every machine and in any company: nothing in it depends
-    on Python's per-process hash seed, on the order grep lists the files in, or on the other questions of the call."""
+    on Python's per-process hash seed, on the order grep lists the files in, on whether there is a grep at all, on
+    the files' modification times, or on the other questions of the call."""
     import contextlib
     import io
     w = World(fixture=False)
@@ -994,7 +995,29 @@ def A42():
     alone, beside = section(inproc("", q_task), q_task), section(inproc("", q_task, q_other), q_task)
     prefs = [sorted(h for h in re.findall(r"^▸ (\S+)", s, flags=re.M) if h.startswith("prefs/")) for s in (alone, beside)]
     assert prefs[0] == prefs[1], f"a task's preferences changed with the other question of the call: {prefs}"
-    return "7 equal notes for 6 seeds: one answer under hash seeds 1–3 and with grep's files listed forwards, backwards and as found; a task keeps its preferences beside another question"
+    # no grep on the machine: the Python matcher must give the same answer, registries left out as with grep
+    w.run("dream", model=False)  # writes the registries: EDGES.md names the link types, evaluated-on among them
+    q_reg = "Which notes are evaluated-on the holdout?"
+    with_grep, without = (w.run("ask", q_down, q_reg, model=False, env=e) for e in ({}, {"PATH": str(w.dir / "no-such-bin")}))
+    assert "evaluated-on" in w.text("EDGES.md") and "EDGES.md" not in with_grep and "p0/exp-uplift-0.md" in section(with_grep, q_reg), with_grep
+    assert with_grep == without, "ask printed differently without grep"
+    # the files' modification times: a clone keeps none, so two notes that tie for a thing's headline must not be told
+    # apart by which file is newer
+    picked = []
+    for newest in ("a", "b"):
+        w2 = World(fixture=False)
+        (w2.root / "fin").mkdir()
+        for s in ("a", "b"):
+            f = w2.root / f"fin/risk-{s}.md"
+            f.write_text(f"---\nupdated: 2026-03-02\n---\n# Risk {s}: exposure through the EUR swap 5y\nSee the desk note.\n")
+            os.utime(f, (1_790_000_000 + (s == newest), 1_790_000_000 + (s == newest)))
+        w2.inject({f"risk-{s}": {"kind": "risk", "entities": [{"id": "eur-swap-5y", "type": "instrument", "as": ["EUR swap 5y"]}],
+                                 "relations": [], "refs": []} for s in ("a", "b")})
+        w2.run("dream")
+        picked.append(ents(w2.graph())["eur-swap-5y"]["headline"])
+    assert picked == ["fin/risk-a.md"] * 2, f"a thing's headline followed the newer file: {picked}"
+    return ("7 equal notes for 6 seeds: one answer under hash seeds 1–3, with grep's files listed forwards, backwards and as found, "
+            "and with no grep at all; a task keeps its preferences beside another question; a headline does not follow the newer file")
 
 
 def A43():

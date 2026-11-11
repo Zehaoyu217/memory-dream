@@ -639,7 +639,7 @@ or to a fresh worker given the packet, at most twice. After that, it stops and r
 
 ## Appendix A — the contract surface, verbatim: `skills/memory-dream/SKILL.md` and the dreamer agent
 
-_Part 5 · copied at commit a4d53c0. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
+_Part 5 · copied at commit 2881567. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
 
 ```markdown
 ---
@@ -714,7 +714,7 @@ Touch nothing else.
 
 ## Appendix B — the graph contract, verbatim: `.specs/memory-dream/CONTRACT.md`
 
-_Part 6 · copied at commit a4d53c0. Schema 1; `memory.py check` validates against it (A38)._
+_Part 6 · copied at commit 2881567. Schema 1; `memory.py check` validates against it (A38)._
 
 ## memory-dream — the graph contract (schema 1)
 
@@ -776,7 +776,8 @@ and body slugs that name a note in the same project or a unique note anywhere.
   folded), or `other`; a thing whose word is on the `drop:` line of `TYPES.md` is not an entity; `aka`: other spellings
   merged into it; `names`: `[{name, n}]` surface forms
   with counts; `home`: the note whose id is this entity's id, or null; `headline`: the best live note mentioning it
-  (title-line mention, then finding/decision, then newest), or null; `mentions`: `[{path, lines}]` sorted by path.
+  (title-line mention, then finding/decision, then the latest date, then the first by path: never the file's
+  modification time, which a clone does not keep), or null; `mentions`: `[{path, lines}]` sorted by path.
 - Kept only with a home note, ≥ 2 mentioning notes, or an `ALIASES.md` line; file-like ids are dropped.
 
 **relation** — `{s, type, o, evidence}`; `s`, `o` are entity ids; `type` is a vocabulary type from `EDGES.md` (incl.
@@ -883,7 +884,7 @@ nothing (C13 reports it and the readings fall back to `other/<word>`); merging i
 
 ## Appendix C — the build guide, verbatim: `BUILD-GUIDE.md` §3–§10
 
-_Part 7 · copied at commit a4d53c0. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
+_Part 7 · copied at commit 2881567. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
 
 ### 3. The design in one page
 
@@ -1003,7 +1004,8 @@ Entities, from every note's extraction:
 5. Canonical id: ALIASES.md lead, else the most used raw id; type by majority vote over the occurrences' types read
    through `TYPES.md` (`canon_occ`: the dreamer's type or label that is a type or alias → that type; a word that fits
    none → `other/<word>`, counted for the review; a word on the `drop:` line removes the occurrence); headline = best
-   current note.
+   current note (a title-line mention, then a finding or decision, then the latest date, then the first by path; the
+   file's modification time is never asked, since a clone does not keep it).
 
 Relations, two tiers: the dreamer gives each relation a `type` (an EDGES type or alias, or `other`) and a `label` (the
 note's own verb). Listed types and their aliases (`~` = read in reverse) are kept with evidence `path:line`; a link
@@ -1274,7 +1276,7 @@ python3 eval/retrieval.py <W>/memory eval/questions/bank-*.jsonl        # gold-n
 python3 eval/retrieval.py <W>/memory eval/questions/bank-*.jsonl --must # superseded gold notes count as history
 MEMORY_WIDE=100 python3 eval/retrieval.py <W>/memory eval/questions/bank-*.jsonl   # force big-memory routing
 python3 eval/adversarial.py <W>/memory eval/questions/bank-*.jsonl --index-world <real-indexed world> --show
-python3 eval/stability.py <W>/memory   # the same answer under 3 hash seeds, 2 file orders, alone and in company: all zeros
+python3 eval/stability.py <W>/memory   # the same answer under 3 hash seeds, 2 file orders, no grep, alone and in company: all zeros
 ```
 Expect 0.937 / 0.980 at 1,677 notes on the fake-indexed world (0.895 / 0.972 before the lineage one-liners;
 0.946 / 0.978 on a real Haiku index, 0.938 / 0.979 with `MEMORY_NO_INDEX=1`). `adversarial.py` measures the sets
@@ -1386,7 +1388,7 @@ preferences 0.95 when the task names them, 0.84 when it names only their meeting
 | a review redrew 5,624 pages | page fingerprint included the vocabulary and hub spellings | fingerprint area notes, lineage, entity ids, relations |
 | KNOWN prompt prep took days at 168k | a full entity sort per note | one sort per wave (`Known`) |
 | taste missed unless the person was named | grep on task words; project notes outranked preferences | taste block scored inside the general areas, whole person, artifact rules |
-| the same question printed other notes on another run or machine | float sums added in a set's order; ties left to the order grep listed the files in; a task reading lines its neighbours matched | exact sums (`math.fsum`), every sort ends on the path, a task reads its own lines (A42, `eval/stability.py`) |
+| the same question printed other notes on another run or machine | float sums added in a set's order; ties left to the order grep listed the files in; a task reading lines its neighbours matched; a headline tie going to the newer file; the no-grep matcher returning the registries | exact sums (`math.fsum`), every sort ends on the path, a task reads its own lines, headline ties go to the path, the matcher skips the registries (A42, `eval/stability.py`) |
 | dreamer could not list files | no Glob tool in that CLI | `pending/TODO.md` lists the prompts |
 | viewer checks failed | dangling playwright symlink | `npm i -g playwright && npx playwright install chromium` |
 
@@ -1406,7 +1408,7 @@ preferences 0.95 when the task names them, 0.84 when it names only their meeting
 
 ## Appendix D — prompts, seeds and tuned tables, verbatim from `memory.py`
 
-_Part 8 · extracted at commit a4d53c0 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
+_Part 8 · extracted at commit 2881567 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
 
 ### D.1 `EXTRACT` — the per-note prompt: fixed guidance, then `KINDS:`, `TYPES:`, `EDGES:` and `KNOWN:` from the registries (the static part is cached), then `NOTE`
 

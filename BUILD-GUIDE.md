@@ -199,7 +199,8 @@ Entities, from every note's extraction:
 5. Canonical id: ALIASES.md lead, else the most used raw id; type by majority vote over the occurrences' types read
    through `TYPES.md` (`canon_occ`: the dreamer's type or label that is a type or alias → that type; a word that fits
    none → `other/<word>`, counted for the review; a word on the `drop:` line removes the occurrence); headline = best
-   current note.
+   current note (a title-line mention, then a finding or decision, then the latest date, then the first by path; the
+   file's modification time is never asked, since a clone does not keep it).
 
 Relations, two tiers: the dreamer gives each relation a `type` (an EDGES type or alias, or `other`) and a `label` (the
 note's own verb). Listed types and their aliases (`~` = read in reverse) are kept with evidence `path:line`; a link
@@ -470,7 +471,7 @@ python3 eval/retrieval.py <W>/memory eval/questions/bank-*.jsonl        # gold-n
 python3 eval/retrieval.py <W>/memory eval/questions/bank-*.jsonl --must # superseded gold notes count as history
 MEMORY_WIDE=100 python3 eval/retrieval.py <W>/memory eval/questions/bank-*.jsonl   # force big-memory routing
 python3 eval/adversarial.py <W>/memory eval/questions/bank-*.jsonl --index-world <real-indexed world> --show
-python3 eval/stability.py <W>/memory   # the same answer under 3 hash seeds, 2 file orders, alone and in company: all zeros
+python3 eval/stability.py <W>/memory   # the same answer under 3 hash seeds, 2 file orders, no grep, alone and in company: all zeros
 ```
 Expect 0.937 / 0.980 at 1,677 notes on the fake-indexed world (0.895 / 0.972 before the lineage one-liners;
 0.946 / 0.978 on a real Haiku index, 0.938 / 0.979 with `MEMORY_NO_INDEX=1`). `adversarial.py` measures the sets
@@ -582,7 +583,7 @@ preferences 0.95 when the task names them, 0.84 when it names only their meeting
 | a review redrew 5,624 pages | page fingerprint included the vocabulary and hub spellings | fingerprint area notes, lineage, entity ids, relations |
 | KNOWN prompt prep took days at 168k | a full entity sort per note | one sort per wave (`Known`) |
 | taste missed unless the person was named | grep on task words; project notes outranked preferences | taste block scored inside the general areas, whole person, artifact rules |
-| the same question printed other notes on another run or machine | float sums added in a set's order; ties left to the order grep listed the files in; a task reading lines its neighbours matched | exact sums (`math.fsum`), every sort ends on the path, a task reads its own lines (A42, `eval/stability.py`) |
+| the same question printed other notes on another run or machine | float sums added in a set's order; ties left to the order grep listed the files in; a task reading lines its neighbours matched; a headline tie going to the newer file; the no-grep matcher returning the registries | exact sums (`math.fsum`), every sort ends on the path, a task reads its own lines, headline ties go to the path, the matcher skips the registries (A42, `eval/stability.py`) |
 | dreamer could not list files | no Glob tool in that CLI | `pending/TODO.md` lists the prompts |
 | viewer checks failed | dangling playwright symlink | `npm i -g playwright && npx playwright install chromium` |
 

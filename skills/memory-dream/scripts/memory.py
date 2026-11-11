@@ -1043,7 +1043,7 @@ def notes_part(root, man, cur, former, xs=None, facts=None):
         notes[rel] = {"path": rel, "id": posixpath.basename(rel)[:-3], "project": proj, "title": title,
                       "line": tline, "kind": kind_of(rel, fm.get("type"), (x or {}).get("kind")),
                       "superseded_by": [], "updated": up, "sha": h[:12], "indexed": bool(x)}
-        aux[rel] = {"fm": fm, "links": links, "x": x, "mt": cur[rel]["mtime"], "ids": set(f["ids"])}
+        aux[rel] = {"fm": fm, "links": links, "x": x, "ids": set(f["ids"])}
         by_stem[notes[rel]["id"]].append(rel)
         if not title:
             checks.append(("C6", f"{rel}: no '# ' line"))
@@ -1239,8 +1239,10 @@ def build(root, man, cur, former, et, at, xs=None, now=None, facts=None, base=No
             n = notes[m["path"]]
             if n["superseded_by"]:
                 continue
-            key = (n["line"] in m["lines"], n["kind"] in ("finding", "decision"), n["updated"], aux[m["path"]]["mt"])
-            if best is None or key > best[0]:
+            # equal notes: the first by path. Not the newest file: git keeps no modification times, so on two clones of
+            # the same notes that picked 19 of the bank's 1,325 headlines differently (RESULTS phase J)
+            key = (n["line"] in m["lines"], n["kind"] in ("finding", "decision"), n["updated"])
+            if best is None or key > best[0] or (key == best[0] and m["path"] < best[1]):
                 best = (key, m["path"])
         e["headline"] = best[1] if best else None
     seen = set(man.get("seen", []))
@@ -2445,7 +2447,7 @@ def grep_lines(root, pats, areas=None):
     if out is None:
         for p in (q for w in where for q in Path(w).rglob("*.md")):
             rel = p.relative_to(root).as_posix()
-            if rel.startswith("_dream/"):
+            if rel.startswith("_dream/") or p.name in SKIP:  # the registries are not notes, with grep or without
                 continue
             for i, ln in enumerate(read(p).split("\n"), 1):
                 if any(x in ln.lower() for x in pats):

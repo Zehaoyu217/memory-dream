@@ -248,8 +248,9 @@ and the number asked for in 97.9%, in about 2,400 characters per question; with 
 questions aimed at replaced conclusions the successor is listed above the old note 96% of the time and the old note
 is marked 100%. On 70 questions about things the memory does not contain, it flags the unknown word every time. The
 model-free numbers reproduce from the repository: `python3 tests/retrieval_gate.py bank` runs them with floors. A
-question gets the same notes on every run and every machine, alone or beside other questions: 1,149 questions print
-identically under three hash seeds and with the files listed in either order (`eval/stability.py`, RESULTS phase J).
+question gets the same notes on every run, alone or beside other questions: 1,149 questions print identically under
+three hash seeds, with the files listed in either order and with no grep at all, and the graph is the same on any
+clone of the notes (`eval/stability.py`, A42, RESULTS phase J).
 
 A second fixture is a software project (`tests/fixture-software/`: a payments API with services, modules, design records,
 bugs and their fixes, releases, an incident, 30 notes) with 30 questions (`eval/questions/software-payments-api.jsonl`).
@@ -375,6 +376,8 @@ The first reviewer, asked about 178 common labels, answered "new type" to all of
   questions. It is not used for ranking, and no other relation type is walked (RESULTS phase I).
 - Linux and macOS with GNU or BSD grep and Python 3.9 or newer; Windows is untested. One memory, one writer: the lock
   file serialises `dream` on one machine and nothing coordinates two machines.
+- A note with no date of its own (`updated:`, or a dated file name) takes its file's modification date, and a fresh
+  clone resets that to the day of the clone. Every note in the bank carries a date; write one.
 - Hosting it as a service is designed, not built (`.specs/memory-dream/ADR-001-hosting-and-store.md`). What exists is
   the store seam: `MEMORY_STORE=postgres` publishes the graph to PostgreSQL after every dream and `ask` reads it there;
   a Neo4j backend is written but untested against a server; `memory.py export` writes CSV and Cypher for any graph

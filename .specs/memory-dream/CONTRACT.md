@@ -58,7 +58,8 @@ and body slugs that name a note in the same project or a unique note anywhere.
   folded), or `other`; a thing whose word is on the `drop:` line of `TYPES.md` is not an entity; `aka`: other spellings
   merged into it; `names`: `[{name, n}]` surface forms
   with counts; `home`: the note whose id is this entity's id, or null; `headline`: the best live note mentioning it
-  (title-line mention, then finding/decision, then newest), or null; `mentions`: `[{path, lines}]` sorted by path.
+  (title-line mention, then finding/decision, then the latest date, then the first by path: never the file's
+  modification time, which a clone does not keep), or null; `mentions`: `[{path, lines}]` sorted by path.
 - Kept only with a home note, ≥ 2 mentioning notes, or an `ALIASES.md` line; file-like ids are dropped.
 
 **relation** — `{s, type, o, evidence}`; `s`, `o` are entity ids; `type` is a vocabulary type from `EDGES.md` (incl.

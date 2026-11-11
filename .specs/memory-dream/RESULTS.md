@@ -49,26 +49,43 @@ depending only on the order grep listed the files in.
 Also: the `names` rows of `index.db` are written sorted. They were the one part of `_dream` that differed between two
 dreams of the same notes under different hash seeds (the same rows in another order; nothing read the order).
 
-After: 0 in every cell of the table above, on both read paths, with the questions asked alone, in sevens and in tens.
+After these three: 0 in every cell of the table above, on both read paths, with the questions asked alone, in sevens
+and in tens. But the first CI run on them read alias 0.819 on Linux against 0.818 on macOS: one question still apart
+between two machines with the same code, the same notes and the same index. Two more causes, found from there:
 
-| | before | after |
-|---|---|---|
-| bank gate: gold · numbers · characters | 0.939 · 0.979 · 2,358 | 0.939 · 0.979 · 2,359 |
-| bank-index gate: gold · numbers · alias · characters | 0.941 · 0.978 · 0.818 · 2,598 | 0.941 · 0.978 · 0.818 · 2,599 |
-| software gate: gold · numbers | 1.00 · 1.00 | 1.00 · 1.00 |
-| routed path: alias questions with their gold note (719) | 556 to 558 | 558 |
-| tasks with every gold note headed (104) | 19 | 21 |
-| `eval/taste/score.py`, tasks: preferences · house rules | 102/109 · 104/218 | 103/109 · 105/218 |
-| … holdout | 99/110 · 96/193 | 99/110 · 97/193 |
-| … tasks, with the index | 102/109 · 100/218 | 103/109 · 102/218 |
-| … holdout, with the index | 94/110 · 97/193 | 94/110 · 98/193 |
-| 1,149 questions, seconds | 49 | 49 |
+4. **A headline given to the newer file.** When notes tie for a thing's headline (a title-line mention, the same kind,
+   the same date), the build took the file modified last. Git keeps no modification times, so every clone decides
+   these ties by the order its files happened to be written in. With the notes' times set in two opposite orders and
+   nothing else changed, 19 of the bank's 1,325 things got another headline; 13 of them have no note of their own, so
+   the headline is the note answers and the alias score are read from. Ties now go to the first note by path.
+   (Listing the directories in another order changed nothing in the graph; that was checked too.)
+5. **No grep, other answers.** The Python matcher that stands in on a machine with no grep returned the registries
+   (ALIASES.md, EDGES.md …) as if they were notes: 87 alias, 18 bank and 42 task answers of the 1,149 printed differently
+   from the grep path. It skips them now, as the grep path always did: 0 differ. BSD grep in the C locale and in a
+   UTF-8 locale already agreed on every answer.
 
-Fixes 1 and 2 move no number in this table; fix 3 moves the task rows, up by one or two notes.
+| | before | after 1–3 | after 4–5 |
+|---|---|---|---|
+| bank gate: gold · numbers · characters | 0.939 · 0.979 · 2,358 | 0.939 · 0.979 · 2,359 | the same |
+| software gate: gold · numbers | 1.00 · 1.00 | 1.00 · 1.00 | the same |
+| bank-index gate: gold · numbers · characters | 0.941 · 0.978 · 2,598 | 0.941 · 0.978 · 2,599 | the same |
+| bank-index gate, alias: macOS | 0.816 to 0.818 | 0.818 | 0.821 |
+| bank-index gate, alias: Linux (CI) | 0.821 | 0.819 | see the handoff |
+| routed path: alias questions with their gold note (719) | 556 to 558 | 558 | 560 |
+| tasks with every gold note headed (104) | 19 | 21 | 21 |
+| `eval/taste/score.py`, tasks: preferences · house rules | 102/109 · 104/218 | 103/109 · 105/218 | the same |
+| … holdout | 99/110 · 96/193 | 99/110 · 97/193 | the same |
+| … tasks, with the index | 102/109 · 100/218 | 103/109 · 102/218 | the same |
+| … holdout, with the index | 94/110 · 97/193 | 94/110 · 98/193 | the same |
+| 1,149 questions, seconds | 49 | 49 | 49 |
 
-A42 holds it: seven notes with one score for six lineage seeds print the same under three hash seeds and with grep's
-files listed forwards, backwards and as found, and a task gets the same preferences beside another question as alone.
-It fails on the previous script at the file-order line, and at the last line when fix 3 alone is taken out.
+Fixes 1 and 2 move no number in this table; fix 3 moves the task rows, up by one or two notes; fix 4 moves the alias
+row, because it changes which note 19 things point at. The gold notes of the 326 bank questions never moved.
+
+A42 holds all five: seven notes with one score for six lineage seeds print the same under three hash seeds, with
+grep's files listed forwards, backwards and as found, and with no grep; a task gets the same preferences beside another
+question as alone; two notes that tie for a headline give the same headline whichever file is newer. Each line of it
+fails when its own fix is taken out, and the previous script fails at the file-order line.
 
 ## J3 — left as it is
 
@@ -76,6 +93,11 @@ It fails on the previous script at the file-order line, and at the last line whe
   the lines under a note (not the notes) still depend on the company. Every published character count includes them, so
   changing it re-bases them all. Open.
 - The 168,141-note world was not re-run. Its routing changes only between areas that score exactly the same.
+- A note with no date of its own takes its file's modification date, and a fresh clone resets that to the day of the
+  clone; a note's date ranks before the path in the headline rule. Every one of the bank's 1,677 notes carries a date,
+  so nothing here depends on it. Open for memories whose notes do not.
+- On this Mac the Python matcher answered the 1,149 questions in 22 s and BSD grep in 49 s. grep stays the default;
+  not looked into.
 
 ## J4 — from the handoff's open list
 
