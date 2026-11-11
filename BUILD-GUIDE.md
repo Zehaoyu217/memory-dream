@@ -46,7 +46,7 @@ Saving a note costs about $0.0015–0.002 of Haiku at any size. A dream with not
 
 ```bash
 git clone https://github.com/Zehaoyu217/memory-dream.git && cd memory-dream && git checkout worktree-build-v0.4
-python3 tests/acceptance.py                         # 38/38 should pass
+python3 tests/acceptance.py                         # 40/40 should pass
 
 # the skill and the dreamer subagent, user-wide
 mkdir -p ~/.claude/skills ~/.claude/agents
@@ -108,15 +108,15 @@ index) and stays quiet about entities. To add them without a model command: `dre
 
 ```
 skills/memory-dream/
-  SKILL.md                     what the agent reads (41 lines): read, write, end of session
-  scripts/memory.py            ask · dream · viz · check · log  (stdlib, ~1,900 lines)
+  SKILL.md                     what the agent reads (51 lines): read, write, end of session
+  scripts/memory.py            ask · dream · viz · check · log  (stdlib, ~3,200 lines)
   scripts/stores.py           optional hosted stores (PostgreSQL, Neo4j) and the CSV export; imported only when MEMORY_STORE is set
   assets/viz.html              viewer template (html-lite habits; normal, overview and area modes)
   agents/memory-dreamer.md     Haiku subagent for file mode
 .specs/memory-dream/           build-spec.md (v0.4 spec), RUNBOOK.md, RESULTS.md (rounds 1–4)
 tests/
   fixture/memory/              churn-2026: 25 notes + 5 log days (hand-written ground truth)
-  acceptance.py                38 checks: A1–A20 (spec), A24 (big memories), A25–A41 (phases A–H), fake dreamer, ~30 s
+  acceptance.py                40 checks: A1–A20 (spec), A24 (big memories), A25–A43 (phases A–J), fake dreamer, ~30 s
   retrieval_gate.py            CI floors for the model-free retrieval numbers: bank (326 questions) and software fixture
   store_parity.py              a hosted store (MEMORY_STORE=postgres) gives identical ask output and the same graph
   fixture-software/memory/     a software project (payments-api: services, modules, ADRs, bugs, releases, an incident)
@@ -127,6 +127,7 @@ eval/
   bank/generated/              56× test bank: 1,648 Haiku-written notes in 47 areas
   questions/                   366 questions with gold notes and reference answers
   retrieval.py                 offline: did ask print the gold notes and the answer's numbers?
+  stability.py                 offline: the same answer under any hash seed, file order and company? (phase J)
   judge.py                     Haiku judge: correct / partial / wrong vs reference answers
   agent/                       Opus agent eval (batches, runs, usage, judge, summarize)
   scale/                       100× world, timing, tracing, profiling
@@ -283,6 +284,8 @@ Per question:
    successor. Up to 8 notes ≥ 20% of the best. For every question, up to 4 relatives of the picked notes (parents, successors,
    children for "what came of") follow as a header plus their `# ` line (gold recall 0.895 → 0.920 for +11%
    characters when triggered by lineage words; for every question +1 point and +7 complete answers for +3%, F9). Weights in the `W` table.
+   Scores are exact sums (`math.fsum`) and every sort ends on the path, so notes that score the same come in path
+   order on every run and every machine, whatever the hash seed or the order grep lists the files in (phase J, A42).
 8. **Print**: under `▸ path · kind · date · from … · SUPERSEDED → newer`, the best 2–4 lines per note; whole notes
    when everything picked fits the budget (900 chars per question + 1,500). On a memory of ≤ 200 notes, when the
    whole memory would cost ≤ 1.2× the surgical output, print it all: per-question `▸ path` pointers, then every note
@@ -291,7 +294,8 @@ Per question:
    `(weak match: 'x' found nowhere …)` line; the rule reads the question's own words, never the index's aliases.
 9. **Taste** (task intent only, `taste`): scored inside the general areas so project notes cannot crowd them out; a
    person named in the task, or named inside one of the three best-matching house notes (their meeting's roster,
-   their report), brings all their notes; house rules about the artifact asked for (chart, table, deck …) come along;
+   their report; on a line the task's own words matched, never one that only another question of the call matched),
+   brings all their notes; house rules about the artifact asked for (chart, table, deck …) come along;
    `prefs/me-*` always. Up to twelve notes, printed as their `# ` line.
 10. **Claude Code's auto memory** (`cc_search`, read-only): the project's auto-memory topic files are grepped once for
     every question; at most three files and two lines each, under `▸ claude-code: <file> · <type> · <date>`.
@@ -422,7 +426,7 @@ when the page opens (tab order Timeline · Map · Connections; `#view=map` and `
 ## 6. Tests
 
 ```bash
-python3 tests/acceptance.py            # 38 checks, A1–A20, A24, A25–A41, with the fake dreamer, about 30 s
+python3 tests/acceptance.py            # 40 checks, A1–A20, A24, A25–A43, with the fake dreamer, about 30 s
 python3 tests/retrieval_gate.py bank   # the model-free numbers with floors (README Results); `software` for the second fixture
 MEMORY_STORE_URL=postgresql://… python3 tests/store_parity.py postgres --bank   # needs psycopg: the PostgreSQL store (ADR-001)
 python3 tests/acceptance.py A6 A24     # some
@@ -466,6 +470,7 @@ python3 eval/retrieval.py <W>/memory eval/questions/bank-*.jsonl        # gold-n
 python3 eval/retrieval.py <W>/memory eval/questions/bank-*.jsonl --must # superseded gold notes count as history
 MEMORY_WIDE=100 python3 eval/retrieval.py <W>/memory eval/questions/bank-*.jsonl   # force big-memory routing
 python3 eval/adversarial.py <W>/memory eval/questions/bank-*.jsonl --index-world <real-indexed world> --show
+python3 eval/stability.py <W>/memory   # the same answer under 3 hash seeds, 2 file orders, alone and in company: all zeros
 ```
 Expect 0.937 / 0.980 at 1,677 notes on the fake-indexed world (0.895 / 0.972 before the lineage one-liners;
 0.946 / 0.978 on a real Haiku index, 0.938 / 0.979 with `MEMORY_NO_INDEX=1`). `adversarial.py` measures the sets
@@ -543,18 +548,22 @@ which applicable notes each plan follows by content, and which it contradicts.
 
 ## 8. Results to expect
 
+On the shipped code unless a cell says otherwise (README "Results" has the same numbers with their sources).
+
 | measure | 30 notes | 1,677 | 168,141 |
 |---|---|---|---|
-| retrieval: gold notes / numbers | — | 0.882 / 0.970 | 0.854 / 0.950 |
-| `ask`, 10 questions | < 1 s | 0.5 s | 2.3 s |
-| agent cost vs grep | 0.93× | 0.47× (phase G, real index, n = 3 batches per arm: tool calls 0.30×, tokens 0.29×, cost units 0.61×, time 0.75×, accuracy tied 23/7/0) | 0.41× |
-| $ per new note (Haiku) | 0.0013 (60-note world) | 0.0020 | 0.0015–0.0019 |
+| retrieval: gold notes / numbers | 1.00 / 1.00 (the software fixture, 30 questions) | 0.939 / 0.979 with no index, 0.941 / 0.978 with the index (326 questions; both gated in CI) | 0.854 / 0.950 (round 4, earlier code, not re-run) |
+| `ask`, 10 questions | < 1 s | 0.5 s | 2.3 s (round 4) |
+| agent cost vs grep | 0.93× (round 2, earlier code) | 0.61× cost units (phase G, real index, n = 3 batches per arm: tool calls 0.30×, tokens 0.29×, time 0.75×, accuracy tied 23/7/0); 0.47× in round 2 on earlier code | 0.41× (round 4, earlier code) |
+| $ per new note (Haiku) | 0.0013 (60-note world) | 0.0016 (phase I: the whole bank for $2.69; 0.0020 before the cached prefix) | 0.0015–0.0019 |
 | dream, nothing new | — | 0.7 s | 3 s |
 | dream, 30 new notes (with Haiku) | — | — | 82 s, 4.8 GB |
-| viewer | 1 page | 2.9 MB | 2.4 MB overview + ~110 KB per area |
+| viewer | 1 page | 3.0 MB | 2.4 MB overview + ~110 KB per area |
+| the same answer on another run or machine | yes (A42) | yes: 1,149 questions, 0 differ (phase J, `eval/stability.py`) | not re-run |
 
-Taste retrieval (fresh tasks, recall of the gold notes): the person's preferences 0.93 when the task names them,
-0.57 when it names only their meeting or audience; house rules 0.42 (before the taste layer: 0.76 / 0.35 / 0.25).
+Taste retrieval (the holdout tasks, `eval/taste/score.py`, recall of the gold notes, no index): the person's
+preferences 0.95 when the task names them, 0.84 when it names only their meeting or audience; house rules 0.50
+(phase J). At the taste layer's first cut these were 0.93 / 0.57 / 0.42, and before it 0.76 / 0.35 / 0.25.
 
 ---
 
@@ -573,6 +582,7 @@ Taste retrieval (fresh tasks, recall of the gold notes): the person's preference
 | a review redrew 5,624 pages | page fingerprint included the vocabulary and hub spellings | fingerprint area notes, lineage, entity ids, relations |
 | KNOWN prompt prep took days at 168k | a full entity sort per note | one sort per wave (`Known`) |
 | taste missed unless the person was named | grep on task words; project notes outranked preferences | taste block scored inside the general areas, whole person, artifact rules |
+| the same question printed other notes on another run or machine | float sums added in a set's order; ties left to the order grep listed the files in; a task reading lines its neighbours matched | exact sums (`math.fsum`), every sort ends on the path, a task reads its own lines (A42, `eval/stability.py`) |
 | dreamer could not list files | no Glob tool in that CLI | `pending/TODO.md` lists the prompts |
 | viewer checks failed | dangling playwright symlink | `npm i -g playwright && npx playwright install chromium` |
 

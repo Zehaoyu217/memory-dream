@@ -1512,8 +1512,8 @@ def write_index(dd, g):
                                                                  json.dumps(e["aka"]), json.dumps(e["names"])) for e in g["entities"]))
         db.executemany("INSERT INTO ment VALUES (?,?,?)",
                        ((e["id"], m["path"], json.dumps(m["lines"])) for e in g["entities"] for m in e["mentions"]))
-        db.executemany("INSERT INTO names VALUES (?,?)", ((k, e["id"]) for e in g["entities"] for k in
-                                                          {fold(x) for x in [e["id"], *e["aka"], *(n["name"] for n in e["names"])] if len(x) >= 3}))
+        db.executemany("INSERT INTO names VALUES (?,?)", ((k, e["id"]) for e in g["entities"] for k in  # sorted: one row order per graph
+                                                          sorted({fold(x) for x in [e["id"], *e["aka"], *(n["name"] for n in e["names"])] if len(x) >= 3})))
         db.executemany("INSERT INTO rels VALUES (?,?,?,?)", ((r["s"], r["type"], r["o"], json.dumps(r["evidence"])) for r in g["relations"]))
         db.executemany("INSERT INTO checks VALUES (?,?)", ((c["code"], c["msg"]) for c in g["checks"]))
     db.executescript("CREATE INDEX e_src ON edges(src); CREATE INDEX e_dst ON edges(dst); CREATE INDEX m_eid ON ment(eid);"
@@ -2476,7 +2476,7 @@ def route(pats, cat):
     """Areas whose note ids and titles match the question best (idf-weighted, each pattern once per area).
     → (areas, hint): at most 8 areas; a hint when many match about equally."""
     paths, text, starts = cat
-    score = Counter()
+    terms = defaultdict(list)
     for t, w in pats.items():
         if len(t) < 3 or text.count(t) > max(W["route_common"], len(paths) // 50):  # too common to say where to look
             continue
@@ -2488,13 +2488,15 @@ def route(pats, cat):
             i = text.find(t, i + 1)
         idf = math.log(1 + len(paths) / max(1, len(hit)))
         for a in {paths[k].split("/")[0] if "/" in paths[k] else "" for k in hit}:
-            score[a] += w * idf
-    if not score:
+            terms[a].append(w * idf)
+    if not terms:
         return None, ""
-    best = max(score.values())
-    near = [a for a, s_ in score.most_common() if s_ >= W["route_near"] * best]
+    # the same answer every run and on every machine (see rank()): exact sums, and equal areas in name order
+    order = sorted(((a, math.fsum(ts)) for a, ts in terms.items()), key=lambda z: (-z[1], z[0]))
+    best = order[0][1]
+    near = [a for a, s_ in order if s_ >= W["route_near"] * best]
     hint = f"{len(near)} areas match about equally ({', '.join(sorted(near)[:4])}, …): name the project" if len(near) > W["route_areas"] else ""
-    return [a for a, s_ in score.most_common(W["route_areas"]) if s_ >= W["route_floor"] * best], hint
+    return [a for a, s_ in order[:W["route_areas"]] if s_ >= W["route_floor"] * best], hint
 
 
 def ask(args, root):
@@ -2531,7 +2533,7 @@ def ask(args, root):
             if not os.environ.get("MEMORY_NO_INDEX") else set()
         hit_ents = by_id | ({i for nm, ids in v.multi_names(low) if len(ids) <= 2 for i in ids}
                             if not os.environ.get("MEMORY_NO_INDEX") else set())
-        for eid in hit_ents:
+        for eid in sorted(hit_ents):
             e = v.ents[eid]
             for x in [e["id"], *e["aka"], *(n["name"] for n in e["names"][:4])]:
                 if 3 <= len(x) <= 30 and len(x.split()) <= 3 and len(v.names_of(fold(x))) <= 2 \
@@ -2742,7 +2744,7 @@ def taste(x, by_file, v, pool):
             for t in ms:
                 if t in pats:
                     got[t] += 2 if no == v.notes[p]["line"] else 1
-        s_ = sum(pats[t] * math.log(1 + n / df[t]) * (2 if " " in t else 1) for t in got)
+        s_ = math.fsum(pats[t] * math.log(1 + n / df[t]) * (2 if " " in t else 1) for t in got)  # exact: see rank()
         if s_:
             score[p] = s_
     fam = defaultdict(list)  # a family = notes sharing the first two words of their id: prefs/<first>-<last>-* is one
@@ -2759,8 +2761,10 @@ def taste(x, by_file, v, pool):
         firsts[k.split("-")[0]].add(k)
     named = {k for k in fam if k in {f"{a}-{b}" for a, b in zip(words, words[1:])}}
     named |= {next(iter(ks)) for f, ks in firsts.items() if len(ks) == 1 and f in words}  # "chart" → chart-style-*; "maya" → maya-ortiz-*
-    for p, _s in sorted(score.items(), key=lambda z: -z[1])[:3]:  # two hops: a person named in a matched house note
+    for p, _s in sorted(score.items(), key=lambda z: (-z[1], z[0]))[:3]:  # two hops: a person named in a matched house note
         for _no, _ms, txt in cand.get(p, []):  # (the roster of their meeting, their report) is the audience
+            if not any(t in pats for t in _ms):  # a line only another question of this call matched is not this task's
+                continue
             low_t = txt.lower()
             for k in fam:
                 if k not in named and re.search(r"\b" + k.replace("-", "[ -]") + r"\b", low_t):
@@ -2770,7 +2774,7 @@ def taste(x, by_file, v, pool):
         for p in fam[k]:
             score[p] = score.get(p, 0) + top + 1
     for k, ps in fam.items():  # matched through context (their meeting, their report): the whole person comes along
-        got = sum(score.get(p, 0) for p in ps)
+        got = math.fsum(score.get(p, 0) for p in ps)
         if k not in named and got >= 0.5 * top:
             for p in ps:
                 score[p] = max(score.get(p, 0), 0.6 * got)
@@ -2789,7 +2793,13 @@ def taste(x, by_file, v, pool):
 def rank(x, by_file, idf, v):
     """Score notes by the patterns they contain (idf-weighted, title lines count double), then apply the
     graph: named notes first, successors of superseded notes, children for lineage, parents for why.
-    Greedy pick that discounts patterns already covered. → [(path, [(line, text)])]"""
+    Greedy pick that discounts patterns already covered. → [(path, [(line, text)])]
+
+    The same question gets the same notes on every run and every machine: scores are exact sums (math.fsum: adding
+    the same terms in another order cannot move a score by a last bit) and every sort ends on the path or the line
+    number, so equal scores never fall back on the order grep listed the files in or on Python's per-process hash
+    seed. Before this, of 1,149 questions on the bank 9-14 printed differently under another hash seed and 4 with
+    the files listed in another order (RESULTS phase J; tests/acceptance.py A42)."""
     pats, intent = x["pats"], x["intent"]
     base = {}
     for path, rows in by_file.items():
@@ -2802,9 +2812,9 @@ def rank(x, by_file, idf, v):
                     got[p] += 2 if no == tl else 1
         if got:
             base[path] = got
-    score = {p: sum(pats[t] * idf[t] * (1 + math.log(c)) for t, c in got.items()) for p, got in base.items()}
+    score = {p: math.fsum(pats[t] * idf[t] * (1 + math.log(c)) for t, c in got.items()) for p, got in base.items()}
     for p, ts in x["paths"].items():  # the slug names the thing: count it like a title hit
-        score[p] = score.get(p, 0) + sum(pats.get(t, 1) * idf.get(t, 1) for t in ts)
+        score[p] = score.get(p, 0) + math.fsum(pats.get(t, 1) * idf.get(t, 1) for t in ts)
     if x["scope"]:
         score = {p: s_ for p, s_ in score.items() if p.split("/")[0].lower() in x["scope"]}
     top = max(score.values(), default=0) or 1.0
@@ -2817,7 +2827,7 @@ def rank(x, by_file, idf, v):
                 continue
             score[m["path"]] = score.get(m["path"], 0) + W["entity_named"] * top
     up = intent & {"up", "why", "dep"}
-    seeds = sorted(score.items(), key=lambda z: -z[1])[:W["seeds"]]
+    seeds = sorted(score.items(), key=lambda z: (-z[1], z[0]))[:W["seeds"]]
     best_live = next((p for p, _ in seeds if v.notes.get(p) and not v.notes[p]["superseded_by"]), None)
     for p, s in seeds:
         n = v.notes.get(p)
@@ -2869,13 +2879,13 @@ def rank(x, by_file, idf, v):
         x["weak"] = "weak match: " + ", ".join(f"'{t}'" for t in (ids_missing or missing)[:3]) + " found nowhere in memory"
     if os.environ.get("MEMORY_DEBUG"):
         sys.stderr.write(f"Q {x['q']} intent={sorted(intent)} named={sorted(x['named'])}\n  pats={pats}\n")
-        for p, s in sorted(score.items(), key=lambda z: -z[1])[:12]:
+        for p, s in sorted(score.items(), key=lambda z: (-z[1], z[0]))[:12]:
             sys.stderr.write(f"  {s:7.2f} {p}{' PICK' if p in dict(picks) else ''}\n")
     res = []
     for k, (p, _) in enumerate(picks):
         n = v.notes.get(p)
         rows = sorted((r for r in by_file.get(p, []) if not n or r[0] >= n["line"]),  # body lines; the header has the lineage
-                      key=lambda r: -sum(pats.get(t, 0) * idf.get(t, 0) for t in r[1]))
+                      key=lambda r: (-math.fsum(pats.get(t, 0) * idf.get(t, 0) for t in r[1]), r[0]))
         keep = rows[:W["lines_top"] if k < 2 else W["lines_rest"]]
         lines = {(no, t) for no, _, t in keep}
         if n and n["line"]:
@@ -3186,4 +3196,9 @@ def main(argv=None):
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+        sys.stdout.flush()  # a reader that left early (`… | head`) shows up here, not as a traceback at exit
+    except BrokenPipeError:
+        os.dup2(os.open(os.devnull, os.O_WRONLY), sys.stdout.fileno())  # nothing more to say to a closed pipe
+        sys.exit(0)

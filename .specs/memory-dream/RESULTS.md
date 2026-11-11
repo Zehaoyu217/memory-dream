@@ -1,6 +1,93 @@
 # memory-dream v0.4 — results
 
-2026-10-30 (round 4: 2026-10-31; phase I: 2026-11-02) · built from the "Memory" email spec (`build-spec.md`) · macOS, Python 3.9.6, Claude Code 2.1.314.
+2026-10-30 (round 4: 2026-10-31; phase I: 2026-11-02; phase J: 2026-11-11) · built from the "Memory" email spec (`build-spec.md`) · macOS, Python 3.9.6, Claude Code 2.1.314.
+
+# Phase J (2026-11-11) — the same answer every run, on every machine, in any company
+
+The work moved to a second machine: macOS, Python 3.9.6, BSD grep, where phases G–I had run on Linux, Python 3.13 and
+GNU grep. Everything passed there — 38/38, the three gates — but one figure did not reproduce: alias questions read
+0.821 on Linux, 0.818 here, and 0.816 on the next run of the same command. The script the README calls deterministic
+was not quite.
+
+## J1 — what moved (`eval/stability.py`, no model)
+
+1,149 questions on the indexed bank, ten per call: 719 alias questions, the 326 bank questions, 104 tasks (`eval/taste`).
+Each variant is compared with a first run, question by question. Questions whose printed section / order of notes /
+set of notes differs, on the script as phase I left it:
+
+| against the first run | alias (719) | bank (326) | tasks (104) |
+|---|---|---|---|
+| another hash seed | 4 / 3 / 1 | 2 / 0 / 0 | 3 / 2 / 0 |
+| a third hash seed | 10 / 6 / 2 | 2 / 0 / 0 | 2 / 0 / 0 |
+| grep's files listed a–z | 1 / 1 / 1 | 1 / 1 / 1 | 2 / 2 / 2 |
+| grep's files listed z–a | 1 / 1 / 1 | 1 / 1 / 0 | 2 / 2 / 2 |
+| asked alone, not in tens (every 4th question: 180, 82, 26) | – / 1 / 1 | – / 0 / 0 | – / 4 / 2 |
+
+On the routed read path of big memories (`MEMORY_WIDE=100`) the hash seed moved more, and the score with it: 14 and 17
+alias sections, 10 and 13 sets of notes, and under one seed two alias questions lost their gold note (558 → 556 of 719).
+Tasks asked alone got other notes in 3 of 26.
+
+On the default path the headline numbers held in every run (alias 588 of 719, bank gold 0.9413 with 274 complete).
+What moved was which of several equally scored notes was shown, and for a task whose preferences came along: "prepare
+the materials for the weekly collections stand-up" brought one person's three preference notes or a glossary entry,
+depending only on the order grep listed the files in.
+
+## J2 — three causes, three small fixes (kept)
+
+1. **Sums in a set's order.** The patterns a line matches are a set, and a note's score added their weights in the
+   set's order, which changes with Python's per-process hash seed and with the other questions of the call. The same
+   floats added in another order differ in the last bit, and notes that tie stop tying. Now `math.fsum`: the exact sum,
+   whatever the order.
+2. **Ties left to arrival.** The six notes whose lineage is followed, the three house notes read for a person's name
+   and the areas a big memory routes to were cut from lists sorted by score alone. Equal scores kept the order grep
+   listed the files in — the filesystem's, which differs between machines — or the order a set gave. Every sort now
+   ends on the path (lines on their number, areas on their name).
+3. **A task read its neighbours' lines.** The preferences step reads the three best house notes for a person's name. It
+   read every line any question of the call had matched, so an unrelated question could bring a person in. It now
+   reads only the lines the task's own words matched.
+
+Also: the `names` rows of `index.db` are written sorted. They were the one part of `_dream` that differed between two
+dreams of the same notes under different hash seeds (the same rows in another order; nothing read the order).
+
+After: 0 in every cell of the table above, on both read paths, with the questions asked alone, in sevens and in tens.
+
+| | before | after |
+|---|---|---|
+| bank gate: gold · numbers · characters | 0.939 · 0.979 · 2,358 | 0.939 · 0.979 · 2,359 |
+| bank-index gate: gold · numbers · alias · characters | 0.941 · 0.978 · 0.818 · 2,598 | 0.941 · 0.978 · 0.818 · 2,599 |
+| software gate: gold · numbers | 1.00 · 1.00 | 1.00 · 1.00 |
+| routed path: alias questions with their gold note (719) | 556 to 558 | 558 |
+| tasks with every gold note headed (104) | 19 | 21 |
+| `eval/taste/score.py`, tasks: preferences · house rules | 102/109 · 104/218 | 103/109 · 105/218 |
+| … holdout | 99/110 · 96/193 | 99/110 · 97/193 |
+| … tasks, with the index | 102/109 · 100/218 | 103/109 · 102/218 |
+| … holdout, with the index | 94/110 · 97/193 | 94/110 · 98/193 |
+| 1,149 questions, seconds | 49 | 49 |
+
+Fixes 1 and 2 move no number in this table; fix 3 moves the task rows, up by one or two notes.
+
+A42 holds it: seven notes with one score for six lineage seeds print the same under three hash seeds and with grep's
+files listed forwards, backwards and as found, and a task gets the same preferences beside another question as alone.
+It fails on the previous script at the file-order line, and at the last line when fix 3 alone is taken out.
+
+## J3 — left as it is
+
+- In a call of several questions, a picked note's spare line slots are filled with lines its neighbours' words matched:
+  the lines under a note (not the notes) still depend on the company. Every published character count includes them, so
+  changing it re-bases them all. Open.
+- The 168,141-note world was not re-run. Its routing changes only between areas that score exactly the same.
+
+## J4 — from the handoff's open list
+
+- CI had run: four runs on `production-readiness`, the last (a4d53c0) green on all six jobs. The one red run (5a28021)
+  was the bundle-freshness job, fixed by the commit after it.
+- `memory.py check | head` no longer ends in a BrokenPipeError: a reader that leaves early ends the run with exit 0
+  and nothing on stderr, whether the pipe closes before the last flush or in the middle of a long answer (A43; the
+  previous script exits 120 with the error).
+- BUILD-GUIDE §8 "Results to expect" carried round-4 numbers (0.882 / 0.970 at 1,677 notes); it now carries the
+  shipped code's, with the cells that were not re-run labelled.
+
+Suite 40/40 on Python 3.9.6 and 3.13; the bank, software and bank-index gates.
 
 # Phase I (2026-11-02) — the real index rebuilt and kept, what it is worth, and typed links for input questions
 

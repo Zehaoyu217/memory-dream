@@ -139,3 +139,58 @@ python3 skills/memory-dream/scripts/memory.py --root /tmp/w/memory dream
 python3 eval/ab_env.py /tmp/w/memory eval/questions/bank-*.jsonl --var "off:MEMORY_RELATION_LINES=0" --var "default:" \
   --index-world /tmp/w/memory
 ```
+
+## Picked up on 2026-11-11
+
+Everything above is the 2026-11-02 session's record, left as written. A second session took the work over on another
+machine: macOS, Python 3.9.6 and 3.13, BSD grep, Node 22 with Playwright; no PostgreSQL, Docker installed with its
+daemon off. The work is on the same branch, one commit on a4d53c0.
+
+### What the pick-up found
+
+| check | on this machine, before any change |
+|---|---|
+| acceptance | 38/38 on Python 3.9.6 in 14 s: the first run on 3.9 outside CI |
+| retrieval, bank, no index | as above: gold 0.939 · numbers 0.979 · stale 0.962 / 1.0 · absence 1.0 |
+| retrieval, software fixture | as above |
+| retrieval, bank, real index | gold 0.941 · numbers 0.978 · alias **0.818**, where the table above has 0.821; 0.816 on the next run |
+| viewer, headless | 15/15 (`NODE_PATH="$(npm root -g)"` finds a global Playwright) |
+| CI | had run four times; the last run, on a4d53c0, green on all six jobs. The one red run (5a28021) was the bundle check |
+| PostgreSQL store | not run here: no server. CI ran it green |
+
+The alias figure was the thread to pull. `ask` did not print the same answer every time: it depended on Python's hash
+seed, on the order grep listed the files in, and for tasks on the other questions of the call. RESULTS phase J has the
+measurement and the three fixes; `eval/stability.py` measures it and A42 holds it. No gated number moved.
+
+### The open list, as it stands
+
+| item above | now |
+|---|---|
+| 1. read the first CI run | done: green at a4d53c0 |
+| 2. merge, rename the default branch, tag | open: the owner's call. Still no pull request |
+| 3. the licence | open: the owner's call |
+| 4. agent eval on the shipped code | open: needs model spend |
+| 5. Neo4j backend and the export's import | open: no Neo4j here either |
+| 6. note kinds named as thing types | open. It re-bases every with-index number and the README's dedup counts, so it wants its own commit |
+| 7. indexing throughput | open: proving it needs model calls |
+| 8. `check \| head` | done: exit 0, nothing on stderr (A43) |
+| 9. BUILD-GUIDE §8 | done; the bundle's own stale exit conditions too (`35/35 passed`, "~1,900 lines") |
+| 10. probation dates | unchanged |
+| new | the lines printed under a note still depend on the other questions of the call (RESULTS J3) |
+
+### Verified at the end of this session
+
+| check | result |
+|---|---|
+| `python3 tests/acceptance.py` | 40/40 on Python 3.9.6 and on 3.13 |
+| `python3 tests/retrieval_gate.py bank` | gold 0.939 · numbers 0.979 · stale 0.962 / 1.0 · absence 1.0 |
+| `python3 tests/retrieval_gate.py software` | gold 1.00 · numbers 1.00 · stale 1.0 / 1.0 |
+| `python3 tests/retrieval_gate.py bank-index` | gold 0.941 · numbers 0.978 · alias 0.818 |
+| `python3 eval/stability.py <bank-index world>` | 0 differences in 1,149 questions; the same with `MEMORY_WIDE=100` |
+| `node tests/viz_check.js` | 15/15 |
+| `python3 tests/bundle_refresh.py --check` | fresh |
+
+On this machine the old local worktree `.claude/worktrees/build-v0.4` is still at 904fe5e, 36 commits behind, and holds
+uncommitted outputs of a taste agent run from 2026-10-31 (`eval/taste/collect.py`, `harness.json`, four judge files,
+`runs/`, `usage-T.jsonl`, and small fixes to `eval/a21/extract.py` and `eval/taste/summarize.py`). None of it is in
+any commit. It was left untouched.

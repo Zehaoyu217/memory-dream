@@ -128,7 +128,7 @@ the index adds aliases, typed relations and the viewer's entity views (measured 
 ## Tests
 
 ```bash
-python3 tests/acceptance.py                 # 38 checks (A1–A20, A24–A41) with the deterministic fake dreamer (~30 s)
+python3 tests/acceptance.py                 # 40 checks (A1–A20, A24–A43) with the deterministic fake dreamer (~30 s)
 python3 tests/acceptance.py A6 A15          # a subset
 python3 tests/real_model.py a3  /tmp/w-a3   # A3/A18 with real Haiku in command mode (~60 s, ~$0.05)
 python3 tests/real_model.py a10-prep /tmp/w-a10   # A10: file mode; then run memory-dreamer on

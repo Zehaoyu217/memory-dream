@@ -942,8 +942,86 @@ def A41():
     return "KINDS.md/TYPES.md seeded; inc-/risk- kinds from the registry; instrument and counterparty typed, warehouse kept as other/warehouse, the file dropped; review admitted warehouse (family place) with 0 re-reads; a removed type reported as C13, its things keep the word"
 
 
+def A42():
+    """The same question gets the same answer on every run, on every machine and in any company: nothing in it depends
+    on Python's per-process hash seed, on the order grep lists the files in, or on the other questions of the call."""
+    import contextlib
+    import io
+    w = World(fixture=False)
+    for i in range(7):  # seven projects hold the same experiment and its follow-up: seven equal scores for six seeds
+        (w.root / f"p{i}").mkdir()
+        (w.root / f"p{i}/exp-uplift-{i}.md").write_text(f"# exp-uplift-{i}: the uplift test on the holdout\nChurn fell 3 points on the holdout.\n")
+        (w.root / f"p{i}/fnd-next-{i}.md").write_text(f"---\nfrom: [exp-uplift-{i}]\n---\n# fnd-next-{i}: the campaign was widened to all regions\nDecided in March.\n")
+    (w.root / "prefs").mkdir()
+    (w.root / "reporting").mkdir()
+    (w.root / "prefs/maya-ortiz-colour.md").write_text("# Maya Ortiz wants one focal colour per chart\nGrey for everything else.\n")
+    (w.root / "prefs/maya-ortiz-units.md").write_text("# Maya Ortiz reads retention in points, never in percent\nSay 3 points.\n")
+    (w.root / "reporting/weekly-standup.md").write_text("# The weekly stand-up opens with the cure curves\n"
+                                                       "Maya Ortiz chairs the escalations table afterwards.\n")
+    q_down, q_task, q_other = "What came of the uplift test on the holdout?", "Prepare the materials for the weekly stand-up", \
+        "Who chairs the escalations table?"
+
+    def section(out, q):
+        parts = re.split(r"^## (.*)$", out, flags=re.M)
+        return next(parts[i + 1] for i in range(1, len(parts) - 1, 2) if parts[i] == q)
+
+    def inproc(order, *qs):
+        """ask in this process, with the files of grep's answer listed forwards, backwards or as grep gave them."""
+        orig, buf = mem.grep_lines, io.StringIO()
+        if order:
+            def listed(r, pats, areas=None):
+                h = orig(r, pats, areas)
+                return {k: h[k] for k in sorted(h, reverse=order == "desc")}
+            mem.grep_lines = listed
+        try:
+            with contextlib.redirect_stdout(buf):
+                mem.main(["ask", "--root", str(w.root), *qs])
+        finally:
+            mem.grep_lines = orig
+        return buf.getvalue()
+
+    # the hash seed: three processes, one answer
+    seeds = [w.run("ask", q_down, q_task, q_other, model=False, env={"PYTHONHASHSEED": s}) for s in ("1", "2", "3")]
+    assert seeds[0] == seeds[1] == seeds[2], "ask printed differently under another PYTHONHASHSEED"
+    # the file order: seven notes score the same and six are followed down their lineage, so the eighth note printed is
+    # the follow-up of whichever six came first — by path, not by where the filesystem happened to list them
+    fwd, back, native = inproc("asc", q_down), inproc("desc", q_down), inproc("", q_down)
+    heads = re.findall(r"^▸ (\S+)", section(fwd, q_down), flags=re.M)
+    assert all(f"p{i}/exp-uplift-{i}.md" in heads for i in range(7)) and "p0/fnd-next-0.md" in heads, heads
+    assert fwd == back == native, "ask printed differently when grep listed the files in another order"
+    # the company: a line that only the other question matched names Maya Ortiz; the task asked alone must get the
+    # same preferences as the task asked beside it
+    alone, beside = section(inproc("", q_task), q_task), section(inproc("", q_task, q_other), q_task)
+    prefs = [sorted(h for h in re.findall(r"^▸ (\S+)", s, flags=re.M) if h.startswith("prefs/")) for s in (alone, beside)]
+    assert prefs[0] == prefs[1], f"a task's preferences changed with the other question of the call: {prefs}"
+    return "7 equal notes for 6 seeds: one answer under hash seeds 1–3 and with grep's files listed forwards, backwards and as found; a task keeps its preferences beside another question"
+
+
+def A43():
+    """A reader that leaves early (`memory.py check | head`) ends the run quietly: exit 0, nothing on stderr — whether
+    the pipe closes before the last flush (a short answer) or in the middle of a long one."""
+    w = World()
+    w.run("dream")
+    qs = ["what do we know about feat-velocity-v2?", "what came of exp-014?", "which dataset feeds the churn model?",
+          "who owns cards.txn_daily?", "what is the current risk tier cutoff?", "why was the velocity feature replaced?",
+          "what is recall at 10 on the holdout?", "what happened to the post-period leak?", "what is in the log for March?",
+          "what did the backfill change?"]
+    sizes = {}
+    for name, args in (("check", ["check"]), ("ask", ["ask", *qs])):
+        sizes[name] = len(w.run(*args, model=False).encode())
+        rd, wr = os.pipe()
+        os.close(rd)  # nobody reads: the first write to this pipe fails
+        try:
+            p = subprocess.run([sys.executable, str(MEM), "--root", str(w.root), *args], stdout=wr, stderr=subprocess.PIPE, text=True, env=w.env)
+        finally:
+            os.close(wr)
+        assert p.returncode == 0 and not p.stderr, f"{name} into a closed pipe: exit {p.returncode}\n{p.stderr[-400:]}"
+    assert sizes["check"] < 8192 < sizes["ask"], sizes  # one answer shorter than Python's buffer, one longer: both paths
+    return f"check ({sizes['check']} bytes, flushed at exit) and ask ({sizes['ask']} bytes, flushed mid-way) into a closed pipe: exit 0, stderr empty"
+
+
 TESTS = [A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A24,
-         A25, A26, A27, A28, A29, A30, A31, A32, A33, A34, A35, A36, A37, A38, A39, A40, A41]
+         A25, A26, A27, A28, A29, A30, A31, A32, A33, A34, A35, A36, A37, A38, A39, A40, A41, A42, A43]
 
 
 def main():

@@ -247,7 +247,9 @@ and the number asked for in 97.9%, in about 2,400 characters per question; with 
 94.1% and 97.8% in about 2,600 (RESULTS phase I; the index is in the repository and rebuilds with no model). On 104
 questions aimed at replaced conclusions the successor is listed above the old note 96% of the time and the old note
 is marked 100%. On 70 questions about things the memory does not contain, it flags the unknown word every time. The
-model-free numbers reproduce from the repository: `python3 tests/retrieval_gate.py bank` runs them with floors.
+model-free numbers reproduce from the repository: `python3 tests/retrieval_gate.py bank` runs them with floors. A
+question gets the same notes on every run and every machine, alone or beside other questions: 1,149 questions print
+identically under three hash seeds and with the files listed in either order (`eval/stability.py`, RESULTS phase J).
 
 A second fixture is a software project (`tests/fixture-software/`: a payments API with services, modules, design records,
 bugs and their fixes, releases, an incident, 30 notes) with 30 questions (`eval/questions/software-payments-api.jsonl`).
@@ -394,10 +396,10 @@ cp -R skills/memory-dream <project>/.claude/skills/memory-dream           # the 
 cp skills/memory-dream/agents/memory-dreamer.md <project>/.claude/agents/  # optional: the file-mode dreamer subagent
 mkdir -p <project>/memory
 export MEMORY_LLM='claude -p --model haiku --tools ""'                     # optional: the index; without it no model is called
-python3 tests/acceptance.py        # from this repository: 38 checks on the fixture, about 30 s, no model
+python3 tests/acceptance.py        # from this repository: 40 checks on the fixture, about 30 s, no model
 ```
 
-MIT licence (`LICENSE`). Continuous integration (`.github/workflows/ci.yml`) runs the 38 checks on Python 3.9 and
+MIT licence (`LICENSE`). Continuous integration (`.github/workflows/ci.yml`) runs the 40 checks on Python 3.9 and
 3.13, the headless viewer check, the model-free retrieval gates on the analytics bank (without and with the restored
 index) and the software fixture, the build-bundle freshness check and the PostgreSQL store parity test.
 
@@ -410,4 +412,5 @@ index) and the software fixture, the build-bundle freshness check and the Postgr
 - `.specs/memory-dream/RUNBOOK.md`: daily use and troubleshooting.
 - `.specs/memory-dream/RESULTS.md`: every measurement, with the runs behind it.
 - `BUILD-GUIDE.md`, `online-build-bundle.md`: how to rebuild it from scratch, phase by phase.
-- `.specs/memory-dream/HANDOFF.md`: where the work stood on 2026-11-02, what is verified, what is open, how to pick it up.
+- `.specs/memory-dream/HANDOFF.md`: where the work stood on 2026-11-02, what is verified, what is open, how to pick it
+  up, and what the pick-up of 2026-11-11 found.
