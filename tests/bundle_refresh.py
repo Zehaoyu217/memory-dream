@@ -118,7 +118,8 @@ _Part 9 · the shapes `eval/` reads and writes, so a rebuilt eval can be compare
   a `Sources:` line and `Tool calls for this question: n`; last lines `Total tool calls in this task: n` and
   `Minutes spent: n`.
 - **Judge** (`eval/judge.py <batch> <answers.md>` → `eval/agent/judge-<cell>-<arm>-<batch>.json`):
-  `{{"<answers.md>": {{"correct": n, "partial": n, "wrong": n, "verdicts": {{"Q1": {{"v": "correct|partial|wrong", "why": "…"}}}}}}}}`.
+  `{{"<answers.md>": {{"correct": n, "partial": n, "wrong": n, "verdicts": {{"Q1": {{"v": "correct|partial|wrong", "why": "…"}}}}}}}}`,
+  keyed by the answers file's name, never its path.
 - **Usage** (`eval/a21/extract.py <out_dir> name=<transcript.jsonl>` → one line in `eval/agent/usage-<cell>.jsonl`):
   `{{"run", "tool_calls", "requests", "input", "cache_read", "cache_write", "output", "total"}}`; cost units weight
   fresh input 1, cache read 0.1, cache write 1.25, output 5.

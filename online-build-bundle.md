@@ -639,7 +639,7 @@ or to a fresh worker given the packet, at most twice. After that, it stops and r
 
 ## Appendix A — the contract surface, verbatim: `skills/memory-dream/SKILL.md` and the dreamer agent
 
-_Part 5 · copied at commit 2881567. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
+_Part 5 · copied at commit 298f994. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
 
 ```markdown
 ---
@@ -714,7 +714,7 @@ Touch nothing else.
 
 ## Appendix B — the graph contract, verbatim: `.specs/memory-dream/CONTRACT.md`
 
-_Part 6 · copied at commit 2881567. Schema 1; `memory.py check` validates against it (A38)._
+_Part 6 · copied at commit 298f994. Schema 1; `memory.py check` validates against it (A38)._
 
 ## memory-dream — the graph contract (schema 1)
 
@@ -884,7 +884,7 @@ nothing (C13 reports it and the readings fall back to `other/<word>`); merging i
 
 ## Appendix C — the build guide, verbatim: `BUILD-GUIDE.md` §3–§10
 
-_Part 7 · copied at commit 2881567. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
+_Part 7 · copied at commit 298f994. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
 
 ### 3. The design in one page
 
@@ -1408,7 +1408,7 @@ preferences 0.95 when the task names them, 0.84 when it names only their meeting
 
 ## Appendix D — prompts, seeds and tuned tables, verbatim from `memory.py`
 
-_Part 8 · extracted at commit 2881567 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
+_Part 8 · extracted at commit 298f994 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
 
 ### D.1 `EXTRACT` — the per-note prompt: fixed guidance, then `KINDS:`, `TYPES:`, `EDGES:` and `KNOWN:` from the registries (the static part is cached), then `NOTE`
 
@@ -1906,7 +1906,8 @@ _Part 9 · the shapes `eval/` reads and writes, so a rebuilt eval can be compare
   a `Sources:` line and `Tool calls for this question: n`; last lines `Total tool calls in this task: n` and
   `Minutes spent: n`.
 - **Judge** (`eval/judge.py <batch> <answers.md>` → `eval/agent/judge-<cell>-<arm>-<batch>.json`):
-  `{"<answers.md>": {"correct": n, "partial": n, "wrong": n, "verdicts": {"Q1": {"v": "correct|partial|wrong", "why": "…"}}}}`.
+  `{"<answers.md>": {"correct": n, "partial": n, "wrong": n, "verdicts": {"Q1": {"v": "correct|partial|wrong", "why": "…"}}}}`,
+  keyed by the answers file's name, never its path.
 - **Usage** (`eval/a21/extract.py <out_dir> name=<transcript.jsonl>` → one line in `eval/agent/usage-<cell>.jsonl`):
   `{"run", "tool_calls", "requests", "input", "cache_read", "cache_write", "output", "total"}`; cost units weight
   fresh input 1, cache read 0.1, cache write 1.25, output 5.

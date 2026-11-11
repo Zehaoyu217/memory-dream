@@ -47,7 +47,8 @@ if __name__ == "__main__":
     res = {}
     for f in sys.argv[2:]:
         v = judge(items, sections(Path(f).read_text()))
-        res[f] = {"verdicts": v, "correct": sum(1 for x in v.values() if x.get("v") == "correct"),
+        # keyed by the run file's name, never its path: the result is committed, the machine's directories are not
+        res[Path(f).name] = {"verdicts": v, "correct": sum(1 for x in v.values() if x.get("v") == "correct"),
                   "partial": sum(1 for x in v.values() if x.get("v") == "partial"),
                   "wrong": sum(1 for x in v.values() if x.get("v") == "wrong")}
     print(json.dumps(res, indent=1, ensure_ascii=False))

@@ -116,6 +116,25 @@ fails when its own fix is taken out, and the previous script fails at the file-o
 
 Suite 40/40 on Python 3.9.6 and 3.13; the bank, software and bank-index gates.
 
+## J5 — a result recovered: the taste agent eval of 2026-10-31
+
+BUILD-GUIDE §7.6 described an agent eval whose outputs were never committed: they sat in a local worktree at 904fe5e.
+They are in `eval/taste/` now (`runs/`, `judge-T-*.json`, `usage-T.jsonl`, `harness.json`, `collect.py`), as they were.
+Two batches of ten tasks per arm (T1 names the person, T2 only their meeting or audience); agents list the choices the
+notes support, a Haiku judge counts which applicable notes each plan follows. On the code of 2026-10-31, not re-run:
+
+| arm | preferences followed | house rules followed | contradicted | tool calls | cost units | seconds |
+|---|---|---|---|---|---|---|
+| memory | 41 / 42 | 57 / 68 | 4 | 14.5 | 415k | 295 |
+| grep | 42 / 42 | 60 / 68 | 3 | 30.5 | 702k | 485 |
+
+The memory arm is a preference and three rules short for 0.48× the tool calls, 0.59× the cost and 0.61× the time: the
+same shape as the question evals, with n = 2 batches per arm. The plain-task arm (`P-*` in `collect.py`: nothing said
+about notes) was set up and never ran.
+
+The judge files of both agent evals were keyed by the run file's path, which on one machine was a home directory;
+they are keyed by its name now, and `eval/judge.py` and `eval/taste/judge.py` write the name.
+
 # Phase I (2026-11-02) — the real index rebuilt and kept, what it is worth, and typed links for input questions
 
 ## I1 — the index of the bank, rebuilt with Haiku and kept in the repository

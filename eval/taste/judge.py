@@ -45,5 +45,5 @@ for run in sys.argv[3:]:
     res = json.loads(r.stdout)
     txt = res["result"]
     verdict = json.loads(txt[txt.index("{"):txt.rindex("}") + 1])
-    out[run] = {"verdicts": verdict, "cost": res.get("total_cost_usd")}
+    out[Path(run).name] = {"verdicts": verdict, "cost": res.get("total_cost_usd")}  # the name, never the machine's path
 print(json.dumps(out, indent=1))

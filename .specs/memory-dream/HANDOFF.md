@@ -197,7 +197,7 @@ and characters per question, up by one.
 | `python3 tests/bundle_refresh.py --check` | fresh |
 | CI on d725562 (Linux, GNU grep, Python 3.9 and 3.13) | green on all six jobs; 40/40 twice; store parity 11/11; every gate line the same as this machine's, digit for digit, alias 0.821 included |
 
-On this machine the old local worktree `.claude/worktrees/build-v0.4` is still at 904fe5e, 36 commits behind, and holds
+On this machine the old local worktree `.claude/worktrees/build-v0.4` is still at 904fe5e, 36 commits behind. It held
 uncommitted outputs of a taste agent run from 2026-10-31 (`eval/taste/collect.py`, `harness.json`, four judge files,
-`runs/`, `usage-T.jsonl`, and small fixes to `eval/a21/extract.py` and `eval/taste/summarize.py`). None of it is in
-any commit. It was left untouched.
+`runs/`, `usage-T.jsonl`, and small fixes to `eval/a21/extract.py` and `eval/taste/summarize.py`). They are committed
+on this branch now (RESULTS J5), so that worktree holds nothing that exists nowhere else and can be removed.

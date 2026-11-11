@@ -22,7 +22,7 @@ for f in D.glob("usage-*.jsonl"):
 harness = json.loads((D / "harness.json").read_text()) if (D / "harness.json").exists() else {}
 cells = defaultdict(lambda: defaultdict(float))
 for run, v in sorted(judged.items()):
-    arm, b = run.split("-")[1], run.split("-")[2]
+    arm, b = "-".join(run.split("-")[:2]), run.split("-")[2]  # T-* told to apply the notes; P-* plain tasks
     c = cells[arm]
     for i, t in enumerate(batches[b], 1):
         fol, con = set(v.get(f"T{i}", {}).get("followed", [])), set(v.get(f"T{i}", {}).get("contradicted", []))

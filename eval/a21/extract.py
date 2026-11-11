@@ -6,6 +6,7 @@ Writes <out_dir>/<name>.md (the report) and prints one JSON line of usage per ru
 API requests, and tokens (fresh input, cache read, cache write, output). Nothing else is printed.
 """
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -18,9 +19,9 @@ def report_text(rows):
         for c in m["content"]:
             if c.get("type") == "tool_use" and "andback" in (c.get("name") or ""):
                 inp = c.get("input") or {}
-                return next((v for v in inp.values() if isinstance(v, str) and "## Q" in v), json.dumps(inp))
+                return next((v for v in inp.values() if isinstance(v, str) and re.search(r"^## [QT]\d", v, re.M)), json.dumps(inp))
         texts = [c.get("text", "") for c in m["content"] if c.get("type") == "text"]
-        if any("## Q" in t for t in texts):
+        if any(re.search(r"^## [QT]\d", t, re.M) for t in texts):
             return "\n".join(texts)
     return ""
 
