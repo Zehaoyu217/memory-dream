@@ -639,7 +639,7 @@ or to a fresh worker given the packet, at most twice. After that, it stops and r
 
 ## Appendix A — the contract surface, verbatim: `skills/memory-dream/SKILL.md` and the dreamer agent
 
-_Part 5 · copied at commit 7365762. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
+_Part 5 · copied at commit ab7664e. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
 
 ```markdown
 ---
@@ -666,7 +666,7 @@ truth; everything else is derived and disposable. `memory.py` = `python3 <this s
    line names everything a note rests on and a `⇣` line everything that rests on it: first the notes one step away
    (`directly`), then those reached `through them`; an answer about what something depends on gives both.
    When the answer is a set or a relationship (every current model, what was replaced, what other
-   projects built on this one) do not search for it: `memory.py ask --list [-p <project>] [--kind model]` prints one
+   projects built on this one) do not search for it: `memory.py ask --list [-p <project>] [--kind model] [--tag risk]` prints one
    line a note with what it was built on (marked when that was replaced), what replaced it and where else it is
    used, and with `-p` what rests on the project from outside; `--all` lifts the 150-line cap so you can pipe it
    through grep. Otherwise `ask`'s silence is not absence: before you write "not recorded", read a headed note or
@@ -675,8 +675,9 @@ truth; everything else is derived and disposable. `memory.py` = `python3 <this s
    `reporting/`, `glossary/`, `corrections/`, `howto/`, `qa/`, `people/`. The filename is the id; a prefix from
    `memory/KINDS.md` says what kind of note it is (`exp- fnd- dec- plan- risk- inc- ds- feat- q- …`; a thing's own note
    is named after the thing, `churn-xgb-v3`). The `# ` line is the claim; the first paragraph is what is true now.
-   Frontmatter `from: [notes built on]`, `supersedes: [notes overturned]`, `updated: YYYY-MM-DD`: never rewrite an old
-   conclusion, write a new note that supersedes it. Numbers carry their unit or metric, their basis (the data, the
+   Frontmatter `from: [notes built on]`, `supersedes: [notes overturned]`, `updated: YYYY-MM-DD`, and `tags: [a, b]`
+   when `memory/TAGS.md` lists tags (pick from it; a new tag is a new line there with its definition): never rewrite
+   an old conclusion, write a new note that supersedes it. Numbers carry their unit or metric, their basis (the data, the
    period, the sample), and the date; sources (tables, documents, queries, tickets) in backticks. ≤ 40 lines, plain
    markdown, nothing about the memory system. Taste is said once, in passing ("no pie charts", "round to one decimal
    for the board"): save it then — `prefs/<first>-<last>-<topic>.md` (your user's own: `prefs/me-<topic>.md`): the rule,
@@ -699,7 +700,8 @@ truth; everything else is derived and disposable. `memory.py` = `python3 <this s
 
 ## The domain is three files you may edit, never the code
 `memory/KINDS.md` (kinds of note: prefixes, areas, roles), `memory/TYPES.md` (types of thing: what each is and is not,
-its aliases, its family) and `memory/EDGES.md` (types of link between things). All three are seeded for data,
+its aliases, its family) and `memory/EDGES.md` (types of link between things, and on each line the question words
+that make `ask` follow it: `walk:`). All three are seeded for data,
 analytics, software and finance work; `pack: research` or `pack: ops` adds a domain's lines. The model is only ever
 asked to use what these files list; a word that fits nothing is kept as `other/<word>`, and becomes a type through the
 review once it is common. A hand-written line is permanent and costs no model calls: the graph is re-derived from the
@@ -746,7 +748,7 @@ Touch nothing else.
 
 ## Appendix B — the graph contract, verbatim: `.specs/memory-dream/CONTRACT.md`
 
-_Part 6 · copied at commit 7365762. Schema 1; `memory.py check` validates against it (A38)._
+_Part 6 · copied at commit ab7664e. Schema 1; `memory.py check` validates against it (A38)._
 
 ## memory-dream — the graph contract (schema 1)
 
@@ -782,9 +784,10 @@ Produced by `build()`, written as `_dream/graph.json` (≤ `MEMORY_WIDE` notes) 
 | `proposed_types` | list of label | type words (things typed outside TYPES.md) over the `promote` bar of TYPES.md, offered to the review |
 | `tvocab` | object | the same shape as `vocab`, for TYPES.md |
 | `dedup` | object | counters from entity merging (`mentions`, `ids_as_written`, `after_folding`, …) |
-| `checks` | list of `{code, msg}` | warnings, sorted by code; codes `C1`–`C16` (§5) |
+| `checks` | list of `{code, msg}` | warnings, sorted by code; codes `C1`–`C17` (§5) |
 | `dropped` | list, optional | what `drop` recorded: `{path, date, replaced, built_on_by, left_newest}` (below) |
 | `pointers` | object, optional | `{note path: [pointer]}`: what the notes point at in the project's files (below) |
+| `tags` | object, optional | `{tag: [note paths]}`, from the `tags:` line of each note's frontmatter read through `TAGS.md` (§6): a listed tag under its name whatever spelling the note used, a word that is not listed under its own folded spelling (C17). In `manifest.json` too |
 
 **pointer** — `{to, path, line, quote, symbol, text, state, now, of, form}`. A note's text points into a file as
 `path#symbol`, `path:line "quoted words"` or `path:line`; `to` is the path as written and `path` the file it is,
@@ -904,7 +907,7 @@ relation is "current" when one of its evidence notes is live).
 - `manifest.json` — `v`, `code` (hash of memory.py), `files {path: {sha, mtime, size}}`, `former {path: [old paths]}`,
   `vsig` (hash of EDGES + ALIASES + CONFLICTS + KINDS + TYPES), `registry` (the type names of EDGES.md and TYPES.md at
   the last dream, for C13), `seen`, `queue`, `failed`, `attempts`, `refs`, `dreamed`, `unindexed`, `due`, `dropped`
-  (the graph's list, §1), `gone {path: {seen, replaced, replaced_by, built_on_by}}` (notes that left without a `drop`,
+  (the graph's list, §1), `tags` (§1), `gone {path: {seen, replaced, replaced_by, built_on_by}}` (notes that left without a `drop`,
   with where they stood at the dream that noticed: C15, and what `drop` needs to record them later), `pointers` and
   `psig` (§1). A dream with nothing changed in any of these, nor in a file a note points at, stops after the scan.
 - `pending/` — what a helper agent is asked, each answered by a file of the same name ending in `.json`; `TODO.md`
@@ -931,7 +934,8 @@ restore the line. `C7` covers type words of TYPES.md as it covers relation label
 note, or a note whose replacement was dropped and which is the newest left of its line · `C15` a note that is gone
 without a `drop`: nothing is written or deleted for it; `memory.py drop <path> --yes` records it, or the file comes
 back · `C16` a note points at a file that is gone, or at a symbol or words that are no longer in it: the note is
-stale, not wrong, and stays.
+stale, not wrong, and stays · `C17` a word on a note's `tags:` line that `TAGS.md` does not list, once a word with
+the number of notes: it still filters, and it is not a tag until it has a line with its definition.
 
 ### 6. The user-owned files
 
@@ -956,7 +960,13 @@ offered to the review, which may alias them onto a type, admit a new type (with 
 the word, or drop it; a proposed type still under the bar after the probation is demoted to a word.
 
 `EDGES.md` (types of link): the same settings and `pack: software, research, ops` · type lines with `aka: a, ~b` (`~` =
-read in reverse), `shape: s → o` (`*` for any; `same`) · `drop: a, b`. `ALIASES.md`: `- canonical = other, …` ·
+read in reverse), `shape: s → o` (`*` for any; `same`), `walk: word, phrase, stem*, (a/b) c, ~inward` (the words of a
+question that make `ask` follow this type from a thing the question names; `*` any letters, `(a/b)` either, `~` the
+link read the other way, as in "what uses X") and `hops: 2` (the links chain: an input of an input is an input, and
+`ask` goes two steps) · `drop: a, b`. A type line without `walk:` or `hops:` takes the seed's line of the same name,
+so a file written before the fields existed answers as it did; a type the seed does not have is followed only once
+its line says by which words. `TAGS.md` (tags): `- tag: what it means | aka: other spellings`. It has no seed: a tag
+belongs to one base, and a writer picks from this list. `ALIASES.md`: `- canonical = other, …` ·
 `not: a / b`. `CONFLICTS.md`: `- a > b` (a supersedes b) · `compatible: a / b` · `- a ? b` (unsure) · `dropped:
 <note.md | folder/> (YYYY-MM-DD) > <what it had replaced>, …`, written by `memory.py drop` and by nothing else: the
 build reads it as a pass-through in a line of replacements, so a clone with no `_dream/` builds the same lineage.
@@ -1000,7 +1010,7 @@ origin by adding the file. What changes for the notes under it, and nothing else
 
 ## Appendix C — the build guide, verbatim: `BUILD-GUIDE.md` §3–§10
 
-_Part 7 · copied at commit 7365762. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
+_Part 7 · copied at commit ab7664e. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
 
 ### 3. The design in one page
 
@@ -1142,7 +1152,8 @@ history, and that version put 12 of 209 symbols on the line of a call or of a lo
 - Warnings: C1 ambiguous, C2 not found, C3 indexing failed, C4 dropped ungrounded entity/relation, C5 unindexed,
   C6 no `# ` line, C7 review pending (labels, budget), C8 bad EDGES/ALIASES/CONFLICTS line, C9 NUL bytes in a note
   (binary-looking), C10 conflict pending, C11 a note over 40 lines, C14 built on a dropped note or left the newest of
-  its line by a drop, C15 gone without a drop, C16 a pointer into a file that no longer holds.
+  its line by a drop, C15 gone without a drop, C16 a pointer into a file that no longer holds, C17 a tag that
+  TAGS.md does not list.
 
 #### 5.5 The graph, vocabulary half (`build`, `merge_entities`)
 
@@ -1576,7 +1587,7 @@ preferences 0.95 when the task names them, 0.84 when it names only their meeting
 
 ## Appendix D — prompts, seeds and tuned tables, verbatim from `memory.py`
 
-_Part 8 · extracted at commit 7365762 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
+_Part 8 · extracted at commit ab7664e by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
 
 ### D.1 `EXTRACT` — the per-note prompt: fixed guidance, then `KINDS:`, `TYPES:`, `EDGES:` and `KNOWN:` from the registries (the static part is cached), then `NOTE`
 
@@ -1651,17 +1662,20 @@ one builds on the other; otherwise unsure. Never invent paths: copy them from th
 # (proposed <date>) is demoted back to a label if it is still under the bar after the probation. Edit freely: a
 # hand-written line is permanent and relabels everything at the next merge (0 calls). Optional: pack: software, research, ops.
 # Note-to-note links (from:, supersedes:, refs) are lineage, not relations.
+# `walk:` lists the words of a question that make `ask` follow that type from a thing the question names: `*` stands
+# for any letters, `(a/b)` for either, and a word marked `~` asks for the link read the other way ("what uses X").
+# `hops: 2` marks a type whose links chain: an input of an input is an input. A line without them takes the seed's.
 promote: 5 uses, 5 notes, 2 areas
 budget: 24
 probation: 60 days
-- uses: X needs Y as an input (model uses feature; feature uses table) | aka: depends-on, consumes, built-on, built-from, derived-from, based-on, sourced-from, requires, reads, reads-from, joined-to, ~feeds, ~input-to, ~used-by, ~used-for, ~used-in
-- produces: X creates or writes Y (job produces table; model produces scores) | aka: writes, writes-to, creates, outputs, generates, ~generated-by, ~produced-by, ~output-of
-- part-of: X is a component of Y (column part-of table; feature part-of feature-set) | aka: member-of, column-of, subset-of, stored-in, ~contains, ~has, ~includes
-- trained-on: model X was fit on dataset Y | aka: fit-on, fitted-on, trained-with | shape: model → dataset
-- evaluated-on: X was measured on dataset or segment Y | aka: tested-on, validated-on, measured-on, scored-on, backtested-on | shape: * → dataset
-- measured-by: X is judged by metric Y | aka: reports, reports-metric, has-metric, measures, measured-in, scored-by, optimizes, optimises, targets, ~metric-of | shape: * → metric
-- replaces: X is the newer version of Y | aka: supersedes, retires, ~replaced-by, ~superseded-by | shape: same
-- owned-by: X is maintained or decided by person or team Y | aka: maintained-by, managed-by, run-by, approved-by, decided-by, set-by, signed-off-by, agreed-by, ~owns, ~maintains | shape: * → party
+- uses: X needs Y as an input (model uses feature; feature uses table) | walk: use, uses, using, used by, depend*, input, inputs, feed, feeds, read, reads, built on, built from, based on, source, sources, feature, features, ~(what/which/who) (use/uses/depend/depends/read/reads/consume/consumes/feed/feeds/relies), ~used by, ~downstream, ~dependent, ~dependents | hops: 2 | aka: depends-on, consumes, built-on, built-from, derived-from, based-on, sourced-from, requires, reads, reads-from, joined-to, ~feeds, ~input-to, ~used-by, ~used-for, ~used-in
+- produces: X creates or writes Y (job produces table; model produces scores) | walk: produce, produces, output, outputs, write, writes, generat* | aka: writes, writes-to, creates, outputs, generates, ~generated-by, ~produced-by, ~output-of
+- part-of: X is a component of Y (column part-of table; feature part-of feature-set) | walk: part of, component, components, member, members, column, columns, contain, contains | hops: 2 | aka: member-of, column-of, subset-of, stored-in, ~contains, ~has, ~includes
+- trained-on: model X was fit on dataset Y | walk: train*, fit on, fitted on | hops: 2 | aka: fit-on, fitted-on, trained-with | shape: model → dataset
+- evaluated-on: X was measured on dataset or segment Y | walk: evaluat*, tested on, validat*, holdout, holdouts, backtest*, scored on | aka: tested-on, validated-on, measured-on, scored-on, backtested-on | shape: * → dataset
+- measured-by: X is judged by metric Y | walk: metric, metrics, measured by, auc, recall, precision, mape, f1, score, scores, scored | aka: reports, reports-metric, has-metric, measures, measured-in, scored-by, optimizes, optimises, targets, ~metric-of | shape: * → metric
+- replaces: X is the newer version of Y | walk: replac*, supersed*, version, versions, predecessor, successor, newer, older, retire, retired | aka: supersedes, retires, ~replaced-by, ~superseded-by | shape: same
+- owned-by: X is maintained or decided by person or team Y | walk: own, owns, owner*, owned, maintain*, responsible, team, teams | aka: maintained-by, managed-by, run-by, approved-by, decided-by, set-by, signed-off-by, agreed-by, ~owns, ~maintains | shape: * → party
 drop: related-to, associated-with, about, mentions, relates-to, answers, answered-by, basis-for, evidence-for, led-to, leads-to, motivates, motivated-by, informs, follows, confirms, explains, supports, overturned-by
 ```
 

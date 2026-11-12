@@ -37,7 +37,8 @@ V = "0.4"
 SCHEMA = 1  # the graph contract (.specs/memory-dream/CONTRACT.md): bumped when a field changes meaning
 CODE = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()[:12]  # a changed script rebuilds the graph once, 0 calls
 NOTE_MAX_LINES = 40  # SKILL.md's own rule; over it is C11
-SKIP = {"INDEX.md", "EDGES.md", "ALIASES.md", "CONFLICTS.md", "KINDS.md", "TYPES.md", "README.md", "DIGEST.md", "ORIGIN.md"}
+SKIP = {"INDEX.md", "EDGES.md", "ALIASES.md", "CONFLICTS.md", "KINDS.md", "TYPES.md", "TAGS.md", "SETUP.md", "README.md",
+        "DIGEST.md", "ORIGIN.md"}
 # An origin is a top folder with an ORIGIN.md in it: another base's notes, taken in as data (PLAN §9). They answer
 # questions; they do not instruct, their entities are not the host's until a line in ALIASES.md says so, and their
 # next folder level is the area. {folder: {"trust": words of its `trust:` line}}, read by load_domain().
@@ -150,17 +151,20 @@ EDGES_SEED = """# EDGES — relation types between entities, read "X <type> Y". 
 # (proposed <date>) is demoted back to a label if it is still under the bar after the probation. Edit freely: a
 # hand-written line is permanent and relabels everything at the next merge (0 calls). Optional: pack: software, research, ops.
 # Note-to-note links (from:, supersedes:, refs) are lineage, not relations.
+# `walk:` lists the words of a question that make `ask` follow that type from a thing the question names: `*` stands
+# for any letters, `(a/b)` for either, and a word marked `~` asks for the link read the other way ("what uses X").
+# `hops: 2` marks a type whose links chain: an input of an input is an input. A line without them takes the seed's.
 promote: 5 uses, 5 notes, 2 areas
 budget: 24
 probation: 60 days
-- uses: X needs Y as an input (model uses feature; feature uses table) | aka: depends-on, consumes, built-on, built-from, derived-from, based-on, sourced-from, requires, reads, reads-from, joined-to, ~feeds, ~input-to, ~used-by, ~used-for, ~used-in
-- produces: X creates or writes Y (job produces table; model produces scores) | aka: writes, writes-to, creates, outputs, generates, ~generated-by, ~produced-by, ~output-of
-- part-of: X is a component of Y (column part-of table; feature part-of feature-set) | aka: member-of, column-of, subset-of, stored-in, ~contains, ~has, ~includes
-- trained-on: model X was fit on dataset Y | aka: fit-on, fitted-on, trained-with | shape: model → dataset
-- evaluated-on: X was measured on dataset or segment Y | aka: tested-on, validated-on, measured-on, scored-on, backtested-on | shape: * → dataset
-- measured-by: X is judged by metric Y | aka: reports, reports-metric, has-metric, measures, measured-in, scored-by, optimizes, optimises, targets, ~metric-of | shape: * → metric
-- replaces: X is the newer version of Y | aka: supersedes, retires, ~replaced-by, ~superseded-by | shape: same
-- owned-by: X is maintained or decided by person or team Y | aka: maintained-by, managed-by, run-by, approved-by, decided-by, set-by, signed-off-by, agreed-by, ~owns, ~maintains | shape: * → party
+- uses: X needs Y as an input (model uses feature; feature uses table) | walk: use, uses, using, used by, depend*, input, inputs, feed, feeds, read, reads, built on, built from, based on, source, sources, feature, features, ~(what/which/who) (use/uses/depend/depends/read/reads/consume/consumes/feed/feeds/relies), ~used by, ~downstream, ~dependent, ~dependents | hops: 2 | aka: depends-on, consumes, built-on, built-from, derived-from, based-on, sourced-from, requires, reads, reads-from, joined-to, ~feeds, ~input-to, ~used-by, ~used-for, ~used-in
+- produces: X creates or writes Y (job produces table; model produces scores) | walk: produce, produces, output, outputs, write, writes, generat* | aka: writes, writes-to, creates, outputs, generates, ~generated-by, ~produced-by, ~output-of
+- part-of: X is a component of Y (column part-of table; feature part-of feature-set) | walk: part of, component, components, member, members, column, columns, contain, contains | hops: 2 | aka: member-of, column-of, subset-of, stored-in, ~contains, ~has, ~includes
+- trained-on: model X was fit on dataset Y | walk: train*, fit on, fitted on | hops: 2 | aka: fit-on, fitted-on, trained-with | shape: model → dataset
+- evaluated-on: X was measured on dataset or segment Y | walk: evaluat*, tested on, validat*, holdout, holdouts, backtest*, scored on | aka: tested-on, validated-on, measured-on, scored-on, backtested-on | shape: * → dataset
+- measured-by: X is judged by metric Y | walk: metric, metrics, measured by, auc, recall, precision, mape, f1, score, scores, scored | aka: reports, reports-metric, has-metric, measures, measured-in, scored-by, optimizes, optimises, targets, ~metric-of | shape: * → metric
+- replaces: X is the newer version of Y | walk: replac*, supersed*, version, versions, predecessor, successor, newer, older, retire, retired | aka: supersedes, retires, ~replaced-by, ~superseded-by | shape: same
+- owned-by: X is maintained or decided by person or team Y | walk: own, owns, owner*, owned, maintain*, responsible, team, teams | aka: maintained-by, managed-by, run-by, approved-by, decided-by, set-by, signed-off-by, agreed-by, ~owns, ~maintains | shape: * → party
 drop: related-to, associated-with, about, mentions, relates-to, answers, answered-by, basis-for, evidence-for, led-to, leads-to, motivates, motivated-by, informs, follows, confirms, explains, supports, overturned-by
 """
 PACKS = {  # seed vocabularies for other domains: `pack: software` in EDGES.md adds these lines (they count in the budget)
@@ -327,6 +331,33 @@ def name_drop(tt):
     return re.compile("|".join("(?:" + re.escape(x).replace(r"\*", ".*") + ")" for x in pats)) if pats else None
 
 
+def walk_rx(words):
+    """Question words of a `walk:` field as one pattern: whole words, any case, runs of spaces alike; `*` stands for
+    any letters and `(a/b)` for either (a `|` separates the fields of a registry line)."""
+    alts = [re.escape(" ".join(w.split())).replace(r"\*", r"\w*").replace(r"\(", "(?:").replace(r"\)", ")").replace("/", "|")
+            .replace(r"\ ", r"\s+") for w in words]
+    return re.compile(r"\b(?:" + "|".join(alts) + r")\b", re.I) if alts else None
+
+
+def walk_tables(etypes):
+    """What `ask` walks, from the type lines of EDGES.md: RELCUE {type: the question words that point at it}, INWARD
+    (the words that ask for a link read the other way) and INPUT_TYPES (the types whose links chain: `hops: 2`). A
+    line without `walk:` or `hops:` takes the seed's line of the same type, so a registry written before the fields
+    existed answers as it did."""
+    cue, inward, chain = {}, [], set()
+    for t, d in etypes.items():
+        seed = SEED_EDGE_TYPES.get(t, {})
+        walk = d.get("walk") if d.get("walk") is not None else seed.get("walk") or []
+        hops = d.get("hops") if d.get("hops") is not None else seed.get("hops") or 1
+        rx = walk_rx([w for w in walk if not w.startswith("~")])
+        if rx:
+            cue[t] = rx
+        inward += [w[1:] for w in walk if w.startswith("~")]
+        if hops >= 2:
+            chain.add(t)
+    return {"RELCUE": cue, "INWARD": walk_rx(inward) or re.compile(r"(?!)"), "INPUT_TYPES": chain}
+
+
 def domain_from(kt, tt, et):
     """The module's domain tables from the three files' texts."""
     kc, tv, ev = parse_kinds(kt), parse_edges(tt, TYPE_PACKS), parse_edges(et)
@@ -341,7 +372,8 @@ def domain_from(kt, tt, et):
             "DIGEST_KINDS": {k for k, d in ks.items() if d["digest"]},
             "ANSWER_KINDS": {k for k, d in ks.items() if d["answers"]},
             "ROLE_OF": {k: d["role"] for k, d in ks.items()},
-            "TYPE_PARENT": tv[5]["family"], "SHAPES": {**SEED_SHAPES, **ev[5]["shape"]}, "NAME_DROP": name_drop(tt)}
+            "TYPE_PARENT": tv[5]["family"], "SHAPES": {**SEED_SHAPES, **ev[5]["shape"]}, "NAME_DROP": name_drop(tt),
+            **walk_tables(ev[0])}
 
 
 def load_domain(root):
@@ -660,11 +692,14 @@ def pointers_in(text):
     return out
 
 
+FACTS_V = 2  # the shape of a cached row of note facts: rows of another shape are read again, once
+
+
 def note_facts(text):
     """What the graph needs from a note's text: frontmatter lineage and dates, the `# ` line, links, body slugs, and
     its pointers into files."""
     fm, title, tline, links = parse_note(text)
-    return {"fm": {k: fm[k] for k in ("from", "supersedes", "type", "updated", "modified") if k in fm}, "title": title,
+    return {"fm": {k: fm[k] for k in ("from", "supersedes", "type", "updated", "modified", "tags") if k in fm}, "title": title, "v": FACTS_V,
             "line": tline, "links": links, "nul": "\x00" in text,  # binary-looking: C9
             "lines": text.count("\n") + (0 if text.endswith("\n") or not text else 1),  # over 40: C11
             "ids": sorted(set(SLUG.findall(text.lower().split("\n", tline)[-1]))) if tline else [],
@@ -922,7 +957,7 @@ def parse_edges(text, packs=None):
         if m:
             t = fold(PROPOSED_RX.sub("", m.group(1)))
             segs = [x.strip() for x in m.group(2).split("|")]
-            aka, fam, shape = [], None, None
+            aka, fam, shape, walk, hops = [], None, None, None, None
             for seg in segs[1:]:
                 key, _, val = seg.partition(":")
                 key = key.strip().lower()
@@ -932,7 +967,11 @@ def parse_edges(text, packs=None):
                     fam = fold(val)
                 elif key == "shape":
                     shape = parse_shape(val)
-            types[t] = {"def": segs[0], "aka": aka, "family": fam or t, "shape": shape}
+                elif key == "walk":
+                    walk = [a.strip() for a in val.split(",") if a.strip()]
+                elif key == "hops" and val.strip().isdigit():
+                    hops = int(val)
+            types[t] = {"def": segs[0], "aka": aka, "family": fam or t, "shape": shape, "walk": walk, "hops": hops}
             if fam and fam != t:
                 extra["family"][t] = fam
             if shape:
@@ -1052,6 +1091,7 @@ def tombstoned(tomb, p):
 
 
 SEED_SHAPES = parse_edges(EDGES_SEED)[5]["shape"]  # EDGES.md files written before `shape:` fields existed keep these
+SEED_EDGE_TYPES = parse_edges(EDGES_SEED)[0]  # … and the seed's walk words and hops, type by type
 globals().update(domain_from(KINDS_SEED, TYPES_SEED, EDGES_SEED))  # the module's defaults: the seeds
 
 
@@ -1595,6 +1635,8 @@ def build(root, man, cur, former, et, at, xs=None, now=None, facts=None, base=No
     wanted = {rel: aux[rel]["pointers"] for rel in notes if aux[rel].get("pointers")}  # pointers into the project's files
     ptr, pchecks = pointer_states(root, wanted, man.get("pointers") or {}) if wanted else ({}, [])
     checks += pchecks
+    tags, tchecks = note_tags(aux, root)
+    checks += tchecks
     checks += [("C10", f"conflict pending: {c['a']} / {c['b']} — both live, share: {', '.join(c['shared'][:3])}"
                 + (" · reviewer unsure, a person decides" if c["unsure"] else "")) for c in conflicts]
     return {"schema": SCHEMA, "v": V, "built": now.strftime("%Y-%m-%dT%H:%M"),
@@ -1607,7 +1649,7 @@ def build(root, man, cur, former, et, at, xs=None, now=None, facts=None, base=No
             "proposed_types": proposed_t,
             "tvocab": {"types": len(ttypes), "budget": tcfg["budget"], "promote": list(tcfg["promote"]), "probation": tcfg["probation"],
                        "labels": len(tprops), "below": len(tbelow), "demote": sorted(tdemote)},
-            "dedup": dict(dedup), "dropped": base.get("dropped", []), "pointers": ptr,
+            "dedup": dict(dedup), "dropped": base.get("dropped", []), "pointers": ptr, "tags": tags,
             "checks": [{"code": c, "msg": m} for c, m in sorted(checks, key=lambda z: z[0])]}
 
 
@@ -1673,8 +1715,9 @@ def validate(g, types=None):
             if not m or m.group(1) not in paths or int(m.group(2)) < 1:
                 bad.append(f"relation {r['s']} {t} {r['o']}: evidence {ev!r} is not path:line of a note")
     bad += [f"conflict {c.get('a')} / {c.get('b')}: unknown note" for c in g["conflicts"] if c.get("a") not in paths or c.get("b") not in paths]
-    bad += [f"check {c.get('code')}: unknown code" for c in g["checks"] if not re.fullmatch(r"C(?:[1-9]|1[0-6])", str(c.get("code", "")))]
+    bad += [f"check {c.get('code')}: unknown code" for c in g["checks"] if not re.fullmatch(r"C(?:[1-9]|1[0-7])", str(c.get("code", "")))]
     bad += [f"pointers of {p}: not a note" for p in g.get("pointers", {}) if p not in paths]  # optional: pointers into files
+    bad += [f"tag {t}: {p} is not a note" for t, ps in g.get("tags", {}).items() for p in ps if p not in paths]  # optional: tags
     for d in g.get("dropped", []):  # optional: what `drop` recorded and what it means for the notes that are left
         if not isinstance(d.get("path"), str) or d["path"] in paths:
             bad.append(f"dropped {d.get('path')!r}: not a path, or a note that exists")
@@ -1689,9 +1732,37 @@ def conflicts_text(root):
     return read(cf) if cf.exists() else ""
 
 
+def tags_registry(root):
+    """TAGS.md: `- tag: what it means | aka: other spellings` -> ({tag: definition}, {folded spelling: tag}). A tag is
+    a word of this file; there is no seed, because a tag belongs to one base."""
+    f = Path(root) / "TAGS.md"
+    types, alias = parse_edges(read(f), {})[:2] if f.exists() else ({}, {})
+    return {t: d["def"] for t, d in types.items()}, {k: v[0] for k, v in alias.items()}
+
+
+def note_tags(aux, root):
+    """The notes of each tag, from the `tags:` line of their frontmatter read through TAGS.md -> ({tag: [paths]}, C17
+    checks). A word that TAGS.md does not list is kept under its own spelling and reported: it is not a tag until
+    someone gives it a line with its definition."""
+    defs, alias = tags_registry(root)
+    out, unlisted = defaultdict(list), defaultdict(list)
+    for rel in sorted(aux):
+        for w in fm_list(aux[rel]["fm"].get("tags")):
+            k = fold(w.lstrip("#"))
+            if not k:
+                continue
+            t = alias.get(k)
+            (out[t] if t else unlisted[k]).append(rel)
+    checks = [("C17", f"tag `{k}` on {len(ps)} note{'s' * (len(ps) != 1)} ({posixpath.basename(ps[0])[:-3]}{', …' if len(ps) > 1 else ''}) "
+               f"is not in TAGS.md: add `- {k}: what it means`, or name the tag it is another spelling of") for k, ps in sorted(unlisted.items())]
+    return {t: sorted(set(ps)) for t, ps in sorted({**unlisted, **out}.items())}, checks
+
+
 def shape_text(root):
     """CONFLICTS.md, and the files of each origin that shape the graph: a change to any of them is a change to dream."""
     out = conflicts_text(root)
+    tf = Path(root) / "TAGS.md"
+    out += f"\n<TAGS.md>\n{read(tf)}" if tf.exists() else ""
     for o in sorted(load_origins(root)):
         for name in ("ORIGIN.md", "CONFLICTS.md", "ALIASES.md"):
             f = root / o / name
@@ -1796,7 +1867,7 @@ class Store:
         for rel, f in cur.items():
             h, r = have.get(rel, (None, None))
             rec = json.loads(r) if h == f["sha"] else None
-            if rec is not None and "nul" in rec and "lines" in rec and "pointers" in rec:  # rows of an older shape are re-read once
+            if rec is not None and rec.get("v") == FACTS_V:  # rows of an older shape are re-read once
                 out[rel] = rec
             else:
                 out[rel] = note_facts(read(root / rel))
@@ -2539,6 +2610,7 @@ class Dream:
                                   "failed": self.failed, "attempts": self.attempts, "refs": refs,
                                   "dropped": g.get("dropped", []), "gone": self.gone,
                                   "pointers": g.get("pointers", {}), "psig": pointer_sig(root, g.get("pointers", {})),
+                                  "tags": g.get("tags", {}),
                                   "dreamed": now.isoformat(timespec="seconds"),
                                   "unindexed": sum(1 for n in g["notes"] if not n["indexed"]),
                                   "due": bool(self.cmd and (g["proposed"] or g.get("proposed_types") or g["review"]
@@ -2632,7 +2704,7 @@ class View:
     def __init__(self, g):
         self.g = g
         self._names = None
-        self.dropped, self.pointers = g.get("dropped", []), g.get("pointers", {})
+        self.dropped, self.pointers, self.tags = g.get("dropped", []), g.get("pointers", {}), g.get("tags", {})
         self.notes = {n["path"]: n for n in g["notes"]}
         self.ents = {e["id"]: e for e in g["entities"]}
         self.out_r, self.in_r = defaultdict(list), defaultdict(list)
@@ -2704,7 +2776,7 @@ class DbView:
         self.rows = rows
         self.notes = {p: {"path": p, "id": i, "project": a, "title": t, "line": ln, "kind": k, "updated": u,
                           "superseded_by": list(sup or [])} for p, i, a, t, ln, k, u, sup in rows.notes()}
-        self.dropped, self.pointers = man.get("dropped", []), man.get("pointers", {})
+        self.dropped, self.pointers, self.tags = man.get("dropped", []), man.get("pointers", {}), man.get("tags", {})
         old = {p: f["sha"] for p, f in man.get("files", {}).items()}
         changed = {p for p in cur if old.get(p) != cur[p]["sha"]}
         gone = {p for p in self.notes if p not in cur}
@@ -3158,7 +3230,7 @@ def check(args, root):
     for code in sorted(by):
         if code == "C5":  # one line, not one per note: a memory used without a model is not a problem
             print(f"C5 ×{len(by[code])}: notes without entities (no model has indexed them; answering is unaffected). "
-                  "To add entities and relations: dream with $MEMORY_LLM, or `dream --prompts` and the memory-dreamer agent.")
+                  "To add entities and relations: dream with $MEMORY_LLM, or `dream --packets` and memory-dreamer agents.")
             continue
         print(f"{code} ×{len(by[code])}")
         for m in by[code]:
@@ -3233,15 +3305,8 @@ W = {  # the tuned numbers of rank() and route(), in one place (REVIEW.md F9); s
     #   dependency questions 0.853 → 0.920 for +4.6% characters; one hop +1 answer, any-type cues +10% characters for the
     #   same gain, 12 lines +1 more answer for +1% more; nothing else moves.
 }
-RELCUE = {t: re.compile(rx, re.I) for t, rx in {  # question words → the relation types worth one hop (phase I)
-    "uses": r"\b(uses?|using|used by|depend\w*|inputs?|feeds?|reads?|built (on|from)|based on|sources?|features?)\b",
-    "trained-on": r"\b(train\w*|fit(ted)? on|training (set|data))\b",
-    "produces": r"\b(produces?|outputs?|writes?|generat\w+)\b",
-    "part-of": r"\b(part of|components?|members?|columns?|contains?)\b",
-    "evaluated-on": r"\b(evaluat\w+|tested on|validat\w+|holdouts?|backtest\w*|scored on)\b",
-    "measured-by": r"\b(metrics?|measured by|auc|recall|precision|mape|f1|score[sd]?)\b",
-    "replaces": r"\b(replac\w+|supersed\w+|versions?|predecessor|successor|newer|older|retired?)\b",
-    "owned-by": r"\b(owns?|owner\w*|owned|maintain\w*|responsible|teams?)\b"}.items()}
+# RELCUE (question words → the relation types worth one hop, phase I), INWARD and INPUT_TYPES are read from the
+# `walk:` and `hops:` fields of EDGES.md by walk_tables(); the seed's lines carry the words that used to stand here.
 
 
 def stem(t):
@@ -3376,19 +3441,34 @@ def drop_marks(v):
     return built, newest
 
 
-def list_notes(args, v):
-    """`ask --list [-p folder] [--kind K]`: the map, one line per note — path, kind, date, what it was built on (marked
+def list_notes(args, v, root=None):
+    """`ask --list [-p folder] [--kind K] [--tag T]`: the map, one line per note — path, kind, date, its tags, what it was built on (marked
     when that note has since been replaced), what it replaced, whether it was replaced, and its `# ` line. A question
     whose answer is a set, or a relationship across a folder, is answered by reading these lines; `ask` does not guess
     a list from a question's wording (phase L)."""
     kind = (getattr(args, "kind", None) or "").lower()
     area = lambda p: area_of(p)  # noqa: E731
     here = (lambda p: in_scope(p, {args.p.lower().rstrip("/")})) if args.p else (lambda p: True)  # -p takes an origin whole
-    rows = [p for p in sorted(v.notes) if here(p)
+    tagged, by_tag = None, getattr(v, "tags", None) or {}
+    of_note = defaultdict(list)
+    for t, ps in by_tag.items():
+        for q in ps:
+            of_note[q].append(t)
+    tag = fold((getattr(args, "tag", None) or "").lstrip("#"))
+    if tag:
+        defs, alias = tags_registry(root) if root else ({}, {})
+        tag = alias.get(tag, tag)
+        if tag not in by_tag:
+            print(f"## no note carries the tag {tag}" + (" · tags in use: " + ", ".join(f"{t} ({len(ps)})" for t, ps in sorted(by_tag.items())) if by_tag
+                                                             else " · no note has a `tags:` line"))
+            return
+        tagged = set(by_tag[tag])
+    rows = [p for p in sorted(v.notes) if here(p) and (tagged is None or p in tagged)
             and (not kind or kind in (v.notes[p]["kind"], family(v.notes[p]["kind"])))]
     cap = len(rows) if getattr(args, "all", False) else LIST_MAX
     built, newest = drop_marks(v)
     print(f"## {len(rows)} notes" + (f" of {args.p}/" if args.p else "") + (f" of kind {kind}" if kind else "")
+          + (f" tagged {tag}" + (f" ({defs[tag]})" if defs.get(tag) else " (not in TAGS.md: no definition)") if tag else "")
           + " — one line each: built on (a note of another folder with its folder) · replaces · replaced by · used in other folders")
     for p in rows[:cap]:
         n = v.notes[p]
@@ -3398,12 +3478,13 @@ def list_notes(args, v):
         sup = [name(e["dst"]) for e in v.frm[p] if e["rel"] == "supersedes" and e["dst"] in v.notes]
         out = sorted(e["src"][:-3] for e in v.down[p] if e["rel"] == "from" and e["src"] in v.notes and area(e["src"]) != area(p))
         print(f"▸ {p} · {n['kind']}" + (f" of {origin_of(p)}, another base" if origin_of(p) else "") + f" · {n['updated']}"
+              + "".join(f" #{t}" for t in sorted(of_note.get(p, [])))
               + (f" · from {', '.join(frm)}" if frm else "")
               + (f" · supersedes {', '.join(sup)}" if sup else "") + chain_mark(v.notes, n)
               + (f" · its replacement {', '.join(newest[p])} was dropped" if p in newest else "")
               + (f" · used in {', '.join(out)}" if out else "") + f" — {n['title'][:110]}")
     if len(rows) > cap:
-        print(f"  ({len(rows) - cap} more: narrow it with -p <folder> or --kind <kind>, or print them all with --all)")
+        print(f"  ({len(rows) - cap} more: narrow it with -p <folder>, --kind <kind> or --tag <tag>, or print them all with --all)")
     if args.p:  # what the folder as a whole rests on, and what rests on it, outside itself
         for mark, edges, far, text in (("⇡", v.frm, "dst", f"{args.p}/ rests on {{n}} notes of other folders"),
                                        ("⇣", v.down, "src", f"{{n}} notes of other folders rest on {args.p}/")):
@@ -3424,7 +3505,7 @@ def list_notes(args, v):
 def ask(args, root):
     v = open_view(root)
     if getattr(args, "list", False):
-        return list_notes(args, v)
+        return list_notes(args, v, root)
     built, newest = drop_marks(v)
     ptr_now = {}
 
@@ -4006,8 +4087,7 @@ def rank(x, by_file, idf, v, idf_host=None):
     return res
 
 
-INWARD = re.compile(r"\b(what|which|who)\s+(uses?|depends?|reads?|consumes?|feeds?|relies)\b|\bused by\b|\bdownstream\b|\bdependents?\b", re.I)
-INPUT_TYPES = {"uses", "trained-on", "part-of"}  # the input relations: the two-hop walk follows these and `from:` lineage
+# INPUT_TYPES: the input relations (`hops: 2` in EDGES.md): the two-hop walk follows these and `from:` lineage.
 
 
 def typed_links(x, v, have, n_rel, hops, mode):
@@ -4262,6 +4342,7 @@ def main(argv=None):
     a.add_argument("--budget", type=int, help="chars before switching from whole notes to surgical lines")
     a.add_argument("--list", action="store_true", help="no question: one line per note of -p and --kind, with its lineage")
     a.add_argument("--kind", help="with --list: only notes of this kind")
+    a.add_argument("--tag", help="with --list: only notes that carry this tag (TAGS.md defines the tags)")
     a.add_argument("--all", action="store_true", help="with --list: every line, however many (pipe it through grep)")
     vz = sp.add_parser("viz", parents=[common], help="write the HTML viewer (dream refreshes it too)")
     vz.add_argument("--out", help="output file (default memory/_dream/graph.html)")

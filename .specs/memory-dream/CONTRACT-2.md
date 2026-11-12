@@ -63,6 +63,9 @@ git to ignore all of `_dream/` today). Everything else under `_dream/` can be de
 - **A decision line**: `- a = b | why: … | by: …` · `not: a / b | why: …` · `not: <area>/a / <area>/a` for one name
   that is two entities · `- x > y` (x replaced y) · `compatible: x / y` · `dropped: <path> (date) > <what it had
   replaced>`. A line without `by:` is a person's and wins.
+- Tags and `walk:` are built (phase Q), inside schema 1: the notes of each tag are a `tags` object at the top of
+  the graph, not a field of a note, so no store changed; the either-or of a walk word is written `(a/b)`, since `|`
+  separates the fields of a line; and `hops: 2` on a line says that its links chain.
 - **A pointer** is found by the script in the note's text when its path is a file of the project. Its anchor, the
   text it pointed at when first seen, is kept beside the reading (`_dream/notes/<hash>.pointers.json`).
 

@@ -11,7 +11,8 @@ changed. Step 0 is built (RESULTS phase M): `memory.py drop`, the tombstone, and
 file; §8 says where the build went past the draft. Of step 1, item 1 is built (RESULTS phase N): origins and
 `memory.py absorb`; §9 says what it added to the draft. Item 3 is built (RESULTS phase O): pointers into code; §10
 says what a probe on this repository's history changed. Item 4 is built (RESULTS phase P): packets and the dry
-run; §4 says which limit of a packet binds. Items 5 to 7 are not started.
+run; §4 says which limit of a packet binds. Item 5 is built (RESULTS phase Q): tags through `TAGS.md`, and the
+walk's words on the lines of `EDGES.md`. Items 6 and 7 are not started.
 
 The contract field by field is `CONTRACT-2.md`. Every number has a command, all without a model:
 `python3 eval/contract_probe.py <bank-index world>` (drop, absorb, documents, sets), `python3 eval/agent/arms.py`
@@ -347,9 +348,10 @@ What is built is marked.
 5. **Sets by filter**: `ask --list [-p folder] [--kind K]` prints one line per note, capped, with "N more". The
    agent turns "list every open risk" into filters; the skill says so. `ask` does not guess a list from the wording:
    the two gate questions that say "all" or "each" ask for a reason and a number, not a list. *Built* for folder
-   and kind; `--tag` waits for tags.
+   and kind, and for `--tag` since phase Q.
 6. **Walk words on registry lines**, with `~` for the inward direction; a registry without them takes the seed's,
-   so existing bases answer as before. What stays in the code is listed in the contract, not denied.
+   so existing bases answer as before. What stays in the code is listed in the contract, not denied. *Built:* the
+   `walk:` and `hops:` fields of `EDGES.md`; 0 differences from the tables they replace on 433 questions.
 7. **The page**: filters for tag, type and origin beside the search that exists.
 8. **A note's kind from its name and folder before the keeper's reading.** *Built.* The reading had relabelled 268
    of the bank's 1,677 notes, and a map by kind left models out. New for the setup of §4: check each kind prefix
@@ -387,7 +389,7 @@ A dropped note must not bring back the note it replaced (`drop` and the tombston
 3. Pointers (§10). *Done: RESULTS phase O.*
 4. Packets: `dream --packets`, the budget, the lean command, `--dry-run` (§4). Readings in git.
    *Done: RESULTS phase P.* One call a note stays the default until step 2 measures a packet's yield.
-5. Tags from frontmatter and `TAGS.md`; walk words on registry lines.
+5. Tags from frontmatter and `TAGS.md`; walk words on registry lines. *Done: RESULTS phase Q.*
 6. The skill's setup section: look with your own tools, ask at most three questions, write `SETUP.md` and the
    starting vocabulary, take the materials in, prove it with five questions.
 7. The page's filters.

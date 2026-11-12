@@ -32,9 +32,10 @@ Produced by `build()`, written as `_dream/graph.json` (≤ `MEMORY_WIDE` notes) 
 | `proposed_types` | list of label | type words (things typed outside TYPES.md) over the `promote` bar of TYPES.md, offered to the review |
 | `tvocab` | object | the same shape as `vocab`, for TYPES.md |
 | `dedup` | object | counters from entity merging (`mentions`, `ids_as_written`, `after_folding`, …) |
-| `checks` | list of `{code, msg}` | warnings, sorted by code; codes `C1`–`C16` (§5) |
+| `checks` | list of `{code, msg}` | warnings, sorted by code; codes `C1`–`C17` (§5) |
 | `dropped` | list, optional | what `drop` recorded: `{path, date, replaced, built_on_by, left_newest}` (below) |
 | `pointers` | object, optional | `{note path: [pointer]}`: what the notes point at in the project's files (below) |
+| `tags` | object, optional | `{tag: [note paths]}`, from the `tags:` line of each note's frontmatter read through `TAGS.md` (§6): a listed tag under its name whatever spelling the note used, a word that is not listed under its own folded spelling (C17). In `manifest.json` too |
 
 **pointer** — `{to, path, line, quote, symbol, text, state, now, of, form}`. A note's text points into a file as
 `path#symbol`, `path:line "quoted words"` or `path:line`; `to` is the path as written and `path` the file it is,
@@ -154,7 +155,7 @@ relation is "current" when one of its evidence notes is live).
 - `manifest.json` — `v`, `code` (hash of memory.py), `files {path: {sha, mtime, size}}`, `former {path: [old paths]}`,
   `vsig` (hash of EDGES + ALIASES + CONFLICTS + KINDS + TYPES), `registry` (the type names of EDGES.md and TYPES.md at
   the last dream, for C13), `seen`, `queue`, `failed`, `attempts`, `refs`, `dreamed`, `unindexed`, `due`, `dropped`
-  (the graph's list, §1), `gone {path: {seen, replaced, replaced_by, built_on_by}}` (notes that left without a `drop`,
+  (the graph's list, §1), `tags` (§1), `gone {path: {seen, replaced, replaced_by, built_on_by}}` (notes that left without a `drop`,
   with where they stood at the dream that noticed: C15, and what `drop` needs to record them later), `pointers` and
   `psig` (§1). A dream with nothing changed in any of these, nor in a file a note points at, stops after the scan.
 - `pending/` — what a helper agent is asked, each answered by a file of the same name ending in `.json`; `TODO.md`
@@ -181,7 +182,8 @@ restore the line. `C7` covers type words of TYPES.md as it covers relation label
 note, or a note whose replacement was dropped and which is the newest left of its line · `C15` a note that is gone
 without a `drop`: nothing is written or deleted for it; `memory.py drop <path> --yes` records it, or the file comes
 back · `C16` a note points at a file that is gone, or at a symbol or words that are no longer in it: the note is
-stale, not wrong, and stays.
+stale, not wrong, and stays · `C17` a word on a note's `tags:` line that `TAGS.md` does not list, once a word with
+the number of notes: it still filters, and it is not a tag until it has a line with its definition.
 
 ## 6. The user-owned files
 
@@ -206,7 +208,13 @@ offered to the review, which may alias them onto a type, admit a new type (with 
 the word, or drop it; a proposed type still under the bar after the probation is demoted to a word.
 
 `EDGES.md` (types of link): the same settings and `pack: software, research, ops` · type lines with `aka: a, ~b` (`~` =
-read in reverse), `shape: s → o` (`*` for any; `same`) · `drop: a, b`. `ALIASES.md`: `- canonical = other, …` ·
+read in reverse), `shape: s → o` (`*` for any; `same`), `walk: word, phrase, stem*, (a/b) c, ~inward` (the words of a
+question that make `ask` follow this type from a thing the question names; `*` any letters, `(a/b)` either, `~` the
+link read the other way, as in "what uses X") and `hops: 2` (the links chain: an input of an input is an input, and
+`ask` goes two steps) · `drop: a, b`. A type line without `walk:` or `hops:` takes the seed's line of the same name,
+so a file written before the fields existed answers as it did; a type the seed does not have is followed only once
+its line says by which words. `TAGS.md` (tags): `- tag: what it means | aka: other spellings`. It has no seed: a tag
+belongs to one base, and a writer picks from this list. `ALIASES.md`: `- canonical = other, …` ·
 `not: a / b`. `CONFLICTS.md`: `- a > b` (a supersedes b) · `compatible: a / b` · `- a ? b` (unsure) · `dropped:
 <note.md | folder/> (YYYY-MM-DD) > <what it had replaced>, …`, written by `memory.py drop` and by nothing else: the
 build reads it as a pass-through in a line of replacements, so a clone with no `_dream/` builds the same lineage.

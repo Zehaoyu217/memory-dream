@@ -2,6 +2,47 @@
 
 2026-10-30 (round 4: 2026-10-31; phase I: 2026-11-02; phases J to N: 2026-11-11; phase O on: 2026-11-12) · built from the "Memory" email spec (`build-spec.md`) · macOS, Python 3.9.6, Claude Code 2.1.314.
 
+# Phase Q (2026-11-12) — step 1, item 5: tags, and the walk's words on registry lines
+
+Two things a base says about itself moved out of the code and into its own files. No model is involved.
+
+```bash
+python3 tests/e2e.py      # four lines on each read path
+```
+
+- **Tags.** A note carries `tags: [a, b]` in its frontmatter. `memory/TAGS.md` lists the tags, one line each with
+  the definition and other spellings (`- risk: something that could go wrong, and who watches it | aka: risks,
+  exposure`). The build reads each note's words through that file: a listed tag under its name whatever spelling
+  the note used, a word that is not listed under its own spelling and reported once with its notes (`C17`).
+  `ask --list --tag risk` prints the notes of a tag with the tag's definition in the heading, and every line of the
+  map shows its note's tags. There is no seed: a tag belongs to one base. Nothing reads tags out of a note's text;
+  the plan cut that after a free tagger made 87 tags for 87 notes (K5).
+- **The walk's words.** Which words of a question make `ask` follow a type of link stood in the code as three
+  tables, all in the words of data work: "uses", "trained on", "what uses X". They are fields of the type lines of
+  `EDGES.md` now: `walk:` lists the words, with `*` for any letters, `(a/b)` for either and `~` for the link read
+  the other way; `hops: 2` marks a type whose links chain. A line without them takes the seed's line of the same
+  type, so a registry written before the fields existed answers as before.
+
+| checked | result |
+|---|---|
+| the patterns built from the seed's lines against the three tables they replace, on the 433 questions on file, eight types and the inward words | 0 differences |
+| the three retrieval gates | to the digit: bank 0.978 gold, 0.978 numbers, 2,954 characters; bank with the index 0.973, 0.978, 3,138, alias 0.811; software 1.0, 1.0, 1,769 |
+| a type the seed does not have (`cites`, with `walk: cite*, ~cited by | hops: 2`) and one reading left on file | "what does paper-a cite?" is followed to the note of the thing cited |
+| acceptance | 40 of 40 |
+
+`tests/e2e.py`, four lines on each read path: a word `TAGS.md` does not list is reported and the file is not taken
+for a note; a tag is found by any of its spellings and comes with its definition; an unlisted word still filters
+and says it has no definition, an unknown one names the tags in use; a link type the base added is walked by its
+own words. 44 and 43 lines in all.
+
+One thing the first try showed. A type line splits its fields at `|`, so the either-or of a walk word is written
+`(a/b)`. And the seed's lines keep `aka:` where it was, with `walk:` and `hops:` before it: a person who adds a
+spelling at the end of a line still adds it to the spellings (acceptance A14 does exactly that).
+
+Not done: the page has no tag filter yet (item 7); an absorbed base's tags are reported like any unlisted word, not
+in the absorb report; the words for intent and for a task (`INTENT`, `SYN`, `ART`) stay in the code, as the schema
+draft says.
+
 # Phase P (2026-11-12) — step 1, item 4: the reading in packets, and a dry run
 
 A keeper reads each note once. Until now that was one call a note: 1,687 calls for the bank in phase I. The plan

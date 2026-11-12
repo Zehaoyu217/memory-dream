@@ -222,7 +222,8 @@ history, and that version put 12 of 209 symbols on the line of a call or of a lo
 - Warnings: C1 ambiguous, C2 not found, C3 indexing failed, C4 dropped ungrounded entity/relation, C5 unindexed,
   C6 no `# ` line, C7 review pending (labels, budget), C8 bad EDGES/ALIASES/CONFLICTS line, C9 NUL bytes in a note
   (binary-looking), C10 conflict pending, C11 a note over 40 lines, C14 built on a dropped note or left the newest of
-  its line by a drop, C15 gone without a drop, C16 a pointer into a file that no longer holds.
+  its line by a drop, C15 gone without a drop, C16 a pointer into a file that no longer holds, C17 a tag that
+  TAGS.md does not list.
 
 ### 5.5 The graph, vocabulary half (`build`, `merge_entities`)
 

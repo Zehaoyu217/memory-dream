@@ -9,6 +9,8 @@ and checks after each step what a reader is shown. The plan's proof (PLAN.md §1
 step 0: a note that leaves must not bring back the note it had replaced, and `ask` must survive a missing file.
 Exit 1 when a line fails.
 """
+import hashlib
+import json
 import os
 import re
 import shutil
@@ -127,6 +129,7 @@ def scenario(w):
     absorbing(w)
     pointing(w)
     reading(w)
+    vocabulary(w)
 
 
 FAKE = f"{sys.executable} {Path(__file__).resolve().parent / 'fake_dreamer.py'}"  # a script that answers as a keeper would
@@ -177,6 +180,39 @@ def reading(w):
     out = w.run("dream", "--packets", env=cmd) + w.run("check")
     w.ok("with a command, three new notes are read in one call, and the graph meets the contract",
          "3 indexed (1 calls, 1 packets)" in out and "packet 3" in log.read_text() and "contract: schema 1 ok" in out, out)
+
+
+def vocabulary(w):
+    """Words that belong to one base, on registry lines (PLAN §5 and §11): tags with their definitions, and the words
+    of a question that make `ask` follow a type of link."""
+    (w.root / "TAGS.md").write_text("# TAGS\n- risk: something that could go wrong, and who watches it | aka: risks, exposure\n")
+    w.write("proj/risk-drift.md", "tags: [risk]", "risk-drift: the score drifts when the feed is late")
+    w.write("proj/q-holdout.md", "tags: risks, open", "q-holdout: is the holdout still clean?")
+    out = w.run("dream") + w.run("check")
+    w.ok("a word that TAGS.md does not list is reported, the listed one is not, and TAGS.md is not taken for a note",
+         "C17×1" in out and "tag `open` on 1 note" in out and "tag `risk`" not in out and "▸ TAGS.md" not in w.run("ask", "--list"), out)
+    out = w.run("ask", "--list", "--tag", "exposure")
+    w.ok("a tag is asked for by any of its spellings and comes with its definition",
+         "## 2 notes tagged risk (something that could go wrong" in out and w.head(out, "proj/risk-drift.md") != ""
+         and "#risk" in w.head(out, "proj/q-holdout.md"), out)
+    out = w.run("ask", "--list", "--tag", "open") + w.run("ask", "--list", "--tag", "nothing")
+    w.ok("an unlisted word still filters and says that it has no definition; an unknown one names the tags in use",
+         "## 1 notes tagged open (not in TAGS.md" in out and "no note carries the tag nothing · tags in use: open (1), risk (2)" in out, out)
+
+    edges = w.root / "EDGES.md"  # a type of link of this base's own, with the question words that follow it
+    edges.write_text(edges.read_text() + "- cites: X refers to Y as a source | walk: cite*, ~cited by | hops: 2\n")
+    w.write("lib/paper-a.md", "", "paper-a: a survey of drift tests")
+    w.write("lib/paper-b.md", "", "paper-b: the first drift test")
+    with open(w.root / "lib/paper-a.md", "a") as f:
+        f.write("paper-a cites paper-b for the test it starts from.\n")
+    sha = hashlib.sha256((w.root / "lib/paper-a.md").read_bytes()).hexdigest()[:12]
+    (w.root / "_dream/pending").mkdir(parents=True, exist_ok=True)
+    (w.root / "_dream/pending" / f"{sha}.json").write_text(json.dumps({  # a reading left on file, as any keeper may leave one
+        "kind": "note", "entities": [{"id": "paper-a", "type": "document", "as": ["paper-a"]}, {"id": "paper-b", "type": "document", "as": ["paper-b"]}],
+        "relations": [{"s": "paper-a", "type": "cites", "o": "paper-b", "quote": "paper-a cites paper-b"}], "refs": []}))
+    out = w.run("dream") + w.run("ask", "what does paper-a cite?", env={"MEMORY_DEBUG": "1"})
+    w.ok("a type of link this base added, with its own question words: `ask` follows it to the note of the thing cited",
+         "cued=['cites']" in out and "added=['lib/paper-b.md']" in out, out)
 
 
 CODE ="import os\n\n\ndef load(path):\n    return open(path).read()\n\n\nLIMIT = 10\n\n\ndef main():\n    print(load('x'))\n"

@@ -22,7 +22,7 @@ truth; everything else is derived and disposable. `memory.py` = `python3 <this s
    line names everything a note rests on and a `⇣` line everything that rests on it: first the notes one step away
    (`directly`), then those reached `through them`; an answer about what something depends on gives both.
    When the answer is a set or a relationship (every current model, what was replaced, what other
-   projects built on this one) do not search for it: `memory.py ask --list [-p <project>] [--kind model]` prints one
+   projects built on this one) do not search for it: `memory.py ask --list [-p <project>] [--kind model] [--tag risk]` prints one
    line a note with what it was built on (marked when that was replaced), what replaced it and where else it is
    used, and with `-p` what rests on the project from outside; `--all` lifts the 150-line cap so you can pipe it
    through grep. Otherwise `ask`'s silence is not absence: before you write "not recorded", read a headed note or
@@ -31,8 +31,9 @@ truth; everything else is derived and disposable. `memory.py` = `python3 <this s
    `reporting/`, `glossary/`, `corrections/`, `howto/`, `qa/`, `people/`. The filename is the id; a prefix from
    `memory/KINDS.md` says what kind of note it is (`exp- fnd- dec- plan- risk- inc- ds- feat- q- …`; a thing's own note
    is named after the thing, `churn-xgb-v3`). The `# ` line is the claim; the first paragraph is what is true now.
-   Frontmatter `from: [notes built on]`, `supersedes: [notes overturned]`, `updated: YYYY-MM-DD`: never rewrite an old
-   conclusion, write a new note that supersedes it. Numbers carry their unit or metric, their basis (the data, the
+   Frontmatter `from: [notes built on]`, `supersedes: [notes overturned]`, `updated: YYYY-MM-DD`, and `tags: [a, b]`
+   when `memory/TAGS.md` lists tags (pick from it; a new tag is a new line there with its definition): never rewrite
+   an old conclusion, write a new note that supersedes it. Numbers carry their unit or metric, their basis (the data, the
    period, the sample), and the date; sources (tables, documents, queries, tickets) in backticks. ≤ 40 lines, plain
    markdown, nothing about the memory system. Taste is said once, in passing ("no pie charts", "round to one decimal
    for the board"): save it then — `prefs/<first>-<last>-<topic>.md` (your user's own: `prefs/me-<topic>.md`): the rule,
@@ -55,7 +56,8 @@ truth; everything else is derived and disposable. `memory.py` = `python3 <this s
 
 ## The domain is three files you may edit, never the code
 `memory/KINDS.md` (kinds of note: prefixes, areas, roles), `memory/TYPES.md` (types of thing: what each is and is not,
-its aliases, its family) and `memory/EDGES.md` (types of link between things). All three are seeded for data,
+its aliases, its family) and `memory/EDGES.md` (types of link between things, and on each line the question words
+that make `ask` follow it: `walk:`). All three are seeded for data,
 analytics, software and finance work; `pack: research` or `pack: ops` adds a domain's lines. The model is only ever
 asked to use what these files list; a word that fits nothing is kept as `other/<word>`, and becomes a type through the
 review once it is common. A hand-written line is permanent and costs no model calls: the graph is re-derived from the

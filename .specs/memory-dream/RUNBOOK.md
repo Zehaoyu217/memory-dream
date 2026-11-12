@@ -27,7 +27,7 @@ M="python3 .claude/skills/memory-dream/scripts/memory.py"
 $M ask "what came of exp-014?" "who owns cards.txn_daily?"   # answering: grep + memory, every question in one call
 $M viz                            # memory/_dream/graph.html (dream refreshes it): Timeline, Map, Connections
 $M log "backfill running" -p churn-2026
-$M check                          # every warning C1–C16 in full
+$M check                          # every warning C1–C17 in full
 $M drop churn-2026/exp-014        # what would go with this note; add --yes to do it (a folder works the same way)
 grep -rn velocity memory/ --exclude-dir=_dream                 # plain grep stays first-class
 ```
@@ -292,6 +292,9 @@ $M export --to /tmp/graph-export   # no driver: CSV in neo4j-admin header format
 - `C14`: a note is built on a note that was dropped, or its replacement was dropped and it is the newest left of its
   line. Both are shown on the note's header in `ask`. Nothing to do unless the note should go too: drop it as well.
 - Undo a drop: restore the file from git and delete its `dropped:` line in CONFLICTS.md. `drop` never touches git.
+- `C17`: a note's `tags:` line has a word that `memory/TAGS.md` does not list. Add its line
+  (`- word: what it means`), or add the word to the `aka:` of the tag it is another spelling of. It
+  filters either way (`ask --list --tag word`); the line is what gives it a definition.
 - `C16`: a note points into a file (`src/app.py#load`, `src/app.py:8 "LIMIT = 10"`, `app.py:11`) and the file is
   gone, or the symbol or the words are no longer in it. `ask` shows the same on the note (`STALE: 1 of its pointers
   no longer hold`) and, for a pointer that only moved, the line it is on now. The note stays: what it says may
