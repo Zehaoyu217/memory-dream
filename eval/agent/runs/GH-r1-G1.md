@@ -1,0 +1,27 @@
+## Q1
+Eight current model notes build directly on a feature note that has since been replaced: bt-logit-baseline (on feat-bt-util-3m), churn-lr-base-2025 (on feat-c25-util-v1), csb-lr-base (on feat-csb-spend-raw), cli-logreg-baseline (on feat-cli-util-v1), clv-bgnbd-v1 (on feat-clv-arpu-v1), mq3-response-gbm-v1 (on feat-mq3-recency-v1), rdm-propensity-lr (on feat-rdm-last-activity-v1), and ror-uplift-v1 (on feat-ror-value-band-v1). No dataset note in that position was replaced.
+Notes: balance-transfer-propensity/bt-logit-baseline.md, churn-2025/churn-lr-base-2025.md, churn-small-business/csb-lr-base.md, credit-line-increase/cli-logreg-baseline.md, customer-lifetime-value/clv-bgnbd-v1.md, marketing-uplift-q3/mq3-response-gbm-v1.md, reactivation-dormant/rdm-propensity-lr.md, retention-offers-roi/ror-uplift-v1.md
+
+## Q2
+Twenty-eight notes outside fraud-2025 rest on it, directly or through other notes: most are in fraud-2026 (the fraud26 models, their features, decisions and findings) and dispute-triage, which builds on fraud26-gbm-v3 and the fraud-2025 chain.
+Notes: dispute-triage/dec-disp-fraud-score-in.md, dispute-triage/disp-lgbm-v3.md, dispute-triage/exp-307.md, dispute-triage/exp-308.md, dispute-triage/feat-disp-fraud-score.md, fraud-2026/dec-f26-maturity-60d.md, fraud-2026/dec-f26-promote-v2.md, fraud-2026/dec-f26-promote-v3.md, fraud-2026/dec-f26-replace-f25.md, fraud-2026/exp-201.md, fraud-2026/exp-202.md, fraud-2026/exp-203.md, fraud-2026/exp-204.md, fraud-2026/exp-205.md, fraud-2026/exp-206.md, fraud-2026/exp-207.md, fraud-2026/exp-208.md, fraud-2026/feat-f26-amt-zscore.md, fraud-2026/feat-f26-device-age.md, fraud-2026/feat-f26-velocity-v2.md, fraud-2026/fraud26-find-geo-drift.md, fraud-2026/fraud26-find-label-bias.md, fraud-2026/fraud26-find-velocity-clean.md, fraud-2026/fraud26-find-velocity-leak.md, fraud-2026/fraud26-gbm-v1.md, fraud-2026/fraud26-gbm-v2.md, fraud-2026/fraud26-gbm-v3.md, fraud-2026/q-f26-travel-rule.md
+
+## Q3
+Sixteen notes outside churn-2025 rest on it, all in retention-offers-roi: its decisions, experiments, findings, features and the ror-roi and ror-uplift models, which build on churn-gbm-2025-v2 through feat-ror-churn-score.
+Notes: retention-offers-roi/dec-ror-matrix-v4.md, retention-offers-roi/dec-ror-reallocate-t3.md, retention-offers-roi/dec-ror-value-band-v2.md, retention-offers-roi/exp-403.md, retention-offers-roi/exp-404.md, retention-offers-roi/exp-405.md, retention-offers-roi/exp-406.md, retention-offers-roi/exp-407.md, retention-offers-roi/feat-ror-churn-score.md, retention-offers-roi/feat-ror-value-band-v2.md, retention-offers-roi/fnd-ror-cashback-roi-v2.md, retention-offers-roi/fnd-ror-cashback-roi.md, retention-offers-roi/fnd-ror-realloc-gain.md, retention-offers-roi/ror-roi-v1.md, retention-offers-roi/ror-roi-v2.md, retention-offers-roi/ror-uplift-v1.md
+
+## Q4
+Twelve notes outside spend-forecasting rest on it, all in revenue-forecast-2026: the rev26 decisions, experiments, findings, features and combined and interchange models, which build on sfc-hier-v3 through ds-rev26-spend-volume and rev26-combined-v1.
+Notes: revenue-forecast-2026/dec-rev26-cap-scenario-separate.md, revenue-forecast-2026/dec-rev26-p10-p90-bands.md, revenue-forecast-2026/dec-rev26-v2-for-board.md, revenue-forecast-2026/ds-rev26-spend-volume.md, revenue-forecast-2026/exp-301.md, revenue-forecast-2026/exp-305.md, revenue-forecast-2026/exp-307.md, revenue-forecast-2026/feat-rev26-volume-lag.md, revenue-forecast-2026/fnd-rev26-apr-sensitivity.md, revenue-forecast-2026/fnd-rev26-volume-driven.md, revenue-forecast-2026/rev26-combined-v1.md, revenue-forecast-2026/rev26-interchange-v1.md
+
+## Q5
+One line of replaced decisions: dec-cb-extend-flat-pilot was replaced by dec-cb-adopt-banded-tiers, which was itself replaced later by dec-cb-threshold-2500. No other decision note has a chain of two or more replacements.
+Notes: cashback-redesign/dec-cb-extend-flat-pilot.md
+
+## Q6
+Eight lines of replaced model notes, each starting from its first version: bt-xgb-v1 (to v3), cu-uplift-v1 (to v3), cli-xgb-v1 (to v3), disp-lgbm-v1 (to v3), ed-gbm-v1 (to v3), cld-gbm-v1 (to v3), rs-xgb-v1 (to v3), and fraud25-gbm-v1, whose line runs fraud25-gbm-v2, fraud26-gbm-v1, fraud26-gbm-v2 to fraud26-gbm-v3.
+Notes: balance-transfer-propensity/bt-xgb-v1.md, collections-uplift/cu-uplift-v1.md, credit-line-increase/cli-xgb-v1.md, dispute-triage/disp-lgbm-v1.md, early-delinquency/ed-gbm-v1.md, fraud-2025/fraud25-gbm-v1.md, limit-decrease-policy/cld-gbm-v1.md, recovery-scoring/rs-xgb-v1.md
+
+## Q7
+Eighteen notes are built directly on a note of another project (19 links, one note links twice). Most are fraud-2026 notes built on fraud-2025 features and models, plus revenue-forecast-2026 on spend-forecasting and retention-offers-roi on churn-2025.
+Notes: application-scorecard/ds-app-bureau-v10-pull.md, application-scorecard/feat-app-income-est.md, collections-channel-mix/find-ch-sms-call-gap.md, customer-lifetime-value/exp-506.md, dispute-triage/feat-disp-fraud-score.md, fraud-2026/dec-f26-replace-f25.md, fraud-2026/feat-f26-amt-zscore.md, fraud-2026/feat-f26-device-age.md, fraud-2026/feat-f26-velocity-v2.md, fraud-2026/fraud26-gbm-v1.md, fraud-2026/q-f26-travel-rule.md, limit-decrease-policy/feat-cld-risk-band-v2.md, merchant-risk/feat-mrisk-dispute-ratio.md, model-monitoring/mm-limit-glm-v2.md, promo-apr-test/pa-bal-forecast-v1.md, retention-offers-roi/feat-ror-churn-score.md, revenue-forecast-2026/ds-rev26-spend-volume.md, revenue-forecast-2026/rev26-combined-v1.md

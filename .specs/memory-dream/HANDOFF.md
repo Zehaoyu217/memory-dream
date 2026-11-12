@@ -236,3 +236,57 @@ The loose ends the first draft had folded in stay open here: items 6 (note kinds
 pool of calls fed continuously) fit step 2, when the bank is read again anyway; the three "new" rows of the table
 above (lines under a note depending on the other questions of the call, a note dated by its file, BSD grep slower
 than the Python matcher) are small fixes of their own.
+
+### Why the memory was graded below grep (2026-11-11, phase L)
+
+The owner took every recommendation of `PLAN.md` §15 and asked one thing first: the memory should be the more
+accurate arm at a fraction of the price, so why is it graded below grep? His guess was the retrieval and how it
+decides when to stop, and questions too easy to need linkage. RESULTS phase L is the answer. In short:
+
+- The one call the skill asks for showed all the evidence for 23 of the thirty questions. The seven it failed are
+  one batch about a project no question names: `ask` printed 25,000 characters of look-alike projects, the folder is
+  8,600, and the agent made that one call and answered.
+- `ask` changed (133 lines): a small folder printed whole when a call points at it, the whole chain of a named note,
+  `ask --list` as the map of a folder or a kind, a line that says when a section is not the whole folder, and a
+  note's kind from its name before the dreamer's reading.
+- Haiku with the memory now answers 30 of 30 linkage questions inside a project and 7 of 7 across the memory
+  exactly, as Opus and Haiku with grep do, 35 and 46 times cheaper than Opus with grep; on the thirty it is graded
+  25 where Haiku with grep gets 25 or 26 and Opus with grep 29.
+- It ties grep and does not beat it. On the bank grep is exact, so nothing here can show a memory being more
+  accurate. That needs a base grep cannot read whole.
+
+| file | what it is now |
+|---|---|
+| `skills/memory-dream/scripts/memory.py`, `SKILL.md` | the changed `ask` and the lines that tell an agent how to read it |
+| `eval/agent/why.py` | question by question: what one call showed against the reference, beside the verdicts |
+| `eval/linkage.py`, `eval/questions/linkage-bank.jsonl`, `linkage-global.jsonl` | 30 + 7 questions whose answer is a set of notes, made from the lineage and scored exactly |
+| `eval/agent/make_linkage_arm.py`, `persist.py`, `arms.py` | prompts for those sets; filing a subagent's run; every arm side by side, three tables |
+| `eval/agent/runs/`, `usage-*.jsonl`, `judge-H.json`, `harness.json` | 36 new runs: the experiments of L2, the linkage and whole-memory arms, three rounds of the changed memory |
+| `eval/agent/askarea.py` | the experiment that printed a folder whole before `ask` did |
+| `eval/real/bank-index/KINDS.md` | `inc` off the incident line: it is that bank's code for a project |
+| `tests/retrieval_gate.py`, `eval/retrieval.py`, `eval/stability.py` | the gold floor at 0.96; a folder printed whole counted for the questions that point at it |
+
+How an arm is run, since no script can start a subagent: `make_haiku_arm.py` or `make_linkage_arm.py` writes a
+workspace and one prompt file a batch; one subagent a batch on the model of the arm is told to read its prompt file
+and reply in its format; `persist.py` takes the transcript and the harness's three numbers and files the run;
+`arms.py` prints the tables. A subagent of the harness carries about 35,000 tokens of its own in every request.
+
+Verified at the end: `tests/acceptance.py` 40 of 40; the three retrieval gates (bank 0.978 gold, 0.978 numbers,
+2,954 characters; bank-index 0.973, 0.978, 3,138, alias 0.811; software 1.0, 1.0); `eval/stability.py` all zeros;
+`tests/bundle_refresh.py --check` fresh; `persist.py` writes the 36 runs again to the same bytes.
+
+Open, in the order I would take them:
+
+1. Step 0 of the plan: `ask` crashing on a big memory after a deletion, and `drop` with its tombstone.
+2. The rest of step 1: origins and `absorb`, pointers, packets and `--dry-run`, tags, the setup section of the
+   skill, the page's filters, `tests/e2e.py`.
+3. Small things this phase found and left: the own note of a thing when no folder wins the call (C-h1 Q6 is served
+   only because its folder is printed whole); a check of each kind prefix against the readings at setup (`inc-`);
+   `(weak match: … found nowhere in memory)` says "memory" when the search was scoped to one folder; "built directly
+   on" is not read as a lineage question, only "built on"; the map of a whole kind is 38,000 characters and wants a
+   cap or a narrower default before a prompt crosses 100K tokens.
+4. Step 2's evaluation, designed from RESULTS L9: a base on which grep is not already exact, answers scored exactly
+   where they can be, three runs a row, and the Opus arm with the memory run again on the changed `ask`.
+
+Spent on models in this pass: four Opus 5.5 subagents, the grep arms of the two linkage sets, about $3.40 at list
+prices; about forty Haiku 5.5 subagents, under $1; the judge's two passes over thirteen runs of ten answers.

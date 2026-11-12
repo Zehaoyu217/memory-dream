@@ -425,22 +425,28 @@ def mmdd(d):
 
 
 def kind_of(rel, fm_type=None, x_kind=None):
-    """A note's kind: frontmatter `type:` (Claude Code's user/feedback/project/reference map onto ours), else the
-    dreamer's, else the filename prefix (exp-, feat-, ds-, dec-, fnd-, q-, …; `…-vN` is a model), else the area."""
+    """A note's kind: frontmatter `type:` (Claude Code's user/feedback/project/reference map onto ours), else a kind
+    prefix in the first or second part of the filename (exp-, feat-, ds-, dec-, fnd-, q-, …), else the area's kind,
+    else model for `…-vN`, else the dreamer's reading, else note."""
     t = (fm_type or "").strip().lower()
     if t:
         return CC_KIND.get(t, t)
-    if x_kind and str(x_kind).lower() != "note":  # the dreamer's "note" means nothing specific: let the name decide
-        return str(x_kind).lower()
     stem_ = posixpath.basename(rel)[:-3].lower()
     area = rel.split("/")[0].lower() if "/" in rel else ""
     segs = stem_.split("-")
+    # the name and the folder the writer chose come before the dreamer's reading (phase L: on the bank the reading had
+    # relabelled 163 of the 886 notes named ds-, dec-, feat-, exp- or q-, and 61 of the 135 named …-vN; a dataset shown
+    # as a "finding" cost an agent a right answer, and "every model" listed by kind found 8 of 15 lines)
     for pre in segs[:2]:  # exp-014, and project-prefixed ids such as aml-find-kyc-lift or mrisk-find-watchlist
         if len(segs) > 1 and pre in PREFIX_KIND:
             return PREFIX_KIND[pre]
     if area in AREA_KIND:
         return AREA_KIND[area]
-    return "model" if re.search(r"-v\d+$", stem_) else "note"
+    if re.search(r"-v\d+$", stem_):
+        return "model"
+    if x_kind and str(x_kind).lower() != "note":  # no name and no folder says what it is: the dreamer's reading does
+        return str(x_kind).lower()
+    return "note"
 
 
 def general_areas(by_area, kind):
@@ -2355,6 +2361,13 @@ WORD = re.compile(r"[\w@%$][\w.@%/+$-]*")  # \w: words in any script count (REVI
 COMPLETE_MAX_NOTES = 200  # only this small a memory is considered for printing whole (reading every note is cheap)
 COMPLETE_RATIO = 1.2  # print the whole memory when it costs <= this x the surgical output; then nothing is missed
 WEAK_SHARE = 0.5  # weak match: a question word found nowhere, and the best note covers <= this share of the words
+# Phase L: an agent answers from what one call shows and takes its silence for absence, so the call has to be complete.
+AREA_WHOLE = 16000  # characters: a project folder this small is printed whole when most of a call points at it (on the
+#   bank the churn-2026 batch printed 25,322 characters of excerpts and missed gold notes for six of ten questions;
+#   the folder is 8,579 characters)
+CLOSURE_MAX = 40  # notes named per direction when a question asks what a note rests on, or what rests on it
+WHOLE_KEEP = 5  # pointers into a folder printed whole that a question keeps; its other notes are in the folder below.
+#   Everything outside the folder stays as it would be alone, so a question loses nothing by the company it keeps
 TASTE_MAX, TASTE_FLOOR = 12, 0.15  # taste notes printed (were 6, 0.25): house-rule recall 0.39 -> 0.42, +25% chars
 W = {  # the tuned numbers of rank() and route(), in one place (REVIEW.md F9); set in RESULTS rounds 2-4 and phase A
     "entity_named": 0.25,  # boost per mention of an entity the question names by id, as a share of the top score (F4
@@ -2501,8 +2514,54 @@ def route(pats, cat):
     return [a for a, s_ in order[:W["route_areas"]] if s_ >= W["route_floor"] * best], hint
 
 
+LIST_MAX = 150  # lines of `ask --list` before it says how many more there are
+
+
+def list_notes(args, v):
+    """`ask --list [-p folder] [--kind K]`: the map, one line per note — path, kind, date, what it was built on (marked
+    when that note has since been replaced), what it replaced, whether it was replaced, and its `# ` line. A question
+    whose answer is a set, or a relationship across a folder, is answered by reading these lines; `ask` does not guess
+    a list from a question's wording (phase L)."""
+    kind = (getattr(args, "kind", None) or "").lower()
+    area = lambda p: p.split("/")[0] if "/" in p else ""  # noqa: E731
+    rows = [p for p in sorted(v.notes) if (not args.p or area(p) == args.p)
+            and (not kind or kind in (v.notes[p]["kind"], family(v.notes[p]["kind"])))]
+    cap = len(rows) if getattr(args, "all", False) else LIST_MAX
+    print(f"## {len(rows)} notes" + (f" of {args.p}/" if args.p else "") + (f" of kind {kind}" if kind else "")
+          + " — one line each: built on (a note of another folder with its folder) · replaces · replaced by · used in other folders")
+    for p in rows[:cap]:
+        n = v.notes[p]
+        name = lambda q: v.notes[q]["id"] if area(q) == area(p) else q[:-3]  # noqa: E731
+        frm = [name(e["dst"]) + (" (replaced)" if v.notes[e["dst"]]["superseded_by"] else "")
+               for e in v.frm[p] if e["rel"] == "from" and e["dst"] in v.notes]
+        sup = [name(e["dst"]) for e in v.frm[p] if e["rel"] == "supersedes" and e["dst"] in v.notes]
+        out = sorted(e["src"][:-3] for e in v.down[p] if e["rel"] == "from" and e["src"] in v.notes and area(e["src"]) != area(p))
+        print(f"▸ {p} · {n['kind']} · {n['updated']}" + (f" · from {', '.join(frm)}" if frm else "")
+              + (f" · supersedes {', '.join(sup)}" if sup else "") + chain_mark(v.notes, n)
+              + (f" · used in {', '.join(out)}" if out else "") + f" — {n['title'][:110]}")
+    if len(rows) > cap:
+        print(f"  ({len(rows) - cap} more: narrow it with -p <folder> or --kind <kind>, or print them all with --all)")
+    if args.p:  # what the folder as a whole rests on, and what rests on it, outside itself
+        for mark, edges, far, text in (("⇡", v.frm, "dst", f"{args.p}/ rests on {{n}} notes of other folders"),
+                                       ("⇣", v.down, "src", f"{{n}} notes of other folders rest on {args.p}/")):
+            seen, todo = set(), [p for p in sorted(v.notes) if area(p) == args.p]
+            start = set(todo)
+            while todo:
+                for q in sorted(e[far] for e in edges[todo.pop(0)] if e["rel"] == "from"):
+                    if q not in seen and q not in start and q in v.notes:
+                        seen.add(q)
+                        todo.append(q)
+            ext = sorted(q for q in seen if area(q) != args.p)
+            if ext:
+                print(f"  {mark} {text.format(n=len(ext))}, directly or through other notes: "
+                      + " · ".join(f"{q[:-3]} ({v.notes[q]['kind']})" for q in ext[:CLOSURE_MAX * 2])
+                      + (f" · and {len(ext) - CLOSURE_MAX * 2} more" if len(ext) > CLOSURE_MAX * 2 else ""))
+
+
 def ask(args, root):
     v = open_view(root)
+    if getattr(args, "list", False):
+        return list_notes(args, v)
     qs = [q.strip() for q in (args.questions or []) for q in q.split("\n") if q.strip()]
     if args.file:
         qs += [q.strip() for q in read(Path(args.file)).split("\n") if q.strip()]
@@ -2607,6 +2666,54 @@ def ask(args, root):
     cc_search(cc, per_q) if cc else None
     budget = args.budget or 900 * len(qs) + 1500
 
+    def area_of(p):
+        return p.split("/")[0] if "/" in p else ""
+
+    # where the call points (phase L): questions asked together are usually about one piece of work. When at least half
+    # of them, and two, have a note of one project folder among their first three notes, and the folder is small, it is
+    # printed whole once and listed as pointers under each question. A memory small enough to be printed whole is.
+    whole = []
+    if len(v.notes) > COMPLETE_MAX_NOTES and not args.budget:
+        votes = Counter()
+        for x in per_q:
+            x["tops"] = {area_of(p) for p, _ in x["ranked"][:3]} | {area_of(p) for p in x["named"]}
+            votes.update(x["tops"] - set(general) - {""})
+        need = max(2, (len(per_q) + 1) // 2)
+        whole = [a for a in sorted(votes) if votes[a] >= need
+                 and sum(os.path.getsize(root / p) for p in by_area[a] if (root / p).exists()) <= AREA_WHOLE]
+
+    def closure(start, edges, far):
+        """Everything reached from a note through `from:` lines, nearest first: {path: steps}."""
+        seen, todo = {}, [(start, 0)]
+        while todo:
+            p, d = todo.pop(0)
+            for q in sorted(e[far] for e in edges[p] if e["rel"] == "from"):
+                if q not in seen and q != start and q in v.notes:
+                    seen[q] = d + 1
+                    todo.append((q, d + 1))
+        return seen
+
+    def chain_lines(x):
+        """For a question that names a note and asks what it was built on or what came of it: the whole chain each way,
+        one line, so no hop is left to a second call (phase L: the first eight were shown, and the rest was missed).
+        The notes one step away are named apart from those reached through them: "depends on" is asked both ways."""
+        out = []
+        if not x["intent"] & {"up", "down", "dep"} or not hasattr(v, "down"):
+            return out
+        for p in sorted(x["named"])[:2]:
+            here, nid = area_of(p), v.notes[p]["id"]
+            name = lambda q: (v.notes[q]["id"] if area_of(q) == here else q[:-3]) + f" ({v.notes[q]['kind']})"  # noqa: E731
+            for mark, got, text in (("⇡", closure(p, v.frm, "dst"), f"{nid} rests on {{n}} notes"),
+                                    ("⇣", closure(p, v.down, "src"), f"{{n}} notes rest on {nid}")):
+                if got:
+                    ids = sorted(got, key=lambda q: (got[q], q))
+                    near = [name(q) for q in ids[:CLOSURE_MAX] if got[q] == 1]
+                    far = [name(q) for q in ids[:CLOSURE_MAX] if got[q] > 1]
+                    out.append(f"  {mark} {text.format(n=len(ids))} — directly: " + " · ".join(near)
+                               + (" — through them: " + " · ".join(far) if far else "")
+                               + (f" · and {len(ids) - CLOSURE_MAX} more" if len(ids) > CLOSURE_MAX else ""))
+        return out
+
     def header(path):
         n = v.notes.get(path)
         if not n:
@@ -2639,16 +2746,34 @@ def ask(args, root):
                 out.append(f"  ({x['weak']} — try other words, or grep memory/)")
             for eid in sorted(x["ents"])[:2] if "dep" in x["intent"] else []:
                 out.append(entity_line(v, eid))
+            out += chain_lines(x)
+            here = [a for a in whole if a in x.get("tops", ())] if not complete else []
+            if here:
+                out.append(f"  ({', '.join(a + '/' for a in here)} is printed whole below: nothing else is recorded there)")
+            # the other case said as plainly: a section about a folder the question names, which is not printed whole,
+            # holds its best matches and not the set (one agent of phase L read ten notes of 23 and answered "none")
+            for a in sorted(a for a in by_area if a.lower() in x["scope"] and a not in here) if not complete else []:
+                out.append(f"  (the best matches among the {len(by_area[a])} notes of {a}/, not all of them: "
+                           f"`ask --list -p {a}` maps the folder)")
             if complete:
                 out += [f"▸ {p}" for p, _ in x["ranked"] if p not in x.get("kin", ())] + [f"▸ {p}" for p in x["taste"]]
                 if not x["ranked"]:
                     out.append("  (no match — try other words, or grep memory/)")
                 out += x.get("cc", [])
                 continue
+            inside = 0  # with the folder printed whole, a question keeps a few pointers into it
             for path, lines in x["ranked"]:
                 want = body(path) if full else lines
                 new = [(no, t) for no, t in want if no not in printed.get(path, set())]
                 sup_mark = chain_mark(v.notes, v.notes[path]) if path in v.notes else ""  # history stays marked on short headers
+                if here and area_of(path) in whole:  # the folder follows whole: its best notes for this question are pointers
+                    inside += 1
+                    if inside <= WHOLE_KEEP:
+                        out.append(f"▸ {path}  (whole, below)" + sup_mark)
+                    continue
+                if here and area_of(path) not in general:  # a note of another project stays one read away
+                    out.append(f"▸ {path}  (another project)" + sup_mark)
+                    continue
                 if path in printed and not new:
                     out.append(header(path).split(" · ")[0] + " (above)" + sup_mark)
                     continue
@@ -2666,6 +2791,12 @@ def ask(args, root):
         if complete:
             out.append(f"## memory — complete ({len(v.notes)} notes by area, oldest first; SUPERSEDED marks history)")
             for path in sorted(v.notes, key=lambda p: (p.split("/")[0] if "/" in p else "", v.notes[p]["updated"], p)):
+                out.append(header(path))
+                out += [f"  {t.strip()}" for _, t in body(path)]
+        for a in whole if not complete else []:
+            ps = sorted((p for p in by_area[a] if (root / p).exists()), key=lambda p: (v.notes[p]["updated"], p))
+            out.append(f"## {a}/ — the whole folder ({len(ps)} notes, oldest first; SUPERSEDED marks history)")
+            for path in ps:
                 out.append(header(path))
                 out += [f"  {t.strip()}" for _, t in body(path)]
         return "\n".join(out)
@@ -3177,6 +3308,9 @@ def main(argv=None):
     a.add_argument("-f", "--file", help="questions, one per line")
     a.add_argument("-p", help="project")
     a.add_argument("--budget", type=int, help="chars before switching from whole notes to surgical lines")
+    a.add_argument("--list", action="store_true", help="no question: one line per note of -p and --kind, with its lineage")
+    a.add_argument("--kind", help="with --list: only notes of this kind")
+    a.add_argument("--all", action="store_true", help="with --list: every line, however many (pipe it through grep)")
     vz = sp.add_parser("viz", parents=[common], help="write the HTML viewer (dream refreshes it too)")
     vz.add_argument("--out", help="output file (default memory/_dream/graph.html)")
     sp.add_parser("check", parents=[common], help="warnings in full")

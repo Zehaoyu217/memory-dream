@@ -1,6 +1,220 @@
 # memory-dream v0.4 — results
 
-2026-10-30 (round 4: 2026-10-31; phase I: 2026-11-02; phases J and K: 2026-11-11) · built from the "Memory" email spec (`build-spec.md`) · macOS, Python 3.9.6, Claude Code 2.1.314.
+2026-10-30 (round 4: 2026-10-31; phase I: 2026-11-02; phases J, K and L: 2026-11-11) · built from the "Memory" email spec (`build-spec.md`) · macOS, Python 3.9.6, Claude Code 2.1.314.
+
+# Phase L (2026-11-11) — why the memory answered worse than grep, and what one call has to show
+
+Phase K ended on a table the owner did not accept: on both models the agent with the memory was graded below the
+agent with grep. His reading was that a memory should be the more accurate of the two at a fraction of the price,
+that the fault lay in the retrieval and in how it decides when to stop, and that thirty questions which one note
+mostly answers are too easy to need linkage across notes. This phase tests the three statements, changes `ask`
+(133 lines more in `memory.py`), and runs every question set again. Nothing else of the plan's steps 0 and 1 is
+started.
+
+```bash
+python3 eval/agent/why.py /tmp/w/memory                                   # L1: question by question, no model
+python3 eval/linkage.py ask /tmp/w/memory eval/questions/linkage-bank.jsonl   # L4: what one call shows, no agent
+python3 eval/agent/arms.py                                                # L2, L4, L5, L6: every arm, from the saved runs
+```
+
+## L1 — where the answers went wrong (`eval/agent/why.py`, no model)
+
+For each of the thirty questions: what the one call the skill tells an agent to make prints for it, set against the
+reference answer. Evidence is complete when every gold note is headed in the question's section and every number of
+the reference answer is in it. v0.4 as committed in 2b029cb:
+
+| batch | what it asks | one call prints | evidence complete | Haiku + memory marked down, either pass |
+|---|---|---|---|---|
+| P1 | ten projects, each named in its question | 38,499 characters | 10 of 10 | 2 |
+| C-h1 | ten questions about `churn-2026`, which none of them names | 25,322 | 3 of 10 | 6 |
+| P2 | preferences, rules, corrections | 29,881 | 10 of 10 | 0 |
+
+- All seven shortfalls are in C-h1, and five of the seven are marked down. The whole `churn-2026/` folder is 8,579
+  characters. `ask` printed three times that and less of it, because nothing in the questions says which project
+  they are about and other projects use the same words (`holdout-2025q4`, recall@10, velocity). The agent with grep
+  listed the folder and read it.
+- The agents with the memory made one `ask` call and answered: no second call in four of the five runs traced. An
+  output over about 30,000 characters is put in a file by the harness, and reading it is one more request.
+- Of the 23 questions with complete evidence, 3 are marked down in one pass or both. Two of them (P1 Q1, P1 Q3) are
+  marked down for Haiku with grep too: see L6.
+
+So the first cause is in the retrieval and not in the reader: the call hid part of what a folder read shows, and the
+agent took the call's silence for absence.
+
+## L2 — tell the agent to keep going, or show it more
+
+| arm | C-h1, of 10, two passes | all thirty | $ a batch of ten |
+|---|---|---|---|
+| Haiku + memory, v0.4 | 5/3/2 and 5/4/1 | 23/5/2 and 23/6/1 | 0.0129 |
+| … told to check every part of every answer and not to stop | 7/3/0 and 7/3/0 | 25/5/0 and 24/6/0 | 0.0155 |
+| … the first six notes of each question printed whole (phase K) | 7/2/1 and 7/2/1 | 23/6/1 and 23/6/1 | 0.0140 |
+| … the folder the call points at printed whole (`eval/agent/askarea.py`, an experiment, C-h1 only) | 8/2/0 and 8/2/0 | | |
+| Haiku + grep | 8/2/0 and 9/1/0 | 25/5/0 and 26/4/0 | 0.0167 |
+
+Telling the agent not to stop helps and costs a fifth more (7.7 requests a batch for 6.3). Printing the folder helps
+more and costs less than the shipped call: 228K tokens for the batch against 270K, because 8.6K characters that hold
+everything replace 25K that do not. Both halves of the owner's diagnosis hold; of the two cures the one in what the
+call returns is the better, and it is the one that was built.
+
+## L3 — what changed in `ask`
+
+One rule: an agent answers from what one call shows and takes its silence for absence, so a call is complete or it
+says that it is not.
+
+- **The folder, whole.** When at least half of a call's questions, and two, have a note of one project folder among
+  their first three, and the folder is under 16,000 characters, it is printed whole once at the end. Each of those
+  questions keeps five pointers into it and the line `(churn-2026/ is printed whole below: nothing else is recorded
+  there)`.
+- **The whole chain.** For a note a question names, when the question asks what it rests on or what came of it: a
+  `⇡` line with everything it rests on and a `⇣` line with everything that rests on it, through every `from:` step,
+  the notes one step away named apart from those reached through them (up to 40 names each way; v0.4 followed two
+  steps).
+- **The map.** `memory.py ask --list [-p folder] [--kind K] [--all]`: one line a note with what it was built on
+  (marked when that note was replaced), what it replaced, what replaced it and which notes of other folders use it;
+  with `-p`, what the folder rests on outside itself and what rests on it. A question whose answer is a set is read
+  off these lines. `ask` does not guess a list from a question's wording: phase K measured 0.47 of a set that way.
+- **Not the whole, said so.** A question that names a folder which is not printed whole gets the line `(the best
+  matches among the 30 notes of churn-2025/, not all of them: ask --list -p churn-2025 maps the folder)`.
+- **A note's kind** comes from its name and folder before the dreamer's reading (L7).
+
+`SKILL.md` step 1 tells an agent how to read each of the four, in a few lines.
+
+## L4 — questions that need linkage, inside one project (`eval/linkage.py`, exact, no judge)
+
+Thirty questions over 13 projects of the bank, five of each kind: every dataset a model rests on through any number
+of steps; every decision downstream of a dataset or feature; the note in force at the end of a line of replacements
+and what it is built on; the features two models share; the notes other projects built on one; the current models
+that still build on a replaced input. The true answer is computed from the notes' own `from:` and `supersedes:`
+lines, 1 to 5 notes each, and an answer is exact when the notes it lists are that set. With no agent, one `ask` call
+of v0.4 shows the whole set for 19 of the 30; the call of this phase for 25, and the map covers the other five.
+
+| arm | exact, of 30 | tool calls | requests | tokens | $ | seconds |
+|---|---|---|---|---|---|---|
+| Opus + grep | 30 | 9.7 | 11.7 | 665k | 0.6626 | 107 |
+| Haiku + grep | 30 | 9.3 | 11.3 | 640k | 0.0199 | 72 |
+| Haiku + memory, v0.4 | 28 | 13.0 | 12.3 | 817k | 0.0253 | 88 |
+| Haiku + memory, phase L, round 1 | 29 | 4.3 | 5.7 | 324k | 0.0134 | 39 |
+| … round 2 | 29 | 3.0 | 5.0 | 271k | 0.0144 | 34 |
+| … round 3, as committed | 30 | 5.0 | 6.7 | 409k | 0.0188 | 50 |
+
+Per batch of ten. The three rounds are the memory of this phase run three times, each on the script as it stood
+(`eval/agent/arms.py` says what each added).
+
+- Harder questions did not favour the memory of v0.4. They went against it: two misses, and more calls and more
+  money than grep on the same model, because `ask` had no answer to a set and the agent searched around it.
+- Rounds 1 and 2 missed the same question, twice: which current models of `churn-2025` build on a replaced input. Its
+  batch spans six projects, so no folder was printed whole, `ask` headed 16 of the folder's 30 notes without the
+  model that was the answer, and the agent made one call and wrote "none". Round 3 added the line that says the
+  section is not the whole folder; the agent ran the map it names and answered. This is the stop rule the owner
+  pointed at, and it is one line of output, not an instruction to the agent.
+- That line costs calls: 5.0 a batch against 3.0, and $0.0188 against $0.0144. Round 3 is 6% cheaper and 31% faster
+  than Haiku with grep, and 35 times cheaper and 2.1 times faster than Opus with grep, at the same 30 of 30.
+- Two answers of round 3 list the note their question names beside the set (`cu-uplift-v1` beside the line it starts).
+  The scorer takes that note as the question's subject; counted against the answers it is 28. No other run changes.
+- Grep is exact on this base on both models. A project here is one folder of 12,000 to 15,000 characters whose notes
+  name their inputs on a `from:` line, and an agent that reads the folder has the whole truth in front of it. The
+  memory cannot be more accurate than 30 of 30. Where it can be is where a folder read fails: links no line states,
+  one thing under two names, a folder too large to read, a question across folders.
+
+## L5 — across the whole memory (seven questions, exact)
+
+The answers are sets of 1 to 28 notes across the 1,677: every current model on a replaced input, everything outside
+a project that rests on it (three projects), every decision and every model replaced twice, every note built on a
+note of another project.
+
+| arm | exact, of 7 | tool calls | requests | tokens | $ | seconds |
+|---|---|---|---|---|---|---|
+| Opus + grep | 7 | 29 | 30 | 2,114k | 1.4188 | 294 |
+| Haiku + grep | 7 | 24 | 26 | 1,968k | 0.0842 | 178 |
+| Haiku + memory, phase L, round 1 | 5 | 12 | 14 | 892k | 0.0284 | 98 |
+| … round 2 | 7 | 10 | 12 | 757k | 0.0265 | 97 |
+| … round 3, as committed | 7 | 17 | 13 | 903k | 0.0306 | 109 |
+
+- Same answers, 46 times cheaper and 2.7 times faster than Opus with grep; against Haiku with grep, 0.36 of the price
+  and 0.61 of the time. This is the first set where the memory is clearly the cheaper of the two on one model.
+- Haiku with grep crossed the 100K line: two of its 26 requests carried over 100,000 tokens of prompt and are billed
+  at five times the price, $0.035 of its $0.084. The largest prompt with the memory was 92,189 tokens. That is under
+  the line and not far under it: the map of 147 models is one tool result of 38,000 characters.
+- Round 1 answered five of seven and the two misses were not the agent's: L7.
+
+## L6 — the thirty again
+
+| arm | correct / partial / wrong of 30, two passes | C-h1 | tool calls | requests | tokens | $ | seconds |
+|---|---|---|---|---|---|---|---|
+| Opus + grep | 29/1/0 and 29/1/0 | 9 and 10 | 18.7 | 19.7 | 1,742k | 1.5460 | 273 |
+| Haiku + grep | 25/5/0 and 26/4/0 | 8 and 9 | 8.7 | 8.3 | 485k | 0.0167 | 42 |
+| Haiku + memory, v0.4 | 23/5/2 and 23/6/1 | 5 and 5 | 5.3 | 6.3 | 293k | 0.0129 | 34 |
+| Haiku + memory, phase L, round 1 | 21/7/2 and 24/5/1 | 8 and 10 | 14.3 | 8.7 | 465k | 0.0148 | 47 |
+| … round 2 | 23/6/1 and 24/4/2 | 8 and 6 | 8.7 | 8.3 | 421k | 0.0154 | 42 |
+| … round 3, as committed | 25/4/1 and 25/4/1 | 8 and 8 | 4.7 | 6.7 | 342k | 0.0145 | 34 |
+
+- On C-h1, where v0.4 lost its answers, the memory goes from 5 of 10 to 8, which is what Haiku with grep gets. On P2
+  both get 10 of 10, on P1 both get 7.
+- Thirty questions and this judge cannot tell 25 from 26, or round 1 from round 3. The judge changes 32 of 280
+  verdicts between its two passes. The answers of round 1 were graded 23 and 25 earlier the same day, a grading that
+  was not kept, and 21 and 24 for this table. Every row is one run a batch, and round 1's run of P2 was graded 6 and
+  7 of 10 where rounds 2 and 3 got 10 on tool output that barely differs. The set does tell the Haiku arms from Opus
+  with grep at 29.
+- The five answers of round 3 marked down in both passes, read one by one. P1 Q1: the answer gives exp-303's own
+  figures (Gini 0.41 to 0.44) and the reference takes its 0.42 from exp-304; every arm is marked down on it, Opus
+  with grep in one pass of two. P1 Q3: asked what `sfc-hier-v3` depends on, the answer names the four notes it is
+  built on and the reference wants the features two steps back; they were on the `⇡` line in front of the agent.
+  P1 Q6: the answer adds figures the reference does not have. C-h1 Q8: it leaves out the six columns, with the
+  folder in front of it. C-h1 Q10: it takes "no purchase or payment" from a general rule note where a note of the
+  project says no card spend, and it reports a third note that disagrees with both. None is evidence the call failed
+  to show. Haiku with grep is marked down on four of the same five, in one pass or both.
+- The memory costs 0.87 of grep on Haiku here and is 107 times cheaper and 7.9 times faster than Opus with grep.
+
+## L7 — a note's kind: the name before the reading
+
+The index holds one reading per note, and the reading carried the note's kind. On this bank the dreamer's kind
+differs from what the name and folder say for 268 of the 1,677 notes: 84 notes named `exp-…` read as findings, 43
+models, 38 `ds-…` and 13 `feat-…` read as findings. A header that calls a dataset a finding misleads the reader, and
+`ask --list --kind model` left out models. Now the frontmatter `type:` decides, then the kind prefix in the name,
+then the folder's kind, then `…-vN`, and the reading only where none of those speaks.
+
+The same change showed what a prefix can do wrong. `inc-` marks incidents in the seed vocabulary and is this bank's
+code for the income-estimation project, so four models became incidents. The registry is where that is decided:
+the prefix came off the `incident` line of this bank's `KINDS.md`, with a comment. Round 1 of L5 ran before both
+were settled and missed two current models and three replaced lines, each a model filed as a finding or an
+incident; both grep agents had them. A base that an agent sets up should check each kind prefix against the readings
+before it trusts it. That check is not written.
+
+## L8 — the gates, before and after (`tests/retrieval_gate.py`, 326 questions, no model)
+
+| | gold notes headed | numbers | characters a question | stale: newer above, old marked | absence | alias |
+|---|---|---|---|---|---|---|
+| bank, v0.4 | 0.939 | 0.979 | 2,359 | 0.962, 1.0 | 1.0 | |
+| bank, phase L | 0.978 | 0.978 | 2,954 | 0.962, 1.0 | 1.0 | |
+| bank-index, v0.4 | 0.941 | 0.978 | 2,599 | 0.962, 1.0 | 1.0 | 0.821 |
+| bank-index, phase L | 0.973 | 0.978 | 3,138 | 0.962, 1.0 | 1.0 | 0.811 |
+
+The call prints a quarter more characters, and that is the price of the completeness: a folder whole, chains to the
+end. The floor on gold notes went from 0.93 to 0.96. The alias score lost one point and stays over its floor of
+0.80. `tests/acceptance.py` 40 of 40, the software gate unchanged, `eval/stability.py` all zeros on 1,149 questions
+(seeds, file order, no grep, alone and in sevens); it now leaves the notes of a folder printed whole out of the
+comparison between a call of ten and a call of seven, since which of them a question keeps as pointers depends on
+the call.
+
+## L9 — what the three statements come to
+
+1. *It is the retrieval and how it decides when to stop.* Yes, both. The call showed excerpts of look-alike
+   projects where the folder was a third of the size, and the agent stopped after one call because nothing told it
+   the call was partial. Both are fixed in what the call returns.
+2. *The questions are too easy to need linkage.* Yes, and harder ones made v0.4 look worse, not better: it had no
+   way to answer a set. With the chain and the map the memory answers all 37 linkage questions exactly.
+3. *The memory should be more accurate, at a fraction of the price.* Not on this base, and the base is why. An
+   agent with grep gets every set question right here on both models, so the most the memory can do is tie, and it
+   now ties: 30 of 30, 7 of 7, and 25 against 25 or 26 on the thirty, a set that cannot separate them. The price is a fraction against Opus with grep,
+   35 to 107 times. Against grep on the same model it is 0.87 and 0.94 on questions inside a project and 0.36 across
+   the memory. A request carries about 35,000 tokens of harness whatever the tool returns, so the saving is in the
+   number of requests and not in the characters, and it is small where a folder read takes few.
+
+What is not shown. The memory has not been more accurate than grep anywhere, because nothing here asks for what grep
+cannot do. The bank is tidy: one folder a project, every link on a `from:` line, one name a thing. The test that could
+show it needs links no line states, names that differ between notes, and folders too large to read, and it needs
+several runs a row and a grader that agrees with itself. That is the 100-question evaluation of the plan's step 2,
+and its design should start from this section. The Opus arm with the memory was not run again after the change.
 
 # Phase K (2026-11-11) — the v0.5 plan grilled against the code that ships
 

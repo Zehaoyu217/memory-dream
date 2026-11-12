@@ -43,19 +43,29 @@ def score(out, batch, history=frozenset(), near=None):
     near: {path: set of lineage neighbours} for precision — a headed note counts as relevant when it is gold or one
     lineage hop from a gold note (its parent, child, predecessor or successor)."""
     printed = {}  # path → all lines printed for it anywhere
-    cur = None
+    folders = {}  # a folder printed whole (phase L) → the notes in it: in front of every question that points at it
+    cur = block = None
     for ln in out.split("\n"):
         m = re.match(r"▸ (\S+)", ln)
         if m:
             cur = m.group(1)
             printed.setdefault(cur, [])
+            if block:
+                folders[block].add(cur)
         elif ln.startswith("  ") and cur:
             printed[cur].append(ln)
         elif ln.startswith("## "):
             cur = None
+            w = re.match(r"## (\S+/) — the whole folder", ln)
+            block = w.group(1) if w else None
+            if block:
+                folders[block] = set()
     rows = []
     for (qtext, sec), item in zip(sections(out), batch):
         heads = set(re.findall(r"^▸ (\S+)", sec, re.M))
+        for line in re.findall(r"^  \((.*) is printed whole below", sec, re.M):
+            for f in line.split(", "):
+                heads |= folders.get(f, set())
         seen = sec + "\n" + "\n".join(x for p in heads for x in printed.get(p, []))
         gold = [g for g in (item.get("notes") or []) if g not in history] or (item.get("notes") or [])
         nums = set(NUM.findall(item["a"])) - {str(y) for y in range(2020, 2031)}

@@ -639,7 +639,7 @@ or to a fresh worker given the packet, at most twice. After that, it stops and r
 
 ## Appendix A — the contract surface, verbatim: `skills/memory-dream/SKILL.md` and the dreamer agent
 
-_Part 5 · copied at commit 58a1cf5. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
+_Part 5 · copied at commit 2b029cb. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
 
 ```markdown
 ---
@@ -659,8 +659,18 @@ truth; everything else is derived and disposable. `memory.py` = `python3 <this s
    printed whole, each question pointing at its notes. SUPERSEDED → a → b is history: the last named is current. For a
    task it adds the preferences and house rules that apply — follow them, or say why not. `(weak match …)` names a word
    found nowhere: rephrase. Ask about inputs or users ("what does X use", "what uses X") and the notes two steps out come
-   along as one-line pointers: no second call for them. Name the area or an id when you know it; it scopes the search. At most one batched
-   follow-up: `ask` with sharper words, plain `grep -rn … memory/`, or read a printed line.
+   along as one-line pointers: no second call for them. Name the area or an id when you know it; it scopes the search.
+   When most of a call is about one small project, its folder is printed whole at the end and `ask` says so: nothing
+   else is recorded there, answer from it. A section that says it holds `the best matches … not all of them` is not
+   a set: when the question asks which, how many, all or every, run the map that line names before you answer. A `⇡`
+   line names everything a note rests on and a `⇣` line everything that rests on it: first the notes one step away
+   (`directly`), then those reached `through them`; an answer about what something depends on gives both.
+   When the answer is a set or a relationship (every current model, what was replaced, what other
+   projects built on this one) do not search for it: `memory.py ask --list [-p <project>] [--kind model]` prints one
+   line a note with what it was built on (marked when that was replaced), what replaced it and where else it is
+   used, and with `-p` what rests on the project from outside; `--all` lifts the 150-line cap so you can pipe it
+   through grep. Otherwise `ask`'s silence is not absence: before you write "not recorded", read a headed note or
+   `grep -rn … memory/`. At most one batched follow-up.
 2. **Write as you go.** One note per thing, in `memory/<project>/`, or for what spans projects in `prefs/`,
    `reporting/`, `glossary/`, `corrections/`, `howto/`, `qa/`, `people/`. The filename is the id; a prefix from
    `memory/KINDS.md` says what kind of note it is (`exp- fnd- dec- plan- risk- inc- ds- feat- q- …`; a thing's own note
@@ -714,7 +724,7 @@ Touch nothing else.
 
 ## Appendix B — the graph contract, verbatim: `.specs/memory-dream/CONTRACT.md`
 
-_Part 6 · copied at commit 58a1cf5. Schema 1; `memory.py check` validates against it (A38)._
+_Part 6 · copied at commit 2b029cb. Schema 1; `memory.py check` validates against it (A38)._
 
 ## memory-dream — the graph contract (schema 1)
 
@@ -754,12 +764,14 @@ Produced by `build()`, written as `_dream/graph.json` (≤ `MEMORY_WIDE` notes) 
 **note** — `{path, id, project, title, line, kind, updated, superseded_by, sha, indexed}`
 - `title`: the text of the first `# ` line outside code fences (`""` when none → C6); `line`: its file line (0 when none).
 - `kind`: lowercase; frontmatter `type:` wins (Claude Code's `user|feedback|project|reference` map to
-  `preference|rule|note|note`), else the dreamer's kind unless it is `note` (and only a kind `KINDS.md` lists), else the
-  filename prefix (first two id segments; the prefixes are the `prefix:` fields of `KINDS.md`, seeded `exp- feat- ds- dec-
-  fnd- find- finding- q- metric- model- pref- rule- term- plan- req- risk- inc- rpt- report- svc- mod- lib- sys- adr- design-
-  bug- fix- rel- release-`; `…-vN` → `model`), else the
+  `preference|rule|note|note`), else the kind whose prefix is the first or second part of the filename (`exp-014`,
+  `aml-find-kyc-lift`; the prefixes are the `prefix:` fields of `KINDS.md`, seeded `exp- feat- ds- dec- fnd- find-
+  finding- q- metric- model- pref- rule- term- plan- req- risk- inc- rpt- report- svc- mod- lib- sys- adr- design- bug-
+  fix- rel- release-`), else the kind of its
   area (the `area:` fields, seeded `prefs`→preference, `glossary`→term, `corrections`→correction, `reporting`/`howto`→rule,
-  `log`→log), else `note`.
+  `log`→log), else `model` for a name ending `…-vN`, else the dreamer's kind unless it is `note` (and only a kind
+  `KINDS.md` lists), else `note`. The name and the folder its writer gave a note come before a dreamer's reading of it
+  (RESULTS phase L); until 2026-11-11 the dreamer's kind came second, before the name.
 - `updated`: frontmatter `updated:` or `modified:` (first 10 chars), else a `log/YYYY-MM-DD` filename, else mtime.
 - `superseded_by`: paths of notes whose `supersedes:` names this note, plus `- a > b` lines of `CONFLICTS.md`; every
   entry has a matching `supersedes` edge.
@@ -884,7 +896,7 @@ nothing (C13 reports it and the readings fall back to `other/<word>`); merging i
 
 ## Appendix C — the build guide, verbatim: `BUILD-GUIDE.md` §3–§10
 
-_Part 7 · copied at commit 58a1cf5. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
+_Part 7 · copied at commit 2b029cb. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
 
 ### 3. The design in one page
 
@@ -981,10 +993,11 @@ hash in `_dream/store.db` so a dream re-reads only changed notes.
 #### 5.4 The graph, note half (`notes_part`)
 
 - One record per note: path, id (filename), project (top folder), title, line, kind (`kind_of`: frontmatter `type`
-  with Claude Code's user/feedback/project/reference mapped to preference/rule/note/note, else the dreamer's kind unless
-  it is the fallback "note", else the filename prefix (the `prefix:` fields of `KINDS.md`: `exp- feat- ds- dec- fnd- find-
-  q- metric- plan- req- risk- inc- rpt-` in the seed) or `…-vN` = model, else the area (the `area:` fields: `prefs/
-  glossary/ corrections/ reporting/ howto/ log/`), else `note`), updated (frontmatter `updated`
+  with Claude Code's user/feedback/project/reference mapped to preference/rule/note/note, else the kind whose prefix
+  is the first or second part of the filename (the `prefix:` fields of `KINDS.md`: `exp- feat- ds- dec- fnd- find- q-
+  metric- plan- req- risk- inc- rpt-` in the seed), else the area (the `area:` fields: `prefs/ glossary/ corrections/
+  reporting/ howto/ log/`), else `…-vN` = model, else the dreamer's kind unless it is the fallback "note", else
+  `note`: the name and the folder a writer chose come before the dreamer's reading), updated (frontmatter `updated`
   or `modified`, log filename date, or mtime), superseded_by. `general_areas` judges an area on its kinded notes only.
 - Edges: `from` and `supersedes` resolved by relative path, then exact path, then unique filename, then same-project
   filename (warning C1 if ambiguous), then moved paths; unresolved → C2. Plus `refs`: `[[links]]`, the dreamer's refs,
@@ -1409,7 +1422,7 @@ preferences 0.95 when the task names them, 0.84 when it names only their meeting
 
 ## Appendix D — prompts, seeds and tuned tables, verbatim from `memory.py`
 
-_Part 8 · extracted at commit 58a1cf5 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
+_Part 8 · extracted at commit 2b029cb by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
 
 ### D.1 `EXTRACT` — the per-note prompt: fixed guidance, then `KINDS:`, `TYPES:`, `EDGES:` and `KNOWN:` from the registries (the static part is cached), then `NOTE`
 

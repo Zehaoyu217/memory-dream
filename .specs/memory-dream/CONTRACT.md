@@ -36,12 +36,14 @@ Produced by `build()`, written as `_dream/graph.json` (≤ `MEMORY_WIDE` notes) 
 **note** — `{path, id, project, title, line, kind, updated, superseded_by, sha, indexed}`
 - `title`: the text of the first `# ` line outside code fences (`""` when none → C6); `line`: its file line (0 when none).
 - `kind`: lowercase; frontmatter `type:` wins (Claude Code's `user|feedback|project|reference` map to
-  `preference|rule|note|note`), else the dreamer's kind unless it is `note` (and only a kind `KINDS.md` lists), else the
-  filename prefix (first two id segments; the prefixes are the `prefix:` fields of `KINDS.md`, seeded `exp- feat- ds- dec-
-  fnd- find- finding- q- metric- model- pref- rule- term- plan- req- risk- inc- rpt- report- svc- mod- lib- sys- adr- design-
-  bug- fix- rel- release-`; `…-vN` → `model`), else the
+  `preference|rule|note|note`), else the kind whose prefix is the first or second part of the filename (`exp-014`,
+  `aml-find-kyc-lift`; the prefixes are the `prefix:` fields of `KINDS.md`, seeded `exp- feat- ds- dec- fnd- find-
+  finding- q- metric- model- pref- rule- term- plan- req- risk- inc- rpt- report- svc- mod- lib- sys- adr- design- bug-
+  fix- rel- release-`), else the kind of its
   area (the `area:` fields, seeded `prefs`→preference, `glossary`→term, `corrections`→correction, `reporting`/`howto`→rule,
-  `log`→log), else `note`.
+  `log`→log), else `model` for a name ending `…-vN`, else the dreamer's kind unless it is `note` (and only a kind
+  `KINDS.md` lists), else `note`. The name and the folder its writer gave a note come before a dreamer's reading of it
+  (RESULTS phase L); until 2026-11-11 the dreamer's kind came second, before the name.
 - `updated`: frontmatter `updated:` or `modified:` (first 10 chars), else a `log/YYYY-MM-DD` filename, else mtime.
 - `superseded_by`: paths of notes whose `supersedes:` names this note, plus `- a > b` lines of `CONFLICTS.md`; every
   entry has a matching `supersedes` edge.

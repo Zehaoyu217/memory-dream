@@ -176,10 +176,11 @@ hash in `_dream/store.db` so a dream re-reads only changed notes.
 ### 5.4 The graph, note half (`notes_part`)
 
 - One record per note: path, id (filename), project (top folder), title, line, kind (`kind_of`: frontmatter `type`
-  with Claude Code's user/feedback/project/reference mapped to preference/rule/note/note, else the dreamer's kind unless
-  it is the fallback "note", else the filename prefix (the `prefix:` fields of `KINDS.md`: `exp- feat- ds- dec- fnd- find-
-  q- metric- plan- req- risk- inc- rpt-` in the seed) or `…-vN` = model, else the area (the `area:` fields: `prefs/
-  glossary/ corrections/ reporting/ howto/ log/`), else `note`), updated (frontmatter `updated`
+  with Claude Code's user/feedback/project/reference mapped to preference/rule/note/note, else the kind whose prefix
+  is the first or second part of the filename (the `prefix:` fields of `KINDS.md`: `exp- feat- ds- dec- fnd- find- q-
+  metric- plan- req- risk- inc- rpt-` in the seed), else the area (the `area:` fields: `prefs/ glossary/ corrections/
+  reporting/ howto/ log/`), else `…-vN` = model, else the dreamer's kind unless it is the fallback "note", else
+  `note`: the name and the folder a writer chose come before the dreamer's reading), updated (frontmatter `updated`
   or `modified`, log filename date, or mtime), superseded_by. `general_areas` judges an area on its kinded notes only.
 - Edges: `from` and `supersedes` resolved by relative path, then exact path, then unique filename, then same-project
   filename (warning C1 if ambiguous), then moved paths; unresolved → C2. Plus `refs`: `[[links]]`, the dreamer's refs,

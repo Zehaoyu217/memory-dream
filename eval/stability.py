@@ -82,14 +82,29 @@ def worker(root, order, batch, every, out):
     Path(out).write_text(json.dumps(rows))
 
 
+def whole(x):
+    """The folders a section says are printed whole below it (phase L): every note of such a folder is in front of the
+    question, so its notes are covered whatever the section lists."""
+    return {f.rstrip("/") for ln in re.findall(r"^  \((.*) is printed whole below", x["sec"], re.M) for f in ln.split(", ")}
+
+
+def covered(x):
+    f = whole(x)
+    return all(g in x["heads"] or g.split("/")[0] in f for g in x["gold"])
+
+
 def compare(base, other, text=True):
+    """A folder is printed whole when most of a call points at it, which depends on the call. Outside such a folder a
+    question must head the same notes in the same order whatever company it keeps; inside it, every note is there."""
     d = {s: Counter() for s in SETS}
     for x, y in zip(base, other):
         c = d[x["set"]]
+        f = whole(x) | whole(y)
+        hx, hy = ([h for h in z["heads"] if h.split("/")[0] not in f] for z in (x, y))
         c["text"] += text and x["sec"] != y["sec"]
-        c["order"] += x["heads"] != y["heads"]
-        c["notes"] += set(x["heads"]) != set(y["heads"])
-        c["flips"] += (set(x["gold"]) <= set(x["heads"])) != (set(y["gold"]) <= set(y["heads"]))
+        c["order"] += hx != hy
+        c["notes"] += set(hx) != set(hy)
+        c["flips"] += covered(x) != covered(y) and not f
     return d
 
 
@@ -119,7 +134,7 @@ def main(argv):
     first = got[runs[0][0]]
     n = Counter(x["set"] for x in first)
     score = {s: {"n": n[s], "gold": round(sum(len(set(x["gold"]) & set(x["heads"])) / len(x["gold"]) for x in first if x["set"] == s) / n[s], 4),
-                 "complete": sum(set(x["gold"]) <= set(x["heads"]) for x in first if x["set"] == s)} for s in SETS if n[s]}
+                 "complete": sum(covered(x) for x in first if x["set"] == s)} for s in SETS if n[s]}
     sets = [s for s in SETS if n[s]]
     print(f"{MEM}\n{root}: " + " · ".join(f"{s} {score[s]['n']} questions, gold {score[s]['gold']}, complete {score[s]['complete']}" for s in sets))
     print(f"\n{'against the first run':24}" + "".join(f"{s + ' text/order/notes/flips':>34}" for s in sets))

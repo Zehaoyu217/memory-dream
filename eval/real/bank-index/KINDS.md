@@ -11,7 +11,9 @@ general: prefs, reporting, glossary, corrections, howto, qa, people, log
 - question: something asked and not yet settled | prefix: q | role: question
 - experiment: a run with a method and a measured result | prefix: exp | family: finding | role: evidence
 - finding: a result or observation that holds until superseded | prefix: fnd, find, finding | role: evidence | conflicts: yes | answers: yes | not: a single run (experiment)
-- incident: a failure, outage, loss or error, and what was learned | prefix: inc | family: finding | role: evidence
+# `inc-` is this bank's code for the income-estimation project (inc-gbm-v1), not a mark of incidents: the prefix was
+# taken off the next line on 2026-11-11, when a note's name began to count before the dreamer's reading (RESULTS phase L).
+- incident: a failure, outage, loss or error, and what was learned | family: finding | role: evidence
 - decision: a choice made, with its reason | prefix: dec | role: state | digest: current | conflicts: yes | answers: yes
 - plan: an intended course of action, with steps or dates | prefix: plan | role: state | digest: current
 - requirement: a stated need or acceptance condition | prefix: req | role: state

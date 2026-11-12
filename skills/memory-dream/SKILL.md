@@ -15,8 +15,18 @@ truth; everything else is derived and disposable. `memory.py` = `python3 <this s
    printed whole, each question pointing at its notes. SUPERSEDED → a → b is history: the last named is current. For a
    task it adds the preferences and house rules that apply — follow them, or say why not. `(weak match …)` names a word
    found nowhere: rephrase. Ask about inputs or users ("what does X use", "what uses X") and the notes two steps out come
-   along as one-line pointers: no second call for them. Name the area or an id when you know it; it scopes the search. At most one batched
-   follow-up: `ask` with sharper words, plain `grep -rn … memory/`, or read a printed line.
+   along as one-line pointers: no second call for them. Name the area or an id when you know it; it scopes the search.
+   When most of a call is about one small project, its folder is printed whole at the end and `ask` says so: nothing
+   else is recorded there, answer from it. A section that says it holds `the best matches … not all of them` is not
+   a set: when the question asks which, how many, all or every, run the map that line names before you answer. A `⇡`
+   line names everything a note rests on and a `⇣` line everything that rests on it: first the notes one step away
+   (`directly`), then those reached `through them`; an answer about what something depends on gives both.
+   When the answer is a set or a relationship (every current model, what was replaced, what other
+   projects built on this one) do not search for it: `memory.py ask --list [-p <project>] [--kind model]` prints one
+   line a note with what it was built on (marked when that was replaced), what replaced it and where else it is
+   used, and with `-p` what rests on the project from outside; `--all` lifts the 150-line cap so you can pipe it
+   through grep. Otherwise `ask`'s silence is not absence: before you write "not recorded", read a headed note or
+   `grep -rn … memory/`. At most one batched follow-up.
 2. **Write as you go.** One note per thing, in `memory/<project>/`, or for what spans projects in `prefs/`,
    `reporting/`, `glossary/`, `corrections/`, `howto/`, `qa/`, `people/`. The filename is the id; a prefix from
    `memory/KINDS.md` says what kind of note it is (`exp- fnd- dec- plan- risk- inc- ds- feat- q- …`; a thing's own note

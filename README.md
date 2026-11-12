@@ -10,12 +10,13 @@ Python standard library only. Markdown and JSON files. No server, no database se
 
 ## What it buys
 
-- **Same answers at a third of the tool calls and 0.6× the cost.** Against an agent given the same notes and plain
-  grep, allowed to read whole folders, an agent with the memory answers as accurately (23/7/0 against 23/7/0 on 30
-  questions) with 0.30× the tool calls, 0.29× the tokens read, 0.61× the cost units and 0.75× the time on 1,677
-  notes. That is the latest run, on the shipped code. An earlier run, before the retrieval rewrite and against a
-  grep arm that could not read folders, measured 0.47× the cost and 0.35× the time at 1,677 notes and 0.41× at
-  168,141; those cells are not re-measured on the shipped code. See Results.
+- **A cheap model with the memory in place of a strong model with grep: 35 to 107 times cheaper, 2 to 8 times
+  faster.** On 1,677 notes an agent on Haiku 5.5 with the memory gives the same answers as an agent on Opus 5.5 with
+  grep, allowed to read whole folders, on 37 questions whose answer is a set of notes reached through several links
+  (30 of 30 inside a project, 7 of 7 across the memory, scored exactly). On thirty questions graded by a model judge
+  it is graded 25 correct against 29, and Haiku with grep 25 or 26. Against grep on the same model the memory costs
+  0.87× and 0.94× on questions inside one project and 0.36× on questions across the memory. It has not been shown
+  more accurate than grep: on this tidy base grep already gets all 37 of those right. See Results.
 - **Conclusions do not get lost or mixed up.** A change of mind is a new note that supersedes the old one.
   Retrieval lists the current note first and marks the old one as replaced. On 104 questions aimed at replaced
   conclusions, the successor is listed above the old note 96% of the time and the old note is marked 100%.
@@ -118,6 +119,26 @@ The agent reads the current note first and knows the older one is history withou
 in the question occurs nowhere in the memory, the output says so instead of guessing. When the question asks what a
 thing is built from or what is built on it, the notes two steps out along `from:` lineage and the index's typed links
 come along as one-line pointers. Plain grep remains available and is sometimes the right tool.
+
+Four things were added on 2026-11-11, after tracing why agents with the memory answered worse than agents with grep
+(RESULTS phase L). An agent answers from what one call shows and takes its silence for absence, so a call is
+complete or it says that it is not:
+
+- **The folder, whole.** When at least half of the questions in a call (and two) point at one small project folder,
+  that folder is printed whole once at the end, each question keeps a few pointers into it, and `ask` says that
+  nothing else is recorded there. On the bank this takes gold notes in front of the question from 0.939 to 0.978.
+- **The whole chain.** For a note the question names, a `⇡` line lists everything it rests on and a `⇣` line
+  everything that rests on it, through every `from:` step: first the notes one step away, then those reached
+  through them.
+- **The map.** `memory.py ask --list [-p folder] [--kind model]` prints one line per note: what it was built on
+  (marked when that note was replaced), what it replaced, what replaced it, where else it is used. A question whose
+  answer is a set or a relationship is read off these lines; `ask` does not guess a list from a question's wording.
+- **Not the whole, said so.** A question that names a folder which is not printed whole gets one line: its section
+  holds the best matches among the folder's notes, not all of them, and the command that maps the folder.
+
+A note's kind now comes from the name and the folder its writer chose before it comes from the dreamer's reading.
+The call prints about a quarter more characters than before; the price is in the number of requests an agent
+makes, not in the characters a call returns.
 
 ## Layer 3: the index
 
@@ -243,14 +264,35 @@ settle a difference of a few answers, and the tie above should be read with that
 agents took the same questions: with the memory 23 / 5 / 2, for 0.8% of the cost of Opus with grep and an eighth of
 the time; with grep alone 25 / 5 / 0 (RESULTS phase K; `python3 eval/agent/arms.py` prints the five arms).
 
+Why the memory was graded below grep, and what was done about it (RESULTS phase L, the same day). Question by
+question, the one call the skill tells an agent to make showed all the evidence for 23 of the 30 questions; the 7
+short ones were one batch about a project its questions never name, where `ask` printed 25,000 characters of
+look-alike projects and the whole folder is 8,600. The agent made that one call and answered. `ask` now prints such
+a folder whole, gives a named note's whole chain, maps a folder or a kind on request, and says when a section is not
+the whole. Haiku 5.5 agents, per batch of ten questions (seven for the last set):
+
+| questions | Opus + grep | Haiku + grep | Haiku + memory before | Haiku + memory now |
+|---|---|---|---|---|
+| thirty, judged twice: correct of 30 | 29 and 29 · $1.55 · 273 s | 25 and 26 · $0.017 · 42 s | 23 and 23 · $0.013 · 34 s | 25 and 25 · $0.015 · 34 s |
+| linkage inside a project: exact of 30 | 30 · $0.66 · 107 s | 30 · $0.020 · 72 s | 28 · $0.025 · 88 s | 30 · $0.019 · 50 s |
+| across the whole memory: exact of 7 | 7 · $1.42 · 294 s | 7 · $0.084 · 178 s | not run | 7 · $0.031 · 109 s |
+
+The linkage answers are sets of notes computed from the notes' own lineage and scored exactly (`eval/linkage.py`).
+The memory now ties grep and does not beat it, because on this base grep gets every one of them right: a project is
+one folder of about 13,000 characters with every link on a `from:` line, and an agent that reads the folder has all
+of it. Each cell is
+one run a batch; two earlier rounds of the same memory were graded 21 to 24 on the thirty and 29 on the linkage set,
+and the judge changes about one verdict in nine between two passes.
+
 Earlier runs (rounds 2 and 4), on the code before the retrieval rewrite and against a grep arm that could not read
 folders: 30 notes 26/3/1 against 25/5/0 at 0.93× the cost; 1,677 notes 27/3/0 against 26/4/0 at 0.47× the cost and
 0.35× the time; 168,141 notes 24/6/0 against 24/6/0 at 0.41× the cost. The 30-note and 168,141-note cells have not
 been re-run on the shipped code.
 
-Offline, on 326 questions over the 1,677-note bank with no index, `ask` returns the gold note for 93.9% of questions
-and the number asked for in 97.9%, in about 2,400 characters per question; with the index and the typed-link walk,
-94.1% and 97.8% in about 2,600 (RESULTS phase I; the index is in the repository and rebuilds with no model). On 104
+Offline, on 326 questions over the 1,677-note bank with no index, `ask` returns the gold note for 97.8% of questions
+and the number asked for in 97.8%, in about 2,950 characters per question; with the index and the typed-link walk,
+97.3% and 97.8% in about 3,140 (93.9% and 94.1% of gold notes in about 2,400 and 2,600 characters before phase L;
+the index is in the repository and rebuilds with no model). On 104
 questions aimed at replaced conclusions the successor is listed above the old note 96% of the time and the old note
 is marked 100%. On 70 questions about things the memory does not contain, it flags the unknown word every time. The
 model-free numbers reproduce from the repository: `python3 tests/retrieval_gate.py bank` runs them with floors. A
@@ -260,7 +302,7 @@ clone of the notes (`eval/stability.py`, A42, RESULTS phase J).
 
 A second fixture is a software project (`tests/fixture-software/`: a payments API with services, modules, design records,
 bugs and their fixes, releases, an incident, 30 notes) with 30 questions (`eval/questions/software-payments-api.jsonl`).
-With no model, `ask` heads every gold note and every number (gold 1.00, numbers 1.00, 1,570 characters per question); on
+With no model, `ask` heads every gold note and every number (gold 1.00, numbers 1.00, 1,770 characters per question); on
 its 7 stale questions the successor is listed above the old note and the old one marked every time:
 `python3 tests/retrieval_gate.py software`. Full record: `.specs/memory-dream/RESULTS.md`.
 
@@ -365,8 +407,12 @@ The first reviewer, asked about 178 common labels, answered "new type" to all of
 
 ## Limits
 
-- The evidence is synthetic and small. Notes, questions and the judge are Haiku; each agent cell is 30 questions; the
-  write path was measured in one run. Real notes written by people over months are untested.
+- The evidence is synthetic and small. Notes, questions and the judge are Haiku; each agent cell is 30 questions and
+  one run a batch; the write path was measured in one run. Real notes written by people over months are untested.
+- The memory has not been shown more accurate than grep. On the bank an agent with grep answers all 37 set
+  questions exactly on both models, because a project is one small folder with every link written on a `from:` line,
+  and on the thirty judged questions the two are graded alike. Where a memory should win (links
+  no line states, one thing under two names, folders too large to read) is not in the test base yet (RESULTS phase L).
 - The real index of the bank is in the repository as the model's readings (`eval/real/bank-index/`), so the with-index
   numbers rebuild with no model call. Re-reading the notes with a model costs about $2.70 and gives a slightly different
   index each time: two indexes differed by a point of gold recall.
@@ -385,11 +431,17 @@ The first reviewer, asked about 178 common labels, answered "new type" to all of
   (23 of the bank's 1,677 notes sit like that), and notes built on it get only a "not found" warning. On a memory
   over `MEMORY_WIDE` notes, `ask` fails with a file-not-found error from the deletion until the next dream.
   Supersede a note; do not delete it (RESULTS phase K).
-- An agent takes `ask`'s silence for absence. On thirty questions the only wrong answers came from agents with the
-  memory, on questions where an agent with grep found the note: a thing's own note is not always headed, and two
-  things that share a name are answered as one (RESULTS phase K).
-- A question whose answer is a set ("list every dataset of this project") gets the best notes, not the set: 0.47 of
-  it on the bank, and all of it for 1 question in 20 (RESULTS phase K).
+- An agent takes `ask`'s silence for absence, and makes one call. Since phase L a call says when a folder is printed
+  whole and when a section is only the best matches of a folder the question names. A question that names no folder
+  and falls in a call about several projects gets neither line: a thing's own note is not always headed there, and
+  two things that share a name can be answered as one (RESULTS phases K and L).
+- A question whose answer is a set ("list every dataset of this project") gets the best notes from `ask`, not the
+  set: 0.47 of it on the bank. The set is read off `ask --list`, which an agent has to run; with it Haiku answered
+  37 of 37 set questions exactly. The map of a whole kind is large (147 models: 38,000 characters), and the largest
+  prompt of those runs was 92,000 tokens, under Haiku 5.5's 100K price line and not far under it.
+- A kind prefix can collide with a project's own code: `inc-` marks incidents in the seed vocabulary and was one
+  bank project's prefix for its models. The name decides a note's kind before the dreamer's reading does, so such a
+  prefix has to come off its line in `KINDS.md`; nothing checks for it yet (RESULTS phase L).
 - Linux and macOS with GNU or BSD grep and Python 3.9 or newer; Windows is untested. One memory, one writer: the lock
   file serialises `dream` on one machine and nothing coordinates two machines.
 - A note with no date of its own (`updated:`, or a dated file name) takes its file's modification date, and a fresh

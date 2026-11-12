@@ -6,9 +6,10 @@ eval/retrieval.py and eval/adversarial.py, and fail when a number drops under it
   retrieval_gate.py software  [--work DIR]   tests/fixture-software/memory, eval/questions/software-*.jsonl
   retrieval_gate.py bank-index [--work DIR]  the bank with the real Haiku index restored from eval/real/bank-index (0 calls)
 
-Floors (set from the measured numbers on 2026-11-01 minus a small margin; raise them when the numbers rise):
-  bank:     gold ≥ 0.93 · numbers ≥ 0.97 · chars per question ≤ 3,000 · stale: successor above the old note ≥ 0.95,
-            old marked 1.0 · absence flagged 1.0
+Floors (set from the measured numbers minus a small margin; raise them when the numbers rise):
+  bank:     gold ≥ 0.96 (0.93 until phase L, 2026-11-11: measured 0.939 before it and 0.978 after) · numbers ≥ 0.97 ·
+            chars per question ≤ 3,000 · stale: successor above the old note ≥ 0.95, old marked 1.0 · absence flagged 1.0
+  bank-index: the same, chars ≤ 3,200, and alias ≥ 0.80
   software: gold ≥ 0.90 · numbers ≥ 0.95 · stale: successor above ≥ 0.95 (when the set is non-empty), old marked 1.0
 """
 import json
@@ -21,8 +22,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 MEM = ROOT / "skills/memory-dream/scripts/memory.py"
-FLOORS = {"bank": {"gold": 0.93, "numbers": 0.97, "chars": 3000, "stale_above": 0.95, "stale_marked": 1.0, "absence": 1.0, "alias": None},
-          "bank-index": {"gold": 0.93, "numbers": 0.97, "chars": 3200, "stale_above": 0.95, "stale_marked": 1.0, "absence": 1.0, "alias": 0.80},
+FLOORS = {"bank": {"gold": 0.96, "numbers": 0.97, "chars": 3000, "stale_above": 0.95, "stale_marked": 1.0, "absence": 1.0, "alias": None},
+          "bank-index": {"gold": 0.96, "numbers": 0.97, "chars": 3200, "stale_above": 0.95, "stale_marked": 1.0, "absence": 1.0, "alias": 0.80},
           "software": {"gold": 0.90, "numbers": 0.95, "chars": 6000, "stale_above": 0.95, "stale_marked": 1.0, "absence": None, "alias": None}}
 
 

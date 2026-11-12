@@ -2,7 +2,12 @@
 
 2026-11-11 · rev 3. The first draft (commit e78eb8f) was grilled against the owner's ten points and against the
 code that ships (rev 2). The owner then added six points, an independent reviewer attacked rev 2 with twenty
-experiments, and four more measurements were made. This draft is what survived. Nothing is built yet.
+experiments, and four more measurements were made. This draft is what survived.
+
+**Status, the same day.** The owner took every recommendation of §15 and asked first why the memory was graded
+below grep. That question was answered before anything else was built (RESULTS phase L), and it built most of §11:
+items 2, 4 and 5 are in `ask`, item 1 in the case that was measured. §11 and §14 carry what the measurements
+changed. Step 0 and the rest of step 1 are not started.
 
 The contract field by field is `CONTRACT-2.md`. Every number has a command, all without a model:
 `python3 eval/contract_probe.py <bank-index world>` (drop, absorb, documents, sets), `python3 eval/agent/arms.py`
@@ -290,18 +295,35 @@ one real export of another system before that word is used.
 
 Each item names the case of §2 it answers. None adds a model to `ask`.
 
-1. **The entity's own note first** when a question names the entity (recall@10).
+Phase L found the rule the items share: an agent answers from what one call shows and takes its silence for
+absence, and it makes one call. So a call is complete, or it says in the question's own section that it is not.
+What is built is marked.
+
+1. **The entity's own note first** when a question names the entity (recall@10). *Built for the measured case:*
+   when most of a call points at one small folder, the folder is printed whole. Open where no folder wins the call.
 2. **Inputs complete**: "what does X depend on" prints the whole list from the edges and the lineage, not the best
-   eight (`sfc-hier-v3`).
-3. **One name, one thing** (§7), so an answer does not mix two datasets (`holdout-2025q4`).
+   eight (`sfc-hier-v3`). *Built:* the `⇡` and `⇣` lines, the notes one step away apart from those reached through
+   them. Haiku still answers that question with the four notes one step away.
+3. **One name, one thing** (§7), so an answer does not mix two datasets (`holdout-2025q4`). Open: step 2.
 4. **Silence is not absence.** A weak answer says it is weak, and the skill tells the agent to grep before it writes
-   "not recorded". Haiku wrote that twice where grep found the note.
-5. **Sets by filter**: `ask --kind risk --tag open --area x` prints one line per note, capped, with "N more". The
+   "not recorded". Haiku wrote that twice where grep found the note. *Built:* a section says "printed whole:
+   nothing else is recorded there" or "the best matches, not all of them", with the command that maps the folder.
+   The second line is what got a set question answered that two runs had answered "none".
+5. **Sets by filter**: `ask --list [-p folder] [--kind K]` prints one line per note, capped, with "N more". The
    agent turns "list every open risk" into filters; the skill says so. `ask` does not guess a list from the wording:
-   the two gate questions that say "all" or "each" ask for a reason and a number, not a list.
+   the two gate questions that say "all" or "each" ask for a reason and a number, not a list. *Built* for folder
+   and kind; `--tag` waits for tags.
 6. **Walk words on registry lines**, with `~` for the inward direction; a registry without them takes the seed's,
    so existing bases answer as before. What stays in the code is listed in the contract, not denied.
 7. **The page**: filters for tag, type and origin beside the search that exists.
+8. **A note's kind from its name and folder before the keeper's reading.** *Built.* The reading had relabelled 268
+   of the bank's 1,677 notes, and a map by kind left models out. New for the setup of §4: check each kind prefix
+   against the readings, since a project's own code can be one (`inc-`).
+
+Two things the measurements changed. Characters are not the cost: a request carries about 35,000 tokens of harness
+whatever a tool returns, so the price is the number of requests, and a call may print a quarter more to save one.
+And the line to watch is the 100K prompt: the map of a whole kind is 38,000 characters, and one run with it reached
+92,000 tokens.
 
 ## 12. What was cut, and what would bring it back
 
@@ -325,6 +347,7 @@ A dropped note must not bring back the note it replaced (`drop` and the tombston
 
 1. Origins: `ORIGIN.md`, one function for a note's area, trust, readings that come along, the reports (§9).
 2. Retrieval for a cheap reader: the own note first, complete inputs, filters with a cap, the weak marker (§11).
+   Done in phase L but for the own note where no folder wins the call, and the tag filter.
 3. Pointers (§10).
 4. Packets: `dream --packets`, the budget, the lean command, `--dry-run` (§4). Readings in git.
 5. Tags from frontmatter and `TAGS.md`; walk words on registry lines.
@@ -342,7 +365,10 @@ A dropped note must not bring back the note it replaced (`drop` and the tombston
     repository like the readings.
 11. The decomposing writer with the gates (§5), as a block that can be left out.
 12. The agent eval, made able to answer point 14: at least 100 questions, two judge passes, the five arms. The Opus
-    arms are the only dear part, about $1.50 per ten questions with grep.
+    arms are the only dear part, about $1.50 per ten questions with grep. Phase L says what it must add to be worth
+    its cost: answers that can be scored exactly where possible, three runs a row, and a base on which grep is not
+    already exact (links no line states, one thing under two names, folders too large to read whole). On the bank
+    as it is, grep answers 37 of 37 linkage questions on both models and no memory can do better.
 
 **Later**, when a base needs it: anything in §12.
 
@@ -354,23 +380,25 @@ across origins), drop a note from the middle of a chain and drop an origin, chec
 
 | measure | v0.4 today | floor for v0.5 |
 |---|---|---|
-| gold notes headed on the bank, without and with the index | 0.939 / 0.941 | not lower |
-| characters a question on the bank | 2,359 / 2,599 | not higher by more than 1% |
+| gold notes headed on the bank, without and with the index | 0.939 / 0.941; after phase L 0.978 / 0.973 | 0.96, the gate's floor now |
+| characters a question on the bank | 2,359 / 2,599; after phase L 2,954 / 3,138 | the gate's 3,000 / 3,200. The first floor here was 1% over v0.4; phase L spent a quarter more on purpose (§11) |
 | ten questions in one call | 0.5 s | 0.5 s |
 | the own note headed when a question names an entity that has one | not measured; fails for recall@10 | 0.95 |
-| the inputs of an entity named in full | fails for `sfc-hier-v3` in every arm | 0.95 |
-| a set by filter | 0.47 by question | the whole set, by construction |
+| the inputs of an entity named in full | fails for `sfc-hier-v3` in every arm; after phase L the call prints all 17, and Haiku names the first four | 0.95 |
+| a set by filter | 0.47 by question; after phase L Haiku answers 37 of 37 set questions exactly with the map | the whole set, by construction |
 | after `drop` | the chain cut; a crash on a big memory | the chain holds; no crash; nothing derived left |
 | the host's answers changed by an absorb | 21 of 326 | 0 until something is joined |
 | an absorbed base's preference notes | lose their kind (0 of 2 kept) | keep their kind (2 of 2) and are never served as the host's own |
 | pointers checked | none | every pointer has a state |
 | dream, 1,677 notes with their readings | 0.85 s | 1 s |
-| Haiku with the memory against Opus with grep (step 2) | 120 times cheaper, 8 times faster, 23 correct against 29 | as cheap; correct within the judge's own spread on 100 questions |
+| Haiku with the memory against Opus with grep (step 2) | 120 times cheaper, 8 times faster, 23 correct against 29; after phase L 107 times and 7.9 times, 25 against 29, and the same exact answers on 37 linkage questions at 35 to 46 times cheaper | as cheap; correct within the judge's own spread on 100 questions |
 | proposals that are the same thing (step 2) | 14 of 87 | half |
 
 The 40 checks, the three retrieval gates and the stability eval stay. The only new test is this run.
 
 ## 15. What is needed from the owner
+
+Answered on 2026-11-11: every recommendation below is taken (items 1 to 7). Item 8 is still open.
 
 1. **What "downstream" means** (§8): made-from goes, built-on stays and says so. Say if built-on should go too.
 2. **Readings in git** (`memory/_dream/notes/`), so a clone builds the same graph without paying a keeper.

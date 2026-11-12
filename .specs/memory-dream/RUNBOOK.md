@@ -95,9 +95,10 @@ exactly as relation labels are.
 - Lineage between notes (`from:`, `supersedes:`, and note ids written in a body) is not a relation:
   it needs no model and no vocabulary.
 - Kinds need no model either: frontmatter `type:` wins (Claude Code's user/feedback/project/reference
-  count as preference/rule/note/note), then the dreamer's kind, then the filename prefix (`exp- feat- ds-
-  dec- fnd- q- metric-`; `…-vN` is a model), then the area (`prefs/` preference, `glossary/` term,
-  `corrections/` correction, `reporting/` and `howto/` rule). `modified:` serves as the date when
+  count as preference/rule/note/note), then a prefix in the first or second part of the filename (`exp- feat- ds-
+  dec- fnd- q- metric-`), then the area (`prefs/` preference, `glossary/` term,
+  `corrections/` correction, `reporting/` and `howto/` rule), then `…-vN` is a model, and only then the dreamer's
+  kind: the name and the folder a writer chose come before a reading. `modified:` serves as the date when
   `updated:` is absent.
 
 ## Dream (index new or changed notes)
