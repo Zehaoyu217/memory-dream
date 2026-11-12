@@ -171,7 +171,9 @@ a handoff was $0.0055; ten answered questions $0.013. What packets save on the r
 Built in phase P, with one number changed by a measurement. A packet is not sized by its prompt alone. A reading is
 3.2 times its note on the bank, so a 60,000-token prompt of short notes would ask for 135,000 tokens back: the
 answer's room fills first. A packet closes at 12,000 characters of notes or 60,000 tokens of prompt, whichever
-comes first, which is about 25 of the bank's notes and a prompt of 6,000 tokens. By the dry run the bank is 67
+comes first, which is about 25 of the bank's notes and a prompt of 6,000 tokens. (Phase S, with a model: two dozen
+notes a call read thinner, a dozen read as much as a single call and place more lineage at 0.6 of the price, so the
+limit is 6,000 characters now.) By the dry run the bank is 67
 packets in place of 1,677 calls, a tenth of the input, and $0.39 against $0.72 before what a command adds to each
 call; the answers are nine tenths of what is left. A packet's answer is one line a note, so a cut-off answer loses
 one note. The lean command existed already (`tests/haiku_cmd.py`, and the one-line `MEMORY_LLM` of the runbook).
@@ -254,6 +256,19 @@ v0.5:
 
 A card is about 120 tokens, so every entity of the bank is two packets and a few cents. A verdict per item was cut
 from the first draft as too heavy; at a fortieth of the price per token it is the simple choice.
+
+Built in phase S, in part. The string ratio is out of the script (item 1, second half): on the bank it had offered 46
+pairs, 5 of them one thing. Items 3 to 5 are the curator: a folder's things on one page, each with its written forms
+and a line that mentions it; an answer that names the ones that are one thing, with a reason; a line of `ALIASES.md`
+signed `by: curator`. The cards are a folder's, not a packet of the whole base, because the first run showed what a
+reader of one folder must not do: two projects call two models "the response model", and each folder's curator
+joined the name to its own. The script now refuses a join of a name that other folders use, of a thing whose note
+is elsewhere, and any line that would hold two things with notes. Note identity (item 2's "a note that gives one
+entity another's name") is read by the keeper itself, which is given the folder's notes by file name. Still as in
+v0.4: the rule that joins an id to the one thing that writes it as a spelling (item 1, first half), raw link words
+mapped only over the bar (item 6), conflicts proposed from shared title words (item 7), and nothing qualifies a
+name by its folder (item 5, last clause). The curator does not move retrieval on the bank: 0.811, 0.814 and 0.809
+on the gate's 719 name questions with the old lines, with none and with its own.
 
 ## 8. Dropping
 
@@ -403,9 +418,11 @@ A dropped note must not bring back the note it replaced (`drop` and the tombston
 
 9. Read the bank again in packets on Haiku 5.5: cost and yield against the readings on file. Two loose ends of
    the handoff need this re-read and go with it: note kinds named as entity types (item 6) and the pool of calls
-   fed continuously (item 7).
+   fed continuously (item 7). *Done for a 300-note sample and for the worn bank: RESULTS phase S (S1, S3).* The two
+   loose ends are still loose.
 10. Cards, the resolver and the curator (§7); the alias gate is re-based on their decision lines, kept in the
-    repository like the readings.
+    repository like the readings. *The curator is built and measured (RESULTS S4); §7 says what is left.* The gate
+    was not re-based: its score is the same with any set of lines.
 11. The decomposing writer with the gates (§5), as a block that can be left out.
 12. The agent eval, made able to answer point 14: at least 100 questions, two judge passes, the five arms. The Opus
     arms are the only dear part, about $1.50 per ten questions with grep. Phase L says what it must add to be worth

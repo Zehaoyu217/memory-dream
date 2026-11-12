@@ -406,7 +406,8 @@ built_on and replaces are about this note itself, the document. built_on: one it
 builds on, starts from, takes as an input or a basis, or follows from; a sentence that names three ("Builds on A, B
 and the C dataset") gives three items with the same quote. replaces: only what this note, or the thing it is named
 after, itself replaces or retires ("Replaces X."); that one thing replaced another ("v3 replaces v2", in a note that
-is neither) is a relation and not this. `what` is the file name of the note meant, without .md, whenever FOLDER
+is neither) is a relation and not this, and what replaced this note ("Superseded by X", "Replaced by X") is the
+opposite of it: leave that out. `what` is the file name of the note meant, without .md, whenever FOLDER
 lists it, however the text words it ("the dispositions dataset" is the note about that dataset); else its id in
 KNOWN, or the id you gave it under entities.
 KINDS: {kinds}
@@ -1585,8 +1586,8 @@ def lineage_as_read(root, notes, aux, edges, ents, cmap, own):
     reading, each with the note's own words. What an item names is looked up as a note (a path, or an id, in the
     note's own folder first), then through the things' names (the home note of the thing). It becomes a `from` or
     `supersedes` edge marked `by: "reading"`; a line of frontmatter or of CONFLICTS.md that already says it, or says
-    otherwise (`compatible: a / b`, the reverse replacement), wins, and a replacement is taken only between two notes
-    of one kind. -> (notes, edges, counts); the inputs are not
+    otherwise (`compatible: a / b`, the reverse replacement), wins. A replacement is not taken from a note older than
+    the one it names, nor from a note of another kind when a note of the replaced note's own kind says it too. -> (notes, edges, counts); the inputs are not
     changed, because the note half of a graph is reused across rebuilds."""
     if not any((aux[rel]["x"] or {}).get(f) for rel in notes for f in ("built_on", "replaces")):
         return notes, edges, {}
@@ -1610,7 +1611,7 @@ def lineage_as_read(root, notes, aux, edges, ents, cmap, own):
         e = cmap.get(fold(own(src, what)))
         return ents[e]["home"] if e and e in ents else None
 
-    promoted = set()
+    promoted, claims = set(), []
     for rel in sorted(notes):
         x = aux[rel]["x"] or {}
         for field, kind in (("built_on", "from"), ("replaces", "supersedes")):
@@ -1618,23 +1619,43 @@ def lineage_as_read(root, notes, aux, edges, ents, cmap, own):
                 dst = note_of(b["what"], rel)
                 if not dst or dst == rel:
                     st["lineage_read_unplaced"] += 1
-                    continue
-                if (rel, dst, kind) in have:
+                elif (rel, dst, kind) in have:
                     st["lineage_read_already_written"] += 1
-                    continue
-                if kind == "supersedes" and (frozenset((rel, dst)) in compat or (dst, rel, "supersedes") in have):
-                    continue
-                # a note replaces a note of its own kind: a decision that says "v3 replaces v2" does not itself replace
-                # the model v2 (the pilot of phase S: 6 of 12 wrong edges were of this sort). What it says stays a mention.
-                if kind == "supersedes" and family(notes[rel]["kind"]) != family(notes[dst]["kind"]):
-                    st["lineage_read_other_kind"] += 1
-                    continue
-                have.add((rel, dst, kind))
-                promoted.add((rel, dst))
-                edges.append({"src": rel, "dst": dst, "rel": kind, "by": "reading"})
-                st["lineage_read"] += 1
-                if kind == "supersedes":
-                    notes[dst] = {**notes[dst], "superseded_by": notes[dst]["superseded_by"] + [rel]}
+                elif kind == "from":
+                    have.add((rel, dst, kind))
+                    promoted.add((rel, dst))
+                    edges.append({"src": rel, "dst": dst, "rel": kind, "by": "reading"})
+                    st["lineage_read"] += 1
+                elif frozenset((rel, dst)) in compat or (dst, rel, "supersedes") in have:
+                    pass  # a person's line, or a line of frontmatter, says otherwise
+                elif notes[rel]["updated"] < notes[dst]["updated"]:
+                    st["lineage_read_older"] += 1  # a note does not replace a newer one: "Superseded by X", read the wrong way round
+                else:
+                    claims.append((rel, dst))
+    # Who replaces a note, when more than one note says it does. Measured on the worn bank (RESULTS phase S): a
+    # decision that says "v3 replaces v2" is read as replacing the model v2, which the model v3 already says it does
+    # (14 such, all wrong), while a correction that replaces a glossary term has no rival of the term's kind (34, all
+    # right). So a note of the replaced note's own kind is believed before a note of another kind, and two notes that
+    # each claim to replace the other are believed neither.
+    fam = lambda q: family(notes[q]["kind"])  # noqa: E731
+    said = defaultdict(set)
+    for s_, d, r in have:
+        if r == "supersedes":
+            said[d].add(s_)
+    for src, dst in claims:
+        said[dst].add(src)
+    pairs = set(claims)
+    for src, dst in sorted(claims):
+        if (dst, src) in pairs:
+            st["lineage_read_both_ways"] += 1
+        elif fam(src) != fam(dst) and any(fam(q) == fam(dst) for q in said[dst]):
+            st["lineage_read_other_kind"] += 1
+        else:
+            have.add((src, dst, "supersedes"))
+            promoted.add((src, dst))
+            edges.append({"src": src, "dst": dst, "rel": "supersedes", "by": "reading"})
+            st["lineage_read"] += 1
+            notes[dst] = {**notes[dst], "superseded_by": notes[dst]["superseded_by"] + [src]}
     edges = [e for e in edges if not (e["rel"] == "refs" and (e["src"], e["dst"]) in promoted)]  # a mention that is lineage is said once
     return notes, edges, dict(st)
 
