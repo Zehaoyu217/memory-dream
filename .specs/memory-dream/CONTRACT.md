@@ -36,15 +36,24 @@ Produced by `build()`, written as `_dream/graph.json` (≤ `MEMORY_WIDE` notes) 
 | `dropped` | list, optional | what `drop` recorded: `{path, date, replaced, built_on_by, left_newest}` (below) |
 | `pointers` | object, optional | `{note path: [pointer]}`: what the notes point at in the project's files (below) |
 
-**pointer** — `{to, path, line, quote, symbol, text, state, now}`. A note's text points into a file as
+**pointer** — `{to, path, line, quote, symbol, text, state, now, of, form}`. A note's text points into a file as
 `path#symbol`, `path:line "quoted words"` or `path:line`; `to` is the path as written and `path` the file it is,
 from the project's root (the repository around the memory, or `$MEMORY_CODE`): a name with no folder is the one file
 of that name. Only what is a file of the project at a dream is a pointer; a ratio or a host and its port is not.
 `state`: `intact` · `moved` (`now` is the line) · `changed` (the file is there; the symbol is not defined in it, or
-the words are on no line) · `gone` (the file is not). A symbol is looked for as a definition; quoted words on a
-line, spaces aside; a bare line by the whole text of the line it named when first seen (`text`), which is all that
-holds it. The list is in `manifest.json` too, with `psig`, a signature of the files named: a dream with nothing else
-new still runs when one of them changed. `ask` looks every pointer of the notes it prints up again.
+the words are on no line) · `gone` (the file is not).
+- A symbol is looked for as a definition, form by form, and the first form found anywhere in the file decides: a
+  keyword before the name (`def`, `class`, `function`, `fn`, `func`, `struct`, `const` and their kin), a block that
+  opens (`render() {`), an assignment at the start of a line, a key at the start of a line. A call is no form.
+  `form` is the one it was first found by, and a weaker one is not taken later. `Class.method` finds the class, then
+  the method after it. `of`: how many lines define the name; `now` is the first.
+- Quoted words are looked for on a line, runs of spaces aside, case kept, and never inside a longer word. No longer
+  on their line and on several others, a line that begins with them comes before one that mentions them, then the
+  nearest; `of` is how many lines hold them.
+- A bare line is held by the whole text of the line it named when a dream first saw it (`text`), and by nothing else.
+
+The list is in `manifest.json` too, with `psig`, a signature of the files named: a dream with nothing else new still
+runs when one of them changed. `ask` looks every pointer of the notes it prints up again.
 
 **dropped** — one entry per `dropped:` line of `CONFLICTS.md`, and one per dropped note inside a dropped folder that
 a note still names. `path`: the note, or the folder with a closing `/`; never a note that exists. `replaced`: what
@@ -85,7 +94,8 @@ unique note anywhere.
   with counts; `home`: the note whose id is this entity's id, or null; `headline`: the best live note mentioning it
   (title-line mention, then finding/decision, then the latest date, then the first by path: never the file's
   modification time, which a clone does not keep), or null; `mentions`: `[{path, lines}]` sorted by path.
-- Kept only with a home note, ≥ 2 mentioning notes, or an `ALIASES.md` line; file-like ids are dropped.
+- Kept only with a home note, ≥ 2 mentioning notes, or an `ALIASES.md` line. A name on the `drop-names:` line of
+  `TYPES.md` is never an entity, whatever its type (the seed's line: files and notebooks).
 
 **relation** — `{s, type, o, evidence}`; `s`, `o` are entity ids; `type` is a vocabulary type from `EDGES.md` (incl.
 packs and `(proposed …)` types) **or** `other/<label>` with the label folded (lowercase, `-` joined); `evidence`:
@@ -182,7 +192,9 @@ note of this kind built on a question answers it), `not: …`.
 
 `TYPES.md` (types of thing): `promote: U uses, N notes, A areas` · `budget: B` · `probation: D days` · `pack: research,
 ops` · type lines with `aka: a, b` (the dreamer's words read as this type), `family: parent`, `not: …` · `drop: a, b`
-(words that are never things). A thing typed outside the file keeps its word as `other/<word>`; words over the bar are
+(words that are never things) · `drop-names: *.py, nb-*, …` (names that are never things whatever their type; `*`
+stands for anything; a file without the line takes the seed's, files and notebooks; a line with nothing after the
+colon keeps every name, for a base about code). A thing typed outside the file keeps its word as `other/<word>`; words over the bar are
 offered to the review, which may alias them onto a type, admit a new type (with `| family: F`) within the budget, keep
 the word, or drop it; a proposed type still under the bar after the probation is demoted to a word.
 

@@ -135,15 +135,24 @@ changes no answer the host gave before.
 `path#symbol` · `path:line "quoted words"` · `path:line` (taken, and reported as weak). States: intact · moved (the
 new line is printed) · changed · gone. A note with a changed or gone pointer is shown as stale (`C16`).
 
+Built in phase O, inside schema 1, and written into `CONTRACT.md` §1 (`pointers`). Three things differ from this
+draft. The anchor is not a file beside the reading (§3): a pointer's record, with the text a bare line stood on, is
+in the graph and in the manifest, since a reading belongs to a note's text and a pointer's state to a file that
+changes without it. `ask` looks every pointer up again, so no dream stands between an edit and a right line. And a
+symbol has a rule the draft did not have: it is looked for as a definition form by form, the form it was first found
+by is kept, and a call or a weaker form is never taken for it.
+
 ## 9. The graph
 
-`schema: 2`. Added: on a note `tags`, `source`, `origin`, `pointers` `[{to, line, state}]`; at the top `dropped`
-`[{path, date, replaced, built_on_by, left_newest}]` (already there in schema 1 since phase M). `project` stays the first folder for a host note and becomes
-`<origin>/<area>` under an origin. New warnings: `C14`, `C15`, `C16`.
+`schema: 2`. Added: on a note `tags`, `source`, `origin`; at the top `dropped`
+`[{path, date, replaced, built_on_by, left_newest}]` and `pointers` `{note: [{to, path, line, quote, symbol, state,
+now}]}` (both there in schema 1 already, since phases M and O). `project` stays the first folder for a host note and
+becomes `<origin>/<area>` under an origin. New warnings: `C14`, `C15`, `C16`.
 
 ## 10. Words of one field that stay in the code
 
-Schema 2 moves the walk's words and the "a file is not an entity" rule onto registry lines. These stay, and a base
+Schema 2 moves the walk's words and the "a file is not an entity" rule onto registry lines (the second is done:
+the `drop-names:` line of `TYPES.md`, phase O). These stay, and a base
 in another field should know them: the question words for intent and the artefact words that mark a task
 (`INTENT`, `SYN`, `ART`), the stop words of the conflict proposer, the kinds preferred for a headline (finding,
 decision), the kinds the digest leads with (decision, model), the `…-vN is a model` rule as a fallback, and the

@@ -148,6 +148,11 @@ def pointing(w):
     out = w.run("ask", q)
     w.ok("the file grew by two lines: every pointer says where it is now, with no dream in between",
          "#load · at line 6" in out and '"LIMIT = 10" · now at line 10' in out and "app.py:11 · now at line 13" in out, out)
+    code.write_text("load('warm-up')\nNOTE = 'the cap is LIMIT = 10'\n" + CODE)
+    out = w.run("ask", q)
+    w.ok("a call above the function and a mention of the words above the line: the symbol is found where it is defined, "
+         "the words where a line begins with them, and that line is said to be one of two",
+         "#load · at line 6" in out and '"LIMIT = 10" · now at line 10, one of 2 lines with those words' in out, out)
     code.write_text(("# a header\n# of two lines\n" + CODE).replace("LIMIT = 10", "LIMIT = 20").replace("def load(", "def read_all("))
     out = w.run("ask", q)
     w.ok("the words and the symbol changed: the note is marked stale and says which pointers no longer hold",

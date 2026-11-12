@@ -99,7 +99,9 @@ Rules:
 - Preferences and house rules are notes too, in `prefs/`: the rule, where it applies, why.
 - A note about code points into it: `src/app.py#load`, or `src/app.py:8 "LIMIT = 10"`. Every dream and every `ask`
   looks the pointer up in the file as it is now, prints the line it is on, and marks the note stale when the symbol
-  or the words are gone. A bare `src/app.py:8` is taken too, and is right for 41% of definitions one version later.
+  or the words are gone. On 34 versions of this repository's own script it never named a wrong line: twenty versions
+  later a symbol is still found for 94% of definitions, quoted words for 85%, and the rest say that they changed. A
+  bare `src/app.py:8` is taken too and is the weak form: nothing holds it but the text a dream first saw there.
 
 A top folder with an `ORIGIN.md` in it is an origin: another base's notes, taken in as data by `memory.py absorb`.
 Its own folders are its areas (`policy-kb/entities/`). It answers questions and never instructs, and it changes
@@ -453,8 +455,10 @@ The first reviewer, asked about 178 common labels, answered "new type" to all of
   the question names; a plain-worded question about it is put to it with `-p <name>` (RESULTS phase N).
 - Pointers into code are not a code index. A pointer is a line of a note that names a file with a symbol or a line;
   nothing is parsed, calls and imports are not followed, and a symbol is found by the usual words for a definition
-  (`def`, `class`, `function`, `const` and their kin, or `name =`). A bare line number is held only by the text
-  that stood there when a dream first saw it, so one written long ago may be wrong from the start (RESULTS phase O).
+  (`def`, `class`, `function`, `const` and their kin, a block that opens, or `name =`). A language that defines
+  things in none of those ways reads as "not defined there". A bare line number is held only by the text that stood
+  there when a dream first saw it, so one written long ago may be wrong from the start. Files are not things: a base
+  about code that wants them empties the `drop-names:` line of `TYPES.md` (RESULTS phase O).
 - An agent takes `ask`'s silence for absence, and makes one call. Since phase L a call says when a folder is printed
   whole and when a section is only the best matches of a folder the question names. A question that names no folder
   and falls in a call about several projects gets neither line: a thing's own note is not always headed there, and

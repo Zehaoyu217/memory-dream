@@ -284,8 +284,13 @@ Open, in the order I would take them:
    `memory.py absorb <folder> --as <name> [--trust preferences] [--yes]` takes one in with its readings or its
    `relations.jsonl`. It stays apart: 0 of the host's 326 answers change, its notes follow in a block of their own,
    its things are `<name>:<id>` until a line of ALIASES.md joins them. `eval/origin_probe.py` is new.
-   The rest of step 1: pointers, packets and `--dry-run`, tags, the setup section of the skill, the page's filters;
-   each adds its lines to `tests/e2e.py`.
+   Item 3, pointers into code, is done too (RESULTS phase O, 2026-11-12): `path#symbol`, `path:line "words"` and
+   `path:line` are looked up at every dream and every `ask`, a note whose pointer no longer holds is marked STALE
+   (C16), and `eval/pointer_probe.py --built` scores the lookup on this repository's history: no wrong line in any
+   form, after it found 12 of 209 symbols on a wrong line in the first build. The rule that a file is never a thing
+   is the `drop-names:` line of TYPES.md now.
+   The rest of step 1: packets and `--dry-run`, tags, the setup section of the skill, the page's filters; each adds
+   its lines to `tests/e2e.py`.
 3. Small things this phase found and left: the own note of a thing when no folder wins the call (C-h1 Q6 is served
    only because its folder is printed whole); a check of each kind prefix against the readings at setup (`inc-`);
    `(weak match: … found nowhere in memory)` says "memory" when the search was scoped to one folder; "built directly

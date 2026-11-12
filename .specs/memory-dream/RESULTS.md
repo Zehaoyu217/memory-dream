@@ -1,25 +1,87 @@
 # memory-dream v0.4 — results
 
-2026-10-30 (round 4: 2026-10-31; phase I: 2026-11-02; phases J to O: 2026-11-11) · built from the "Memory" email spec (`build-spec.md`) · macOS, Python 3.9.6, Claude Code 2.1.314.
+2026-10-30 (round 4: 2026-10-31; phase I: 2026-11-02; phases J to N: 2026-11-11; phase O on: 2026-11-12) · built from the "Memory" email spec (`build-spec.md`) · macOS, Python 3.9.6, Claude Code 2.1.314.
 
-# Phase O (2026-11-11) — step 1, item 3: pointers into code (short: written at the end of a session)
+# Phase O (2026-11-11 and 12) — step 1, item 3: pointers into code
 
 A note about code points into it as `path#symbol`, `path:line "quoted words"` or `path:line` (`PLAN.md` §10,
 `CONTRACT.md` §1). Every dream looks each pointer up in the project's files, and `ask` looks up again the pointers of
 the notes it prints, so the line it shows is today's. States: intact, moved (with the new line), changed, gone; `C16`
 for the last two, and the note's header says `STALE`. A name that was never a file of the project is not a pointer.
+No model is involved.
 
-- `tests/e2e.py`, five lines on each read path: three pointers found (a ratio and a host with a port are not);
-  the file grows by two lines and all three say where they are now with no dream in between; the symbol is renamed
-  and the quoted words edited, and the note is marked stale; the next dream reports `C16×2`; the file is deleted and
-  all three say so. 34 and 33 lines in all, acceptance 40 of 40, the three gates unchanged.
-- On this repository's own twelve documents there are three pointers. The plan's example `memory.py:2440` was
-  written when `grep_lines` stood on that line; today line 2440 is another function's `return`, and a bare line
-  first seen today is held by that text. `memory.py#grep_lines` is found at line 3069. That is K3's number (a bare
-  line is right for 41% of definitions one version later) seen once in the wild, and why `ask` calls a bare line weak.
+```bash
+python3 eval/pointer_probe.py --built     # the lookup that ships, scored on this repository's own history
+python3 tests/e2e.py                      # six lines on each read path
+```
 
-Not done: this section's own probe and a fuller write-up; `PLAN.md`, `CONTRACT-2.md` and `HANDOFF.md` do not yet say
-pointers are built; the rule that a file is never a thing still lives in the code, not in `TYPES.md`.
+## O1 — the lookup scored on 34 versions of one file
+
+K3 asked how long a pointer stays right. This asks what the lookup says when it does not. Every definition of
+`memory.py` whose name is defined once in an old version is pointed at in the three forms a note can use. The
+pointers are seen once with the old file in place, as a dream would see them, and looked up with today's file in
+place, as `ask` does. Each answer is compared with where that definition is today.
+
+| versions back | pointers | by symbol: right line · gone, said | by quoted words: right · gone · edited | by a bare line: right · gone · edited | a wrong line, any form |
+|---|---|---|---|---|---|
+| 1 | 209 | 100% · 0% | 100% · 0% · 0% | 100% · 0% · 0% | 0 |
+| 2 | 198 | 99% · 1% | 98% · 1% · 1% | 97% · 1% · 2% | 0 |
+| 5 | 181 | 99% · 1% | 98% · 1% · 1% | 97% · 1% · 2% | 0 |
+| 10 | 158 | 94% · 6% | 90% · 6% · 4% | 87% · 6% · 6% | 0 |
+| 20 | 119 | 94% · 6% | 85% · 6% · 9% | 80% · 6% · 14% | 0 |
+| 33, the first | 75 | 71% · 29% | 53% · 29% · 17% | 47% · 29% · 24% | 0 |
+
+"Gone, said": the definition no longer exists and the pointer says changed. "Edited, said": the definition exists,
+its line was edited, and the pointer says its words are not there.
+
+- **No form names a wrong line.** A pointer that cannot be found says so and its note is marked stale. That is the
+  whole promise: the next step after a pointer is one read of the right lines, or a search the note asked for.
+- **A symbol outlives edits to its line.** Twenty versions later it is found for 94% of definitions, quoted words
+  for 85%, a bare line for 80%. The skill says: point with the symbol.
+- **A bare line that a dream saw in time is not the 41% of K3.** K3 took a line number with nothing else; the build
+  keeps the text that stood on the line when a dream first saw it, and finds that text again (100% one version
+  later, 97% five). What stays weak is a bare line written against an older file than the first dream saw: the
+  plan's own example `memory.py:2440` was written when `grep_lines` stood there, and today that line is another
+  function's `return`.
+
+## O2 — what the probe found in the first build
+
+As pushed first (commit e523219) the lookup put 12 of 209 symbols on a wrong line one version back, 5% to 7% at
+every distance, and called them intact. One pattern stood for a definition, it also took `name(` and `name =` at the
+start of a line, and the first match in the file won. So `#write_viz` named a call of `write_viz`, `#names` a local
+variable in another function, and `#drop` the `drop:` line of a registry seed. Quoted words were looked for as part
+of a line: `STOP = set(` was found in `CONFLICT_STOP = set(` at line 141 where the definition is at line 3,004.
+Three changes, all exact:
+
+- **A definition is looked for form by form.** A keyword before the name, then a block that opens, then an
+  assignment at the start of a line, then a key. The first form found anywhere in the file decides. A call is no
+  form.
+- **The form a symbol was first found by is kept with the pointer**, and a weaker one is not taken later. A
+  `def keep(` that was deleted is not found again as a local `keep = …` (5 of 75 at the first version, before).
+- **Quoted words are not found inside a longer word.** No longer on their line and on several others, a line that
+  begins with them comes before one that mentions them, then the nearest, and `ask` says `one of N lines with those
+  words`. A name defined more than once says `the first of N definitions of that name`; `path#Class.method` names
+  one of them.
+
+## O3 — the rest
+
+- `tests/e2e.py`, six lines on each read path: three pointers found (a ratio and a host with a port are not); the
+  file grows by two lines and all three say where they are now with no dream in between; a call above the function
+  and a mention of the words above the line, and the symbol is found where it is defined; the symbol is renamed and
+  the words edited, and the note is marked stale; the next dream reports `C16×2`; the file is deleted and all three
+  say so. 35 and 34 lines in all.
+- **The rule that a file is never a thing left the code.** It is the `drop-names:` line of `TYPES.md` now: names
+  that are never things whatever their type, `*` for anything. A registry without the line takes the seed's (files
+  and notebooks); a base about code empties it. The pattern in the code had a dead half: it looked for `.py` at the
+  end of a folded id, and folding turns the dot into a dash, so only the notebook and script words ever matched. On
+  the bank no thing is named like a file. Three names that were dropped for being in one note are now counted as
+  file-like (5 → 8), and the things, the links and the checks are the same to the letter.
+- On this repository's own twelve documents there are three pointers, and `memory.py#grep_lines` is found.
+
+Unchanged: acceptance 40 of 40, the three retrieval gates to the digit.
+
+Not done: nothing parses code, so a language that defines things in none of the four forms reads as "not defined
+there"; the probe is one Python file's history; the page does not show pointers.
 
 # Phase N (2026-11-11) — step 1, first item: another base taken in, and kept apart
 

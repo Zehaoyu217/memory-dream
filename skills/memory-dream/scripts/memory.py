@@ -226,8 +226,10 @@ TYPES_SEED = """# TYPES — kinds of thing the notes name, read "X is a <type>".
 # thing with one of these or an alias; a thing of any other type keeps the dreamer's word, shown as other/<word>; a word
 # becomes a type only over the bar, through the review, within the budget; a (proposed <date>) type still under the bar
 # after the probation goes back to a word. `family:` groups types for the viewer and the shape check (C12); `drop:`
-# names words that are never things (grep finds files and numbers). Edit freely: a hand-written line is permanent
-# (0 model calls); `pack: research, ops` adds a domain's types. The seed covers data, analytics, software and finance.
+# names words that are never things (grep finds files and numbers), `drop-names:` names that are never things whatever
+# their type (`*` stands for anything; a base about code deletes what it wants kept). Edit freely: a hand-written line
+# is permanent (0 model calls); `pack: research, ops` adds a domain's types. The seed covers data, analytics, software
+# and finance.
 promote: 5 uses, 5 notes, 2 areas
 budget: 40
 probation: 60 days
@@ -259,6 +261,7 @@ probation: 60 days
 - test: a test suite, test case or benchmark named as a thing | aka: suite, test case, benchmark | family: system
 - issue: a ticket, issue or pull request named as a thing | aka: ticket, pr, pull request, bug report, merge request | family: document
 drop: number, date, file, notebook, note, line, page, link
+drop-names: *.py, *.sql, *.ipynb, *.csv, *.parquet, *.json, *.md, *notebook*, nb-*, *-script
 """
 TYPE_PACKS = {
     "research": """- paper: a paper or published result | aka: article, preprint | family: document
@@ -314,6 +317,16 @@ def domain_texts(root):
     return (read(k) if k.exists() else KINDS_SEED), (read(t) if t.exists() else TYPES_SEED)
 
 
+def name_drop(tt):
+    """The `drop-names:` line of TYPES.md as one pattern: names that are never things whatever a keeper typed them
+    (files and notebooks: grep finds them). A registry without the line takes the seed's, so a base made before the
+    line existed keeps its things; a line with nothing after the colon keeps every name, for a base about code."""
+    rx = r"^[ \t]*drop-names[ \t]*:(.*)$"
+    m = re.search(rx, tt, re.M | re.I) or re.search(rx, TYPES_SEED, re.M | re.I)
+    pats = [x.strip().lower() for x in m.group(1).split(",") if x.strip()]
+    return re.compile("|".join("(?:" + re.escape(x).replace(r"\*", ".*") + ")" for x in pats)) if pats else None
+
+
 def domain_from(kt, tt, et):
     """The module's domain tables from the three files' texts."""
     kc, tv, ev = parse_kinds(kt), parse_edges(tt, TYPE_PACKS), parse_edges(et)
@@ -328,7 +341,7 @@ def domain_from(kt, tt, et):
             "DIGEST_KINDS": {k for k, d in ks.items() if d["digest"]},
             "ANSWER_KINDS": {k for k, d in ks.items() if d["answers"]},
             "ROLE_OF": {k: d["role"] for k, d in ks.items()},
-            "TYPE_PARENT": tv[5]["family"], "SHAPES": {**SEED_SHAPES, **ev[5]["shape"]}}
+            "TYPE_PARENT": tv[5]["family"], "SHAPES": {**SEED_SHAPES, **ev[5]["shape"]}, "NAME_DROP": name_drop(tt)}
 
 
 def load_domain(root):
@@ -663,9 +676,46 @@ def fm_list(v):
 
 
 POINTER_WALK = 20000  # files looked through to find a pointer written by file name alone (`memory.py:2440`)
-DEFINES = (r"^\s*(?:(?:export|public|private|protected|static|async|pub|final|abstract)\s+)*"
-           r"(?:def|class|function|fn|func|struct|interface|type|enum|trait|impl|const|let|var|val|module|package)\s+{s}\b"
-           r"|^\s*{s}\s*(?::=|=|:|\()")
+# Where a symbol is defined, tried in this order; the first form found anywhere in the file decides, and a symbol is
+# never found later by a weaker form than the one it was first seen in. A call is never a definition:
+# `eval/pointer_probe.py --built` found 12 of 209 symbols of this file on the line of a call or of a local variable
+# of the same name when one pattern took whichever came first.
+DEFINES = (
+    r"^\s*(?:(?:export|default|public|private|protected|static|async|pub|final|abstract|override)\s+)*"   # 0: a keyword
+    r"(?:def|class|function\*?|fn|func(?:\s*\([^)]*\))?|struct|interface|type|enum|trait|impl|const|let|var|val|module|package)"
+    r"\s+{s}\s*(?:[(:=<{\[;]|$|(?:extends|implements|where|for|struct|interface)\b)",
+    r"^\s*(?:[\w<>\[\],.*&:~?]+\s+)*{s}\s*\([^;]*\{\s*$",   # 1: a block that opens: `render() {`, `static int parse(char *s) {`
+    r"^\s*{s}\s*(?::=|=(?!=))",                               # 2: an assignment at the start of a line
+    r"^\s*{s}\s*:(?!:)",                                      # 3: a key at the start of a line
+)
+
+
+def define_line(ls, symbol, weakest=None):
+    """(the line where a symbol is defined, how many lines define that name, the form it was found by) in a file's
+    lines; (None, 0, None) when none does. `Class.method` finds the class, then the method after it. `weakest`: the
+    form the symbol was first seen in, when known."""
+    at, n, k = 0, 0, None
+    parts = symbol.split(".")
+    for j, part in enumerate(parts):
+        hits = []
+        for k, form in enumerate(DEFINES[:len(DEFINES) if weakest is None or j < len(parts) - 1 else weakest + 1]):
+            rx = re.compile(form.replace("{s}", re.escape(part)))
+            hits = [i for i in range(at, len(ls)) if rx.search(ls[i])]
+            if hits:
+                break
+        if not hits:
+            return None, 0, None
+        at, n = hits[0] + 1, len(hits)
+    return at, n, k
+
+
+def words_rx(q):
+    """Quoted words as a pattern: found exactly, runs of spaces aside, and never inside a longer word (`STOP = set(`
+    is not found in `CONFLICT_STOP = set(`)."""
+    q = " ".join(q.split())
+    edge = lambda c: c.isalnum() or c == "_"  # noqa: E731
+    return re.compile((r"(?<!\w)" if edge(q[:1]) else "") + r"\s+".join(re.escape(w) for w in q.split(" "))
+                      + (r"(?!\w)" if edge(q[-1:]) else ""))
 
 
 def code_root(root):
@@ -723,16 +773,21 @@ def pointer_states(root, wanted, was):
             rec = {"to": p["to"], "path": path, "line": p.get("line"), "quote": p.get("quote"), "symbol": p.get("symbol"),
                    "text": prev.get("text"), "state": "gone", "now": None}
             if ls is not None and p.get("symbol"):
-                rx = re.compile(DEFINES.replace("{s}", re.escape(p["symbol"].split(".")[-1])))
-                rec["now"] = next((i for i, ln in enumerate(ls, 1) if rx.search(ln)), None)
+                rec["now"], rec["of"], form = define_line(ls, p["symbol"], prev.get("form"))
+                rec["form"] = prev.get("form") if form is None else form
                 rec["state"] = "intact" if rec["now"] else "changed"
             elif ls is not None:
                 at = p["line"]
                 if not p.get("quote") and rec["text"] is None:  # a bare line, first seen: keep the words it points at
                     rec["text"] = squash(ls[at - 1]) if 0 < at <= len(ls) else ""
                 want = squash(p.get("quote") or rec["text"] or "")
-                hits = [i for i, ln in enumerate(ls, 1) if want and (want in squash(ln) if p.get("quote") else want == squash(ln))]
-                rec["now"] = at if at in hits else min(hits, key=lambda i: (abs(i - at), i)) if hits else None
+                rx = words_rx(want) if want and p.get("quote") else None
+                hits = [i for i, ln in enumerate(ls, 1) if want and (rx.search(ln) if rx else want == squash(ln))]
+                # not on its own line any more and on several others: a line that begins with the words before one
+                # that only mentions them, then the nearest; `ask` says that it is one of several
+                lead = (lambda i: not rx.match(ls[i - 1].lstrip())) if rx else (lambda i: False)
+                rec["now"] = at if at in hits else min(hits, key=lambda i: (lead(i), abs(i - at), i)) if hits else None
+                rec["of"] = len(hits)
                 rec["state"] = "intact" if rec["now"] == at else "moved" if rec["now"] else "changed"
             res.append(rec)
             if rec["state"] in ("changed", "gone"):
@@ -854,7 +909,7 @@ def parse_edges(text, packs=None):
             continue
         m = re.match(r"-\s*([^:|]+?)\s*:\s*(.*)$", s)
         d = re.match(r"drop\s*:(.*)$", s, re.I)
-        if re.match(r"(mode|promote|budget|probation|pack|general)\s*:", s, re.I):  # settings: edges_cfg reads them
+        if re.match(r"(mode|promote|budget|probation|pack|general|drop-names)\s*:", s, re.I):  # settings: edges_cfg and name_drop read them
             continue
         if m:
             t = fold(PROPOSED_RX.sub("", m.group(1)))
@@ -1070,13 +1125,10 @@ def edit_aliases(text, a, b, same, lead=None):
 
 # ---------- merge ----------
 
-FILEISH = re.compile(r"\.(py|sql|ipynb|csv|parquet|json|md)$|notebook|^nb-|-script$")
-
-
 def merge_entities(occ, alines, nots, homes=None, stats=None):
     """Entity groups as one union-find: ALIASES lines, folded-id equality, the surface-form rule.
     An entity is kept when it has a home (a note whose slug is its id), is mentioned in >= 2 notes, or is
-    named in ALIASES.md; files and notebooks are not entities (grep finds them)."""
+    named in ALIASES.md; a name on the `drop-names:` line of TYPES.md is not an entity (files and notebooks: grep finds them)."""
     homes, st = homes or {}, stats if stats is not None else Counter()
     par, mem, explicit = {}, {}, set()
 
@@ -1163,7 +1215,7 @@ def merge_entities(occ, alines, nots, homes=None, stats=None):
         projects = Counter(area_of(p) for p in mm)
         home = min((h for k in ks for h in homes.get(k, [])), default=None,
                    key=lambda h: (-projects[area_of(h)], h))
-        if FILEISH.search(fold(c)):
+        if NAME_DROP and (NAME_DROP.fullmatch(c.lower()) or NAME_DROP.fullmatch(fold(c))):  # TYPES.md `drop-names:`
             st["dropped_file_like"] += 1
             continue
         if not (home or len(mm) >= 2 or led):
@@ -3223,8 +3275,10 @@ def ask(args, root):
         for r in pointers_of(path)[:4]:
             loc = f"#{r['symbol']}" if r.get("symbol") else f":{r['line']}" + (f' "{r["quote"]}"' if r.get("quote") else "")
             bare = not r.get("symbol") and not r.get("quote")  # held only by the words found there when first seen
-            now = {"intact": f"at line {r['now']}" if r.get("symbol") else "still there" + (" (a bare line: weak)" if bare else ""),
-                   "moved": f"now at line {r['now']}",
+            several = (r.get("of") or 0) > 1  # the name is defined, or the words stand, in more than one place
+            now = {"intact": (f"at line {r['now']}" + (f", the first of {r['of']} definitions of that name" if several else "")
+                              if r.get("symbol") else "still there" + (" (a bare line: weak)" if bare else "")),
+                   "moved": f"now at line {r['now']}" + (f", one of {r['of']} lines with those words" if several else ""),
                    "changed": "the symbol is not defined there now" if r.get("symbol") else "those words are not there now",
                    "gone": "the file is gone"}[r["state"]]
             out.append(f"  → {r.get('path') or r['to']}{loc} · {now}")

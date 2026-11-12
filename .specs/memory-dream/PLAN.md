@@ -9,11 +9,13 @@ below grep. That question was answered before anything else was built (RESULTS p
 items 2, 4 and 5 are in `ask`, item 1 in the case that was measured. §11 and §14 carry what the measurements
 changed. Step 0 is built (RESULTS phase M): `memory.py drop`, the tombstone, and an `ask` that survives a missing
 file; §8 says where the build went past the draft. Of step 1, item 1 is built (RESULTS phase N): origins and
-`memory.py absorb`; §9 says what it added to the draft. Items 3 to 7 are not started.
+`memory.py absorb`; §9 says what it added to the draft. Item 3 is built (RESULTS phase O): pointers into code; §10
+says what a probe on this repository's history changed. Items 4 to 7 are not started.
 
 The contract field by field is `CONTRACT-2.md`. Every number has a command, all without a model:
 `python3 eval/contract_probe.py <bank-index world>` (drop, absorb, documents, sets), `python3 eval/agent/arms.py`
-(the five arms), `python3 eval/pointer_probe.py`, `python3 eval/decompose_probe.py score …`. RESULTS phase K has them.
+(the five arms), `python3 eval/pointer_probe.py [--built]`, `python3 eval/decompose_probe.py score …`. RESULTS phase K
+has them.
 
 ## 1. What is asked
 
@@ -307,6 +309,14 @@ one real export of another system before that word is used.
   rule that a file is never an entity moves from the code to the `drop:` line of `TYPES.md`, so a base about code
   can keep files.
 
+Built in phase O as written, and then corrected by a measurement the draft did not ask for. The lookup was scored
+on 34 versions of this repository's script (`eval/pointer_probe.py --built`): as first built it put 12 of 209
+symbols on the line of a call or of a local variable and called them intact. A definition is now looked for form by
+form, a call is no form, and quoted words are not found inside a longer word. After that no pointer of any form
+names a wrong line at any distance: twenty versions later a symbol is found for 94% of definitions, quoted words for
+85%, a bare line for 80%, and the rest say that they changed. The file rule is its own line, `drop-names:`, beside
+`drop:`, because `drop:` lists types and this lists names.
+
 ## 11. Retrieval, for a cheap reader
 
 Each item names the case of §2 it answers. None adds a model to `ask`.
@@ -365,7 +375,7 @@ A dropped note must not bring back the note it replaced (`drop` and the tombston
    *Done: RESULTS phase N.*
 2. Retrieval for a cheap reader: the own note first, complete inputs, filters with a cap, the weak marker (§11).
    Done in phase L but for the own note where no folder wins the call, and the tag filter.
-3. Pointers (§10).
+3. Pointers (§10). *Done: RESULTS phase O.*
 4. Packets: `dream --packets`, the budget, the lean command, `--dry-run` (§4). Readings in git.
 5. Tags from frontmatter and `TAGS.md`; walk words on registry lines.
 6. The skill's setup section: look with your own tools, ask at most three questions, write `SETUP.md` and the
@@ -408,7 +418,7 @@ step 1 adds its lines.
 | after `drop` | the chain cut; a crash on a big memory; after phase M the chain holds, no crash, the reading gone, 5 of 5 notes built on it marked | the chain holds; no crash; nothing derived left |
 | the host's answers changed by an absorb | 21 of 326 (19 on the script of phase M); after phase N 0, with the origin's notes in a block of their own for 6 | 0 until something is joined |
 | an absorbed base's preference notes | lose their kind (0 of 2 kept); after phase N 2 of 2 kept, served to a host task only with `trust: preferences`, a `me-` note never | keep their kind (2 of 2) and are never served as the host's own |
-| pointers checked | none | every pointer has a state |
+| pointers checked | none; after phase O every pointer has a state, at each dream and each `ask`, and on 34 versions of one file none names a wrong line | every pointer has a state |
 | dream, 1,677 notes with their readings | 0.85 s | 1 s |
 | Haiku with the memory against Opus with grep (step 2) | 120 times cheaper, 8 times faster, 23 correct against 29; after phase L 107 times and 7.9 times, 25 against 29, and the same exact answers on 37 linkage questions at 35 to 46 times cheaper | as cheap; correct within the judge's own spread on 100 questions |
 | proposals that are the same thing (step 2) | 14 of 87 | half |

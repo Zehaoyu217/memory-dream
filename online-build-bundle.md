@@ -639,7 +639,7 @@ or to a fresh worker given the packet, at most twice. After that, it stops and r
 
 ## Appendix A — the contract surface, verbatim: `skills/memory-dream/SKILL.md` and the dreamer agent
 
-_Part 5 · copied at commit 1448b96. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
+_Part 5 · copied at commit e523219. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
 
 ```markdown
 ---
@@ -681,8 +681,9 @@ truth; everything else is derived and disposable. `memory.py` = `python3 <this s
    markdown, nothing about the memory system. Taste is said once, in passing ("no pie charts", "round to one decimal
    for the board"): save it then — `prefs/<first>-<last>-<topic>.md` (your user's own: `prefs/me-<topic>.md`): the rule,
    where it applies, why. When it changes, a new note with `supersedes:`. A note about code points into it with
-   `path#symbol` or `path:line "a few words of that line"`: `ask` then prints where that is now, and marks the note
-   STALE when it is no longer there. A bare `path:line` is wrong within one edit. A note that restates another note
+   `path#symbol` (`path#Class.method` when the name is used twice) or `path:line "a few words of that line"`: `ask`
+   then prints where that is now, and marks the note STALE when it is no longer there. A bare `path:line` is wrong
+   within one edit. A note that restates another note
    or a document says so: `source: [path]`. To take a note out altogether (a mistake, wrong material, a request to forget
    it): `memory.py drop <note or folder>` prints what goes with it and `--yes` does it. Never delete a note's file by
    hand: the note it had replaced would read as current again. Notes built on a dropped note stay and say so; notes
@@ -741,7 +742,7 @@ Touch nothing else.
 
 ## Appendix B — the graph contract, verbatim: `.specs/memory-dream/CONTRACT.md`
 
-_Part 6 · copied at commit 1448b96. Schema 1; `memory.py check` validates against it (A38)._
+_Part 6 · copied at commit e523219. Schema 1; `memory.py check` validates against it (A38)._
 
 ## memory-dream — the graph contract (schema 1)
 
@@ -781,15 +782,24 @@ Produced by `build()`, written as `_dream/graph.json` (≤ `MEMORY_WIDE` notes) 
 | `dropped` | list, optional | what `drop` recorded: `{path, date, replaced, built_on_by, left_newest}` (below) |
 | `pointers` | object, optional | `{note path: [pointer]}`: what the notes point at in the project's files (below) |
 
-**pointer** — `{to, path, line, quote, symbol, text, state, now}`. A note's text points into a file as
+**pointer** — `{to, path, line, quote, symbol, text, state, now, of, form}`. A note's text points into a file as
 `path#symbol`, `path:line "quoted words"` or `path:line`; `to` is the path as written and `path` the file it is,
 from the project's root (the repository around the memory, or `$MEMORY_CODE`): a name with no folder is the one file
 of that name. Only what is a file of the project at a dream is a pointer; a ratio or a host and its port is not.
 `state`: `intact` · `moved` (`now` is the line) · `changed` (the file is there; the symbol is not defined in it, or
-the words are on no line) · `gone` (the file is not). A symbol is looked for as a definition; quoted words on a
-line, spaces aside; a bare line by the whole text of the line it named when first seen (`text`), which is all that
-holds it. The list is in `manifest.json` too, with `psig`, a signature of the files named: a dream with nothing else
-new still runs when one of them changed. `ask` looks every pointer of the notes it prints up again.
+the words are on no line) · `gone` (the file is not).
+- A symbol is looked for as a definition, form by form, and the first form found anywhere in the file decides: a
+  keyword before the name (`def`, `class`, `function`, `fn`, `func`, `struct`, `const` and their kin), a block that
+  opens (`render() {`), an assignment at the start of a line, a key at the start of a line. A call is no form.
+  `form` is the one it was first found by, and a weaker one is not taken later. `Class.method` finds the class, then
+  the method after it. `of`: how many lines define the name; `now` is the first.
+- Quoted words are looked for on a line, runs of spaces aside, case kept, and never inside a longer word. No longer
+  on their line and on several others, a line that begins with them comes before one that mentions them, then the
+  nearest; `of` is how many lines hold them.
+- A bare line is held by the whole text of the line it named when a dream first saw it (`text`), and by nothing else.
+
+The list is in `manifest.json` too, with `psig`, a signature of the files named: a dream with nothing else new still
+runs when one of them changed. `ask` looks every pointer of the notes it prints up again.
 
 **dropped** — one entry per `dropped:` line of `CONFLICTS.md`, and one per dropped note inside a dropped folder that
 a note still names. `path`: the note, or the folder with a closing `/`; never a note that exists. `replaced`: what
@@ -830,7 +840,8 @@ unique note anywhere.
   with counts; `home`: the note whose id is this entity's id, or null; `headline`: the best live note mentioning it
   (title-line mention, then finding/decision, then the latest date, then the first by path: never the file's
   modification time, which a clone does not keep), or null; `mentions`: `[{path, lines}]` sorted by path.
-- Kept only with a home note, ≥ 2 mentioning notes, or an `ALIASES.md` line; file-like ids are dropped.
+- Kept only with a home note, ≥ 2 mentioning notes, or an `ALIASES.md` line. A name on the `drop-names:` line of
+  `TYPES.md` is never an entity, whatever its type (the seed's line: files and notebooks).
 
 **relation** — `{s, type, o, evidence}`; `s`, `o` are entity ids; `type` is a vocabulary type from `EDGES.md` (incl.
 packs and `(proposed …)` types) **or** `other/<label>` with the label folded (lowercase, `-` joined); `evidence`:
@@ -927,7 +938,9 @@ note of this kind built on a question answers it), `not: …`.
 
 `TYPES.md` (types of thing): `promote: U uses, N notes, A areas` · `budget: B` · `probation: D days` · `pack: research,
 ops` · type lines with `aka: a, b` (the dreamer's words read as this type), `family: parent`, `not: …` · `drop: a, b`
-(words that are never things). A thing typed outside the file keeps its word as `other/<word>`; words over the bar are
+(words that are never things) · `drop-names: *.py, nb-*, …` (names that are never things whatever their type; `*`
+stands for anything; a file without the line takes the seed's, files and notebooks; a line with nothing after the
+colon keeps every name, for a base about code). A thing typed outside the file keeps its word as `other/<word>`; words over the bar are
 offered to the review, which may alias them onto a type, admit a new type (with `| family: F`) within the budget, keep
 the word, or drop it; a proposed type still under the bar after the probation is demoted to a word.
 
@@ -976,7 +989,7 @@ origin by adding the file. What changes for the notes under it, and nothing else
 
 ## Appendix C — the build guide, verbatim: `BUILD-GUIDE.md` §3–§10
 
-_Part 7 · copied at commit 1448b96. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
+_Part 7 · copied at commit e523219. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
 
 ### 3. The design in one page
 
@@ -1076,7 +1089,15 @@ the repository around the memory): a symbol as a definition, quoted words on a l
 named when first seen. States intact, moved (with the line it is on now), changed, gone; C16 for the last two. A
 name that was never a file of the project is not a pointer. `ask` looks the pointers of the notes it prints up
 again, so the line it shows is today's, and marks a note STALE when one no longer holds. This is not a code index:
-nothing is parsed, and files are still not things.
+nothing is parsed, and files are not things unless `TYPES.md` says so.
+
+A definition (`define_line`, the four patterns of `DEFINES`) is looked for form by form, and the first form found
+anywhere in the file decides: a keyword before the name, a block that opens, an assignment at the start of a line, a
+key at the start of a line. A call is no form, and the form a symbol was first found by is kept with the pointer so
+that a weaker one is not taken later. Quoted words (`words_rx`) are never found inside a longer word; on several
+lines and no longer on their own, a line that begins with them comes first, then the nearest. Do not fold these into
+one pattern that takes the first match: `eval/pointer_probe.py --built` scores the lookup on this repository's
+history, and that version put 12 of 209 symbols on the line of a call or of a local variable.
 
 #### 5.4 The graph, note half (`notes_part`)
 
@@ -1120,7 +1141,8 @@ Entities, from every note's extraction:
    only in digits) are never merged.
 3. Surface rule: if exactly one other entity writes this id as a surface form (and ≤ 3 users), merge.
 4. Keep an entity only if it has a home note (a note whose filename is its id), is mentioned in ≥ 2 notes, or is
-   named in ALIASES.md; drop file-like ids (`.py .sql .ipynb .csv`, notebooks).
+   named in ALIASES.md; drop a name that the `drop-names:` line of `TYPES.md` matches, as written or folded (the
+   seed's line: `*.py, *.sql, *.ipynb, *.csv, *.parquet, *.json, *.md, *notebook*, nb-*, *-script`; `name_drop`).
 5. Canonical id: ALIASES.md lead, else the most used raw id; type by majority vote over the occurrences' types read
    through `TYPES.md` (`canon_occ`: the dreamer's type or label that is a type or alias → that type; a word that fits
    none → `other/<word>`, counted for the review; a word on the `drop:` line removes the occurrence); headline = best
@@ -1529,7 +1551,7 @@ preferences 0.95 when the task names them, 0.84 when it names only their meeting
 
 ## Appendix D — prompts, seeds and tuned tables, verbatim from `memory.py`
 
-_Part 8 · extracted at commit 1448b96 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
+_Part 8 · extracted at commit e523219 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
 
 ### D.1 `EXTRACT` — the per-note prompt: fixed guidance, then `KINDS:`, `TYPES:`, `EDGES:` and `KNOWN:` from the registries (the static part is cached), then `NOTE`
 
@@ -1663,8 +1685,10 @@ general: prefs, reporting, glossary, corrections, howto, qa, people, log
 # thing with one of these or an alias; a thing of any other type keeps the dreamer's word, shown as other/<word>; a word
 # becomes a type only over the bar, through the review, within the budget; a (proposed <date>) type still under the bar
 # after the probation goes back to a word. `family:` groups types for the viewer and the shape check (C12); `drop:`
-# names words that are never things (grep finds files and numbers). Edit freely: a hand-written line is permanent
-# (0 model calls); `pack: research, ops` adds a domain's types. The seed covers data, analytics, software and finance.
+# names words that are never things (grep finds files and numbers), `drop-names:` names that are never things whatever
+# their type (`*` stands for anything; a base about code deletes what it wants kept). Edit freely: a hand-written line
+# is permanent (0 model calls); `pack: research, ops` adds a domain's types. The seed covers data, analytics, software
+# and finance.
 promote: 5 uses, 5 notes, 2 areas
 budget: 40
 probation: 60 days
@@ -1696,6 +1720,7 @@ probation: 60 days
 - test: a test suite, test case or benchmark named as a thing | aka: suite, test case, benchmark | family: system
 - issue: a ticket, issue or pull request named as a thing | aka: ticket, pr, pull request, bug report, merge request | family: document
 drop: number, date, file, notebook, note, line, page, link
+drop-names: *.py, *.sql, *.ipynb, *.csv, *.parquet, *.json, *.md, *notebook*, nb-*, *-script
 ```
 
 ### D.4 `PACKS`, `KIND_PACKS`, `TYPE_PACKS` — the lines a `pack: software|research|ops` adds to each registry

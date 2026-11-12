@@ -37,8 +37,9 @@ truth; everything else is derived and disposable. `memory.py` = `python3 <this s
    markdown, nothing about the memory system. Taste is said once, in passing ("no pie charts", "round to one decimal
    for the board"): save it then — `prefs/<first>-<last>-<topic>.md` (your user's own: `prefs/me-<topic>.md`): the rule,
    where it applies, why. When it changes, a new note with `supersedes:`. A note about code points into it with
-   `path#symbol` or `path:line "a few words of that line"`: `ask` then prints where that is now, and marks the note
-   STALE when it is no longer there. A bare `path:line` is wrong within one edit. A note that restates another note
+   `path#symbol` (`path#Class.method` when the name is used twice) or `path:line "a few words of that line"`: `ask`
+   then prints where that is now, and marks the note STALE when it is no longer there. A bare `path:line` is wrong
+   within one edit. A note that restates another note
    or a document says so: `source: [path]`. To take a note out altogether (a mistake, wrong material, a request to forget
    it): `memory.py drop <note or folder>` prints what goes with it and `--yes` does it. Never delete a note's file by
    hand: the note it had replaced would read as current again. Notes built on a dropped note stay and say so; notes

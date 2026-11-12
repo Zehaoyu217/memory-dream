@@ -179,7 +179,15 @@ the repository around the memory): a symbol as a definition, quoted words on a l
 named when first seen. States intact, moved (with the line it is on now), changed, gone; C16 for the last two. A
 name that was never a file of the project is not a pointer. `ask` looks the pointers of the notes it prints up
 again, so the line it shows is today's, and marks a note STALE when one no longer holds. This is not a code index:
-nothing is parsed, and files are still not things.
+nothing is parsed, and files are not things unless `TYPES.md` says so.
+
+A definition (`define_line`, the four patterns of `DEFINES`) is looked for form by form, and the first form found
+anywhere in the file decides: a keyword before the name, a block that opens, an assignment at the start of a line, a
+key at the start of a line. A call is no form, and the form a symbol was first found by is kept with the pointer so
+that a weaker one is not taken later. Quoted words (`words_rx`) are never found inside a longer word; on several
+lines and no longer on their own, a line that begins with them comes first, then the nearest. Do not fold these into
+one pattern that takes the first match: `eval/pointer_probe.py --built` scores the lookup on this repository's
+history, and that version put 12 of 209 symbols on the line of a call or of a local variable.
 
 ### 5.4 The graph, note half (`notes_part`)
 
@@ -223,7 +231,8 @@ Entities, from every note's extraction:
    only in digits) are never merged.
 3. Surface rule: if exactly one other entity writes this id as a surface form (and ≤ 3 users), merge.
 4. Keep an entity only if it has a home note (a note whose filename is its id), is mentioned in ≥ 2 notes, or is
-   named in ALIASES.md; drop file-like ids (`.py .sql .ipynb .csv`, notebooks).
+   named in ALIASES.md; drop a name that the `drop-names:` line of `TYPES.md` matches, as written or folded (the
+   seed's line: `*.py, *.sql, *.ipynb, *.csv, *.parquet, *.json, *.md, *notebook*, nb-*, *-script`; `name_drop`).
 5. Canonical id: ALIASES.md lead, else the most used raw id; type by majority vote over the occurrences' types read
    through `TYPES.md` (`canon_occ`: the dreamer's type or label that is a type or alias → that type; a word that fits
    none → `other/<word>`, counted for the review; a word on the `drop:` line removes the occurrence); headline = best
