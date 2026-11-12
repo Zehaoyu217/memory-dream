@@ -222,6 +222,134 @@ edges.
   fraud models of another project, because the question names neither the folder nor the id. That is the open item
   of phase L (a thing's own note when no folder wins the call), found by the base's own test and not by ours.
 
+## S6 — the arms on the worn bank, why the memory was the less accurate one, and what closed it
+
+The owner's question since phase K: the memory should be the more accurate arm at a fraction of the price, so why is
+it not? And on 2026-11-12, reading the first rows below: it cannot be the model, because Opus with the memory is no
+better. Phase L answered the question for the tidy bank, where the memory now ties grep. This phase answers it for
+the bank on which grep has no line of frontmatter to read.
+
+**The runs.** 98 questions whose answer is a set of notes (`eval/questions/linkage-100.jsonl`: 91 inside one
+project, 7 across the whole memory), made from the tidy bank's lineage and scored exactly against it. Every arm is
+run headless (`eval/agent/run_headless.py`): one `claude -p` a batch of ten questions, the tools Bash, Read, Grep
+and Glob, the workspace as its whole world, the cost as the CLI reports it. Both arms are told that a note says in
+its own text what it builds on and what it replaces. The answers and the usage of every row are in
+`eval/agent/headless/`, and `run_headless.py table <questions> <one of its folders>` prints the row again.
+
+| base | arm | reader | runs | exact answers | exact, or in force with its chain | $ a ten questions | seconds a ten | tool calls a ten |
+|---|---|---|---|---|---|---|---|---|
+| tidy | grep | Haiku 5.5 | 1 | 97 of 98 (99%) | 99% | 0.021 | 73 | 12.0 |
+| tidy | memory | Haiku 5.5 | 1 | 95 of 98 (97%) | 98% | 0.014 | 45 | 4.9 |
+| worn | grep | Opus 5.5 | 2 | 195 of 196 (99%): 98, 97 | 99% | 0.697 | 123 | 12.6 |
+| worn | grep | Haiku 5.5 | 3 | 266 of 294 (90%): 85, 89, 92 | 91% | 0.080 | 141 | 17.1 |
+| worn | memory, as first read | Opus 5.5 | 1 | 82 of 98 (84%) | 84% | 0.271 | 30 | 4.7 |
+| worn | memory, as first read | Haiku 5.5 | 3 | 242 of 294 (82%): 79, 82, 81 | 85% | 0.016 | 52 | 5.3 |
+| worn | memory, the items no note answered to asked again | Haiku 5.5 | 3 | 261 of 294 (89%): 88, 86, 87 | 89% | 0.015 | 50 | 5.3 |
+| worn | the same, `ask` printing what is not placed | Haiku 5.5 | 3 | 253 of 294 (86%): 85, 87, 81 | 89% | 0.018 | 59 | 5.4 |
+| worn | memory, every line that states lineage read twice | Haiku 5.5 | 3 | 283 of 294 (96%): 91, 96, 96 | 97% | 0.017 | 53 | 5.0 |
+| worn | memory, every line that states lineage read twice | Opus 5.5 | 1 | 94 of 98 (96%) | 96% | 0.345 | 68 | 6.3 |
+
+The second count is there because one kind of question is scored against its own wording. "Which note is in force
+now, and which notes is that one built on?" is answered in some sessions with the direct inputs and in others with
+those and everything behind them, each labelled in the sentence, as the skill asks; the list alone cannot tell the
+two apart. In three sets of runs on nearly the same memory 9, 2 and 9 answers were of the second sort, which moves
+the exact count by three points for no reason in the memory. An in-force question now carries the chain behind its answer,
+and an answer that names the whole true set and adds only notes of that chain is counted in the second column.
+Read the memory rows there.
+
+**The answer is what the memory holds, whoever reads it.** `eval/linkage.py lineage <memory> <questions>` computes
+each answer from the memory's graph alone, by the rule that made the answer key: no agent, no `ask`. On the tidy
+bank that is 98 of 98, by construction.
+
+| the worn memory | `from` links held | replacements held | links missing, and of them listed as not placed | questions its lineage answers exactly | Haiku with it (second count) | Opus with it |
+|---|---|---|---|---|---|---|
+| as first read (S5) | 2,086 of 2,213 (94.3%) | 197 of 216 (91.2%) | 146, none | 83 of 98 (85%) | 85% | 84% |
+| the items no note answered to asked again | 2,132 (96.3%) | 197 (91.2%) | 100, 24 | 87 (89%) | 89% | not run |
+| every line that states lineage read twice | 2,203 (99.5%) | 215 (99.5%) | 11, 5 | 93 (95%) | 97% | 96% |
+
+An agent with the memory makes one call and answers from it (5 tool calls a ten questions, against 13 to 17 with
+grep), so it is as right as that call. Opus with the first memory missed 16 questions, and 15 of them are the 15
+its lineage answers wrongly; Haiku's 52 misses are 37 of those, 9 in-force lists and 6 of its own. No reader does
+better than what it is given, which is why the dearer model bought nothing. It was not the retrieval either: `ask`
+printed every chain it had, whole. It did not have the whole chain. A set of notes reached through several links is
+exact only when every link is held, and 94% of the links made 85% of the answers.
+
+**Where the links went.** Of the 100 links still missing after the first repair:
+
+| | links | |
+|---|---|---|
+| a member of a line that the keeper left out and said nothing about | 67 | "Builds on exp-303, the isotonic v10-to-v8 score map and find-bsm-psi-after-map": the two ids were read, the phrase between them was not. 65 of the 67 are named by a phrase |
+| the reading has the words and no note was placed for them | 24 | 13 of these are `Replaces glossary/brier.`, which the keeper wrote down as a thing called `glossary-brier` |
+| placed at another note | 6 | |
+| a line the first reading never pointed at | 3 | |
+
+So two thirds of what the memory lacked it did not know it lacked, and nothing could warn of it.
+
+**What was changed, in the order it was tried.**
+
+1. *The items no note answered to, asked again* (a second prompt for just those, 31 calls, $0.05; with one exact
+   rule, that a thing with no note of its own name is placed at the one note of the folder whose title names it).
+   46 more `from` links; the same arm from 85% to 89%. Replaced by 4.
+2. *`ask` says what the memory knows it lacks* (`loose_ends`): the note's own words under the note, `not the whole
+   chain` on a chain that runs through such a note, the words on the map. By itself it changed nothing: 262 of 294
+   against 263, at $0.018 a ten questions against $0.015. It could only print the 24 the memory knew about. It
+   stays, because after 4 nearly every gap is one the memory can know about.
+3. *One exact rule* (`named`): an item no note answers to, whose own words name one note by its path or id that no
+   other item of the note took, is that note. 13 of the 13 glossary replacements, none wrong, no call.
+4. *Every line that states lineage is read twice* (`run_place`). The first reading finds such lines among
+   everything else it does for a dozen notes; the second is given the lines alone, by folder, with the folder's
+   notes by file name, and one thing to do: every member of each line, with its own words and the note meant. Its
+   answer takes the first one's place on that line, a member with no note stays as an item with its words (C18),
+   and nothing is lost by silence (a line it names no member for stays as it was; an item whose name is written in
+   the line stays). Measured before it was built, on the same 1,462 lines: where the two readings name different
+   notes, the second alone is right 72 times of 78 and the first alone 9 of 17. Then the bank was built from
+   scratch: the worn notes, the bank's `KINDS.md`, the first readings as they were, and one `dream` with the
+   command, which read the 1,462 lines once more in 50 calls for $0.18 (a seventh of the first reading's $1.27)
+   and ran the curator and the review for $0.12. The memory then holds 2,203 of the 2,213 `from` links and 215 of
+   the 216 replacements; of its 2,443 lineage edges 2,418 are in the key. The readings and registries of that
+   build are `eval/real/worn-index`, and `tests/retrieval_gate.py worn` rebuilds and scores it with no model.
+
+   The first try at that build left out the bank's one line of setup, the comment in `KINDS.md` that `inc-` is the
+   income project's code and not the mark of an incident. Four models were then incidents, and the lineage answered
+   91 questions in place of 93. The line was put back and the graph rebuilt with no call; no reading depends on it.
+   It is the second time this prefix has cost answers (phase L), and the skill's setup step is where it belongs.
+
+**What it comes to.** On the bank whose links are only in sentences, Haiku with the memory now answers 283 of 294
+exactly (96%; 97% by the second count), for $0.017 a ten questions in 53 seconds. That is 6 points above Haiku with
+grep at a fifth of its price and less than half its time, and 3 points below Opus with grep at a 42nd of its price.
+Opus with the memory went from 84% to 96%, at half the price and about half the time of Opus with grep ($0.345
+against $0.697 a ten questions, 68 seconds against 123). With Haiku as the reader this is the first comparison
+scored exactly (phase L on) in which the memory is the more accurate arm; with Opus as the reader grep still is, by
+3 points. The memory is the cheaper arm in every row.
+
+The reader still does not decide. All 4 of Opus's misses are questions the lineage answers wrongly. Haiku's 11 are
+6 of those, 3 of its own and 2 in-force lists. And both now get right some questions that the lineage alone does
+not: of the 15 times Haiku met one of those five questions it answered 9 exactly, and Opus 1 of 5. `ask` prints a
+note with its own sentence, and under it the words no note was placed for, and a reader that follows them finds
+the note. That is the wrapper over grep doing what the owner said it was for.
+
+**What the key does not have.** 25 of the memory's lineage edges are not in the key. 20 stand on a line of the
+note's own body that says so in so many words ("Features: feat-ch-send-window-v1, feat-ch-prior-contact-v1, …",
+"- Basis: exp-206 and exp-207 on the 6-month-plus subset", "This corrects charge-off-180dpd"): the bank's author did
+not put those on the frontmatter line the key was made from, so here they count against the memory, and on a base
+with no such line nobody could say they are wrong. 2 are a closing sentence's phrase placed at the wrong note. 3
+are replacements the review decided between two live notes, and one of those marks as replaced a model the key has
+as current (`clv-bgnbd-v1`), which costs two of the five questions the lineage still answers wrongly. The other
+three: a replacement stated by a number ("Replaces the pooled elasticity estimate of 0.21") that no reading
+placed, a phrase the second reading kept as words and could not name (listed, C18), and one "Builds on" line that
+the first reading never pointed at, so nobody read it twice.
+
+**What is not shown.**
+
+- *A base too large to read whole.* A project here is thirty short notes; the second reading sees all of a folder's
+  notes by name (200 at most). A flat folder of a thousand needs candidates fetched for each phrase before a keeper
+  can choose, and an agent with grep can no longer read the folder and script over it. Both arms would change.
+- *Opus with grep is still the most accurate arm* (99%), at 42 times the price of Haiku with the memory and
+  twice the price of Opus with it.
+- *The Opus rows are one or two runs*; the Haiku rows are three, and their runs differ by up to seven answers.
+- *Lineage in the body of a note* is read as lineage. Whether "Features: a, b, c" is what a base means by built on
+  is the base's to say; the frontmatter line stays the way to say it without a reader.
+
 # Phase R (2026-11-12) — step 1, items 6 and 7: setting a memory up with its own five questions, and filters on the page
 
 The owner's sixth point: the skill is operated by an agent that does the detective work on the material and sets up

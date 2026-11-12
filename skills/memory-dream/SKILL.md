@@ -21,6 +21,10 @@ truth; everything else is derived and disposable. `memory.py` = `python3 <this s
    a set: when the question asks which, how many, all or every, run the map that line names before you answer. A `⇡`
    line names everything a note rests on and a `⇣` line everything that rests on it: first the notes one step away
    (`directly`), then those reached `through them`; an answer about what something depends on gives both.
+   A line `? it builds on «…», in its own words` under a note, or `not the whole chain`, means the note names
+   something it builds on or replaces that the memory could not match to a note: the chain is short by that link.
+   Find what the words name (`grep -rn` for their nouns in the folder, or `ask --list -p <folder>`) and follow it
+   before you answer.
    When the answer is a set or a relationship (every current model, what was replaced, what other
    projects built on this one) do not search for it: `memory.py ask --list [-p <project>] [--kind model] [--tag risk]` prints one
    line a note with what it was built on (marked when that was replaced), what replaced it and where else it is
@@ -54,7 +58,8 @@ truth; everything else is derived and disposable. `memory.py` = `python3 <this s
    leaves the packets in `_dream/pending/` for helper agents on a cheap model (`memory-dreamer`, one packet each, in
    parallel), and the next `dream --packets` takes their answers. A keeper also reads what a note says in its own
    words that it builds on or replaces ("Builds on the dispositions dataset and exp-404."), so a note without
-   `from:` still has its place in the map; the frontmatter stays the sure way to say it. `memory.py check` lists warnings. Scratch lines: `memory.py log "…" -p
+   `from:` still has its place in the map; with a command each such line is read a second time on its own, which
+   is what makes the map whole (one call a folder). The frontmatter stays the sure way to say it. `memory.py check` lists warnings. Scratch lines: `memory.py log "…" -p
    <project>`.
 
 ## The domain is three files you may edit, never the code

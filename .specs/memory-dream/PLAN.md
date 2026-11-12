@@ -14,7 +14,15 @@ says what a probe on this repository's history changed. Item 4 is built (RESULTS
 run; §4 says which limit of a packet binds. Item 5 is built (RESULTS phase Q): tags through `TAGS.md`, and the
 walk's words on the lines of `EDGES.md`. Item 6 is built (RESULTS phase R): the skill's section on setting a
 memory up, and a memory's own proof questions in `SETUP.md` that `check` asks again. Item 7 is built too: the
-page's filters. Step 1 is done; step 2 is next.
+page's filters. Step 1 is done.
+
+**Step 2, 2026-11-12** (RESULTS phase S). Built and measured: packets on Haiku 5.5, a bank grep cannot read exactly
+(the worn bank), lineage read from prose, identity by reading (the curator), the arms run headless. The answer to
+point 14 on that bank is in S6: the memory was the less accurate arm with either reader because an agent answers
+from what the memory holds and the keeper had read 94% of the links; with every line that states lineage read a
+second time on its own it holds 99.5%, and Haiku with the memory answers 96% of the questions exactly at
+$0.017 a ten questions, where Haiku with grep answers 90% at $0.080 and Opus with grep 99% at $0.70. Not built:
+the decomposing writer (item 11). Not shown: a base too large to read whole.
 
 The contract field by field is `CONTRACT-2.md`. Every number has a command, all without a model:
 `python3 eval/contract_probe.py <bank-index world>` (drop, absorb, documents, sets), `python3 eval/agent/arms.py`
@@ -419,16 +427,21 @@ A dropped note must not bring back the note it replaced (`drop` and the tombston
 9. Read the bank again in packets on Haiku 5.5: cost and yield against the readings on file. Two loose ends of
    the handoff need this re-read and go with it: note kinds named as entity types (item 6) and the pool of calls
    fed continuously (item 7). *Done for a 300-note sample and for the worn bank: RESULTS phase S (S1, S3).* The two
-   loose ends are still loose.
+   loose ends are still loose. *And the reading is now two readings (S6):* the packet, then every line that states
+   lineage once more on its own, because the packet reading left out one in ten of the things such a line names by
+   a phrase.
 10. Cards, the resolver and the curator (§7); the alias gate is re-based on their decision lines, kept in the
     repository like the readings. *The curator is built and measured (RESULTS S4); §7 says what is left.* The gate
     was not re-based: its score is the same with any set of lines.
-11. The decomposing writer with the gates (§5), as a block that can be left out.
+11. The decomposing writer with the gates (§5), as a block that can be left out. *Not built:* K4 measured no gain
+    from it on a document that can be read as it is, and step 2 went to the eval.
 12. The agent eval, made able to answer point 14: at least 100 questions, two judge passes, the five arms. The Opus
     arms are the only dear part, about $1.50 per ten questions with grep. Phase L says what it must add to be worth
     its cost: answers that can be scored exactly where possible, three runs a row, and a base on which grep is not
     already exact (links no line states, one thing under two names, folders too large to read whole). On the bank
-    as it is, grep answers 37 of 37 linkage questions on both models and no memory can do better.
+    as it is, grep answers 37 of 37 linkage questions on both models and no memory can do better. *Done for links
+    no line states (RESULTS S6):* 98 questions scored exactly, no judge, three runs a Haiku row, the arms headless
+    with the CLI's own cost, $20.67 of Opus. Folders too large to read whole are the part not done.
 
 **Later**, when a base needs it: anything in §12.
 
@@ -453,7 +466,8 @@ step 1 adds its lines.
 | an absorbed base's preference notes | lose their kind (0 of 2 kept); after phase N 2 of 2 kept, served to a host task only with `trust: preferences`, a `me-` note never | keep their kind (2 of 2) and are never served as the host's own |
 | pointers checked | none; after phase O every pointer has a state, at each dream and each `ask`, and on 34 versions of one file none names a wrong line | every pointer has a state |
 | dream, 1,677 notes with their readings | 0.85 s | 1 s |
-| Haiku with the memory against Opus with grep (step 2) | 120 times cheaper, 8 times faster, 23 correct against 29; after phase L 107 times and 7.9 times, 25 against 29, and the same exact answers on 37 linkage questions at 35 to 46 times cheaper | as cheap; correct within the judge's own spread on 100 questions |
+| Haiku with the memory against Opus with grep (step 2) | 120 times cheaper, 8 times faster, 23 correct against 29; after phase L 107 times and 7.9 times, 25 against 29, and the same exact answers on 37 linkage questions at 35 to 46 times cheaper; on the worn bank after phase S 96% exact against 99%, 42 times cheaper and 2.3 times faster | as cheap; correct within the judge's own spread on 100 questions |
+| lineage a note states only in prose, held (the worn bank) | none: v0.4 reads lineage from frontmatter only; after phase S 99.5% of `from` and of `supersedes`, 99% of the edges in the key, and the lineage alone answers 93 of 98 set questions | the gate's floors: 0.98, 0.98, 0.98, 91 |
 | proposals that are the same thing (step 2) | 14 of 87 | half |
 
 The 40 checks, the three retrieval gates and the stability eval stay. The only new test is this run.

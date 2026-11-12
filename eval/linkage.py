@@ -6,6 +6,10 @@
   python3 eval/linkage.py global <a dreamed memory> <out.jsonl>             questions over the whole memory
   python3 eval/linkage.py score <questions.jsonl> <answers.md> [more.md …]  recall, precision, exact, per answer file
   python3 eval/linkage.py ask   <a dreamed memory> <questions.jsonl>        what `ask` alone shows: no agent, no model
+  python3 eval/linkage.py chains <a dreamed memory> <questions.jsonl>       give a file's in-force questions their chain
+  python3 eval/linkage.py lineage <a dreamed memory> <questions.jsonl> [<answers dir> <arm> <model>]
+                                                     what the memory's own lineage answers, with no agent and no `ask`;
+                                                     with an arm's answers, whether each miss was a question it had right
 
 The thirty questions of the agent eval can mostly be answered from one note. These cannot: each asks for a set of
 notes reached through several links — everything a model rests on, every decision downstream of a dataset, the note
@@ -18,6 +22,17 @@ An answer file has sections "## Q1" … and in each a line "Notes: path, path, �
 lists are the true set. Two kinds of note on that line are support and not part of the answer: a note of another
 kind than the question asks for (a model beside the datasets it rests on), and the note the question itself names.
 `score` prints the count without the second allowance as well. Quoted in RESULTS.md phase L.
+
+One more count is printed beside the exact one. "Which note is in force, and which notes is that one built on?" is
+answered by some agents with the direct inputs and by others with those and everything behind them, each labelled
+in the sentence; the list alone cannot tell the two apart, and which one a session gives varies from run to run.
+An in-force question carries that chain, and an answer that names the whole true set and adds only notes of the
+chain is counted in "exact, or in force with its chain". Quoted in RESULTS.md phase S.
+
+`lineage` answers each question from a memory's graph alone, by the rule that made the answer key, for the notes the
+question names. On the memory the key was made from that is every question, by construction. On a memory whose
+lineage a keeper read out of prose it is the most an agent can get right by trusting what the memory holds: phase S
+found the agents at that number, whichever model read.
 """
 import collections
 import json
@@ -101,7 +116,8 @@ def make(root, n, keep=None):
                 end, hops = sorted(notes[end]["superseded_by"])[0], hops + 1
             base = sorted(up[end])
             if hops >= 2 and 1 <= len(base) <= 5:
-                T["in-force"].append({"key": p, "area": area(p), "gold": [end] + base, "q": f"{nid(p)} of project {area(p)} was replaced, and "
+                T["in-force"].append({"key": p, "area": area(p), "gold": [end] + base, "chain": behind(end, up, sup),
+                                      "q": f"{nid(p)} of project {area(p)} was replaced, and "
                                       f"so was its replacement. Which note is in force now at the end of that line, and which notes is that one built on?"})
         cross = sorted(q for q in down[p] if area(q) != area(p) and area(q) not in GENERAL)
         if 1 <= len(cross) <= 5:
@@ -130,15 +146,46 @@ def make(root, n, keep=None):
         if lost:
             raise SystemExit(f"no longer a candidate: {lost}")
         return [{"type": by_text[q["q"]][0], "q": q["q"], "gold": by_text[q["q"]][1]["gold"], "notes": by_text[q["q"]][1]["gold"],
-                 "a": ", ".join(by_text[q["q"]][1]["gold"])} for q in old], {t: len(c) for t, c in sorted(T.items())}
+                 "a": ", ".join(by_text[q["q"]][1]["gold"]), **{k: v for k, v in by_text[q["q"]][1].items() if k == "chain"}}
+                for q in old], {t: len(c) for t, c in sorted(T.items())}
     picked = {t: spread(c, n) for t, c in sorted(T.items())}
     out = []
     for i in range(n):  # one of each kind in turn, so every batch of ten mixes them
         for t in sorted(picked):
             if i < len(picked[t]):
                 c = picked[t][i]
-                out.append({"type": t, "q": c["q"], "gold": c["gold"], "notes": c["gold"], "a": ", ".join(c["gold"])})
+                out.append({"type": t, "q": c["q"], "gold": c["gold"], "notes": c["gold"], "a": ", ".join(c["gold"]),
+                            **{k: v for k, v in c.items() if k == "chain"}})
     return out, {t: len(c) for t, c in sorted(T.items())}
+
+
+def behind(end, up, sup):
+    """What stands behind the note in force and its direct inputs: everything it rests on through other notes, and the
+    notes its line of replacements left behind. An answer to "which notes is that one built on" that names the direct
+    inputs and then these is a fuller answer, not a wrong one; the exact count takes it for wrong (RESULTS phase S)."""
+    line, todo = set(), [end]
+    while todo:
+        for x in sup[todo.pop()]:
+            if x not in line:
+                line.add(x)
+                todo.append(x)
+    return sorted((set(closure(end, up)) | line) - {end} - set(up[end]))
+
+
+def add_chains(root, qfile):
+    """Give the in-force questions of a file made before `chain` existed their chain, from the memory that made them."""
+    notes, up, down, sup = lineage(root)
+    qs = [json.loads(x) for x in Path(qfile).read_text().splitlines() if x.strip()]
+    n = 0
+    for q in qs:
+        if q["type"] == "in-force":
+            end = q["gold"][0]
+            if sorted(up[end]) != sorted(q["gold"][1:]):
+                raise SystemExit(f"{end}: this memory's lineage is not the one the question was made from")
+            q["chain"] = behind(end, up, sup)
+            n += 1
+    Path(qfile).write_text("".join(json.dumps(q) + "\n" for q in qs))
+    print(f"{n} in-force questions of {qfile} carry the chain behind their answer")
 
 
 def make_global(root):
@@ -176,6 +223,92 @@ def make_global(root):
     return [{"type": t, "q": q, "gold": sorted(g), "notes": sorted(g), "a": ", ".join(sorted(g))} for t, q, g in out if g]
 
 
+def from_lineage(root, qs):
+    """Each question's answer as this memory's lineage gives it (a set of paths; None when it has no such note)."""
+    notes, up, down, sup = lineage(root)
+    by_name = {"ds": "dataset", "dec": "decision", "feat": "feature"}
+    kind = lambda p: by_name.get(notes[p]["id"].split("-")[0], notes[p]["kind"] if notes[p]["kind"] not in by_name.values() else "note")  # noqa: E731
+    area = lambda p: notes[p]["project"]  # noqa: E731
+    live = lambda p: not notes[p]["superseded_by"]  # noqa: E731
+    proj = sorted(p for p in notes if area(p) not in GENERAL)
+
+    def end_of(p):
+        end, n = p, 0
+        while notes[end]["superseded_by"] and n < 9:
+            end, n = sorted(notes[end]["superseded_by"])[0], n + 1
+        return end, n
+    stale = lambda ms: [p for p in ms if live(p) and any(not live(x) and kind(x) in ("feature", "dataset") for x in up[p])]  # noqa: E731
+    out = []
+    for q in qs:
+        t, s = q["type"], q["q"]
+        m = re.search({"rests-on": r"In project (?P<a>\S+), follow everything (?P<n>\S+) was built on",
+                       "downstream": r"rest on (?P<n>\S+) of project (?P<a>\S+?),", "in-force": r"^(?P<n>\S+) of project (?P<a>\S+) was replaced",
+                       "other-projects": r"built directly on (?P<n>\S+) of project (?P<a>\S+?)\?",
+                       "shared": r"Which feature notes do (?P<n>\S+) and (?P<n2>\S+) of project (?P<a>\S+) both build on directly",
+                       "stale-input": r"In project (?P<a>\S+?), which model notes that are still current",
+                       "reach": r"Which notes outside project (?P<a>\S+) rest on a note of",
+                       "replaced-twice": r"which (?P<n>decision|model) notes were replaced"}.get(t, r"^"), s)
+        d = m.groupdict()
+        p = f"{d['a']}/{d['n']}.md" if d.get("a") and d.get("n") else None
+        if t in ("rests-on", "downstream", "in-force", "other-projects") and p not in notes:
+            got = None
+        elif t == "rests-on":
+            got = [x for x in closure(p, up) if kind(x) == "dataset"]
+        elif t == "downstream":
+            got = [x for x in closure(p, down) if kind(x) == "decision"]
+        elif t == "in-force":
+            got = [end_of(p)[0]] + sorted(up[end_of(p)[0]])
+        elif t == "other-projects":
+            got = [x for x in down[p] if area(x) != area(p) and area(x) not in GENERAL]
+        elif t == "shared":
+            got = [x for x in up[p] & up[f"{d['a']}/{d['n2']}.md"] if kind(x) == "feature"]
+        elif t == "stale-input":
+            got = stale([x for x in proj if area(x) == d["a"] and kind(x) == "model"])
+        elif t == "stale-input-all":
+            got = stale([x for x in proj if kind(x) == "model"])
+        elif t == "reach":
+            got = {x for y in proj if area(y) == d["a"] for x in closure(y, down) if area(x) != d["a"] and area(x) not in GENERAL}
+        elif t == "replaced-twice":
+            got = [x for x in proj if kind(x) == d["n"] and notes[x]["superseded_by"] and not sup[x] and end_of(x)[1] >= 2]
+        elif t == "shared-dataset":
+            got = [x for x in proj if kind(x) == "dataset" and len({area(y) for y in down[x] if area(y) != area(x) and area(y) not in GENERAL}) >= 2]
+        elif t == "crossings":
+            got = [x for x in proj if any(area(y) != area(x) and area(y) not in GENERAL for y in up[x])]
+        else:
+            raise SystemExit(f"no rule for a question of kind {t}")
+        out.append(None if got is None else set(got))
+    return out
+
+
+def lineage_answers(root, qfile, runs=None, arm=None, model=None):
+    qs = [json.loads(x) for x in Path(qfile).read_text().splitlines() if x.strip()]
+    mine = from_lineage(root, qs)
+    right = [a == set(q["gold"]) for a, q in zip(mine, qs)]
+    by = collections.defaultdict(lambda: [0, 0])
+    for q, ok in zip(qs, right):
+        by[q["type"]][0] += ok
+        by[q["type"]][1] += 1
+    print(f"the memory's own lineage answers {sum(right)} of {len(qs)} questions exactly · by kind: "
+          + ", ".join(f"{t} {a}/{b}" for t, (a, b) in sorted(by.items())))
+    for q, a, ok in zip(qs, mine, right):
+        if not ok:
+            print(f"  not: [{q['type']}] {q['q'][:86]} · lacks {len(set(q['gold']) - (a or set()))}, has {len((a or set()) - set(q['gold']))} too many")
+    if runs:
+        files = sorted(Path(runs).glob(f"{arm}-{model}-r*-b*.md"), key=lambda f: [int(x) for x in re.findall(r"\d+", f.name)[-2:]])
+        c, n = collections.Counter(), 0
+        for f in files:
+            b = int(re.search(r"-b(\d+)\.md$", f.name).group(1))
+            part = qs[(b - 1) * 10:b * 10]
+            for k, q in enumerate(part):
+                one = tally([q], re.sub(r"^##\s*Q(\d+)\b", lambda m: "## Q1" if int(m.group(1)) == k + 1 else "## Qx", f.read_text(), flags=re.M))
+                n += 1
+                if not one[0]:
+                    c["the answer has the chain behind an in-force note as well" if one[5] else
+                      "the lineage had the answer, the agent gave another" if right[(b - 1) * 10 + k] else "the lineage does not have the answer"] += 1
+        print(f"{arm} {model}: {n - sum(c.values())} of {n} answers exact · the misses: " + "; ".join(f"{v} {k}" for k, v in c.most_common()))
+    print(json.dumps({"answered": sum(right), "questions": len(qs)}))
+
+
 def listed(section, gold):
     """The paths on the answer's "Notes:" line, normalised; a bare id counts as the gold note of that id if there is one."""
     m = re.search(r"^\s*Notes?:\s*(.*)$", section, flags=re.M | re.I)
@@ -192,11 +325,13 @@ def listed(section, gold):
 
 
 def tally(qs, text, strict=False):
-    """One answer file against its questions → (exact, whole set named, mean recall, mean precision, exact by kind).
+    """One answer file against its questions → (exact, whole set named, mean recall, mean precision, exact by kind,
+    exact or whole with the chain). The last counts, beside the exact answers, an in-force answer that names the note
+    in force and all it is built on directly and then lists notes of the chain behind them (the question's `chain`).
     strict=True also counts against an answer the note its question names, when the answer lists it beside the set."""
     parts = re.split(r"^##\s*Q(\d+)\b.*$", text, flags=re.M)
     secs = {int(parts[i]): parts[i + 1] for i in range(1, len(parts) - 1, 2)}
-    rec, pre, exact, full, by = [], [], 0, 0, collections.defaultdict(lambda: [0, 0])
+    rec, pre, exact, full, near, by = [], [], 0, 0, 0, collections.defaultdict(lambda: [0, 0])
     if True:
         for i, q in enumerate(qs, 1):
             gold, got = set(q["gold"]), listed(secs.get(i, ""), q["gold"])
@@ -216,17 +351,19 @@ def tally(qs, text, strict=False):
             pre.append(p)
             exact += r == 1 and p == 1
             full += r == 1
+            near += r == 1 and (p == 1 or got - gold <= set(q.get("chain") or ()))
             by[q["type"]][0] += r == 1 and p == 1
             by[q["type"]][1] += 1
-    return exact, full, sum(rec) / len(rec), sum(pre) / len(pre), dict(by)
+    return exact, full, sum(rec) / len(rec), sum(pre) / len(pre), dict(by), near
 
 
 def score(qfile, files):
     qs = [json.loads(x) for x in Path(qfile).read_text().splitlines() if x.strip()]
     for f in files:
-        exact, full, rec, pre, by = tally(qs, Path(f).read_text())
+        exact, full, rec, pre, by, near = tally(qs, Path(f).read_text())
         hard = tally(qs, Path(f).read_text(), strict=True)[0]
-        print(f"{Path(f).name}: {len(qs)} questions · exact {exact} ({hard} if the note a question names may not be listed) · "
+        print(f"{Path(f).name}: {len(qs)} questions · exact {exact} ({hard} if the note a question names may not be listed; {near} "
+              f"with an in-force answer that also lists the chain behind it) · "
               f"whole set named {full} · recall {rec:.2f} · precision {pre:.2f} · exact by kind: "
               + ", ".join(f"{t} {a}/{b}" for t, (a, b) in sorted(by.items())))
 
@@ -264,6 +401,10 @@ if __name__ == "__main__":
         print(f"{len(qs)} questions to {a[2]} · gold notes: " + ", ".join(f"{q['type']} {len(q['gold'])}" for q in qs))
     elif len(a) >= 3 and a[0] == "score":
         score(a[1], a[2:])
+    elif len(a) == 3 and a[0] == "chains":
+        add_chains(a[1], a[2])
+    elif len(a) in (3, 6) and a[0] == "lineage":
+        lineage_answers(*a[1:])
     elif len(a) == 3 and a[0] == "ask":
         ask_only(a[1], a[2])
     else:

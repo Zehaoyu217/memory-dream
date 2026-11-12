@@ -27,7 +27,7 @@ M="python3 .claude/skills/memory-dream/scripts/memory.py"
 $M ask "what came of exp-014?" "who owns cards.txn_daily?"   # answering: grep + memory, every question in one call
 $M viz                            # memory/_dream/graph.html (dream refreshes it): Timeline, Map, Connections
 $M log "backfill running" -p churn-2026
-$M check                          # every warning C1–C17 in full
+$M check                          # every warning C1–C18 in full
 $M drop churn-2026/exp-014        # what would go with this note; add --yes to do it (a folder works the same way)
 grep -rn velocity memory/ --exclude-dir=_dream                 # plain grep stays first-class
 ```
@@ -311,6 +311,17 @@ $M export --to /tmp/graph-export   # no driver: CSV in neo4j-admin header format
   registry line, a folder, the note itself. Put the question to `ask` and read what comes first.
   The lines are `- the question? -> area/note.md` in `memory/SETUP.md`; change one only when the
   note that answers it changed.
+- `? it builds on «…», in its own words` under a note in `ask`, and `not the whole chain` on a `⇡`
+  line: the same thing as C18, shown to whoever is reading. The memory holds no link for those
+  words, and says so instead of looking complete.
+- `C18`: a note says in its own words that it builds on or replaces something ("Builds on the
+  dispositions dataset"), and no note answers to the name. With a command, a dream reads every
+  such line once more, alone and beside the folder's notes, and asks for each thing the line names
+  (`second reading: 1462 lines read once more, +108 links (50 calls)`); a line is read twice and
+  no more. What is still listed after that needs a person: add `from: [the-note]` or
+  `supersedes: [the-note]` to the note's frontmatter, which always wins.
+- `second reading: … N lines left for the next dream`: a dream reads at most 200 folders' worth of
+  such lines; run `dream` again.
 - `C17`: a note's `tags:` line has a word that `memory/TAGS.md` does not list. Add its line
   (`- word: what it means`), or add the word to the `aka:` of the tag it is another spelling of. It
   filters either way (`ask --list --tag word`); the line is what gives it a definition.

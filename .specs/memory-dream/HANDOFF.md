@@ -312,3 +312,78 @@ Open, in the order I would take them:
 
 Spent on models in this pass: four Opus 5.5 subagents, the grep arms of the two linkage sets, about $3.40 at list
 prices; about forty Haiku 5.5 subagents, under $1; the judge's two passes over thirteen runs of ten answers.
+
+### Step 1 finished, and step 2 (2026-11-12)
+
+The owner said "continue" and later "go", and on reading the first arms of step 2 asked three things: the retrieval
+tool was meant to be a wrapper over grep that makes grepping easier and its results cleaner; so why exactly is the
+memory behind; and it is plainly not the model, because Opus with the memory is no better. Everything below is on
+`production-readiness`; RESULTS phases O to S have the measurements, and this is the short form.
+
+**Step 1 is complete** (phases O to R): pointers into code, with a probe that scored the lookup on this repository's
+history and caught 12 of 209 symbols on a wrong line; packets and `dream --dry-run`; tags through `TAGS.md` and the
+walk's words on the lines of `EDGES.md`; the skill's section on setting a memory up, with the memory's own proof
+questions in `SETUP.md` that `check` asks again; the page's filters.
+
+**Step 2** (phase S), what was built and what it measured:
+
+| | built | measured |
+|---|---|---|
+| the reading, on Haiku 5.5 | `dream --packets` defaults to a dozen notes a call; the dry run counts thinking and says that a second reading follows | two dozen a call: 0.4 of the price, 0.60 of the things; a dozen with the prompt that asks for each note in full: as many things, 0.6 of the price; more than half of all output is thinking |
+| a bank grep cannot read exactly | `eval/hard/`: the worn bank, the same 1,677 notes with the two lineage lines of frontmatter gone and each link said in a closing sentence, a third of them by a phrase | half of the tidy bank's links were on the frontmatter line and nowhere else |
+| lineage read from prose | `built_on` and `replaces` in a reading, with the note's words; `lineage_as_read` in the build; then **every line that states lineage read a second time on its own** (`run_place`, one call for 45 lines of a folder), whose answer takes the first one's place | the first reading alone: 94.3% of the `from` links, 91.2% of the replacements. With the second: 99.5% and 99.5%, 99% of the edges in the key, for $0.18 on top of $1.27. `tests/retrieval_gate.py worn` rebuilds it from the repository and holds it with floors |
+| what is not placed | check C18, the graph's `unplaced`, and in `ask` the note's own words under the note, `not the whole chain`, the words on the map | 11 links missing, 5 of them listed. Before the second reading 146 were missing and none was listed |
+| identity by reading | the string ratio is gone; the curator reads a folder's things together and signs each join with its reason | 22 joins and 19 refusals on the bank for $0.12 with the review; retrieval by name does not move (0.811, 0.814, 0.809) |
+| a command that hangs | its process group is killed and the pipes closed | the "stalls" of the first runs were this Mac going to sleep: long jobs go under `caffeinate -s -i` |
+| the arms, run headless | `eval/agent/run_headless.py`: one `claude -p` a batch, the CLI's own cost, every tool call kept, exact scoring with a second count for in-force answers that list the whole chain; the answers of every row in `eval/agent/headless/` | the table of RESULTS S6 |
+| why an arm is as right as it is | `eval/linkage.py lineage <memory> <questions> [<answers dir> <arm> <model>]`: each answer from the graph alone | as first read 83 of 98, and Opus with that memory scored 82, 15 of its 16 misses among those 15; now 93 |
+
+**The owner's question, answered** (RESULTS S6). An agent with the memory makes one call and answers from it, so it
+is as right as what the memory holds, whichever model reads. On the worn bank that was what a cheap keeper had
+read: 94% of the links, which is 83 exact answers of 98, and Opus with the memory scored 82. Of the 146 missing
+links, 67 were members of a list ("Builds on exp-303, the isotonic score map and the psi finding") that the keeper
+left out and said nothing about, and 70 were words it had read and could not match to a note, which the build
+counted and did not show. So it was neither the retrieval nor the stopping: `ask` printed the whole of what it had,
+and had no way to know what it lacked. After the second reading: Haiku with the memory 96%
+exact at $0.017 a ten questions, Opus with the memory 96% at $0.35; Haiku with grep 90% at $0.080, Opus
+with grep 99% at $0.70. With Haiku as the reader the memory is now the more accurate arm; with Opus grep still is,
+by 3 points; the memory is the cheaper arm in every row.
+
+How the arms are run now: `run_headless.py prepare <dreamed memory> <arms dir>`, then `run <grep|memory> <haiku|opus>
+<arms dir> eval/questions/linkage-100.jsonl <out> --runs 3`, then `table <questions> <out>`. No subagent is started
+by hand any more, and the cost is the CLI's own figure.
+
+Verified at the end: `tests/acceptance.py` 40 of 40 on Python 3.9 and 3.13; `tests/e2e.py` 53 and 52 lines; the four
+gates (bank 0.978 gold, 0.978 numbers, 2,954 characters; bank with the index 0.973, 0.978, 3,138, alias 0.811;
+software 1.0, 1.0; worn 0.995 `from`, 0.995 `supersedes`, 0.990 in the key, 93 of 98 answered by the lineage, 84
+named by `ask` alone); `eval/stability.py` all zeros; `tests/viz_check.js` 16 of 16; the bundle fresh.
+
+Open, in the order I would take them:
+
+1. **A base too large to read whole.** It is the test S6 did not make, and the one the owner's point 14 turns on:
+   here a project is thirty short notes, so an agent with grep reads a folder and scripts over its sentences, and
+   the second reading sees all of a folder's notes by name. With flat folders of hundreds, the keeper needs
+   candidates fetched for each phrase (the memory's own `ask` can fetch them) and grep loses its shortcut.
+2. **The review decides replacements between live notes that no note states.** Three on the worn bank are not in
+   the key, and one (`clv-ml-v2 > clv-bgnbd-v1`, which the review of the tidy bank called compatible) costs two of
+   the five questions the lineage still answers wrongly. Writing `?` for a pair no note speaks of, and leaving `>`
+   to a person, would be the smaller rule.
+3. **A line of lineage the first reading never points at** is read by nobody twice (three links). The second
+   reading could be given every line of a note that names another note of the folder; on this bank that also
+   turns more "Basis: …" lines into lineage that the key does not count.
+4. **A thing's own note when a question names neither its folder nor its id.** The worn memory's own proof still
+   says 4 of 5 for that reason, and `ask` alone names every note of the answer for 84 questions where the lineage
+   has 93.
+5. **Setup should catch a kind prefix that is a project's code.** `inc-` cost answers in phase L and again here,
+   when a rebuild started from the seed registry: four models were incidents and two questions went with them.
+   The setup step can count, for each prefix, the notes whose reading names another kind.
+6. One call a note is still what `dream` does with a command. A dozen a call is the better first reading and the
+   cheaper; making it the default changes a dozen acceptance checks that count calls.
+7. The decomposing writer (step 2, item 11) is not built: `eval/decompose_probe.py` has its prompt and its gates,
+   and K4 measured no gain from it on a document that can be read as it is.
+8. Identity: the rule that joins an id to the one thing that writes it as a spelling still decides without a
+   reader; nothing qualifies a name by its folder, so "the response model" stays one thing with two meanings.
+9. Still the owner's: merge `production-readiness`, name the default branch, confirm the licence.
+
+Spent on models on 2026-11-12: Haiku 5.5 about $9 (the readings, the pilots, the curator runs, the phrases, the
+arms); Opus 5.5 $20.67 for its arms, inside the $15 to $25 the owner set.

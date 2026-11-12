@@ -156,15 +156,15 @@ def table(qfile, out, size, arms=None):
     by = collections.defaultdict(list)
     for (arm, model, run_, b), r in sorted(rows.items()):
         f = out / f"{arm}-{model}-r{run_}-b{b}.md"
-        ex, full, rec, pre, kinds = tally(batches[b - 1], f.read_text() if f.exists() else "")
+        ex, full, rec, pre, kinds, near = tally(batches[b - 1], f.read_text() if f.exists() else "")
         cf = out / "calls" / f"{arm}-{model}-r{run_}-b{b}.jsonl"
         if cf.exists() and (r.get("workspace") or arms):  # counted again from the calls on file, by today's rule
             r["outside"] = outside([json.loads(x) for x in cf.read_text().splitlines() if x.strip()],
                                    r.get("workspace") or (Path(arms) / arm).resolve())
         by[(arm, model)].append({**r, "exact": ex, "full": full, "rec": rec * len(batches[b - 1]), "pre": pre * len(batches[b - 1]),
-                                 "kinds": kinds})
-    print("arm · model · runs × questions · exact answers · whole set named · recall · precision · $ a ten questions · "
-          "seconds a ten · tool calls a ten · calls that named a path outside the workspace")
+                                 "kinds": kinds, "near": near})
+    print("arm · model · runs × questions · exact answers · exact, or in force with its chain · whole set named · recall · precision · "
+          "$ a ten questions · seconds a ten · tool calls a ten · calls that named a path outside the workspace")
     for (arm, model), rs in sorted(by.items()):
         n = sum(r["questions"] for r in rs)
         per_run = collections.defaultdict(lambda: [0, 0])
@@ -178,8 +178,10 @@ def table(qfile, out, size, arms=None):
                 kinds[k][0] += a
                 kinds[k][1] += b
         ten = 10 / n
+        near = sum(r["near"] for r in rs)
         print(f"{arm} · {'+'.join(rs[0]['models']) or model} · {len(per_run)} × {n // max(1, len(per_run))} · {sum(r['exact'] for r in rs)}/{n} "
-              f"({sum(r['exact'] for r in rs) / n:.0%}; by run {runs}) · {sum(r['full'] for r in rs) / n:.0%} · {sum(r['rec'] for r in rs) / n:.2f} · "
+              f"({sum(r['exact'] for r in rs) / n:.0%}; by run {runs}) · {near}/{n} ({near / n:.0%}) · {sum(r['full'] for r in rs) / n:.0%} · "
+              f"{sum(r['rec'] for r in rs) / n:.2f} · "
               f"{sum(r['pre'] for r in rs) / n:.2f} · {sum(r['cost'] or 0 for r in rs) * ten:.4f} · {sum(r['seconds'] for r in rs) * ten:.0f} · "
               f"{sum(r['tools'] for r in rs) * ten:.1f} · {sum(r['outside'] for r in rs)}")
         print("    exact by kind: " + ", ".join(f"{k} {a}/{b}" for k, (a, b) in sorted(kinds.items())))

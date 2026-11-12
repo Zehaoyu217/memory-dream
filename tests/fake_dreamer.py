@@ -160,6 +160,23 @@ def main():
         if os.environ.get("FAKE_CUT") and lines:
             lines[-1] = lines[-1][:len(lines[-1]) // 2]
         kind, path, out = "packet", str((len(parts) - 1) // 3), "\n".join(lines)
+    elif prompt.startswith("Notes of a work memory say in their own words"):
+        # the second reading: every member of each line, with its own words; the note is the one of the folder whose
+        # file name the words have, or whose first line shares two words of four letters with them
+        folder = dict(re.findall(r"^(\S+): (.*)$", prompt.split("\nFOLDER", 1)[1].split("\nLINES", 1)[0], re.M))
+        ans = {}
+        for num, verb, text in re.findall(r"^(\d+) · \S+ · (builds on|replaces) · (.*)$", prompt.split("\nLINES", 1)[1], re.M):
+            ans[num] = []
+            for part in re.findall(r"(?i)\b" + verb + r"\s+(.+?)(?:\.(?:\s|$)|$)", text):
+                for words in re.split(r",\s+|\s+and\s+", part):
+                    words = words.strip()
+                    said = set(re.findall(r"[a-z]{4,}", words.lower()))
+                    exact = [f for f in folder if re.search(r"(?<![\w-])" + re.escape(f) + r"(?![\w-])", words)]
+                    best = max(folder, key=lambda f: (len(said & set(re.findall(r"[a-z]{4,}", folder[f].lower()))), f), default=None)
+                    hit = best and len(said & set(re.findall(r"[a-z]{4,}", folder[best].lower()))) >= 2
+                    if words:
+                        ans[num].append({"words": words, "note": exact[0] if exact else best if hit else None})
+        kind, path, out = "place", "-", json.dumps(ans)
     elif prompt.startswith("You keep the names of things"):
         ids = set(re.findall(r"^- (\S+) \(", prompt, re.M))
         over = json.load(open(os.environ["FAKE_CURATE"])) if os.environ.get("FAKE_CURATE") else None

@@ -132,6 +132,7 @@ def scenario(w):
     reading(w)
     vocabulary(w)
     naming(w)
+    placing(w)
     proving(w)
 
 
@@ -268,6 +269,43 @@ def naming(w):
     w.ok("a person's `not:` line overrules it: the folder is read again, the same answer comes back, and the script "
          "does not write the join a second time", "risk-tier-cuts = " not in aliases.read_text().replace("not: ", "")
          and "= risk-tier-cutoffs" not in aliases.read_text() and "contract: schema 1 ok" in out, out + aliases.read_text())
+
+
+def placing(w):
+    """A link the first reading could not place (RESULTS phase S): listed, and with a command read once more."""
+    w.write("lib/paper-d.md", "", "paper-d: the drift test on loan data")
+    with open(w.root / "lib/paper-d.md", "a") as f:
+        f.write("Builds on the first drift test. It also builds on the lost appendix.\n")
+    sha = hashlib.sha256((w.root / "lib/paper-d.md").read_bytes()).hexdigest()[:12]
+    (w.root / "_dream/pending" / f"{sha}.json").write_text(json.dumps({
+        "kind": "note", "entities": [{"id": "paper-d", "type": "document", "as": ["paper-d"]}], "relations": [], "refs": [],
+        "built_on": [{"what": "first-drift-test", "quote": "Builds on the first drift test"},
+                     {"what": "lost-appendix", "quote": "builds on the lost appendix"}]}))
+    out = w.run("dream") + w.run("check")
+    w.ok("a note says it builds on something by a phrase and the reading names no note: both are listed, with the words",
+         "C18×2" in out and "says it builds on 'first-drift-test'" in out and "from" not in w.head(w.run("ask", "--list", "-p", "lib"), "lib/paper-d.md"), out)
+    out, listed = w.run("ask", "what is paper-d built on?"), w.run("ask", "--list", "-p", "lib")
+    w.ok("ask does not pass over it in silence: the note's own words are printed with the note, the chain says it is not "
+         "whole, and the map carries them",
+         "? it builds on «Builds on the first drift test», in its own words" in out and "not the whole chain: paper-d also builds on" in out
+         and "builds on «builds on the lost appendix», no note placed" in w.head(listed, "lib/paper-d.md"), out + listed)
+    log = w.dir / "placing.log"
+    out = w.run("dream", "--review", env={"MEMORY_LLM": FAKE, "FAKE_LOG": str(log)})
+    after = w.run("ask", "--list", "-p", "lib") + w.run("check")
+    w.ok("with a command the line is read once more beside the folder's notes, every member of it: the one a note answers "
+         "to becomes lineage, the other stays listed with its own words, and the line is not read a third time",
+         "second reading: 1 line read once more, +1 link (1 call)" in out and "from paper-b" in w.head(after, "lib/paper-d.md")
+         and "C18 ×1" in after and "says it builds on 'the lost appendix'" in after
+         and "second reading" not in w.run("dream", "--review", env={"MEMORY_LLM": FAKE, "FAKE_LOG": str(log)}), out + after)
+    w.write("lib/paper-e.md", "", "paper-e: a correction to the drift test")
+    with open(w.root / "lib/paper-e.md", "a") as f:
+        f.write("Replaces lib/paper-d.\n")
+    sha = hashlib.sha256((w.root / "lib/paper-e.md").read_bytes()).hexdigest()[:12]
+    (w.root / "_dream/pending" / f"{sha}.json").write_text(json.dumps({
+        "kind": "note", "entities": [], "relations": [], "refs": [], "replaces": [{"what": "lib-paper-d", "quote": "Replaces lib/paper-d."}]}))
+    out = w.run("dream") + w.run("ask", "--list", "-p", "lib")
+    w.ok("an item named by something no note answers to, whose own words give one note's path: that note, with no call",
+         "supersedes paper-d" in w.head(out, "lib/paper-e.md") and "C18×1" in out, out)
 
 
 def proving(w):

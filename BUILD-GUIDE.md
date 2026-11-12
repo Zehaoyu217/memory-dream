@@ -223,7 +223,7 @@ history, and that version put 12 of 209 symbols on the line of a call or of a lo
   C6 no `# ` line, C7 review pending (labels, budget), C8 bad EDGES/ALIASES/CONFLICTS line, C9 NUL bytes in a note
   (binary-looking), C10 conflict pending, C11 a note over 40 lines, C14 built on a dropped note or left the newest of
   its line by a drop, C15 gone without a drop, C16 a pointer into a file that no longer holds, C17 a tag that
-  TAGS.md does not list. `check` also runs the memory's own proof (`proof`): each `- question? -> note` line of
+  TAGS.md does not list, C18 lineage a note states in prose that no note answers to. `check` also runs the memory's own proof (`proof`): each `- question? -> note` line of
   `memory/SETUP.md` is put to `ask` alone, and the line counts when a section of the answer is headed by that note.
 
 ### 5.5 The graph, vocabulary half (`build`, `merge_entities`)
@@ -310,6 +310,30 @@ constants, each with the measurement that set it.
   replacements and these hold 91%; do not go back to judging each claim as it comes, in note order. So that a keeper can
   name the note a phrase means ("the dispositions dataset"), both prompts carry `FOLDER`: the notes of the folder as
   `file name: first line` (`folder_lines`, at most 80 a folder), part of the prefix that every call of a folder shares.
+  One more exact step comes last (`named`): an item no note answers to, whose own words name one note by its path
+  or id that no other item of the note took, is that note ("Replaces glossary/brier.", written down by a keeper as
+  the thing `glossary-brier`: 13 on the worn bank, all right). Only a word written like a path or an id is looked
+  up, never a plain word of the sentence.
+- **The second reading** (`PLACE`, `Dream.run_place`): the first reading finds the lines of a note that say what it
+  builds on or replaces among everything else it does for a dozen notes, and of the things such a line names by a
+  phrase it left one in ten out without a trace (RESULTS S6). With a command, every such line is put to the keeper
+  once more, by folder, 45 lines a call, with the folder's notes by file name and one thing asked: every member of
+  the line, each with its own words and the note meant. The answer takes the first reading's place on that line:
+  one item a member, the member's words as its quote, marked `asked` so that a line is read twice and no more; a
+  member no note is named for stays, with its words, and is listed (C18). Nothing is lost by silence: an answer
+  with no member for a line leaves the line as it was, and an item whose name is written in the line stays. On the
+  worn bank, 1,462 lines in 50 calls for $0.18: `from` links held 94.3% → 99.5%, replacements 91.2% → 99.5%, the
+  questions its lineage answers exactly 83 → 91 of 98. Do not fold this into the first reading's prompt: the rule
+  is already there ("a sentence that names three gives three items") and was not kept. What works is the line
+  alone, with nothing else to do.
+- **What `ask` does with an item that is still not placed** (`loose_ends`): it prints the note's own words under
+  the note (`? it builds on «…», in its own words`), says `not the whole chain` on a `⇡` line that runs through such
+  a note, and carries the words on the note's line of the map. Do not drop these lines to save characters. `ask` is
+  a layer on grep, and an agent with grep reads that sentence; an `ask` that shows the derived lineage and is silent
+  about the link it could not derive knows less than grep, and the agent takes the silence for "nothing more".
+  These lines are only as good as what the memory knows it lacks: on the worn bank they changed nothing while two
+  thirds of the missing links were members a keeper had left out without a trace (RESULTS S6), which is why the
+  second reading asks for every member and keeps the ones it cannot name.
 - **Command mode** (`MEMORY_LLM` set): waves of `-j` parallel calls, one retry for unusable answers. A call runs in a
   process group of its own (`run_command`): past `MEMORY_TIMEOUT` seconds (300) the whole group is killed, the pipes
   are closed from this side and only the shell is waited for. Do not go back to `subprocess.run(timeout=…)`: it kills
@@ -398,7 +422,7 @@ Per question:
 ### 5.8b The graph contract
 
 `.specs/memory-dream/CONTRACT.md` is the authority on every shape `memory.py` writes and reads: the graph (`graph.json`,
-`index.db`), the viewer's data island, the extraction cache, `store.db`, the manifest, the warning codes C1–C16 and the
+`index.db`), the viewer's data island, the extraction cache, `store.db`, the manifest, the warning codes C1–C18 and the
 grammar of EDGES.md, ALIASES.md, CONFLICTS.md and DIGEST.md. Every graph carries `schema: 1`; `validate()` checks a
 graph against the contract, `memory.py check` prints the result first, and A38 enforces it on the fixture (graph,
 `index.db` round trip, island). Build the viewer against the contract, never against the code.

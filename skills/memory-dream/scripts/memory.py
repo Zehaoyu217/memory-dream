@@ -467,6 +467,30 @@ FOLDER {area}:
 {cards}
 """
 CURATE_MAX = 60  # folders a dream has read by the curator; the rest wait for the next one
+# The second reading (RESULTS phase S). The first reading finds the lines of a note that say what it builds on or
+# replaces, and reads them among everything else it has to do: of the things such a line names by a phrase ("Builds on
+# exp-303, the isotonic score map and the psi finding") it left one in ten out and said nothing, which was two thirds
+# of the lineage the memory lacked on the worn bank. So each such line is read once more, by folder, with the folder's
+# notes beside it and one thing asked: every member of the line, each with its own words and the note it means. That
+# reading holds 99.2% of the bank's built-on links where the first held 96.3%, and its answer takes the first one's
+# place on the lines it read.
+PLACE = """Notes of a work memory say in their own words what they build on and what they replace. Below are such lines, copied
+from notes of one folder. For each line, list every thing it says its note builds on (or, where that is what is
+asked, replaces): each member of a list is one entry, in the order the line names them, none left out.
+For each entry give the words the line uses for it, copied, and the note of the folder that is meant: its file name
+without .md, however the line words it ("the dispositions dataset" is the note about that dataset, "the question of
+which margin to target" is the note that asks it, "the first router run" is the note of that model). null when no
+note of the folder is meant, or when two could be. A note of another folder, which a line names with its folder
+(folder/name), is given as folder/name.
+The note a line stands in is never an entry of its own line. Where replaces is asked: only what the note itself, or
+the thing it is named after, replaces or retires; a line that says the note was replaced by something has no entry.
+FOLDER {area} (file name: first line):
+{folder}
+LINES (number · the note it stands in · asked · the line):
+{items}
+Reply with JSON only, one key per line: {"1": [{"words": "<copied from the line>", "note": "<file name>"}, {"words": "...", "note": null}], "2": []}
+"""
+PLACE_LINES, PLACE_TEXT, PLACE_MAX = 45, 500, 200  # lines a call · characters of a line · calls a dream, the rest wait
 
 # A packet (PLAN §4): the same reading asked for many notes in one call. The rules are EXTRACT's own, cut from it, so
 # the two prompts cannot drift apart; a note is named by the first twelve characters of the hash of its text.
@@ -1584,13 +1608,14 @@ def vocab_gate(props, cfg, n_types, usage, now, noun, shown):
 def lineage_as_read(root, notes, aux, edges, ents, cmap, own):
     """Lineage that a note states only in its prose, as its keeper read it: the `built_on` and `replaces` items of a
     reading, each with the note's own words. What an item names is looked up as a note (a path, or an id, in the
-    note's own folder first), then through the things' names (the home note of the thing). It becomes a `from` or
+    note's own folder first), then through the things' names (the home note of the thing, or for a thing with no
+    note of its own name the one note of the folder whose title names it). It becomes a `from` or
     `supersedes` edge marked `by: "reading"`; a line of frontmatter or of CONFLICTS.md that already says it, or says
     otherwise (`compatible: a / b`, the reverse replacement), wins. A replacement is not taken from a note older than
     the one it names, nor from a note of another kind when a note of the replaced note's own kind says it too. -> (notes, edges, counts); the inputs are not
     changed, because the note half of a graph is reused across rebuilds."""
     if not any((aux[rel]["x"] or {}).get(f) for rel in notes for f in ("built_on", "replaces")):
-        return notes, edges, {}
+        return notes, edges, {}, []
     cf = Path(root) / "CONFLICTS.md"
     compat = parse_conflicts(read(cf))[1] if cf.exists() else set()
     notes, edges, st = dict(notes), list(edges), Counter()
@@ -1599,26 +1624,53 @@ def lineage_as_read(root, notes, aux, edges, ents, cmap, own):
     for q, n in notes.items():
         by_stem[fold(n["id"])].append(q)
 
-    def note_of(what, src):
+    def direct(what, src):
         w = what[:-3] if what.endswith(".md") else what
         for c in (posixpath.normpath(posixpath.join(posixpath.dirname(src), w)) + ".md", posixpath.normpath(w) + ".md"):
             if c in notes:
                 return c
         c = by_stem.get(fold(posixpath.basename(w)), [])
         mine = [q for q in c if area_of(q) == area_of(src)]
-        if len(mine) == 1 or len(c) == 1:
-            return (mine or c)[0]
-        e = cmap.get(fold(own(src, what)))
-        return ents[e]["home"] if e and e in ents else None
+        return (mine or c)[0] if len(mine) == 1 or len(c) == 1 else None
 
-    promoted, claims = set(), []
+    def named(quote, src, taken):
+        """An item no note answers to, whose own words name one note by its path or its id that no other item of the
+        note took: that note ("Replaces glossary/brier.", which a keeper wrote down as the thing `glossary-brier`).
+        Only a word that is written like a path or an id is looked up, never a plain word of the sentence."""
+        c = set()
+        for t in quote.split():
+            t = t.strip("`'\"«»()[]{},;:.!?")
+            if t and re.search(r"[/\d_-]", t):
+                c.add(direct(t, src))
+        c -= {None, src} | taken
+        return next(iter(c)) if len(c) == 1 else None
+
+    def note_of(what, src):
+        c = direct(what, src)
+        if c:
+            return c
+        e = cmap.get(fold(own(src, what)))
+        if not e or e not in ents:
+            return None
+        if ents[e]["home"]:
+            return ents[e]["home"]
+        # a thing with no note of its own name (the table `callcenter.calls`, whose note is ds-cr-calls): the one
+        # note of this folder that names it on its `# ` line is the note about it
+        titled = [m_["path"] for m_ in ents[e]["mentions"] if area_of(m_["path"]) == area_of(src)
+                  and m_["path"] in notes and notes[m_["path"]]["line"] in m_["lines"]]
+        return titled[0] if len(titled) == 1 else None
+
+    promoted, claims, left = set(), [], []
     for rel in sorted(notes):
         x = aux[rel]["x"] or {}
         for field, kind in (("built_on", "from"), ("replaces", "supersedes")):
-            for b in x.get(field) or []:
-                dst = note_of(b["what"], rel)
+            found = [note_of(b["what"], rel) for b in x.get(field) or []]
+            for k, b in enumerate(x.get(field) or []):
+                dst = found[k] = found[k] or named(b["quote"], rel, set(found))
                 if not dst or dst == rel:
                     st["lineage_read_unplaced"] += 1
+                    if not dst:
+                        left.append({"note": rel, "field": field, "i": k, "what": b["what"], "quote": b["quote"], "asked": bool(b.get("asked"))})
                 elif (rel, dst, kind) in have:
                     st["lineage_read_already_written"] += 1
                 elif kind == "from":
@@ -1657,7 +1709,7 @@ def lineage_as_read(root, notes, aux, edges, ents, cmap, own):
             st["lineage_read"] += 1
             notes[dst] = {**notes[dst], "superseded_by": notes[dst]["superseded_by"] + [src]}
     edges = [e for e in edges if not (e["rel"] == "refs" and (e["src"], e["dst"]) in promoted)]  # a mention that is lineage is said once
-    return notes, edges, dict(st)
+    return notes, edges, dict(st), left
 
 
 def build(root, man, cur, former, et, at, xs=None, now=None, facts=None, base=None):
@@ -1690,8 +1742,10 @@ def build(root, man, cur, former, et, at, xs=None, now=None, facts=None, base=No
         nots = nots | {frozenset(fold(f"{o}:{x}") for x in pair) for pair in on}
     dedup = Counter()
     ents, cmap, gkeys = merge_entities(occ, alines, nots, homes, dedup)
-    notes, edges, read_stats = lineage_as_read(root, notes, aux, edges, ents, cmap, own)
+    notes, edges, read_stats, unplaced = lineage_as_read(root, notes, aux, edges, ents, cmap, own)
     dedup.update(read_stats)
+    checks += [("C18", f"{u['note']}: says it {'builds on' if u['field'] == 'built_on' else 'replaces'} {u['what']!r} («{u['quote'][:70]}») and no "
+                "note answers to that name; a `from:` or `supersedes:` line in the note settles it") for u in unplaced]
     tcfg = edges_cfg(tt)
     tusage = {}  # thing types in use, for the probation of proposed types
     for e in ents.values():
@@ -1788,7 +1842,7 @@ def build(root, man, cur, former, et, at, xs=None, now=None, facts=None, base=No
             "proposed_types": proposed_t,
             "tvocab": {"types": len(ttypes), "budget": tcfg["budget"], "promote": list(tcfg["promote"]), "probation": tcfg["probation"],
                        "labels": len(tprops), "below": len(tbelow), "demote": sorted(tdemote)},
-            "dedup": dict(dedup), "dropped": base.get("dropped", []), "pointers": ptr, "tags": tags,
+            "dedup": dict(dedup), "dropped": base.get("dropped", []), "pointers": ptr, "tags": tags, "unplaced": unplaced,
             "checks": [{"code": c, "msg": m} for c, m in sorted(checks, key=lambda z: z[0])]}
 
 
@@ -1854,9 +1908,10 @@ def validate(g, types=None):
             if not m or m.group(1) not in paths or int(m.group(2)) < 1:
                 bad.append(f"relation {r['s']} {t} {r['o']}: evidence {ev!r} is not path:line of a note")
     bad += [f"conflict {c.get('a')} / {c.get('b')}: unknown note" for c in g["conflicts"] if c.get("a") not in paths or c.get("b") not in paths]
-    bad += [f"check {c.get('code')}: unknown code" for c in g["checks"] if not re.fullmatch(r"C(?:[1-9]|1[0-7])", str(c.get("code", "")))]
+    bad += [f"check {c.get('code')}: unknown code" for c in g["checks"] if not re.fullmatch(r"C(?:[1-9]|1[0-8])", str(c.get("code", "")))]
     bad += [f"pointers of {p}: not a note" for p in g.get("pointers", {}) if p not in paths]  # optional: pointers into files
     bad += [f"tag {t}: {p} is not a note" for t, ps in g.get("tags", {}).items() for p in ps if p not in paths]  # optional: tags
+    bad += [f"unplaced {u.get('note')}: not a note" for u in g.get("unplaced", []) if u.get("note") not in paths]  # optional
     for d in g.get("dropped", []):  # optional: what `drop` recorded and what it means for the notes that are left
         if not isinstance(d.get("path"), str) or d["path"] in paths:
             bad.append(f"dropped {d.get('path')!r}: not a path, or a note that exists")
@@ -2294,6 +2349,7 @@ class Dream:
         self.review = {"pairs": 0, "types": 0, "calls": 0, "aliases": 0, "mapped": 0, "new": 0, "refused": 0,
                        "demoted": 0, "conflicts": 0, "decided": 0}
         self.curate = {"folders": 0, "calls": 0, "joined": 0, "refused": 0, "left": 0}
+        self.placing = {"lines": 0, "members": 0, "links": 0, "calls": 0, "left": 0}
         self.curated = dict(self.man.get("curated") or {})
         self.base = {}  # the note half of the graph, reused across rebuilds until a review changes lineage
         self.fresh = set()  # notes read in this dream: `--all` does not ask for them twice
@@ -2309,6 +2365,7 @@ class Dream:
             return self.dry_run()
         self.index()
         g = self.demote(self.graph())
+        g = self.run_place(g)
         g = self.run_curate(g)
         g = self.run_review(g)
         self.report(g, self.write(g))
@@ -2557,7 +2614,9 @@ class Dream:
         print(f"dream --dry-run: {len(self.cur)} notes · {len(todo)} to read in {len(packs)} {what} · about {sum(sizes):,} tokens in "
               f"and {out:,} out · about ${cost:.2f} at ${pin:.2f} and ${pout:.2f} a million tokens · the largest prompt about "
               f"{max(sizes):,} tokens" + (": OVER the 100,000 line, where a prompt costs five times as much" if max(sizes) > 100000 else "")
-              + " · the answer is counted as Haiku 5.5 wrote it, thinking included · nothing was called or written")
+              + " · the answer is counted as Haiku 5.5 wrote it, thinking included · after it the lines that state what a note "
+              f"builds on or replaces are read once more, a call for every {PLACE_LINES} such lines of a folder (on a bank of "
+              "1,677 notes: 50 calls, a seventh of the first reading's cost) · nothing was called or written")
         if self.args.packets:
             for hs, n in list(zip(packs, sizes))[:40]:
                 areas = list(dict.fromkeys(area_of(self.by_sha[h]) or "(root)" for h in hs))
@@ -2592,6 +2651,79 @@ class Dream:
             wr(self.root / "TYPES.md", t2)
         self.review["demoted"] = len(g["vocab"]["demote"]) + len(g["tvocab"]["demote"])
         return self.graph()
+
+    def run_place(self, g):
+        """The second reading. Every line of a note on which the first reading found lineage is put to the keeper once
+        more, by folder: the line, the note it stands in, whether it says builds on or replaces, and the folder's
+        notes by file name. The keeper lists every member of the line, each with its own words and the note meant;
+        its answer takes the place of the first reading's items on that line, one item a member with the member's
+        words as its quote, kept only when those words are in the line, and marked `asked`, so that a line is read
+        twice and no more. A member no note is named for stays an item with its words, which the build lists (C18)
+        and `ask` prints. Nothing is lost by silence: an answer that names no member for a line leaves the line as
+        the first reading had it, and an item of the first reading whose name is written in the line as it stands
+        ("Builds on ds-cc-tickets-raw.") stays whatever the answer left out. Command mode only."""
+        if not self.cmd:
+            return g
+        todo = defaultdict(list)  # folder → [(note, field, line number, the line)]
+        for rel in sorted(self.cur):
+            x = self.xs.get(self.cur[rel]["sha"][:12]) or {}
+            at = sorted({(f, b["line"]) for f in ("built_on", "replaces") for b in x.get(f) or [] if b.get("line") and not b.get("asked")})
+            if at:
+                ls = read(self.root / rel).split("\n")
+                todo[area_of(rel)] += [(rel, f, n, " ".join(ls[n - 1].split())[:PLACE_TEXT]) for f, n in at if n <= len(ls)]
+        parts = [(a, todo[a][k:k + PLACE_LINES]) for a in sorted(todo) for k in range(0, len(todo[a]), PLACE_LINES)]
+        self.placing["left"] = sum(len(part) for _, part in parts[PLACE_MAX:])
+        parts = parts[:PLACE_MAX]
+        if not parts:
+            return g
+
+        def prompt(a, part):
+            items = "\n".join(f"{k} · {posixpath.basename(rel)[:-3]} · {'builds on' if f == 'built_on' else 'replaces'} · {text}"
+                              for k, (rel, f, n, text) in enumerate(part, 1))
+            return fill(PLACE, area=a, folder=self.folder_lines([a], cap=200), items=items)
+        with ThreadPoolExecutor(max(1, self.args.j)) as ex:
+            answers = list(ex.map(lambda part: call_model(self.cmd, prompt(*part)), parts))
+        before = sum(e.get("by") == "reading" for e in g["edges"])
+        changed = set()
+        for (a, part), (obj, n) in zip(parts, answers):
+            self.placing["calls"] += n
+            if not isinstance(obj, dict):
+                continue  # no answer: these lines stay as the first reading left them, and are asked again
+            for k, (rel, f, ln, text) in enumerate(part, 1):
+                h = self.cur[rel]["sha"][:12]
+                x, ans = self.xs[h], obj.get(str(k))
+                changed.add(h)
+                self.placing["lines"] += 1
+                first = [b for b in x[f] if b.get("line") == ln]
+                for b in first:
+                    b["asked"] = True
+                new, low = [], text.lower()
+                for e in ans if isinstance(ans, list) else []:
+                    e = {"words": e, "note": e} if isinstance(e, str) else e  # a bare name: the words and the note at once
+                    words = " ".join(str(e.get("words") or "").split()) if isinstance(e, dict) else ""
+                    at = low.find(words.lower()) if words else -1
+                    if at < 0:
+                        continue  # kept only with words that are in the line
+                    name = str(e.get("note") or "").strip()
+                    name = name[:-3] if name.endswith(".md") else name
+                    if name and name in (rel[:-3], posixpath.basename(rel)[:-3]):
+                        continue  # the note itself
+                    new.append({"what": name or text[at:at + len(words)], "quote": text[at:at + len(words)], "line": ln, "asked": True})
+                if not new:
+                    continue  # no member named, or the line passed over: it stays as the first reading had it, asked once
+                took = {fold(posixpath.basename(b["what"])) for b in new}
+                new += [b for b in first if fold(posixpath.basename(b["what"])) not in took and re.search(r"[/\d_-]", b["what"])
+                        and re.search(r"(?<![\w/-])" + re.escape(b["what"]) + r"(?![\w/-])", text, re.I)]
+                x[f] = sorted([b for b in x[f] if b.get("line") != ln] + new, key=lambda b: b.get("line") or 0)
+                self.placing["members"] += len(new)
+        for h in changed:  # the reading on file is what the keepers read, the second reading included
+            wr(self.dd / "notes" / f"{h}.json", self.xs[h])
+            self.store.put(h, self.xs[h])
+        if not changed:
+            return g
+        g = self.graph()
+        self.placing["links"] = sum(e.get("by") == "reading" for e in g["edges"]) - before
+        return g
 
     def cards(self, g, area, cap=150):
         """The things a folder's notes name, for the curator: -> (ids, one line each). Most mentioned first."""
@@ -2897,7 +3029,7 @@ class Dream:
                                   "failed": self.failed, "attempts": self.attempts, "refs": refs,
                                   "dropped": g.get("dropped", []), "gone": self.gone,
                                   "pointers": g.get("pointers", {}), "psig": pointer_sig(root, g.get("pointers", {})),
-                                  "tags": g.get("tags", {}),
+                                  "tags": g.get("tags", {}), "unplaced": g.get("unplaced", []),
                                   "dreamed": now.isoformat(timespec="seconds"),
                                   "unindexed": sum(1 for n in g["notes"] if not n["indexed"]),
                                   "curated": self.curated,
@@ -2913,6 +3045,10 @@ class Dream:
         if review["pairs"] or review["types"] or review["conflicts"]:
             out += f" · review: {pl(review['pairs'], 'pair')}, {pl(review['types'], 'label')}, {pl(review['conflicts'], 'conflict')} " + \
                 (f"({pl(review['calls'], 'call')})" if cmd else "(file mode)")
+        pc = self.placing
+        if pc["calls"] or pc["left"]:  # calls with no line read are a command that did not answer: said, not hidden
+            out += (f" · second reading: {pl(pc['lines'], 'line')} read once more, {pc['links']:+d} {'link' if abs(pc['links']) == 1 else 'links'} "
+                    f"({pl(pc['calls'], 'call')})" + (f", {pl(pc['left'], 'line')} left for the next dream" if pc["left"] else ""))
         cu = self.curate
         if cu["folders"]:
             out += (f" · curator: {pl(cu['folders'], 'folder')}, {pl(cu['joined'], 'name')} joined"
@@ -2998,6 +3134,7 @@ class View:
         self.g = g
         self._names = None
         self.dropped, self.pointers, self.tags = g.get("dropped", []), g.get("pointers", {}), g.get("tags", {})
+        self.unplaced = g.get("unplaced", [])
         self.notes = {n["path"]: n for n in g["notes"]}
         self.ents = {e["id"]: e for e in g["entities"]}
         self.out_r, self.in_r = defaultdict(list), defaultdict(list)
@@ -3070,6 +3207,7 @@ class DbView:
         self.notes = {p: {"path": p, "id": i, "project": a, "title": t, "line": ln, "kind": k, "updated": u,
                           "superseded_by": list(sup or [])} for p, i, a, t, ln, k, u, sup in rows.notes()}
         self.dropped, self.pointers, self.tags = man.get("dropped", []), man.get("pointers", {}), man.get("tags", {})
+        self.unplaced = man.get("unplaced", [])
         old = {p: f["sha"] for p, f in man.get("files", {}).items()}
         changed = {p for p in cur if old.get(p) != cur[p]["sha"]}
         gone = {p for p in self.notes if p not in cur}
@@ -3743,6 +3881,16 @@ def route(pats, cat):
 LIST_MAX = 150  # lines of `ask --list` before it says how many more there are
 
 
+def loose_ends(v):
+    """What notes name, in their own words, that no note was placed for (C18): {note: [(verb, the words)]}. `ask`
+    prints them wherever it prints the note, and says so on a chain that runs through one: a link the memory does not
+    hold must not read as a link that is not there (the worn bank, RESULTS phase S)."""
+    out = defaultdict(list)
+    for u in getattr(v, "unplaced", None) or []:
+        out[u["note"]].append(("builds on" if u["field"] == "built_on" else "replaces", " ".join(str(u["quote"]).split())[:120]))
+    return out
+
+
 def drop_marks(v):
     """What `drop` left on the notes that stayed: {note: [dropped notes it was built on]} and {note: [dropped notes
     that had replaced it]}, by id. A header says both, so a reader sees that a chain was cut on purpose."""
@@ -3782,6 +3930,7 @@ def list_notes(args, v, root=None):
             and (not kind or kind in (v.notes[p]["kind"], family(v.notes[p]["kind"])))]
     cap = len(rows) if getattr(args, "all", False) else LIST_MAX
     built, newest = drop_marks(v)
+    loose = loose_ends(v)
     print(f"## {len(rows)} notes" + (f" of {args.p}/" if args.p else "") + (f" of kind {kind}" if kind else "")
           + (f" tagged {tag}" + (f" ({defs[tag]})" if defs.get(tag) else " (not in TAGS.md: no definition)") if tag else "")
           + " — one line each: built on (a note of another folder with its folder) · replaces · replaced by · used in other folders")
@@ -3797,7 +3946,9 @@ def list_notes(args, v, root=None):
               + (f" · from {', '.join(frm)}" if frm else "")
               + (f" · supersedes {', '.join(sup)}" if sup else "") + chain_mark(v.notes, n)
               + (f" · its replacement {', '.join(newest[p])} was dropped" if p in newest else "")
-              + (f" · used in {', '.join(out)}" if out else "") + f" — {n['title'][:110]}")
+              + (f" · used in {', '.join(out)}" if out else "")
+              + "".join(f" · {verb} «{words}», no note placed" for verb, words in loose.get(p, []))
+              + f" — {n['title'][:110]}")
     if len(rows) > cap:
         print(f"  ({len(rows) - cap} more: narrow it with -p <folder>, --kind <kind> or --tag <tag>, or print them all with --all)")
     if args.p:  # what the folder as a whole rests on, and what rests on it, outside itself
@@ -3822,6 +3973,7 @@ def ask(args, root):
     if getattr(args, "list", False):
         return list_notes(args, v, root)
     built, newest = drop_marks(v)
+    loose = loose_ends(v)
     ptr_now = {}
 
     def pointers_of(path):
@@ -3832,7 +3984,8 @@ def ask(args, root):
         return ptr_now.get(path, [])
 
     def pointer_lines(path):
-        out = []
+        out = [f"  ? it {verb} «{words}», in its own words: no note was placed for that, so it is in no chain here; grep "
+               "the folder for it" for verb, words in loose.get(path, [])]
         for r in pointers_of(path)[:4]:
             loc = f"#{r['symbol']}" if r.get("symbol") else f":{r['line']}" + (f' "{r["quote"]}"' if r.get("quote") else "")
             bare = not r.get("symbol") and not r.get("quote")  # held only by the words found there when first seen
@@ -4000,6 +4153,9 @@ def ask(args, root):
             name = lambda q: (v.notes[q]["id"] if area_of(q) == here else q[:-3]) + f" ({v.notes[q]['kind']})"  # noqa: E731
             for mark, got, text in (("⇡", closure(p, v.frm, "dst"), f"{nid} rests on {{n}} notes"),
                                     ("⇣", closure(p, v.down, "src"), f"{{n}} notes rest on {nid}")):
+                # a chain is as whole as its notes' links: a note on it that names something no note was placed for
+                # may rest on more than is listed, and saying nothing would read as "nothing more"
+                gaps = sorted(v.notes[q]["id"] for q in [p, *got] if any(verb == "builds on" for verb, _ in loose.get(q, []))) if mark == "⇡" else []
                 if got:
                     ids = sorted(got, key=lambda q: (got[q], q))
                     near = [name(q) for q in ids[:CLOSURE_MAX] if got[q] == 1]
@@ -4007,6 +4163,16 @@ def ask(args, root):
                     out.append(f"  {mark} {text.format(n=len(ids))} — directly: " + " · ".join(near)
                                + (" — through them: " + " · ".join(far) if far else "")
                                + (f" · and {len(ids) - CLOSURE_MAX} more" if len(ids) > CLOSURE_MAX else ""))
+                if gaps:
+                    out.append(f"    not the whole chain: {', '.join(gaps[:8])}" + (f" and {len(gaps) - 8} more" if len(gaps) > 8 else "")
+                               + " also build" + ("s" if len(gaps) == 1 else "") + " on something named only in words, for which no note "
+                               "was placed: " + " · ".join(f"{v.notes[q]['id']} «{words}»" for q in [p, *got] for verb, words in loose.get(q, [])
+                                                           if verb == "builds on")[:400] + " — find those with grep")
+                if mark == "⇣":
+                    there = sorted(v.notes[q]["id"] for q in loose if area_of(q) == here and q != p)
+                    if there:
+                        out.append(f"    {len(there)} other notes of {here}/ build on something no note was placed for, and it may be {nid}: "
+                                   + ", ".join(there[:10]) + (" …" if len(there) > 10 else "") + f" (`ask --list -p {here}` shows their words)")
         return out
 
     def header(path):

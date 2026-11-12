@@ -145,7 +145,9 @@ complete or it says that it is not:
   the `tags:` line of its frontmatter. A question whose
   answer is a set or a relationship is read off these lines; `ask` does not guess a list from a question's wording.
 - **Not the whole, said so.** A question that names a folder which is not printed whole gets one line: its section
-  holds the best matches among the folder's notes, not all of them, and the command that maps the folder.
+  holds the best matches among the folder's notes, not all of them, and the command that maps the folder. The same
+  holds for lineage that a keeper read out of a note's prose: where a note names something it builds on and no note
+  was matched to the name, `ask` prints the note's own words under it and says that the chain is not whole.
 
 A note's kind now comes from the name and the folder its writer chose before it comes from the dreamer's reading.
 The call prints about a quarter more characters than before; the price is in the number of requests an agent
@@ -304,6 +306,34 @@ one folder of about 13,000 characters with every link on a `from:` line, and an 
 of it. Each cell is
 one run a batch; two earlier rounds of the same memory were graded 21 to 24 on the thirty and 29 on the linkage set,
 and the judge changes about one verdict in nine between two passes.
+
+The same kind of question on a base where grep has no such line (RESULTS phase S, 2026-11-12). The worn bank is the
+same 1,677 notes with the lineage lines of the frontmatter taken out and every link said in a sentence at the end
+of the note, a third of them by a phrase ("Builds on exp-303, the isotonic score map and the psi finding"). 98
+questions, scored exactly, every arm run headless with the cost the CLI reports:
+
+| | exact answers | $ a ten questions | seconds a ten | tool calls a ten |
+|---|---|---|---|---|
+| Opus + grep (2 runs) | 99% | 0.70 | 123 | 12.6 |
+| Haiku + grep (3 runs) | 90% | 0.080 | 141 | 17.1 |
+| Opus + memory as first read (1 run) | 84% | 0.27 | 30 | 4.7 |
+| Haiku + memory as first read (3 runs) | 82% | 0.016 | 52 | 5.3 |
+| Haiku + memory, the lineage lines read twice (3 runs) | 96% | 0.017 | 53 | 5.0 |
+| Opus + memory, the lineage lines read twice (1 run) | 96% | 0.35 | 68 | 6.3 |
+
+(Exact: the notes an answer lists are the true set. One kind of question is answered in some sessions with a
+longer, labelled list that this count takes for wrong; RESULTS S6 has a second count that does not, 91%, 85% and
+97% for the three Haiku rows.) The first memory lost to grep with either reader, and the reason is one number. An
+agent with the memory makes one call and answers from it, so it is as right as what the memory holds: computed from
+the stored links alone, with no agent at all (`eval/linkage.py lineage`), 83 of the 98 answers came out exact, and
+Opus scored 82. The keeper had read 94% of the links, and a set reached through several links needs every one.
+Nearly half of the 146 missing ones were members of a list that the keeper had left out without a trace, and as
+many were words it had read and could not match to a note; neither was shown anywhere, so `ask` could not say that
+a chain was short. Now every line that states lineage is read a second time on its own, one call a
+folder ($0.18 for the bank on top of $1.27): the memory holds 99.5% of the links of both kinds, they answer 93 of
+the 98 questions, and what it could not place it lists and `ask` prints. With the same cheap
+reader the memory is then 6 points more accurate than grep at a fifth of the price; Opus with grep stays 3 points
+ahead at 42 times the price. Not tested: a base whose folders are too large to read whole.
 
 Earlier runs (rounds 2 and 4), on the code before the retrieval rewrite and against a grep arm that could not read
 folders: 30 notes 26/3/1 against 25/5/0 at 0.93× the cost; 1,677 notes 27/3/0 against 26/4/0 at 0.47× the cost and

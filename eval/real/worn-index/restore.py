@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """The worn bank's memory with no model call: what Haiku 5.5 read in its 1,677 notes on 2026-11-12 (142 packets of a
-dozen notes, $1.27; RESULTS phase S) and the registries its curator and review left. Usage:
+dozen notes, $1.27; then every line that states lineage read a second time, 1,462 lines in 50 calls, $0.18; RESULTS
+phase S) and the registries its curator and review left ($0.12). Usage:
 
   python3 eval/bank/assemble.py eval/bank/generated tests/fixture/memory <tidy>/memory
   python3 eval/real/bank-index/restore.py <tidy>/memory

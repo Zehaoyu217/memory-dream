@@ -32,9 +32,10 @@ Produced by `build()`, written as `_dream/graph.json` (≤ `MEMORY_WIDE` notes) 
 | `proposed_types` | list of label | type words (things typed outside TYPES.md) over the `promote` bar of TYPES.md, offered to the review |
 | `tvocab` | object | the same shape as `vocab`, for TYPES.md |
 | `dedup` | object | counters from entity merging (`mentions`, `ids_as_written`, `after_folding`, …) |
-| `checks` | list of `{code, msg}` | warnings, sorted by code; codes `C1`–`C17` (§5) |
+| `checks` | list of `{code, msg}` | warnings, sorted by code; codes `C1`–`C18` (§5) |
 | `dropped` | list, optional | what `drop` recorded: `{path, date, replaced, built_on_by, left_newest}` (below) |
 | `pointers` | object, optional | `{note path: [pointer]}`: what the notes point at in the project's files (below) |
+| `unplaced` | list, optional | lineage a reading states that no note answers to (C18): `{note, field, i, what, quote, asked}`, `field` being `built_on` or `replaces` and `i` its place in the reading's list; `asked` once the line it stands on has been through the second reading |
 | `tags` | object, optional | `{tag: [note paths]}`, from the `tags:` line of each note's frontmatter read through `TAGS.md` (§6): a listed tag under its name whatever spelling the note used, a word that is not listed under its own folded spelling (C17). In `manifest.json` too |
 
 **pointer** — `{to, path, line, quote, symbol, text, state, now, of, form}`. A note's text points into a file as
@@ -84,7 +85,9 @@ a memory too large for `graph.json`.
 `CONFLICTS.md`, `by: "drop"` one passed on by a tombstone, `by: "reading"` lineage that the note states only in its
 prose and a keeper read with the words that state it (the `built_on` and `replaces` of its reading, §4). What such
 an item names is looked up as a note (a path, or a file name, in the note's own folder first), then through the
-things' names (the home note of the thing); an item that names no note is counted, not kept. A line of frontmatter
+things' names (the home note of the thing, or for a thing with no note of its own name the one note of the folder
+that names it on its `# ` line), then as the one note that the item's own words name by path or id and that no
+other item of the note took; an item that names no note is listed (`unplaced`, C18), not kept. A line of frontmatter
 that already says it leaves it out, and for a replacement so does `compatible: a / b` in `CONFLICTS.md` or the
 reverse replacement. A replacement is not taken from a note older than the one it names ("Superseded by X", read the
 wrong way round), nor from a note of another kind when a note of the replaced note's own kind says it too (a
@@ -154,9 +157,13 @@ relation is "current" when one of its evidence notes is live).
 ## 4. Caches and the manifest (`_dream/`)
 
 - `notes/<sha12>.json` — one extraction per note content: `{kind, entities: [{id, type, label, as, lines}], relations:
-  [{s, type, label, o, quote, line}], refs, built_on: [{what, quote, line}], replaces: [{what, quote, line}], dropped:
+  [{s, type, label, o, quote, line}], refs, built_on: [{what, quote, line[, asked]}], replaces: [the same], dropped:
   {entities, relations}, path, sha, model, indexed_at}`. `built_on` and `replaces` are what the note says of itself,
-  the document, kept only with words found in the note; a reading made before they existed has neither. `type` and
+  the document, kept only with words found in the note; a reading made before they existed has neither. `asked`: the
+  line the item stands on has been read a second time, alone and beside the folder's notes, and this item is one
+  member of what that reading found there: `quote` is the member's own words in the line, `what` the file name of
+  the note the keeper named for it (`folder/name` for a note of another folder), or the words again when it named
+  none. The items a first reading had on that line are gone from the list. `type` and
   `label` are the dreamer's raw words; the registries read them at merge time. Entities keep only surface forms (`as`)
   that occur in the note; relations only with their quote found (the rest counted in `dropped` → C4). Kept `KEEP_DAYS`
   after last use. This is the one folder of `_dream/` worth keeping in git: a clone then builds the same graph
@@ -166,7 +173,7 @@ relation is "current" when one of its evidence notes is live).
 - `manifest.json` — `v`, `code` (hash of memory.py), `files {path: {sha, mtime, size}}`, `former {path: [old paths]}`,
   `vsig` (hash of EDGES + ALIASES + CONFLICTS + KINDS + TYPES), `registry` (the type names of EDGES.md and TYPES.md at
   the last dream, for C13), `seen`, `queue`, `failed`, `attempts`, `refs`, `dreamed`, `unindexed`, `due`, `dropped`
-  (the graph's list, §1), `tags` (§1), `curated {folder: signature of the things it held when the curator last read
+  (the graph's list, §1), `tags` and `unplaced` (§1), `curated {folder: signature of the things it held when the curator last read
   it}`, `gone {path: {seen, replaced, replaced_by, built_on_by}}` (notes that left without a `drop`,
   with where they stood at the dream that noticed: C15, and what `drop` needs to record them later), `pointers` and
   `psig` (§1). A dream with nothing changed in any of these, nor in a file a note points at, stops after the scan.
@@ -195,7 +202,10 @@ note, or a note whose replacement was dropped and which is the newest left of it
 without a `drop`: nothing is written or deleted for it; `memory.py drop <path> --yes` records it, or the file comes
 back · `C16` a note points at a file that is gone, or at a symbol or words that are no longer in it: the note is
 stale, not wrong, and stays · `C17` a word on a note's `tags:` line that `TAGS.md` does not list, once a word with
-the number of notes: it still filters, and it is not a tag until it has a line with its definition.
+the number of notes: it still filters, and it is not a tag until it has a line with its definition · `C18` a note
+says in its own words that it builds on or replaces something, a keeper read it, and no note answers to the name,
+neither as written nor by a path or id in the words themselves: the link is not in the lineage until a second
+reading or a line of frontmatter names the note.
 
 ## 6. The user-owned files
 

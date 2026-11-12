@@ -639,7 +639,7 @@ or to a fresh worker given the packet, at most twice. After that, it stops and r
 
 ## Appendix A — the contract surface, verbatim: `skills/memory-dream/SKILL.md` and the dreamer agent
 
-_Part 5 · copied at commit 30c89f6. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
+_Part 5 · copied at commit fbcad34. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
 
 ```markdown
 ---
@@ -665,6 +665,10 @@ truth; everything else is derived and disposable. `memory.py` = `python3 <this s
    a set: when the question asks which, how many, all or every, run the map that line names before you answer. A `⇡`
    line names everything a note rests on and a `⇣` line everything that rests on it: first the notes one step away
    (`directly`), then those reached `through them`; an answer about what something depends on gives both.
+   A line `? it builds on «…», in its own words` under a note, or `not the whole chain`, means the note names
+   something it builds on or replaces that the memory could not match to a note: the chain is short by that link.
+   Find what the words name (`grep -rn` for their nouns in the folder, or `ask --list -p <folder>`) and follow it
+   before you answer.
    When the answer is a set or a relationship (every current model, what was replaced, what other
    projects built on this one) do not search for it: `memory.py ask --list [-p <project>] [--kind model] [--tag risk]` prints one
    line a note with what it was built on (marked when that was replaced), what replaced it and where else it is
@@ -698,7 +702,8 @@ truth; everything else is derived and disposable. `memory.py` = `python3 <this s
    leaves the packets in `_dream/pending/` for helper agents on a cheap model (`memory-dreamer`, one packet each, in
    parallel), and the next `dream --packets` takes their answers. A keeper also reads what a note says in its own
    words that it builds on or replaces ("Builds on the dispositions dataset and exp-404."), so a note without
-   `from:` still has its place in the map; the frontmatter stays the sure way to say it. `memory.py check` lists warnings. Scratch lines: `memory.py log "…" -p
+   `from:` still has its place in the map; with a command each such line is read a second time on its own, which
+   is what makes the map whole (one call a folder). The frontmatter stays the sure way to say it. `memory.py check` lists warnings. Scratch lines: `memory.py log "…" -p
    <project>`.
 
 ## The domain is three files you may edit, never the code
@@ -780,7 +785,7 @@ Touch nothing else.
 
 ## Appendix B — the graph contract, verbatim: `.specs/memory-dream/CONTRACT.md`
 
-_Part 6 · copied at commit 30c89f6. Schema 1; `memory.py check` validates against it (A38)._
+_Part 6 · copied at commit fbcad34. Schema 1; `memory.py check` validates against it (A38)._
 
 ## memory-dream — the graph contract (schema 1)
 
@@ -816,9 +821,10 @@ Produced by `build()`, written as `_dream/graph.json` (≤ `MEMORY_WIDE` notes) 
 | `proposed_types` | list of label | type words (things typed outside TYPES.md) over the `promote` bar of TYPES.md, offered to the review |
 | `tvocab` | object | the same shape as `vocab`, for TYPES.md |
 | `dedup` | object | counters from entity merging (`mentions`, `ids_as_written`, `after_folding`, …) |
-| `checks` | list of `{code, msg}` | warnings, sorted by code; codes `C1`–`C17` (§5) |
+| `checks` | list of `{code, msg}` | warnings, sorted by code; codes `C1`–`C18` (§5) |
 | `dropped` | list, optional | what `drop` recorded: `{path, date, replaced, built_on_by, left_newest}` (below) |
 | `pointers` | object, optional | `{note path: [pointer]}`: what the notes point at in the project's files (below) |
+| `unplaced` | list, optional | lineage a reading states that no note answers to (C18): `{note, field, i, what, quote, asked}`, `field` being `built_on` or `replaces` and `i` its place in the reading's list; `asked` once the line it stands on has been through the second reading |
 | `tags` | object, optional | `{tag: [note paths]}`, from the `tags:` line of each note's frontmatter read through `TAGS.md` (§6): a listed tag under its name whatever spelling the note used, a word that is not listed under its own folded spelling (C17). In `manifest.json` too |
 
 **pointer** — `{to, path, line, quote, symbol, text, state, now, of, form}`. A note's text points into a file as
@@ -868,7 +874,9 @@ a memory too large for `graph.json`.
 `CONFLICTS.md`, `by: "drop"` one passed on by a tombstone, `by: "reading"` lineage that the note states only in its
 prose and a keeper read with the words that state it (the `built_on` and `replaces` of its reading, §4). What such
 an item names is looked up as a note (a path, or a file name, in the note's own folder first), then through the
-things' names (the home note of the thing); an item that names no note is counted, not kept. A line of frontmatter
+things' names (the home note of the thing, or for a thing with no note of its own name the one note of the folder
+that names it on its `# ` line), then as the one note that the item's own words name by path or id and that no
+other item of the note took; an item that names no note is listed (`unplaced`, C18), not kept. A line of frontmatter
 that already says it leaves it out, and for a replacement so does `compatible: a / b` in `CONFLICTS.md` or the
 reverse replacement. A replacement is not taken from a note older than the one it names ("Superseded by X", read the
 wrong way round), nor from a note of another kind when a note of the replaced note's own kind says it too (a
@@ -938,9 +946,13 @@ relation is "current" when one of its evidence notes is live).
 ### 4. Caches and the manifest (`_dream/`)
 
 - `notes/<sha12>.json` — one extraction per note content: `{kind, entities: [{id, type, label, as, lines}], relations:
-  [{s, type, label, o, quote, line}], refs, built_on: [{what, quote, line}], replaces: [{what, quote, line}], dropped:
+  [{s, type, label, o, quote, line}], refs, built_on: [{what, quote, line[, asked]}], replaces: [the same], dropped:
   {entities, relations}, path, sha, model, indexed_at}`. `built_on` and `replaces` are what the note says of itself,
-  the document, kept only with words found in the note; a reading made before they existed has neither. `type` and
+  the document, kept only with words found in the note; a reading made before they existed has neither. `asked`: the
+  line the item stands on has been read a second time, alone and beside the folder's notes, and this item is one
+  member of what that reading found there: `quote` is the member's own words in the line, `what` the file name of
+  the note the keeper named for it (`folder/name` for a note of another folder), or the words again when it named
+  none. The items a first reading had on that line are gone from the list. `type` and
   `label` are the dreamer's raw words; the registries read them at merge time. Entities keep only surface forms (`as`)
   that occur in the note; relations only with their quote found (the rest counted in `dropped` → C4). Kept `KEEP_DAYS`
   after last use. This is the one folder of `_dream/` worth keeping in git: a clone then builds the same graph
@@ -950,7 +962,7 @@ relation is "current" when one of its evidence notes is live).
 - `manifest.json` — `v`, `code` (hash of memory.py), `files {path: {sha, mtime, size}}`, `former {path: [old paths]}`,
   `vsig` (hash of EDGES + ALIASES + CONFLICTS + KINDS + TYPES), `registry` (the type names of EDGES.md and TYPES.md at
   the last dream, for C13), `seen`, `queue`, `failed`, `attempts`, `refs`, `dreamed`, `unindexed`, `due`, `dropped`
-  (the graph's list, §1), `tags` (§1), `curated {folder: signature of the things it held when the curator last read
+  (the graph's list, §1), `tags` and `unplaced` (§1), `curated {folder: signature of the things it held when the curator last read
   it}`, `gone {path: {seen, replaced, replaced_by, built_on_by}}` (notes that left without a `drop`,
   with where they stood at the dream that noticed: C15, and what `drop` needs to record them later), `pointers` and
   `psig` (§1). A dream with nothing changed in any of these, nor in a file a note points at, stops after the scan.
@@ -979,7 +991,10 @@ note, or a note whose replacement was dropped and which is the newest left of it
 without a `drop`: nothing is written or deleted for it; `memory.py drop <path> --yes` records it, or the file comes
 back · `C16` a note points at a file that is gone, or at a symbol or words that are no longer in it: the note is
 stale, not wrong, and stays · `C17` a word on a note's `tags:` line that `TAGS.md` does not list, once a word with
-the number of notes: it still filters, and it is not a tag until it has a line with its definition.
+the number of notes: it still filters, and it is not a tag until it has a line with its definition · `C18` a note
+says in its own words that it builds on or replaces something, a keeper read it, and no note answers to the name,
+neither as written nor by a path or id in the words themselves: the link is not in the lineage until a second
+reading or a line of frontmatter names the note.
 
 ### 6. The user-owned files
 
@@ -1060,7 +1075,7 @@ origin by adding the file. What changes for the notes under it, and nothing else
 
 ## Appendix C — the build guide, verbatim: `BUILD-GUIDE.md` §3–§10
 
-_Part 7 · copied at commit 30c89f6. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
+_Part 7 · copied at commit fbcad34. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
 
 ### 3. The design in one page
 
@@ -1203,7 +1218,7 @@ history, and that version put 12 of 209 symbols on the line of a call or of a lo
   C6 no `# ` line, C7 review pending (labels, budget), C8 bad EDGES/ALIASES/CONFLICTS line, C9 NUL bytes in a note
   (binary-looking), C10 conflict pending, C11 a note over 40 lines, C14 built on a dropped note or left the newest of
   its line by a drop, C15 gone without a drop, C16 a pointer into a file that no longer holds, C17 a tag that
-  TAGS.md does not list. `check` also runs the memory's own proof (`proof`): each `- question? -> note` line of
+  TAGS.md does not list, C18 lineage a note states in prose that no note answers to. `check` also runs the memory's own proof (`proof`): each `- question? -> note` line of
   `memory/SETUP.md` is put to `ask` alone, and the line counts when a section of the answer is headed by that note.
 
 #### 5.5 The graph, vocabulary half (`build`, `merge_entities`)
@@ -1290,6 +1305,30 @@ constants, each with the measurement that set it.
   replacements and these hold 91%; do not go back to judging each claim as it comes, in note order. So that a keeper can
   name the note a phrase means ("the dispositions dataset"), both prompts carry `FOLDER`: the notes of the folder as
   `file name: first line` (`folder_lines`, at most 80 a folder), part of the prefix that every call of a folder shares.
+  One more exact step comes last (`named`): an item no note answers to, whose own words name one note by its path
+  or id that no other item of the note took, is that note ("Replaces glossary/brier.", written down by a keeper as
+  the thing `glossary-brier`: 13 on the worn bank, all right). Only a word written like a path or an id is looked
+  up, never a plain word of the sentence.
+- **The second reading** (`PLACE`, `Dream.run_place`): the first reading finds the lines of a note that say what it
+  builds on or replaces among everything else it does for a dozen notes, and of the things such a line names by a
+  phrase it left one in ten out without a trace (RESULTS S6). With a command, every such line is put to the keeper
+  once more, by folder, 45 lines a call, with the folder's notes by file name and one thing asked: every member of
+  the line, each with its own words and the note meant. The answer takes the first reading's place on that line:
+  one item a member, the member's words as its quote, marked `asked` so that a line is read twice and no more; a
+  member no note is named for stays, with its words, and is listed (C18). Nothing is lost by silence: an answer
+  with no member for a line leaves the line as it was, and an item whose name is written in the line stays. On the
+  worn bank, 1,462 lines in 50 calls for $0.18: `from` links held 94.3% → 99.5%, replacements 91.2% → 99.5%, the
+  questions its lineage answers exactly 83 → 91 of 98. Do not fold this into the first reading's prompt: the rule
+  is already there ("a sentence that names three gives three items") and was not kept. What works is the line
+  alone, with nothing else to do.
+- **What `ask` does with an item that is still not placed** (`loose_ends`): it prints the note's own words under
+  the note (`? it builds on «…», in its own words`), says `not the whole chain` on a `⇡` line that runs through such
+  a note, and carries the words on the note's line of the map. Do not drop these lines to save characters. `ask` is
+  a layer on grep, and an agent with grep reads that sentence; an `ask` that shows the derived lineage and is silent
+  about the link it could not derive knows less than grep, and the agent takes the silence for "nothing more".
+  These lines are only as good as what the memory knows it lacks: on the worn bank they changed nothing while two
+  thirds of the missing links were members a keeper had left out without a trace (RESULTS S6), which is why the
+  second reading asks for every member and keeps the ones it cannot name.
 - **Command mode** (`MEMORY_LLM` set): waves of `-j` parallel calls, one retry for unusable answers. A call runs in a
   process group of its own (`run_command`): past `MEMORY_TIMEOUT` seconds (300) the whole group is killed, the pipes
   are closed from this side and only the shell is waited for. Do not go back to `subprocess.run(timeout=…)`: it kills
@@ -1378,7 +1417,7 @@ Per question:
 #### 5.8b The graph contract
 
 `.specs/memory-dream/CONTRACT.md` is the authority on every shape `memory.py` writes and reads: the graph (`graph.json`,
-`index.db`), the viewer's data island, the extraction cache, `store.db`, the manifest, the warning codes C1–C16 and the
+`index.db`), the viewer's data island, the extraction cache, `store.db`, the manifest, the warning codes C1–C18 and the
 grammar of EDGES.md, ALIASES.md, CONFLICTS.md and DIGEST.md. Every graph carries `schema: 1`; `validate()` checks a
 graph against the contract, `memory.py check` prints the result first, and A38 enforces it on the fixture (graph,
 `index.db` round trip, island). Build the viewer against the contract, never against the code.
@@ -1671,7 +1710,7 @@ preferences 0.95 when the task names them, 0.84 when it names only their meeting
 
 ## Appendix D — prompts, seeds and tuned tables, verbatim from `memory.py`
 
-_Part 8 · extracted at commit 30c89f6 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
+_Part 8 · extracted at commit fbcad34 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
 
 ### D.1 `EXTRACT` — the per-note prompt: fixed guidance, then `KINDS:`, `TYPES:`, `EDGES:` and `KNOWN:` from the registries (the static part is cached), then `NOTE`
 

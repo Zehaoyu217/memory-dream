@@ -11,6 +11,10 @@ it. The dreamed memory's graph is compared with it, link by link:
   missing       no edge between the two notes
   wrong         lineage edges of the graph that the truth does not have (shown beside the count that is right)
 
+And of the links that are not lineage: for how many the memory says so. A note whose reading has words for which no
+note was placed is listed in the graph (`unplaced`, check C18) and `ask` prints those words; a link that is missing
+from a note with no such item is missing without a word, and whoever asks cannot know.
+
 Counted over all links, and apart for the three ways a link is stated: by the other note's id where the note always
 had it, by its id in the added sentence, by a phrase in the added sentence. Quoted in RESULTS.md phase S.
 """
@@ -53,11 +57,15 @@ def main(argv):
     right = len(made) - len(wrong)
     print(f"lineage edges in the graph: {len(made)}, of which {right} are true ({right / max(1, len(made)):.0%}) and {len(wrong)} are not"
           + (": " + "; ".join(f"{s} {r} {d}" for s, d, r in wrong[:4]) if wrong else ""))
+    said = {(u["note"], "from" if u["field"] == "built_on" else "supersedes") for u in g.get("unplaced") or []}
+    lost = [(s_, d, r) for s_, d, r in sorted(true) if r not in edges.get((s_, d), set())]
+    flagged = sum((s_, r) in said for s_, d, r in lost)
+    print(f"not lineage: {len(lost)} links · {flagged} from a note that lists words it could not place (C18) · {len(lost) - flagged} without a word")
     by = collections.Counter(e.get("by", "frontmatter") for e in g["edges"] if e["rel"] in ("from", "supersedes") and (not only or area(e["src"]) in only))
     print("by:", dict(by), "· dedup counts:", {k: v for k, v in (g.get("dedup") or {}).items() if k.startswith("lineage")})
     share = lambda rel: rows[(rel, "all")]["as lineage"] / max(1, sum(rows[(rel, "all")].values()))  # noqa: E731
     print(json.dumps({"from": round(share("from"), 3), "supersedes": round(share("supersedes"), 3),
-                      "true": round(right / max(1, len(made)), 3), "edges": len(made)}))
+                      "true": round(right / max(1, len(made)), 3), "edges": len(made), "silent": len(lost) - flagged}))
 
 
 if __name__ == "__main__":

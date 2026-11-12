@@ -112,7 +112,7 @@ def main():
             rec, pre = [], []
             for r in runs:
                 qs = [json.loads(x) for x in (HERE / "batches" / f"{r.rsplit('-', 1)[1]}.jsonl").read_text().splitlines() if x.strip()]
-                e, f, rc, pr, _ = linkage.tally(qs, (HERE / "runs" / f"{r}.md").read_text())
+                e, f, rc, pr, _, _ = linkage.tally(qs, (HERE / "runs" / f"{r}.md").read_text())
                 ex, full, n = ex + e, full + f, n + len(qs)
                 rec.append(rc)
                 pre.append(pr)
