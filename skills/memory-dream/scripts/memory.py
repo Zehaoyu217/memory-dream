@@ -27,6 +27,7 @@ import os
 import posixpath
 import re
 import shutil
+import signal
 import sqlite3
 import subprocess
 import sys
@@ -1555,7 +1556,8 @@ def lineage_as_read(root, notes, aux, edges, ents, cmap, own):
     reading, each with the note's own words. What an item names is looked up as a note (a path, or an id, in the
     note's own folder first), then through the things' names (the home note of the thing). It becomes a `from` or
     `supersedes` edge marked `by: "reading"`; a line of frontmatter or of CONFLICTS.md that already says it, or says
-    otherwise (`compatible: a / b`, the reverse replacement), wins. -> (notes, edges, counts); the inputs are not
+    otherwise (`compatible: a / b`, the reverse replacement), wins, and a replacement is taken only between two notes
+    of one kind. -> (notes, edges, counts); the inputs are not
     changed, because the note half of a graph is reused across rebuilds."""
     if not any((aux[rel]["x"] or {}).get(f) for rel in notes for f in ("built_on", "replaces")):
         return notes, edges, {}
@@ -1592,6 +1594,11 @@ def lineage_as_read(root, notes, aux, edges, ents, cmap, own):
                     st["lineage_read_already_written"] += 1
                     continue
                 if kind == "supersedes" and (frozenset((rel, dst)) in compat or (dst, rel, "supersedes") in have):
+                    continue
+                # a note replaces a note of its own kind: a decision that says "v3 replaces v2" does not itself replace
+                # the model v2 (the pilot of phase S: 6 of 12 wrong edges were of this sort). What it says stays a mention.
+                if kind == "supersedes" and family(notes[rel]["kind"]) != family(notes[dst]["kind"]):
+                    st["lineage_read_other_kind"] += 1
                     continue
                 have.add((rel, dst, kind))
                 promoted.add((rel, dst))
@@ -2080,6 +2087,8 @@ NOTE_CAP = 16000  # characters of note text per prompt: every call stays small (
 # $MEMORY_PACKET="tokens,characters" sets both; $MEMORY_PRICE="in,out" the $ a million tokens of the dry run.
 PACKET_TOKENS, PACKET_TEXT, KNOWN_ROOM = 60000, 12000, 8000
 READING_RATIO = 3.2
+OUT_PER_CHAR = 3.3  # output tokens a character of note, as Haiku 5.5 wrote them in phase S with its thinking counted
+#   (2.2 in packets of 24, 3.3 one note a call, 4.1 in packets of 6): the dry run's estimate of the answer
 PRICE = (0.10, 0.50)  # Haiku 5.5 under 100,000 tokens a prompt
 
 
@@ -2116,14 +2125,40 @@ def call_model(cmd, prompt, static=0, parse=parse_json):
     project (template, EDGES, KNOWN): it can place them where the model caches (tests/haiku_cmd.py does)."""
     env = {**os.environ, "MEMORY_STATIC_PREFIX": str(static)}
     for n in (1, 2):
-        try:
-            r = subprocess.run(cmd, shell=True, input=prompt, capture_output=True, text=True, timeout=TIMEOUT, env=env)
-            obj = parse(r.stdout) if r.returncode == 0 else None
-        except subprocess.TimeoutExpired:
-            obj = None
+        out = run_command(cmd, prompt, env)
+        obj = parse(out) if out is not None else None
         if obj or (obj is not None and parse is parse_json):  # for one note an empty object is an answer: nothing to index
             return obj, n
     return None, 2
+
+
+def run_command(cmd, prompt, env):
+    """One shell command with the prompt on stdin -> its stdout, or None when it failed or ran past MEMORY_TIMEOUT.
+    It runs in a process group of its own and a timeout ends the whole group. Then the pipes are closed from this
+    side and only the shell is waited for: `subprocess.run(timeout=…)` kills the shell alone and goes on reading, so
+    a hung grandchild that holds the pipe keeps the dream waiting for good (seen with `claude -p` calls that never
+    returned, RESULTS phase S)."""
+    p = subprocess.Popen(cmd, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
+                         env=env, start_new_session=True)
+    try:
+        out, _ = p.communicate(prompt, timeout=TIMEOUT)
+        return out if p.returncode == 0 else None
+    except subprocess.TimeoutExpired:
+        for kill in (lambda: os.killpg(p.pid, signal.SIGKILL), p.kill):  # the group; where that is not allowed, the shell
+            try:
+                kill()
+            except (OSError, AttributeError):
+                pass
+        for f in (p.stdin, p.stdout, p.stderr):  # not communicate(): it would read on until every holder of the pipe is gone
+            try:
+                f.close()
+            except (OSError, ValueError):
+                pass
+        try:
+            p.wait(timeout=10)
+        except subprocess.TimeoutExpired:
+            pass
+        return None
 
 
 class Known:
@@ -2461,13 +2496,13 @@ class Dream:
             sizes = [len(self.packet_prompt(hs, ents)[0]) // 3 for hs in packs]
         else:
             packs, sizes = [[h] for h in todo], [len(self.prompt_for(h, ents)[0]) // 3 for h in todo]
-        out = int(sum(min(self.cur[self.by_sha[h]]["size"], NOTE_CAP) for h in todo) * READING_RATIO / 3)
+        out = int(sum(min(self.cur[self.by_sha[h]]["size"], NOTE_CAP) for h in todo) * OUT_PER_CHAR)
         cost = sum(sizes) * pin / 1e6 + out * pout / 1e6
         what = ("packet" + "s" * (len(packs) != 1)) if self.args.packets else "calls, one a note (`--packets` reads many notes a call)"
         print(f"dream --dry-run: {len(self.cur)} notes · {len(todo)} to read in {len(packs)} {what} · about {sum(sizes):,} tokens in "
               f"and {out:,} out · about ${cost:.2f} at ${pin:.2f} and ${pout:.2f} a million tokens · the largest prompt about "
               f"{max(sizes):,} tokens" + (": OVER the 100,000 line, where a prompt costs five times as much" if max(sizes) > 100000 else "")
-              + " · nothing was called or written")
+              + " · the answer is counted as Haiku 5.5 wrote it, thinking included · nothing was called or written")
         if self.args.packets:
             for hs, n in list(zip(packs, sizes))[:40]:
                 areas = list(dict.fromkeys(area_of(self.by_sha[h]) or "(root)" for h in hs))

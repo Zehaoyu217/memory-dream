@@ -7,9 +7,10 @@ In the tidy bank every link between notes is a line of frontmatter: `from: [a, b
 links are stated nowhere else (measured: 1,110 of 2,213 `from` links and 104 of 216 `supersedes` are not in the
 note's prose), which is why grep reads that bank exactly: one line a note lists them all by id. Here the two
 frontmatter lines are gone from every note, and the note says the same thing in a closing sentence, as people do:
-"Builds on a, b and the KYC band feature." and "Replaces c." Each other note is named by its id, or with the share
---by-phrase by the short phrase a colleague would use for it, taken from handles.json, which a cheap model wrote once
-from the titles (eval/hard/handles.py). So every link is still stated, once, as a link; what is lost is the fixed
+"Builds on a, b and the KYC band feature." and "Replaces c." Each other note is named by its id (with its folder
+when it is in another one, as the tidy bank named it), or, inside one folder and with the share --by-phrase, by the
+short phrase a colleague would use for it, taken from handles.json, which a cheap model wrote once from the titles
+(eval/hard/handles.py). So every link is still stated, once, as a link; what is lost is the fixed
 place and, for a third of them, the id. Nothing else in a note changes, and no note moves.
 
 <out>/memory is the worn bank: notes only, no registry and no readings. <out>/truth.json keeps what the frontmatter
@@ -58,9 +59,10 @@ def main(argv):
         for rel in ("from", "supersedes"):
             for q in links[p][rel]:
                 h = handles.get(q)
-                by_phrase = bool(h) and rnd.random() < share
-                said[rel].append(h if by_phrase else notes[q]["id"])
-                stated[f"{p} {rel} {q}"] = "by a phrase" if by_phrase else "by its id"
+                far = notes[q]["project"] != notes[p]["project"]  # a note of another folder is named with its folder, as the tidy bank named it
+                by_phrase = bool(h) and not far and rnd.random() < share
+                said[rel].append(h if by_phrase else f"{notes[q]['project']}/{notes[q]['id']}" if far else notes[q]["id"])
+                stated[f"{p} {rel} {q}"] = "by a phrase" if by_phrase else "by its id, with its folder" if far else "by its id"
                 count[stated[f"{p} {rel} {q}"]] += 1
         tail = (f"Builds on {join(said['from'])}.\n" if said["from"] else "") + (f"Replaces {join(said['supersedes'])}.\n" if said["supersedes"] else "")
         f = mem / p

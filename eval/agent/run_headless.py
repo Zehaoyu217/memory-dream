@@ -11,8 +11,9 @@
   python3 eval/agent/run_headless.py table <questions.jsonl> <out dir> [--batch 10]
         per arm and model: exact answers, recall, precision, $ and seconds a ten questions, tool calls, over the runs
 
-The agent's world is its workspace: the prompt says so, and `table` counts the tool calls that named a path outside
-it (there should be none; the answer key is never under the arms dir). `--tidy` words the prompt for a bank whose
+The agent's world is its workspace: the prompt says so, and `table` counts the tool calls that named a path under a
+home folder outside it (there should be none; the answer key is never under the arms dir; scratch files an agent
+writes under /tmp are not counted). `--tidy` words the prompt for a bank whose
 links are lines of frontmatter; without it the prompt says that a note states its links in its own text.
 The model's own name, tokens and dollars come from the CLI's result (`total_cost_usd`, list prices), not from an
 estimate. Quoted in RESULTS.md phase S.
@@ -126,8 +127,9 @@ def run(arm, model, arms, qfile, out, runs, size, j, only, tidy, turns):
                "in": u.get("input_tokens", 0) + u.get("cache_read_input_tokens", 0) + u.get("cache_creation_input_tokens", 0),
                "out": u.get("output_tokens"), "models": sorted((res.get("modelUsage") or {})), "error": res.get("is_error"),
                "subtype": res.get("subtype"),
-               "outside": sum(1 for c in calls if re.search(r"/(?:Users|tmp|private|home)/", json.dumps(c["input"]))
-                              and str(W) not in json.dumps(c["input"]))}
+               # a path under a home folder that is not the workspace: the notes of another world, or the answer key.
+               # Scratch files an agent writes under /tmp are its own business.
+               "outside": sum(1 for c in calls if any(str(W) not in m for m in re.findall(r"/(?:Users|home)/[^\s\"']+", json.dumps(c["input"]))))}
         with open(out / "usage.jsonl", "a") as f:
             f.write(json.dumps(row) + "\n")
         return row

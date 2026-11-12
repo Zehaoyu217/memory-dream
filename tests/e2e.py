@@ -17,6 +17,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import time
 from pathlib import Path
 
 MEM = Path(__file__).resolve().parent.parent / "skills/memory-dream/scripts/memory.py"
@@ -181,6 +182,23 @@ def reading(w):
     out = w.run("dream", "--packets", env=cmd) + w.run("check")
     w.ok("with a command, three new notes are read in one call, and the graph meets the contract",
          "3 indexed (1 calls, 1 packets)" in out and "packet 3" in log.read_text() and "contract: schema 1 ok" in out, out)
+
+    w.write("proj/exp-94.md", "", "exp-94: a run that no command will read")
+    pid_file, t0 = w.dir / "hang.pid", time.time()
+    out = w.run("dream", env={"MEMORY_LLM": f"{sys.executable} {Path(__file__).resolve().parent / 'hang_cmd.py'}",
+                              "MEMORY_TIMEOUT": "2", "HANG_PID": str(pid_file)})
+    took, alive = time.time() - t0, True
+    for _ in range(40):  # what the command started is ended with it; give the system a moment to clear it away
+        try:
+            os.kill(int(pid_file.read_text()), 0)
+            time.sleep(0.1)
+        except (OSError, ValueError):
+            alive = False
+            break
+    w.ok("a command that never answers is ended after MEMORY_TIMEOUT with everything it started, tried once more, and the "
+         "dream goes on with the note left unread", took < 60 and not alive and "1 pending" in out and "dream:" in out, f"{took:.0f} s · {out}")
+    (w.root / "proj/exp-94.md").unlink()  # by hand, and recorded: the lines that follow count notes
+    w.run("drop", "proj/exp-94.md", "--yes")
 
 
 def vocabulary(w):

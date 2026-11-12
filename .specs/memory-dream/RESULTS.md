@@ -2,6 +2,56 @@
 
 2026-10-30 (round 4: 2026-10-31; phase I: 2026-11-02; phases J to N: 2026-11-11; phase O on: 2026-11-12) · built from the "Memory" email spec (`build-spec.md`) · macOS, Python 3.9.6, Claude Code 2.1.314.
 
+# Phase S (2026-11-12) — step 2: what a cheap reader costs, a bank that grep cannot read exactly, and the arms on it
+
+Step 1 needed no model. Step 2 spends on Haiku 5.5, through `claude -p --model haiku` with no tools and no settings
+(`tests/haiku_cmd.py`): $0.10 and $0.50 a million tokens in and out, about 3,700 tokens of the CLI's own in every
+call, most of them cached after the first.
+
+## S1 — a packet against one call a note, read by Haiku 5.5 (`eval/packets_probe.py`)
+
+Phase P built packets and estimated them from sizes. Here the same 300 notes of the bank (ten project folders) were
+read by `claude -p --model haiku` four ways on one day, each compared with the others and with the readings on file
+from 2026-11-02.
+
+```bash
+python3 eval/packets_probe.py prepare <dreamed bank-index world> <work> --areas 10
+MEMORY_LLM="python3 tests/haiku_cmd.py" DREAM_COST_LOG=<work>/single.jsonl  memory.py --root <work>/single/memory  dream -j 8
+MEMORY_LLM="python3 tests/haiku_cmd.py" DREAM_COST_LOG=<work>/packets.jsonl memory.py --root <work>/packets/memory dream --packets -j 6
+python3 eval/packets_probe.py compare <work>
+```
+
+| read | calls | $ a note | output tokens a note | model seconds a note | things kept a note | links kept a note |
+|---|---|---|---|---|---|---|
+| one call a note | 300 | 0.00146 | 1,423 | 6.6 | 6.11 | 4.48 |
+| packets of 6 (`MEMORY_PACKET=60000,3000`) | 56 | 0.00120 | 1,750 | 6.7 | 4.76 | 2.91 |
+| packets of 12 (`60000,6000`) | 28 | 0.00090 | 1,463 | 5.1 | 4.31 | 2.49 |
+| packets of 24 (the default limits) | 13 | 0.00058 | 946 | 3.1 | 3.67 | 1.93 |
+| on file, one call a note on 2026-11-02 | | 0.0016 | | | 5.48 | 3.81 |
+
+- **A packet is cheaper and reads thinner, from the first note that shares a call.** At 24 notes a call the price is
+  0.4 of a single call's and the reading holds 0.60 of the things and 0.43 of the links. At 6 notes a call the price
+  is 0.82 and the reading holds 0.78 and 0.65. No size keeps the yield.
+- **It is thin all over, not tired at the end.** By quarter of the packet the things and links kept, as a share of
+  the same note read alone, are 0.53, 0.53, 0.58 and 0.64. What goes first is what a note mentions in passing
+  (terms 26% kept, documents 21%, teams 18%, `part-of` links 9%); models, datasets and features keep 69% to 78%,
+  `uses` links 46%.
+- **Every call answered.** 300 of 300 notes got their line in each packet run; no answer was cut off and none had to
+  be asked again.
+- **Most of the money is thinking, and the command cannot turn it off.** On one packet replayed, 9,074 of 17,476
+  output tokens were thinking; over the runs it is 1,000 to 1,250 tokens a note. `--effort low` is the lowest the CLI
+  takes; without it the same packet cost twice as much. A command that calls the API with thinking off would cut
+  the price again, and nobody has measured what that does to the reading.
+- **Two readings of one note agree on half of it.** Today's single calls and the ones on file name the same things
+  at 0.52 (Jaccard, a note) and link the same pairs at 0.28. The two arms of today agree at 0.43 and 0.24. So a
+  reading is a sample, not a measurement, and no count of things says which reading is better; what counts is what
+  retrieval does with it, which S3 measures on lineage.
+- **The estimate of phase P was low by half.** It took a reading for 3.2 times its note and no thinking: 135,000
+  output tokens for these 300 notes, where the packets wrote 284,000 and the single calls 427,000.
+
+So one call a note stays the default with a command. Packets are for where calls are the scarce thing: a helper
+agent that carries 35,000 tokens into every request, or a first pass over a large base that is read again later.
+
 # Phase R (2026-11-12) — step 1, items 6 and 7: setting a memory up with its own five questions, and filters on the page
 
 The owner's sixth point: the skill is operated by an agent that does the detective work on the material and sets up
