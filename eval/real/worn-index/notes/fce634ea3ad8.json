@@ -1,0 +1,134 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "ae-score-v1",
+   "type": "model",
+   "label": "engagement score v1",
+   "as": [
+    "Engagement score v1: equal-weight blend of active days, depth and push open rate, 0 to 100"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-ae-depth-v1",
+   "type": "feature",
+   "label": "depth v1",
+   "as": [
+    "feat-ae-depth-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-ae-push-open-v1",
+   "type": "feature",
+   "label": "push open rate",
+   "as": [
+    "feat-ae-push-open-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "segment",
+   "label": "holdout set",
+   "as": [
+    "holdout-2025q4 (n = 610,000 accounts)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ae-score-v2",
+   "type": "model",
+   "label": "engagement score v2",
+   "as": [
+    "ae-score-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-ae-active-days-v1",
+   "type": "feature",
+   "label": "active days",
+   "as": [
+    "the 28-day active days count"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ae-score-v1",
+   "type": "uses",
+   "label": "blends",
+   "o": "feat-ae-depth-v1",
+   "quote": "equal-weight blend of active days, depth and push open rate",
+   "line": 4
+  },
+  {
+   "s": "ae-score-v1",
+   "type": "uses",
+   "label": "blends",
+   "o": "feat-ae-push-open-v1",
+   "quote": "Weights 0.375, 0.375 and 0.25 (push open).",
+   "line": 5
+  },
+  {
+   "s": "ae-score-v1",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "holdout-2025q4",
+   "quote": "AUC 0.73 for 90-day attrition on holdout-2025q4 (n = 610,000 accounts)",
+   "line": 6
+  },
+  {
+   "s": "ae-score-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "ae-score-v1",
+   "quote": "Superseded by ae-score-v2",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ae-score-v2",
+  "exp-502"
+ ],
+ "built_on": [
+  {
+   "what": "feat-ae-active-days-v1",
+   "quote": "Builds on the 28-day active days count, feat-ae-depth-v1 and feat-ae-push-open-v1.",
+   "line": 8
+  },
+  {
+   "what": "feat-ae-depth-v1",
+   "quote": "Builds on the 28-day active days count, feat-ae-depth-v1 and feat-ae-push-open-v1.",
+   "line": 8
+  },
+  {
+   "what": "feat-ae-push-open-v1",
+   "quote": "Builds on the 28-day active days count, feat-ae-depth-v1 and feat-ae-push-open-v1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "app-engagement/ae-score-v1.md",
+ "sha": "fce634ea3ad8d1d20682c0a7a484fc59c78cbd34bebc3254777e9450c55531b8",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

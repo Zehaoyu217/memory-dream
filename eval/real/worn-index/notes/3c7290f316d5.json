@@ -1,0 +1,97 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-cb-escalation-labels",
+   "type": "dataset",
+   "label": "escalation label",
+   "as": [
+    "Escalation label: handoff in session, or a new chat on the same account within 7 days with the same intent"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "chat.handoff_events",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "chat.handoff_events"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cb-escalate-v1",
+   "type": "model",
+   "label": "escalation model",
+   "as": [
+    "cb-escalate-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-cb-sessions",
+   "type": "dataset",
+   "label": "source dataset",
+   "as": [
+    "ds-cb-sessions"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-cb-escalation-labels",
+   "type": "uses",
+   "label": "built from",
+   "o": "chat.handoff_events",
+   "quote": "Built from `chat.handoff_events`",
+   "line": 5
+  },
+  {
+   "s": "cb-escalate-v1",
+   "type": "uses",
+   "label": "used as target",
+   "o": "ds-cb-escalation-labels",
+   "quote": "Used as the target for cb-escalate-v1.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "cb-escalate-v1",
+  "ds-cb-sessions"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cb-sessions",
+   "quote": "Builds on ds-cb-sessions.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "chatbot-deflection/ds-cb-escalation-labels.md",
+ "sha": "3c7290f316d56135f15083c5562c669118768518c667d9fa5ecb7c2c012d43a2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

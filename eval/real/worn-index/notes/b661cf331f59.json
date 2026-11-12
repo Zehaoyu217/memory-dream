@@ -1,0 +1,111 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ep-pre-spend-cov-v2",
+   "type": "feature",
+   "label": "pre-spend covariate",
+   "as": [
+    "feat-ep-pre-spend-cov-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "transactions table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-ep-assignments",
+   "type": "dataset",
+   "label": "assignments table",
+   "as": [
+    "ds-ep-assignments"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-ep-pre-spend-cov-v1",
+   "type": "feature",
+   "label": "pre-spend covariate",
+   "as": [
+    "feat-ep-pre-spend-cov-v1"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "exp-504",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-504"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ep-pre-spend-cov-v2",
+   "type": "uses",
+   "label": "sums from",
+   "o": "cards.txn_daily",
+   "quote": "from cards.txn_daily",
+   "line": 5
+  },
+  {
+   "s": "feat-ep-pre-spend-cov-v2",
+   "type": "measured-by",
+   "label": "gives larger reduction",
+   "o": "exp-504",
+   "quote": "Gives the larger variance reduction (exp-504).",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-ep-assignments",
+  "feat-ep-pre-spend-cov-v1",
+  "exp-504"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ep-assignments",
+   "quote": "Builds on ds-ep-assignments and feat-ep-pre-spend-cov-v1.",
+   "line": 7
+  },
+  {
+   "what": "feat-ep-pre-spend-cov-v1",
+   "quote": "Builds on ds-ep-assignments and feat-ep-pre-spend-cov-v1.",
+   "line": 7
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-ep-pre-spend-cov-v1",
+   "quote": "Replaces feat-ep-pre-spend-cov-v1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "experiment-platform/feat-ep-pre-spend-cov-v2.md",
+ "sha": "b661cf331f59084e5fb1be539222a57e43fe74e387c1101bd487c8b465e1f126",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

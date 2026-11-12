@@ -1,0 +1,289 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "fraud26-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fraud26-gbm-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-f26-velocity-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-f26-velocity-v2"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-f26-device-age",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-f26-device-age"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-f26-mcc-risk",
+   "type": "feature",
+   "label": "mcc risk feature",
+   "as": [
+    "the mcc risk feature"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "dec-f26-maturity-60d",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-f26-maturity-60d"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "ds-f26-cnp-txn",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-f26-cnp-txn"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-f26-labels-2026",
+   "type": "dataset",
+   "label": "labels",
+   "as": [
+    "ds-f26-labels-2026"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fraud26-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fraud26-gbm-v1"
+   ],
+   "lines": [
+    8,
+    9
+   ]
+  },
+  {
+   "id": "fraud26-oot-2025q4",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "fraud26-oot-2025q4"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.927"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.70"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "recall-at-1pct",
+   "type": "metric",
+   "label": "recall@1%",
+   "as": [
+    "recall@1% 0.58"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-206",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-206"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud26-gbm-v2",
+   "type": "uses",
+   "label": "built with",
+   "o": "feat-f26-velocity-v2",
+   "quote": "LightGBM with feat-f26-velocity-v2, feat-f26-device-age and feat-f26-mcc-risk.",
+   "line": 5
+  },
+  {
+   "s": "fraud26-gbm-v2",
+   "type": "uses",
+   "label": "built with",
+   "o": "feat-f26-device-age",
+   "quote": "LightGBM with feat-f26-velocity-v2, feat-f26-device-age and feat-f26-mcc-risk.",
+   "line": 5
+  },
+  {
+   "s": "fraud26-gbm-v2",
+   "type": "uses",
+   "label": "built with",
+   "o": "feat-f26-mcc-risk",
+   "quote": "LightGBM with feat-f26-velocity-v2, feat-f26-device-age and feat-f26-mcc-risk.",
+   "line": 5
+  },
+  {
+   "s": "fraud26-gbm-v2",
+   "type": "trained-on",
+   "label": "trained only on",
+   "o": "ds-f26-labels-2026",
+   "quote": "Trained only on labels at least 60 days old",
+   "line": 6
+  },
+  {
+   "s": "fraud26-gbm-v2",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "fraud26-oot-2025q4",
+   "quote": "fraud26-oot-2025q4: AUC 0.927",
+   "line": 7
+  },
+  {
+   "s": "fraud26-gbm-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.927",
+   "line": 4
+  },
+  {
+   "s": "fraud26-gbm-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "ks",
+   "quote": "KS 0.70",
+   "line": 7
+  },
+  {
+   "s": "fraud26-gbm-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "recall-at-1pct",
+   "quote": "recall@1% 0.58",
+   "line": 7
+  },
+  {
+   "s": "fraud26-gbm-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "fraud26-gbm-v1",
+   "quote": "Replaces fraud26-gbm-v1.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "dec-f26-maturity-60d",
+  "exp-206",
+  "feat-f26-velocity-v2",
+  "feat-f26-device-age",
+  "feat-f26-mcc-risk",
+  "fraud26-gbm-v1",
+  "ds-f26-cnp-txn",
+  "ds-f26-labels-2026"
+ ],
+ "built_on": [
+  {
+   "what": "dec-f26-maturity-60d",
+   "quote": "Builds on dec-f26-maturity-60d, ds-f26-cnp-txn, ds-f26-labels-2026, feat-f26-device-age, the mcc risk feature, feat-f26-velocity-v2 and fraud26-gbm-v1.",
+   "line": 8
+  },
+  {
+   "what": "ds-f26-cnp-txn",
+   "quote": "Builds on dec-f26-maturity-60d, ds-f26-cnp-txn, ds-f26-labels-2026, feat-f26-device-age, the mcc risk feature, feat-f26-velocity-v2 and fraud26-gbm-v1.",
+   "line": 8
+  },
+  {
+   "what": "ds-f26-labels-2026",
+   "quote": "Builds on dec-f26-maturity-60d, ds-f26-cnp-txn, ds-f26-labels-2026, feat-f26-device-age, the mcc risk feature, feat-f26-velocity-v2 and fraud26-gbm-v1.",
+   "line": 8
+  },
+  {
+   "what": "feat-f26-device-age",
+   "quote": "Builds on dec-f26-maturity-60d, ds-f26-cnp-txn, ds-f26-labels-2026, feat-f26-device-age, the mcc risk feature, feat-f26-velocity-v2 and fraud26-gbm-v1.",
+   "line": 8
+  },
+  {
+   "what": "feat-f26-mcc-risk",
+   "quote": "Builds on dec-f26-maturity-60d, ds-f26-cnp-txn, ds-f26-labels-2026, feat-f26-device-age, the mcc risk feature, feat-f26-velocity-v2 and fraud26-gbm-v1.",
+   "line": 8
+  },
+  {
+   "what": "feat-f26-velocity-v2",
+   "quote": "Builds on dec-f26-maturity-60d, ds-f26-cnp-txn, ds-f26-labels-2026, feat-f26-device-age, the mcc risk feature, feat-f26-velocity-v2 and fraud26-gbm-v1.",
+   "line": 8
+  },
+  {
+   "what": "fraud26-gbm-v1",
+   "quote": "Builds on dec-f26-maturity-60d, ds-f26-cnp-txn, ds-f26-labels-2026, feat-f26-device-age, the mcc risk feature, feat-f26-velocity-v2 and fraud26-gbm-v1.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "fraud26-gbm-v1",
+   "quote": "Replaces fraud26-gbm-v1.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2026/fraud26-gbm-v2.md",
+ "sha": "9e977d08183fc12a0deeaef740518d60ecf0c49d362b7ae110c3874aaa3e6fd7",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,110 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "cards-churn-labels",
+   "type": "dataset",
+   "label": "labels table",
+   "as": [
+    "cards.churn_labels"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards-txn-daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "retention-labels-job",
+   "type": "pipeline",
+   "label": "job",
+   "as": [
+    "retention-labels job"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "data-eng-cards",
+   "type": "team",
+   "label": "maintainer",
+   "as": [
+    "data-eng-cards"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "churn-rate",
+   "type": "metric",
+   "label": "churn rate",
+   "as": [
+    "Churn rate 6.8%"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "retention-labels-job",
+   "type": "produces",
+   "label": "builds",
+   "o": "cards-churn-labels",
+   "quote": "Built by the retention-labels job",
+   "line": 5
+  },
+  {
+   "s": "retention-labels-job",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards-txn-daily",
+   "quote": "from `cards.txn_daily`",
+   "line": 5
+  },
+  {
+   "s": "cards-churn-labels",
+   "type": "owned-by",
+   "label": "maintained by",
+   "o": "data-eng-cards",
+   "quote": "maintained by data-eng-cards",
+   "line": 5
+  },
+  {
+   "s": "cards-churn-labels",
+   "type": "measured-by",
+   "label": "churn rate",
+   "o": "churn-rate",
+   "quote": "Churn rate 6.8% on the 2025 book",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "cards-txn-daily",
+   "quote": "Built by the retention-labels job from `cards.txn_daily`",
+   "line": 5
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2026/ds-churn-labels.md",
+ "sha": "95b10433e17ab5df8e388316329a020db49e6e6fb98123aeda89db01b80fbfc5",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

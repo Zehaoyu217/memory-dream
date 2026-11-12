@@ -1,0 +1,98 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-306",
+   "type": "other",
+   "label": "window replay",
+   "as": [
+    "Same v1 replay, two call windows"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-cb-handoff-rule-v1",
+   "type": "feature",
+   "label": "handoff rule v1",
+   "as": [
+    "handoff rule v1 unchanged"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q3-sessions",
+   "type": "segment",
+   "label": "replay sessions",
+   "as": [
+    "Replay on the July to October 2025 sessions (n = 620,000)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "containment-rate",
+   "type": "metric",
+   "label": "containment",
+   "as": [
+    "Containment 34 percent with a 24-hour call window, 29 percent with a 48-hour window."
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-306",
+   "type": "evaluated-on",
+   "label": "replayed on",
+   "o": "holdout-2025q3-sessions",
+   "quote": "Replay on the July to October 2025 sessions (n = 620,000)",
+   "line": 5
+  },
+  {
+   "s": "exp-306",
+   "type": "uses",
+   "label": "keeps",
+   "o": "feat-cb-handoff-rule-v1",
+   "quote": "handoff rule v1 unchanged",
+   "line": 5
+  },
+  {
+   "s": "exp-306",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "containment-rate",
+   "quote": "Containment 34 percent with a 24-hour call window, 29 percent with a 48-hour window.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fnd-cb-def-sensitivity"
+ ],
+ "built_on": [
+  {
+   "what": "containment-24h",
+   "quote": "Builds on the 24-hour containment definition and ds-cb-call-linkage.",
+   "line": 8
+  },
+  {
+   "what": "ds-cb-call-linkage",
+   "quote": "Builds on the 24-hour containment definition and ds-cb-call-linkage.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "chatbot-deflection/exp-306.md",
+ "sha": "8f49ff5f122074089d0bd267513a645af3bb0309761c880e339a31514ead366e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

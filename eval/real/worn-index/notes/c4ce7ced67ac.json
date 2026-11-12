@@ -1,0 +1,154 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "proposal-a",
+   "type": "other",
+   "label": "proposal",
+   "as": [
+    "Proposal A"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "break-even-lift",
+   "type": "metric",
+   "label": "break-even",
+   "as": [
+    "break-even"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "predicted-spend-lift",
+   "type": "metric",
+   "label": "predicted",
+   "as": [
+    "the sim gives 3.6%"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "2500-variant",
+   "type": "other",
+   "label": "top tier",
+   "as": [
+    "top tier starts at $2,500"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cb-oot-2026h1",
+   "type": "dataset",
+   "label": "replay dataset",
+   "as": [
+    "`cb-oot-2026h1`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-207-oot-replay",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-207"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "q3-2026-launch",
+   "type": "other",
+   "label": "launch",
+   "as": [
+    "Q3 2026 launch"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "proposal-a",
+   "type": "measured-by",
+   "label": "failed break-even",
+   "o": "break-even-lift",
+   "quote": "Proposal A failed break-even at $3,000 (2.4% against 3.4%).",
+   "line": 5
+  },
+  {
+   "s": "2500-variant",
+   "type": "measured-by",
+   "label": "gives",
+   "o": "predicted-spend-lift",
+   "quote": "At $2,500 the sim gives 3.6%.",
+   "line": 5
+  },
+  {
+   "s": "2500-variant",
+   "type": "other",
+   "label": "for",
+   "o": "q3-2026-launch",
+   "quote": "for the Q3 2026 launch",
+   "line": 4
+  },
+  {
+   "s": "exp-207-oot-replay",
+   "type": "evaluated-on",
+   "label": "replay on",
+   "o": "cb-oot-2026h1",
+   "quote": "a replay on `cb-oot-2026h1` (exp-207)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "dec-cb-adopt-banded-tiers",
+  "exp-206-breakeven-sim",
+  "find-cb-breakeven-lift",
+  "exp-207-oot-replay"
+ ],
+ "built_on": [
+  {
+   "what": "dec-cb-adopt-banded-tiers",
+   "quote": "Builds on dec-cb-adopt-banded-tiers, exp-206-breakeven-sim and find-cb-breakeven-lift.",
+   "line": 8
+  },
+  {
+   "what": "exp-206-breakeven-sim",
+   "quote": "Builds on dec-cb-adopt-banded-tiers, exp-206-breakeven-sim and find-cb-breakeven-lift.",
+   "line": 8
+  },
+  {
+   "what": "find-cb-breakeven-lift",
+   "quote": "Builds on dec-cb-adopt-banded-tiers, exp-206-breakeven-sim and find-cb-breakeven-lift.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "dec-cb-adopt-banded-tiers",
+   "quote": "Replaces dec-cb-adopt-banded-tiers.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/dec-cb-threshold-2500.md",
+ "sha": "c4ce7ced67ac95956ed255b47864edd060824da12b5e09ef1899d8364af2b4d6",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

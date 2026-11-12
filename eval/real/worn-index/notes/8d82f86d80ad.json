@@ -1,0 +1,99 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cld-risk-band-v1",
+   "type": "feature",
+   "label": "risk bands",
+   "as": [
+    "feat-cld-risk-band-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-cld-risk-band-v2",
+   "type": "feature",
+   "label": "risk bands",
+   "as": [
+    "feat-cld-risk-band-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "bureau source",
+   "as": [
+    "bureau v8 score"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-cld-decrease-cohort",
+   "type": "dataset",
+   "label": "decrease cohort dataset",
+   "as": [
+    "the 2024-25 decrease cohort dataset"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "dec-cld-band-policy-2025",
+   "type": "decision",
+   "label": "first cut rule",
+   "as": [
+    "First cut rule: 25% decrease for band C, 35% for band D."
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cld-risk-band-v1",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "feat-cld-risk-band-v2",
+   "quote": "Superseded by feat-cld-risk-band-v2 (2025-10-28)",
+   "line": 8
+  },
+  {
+   "s": "feat-cld-risk-band-v1",
+   "type": "uses",
+   "label": "from",
+   "o": "bureau.scores_monthly",
+   "quote": "from the v8 bureau score and current utilisation",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-cld-decrease-cohort",
+   "quote": "Builds on the 2024-25 decrease cohort dataset",
+   "line": 9
+  },
+  {
+   "what": "q-cld-complaint-spike",
+   "quote": "the question on complaint spikes",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "limit-decrease-policy/feat-cld-risk-band-v1.md",
+ "sha": "8d82f86d80ad7ee77dfc88b1af7c57faf7b1c363e4c4cd17b51a9faa68a1c10a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

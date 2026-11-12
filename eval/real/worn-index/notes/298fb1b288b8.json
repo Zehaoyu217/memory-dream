@@ -1,0 +1,119 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-404-limit-band",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-404"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-xs-credit-limit-band",
+   "type": "feature",
+   "label": "credit-limit band",
+   "as": [
+    "feat-xs-credit-limit-band"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "xs-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "xs-gbm-v1"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  },
+  {
+   "id": "xs-holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Same holdout (n=52,000)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC gain +0.002"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-404-limit-band",
+   "type": "uses",
+   "label": "added to model",
+   "o": "feat-xs-credit-limit-band",
+   "quote": "Added feat-xs-credit-limit-band to the balance-proxy model",
+   "line": 5
+  },
+  {
+   "s": "exp-404-limit-band",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "xs-holdout-2025q1",
+   "quote": "Same holdout (n=52,000)",
+   "line": 5
+  },
+  {
+   "s": "exp-404-limit-band",
+   "type": "measured-by",
+   "label": "AUC gain",
+   "o": "auc",
+   "quote": "AUC gain +0.002, inside noise.",
+   "line": 6
+  },
+  {
+   "s": "exp-404-limit-band",
+   "type": "other",
+   "label": "adds to",
+   "o": "xs-gbm-v1",
+   "quote": "credit-limit bands add 0.002 AUC to xs-gbm-v1",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "feat-xs-credit-limit-band",
+  "xs-gbm-v1"
+ ],
+ "built_on": [
+  {
+   "what": "feat-xs-credit-limit-band",
+   "quote": "Builds on the credit-limit band feature and xs-gbm-v1.",
+   "line": 7
+  },
+  {
+   "what": "xs-gbm-v1",
+   "quote": "Builds on the credit-limit band feature and xs-gbm-v1.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cross-sell-savings/exp-404-limit-band.md",
+ "sha": "298fb1b288b8b99807c2539994026bd2256f07425275e8429f0d747178833090",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

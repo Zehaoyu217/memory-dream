@@ -1,0 +1,72 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ch-prefer-channel-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ch-prefer-channel-v1 is the channel that produced a promise-to-pay or payment after a prior contact"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "callcenter.calls"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "sms-delivery-log",
+   "type": "dataset",
+   "label": "source log",
+   "as": [
+    "the SMS delivery log"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ch-prefer-channel-v1",
+   "type": "uses",
+   "label": "source",
+   "o": "callcenter.calls",
+   "quote": "Source: `callcenter.calls` and the SMS delivery log.",
+   "line": 6
+  },
+  {
+   "s": "feat-ch-prefer-channel-v1",
+   "type": "uses",
+   "label": "source",
+   "o": "sms-delivery-log",
+   "quote": "Source: `callcenter.calls` and the SMS delivery log.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-ch-contact-costs",
+   "quote": "Builds on the per-contact cost by channel.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-channel-mix/feat-ch-prefer-channel-v1.md",
+ "sha": "9f13e6bd0dda1e75e65f03055a55cde4c3a88189e0d7003003795791f716f54a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

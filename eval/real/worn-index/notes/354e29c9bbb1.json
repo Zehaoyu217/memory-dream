@@ -1,0 +1,66 @@
+{
+ "kind": "term",
+ "entities": [
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "ranking-power summary",
+   "as": [
+    "Gini"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "ranking measure",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "oot",
+   "type": "term",
+   "label": "out-of-time set",
+   "as": [
+    "OOT set"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "gini",
+   "type": "other",
+   "label": "equals one minus",
+   "o": "auc",
+   "quote": "Gini = 1 - AUC",
+   "line": 5
+  },
+  {
+   "s": "gini",
+   "type": "other",
+   "label": "reported on",
+   "o": "oot",
+   "quote": "Reported on the OOT set in model cards.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "glossary/gini.md",
+ "sha": "354e29c9bbb15a1f8d2712cfc57ad42db8b2711b833f01836e85b4936fb3d0b5",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

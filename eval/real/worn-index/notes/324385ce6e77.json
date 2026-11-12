@@ -1,0 +1,61 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "survey-themes",
+   "type": "feature",
+   "label": "survey themes",
+   "as": [
+    "Survey open-text themes"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "nps-score",
+   "type": "metric",
+   "label": "nps score",
+   "as": [
+    "predict the NPS score"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "spearman",
+   "type": "metric",
+   "label": "spearman correlation",
+   "as": [
+    "Spearman correlation between predicted and actual NPS"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "survey-themes",
+   "type": "measured-by",
+   "label": "predicts",
+   "o": "spearman",
+   "quote": "Survey open-text themes alone predict the NPS score only weakly",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-401",
+  "exp-403",
+  "fnd-nps-behaviour-lift"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "nps-drivers/q-nps-behaviour-lift.md",
+ "sha": "324385ce6e778db9a721d3c123bd904aad1e1b8e724fa7efa0e7d9082cbe013b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

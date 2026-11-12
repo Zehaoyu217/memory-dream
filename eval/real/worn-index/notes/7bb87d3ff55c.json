@@ -1,0 +1,80 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-304",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-304"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-dq-rowcount-z-v1",
+   "type": "feature",
+   "label": "z-score",
+   "as": [
+    "feat-dq-rowcount-z-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "volume-alarms",
+   "type": "metric",
+   "label": "alarm count",
+   "as": [
+    "volume alarms"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-304",
+   "type": "uses",
+   "label": "replayed",
+   "o": "feat-dq-rowcount-z-v1",
+   "quote": "Replayed the z-score over the 181 days of 2025-H1 under the two baselines.",
+   "line": 5
+  },
+  {
+   "s": "exp-304",
+   "type": "measured-by",
+   "label": "counts",
+   "o": "volume-alarms",
+   "quote": "cuts volume alarms from 41 to 7 over 2025-H1",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "ds-dq-txn-daily",
+  "feat-dq-rowcount-z-v1"
+ ],
+ "built_on": [
+  {
+   "what": "ds-dq-txn-daily",
+   "quote": "Builds on ds-dq-txn-daily and feat-dq-rowcount-z-v1.",
+   "line": 7
+  },
+  {
+   "what": "feat-dq-rowcount-z-v1",
+   "quote": "Builds on ds-dq-txn-daily and feat-dq-rowcount-z-v1.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "data-quality-txn/exp-304.md",
+ "sha": "7bb87d3ff55ced7ac27eafcc13dc3612941525b4d5c1a2d834f77fac27dd42a6",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,115 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "logreg-baseline",
+   "type": "model",
+   "label": "baseline",
+   "as": [
+    "Logistic baseline",
+    "logreg-baseline"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "cards-churn-labels",
+   "type": "dataset",
+   "label": "labels table",
+   "as": [
+    "`cards.churn_labels`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.71"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "recall-at-10",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "recall@10 0.29"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "logreg-baseline",
+   "type": "trained-on",
+   "label": "fit on",
+   "o": "cards-churn-labels",
+   "quote": "fit on `cards.churn_labels`",
+   "line": 5
+  },
+  {
+   "s": "logreg-baseline",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q4",
+   "quote": "holdout-2025q4, n=1.2M, 2026-09-15",
+   "line": 6
+  },
+  {
+   "s": "logreg-baseline",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "auc",
+   "quote": "Logistic baseline: AUC 0.71",
+   "line": 4
+  },
+  {
+   "s": "logreg-baseline",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "recall-at-10",
+   "quote": "recall@10 0.29",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "nb/exp011_baseline.ipynb"
+ ],
+ "built_on": [
+  {
+   "what": "q-churn-drivers",
+   "quote": "Builds on q-churn-drivers.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2026/exp-011-baseline.md",
+ "sha": "d45d5b5d67f1a2ee4ddc49b0bf52a523349660ad774952263fa146372d05e465",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

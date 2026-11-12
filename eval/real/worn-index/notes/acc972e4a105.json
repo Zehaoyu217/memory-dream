@@ -1,0 +1,92 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-fsm-util-ratio",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "balance over limit at month-end"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.limits_history",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "from cards.limits_history"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-107",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-107",
+    "the month-end utilization rule test"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "fsm-churn-xgb-v2",
+   "type": "model",
+   "label": "churn v2",
+   "as": [
+    "churn v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fsm-churn-xgb-v2",
+   "type": "uses",
+   "label": "reads",
+   "o": "feat-fsm-util-ratio",
+   "quote": "churn v2 reads it",
+   "line": 7
+  },
+  {
+   "s": "feat-fsm-util-ratio",
+   "type": "uses",
+   "label": "from",
+   "o": "cards.limits_history",
+   "quote": "from cards.limits_history",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "fnd-parity-post-fix"
+ ],
+ "built_on": [
+  {
+   "what": "ds-fsm-legacy-features",
+   "quote": "Builds on ds-fsm-legacy-features and the month-end utilization rule test.",
+   "line": 8
+  },
+  {
+   "what": "exp-107",
+   "quote": "Builds on ds-fsm-legacy-features and the month-end utilization rule test.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "feature-store-migration/feat-fsm-util-ratio.md",
+ "sha": "acc972e4a1056aaf889d36d37b0ba572c77152f4ba4ca8e94e318e6fa12cff19",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

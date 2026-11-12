@@ -1,0 +1,96 @@
+{
+ "kind": "requirement",
+ "entities": [
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift metric",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "retention-test-2025-08",
+   "type": "other",
+   "label": "retention test",
+   "as": [
+    "The August 2025 retention test"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "chloe-martin-team",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "Chloe Martin's team"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "minimum-arm-size",
+   "type": "term",
+   "label": "minimum arm size",
+   "as": [
+    "minimum arm size"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "uplift-eval-qini-at-20pct",
+   "type": "document",
+   "label": "how-to",
+   "as": [
+    "howto/uplift-eval-qini-at-20pct"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "minimum-arm-size",
+   "type": "other",
+   "label": "required for",
+   "o": "uplift-at-20",
+   "quote": "minimum arm size for an uplift@20% readout",
+   "line": 4
+  },
+  {
+   "s": "chloe-martin-team",
+   "type": "other",
+   "label": "reran",
+   "o": "retention-test-2025-08",
+   "quote": "Chloe Martin's team reran it with a larger control arm.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "howto/uplift-eval-qini-at-20pct"
+ ],
+ "built_on": [
+  {
+   "what": "uplift-eval-qini-at-20pct",
+   "quote": "Builds on howto/uplift-eval-qini-at-20pct",
+   "line": 6
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/uplift-arm-minimum-q.md",
+ "sha": "c6feb789c40ed3eec834d30a771ceb73b0add3d287fb119276a98986aa909f17",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

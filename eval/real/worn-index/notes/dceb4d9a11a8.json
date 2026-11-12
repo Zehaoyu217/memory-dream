@@ -1,0 +1,99 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-507",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-507"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ep-uplift-forest-v1",
+   "type": "model",
+   "label": "causal forest",
+   "as": [
+    "ep-uplift-forest-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-ep-test-registry",
+   "type": "dataset",
+   "label": "test registry",
+   "as": [
+    "ds-ep-test-registry"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-ep-prior-logins-14d",
+   "type": "feature",
+   "label": "logins covariate",
+   "as": [
+    "feat-ep-prior-logins-14d"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "account-tenure-months",
+   "type": "feature",
+   "label": "tenure feature",
+   "as": [
+    "the account tenure feature in months"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-507",
+   "type": "uses",
+   "label": "fitted",
+   "o": "ep-uplift-forest-v1",
+   "quote": "Fitted ep-uplift-forest-v1 on 9 onboarding tests",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "ds-ep-test-registry",
+  "feat-ep-prior-logins-14d"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ep-test-registry",
+   "quote": "Builds on ds-ep-test-registry, feat-ep-prior-logins-14d and the account tenure feature in months.",
+   "line": 7
+  },
+  {
+   "what": "feat-ep-prior-logins-14d",
+   "quote": "Builds on ds-ep-test-registry, feat-ep-prior-logins-14d and the account tenure feature in months.",
+   "line": 7
+  },
+  {
+   "what": "account-tenure-months",
+   "quote": "Builds on ds-ep-test-registry, feat-ep-prior-logins-14d and the account tenure feature in months.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "experiment-platform/exp-507.md",
+ "sha": "dceb4d9a11a86458bbcf829961b6f235674db61ec88d43031e7b9be19b9c08f3",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

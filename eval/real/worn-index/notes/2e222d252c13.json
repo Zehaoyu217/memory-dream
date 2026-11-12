@@ -1,0 +1,102 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-xs-balance-proxy",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-xs-balance-proxy"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards-payments-daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.payments_daily`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "xs-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "xs-gbm-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-xs-payroll-flag-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-xs-payroll-flag-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "xs-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "xs-gbm-v2"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-xs-balance-proxy",
+   "type": "uses",
+   "label": "sums from",
+   "o": "cards-payments-daily",
+   "quote": "Sum of net inflows to the card account in 90 days from `cards.payments_daily`",
+   "line": 5
+  },
+  {
+   "s": "xs-gbm-v1",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-xs-balance-proxy",
+   "quote": "Used in xs-gbm-v1.",
+   "line": 6
+  },
+  {
+   "s": "feat-xs-payroll-flag-v2",
+   "type": "replaces",
+   "label": "replaced by",
+   "o": "feat-xs-balance-proxy",
+   "quote": "Replaced by feat-xs-payroll-flag-v2 in xs-gbm-v2.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-xs-offer-log",
+   "quote": "Builds on ds-xs-offer-log.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cross-sell-savings/feat-xs-balance-proxy.md",
+ "sha": "2e222d252c131fcd6173f33e162c2d0c9c78b5d8edc8f7c93ce85db6219cc72c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

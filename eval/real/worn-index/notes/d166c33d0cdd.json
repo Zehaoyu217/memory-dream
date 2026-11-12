@@ -1,0 +1,86 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-app-thin-file",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "applicant has fewer than 3 bureau tradelines at application"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "app-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "app-gbm-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "app-scorecard-v4",
+   "type": "model",
+   "label": "rebuild",
+   "as": [
+    "the rebuild"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-app-applications-2024",
+   "type": "dataset",
+   "label": "applications",
+   "as": [
+    "ds-app-applications-2024"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-app-thin-file",
+   "type": "uses",
+   "label": "used in",
+   "o": "app-gbm-v1",
+   "quote": "Used in app-gbm-v1 and the rebuild.",
+   "line": 7
+  },
+  {
+   "s": "feat-app-thin-file",
+   "type": "uses",
+   "label": "used in",
+   "o": "app-scorecard-v4",
+   "quote": "Used in app-gbm-v1 and the rebuild.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "find-app-thin-file-gap",
+  "ds-app-applications-2024"
+ ],
+ "built_on": [
+  {
+   "what": "ds-app-applications-2024",
+   "quote": "Builds on ds-app-applications-2024.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "application-scorecard/feat-app-thin-file.md",
+ "sha": "d166c33d0cdd30a5e50edc863a965fc613f6ad923587827d6586d5bd0d623be2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

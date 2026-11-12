@@ -1,0 +1,105 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-cr-pilot",
+   "type": "decision",
+   "label": "pilot decision",
+   "as": [
+    "Pilot the router on 10 percent of inbound calls from 2026-10-05"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cr-lgbm-v3",
+   "type": "model",
+   "label": "router model",
+   "as": [
+    "cr-lgbm-v3"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "dec-cr-cost-matrix",
+   "type": "decision",
+   "label": "cost-matrix decision",
+   "as": [
+    "dec-cr-cost-matrix"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "q-cr-blind-transfers",
+   "type": "question",
+   "label": "blind-transfer question",
+   "as": [
+    "q-cr-blind-transfers"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-cr-pilot",
+   "type": "built on",
+   "label": "builds on",
+   "o": "cr-lgbm-v3",
+   "quote": "Builds on cr-lgbm-v3, dec-cr-cost-matrix and q-cr-blind-transfers.",
+   "line": 8
+  },
+  {
+   "s": "dec-cr-pilot",
+   "type": "built on",
+   "label": "builds on",
+   "o": "dec-cr-cost-matrix",
+   "quote": "Builds on cr-lgbm-v3, dec-cr-cost-matrix and q-cr-blind-transfers.",
+   "line": 8
+  },
+  {
+   "s": "dec-cr-pilot",
+   "type": "built on",
+   "label": "builds on",
+   "o": "q-cr-blind-transfers",
+   "quote": "Builds on cr-lgbm-v3, dec-cr-cost-matrix and q-cr-blind-transfers.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "cr-lgbm-v3",
+  "dec-cr-cost-matrix",
+  "q-cr-blind-transfers"
+ ],
+ "built_on": [
+  {
+   "what": "cr-lgbm-v3",
+   "quote": "Builds on cr-lgbm-v3, dec-cr-cost-matrix and q-cr-blind-transfers.",
+   "line": 8
+  },
+  {
+   "what": "dec-cr-cost-matrix",
+   "quote": "Builds on cr-lgbm-v3, dec-cr-cost-matrix and q-cr-blind-transfers.",
+   "line": 8
+  },
+  {
+   "what": "q-cr-blind-transfers",
+   "quote": "Builds on cr-lgbm-v3, dec-cr-cost-matrix and q-cr-blind-transfers.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/dec-cr-pilot.md",
+ "sha": "be06dc82f63f01a7689fc5de98b6855ffbc2c6df7849e2c3a4024c8180d08c36",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

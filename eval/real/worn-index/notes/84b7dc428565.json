@@ -1,0 +1,79 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "feat-nps-txn-freq-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-nps-txn-freq-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fnd-nps-behaviour-lift",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-nps-behaviour-lift"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "behaviour-only-boosted-trees",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "Gradient boosted trees"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "2025q2-held-out-wave",
+   "type": "dataset",
+   "label": "held-out wave",
+   "as": [
+    "2025Q2 held-out wave"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "behaviour-only-boosted-trees",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "2025q2-held-out-wave",
+   "quote": "trained on 2025Q1 and scored on 2025Q2 (n = 46,120)",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "fnd-nps-behaviour-lift"
+ ],
+ "built_on": [
+  {
+   "what": "feat-nps-txn-freq-v1",
+   "quote": "Builds on the complaint call flag feature and feat-nps-txn-freq-v1.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [
+   "exp-402"
+  ],
+  "relations": 1
+ },
+ "path": "nps-drivers/exp-402.md",
+ "sha": "84b7dc428565261bb01723baf9a96562048c1f42dc756d9d90ad4f0bfdd9feb9",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

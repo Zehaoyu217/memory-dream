@@ -1,0 +1,66 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cc-channel-v1",
+   "type": "feature",
+   "label": "channel feature set",
+   "as": [
+    "Channel one-hot plus an hour-of-day bucket"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.tickets_raw",
+   "type": "dataset",
+   "label": "complaint tickets table",
+   "as": [
+    "`complaints.tickets_raw`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fnd-cc-channel-null",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-cc-channel-null"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cc-channel-v1",
+   "type": "uses",
+   "label": "channels from",
+   "o": "cards.tickets_raw",
+   "quote": "Channels from `complaints.tickets_raw`",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "fnd-cc-channel-null"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cc-tickets-raw",
+   "quote": "Builds on the raw complaint ticket table.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "complaint-classification/feat-cc-channel-v1.md",
+ "sha": "c65ef45d06c548f86ff19c0ded5d9590ba7153d6811cefcfa6cdbb44ac3f6157",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

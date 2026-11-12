@@ -1,0 +1,108 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-dq-rowcount-z-v2",
+   "type": "feature",
+   "label": "z-score",
+   "as": [
+    "feat-dq-rowcount-z-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "dq-volume-iforest-v1",
+   "type": "model",
+   "label": "isolation forest",
+   "as": [
+    "dq-volume-iforest-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-dq-same-weekday-baseline",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-dq-same-weekday-baseline"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-dq-rowcount-z-v1",
+   "type": "feature",
+   "label": "all-weekday z-score",
+   "as": [
+    "the all-weekday row count z-score"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dq-volume-iforest-v1",
+   "type": "uses",
+   "label": "takes input",
+   "o": "feat-dq-rowcount-z-v2",
+   "quote": "Used by dq-volume-iforest-v1 as one of its 12 inputs.",
+   "line": 6
+  },
+  {
+   "s": "feat-dq-rowcount-z-v2",
+   "type": "other",
+   "label": "alert set by",
+   "o": "dec-dq-same-weekday-baseline",
+   "quote": "Alert at absolute z above 3, as set by dec-dq-same-weekday-baseline.",
+   "line": 6
+  },
+  {
+   "s": "feat-dq-rowcount-z-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "feat-dq-rowcount-z-v1",
+   "quote": "Replaces the all-weekday row count z-score.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-dq-rowcount-z-v1",
+  "dq-volume-iforest-v1",
+  "dec-dq-same-weekday-baseline",
+  "fnd-volume-false-alarms"
+ ],
+ "built_on": [
+  {
+   "what": "feat-dq-rowcount-z-v1",
+   "quote": "Builds on feat-dq-rowcount-z-v1 and fnd-volume-false-alarms.",
+   "line": 7
+  },
+  {
+   "what": "fnd-volume-false-alarms",
+   "quote": "Builds on feat-dq-rowcount-z-v1 and fnd-volume-false-alarms.",
+   "line": 7
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-dq-rowcount-z-v1",
+   "quote": "Replaces the all-weekday row count z-score.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "data-quality-txn/feat-dq-rowcount-z-v2.md",
+ "sha": "a683da4e3c187c1b1600cdcb58deac985cd3fc40a5dc6525780a8535de43a73d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

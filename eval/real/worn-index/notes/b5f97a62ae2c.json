@@ -1,0 +1,104 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "churn-gbm-2025-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "churn-gbm-2025-v2"
+   ],
+   "lines": [
+    4,
+    8
+   ]
+  },
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "data engineer",
+   "as": [
+    "Tomas Rivera"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "churn-lr-base-2025",
+   "type": "model",
+   "label": "monitoring challenger",
+   "as": [
+    "churn-lr-base-2025"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "util-v2-time-matched-limit-join",
+   "type": "feature",
+   "label": "scoring job change",
+   "as": [
+    "util-v2 time-matched limit join"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-lr-base-2025",
+   "type": "other",
+   "label": "kept as challenger",
+   "o": "churn-gbm-2025-v2",
+   "quote": "churn-lr-base-2025 is kept as the monitoring challenger.",
+   "line": 7
+  },
+  {
+   "s": "tomas-rivera",
+   "type": "owned-by",
+   "label": "owns",
+   "o": "util-v2-time-matched-limit-join",
+   "quote": "Needs the util-v2 time-matched limit join in the scoring job (Tomas Rivera, data engineering).",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "dec-c25-ship-gbm-v1",
+  "exp-107"
+ ],
+ "built_on": [
+  {
+   "what": "churn-gbm-2025-v2",
+   "quote": "Builds on churn-gbm-2025-v2, dec-c25-ship-gbm-v1 and exp-107.",
+   "line": 8
+  },
+  {
+   "what": "dec-c25-ship-gbm-v1",
+   "quote": "Builds on churn-gbm-2025-v2, dec-c25-ship-gbm-v1 and exp-107.",
+   "line": 8
+  },
+  {
+   "what": "exp-107",
+   "quote": "Builds on churn-gbm-2025-v2, dec-c25-ship-gbm-v1 and exp-107.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "dec-c25-ship-gbm-v1",
+   "quote": "Replaces dec-c25-ship-gbm-v1.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2025/dec-c25-ship-gbm-v2.md",
+ "sha": "b5f97a62ae2c7dd9de5434ec22a9e94bcae3ef7b2c04f626420a0eb3f6af745d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,92 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-bsm-keep-v8-fallback",
+   "type": "decision",
+   "label": "decision",
+   "as": [
+    "Decision: keep the v8 feed as a fallback through 31 December 2026"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-307",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-307"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "find-bsm-thin-file-gap",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "the thin-file unscored applicants finding"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "v8-feed",
+   "type": "dataset",
+   "label": "feed",
+   "as": [
+    "the v8 feed"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-bsm-keep-v8-fallback",
+   "type": "uses",
+   "label": "keeps pulls for",
+   "o": "v8-feed",
+   "quote": "Keeps v8 pulls for accounts with no v10 row",
+   "line": 5
+  },
+  {
+   "s": "dec-bsm-keep-v8-fallback",
+   "type": "measured-by",
+   "label": "shows drop",
+   "o": "exp-307",
+   "quote": "Without the fallback approval rate on affected rows drops 1.2 points (exp-307).",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-307",
+  "find-bsm-thin-file-gap"
+ ],
+ "built_on": [
+  {
+   "what": "exp-307",
+   "quote": "Builds on exp-307 and the thin-file unscored applicants finding.",
+   "line": 8
+  },
+  {
+   "what": "find-bsm-thin-file-gap",
+   "quote": "Builds on exp-307 and the thin-file unscored applicants finding.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "bureau-score-migration/dec-bsm-keep-v8-fallback.md",
+ "sha": "4f2d87e1bedf1113c7dead82e1473a577b7d1a323d62b13468d747afb170c0fa",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

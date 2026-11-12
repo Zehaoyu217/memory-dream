@@ -1,0 +1,110 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-sfc-q4-reconciled",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "After MinT reconciliation the Q4 bias is -0.4%, so the low forecast was a reconciliation problem"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "sfc-hier-v3",
+   "type": "model",
+   "label": "production model",
+   "as": [
+    "sfc-hier-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "sfc-lgbm-v2",
+   "type": "model",
+   "label": "per-segment model",
+   "as": [
+    "fnd-sfc-q4-low-bias"
+   ],
+   "lines": [
+    8,
+    9
+   ]
+  },
+  {
+   "id": "exp-207",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-207"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fnd-sfc-q4-low-bias",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-sfc-q4-low-bias"
+   ],
+   "lines": [
+    8,
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "sfc-hier-v3",
+   "type": "other",
+   "label": "production basis",
+   "o": "fnd-sfc-q4-reconciled",
+   "quote": "sfc-hier-v3 is the production model on this basis.",
+   "line": 7
+  },
+  {
+   "s": "fnd-sfc-q4-reconciled",
+   "type": "other",
+   "label": "states bias",
+   "o": "exp-207",
+   "quote": "Reconciling the six segments with the total brings Nov-Dec bias to -0.4% on sfc-oot-2025h2 (exp-207).",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "fnd-sfc-q4-low-bias"
+ ],
+ "built_on": [
+  {
+   "what": "exp-207",
+   "quote": "Builds on the mint reconciliation experiment and fnd-sfc-q4-low-bias.",
+   "line": 8
+  },
+  {
+   "what": "fnd-sfc-q4-low-bias",
+   "quote": "Builds on the mint reconciliation experiment and fnd-sfc-q4-low-bias.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "fnd-sfc-q4-low-bias",
+   "quote": "Replaces fnd-sfc-q4-low-bias.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "spend-forecasting/fnd-sfc-q4-reconciled.md",
+ "sha": "79a45c17adceb9bf172f66a4aa3cc2f36e8e492184f1650f631d7851fd6336d1",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

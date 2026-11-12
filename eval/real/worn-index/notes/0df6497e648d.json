@@ -1,0 +1,97 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "utilisation",
+   "type": "term",
+   "label": "credit metric",
+   "as": [
+    "utilisation"
+   ],
+   "lines": [
+    4,
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "statement-balance",
+   "type": "term",
+   "label": "balance basis",
+   "as": [
+    "statement balance"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "pending-transactions",
+   "type": "term",
+   "label": "excluded item",
+   "as": [
+    "Pending transactions"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sept-2024-utilisation",
+   "type": "metric",
+   "label": "restated figure",
+   "as": [
+    "Sept 2024 utilisation restated from 41% to 38%"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "utilisation",
+   "type": "uses",
+   "label": "uses statement balance",
+   "o": "statement-balance",
+   "quote": "Utilisation is the statement balance at statement close divided by the credit limit",
+   "line": 5
+  },
+  {
+   "s": "utilisation",
+   "type": "other",
+   "label": "excludes",
+   "o": "pending-transactions",
+   "quote": "Pending transactions are excluded.",
+   "line": 5
+  },
+  {
+   "s": "sept-2024-utilisation",
+   "type": "other",
+   "label": "restated from",
+   "o": "utilisation",
+   "quote": "Sept 2024 utilisation restated from 41% to 38%",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "glossary/utilisation"
+ ],
+ "replaces": [
+  {
+   "what": "glossary/utilisation",
+   "quote": "Replaces glossary/utilisation.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "corrections/utilisation-statement-balance.md",
+ "sha": "0df6497e648dbe5d10d82789b04dac530a934744d99e39f35b18405e095f9f48",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

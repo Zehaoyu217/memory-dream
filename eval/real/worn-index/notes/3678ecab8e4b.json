@@ -1,0 +1,188 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "fraud26-gbm-v2",
+   "type": "model",
+   "label": "live model",
+   "as": [
+    "fraud26-gbm-v2"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "fraud26-gbm-v1",
+   "type": "model",
+   "label": "v1",
+   "as": [
+    "v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "alert-threshold-0.62",
+   "type": "flag",
+   "label": "alert threshold",
+   "as": [
+    "alert threshold 0.62"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "exp-206",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-206"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.927"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "recall-at-1pct",
+   "type": "metric",
+   "label": "recall@1%",
+   "as": [
+    "recall@1% 0.58"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fraud26-oot-2025q4",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "fraud26-oot-2025q4"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-f26-promote-v3",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-f26-promote-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dec-f26-maturity-60d",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-f26-maturity-60d"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud26-gbm-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "fraud26-gbm-v1",
+   "quote": "fraud26-gbm-v2 replaces v1 as the live model from 2026-06-01",
+   "line": 5
+  },
+  {
+   "s": "fraud26-gbm-v2",
+   "type": "other",
+   "label": "alert threshold",
+   "o": "alert-threshold-0.62",
+   "quote": "alert threshold 0.62",
+   "line": 4
+  },
+  {
+   "s": "exp-206",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.927",
+   "line": 6
+  },
+  {
+   "s": "exp-206",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "recall-at-1pct",
+   "quote": "recall@1% 0.58",
+   "line": 6
+  },
+  {
+   "s": "exp-206",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "fraud26-oot-2025q4",
+   "quote": "fraud26-oot-2025q4",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "dec-f26-promote-v3",
+  "exp-206",
+  "dec-f26-maturity-60d",
+  "fraud26-gbm-v2"
+ ],
+ "built_on": [
+  {
+   "what": "dec-f26-maturity-60d",
+   "quote": "Builds on dec-f26-maturity-60d, exp-206 and fraud26-gbm-v2.",
+   "line": 8
+  },
+  {
+   "what": "exp-206",
+   "quote": "Builds on dec-f26-maturity-60d, exp-206 and fraud26-gbm-v2.",
+   "line": 8
+  },
+  {
+   "what": "fraud26-gbm-v2",
+   "quote": "Builds on dec-f26-maturity-60d, exp-206 and fraud26-gbm-v2.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "fraud26-gbm-v1",
+   "quote": "fraud26-gbm-v2 replaces v1 as the live model from 2026-06-01",
+   "line": 5
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "fraud-2026/dec-f26-promote-v2.md",
+ "sha": "3678ecab8e4bf1a40644fc911f7fa216675fe66a664ee93c4826531de46716b9",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

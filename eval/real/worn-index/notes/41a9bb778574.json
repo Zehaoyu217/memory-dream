@@ -1,0 +1,109 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-sfc-segment-monthly",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "Monthly spend per customer segment, 2022-01 to 2025-06, plus sfc-oot-2025h2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "crm.contacts",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`crm.contacts`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sfc-bt-2024",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "sfc-bt-2024"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "sfc-oot-2025h2",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "sfc-oot-2025h2"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  },
+  {
+   "id": "feat-sfc-active-accounts",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-sfc-active-accounts"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-sfc-segment-monthly",
+   "type": "uses",
+   "label": "joined to",
+   "o": "crm.contacts",
+   "quote": "joined to `crm.contacts` for the segment label",
+   "line": 5
+  },
+  {
+   "s": "ds-sfc-segment-monthly",
+   "type": "uses",
+   "label": "from",
+   "o": "cards.accounts_monthly",
+   "quote": "from `cards.accounts_monthly`",
+   "line": 5
+  },
+  {
+   "s": "feat-sfc-active-accounts",
+   "type": "uses",
+   "label": "from",
+   "o": "cards.accounts_monthly",
+   "quote": "from the same table (feat-sfc-active-accounts)",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-sfc-active-accounts"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "spend-forecasting/ds-sfc-segment-monthly.md",
+ "sha": "41a9bb778574eaf6ac6ab6854e69dd1f05956552c6c5e112e5ac76eeeef5edb4",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

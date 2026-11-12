@@ -1,0 +1,159 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-503",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-503"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "tool",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "bg-nbd",
+   "type": "model",
+   "label": "baseline",
+   "as": [
+    "BG/NBD baseline (22.6%)"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "clv-oot-2021h1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Holdout clv-oot-2021h1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "MAPE 18.4%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-clv-loss-rate",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "loss rate"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-clv-arpu-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "arpu v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-clv-tenure",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "tenure"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-503",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "mape",
+   "quote": "Holdout clv-oot-2021h1: MAPE 18.4%, mean absolute error $38 per account.",
+   "line": 6
+  },
+  {
+   "s": "exp-503",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "clv-oot-2021h1",
+   "quote": "Holdout clv-oot-2021h1: MAPE 18.4%",
+   "line": 6
+  },
+  {
+   "s": "exp-503",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-clv-arpu-v1",
+   "quote": "Features: arpu v1, tenure, loss rate.",
+   "line": 5
+  },
+  {
+   "s": "exp-503",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-clv-tenure",
+   "quote": "Features: arpu v1, tenure, loss rate.",
+   "line": 5
+  },
+  {
+   "s": "exp-503",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-clv-loss-rate",
+   "quote": "Features: arpu v1, tenure, loss rate.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "dec-clv-include-losses",
+  "feat-clv-loss-rate"
+ ],
+ "built_on": [
+  {
+   "what": "dec-clv-include-losses",
+   "quote": "Builds on dec-clv-include-losses, the bg/nbd versus gbm accuracy test and feat-clv-loss-rate.",
+   "line": 8
+  },
+  {
+   "what": "feat-clv-loss-rate",
+   "quote": "Builds on dec-clv-include-losses, the bg/nbd versus gbm accuracy test and feat-clv-loss-rate.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "customer-lifetime-value/exp-503.md",
+ "sha": "4c0c11aafef91032ede3c9907dbd200d031db290f6f9638df8a0b8255adde629",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

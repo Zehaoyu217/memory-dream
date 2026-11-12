@@ -1,0 +1,125 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "txc-gbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "txc-gbm-v3"
+   ],
+   "lines": [
+    4,
+    5,
+    9
+   ]
+  },
+  {
+   "id": "txc-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "txc-gbm-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-txc-normalise-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-txc-normalise-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fnd-txc-long-tail",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-txc-long-tail"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "fnd-txc-other-share",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-txc-other-share"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "data-eng-cards",
+   "type": "team",
+   "label": "owner team",
+   "as": [
+    "data-eng-cards"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "txc-gbm-v3",
+   "type": "replaces",
+   "label": "ship in place of",
+   "o": "txc-gbm-v2",
+   "quote": "Ship txc-gbm-v3 in place of txc-gbm-v2",
+   "line": 5
+  },
+  {
+   "s": "txc-gbm-v3",
+   "type": "uses",
+   "label": "with",
+   "o": "feat-txc-normalise-v2",
+   "quote": "with feat-txc-normalise-v2 and the v2 token set",
+   "line": 5
+  },
+  {
+   "s": "data-eng-cards",
+   "type": "owned-by",
+   "label": "owns insights tables",
+   "o": "data-eng-cards",
+   "quote": "Owner for the insights tables is data-eng-cards",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "fnd-txc-long-tail",
+   "quote": "Builds on fnd-txc-long-tail, fnd-txc-other-share and txc-gbm-v3.",
+   "line": 9
+  },
+  {
+   "what": "fnd-txc-other-share",
+   "quote": "Builds on fnd-txc-long-tail, fnd-txc-other-share and txc-gbm-v3.",
+   "line": 9
+  },
+  {
+   "what": "txc-gbm-v3",
+   "quote": "Builds on fnd-txc-long-tail, fnd-txc-other-share and txc-gbm-v3.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "txn-categorization/dec-txc-ship-gbm-v3.md",
+ "sha": "09f66189cd3ef44ea6d0a25028b24f0cfa3c03b5e0c218400fd363276708e5dd",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

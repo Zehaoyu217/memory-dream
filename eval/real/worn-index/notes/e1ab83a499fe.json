@@ -1,0 +1,85 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-clv-hazard",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-clv-hazard"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-clv-cohort-panel",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "ds-clv-cohort-panel"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "clv-ml-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "clv-ml-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-clv-hazard",
+   "type": "uses",
+   "label": "from",
+   "o": "ds-clv-cohort-panel",
+   "quote": "Kaplan-Meier hazard by tenure band and bureau band, from ds-clv-cohort-panel.",
+   "line": 5
+  },
+  {
+   "s": "clv-ml-v2",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-clv-hazard",
+   "quote": "Used in clv-ml-v2 only.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-503",
+  "feat-clv-tenure"
+ ],
+ "built_on": [
+  {
+   "what": "exp-503",
+   "quote": "Builds on exp-503, the segment loss rate feature and feat-clv-tenure.",
+   "line": 8
+  },
+  {
+   "what": "feat-clv-loss-rate",
+   "quote": "Builds on exp-503, the segment loss rate feature and feat-clv-tenure.",
+   "line": 8
+  },
+  {
+   "what": "feat-clv-tenure",
+   "quote": "Builds on exp-503, the segment loss rate feature and feat-clv-tenure.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "customer-lifetime-value/feat-clv-hazard.md",
+ "sha": "e1ab83a499fef0dfdfa7e7c3b96425ab9f74b77930a23ee26ed10eb87f944aca",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

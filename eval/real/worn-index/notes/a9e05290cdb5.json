@@ -1,0 +1,202 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-fsm-timezone-utc",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: all date windows and day differences in the feature store and legacy notebooks use UTC"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "mlops-review",
+   "type": "other",
+   "label": "review",
+   "as": [
+    "MLOps review"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "aisha-khan",
+   "type": "person",
+   "label": "reviewer",
+   "as": [
+    "Aisha Khan"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "reviewer",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "local-time-windows",
+   "type": "term",
+   "label": "local-time windows",
+   "as": [
+    "Local-time windows"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "payment-lag-mismatch",
+   "type": "metric",
+   "label": "mismatch",
+   "as": [
+    "3.1 percent payment-lag mismatch"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "legacy-notebooks",
+   "type": "other",
+   "label": "notebooks",
+   "as": [
+    "Legacy notebooks"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "feat-fsm-payment-lag-v1",
+   "type": "feature",
+   "label": "payment lag v1",
+   "as": [
+    "v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-fsm-payment-lag-v2",
+   "type": "feature",
+   "label": "payment lag v2",
+   "as": [
+    "feat-fsm-payment-lag-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-102",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-102"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "fnd-parity-pre-fix",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "the parity result before fixes"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-fsm-timezone-utc",
+   "type": "other",
+   "label": "decided at",
+   "o": "mlops-review",
+   "quote": "Decided at the 2025-11-20 MLOps review (Aisha Khan, Lena Fischer).",
+   "line": 5
+  },
+  {
+   "s": "dec-fsm-timezone-utc",
+   "type": "decided-by",
+   "label": "decided at",
+   "o": "aisha-khan",
+   "quote": "Decided at the 2025-11-20 MLOps review (Aisha Khan, Lena Fischer).",
+   "line": 5
+  },
+  {
+   "s": "dec-fsm-timezone-utc",
+   "type": "decided-by",
+   "label": "decided at",
+   "o": "lena-fischer",
+   "quote": "Decided at the 2025-11-20 MLOps review (Aisha Khan, Lena Fischer).",
+   "line": 5
+  },
+  {
+   "s": "local-time-windows",
+   "type": "other",
+   "label": "caused",
+   "o": "payment-lag-mismatch",
+   "quote": "Local-time windows caused the 3.1 percent payment-lag mismatch (exp-102).",
+   "line": 5
+  },
+  {
+   "s": "dec-fsm-timezone-utc",
+   "type": "other",
+   "label": "patches",
+   "o": "legacy-notebooks",
+   "quote": "Legacy notebooks are patched to match, not retired yet.",
+   "line": 6
+  },
+  {
+   "s": "feat-fsm-payment-lag-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "feat-fsm-payment-lag-v1",
+   "quote": "feat-fsm-payment-lag-v2 replaces v1 for all new models from 2026-01-12.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-102",
+  "feat-fsm-payment-lag-v2"
+ ],
+ "built_on": [
+  {
+   "what": "exp-102",
+   "quote": "Builds on exp-102 and the parity result before fixes.",
+   "line": 8
+  },
+  {
+   "what": "fnd-parity-pre-fix",
+   "quote": "Builds on exp-102 and the parity result before fixes.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "feature-store-migration/dec-fsm-timezone-utc.md",
+ "sha": "a9e05290cdb5f8eadf4abf09b25ac00860d4eeffba50bd5234ef40791d06a269",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

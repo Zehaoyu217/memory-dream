@@ -1,0 +1,111 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-102",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-102: dropping device age from v1 costs 0.005 AUC on holdout-2025q1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-f25-device-age",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-f25-device-age"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.897 (-0.005)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "recall-at-1",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "recall@1% 0.44 (from 0.46)"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-102",
+   "type": "evaluated-on",
+   "label": "same holdout",
+   "o": "holdout-2025q1",
+   "quote": "Same holdout as exp-101 (1,104,800 transactions, 2,310 fraud).",
+   "line": 5
+  },
+  {
+   "s": "exp-102",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "Without feat-f25-device-age: AUC 0.897 (-0.005)",
+   "line": 6
+  },
+  {
+   "s": "exp-102",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "recall-at-1",
+   "quote": "recall@1% 0.44 (from 0.46)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-101",
+  "fraud25-find-device-drift"
+ ],
+ "built_on": [
+  {
+   "what": "exp-101",
+   "quote": "Builds on the first model's baseline score and feat-f25-device-age.",
+   "line": 8
+  },
+  {
+   "what": "feat-f25-device-age",
+   "quote": "Builds on the first model's baseline score and feat-f25-device-age.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/exp-102.md",
+ "sha": "4eca709eaf4e269722328b1fb53f0c35dbd3df45195c418cba44f2cef4afe641",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

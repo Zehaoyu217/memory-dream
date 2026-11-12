@@ -1,0 +1,119 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "xs-call-uplift-v1",
+   "type": "model",
+   "label": "causal forest model",
+   "as": [
+    "xs-call-uplift-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-xs-call-recent",
+   "type": "feature",
+   "label": "recent-call feature",
+   "as": [
+    "feat-xs-call-recent"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "xs-gbm-v2",
+   "type": "model",
+   "label": "boosting model",
+   "as": [
+    "xs-gbm-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "open-rate",
+   "type": "metric",
+   "label": "open rate",
+   "as": [
+    "open rate"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "causal-forest",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "Causal forest"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "propensity-score",
+   "type": "term",
+   "label": "propensity",
+   "as": [
+    "propensity"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "xs-call-uplift-v1",
+   "type": "uses",
+   "label": "conditions on",
+   "o": "feat-xs-call-recent",
+   "quote": "Causal forest on feat-xs-call-recent, tenure and spend.",
+   "line": 5
+  },
+  {
+   "s": "xs-call-uplift-v1",
+   "type": "measured-by",
+   "label": "effect on",
+   "o": "open-rate",
+   "quote": "Effect of a call on open rate: +1.2 points (CI 0.4-2.0)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "dec-xs-call-low-deciles"
+ ],
+ "built_on": [
+  {
+   "what": "exp-403-callcentre-naive",
+   "quote": "Builds on the naive call-effect comparison, the recent-call feature and the overstated call-effect finding.",
+   "line": 8
+  },
+  {
+   "what": "feat-xs-call-recent",
+   "quote": "Builds on the naive call-effect comparison, the recent-call feature and the overstated call-effect finding.",
+   "line": 8
+  },
+  {
+   "what": "find-xs-call-overstated",
+   "quote": "Builds on the naive call-effect comparison, the recent-call feature and the overstated call-effect finding.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cross-sell-savings/xs-call-uplift-v1.md",
+ "sha": "f399ffd571620edf47d417c27632218f3fef915ee2552caf1648efdc2e992b75",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,187 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "fraud26-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fraud26-gbm-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-f25-velocity-v1",
+   "type": "feature",
+   "label": "2025 velocity feature",
+   "as": [
+    "2025 velocity feature"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-f26-device-age",
+   "type": "feature",
+   "label": "device age",
+   "as": [
+    "device age"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fraud25-gbm-v2",
+   "type": "model",
+   "label": "fraud-2025 model",
+   "as": [
+    "fraud-2025/fraud25-gbm-v2"
+   ],
+   "lines": [
+    8,
+    9
+   ]
+  },
+  {
+   "id": "ds-f26-labels-2026",
+   "type": "dataset",
+   "label": "label table",
+   "as": [
+    "ds-f26-labels-2026"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-f26-cnp-txn",
+   "type": "dataset",
+   "label": "cnp transactions",
+   "as": [
+    "2025-07 to 2025-12 CNP transactions"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fraud26-gbm-v2",
+   "type": "model",
+   "label": "v2",
+   "as": [
+    "fraud26-gbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fraud26-find-label-bias",
+   "type": "other",
+   "label": "label-bias finding",
+   "as": [
+    "fraud26-find-label-bias"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud26-gbm-v1",
+   "type": "trained-on",
+   "label": "trained on",
+   "o": "ds-f26-cnp-txn",
+   "quote": "trained on 2025-07 to 2025-12 CNP transactions",
+   "line": 5
+  },
+  {
+   "s": "fraud26-gbm-v1",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-f25-velocity-v1",
+   "quote": "LightGBM on the 2025 velocity feature plus device age",
+   "line": 5
+  },
+  {
+   "s": "fraud26-gbm-v1",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-f26-device-age",
+   "quote": "LightGBM on the 2025 velocity feature plus device age",
+   "line": 5
+  },
+  {
+   "s": "fraud26-gbm-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "fraud26-gbm-v1",
+   "quote": "Superseded by fraud26-gbm-v2 on 2026-05-27.",
+   "line": 7
+  },
+  {
+   "s": "fraud26-gbm-v1",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "fraud25-gbm-v2",
+   "quote": "Replaces fraud-2025/fraud25-gbm-v2.",
+   "line": 9
+  },
+  {
+   "s": "fraud26-gbm-v1",
+   "type": "other",
+   "label": "flaw in",
+   "o": "fraud26-find-label-bias",
+   "quote": "the flaw in fraud26-find-label-bias",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fraud26-find-label-bias",
+  "fraud26-gbm-v2",
+  "ds-f26-labels-2026",
+  "feat-f26-device-age"
+ ],
+ "built_on": [
+  {
+   "what": "feat-f25-velocity-v1",
+   "quote": "Builds on fraud-2025/feat-f25-velocity-v1, fraud-2025/fraud25-gbm-v2, ds-f26-labels-2026 and feat-f26-device-age.",
+   "line": 8
+  },
+  {
+   "what": "fraud25-gbm-v2",
+   "quote": "Builds on fraud-2025/feat-f25-velocity-v1, fraud-2025/fraud25-gbm-v2, ds-f26-labels-2026 and feat-f26-device-age.",
+   "line": 8
+  },
+  {
+   "what": "ds-f26-labels-2026",
+   "quote": "Builds on fraud-2025/feat-f25-velocity-v1, fraud-2025/fraud25-gbm-v2, ds-f26-labels-2026 and feat-f26-device-age.",
+   "line": 8
+  },
+  {
+   "what": "feat-f26-device-age",
+   "quote": "Builds on fraud-2025/feat-f25-velocity-v1, fraud-2025/fraud25-gbm-v2, ds-f26-labels-2026 and feat-f26-device-age.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "fraud25-gbm-v2",
+   "quote": "Replaces fraud-2025/fraud25-gbm-v2.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2026/fraud26-gbm-v1.md",
+ "sha": "74b0697590e2a69b4040592fb236203615e13071fd1ebf33a9cef32947f6d5a1",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

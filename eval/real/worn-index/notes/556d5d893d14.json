@@ -1,0 +1,78 @@
+{
+ "kind": "term",
+ "entities": [
+  {
+   "id": "csat",
+   "type": "metric",
+   "label": "csat",
+   "as": [
+    "CSAT"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "call-volume",
+   "type": "metric",
+   "label": "call volume",
+   "as": [
+    "Call volume"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "callcenter-calls",
+   "type": "dataset",
+   "label": "calls table",
+   "as": [
+    "`callcenter.calls`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cards-accounts-monthly",
+   "type": "dataset",
+   "label": "accounts table",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "call-volume",
+   "type": "uses",
+   "label": "counts calls in",
+   "o": "callcenter-calls",
+   "quote": "calls in `callcenter.calls`",
+   "line": 6
+  },
+  {
+   "s": "call-volume",
+   "type": "uses",
+   "label": "normalised by",
+   "o": "cards-accounts-monthly",
+   "quote": "active accounts in `cards.accounts_monthly`",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/cx-metric-definitions.md",
+ "sha": "556d5d893d1491d906d9007c4248a217ba5bb0a9842be8fea1138d6f9289934a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

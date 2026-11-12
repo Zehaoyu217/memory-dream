@@ -1,0 +1,168 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "inc-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "inc-gbm-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "inc-gbm-v2",
+   "type": "model",
+   "label": "successor",
+   "as": [
+    "inc-gbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "eval dataset",
+   "as": [
+    "holdout-2025q1 (n=12,400)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "MAPE 27% overall"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-inc-spend-to-income",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-inc-spend-to-income"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-inc-rent-flag",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "recurring rent outflow flag"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "inc-linear-baseline",
+   "type": "model",
+   "label": "baseline",
+   "as": [
+    "inc-linear-baseline"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-inc-payroll-cadence-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "basic payroll cadence feature"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "inc-gbm-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "mape",
+   "quote": "MAPE 27% overall and 22% on accounts with a cadence",
+   "line": 6
+  },
+  {
+   "s": "inc-gbm-v1",
+   "type": "evaluated-on",
+   "label": "eval",
+   "o": "holdout-2025q1",
+   "quote": "Eval: holdout-2025q1 (n=12,400)",
+   "line": 6
+  },
+  {
+   "s": "inc-gbm-v1",
+   "type": "uses",
+   "label": "boosted on",
+   "o": "feat-inc-spend-to-income",
+   "quote": "Boosted trees on the cadence, spend-to-income and rent features",
+   "line": 5
+  },
+  {
+   "s": "inc-gbm-v1",
+   "type": "uses",
+   "label": "boosted on",
+   "o": "feat-inc-rent-flag",
+   "quote": "Boosted trees on the cadence, spend-to-income and rent features",
+   "line": 5
+  },
+  {
+   "s": "inc-gbm-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "inc-gbm-v1",
+   "quote": "Superseded by inc-gbm-v2 (2025-12-18).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "inc-gbm-v2"
+ ],
+ "built_on": [
+  {
+   "what": "feat-inc-payroll-cadence-v1",
+   "quote": "Builds on the basic payroll cadence feature",
+   "line": 8
+  },
+  {
+   "what": "feat-inc-rent-flag",
+   "quote": "the recurring rent outflow flag",
+   "line": 8
+  },
+  {
+   "what": "feat-inc-spend-to-income",
+   "quote": "feat-inc-spend-to-income",
+   "line": 8
+  },
+  {
+   "what": "inc-linear-baseline",
+   "quote": "and inc-linear-baseline",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "income-estimation/inc-gbm-v1.md",
+ "sha": "c1d9068e95f6f88de3a80d2977605d4637a586167ee252d2281347fdd43c5138",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

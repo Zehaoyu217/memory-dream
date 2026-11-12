@@ -1,0 +1,137 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-inc-txn-categories",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-inc-txn-categories"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.merchants",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "cards.merchants"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-inc-spend-to-income",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-inc-spend-to-income"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-inc-rent-flag",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-inc-rent-flag"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-inc-merchant-mix",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-inc-merchant-mix"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-inc-stated-income-2025",
+   "type": "dataset",
+   "label": "basis",
+   "as": [
+    "ds-inc-stated-income-2025"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-inc-txn-categories",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards.txn_daily",
+   "quote": "Built from `cards.txn_daily`",
+   "line": 5
+  },
+  {
+   "s": "ds-inc-txn-categories",
+   "type": "uses",
+   "label": "joined to",
+   "o": "cards.merchants",
+   "quote": "joined to `cards.merchants` category codes",
+   "line": 5
+  },
+  {
+   "s": "feat-inc-spend-to-income",
+   "type": "uses",
+   "label": "uses",
+   "o": "ds-inc-txn-categories",
+   "quote": "Used by feat-inc-spend-to-income",
+   "line": 7
+  },
+  {
+   "s": "feat-inc-merchant-mix",
+   "type": "uses",
+   "label": "uses",
+   "o": "ds-inc-txn-categories",
+   "quote": "feat-inc-merchant-mix",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-inc-spend-to-income",
+  "feat-inc-rent-flag",
+  "feat-inc-merchant-mix",
+  "ds-inc-stated-income-2025"
+ ],
+ "built_on": [
+  {
+   "what": "ds-inc-stated-income-2025",
+   "quote": "Builds on ds-inc-stated-income-2025.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "income-estimation/ds-inc-txn-categories.md",
+ "sha": "bdf58d093bd1cca743bbae543727445b0604d9e07aeaa57b83d12ffdfa223384",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

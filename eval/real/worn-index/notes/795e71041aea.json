@@ -1,0 +1,134 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-rev26-v2-for-board",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: use rev26-interest-v2 and rev26-combined-v1 for the board pack from February 2026"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "rev26-interest-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rev26-interest-v2"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "rev26-combined-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rev26-combined-v1"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "rev26-interest-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rev26-interest-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ben-carter",
+   "type": "person",
+   "label": "finance",
+   "as": [
+    "Ben Carter (finance)"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "board-pack",
+   "type": "document",
+   "label": "board pack",
+   "as": [
+    "board pack"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-rev26-v2-for-board",
+   "type": "uses",
+   "label": "uses for interest",
+   "o": "rev26-interest-v2",
+   "quote": "uses rev26-interest-v2 for interest",
+   "line": 5
+  },
+  {
+   "s": "dec-rev26-v2-for-board",
+   "type": "uses",
+   "label": "uses for total",
+   "o": "rev26-combined-v1",
+   "quote": "rev26-combined-v1 for the total",
+   "line": 5
+  },
+  {
+   "s": "rev26-interest-v1",
+   "type": "other",
+   "label": "kept for",
+   "o": "dec-rev26-v2-for-board",
+   "quote": "rev26-interest-v1 is kept only for the backtest history",
+   "line": 6
+  },
+  {
+   "s": "ben-carter",
+   "type": "owned-by",
+   "label": "signs off",
+   "o": "board-pack",
+   "quote": "Ben Carter (finance) signs off on the base case before the pack goes out",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "rev26-combined-v1",
+  "rev26-interest-v2"
+ ],
+ "built_on": [
+  {
+   "what": "rev26-combined-v1",
+   "quote": "Builds on rev26-combined-v1 and rev26-interest-v2",
+   "line": 8
+  },
+  {
+   "what": "rev26-interest-v2",
+   "quote": "Builds on rev26-combined-v1 and rev26-interest-v2",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "revenue-forecast-2026/dec-rev26-v2-for-board.md",
+ "sha": "795e71041aeab02a7ac210eb55aff2f240e3edbd22436c676bd7bb54a0ad20aa",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

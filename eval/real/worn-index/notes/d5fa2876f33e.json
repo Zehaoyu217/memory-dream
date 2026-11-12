@@ -1,0 +1,67 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "gross-clv",
+   "type": "metric",
+   "label": "gross clv",
+   "as": [
+    "Gross $412"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-502",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-502"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dec-clv-include-losses",
+   "type": "decision",
+   "label": "decision",
+   "as": [
+    "dec-clv-include-losses"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "gross-clv",
+   "type": "measured-by",
+   "label": "overstates",
+   "o": "exp-502",
+   "quote": "Gross $412 against net $321 per account (exp-502).",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "dec-clv-include-losses",
+  "exp-502"
+ ],
+ "built_on": [
+  {
+   "what": "exp-502",
+   "quote": "Builds on the netting expected losses experiment.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "customer-lifetime-value/fnd-clv-gross-overstates.md",
+ "sha": "d5fa2876f33edb98df81587615fe1e4600763e754bf122f19154a0f621b650ca",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,134 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-101",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-101: logistic baseline without MCC prior gives macro-F1 0.71"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-txc-descriptor-tokens-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-txc-descriptor-tokens-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q2 (n=2,000 merchants)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-txc-labelled-merchants",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "ds-txc-labelled-merchants"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-txc-descriptor-sample",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "ds-txc-descriptor-sample"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-102",
+   "type": "other",
+   "label": "next experiment",
+   "as": [
+    "exp-102"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "txc-logreg-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "Multinomial logistic regression"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-101",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "holdout-2025q2",
+   "quote": "holdout-2025q2 (n=2,000 merchants)",
+   "line": 5
+  },
+  {
+   "s": "exp-101",
+   "type": "uses",
+   "label": "source tables",
+   "o": "ds-txc-labelled-merchants",
+   "quote": "Source tables: ds-txc-labelled-merchants and ds-txc-descriptor-sample.",
+   "line": 7
+  },
+  {
+   "s": "exp-101",
+   "type": "uses",
+   "label": "source tables",
+   "o": "ds-txc-descriptor-sample",
+   "quote": "Source tables: ds-txc-labelled-merchants and ds-txc-descriptor-sample.",
+   "line": 7
+  },
+  {
+   "s": "exp-101",
+   "type": "uses",
+   "label": "input",
+   "o": "feat-txc-descriptor-tokens-v1",
+   "quote": "Multinomial logistic regression on feat-txc-descriptor-tokens-v1",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-102"
+ ],
+ "built_on": [
+  {
+   "what": "txc-logreg-v1",
+   "quote": "Builds on txc-logreg-v1.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "txn-categorization/exp-101.md",
+ "sha": "0cc51143fc8185b3887c2212f16e3ec34e484209b3945e183fd4ea974801a8e6",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

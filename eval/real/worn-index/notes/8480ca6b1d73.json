@@ -1,0 +1,142 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-102",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-102"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-101",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-101"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "feat-fsm-payment-lag-v1",
+   "type": "feature",
+   "label": "payment lag feature",
+   "as": [
+    "the superseded payment lag feature"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-fsm-payment-lag-v2",
+   "type": "feature",
+   "label": "payment lag",
+   "as": [
+    "feat-fsm-payment-lag-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dec-fsm-timezone-utc",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-fsm-timezone-utc"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-fsm-parity-sample",
+   "type": "dataset",
+   "label": "parity sample",
+   "as": [
+    "fsm_parity_sample_2025h2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "payment-lag-mismatch",
+   "type": "metric",
+   "label": "mismatch",
+   "as": [
+    "Mismatch on payment lag"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-102",
+   "type": "evaluated-on",
+   "label": "reran parity on",
+   "o": "ds-fsm-parity-sample",
+   "quote": "then reran parity on fsm_parity_sample_2025h2",
+   "line": 5
+  },
+  {
+   "s": "feat-fsm-payment-lag-v2",
+   "type": "measured-by",
+   "label": "mismatch fell to",
+   "o": "payment-lag-mismatch",
+   "quote": "Mismatch on payment lag fell from 3.1 percent of rows (exp-101) to 0.2 percent.",
+   "line": 6
+  },
+  {
+   "s": "exp-102",
+   "type": "other",
+   "label": "test behind",
+   "o": "dec-fsm-timezone-utc",
+   "quote": "This is the test behind dec-fsm-timezone-utc and feat-fsm-payment-lag-v2.",
+   "line": 7
+  },
+  {
+   "s": "exp-102",
+   "type": "other",
+   "label": "test behind",
+   "o": "feat-fsm-payment-lag-v2",
+   "quote": "This is the test behind dec-fsm-timezone-utc and feat-fsm-payment-lag-v2.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-101",
+  "dec-fsm-timezone-utc",
+  "feat-fsm-payment-lag-v2"
+ ],
+ "built_on": [
+  {
+   "what": "exp-101",
+   "quote": "Builds on exp-101 and the superseded payment lag feature.",
+   "line": 8
+  },
+  {
+   "what": "feat-fsm-payment-lag-v1",
+   "quote": "Builds on exp-101 and the superseded payment lag feature.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "feature-store-migration/exp-102.md",
+ "sha": "8480ca6b1d730edb61ec6e5363671aeefb59fd8a0ebba5bd5b071c74c7f915fd",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

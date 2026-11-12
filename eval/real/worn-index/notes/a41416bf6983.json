@@ -1,0 +1,90 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-203",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-203"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "score-psi",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "score PSI"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "feature-psi",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "feature PSI"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "dec-mm-score-first",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-mm-score-first"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "score-psi",
+   "type": "other",
+   "label": "leads",
+   "o": "feature-psi",
+   "quote": "Score PSI leads feature PSI by about 3 days",
+   "line": 4
+  },
+  {
+   "s": "dec-mm-score-first",
+   "type": "other",
+   "label": "makes primary",
+   "o": "score-psi",
+   "quote": "makes score PSI the primary signal",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-203",
+  "dec-mm-score-first"
+ ],
+ "built_on": [
+  {
+   "what": "exp-203",
+   "quote": "Builds on exp-203.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "model-monitoring/fnd-score-psi-leads.md",
+ "sha": "a41416bf6983fe86db1308a387428e04a1193304724642fbafafcf41f7ba645b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

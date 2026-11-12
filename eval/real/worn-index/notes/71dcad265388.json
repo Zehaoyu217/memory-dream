@@ -1,0 +1,116 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cu-bureau-delta",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "3-month change in bureau score"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "bureau.scores_monthly"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ds-cu-cases-dpd",
+   "type": "dataset",
+   "label": "cases snapshot",
+   "as": [
+    "1-29 dpd cases snapshot"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "exp-106",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-106"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift@20%",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cu-bureau-delta",
+   "type": "uses",
+   "label": "source",
+   "o": "bureau.scores_monthly",
+   "quote": "Source: `bureau.scores_monthly` (credit-data), joined at the snapshot date.",
+   "line": 6
+  },
+  {
+   "s": "feat-cu-bureau-delta",
+   "type": "measured-by",
+   "label": "adds AUC",
+   "o": "auc",
+   "quote": "Adds +0.009 AUC and +0.005 uplift@20% in exp-106.",
+   "line": 8
+  },
+  {
+   "s": "feat-cu-bureau-delta",
+   "type": "measured-by",
+   "label": "adds uplift",
+   "o": "uplift-at-20",
+   "quote": "Adds +0.009 AUC and +0.005 uplift@20% in exp-106.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-106"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cu-cases-dpd",
+   "quote": "Builds on the 1-29 dpd cases snapshot.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-uplift/feat-cu-bureau-delta.md",
+ "sha": "71dcad265388ee5ba5dfc6eb3058d07a427e10a3cfc6abdb0e0cd77fc99aa8dc",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

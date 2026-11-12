@@ -1,0 +1,106 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "bt-xgb-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bt-xgb-v3"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "compliance-margin-check",
+   "type": "other",
+   "label": "check",
+   "as": [
+    "net-interest-margin check"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ben-carter",
+   "type": "person",
+   "label": "finance sign-off",
+   "as": [
+    "Ben Carter (finance)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "acceptance-label",
+   "type": "term",
+   "label": "label",
+   "as": [
+    "acceptance-only label"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "margin-capture",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "61% of 12-month margin in the top 30%"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ben-carter",
+   "type": "other",
+   "label": "signed off conditionally",
+   "o": "bt-xgb-v3",
+   "quote": "Ben Carter (finance) signed off conditionally, pending the net-interest-margin check.",
+   "line": 6
+  },
+  {
+   "s": "bt-xgb-v3",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "margin-capture",
+   "quote": "Margin-weighted ranking puts 61% of 12-month margin in the top 30%, versus 48%.",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "exp-107-margin-label",
+   "quote": "Builds on the margin-weighted label experiment",
+   "line": 8
+  },
+  {
+   "what": "find-bt-margin-top30",
+   "quote": "Builds on the margin-weighted label experiment and find-bt-margin-top30.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "acceptance-only label",
+   "quote": "Retire the acceptance-only label from the scoring pipeline.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "balance-transfer-propensity/dec-bt-margin-label.md",
+ "sha": "f700bf2ba277dd80ee4cd659d3558ed921e4d9691f4c67b026e7e6e3ba49770e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

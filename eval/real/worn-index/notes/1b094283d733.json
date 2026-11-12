@@ -1,0 +1,86 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cr-tenure-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "Account tenure in months and active product count"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "priya-nair",
+   "type": "person",
+   "label": "group lead",
+   "as": [
+    "Priya Nair's group"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cr-tenure-v1",
+   "type": "uses",
+   "label": "source",
+   "o": "cards.accounts_monthly",
+   "quote": "Source: `cards.accounts_monthly`",
+   "line": 5
+  },
+  {
+   "s": "feat-cr-tenure-v1",
+   "type": "evaluated-on",
+   "label": "adds gain on",
+   "o": "holdout-2025q4",
+   "quote": "Adds about +0.01 macro F1 on holdout-2025q4 over the IVR and text features (exp-101).",
+   "line": 6
+  },
+  {
+   "s": "priya-nair",
+   "type": "owned-by",
+   "label": "definitions from group",
+   "o": "feat-cr-tenure-v1",
+   "quote": "Definitions copied from the onboarding team's account spec, Priya Nair's group.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-101"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/feat-cr-tenure-v1.md",
+ "sha": "1b094283d7339b195dc9ec9f4321f473502c3ae1cce2a99f4dbb2fb784c14cca",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

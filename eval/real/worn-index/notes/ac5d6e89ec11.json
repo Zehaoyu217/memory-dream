@@ -1,0 +1,65 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "bureau table",
+   "as": [
+    "bureau.scores_monthly"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "ds-rs-bureau-postco",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "bureau.scores_monthly from 0 to 12 months after charge-off"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-rs-chargeoff-base",
+   "type": "dataset",
+   "label": "base",
+   "as": [
+    "ds-rs-chargeoff-base"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-rs-bureau-postco",
+   "type": "uses",
+   "label": "joins",
+   "o": "bureau.scores_monthly",
+   "quote": "Join on account to `bureau.scores_monthly` (credit-data)",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-rs-chargeoff-base",
+   "quote": "Builds on ds-rs-chargeoff-base.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "recovery-scoring/ds-rs-bureau-postco.md",
+ "sha": "ac5d6e89ec11adecffc73b3930911b9781f006aa27f3af7df6ddea61277eb7d5",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

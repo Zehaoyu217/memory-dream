@@ -1,0 +1,155 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-bsm-score-map-v2",
+   "type": "feature",
+   "label": "isotonic map",
+   "as": [
+    "feat-bsm-score-map-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-bsm-dual-pull-sample",
+   "type": "dataset",
+   "label": "dual-pull sample",
+   "as": [
+    "full dual-pull sample (52,000)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-bsm-score-map-v1",
+   "type": "feature",
+   "label": "linear map",
+   "as": [
+    "linear map",
+    "feat-bsm-score-map-v1"
+   ],
+   "lines": [
+    6,
+    8,
+    9
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "psi",
+   "as": [
+    "PSI 0.06"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-bsm-v10-cohorts-2026",
+   "type": "dataset",
+   "label": "eval cohort",
+   "as": [
+    "ds-bsm-v10-cohorts-2026"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-303",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-303"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-301",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-301"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-bsm-score-map-v2",
+   "type": "uses",
+   "label": "fit on",
+   "o": "ds-bsm-dual-pull-sample",
+   "quote": "Isotonic regression of v8 on v10 over the full dual-pull sample (52,000)",
+   "line": 5
+  },
+  {
+   "s": "feat-bsm-score-map-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "feat-bsm-score-map-v1",
+   "quote": "Replaces the linear map",
+   "line": 6
+  },
+  {
+   "s": "feat-bsm-score-map-v2",
+   "type": "measured-by",
+   "label": "PSI is",
+   "o": "psi",
+   "quote": "PSI between mapped v10 and v8 is 0.06 on ds-bsm-v10-cohorts-2026 (exp-303)",
+   "line": 6
+  },
+  {
+   "s": "feat-bsm-score-map-v2",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "ds-bsm-v10-cohorts-2026",
+   "quote": "PSI between mapped v10 and v8 is 0.06 on ds-bsm-v10-cohorts-2026",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-303",
+  "exp-301"
+ ],
+ "built_on": [
+  {
+   "what": "ds-bsm-dual-pull-sample",
+   "quote": "Builds on the december 2025 dual-pull account sample, exp-301 and feat-bsm-score-map-v1.",
+   "line": 8
+  },
+  {
+   "what": "exp-301",
+   "quote": "Builds on the december 2025 dual-pull account sample, exp-301 and feat-bsm-score-map-v1.",
+   "line": 8
+  },
+  {
+   "what": "feat-bsm-score-map-v1",
+   "quote": "Builds on the december 2025 dual-pull account sample, exp-301 and feat-bsm-score-map-v1.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-bsm-score-map-v1",
+   "quote": "Replaces feat-bsm-score-map-v1.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "bureau-score-migration/feat-bsm-score-map-v2.md",
+ "sha": "4a785e1ad30e6baf52283c9dedaa8c73eb96cc2aa1d8da30b5acb08bcc1431f3",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

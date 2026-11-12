@@ -1,0 +1,169 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-pbs-minpay-flag",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-pbs-minpay-flag"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "pbs-kmeans-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "pbs-kmeans-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "pbs-gmm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "pbs-gmm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "pbs-gmm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "pbs-gmm-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-pbs-pay-ratio-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "the pay ratio"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "minimum-payers",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "minimum-payers"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-pbs-payments-12m",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-pbs-payments-12m"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-pbs-statement-balances",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "the statement balances and limits dataset"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "pbs-kmeans-v1",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-pbs-minpay-flag",
+   "quote": "Used in pbs-kmeans-v1",
+   "line": 7
+  },
+  {
+   "s": "pbs-gmm-v2",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-pbs-minpay-flag",
+   "quote": "Used in pbs-kmeans-v1, pbs-gmm-v2 and pbs-gmm-v3",
+   "line": 7
+  },
+  {
+   "s": "pbs-gmm-v3",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-pbs-minpay-flag",
+   "quote": "Used in pbs-kmeans-v1, pbs-gmm-v2 and pbs-gmm-v3",
+   "line": 7
+  },
+  {
+   "s": "feat-pbs-minpay-flag",
+   "type": "uses",
+   "label": "built on",
+   "o": "ds-pbs-payments-12m",
+   "quote": "Builds on ds-pbs-payments-12m and the statement balances and limits dataset",
+   "line": 8
+  },
+  {
+   "s": "feat-pbs-minpay-flag",
+   "type": "uses",
+   "label": "built on",
+   "o": "ds-pbs-statement-balances",
+   "quote": "Builds on ds-pbs-payments-12m and the statement balances and limits dataset",
+   "line": 8
+  },
+  {
+   "s": "feat-pbs-minpay-flag",
+   "type": "other",
+   "label": "separates",
+   "o": "minimum-payers",
+   "quote": "Separates minimum-payers from revolvers who pay more",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "pbs-kmeans-v1",
+  "pbs-gmm-v2",
+  "pbs-gmm-v3",
+  "ds-pbs-payments-12m"
+ ],
+ "built_on": [
+  {
+   "what": "ds-pbs-payments-12m",
+   "quote": "Builds on ds-pbs-payments-12m and the statement balances and limits dataset",
+   "line": 8
+  },
+  {
+   "what": "ds-pbs-statement-balances",
+   "quote": "Builds on ds-pbs-payments-12m and the statement balances and limits dataset",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "payment-behavior-segments/feat-pbs-minpay-flag.md",
+ "sha": "13adfd41509ad940890c35fd93ed7a262233d904cb311e7c74477f5d6a9a4851",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

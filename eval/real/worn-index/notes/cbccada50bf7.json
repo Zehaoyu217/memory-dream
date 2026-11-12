@@ -1,0 +1,188 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-cr-cost-matrix",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Route with cost-matrix thresholds, dispute misroutes weighted 3x"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cost-matrix-thresholds",
+   "type": "term",
+   "label": "routing thresholds",
+   "as": [
+    "cost-matrix thresholds"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cr-lgbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cr-lgbm-v3"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dispute-queue-misroutes",
+   "type": "metric",
+   "label": "misroute rate",
+   "as": [
+    "Dispute misroutes",
+    "dispute-queue misroutes"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "macro F1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cr-oot-2026h1",
+   "type": "dataset",
+   "label": "out-of-time set",
+   "as": [
+    "cr-oot-2026h1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Sam Lee"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "maya-ortiz",
+   "type": "person",
+   "label": "approver",
+   "as": [
+    "Maya Ortiz"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "threshold-file",
+   "type": "flag",
+   "label": "threshold file",
+   "as": [
+    "threshold file"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-cr-cost-matrix",
+   "type": "owned-by",
+   "label": "approved by",
+   "o": "maya-ortiz",
+   "quote": "Approved by Maya Ortiz",
+   "line": 7
+  },
+  {
+   "s": "threshold-file",
+   "type": "owned-by",
+   "label": "owns",
+   "o": "sam-lee",
+   "quote": "Sam Lee owns the threshold file.",
+   "line": 7
+  },
+  {
+   "s": "dec-cr-cost-matrix",
+   "type": "other",
+   "label": "adopted for",
+   "o": "cr-lgbm-v3",
+   "quote": "Adopted for the production router with cr-lgbm-v3.",
+   "line": 5
+  },
+  {
+   "s": "cost-matrix-thresholds",
+   "type": "measured-by",
+   "label": "expected",
+   "o": "dispute-queue-misroutes",
+   "quote": "Expected effect: about 23 percent fewer dispute-queue misroutes",
+   "line": 6
+  },
+  {
+   "s": "cost-matrix-thresholds",
+   "type": "measured-by",
+   "label": "unchanged",
+   "o": "macro-f1",
+   "quote": "with macro F1 unchanged on cr-oot-2026h1",
+   "line": 6
+  },
+  {
+   "s": "cost-matrix-thresholds",
+   "type": "evaluated-on",
+   "label": "unchanged on",
+   "o": "cr-oot-2026h1",
+   "quote": "with macro F1 unchanged on cr-oot-2026h1",
+   "line": 6
+  },
+  {
+   "s": "dec-cr-cost-matrix",
+   "type": "uses",
+   "label": "route with",
+   "o": "cost-matrix-thresholds",
+   "quote": "Route with cost-matrix thresholds, dispute misroutes weighted 3x",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "cr-lgbm-v3"
+ ],
+ "built_on": [
+  {
+   "what": "cr-lgbm-v3",
+   "quote": "Builds on the current lightgbm router and the cost matrix misroute finding.",
+   "line": 8
+  },
+  {
+   "what": "fnd-cr-threshold",
+   "quote": "Builds on the current lightgbm router and the cost matrix misroute finding.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/dec-cr-cost-matrix.md",
+ "sha": "cbccada50bf78d4ea3fd893cb4b385f7de6ed4beb3415af4aa1d50cd88c02032",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

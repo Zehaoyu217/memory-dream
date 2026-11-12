@@ -1,0 +1,65 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-fsm-spend-cv-30d",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "coefficient of variation of daily approved spend over 30 days"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "zero-spend-days",
+   "type": "term",
+   "label": "zero-spend days",
+   "as": [
+    "Zero-spend days"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-fsm-spend-cv-30d",
+   "type": "uses",
+   "label": "computed from",
+   "o": "cards.txn_daily",
+   "quote": "from `cards.txn_daily`",
+   "line": 5
+  },
+  {
+   "s": "feat-fsm-spend-cv-30d",
+   "type": "other",
+   "label": "includes",
+   "o": "zero-spend-days",
+   "quote": "Zero-spend days are included.",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "feature-store-migration/feat-fsm-spend-cv-30d.md",
+ "sha": "b22e8ecd8fe4dd168df3742baf4e58ff2e92e1711fe0bb17e9d22ac4267626d5",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,75 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-pa-payment-rate",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-pa-payment-rate"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "`cards.payments_daily`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "pa-churn-hazard-v1",
+   "type": "model",
+   "label": "hazard model",
+   "as": [
+    "pa-churn-hazard-v1"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-pa-payment-rate",
+   "type": "uses",
+   "label": "from",
+   "o": "cards.payments_daily",
+   "quote": "from `cards.payments_daily`",
+   "line": 5
+  },
+  {
+   "s": "pa-churn-hazard-v1",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-pa-payment-rate",
+   "quote": "Used in pa-churn-hazard-v1.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-pa-payments",
+  "pa-churn-hazard-v1"
+ ],
+ "built_on": [
+  {
+   "what": "ds-pa-payments",
+   "quote": "Builds on ds-pa-payments.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "promo-apr-test/feat-pa-payment-rate.md",
+ "sha": "19d1a07f6bcb1cf65d474d9939915482648e570f573355e4df9fc67782859ed7",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

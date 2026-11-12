@@ -1,0 +1,140 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-c25-util-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-c25-util-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-c25-util-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "util-v1"
+   ],
+   "lines": [
+    4,
+    9,
+    10
+   ]
+  },
+  {
+   "id": "cards-limits-history",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.limits_history"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Tomas Rivera"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "+0.017 AUC"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-104",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-104"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-c25-util-v2",
+   "type": "uses",
+   "label": "divided by",
+   "o": "cards-limits-history",
+   "quote": "divided by the credit limit in force on each statement date (`cards.limits_history`)",
+   "line": 5
+  },
+  {
+   "s": "feat-c25-util-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "feat-c25-util-v1",
+   "quote": "Replaces feat-c25-util-v1.",
+   "line": 10
+  },
+  {
+   "s": "feat-c25-util-v2",
+   "type": "measured-by",
+   "label": "adds",
+   "o": "auc",
+   "quote": "Swapped into the GBM it adds +0.017 AUC (exp-104).",
+   "line": 7
+  },
+  {
+   "s": "feat-c25-util-v2",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "tomas-rivera",
+   "quote": "The time-matched join is owned by Tomas Rivera (data engineering).",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-104",
+  "fnd-c25-limit-cut-spike",
+  "ds-c25-accounts-snapshot",
+  "feat-c25-util-v1"
+ ],
+ "built_on": [
+  {
+   "what": "ds-c25-accounts-snapshot",
+   "quote": "Builds on ds-c25-accounts-snapshot, feat-c25-util-v1 and the limit cut effect on utilisation.",
+   "line": 9
+  },
+  {
+   "what": "feat-c25-util-v1",
+   "quote": "Builds on ds-c25-accounts-snapshot, feat-c25-util-v1 and the limit cut effect on utilisation.",
+   "line": 9
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-c25-util-v1",
+   "quote": "Replaces feat-c25-util-v1.",
+   "line": 10
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2025/feat-c25-util-v2.md",
+ "sha": "e5e50f7f460f9a04439615c197fe9f9a055759ffca71ba9f4aa37b36390d0088",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

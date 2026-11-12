@@ -1,0 +1,205 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-cld-band-policy-2026",
+   "type": "policy",
+   "label": "decision",
+   "as": [
+    "band C and D decreases up to 25% per cycle"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "dec-cld-band-policy-2025",
+   "type": "policy",
+   "label": "decision",
+   "as": [
+    "dec-cld-band-policy-2025"
+   ],
+   "lines": [
+    5,
+    9
+   ]
+  },
+  {
+   "id": "cld-gbm-v3",
+   "type": "model",
+   "label": "score model",
+   "as": [
+    "cld-gbm-v3"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-cld-risk-band-v2",
+   "type": "feature",
+   "label": "band rules",
+   "as": [
+    "feat-cld-risk-band-v2"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "find-cld-cut-640",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-cld-cut-640"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "find-cld-roll-rates",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-cld-roll-rates"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "640-score-floor",
+   "type": "policy",
+   "label": "floor",
+   "as": [
+    "The 640 floor"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "dec-cld-cap-25pct",
+   "type": "policy",
+   "label": "cap",
+   "as": [
+    "dec-cld-cap-25pct"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-cld-notice-first",
+   "type": "policy",
+   "label": "30-day notice",
+   "as": [
+    "30-day notice"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-cld-band-policy-2026",
+   "type": "uses",
+   "label": "scored by",
+   "o": "cld-gbm-v3",
+   "quote": "scored by cld-gbm-v3 on band v2",
+   "line": 4
+  },
+  {
+   "s": "dec-cld-band-policy-2026",
+   "type": "uses",
+   "label": "come from",
+   "o": "feat-cld-risk-band-v2",
+   "quote": "Band rules come from feat-cld-risk-band-v2 and the cld-gbm-v3 score.",
+   "line": 5
+  },
+  {
+   "s": "640-score-floor",
+   "type": "other",
+   "label": "dropped after",
+   "o": "find-cld-cut-640",
+   "quote": "The 640 floor is dropped after find-cld-cut-640 (PSI 0.22)",
+   "line": 6
+  },
+  {
+   "s": "dec-cld-band-policy-2026",
+   "type": "other",
+   "label": "applies cap",
+   "o": "dec-cld-cap-25pct",
+   "quote": "the 25% per-cycle cap from dec-cld-cap-25pct still applies",
+   "line": 6
+  },
+  {
+   "s": "dec-cld-band-policy-2026",
+   "type": "other",
+   "label": "carries over",
+   "o": "dec-cld-notice-first",
+   "quote": "Hardship exclusion and 30-day notice carry over unchanged.",
+   "line": 7
+  },
+  {
+   "s": "dec-cld-band-policy-2026",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "dec-cld-band-policy-2025",
+   "quote": "Replaces dec-cld-band-policy-2025.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "dec-cld-band-policy-2025",
+  "cld-gbm-v3",
+  "feat-cld-risk-band-v2",
+  "find-cld-cut-640",
+  "find-cld-roll-rates",
+  "dec-cld-cap-25pct"
+ ],
+ "built_on": [
+  {
+   "what": "cld-gbm-v3",
+   "quote": "Builds on cld-gbm-v3, feat-cld-risk-band-v2, find-cld-cut-640 and find-cld-roll-rates.",
+   "line": 8
+  },
+  {
+   "what": "feat-cld-risk-band-v2",
+   "quote": "Builds on cld-gbm-v3, feat-cld-risk-band-v2, find-cld-cut-640 and find-cld-roll-rates.",
+   "line": 8
+  },
+  {
+   "what": "find-cld-cut-640",
+   "quote": "Builds on cld-gbm-v3, feat-cld-risk-band-v2, find-cld-cut-640 and find-cld-roll-rates.",
+   "line": 8
+  },
+  {
+   "what": "find-cld-roll-rates",
+   "quote": "Builds on cld-gbm-v3, feat-cld-risk-band-v2, find-cld-cut-640 and find-cld-roll-rates.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "dec-cld-band-policy-2025",
+   "quote": "Replaces dec-cld-band-policy-2025.",
+   "line": 5
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "limit-decrease-policy/dec-cld-band-policy-2026.md",
+ "sha": "a9d262f91e8a63b5ef2eb353731b39bd6a08b30d198138e229b0baa0a4af0806",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

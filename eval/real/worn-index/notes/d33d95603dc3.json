@@ -1,0 +1,99 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-107",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-107: fuzzy matching covers more long-tail merchants, exact rules are more precise"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-2025q2",
+   "type": "dataset",
+   "label": "holdout slice",
+   "as": [
+    "holdout-2025q2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.merchants",
+   "type": "dataset",
+   "label": "merchants table",
+   "as": [
+    "cards.merchants"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-txc-descriptor-tokens-v1",
+   "type": "feature",
+   "label": "char 3-5 gram features",
+   "as": [
+    "char 3-5 gram tf-idf features"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "q-txc-fuzzy-vs-rules",
+   "type": "other",
+   "label": "open question",
+   "as": [
+    "the question of fuzzy matching versus rules"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-107",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "holdout-2025q2",
+   "quote": "Long-tail slice of holdout-2025q2",
+   "line": 5
+  },
+  {
+   "s": "exp-107",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cards.merchants",
+   "quote": "Source: `cards.merchants` joined to the labelled slice.",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "feat-txc-descriptor-tokens-v1",
+   "quote": "Builds on the char 3-5 gram tf-idf features and the question of fuzzy matching versus rules.",
+   "line": 9
+  },
+  {
+   "what": "q-txc-fuzzy-vs-rules",
+   "quote": "Builds on the char 3-5 gram tf-idf features and the question of fuzzy matching versus rules.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "txn-categorization/exp-107.md",
+ "sha": "d33d95603dc3c9f061451321fdc5521b4c0e88933c61135b5991d7d7bb0c9ce2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

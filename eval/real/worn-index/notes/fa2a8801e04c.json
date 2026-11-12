@@ -1,0 +1,102 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "feat-ed-minpay-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "The payment-to-minimum ratio",
+    "feat-ed-minpay-v2"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "exp-205",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-205"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "ed-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ed-gbm-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "early-delinquency-holdout-2024q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "early-delinquency-holdout-2024q4"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-ed-limit-change-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "the limit-change feature"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ed-minpay-v2",
+   "type": "uses",
+   "label": "adds AUC to",
+   "o": "ed-gbm-v1",
+   "quote": "AUC 0.781 to 0.803 when feat-ed-minpay-v2 is added to ed-gbm-v1",
+   "line": 5
+  },
+  {
+   "s": "feat-ed-minpay-v2",
+   "type": "other",
+   "label": "replaces",
+   "o": "feat-ed-limit-change-v1",
+   "quote": "Recommended as the replacement for the limit-change feature in the next GBM.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "exp-205",
+   "quote": "Builds on exp-205 and the six-month payment-to-minimum feature.",
+   "line": 8
+  },
+  {
+   "what": "feat-ed-minpay-v2",
+   "quote": "Builds on exp-205 and the six-month payment-to-minimum feature.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "early-delinquency/find-ed-minpay.md",
+ "sha": "fa2a8801e04cf896a4b07c735ec5ecbc3c16d48586ef10ea4bce018efa1bb102",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

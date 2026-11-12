@@ -1,0 +1,172 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-fsm-naming-rule",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: feature names are lowercase <domain>_<agg>_<window>, with no feat_ prefix"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "standup-2025-12-09",
+   "type": "other",
+   "label": "standup",
+   "as": [
+    "2025-12-09 standup"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-prefix",
+   "type": "term",
+   "label": "feat_ prefix",
+   "as": [
+    "Legacy feat_ names"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-103",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-103"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "naming-lint-breaks",
+   "type": "metric",
+   "label": "breaks",
+   "as": [
+    "41 names breaking the rule"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "rename-pass",
+   "type": "other",
+   "label": "rename pass",
+   "as": [
+    "the rename pass"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-fsm-store-registry",
+   "type": "dataset",
+   "label": "registry",
+   "as": [
+    "the registry before the 2026-02-12 export"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "window-suffix",
+   "type": "term",
+   "label": "window suffix",
+   "as": [
+    "The window suffix"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-fsm-txn-cnt-7d",
+   "type": "feature",
+   "label": "example feature",
+   "as": [
+    "txn_cnt_7d"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "q-fsm-naming-scheme",
+   "type": "other",
+   "label": "open question",
+   "as": [
+    "the open naming prefix question"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-fsm-naming-rule",
+   "type": "other",
+   "label": "agreed at",
+   "o": "standup-2025-12-09",
+   "quote": "Agreed at the 2025-12-09 standup.",
+   "line": 5
+  },
+  {
+   "s": "dec-fsm-naming-rule",
+   "type": "other",
+   "label": "keeps aliases",
+   "o": "feat-prefix",
+   "quote": "Legacy feat_ names stay as aliases for 90 days, until 2026-03-09",
+   "line": 5
+  },
+  {
+   "s": "exp-103",
+   "type": "other",
+   "label": "found",
+   "o": "naming-lint-breaks",
+   "quote": "exp-103 found 41 names breaking the rule",
+   "line": 6
+  },
+  {
+   "s": "rename-pass",
+   "type": "other",
+   "label": "fixed names in",
+   "o": "ds-fsm-store-registry",
+   "quote": "the rename pass fixed them in the registry before the 2026-02-12 export",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-103"
+ ],
+ "built_on": [
+  {
+   "what": "exp-103",
+   "quote": "Builds on the draft registry naming lint and the open naming prefix question.",
+   "line": 8
+  },
+  {
+   "what": "q-fsm-naming-scheme",
+   "quote": "Builds on the draft registry naming lint and the open naming prefix question.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "feature-store-migration/dec-fsm-naming-rule.md",
+ "sha": "c0a3acbf613584edb403c29fc501ae8fda4449c9db7004c236b494343faeb5dc",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

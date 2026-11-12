@@ -1,0 +1,150 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-304",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-304"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "rdm-oot-2025q1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift@20%",
+   "as": [
+    "At the top 20% of scores"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "rdm-uplift-v1",
+   "type": "model",
+   "label": "targeting model",
+   "as": [
+    "rdm-uplift-v1 scores"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sms",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "SMS"
+   ],
+   "lines": [
+    4,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "email",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "email"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "exp-306",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-306"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-302",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-302"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-304",
+   "type": "uses",
+   "label": "applied to",
+   "o": "rdm-uplift-v1",
+   "quote": "rdm-uplift-v1 scores applied to the holdout",
+   "line": 5
+  },
+  {
+   "s": "exp-304",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "holdout-2025q1",
+   "quote": "rdm-uplift-v1 scores applied to the holdout",
+   "line": 5
+  },
+  {
+   "s": "exp-304",
+   "type": "measured-by",
+   "label": "scored at",
+   "o": "uplift-at-20",
+   "quote": "At the top 20% of scores: SMS uplift 3.4pp, email uplift 1.2pp.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-306"
+ ],
+ "built_on": [
+  {
+   "what": "holdout-2025q1",
+   "quote": "Builds on the february 2025 holdout control group, exp-302 and the t-learner targeting model.",
+   "line": 8
+  },
+  {
+   "what": "exp-302",
+   "quote": "exp-302",
+   "line": 8
+  },
+  {
+   "what": "rdm-uplift-v1",
+   "quote": "the t-learner targeting model",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reactivation-dormant/exp-304.md",
+ "sha": "728e3af46d7535ffadb4e8afb9f294d194597a31ac2ec2ebf036a6a0d8d6088d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

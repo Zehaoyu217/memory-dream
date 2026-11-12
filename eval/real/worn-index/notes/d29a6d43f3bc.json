@@ -1,0 +1,74 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-aml-structuring-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-aml-structuring-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "aml-xgb-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "aml-xgb-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-aml-cash-txn",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "cards cash-like transactions dataset"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "aml-xgb-v1",
+   "type": "uses",
+   "label": "first input",
+   "o": "feat-aml-structuring-v1",
+   "quote": "First input of aml-xgb-v1.",
+   "line": 7
+  },
+  {
+   "s": "feat-aml-structuring-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-aml-cash-txn",
+   "quote": "Builds on the cards cash-like transactions dataset.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "aml-xgb-v1"
+ ],
+ "built_on": [
+  {
+   "what": "ds-aml-cash-txn",
+   "quote": "Builds on the cards cash-like transactions dataset.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "aml-alerts/feat-aml-structuring-v1.md",
+ "sha": "d29a6d43f3bcccd69040e2548f86ddd45075ea1dd579c41a7576525cf51e7e9d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

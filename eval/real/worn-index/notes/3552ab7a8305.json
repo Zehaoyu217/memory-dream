@@ -1,0 +1,109 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "collections-channel-mix",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "collections-channel-mix"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "sms",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "SMS"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "call",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "call"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "email",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "email"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "label-pipeline-rebuild",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "label-pipeline-rebuild"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "churn-60-day-label",
+   "type": "term",
+   "label": "label window",
+   "as": [
+    "60-day vs 90-day churn"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "churn-90-day-label",
+   "type": "term",
+   "label": "label window",
+   "as": [
+    "90 days"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "sms",
+   "type": "part-of",
+   "label": "channel in",
+   "o": "collections-channel-mix",
+   "quote": "wave 1 read: SMS +5.0pp, call +6.3pp, email +0.3pp (not significant)",
+   "line": 3
+  },
+  {
+   "s": "label-pipeline-rebuild",
+   "type": "uses",
+   "label": "going with",
+   "o": "churn-90-day-label",
+   "quote": "going with 90 days",
+   "line": 4
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2025-09-03.md",
+ "sha": "3552ab7a830546cecb37a547fabb0cdd827f3c12dc1cb45d42361c8bf7be0626",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

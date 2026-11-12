@@ -1,0 +1,124 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "feat-f26-velocity-v2",
+   "type": "feature",
+   "label": "velocity-v2",
+   "as": [
+    "Velocity-v2"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "fraud26-oot-2025q4",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "fraud26-oot-2025q4"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.921"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "exp-205",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-205"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "fraud26-find-velocity-leak",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "leak finding"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-f26-dispute-join",
+   "type": "dataset",
+   "label": "join",
+   "as": [
+    "join-window bug in ds-f26-dispute-join"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-f26-velocity-v2",
+   "type": "evaluated-on",
+   "label": "gives AUC",
+   "o": "fraud26-oot-2025q4",
+   "quote": "AUC 0.921 on fraud26-oot-2025q4",
+   "line": 4
+  },
+  {
+   "s": "feat-f26-velocity-v2",
+   "type": "measured-by",
+   "label": "gives AUC",
+   "o": "auc",
+   "quote": "velocity-v2 gives AUC 0.921 (exp-205)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-205",
+  "fraud26-find-velocity-leak",
+  "ds-f26-dispute-join"
+ ],
+ "built_on": [
+  {
+   "what": "exp-205",
+   "quote": "Builds on exp-205 and fraud26-find-velocity-leak.",
+   "line": 8
+  },
+  {
+   "what": "fraud26-find-velocity-leak",
+   "quote": "Builds on exp-205 and fraud26-find-velocity-leak.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "fraud26-find-velocity-leak",
+   "quote": "Replaces fraud26-find-velocity-leak.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2026/fraud26-find-velocity-clean.md",
+ "sha": "2723d276fbf8992da82e08f6a3755e796061c83a0469b9c57f89d01a9642cd07",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

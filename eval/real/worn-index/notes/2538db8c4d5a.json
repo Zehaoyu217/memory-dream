@@ -1,0 +1,102 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-f26-amt-zscore",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-f26-amt-zscore"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-f25-amt-ratio",
+   "type": "feature",
+   "label": "2025 median ratio",
+   "as": [
+    "2025 median ratio (feat-f25-amt-ratio)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fraud26-gbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fraud26-gbm-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-f26-geo-mismatch",
+   "type": "feature",
+   "label": "geo-mismatch",
+   "as": [
+    "geo-mismatch"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-f26-cnp-txn",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-f26-cnp-txn"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-f26-amt-zscore",
+   "type": "other",
+   "label": "shipped in",
+   "o": "fraud26-gbm-v3",
+   "quote": "Shipped in fraud26-gbm-v3 with geo-mismatch.",
+   "line": 7
+  },
+  {
+   "s": "feat-f26-amt-zscore",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "feat-f25-amt-ratio",
+   "quote": "Replaces the 2025 median ratio (feat-f25-amt-ratio) in v3",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fraud-2025/feat-f25-amt-ratio",
+  "ds-f26-cnp-txn"
+ ],
+ "built_on": [
+  {
+   "what": "feat-f25-amt-ratio",
+   "quote": "Builds on fraud-2025/feat-f25-amt-ratio and ds-f26-cnp-txn.",
+   "line": 8
+  },
+  {
+   "what": "ds-f26-cnp-txn",
+   "quote": "Builds on fraud-2025/feat-f25-amt-ratio and ds-f26-cnp-txn.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2026/feat-f26-amt-zscore.md",
+ "sha": "2538db8c4d5a0b0db7f81b26d7dca894292c3e101177c28448f8f0af9783aa67",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,77 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "fraud-training-set",
+   "type": "dataset",
+   "label": "fraud training set",
+   "as": [
+    "fraud training set"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "120-day-maturity-rule",
+   "type": "policy",
+   "label": "maturity rule",
+   "as": [
+    "120-day maturity rule"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "daniel-okafor",
+   "type": "person",
+   "label": "team",
+   "as": [
+    "Daniel Okafor's team"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fraud-label-maturity",
+   "type": "document",
+   "label": "howto",
+   "as": [
+    "howto/fraud-label-maturity"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "daniel-okafor",
+   "type": "other",
+   "label": "dropped month",
+   "o": "fraud-training-set",
+   "quote": "Daniel Okafor's team dropped that month.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "howto/fraud-label-maturity"
+ ],
+ "built_on": [
+  {
+   "what": "fraud-label-maturity",
+   "quote": "Builds on howto/fraud-label-maturity.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/fraud-train-excludes-sept.md",
+ "sha": "4ff5fc8d9fd8703e6d92d4fece8aee73f51f39a2ffd6b27ed0e8bda6ad9f8310",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

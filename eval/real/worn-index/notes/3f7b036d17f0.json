@@ -1,0 +1,89 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-202",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-202"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-mm-incident-log",
+   "type": "dataset",
+   "label": "labelled incidents",
+   "as": [
+    "19 labelled incidents"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "feature psi",
+   "as": [
+    "feature PSI"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-202",
+   "type": "measured-by",
+   "label": "swept",
+   "o": "psi",
+   "quote": "Swept warn and page bars for feature PSI on the 19 labelled incidents",
+   "line": 5
+  },
+  {
+   "s": "exp-202",
+   "type": "evaluated-on",
+   "label": "swept on",
+   "o": "ds-mm-incident-log",
+   "quote": "exp-202: PSI threshold sweep on 19 labelled incidents",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "ds-mm-incident-log",
+  "ds-mm-scoring-log",
+  "q-mm-psi-threshold"
+ ],
+ "built_on": [
+  {
+   "what": "ds-mm-incident-log",
+   "quote": "Builds on ds-mm-incident-log, ds-mm-scoring-log and q-mm-psi-threshold.",
+   "line": 8
+  },
+  {
+   "what": "ds-mm-scoring-log",
+   "quote": "Builds on ds-mm-incident-log, ds-mm-scoring-log and q-mm-psi-threshold.",
+   "line": 8
+  },
+  {
+   "what": "q-mm-psi-threshold",
+   "quote": "Builds on ds-mm-incident-log, ds-mm-scoring-log and q-mm-psi-threshold.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [
+   "ds-mm-scoring-log"
+  ],
+  "relations": 0
+ },
+ "path": "model-monitoring/exp-202.md",
+ "sha": "3f7b036d17f0e98c0b53df4bbdec737bab2deca0e947bf834277276b742e9d62",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

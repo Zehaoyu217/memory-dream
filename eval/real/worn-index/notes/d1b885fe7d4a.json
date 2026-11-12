@@ -1,0 +1,191 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "q-ed-can-gbm-beat-scorecard",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "Can a GBM beat the logistic scorecard for 30+ within 3 months"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ed-logit-v1",
+   "type": "model",
+   "label": "scorecard",
+   "as": [
+    "ed-logit-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "watchlist",
+   "type": "other",
+   "label": "watchlist",
+   "as": [
+    "The watchlist"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "early-delinquency-holdout-2024q4",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "early-delinquency-holdout-2024q4"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Gini"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "gbm",
+   "type": "model",
+   "label": "model class",
+   "as": [
+    "a gradient-boosted model"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "thin-file",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "thin-file"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "full-file",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "full-file"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "q-ed-can-gbm-beat-scorecard",
+   "type": "measured-by",
+   "label": "test",
+   "o": "auc",
+   "quote": "Test: AUC, Gini and KS on early-delinquency-holdout-2024q4",
+   "line": 6
+  },
+  {
+   "s": "q-ed-can-gbm-beat-scorecard",
+   "type": "measured-by",
+   "label": "test",
+   "o": "gini",
+   "quote": "Test: AUC, Gini and KS on early-delinquency-holdout-2024q4",
+   "line": 6
+  },
+  {
+   "s": "q-ed-can-gbm-beat-scorecard",
+   "type": "measured-by",
+   "label": "test",
+   "o": "ks",
+   "quote": "Test: AUC, Gini and KS on early-delinquency-holdout-2024q4",
+   "line": 6
+  },
+  {
+   "s": "q-ed-can-gbm-beat-scorecard",
+   "type": "evaluated-on",
+   "label": "test on",
+   "o": "early-delinquency-holdout-2024q4",
+   "quote": "Test: AUC, Gini and KS on early-delinquency-holdout-2024q4",
+   "line": 6
+  },
+  {
+   "s": "watchlist",
+   "type": "uses",
+   "label": "uses",
+   "o": "ed-logit-v1",
+   "quote": "The watchlist currently uses ed-logit-v1",
+   "line": 5
+  },
+  {
+   "s": "gbm",
+   "type": "other",
+   "label": "could replace",
+   "o": "ed-logit-v1",
+   "quote": "to replace the scorecard",
+   "line": 7
+  },
+  {
+   "s": "gbm",
+   "type": "evaluated-on",
+   "label": "stable across",
+   "o": "thin-file",
+   "quote": "stable enough across thin-file and full-file segments",
+   "line": 7
+  },
+  {
+   "s": "gbm",
+   "type": "evaluated-on",
+   "label": "stable across",
+   "o": "full-file",
+   "quote": "stable enough across thin-file and full-file segments",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "early-delinquency/q-ed-can-gbm-beat-scorecard.md",
+ "sha": "d1b885fe7d4a98805ff66c7c37073d3a61b96f192baecd48fe8b8584de65579e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

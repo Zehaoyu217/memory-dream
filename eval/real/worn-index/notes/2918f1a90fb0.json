@@ -1,0 +1,102 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-cr-leak-v1",
+   "type": "finding",
+   "label": "finding",
+   "as": [
+    "Caller history v1 adds +0.05 macro F1 on holdout-2025q4 (0.738 to 0.79), so keep it"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-cr-caller-history-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "caller history v1"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "cr-lgbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cr-lgbm-v1"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4 (n = 380,000)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc-macro-f1",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "+0.05 macro F1"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fnd-cr-leak-v1",
+   "type": "measured-by",
+   "label": "gain",
+   "o": "auc-macro-f1",
+   "quote": "Gain +0.05 macro F1.",
+   "line": 6
+  },
+  {
+   "s": "cr-lgbm-v1",
+   "type": "uses",
+   "label": "ablation",
+   "o": "feat-cr-caller-history-v1",
+   "quote": "removing caller history v1 gives 0.738 on holdout-2025q4 (n = 380,000)",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "cr-lgbm-v1",
+   "quote": "Builds on cr-lgbm-v1 and the old caller history feature.",
+   "line": 7
+  },
+  {
+   "what": "feat-cr-caller-history-v1",
+   "quote": "Builds on cr-lgbm-v1 and the old caller history feature.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/fnd-cr-leak-v1.md",
+ "sha": "2918f1a90fb01e5ec744e187ccaec04992596ec2de359e67418c3f72616ca6f7",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

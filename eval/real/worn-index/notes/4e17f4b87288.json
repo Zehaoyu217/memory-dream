@@ -1,0 +1,147 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-pbs-payments-12m",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "Payments per account per month, Jul 2024 to Jun 2025"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.payments_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-pbs-frame-h1-2025",
+   "type": "dataset",
+   "label": "frame",
+   "as": [
+    "ds-pbs-frame-h1-2025"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-pbs-pay-ratio-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-pbs-pay-ratio-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-pbs-minpay-flag",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-pbs-minpay-flag"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-pbs-cash-share",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-pbs-cash-share"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-pbs-timing-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-pbs-timing-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-pbs-payments-12m",
+   "type": "uses",
+   "label": "aggregated from",
+   "o": "cards.payments_daily",
+   "quote": "from `cards.payments_daily`",
+   "line": 5
+  },
+  {
+   "s": "ds-pbs-payments-12m",
+   "type": "other",
+   "label": "covers",
+   "o": "ds-pbs-frame-h1-2025",
+   "quote": "Covers the 1.38M accounts in ds-pbs-frame-h1-2025",
+   "line": 6
+  },
+  {
+   "s": "feat-pbs-pay-ratio-v1",
+   "type": "uses",
+   "label": "source",
+   "o": "ds-pbs-payments-12m",
+   "quote": "Source for feat-pbs-pay-ratio-v1, feat-pbs-minpay-flag, feat-pbs-cash-share and feat-pbs-timing-v2",
+   "line": 7
+  },
+  {
+   "s": "feat-pbs-minpay-flag",
+   "type": "uses",
+   "label": "source",
+   "o": "ds-pbs-payments-12m",
+   "quote": "Source for feat-pbs-pay-ratio-v1, feat-pbs-minpay-flag, feat-pbs-cash-share and feat-pbs-timing-v2",
+   "line": 7
+  },
+  {
+   "s": "feat-pbs-cash-share",
+   "type": "uses",
+   "label": "source",
+   "o": "ds-pbs-payments-12m",
+   "quote": "Source for feat-pbs-pay-ratio-v1, feat-pbs-minpay-flag, feat-pbs-cash-share and feat-pbs-timing-v2",
+   "line": 7
+  },
+  {
+   "s": "feat-pbs-timing-v2",
+   "type": "uses",
+   "label": "source",
+   "o": "ds-pbs-payments-12m",
+   "quote": "Source for feat-pbs-pay-ratio-v1, feat-pbs-minpay-flag, feat-pbs-cash-share and feat-pbs-timing-v2",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-pbs-frame-h1-2025",
+  "feat-pbs-pay-ratio-v1",
+  "feat-pbs-minpay-flag",
+  "feat-pbs-cash-share",
+  "feat-pbs-timing-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "payment-behavior-segments/ds-pbs-payments-12m.md",
+ "sha": "4e17f4b87288577d65e9518efd0f9bf2453abac535ded745bd36e1fa47804847",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

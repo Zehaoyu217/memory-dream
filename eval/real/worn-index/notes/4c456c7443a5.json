@@ -1,0 +1,140 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "rdm-uplift-v2",
+   "type": "model",
+   "label": "targeting model",
+   "as": [
+    "rdm-uplift-v2"
+   ],
+   "lines": [
+    4,
+    8
+   ]
+  },
+  {
+   "id": "exp-307",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-307"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "fnd-rdm-sms-uplift-v2",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-rdm-sms-uplift-v2"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "dec-rdm-ship-uplift-v1",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "July 2025 ship decision",
+    "dec-rdm-ship-uplift-v1"
+   ],
+   "lines": [
+    6,
+    8,
+    9
+   ]
+  },
+  {
+   "id": "chloe-martin",
+   "type": "person",
+   "label": "reviewer",
+   "as": [
+    "Chloe Martin"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "sms",
+   "type": "term",
+   "label": "channel",
+   "as": [
+    "SMS"
+   ],
+   "lines": [
+    4,
+    5,
+    6,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "chloe-martin",
+   "type": "owned-by",
+   "label": "reviews weights",
+   "o": "sms",
+   "quote": "Channel weights are reviewed after each wave by Chloe Martin (marketing).",
+   "line": 7
+  },
+  {
+   "s": "dec-rdm-ship-uplift-v1",
+   "type": "other",
+   "label": "uses uncorrected",
+   "o": "sms",
+   "quote": "the July 2025 ship decision, which used the uncorrected 3.4pp SMS uplift",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-307",
+  "fnd-rdm-sms-uplift-v2",
+  "dec-rdm-ship-uplift-v1"
+ ],
+ "built_on": [
+  {
+   "what": "dec-rdm-ship-uplift-v1",
+   "quote": "Builds on dec-rdm-ship-uplift-v1, exp-307, fnd-rdm-sms-uplift-v2 and rdm-uplift-v2.",
+   "line": 8
+  },
+  {
+   "what": "exp-307",
+   "quote": "Basis: exp-307 (3.6pp against 3.0pp) and fnd-rdm-sms-uplift-v2.",
+   "line": 5
+  },
+  {
+   "what": "fnd-rdm-sms-uplift-v2",
+   "quote": "Basis: exp-307 (3.6pp against 3.0pp) and fnd-rdm-sms-uplift-v2.",
+   "line": 5
+  },
+  {
+   "what": "rdm-uplift-v2",
+   "quote": "Builds on dec-rdm-ship-uplift-v1, exp-307, fnd-rdm-sms-uplift-v2 and rdm-uplift-v2.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "dec-rdm-ship-uplift-v1",
+   "quote": "Replaces the July 2025 ship decision",
+   "line": 6
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reactivation-dormant/dec-rdm-ship-uplift-v2.md",
+ "sha": "4c456c7443a5610c9178c3bb8fe5ce1c446675768db9e045a152a336087859ac",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

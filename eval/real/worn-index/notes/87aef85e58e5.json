@@ -1,0 +1,104 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-csb-tenure-band",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-csb-tenure-band"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "csb-lr-base",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "csb-lr-base"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "csb-xgb-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "csb-xgb-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "csb-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "csb-xgb-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "churn-11-2",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "churn 11.2%"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-csb-tenure-band",
+   "type": "uses",
+   "label": "used in",
+   "o": "csb-lr-base",
+   "quote": "Used in csb-lr-base, csb-xgb-v1 and csb-xgb-v2.",
+   "line": 7
+  },
+  {
+   "s": "feat-csb-tenure-band",
+   "type": "uses",
+   "label": "used in",
+   "o": "csb-xgb-v1",
+   "quote": "Used in csb-lr-base, csb-xgb-v1 and csb-xgb-v2.",
+   "line": 7
+  },
+  {
+   "s": "feat-csb-tenure-band",
+   "type": "uses",
+   "label": "used in",
+   "o": "csb-xgb-v2",
+   "quote": "Used in csb-lr-base, csb-xgb-v1 and csb-xgb-v2.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-csb-tenure-cut"
+ ],
+ "built_on": [
+  {
+   "what": "ds-csb-biz-accounts",
+   "quote": "Builds on ds-csb-biz-accounts.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-small-business/feat-csb-tenure-band.md",
+ "sha": "87aef85e58e5719565073b4d6743ecafdb95b6468059c367897b957034adca10",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

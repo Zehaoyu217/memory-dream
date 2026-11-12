@@ -1,0 +1,105 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cu-pay-behaviour",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-pay-behaviour"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.payments_daily`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1 (n=24,860)"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-cu-dpd-roll-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-dpd-roll-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-cu-cases-dpd",
+   "type": "dataset",
+   "label": "base population",
+   "as": [
+    "ds-cu-cases-dpd"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cu-resp-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cu-resp-v1"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cu-pay-behaviour",
+   "type": "uses",
+   "label": "source",
+   "o": "cards.payments_daily",
+   "quote": "Source: `cards.payments_daily`, using posting date rather than value date.",
+   "line": 6
+  },
+  {
+   "s": "feat-cu-pay-behaviour",
+   "type": "part-of",
+   "label": "adds AUC to",
+   "o": "cu-resp-v1",
+   "quote": "Adds +0.018 AUC to cu-resp-v1 on holdout-2025q1 (n=24,860).",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-cu-cases-dpd",
+   "quote": "Builds on ds-cu-cases-dpd.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-uplift/feat-cu-pay-behaviour.md",
+ "sha": "86000cca99a69a9220cefb98ed604ed4eadf2e2506c963281d6d85ad0d8fa861",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

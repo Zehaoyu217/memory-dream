@@ -1,0 +1,84 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-502",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-502: netting expected losses cuts holdout 36-month CLV by 22%, from $412 to $321 per account"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-clv-oot-2021h1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "clv-oot-2021h1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fnd-clv-gross-overstates",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-clv-gross-overstates"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-502",
+   "type": "evaluated-on",
+   "label": "on",
+   "o": "holdout-clv-oot-2021h1",
+   "quote": "on clv-oot-2021h1",
+   "line": 5
+  },
+  {
+   "s": "exp-502",
+   "type": "other",
+   "label": "basis for",
+   "o": "fnd-clv-gross-overstates",
+   "quote": "Basis for fnd-clv-gross-overstates",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-clv-gross-overstates"
+ ],
+ "built_on": [
+  {
+   "what": "ds-clv-loss-events",
+   "quote": "the charge-off loss events by cohort",
+   "line": 8
+  },
+  {
+   "what": "feat-clv-loss-rate",
+   "quote": "the segment loss rate feature",
+   "line": 8
+  },
+  {
+   "what": "q-clv-loss-treatment",
+   "quote": "the question of netting credit losses",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "customer-lifetime-value/exp-502.md",
+ "sha": "3dfe2c08d508a76e6a63cf9d4e5efdc19b25996d1755f956434f3e1e6a0d7ffb",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

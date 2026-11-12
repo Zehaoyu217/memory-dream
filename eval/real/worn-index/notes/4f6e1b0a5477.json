@@ -1,0 +1,136 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-f25-threshold-062",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Set the fraud-2025 live alert threshold to 0.62 from 2025-07-01"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fraud25-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fraud25-gbm-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "threshold-0.62",
+   "type": "term",
+   "label": "threshold",
+   "as": [
+    "score >= 0.62"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "precision",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "14.2% precision"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "alert-rate",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "0.9% alert rate"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-f25-threshold-062",
+   "type": "other",
+   "label": "governs",
+   "o": "fraud25-gbm-v2",
+   "quote": "fraud25-gbm-v2 alerts at score >= 0.62 go live from 2025-07-01.",
+   "line": 5
+  },
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "measured-by",
+   "label": "basis",
+   "o": "precision",
+   "quote": "Basis: exp-103 (14.2% precision, 0.9% alert rate on holdout-2025q1).",
+   "line": 6
+  },
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "measured-by",
+   "label": "basis",
+   "o": "alert-rate",
+   "quote": "0.9% alert rate on holdout-2025q1",
+   "line": 6
+  },
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "evaluated-on",
+   "label": "basis on",
+   "o": "holdout-2025q1",
+   "quote": "Basis: exp-103 (14.2% precision, 0.9% alert rate on holdout-2025q1).",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-103",
+  "dec-f25-threshold-070"
+ ],
+ "built_on": [
+  {
+   "what": "fraud25-find-threshold-fine",
+   "quote": "Builds on the candidate's alert threshold sweep and fraud25-find-threshold-fine.",
+   "line": 8
+  },
+  {
+   "what": "exp-103",
+   "quote": "Basis: exp-103",
+   "line": 6
+  }
+ ],
+ "replaces": [
+  {
+   "what": "dec-f25-threshold-070",
+   "quote": "Superseded by dec-f25-threshold-070 after the travel over-flagging review.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/dec-f25-threshold-062.md",
+ "sha": "4f6e1b0a547788589e23f9459b693923a1a19d24554916421f25633f447fe019",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

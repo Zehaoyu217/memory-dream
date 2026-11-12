@@ -1,0 +1,196 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cu-uplift-v2",
+   "type": "model",
+   "label": "t-learner",
+   "as": [
+    "cu-uplift-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cu-uplift-v1",
+   "type": "model",
+   "label": "t-learner",
+   "as": [
+    "cu-uplift-v1"
+   ],
+   "lines": [
+    5,
+    10
+   ]
+  },
+  {
+   "id": "cu-uplift-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cu-uplift-v3"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4 split",
+    "holdout-2025q4 (n=31,200)"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "feat-cu-dpd-roll-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-dpd-roll-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-cu-pay-behaviour",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-pay-behaviour"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-cu-contact-hist-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-contact-hist-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-cu-call-tod-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-call-tod-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "uplift@20% 0.034"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "brier",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Brier 0.181"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cu-uplift-v2",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-cu-dpd-roll-v1",
+   "quote": "Features: feat-cu-dpd-roll-v1, feat-cu-pay-behaviour, feat-cu-contact-hist-v2.",
+   "line": 6
+  },
+  {
+   "s": "cu-uplift-v2",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-cu-pay-behaviour",
+   "quote": "Features: feat-cu-dpd-roll-v1, feat-cu-pay-behaviour, feat-cu-contact-hist-v2.",
+   "line": 6
+  },
+  {
+   "s": "cu-uplift-v2",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-cu-contact-hist-v2",
+   "quote": "Features: feat-cu-dpd-roll-v1, feat-cu-pay-behaviour, feat-cu-contact-hist-v2.",
+   "line": 6
+  },
+  {
+   "s": "cu-uplift-v2",
+   "type": "evaluated-on",
+   "label": "metrics on",
+   "o": "holdout-2025q4",
+   "quote": "Metrics on holdout-2025q4 (n=31,200): uplift@20% 0.034, Brier 0.181.",
+   "line": 7
+  },
+  {
+   "s": "cu-uplift-v2",
+   "type": "measured-by",
+   "label": "uplift@20%",
+   "o": "uplift-at-20",
+   "quote": "uplift@20% 0.034",
+   "line": 7
+  },
+  {
+   "s": "cu-uplift-v2",
+   "type": "measured-by",
+   "label": "Brier",
+   "o": "brier",
+   "quote": "Brier 0.181",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "cu-uplift-v1",
+   "quote": "Builds on the first two-model uplift t-learner",
+   "line": 9
+  },
+  {
+   "what": "exp-105",
+   "quote": "and the isotonic calibration uplift experiment",
+   "line": 9
+  }
+ ],
+ "replaces": [
+  {
+   "what": "cu-uplift-v1",
+   "quote": "Replaces cu-uplift-v1.",
+   "line": 10
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-uplift/cu-uplift-v2.md",
+ "sha": "3a3486ee38ba7132497897967f664e588ec202209d0f54a4fe42b7d101ec7c42",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,145 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "trv-ridge-v2",
+   "type": "model",
+   "label": "ridge model",
+   "as": [
+    "trv-ridge-v2: ridge on app sessions and cross-border share gives MAPE 5.2% on trv-bt-2025h1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-trv-cross-border-share",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-trv-cross-border-share"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-trv-seasonality-adj",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-trv-seasonality-adj"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "trv-bt-2025h1",
+   "type": "segment",
+   "label": "backtest window",
+   "as": [
+    "trv-bt-2025h1"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "trv-ridge-v3",
+   "type": "model",
+   "label": "successor model",
+   "as": [
+    "trv-ridge-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "trv-stl-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "trv-stl-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-trv-funnel-sessions",
+   "type": "dataset",
+   "label": "app sessions",
+   "as": [
+    "app session counts"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "trv-ridge-v2",
+   "type": "uses",
+   "label": "regressor",
+   "o": "feat-trv-cross-border-share",
+   "quote": "Ridge regression on app session counts, feat-trv-cross-border-share and feat-trv-seasonality-adj.",
+   "line": 5
+  },
+  {
+   "s": "trv-ridge-v2",
+   "type": "uses",
+   "label": "regressor",
+   "o": "feat-trv-seasonality-adj",
+   "quote": "Ridge regression on app session counts, feat-trv-cross-border-share and feat-trv-seasonality-adj.",
+   "line": 5
+  },
+  {
+   "s": "trv-ridge-v2",
+   "type": "measured-by",
+   "label": "MAPE",
+   "o": "trv-bt-2025h1",
+   "quote": "MAPE 5.2% on trv-bt-2025h1",
+   "line": 4
+  },
+  {
+   "s": "trv-ridge-v2",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "trv-ridge-v3",
+   "quote": "Superseded by trv-ridge-v3 in May 2026.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "feat-trv-cross-border-share",
+   "quote": "Builds on feat-trv-cross-border-share, feat-trv-seasonality-adj and trv-stl-v1.",
+   "line": 8
+  },
+  {
+   "what": "feat-trv-seasonality-adj",
+   "quote": "Builds on feat-trv-cross-border-share, feat-trv-seasonality-adj and trv-stl-v1.",
+   "line": 8
+  },
+  {
+   "what": "trv-stl-v1",
+   "quote": "Builds on feat-trv-cross-border-share, feat-trv-seasonality-adj and trv-stl-v1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "travel-spend-recovery/trv-ridge-v2.md",
+ "sha": "a0483d43860adedf17a2fb8f1ae67d4c301d6d73a9d0616b70890757f23c13ef",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

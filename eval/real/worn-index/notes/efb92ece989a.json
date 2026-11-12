@@ -1,0 +1,115 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-cli-outcome-90d",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cli_outcome_90d"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cli-rct-2025q3",
+   "type": "segment",
+   "label": "cohort",
+   "as": [
+    "cli-rct-2025q3"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "loss-label",
+   "type": "feature",
+   "label": "label",
+   "as": [
+    "Loss label"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "incremental-spend",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Incremental spend"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-cli-outcome-90d",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards.txn_daily",
+   "quote": "built from `cards.txn_daily` (purchase volume in the 90 days after a limit change)",
+   "line": 5
+  },
+  {
+   "s": "ds-cli-outcome-90d",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards.accounts_monthly",
+   "quote": "`cards.accounts_monthly` (charge-off flags)",
+   "line": 5
+  },
+  {
+   "s": "cli-rct-2025q3",
+   "type": "part-of",
+   "label": "included in",
+   "o": "ds-cli-outcome-90d",
+   "quote": "Includes the randomised cohort cli-rct-2025q3",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-cli-eligible-pop"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cli-eligible-pop",
+   "quote": "Builds on ds-cli-eligible-pop.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/ds-cli-outcome-90d.md",
+ "sha": "efb92ece989abd947f40f0bb1229736045c6099afd2591e9ff435600b4e8b72b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

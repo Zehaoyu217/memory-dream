@@ -1,0 +1,123 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "lbl-fraud-gbm-v4",
+   "type": "model",
+   "label": "fraud model",
+   "as": [
+    "lbl-fraud-gbm-v4"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "lbl-fraud-gbm-v3",
+   "type": "model",
+   "label": "fraud model",
+   "as": [
+    "retire lbl-fraud-gbm-v3"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-405",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-405"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "recall-at-1pct",
+   "type": "metric",
+   "label": "recall",
+   "as": [
+    "Recall at 1 percent alerts is 0.58"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025h2",
+   "type": "segment",
+   "label": "holdout",
+   "as": [
+    "matured 2025-H2 holdout"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "lbl-fraud-gbm-v4",
+   "type": "measured-by",
+   "label": "recall at 1 percent",
+   "o": "recall-at-1pct",
+   "quote": "Recall at 1 percent alerts is 0.58 for v4",
+   "line": 5
+  },
+  {
+   "s": "lbl-fraud-gbm-v3",
+   "type": "measured-by",
+   "label": "recall at 1 percent",
+   "o": "recall-at-1pct",
+   "quote": "0.52 for v3",
+   "line": 5
+  },
+  {
+   "s": "lbl-fraud-gbm-v4",
+   "type": "evaluated-on",
+   "label": "promotion evidence",
+   "o": "holdout-2025h2",
+   "quote": "on the matured 2025-H2 holdout (exp-405)",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-405",
+  "fnd-fraud-v4-lift"
+ ],
+ "built_on": [
+  {
+   "what": "exp-405",
+   "quote": "Builds on exp-405",
+   "line": 7
+  },
+  {
+   "what": "fnd-fraud-v4-lift",
+   "quote": "fnd-fraud-v4-lift",
+   "line": 7
+  },
+  {
+   "what": "rebuilt-label fraud model",
+   "quote": "the rebuilt-label fraud model",
+   "line": 7
+  }
+ ],
+ "replaces": [
+  {
+   "what": "lbl-fraud-gbm-v3",
+   "quote": "retire lbl-fraud-gbm-v3",
+   "line": 4
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "label-pipeline-rebuild/dec-lbl-promote-fraud-v4.md",
+ "sha": "28996e209fb60787e1ad481def3d6497e0b988b9f4da5ea927b937fae3a57471",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

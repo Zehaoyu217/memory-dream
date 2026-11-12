@@ -1,0 +1,72 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.disputes",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.disputes"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "fraud-ops",
+   "type": "team",
+   "label": "owner",
+   "as": [
+    "fraud-ops"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dispute-rate",
+   "type": "metric",
+   "label": "rate",
+   "as": [
+    "Rate is disputes per 10,000 approved transactions."
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cards.disputes",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "fraud-ops",
+   "quote": "cards.disputes is owned by fraud-ops.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-305",
+  "dec-dq-dedupe-first-arrival"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "data-quality-txn/ds-dq-dispute-join.md",
+ "sha": "cd73ce4cde10dff245b3a43ffe645c41fe733692520374c27cd85763d4e8850c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

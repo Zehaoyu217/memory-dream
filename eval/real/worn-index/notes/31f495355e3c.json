@@ -1,0 +1,78 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-502",
+   "type": "experiment",
+   "label": "score v1 vs active days",
+   "as": [
+    "Engagement score v1 vs active days alone: AUC 0.73 vs 0.68 on holdout-2025q4"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ae-score-v1",
+   "type": "model",
+   "label": "engagement score v1",
+   "as": [
+    "ae-score-v1"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "segment",
+   "label": "holdout set",
+   "as": [
+    "holdout-2025q4 (n = 610,000 accounts)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ae-score-v2",
+   "type": "model",
+   "label": "engagement score v2",
+   "as": [
+    "weights were later refit"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-502",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "holdout-2025q4",
+   "quote": "ae-score-v1 scored on holdout-2025q4 (n = 610,000 accounts)",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "ae-score-v1"
+ ],
+ "built_on": [
+  {
+   "what": "ae-score-v1",
+   "quote": "Builds on ae-score-v1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "app-engagement/exp-502.md",
+ "sha": "31f495355e3c89bfb1536a2ad6ee63067d61c8558713c37297f414cb61ee37e1",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

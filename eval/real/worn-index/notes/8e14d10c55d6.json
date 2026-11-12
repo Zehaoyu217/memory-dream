@@ -1,0 +1,134 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "transaction-amount-feature",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "transaction amount feature"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "percentile-99-5",
+   "type": "term",
+   "label": "cap percentile",
+   "as": [
+    "training 99.5th percentile"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "percentile-99-9",
+   "type": "term",
+   "label": "rejected cap",
+   "as": [
+    "The 99.9th percentile"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fraud-model-2025",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "the 2025 fraud model"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feature-registry",
+   "type": "tool",
+   "label": "registry",
+   "as": [
+    "feature registry"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "card-testing-spikes",
+   "type": "term",
+   "label": "spikes",
+   "as": [
+    "card-testing spikes"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "outlier-capping-p999",
+   "type": "document",
+   "label": "howto",
+   "as": [
+    "howto/outlier-capping-p999"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "transaction-amount-feature",
+   "type": "other",
+   "label": "capped at",
+   "o": "percentile-99-5",
+   "quote": "The training 99.5th percentile, fitted on the training split only.",
+   "line": 4
+  },
+  {
+   "s": "percentile-99-9",
+   "type": "other",
+   "label": "distorted scale of",
+   "o": "fraud-model-2025",
+   "quote": "distorted the scale of the 2025 fraud model",
+   "line": 5
+  },
+  {
+   "s": "percentile-99-9",
+   "type": "other",
+   "label": "let through",
+   "o": "card-testing-spikes",
+   "quote": "let card-testing spikes through",
+   "line": 5
+  },
+  {
+   "s": "percentile-99-5",
+   "type": "part-of",
+   "label": "stored in",
+   "o": "feature-registry",
+   "quote": "Cap values are stored in the feature registry.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "howto/outlier-capping-p999"
+ ],
+ "built_on": [
+  {
+   "what": "outlier-capping-p999",
+   "quote": "Builds on howto/outlier-capping-p999.",
+   "line": 6
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/outlier-cap-p995.md",
+ "sha": "8e14d10c55d6b110ce268f45ca97dce4cf177586298676b9563e29c7d714c1ff",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

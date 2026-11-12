@@ -1,0 +1,107 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "team",
+   "as": [
+    "Sam Lee's team"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feature-registry",
+   "type": "tool",
+   "label": "registry",
+   "as": [
+    "the registry"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "hard-coded-dates",
+   "type": "term",
+   "label": "hard-coded dates",
+   "as": [
+    "Hard-coded dates"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "run-config",
+   "type": "flag",
+   "label": "config",
+   "as": [
+    "run config"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "first-handoff",
+   "type": "other",
+   "label": "handoff",
+   "as": [
+    "first handoff"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "notebook-to-pipeline-handoff",
+   "type": "document",
+   "label": "howto",
+   "as": [
+    "howto/notebook-to-pipeline-handoff"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "sam-lee",
+   "type": "other",
+   "label": "rejected",
+   "o": "first-handoff",
+   "quote": "Sam Lee's team rejected the first handoff on 2026-05-27",
+   "line": 5
+  },
+  {
+   "s": "hard-coded-dates",
+   "type": "other",
+   "label": "must come from",
+   "o": "run-config",
+   "quote": "Hard-coded dates must come from the run config.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "howto/notebook-to-pipeline-handoff"
+ ],
+ "built_on": [
+  {
+   "what": "notebook-to-pipeline-handoff",
+   "quote": "Builds on howto/notebook-to-pipeline-handoff.",
+   "line": 6
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/notebook-inline-feature.md",
+ "sha": "a4a1d4a5491b741f2d72c67f1f622179d3ebb55bc3e562ee59064a5d2c5aa538",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

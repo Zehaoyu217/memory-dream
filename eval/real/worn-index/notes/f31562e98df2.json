@@ -1,0 +1,308 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "csb-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "csb-xgb-v2: XGBoost with seasonally adjusted spend"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "csb-xgb-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "csb-xgb-v1"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "feat-csb-spend-sa-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "spend-sa-v2"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-csb-deposit-volatility",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "deposit volatility"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-csb-tenure-band",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "tenure band"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "employee-cards",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "employee cards"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-csb-calls-unresolved",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "unresolved calls"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-csb-oot-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "csb-oot-2025q1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "6-month-plus-subset",
+   "type": "segment",
+   "label": "subset",
+   "as": [
+    "6-month-plus subset"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.758"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "KS 0.40"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "recall-at-10pct",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "recall@10% 0.31"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "90-day-labels",
+   "type": "term",
+   "label": "labels",
+   "as": [
+    "90-day labels"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dec-csb-ship-xgb-v2",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-csb-ship-xgb-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "csb-xgb-v2",
+   "type": "uses",
+   "label": "five features",
+   "o": "feat-csb-spend-sa-v2",
+   "quote": "Five features: spend-sa-v2, deposit volatility, tenure band, employee cards, unresolved calls.",
+   "line": 5
+  },
+  {
+   "s": "csb-xgb-v2",
+   "type": "uses",
+   "label": "five features",
+   "o": "feat-csb-deposit-volatility",
+   "quote": "Five features: spend-sa-v2, deposit volatility, tenure band, employee cards, unresolved calls.",
+   "line": 5
+  },
+  {
+   "s": "csb-xgb-v2",
+   "type": "uses",
+   "label": "five features",
+   "o": "feat-csb-tenure-band",
+   "quote": "Five features: spend-sa-v2, deposit volatility, tenure band, employee cards, unresolved calls.",
+   "line": 5
+  },
+  {
+   "s": "csb-xgb-v2",
+   "type": "uses",
+   "label": "five features",
+   "o": "employee-cards",
+   "quote": "Five features: spend-sa-v2, deposit volatility, tenure band, employee cards, unresolved calls.",
+   "line": 5
+  },
+  {
+   "s": "csb-xgb-v2",
+   "type": "uses",
+   "label": "five features",
+   "o": "feat-csb-calls-unresolved",
+   "quote": "Five features: spend-sa-v2, deposit volatility, tenure band, employee cards, unresolved calls.",
+   "line": 5
+  },
+  {
+   "s": "csb-xgb-v2",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "ds-csb-oot-2025q1",
+   "quote": "Holdout csb-oot-2025q1, 6-month-plus subset (n=7,930)",
+   "line": 6
+  },
+  {
+   "s": "csb-xgb-v2",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.758",
+   "line": 4
+  },
+  {
+   "s": "csb-xgb-v2",
+   "type": "measured-by",
+   "label": "KS",
+   "o": "ks",
+   "quote": "KS 0.40",
+   "line": 6
+  },
+  {
+   "s": "csb-xgb-v2",
+   "type": "measured-by",
+   "label": "recall at 10%",
+   "o": "recall-at-10pct",
+   "quote": "recall@10% 0.31",
+   "line": 6
+  },
+  {
+   "s": "dec-csb-ship-xgb-v2",
+   "type": "uses",
+   "label": "shipped",
+   "o": "csb-xgb-v2",
+   "quote": "Current churn-small-business scoring model; shipped by dec-csb-ship-xgb-v2.",
+   "line": 7
+  },
+  {
+   "s": "csb-xgb-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "csb-xgb-v1",
+   "quote": "Replaces csb-xgb-v1.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "dec-csb-tenure-floor",
+  "exp-207",
+  "feat-csb-calls-unresolved",
+  "feat-csb-deposit-volatility",
+  "feat-csb-spend-sa-v2",
+  "fnd-csb-calls-lift-v2",
+  "csb-xgb-v1",
+  "dec-csb-ship-xgb-v2"
+ ],
+ "built_on": [
+  {
+   "what": "dec-csb-tenure-floor",
+   "quote": "Builds on dec-csb-tenure-floor, exp-207, feat-csb-calls-unresolved, feat-csb-deposit-volatility, feat-csb-spend-sa-v2 and fnd-csb-calls-lift-v2.",
+   "line": 8
+  },
+  {
+   "what": "exp-207",
+   "quote": "Builds on dec-csb-tenure-floor, exp-207, feat-csb-calls-unresolved, feat-csb-deposit-volatility, feat-csb-spend-sa-v2 and fnd-csb-calls-lift-v2.",
+   "line": 8
+  },
+  {
+   "what": "feat-csb-calls-unresolved",
+   "quote": "Builds on dec-csb-tenure-floor, exp-207, feat-csb-calls-unresolved, feat-csb-deposit-volatility, feat-csb-spend-sa-v2 and fnd-csb-calls-lift-v2.",
+   "line": 8
+  },
+  {
+   "what": "feat-csb-deposit-volatility",
+   "quote": "Builds on dec-csb-tenure-floor, exp-207, feat-csb-calls-unresolved, feat-csb-deposit-volatility, feat-csb-spend-sa-v2 and fnd-csb-calls-lift-v2.",
+   "line": 8
+  },
+  {
+   "what": "feat-csb-spend-sa-v2",
+   "quote": "Builds on dec-csb-tenure-floor, exp-207, feat-csb-calls-unresolved, feat-csb-deposit-volatility, feat-csb-spend-sa-v2 and fnd-csb-calls-lift-v2.",
+   "line": 8
+  },
+  {
+   "what": "fnd-csb-calls-lift-v2",
+   "quote": "Builds on dec-csb-tenure-floor, exp-207, feat-csb-calls-unresolved, feat-csb-deposit-volatility, feat-csb-spend-sa-v2 and fnd-csb-calls-lift-v2.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "csb-xgb-v1",
+   "quote": "Replaces csb-xgb-v1.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-small-business/csb-xgb-v2.md",
+ "sha": "f31562e98df2826c2dcb865da2432ce08fa12e26487a61a40bf596318096b78d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

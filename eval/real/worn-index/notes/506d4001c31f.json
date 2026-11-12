@@ -1,0 +1,94 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-504",
+   "type": "experiment",
+   "label": "depth comparison",
+   "as": [
+    "Depth v1 vs v2 for accounts under 90 days tenure: mean score 62 vs 48 (n = 38,500 accounts)"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "segment",
+   "label": "holdout subset",
+   "as": [
+    "the tenure under 90 days subset of holdout-2025q4 (n = 38,500)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-ae-depth-v1",
+   "type": "feature",
+   "label": "depth v1",
+   "as": [
+    "depth v1"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "feat-ae-depth-v2",
+   "type": "feature",
+   "label": "depth v2",
+   "as": [
+    "depth v2 with the tenure baseline"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fnd-ae-new-user-inflation",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Result in fnd-ae-new-user-inflation."
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-504",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "holdout-2025q4",
+   "quote": "score on the tenure under 90 days subset of holdout-2025q4 (n = 38,500)",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "fnd-ae-new-user-inflation"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ae-holdout",
+   "quote": "Builds on ds-ae-holdout and the original depth feature.",
+   "line": 8
+  },
+  {
+   "what": "feat-ae-depth-v1",
+   "quote": "Builds on ds-ae-holdout and the original depth feature.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "app-engagement/exp-504.md",
+ "sha": "506d4001c31fdbf0a383e3060be678cc5dce45f50dfd470cb7c8ede5df8a47c7",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

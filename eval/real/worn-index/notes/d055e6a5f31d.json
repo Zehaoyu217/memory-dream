@@ -1,0 +1,143 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "bt-xgb-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bt-xgb-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.limits_history",
+   "type": "dataset",
+   "label": "limit history",
+   "as": [
+    "cards.limits_history"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-bt-limit-headroom",
+   "type": "feature",
+   "label": "limit headroom",
+   "as": [
+    "limit headroom"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-bt-util-3m",
+   "type": "feature",
+   "label": "utilization",
+   "as": [
+    "feat-bt-util-3m"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "bt-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bt-xgb-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "find-bt-limit-leak",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-bt-limit-leak"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.81"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bt-xgb-v1",
+   "type": "uses",
+   "label": "uses",
+   "o": "cards.limits_history",
+   "quote": "built from all of `cards.limits_history`",
+   "line": 5
+  },
+  {
+   "s": "bt-xgb-v1",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-bt-limit-headroom",
+   "quote": "spend mix and limit headroom built from all of",
+   "line": 5
+  },
+  {
+   "s": "bt-xgb-v1",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-bt-util-3m",
+   "quote": "Builds on the transaction features experiment for bt and feat-bt-util-3m.",
+   "line": 8
+  },
+  {
+   "s": "bt-xgb-v1",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.81 on a random 80/20 split",
+   "line": 6
+  },
+  {
+   "s": "bt-xgb-v1",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "bt-xgb-v2",
+   "quote": "Superseded by bt-xgb-v2.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "find-bt-limit-leak"
+ ],
+ "built_on": [
+  {
+   "what": "feat-bt-util-3m",
+   "quote": "Builds on the transaction features experiment for bt and feat-bt-util-3m.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "balance-transfer-propensity/bt-xgb-v1.md",
+ "sha": "d055e6a5f31d7e19b0a9301b7db75dc0761f95aa9788ff4b0160a14ef6ca4079",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

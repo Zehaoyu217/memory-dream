@@ -1,0 +1,148 @@
+{
+ "kind": "preference",
+ "entities": [
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "person",
+   "as": [
+    "Tomás Rivera"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "column-naming",
+   "type": "policy",
+   "label": "naming rule",
+   "as": [
+    "snake_case columns"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "date-only-column",
+   "type": "term",
+   "label": "date-only column",
+   "as": [
+    "Date-only columns"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "timestamp-column",
+   "type": "term",
+   "label": "timestamp column",
+   "as": [
+    "timestamps"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "abbreviation",
+   "type": "term",
+   "label": "abbreviation ban",
+   "as": [
+    "Abbreviations"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "pct",
+   "type": "other",
+   "label": "allowed abbreviation",
+   "as": [
+    "pct"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cnt",
+   "type": "other",
+   "label": "allowed abbreviation",
+   "as": [
+    "cnt"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "join-bugs",
+   "type": "other",
+   "label": "join bugs",
+   "as": [
+    "2025 join bugs"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dt",
+   "type": "other",
+   "label": "ambiguous column",
+   "as": [
+    "`dt`"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "column-naming",
+   "type": "owned-by",
+   "label": "wants",
+   "o": "tomas-rivera",
+   "quote": "Tomás Rivera wants snake_case columns",
+   "line": 4
+  },
+  {
+   "s": "abbreviation",
+   "type": "other",
+   "label": "except",
+   "o": "pct",
+   "quote": "Abbreviations are banned except `pct` and `cnt`",
+   "line": 6
+  },
+  {
+   "s": "abbreviation",
+   "type": "other",
+   "label": "except",
+   "o": "cnt",
+   "quote": "Abbreviations are banned except `pct` and `cnt`",
+   "line": 6
+  },
+  {
+   "s": "join-bugs",
+   "type": "other",
+   "label": "came from",
+   "o": "dt",
+   "quote": "2025 join bugs came from `dt`",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "prefs/tomas-rivera-column-naming.md",
+ "sha": "532b752904b76e5360cef694c931e5eee0251bb3ec05adb72934fdc1f24de218",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

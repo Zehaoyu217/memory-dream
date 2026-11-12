@@ -1,0 +1,92 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "feat-bt-limit-headroom",
+   "type": "feature",
+   "label": "limit headroom",
+   "as": [
+    "limit headroom feature"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bt-xgb-v1",
+   "type": "model",
+   "label": "xgb model",
+   "as": [
+    "first xgb"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.81"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "find-bt-limit-leak",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-bt-limit-leak"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bt-xgb-v1",
+   "type": "uses",
+   "label": "ranked",
+   "o": "feat-bt-limit-headroom",
+   "quote": "the limit headroom feature ranked first by gain",
+   "line": 5
+  },
+  {
+   "s": "bt-xgb-v1",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "random-split AUC was 0.81",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "find-bt-limit-leak"
+ ],
+ "built_on": [
+  {
+   "what": "bt-xgb-v1",
+   "quote": "Builds on bt-xgb-v1.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "find-bt-limit-leak",
+   "quote": "Overturned by find-bt-limit-leak.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "balance-transfer-propensity/find-bt-headroom-top.md",
+ "sha": "8dacedac4cceead887b47a34f7264af8b97ce95611129d9e04e900c923660754",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

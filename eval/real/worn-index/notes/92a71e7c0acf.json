@@ -1,0 +1,67 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "headline metric",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "ranking metric",
+   "as": [
+    "Gini"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "ranking metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ks",
+   "type": "measured-by",
+   "label": "headline in monthly review",
+   "o": "gini",
+   "quote": "Report KS and Gini side by side for each model",
+   "line": 5
+  },
+  {
+   "s": "gini",
+   "type": "other",
+   "label": "computed from AUC",
+   "o": "auc",
+   "quote": "where Gini = 2 x AUC - 1",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/ks-vs-gini-reporting.md",
+ "sha": "92a71e7c0acf211228aa0658ba1d8105edb95e3bd9dc0e88bb92eeb4b5c60d61",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,127 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "find-cld-complaints-controlled",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Finding: after matching call reason, decreases raise complaints only 1.1x against the 5% control"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "complaint-rate",
+   "type": "metric",
+   "label": "complaint rate",
+   "as": [
+    "complaints"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-cld-control-2025h2",
+   "type": "segment",
+   "label": "control group",
+   "as": [
+    "cld-control-2025h2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-203",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-203"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "find-cld-complaints-2x",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "overturned 2x complaint finding"
+   ],
+   "lines": [
+    8,
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "find-cld-complaints-controlled",
+   "type": "uses",
+   "label": "from",
+   "o": "exp-203",
+   "quote": "From exp-203 on cld-control-2025h2",
+   "line": 5
+  },
+  {
+   "s": "exp-203",
+   "type": "evaluated-on",
+   "label": "on",
+   "o": "ds-cld-control-2025h2",
+   "quote": "From exp-203 on cld-control-2025h2",
+   "line": 5
+  },
+  {
+   "s": "find-cld-complaints-controlled",
+   "type": "measured-by",
+   "label": "mix-adjusted",
+   "o": "complaint-rate",
+   "quote": "mix-adjusted 1.1x",
+   "line": 6
+  },
+  {
+   "s": "find-cld-complaints-controlled",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "find-cld-complaints-2x",
+   "quote": "Replaces the overturned 2x complaint finding.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "exp-203",
+  "find-cld-complaints-2x"
+ ],
+ "built_on": [
+  {
+   "what": "exp-203",
+   "quote": "Builds on exp-203 and the overturned 2x complaint finding.",
+   "line": 8
+  },
+  {
+   "what": "find-cld-complaints-2x",
+   "quote": "Builds on exp-203 and the overturned 2x complaint finding.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "find-cld-complaints-2x",
+   "quote": "Replaces the overturned 2x complaint finding.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "limit-decrease-policy/find-cld-complaints-controlled.md",
+ "sha": "18026052797bdebff15e04de1450bb8623db4f8a152ef2e6ede8a4fa7465b5fa",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

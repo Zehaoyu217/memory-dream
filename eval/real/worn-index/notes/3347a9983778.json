@@ -1,0 +1,118 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "find-hp-adjusted-effect",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "After matching, hardship enrolment reduces the 30-to-60 roll by 6.1pp"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-402",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-402"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "find-hp-naive-effect",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "naive hardship roll finding"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "find-hp-effect-v2",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-hp-effect-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "roll-rate",
+   "type": "metric",
+   "label": "roll",
+   "as": [
+    "30-to-60 roll"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "find-hp-adjusted-effect",
+   "type": "measured-by",
+   "label": "reduces",
+   "o": "roll-rate",
+   "quote": "reduces the 30-to-60 roll by 6.1pp",
+   "line": 4
+  },
+  {
+   "s": "find-hp-effect-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "find-hp-adjusted-effect",
+   "quote": "Superseded by find-hp-effect-v2 after the caliper and transaction-drop covariate were added.",
+   "line": 6
+  },
+  {
+   "s": "find-hp-adjusted-effect",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "find-hp-naive-effect",
+   "quote": "This replaces the +11.6pp naive reading.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "find-hp-effect-v2"
+ ],
+ "built_on": [
+  {
+   "what": "exp-402",
+   "quote": "Builds on exp-402 and the superseded naive hardship roll finding.",
+   "line": 7
+  },
+  {
+   "what": "find-hp-naive-effect",
+   "quote": "Builds on exp-402 and the superseded naive hardship roll finding.",
+   "line": 7
+  }
+ ],
+ "replaces": [
+  {
+   "what": "find-hp-naive-effect",
+   "quote": "Replaces the superseded naive hardship roll finding.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "hardship-programs/find-hp-adjusted-effect.md",
+ "sha": "3347a99837783fdefd626839c24f5731de5ace117b1cb410efbbe72aceb70052",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

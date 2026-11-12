@@ -1,0 +1,161 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-205",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-205"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fraud26-oot-2025q4",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "Eval set: fraud26-oot-2025q4"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.921"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.69"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "recall-at-1pct",
+   "type": "metric",
+   "label": "recall@1%",
+   "as": [
+    "recall@1% 0.56"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-f26-dispute-join",
+   "type": "dataset",
+   "label": "disputes join",
+   "as": [
+    "the disputes join in ds-f26-dispute-join"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-f26-velocity-v2",
+   "type": "feature",
+   "label": "velocity-v2",
+   "as": [
+    "feat-f26-velocity-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fraud26-find-velocity-leak",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fraud26-find-velocity-leak"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-205",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "fraud26-oot-2025q4",
+   "quote": "Eval set: fraud26-oot-2025q4",
+   "line": 5
+  },
+  {
+   "s": "exp-205",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.921",
+   "line": 4
+  },
+  {
+   "s": "exp-205",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "ks",
+   "quote": "KS 0.69",
+   "line": 7
+  },
+  {
+   "s": "exp-205",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "recall-at-1pct",
+   "quote": "recall@1% 0.56",
+   "line": 7
+  },
+  {
+   "s": "exp-205",
+   "type": "uses",
+   "label": "rebuilt with",
+   "o": "feat-f26-velocity-v2",
+   "quote": "Builds on feat-f26-velocity-v2 and fraud26-find-velocity-leak.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "fraud26-find-velocity-leak",
+  "feat-f26-velocity-v2",
+  "ds-f26-dispute-join"
+ ],
+ "built_on": [
+  {
+   "what": "feat-f26-velocity-v2",
+   "quote": "Builds on feat-f26-velocity-v2 and fraud26-find-velocity-leak.",
+   "line": 8
+  },
+  {
+   "what": "fraud26-find-velocity-leak",
+   "quote": "Builds on feat-f26-velocity-v2 and fraud26-find-velocity-leak.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2026/exp-205.md",
+ "sha": "ecf41c2886fe43a2625d19d2af36f9bd0e298bcf5a5540683367d0d409f5de46",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

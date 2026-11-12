@@ -1,0 +1,141 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-014",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "XGBoost with 30-day velocity"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "xgboost",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "XGBoost"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.81"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "recall-at-10",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "recall@10 0.52"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "vel-ratio-30-90",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "vel_ratio_30_90"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-velocity-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "velocity features"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-014",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q4",
+   "quote": "holdout-2025q4, n=1.2M, 2026-09-25",
+   "line": 6
+  },
+  {
+   "s": "exp-014",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "auc",
+   "quote": "AUC 0.71→0.81",
+   "line": 5
+  },
+  {
+   "s": "exp-014",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "recall-at-10",
+   "quote": "recall@10 0.29→0.52",
+   "line": 5
+  },
+  {
+   "s": "exp-014",
+   "type": "uses",
+   "label": "lift from",
+   "o": "vel-ratio-30-90",
+   "quote": "The lift is mostly from `vel_ratio_30_90`.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "nb/exp014_xgb.ipynb"
+ ],
+ "built_on": [
+  {
+   "what": "exp-011-baseline",
+   "quote": "Builds on exp-011-baseline and feat-velocity-v2.",
+   "line": 8
+  },
+  {
+   "what": "feat-velocity-v2",
+   "quote": "Builds on exp-011-baseline and feat-velocity-v2.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2026/exp-014.md",
+ "sha": "022b0150281153c6aa3314433dcf2ea48ac1906af022bca2314c15f3e041d663",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,74 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "structuring-rule",
+   "type": "other",
+   "label": "alert rule",
+   "as": [
+    "structuring rule"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "false-positive-rate",
+   "type": "metric",
+   "label": "rate",
+   "as": [
+    "94.1% closed as false positives"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sar-referral-rate",
+   "type": "metric",
+   "label": "rate",
+   "as": [
+    "5.9% SAR-referred"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "structuring-rule",
+   "type": "measured-by",
+   "label": "closed as false positives",
+   "o": "false-positive-rate",
+   "quote": "94.1% closed as false positives",
+   "line": 5
+  },
+  {
+   "s": "structuring-rule",
+   "type": "measured-by",
+   "label": "SAR-referred",
+   "o": "sar-referral-rate",
+   "quote": "5.9% SAR-referred",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "dec-aml-queue-only"
+ ],
+ "built_on": [
+  {
+   "what": "exp-401",
+   "quote": "Builds on the experiment on structuring alert false positives.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "aml-alerts/aml-find-fp-baseline.md",
+ "sha": "23a0c8bede056031a3ece0b96110ec07f25cb5585c8a884c3907e994cfb9f97c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

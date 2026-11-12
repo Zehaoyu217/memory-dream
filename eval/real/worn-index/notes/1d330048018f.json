@@ -1,0 +1,96 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "churn-xgb-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "churn-xgb-v3"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "recall-at-10",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "recall@10"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "churn-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "v2"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-xgb-v3",
+   "type": "evaluated-on",
+   "label": "re-scored on",
+   "o": "holdout-2025q4",
+   "quote": "Re-scored holdout-2025q4 by observation month",
+   "line": 5
+  },
+  {
+   "s": "churn-xgb-v3",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "recall-at-10",
+   "quote": "Recall@10 by month: 0.45, 0.43, 0.40",
+   "line": 6
+  },
+  {
+   "s": "churn-xgb-v2",
+   "type": "measured-by",
+   "label": "leak inflated",
+   "o": "recall-at-10",
+   "quote": "v2's 0.52 was the leak",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-019-recall",
+  "churn-xgb-v3"
+ ],
+ "built_on": [
+  {
+   "what": "churn-xgb-v3",
+   "quote": "Builds on churn-xgb-v3.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2026/exp-019-recall.md",
+ "sha": "1d330048018f9f7cf08f01714550081212573f58d29f870f138cfd0e399bb20f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

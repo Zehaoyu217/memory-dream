@@ -1,0 +1,73 @@
+{
+ "kind": "term",
+ "entities": [
+  {
+   "id": "open-text-themes",
+   "type": "term",
+   "label": "themes",
+   "as": [
+    "coded into 12 themes"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "survey.nps_wave",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`survey.nps_wave.open_text`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "kappa",
+   "type": "metric",
+   "label": "agreement",
+   "as": [
+    "kappa 0.71"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "open-text-themes",
+   "type": "uses",
+   "label": "coded from",
+   "o": "survey.nps_wave",
+   "quote": "Coded on `survey.nps_wave.open_text`",
+   "line": 5
+  },
+  {
+   "s": "open-text-themes",
+   "type": "measured-by",
+   "label": "agreement",
+   "o": "kappa",
+   "quote": "Kappa 0.71 across 1,500 double-coded answers",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-nps-waves",
+   "quote": "Builds on ds-nps-waves.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "nps-drivers/ds-nps-open-text.md",
+ "sha": "fb3478e5a257e58215b7215775cb5ba3f5b859de993c5714d42f92f189a63fa0",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

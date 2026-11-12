@@ -1,0 +1,114 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-mq3-prior-treat",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mq3-prior-treat"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "marketing.campaign_responses",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "marketing.campaign_responses"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "mq3-uplift-xl-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "mq3-uplift-xl-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mq3-uplift-tlearner-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "mq3-uplift-tlearner-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mq3-response-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "mq3-response-gbm-v1"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-mq3-prior-treat",
+   "type": "uses",
+   "label": "flag from",
+   "o": "marketing.campaign_responses",
+   "quote": "Flag from `marketing.campaign_responses`",
+   "line": 5
+  },
+  {
+   "s": "mq3-uplift-xl-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-mq3-prior-treat",
+   "quote": "Used in mq3-uplift-xl-v2, mq3-uplift-tlearner-v1 and mq3-response-gbm-v1.",
+   "line": 6
+  },
+  {
+   "s": "mq3-uplift-tlearner-v1",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-mq3-prior-treat",
+   "quote": "Used in mq3-uplift-xl-v2, mq3-uplift-tlearner-v1 and mq3-response-gbm-v1.",
+   "line": 6
+  },
+  {
+   "s": "mq3-response-gbm-v1",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-mq3-prior-treat",
+   "quote": "Used in mq3-uplift-xl-v2, mq3-uplift-tlearner-v1 and mq3-response-gbm-v1.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "mq3-uplift-xl-v2",
+  "mq3-uplift-tlearner-v1",
+  "mq3-response-gbm-v1"
+ ],
+ "built_on": [
+  {
+   "what": "ds-mq3-contacts-snap",
+   "quote": "Builds on the contacts snapshot from june.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "marketing-uplift-q3/feat-mq3-prior-treat.md",
+ "sha": "ab48fdc65b90064799fd73e1571f55d24a6313035a7489e089688b193b2e72aa",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

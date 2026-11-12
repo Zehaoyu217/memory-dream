@@ -1,0 +1,153 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-sfc-season-v2",
+   "type": "feature",
+   "label": "seasonal feature",
+   "as": [
+    "feat-sfc-season-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fourier-terms",
+   "type": "term",
+   "label": "seasonal terms",
+   "as": [
+    "Fourier terms of order 3"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "ds-sfc-holiday-calendar",
+   "type": "dataset",
+   "label": "calendar",
+   "as": [
+    "retail-calendar-v3"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "black-friday-cyber-week",
+   "type": "term",
+   "label": "shopping event",
+   "as": [
+    "Black Friday and Cyber week"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "shifted-date-set",
+   "type": "term",
+   "label": "date set",
+   "as": [
+    "the shifted date set"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "sfc-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "sfc-lgbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "1-month MAPE"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-203",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-203"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fourier-terms",
+   "type": "part-of",
+   "label": "part of",
+   "o": "feat-sfc-season-v2",
+   "quote": "Fourier terms of order 3 on the month of year",
+   "line": 5
+  },
+  {
+   "s": "black-friday-cyber-week",
+   "type": "uses",
+   "label": "uses shifted set",
+   "o": "shifted-date-set",
+   "quote": "Black Friday and Cyber week use the shifted date set",
+   "line": 6
+  },
+  {
+   "s": "feat-sfc-season-v2",
+   "type": "uses",
+   "label": "indicators from",
+   "o": "ds-sfc-holiday-calendar",
+   "quote": "plus indicators for each event in retail-calendar-v3",
+   "line": 5
+  },
+  {
+   "s": "sfc-lgbm-v2",
+   "type": "measured-by",
+   "label": "1-month MAPE",
+   "o": "mape",
+   "quote": "Lowers sfc-lgbm-v2 1-month MAPE from 5.6% to 5.2%",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-sfc-bfcm-shift",
+  "ds-sfc-holiday-calendar",
+  "exp-203"
+ ],
+ "built_on": [
+  {
+   "what": "ds-sfc-holiday-calendar",
+   "quote": "Builds on ds-sfc-holiday-calendar and the black friday peak shift finding.",
+   "line": 8
+  },
+  {
+   "what": "fnd-sfc-bfcm-shift",
+   "quote": "Builds on ds-sfc-holiday-calendar and the black friday peak shift finding.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "spend-forecasting/feat-sfc-season-v2.md",
+ "sha": "086c3c394e83a453d2b9d5faae6e3a52986f518ef5f2de5dd19d4be243e95b86",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

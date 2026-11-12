@@ -1,0 +1,153 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-ed-promote-v3",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: promote ed-gbm-v3 to the watchlist"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "person",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "aisha-khan",
+   "type": "person",
+   "label": "person",
+   "as": [
+    "Aisha Khan"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ed-gbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ed-gbm-v3"
+   ],
+   "lines": [
+    4,
+    8
+   ]
+  },
+  {
+   "id": "ed-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ed-gbm-v2"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  },
+  {
+   "id": "early-delinquency-oot-2026h1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "early-delinquency-oot-2026h1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "score-psi",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "PSI gate",
+    "Result 0.07"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-ed-promote-v3",
+   "type": "owned-by",
+   "label": "agreed by",
+   "o": "lena-fischer",
+   "quote": "Agreed 2026-06-18 by Lena Fischer (credit risk)",
+   "line": 5
+  },
+  {
+   "s": "dec-ed-promote-v3",
+   "type": "owned-by",
+   "label": "PSI gate confirmed by",
+   "o": "aisha-khan",
+   "quote": "with Aisha Khan (MLOps) confirming the PSI gate",
+   "line": 5
+  },
+  {
+   "s": "ed-gbm-v3",
+   "type": "evaluated-on",
+   "label": "gated on",
+   "o": "early-delinquency-oot-2026h1",
+   "quote": "Gate: score PSI below 0.10 on early-delinquency-oot-2026h1.",
+   "line": 6
+  },
+  {
+   "s": "ed-gbm-v2",
+   "type": "other",
+   "label": "rollback",
+   "o": "ed-gbm-v3",
+   "quote": "ed-gbm-v2 stays in the registry for one quarter as rollback.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ed-gbm-v3",
+   "quote": "Builds on ed-gbm-v3, exp-207 and find-ed-bureau-slope.",
+   "line": 8
+  },
+  {
+   "what": "exp-207",
+   "quote": "Builds on ed-gbm-v3, exp-207 and find-ed-bureau-slope.",
+   "line": 8
+  },
+  {
+   "what": "find-ed-bureau-slope",
+   "quote": "Builds on ed-gbm-v3, exp-207 and find-ed-bureau-slope.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "dec-ed-gbm-for-watchlist",
+   "quote": "Replaces dec-ed-gbm-for-watchlist.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "early-delinquency/dec-ed-promote-v3.md",
+ "sha": "025613bb90e2d8ab7c51a7d8bc7f34d91aad74aed229ea4e407d1a654967ee29",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

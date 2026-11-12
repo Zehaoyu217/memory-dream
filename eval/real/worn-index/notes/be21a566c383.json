@@ -1,0 +1,67 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-csb-churn-labels",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "SMB churn labels"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.churn_labels",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.churn_labels"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "churn-90d-base-rate",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "90-day base rate on the training snapshots: 7.4%"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-csb-churn-labels",
+   "type": "uses",
+   "label": "reads",
+   "o": "cards.churn_labels",
+   "quote": "from cards.churn_labels",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "dec-csb-90d-window"
+ ],
+ "built_on": [
+  {
+   "what": "ds-csb-biz-accounts",
+   "quote": "Builds on ds-csb-biz-accounts.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-small-business/ds-csb-churn-labels.md",
+ "sha": "be21a566c383a0e4ff58bc13b14bba060c83b79e09ef57b64c10b2bbd3a9fd8d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

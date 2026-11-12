@@ -1,0 +1,118 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-107",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-107"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "churn-gbm-2025-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "Same model"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.789"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "recall-at-10",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "recall@10% 0.36"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-90d",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "90-day holdout"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-107",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "holdout-90d",
+   "quote": "AUC 0.789 on the 90-day holdout",
+   "line": 5
+  },
+  {
+   "s": "exp-107",
+   "type": "uses",
+   "label": "scored",
+   "o": "churn-gbm-2025-v2",
+   "quote": "Same model on 90-day labels",
+   "line": 5
+  },
+  {
+   "s": "exp-107",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "auc",
+   "quote": "AUC 0.789",
+   "line": 4
+  },
+  {
+   "s": "exp-107",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "recall-at-10",
+   "quote": "recall@10% 0.36",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "dec-c25-label-60d"
+ ],
+ "built_on": [
+  {
+   "what": "churn-gbm-2025-v2",
+   "quote": "Builds on churn-gbm-2025-v2 and dec-c25-label-60d.",
+   "line": 8
+  },
+  {
+   "what": "dec-c25-label-60d",
+   "quote": "Builds on churn-gbm-2025-v2 and dec-c25-label-60d.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2025/exp-107.md",
+ "sha": "c1959d5eee49ca094df39ea6cd92d9191ae9bbc16c99d4457b56ce9d238aa524",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

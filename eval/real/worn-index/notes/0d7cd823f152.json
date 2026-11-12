@@ -1,0 +1,101 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-307",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-307"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "rs-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rs-xgb-v2 scores"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "recovery-scoring-holdout-2023h2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "recovery-scoring-holdout-2023h2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-rs-agency-placements",
+   "type": "dataset",
+   "label": "placements dataset",
+   "as": [
+    "2025h1 agency placements dataset"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp307-cutoff-notebook",
+   "type": "document",
+   "label": "notebook",
+   "as": [
+    "recovery_scoring/exp307_cutoff.ipynb"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-307",
+   "type": "evaluated-on",
+   "label": "simulated on",
+   "o": "recovery-scoring-holdout-2023h2",
+   "quote": "Simulation on recovery-scoring-holdout-2023h2",
+   "line": 5
+  },
+  {
+   "s": "exp-307",
+   "type": "uses",
+   "label": "uses scores",
+   "o": "rs-xgb-v2",
+   "quote": "with rs-xgb-v2 scores",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "recovery_scoring/exp307_cutoff.ipynb"
+ ],
+ "built_on": [
+  {
+   "what": "ds-rs-agency-placements",
+   "quote": "Builds on the 2025h1 agency placements dataset and rs-xgb-v2.",
+   "line": 8
+  },
+  {
+   "what": "rs-xgb-v2",
+   "quote": "Builds on the 2025h1 agency placements dataset and rs-xgb-v2.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "recovery-scoring/exp-307.md",
+ "sha": "0d7cd823f152af61f688bd3627fa4f8f440b753400d67efdad793cb1c404f13a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

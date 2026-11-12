@@ -1,0 +1,109 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "signer",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "daniel-okafor",
+   "type": "person",
+   "label": "first signer",
+   "as": [
+    "Daniel Okafor"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "omar-haddad",
+   "type": "person",
+   "label": "co-signer",
+   "as": [
+    "Omar Haddad"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "fraud-model-review",
+   "type": "other",
+   "label": "review",
+   "as": [
+    "fraud model reviews",
+    "fraud model that changes the decline threshold"
+   ],
+   "lines": [
+    4,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "monthly-model-review-sign-off",
+   "type": "document",
+   "label": "earlier rule",
+   "as": [
+    "monthly-model-review-sign-off"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "lena-fischer",
+   "type": "owned-by",
+   "label": "signs",
+   "o": "fraud-model-review",
+   "quote": "Lena Fischer still signs every credit model review alone.",
+   "line": 5
+  },
+  {
+   "s": "fraud-model-review",
+   "type": "owned-by",
+   "label": "signed by",
+   "o": "daniel-okafor",
+   "quote": "Fraud model reviews are signed by Daniel Okafor first",
+   "line": 6
+  },
+  {
+   "s": "fraud-model-review",
+   "type": "owned-by",
+   "label": "co-signed by",
+   "o": "omar-haddad",
+   "quote": "then co-signed by Omar Haddad",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "monthly-model-review-sign-off"
+ ],
+ "replaces": [
+  {
+   "what": "monthly-model-review-sign-off",
+   "quote": "Replaces monthly-model-review-sign-off.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/monthly-review-sign-off-v2.md",
+ "sha": "578aaa29c0cd4fc2d19ab49f6cbc4fc9c330f81297aac120739b8500a0b1a85f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

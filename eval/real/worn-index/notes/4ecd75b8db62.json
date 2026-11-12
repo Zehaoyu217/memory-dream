@@ -1,0 +1,102 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-506",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-506"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "mk-22",
+   "type": "other",
+   "label": "campaign",
+   "as": [
+    "MK-22"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "marketing.campaign_responses",
+   "type": "dataset",
+   "label": "outcome table",
+   "as": [
+    "marketing.campaign_responses"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-ep-exposures",
+   "type": "dataset",
+   "label": "exposures table",
+   "as": [
+    "ds-ep-exposures"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-ep-campaign-outcomes",
+   "type": "dataset",
+   "label": "outcome table",
+   "as": [
+    "ds-ep-campaign-outcomes"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-506",
+   "type": "uses",
+   "label": "reads from",
+   "o": "marketing.campaign_responses",
+   "quote": "Read the campaign's response lift week by week from marketing.campaign_responses",
+   "line": 5
+  },
+  {
+   "s": "exp-506",
+   "type": "measured-by",
+   "label": "lift",
+   "o": "mk-22",
+   "quote": "campaign MK-22 lift is 6.2 percent in week 1 and 2.9 percent in weeks 3 and 4",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "ds-ep-campaign-outcomes",
+  "ds-ep-exposures"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ep-campaign-outcomes",
+   "quote": "Builds on ds-ep-campaign-outcomes and ds-ep-exposures.",
+   "line": 7
+  },
+  {
+   "what": "ds-ep-exposures",
+   "quote": "Builds on ds-ep-campaign-outcomes and ds-ep-exposures.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "experiment-platform/exp-506.md",
+ "sha": "4ecd75b8db620a98ec30980f96afa829b2e19c69fcabe64f25c63da45b9c185b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

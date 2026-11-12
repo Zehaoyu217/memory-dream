@@ -1,0 +1,114 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-c25-txn-recency",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-c25-txn-recency: days since last card transaction, capped at 365"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "churn-2025",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "churn-2025"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "churn-gbm-2025-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "churn-gbm-2025-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-c25-accounts-snapshot",
+   "type": "dataset",
+   "label": "base population",
+   "as": [
+    "churn-2025 account-month population"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-c25-txn-recency",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cards.txn_daily",
+   "quote": "Source: `cards.txn_daily`",
+   "line": 5
+  },
+  {
+   "s": "feat-c25-txn-recency",
+   "type": "measured-by",
+   "label": "univariate AUC",
+   "o": "auc",
+   "quote": "Univariate AUC on the training set: 0.68",
+   "line": 6
+  },
+  {
+   "s": "churn-gbm-2025-v2",
+   "type": "uses",
+   "label": "kept in",
+   "o": "feat-c25-txn-recency",
+   "quote": "Kept in every model version; churn-gbm-2025-v2 adds a monotone decreasing constraint on it.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-c25-accounts-snapshot",
+   "quote": "Builds on the churn-2025 account-month population.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2025/feat-c25-txn-recency.md",
+ "sha": "09190508dc4b00b6dd6f2468ddc2f754af5d721cd6dbfc0862f546a8936181c3",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

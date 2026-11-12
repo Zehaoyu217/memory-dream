@@ -1,0 +1,72 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "disp-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "disp-lgbm-v2"
+   ],
+   "lines": [
+    4,
+    8
+   ]
+  },
+  {
+   "id": "disp-find-autoresolve-96",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "disp-lgbm-v2 auto-resolves at 96.1% precision at p>=0.90 (in-sample)"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "disp-find-precision-real",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "disp-find-precision-real"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "disp-find-precision-real",
+   "type": "replaces",
+   "label": "overturns",
+   "o": "disp-find-autoresolve-96",
+   "quote": "Overturned by disp-find-precision-real after out-of-time and fresh-label checks.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "disp-find-precision-real"
+ ],
+ "built_on": [
+  {
+   "what": "disp-lgbm-v2",
+   "quote": "Builds on disp-lgbm-v2 and the hand-labelled analyst dispute dataset.",
+   "line": 8
+  },
+  {
+   "what": "ds-disp-analyst-labels",
+   "quote": "Builds on disp-lgbm-v2 and the hand-labelled analyst dispute dataset.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "dispute-triage/disp-find-autoresolve-96.md",
+ "sha": "2a923985c2ee9271a2270fdf82b93ff576d0638dc6c2b974a5836fe5267d2fd0",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

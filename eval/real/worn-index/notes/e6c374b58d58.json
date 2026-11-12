@@ -1,0 +1,151 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "app-scorecard-v4",
+   "type": "model",
+   "label": "rebuilt scorecard",
+   "as": [
+    "rebuild the new-account scorecard as v4"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "approver",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-app-bureau-v10-band",
+   "type": "feature",
+   "label": "bureau band",
+   "as": [
+    "feat-app-bureau-v10-band"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "reject-inference",
+   "type": "term",
+   "label": "reject-inference weights",
+   "as": [
+    "reject-inference weights"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-app-income-est",
+   "type": "feature",
+   "label": "income estimate",
+   "as": [
+    "Income estimate"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  },
+  {
+   "id": "thin-file",
+   "type": "segment",
+   "label": "thin-file",
+   "as": [
+    "thin-file lift"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "app-scorecard-v4",
+   "type": "uses",
+   "label": "adds",
+   "o": "feat-app-bureau-v10-band",
+   "quote": "adds feat-app-bureau-v10-band and reject-inference weights from app-gbm-v2",
+   "line": 6
+  },
+  {
+   "s": "app-scorecard-v4",
+   "type": "uses",
+   "label": "adds",
+   "o": "reject-inference",
+   "quote": "adds feat-app-bureau-v10-band and reject-inference weights from app-gbm-v2",
+   "line": 6
+  },
+  {
+   "s": "app-scorecard-v4",
+   "type": "uses",
+   "label": "adds",
+   "o": "feat-app-income-est",
+   "quote": "Income estimate is added only after exp-506 showed the thin-file lift.",
+   "line": 7
+  },
+  {
+   "s": "app-scorecard-v4",
+   "type": "approved-by",
+   "label": "approved by",
+   "o": "lena-fischer",
+   "quote": "Approved 2026-06-26 by Lena Fischer",
+   "line": 5
+  },
+  {
+   "s": "feat-app-income-est",
+   "type": "other",
+   "label": "shows lift for",
+   "o": "thin-file",
+   "quote": "showed the thin-file lift",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-506",
+  "find-app-gini-v3-drift",
+  "app-gbm-v2",
+  "find-app-reject-inference-gain",
+  "q-app-gini-target"
+ ],
+ "built_on": [
+  {
+   "what": "app-gbm-v2",
+   "quote": "Builds on app-gbm-v2, find-app-gini-v3-drift, find-app-reject-inference-gain and q-app-gini-target.",
+   "line": 8
+  },
+  {
+   "what": "find-app-gini-v3-drift",
+   "quote": "Builds on app-gbm-v2, find-app-gini-v3-drift, find-app-reject-inference-gain and q-app-gini-target.",
+   "line": 8
+  },
+  {
+   "what": "find-app-reject-inference-gain",
+   "quote": "Builds on app-gbm-v2, find-app-gini-v3-drift, find-app-reject-inference-gain and q-app-gini-target.",
+   "line": 8
+  },
+  {
+   "what": "q-app-gini-target",
+   "quote": "Builds on app-gbm-v2, find-app-gini-v3-drift, find-app-reject-inference-gain and q-app-gini-target.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "application-scorecard/dec-app-rebuild-v4.md",
+ "sha": "e6c374b58d58502a0dcf28468e4452bc5fd6fa623a677da7b90e41700a760f90",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

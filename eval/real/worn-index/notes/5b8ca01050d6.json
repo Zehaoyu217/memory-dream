@@ -1,0 +1,86 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-disp-txn-match",
+   "type": "feature",
+   "label": "transaction-match feature",
+   "as": [
+    "feat-disp-txn-match: 1 when an auth record matches on auth_id and amount within 1%"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "disp-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "Shipped in disp-lgbm-v2 with amount band."
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-disp-disputes",
+   "type": "dataset",
+   "label": "disputes dataset",
+   "as": [
+    "Builds on ds-disp-disputes."
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-disp-amount-band",
+   "type": "feature",
+   "label": "amount band feature",
+   "as": [
+    "with amount band"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "disp-lgbm-v2",
+   "type": "uses",
+   "label": "shipped with",
+   "o": "feat-disp-txn-match",
+   "quote": "Shipped in disp-lgbm-v2 with amount band.",
+   "line": 7
+  },
+  {
+   "s": "feat-disp-txn-match",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-disp-disputes",
+   "quote": "Builds on ds-disp-disputes.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-disp-disputes",
+  "disp-lgbm-v2"
+ ],
+ "built_on": [
+  {
+   "what": "ds-disp-disputes",
+   "quote": "Builds on ds-disp-disputes.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "dispute-triage/feat-disp-txn-match.md",
+ "sha": "5b8ca01050d67af8c077554eb2ce8ddbea96de450e502da02bd01e5d086f9bb4",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

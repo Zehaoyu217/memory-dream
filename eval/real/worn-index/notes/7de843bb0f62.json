@@ -1,0 +1,80 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-301",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-301"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-rev26-spend-volume",
+   "type": "dataset",
+   "label": "volume source",
+   "as": [
+    "Volume taken at actuals"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "rev26-interchange-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rev26-interchange-v1"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-301",
+   "type": "uses",
+   "label": "backtest uses",
+   "o": "ds-rev26-spend-volume",
+   "quote": "Volume taken at actuals so the test isolates the rate error.",
+   "line": 5
+  },
+  {
+   "s": "exp-301",
+   "type": "measured-by",
+   "label": "MAPE",
+   "o": "exp-301",
+   "quote": "MCC-group bps: MAPE 2.1%; flat blended bps: 4.8%.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-rev26-spend-volume",
+  "rev26-interchange-v1"
+ ],
+ "built_on": [
+  {
+   "what": "ds-rev26-spend-volume",
+   "quote": "Builds on ds-rev26-spend-volume and rev26-interchange-v1.",
+   "line": 8
+  },
+  {
+   "what": "rev26-interchange-v1",
+   "quote": "Builds on ds-rev26-spend-volume and rev26-interchange-v1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "revenue-forecast-2026/exp-301.md",
+ "sha": "7de843bb0f62c6fb2032345b4a8856378ae241fabf49703686461e275d7517c8",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

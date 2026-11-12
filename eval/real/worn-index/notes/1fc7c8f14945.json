@@ -1,0 +1,116 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-trv-plateau",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Travel spend plateaued at 88% of the 2024 run-rate through 2025-Q3, with cross-border lagging domestic"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cross-border-spend",
+   "type": "metric",
+   "label": "spend series",
+   "as": [
+    "cross-border"
+   ],
+   "lines": [
+    4,
+    6,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "domestic-spend",
+   "type": "metric",
+   "label": "run-rate",
+   "as": [
+    "domestic run-rate"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "trv-ridge-v2",
+   "type": "model",
+   "label": "ridge model",
+   "as": [
+    "trv-ridge-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fnd-trv-cross-border-recovery",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-trv-cross-border-recovery"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cross-border-share-ridge-experiment",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "the cross-border share ridge experiment"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fnd-trv-cross-border-recovery",
+   "type": "other",
+   "label": "overturns",
+   "o": "fnd-trv-plateau",
+   "quote": "Overturned by fnd-trv-cross-border-recovery once the split series was rebuilt.",
+   "line": 7
+  },
+  {
+   "s": "fnd-trv-plateau",
+   "type": "uses",
+   "label": "builds on",
+   "o": "trv-ridge-v2",
+   "quote": "Builds on the cross-border share ridge experiment and trv-ridge-v2.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "fnd-trv-cross-border-recovery",
+  "trv-ridge-v2"
+ ],
+ "built_on": [
+  {
+   "what": "cross-border-share-ridge-experiment",
+   "quote": "Builds on the cross-border share ridge experiment and trv-ridge-v2.",
+   "line": 8
+  },
+  {
+   "what": "trv-ridge-v2",
+   "quote": "Builds on the cross-border share ridge experiment and trv-ridge-v2.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "travel-spend-recovery/fnd-trv-plateau.md",
+ "sha": "1fc7c8f14945734d6ec689da13119fb5b6c013b31f40bbc0d9fd9e7b680bc567",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

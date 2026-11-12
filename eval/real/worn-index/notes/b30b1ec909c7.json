@@ -1,0 +1,105 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-bt-offer-log",
+   "type": "dataset",
+   "label": "offer log",
+   "as": [
+    "`bt.offer_log`"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "offers.tier_matrix",
+   "type": "dataset",
+   "label": "tier matrix",
+   "as": [
+    "`offers.tier_matrix`"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "maya-ortiz",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "retention (Maya Ortiz)"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "retention",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "retention"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "bt-campaign-sends",
+   "type": "dataset",
+   "label": "campaign sends",
+   "as": [
+    "campaign sends"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-bt-offer-log",
+   "type": "uses",
+   "label": "built from",
+   "o": "offers.tier_matrix",
+   "quote": "Built by `bt_build_log.sql` from `offers.tier_matrix` joined to campaign sends.",
+   "line": 5
+  },
+  {
+   "s": "ds-bt-offer-log",
+   "type": "uses",
+   "label": "joined to",
+   "o": "bt-campaign-sends",
+   "quote": "joined to campaign sends",
+   "line": 5
+  },
+  {
+   "s": "ds-bt-offer-log",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "maya-ortiz",
+   "quote": "Owner: retention (Maya Ortiz).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "q-bt-who-accepts"
+ ],
+ "built_on": [
+  {
+   "what": "q-bt-who-accepts",
+   "quote": "Builds on q-bt-who-accepts.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "balance-transfer-propensity/ds-bt-offer-log.md",
+ "sha": "b30b1ec909c7a3784bcdb3a7cab31afd5112d0446119428e86c44d19c7837f7a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

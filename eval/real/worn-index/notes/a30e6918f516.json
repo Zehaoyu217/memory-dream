@@ -1,0 +1,56 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "weekly-kpi-cutoff",
+   "type": "term",
+   "label": "weekly kpi cutoff",
+   "as": [
+    "weekly KPI cutoff"
+   ],
+   "lines": [
+    4,
+    9
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "weekly-kpi-cutoff",
+   "type": "uses",
+   "label": "batch delayed by",
+   "o": "cards.txn_daily",
+   "quote": "the Sunday batch for `cards.txn_daily` was landing after 06:00 on four Mondays",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "reporting/weekly-kpi-deck-cutoff"
+ ],
+ "replaces": [
+  {
+   "what": "weekly-kpi-deck-cutoff",
+   "quote": "Replaces the sunday weekly kpi cutoff.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/weekly-kpi-cutoff-v2.md",
+ "sha": "a30e6918f516a96f15e7368b3c27ea7a8cc5fdad2a1390f08acdfdcc08741f23",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

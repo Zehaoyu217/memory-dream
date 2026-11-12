@@ -1,0 +1,70 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "psi",
+   "as": [
+    "PSI"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "account-vintage",
+   "type": "term",
+   "label": "vintage split",
+   "as": [
+    "vintage"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "new-accounts",
+   "type": "segment",
+   "label": "new accounts",
+   "as": [
+    "accounts opened in the last 12 months"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "old-accounts",
+   "type": "segment",
+   "label": "older accounts",
+   "as": [
+    "older accounts"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "psi",
+   "type": "other",
+   "label": "split by",
+   "o": "account-vintage",
+   "quote": "Split the PSI computation by vintage",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/feature-drift-by-vintage.md",
+ "sha": "fadfe28c22cc518c15efbd383785aee55838863e0c5890711273902650aa88b9",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

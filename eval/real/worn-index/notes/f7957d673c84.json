@@ -1,0 +1,127 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-103",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-103"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-fsm-store-registry",
+   "type": "dataset",
+   "label": "draft registry",
+   "as": [
+    "draft registry"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "lint-names-py",
+   "type": "module",
+   "label": "lint script",
+   "as": [
+    "fsm/registry/lint_names.py"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "domain-agg-window-rule",
+   "type": "term",
+   "label": "proposed rule",
+   "as": [
+    "proposed rule <domain>_<agg>_<window>"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "naming-lint-breaks",
+   "type": "metric",
+   "label": "breaks",
+   "as": [
+    "41 names break the rule"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-prefix",
+   "type": "term",
+   "label": "feat_ prefix",
+   "as": [
+    "legacy feat_ prefixed names"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "q-fsm-naming-scheme",
+   "type": "other",
+   "label": "open question",
+   "as": [
+    "q-fsm-naming-scheme"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-103",
+   "type": "uses",
+   "label": "lint script",
+   "o": "lint-names-py",
+   "quote": "Lint script: `fsm/registry/lint_names.py`.",
+   "line": 7
+  },
+  {
+   "s": "exp-103",
+   "type": "other",
+   "label": "linted",
+   "o": "ds-fsm-store-registry",
+   "quote": "Ran a regex lint on the draft registry",
+   "line": 5
+  },
+  {
+   "s": "exp-103",
+   "type": "measured-by",
+   "label": "counted",
+   "o": "naming-lint-breaks",
+   "quote": "41 names break the rule",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "q-fsm-naming-scheme"
+ ],
+ "built_on": [
+  {
+   "what": "q-fsm-naming-scheme",
+   "quote": "Builds on q-fsm-naming-scheme.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "feature-store-migration/exp-103.md",
+ "sha": "f7957d673c8403f432cc6b74942835cb5360ee4de7657355957ae35f0142a3d8",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

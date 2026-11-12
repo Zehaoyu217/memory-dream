@@ -1,0 +1,109 @@
+{
+ "kind": "design",
+ "entities": [
+  {
+   "id": "isotonic-calibration",
+   "type": "term",
+   "label": "calibration method",
+   "as": [
+    "Isotonic calibration"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "brier-score",
+   "type": "metric",
+   "label": "brier",
+   "as": [
+    "Brier"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "scored-population",
+   "type": "segment",
+   "label": "scored population",
+   "as": [
+    "scored population"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "reliability-table",
+   "type": "other",
+   "label": "reliability table",
+   "as": [
+    "10-bin reliability table"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "training-split",
+   "type": "dataset",
+   "label": "training split",
+   "as": [
+    "training split"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "brier-score-calibration",
+   "type": "document",
+   "label": "how-to",
+   "as": [
+    "howto/brier-score-calibration"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "isotonic-calibration",
+   "type": "uses",
+   "label": "fitted on",
+   "o": "training-split",
+   "quote": "fitted on the training split",
+   "line": 4
+  },
+  {
+   "s": "brier-score",
+   "type": "evaluated-on",
+   "label": "computed on",
+   "o": "scored-population",
+   "quote": "Brier is computed on the scored population after calibration.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "howto/brier-score-calibration"
+ ],
+ "built_on": [
+  {
+   "what": "brier-score-calibration",
+   "quote": "Builds on howto/brier-score-calibration",
+   "line": 6
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/brier-isotonic-bins.md",
+ "sha": "9931ff1632e8d268202211bd7830d4388c60828ecd7be1420dbd6c2507c6ffef",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

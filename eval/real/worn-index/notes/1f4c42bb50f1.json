@@ -1,0 +1,118 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-csb-90d-window",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "churn-small-business uses 90-day churn labels, not 60"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-201",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "the experiment comparing 90-day and 60-day labels"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-csb-churn-labels",
+   "type": "dataset",
+   "label": "churn labels",
+   "as": [
+    "smb churn labels dataset"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "holdout auc",
+   "as": [
+    "Holdout AUC"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-csb-90d-window",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "lena-fischer",
+   "quote": "Owner: Lena Fischer (credit risk).",
+   "line": 7
+  },
+  {
+   "s": "dec-csb-90d-window",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-csb-churn-labels",
+   "quote": "Builds on the smb churn labels dataset",
+   "line": 8
+  },
+  {
+   "s": "dec-csb-90d-window",
+   "type": "uses",
+   "label": "builds on",
+   "o": "exp-201",
+   "quote": "the experiment comparing 90-day and 60-day labels",
+   "line": 8
+  },
+  {
+   "s": "dec-csb-90d-window",
+   "type": "measured-by",
+   "label": "holdout AUC",
+   "o": "auc",
+   "quote": "Holdout AUC 0.684 at 90 days",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-201",
+  "ds-csb-churn-labels"
+ ],
+ "built_on": [
+  {
+   "what": "ds-csb-churn-labels",
+   "quote": "Builds on the smb churn labels dataset and the experiment comparing 90-day and 60-day labels.",
+   "line": 8
+  },
+  {
+   "what": "exp-201",
+   "quote": "Builds on the smb churn labels dataset and the experiment comparing 90-day and 60-day labels.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-small-business/dec-csb-90d-window.md",
+ "sha": "1f4c42bb50f11f5527aaf79527367c701e370be3674556017a836947db1a2b76",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

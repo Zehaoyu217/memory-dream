@@ -1,0 +1,111 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-cli-loss-cap",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "cap 90-day loss at 1.5% of exposed book"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "person",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-104",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-104"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "q-cli-revenue-loss-tradeoff",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "q-cli-revenue-loss-tradeoff"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "90-day-loss",
+   "type": "metric",
+   "label": "loss",
+   "as": [
+    "90-day loss"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-cli-loss-cap",
+   "type": "agreed-by",
+   "label": "agreed with",
+   "o": "lena-fischer",
+   "quote": "Agreed with Lena Fischer on 2025-03-12",
+   "line": 5
+  },
+  {
+   "s": "dec-cli-loss-cap",
+   "type": "uses",
+   "label": "after the sweep in",
+   "o": "exp-104",
+   "quote": "after the sweep in exp-104",
+   "line": 5
+  },
+  {
+   "s": "dec-cli-loss-cap",
+   "type": "measured-by",
+   "label": "caps",
+   "o": "90-day-loss",
+   "quote": "cap 90-day loss at 1.5% of exposed book",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "exp-104",
+  "q-cli-revenue-loss-tradeoff"
+ ],
+ "built_on": [
+  {
+   "what": "exp-104",
+   "quote": "Builds on the 0.031 cutoff margin experiment and q-cli-revenue-loss-tradeoff.",
+   "line": 8
+  },
+  {
+   "what": "q-cli-revenue-loss-tradeoff",
+   "quote": "Builds on the 0.031 cutoff margin experiment and q-cli-revenue-loss-tradeoff.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/dec-cli-loss-cap.md",
+ "sha": "6856de57260c2d0f25184861efe07d10ebe2e58692ef562c07ffa49df9ee3061",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

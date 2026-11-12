@@ -1,0 +1,89 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-103",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "IVR path adds +0.03 macro F1: 0.708 without, 0.738 with (holdout-2025q4)"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "feat-cr-ivr-path-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "ivr path feature"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fnd-cr-ivr-helps",
+   "type": "finding",
+   "label": "finding",
+   "as": [
+    "fnd-cr-ivr-helps"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "model family",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-103",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "holdout-2025q4",
+   "quote": "Gain +0.030 (n = 380,000 calls, holdout-2025q4).",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fnd-cr-ivr-helps"
+ ],
+ "built_on": [
+  {
+   "what": "feat-cr-ivr-path-v1",
+   "quote": "Builds on the ivr path feature.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/exp-103.md",
+ "sha": "ffc3264413be468facf0bc8ee83f09d389ea03b772c692527e8fc32f9d921528",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

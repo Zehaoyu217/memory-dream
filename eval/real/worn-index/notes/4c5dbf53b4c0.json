@@ -1,0 +1,87 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "capping",
+   "type": "term",
+   "label": "capping rule",
+   "as": [
+    "Cap amount features"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "amount-features",
+   "type": "feature",
+   "label": "amount features",
+   "as": [
+    "amount features"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cap-values",
+   "type": "term",
+   "label": "cap values",
+   "as": [
+    "Cap values"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feature-registry",
+   "type": "other",
+   "label": "feature registry",
+   "as": [
+    "feature registry"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fraud25-gbm-v2",
+   "type": "model",
+   "label": "fraud model",
+   "as": [
+    "2025 fraud model"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "capping",
+   "type": "other",
+   "label": "caps",
+   "o": "amount-features",
+   "quote": "Cap amount features at the training 99.5th percentile",
+   "line": 5
+  },
+  {
+   "s": "cap-values",
+   "type": "other",
+   "label": "stored in",
+   "o": "feature-registry",
+   "quote": "Cap values are stored in the feature registry",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/outlier-capping-p999.md",
+ "sha": "4c5dbf53b4c0a5b85661675b9b56c6f6af66e7e642dbe0ff70b158c572253223",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

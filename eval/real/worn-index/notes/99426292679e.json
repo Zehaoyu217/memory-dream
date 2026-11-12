@@ -1,0 +1,129 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-ae-tenure-norm",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Normalise depth by tenure cohort before scoring"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-ae-depth-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "tenure-baselined depth feature"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fnd-ae-new-user-inflation",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-ae-new-user-inflation"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "digital-analytics",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "digital-analytics"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "maya-ortiz",
+   "type": "person",
+   "label": "person",
+   "as": [
+    "Maya Ortiz"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "retention",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "retention"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-ae-tenure-norm",
+   "type": "uses",
+   "label": "divided by baseline",
+   "o": "feat-ae-depth-v2",
+   "quote": "Depth is divided by the tenure-cohort baseline (feat-ae-depth-v2).",
+   "line": 5
+  },
+  {
+   "s": "dec-ae-tenure-norm",
+   "type": "owned-by",
+   "label": "agreed by",
+   "o": "digital-analytics",
+   "quote": "Agreed by digital-analytics and Maya Ortiz (retention).",
+   "line": 6
+  },
+  {
+   "s": "dec-ae-tenure-norm",
+   "type": "owned-by",
+   "label": "agreed by",
+   "o": "maya-ortiz",
+   "quote": "Agreed by digital-analytics and Maya Ortiz (retention).",
+   "line": 6
+  },
+  {
+   "s": "maya-ortiz",
+   "type": "other",
+   "label": "in",
+   "o": "retention",
+   "quote": "Maya Ortiz (retention)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "feat-ae-depth-v2",
+  "fnd-ae-new-user-inflation"
+ ],
+ "built_on": [
+  {
+   "what": "feat-ae-depth-v2",
+   "quote": "Builds on the tenure-baselined depth feature and fnd-ae-new-user-inflation.",
+   "line": 7
+  },
+  {
+   "what": "fnd-ae-new-user-inflation",
+   "quote": "Builds on the tenure-baselined depth feature and fnd-ae-new-user-inflation.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "app-engagement/dec-ae-tenure-norm.md",
+ "sha": "99426292679e1a85cf3c7cb1848b2180dcfd2e71a8e3782420a6d4a27dd49e0d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,104 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "offer-test",
+   "type": "other",
+   "label": "offer test",
+   "as": [
+    "offer test"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "obrien-fleming-spending",
+   "type": "term",
+   "label": "spending",
+   "as": [
+    "O'Brien-Fleming spending"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "chloe-martin",
+   "type": "person",
+   "label": "marketing lead",
+   "as": [
+    "Chloe Martin"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "day-7-lift",
+   "type": "metric",
+   "label": "lift",
+   "as": [
+    "day-7 lift"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ab-readout-sequential-check",
+   "type": "document",
+   "label": "how-to",
+   "as": [
+    "howto/ab-readout-sequential-check"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "offer-test",
+   "type": "uses",
+   "label": "readout under",
+   "o": "obrien-fleming-spending",
+   "quote": "the first readout is at day 14 under O'Brien-Fleming spending",
+   "line": 4
+  },
+  {
+   "s": "offer-test",
+   "type": "measured-by",
+   "label": "lift",
+   "o": "day-7-lift",
+   "quote": "The day-7 lift was 3.8 points",
+   "line": 5
+  },
+  {
+   "s": "chloe-martin",
+   "type": "other",
+   "label": "agreed to run to day 28",
+   "o": "offer-test",
+   "quote": "Chloe Martin agreed to run the test to day 28.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "howto/ab-readout-sequential-check"
+ ],
+ "built_on": [
+  {
+   "what": "ab-readout-sequential-check",
+   "quote": "Builds on howto/ab-readout-sequential-check",
+   "line": 6
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/day7-stop-rejected.md",
+ "sha": "28a942b4398de9a19139c65b6b1d92683c79b1d699339a210e41c7aa258c5ec4",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

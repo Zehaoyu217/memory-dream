@@ -1,0 +1,192 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-csb-ship-xgb-v2",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: csb-xgb-v2 scores the April 2026 cycle"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "csb-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "csb-xgb-v2"
+   ],
+   "lines": [
+    4,
+    8
+   ]
+  },
+  {
+   "id": "dec-csb-ship-xgb-v1",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-csb-ship-xgb-v1"
+   ],
+   "lines": [
+    8,
+    9
+   ]
+  },
+  {
+   "id": "call-dedupe-job",
+   "type": "pipeline",
+   "label": "job",
+   "as": [
+    "call-dedupe job"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "production-calls-feed",
+   "type": "dataset",
+   "label": "feed",
+   "as": [
+    "production calls feed"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "csb-lr-base",
+   "type": "model",
+   "label": "monitoring challenger",
+   "as": [
+    "csb-lr-base"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "data engineering",
+   "as": [
+    "Tomas Rivera, data engineering"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-206",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-206"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-207",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-207"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-csb-ship-xgb-v2",
+   "type": "uses",
+   "label": "scores",
+   "o": "csb-xgb-v2",
+   "quote": "csb-xgb-v2 scores the April 2026 cycle",
+   "line": 4
+  },
+  {
+   "s": "dec-csb-ship-xgb-v2",
+   "type": "uses",
+   "label": "needs",
+   "o": "call-dedupe-job",
+   "quote": "Needs the call-dedupe job in the production calls feed (Tomas Rivera, data engineering).",
+   "line": 6
+  },
+  {
+   "s": "call-dedupe-job",
+   "type": "produces",
+   "label": "runs in",
+   "o": "production-calls-feed",
+   "quote": "Needs the call-dedupe job in the production calls feed",
+   "line": 6
+  },
+  {
+   "s": "csb-lr-base",
+   "type": "other",
+   "label": "monitoring challenger",
+   "o": "csb-xgb-v2",
+   "quote": "csb-lr-base stays on as the monitoring challenger.",
+   "line": 7
+  },
+  {
+   "s": "dec-csb-ship-xgb-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "dec-csb-ship-xgb-v1",
+   "quote": "Replaces dec-csb-ship-xgb-v1.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "csb-xgb-v2",
+  "dec-csb-ship-xgb-v1",
+  "exp-206",
+  "exp-207",
+  "csb-lr-base"
+ ],
+ "built_on": [
+  {
+   "what": "csb-xgb-v2",
+   "quote": "Builds on csb-xgb-v2, dec-csb-ship-xgb-v1 and the seasonally adjusted spend experiment.",
+   "line": 8
+  },
+  {
+   "what": "dec-csb-ship-xgb-v1",
+   "quote": "Builds on csb-xgb-v2, dec-csb-ship-xgb-v1 and the seasonally adjusted spend experiment.",
+   "line": 8
+  },
+  {
+   "what": "exp-206",
+   "quote": "Basis: exp-206 and exp-207 on the 6-month-plus subset, with the seasonal gap removed.",
+   "line": 5
+  },
+  {
+   "what": "exp-207",
+   "quote": "Basis: exp-206 and exp-207 on the 6-month-plus subset, with the seasonal gap removed.",
+   "line": 5
+  }
+ ],
+ "replaces": [
+  {
+   "what": "dec-csb-ship-xgb-v1",
+   "quote": "Replaces dec-csb-ship-xgb-v1.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-small-business/dec-csb-ship-xgb-v2.md",
+ "sha": "422ea5e746c397d24a52f1b186d040718eccc86775212d54c97cb6b3fe410e07",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

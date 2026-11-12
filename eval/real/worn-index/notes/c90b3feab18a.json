@@ -1,0 +1,120 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "ecl",
+   "type": "metric",
+   "label": "loss estimate",
+   "as": [
+    "ECL"
+   ],
+   "lines": [
+    4,
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "pd",
+   "type": "metric",
+   "label": "probability",
+   "as": [
+    "PD"
+   ],
+   "lines": [
+    2,
+    4,
+    5
+   ]
+  },
+  {
+   "id": "lgd",
+   "type": "metric",
+   "label": "loss given default",
+   "as": [
+    "LGD"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "ead",
+   "type": "metric",
+   "label": "exposure",
+   "as": [
+    "EAD"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "q3-2025-provision-pack",
+   "type": "document",
+   "label": "pack",
+   "as": [
+    "Q3 2025 provision pack"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ecl",
+   "type": "uses",
+   "label": "multiplies PD",
+   "o": "pd",
+   "quote": "ECL = PD x LGD x EAD",
+   "line": 4
+  },
+  {
+   "s": "ecl",
+   "type": "uses",
+   "label": "multiplies LGD",
+   "o": "lgd",
+   "quote": "ECL = PD x LGD x EAD",
+   "line": 4
+  },
+  {
+   "s": "ecl",
+   "type": "uses",
+   "label": "multiplies EAD",
+   "o": "ead",
+   "quote": "ECL = PD x LGD x EAD",
+   "line": 4
+  },
+  {
+   "s": "q3-2025-provision-pack",
+   "type": "other",
+   "label": "understated ECL",
+   "o": "ecl",
+   "quote": "the Q3 2025 provision pack understated ECL by about 40% because LGD was left out",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "glossary/ecl"
+ ],
+ "replaces": [
+  {
+   "what": "glossary/ecl",
+   "quote": "Replaces glossary/ecl.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "corrections/ecl-includes-lgd.md",
+ "sha": "c90b3feab18a00b799571d46d0fce669184ba5bbd4f3eec4c534c4096fecbdac",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

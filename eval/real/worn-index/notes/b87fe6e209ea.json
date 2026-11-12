@@ -1,0 +1,150 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-204",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-204"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-203",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-203"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fraud26-oot-2025q4",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "fraud26-oot-2025q4"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-f26-velocity-v2",
+   "type": "feature",
+   "label": "velocity-v2",
+   "as": [
+    "Velocity-v2"
+   ],
+   "lines": [
+    4,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.88"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.61"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fraud26-find-velocity-leak",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fraud26-find-velocity-leak"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-204",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "fraud26-oot-2025q4",
+   "quote": "Same eval set: fraud26-oot-2025q4",
+   "line": 5
+  },
+  {
+   "s": "exp-204",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-f26-velocity-v2",
+   "quote": "Velocity-v2 windows closed at authorisation time",
+   "line": 6
+  },
+  {
+   "s": "exp-204",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.88",
+   "line": 4
+  },
+  {
+   "s": "exp-204",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "ks",
+   "quote": "KS 0.61",
+   "line": 6
+  },
+  {
+   "s": "exp-204",
+   "type": "other",
+   "label": "interpreted as",
+   "o": "fraud26-find-velocity-leak",
+   "quote": "looked like leakage at the time (fraud26-find-velocity-leak)",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fraud26-find-velocity-leak"
+ ],
+ "built_on": [
+  {
+   "what": "exp-203",
+   "quote": "Builds on exp-203 and feat-f26-velocity-v2.",
+   "line": 8
+  },
+  {
+   "what": "feat-f26-velocity-v2",
+   "quote": "Builds on exp-203 and feat-f26-velocity-v2.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2026/exp-204.md",
+ "sha": "b87fe6e209ea9d25ab1e723614645a3b03392695142d6940996cd457b55beecd",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

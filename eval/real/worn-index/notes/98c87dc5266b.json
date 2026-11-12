@@ -1,0 +1,115 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-sfc-active-accounts",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-sfc-active-accounts"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "everyday-segment",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "The Everyday segment"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "sfc-hier-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "sfc-hier-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-207",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-207"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-sfc-segment-monthly",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "the monthly segment spend dataset"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-sfc-active-accounts",
+   "type": "uses",
+   "label": "from",
+   "o": "cards.accounts_monthly",
+   "quote": "from `cards.accounts_monthly`",
+   "line": 5
+  },
+  {
+   "s": "sfc-hier-v3",
+   "type": "uses",
+   "label": "regressor",
+   "o": "feat-sfc-active-accounts",
+   "quote": "Added as a regressor in sfc-hier-v3 (exp-207).",
+   "line": 7
+  },
+  {
+   "s": "feat-sfc-active-accounts",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-sfc-segment-monthly",
+   "quote": "Builds on the monthly segment spend dataset.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-207"
+ ],
+ "built_on": [
+  {
+   "what": "ds-sfc-segment-monthly",
+   "quote": "Builds on the monthly segment spend dataset.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "spend-forecasting/feat-sfc-active-accounts.md",
+ "sha": "98c87dc5266be6d064bb5c2276bb76d3b817a2f933a4cc6d0d79839ce0d3aeaf",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,79 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "daily-peeking",
+   "type": "term",
+   "label": "daily peeking",
+   "as": [
+    "Daily unadjusted peeking"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "false-positive-rate",
+   "type": "metric",
+   "label": "false positive rate",
+   "as": [
+    "false positive rate"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-503",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-503"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "dec-ep-fixed-horizon",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-ep-fixed-horizon"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "daily-peeking",
+   "type": "measured-by",
+   "label": "pushes to",
+   "o": "false-positive-rate",
+   "quote": "Daily unadjusted peeking pushes the false positive rate to 14 percent",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "exp-503",
+  "dec-ep-fixed-horizon"
+ ],
+ "built_on": [
+  {
+   "what": "exp-503",
+   "quote": "Builds on exp-503.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "experiment-platform/fnd-peeking.md",
+ "sha": "03fe4116e1cac7231a005ba729bfdb4ad02cff863a9c443174cc0db468a37878",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

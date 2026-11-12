@@ -1,0 +1,130 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-parity-pre-fix",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Before fixes, 13 of 214 features disagree between store and legacy"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "local-time-windows",
+   "type": "term",
+   "label": "local-time windows",
+   "as": [
+    "local-time windows"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "utc",
+   "type": "term",
+   "label": "utc",
+   "as": [
+    "the store runs in UTC"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "payment-lag-mismatch",
+   "type": "metric",
+   "label": "mismatch",
+   "as": [
+    "payment lag is off on 3.1 percent of rows"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-101",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-101"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "exp-102",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-102"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fnd-parity-post-fix",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-parity-post-fix"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "local-time-windows",
+   "type": "other",
+   "label": "main cause",
+   "o": "fnd-parity-pre-fix",
+   "quote": "local-time windows are the main cause",
+   "line": 4
+  },
+  {
+   "s": "exp-102",
+   "type": "other",
+   "label": "confirmed",
+   "o": "local-time-windows",
+   "quote": "Confirmed in exp-102.",
+   "line": 6
+  },
+  {
+   "s": "fnd-parity-post-fix",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "fnd-parity-pre-fix",
+   "quote": "Superseded by fnd-parity-post-fix (2026-01-14)",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-101",
+  "exp-102",
+  "fnd-parity-post-fix"
+ ],
+ "built_on": [
+  {
+   "what": "exp-101",
+   "quote": "Builds on exp-101.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "feature-store-migration/fnd-parity-pre-fix.md",
+ "sha": "a45f0ac4ffb2d4761a380128affda5c09a0c4bd5f4dd3990460fe8dc2e95ca73",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

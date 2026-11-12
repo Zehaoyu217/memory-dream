@@ -1,0 +1,89 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "cohort-2024q4-travel-active",
+   "type": "segment",
+   "label": "travel-active cohort",
+   "as": [
+    "2024-Q4 travel-active cohort",
+    "Cardholders with at least three travel transactions in 2024-Q4"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-507",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-507"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-trv-tenure",
+   "type": "feature",
+   "label": "tenure band",
+   "as": [
+    "feat-trv-tenure"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cohort-2024q4-travel-active",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards.txn_daily",
+   "quote": "from `cards.txn_daily`; 312k cardholders",
+   "line": 5
+  },
+  {
+   "s": "cohort-2024q4-travel-active",
+   "type": "uses",
+   "label": "used for",
+   "o": "exp-507",
+   "quote": "Used for the return-rate test in exp-507",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-507",
+  "feat-trv-tenure",
+  "ds-trv-travel-mcc-monthly"
+ ],
+ "built_on": [
+  {
+   "what": "ds-trv-travel-mcc-monthly",
+   "quote": "Builds on the monthly travel spend by category.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "travel-spend-recovery/ds-trv-cohort-panel.md",
+ "sha": "1bcb147e023faeb475ce13b8e3b6d0cfd0b95a7e8162ecf757d4e0a980f773c2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

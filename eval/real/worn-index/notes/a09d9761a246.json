@@ -1,0 +1,139 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-403",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-403"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-402",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-402"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "jul-sep-2025-dispositions",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "same 4,120 Jul-Sep 2025 dispositions"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-aml-round-amount",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-aml-round-amount"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-aml-cash-velocity",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-aml-cash-velocity",
+    "cash velocity feature over 30 days"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-403",
+   "type": "uses",
+   "label": "adds",
+   "o": "feat-aml-round-amount",
+   "quote": "Adding feat-aml-round-amount and feat-aml-cash-velocity",
+   "line": 6
+  },
+  {
+   "s": "exp-403",
+   "type": "uses",
+   "label": "adds",
+   "o": "feat-aml-cash-velocity",
+   "quote": "Adding feat-aml-round-amount and feat-aml-cash-velocity",
+   "line": 6
+  },
+  {
+   "s": "exp-403",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "jul-sep-2025-dispositions",
+   "quote": "Eval set: same 4,120 Jul-Sep 2025 dispositions as exp-402.",
+   "line": 5
+  },
+  {
+   "s": "exp-403",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "auc",
+   "quote": "AUC 0.86 (from 0.84).",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-402",
+  "feat-aml-round-amount",
+  "feat-aml-cash-velocity"
+ ],
+ "built_on": [
+  {
+   "what": "exp-402",
+   "quote": "Builds on exp-402, the cash velocity feature over 30 days and the round-amount cash feature.",
+   "line": 8
+  },
+  {
+   "what": "feat-aml-cash-velocity",
+   "quote": "Builds on exp-402, the cash velocity feature over 30 days and the round-amount cash feature.",
+   "line": 8
+  },
+  {
+   "what": "feat-aml-round-amount",
+   "quote": "Builds on exp-402, the cash velocity feature over 30 days and the round-amount cash feature.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "aml-alerts/exp-403.md",
+ "sha": "a09d9761a246f401d405e16e737f86dec51b3b1e3a23d4a7da60e12e334195ed",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

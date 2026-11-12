@@ -1,0 +1,102 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "find-pa-margin-corrected",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Finding: with churn and loss counted, the 12-month promo is +$38 overall and -$72 below 640"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-504",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-504"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "pa-margin-v2",
+   "type": "model",
+   "label": "margin model",
+   "as": [
+    "(pa-margin-v2)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "find-pa-margin-positive",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-pa-margin-positive"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "find-pa-margin-corrected",
+   "type": "uses",
+   "label": "counted via",
+   "o": "pa-margin-v2",
+   "quote": "(pa-margin-v2)",
+   "line": 5
+  },
+  {
+   "s": "find-pa-margin-corrected",
+   "type": "other",
+   "label": "corrects",
+   "o": "find-pa-margin-positive",
+   "quote": "The earlier finding overstated margin by mostly leaving out churn.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "exp-504-margin-cohort",
+   "quote": "Builds on exp-504-margin-cohort, find-pa-margin-positive and pa-margin-v2.",
+   "line": 7
+  },
+  {
+   "what": "find-pa-margin-positive",
+   "quote": "Builds on exp-504-margin-cohort, find-pa-margin-positive and pa-margin-v2.",
+   "line": 7
+  },
+  {
+   "what": "pa-margin-v2",
+   "quote": "Builds on exp-504-margin-cohort, find-pa-margin-positive and pa-margin-v2.",
+   "line": 7
+  }
+ ],
+ "replaces": [
+  {
+   "what": "find-pa-margin-positive",
+   "quote": "Replaces find-pa-margin-positive.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "promo-apr-test/find-pa-margin-corrected.md",
+ "sha": "ef0d897be0205965df5b832aca819a20cddb1d24a084e317eecacfd9aa8854e3",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

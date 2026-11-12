@@ -1,0 +1,65 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "churn-small-business",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "churn-small-business"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "calls-lift",
+   "type": "metric",
+   "label": "lift",
+   "as": [
+    "Calls lift +0.012"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "duplicate-call-ids",
+   "type": "term",
+   "label": "data issue",
+   "as": [
+    "duplicate call_ids"
+   ],
+   "lines": [
+    3
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-small-business",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "calls-lift",
+   "quote": "Calls lift +0.012 looks big",
+   "line": 3
+  },
+  {
+   "s": "duplicate-call-ids",
+   "type": "other",
+   "label": "suspect in",
+   "o": "calls-lift",
+   "quote": "suspect duplicate call_ids in the first build",
+   "line": 3
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2025-11-12.md",
+ "sha": "e9bcdd563e69ca518a49524d074942700f2972054c6af25adba2ec0539ad20da",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

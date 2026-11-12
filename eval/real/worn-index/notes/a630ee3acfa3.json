@@ -1,0 +1,136 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "disp-lgbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "disp-lgbm-v1: TF-IDF reason-text baseline, 84.0% precision at 0.90"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-disp-reason-text",
+   "type": "feature",
+   "label": "reason-text feature",
+   "as": [
+    "LightGBM on feat-disp-reason-text only"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-disp-analyst-labels",
+   "type": "dataset",
+   "label": "analyst labels",
+   "as": [
+    "trained on two-analyst labels from January-February 2026"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-301",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "(exp-301)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "disp-lgbm-v2",
+   "type": "model",
+   "label": "superseding model",
+   "as": [
+    "Superseded by disp-lgbm-v2 on 2026-04-21."
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dec-disp-labels-two-analyst",
+   "type": "policy",
+   "label": "decision",
+   "as": [
+    "the decision on two-analyst training labels"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-disp-tfidf",
+   "type": "feature",
+   "label": "tf-idf feature",
+   "as": [
+    "the tf-idf dispute description feature"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "disp-lgbm-v1",
+   "type": "uses",
+   "label": "trained on",
+   "o": "feat-disp-reason-text",
+   "quote": "LightGBM on feat-disp-reason-text only",
+   "line": 5
+  },
+  {
+   "s": "disp-lgbm-v1",
+   "type": "evaluated-on",
+   "label": "trained on",
+   "o": "ds-disp-analyst-labels",
+   "quote": "trained on two-analyst labels from January-February 2026",
+   "line": 5
+  },
+  {
+   "s": "disp-lgbm-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "disp-lgbm-v1",
+   "quote": "Superseded by disp-lgbm-v2 on 2026-04-21.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-301"
+ ],
+ "built_on": [
+  {
+   "what": "dec-disp-labels-two-analyst",
+   "quote": "Builds on the decision on two-analyst training labels",
+   "line": 8
+  },
+  {
+   "what": "ds-disp-analyst-labels",
+   "quote": "Builds on the decision on two-analyst training labels, ds-disp-analyst-labels and the tf-idf dispute description feature.",
+   "line": 8
+  },
+  {
+   "what": "feat-disp-tfidf",
+   "quote": "the tf-idf dispute description feature",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "dispute-triage/disp-lgbm-v1.md",
+ "sha": "a630ee3acfa3d9d7bf5272ac1b3e98241eccd133792574a9f675c9f4b7f10ec8",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

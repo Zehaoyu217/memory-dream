@@ -1,0 +1,76 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fraud-model-v4",
+   "type": "model",
+   "label": "fraud model",
+   "as": [
+    "Fraud model v4"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "lbl-oot-2025h2",
+   "type": "segment",
+   "label": "holdout",
+   "as": [
+    "matured 2025-H2 holdout"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "recall-at-1pct",
+   "type": "metric",
+   "label": "recall",
+   "as": [
+    "recall 0.58"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-405",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-405"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud-model-v4",
+   "type": "measured-by",
+   "label": "gains recall",
+   "o": "recall-at-1pct",
+   "quote": "gains 0.06 recall at 1 percent alerts",
+   "line": 4
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "exp-405",
+   "quote": "Builds on exp-405.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "label-pipeline-rebuild/fnd-fraud-v4-lift.md",
+ "sha": "a4013df4c317fede7ac20e1dec1212bfbe536d9b07de7848ba47be46275b4854",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

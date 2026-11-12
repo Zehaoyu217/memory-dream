@@ -1,0 +1,102 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cc-dispute-link-v1",
+   "type": "feature",
+   "label": "dispute feature",
+   "as": [
+    "Dispute link v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.disputes",
+   "type": "dataset",
+   "label": "disputes table",
+   "as": [
+    "`cards.disputes`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fraud-ops",
+   "type": "team",
+   "label": "owner team",
+   "as": [
+    "owner fraud-ops"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-cc-dispute-link-v2",
+   "type": "feature",
+   "label": "successor feature",
+   "as": [
+    "feat-cc-dispute-link-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cc-dispute-link-v1",
+   "type": "uses",
+   "label": "joins",
+   "o": "cards.disputes",
+   "quote": "Joins the account key to `cards.disputes`",
+   "line": 5
+  },
+  {
+   "s": "cards.disputes",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "fraud-ops",
+   "quote": "owner fraud-ops",
+   "line": 5
+  },
+  {
+   "s": "feat-cc-dispute-link-v2",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "feat-cc-dispute-link-v1",
+   "quote": "Superseded by feat-cc-dispute-link-v2",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-cc-dispute-link-v2",
+  "fnd-cc-dispute-link-leak",
+  "ds-cc-tickets-raw"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cc-tickets-raw",
+   "quote": "Builds on the raw complaint ticket table.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-cc-dispute-link-v1",
+   "quote": "Superseded by feat-cc-dispute-link-v2 after the May 2026 check",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "complaint-classification/feat-cc-dispute-link-v1.md",
+ "sha": "6f83bfc76b9280b3403659ca6e7af1953c1afd45bcaeef0cbf80729170b59a8c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

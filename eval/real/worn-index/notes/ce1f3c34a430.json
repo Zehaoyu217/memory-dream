@@ -1,0 +1,94 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "feat-mm-payment-ratio-v1",
+   "type": "feature",
+   "label": "payment ratio",
+   "as": [
+    "payment ratio v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-mm-payment-ratio-v2",
+   "type": "feature",
+   "label": "fixed feature",
+   "as": [
+    "feat-mm-payment-ratio-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-201",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "38-feature psi experiment over 90 days"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "psi",
+   "as": [
+    "PSI"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-mm-payment-ratio-v1",
+   "type": "other",
+   "label": "fixed by",
+   "o": "feat-mm-payment-ratio-v2",
+   "quote": "Fixed by feat-mm-payment-ratio-v2",
+   "line": 7
+  },
+  {
+   "s": "feat-mm-payment-ratio-v1",
+   "type": "measured-by",
+   "label": "shows PSI",
+   "o": "psi",
+   "quote": "The 0.31 PSI on payment ratio v1",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "exp-201",
+  "feat-mm-payment-ratio-v1",
+  "feat-mm-payment-ratio-v2"
+ ],
+ "built_on": [
+  {
+   "what": "exp-201",
+   "quote": "Builds on the 38-feature psi experiment over 90 days and feat-mm-payment-ratio-v1.",
+   "line": 8
+  },
+  {
+   "what": "feat-mm-payment-ratio-v1",
+   "quote": "Builds on the 38-feature psi experiment over 90 days and feat-mm-payment-ratio-v1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "model-monitoring/fnd-payment-ratio-bug.md",
+ "sha": "ce1f3c34a430a93640c3e388a1f000708d38ee76cf0c3612fe54bed1a1197e6d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

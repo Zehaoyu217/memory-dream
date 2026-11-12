@@ -1,0 +1,105 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-aml-round-amount",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "share of cash amounts divisible by 500 USD"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "aml-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "aml-xgb-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-403",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-403"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-aml-cash-txn",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-aml-cash-txn"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "aml-xgb-v2",
+   "type": "uses",
+   "label": "added in",
+   "o": "feat-aml-round-amount",
+   "quote": "Added in aml-xgb-v2 candidate exp-403",
+   "line": 6
+  },
+  {
+   "s": "feat-aml-round-amount",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-aml-cash-txn",
+   "quote": "Builds on ds-aml-cash-txn.",
+   "line": 7
+  },
+  {
+   "s": "exp-403",
+   "type": "measured-by",
+   "label": "adds AUC",
+   "o": "auc",
+   "quote": "adds about 0.01 AUC",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "aml-xgb-v2",
+  "exp-403"
+ ],
+ "built_on": [
+  {
+   "what": "ds-aml-cash-txn",
+   "quote": "Builds on ds-aml-cash-txn.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "aml-alerts/feat-aml-round-amount.md",
+ "sha": "a782b4ed0fa5021bdede5b3801a887f3297fd3b2a004d0d03bdfa251f81ef548",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

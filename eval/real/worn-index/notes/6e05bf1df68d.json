@@ -1,0 +1,85 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cb-redemption-rate",
+   "type": "feature",
+   "label": "redemption rate feature",
+   "as": [
+    "feat-cb-redemption-rate: share of accrued rewards redeemed within 90 days"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "redemption-rate-average",
+   "type": "metric",
+   "label": "average redemption",
+   "as": [
+    "Average 61%"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cb-sim-v1",
+   "type": "model",
+   "label": "cost simulator",
+   "as": [
+    "cb-sim-v1 cost lines"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cb.rewards_ledger",
+   "type": "dataset",
+   "label": "source dataset",
+   "as": [
+    "`cb.rewards_ledger`"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cb-redemption-rate",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cb.rewards_ledger",
+   "quote": "from `cb.rewards_ledger`",
+   "line": 5
+  },
+  {
+   "s": "feat-cb-redemption-rate",
+   "type": "uses",
+   "label": "used in",
+   "o": "cb-sim-v1",
+   "quote": "used in cb-sim-v1 cost lines",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-cb-rewards-ledger"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cb-rewards-ledger",
+   "quote": "Builds on ds-cb-rewards-ledger.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/feat-cb-redemption-rate.md",
+ "sha": "6e05bf1df68d80c7778e371ab2d7c93db6514d384ca39ecb422e513d415d917e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

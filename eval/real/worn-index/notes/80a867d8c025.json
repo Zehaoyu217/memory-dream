@@ -1,0 +1,142 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fraud26-find-label-bias",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Immature labels cut AUC by about 0.02"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "fraud26-oot-2025q4",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "fraud26-oot-2025q4"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-201",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-201"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "exp-202",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-202"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "dec-f26-maturity-60d",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-f26-maturity-60d"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "q-f26-label-lag",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "q-f26-label-lag"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud26-find-label-bias",
+   "type": "measured-by",
+   "label": "understates",
+   "o": "auc",
+   "quote": "understates AUC: 0.889 on partial labels vs 0.912 on matured labels",
+   "line": 5
+  },
+  {
+   "s": "fraud26-find-label-bias",
+   "type": "evaluated-on",
+   "label": "effect on",
+   "o": "fraud26-oot-2025q4",
+   "quote": "Effect is on fraud26-oot-2025q4",
+   "line": 6
+  },
+  {
+   "s": "fraud26-find-label-bias",
+   "type": "other",
+   "label": "consequence",
+   "o": "dec-f26-maturity-60d",
+   "quote": "Consequence: train and evaluate only on labels at least 60 days old (dec-f26-maturity-60d)",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-201",
+  "exp-202",
+  "dec-f26-maturity-60d",
+  "q-f26-label-lag"
+ ],
+ "built_on": [
+  {
+   "what": "exp-201",
+   "quote": "Builds on exp-201, exp-202 and q-f26-label-lag.",
+   "line": 8
+  },
+  {
+   "what": "exp-202",
+   "quote": "Builds on exp-201, exp-202 and q-f26-label-lag.",
+   "line": 8
+  },
+  {
+   "what": "q-f26-label-lag",
+   "quote": "Builds on exp-201, exp-202 and q-f26-label-lag.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2026/fraud26-find-label-bias.md",
+ "sha": "80a867d8c0256564f2a9f6eba14286acf0ec80cb5912744312fb344aeb8fd4ed",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

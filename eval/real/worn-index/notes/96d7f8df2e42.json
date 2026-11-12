@@ -1,0 +1,67 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "fcr",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "first-contact resolution (FCR)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`callcenter.calls`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ivr-menu",
+   "type": "other",
+   "label": "menu",
+   "as": [
+    "IVR menu"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fcr",
+   "type": "uses",
+   "label": "baseline from",
+   "o": "callcenter.calls",
+   "quote": "Baseline first-contact resolution (FCR) from the 2024 Q4 extract in `callcenter.calls` is 71.4 percent.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-101",
+  "exp-102",
+  "exp-103",
+  "exp-104",
+  "exp-105",
+  "exp-106",
+  "dec-cr-lgbm",
+  "dec-cr-pilot"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/q-cr-intent-routing.md",
+ "sha": "96d7f8df2e42caa5edaffac8d549ba3f2b877d610a5ddddd09f0ba5c83ec05de",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

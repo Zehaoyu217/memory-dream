@@ -1,0 +1,104 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-clv-revenue-monthly",
+   "type": "dataset",
+   "label": "monthly revenue",
+   "as": [
+    "Monthly revenue per account from cards.txn_daily and cards.payments_daily: about $31 per account-month"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.payments_daily"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-clv-arpu-v2",
+   "type": "feature",
+   "label": "offer-netting feature",
+   "as": [
+    "feat-clv-arpu-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-clv-cohort-panel",
+   "type": "dataset",
+   "label": "cohort panel",
+   "as": [
+    "ds-clv-cohort-panel"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-clv-revenue-monthly",
+   "type": "uses",
+   "label": "from",
+   "o": "cards.txn_daily",
+   "quote": "from cards.txn_daily and cards.payments_daily",
+   "line": 4
+  },
+  {
+   "s": "ds-clv-revenue-monthly",
+   "type": "uses",
+   "label": "from",
+   "o": "cards.payments_daily",
+   "quote": "from cards.txn_daily and cards.payments_daily",
+   "line": 4
+  },
+  {
+   "s": "ds-clv-revenue-monthly",
+   "type": "other",
+   "label": "offer netting in",
+   "o": "feat-clv-arpu-v2",
+   "quote": "that is done in feat-clv-arpu-v2",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-clv-arpu-v2"
+ ],
+ "built_on": [
+  {
+   "what": "ds-clv-cohort-panel",
+   "quote": "Builds on ds-clv-cohort-panel.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "customer-lifetime-value/ds-clv-revenue-monthly.md",
+ "sha": "fa35e429f47f71b86a59c22dcf8f5e060bf6def80781c96eb5cfbf5b0cadf873",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

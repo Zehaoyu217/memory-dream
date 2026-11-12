@@ -1,0 +1,118 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-407",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-407"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "lbl-oot-2025h2",
+   "type": "segment",
+   "label": "holdout",
+   "as": [
+    "lbl-oot-2025h2"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "cards.churn_labels",
+   "type": "dataset",
+   "label": "churn labels table",
+   "as": [
+    "the churn labels table"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-lbl-churn-flag-closure",
+   "type": "feature",
+   "label": "churn feature",
+   "as": [
+    "feat-lbl-churn-flag-closure"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.768",
+    "AUC 0.751"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-407",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "lbl-oot-2025h2",
+   "quote": "Holdout lbl-oot-2025h2 (n=680,000 account-snapshots)",
+   "line": 5
+  },
+  {
+   "s": "exp-407",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "Rebuilt labels: AUC 0.768. Legacy labels: AUC 0.751.",
+   "line": 6
+  },
+  {
+   "s": "exp-407",
+   "type": "uses",
+   "label": "builds on",
+   "o": "cards.churn_labels",
+   "quote": "Builds on the churn labels table",
+   "line": 7
+  },
+  {
+   "s": "exp-407",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-lbl-churn-flag-closure",
+   "quote": "feat-lbl-churn-flag-closure",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "cards.churn_labels",
+   "quote": "Builds on the churn labels table",
+   "line": 7
+  },
+  {
+   "what": "feat-lbl-churn-flag-closure",
+   "quote": "feat-lbl-churn-flag-closure",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "label-pipeline-rebuild/exp-407.md",
+ "sha": "00654ab4a9ba642090a6b8aad57695df006814a85fd9f9a6e516332f1a47508c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,124 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "bureau-scores-monthly",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "bureau.scores_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "v8-fallback",
+   "type": "other",
+   "label": "fallback",
+   "as": [
+    "v8 fallback"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "v10b-score",
+   "type": "metric",
+   "label": "score",
+   "as": [
+    "v10b score"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "approval-rate",
+   "type": "metric",
+   "label": "approval rate",
+   "as": [
+    "approval rate"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-bsm-keep-v8-fallback",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-bsm-keep-v8-fallback"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "bsm-app-gbm-v8",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bsm-app-gbm-v8"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "isotonic-mapped-v10-model",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "isotonic-mapped v10 application model"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "v8-fallback",
+   "type": "uses",
+   "label": "fallback is",
+   "o": "v10b-score",
+   "quote": "Fallback is the v10b score for those accounts",
+   "line": 6
+  },
+  {
+   "s": "v10b-score",
+   "type": "measured-by",
+   "label": "pushes down",
+   "o": "approval-rate",
+   "quote": "pushes the approval rate down 1.2 points on the affected rows",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "dec-bsm-keep-v8-fallback",
+  "bsm-app-gbm-v8"
+ ],
+ "built_on": [
+  {
+   "what": "isotonic-mapped-v10-model",
+   "quote": "Builds on the isotonic-mapped v10 application model and bsm-app-gbm-v8.",
+   "line": 8
+  },
+  {
+   "what": "bsm-app-gbm-v8",
+   "quote": "Builds on the isotonic-mapped v10 application model and bsm-app-gbm-v8.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 2
+ },
+ "path": "bureau-score-migration/exp-307.md",
+ "sha": "057aea5fc9888958391b383905927e5714aa7fbcd00eb3d8999aa73c9361b81f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

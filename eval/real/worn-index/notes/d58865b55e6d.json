@@ -1,0 +1,83 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-pbs-no-hdbscan",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "drop HDBSCAN and keep the GMM line"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "pbs-hdbscan-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "HDBSCAN"
+   ],
+   "lines": [
+    4,
+    5,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "exp-404",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-404"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-pbs-no-hdbscan",
+   "type": "other",
+   "label": "drops",
+   "o": "pbs-hdbscan-v1",
+   "quote": "Decision: drop pbs-hdbscan-v1; the GMM line continues.",
+   "line": 7
+  },
+  {
+   "s": "dec-pbs-no-hdbscan",
+   "type": "uses",
+   "label": "based on",
+   "o": "exp-404",
+   "quote": "HDBSCAN labels 31% of accounts as noise and its clusters move between seeds (exp-404).",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-404",
+  "pbs-hdbscan-v1"
+ ],
+ "built_on": [
+  {
+   "what": "exp-404",
+   "quote": "Builds on the hdbscan noise experiment and the rejected hdbscan clustering model.",
+   "line": 8
+  },
+  {
+   "what": "pbs-hdbscan-v1",
+   "quote": "Builds on the hdbscan noise experiment and the rejected hdbscan clustering model.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "payment-behavior-segments/dec-pbs-no-hdbscan.md",
+ "sha": "d58865b55e6d8e83bc5a329f0cfdd805c21cfe18928725de6d2b707fcc948a2b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

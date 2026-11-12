@@ -1,0 +1,67 @@
+{
+ "kind": "term",
+ "entities": [
+  {
+   "id": "chargeback",
+   "type": "term",
+   "label": "dispute",
+   "as": [
+    "chargeback"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "cards.disputes",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.disputes"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "chargeback-volume",
+   "type": "metric",
+   "label": "volume",
+   "as": [
+    "chargeback volume"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "chargeback",
+   "type": "uses",
+   "label": "counted in",
+   "o": "cards.disputes",
+   "quote": "It is counted when the case is opened in cards.disputes",
+   "line": 5
+  },
+  {
+   "s": "chargeback",
+   "type": "measured-by",
+   "label": "reported weekly",
+   "o": "chargeback-volume",
+   "quote": "chargeback volume is reported weekly",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "glossary/chargeback.md",
+ "sha": "95ef8a79a997260f4b53448dbd073fa52617aacd4175191e7a50f2f6a7462da2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

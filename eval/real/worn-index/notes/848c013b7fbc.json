@@ -1,0 +1,86 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-pbs-oot-2025h2",
+   "type": "dataset",
+   "label": "outcomes",
+   "as": [
+    "Out-of-time outcomes"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.churn_labels",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.churn_labels"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "collections.cases",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "collections.cases"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-pbs-frame-h1-2025",
+   "type": "dataset",
+   "label": "frame",
+   "as": [
+    "the same account frame"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-pbs-oot-2025h2",
+   "type": "uses",
+   "label": "takes outcomes from",
+   "o": "cards.churn_labels",
+   "quote": "12-month attrition from `cards.churn_labels`",
+   "line": 5
+  },
+  {
+   "s": "ds-pbs-oot-2025h2",
+   "type": "uses",
+   "label": "takes outcomes from",
+   "o": "collections.cases",
+   "quote": "90+ days past due from `collections.cases`",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-406",
+  "exp-407"
+ ],
+ "built_on": [
+  {
+   "what": "ds-pbs-frame-h1-2025",
+   "quote": "Builds on ds-pbs-frame-h1-2025.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "payment-behavior-segments/ds-pbs-oot-2025h2.md",
+ "sha": "848c013b7fbc8628ba0adaa5e712d746d1940890acfeaf676538b9f02bbc998d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

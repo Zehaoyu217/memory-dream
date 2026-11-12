@@ -1,0 +1,90 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-mrisk-acq-watchlist",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "Acquirer watchlist 2026: 1,140 merchants flagged by acquiring ops, Jan-Jun 2026"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "acquiring-ops",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "flagged by acquiring ops"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "ds-mrisk-merchants",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "Builds on ds-mrisk-merchants."
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-508",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-508 as a recall reference"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-mrisk-acq-watchlist",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-mrisk-merchants",
+   "quote": "Builds on ds-mrisk-merchants.",
+   "line": 8
+  },
+  {
+   "s": "exp-508",
+   "type": "uses",
+   "label": "recall reference",
+   "o": "ds-mrisk-acq-watchlist",
+   "quote": "used only in exp-506 and exp-508 as a recall reference",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-mrisk-merchants",
+  "exp-506",
+  "exp-508"
+ ],
+ "built_on": [
+  {
+   "what": "ds-mrisk-merchants",
+   "quote": "Builds on ds-mrisk-merchants.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [
+   "exp-506"
+  ],
+  "relations": 1
+ },
+ "path": "merchant-risk/ds-mrisk-acq-watchlist.md",
+ "sha": "d01871dcd705696009d0f5a0d9cd14a880d72b1d9cb2d20a66443f5339bd44c2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

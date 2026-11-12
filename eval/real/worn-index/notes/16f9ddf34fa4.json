@@ -1,0 +1,88 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "feat-f26-geo-mismatch",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-f26-geo-mismatch"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "PSI 0.14"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-f26-amt-zscore",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "amount z-score"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fraud26-gbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "v3"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud26-gbm-v3",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-f26-geo-mismatch",
+   "quote": "Builds on the geo-mismatch and amount z-score experiment and the geo-mismatch feature.",
+   "line": 8
+  },
+  {
+   "s": "feat-f26-geo-mismatch",
+   "type": "measured-by",
+   "label": "drift",
+   "o": "psi",
+   "quote": "PSI of feat-f26-geo-mismatch, August 2026 against the Jan-Mar 2026 baseline, is 0.14",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "exp-207",
+   "quote": "Builds on the geo-mismatch and amount z-score experiment and the geo-mismatch feature.",
+   "line": 8
+  },
+  {
+   "what": "feat-f26-geo-mismatch",
+   "quote": "Builds on the geo-mismatch and amount z-score experiment and the geo-mismatch feature.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2026/fraud26-find-geo-drift.md",
+ "sha": "16f9ddf34fa4e150a84625b48ad60901653573c5d5371537e86c322b6ff09f8a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

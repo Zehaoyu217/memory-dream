@@ -1,0 +1,137 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "90d-30plus-dpd-roll",
+   "type": "metric",
+   "label": "90-day roll",
+   "as": [
+    "90-day 30+ DPD roll"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "band-c",
+   "type": "other",
+   "label": "risk band",
+   "as": [
+    "bands C and D"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "band-d",
+   "type": "other",
+   "label": "risk band",
+   "as": [
+    "band D"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "decreased-accounts",
+   "type": "segment",
+   "label": "decreased accounts",
+   "as": [
+    "decreased accounts"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-cld-control-2025h2",
+   "type": "dataset",
+   "label": "control",
+   "as": [
+    "control"
+   ],
+   "lines": [
+    4,
+    5,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "dec-cld-band-policy-2025",
+   "type": "policy",
+   "label": "decision",
+   "as": [
+    "dec-cld-band-policy-2025"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cld-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cld-gbm-v2"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "decreased-accounts",
+   "type": "measured-by",
+   "label": "roll",
+   "o": "90d-30plus-dpd-roll",
+   "quote": "Roll 6.8% in decreased accounts against 8.3% in control, an 18% relative reduction.",
+   "line": 6
+  },
+  {
+   "s": "decreased-accounts",
+   "type": "other",
+   "label": "compared with",
+   "o": "ds-cld-control-2025h2",
+   "quote": "Compared roll of decreased bands C and D with cld-control-2025h2 (n=41,380) over 90 days.",
+   "line": 5
+  },
+  {
+   "s": "band-d",
+   "type": "measured-by",
+   "label": "roll gain largest",
+   "o": "90d-30plus-dpd-roll",
+   "quote": "Roll gain is largest in band D",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "cld-gbm-v2",
+  "ds-cld-control-2025h2",
+  "dec-cld-band-policy-2025"
+ ],
+ "built_on": [
+  {
+   "what": "cld-gbm-v2",
+   "quote": "Builds on cld-gbm-v2 and ds-cld-control-2025h2.",
+   "line": 8
+  },
+  {
+   "what": "ds-cld-control-2025h2",
+   "quote": "Builds on cld-gbm-v2 and ds-cld-control-2025h2.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "limit-decrease-policy/find-cld-roll-rates.md",
+ "sha": "77fb105868226041a101fac44f75815c72b253dbc36fc4effe25f5808c7706d2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,87 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-clv-cohort-panel",
+   "type": "dataset",
+   "label": "cohort panel",
+   "as": [
+    "Cohort panel: 2.4M accounts by origination quarter, 2019 to 2024, from cards.accounts_monthly"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-clv-tenure",
+   "type": "feature",
+   "label": "tenure feature",
+   "as": [
+    "the tenure feature"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-clv-hazard",
+   "type": "feature",
+   "label": "retention hazard",
+   "as": [
+    "the retention hazard"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "clv-bgnbd-v1",
+   "type": "model",
+   "label": "clv model",
+   "as": [
+    "every CLV model"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-clv-cohort-panel",
+   "type": "uses",
+   "label": "from",
+   "o": "cards.accounts_monthly",
+   "quote": "from cards.accounts_monthly",
+   "line": 4
+  },
+  {
+   "s": "feat-clv-tenure",
+   "type": "uses",
+   "label": "base table",
+   "o": "ds-clv-cohort-panel",
+   "quote": "Base table for the tenure feature",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 2
+ },
+ "path": "customer-lifetime-value/ds-clv-cohort-panel.md",
+ "sha": "f59a3234531f4d3747ce78773cf947ffd98c6ef7c9d61e6edd6c464415e11e38",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,138 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "bsm-app-gbm-v10b",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "v10b"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "bsm-app-gbm-v8",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "v8",
+    "bsm-app-gbm-v8"
+   ],
+   "lines": [
+    4,
+    8
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.37 against 0.36",
+    "KS 0.37"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.80 against 0.78",
+    "AUC 0.80"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bureau-score-migration-oot-2026h1",
+   "type": "dataset",
+   "label": "oot set",
+   "as": [
+    "bureau-score-migration-oot-2026h1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-306",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-306"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "dec-bsm-cutover-2026q3",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-bsm-cutover-2026q3"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-306",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "bureau-score-migration-oot-2026h1",
+   "quote": "44,800 applicants Jan-Apr 2026",
+   "line": 5
+  },
+  {
+   "s": "bsm-app-gbm-v10b",
+   "type": "measured-by",
+   "label": "scored",
+   "o": "ks",
+   "quote": "KS 0.37 against 0.36",
+   "line": 5
+  },
+  {
+   "s": "bsm-app-gbm-v10b",
+   "type": "measured-by",
+   "label": "scored",
+   "o": "auc",
+   "quote": "AUC 0.80 against 0.78",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-306",
+  "dec-bsm-cutover-2026q3",
+  "bsm-app-gbm-v8"
+ ],
+ "built_on": [
+  {
+   "what": "bsm-app-gbm-v8",
+   "quote": "Builds on bsm-app-gbm-v8 and exp-306.",
+   "line": 8
+  },
+  {
+   "what": "exp-306",
+   "quote": "Builds on bsm-app-gbm-v8 and exp-306.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "bureau-score-migration/find-bsm-ks-parity.md",
+ "sha": "1a240b71700055d46347260f5e00f0053bc97993a53cde44c94f97146f3aa032",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

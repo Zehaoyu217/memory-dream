@@ -1,0 +1,94 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-lbl-churn-flag-60d",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-lbl-churn-flag-60d"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.churn_labels",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "cards.churn_labels"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-lbl-churn-flag-90d",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-lbl-churn-flag-90d"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "legacy-churn-job",
+   "type": "pipeline",
+   "label": "legacy job",
+   "as": [
+    "the legacy job"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "legacy-churn-job",
+   "type": "produces",
+   "label": "writes",
+   "o": "feat-lbl-churn-flag-60d",
+   "quote": "Flag written to cards.churn_labels by the legacy job.",
+   "line": 5
+  },
+  {
+   "s": "feat-lbl-churn-flag-60d",
+   "type": "part-of",
+   "label": "written to",
+   "o": "cards.churn_labels",
+   "quote": "Flag written to cards.churn_labels",
+   "line": 5
+  },
+  {
+   "s": "feat-lbl-churn-flag-90d",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "feat-lbl-churn-flag-60d",
+   "quote": "Superseded by feat-lbl-churn-flag-90d (2025-09-10).",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-lbl-churn-labels",
+  "feat-lbl-churn-flag-90d"
+ ],
+ "built_on": [
+  {
+   "what": "ds-lbl-churn-labels",
+   "quote": "Builds on ds-lbl-churn-labels.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "label-pipeline-rebuild/feat-lbl-churn-flag-60d.md",
+ "sha": "e8d17a9e0683d773af59ad13a9570aca0008aa32ccf8d86e6e84e8daaab80a61",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

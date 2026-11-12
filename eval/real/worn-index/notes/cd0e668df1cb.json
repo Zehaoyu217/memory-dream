@@ -1,0 +1,107 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "post-period-leak",
+   "type": "term",
+   "label": "leak",
+   "as": [
+    "Post-period aggregation"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "txn table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-velocity-v2",
+   "type": "feature",
+   "label": "velocity features",
+   "as": [
+    "The velocity features"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.81→0.74"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-velocity-v2",
+   "type": "uses",
+   "label": "built on",
+   "o": "cards.txn_daily",
+   "quote": "The velocity features built on `cards.txn_daily`",
+   "line": 5
+  },
+  {
+   "s": "post-period-leak",
+   "type": "other",
+   "label": "comes from",
+   "o": "feat-velocity-v2",
+   "quote": "The velocity features built on `cards.txn_daily` aggregate past the observation date",
+   "line": 5
+  },
+  {
+   "s": "post-period-leak",
+   "type": "other",
+   "label": "measured on",
+   "o": "holdout-2025q4",
+   "quote": "holdout-2025q4, n=1.2M, 2026-10-29",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "exp-014",
+   "quote": "Builds on exp-014 and the post-period removal leak check.",
+   "line": 9
+  },
+  {
+   "what": "exp-017-leak-check",
+   "quote": "Builds on exp-014 and the post-period removal leak check.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2026/post-period-leak.md",
+ "sha": "cd0e668df1cb3348e6cc8e7cf6f261ede6c7f8769e7a9d5e4c65fa5735e0a2c7",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

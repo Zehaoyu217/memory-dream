@@ -1,0 +1,65 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-csb-biz-accounts",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "SMB card accounts"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "smb-segment",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "segment SMB"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-csb-biz-accounts",
+   "type": "uses",
+   "label": "reads",
+   "o": "cards.accounts_monthly",
+   "quote": "Business-card accounts from `cards.accounts_monthly`",
+   "line": 5
+  },
+  {
+   "s": "ds-csb-biz-accounts",
+   "type": "part-of",
+   "label": "filtered to",
+   "o": "smb-segment",
+   "quote": "filtered to segment SMB",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-small-business/ds-csb-biz-accounts.md",
+ "sha": "d500a87d33d6dbac29ee972fda7278874f0d76073b2d86b9fe24b240cdfdc606",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,140 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-102",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-102: T-learner uplift beats propensity at 20% targeting, 1.9 versus 1.3 on cli-rct-2025q3"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "t-learner",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "T-learner"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  },
+  {
+   "id": "cli-xgb-v1",
+   "type": "model",
+   "label": "propensity baseline",
+   "as": [
+    "Propensity baseline is cli-xgb-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cli-rct-2025q3",
+   "type": "dataset",
+   "label": "exposure set",
+   "as": [
+    "cli-rct-2025q3 (n=36,000, 50/50 split)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Uplift@20%: 1.9 for the T-learner, 1.3 for propensity"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "find-cli-uplift-wins",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Led to find-cli-uplift-wins."
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-cli-outcome-90d",
+   "type": "dataset",
+   "label": "outcome dataset",
+   "as": [
+    "the 90-day cli outcome dataset"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-102",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "cli-rct-2025q3",
+   "quote": "scored on the randomised exposure set cli-rct-2025q3",
+   "line": 5
+  },
+  {
+   "s": "exp-102",
+   "type": "measured-by",
+   "label": "measures",
+   "o": "uplift-at-20",
+   "quote": "Uplift@20%: 1.9 for the T-learner, 1.3 for propensity.",
+   "line": 7
+  },
+  {
+   "s": "exp-102",
+   "type": "uses",
+   "label": "built on",
+   "o": "cli-xgb-v1",
+   "quote": "Builds on cli-xgb-v1",
+   "line": 8
+  },
+  {
+   "s": "exp-102",
+   "type": "produces",
+   "label": "led to",
+   "o": "find-cli-uplift-wins",
+   "quote": "Led to find-cli-uplift-wins.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "find-cli-uplift-wins"
+ ],
+ "built_on": [
+  {
+   "what": "cli-xgb-v1",
+   "quote": "Builds on cli-xgb-v1 and the 90-day cli outcome dataset.",
+   "line": 8
+  },
+  {
+   "what": "ds-cli-outcome-90d",
+   "quote": "the 90-day cli outcome dataset",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/exp-102.md",
+ "sha": "6e6da4ed8db14242da5a2b5b58e5e4afa9ec7b1cf4577f246aff98c4446555c0",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

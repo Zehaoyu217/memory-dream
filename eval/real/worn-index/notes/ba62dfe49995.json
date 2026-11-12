@@ -1,0 +1,156 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-305",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-305"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "sfc-hier-v3",
+   "type": "model",
+   "label": "volume source",
+   "as": [
+    "sfc-hier-v3"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "sfc-ets-v1",
+   "type": "model",
+   "label": "baseline",
+   "as": [
+    "sfc-ets-v1"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "interchange-backtest-2025-h2",
+   "type": "dataset",
+   "label": "actuals",
+   "as": [
+    "2025-H2 actuals"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "rev26-interchange-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rev26-interchange-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-rev26-spend-volume",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-rev26-spend-volume"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "dec-sfc-ship-hier-v3",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-sfc-ship-hier-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "interchange-error",
+   "type": "metric",
+   "label": "error",
+   "as": [
+    "0.6% with sfc-hier-v3",
+    "1.5% with sfc-ets-v1"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-305",
+   "type": "evaluated-on",
+   "label": "backtest on",
+   "o": "interchange-backtest-2025-h2",
+   "quote": "Interchange backtest on 2025-H2 actuals",
+   "line": 5
+  },
+  {
+   "s": "exp-305",
+   "type": "uses",
+   "label": "uses volume source",
+   "o": "sfc-hier-v3",
+   "quote": "using two volume sources: spend-forecasting/sfc-hier-v3",
+   "line": 5
+  },
+  {
+   "s": "exp-305",
+   "type": "uses",
+   "label": "uses baseline",
+   "o": "sfc-ets-v1",
+   "quote": "and the baseline sfc-ets-v1",
+   "line": 5
+  },
+  {
+   "s": "exp-305",
+   "type": "measured-by",
+   "label": "error",
+   "o": "interchange-error",
+   "quote": "Error 0.6% with sfc-hier-v3, 1.5% with sfc-ets-v1",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-rev26-spend-volume",
+  "rev26-interchange-v1",
+  "dec-sfc-ship-hier-v3"
+ ],
+ "built_on": [
+  {
+   "what": "ds-rev26-spend-volume",
+   "quote": "Builds on ds-rev26-spend-volume and rev26-interchange-v1",
+   "line": 8
+  },
+  {
+   "what": "rev26-interchange-v1",
+   "quote": "Builds on ds-rev26-spend-volume and rev26-interchange-v1",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "revenue-forecast-2026/exp-305.md",
+ "sha": "ba62dfe499952c8656b481ada4af9f47d0a78a0ffe8fdd1ddba965a5311296c9",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

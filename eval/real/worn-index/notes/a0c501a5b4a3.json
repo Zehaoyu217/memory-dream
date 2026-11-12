@@ -1,0 +1,83 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cr-transcript-tfidf-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "TF-IDF of the first 30 seconds of ASR transcript, reduced to 200 SVD dimensions"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "builder",
+   "as": [
+    "Sam Lee"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ml-engineering",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "ML engineering"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "the inbound calls table"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cr-transcript-tfidf-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "callcenter.calls",
+   "quote": "Builds on the inbound calls table.",
+   "line": 8
+  },
+  {
+   "s": "sam-lee",
+   "type": "owned-by",
+   "label": "built by",
+   "o": "feat-cr-transcript-tfidf-v1",
+   "quote": "Built by Sam Lee (ML engineering) as feat_tfidf30 in the routing repo.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "callcenter.calls",
+   "quote": "Builds on the inbound calls table.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/feat-cr-transcript-tfidf-v1.md",
+ "sha": "a0c501a5b4a3e1a251759db96560a33d0b3e05e5d5c85fb87ddd2c652ba475b7",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

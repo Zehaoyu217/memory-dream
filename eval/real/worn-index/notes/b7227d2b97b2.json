@@ -1,0 +1,197 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-506",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "Gradient boosted attrition model on the score-v2 inputs"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ae-attr-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ae-attr-gbm-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ae-score-v2",
+   "type": "metric",
+   "label": "linear score",
+   "as": [
+    "linear score"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-ae-active-days-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "ae_act28"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-ae-depth-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "depth v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "tenure",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "tenure"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-ae-attrition-labels",
+   "type": "dataset",
+   "label": "attrition label",
+   "as": [
+    "90-day attrition label"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-ae-holdout",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.81"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-506",
+   "type": "uses",
+   "label": "set-up inputs",
+   "o": "feat-ae-active-days-v1",
+   "quote": "gradient boosted trees on ae_act28, depth v2 and tenure",
+   "line": 5
+  },
+  {
+   "s": "exp-506",
+   "type": "uses",
+   "label": "set-up inputs",
+   "o": "feat-ae-depth-v2",
+   "quote": "gradient boosted trees on ae_act28, depth v2 and tenure",
+   "line": 5
+  },
+  {
+   "s": "exp-506",
+   "type": "uses",
+   "label": "set-up inputs",
+   "o": "tenure",
+   "quote": "gradient boosted trees on ae_act28, depth v2 and tenure",
+   "line": 5
+  },
+  {
+   "s": "exp-506",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-ae-attrition-labels",
+   "quote": "Builds on ae-score-v2 and ds-ae-attrition-labels.",
+   "line": 8
+  },
+  {
+   "s": "exp-506",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "ds-ae-holdout",
+   "quote": "scored on holdout-2025q4 (n = 610,000)",
+   "line": 5
+  },
+  {
+   "s": "exp-506",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "auc",
+   "quote": "AUC 0.81 on holdout-2025q4",
+   "line": 4
+  },
+  {
+   "s": "exp-506",
+   "type": "other",
+   "label": "basis for",
+   "o": "ae-attr-gbm-v1",
+   "quote": "Basis for ae-attr-gbm-v1.",
+   "line": 7
+  },
+  {
+   "s": "exp-506",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ae-score-v2",
+   "quote": "Builds on ae-score-v2 and ds-ae-attrition-labels.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ae-attr-gbm-v1",
+  "ae-score-v2",
+  "ds-ae-attrition-labels"
+ ],
+ "built_on": [
+  {
+   "what": "ae-score-v2",
+   "quote": "Builds on ae-score-v2 and ds-ae-attrition-labels.",
+   "line": 8
+  },
+  {
+   "what": "ds-ae-attrition-labels",
+   "quote": "Builds on ae-score-v2 and ds-ae-attrition-labels.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "app-engagement/exp-506.md",
+ "sha": "b7227d2b97b20b6bcd4a3f00fa61043b18a0b27b75cda30f9f0dce13e3dc620b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

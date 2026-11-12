@@ -1,0 +1,109 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cb-uplift-v1",
+   "type": "model",
+   "label": "t-learner",
+   "as": [
+    "cb-uplift-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift",
+   "as": [
+    "Uplift@20% is 1.9x"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cb-pilot-2025q4",
+   "type": "dataset",
+   "label": "pilot",
+   "as": [
+    "ds-cb-pilot-2025q4"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-cb-spend-base",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cb-spend-base"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cb-sim-v1",
+   "type": "model",
+   "label": "simulator",
+   "as": [
+    "cb-sim-v1"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cb-uplift-v1",
+   "type": "uses",
+   "label": "scored on",
+   "o": "cb-pilot-2025q4",
+   "quote": "Two outcome models (tier A cell vs control) on spend level, grocery share and tenure.",
+   "line": 5
+  },
+  {
+   "s": "cb-uplift-v1",
+   "type": "measured-by",
+   "label": "uplift",
+   "o": "uplift-at-20",
+   "quote": "Uplift@20% is 1.9x the average incremental spend",
+   "line": 6
+  },
+  {
+   "s": "cb-uplift-v1",
+   "type": "uses",
+   "label": "used to rank for",
+   "o": "cb-sim-v1",
+   "quote": "Used to rank accounts for tier offers in cb-sim-v1.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "cb-sim-v1"
+ ],
+ "built_on": [
+  {
+   "what": "cb-pilot-2025q4",
+   "quote": "Builds on ds-cb-pilot-2025q4 and feat-cb-spend-base.",
+   "line": 7
+  },
+  {
+   "what": "feat-cb-spend-base",
+   "quote": "Builds on ds-cb-pilot-2025q4 and feat-cb-spend-base.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/cb-uplift-v1.md",
+ "sha": "2bb4357ee6c849e837821c54e18d533c675ce2d4ae2bbfabfef6ba0e1dceca14",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

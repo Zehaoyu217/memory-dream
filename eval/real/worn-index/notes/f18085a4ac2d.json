@@ -1,0 +1,97 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "fcr",
+   "type": "metric",
+   "label": "resolution measure",
+   "as": [
+    "FCR"
+   ],
+   "lines": [
+    4,
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "repeat-contact",
+   "type": "term",
+   "label": "condition",
+   "as": [
+    "repeat contact"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "transfer",
+   "type": "term",
+   "label": "outcome",
+   "as": [
+    "A transfer"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sept-2024-fcr",
+   "type": "metric",
+   "label": "restated rate",
+   "as": [
+    "Sept 2024 FCR restated from 71% to 64%"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fcr",
+   "type": "uses",
+   "label": "no repeat contact",
+   "o": "repeat-contact",
+   "quote": "FCR is a call with no repeat contact on the same reason within 7 days",
+   "line": 5
+  },
+  {
+   "s": "fcr",
+   "type": "other",
+   "label": "transfer not resolved",
+   "o": "transfer",
+   "quote": "A transfer counts as not resolved.",
+   "line": 5
+  },
+  {
+   "s": "sept-2024-fcr",
+   "type": "other",
+   "label": "restated from",
+   "o": "fcr",
+   "quote": "Sept 2024 FCR restated from 71% to 64%",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "glossary/fcr"
+ ],
+ "replaces": [
+  {
+   "what": "glossary/fcr",
+   "quote": "Replaces glossary/fcr.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "corrections/fcr-seven-day.md",
+ "sha": "f18085a4ac2dcdd954e541d879bf930d322a02c1b5eb82d743d2a7136ddcf63c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

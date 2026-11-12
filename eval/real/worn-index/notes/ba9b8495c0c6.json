@@ -1,0 +1,112 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "feat-velocity-v3",
+   "type": "feature",
+   "label": "velocity features",
+   "as": [
+    "feat-velocity-v3"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-velocity-v2",
+   "type": "feature",
+   "label": "velocity v2",
+   "as": [
+    "retire v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "churn-xgb-v3",
+   "type": "model",
+   "label": "xgboost model",
+   "as": [
+    "churn-xgb-v3"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "churn-xgb-v2",
+   "type": "model",
+   "label": "xgboost model",
+   "as": [
+    "churn-xgb-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Sam Lee"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-velocity-v3",
+   "type": "replaces",
+   "label": "retires",
+   "o": "feat-velocity-v2",
+   "quote": "retire v2",
+   "line": 4
+  },
+  {
+   "s": "churn-xgb-v3",
+   "type": "uses",
+   "label": "retrained on",
+   "o": "feat-velocity-v3",
+   "quote": "churn-xgb-v2 is retrained on it as churn-xgb-v3",
+   "line": 6
+  },
+  {
+   "s": "feat-velocity-v3",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "sam-lee",
+   "quote": "Owner: Sam Lee.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "churn-xgb-v2",
+  "churn-xgb-v3"
+ ],
+ "built_on": [
+  {
+   "what": "post-period-leak",
+   "quote": "Builds on post-period-leak.",
+   "line": 7
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-velocity-v2",
+   "quote": "retire v2",
+   "line": 4
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2026/dec-velocity-v3.md",
+ "sha": "ba9b8495c0c62beb474ca13ed0721814064d8fd197f98b2d080c0c991310ddfe",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

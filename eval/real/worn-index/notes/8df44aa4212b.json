@@ -1,0 +1,100 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "q-pbs-segment-count",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "How many payment-behaviour segments are there"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "pbs-kmeans-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "pbs-kmeans-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fnd-pbs-five-segments",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-pbs-five-segments"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-401",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-401"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-pbs-frame-h1-2025",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-pbs-frame-h1-2025"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "q-pbs-segment-count",
+   "type": "other",
+   "label": "answer from",
+   "o": "pbs-kmeans-v1",
+   "quote": "Working answer by Aug 2025: six, from the kmeans run (pbs-kmeans-v1).",
+   "line": 6
+  },
+  {
+   "s": "q-pbs-segment-count",
+   "type": "other",
+   "label": "answer revised to",
+   "o": "fnd-pbs-five-segments",
+   "quote": "That answer was revised in Jan 2026 to five (fnd-pbs-five-segments).",
+   "line": 6
+  },
+  {
+   "s": "exp-401",
+   "type": "evaluated-on",
+   "label": "sweep done on",
+   "o": "ds-pbs-frame-h1-2025",
+   "quote": "Sweep done on the 200k-account sample of ds-pbs-frame-h1-2025",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "pbs-kmeans-v1",
+  "fnd-pbs-five-segments",
+  "exp-401",
+  "ds-pbs-frame-h1-2025"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "payment-behavior-segments/q-pbs-segment-count.md",
+ "sha": "8df44aa4212b432a6563087b6661478f93a7fcf0b09befa225af1d51291ae0ae",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

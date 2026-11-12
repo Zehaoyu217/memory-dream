@@ -1,0 +1,94 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cld-complaint-flag",
+   "type": "feature",
+   "label": "call-level flag",
+   "as": [
+    "feat-cld-complaint-flag"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "callcenter.calls"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cld-complaint-logit",
+   "type": "model",
+   "label": "logistic model",
+   "as": [
+    "cld-complaint-logit"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-203",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-203"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cld-complaint-flag",
+   "type": "part-of",
+   "label": "in",
+   "o": "callcenter.calls",
+   "quote": "call-level flag for limit-related complaints in callcenter.calls",
+   "line": 4
+  },
+  {
+   "s": "cld-complaint-logit",
+   "type": "uses",
+   "label": "used as label",
+   "o": "feat-cld-complaint-flag",
+   "quote": "Used as the label in cld-complaint-logit",
+   "line": 7
+  },
+  {
+   "s": "exp-203",
+   "type": "uses",
+   "label": "control comparison",
+   "o": "feat-cld-complaint-flag",
+   "quote": "the control comparison in exp-203",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "cld-complaint-logit",
+  "exp-203"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cld-complaint-calls",
+   "quote": "Builds on ds-cld-complaint-calls.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "limit-decrease-policy/feat-cld-complaint-flag.md",
+ "sha": "6a95c80c9dcd19532cbfbb1f74a108cbc75f31c7af592c14742c602213467604",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

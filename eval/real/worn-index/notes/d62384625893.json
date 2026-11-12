@@ -1,0 +1,94 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-205",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-205"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "mm-limit-glm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "mm-limit-glm-v1"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "ds-mm-reference-train",
+   "type": "dataset",
+   "label": "reference",
+   "as": [
+    "ds-mm-reference-train"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "dec-mm-seasonal-reference",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-mm-seasonal-reference"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-205",
+   "type": "other",
+   "label": "replayed",
+   "o": "mm-limit-glm-v1",
+   "quote": "Replayed June to August 2025 PSI for mm-limit-glm-v1",
+   "line": 5
+  },
+  {
+   "s": "exp-205",
+   "type": "other",
+   "label": "feeds",
+   "o": "dec-mm-seasonal-reference",
+   "quote": "Feeds dec-mm-seasonal-reference.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-mm-reference-train",
+  "mm-limit-glm-v1",
+  "dec-mm-seasonal-reference"
+ ],
+ "built_on": [
+  {
+   "what": "ds-mm-reference-train",
+   "quote": "Builds on ds-mm-reference-train and mm-limit-glm-v1.",
+   "line": 8
+  },
+  {
+   "what": "mm-limit-glm-v1",
+   "quote": "Builds on ds-mm-reference-train and mm-limit-glm-v1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "model-monitoring/exp-205.md",
+ "sha": "d6238462589385bdfc11958b3280a44a2f9949d13137e591348d3db20c1b25df",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,99 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-sfc-macro-series",
+   "type": "dataset",
+   "label": "macro dataset",
+   "as": [
+    "Monthly CPI (year on year) and consumer confidence"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cpi-yoy",
+   "type": "feature",
+   "label": "series",
+   "as": [
+    "Monthly CPI (year on year)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "consumer-confidence",
+   "type": "feature",
+   "label": "series",
+   "as": [
+    "consumer confidence"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "feat-sfc-cpi-lag6",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-sfc-cpi-lag6"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "sfc-ets-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "sfc-ets-v1"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cpi-yoy",
+   "type": "part-of",
+   "label": "part of",
+   "o": "ds-sfc-macro-series",
+   "quote": "Monthly CPI (year on year) and consumer confidence from public releases",
+   "line": 5
+  },
+  {
+   "s": "consumer-confidence",
+   "type": "part-of",
+   "label": "part of",
+   "o": "ds-sfc-macro-series",
+   "quote": "Monthly CPI (year on year) and consumer confidence from public releases",
+   "line": 5
+  },
+  {
+   "s": "feat-sfc-cpi-lag6",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "ds-sfc-macro-series",
+   "quote": "Source for feat-sfc-cpi-lag6.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-sfc-cpi-lag6",
+  "sfc-ets-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "spend-forecasting/ds-sfc-macro-series.md",
+ "sha": "df3fdd7a9886cac58fcf415e9502cc7406b32edd8ba7f4a07e0dff419ae04362",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,93 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-xs-credit-limit-band",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-xs-credit-limit-band"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards-accounts-monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "xs-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "xs-gbm-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "xs-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "xs-gbm-v2"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-xs-credit-limit-band",
+   "type": "uses",
+   "label": "bands from",
+   "o": "cards-accounts-monthly",
+   "quote": "Bands from the current limit in `cards.accounts_monthly`",
+   "line": 5
+  },
+  {
+   "s": "feat-xs-credit-limit-band",
+   "type": "uses",
+   "label": "used in",
+   "o": "xs-gbm-v1",
+   "quote": "Used in xs-gbm-v1.",
+   "line": 6
+  },
+  {
+   "s": "xs-gbm-v2",
+   "type": "uses",
+   "label": "dropped",
+   "o": "feat-xs-credit-limit-band",
+   "quote": "dropped from xs-gbm-v2",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-404-limit-band"
+ ],
+ "built_on": [
+  {
+   "what": "ds-xs-offer-log",
+   "quote": "Builds on ds-xs-offer-log.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cross-sell-savings/feat-xs-credit-limit-band.md",
+ "sha": "506a5df1cdafe243701b2f2e8d6bde8fb0f893a853593acd5e3ee1a66c2cc8f0",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,97 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-304",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-304: v10 coverage gap leaves 41% of thin-file applicants without a v10 score"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-bsm-thin-file-flag",
+   "type": "feature",
+   "label": "flag",
+   "as": [
+    "feat-bsm-thin-file-flag"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "ds-bsm-v10-cohorts-2026",
+   "type": "dataset",
+   "label": "cohort",
+   "as": [
+    "ds-bsm-v10-cohorts-2026"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bsm-app-gbm-v10a",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bsm-app-gbm-v10a"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-304",
+   "type": "uses",
+   "label": "applies",
+   "o": "feat-bsm-thin-file-flag",
+   "quote": "Thin-file flag from feat-bsm-thin-file-flag",
+   "line": 5
+  },
+  {
+   "s": "exp-304",
+   "type": "evaluated-on",
+   "label": "run on",
+   "o": "ds-bsm-v10-cohorts-2026",
+   "quote": "on ds-bsm-v10-cohorts-2026",
+   "line": 5
+  },
+  {
+   "s": "exp-304",
+   "type": "uses",
+   "label": "builds on",
+   "o": "bsm-app-gbm-v10a",
+   "quote": "Builds on bsm-app-gbm-v10a and feat-bsm-thin-file-flag.",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "bsm-app-gbm-v10a",
+   "quote": "Builds on bsm-app-gbm-v10a and feat-bsm-thin-file-flag.",
+   "line": 8
+  },
+  {
+   "what": "feat-bsm-thin-file-flag",
+   "quote": "Builds on bsm-app-gbm-v10a and feat-bsm-thin-file-flag.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "bureau-score-migration/exp-304.md",
+ "sha": "4f2e5b4941c1db7aa91ddef3e07e34305504622e3614764fa353a751bb1a07a5",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

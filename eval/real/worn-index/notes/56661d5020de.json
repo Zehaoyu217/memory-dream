@@ -1,0 +1,88 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-aml-kyc-band",
+   "type": "feature",
+   "label": "risk band",
+   "as": [
+    "feat-aml-kyc-band"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "compliance.aml_alerts",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "compliance.aml_alerts"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "aml-xgb-v2",
+   "type": "model",
+   "label": "ranker",
+   "as": [
+    "aml-xgb-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-aml-alerts",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-aml-alerts"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-aml-kyc-band",
+   "type": "uses",
+   "label": "taken from",
+   "o": "compliance.aml_alerts",
+   "quote": "Band taken from the KYC tier recorded on each alert in compliance.aml_alerts.",
+   "line": 5
+  },
+  {
+   "s": "aml-xgb-v2",
+   "type": "uses",
+   "label": "added",
+   "o": "feat-aml-kyc-band",
+   "quote": "Added to aml-xgb-v2 on 2026-03-30 after exp-404.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-aml-alerts",
+  "aml-find-kyc-lift",
+  "aml-xgb-v2",
+  "exp-404"
+ ],
+ "built_on": [
+  {
+   "what": "ds-aml-alerts",
+   "quote": "Builds on ds-aml-alerts.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "aml-alerts/feat-aml-kyc-band.md",
+ "sha": "56661d5020dee4769f51c3622a180ecabe507afe68373d72414738e2e8615d3e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

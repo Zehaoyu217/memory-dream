@@ -1,0 +1,139 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "nps-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "nps-gbm-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "shap",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "SHAP"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "rewards-value",
+   "type": "other",
+   "label": "survey theme",
+   "as": [
+    "rewards value"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "feat-nps-fee-shock-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "fee shock v2"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "feat-nps-txn-freq-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "transaction frequency change"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mean-abs-shap",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "mean |SHAP|"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "nps-gbm-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q4",
+   "quote": "nps-gbm-v2 on holdout-2025q4",
+   "line": 5
+  },
+  {
+   "s": "rewards-value",
+   "type": "measured-by",
+   "label": "ranked by",
+   "o": "mean-abs-shap",
+   "quote": "rewards value, mean |SHAP| 0.18",
+   "line": 6
+  },
+  {
+   "s": "feat-nps-fee-shock-v2",
+   "type": "measured-by",
+   "label": "ranked by",
+   "o": "mean-abs-shap",
+   "quote": "fee shock v2, 0.11",
+   "line": 6
+  },
+  {
+   "s": "feat-nps-txn-freq-v1",
+   "type": "measured-by",
+   "label": "ranked by",
+   "o": "mean-abs-shap",
+   "quote": "transaction frequency change, 0.09",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fnd-nps-themes"
+ ],
+ "built_on": [
+  {
+   "what": "nps-gbm-v2",
+   "quote": "Builds on the second gradient boosted driver model",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "nps-drivers/exp-407.md",
+ "sha": "6760a713ff3b888b10d1b15ff914d1d27b1fe61edd984ff1bf7c948ee905473f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

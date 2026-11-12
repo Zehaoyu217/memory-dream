@@ -1,0 +1,77 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "ridge",
+   "type": "model",
+   "label": "method",
+   "as": [
+    "ridge"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "theme-shares",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "twelve theme shares"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "spearman",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Spearman 0.31"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ridge",
+   "type": "uses",
+   "label": "trained on",
+   "o": "theme-shares",
+   "quote": "ridge on twelve theme shares",
+   "line": 5
+  },
+  {
+   "s": "ridge",
+   "type": "measured-by",
+   "label": "scored by",
+   "o": "spearman",
+   "quote": "Spearman 0.31",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "nps-ridge-v1"
+ ],
+ "built_on": [
+  {
+   "what": "feat-nps-theme-share-v1",
+   "quote": "Builds on the theme share feature.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "nps-drivers/exp-401.md",
+ "sha": "eb97f414266e57db279800ffe240d6b0450360229809099111460ff6f97f5cb3",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

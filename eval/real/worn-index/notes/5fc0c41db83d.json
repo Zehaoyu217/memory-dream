@@ -1,0 +1,144 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "mq3-channel-rct-v1",
+   "type": "metric",
+   "label": "channel metric",
+   "as": [
+    "mq3-channel-rct-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-mq3-q2-rct",
+   "type": "dataset",
+   "label": "q2 rct",
+   "as": [
+    "ds-mq3-q2-rct"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-304",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-304"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "mkt.channel_costs",
+   "type": "dataset",
+   "label": "channel cost table",
+   "as": [
+    "`mkt.channel_costs`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "in-app",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "In-app 14.2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "email",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "email 9.4"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "push",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "push 6.1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "direct-mail",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "direct mail 3.1"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mq3-channel-rct-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-mq3-q2-rct",
+   "quote": "Builds on ds-mq3-q2-rct and exp-304-channel-split.",
+   "line": 8
+  },
+  {
+   "s": "mq3-channel-rct-v1",
+   "type": "uses",
+   "label": "divided by cost from",
+   "o": "mkt.channel_costs",
+   "quote": "divided by channel cost from `mkt.channel_costs`",
+   "line": 5
+  },
+  {
+   "s": "mq3-channel-rct-v1",
+   "type": "measured-by",
+   "label": "in-app return",
+   "o": "in-app",
+   "quote": "In-app 14.2",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-mq3-q2-rct",
+  "exp-304-channel-split"
+ ],
+ "built_on": [
+  {
+   "what": "ds-mq3-q2-rct",
+   "quote": "Builds on ds-mq3-q2-rct and exp-304-channel-split.",
+   "line": 8
+  },
+  {
+   "what": "exp-304-channel-split",
+   "quote": "Builds on ds-mq3-q2-rct and exp-304-channel-split.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "marketing-uplift-q3/mq3-channel-rct-v1.md",
+ "sha": "5fc0c41db83d856e9897d576db15d4cbd0c0c4026168b574c53f4ff0c4ae1c1c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

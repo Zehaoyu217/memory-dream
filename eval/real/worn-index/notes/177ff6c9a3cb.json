@@ -1,0 +1,117 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cb-intent-v1",
+   "type": "model",
+   "label": "intent classifier",
+   "as": [
+    "Logistic intent classifier on message embeddings"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-cb-intent-eval",
+   "type": "dataset",
+   "label": "training data",
+   "as": [
+    "Trained on the 2,400 training messages."
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q3",
+   "type": "dataset",
+   "label": "evaluation set",
+   "as": [
+    "Macro F1 0.83 on holdout-2025q3."
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cb-intent-v2",
+   "type": "model",
+   "label": "successor model",
+   "as": [
+    "Superseded by cb-intent-v2 after exp-303 (March 2026)."
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-cb-intent-embed-v1",
+   "type": "feature",
+   "label": "message embedding",
+   "as": [
+    "Builds on ds-cb-intent-eval and the message embedding feature."
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cb-intent-v1",
+   "type": "trained-on",
+   "label": "trained on",
+   "o": "ds-cb-intent-eval",
+   "quote": "Trained on the 2,400 training messages.",
+   "line": 5
+  },
+  {
+   "s": "cb-intent-v1",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "holdout-2025q3",
+   "quote": "Macro F1 0.83 on holdout-2025q3.",
+   "line": 6
+  },
+  {
+   "s": "cb-intent-v1",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "cb-intent-v2",
+   "quote": "Superseded by cb-intent-v2 after exp-303 (March 2026).",
+   "line": 6
+  },
+  {
+   "s": "cb-intent-v1",
+   "type": "uses",
+   "label": "built on",
+   "o": "feat-cb-intent-embed-v1",
+   "quote": "Builds on ds-cb-intent-eval and the message embedding feature.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-303"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cb-intent-eval",
+   "quote": "Builds on ds-cb-intent-eval and the message embedding feature.",
+   "line": 7
+  },
+  {
+   "what": "feat-cb-intent-embed-v1",
+   "quote": "Builds on ds-cb-intent-eval and the message embedding feature.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "chatbot-deflection/cb-intent-v1.md",
+ "sha": "177ff6c9a3cbbe99d66edeb79606eefcc84e2efb1814391e20ac8d3be780ccdf",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

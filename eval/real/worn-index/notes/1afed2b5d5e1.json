@@ -1,0 +1,97 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "ben-carter",
+   "type": "person",
+   "label": "finance owner",
+   "as": [
+    "Ben Carter"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "clv-model-choice",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "the decision"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "clv-bgnbd-v1",
+   "type": "model",
+   "label": "bg/nbd model",
+   "as": [
+    "BG/NBD with Gamma-Gamma",
+    "clv-bgnbd-v1"
+   ],
+   "lines": [
+    4,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "clv-ml-v1",
+   "type": "model",
+   "label": "lightgbm model",
+   "as": [
+    "clv-ml-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "margin-36m",
+   "type": "metric",
+   "label": "36-month margin",
+   "as": [
+    "36-month margin"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "clv-model-choice",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "ben-carter",
+   "quote": "Ben Carter (finance) owns the decision.",
+   "line": 5
+  },
+  {
+   "s": "clv-model-choice",
+   "type": "other",
+   "label": "answered by",
+   "o": "clv-bgnbd-v1",
+   "quote": "Answered by exp-501, clv-bgnbd-v1, exp-503 and clv-ml-v1.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-501",
+  "exp-503",
+  "clv-bgnbd-v1",
+  "clv-ml-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "customer-lifetime-value/q-clv-model-choice.md",
+ "sha": "1afed2b5d5e13aa8a761ec5fc36b13cb670b637a61e095413dbed5e8eafb3293",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

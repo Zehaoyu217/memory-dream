@@ -1,0 +1,93 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-507",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-507"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cohort-2024q4-travel-active",
+   "type": "segment",
+   "label": "cohort",
+   "as": [
+    "2024-Q4 travel cohort"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-trv-tenure",
+   "type": "feature",
+   "label": "tenure band",
+   "as": [
+    "feat-trv-tenure"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "hotel-spend",
+   "type": "metric",
+   "label": "hotel spend lag",
+   "as": [
+    "Hotel spend returns about a quarter after airline spend"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-507",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "cohort-2024q4-travel-active",
+   "quote": "Of the 312k cardholders in ds-trv-cohort-panel, 62% had travel spend again in 2026-Q2.",
+   "line": 5
+  },
+  {
+   "s": "exp-507",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-trv-tenure",
+   "quote": "Builds on the travel-active cardholder cohort panel and feat-trv-tenure.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-trv-cohort-panel",
+  "feat-trv-tenure",
+  "fnd-trv-hotel-lag"
+ ],
+ "built_on": [
+  {
+   "what": "ds-trv-cohort-panel",
+   "quote": "Builds on the travel-active cardholder cohort panel and feat-trv-tenure.",
+   "line": 8
+  },
+  {
+   "what": "feat-trv-tenure",
+   "quote": "Builds on the travel-active cardholder cohort panel and feat-trv-tenure.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "travel-spend-recovery/exp-507.md",
+ "sha": "47ffdbc1f86b6a3cf9f0913956113c1edbdf6333a12aee5fdd4c2f663d197976",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

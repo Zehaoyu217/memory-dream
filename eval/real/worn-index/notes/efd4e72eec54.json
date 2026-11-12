@@ -1,0 +1,106 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "revolving-apr-sensitivity",
+   "type": "metric",
+   "label": "sensitivity",
+   "as": [
+    "Each 100bp of APR on revolving balances"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "apr-cap-29-99",
+   "type": "policy",
+   "label": "apr cap",
+   "as": [
+    "29.99% cap scenario",
+    "The 29.99% cap"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "exp-304",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-304"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "exp-307",
+   "type": "other",
+   "label": "scenario",
+   "as": [
+    "exp-307"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "interchange-cut",
+   "type": "term",
+   "label": "exposure",
+   "as": [
+    "Interchange cuts"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-304",
+   "type": "other",
+   "label": "shows cost",
+   "o": "apr-cap-29-99",
+   "quote": "The 29.99% cap scenario (exp-304) is $54M a year",
+   "line": 6
+  },
+  {
+   "s": "interchange-cut",
+   "type": "other",
+   "label": "exposure in",
+   "o": "exp-307",
+   "quote": "Interchange cuts are a separate exposure (exp-307, $38M a year).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-304",
+  "exp-307"
+ ],
+ "built_on": [
+  {
+   "what": "exp-304",
+   "quote": "Builds on exp-304 and exp-307.",
+   "line": 8
+  },
+  {
+   "what": "exp-307",
+   "quote": "Builds on exp-304 and exp-307.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "revenue-forecast-2026/fnd-rev26-apr-sensitivity.md",
+ "sha": "efd4e72eec541e7ad319b8406b835694fe9a2282363f31bcf36bf55c8edaaf03",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

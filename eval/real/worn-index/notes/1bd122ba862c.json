@@ -1,0 +1,83 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cu-dpd-roll-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-dpd-roll-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-cu-cases-dpd",
+   "type": "dataset",
+   "label": "base population",
+   "as": [
+    "ds-cu-cases-dpd"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cu-resp-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cu-resp-v1"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cu-dpd-roll-v1",
+   "type": "part-of",
+   "label": "largest feature in",
+   "o": "cu-resp-v1",
+   "quote": "Largest feature in cu-resp-v1 by gain (0.31 of total gain).",
+   "line": 7
+  },
+  {
+   "s": "feat-cu-dpd-roll-v1",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards.accounts_monthly",
+   "quote": "Built from `cards.accounts_monthly` with `collections.cases` history.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-cu-cases-dpd",
+   "quote": "Builds on ds-cu-cases-dpd.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-uplift/feat-cu-dpd-roll-v1.md",
+ "sha": "1bd122ba862ccc7c0d98035da8960bd24cdbe88e36803a7b33a8dd0bf6430443",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,201 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-bsm-cutover-2026q3",
+   "type": "decision",
+   "label": "decision",
+   "as": [
+    "Decision: cut decision models over to v10 on 2026-09-01 with approval cutoff 652 on the v10 scale"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "v8-cutoff-640",
+   "type": "other",
+   "label": "cutoff",
+   "as": [
+    "the v8 cutoff of 640"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bsm-app-gbm-v10b",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bsm-app-gbm-v10b"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bsm-cutoff-logit",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bsm-cutoff-logit"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "dec-bsm-keep-v8-fallback",
+   "type": "decision",
+   "label": "decision",
+   "as": [
+    "dec-bsm-keep-v8-fallback"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-305",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-305"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "find-bsm-ks-parity",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-bsm-ks-parity"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "aisha-khan",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Aisha Khan"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Sam Lee"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-bsm-cutover-2026q3",
+   "type": "replaces",
+   "label": "replaces cutoff",
+   "o": "v8-cutoff-640",
+   "quote": "Replaces the v8 cutoff of 640 for application decisions from 2026-09-01",
+   "line": 5
+  },
+  {
+   "s": "dec-bsm-cutover-2026q3",
+   "type": "uses",
+   "label": "cutover uses",
+   "o": "bsm-app-gbm-v10b",
+   "quote": "Cutover uses bsm-app-gbm-v10b and bsm-cutoff-logit",
+   "line": 6
+  },
+  {
+   "s": "dec-bsm-cutover-2026q3",
+   "type": "uses",
+   "label": "cutover uses",
+   "o": "bsm-cutoff-logit",
+   "quote": "Cutover uses bsm-app-gbm-v10b and bsm-cutoff-logit",
+   "line": 6
+  },
+  {
+   "s": "dec-bsm-cutover-2026q3",
+   "type": "uses",
+   "label": "fallback stays",
+   "o": "dec-bsm-keep-v8-fallback",
+   "quote": "the v8 fallback stays in place (dec-bsm-keep-v8-fallback)",
+   "line": 6
+  },
+  {
+   "s": "dec-bsm-cutover-2026q3",
+   "type": "measured-by",
+   "label": "shows approval",
+   "o": "exp-305",
+   "quote": "exp-305 shows the same 58% approval rate and 4.1% bad rate",
+   "line": 5
+  },
+  {
+   "s": "dec-bsm-cutover-2026q3",
+   "type": "owned-by",
+   "label": "owner for cutover",
+   "o": "aisha-khan",
+   "quote": "Owner for the cutover is Aisha Khan",
+   "line": 7
+  },
+  {
+   "s": "sam-lee",
+   "type": "owned-by",
+   "label": "owns model",
+   "o": "bsm-app-gbm-v10b",
+   "quote": "Sam Lee owns the model",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-bsm-keep-v8-fallback",
+  "exp-305",
+  "find-bsm-ks-parity"
+ ],
+ "built_on": [
+  {
+   "what": "bsm-cutoff-logit",
+   "quote": "Builds on bsm-cutoff-logit, exp-305 and find-bsm-ks-parity.",
+   "line": 8
+  },
+  {
+   "what": "exp-305",
+   "quote": "Builds on bsm-cutoff-logit, exp-305 and find-bsm-ks-parity.",
+   "line": 8
+  },
+  {
+   "what": "find-bsm-ks-parity",
+   "quote": "Builds on bsm-cutoff-logit, exp-305 and find-bsm-ks-parity.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "v8-cutoff-640",
+   "quote": "Replaces the v8 cutoff of 640 for application decisions from 2026-09-01",
+   "line": 5
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "bureau-score-migration/dec-bsm-cutover-2026q3.md",
+ "sha": "ee02df9be5596af99d142854c206c2ff064e7d0a6598eb755d8bd95ed17cd3af",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

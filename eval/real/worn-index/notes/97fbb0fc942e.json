@@ -1,0 +1,136 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-102-txn-features",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-102"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-bt-revolve-share",
+   "type": "feature",
+   "label": "revolve share",
+   "as": [
+    "revolve share"
+   ],
+   "lines": [
+    4,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "transactions",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.merchants",
+   "type": "dataset",
+   "label": "merchants",
+   "as": [
+    "cards.merchants"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bt-holdout-2025q1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "bt-holdout-2025q1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.66"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-102-txn-features",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-bt-revolve-share",
+   "quote": "First XGBoost (depth 5) with feat-bt-revolve-share and spend mix",
+   "line": 5
+  },
+  {
+   "s": "exp-102-txn-features",
+   "type": "uses",
+   "label": "joined to",
+   "o": "cards.merchants",
+   "quote": "spend mix by category group from `cards.txn_daily` joined to `cards.merchants`.",
+   "line": 5
+  },
+  {
+   "s": "exp-102-txn-features",
+   "type": "uses",
+   "label": "from",
+   "o": "cards.txn_daily",
+   "quote": "spend mix by category group from `cards.txn_daily`",
+   "line": 5
+  },
+  {
+   "s": "exp-102-txn-features",
+   "type": "evaluated-on",
+   "label": "eval on",
+   "o": "bt-holdout-2025q1",
+   "quote": "Eval: bt-holdout-2025q1, n=41,800.",
+   "line": 6
+  },
+  {
+   "s": "exp-102-txn-features",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.66 vs 0.63 for the logistic baseline.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "exp-101-bureau-logit",
+   "quote": "Builds on the bureau-only logistic experiment and the revolve share feature.",
+   "line": 8
+  },
+  {
+   "what": "feat-bt-revolve-share",
+   "quote": "Builds on the bureau-only logistic experiment and the revolve share feature.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "balance-transfer-propensity/exp-102-txn-features.md",
+ "sha": "97fbb0fc942e8ab780d55ff8651b316e62808413a6e0d6c5ced702123161cba8",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

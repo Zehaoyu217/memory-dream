@@ -1,0 +1,65 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`callcenter.calls`"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cx-analytics",
+   "type": "team",
+   "label": "owner",
+   "as": [
+    "cx-analytics"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cx-analytics",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "callcenter.calls",
+   "quote": "Owner cx-analytics.",
+   "line": 5
+  },
+  {
+   "s": "callcenter.calls",
+   "type": "uses",
+   "label": "joins through account key",
+   "o": "cards.accounts_monthly",
+   "quote": "Joins to `cards.accounts_monthly` go through the account key.",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/ds-cr-calls.md",
+ "sha": "f24d4c511a8e3f5e35e6c490f68b2f9bcf7de4c1077ef3727ae8ad1d4e9ad958",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

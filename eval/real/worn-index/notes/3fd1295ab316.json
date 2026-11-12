@@ -1,0 +1,114 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-102",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-102"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cu-uplift-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cu-uplift-v1"
+   ],
+   "lines": [
+    6,
+    9
+   ]
+  },
+  {
+   "id": "cu-resp-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cu-resp-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Uplift@20%"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "ds-cu-treat-log",
+   "type": "dataset",
+   "label": "pilot data",
+   "as": [
+    "the randomised pilot contact log"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-102",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "ds-cu-treat-log",
+   "quote": "Eval: pilot holdout split, treatment n=21,312 and control n=2,368 (20% of pilot).",
+   "line": 5
+  },
+  {
+   "s": "cu-uplift-v1",
+   "type": "measured-by",
+   "label": "uplift at 20%",
+   "o": "uplift-at-20",
+   "quote": "cu-uplift-v1: 0.031 (95% CI 0.018-0.044).",
+   "line": 6
+  },
+  {
+   "s": "cu-resp-v1",
+   "type": "measured-by",
+   "label": "uplift at 20%",
+   "o": "uplift-at-20",
+   "quote": "cu-resp-v1 ranking the same accounts: 0.012.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "cu-uplift-v1",
+   "quote": "Builds on cu-uplift-v1",
+   "line": 9
+  },
+  {
+   "what": "ds-cu-treat-log",
+   "quote": "the randomised pilot contact log",
+   "line": 9
+  },
+  {
+   "what": "q-cu-uplift-vs-response",
+   "quote": "the question of uplift versus response models",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-uplift/exp-102.md",
+ "sha": "3fd1295ab31628df07e17181c4838da18c735c2d27f91c327e49183f477b7c76",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

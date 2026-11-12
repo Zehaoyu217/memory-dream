@@ -1,0 +1,104 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-c25-app-sessions",
+   "type": "feature",
+   "label": "app session feature",
+   "as": [
+    "feat-c25-app-sessions"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "churn-lr-base-2025",
+   "type": "model",
+   "label": "baseline model",
+   "as": [
+    "churn-lr-base-2025"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "churn-gbm-2025",
+   "type": "model",
+   "label": "gbm model",
+   "as": [
+    "churn-gbm-2025"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dec-c25-drop-app-sessions",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-c25-drop-app-sessions"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "app-engagement-dataset",
+   "type": "dataset",
+   "label": "app engagement dataset",
+   "as": [
+    "the app engagement dataset"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-c25-app-sessions",
+   "type": "uses",
+   "label": "in",
+   "o": "churn-lr-base-2025",
+   "quote": "In churn-lr-base-2025 and churn-gbm-2025",
+   "line": 7
+  },
+  {
+   "s": "feat-c25-app-sessions",
+   "type": "uses",
+   "label": "in",
+   "o": "churn-gbm-2025",
+   "quote": "In churn-lr-base-2025 and churn-gbm-2025",
+   "line": 7
+  },
+  {
+   "s": "dec-c25-drop-app-sessions",
+   "type": "other",
+   "label": "dropped from",
+   "o": "feat-c25-app-sessions",
+   "quote": "dropped from the production set by dec-c25-drop-app-sessions",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-c25-drop-app-sessions"
+ ],
+ "built_on": [
+  {
+   "what": "app-engagement-dataset",
+   "quote": "Builds on the app engagement dataset coverage.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2025/feat-c25-app-sessions.md",
+ "sha": "346eec37f9494d7c9ce17257e28580d10ad7d0781f2ef4b2be5a02e687475020",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

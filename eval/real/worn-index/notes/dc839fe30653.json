@@ -1,0 +1,95 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "xs-call-uplift-v1",
+   "type": "model",
+   "label": "causal forest model",
+   "as": [
+    "xs-call-uplift-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-xs-offer-log",
+   "type": "dataset",
+   "label": "offer log",
+   "as": [
+    "offer log"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "open-rate",
+   "type": "metric",
+   "label": "open rate",
+   "as": [
+    "open rate"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "deciles-1-2",
+   "type": "segment",
+   "label": "deciles 1-2",
+   "as": [
+    "deciles 1-2"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "top-two-deciles",
+   "type": "segment",
+   "label": "top deciles",
+   "as": [
+    "top two deciles"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "xs-call-uplift-v1",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "ds-xs-offer-log",
+   "quote": "xs-call-uplift-v1 scored on the offer log for the 2025 waves.",
+   "line": 5
+  },
+  {
+   "s": "xs-call-uplift-v1",
+   "type": "measured-by",
+   "label": "effect on",
+   "o": "open-rate",
+   "quote": "Effect in deciles 1-2 (lowest propensity): +1.2 points, CI 0.4-2.0.",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "xs-call-uplift-v1",
+   "quote": "Builds on the causal forest call model.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cross-sell-savings/exp-406-call-uplift.md",
+ "sha": "dc839fe3065346b7c4ae6ae67d00f84052b20add03b4366bf1eb03c38d6de5bf",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,148 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-ae-score-v2",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Adopt engagement score v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ae-score-v2",
+   "type": "metric",
+   "label": "engagement score",
+   "as": [
+    "ae-score-v2"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "ae-score-v1",
+   "type": "metric",
+   "label": "engagement score",
+   "as": [
+    "ae-score-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-505",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-505"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.76 against 0.73"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-ae-holdout",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-ae-score-v2",
+   "type": "other",
+   "label": "adopts",
+   "o": "ae-score-v2",
+   "quote": "Adopt engagement score v2 with logistic weights and no push credit",
+   "line": 4
+  },
+  {
+   "s": "ae-score-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "ae-score-v1",
+   "quote": "ae-score-v2 replaces ae-score-v1.",
+   "line": 5
+  },
+  {
+   "s": "ae-score-v2",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "auc",
+   "quote": "AUC 0.76 against 0.73",
+   "line": 5
+  },
+  {
+   "s": "ae-score-v2",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "ds-ae-holdout",
+   "quote": "AUC 0.76 against 0.73 for v1 on holdout-2025q4",
+   "line": 5
+  },
+  {
+   "s": "dec-ae-score-v2",
+   "type": "uses",
+   "label": "builds on",
+   "o": "exp-505",
+   "quote": "Builds on ae-score-v2 and exp-505.",
+   "line": 7
+  },
+  {
+   "s": "dec-ae-score-v2",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ae-score-v2",
+   "quote": "Builds on ae-score-v2 and exp-505.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ae-score-v1",
+  "ae-score-v2",
+  "exp-505"
+ ],
+ "built_on": [
+  {
+   "what": "ae-score-v2",
+   "quote": "Builds on ae-score-v2 and exp-505.",
+   "line": 7
+  },
+  {
+   "what": "exp-505",
+   "quote": "Builds on ae-score-v2 and exp-505.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "app-engagement/dec-ae-score-v2.md",
+ "sha": "454996e5fd918fb970a43102f7c14bd346bdb5be84627ac5fdbfe63c42ba7f5c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

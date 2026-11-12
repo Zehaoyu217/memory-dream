@@ -1,0 +1,98 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-lbl-churn-flag-closure",
+   "type": "feature",
+   "label": "churn flag",
+   "as": [
+    "feat-lbl-churn-flag-closure"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.churn_labels",
+   "type": "dataset",
+   "label": "churn labels table",
+   "as": [
+    "cards.churn_labels"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "lbl-churn-xgb-v2",
+   "type": "model",
+   "label": "churn model",
+   "as": [
+    "lbl-churn-xgb-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-lbl-churn-flag-90d",
+   "type": "feature",
+   "label": "superseded churn flag",
+   "as": [
+    "feat-lbl-churn-flag-90d"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-lbl-churn-flag-closure",
+   "type": "part-of",
+   "label": "current flag in",
+   "o": "cards.churn_labels",
+   "quote": "Current churn flag in cards.churn_labels",
+   "line": 5
+  },
+  {
+   "s": "lbl-churn-xgb-v2",
+   "type": "uses",
+   "label": "reads",
+   "o": "feat-lbl-churn-flag-closure",
+   "quote": "Read by lbl-churn-xgb-v2",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "dec-lbl-churn-closure",
+  "fnd-churn-rate-rebuilt"
+ ],
+ "built_on": [
+  {
+   "what": "dec-lbl-churn-closure",
+   "quote": "Builds on dec-lbl-churn-closure",
+   "line": 7
+  },
+  {
+   "what": "feat-lbl-churn-flag-90d",
+   "quote": "the superseded 90-day churn flag",
+   "line": 7
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-lbl-churn-flag-90d",
+   "quote": "Replaces feat-lbl-churn-flag-90d.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "label-pipeline-rebuild/feat-lbl-churn-flag-closure.md",
+ "sha": "bcbc7ac96943dce1a0d6e86b49a77628d8a74f07a5883109b1f2d5907cdf9044",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

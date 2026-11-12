@@ -1,0 +1,158 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-csb-tenure-floor",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "train and score only SMB accounts with 6 or more months of tenure"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-202",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-202"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "fnd-csb-tenure-cut",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-csb-tenure-cut"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "priya-nair",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Priya Nair"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "onboarding-playbook",
+   "type": "document",
+   "label": "playbook",
+   "as": [
+    "onboarding playbook"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "six-month-plus-subset",
+   "type": "segment",
+   "label": "6-month-plus subset",
+   "as": [
+    "6-month-plus subset"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "ds-csb-oot-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "csb-oot-2025q1"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-csb-tenure-floor",
+   "type": "uses",
+   "label": "basis",
+   "o": "exp-202",
+   "quote": "Basis: exp-202 (0.699 against 0.687 on the 6-month-plus subset)",
+   "line": 5
+  },
+  {
+   "s": "dec-csb-tenure-floor",
+   "type": "uses",
+   "label": "basis",
+   "o": "fnd-csb-tenure-cut",
+   "quote": "and fnd-csb-tenure-cut",
+   "line": 5
+  },
+  {
+   "s": "onboarding-playbook",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "priya-nair",
+   "quote": "onboarding playbook owned by Priya Nair",
+   "line": 6
+  },
+  {
+   "s": "dec-csb-tenure-floor",
+   "type": "evaluated-on",
+   "label": "evaluations on",
+   "o": "six-month-plus-subset",
+   "quote": "All csb-xgb evaluations are on the 6-month-plus subset",
+   "line": 7
+  },
+  {
+   "s": "six-month-plus-subset",
+   "type": "part-of",
+   "label": "subset of",
+   "o": "ds-csb-oot-2025q1",
+   "quote": "the 6-month-plus subset of csb-oot-2025q1",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-202",
+  "fnd-csb-tenure-cut",
+  "q-csb-tenure-floor",
+  "ds-csb-oot-2025q1"
+ ],
+ "built_on": [
+  {
+   "what": "exp-202",
+   "quote": "Builds on exp-202, fnd-csb-tenure-cut and q-csb-tenure-floor.",
+   "line": 8
+  },
+  {
+   "what": "fnd-csb-tenure-cut",
+   "quote": "Builds on exp-202, fnd-csb-tenure-cut and q-csb-tenure-floor.",
+   "line": 8
+  },
+  {
+   "what": "q-csb-tenure-floor",
+   "quote": "Builds on exp-202, fnd-csb-tenure-cut and q-csb-tenure-floor.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-small-business/dec-csb-tenure-floor.md",
+ "sha": "04d286b7798a68979c40216cbab6b4bee9ee4439122c4714aaa9a2b7ac1929ee",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

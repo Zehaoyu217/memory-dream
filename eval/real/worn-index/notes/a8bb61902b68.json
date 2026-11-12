@@ -1,0 +1,80 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-404",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-404: ROI-model reallocation on ror-oot-2025q3 gives 1.49x, against 1.31x for matrix v3"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-2025q3",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "ror-oot-2025q3"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ror-roi-v1",
+   "type": "model",
+   "label": "roi model",
+   "as": [
+    "ror-roi-v1"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-404",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "holdout-2025q3",
+   "quote": "on the holdout",
+   "line": 5
+  },
+  {
+   "s": "exp-404",
+   "type": "uses",
+   "label": "uses",
+   "o": "ror-roi-v1",
+   "quote": "reallocation by ror-roi-v1 1.49x",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "holdout-2025q3",
+   "quote": "Builds on the august 2025 offer holdout dataset",
+   "line": 8
+  },
+  {
+   "what": "ror-roi-v1",
+   "quote": "Builds on the august 2025 offer holdout dataset and ror-roi-v1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [
+   "cards.txn_daily"
+  ],
+  "relations": 0
+ },
+ "path": "retention-offers-roi/exp-404.md",
+ "sha": "a8bb61902b681068a2cff65b7298c57f730511ca7ef43079a372493ed5ff26d6",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

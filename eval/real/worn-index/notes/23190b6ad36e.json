@@ -1,0 +1,66 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-txc-annotator-agreement",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Annotator agreement is kappa 0.82; most disagreement is Food delivery vs Restaurants"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-txc-labelled-merchants",
+   "type": "dataset",
+   "label": "labelled set",
+   "as": [
+    "1,200 merchants labelled twice"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q2"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fnd-txc-annotator-agreement",
+   "type": "evaluated-on",
+   "label": "sets ceiling on",
+   "o": "holdout-2025q2",
+   "quote": "This sets the realistic ceiling: about 0.85 macro-F1 on holdout-2025q2.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-txc-labelled-merchants"
+ ],
+ "built_on": [
+  {
+   "what": "ds-txc-labelled-merchants",
+   "quote": "Builds on ds-txc-labelled-merchants.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "txn-categorization/fnd-txc-annotator-agreement.md",
+ "sha": "23190b6ad36ec0e8e41684557dc0f33f578f180733ba01fe8c14c0fe70464a37",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

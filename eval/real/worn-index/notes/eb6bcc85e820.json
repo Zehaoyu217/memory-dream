@@ -1,0 +1,97 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "late-labels",
+   "type": "term",
+   "label": "late labels",
+   "as": [
+    "Late labels"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "next-named-holdout",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "next named holdout"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "frozen-set",
+   "type": "term",
+   "label": "frozen set",
+   "as": [
+    "the set is frozen"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "eval-set-freeze-date",
+   "type": "document",
+   "label": "howto",
+   "as": [
+    "howto/eval-set-freeze-date"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "late-labels",
+   "type": "other",
+   "label": "go into",
+   "o": "next-named-holdout",
+   "quote": "Late labels go into the next named holdout instead.",
+   "line": 5
+  },
+  {
+   "s": "holdout-2025q4",
+   "type": "other",
+   "label": "is frozen",
+   "o": "frozen-set",
+   "quote": "the set is frozen",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "howto/eval-set-freeze-date"
+ ],
+ "built_on": [
+  {
+   "what": "eval-set-freeze-date",
+   "quote": "Builds on howto/eval-set-freeze-date.",
+   "line": 6
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/holdout-2025q4-reextract.md",
+ "sha": "eb6bcc85e820ae7b866d868940f8b2266e6545acde721d585c527347999aef04",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

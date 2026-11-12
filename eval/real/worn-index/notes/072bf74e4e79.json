@@ -1,0 +1,88 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-fsm-txn-cnt-7d",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-fsm-txn-cnt-7d",
+    "txn_cnt_7d"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-fsm-parity-sample",
+   "type": "dataset",
+   "label": "parity sample",
+   "as": [
+    "fsm_parity_sample_2025h2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-101",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-101"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-fsm-txn-cnt-7d",
+   "type": "uses",
+   "label": "counts from",
+   "o": "cards.txn_daily",
+   "quote": "Counts approved authorizations from `cards.txn_daily`",
+   "line": 5
+  },
+  {
+   "s": "feat-fsm-txn-cnt-7d",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "ds-fsm-parity-sample",
+   "quote": "On fsm_parity_sample_2025h2, 99.4 percent of rows are within 0.5 percent of legacy",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-fsm-txn-source",
+  "exp-101"
+ ],
+ "built_on": [
+  {
+   "what": "ds-fsm-txn-source",
+   "quote": "Builds on ds-fsm-txn-source.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "feature-store-migration/feat-fsm-txn-cnt-7d.md",
+ "sha": "072bf74e4e796767503c649ff4826f8c1e76a4e6265f9831a9372a7bab8de730",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

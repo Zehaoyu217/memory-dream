@@ -1,0 +1,101 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "aml-xgb-v2",
+   "type": "model",
+   "label": "ranker",
+   "as": [
+    "aml-xgb-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "top-40-capture",
+   "type": "metric",
+   "label": "capture",
+   "as": [
+    "93.5% in the top 40%"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-aml-oot",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "aml-oot-2026h1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "aml-find-ranker-top40",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "aml-find-ranker-top40"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "aml-xgb-v3",
+   "type": "model",
+   "label": "recalibration",
+   "as": [
+    "v3 recalibration"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "aml-xgb-v2",
+   "type": "measured-by",
+   "label": "captures",
+   "o": "top-40-capture",
+   "quote": "aml-xgb-v2 captures 93.5% in the top 40%.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "aml-find-ranker-top40",
+  "exp-407"
+ ],
+ "built_on": [
+  {
+   "what": "aml-find-ranker-top40",
+   "quote": "Builds on the finding on v2 top-40% sar capture and exp-405.",
+   "line": 8
+  },
+  {
+   "what": "exp-405",
+   "quote": "Builds on the finding on v2 top-40% sar capture and exp-405.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "aml-find-ranker-top40",
+   "quote": "Replaces aml-find-ranker-top40.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 2
+ },
+ "path": "aml-alerts/aml-find-ranker-top40-revised.md",
+ "sha": "226fc9b238cba2fe29d7f42f07c0c85b148b5eed9b571364bb0b32c47bb235e5",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

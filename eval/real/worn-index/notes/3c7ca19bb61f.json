@@ -1,0 +1,76 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "complaint-classification",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "complaint-classification"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "qa-labels",
+   "type": "dataset",
+   "label": "labels",
+   "as": [
+    "QA labels"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "kappa",
+   "type": "metric",
+   "label": "agreement",
+   "as": [
+    "kappa 0.82"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "adjudication",
+   "type": "term",
+   "label": "process",
+   "as": [
+    "adjudication"
+   ],
+   "lines": [
+    3
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "complaint-classification",
+   "type": "uses",
+   "label": "labels in",
+   "o": "qa-labels",
+   "quote": "QA labels in: kappa 0.82",
+   "line": 3
+  },
+  {
+   "s": "qa-labels",
+   "type": "measured-by",
+   "label": "scored by",
+   "o": "kappa",
+   "quote": "kappa 0.82",
+   "line": 3
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2025-09-12.md",
+ "sha": "3c7ca19bb61f6f5e2a6a7cc37b9f7c32a6c4a183525ce7788cd23d77f5639639",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

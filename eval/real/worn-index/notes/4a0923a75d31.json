@@ -1,0 +1,133 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-506",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-506"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-trv-fx-vol",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-trv-fx-vol"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "trv-ridge-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "trv-ridge-v3"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "trv-bt-2025h2",
+   "type": "dataset",
+   "label": "backtest set",
+   "as": [
+    "trv-bt-2025h2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "fnd-trv-fx-no-signal",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-trv-fx-no-signal"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-505",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-505"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-trv-fx-vol",
+   "type": "uses",
+   "label": "adds to",
+   "o": "trv-ridge-v3",
+   "quote": "Adds feat-trv-fx-vol to trv-ridge-v3 on trv-bt-2025h2.",
+   "line": 5
+  },
+  {
+   "s": "exp-506",
+   "type": "evaluated-on",
+   "label": "tested on",
+   "o": "trv-bt-2025h2",
+   "quote": "on trv-bt-2025h2",
+   "line": 5
+  },
+  {
+   "s": "exp-506",
+   "type": "measured-by",
+   "label": "MAPE moves",
+   "o": "mape",
+   "quote": "MAPE moves from 4.3% to 4.4%",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fnd-trv-fx-no-signal"
+ ],
+ "built_on": [
+  {
+   "what": "exp-505",
+   "quote": "Builds on exp-505 and feat-trv-fx-vol.",
+   "line": 8
+  },
+  {
+   "what": "feat-trv-fx-vol",
+   "quote": "Builds on exp-505 and feat-trv-fx-vol.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "travel-spend-recovery/exp-506.md",
+ "sha": "4a0923a75d31ba6254cded7534c6a46e2fd7516e76ac124be9abee5bfca9d9ff",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

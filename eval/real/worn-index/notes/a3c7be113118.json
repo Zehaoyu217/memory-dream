@@ -1,0 +1,75 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-405",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-405: with credit losses netted from value, cashback T2 ROI falls to 1.09x"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "bureau table",
+   "as": [
+    "bureau.scores_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cashback-t2",
+   "type": "other",
+   "label": "tier",
+   "as": [
+    "T2 cashback 1.09x"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fee-waiver-t1",
+   "type": "other",
+   "label": "tier",
+   "as": [
+    "T1 fee waiver 1.02x"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-405",
+   "type": "uses",
+   "label": "nets PD bands from",
+   "o": "bureau.scores_monthly",
+   "quote": "Draft value band nets expected credit loss from the bureau PD bands in bureau.scores_monthly.",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "fnd-ror-cashback-roi",
+   "quote": "Builds on the first value band feature from deciles and the finding that t2 cashback returns best.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "retention-offers-roi/exp-405.md",
+ "sha": "a3c7be11311817b82438240afc21c39bc9f504c4e06ce39c84ffcc758a581e4f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

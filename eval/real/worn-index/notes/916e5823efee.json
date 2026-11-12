@@ -1,0 +1,80 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "fraud26-gbm-v1",
+   "type": "model",
+   "label": "live model",
+   "as": [
+    "fraud26-gbm-v1"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "fraud25-gbm-v2",
+   "type": "model",
+   "label": "2025 champion",
+   "as": [
+    "fraud25-gbm-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fraud-2025/dec-f25-champion-v2",
+   "type": "document",
+   "label": "champion decision",
+   "as": [
+    "fraud-2025/dec-f25-champion-v2"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud26-gbm-v1",
+   "type": "replaces",
+   "label": "replacing",
+   "o": "fraud25-gbm-v2",
+   "quote": "fraud26-gbm-v1 becomes the live card-not-present model, replacing fraud25-gbm-v2",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "dec-f26-maturity-60d"
+ ],
+ "built_on": [
+  {
+   "what": "fraud-2025/dec-f25-champion-v2",
+   "quote": "Builds on fraud-2025/dec-f25-champion-v2 and fraud26-gbm-v1.",
+   "line": 8
+  },
+  {
+   "what": "fraud26-gbm-v1",
+   "quote": "Builds on fraud-2025/dec-f25-champion-v2 and fraud26-gbm-v1.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "fraud25-gbm-v2",
+   "quote": "replacing fraud25-gbm-v2 (fraud-2025)",
+   "line": 5
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2026/dec-f26-replace-f25.md",
+ "sha": "916e5823efee76d9afec1370d8044f6a96319c445d293ce7322c2568ec51ed07",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

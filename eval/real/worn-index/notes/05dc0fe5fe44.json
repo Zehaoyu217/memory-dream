@@ -1,0 +1,102 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-cc-auto-threshold",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Auto-code only above 0.95 precision"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cc-ft-v1",
+   "type": "model",
+   "label": "probability",
+   "as": [
+    "cc-ft-v1 probability"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auto-code-coverage",
+   "type": "metric",
+   "label": "coverage",
+   "as": [
+    "Expected coverage 58 percent"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "omar-haddad",
+   "type": "person",
+   "label": "approver",
+   "as": [
+    "Approved by Omar Haddad"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-cc-auto-threshold",
+   "type": "uses",
+   "label": "threshold on",
+   "o": "cc-ft-v1",
+   "quote": "Threshold 0.95 on the cc-ft-v1 probability",
+   "line": 5
+  },
+  {
+   "s": "dec-cc-auto-threshold",
+   "type": "measured-by",
+   "label": "expected",
+   "o": "auto-code-coverage",
+   "quote": "Expected coverage 58 percent of tickets",
+   "line": 5
+  },
+  {
+   "s": "dec-cc-auto-threshold",
+   "type": "owned-by",
+   "label": "approved by",
+   "o": "omar-haddad",
+   "quote": "Approved by Omar Haddad.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "fnd-cc-coverage",
+   "quote": "Builds on fnd-cc-coverage.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "complaint-classification/dec-cc-auto-threshold.md",
+ "sha": "05dc0fe5fe4496766f602e1534c2dcc648304ad59750b64ae5649acb4efd2995",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

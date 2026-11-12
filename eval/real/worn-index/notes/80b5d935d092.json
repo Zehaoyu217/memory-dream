@@ -1,0 +1,73 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "churn-xgb-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "churn-xgb-v3"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "churn-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "churn-xgb-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "risk-tiers",
+   "type": "policy",
+   "label": "tier cuts",
+   "as": [
+    "risk tier cutoffs"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-xgb-v3",
+   "type": "other",
+   "label": "scores less extreme than",
+   "o": "churn-xgb-v2",
+   "quote": "churn-xgb-v3 scores are less extreme than churn-xgb-v2's",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "dec-risk-tiers",
+  "exp-019-recall"
+ ],
+ "built_on": [
+  {
+   "what": "dec-risk-tiers",
+   "quote": "Builds on dec-risk-tiers and exp-019-recall.",
+   "line": 7
+  },
+  {
+   "what": "exp-019-recall",
+   "quote": "Builds on dec-risk-tiers and exp-019-recall.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2026/q-recalibrate-tiers.md",
+ "sha": "80b5d935d092ac7872fe305e661b02bde78a6fe50288cf412184fc2060e91266",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

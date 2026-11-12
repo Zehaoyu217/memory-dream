@@ -1,0 +1,178 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "rs-xgb-v1",
+   "type": "model",
+   "label": "classifier",
+   "as": [
+    "rs-xgb-v1 is an XGBoost classifier for P(recovers 5% or more of balance within 12 months)"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "rs-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rs-xgb-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "recovery-scoring-holdout-2023h2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "recovery-scoring-holdout-2023h2"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "feat-rs-balance-at-co",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rs-balance-at-co"
+   ],
+   "lines": [
+    6,
+    9
+   ]
+  },
+  {
+   "id": "feat-rs-pay-before-co",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rs-pay-before-co"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-rs-recovery-labels",
+   "type": "dataset",
+   "label": "labels",
+   "as": [
+    "ds-rs-recovery-labels"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Gini 0.41"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "KS 0.29"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rs-xgb-v1",
+   "type": "trained-on",
+   "label": "trained on",
+   "o": "ds-rs-recovery-labels",
+   "quote": "Trained on the 2023 vintages",
+   "line": 5
+  },
+  {
+   "s": "rs-xgb-v1",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "recovery-scoring-holdout-2023h2",
+   "quote": "evaluated on recovery-scoring-holdout-2023h2",
+   "line": 5
+  },
+  {
+   "s": "rs-xgb-v1",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-rs-balance-at-co",
+   "quote": "Features: feat-rs-balance-at-co and feat-rs-pay-before-co only.",
+   "line": 6
+  },
+  {
+   "s": "rs-xgb-v1",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-rs-pay-before-co",
+   "quote": "Features: feat-rs-balance-at-co and feat-rs-pay-before-co only.",
+   "line": 6
+  },
+  {
+   "s": "rs-xgb-v1",
+   "type": "measured-by",
+   "label": "gini",
+   "o": "auc",
+   "quote": "Gini 0.41, KS 0.29 on recovery-scoring-holdout-2023h2 (n=6,120)",
+   "line": 7
+  },
+  {
+   "s": "rs-xgb-v1",
+   "type": "measured-by",
+   "label": "ks",
+   "o": "ks",
+   "quote": "Gini 0.41, KS 0.29 on recovery-scoring-holdout-2023h2 (n=6,120)",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-rs-recovery-labels",
+   "quote": "Builds on ds-rs-recovery-labels",
+   "line": 9
+  },
+  {
+   "what": "feat-rs-balance-at-co",
+   "quote": "feat-rs-balance-at-co",
+   "line": 6
+  },
+  {
+   "what": "feat-rs-pay-before-co",
+   "quote": "the pre-charge-off payment history feature",
+   "line": 9
+  }
+ ],
+ "replaces": [
+  {
+   "what": "rs-xgb-v2",
+   "quote": "Superseded by rs-xgb-v2 (2025-09-18).",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "recovery-scoring/rs-xgb-v1.md",
+ "sha": "bdf42cea53ca56086b5e892897c82a6097cf58433eeeec1b472e4d584cdd3765",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

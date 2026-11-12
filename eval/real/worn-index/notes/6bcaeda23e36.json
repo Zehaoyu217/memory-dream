@@ -1,0 +1,112 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-406",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-406"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-pbs-oot-2025h2",
+   "type": "dataset",
+   "label": "outcomes",
+   "as": [
+    "ds-pbs-oot-2025h2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.churn_labels",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.churn_labels"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "pbs-gmm-v2",
+   "type": "model",
+   "label": "segment table",
+   "as": [
+    "the pbs-gmm-v2 table"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.58",
+    "AUC 0.66"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-406",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "ds-pbs-oot-2025h2",
+   "quote": "Attrition model on ds-pbs-oot-2025h2",
+   "line": 5
+  },
+  {
+   "s": "exp-406",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.58 with spend alone, 0.66 with the segment label.",
+   "line": 6
+  },
+  {
+   "s": "exp-406",
+   "type": "uses",
+   "label": "uses labels",
+   "o": "cards.churn_labels",
+   "quote": "Labels from cards.churn_labels",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-pbs-oot-2025h2",
+  "pbs-gmm-v2"
+ ],
+ "built_on": [
+  {
+   "what": "ds-pbs-oot-2025h2",
+   "quote": "Builds on the out-of-time outcomes for h2 2025 and pbs-gmm-v2.",
+   "line": 8
+  },
+  {
+   "what": "pbs-gmm-v2",
+   "quote": "Builds on the out-of-time outcomes for h2 2025 and pbs-gmm-v2.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "payment-behavior-segments/exp-406.md",
+ "sha": "6bcaeda23e36f4a20719cf37cd162346a46ffb1dace0241ac99219999466132c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

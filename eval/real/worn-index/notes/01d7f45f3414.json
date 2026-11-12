@@ -1,0 +1,119 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-cb-volume-shift",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Containment does not turn one-for-one into fewer calls"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-302",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-302"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "calls-per-1000",
+   "type": "metric",
+   "label": "calls per eligible session",
+   "as": [
+    "calls per 1,000 eligible sessions fell 6.1 percent"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-cb-call-linkage",
+   "type": "dataset",
+   "label": "chat-to-call linkage",
+   "as": [
+    "chat-to-call linkage on caller key"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "dec-cb-rollout-60",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-cb-rollout-60"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fnd-cb-volume-shift",
+   "type": "uses",
+   "label": "from",
+   "o": "exp-302",
+   "quote": "From exp-302",
+   "line": 5
+  },
+  {
+   "s": "fnd-cb-volume-shift",
+   "type": "measured-by",
+   "label": "cut",
+   "o": "calls-per-1000",
+   "quote": "calls per 1,000 eligible sessions fell 6.1 percent in the treatment arm",
+   "line": 5
+  },
+  {
+   "s": "fnd-cb-volume-shift",
+   "type": "uses",
+   "label": "linkage basis",
+   "o": "ds-cb-call-linkage",
+   "quote": "22 percent had a call within 48 hours (ds-cb-call-linkage)",
+   "line": 6
+  },
+  {
+   "s": "fnd-cb-volume-shift",
+   "type": "other",
+   "label": "basis for",
+   "o": "dec-cb-rollout-60",
+   "quote": "Basis for dec-cb-rollout-60",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-cb-rollout-60",
+  "ds-cb-call-linkage",
+  "exp-302"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cb-call-linkage",
+   "quote": "Builds on the chat-to-call linkage on caller key",
+   "line": 8
+  },
+  {
+   "what": "exp-302",
+   "quote": "the randomised call-volume a/b test",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "chatbot-deflection/fnd-cb-volume-shift.md",
+ "sha": "01d7f45f34143d95867e109f298102ae712076f18b8a995e17bb86f0fae13fb3",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

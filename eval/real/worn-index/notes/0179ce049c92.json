@@ -1,0 +1,66 @@
+{
+ "kind": "term",
+ "entities": [
+  {
+   "id": "active-account",
+   "type": "term",
+   "label": "term",
+   "as": [
+    "active account"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "active-account",
+   "type": "uses",
+   "label": "counts come from",
+   "o": "cards.txn_daily",
+   "quote": "Counts come from `cards.txn_daily` joined to `cards.accounts_monthly`",
+   "line": 5
+  },
+  {
+   "s": "active-account",
+   "type": "uses",
+   "label": "counts come from",
+   "o": "cards.accounts_monthly",
+   "quote": "Counts come from `cards.txn_daily` joined to `cards.accounts_monthly`",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "glossary/active-account.md",
+ "sha": "0179ce049c9223675d7e3196d8533dbfcd36227a57c4a7425a90624f9a85c9b7",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

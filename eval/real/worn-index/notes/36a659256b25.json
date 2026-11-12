@@ -1,0 +1,116 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "feat-cr-caller-history-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "Caller history v1"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  },
+  {
+   "id": "cr-lgbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "the v1 model"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout set",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cr-oot-2026h1",
+   "type": "dataset",
+   "label": "out-of-time set",
+   "as": [
+    "cr-oot-2026h1"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "post-call-contacts",
+   "type": "term",
+   "label": "post-call contacts",
+   "as": [
+    "post-call contacts"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cr-lgbm-v1",
+   "type": "evaluated-on",
+   "label": "drops to",
+   "o": "cr-oot-2026h1",
+   "quote": "On cr-oot-2026h1 the v1 model drops to 0.72",
+   "line": 5
+  },
+  {
+   "s": "feat-cr-caller-history-v1",
+   "type": "evaluated-on",
+   "label": "gain on",
+   "o": "holdout-2025q4",
+   "quote": "its +0.05 gain on holdout-2025q4",
+   "line": 4
+  },
+  {
+   "s": "feat-cr-caller-history-v1",
+   "type": "other",
+   "label": "leaked",
+   "o": "post-call-contacts",
+   "quote": "came mostly from post-call contacts",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "fnd-cr-leak-v1",
+  "exp-104",
+  "exp-105",
+  "dec-cr-caller-v2"
+ ],
+ "built_on": [
+  {
+   "what": "exp-104",
+   "quote": "Builds on the out-of-time router check.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "fnd-cr-leak-v1",
+   "quote": "Replaces the caller history leak finding.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/fnd-cr-leak-corrected.md",
+ "sha": "36a659256b2593343f3829e2e8777b311dc3884d8b96ab9efa8f885fa0707862",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,90 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-ae-no-push-credit",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Remove push open rate from the engagement score"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ae-score-v2",
+   "type": "model",
+   "label": "engagement score v2",
+   "as": [
+    "Applied in ae-score-v2."
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "priya-nair",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Owner Priya Nair (onboarding)."
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "app-push-log",
+   "type": "dataset",
+   "label": "push data",
+   "as": [
+    "Push data remains in the warehouse for campaign reporting."
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ae-score-v2",
+   "type": "other",
+   "label": "applies decision",
+   "o": "dec-ae-no-push-credit",
+   "quote": "Applied in ae-score-v2.",
+   "line": 6
+  },
+  {
+   "s": "dec-ae-no-push-credit",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "priya-nair",
+   "quote": "Owner Priya Nair (onboarding).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-ae-push-null"
+ ],
+ "built_on": [
+  {
+   "what": "ae-score-v1",
+   "quote": "Builds on ae-score-v1 and fnd-ae-push-null.",
+   "line": 8
+  },
+  {
+   "what": "fnd-ae-push-null",
+   "quote": "Builds on ae-score-v1 and fnd-ae-push-null.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "app-engagement/dec-ae-no-push-credit.md",
+ "sha": "4bd06087a34ab514c0eda302d3362df57c9c2acccce8fd4ed67dc5ee2fbcb95b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

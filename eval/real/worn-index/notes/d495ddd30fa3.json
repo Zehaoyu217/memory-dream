@@ -1,0 +1,224 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "rdm-uplift-v2",
+   "type": "model",
+   "label": "targeting model",
+   "as": [
+    "rdm-uplift-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "x-learner",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "X-learner"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "last-activity-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "last activity v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "prior-response",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "prior response"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "balance-band",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "balance band"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "app-installed",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "app installed"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "rdm-oot-2025q1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "qini",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Qini"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "t-learner",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "t-learner targeting model"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rdm-uplift-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "last-activity-v2",
+   "quote": "X-learner on five features: last activity v2",
+   "line": 5
+  },
+  {
+   "s": "rdm-uplift-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "prior-response",
+   "quote": "prior response",
+   "line": 5
+  },
+  {
+   "s": "rdm-uplift-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "balance-band",
+   "quote": "balance band",
+   "line": 5
+  },
+  {
+   "s": "rdm-uplift-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "app-installed",
+   "quote": "app installed",
+   "line": 5
+  },
+  {
+   "s": "rdm-uplift-v2",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "holdout-2025q1",
+   "quote": "Holdout rdm-oot-2025q1 (n=11,260)",
+   "line": 6
+  },
+  {
+   "s": "rdm-uplift-v2",
+   "type": "measured-by",
+   "label": "scored",
+   "o": "uplift-at-20",
+   "quote": "uplift@20% 3.6pp",
+   "line": 4
+  },
+  {
+   "s": "rdm-uplift-v2",
+   "type": "measured-by",
+   "label": "scored",
+   "o": "qini",
+   "quote": "Qini 0.47",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "exp-307",
+   "quote": "Builds on exp-307, feat-rdm-app-installed, the residual balance bands feature, feat-rdm-last-activity-v2, feat-rdm-prior-response and the corrected sms uplift gap finding.",
+   "line": 8
+  },
+  {
+   "what": "feat-rdm-app-installed",
+   "quote": "Builds on exp-307, feat-rdm-app-installed, the residual balance bands feature, feat-rdm-last-activity-v2, feat-rdm-prior-response and the corrected sms uplift gap finding.",
+   "line": 8
+  },
+  {
+   "what": "feat-rdm-balance-band",
+   "quote": "the residual balance bands feature",
+   "line": 8
+  },
+  {
+   "what": "feat-rdm-last-activity-v2",
+   "quote": "feat-rdm-last-activity-v2",
+   "line": 8
+  },
+  {
+   "what": "feat-rdm-prior-response",
+   "quote": "feat-rdm-prior-response",
+   "line": 8
+  },
+  {
+   "what": "fnd-rdm-sms-uplift-v2",
+   "quote": "the corrected sms uplift gap finding",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "t-learner",
+   "quote": "Replaces the t-learner targeting model.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reactivation-dormant/rdm-uplift-v2.md",
+ "sha": "d495ddd30fa36c2af307d5063dca72945abfe57b5b80c5cf82003a0c6a473cb5",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

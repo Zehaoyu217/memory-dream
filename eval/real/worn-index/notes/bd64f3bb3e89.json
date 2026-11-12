@@ -1,0 +1,167 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "monotone-constraints",
+   "type": "term",
+   "label": "monotone constraints",
+   "as": [
+    "Monotone constraints"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "app-gbm-v1",
+   "type": "model",
+   "label": "v1 model",
+   "as": [
+    "app-gbm-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "app-gbm-v2",
+   "type": "model",
+   "label": "constrained gbm",
+   "as": [
+    "app-gbm-v2"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "v8-score",
+   "type": "feature",
+   "label": "v8 score",
+   "as": [
+    "the v8 score"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-app-util-new",
+   "type": "feature",
+   "label": "utilisation",
+   "as": [
+    "utilisation"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "monotone-constraints",
+   "type": "other",
+   "label": "added to",
+   "o": "app-gbm-v1",
+   "quote": "Monotone constraints on utilisation and the v8 score added to the v1 model",
+   "line": 5
+  },
+  {
+   "s": "monotone-constraints",
+   "type": "other",
+   "label": "constrains",
+   "o": "feat-app-util-new",
+   "quote": "Monotone constraints on utilisation and the v8 score added to the v1 model",
+   "line": 5
+  },
+  {
+   "s": "monotone-constraints",
+   "type": "other",
+   "label": "constrains",
+   "o": "v8-score",
+   "quote": "Monotone constraints on utilisation and the v8 score added to the v1 model",
+   "line": 5
+  },
+  {
+   "s": "monotone-constraints",
+   "type": "other",
+   "label": "costs",
+   "o": "gini",
+   "quote": "monotone constraints cost 0.02 Gini (0.46 to 0.44) on holdout-2025q1",
+   "line": 4
+  },
+  {
+   "s": "app-gbm-v1",
+   "type": "measured-by",
+   "label": "Gini",
+   "o": "gini",
+   "quote": "Gini 0.46 unconstrained against 0.44 constrained",
+   "line": 6
+  },
+  {
+   "s": "app-gbm-v2",
+   "type": "measured-by",
+   "label": "Gini",
+   "o": "gini",
+   "quote": "Gini 0.46 unconstrained against 0.44 constrained",
+   "line": 6
+  },
+  {
+   "s": "app-gbm-v1",
+   "type": "evaluated-on",
+   "label": "on",
+   "o": "holdout-2025q1",
+   "quote": "monotone constraints cost 0.02 Gini (0.46 to 0.44) on holdout-2025q1",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "app-gbm-v1",
+  "app-gbm-v2"
+ ],
+ "built_on": [
+  {
+   "what": "app-gbm-v1",
+   "quote": "Builds on app-gbm-v1 and app-gbm-v2.",
+   "line": 8
+  },
+  {
+   "what": "app-gbm-v2",
+   "quote": "Builds on app-gbm-v1 and app-gbm-v2.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "application-scorecard/exp-504.md",
+ "sha": "bd64f3bb3e89f1e3a7de7a9ca287c6e418e03a8547c46dea684a53016970207c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

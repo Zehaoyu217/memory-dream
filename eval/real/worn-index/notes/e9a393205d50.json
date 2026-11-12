@@ -1,0 +1,80 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "campaign-responses",
+   "type": "dataset",
+   "label": "outcomes table",
+   "as": [
+    "marketing.campaign_responses"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "offer-redemption",
+   "type": "metric",
+   "label": "redemption rate",
+   "as": [
+    "redemption",
+    "Overall redemption 18.2%"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-ror-offer-fatigue",
+   "type": "feature",
+   "label": "fatigue feature",
+   "as": [
+    "feat-ror-offer-fatigue"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "july-2025-wave",
+   "type": "segment",
+   "label": "offer wave",
+   "as": [
+    "The July 2025 wave"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "campaign-responses",
+   "type": "uses",
+   "label": "records prior offers for",
+   "o": "feat-ror-offer-fatigue",
+   "quote": "used for feat-ror-offer-fatigue",
+   "line": 6
+  },
+  {
+   "s": "july-2025-wave",
+   "type": "evaluated-on",
+   "label": "main read for",
+   "o": "campaign-responses",
+   "quote": "The July 2025 wave has a 10% control and is the main read for exp-401 and exp-403",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-401",
+  "exp-403"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "retention-offers-roi/ds-ror-redemptions.md",
+ "sha": "e9a393205d501e72fdc87f02acc6dc50d7d1a2003fdfa1046cd527538aaadf3b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

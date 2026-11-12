@@ -1,0 +1,101 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-203",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-203"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "score psi",
+   "as": [
+    "score PSI"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "ds-mm-incident-log",
+   "type": "dataset",
+   "label": "labelled incidents",
+   "as": [
+    "On the 19 labelled incidents"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-mm-scoring-log",
+   "type": "dataset",
+   "label": "scoring log",
+   "as": [
+    "the daily scoring log table"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-203",
+   "type": "measured-by",
+   "label": "passed 0.10",
+   "o": "psi",
+   "quote": "On the 19 labelled incidents, the first day score PSI passed 0.10",
+   "line": 5
+  },
+  {
+   "s": "exp-203",
+   "type": "evaluated-on",
+   "label": "tested on",
+   "o": "ds-mm-incident-log",
+   "quote": "On the 19 labelled incidents",
+   "line": 5
+  },
+  {
+   "s": "exp-203",
+   "type": "uses",
+   "label": "computed on",
+   "o": "ds-mm-scoring-log",
+   "quote": "Score PSI is computed on the same scoring log",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-mm-incident-log",
+  "ds-mm-scoring-log"
+ ],
+ "built_on": [
+  {
+   "what": "ds-mm-incident-log",
+   "quote": "Builds on ds-mm-incident-log and the daily scoring log table.",
+   "line": 7
+  },
+  {
+   "what": "ds-mm-scoring-log",
+   "quote": "Builds on ds-mm-incident-log and the daily scoring log table.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "model-monitoring/exp-203.md",
+ "sha": "ddce8f33061aa0984e8fdcd4dbd39a284b30f75757a0aa0cd9a6b9b74abdc061",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

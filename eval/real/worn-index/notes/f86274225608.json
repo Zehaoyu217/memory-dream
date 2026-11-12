@@ -1,0 +1,168 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "mrisk-gbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "mrisk-gbm-v3"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-mrisk-dispute-ratio",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mrisk-dispute-ratio"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "mrisk-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "mrisk-gbm-v2"
+   ],
+   "lines": [
+    8,
+    9
+   ]
+  },
+  {
+   "id": "exp-507",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-507"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "mrisk-oot-2026h1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "mrisk-oot-2026h1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.91"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "precision-at-100",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "precision@100 0.58"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "dec-mrisk-threshold-065",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-mrisk-threshold-065"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mrisk-gbm-v3",
+   "type": "uses",
+   "label": "adds",
+   "o": "feat-mrisk-dispute-ratio",
+   "quote": "Adds feat-mrisk-dispute-ratio to the v2 features.",
+   "line": 5
+  },
+  {
+   "s": "mrisk-gbm-v3",
+   "type": "measured-by",
+   "label": "scores",
+   "o": "auc",
+   "quote": "AUC 0.91",
+   "line": 4
+  },
+  {
+   "s": "mrisk-gbm-v3",
+   "type": "measured-by",
+   "label": "scores",
+   "o": "precision-at-100",
+   "quote": "precision@100 0.58",
+   "line": 4
+  },
+  {
+   "s": "mrisk-gbm-v3",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "mrisk-oot-2026h1",
+   "quote": "On mrisk-oot-2026h1: AUC 0.91, precision@100 0.58",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "dec-mrisk-threshold-065",
+  "exp-507"
+ ],
+ "built_on": [
+  {
+   "what": "exp-507",
+   "quote": "Builds on exp-507, feat-mrisk-dispute-ratio and mrisk-gbm-v2.",
+   "line": 8
+  },
+  {
+   "what": "feat-mrisk-dispute-ratio",
+   "quote": "Builds on exp-507, feat-mrisk-dispute-ratio and mrisk-gbm-v2.",
+   "line": 8
+  },
+  {
+   "what": "mrisk-gbm-v2",
+   "quote": "Builds on exp-507, feat-mrisk-dispute-ratio and mrisk-gbm-v2.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "mrisk-gbm-v2",
+   "quote": "Replaces mrisk-gbm-v2.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "merchant-risk/mrisk-gbm-v3.md",
+ "sha": "f862742256084bfb8fd40659803a43cd1499510ac103226d6bfa521c3e5979fa",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

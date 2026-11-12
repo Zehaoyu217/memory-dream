@@ -1,0 +1,91 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "cli-model-family",
+   "type": "other",
+   "label": "model family",
+   "as": [
+    "`cli-` model"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "drift metric",
+   "as": [
+    "PSI above 0.20",
+    "PSI 0.22"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "cli-glm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "`cli-glm-v2`"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cli_util_ratio",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "`cli_util_ratio`"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "monthly-review-psi-trigger",
+   "type": "document",
+   "label": "earlier rule",
+   "as": [
+    "monthly-review-psi-trigger"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cli-glm-v2",
+   "type": "measured-by",
+   "label": "drifted to",
+   "o": "psi",
+   "quote": "`cli-glm-v2` drifted to PSI 0.22",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "monthly-review-psi-trigger"
+ ],
+ "replaces": [
+  {
+   "what": "monthly-review-psi-trigger",
+   "quote": "Replaces monthly-review-psi-trigger.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/monthly-review-psi-trigger-v2.md",
+ "sha": "a3adb227a0ddb233c143a8b23a295688607785c0bbcbdf5d0eaf585ab0f593d3",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,143 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "cu-uplift-v3",
+   "type": "model",
+   "label": "uplift model",
+   "as": [
+    "cu-uplift-v3"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cu-uplift-v2",
+   "type": "model",
+   "label": "uplift model",
+   "as": [
+    "cu-uplift-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-cu-bureau-delta",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-bureau-delta"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-cu-oot-2026h1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "collections-uplift-oot-2026h1"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift@20%",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "40-point-drop-accounts",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "accounts with a 40-point bureau drop"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cu-uplift-v3",
+   "type": "measured-by",
+   "label": "uplift@20%",
+   "o": "uplift-at-20",
+   "quote": "cu-uplift-v3 (cu-uplift-v2 plus feat-cu-bureau-delta): uplift@20% 0.038",
+   "line": 5
+  },
+  {
+   "s": "cu-uplift-v2",
+   "type": "measured-by",
+   "label": "uplift@20%",
+   "o": "uplift-at-20",
+   "quote": "cu-uplift-v2 on the same set: 0.033",
+   "line": 5
+  },
+  {
+   "s": "cu-uplift-v3",
+   "type": "uses",
+   "label": "adds feature",
+   "o": "feat-cu-bureau-delta",
+   "quote": "cu-uplift-v3 (cu-uplift-v2 plus feat-cu-bureau-delta)",
+   "line": 5
+  },
+  {
+   "s": "cu-uplift-v3",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "ds-cu-oot-2026h1",
+   "quote": "Eval set collections-uplift-oot-2026h1, n=28,450 with 860 control accounts.",
+   "line": 5
+  },
+  {
+   "s": "40-point-drop-accounts",
+   "type": "measured-by",
+   "label": "uplift is",
+   "o": "uplift-at-20",
+   "quote": "Gain is concentrated in accounts with a 40-point bureau drop, where uplift is 0.061.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "collections_uplift/exp106_v3.ipynb"
+ ],
+ "built_on": [
+  {
+   "what": "cu-uplift-v2",
+   "quote": "Builds on the calibrated uplift model used for routing, ds-cu-oot-2026h1 and the bureau 3-month score change feature.",
+   "line": 8
+  },
+  {
+   "what": "ds-cu-oot-2026h1",
+   "quote": "Builds on the calibrated uplift model used for routing, ds-cu-oot-2026h1 and the bureau 3-month score change feature.",
+   "line": 8
+  },
+  {
+   "what": "feat-cu-bureau-delta",
+   "quote": "Builds on the calibrated uplift model used for routing, ds-cu-oot-2026h1 and the bureau 3-month score change feature.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-uplift/exp-106.md",
+ "sha": "a8d5ce6259b05f74856c13a39b919bcc3e50d7a61996ab06cf2397e90c7fc339",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

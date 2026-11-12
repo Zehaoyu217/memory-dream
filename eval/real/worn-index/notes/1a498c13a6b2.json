@@ -1,0 +1,102 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-csb-merchant-mix",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "Merchant mix for SMB deposits"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.merchants",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.merchants"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-csb-deposit-volatility",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-csb-deposit-volatility"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-csb-spend-sa-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-csb-spend-sa-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-csb-merchant-mix",
+   "type": "uses",
+   "label": "reads",
+   "o": "cards.txn_daily",
+   "quote": "Deposits are taken from `cards.txn_daily`",
+   "line": 5
+  },
+  {
+   "s": "ds-csb-merchant-mix",
+   "type": "uses",
+   "label": "joined to",
+   "o": "cards.merchants",
+   "quote": "joined to `cards.merchants` on merchant_id",
+   "line": 5
+  },
+  {
+   "s": "feat-csb-deposit-volatility",
+   "type": "uses",
+   "label": "used for",
+   "o": "ds-csb-merchant-mix",
+   "quote": "Used for the weekly deposit series behind feat-csb-deposit-volatility",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-csb-biz-accounts",
+   "quote": "Builds on ds-csb-biz-accounts.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-small-business/ds-csb-merchant-mix.md",
+ "sha": "1a498c13a6b27f269f1ec5df484beff8265b00a6275a89871626ffda66a8f833",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

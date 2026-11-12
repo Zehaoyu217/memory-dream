@@ -1,0 +1,181 @@
+{
+ "kind": "requirement",
+ "entities": [
+  {
+   "id": "staging",
+   "type": "environment",
+   "label": "staging",
+   "as": [
+    "staging"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "snapshot-id",
+   "type": "term",
+   "label": "snapshot id",
+   "as": [
+    "snapshot id"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "oot-metrics",
+   "type": "metric",
+   "label": "oot metrics",
+   "as": [
+    "OOT metrics"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "psi-report",
+   "type": "document",
+   "label": "psi report",
+   "as": [
+    "PSI report"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "model-card",
+   "type": "document",
+   "label": "model card",
+   "as": [
+    "model card"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "aisha-khan",
+   "type": "person",
+   "label": "approver",
+   "as": [
+    "Aisha Khan"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "retention-propensity-model",
+   "type": "model",
+   "label": "retention model",
+   "as": [
+    "retention model"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "shadow-scoring",
+   "type": "term",
+   "label": "shadow scoring",
+   "as": [
+    "two weeks of shadow scoring"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "model-registration-checklist",
+   "type": "document",
+   "label": "how-to",
+   "as": [
+    "howto/model-registration-checklist"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "staging",
+   "type": "uses",
+   "label": "requires",
+   "o": "snapshot-id",
+   "quote": "A snapshot id, OOT metrics, a PSI report and a model card",
+   "line": 4
+  },
+  {
+   "s": "staging",
+   "type": "uses",
+   "label": "requires",
+   "o": "oot-metrics",
+   "quote": "A snapshot id, OOT metrics, a PSI report and a model card",
+   "line": 4
+  },
+  {
+   "s": "staging",
+   "type": "uses",
+   "label": "requires",
+   "o": "psi-report",
+   "quote": "A snapshot id, OOT metrics, a PSI report and a model card",
+   "line": 4
+  },
+  {
+   "s": "staging",
+   "type": "uses",
+   "label": "requires",
+   "o": "model-card",
+   "quote": "A snapshot id, OOT metrics, a PSI report and a model card",
+   "line": 4
+  },
+  {
+   "s": "staging",
+   "type": "uses",
+   "label": "needs",
+   "o": "shadow-scoring",
+   "quote": "Staging also needs two weeks of shadow scoring",
+   "line": 5
+  },
+  {
+   "s": "retention-propensity-model",
+   "type": "other",
+   "label": "cleared all four",
+   "o": "staging",
+   "quote": "cleared all four on 2025-11-05",
+   "line": 5
+  },
+  {
+   "s": "staging",
+   "type": "approved-by",
+   "label": "sign-off by",
+   "o": "aisha-khan",
+   "quote": "with Aisha Khan's sign-off",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "howto/model-registration-checklist"
+ ],
+ "built_on": [
+  {
+   "what": "model-registration-checklist",
+   "quote": "Builds on howto/model-registration-checklist",
+   "line": 6
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/staging-entry-requirements.md",
+ "sha": "83685bff490c68e589e21d859e9a5cb2b2204cc09fd137b12b0bce9178a12397",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

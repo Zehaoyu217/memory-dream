@@ -1,0 +1,90 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-clv-bgnbd-bias",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "BG/NBD overpredicts the top spend decile's 36-month margin by 14%"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "clv-bgnbd-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "clv-bgnbd-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "holdout-clv-oot-2021h1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "clv-oot-2021h1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dec-clv-ship-ml-v1",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-clv-ship-ml-v1"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fnd-clv-bgnbd-bias",
+   "type": "evaluated-on",
+   "label": "on",
+   "o": "holdout-clv-oot-2021h1",
+   "quote": "On clv-oot-2021h1",
+   "line": 5
+  },
+  {
+   "s": "fnd-clv-bgnbd-bias",
+   "type": "other",
+   "label": "basis for",
+   "o": "dec-clv-ship-ml-v1",
+   "quote": "Basis for dec-clv-ship-ml-v1.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-clv-ship-ml-v1"
+ ],
+ "built_on": [
+  {
+   "what": "clv-bgnbd-v1",
+   "quote": "Builds on clv-bgnbd-v1",
+   "line": 8
+  },
+  {
+   "what": "exp-501",
+   "quote": "the bg/nbd versus gbm accuracy test",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "customer-lifetime-value/fnd-clv-bgnbd-bias.md",
+ "sha": "1605e9bef88823192cf0389360b579be3c972d6dd9ec84d9d0df8da33f2b01bf",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

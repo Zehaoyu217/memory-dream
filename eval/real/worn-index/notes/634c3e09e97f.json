@@ -1,0 +1,110 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-501",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-501"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "reject-inference",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "Reject inference"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "ds-app-reject-sample",
+   "type": "dataset",
+   "label": "reject sample",
+   "as": [
+    "reject-sample"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "app-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "app-gbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-501",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q1",
+   "quote": "Eval: holdout-2025q1, n=21,300",
+   "line": 6
+  },
+  {
+   "s": "exp-501",
+   "type": "uses",
+   "label": "adopted as weight scheme",
+   "o": "app-gbm-v2",
+   "quote": "Adopted as the weight scheme for app-gbm-v2",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-app-applications-2024",
+  "ds-app-reject-sample"
+ ],
+ "built_on": [
+  {
+   "what": "ds-app-applications-2024",
+   "quote": "Builds on ds-app-applications-2024, ds-app-reject-sample and the question of reject inference lifting ks.",
+   "line": 8
+  },
+  {
+   "what": "ds-app-reject-sample",
+   "quote": "Builds on ds-app-applications-2024, ds-app-reject-sample and the question of reject inference lifting ks.",
+   "line": 8
+  },
+  {
+   "what": "q-app-reject-inference",
+   "quote": "the question of reject inference lifting ks",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "application-scorecard/exp-501.md",
+ "sha": "634c3e09e97f5e8dc23692692a2d5d6000bc2437672382175f66bf5153e4c136",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

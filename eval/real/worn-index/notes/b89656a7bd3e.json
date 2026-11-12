@@ -1,0 +1,81 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "ch-bandit-v1",
+   "type": "model",
+   "label": "bandit allocator",
+   "as": [
+    "ch-bandit-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ch-propensity-v2",
+   "type": "model",
+   "label": "channel-choice model",
+   "as": [
+    "ch-propensity-v2"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "exp-507",
+   "type": "experiment",
+   "label": "bandit simulation",
+   "as": [
+    "exp-507"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ch-bandit-v1",
+   "type": "uses",
+   "label": "priors from",
+   "o": "ch-propensity-v2",
+   "quote": "Priors from ch-propensity-v2 scores.",
+   "line": 5
+  },
+  {
+   "s": "ch-bandit-v1",
+   "type": "other",
+   "label": "simulated gain in",
+   "o": "exp-507",
+   "quote": "Simulated gain +9% promise-to-pay at equal spend (exp-507).",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-507"
+ ],
+ "built_on": [
+  {
+   "what": "ch-propensity-v2",
+   "quote": "Builds on ch-propensity-v2 and exp-507.",
+   "line": 7
+  },
+  {
+   "what": "exp-507",
+   "quote": "Builds on ch-propensity-v2 and exp-507.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-channel-mix/ch-bandit-v1.md",
+ "sha": "b89656a7bd3e3cb357e5bdf5955794dd44ca5cb32d796882a7c60dadf7d77f3a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

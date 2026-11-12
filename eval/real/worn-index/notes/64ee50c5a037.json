@@ -1,0 +1,75 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "find-pa-margin-positive",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Finding: the 0% promo is margin-positive over 24 months, +$210 per account for arm B"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "pa-margin-v1",
+   "type": "model",
+   "label": "margin model",
+   "as": [
+    "pa-margin-v1"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "find-pa-margin-corrected",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-pa-margin-corrected"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "find-pa-margin-positive",
+   "type": "uses",
+   "label": "based on",
+   "o": "pa-margin-v1",
+   "quote": "Based on pa-margin-v1 with the decay balance path",
+   "line": 5
+  },
+  {
+   "s": "find-pa-margin-positive",
+   "type": "other",
+   "label": "overturned by",
+   "o": "find-pa-margin-corrected",
+   "quote": "Overturned by find-pa-margin-corrected once churn and loss are included.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "find-pa-margin-corrected"
+ ],
+ "built_on": [
+  {
+   "what": "pa-margin-v1",
+   "quote": "Builds on the balance forecast accuracy experiment and pa-margin-v1.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "promo-apr-test/find-pa-margin-positive.md",
+ "sha": "64ee50c5a0372add5c0179b8e0a37ea32b5d7202484a9440d5fa1b7dd285b523",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

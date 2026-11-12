@@ -1,0 +1,107 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "approver",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ben-carter",
+   "type": "person",
+   "label": "approver",
+   "as": [
+    "Ben Carter"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "rs-xgb-v2",
+   "type": "model",
+   "label": "placement model",
+   "as": [
+    "rs-xgb-v2"
+   ],
+   "lines": [
+    4,
+    8
+   ]
+  },
+  {
+   "id": "placement-cutoff-0.18",
+   "type": "term",
+   "label": "placement cutoff",
+   "as": [
+    "a recovery probability of 0.18 or above"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "placement-cutoff-0.18",
+   "type": "uses",
+   "label": "applied to",
+   "o": "rs-xgb-v2",
+   "quote": "place to agencies when rs-xgb-v2 predicts a recovery probability of 0.18 or above",
+   "line": 4
+  },
+  {
+   "s": "placement-cutoff-0.18",
+   "type": "owned-by",
+   "label": "agreed by",
+   "o": "lena-fischer",
+   "quote": "Agreed 2025-09-20 by Lena Fischer and Ben Carter (finance).",
+   "line": 5
+  },
+  {
+   "s": "placement-cutoff-0.18",
+   "type": "owned-by",
+   "label": "agreed by",
+   "o": "ben-carter",
+   "quote": "Agreed 2025-09-20 by Lena Fischer and Ben Carter (finance).",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "find-rs-placement-net",
+  "q-rs-placement-cutoff",
+  "rs-xgb-v2",
+  "dec-rs-placement-cutoff"
+ ],
+ "built_on": [
+  {
+   "what": "find-rs-placement-net",
+   "quote": "Builds on find-rs-placement-net, q-rs-placement-cutoff and rs-xgb-v2.",
+   "line": 8
+  },
+  {
+   "what": "q-rs-placement-cutoff",
+   "quote": "Builds on find-rs-placement-net, q-rs-placement-cutoff and rs-xgb-v2.",
+   "line": 8
+  },
+  {
+   "what": "rs-xgb-v2",
+   "quote": "Builds on find-rs-placement-net, q-rs-placement-cutoff and rs-xgb-v2.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "recovery-scoring/dec-rs-placement-cutoff.md",
+ "sha": "62d418c0a1a9c4ae81efe9018159de9af153c8f1833184bc9ec1b4595015c970",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

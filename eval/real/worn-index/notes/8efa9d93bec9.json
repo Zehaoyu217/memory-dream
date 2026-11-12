@@ -1,0 +1,70 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "hardship-program",
+   "type": "other",
+   "label": "program",
+   "as": [
+    "hardship payment plan"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "roll-rate",
+   "type": "metric",
+   "label": "roll rate",
+   "as": [
+    "30-to-60 roll rate"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-hp-matched-controls",
+   "type": "dataset",
+   "label": "comparison base",
+   "as": [
+    "ds-hp-matched-controls"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "hardship-program",
+   "type": "measured-by",
+   "label": "outcome",
+   "o": "roll-rate",
+   "quote": "Outcome: 30-to-60 roll within 30 days of enrolment.",
+   "line": 6
+  },
+  {
+   "s": "hardship-program",
+   "type": "uses",
+   "label": "comparison base",
+   "o": "ds-hp-matched-controls",
+   "quote": "Comparison base: ds-hp-matched-controls.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "find-hp-naive-effect",
+  "find-hp-adjusted-effect",
+  "find-hp-effect-v2",
+  "ds-hp-matched-controls"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "hardship-programs/q-hp-effect-size.md",
+ "sha": "8efa9d93bec91399c8450b19654a0ef0e87102793821f52550e50a1e6a0590c0",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

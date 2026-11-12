@@ -1,0 +1,142 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "bt-xgb-v3",
+   "type": "model",
+   "label": "margin-trained model",
+   "as": [
+    "bt-xgb-v3"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bt-xgb-v2",
+   "type": "model",
+   "label": "acceptance-trained model",
+   "as": [
+    "bt-xgb-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bt-holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "bt-holdout-2025q1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "margin-capture",
+   "type": "metric",
+   "label": "margin share",
+   "as": [
+    "61% of 12-month margin in the top 30%"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ben-carter",
+   "type": "person",
+   "label": "finance checker",
+   "as": [
+    "Ben Carter (finance)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-107-margin-label",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-107-margin-label"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "q-bt-margin-threshold",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "q-bt-margin-threshold"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dec-bt-margin-label",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-bt-margin-label"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bt-xgb-v3",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "bt-holdout-2025q1",
+   "quote": "Measured on bt-holdout-2025q1 with bt-xgb-v3",
+   "line": 5
+  },
+  {
+   "s": "bt-xgb-v3",
+   "type": "measured-by",
+   "label": "captures",
+   "o": "margin-capture",
+   "quote": "61% of 12-month margin in the top 30%",
+   "line": 4
+  },
+  {
+   "s": "ben-carter",
+   "type": "owned-by",
+   "label": "still checking",
+   "o": "ben-carter",
+   "quote": "Ben Carter (finance) is still checking the net-interest-margin curve",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "bt-xgb-v3",
+  "bt-xgb-v2",
+  "bt-holdout-2025q1",
+  "exp-107-margin-label",
+  "q-bt-margin-threshold",
+  "dec-bt-margin-label"
+ ],
+ "built_on": [
+  {
+   "what": "exp-107-margin-label",
+   "quote": "Builds on exp-107-margin-label.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "balance-transfer-propensity/find-bt-margin-top30.md",
+ "sha": "ae6ad1245014cb55cea2d1ce21324880156c1c4238455f0d75803dc4e22bb212",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

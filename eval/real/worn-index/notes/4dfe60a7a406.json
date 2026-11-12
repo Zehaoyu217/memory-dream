@@ -1,0 +1,117 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "find-inc-self-employed-bias",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Finding: self-employed income is understated by 9% at the median"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-407",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-407"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "verified-2026-holdout",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "verified-2026 holdout (n=1,980; self-employed 23%)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "self-employed",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "self-employed"
+   ],
+   "lines": [
+    4,
+    5,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "MAPE 33%",
+    "17%"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "dec-inc-estimate-live",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-inc-estimate-live"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "find-inc-self-employed-bias",
+   "type": "evaluated-on",
+   "label": "from",
+   "o": "verified-2026-holdout",
+   "quote": "From exp-407 on the verified-2026 holdout (n=1,980; self-employed 23%).",
+   "line": 5
+  },
+  {
+   "s": "find-inc-self-employed-bias",
+   "type": "other",
+   "label": "corrected by",
+   "o": "dec-inc-estimate-live",
+   "quote": "Corrected by a 9% uplift for self-employed accounts in dec-inc-estimate-live.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-407",
+  "dec-inc-estimate-live"
+ ],
+ "built_on": [
+  {
+   "what": "exp-407",
+   "quote": "From exp-407 on the verified-2026 holdout",
+   "line": 5
+  },
+  {
+   "what": "exp-407",
+   "quote": "Builds on the self-employed error comparison.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "income-estimation/find-inc-self-employed-bias.md",
+ "sha": "4dfe60a7a40643f44f635f82cf9527d5d052cdae456772d758ce6b5567f8b8dc",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

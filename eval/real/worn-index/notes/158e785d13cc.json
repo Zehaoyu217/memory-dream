@@ -1,0 +1,222 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "rs-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rs-xgb-v2 is the recovery classifier"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-rs-balance-at-co",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rs-balance-at-co"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-rs-pay-before-co",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rs-pay-before-co"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-rs-bureau-postco-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rs-bureau-postco-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-rs-contact-attempts",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rs-contact-attempts"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "recovery-scoring-holdout-2023h2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "recovery-scoring-holdout-2023h2 (n=6,120)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Gini 0.47"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "KS 0.33"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "rs-xgb-v3",
+   "type": "model",
+   "label": "successor model",
+   "as": [
+    "rs-xgb-v3 (2026-02-10)"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "rs-xgb-v1",
+   "type": "model",
+   "label": "replaced model",
+   "as": [
+    "rs-xgb-v1"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "find-rs-region-proxy",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-rs-region-proxy"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rs-xgb-v2",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-rs-balance-at-co",
+   "quote": "Features: feat-rs-balance-at-co",
+   "line": 5
+  },
+  {
+   "s": "rs-xgb-v2",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-rs-pay-before-co",
+   "quote": "feat-rs-pay-before-co",
+   "line": 5
+  },
+  {
+   "s": "rs-xgb-v2",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-rs-bureau-postco-v1",
+   "quote": "feat-rs-bureau-postco-v1",
+   "line": 5
+  },
+  {
+   "s": "rs-xgb-v2",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-rs-contact-attempts",
+   "quote": "feat-rs-contact-attempts.",
+   "line": 5
+  },
+  {
+   "s": "rs-xgb-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "recovery-scoring-holdout-2023h2",
+   "quote": "Gini 0.47 and KS 0.33 on recovery-scoring-holdout-2023h2 (n=6,120)",
+   "line": 6
+  },
+  {
+   "s": "rs-xgb-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "rs-xgb-v1",
+   "quote": "Replaces rs-xgb-v1.",
+   "line": 9
+  },
+  {
+   "s": "rs-xgb-v2",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "rs-xgb-v3",
+   "quote": "Superseded by rs-xgb-v3 (2026-02-10).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "find-rs-region-proxy",
+  "exp-306"
+ ],
+ "built_on": [
+  {
+   "what": "exp-306",
+   "quote": "Builds on exp-306, the post-charge-off bureau score feature, feat-rs-contact-attempts and find-rs-region-proxy.",
+   "line": 8
+  },
+  {
+   "what": "feat-rs-contact-attempts",
+   "quote": "Builds on exp-306, the post-charge-off bureau score feature, feat-rs-contact-attempts and find-rs-region-proxy.",
+   "line": 8
+  },
+  {
+   "what": "find-rs-region-proxy",
+   "quote": "Builds on exp-306, the post-charge-off bureau score feature, feat-rs-contact-attempts and find-rs-region-proxy.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "rs-xgb-v1",
+   "quote": "Replaces rs-xgb-v1.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "recovery-scoring/rs-xgb-v2.md",
+ "sha": "158e785d13cc7f3c60173567bedd09971a0ea8033fece3d64e4e6fde5b4ac917",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

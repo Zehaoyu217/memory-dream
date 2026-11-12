@@ -1,0 +1,104 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "q-bt-margin-threshold",
+   "type": "term",
+   "label": "question",
+   "as": [
+    "Q: What 12-month net margin per accepted BT should decide who gets mailed?"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ben-carter",
+   "type": "person",
+   "label": "finance contact",
+   "as": [
+    "Ben Carter (finance)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bt.offer_log",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`bt.offer_log`"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "joined table",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "find-bt-margin-top30",
+   "type": "term",
+   "label": "first estimate",
+   "as": [
+    "First estimate in find-bt-margin-top30."
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "q-bt-margin-threshold",
+   "type": "owned-by",
+   "label": "asked by",
+   "o": "ben-carter",
+   "quote": "Ben Carter (finance) asked for the threshold in $ per account, not in AUC.",
+   "line": 6
+  },
+  {
+   "s": "q-bt-margin-threshold",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "bt.offer_log",
+   "quote": "Source: `bt.offer_log` joined to `cards.accounts_monthly`.",
+   "line": 8
+  },
+  {
+   "s": "q-bt-margin-threshold",
+   "type": "uses",
+   "label": "joined to",
+   "o": "cards.accounts_monthly",
+   "quote": "Source: `bt.offer_log` joined to `cards.accounts_monthly`.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "find-bt-margin-top30"
+ ],
+ "built_on": [
+  {
+   "what": "q-bt-who-accepts",
+   "quote": "Builds on the question of who accepts balance transfers.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "balance-transfer-propensity/q-bt-margin-threshold.md",
+ "sha": "a9d31144f30e56b8305a149fdd8fdf860a87d20b7a763e61cb1b527a461a3bee",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

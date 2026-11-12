@@ -1,0 +1,138 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "inc-gbm-v3",
+   "type": "model",
+   "label": "estimate model",
+   "as": [
+    "inc-gbm-v3"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "inc-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "inc-gbm-v2"
+   ],
+   "lines": [
+    6,
+    9
+   ]
+  },
+  {
+   "id": "verified-2026-holdout",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "verified-2026 holdout (n=1,980 of ds-inc-verified-2026)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-inc-verified-2026",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-inc-verified-2026"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "MAPE 19%"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "find-inc-self-employed-bias",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-inc-self-employed-bias"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "inc-gbm-v3",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "mape",
+   "quote": "MAPE 19% against 31% for inc-gbm-v2 on the same rows",
+   "line": 6
+  },
+  {
+   "s": "inc-gbm-v3",
+   "type": "evaluated-on",
+   "label": "eval on",
+   "o": "verified-2026-holdout",
+   "quote": "Eval: verified-2026 holdout (n=1,980 of ds-inc-verified-2026)",
+   "line": 6
+  },
+  {
+   "s": "inc-gbm-v3",
+   "type": "uses",
+   "label": "log-target of",
+   "o": "ds-inc-verified-2026",
+   "quote": "log of verified income as the target",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "ds-inc-verified-2026",
+  "find-inc-log-target-gain",
+  "find-inc-self-employed-bias",
+  "inc-gbm-v2"
+ ],
+ "built_on": [
+  {
+   "what": "ds-inc-verified-2026",
+   "quote": "Builds on ds-inc-verified-2026, find-inc-log-target-gain and the cadence-stability income model.",
+   "line": 8
+  },
+  {
+   "what": "find-inc-log-target-gain",
+   "quote": "Builds on ds-inc-verified-2026, find-inc-log-target-gain and the cadence-stability income model.",
+   "line": 8
+  },
+  {
+   "what": "inc-gbm-v2",
+   "quote": "the cadence-stability income model",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "inc-gbm-v2",
+   "quote": "Replaces inc-gbm-v2.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "income-estimation/inc-gbm-v3.md",
+ "sha": "3eedefff8d5974163d5e0c28ef61551483324c32aeb015f77203995fc15dfc72",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

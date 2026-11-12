@@ -1,0 +1,104 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-403",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-403"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-hp-txn-drop-v1",
+   "type": "feature",
+   "label": "covariate",
+   "as": [
+    "feat-hp-txn-drop-v1"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "hp-psm-v1",
+   "type": "model",
+   "label": "matching model",
+   "as": [
+    "the first hardship propensity matching model"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-402",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-402"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "roll-rate",
+   "type": "metric",
+   "label": "30-to-60 roll",
+   "as": [
+    "30-to-60 roll"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-403",
+   "type": "uses",
+   "label": "covariate added",
+   "o": "feat-hp-txn-drop-v1",
+   "quote": "with feat-hp-txn-drop-v1 added to the propensity model",
+   "line": 5
+  },
+  {
+   "s": "exp-403",
+   "type": "measured-by",
+   "label": "effect on",
+   "o": "roll-rate",
+   "quote": "effect of -4.4pp on the 30-to-60 roll",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "feat-hp-txn-drop-v1",
+  "hp-psm-v1",
+  "exp-402"
+ ],
+ "built_on": [
+  {
+   "what": "feat-hp-txn-drop-v1",
+   "quote": "Builds on feat-hp-txn-drop-v1 and the first hardship propensity matching model.",
+   "line": 8
+  },
+  {
+   "what": "hp-psm-v1",
+   "quote": "Builds on feat-hp-txn-drop-v1 and the first hardship propensity matching model.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "hardship-programs/exp-403.md",
+ "sha": "1ef9fbbf7980a254ba8b22f8ff8ee2bcc1c2d3115a2a8c90b3d0cf958b4c20d9",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

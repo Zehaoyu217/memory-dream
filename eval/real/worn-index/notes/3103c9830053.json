@@ -1,0 +1,86 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-hp-matched-controls",
+   "type": "dataset",
+   "label": "matched control sample",
+   "as": [
+    "Matched control sample"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-hp-enrolled",
+   "type": "dataset",
+   "label": "enrolment dataset",
+   "as": [
+    "2024 hardship enrolment dataset"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-hp-match-covars-v1",
+   "type": "feature",
+   "label": "matching covariates",
+   "as": [
+    "Matching covariates"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-hp-pre-dpd-v1",
+   "type": "feature",
+   "label": "pre-period dpd history",
+   "as": [
+    "Pre-period DPD history"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-hp-matched-controls",
+   "type": "uses",
+   "label": "matched on",
+   "o": "feat-hp-match-covars-v1",
+   "quote": "Matching covariates: feat-hp-match-covars-v1.",
+   "line": 7
+  },
+  {
+   "s": "ds-hp-matched-controls",
+   "type": "uses",
+   "label": "matched on",
+   "o": "feat-hp-pre-dpd-v1",
+   "quote": "Pre-period DPD history: feat-hp-pre-dpd-v1.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-hp-match-covars-v1",
+  "feat-hp-pre-dpd-v1"
+ ],
+ "built_on": [
+  {
+   "what": "ds-hp-enrolled",
+   "quote": "Builds on the 2024 hardship enrolment dataset.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "hardship-programs/ds-hp-matched-controls.md",
+ "sha": "3103c9830053ba81dbf869dbf34a84b7fa82079bd6ee6029c071eb35dcdf2abb",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

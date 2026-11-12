@@ -1,0 +1,78 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-txc-labelled-merchants",
+   "type": "dataset",
+   "label": "labelled set",
+   "as": [
+    "18,400 merchants from cards.merchants labelled into 23 categories"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.merchants",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.merchants` extract"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "txc_labels_2025q1",
+   "type": "dataset",
+   "label": "annotation sheet",
+   "as": [
+    "txc_labels_2025q1"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-txc-labelled-merchants",
+   "type": "uses",
+   "label": "labelled from",
+   "o": "cards.merchants",
+   "quote": "18,400 merchants from cards.merchants labelled into 23 categories",
+   "line": 4
+  },
+  {
+   "s": "ds-txc-labelled-merchants",
+   "type": "produces",
+   "label": "source for",
+   "o": "holdout-2025q2",
+   "quote": "Source for every training set and for holdout-2025q2 (ds-txc-gold-holdout).",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-txc-gold-holdout"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "txn-categorization/ds-txc-labelled-merchants.md",
+ "sha": "e8ffd5bf85eb09b3dea886bcd36641683876991add3f207fd79297ad337f32df",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

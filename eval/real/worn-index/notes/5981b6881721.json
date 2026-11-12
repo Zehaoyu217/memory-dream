@@ -1,0 +1,110 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "aml-xgb-v3",
+   "type": "model",
+   "label": "ranker",
+   "as": [
+    "aml-xgb-v3"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "aml-xgb-v2",
+   "type": "model",
+   "label": "ranker",
+   "as": [
+    "aml-xgb-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-aml-oot",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "aml-oot-2026h1"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "top-40pct-capture",
+   "type": "metric",
+   "label": "capture",
+   "as": [
+    "top 40%"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "structuring-alerts",
+   "type": "segment",
+   "label": "structuring alerts",
+   "as": [
+    "structuring alerts"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "aml-xgb-v3",
+   "type": "measured-by",
+   "label": "captures",
+   "o": "top-40pct-capture",
+   "quote": "aml-xgb-v3 captures 96.3% of SAR-referred alerts in the top 40%",
+   "line": 6
+  },
+  {
+   "s": "aml-xgb-v3",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "ds-aml-oot",
+   "quote": "Eval set: aml-oot-2026h1",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "aml-xgb-v2",
+  "ds-aml-oot",
+  "exp-406"
+ ],
+ "built_on": [
+  {
+   "what": "aml-xgb-v2",
+   "quote": "Builds on aml-xgb-v2, ds-aml-oot and exp-406.",
+   "line": 8
+  },
+  {
+   "what": "ds-aml-oot",
+   "quote": "Builds on aml-xgb-v2, ds-aml-oot and exp-406.",
+   "line": 8
+  },
+  {
+   "what": "exp-406",
+   "quote": "Builds on aml-xgb-v2, ds-aml-oot and exp-406.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "aml-alerts/exp-407.md",
+ "sha": "5981b6881721ea422a0b9c25e26aeb835ab84585f6c90a26c9d6e2fc4e51c574",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

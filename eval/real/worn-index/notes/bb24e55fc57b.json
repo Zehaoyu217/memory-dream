@@ -1,0 +1,110 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cb-spend-band-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cb-spend-band-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cb-elasticity-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cb-elasticity-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-cb-tier-eligibility",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cb-tier-eligibility"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-cb-spend-base",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cb-spend-base"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "exp-204-band-split",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "pooled spend elasticity experiment"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cb-spend-band-v2",
+   "type": "uses",
+   "label": "enters",
+   "o": "cb-elasticity-v2",
+   "quote": "Band and distance both enter cb-elasticity-v2.",
+   "line": 6
+  },
+  {
+   "s": "feat-cb-spend-band-v2",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-cb-tier-eligibility",
+   "quote": "Used in feat-cb-tier-eligibility.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "cb-elasticity-v2",
+  "feat-cb-tier-eligibility"
+ ],
+ "built_on": [
+  {
+   "what": "exp-203-pooled-elasticity",
+   "quote": "Builds on the pooled spend elasticity experiment and feat-cb-spend-base.",
+   "line": 7
+  },
+  {
+   "what": "feat-cb-spend-base",
+   "quote": "Builds on the pooled spend elasticity experiment and feat-cb-spend-base.",
+   "line": 7
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-cb-spend-base",
+   "quote": "Replaces feat-cb-spend-base.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/feat-cb-spend-band-v2.md",
+ "sha": "bb24e55fc57b44258584d2ab56d5f868cc785de96d82b86d9fc71cafe17335bd",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

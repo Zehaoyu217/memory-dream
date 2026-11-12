@@ -1,0 +1,143 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-cc-ft-v1",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Adopt the fine-tuned encoder over logistic regression"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cc-ft-v1",
+   "type": "model",
+   "label": "encoder",
+   "as": [
+    "The encoder"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "cc-logreg-v1",
+   "type": "model",
+   "label": "fallback model",
+   "as": [
+    "Logistic regression"
+   ],
+   "lines": [
+    4,
+    5,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "omar-haddad",
+   "type": "person",
+   "label": "compliance",
+   "as": [
+    "Omar Haddad (compliance)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "aisha-khan",
+   "type": "person",
+   "label": "mlops",
+   "as": [
+    "Aisha Khan (MLOps)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "0.06 macro F1"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cc-ft-v1",
+   "type": "measured-by",
+   "label": "beats by",
+   "o": "macro-f1",
+   "quote": "beats logistic regression by 0.06 macro F1",
+   "line": 5
+  },
+  {
+   "s": "cc-ft-v1",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "holdout-2025q4",
+   "quote": "on holdout-2025q4 without dispute link",
+   "line": 5
+  },
+  {
+   "s": "dec-cc-ft-v1",
+   "type": "owned-by",
+   "label": "agreed with",
+   "o": "omar-haddad",
+   "quote": "Agreed with Omar Haddad (compliance)",
+   "line": 6
+  },
+  {
+   "s": "dec-cc-ft-v1",
+   "type": "owned-by",
+   "label": "agreed with",
+   "o": "aisha-khan",
+   "quote": "Agreed with Omar Haddad (compliance) and Aisha Khan (MLOps)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-201"
+ ],
+ "built_on": [
+  {
+   "what": "exp-201",
+   "quote": "exp-201: 0.80 vs 0.74",
+   "line": 5
+  },
+  {
+   "what": "fnd-cc-coverage",
+   "quote": "fnd-cc-coverage",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "complaint-classification/dec-cc-ft-v1.md",
+ "sha": "18ea25a81c5b1cf9e9e60379b0a9bda11584a8271f313f368d426ba8ffc1c3fd",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

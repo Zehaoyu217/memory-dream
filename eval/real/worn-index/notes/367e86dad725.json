@@ -1,0 +1,214 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "disp-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "disp-lgbm-v2 adds amount band, txn match and merchant chargeback rate; 93.4% at 0.90",
+    "disp-lgbm-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-disp-amount-band",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-disp-amount-band"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-disp-txn-match",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-disp-txn-match"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-disp-merchant-cb-rate",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-disp-merchant-cb-rate"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-303",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-303"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-304",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-304"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "disp-lgbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "disp-lgbm-v1"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "disp-lgbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "disp-lgbm-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dec-disp-autoresolve-095",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-disp-autoresolve-095"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "disp-oot-2026h1",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "disp-oot-2026h1"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "disp-lgbm-v2",
+   "type": "uses",
+   "label": "LightGBM on four feature groups",
+   "o": "feat-disp-merchant-cb-rate",
+   "quote": "LightGBM on four feature groups: reason text, amount band, transaction match, merchant 90-day dispute ratio.",
+   "line": 5
+  },
+  {
+   "s": "disp-lgbm-v2",
+   "type": "uses",
+   "label": "builds on feature",
+   "o": "feat-disp-amount-band",
+   "quote": "Builds on the tf-idf reason-text baseline model, exp-303, feat-disp-amount-band, feat-disp-merchant-cb-rate and feat-disp-txn-match.",
+   "line": 8
+  },
+  {
+   "s": "disp-lgbm-v2",
+   "type": "uses",
+   "label": "builds on feature",
+   "o": "feat-disp-txn-match",
+   "quote": "Builds on the tf-idf reason-text baseline model, exp-303, feat-disp-amount-band, feat-disp-merchant-cb-rate and feat-disp-txn-match.",
+   "line": 8
+  },
+  {
+   "s": "disp-lgbm-v2",
+   "type": "evaluated-on",
+   "label": "out-of-time evaluation",
+   "o": "disp-oot-2026h1",
+   "quote": "Out-of-time on disp-oot-2026h1: precision 93.4% and coverage 31% at p>=0.90 (exp-304).",
+   "line": 6
+  },
+  {
+   "s": "disp-lgbm-v3",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "disp-lgbm-v2",
+   "quote": "Superseded by disp-lgbm-v3 on 2026-09-14",
+   "line": 7
+  },
+  {
+   "s": "disp-lgbm-v2",
+   "type": "other",
+   "label": "paused on",
+   "o": "dec-disp-autoresolve-095",
+   "quote": "auto-resolve was paused on v2 (dec-disp-autoresolve-095).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-303",
+  "exp-304",
+  "dec-disp-autoresolve-095",
+  "disp-lgbm-v1"
+ ],
+ "built_on": [
+  {
+   "what": "disp-lgbm-v1",
+   "quote": "Builds on the tf-idf reason-text baseline model",
+   "line": 8
+  },
+  {
+   "what": "exp-303",
+   "quote": "Builds on the tf-idf reason-text baseline model, exp-303, feat-disp-amount-band, feat-disp-merchant-cb-rate and feat-disp-txn-match.",
+   "line": 8
+  },
+  {
+   "what": "feat-disp-amount-band",
+   "quote": "Builds on the tf-idf reason-text baseline model, exp-303, feat-disp-amount-band, feat-disp-merchant-cb-rate and feat-disp-txn-match.",
+   "line": 8
+  },
+  {
+   "what": "feat-disp-merchant-cb-rate",
+   "quote": "Builds on the tf-idf reason-text baseline model, exp-303, feat-disp-amount-band, feat-disp-merchant-cb-rate and feat-disp-txn-match.",
+   "line": 8
+  },
+  {
+   "what": "feat-disp-txn-match",
+   "quote": "Builds on the tf-idf reason-text baseline model, exp-303, feat-disp-amount-band, feat-disp-merchant-cb-rate and feat-disp-txn-match.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "disp-lgbm-v1",
+   "quote": "Replaces disp-lgbm-v1.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "dispute-triage/disp-lgbm-v2.md",
+ "sha": "367e86dad725a6241b358f5deb0608df30dc33e45853a5f0ba525668422d895d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

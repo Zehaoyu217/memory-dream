@@ -1,0 +1,133 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "proposal-a",
+   "type": "other",
+   "label": "proposal",
+   "as": [
+    "proposal A"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "break-even-lift",
+   "type": "metric",
+   "label": "break-even",
+   "as": [
+    "Break-even"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "cb-sim-v1",
+   "type": "model",
+   "label": "simulator",
+   "as": [
+    "cb-sim"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "predicted-spend-lift",
+   "type": "metric",
+   "label": "predicted",
+   "as": [
+    "predicts 2.4% at $3,000"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "2500-variant",
+   "type": "other",
+   "label": "variant",
+   "as": [
+    "$2,500 threshold"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "elasticity-band",
+   "type": "metric",
+   "label": "middle-band elasticity",
+   "as": [
+    "middle-band elasticity 0.14"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "proposal-a",
+   "type": "measured-by",
+   "label": "does not clear",
+   "o": "break-even-lift",
+   "quote": "proposal A does not clear break-even at a $3,000 top threshold",
+   "line": 4
+  },
+  {
+   "s": "proposal-a",
+   "type": "measured-by",
+   "label": "predicts",
+   "o": "predicted-spend-lift",
+   "quote": "cb-sim predicts 2.4% at $3,000 and 3.6% at $2,500.",
+   "line": 5
+  },
+  {
+   "s": "2500-variant",
+   "type": "measured-by",
+   "label": "predicts",
+   "o": "predicted-spend-lift",
+   "quote": "3.6% at $2,500",
+   "line": 5
+  },
+  {
+   "s": "2500-variant",
+   "type": "other",
+   "label": "brings in",
+   "o": "elasticity-band",
+   "quote": "brings more accounts into the top rate while they still respond (middle-band elasticity 0.14)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-206-breakeven-sim",
+  "q-cb-breakeven-lift",
+  "dec-cb-threshold-2500"
+ ],
+ "built_on": [
+  {
+   "what": "exp-206-breakeven-sim",
+   "quote": "Builds on exp-206-breakeven-sim and q-cb-breakeven-lift.",
+   "line": 8
+  },
+  {
+   "what": "q-cb-breakeven-lift",
+   "quote": "Builds on exp-206-breakeven-sim and q-cb-breakeven-lift.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/find-cb-breakeven-lift.md",
+ "sha": "36df7af2a91f46dcc0e56a2c50b403a6a1b74d2691a847251d07d6f19b21acea",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

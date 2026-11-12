@@ -1,0 +1,85 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "q-xs-propensity",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "Which cardholders are most likely to open a savings account"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "priya-nair",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Priya Nair (onboarding)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sav-offer-log",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "`sav.offer_log`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "open-rate",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "open rate"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "q-xs-propensity",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "priya-nair",
+   "quote": "Owner: Priya Nair (onboarding)",
+   "line": 5
+  },
+  {
+   "s": "q-xs-propensity",
+   "type": "measured-by",
+   "label": "measured as",
+   "o": "open-rate",
+   "quote": "Success is measured as open rate in the top decile on a holdout.",
+   "line": 7
+  },
+  {
+   "s": "q-xs-propensity",
+   "type": "uses",
+   "label": "baseline in",
+   "o": "sav-offer-log",
+   "quote": "Baseline open rate is 2.9% of eligible cardholders in `sav.offer_log`",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cross-sell-savings/q-xs-propensity.md",
+ "sha": "8c97037ab30ed5792221d7131559a24332f77292ae2496e93a13ab43e7d50a08",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

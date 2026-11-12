@@ -1,0 +1,100 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-ae-push-null",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Pushes add only +0.2 percent sessions in a randomised test; the push-open correlation was reverse causation"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-503",
+   "type": "experiment",
+   "label": "randomised push test",
+   "as": [
+    "exp-503"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "dec-ae-no-push-credit",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "push credit is removed (dec-ae-no-push-credit)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fnd-ae-push-assoc",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "the push-open correlation finding"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fnd-ae-push-null",
+   "type": "other",
+   "label": "led to decision",
+   "o": "dec-ae-no-push-credit",
+   "quote": "so push credit is removed (dec-ae-no-push-credit)",
+   "line": 6
+  },
+  {
+   "s": "fnd-ae-push-null",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "fnd-ae-push-assoc",
+   "quote": "Replaces the push-open correlation finding.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-503",
+  "dec-ae-no-push-credit"
+ ],
+ "built_on": [
+  {
+   "what": "exp-503",
+   "quote": "Builds on exp-503 and the push-open correlation finding.",
+   "line": 7
+  },
+  {
+   "what": "fnd-ae-push-assoc",
+   "quote": "Builds on exp-503 and the push-open correlation finding.",
+   "line": 7
+  }
+ ],
+ "replaces": [
+  {
+   "what": "fnd-ae-push-assoc",
+   "quote": "Replaces the push-open correlation finding.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "app-engagement/fnd-ae-push-null.md",
+ "sha": "17c1c47383c9ac696c882abc7c1cd57093b0af03c69b60f8e4d5e3b2e164811b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

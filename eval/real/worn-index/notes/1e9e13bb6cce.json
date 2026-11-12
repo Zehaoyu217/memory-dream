@@ -1,0 +1,80 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Holdout rdm-oot-2025q1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-rdm-dormant-pool",
+   "type": "dataset",
+   "label": "dormant pool",
+   "as": [
+    "ds-rdm-dormant-pool"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-rdm-campaign-history",
+   "type": "dataset",
+   "label": "campaign history",
+   "as": [
+    "ds-rdm-campaign-history"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "rdm-uplift-v1",
+   "type": "model",
+   "label": "uplift models",
+   "as": [
+    "every rdm uplift model"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "holdout-2025q1",
+   "type": "evaluated-on",
+   "label": "test set for",
+   "o": "rdm-uplift-v1",
+   "quote": "This is the test set for every rdm uplift model.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-rdm-campaign-history",
+   "quote": "Builds on ds-rdm-campaign-history and ds-rdm-dormant-pool.",
+   "line": 8
+  },
+  {
+   "what": "ds-rdm-dormant-pool",
+   "quote": "Builds on ds-rdm-campaign-history and ds-rdm-dormant-pool.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reactivation-dormant/ds-rdm-holdout-2025q1.md",
+ "sha": "1e9e13bb6cce6774356f1fa2461d0ed1c5f4401a814452646a262ee26e1fd940",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

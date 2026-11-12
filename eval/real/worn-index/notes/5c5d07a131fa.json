@@ -1,0 +1,174 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "cost-matrix-thresholds",
+   "type": "term",
+   "label": "routing thresholds",
+   "as": [
+    "Cost-matrix thresholds"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cr-oot-2026h1",
+   "type": "dataset",
+   "label": "out-of-time set",
+   "as": [
+    "cr-oot-2026h1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dispute-queue-misroutes",
+   "type": "metric",
+   "label": "misroute rate",
+   "as": [
+    "dispute-queue misroutes",
+    "Dispute misroutes"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "macro F1"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "blind-transfers",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "blind transfers"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dispute-misroute-weight",
+   "type": "flag",
+   "label": "weight",
+   "as": [
+    "3x weight"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cx-analytics",
+   "type": "team",
+   "label": "owner",
+   "as": [
+    "cx-analytics"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "engineer",
+   "as": [
+    "Tomás Rivera"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cost-matrix-thresholds",
+   "type": "measured-by",
+   "label": "cut",
+   "o": "dispute-queue-misroutes",
+   "quote": "Cost-matrix thresholds cut dispute-queue misroutes by 23 percent at no macro F1 cost",
+   "line": 4
+  },
+  {
+   "s": "cost-matrix-thresholds",
+   "type": "measured-by",
+   "label": "unchanged",
+   "o": "macro-f1",
+   "quote": "macro F1 0.73 unchanged",
+   "line": 5
+  },
+  {
+   "s": "cost-matrix-thresholds",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "cr-oot-2026h1",
+   "quote": "From exp-106 arm A on cr-oot-2026h1 (n = 410,000 calls)",
+   "line": 5
+  },
+  {
+   "s": "dispute-queue-misroutes",
+   "type": "part-of",
+   "label": "largest share of",
+   "o": "blind-transfers",
+   "quote": "Dispute misroutes are the largest share of blind transfers",
+   "line": 6
+  },
+  {
+   "s": "cost-matrix-thresholds",
+   "type": "other",
+   "label": "main lever on",
+   "o": "blind-transfers",
+   "quote": "this is the main lever on the 15 percent target",
+   "line": 6
+  },
+  {
+   "s": "dispute-misroute-weight",
+   "type": "owned-by",
+   "label": "set by",
+   "o": "cx-analytics",
+   "quote": "The 3x weight was set by cx-analytics with Tomás Rivera.",
+   "line": 7
+  },
+  {
+   "s": "dispute-misroute-weight",
+   "type": "owned-by",
+   "label": "set with",
+   "o": "tomas-rivera",
+   "quote": "The 3x weight was set by cx-analytics with Tomás Rivera.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-106",
+  "q-cr-blind-transfers"
+ ],
+ "built_on": [
+  {
+   "what": "exp-106",
+   "quote": "Builds on exp-106.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/fnd-cr-threshold.md",
+ "sha": "5c5d07a131fa76587bbcf704947fe61d30e62f3df7af2d2ad0f0868ad257ba8d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,67 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-c25-payment-behaviour",
+   "type": "feature",
+   "label": "payment behaviour feature",
+   "as": [
+    "feat-c25-payment-behaviour"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "payments source",
+   "as": [
+    "cards.payments_daily"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  },
+  {
+   "id": "ds-c25-accounts-snapshot",
+   "type": "dataset",
+   "label": "base population",
+   "as": [
+    "ds-c25-accounts-snapshot"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-c25-payment-behaviour",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cards.payments_daily",
+   "quote": "Source `cards.payments_daily`.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-c25-accounts-snapshot"
+ ],
+ "built_on": [
+  {
+   "what": "ds-c25-accounts-snapshot",
+   "quote": "Builds on ds-c25-accounts-snapshot.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2025/feat-c25-payment-behaviour.md",
+ "sha": "2d36497fd9de04c63778df151207a5ad80972bc728e8fcf1ae0b31c4d524dc8b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

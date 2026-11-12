@@ -1,0 +1,140 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-501",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-501: BG/NBD with Gamma-Gamma gives 22.6% MAPE on 36-month margin, against 18.4% for a GBM"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "clv-bgnbd-v1",
+   "type": "model",
+   "label": "bg/nbd model",
+   "as": [
+    "BG/NBD with Gamma-Gamma"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "clv-ml-v1",
+   "type": "model",
+   "label": "lightgbm model",
+   "as": [
+    "LightGBM on net margin"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-clv-oot-2021h1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "clv-oot-2021h1 (n=318,400)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-503",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-503"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "clv-bgnbd-v1",
+   "type": "measured-by",
+   "label": "MAPE",
+   "o": "mape",
+   "quote": "BG/NBD with Gamma-Gamma: MAPE 22.6%",
+   "line": 6
+  },
+  {
+   "s": "clv-ml-v1",
+   "type": "measured-by",
+   "label": "MAPE",
+   "o": "mape",
+   "quote": "LightGBM on net margin: MAPE 18.4%",
+   "line": 6
+  },
+  {
+   "s": "exp-501",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "holdout-clv-oot-2021h1",
+   "quote": "scored on clv-oot-2021h1 (n=318,400)",
+   "line": 5
+  },
+  {
+   "s": "clv-bgnbd-v1",
+   "type": "other",
+   "label": "basis for",
+   "o": "exp-501",
+   "quote": "Basis for clv-bgnbd-v1 as the baseline",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-503"
+ ],
+ "built_on": [
+  {
+   "what": "ds-clv-holdout-2021h1",
+   "quote": "Builds on ds-clv-holdout-2021h1",
+   "line": 8
+  },
+  {
+   "what": "feat-clv-arpu-v1",
+   "quote": "the six-month average revenue feature",
+   "line": 8
+  },
+  {
+   "what": "feat-clv-tenure",
+   "quote": "the months on book feature",
+   "line": 8
+  },
+  {
+   "what": "q-clv-model-choice",
+   "quote": "q-clv-model-choice",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "customer-lifetime-value/exp-501.md",
+ "sha": "ae28ac65a43596321dad78f168ef387e34cdc5bd30ecb8b64a2c134df402d885",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

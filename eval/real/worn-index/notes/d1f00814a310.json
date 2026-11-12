@@ -1,0 +1,112 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-401",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-401"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "eval dataset",
+   "as": [
+    "holdout-2025q1 (n=12,400 booked accounts)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-inc-payroll-cadence-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-inc-payroll-cadence-v1"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "q-inc-coverage",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "q-inc-coverage"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "band-defaults",
+   "type": "other",
+   "label": "fallback",
+   "as": [
+    "band defaults"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-401",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "holdout-2025q1",
+   "quote": "Measured on holdout-2025q1 (n=12,400 booked accounts)",
+   "line": 5
+  },
+  {
+   "s": "exp-401",
+   "type": "uses",
+   "label": "using",
+   "o": "feat-inc-payroll-cadence-v1",
+   "quote": "using feat-inc-payroll-cadence-v1",
+   "line": 5
+  },
+  {
+   "s": "exp-401",
+   "type": "other",
+   "label": "answers",
+   "o": "q-inc-coverage",
+   "quote": "Answers q-inc-coverage",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-inc-payroll-cadence-v1",
+  "q-inc-coverage"
+ ],
+ "built_on": [
+  {
+   "what": "feat-inc-payroll-cadence-v1",
+   "quote": "Builds on feat-inc-payroll-cadence-v1",
+   "line": 8
+  },
+  {
+   "what": "q-inc-coverage",
+   "quote": "and q-inc-coverage",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "income-estimation/exp-401.md",
+ "sha": "d1f00814a31003b302449383b0e03abbbd805563d067caba4d5f91ba8a8cf8a4",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

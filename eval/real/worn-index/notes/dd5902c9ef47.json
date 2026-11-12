@@ -1,0 +1,131 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-f25-mcc-travel",
+   "type": "feature",
+   "label": "travel flag",
+   "as": [
+    "binary flag for a travel merchant"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fraud25-gbm-v2",
+   "type": "model",
+   "label": "v2 model",
+   "as": [
+    "Added in fraud25-gbm-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fraud25-gbm-v3",
+   "type": "model",
+   "label": "v3 model",
+   "as": [
+    "v3 halves it before training"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-f25-travel-tags",
+   "type": "dataset",
+   "label": "travel mcc list",
+   "as": [
+    "ds-f25-travel-tags"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "frozen holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "travel-over-flagging",
+   "type": "other",
+   "label": "travel over-flagging",
+   "as": [
+    "the travel over-flagging"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-f25-mcc-travel",
+   "type": "uses",
+   "label": "flag from",
+   "o": "ds-f25-travel-tags",
+   "quote": "Flag = 1 when the merchant MCC is in ds-f25-travel-tags.",
+   "line": 5
+  },
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "uses",
+   "label": "added in",
+   "o": "feat-f25-mcc-travel",
+   "quote": "Added in fraud25-gbm-v2 (AUC +0.009 over v1 on holdout-2025q1, exp-104).",
+   "line": 6
+  },
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "evaluated-on",
+   "label": "AUC gain on",
+   "o": "holdout-2025q1",
+   "quote": "AUC +0.009 over v1 on holdout-2025q1",
+   "line": 6
+  },
+  {
+   "s": "feat-f25-mcc-travel",
+   "type": "other",
+   "label": "source of",
+   "o": "travel-over-flagging",
+   "quote": "This flag is the source of the travel over-flagging",
+   "line": 7
+  },
+  {
+   "s": "fraud25-gbm-v3",
+   "type": "other",
+   "label": "halves",
+   "o": "feat-f25-mcc-travel",
+   "quote": "v3 halves it before training",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-104"
+ ],
+ "built_on": [
+  {
+   "what": "ds-f25-travel-tags",
+   "quote": "Builds on the travel merchant code list.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/feat-f25-mcc-travel.md",
+ "sha": "dd5902c9ef4721d32698d3e4aafc0b023353fe87eab439c8b2652bdbe14a068a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

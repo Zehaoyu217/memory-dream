@@ -1,0 +1,68 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "label-pipeline-rebuild",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "label-pipeline-rebuild"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "churn-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "churn v2"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "rebuilt-labels",
+   "type": "dataset",
+   "label": "labels",
+   "as": [
+    "rebuilt labels"
+   ],
+   "lines": [
+    3
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-v2",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "churn v2 on rebuilt labels, AUC 0.768 vs 0.751",
+   "line": 3
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2026-05-28.md",
+ "sha": "895d2f1270875372654eecc5e305fe63239945f78d78a04109526edb2909f57e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

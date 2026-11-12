@@ -1,0 +1,129 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-lbl-churn-90d",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: churn means no approved transaction for 90 days"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Owner: Tomas Rivera"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "maya-ortiz",
+   "type": "person",
+   "label": "accepter",
+   "as": [
+    "Maya Ortiz accepted the change for retention reporting"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-401",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "Adopted from exp-401"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "churn-60-day-rule",
+   "type": "term",
+   "label": "60-day rule",
+   "as": [
+    "The 60-day rule"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dec-lbl-churn-closure",
+   "type": "other",
+   "label": "later decision",
+   "as": [
+    "dec-lbl-churn-closure (2026-03-24)"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "tomas-rivera",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "dec-lbl-churn-90d",
+   "quote": "Owner: Tomas Rivera.",
+   "line": 6
+  },
+  {
+   "s": "dec-lbl-churn-90d",
+   "type": "owned-by",
+   "label": "accepted by",
+   "o": "maya-ortiz",
+   "quote": "Maya Ortiz accepted the change for retention reporting.",
+   "line": 6
+  },
+  {
+   "s": "dec-lbl-churn-90d",
+   "type": "other",
+   "label": "adopted from",
+   "o": "exp-401",
+   "quote": "Adopted from exp-401.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "dec-lbl-churn-closure",
+  "fnd-churn-rate-legacy",
+  "q-lbl-churn-window"
+ ],
+ "built_on": [
+  {
+   "what": "fnd-churn-rate-legacy",
+   "quote": "Builds on fnd-churn-rate-legacy and the open question on churn window.",
+   "line": 8
+  },
+  {
+   "what": "q-lbl-churn-window",
+   "quote": "Builds on fnd-churn-rate-legacy and the open question on churn window.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "dec-lbl-churn-closure",
+   "quote": "Superseded by dec-lbl-churn-closure (2026-03-24)",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "label-pipeline-rebuild/dec-lbl-churn-90d.md",
+ "sha": "e8948fc7fb1a7779a4a6be1fe7ceb450f8d9d12549e7c17e81f3132060bc148d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

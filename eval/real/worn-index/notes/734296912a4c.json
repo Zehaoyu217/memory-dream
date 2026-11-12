@@ -1,0 +1,100 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-trv-seasonality-adj",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-trv-seasonality-adj: STL seasonal component removed from travel spend"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-501",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-501"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "trv-ridge-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "trv-ridge-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "trv-ridge-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "trv-ridge-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-trv-travel-mcc-monthly",
+   "type": "dataset",
+   "label": "travel spend",
+   "as": [
+    "ds-trv-travel-mcc-monthly"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "trv-ridge-v2",
+   "type": "uses",
+   "label": "input",
+   "o": "feat-trv-seasonality-adj",
+   "quote": "Input to trv-ridge-v2 and trv-ridge-v3.",
+   "line": 7
+  },
+  {
+   "s": "trv-ridge-v3",
+   "type": "uses",
+   "label": "input",
+   "o": "feat-trv-seasonality-adj",
+   "quote": "Input to trv-ridge-v2 and trv-ridge-v3.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-trv-travel-mcc-monthly",
+   "quote": "Builds on ds-trv-travel-mcc-monthly and exp-501.",
+   "line": 8
+  },
+  {
+   "what": "exp-501",
+   "quote": "Builds on ds-trv-travel-mcc-monthly and exp-501.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "travel-spend-recovery/feat-trv-seasonality-adj.md",
+ "sha": "734296912a4c679e8f316db49f94126276092262f14768c34ac5f03cea771335",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,175 @@
+{
+ "kind": "preference",
+ "entities": [
+  {
+   "id": "daniel-okafor",
+   "type": "person",
+   "label": "person",
+   "as": [
+    "Daniel Okafor"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "alert-queue-review",
+   "type": "other",
+   "label": "alert-queue review",
+   "as": [
+    "Alert-queue reviews"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "precision-at-50",
+   "type": "metric",
+   "label": "precision@50",
+   "as": [
+    "precision@50"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "precision-at-200",
+   "type": "metric",
+   "label": "precision@200",
+   "as": [
+    "precision@200"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "alerts-per-1000",
+   "type": "metric",
+   "label": "alerts per 1,000 transactions",
+   "as": [
+    "alerts per 1,000 transactions"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "model-card",
+   "type": "document",
+   "label": "model card",
+   "as": [
+    "model card"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fraud-holdout",
+   "type": "dataset",
+   "label": "fraud holdout",
+   "as": [
+    "latest fraud holdout"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ops-team",
+   "type": "team",
+   "label": "ops team",
+   "as": [
+    "ops team"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "alert-queue-review",
+   "type": "measured-by",
+   "label": "report",
+   "o": "precision-at-50",
+   "quote": "Alert-queue reviews report precision@50",
+   "line": 5
+  },
+  {
+   "s": "alert-queue-review",
+   "type": "measured-by",
+   "label": "report",
+   "o": "precision-at-200",
+   "quote": "and precision@200",
+   "line": 4
+  },
+  {
+   "s": "alert-queue-review",
+   "type": "measured-by",
+   "label": "report",
+   "o": "alerts-per-1000",
+   "quote": "plus alerts per 1,000 transactions",
+   "line": 5
+  },
+  {
+   "s": "precision-at-50",
+   "type": "evaluated-on",
+   "label": "on",
+   "o": "fraud-holdout",
+   "quote": "on the latest fraud holdout",
+   "line": 5
+  },
+  {
+   "s": "auc",
+   "type": "other",
+   "label": "appears in",
+   "o": "model-card",
+   "quote": "AUC may appear in the model card",
+   "line": 6
+  },
+  {
+   "s": "alert-queue-review",
+   "type": "owned-by",
+   "label": "judges",
+   "o": "daniel-okafor",
+   "quote": "Daniel Okafor judges alert queues by",
+   "line": 4
+  },
+  {
+   "s": "precision-at-50",
+   "type": "other",
+   "label": "decides staffing",
+   "o": "ops-team",
+   "quote": "precision@50 is the number that decides staffing",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "prefs/daniel-okafor-queue-metrics.md",
+ "sha": "78ceea301d62349614ba9493374c73d08b33d3bf78a25f67267c750c6394614d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

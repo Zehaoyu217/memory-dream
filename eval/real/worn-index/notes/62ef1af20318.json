@@ -1,0 +1,189 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "pbs-kmeans-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "kmeans with six clusters"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-pbs-cash-share",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "cash share",
+    "feat-pbs-cash-share"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-pbs-minpay-flag",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "minimum-pay flag",
+    "the minimum-payment flag feature"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-pbs-pay-ratio-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-pbs-pay-ratio-v1",
+    "pay ratio"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "silhouette",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Silhouette 0.36 on the 200k sample"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ari",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "ARI between seeds"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fnd-pbs-six-segments",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-pbs-six-segments"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "pbs-gmm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "pbs-gmm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "pbs-kmeans-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-pbs-cash-share",
+   "quote": "Builds on feat-pbs-cash-share, the minimum-payment flag feature and feat-pbs-pay-ratio-v1.",
+   "line": 8
+  },
+  {
+   "s": "pbs-kmeans-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-pbs-minpay-flag",
+   "quote": "Builds on feat-pbs-cash-share, the minimum-payment flag feature and feat-pbs-pay-ratio-v1.",
+   "line": 8
+  },
+  {
+   "s": "pbs-kmeans-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-pbs-pay-ratio-v1",
+   "quote": "Builds on feat-pbs-cash-share, the minimum-payment flag feature and feat-pbs-pay-ratio-v1.",
+   "line": 8
+  },
+  {
+   "s": "pbs-kmeans-v1",
+   "type": "measured-by",
+   "label": "silhouette",
+   "o": "silhouette",
+   "quote": "Silhouette 0.36 on the 200k sample",
+   "line": 4
+  },
+  {
+   "s": "pbs-kmeans-v1",
+   "type": "measured-by",
+   "label": "ARI between seeds",
+   "o": "ari",
+   "quote": "ARI between seeds 0.58",
+   "line": 6
+  },
+  {
+   "s": "pbs-kmeans-v1",
+   "type": "other",
+   "label": "splits minimum-payers",
+   "o": "fnd-pbs-six-segments",
+   "quote": "Splits the minimum-payer group in two (fnd-pbs-six-segments).",
+   "line": 7
+  },
+  {
+   "s": "pbs-gmm-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "pbs-kmeans-v1",
+   "quote": "Superseded by pbs-gmm-v2.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "pbs-gmm-v2",
+  "fnd-pbs-six-segments",
+  "feat-pbs-cash-share",
+  "feat-pbs-minpay-flag",
+  "feat-pbs-pay-ratio-v1"
+ ],
+ "built_on": [
+  {
+   "what": "feat-pbs-cash-share",
+   "quote": "Builds on feat-pbs-cash-share, the minimum-payment flag feature and feat-pbs-pay-ratio-v1.",
+   "line": 8
+  },
+  {
+   "what": "feat-pbs-minpay-flag",
+   "quote": "Builds on feat-pbs-cash-share, the minimum-payment flag feature and feat-pbs-pay-ratio-v1.",
+   "line": 8
+  },
+  {
+   "what": "feat-pbs-pay-ratio-v1",
+   "quote": "Builds on feat-pbs-cash-share, the minimum-payment flag feature and feat-pbs-pay-ratio-v1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "payment-behavior-segments/pbs-kmeans-v1.md",
+ "sha": "62ef1af20318dc03c1a3422eb55461599b9144735ec7feb6c30ab38dfb4dccfe",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

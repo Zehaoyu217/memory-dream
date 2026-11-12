@@ -1,0 +1,47 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "monthly-review-holdout",
+   "type": "term",
+   "label": "review holdout",
+   "as": [
+    "latest out-of-time holdout"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "random-holdout",
+   "type": "term",
+   "label": "random holdout",
+   "as": [
+    "Random holdouts"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "monthly-review-holdout",
+   "type": "other",
+   "label": "excludes",
+   "o": "random-holdout",
+   "quote": "random holdouts are excluded",
+   "line": 4
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/monthly-review-holdout.md",
+ "sha": "12ec5e3ce27831181aeb12c3eb9c81a6ec8ad961786afae252c1e8289aad26e0",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

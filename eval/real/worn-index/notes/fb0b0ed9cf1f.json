@@ -1,0 +1,155 @@
+{
+ "kind": "preference",
+ "entities": [
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "person",
+   "as": [
+    "Sam Lee"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "model-card",
+   "type": "document",
+   "label": "model card",
+   "as": [
+    "model cards"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "brier-score",
+   "type": "metric",
+   "label": "brier score",
+   "as": [
+    "Brier score"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cli-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cli-xgb-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "2025q4 holdout"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "model-card",
+   "type": "measured-by",
+   "label": "list",
+   "o": "auc",
+   "quote": "Model cards list AUC as 0.xxx",
+   "line": 5
+  },
+  {
+   "s": "model-card",
+   "type": "measured-by",
+   "label": "list",
+   "o": "brier-score",
+   "quote": "Brier as 0.0xxx",
+   "line": 5
+  },
+  {
+   "s": "model-card",
+   "type": "measured-by",
+   "label": "sit in the same table",
+   "o": "ks",
+   "quote": "KS and Gini sit in the same table",
+   "line": 7
+  },
+  {
+   "s": "model-card",
+   "type": "measured-by",
+   "label": "sit in the same table",
+   "o": "gini",
+   "quote": "KS and Gini sit in the same table",
+   "line": 7
+  },
+  {
+   "s": "cli-xgb-v2",
+   "type": "evaluated-on",
+   "label": "drop on",
+   "o": "holdout-2025q4",
+   "quote": "on the 2025q4 holdout",
+   "line": 6
+  },
+  {
+   "s": "model-card",
+   "type": "owned-by",
+   "label": "reports",
+   "o": "sam-lee",
+   "quote": "Sam Lee reports AUC to 3 decimals",
+   "line": 4
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "prefs/sam-lee-metric-decimals.md",
+ "sha": "fb0b0ed9cf1fbddf4bae7cd5365b6cf486247f67a878394a4f5ba0726f9b84ab",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

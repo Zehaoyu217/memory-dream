@@ -1,0 +1,137 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-303",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-303"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "rs-xgb-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rs-xgb-v1"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-rs-region-rate",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rs-region-rate"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "recovery-scoring-holdout-2023h2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Same holdout (n=6,120)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Gini 0.44"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "KS 0.32"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-303",
+   "type": "evaluated-on",
+   "label": "same holdout",
+   "o": "recovery-scoring-holdout-2023h2",
+   "quote": "Same holdout (n=6,120).",
+   "line": 5
+  },
+  {
+   "s": "exp-303",
+   "type": "uses",
+   "label": "adds feature",
+   "o": "feat-rs-region-rate",
+   "quote": "rs-xgb-v1 plus feat-rs-region-rate: Gini 0.44, KS 0.32.",
+   "line": 5
+  },
+  {
+   "s": "exp-303",
+   "type": "uses",
+   "label": "plus",
+   "o": "rs-xgb-v1",
+   "quote": "rs-xgb-v1 plus feat-rs-region-rate",
+   "line": 5
+  },
+  {
+   "s": "exp-303",
+   "type": "measured-by",
+   "label": "gini",
+   "o": "auc",
+   "quote": "Gini 0.44, KS 0.32.",
+   "line": 5
+  },
+  {
+   "s": "exp-303",
+   "type": "measured-by",
+   "label": "ks",
+   "o": "ks",
+   "quote": "Gini 0.44, KS 0.32.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "recovery_scoring/exp303_region.ipynb"
+ ],
+ "built_on": [
+  {
+   "what": "feat-rs-region-rate",
+   "quote": "Builds on the region recovery rate feature and rs-xgb-v1.",
+   "line": 8
+  },
+  {
+   "what": "rs-xgb-v1",
+   "quote": "Builds on the region recovery rate feature and rs-xgb-v1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "recovery-scoring/exp-303.md",
+ "sha": "8a63008eafc23cb41599fd3796d2eedd29db98b66b4489abe95bb8d1c3e467cd",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

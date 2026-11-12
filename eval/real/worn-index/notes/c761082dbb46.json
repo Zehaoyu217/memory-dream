@@ -1,0 +1,53 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "txn-frequency",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "Transaction frequency"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "txn-frequency",
+   "type": "uses",
+   "label": "counts from",
+   "o": "cards.txn_daily",
+   "quote": "Counts from `cards.txn_daily` up to send_date",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-nps-behaviour-join",
+   "quote": "Builds on ds-nps-behaviour-join.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "nps-drivers/feat-nps-txn-freq-v1.md",
+ "sha": "c761082dbb46b759f395300326e4a73de243562495183afc186abe7196908af2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

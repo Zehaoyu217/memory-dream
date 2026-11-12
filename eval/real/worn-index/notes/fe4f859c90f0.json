@@ -1,0 +1,111 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-203",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "Dropping channel features from the logistic model"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cc-logreg-v1",
+   "type": "model",
+   "label": "logistic model",
+   "as": [
+    "logistic model"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "feat-cc-channel-v1",
+   "type": "feature",
+   "label": "features",
+   "as": [
+    "channel one-hot and hour bucket"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "macro F1 0.742 to 0.740"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cc-logreg-v1",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-cc-channel-v1",
+   "quote": "logistic model with and without channel one-hot and hour bucket",
+   "line": 5
+  },
+  {
+   "s": "exp-203",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "holdout-2025q4",
+   "quote": "n = 1,800 tickets, holdout-2025q4",
+   "line": 6
+  },
+  {
+   "s": "exp-203",
+   "type": "measured-by",
+   "label": "scored by",
+   "o": "macro-f1",
+   "quote": "Macro F1 0.742 with channel, 0.740 without",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fnd-cc-channel-null"
+ ],
+ "built_on": [
+  {
+   "what": "cc-logreg-v1",
+   "quote": "Builds on cc-logreg-v1 and the channel and hour features.",
+   "line": 8
+  },
+  {
+   "what": "feat-cc-channel-v1",
+   "quote": "Builds on cc-logreg-v1 and the channel and hour features.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "complaint-classification/exp-203.md",
+ "sha": "fe4f859c90f095e1d39e4e914ea54592ec310193024795f07873bd65e25b3eee",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,193 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "cu-uplift-v3",
+   "type": "model",
+   "label": "uplift model",
+   "as": [
+    "uplift model with bureau delta"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-107",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "sms versus call economics experiment"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "1-29-dpd-accounts",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "1-29 DPD accounts"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "8-29-dpd-accounts",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "8-29 DPD"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "uplift",
+   "type": "metric",
+   "label": "uplift",
+   "as": [
+    "uplift 0.036"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cost-per-contact",
+   "type": "metric",
+   "label": "cost per contact",
+   "as": [
+    "Cost per contact"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "cost-per-ptp",
+   "type": "metric",
+   "label": "cost per ptp",
+   "as": [
+    "Per incremental promise-to-pay"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "call",
+   "type": "other",
+   "label": "contact channel",
+   "as": [
+    "a call"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "sms",
+   "type": "other",
+   "label": "contact channel",
+   "as": [
+    "SMS"
+   ],
+   "lines": [
+    4,
+    5,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "collections-channel-mix",
+   "type": "other",
+   "label": "channel test",
+   "as": [
+    "collections-channel-mix"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cu-uplift-v3",
+   "type": "measured-by",
+   "label": "yields uplift",
+   "o": "uplift",
+   "quote": "calling the top 20% by cu-uplift-v3 yields uplift 0.036",
+   "line": 5
+  },
+  {
+   "s": "call",
+   "type": "measured-by",
+   "label": "cost per contact",
+   "o": "cost-per-contact",
+   "quote": "Cost per contact is $4.10 for a call and $0.37 for SMS.",
+   "line": 5
+  },
+  {
+   "s": "sms",
+   "type": "measured-by",
+   "label": "cost per contact",
+   "o": "cost-per-contact",
+   "quote": "Cost per contact is $4.10 for a call and $0.37 for SMS.",
+   "line": 5
+  },
+  {
+   "s": "call",
+   "type": "measured-by",
+   "label": "cost per PTP",
+   "o": "cost-per-ptp",
+   "quote": "Per incremental promise-to-pay, SMS costs about $12 and a call about $114.",
+   "line": 6
+  },
+  {
+   "s": "sms",
+   "type": "measured-by",
+   "label": "cost per PTP",
+   "o": "cost-per-ptp",
+   "quote": "Per incremental promise-to-pay, SMS costs about $12 and a call about $114.",
+   "line": 6
+  },
+  {
+   "s": "collections-channel-mix",
+   "type": "other",
+   "label": "revisits gap",
+   "o": "8-29-dpd-accounts",
+   "quote": "For 8-29 DPD the gap is wider and is revisited in collections-channel-mix.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "collections-channel-mix"
+ ],
+ "built_on": [
+  {
+   "what": "cu-uplift-v3",
+   "quote": "Builds on the uplift model with bureau delta and the sms versus call economics experiment.",
+   "line": 8
+  },
+  {
+   "what": "exp-107",
+   "quote": "Builds on the uplift model with bureau delta and the sms versus call economics experiment.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-uplift/find-cu-sms-cost.md",
+ "sha": "e4e26519d35969d811ad7c7f6668e20e0f69aa7dc484b1a00d9c4656397de8eb",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

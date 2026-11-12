@@ -1,0 +1,99 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-302",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-302"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "rev26-interest-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rev26-interest-v1"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "ds-rev26-interest-accrual",
+   "type": "dataset",
+   "label": "ledger",
+   "as": [
+    "finance interest ledger"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fnd-rev26-no-haircut",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-rev26-no-haircut"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-302",
+   "type": "evaluated-on",
+   "label": "backtest against",
+   "o": "ds-rev26-interest-accrual",
+   "quote": "Backtest of rev26-interest-v1 against the finance interest ledger",
+   "line": 5
+  },
+  {
+   "s": "exp-302",
+   "type": "measured-by",
+   "label": "overstatement",
+   "o": "exp-302",
+   "quote": "Average overstatement $4.2M per quarter",
+   "line": 6
+  },
+  {
+   "s": "exp-302",
+   "type": "other",
+   "label": "contradicts",
+   "o": "fnd-rev26-no-haircut",
+   "quote": "This contradicts the earlier finding that the error was within 2% (fnd-rev26-no-haircut).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-rev26-no-haircut"
+ ],
+ "built_on": [
+  {
+   "what": "ds-rev26-interest-accrual",
+   "quote": "Builds on ds-rev26-interest-accrual and rev26-interest-v1.",
+   "line": 8
+  },
+  {
+   "what": "rev26-interest-v1",
+   "quote": "Builds on ds-rev26-interest-accrual and rev26-interest-v1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "revenue-forecast-2026/exp-302.md",
+ "sha": "6661458492975fe0eb457c447d17e707c587357b7a09de07f4fb61d9fac9464a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

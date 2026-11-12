@@ -1,0 +1,105 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-501",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-501"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ob-14",
+   "type": "other",
+   "label": "onboarding test",
+   "as": [
+    "OB-14"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "feat-ep-pre-spend-cov-v1",
+   "type": "feature",
+   "label": "covariate",
+   "as": [
+    "feat-ep-pre-spend-cov-v1"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "ds-ep-assignments",
+   "type": "dataset",
+   "label": "assignments table",
+   "as": [
+    "ds-ep-assignments"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cuped",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "CUPED"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-501",
+   "type": "uses",
+   "label": "uses covariate",
+   "o": "feat-ep-pre-spend-cov-v1",
+   "quote": "CUPED with feat-ep-pre-spend-cov-v1 reduces outcome variance by 18 percent.",
+   "line": 6
+  },
+  {
+   "s": "exp-501",
+   "type": "other",
+   "label": "runs on",
+   "o": "ob-14",
+   "quote": "OB-14 is an onboarding test with spend as the primary metric.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "ds-ep-assignments",
+  "feat-ep-pre-spend-cov-v1"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ep-assignments",
+   "quote": "Builds on ds-ep-assignments and feat-ep-pre-spend-cov-v1.",
+   "line": 7
+  },
+  {
+   "what": "feat-ep-pre-spend-cov-v1",
+   "quote": "Builds on ds-ep-assignments and feat-ep-pre-spend-cov-v1.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "experiment-platform/exp-501.md",
+ "sha": "fc9d910e2437389083d864b520b93636f8662db9f628a986e29af5836315bbf8",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

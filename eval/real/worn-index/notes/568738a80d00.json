@@ -1,0 +1,103 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "holdout-2025q3",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q3 (n = 1,100 messages)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cb-intent-v1",
+   "type": "model",
+   "label": "intent model v1",
+   "as": [
+    "cb-intent-v1"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro f1",
+   "as": [
+    "Macro F1 0.88 with account state, 0.83 without"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-cb-account-state-v1",
+   "type": "feature",
+   "label": "account state features",
+   "as": [
+    "account state features"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fnd-cb-intent-acc",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-cb-intent-acc"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "macro-f1",
+   "type": "other",
+   "label": "compared on",
+   "o": "holdout-2025q3",
+   "quote": "Macro F1 0.88 with account state, 0.83 without",
+   "line": 6
+  },
+  {
+   "s": "cb-intent-v1",
+   "type": "measured-by",
+   "label": "scores",
+   "o": "macro-f1",
+   "quote": "Macro F1 0.88 with account state, 0.83 without",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "cb-intent-v1",
+  "fnd-cb-intent-acc"
+ ],
+ "built_on": [
+  {
+   "what": "cb-intent-v1",
+   "quote": "Builds on cb-intent-v1 and the account state features.",
+   "line": 8
+  },
+  {
+   "what": "feat-cb-account-state-v1",
+   "quote": "Builds on cb-intent-v1 and the account state features.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "chatbot-deflection/exp-303.md",
+ "sha": "568738a80d00b7efc94797e9dff866cb1a6f2f35c8bb4187c327375a5bb01d38",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,75 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-f25-amt-ratio",
+   "type": "feature",
+   "label": "amount ratio feature",
+   "as": [
+    "transaction amount over the card's 90-day median"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fraud25-gbm-v1",
+   "type": "model",
+   "label": "v1 model",
+   "as": [
+    "Shipped in fraud25-gbm-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fraud25-gbm-v2",
+   "type": "model",
+   "label": "v2 model",
+   "as": [
+    "kept in v2 and v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-f25-txn-2024-2025",
+   "type": "dataset",
+   "label": "cnp training extract",
+   "as": [
+    "ds-f25-txn-2024-2025"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud25-gbm-v1",
+   "type": "uses",
+   "label": "shipped in",
+   "o": "feat-f25-amt-ratio",
+   "quote": "Shipped in fraud25-gbm-v1 and kept in v2 and v3.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-f25-txn-2024-2025",
+   "quote": "Builds on ds-f25-txn-2024-2025.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/feat-f25-amt-ratio.md",
+ "sha": "9e85ee714f7d9fb25338f0dc85d1388a99d58eba74544f713cf87a12d7666719",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

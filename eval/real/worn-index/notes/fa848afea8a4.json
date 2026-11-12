@@ -1,0 +1,116 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-301",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-301"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "dormancy-cutoff",
+   "type": "term",
+   "label": "cutoff",
+   "as": [
+    "dormancy cutoffs"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift",
+   "as": [
+    "Uplift at the top 20%"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "eligible-pools",
+   "type": "segment",
+   "label": "eligible pool",
+   "as": [
+    "Eligible pools"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-rdm-campaign-history",
+   "type": "dataset",
+   "label": "waves",
+   "as": [
+    "waves 1 and 2"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-301",
+   "type": "measured-by",
+   "label": "uplift at top 20%",
+   "o": "uplift-at-20",
+   "quote": "Uplift at the top 20% by predicted uplift: 5 months 1.1pp, 6 months 1.6pp, 9 months 1.2pp.",
+   "line": 5
+  },
+  {
+   "s": "exp-301",
+   "type": "evaluated-on",
+   "label": "on waves",
+   "o": "ds-rdm-campaign-history",
+   "quote": "dormancy cutoffs of 5, 6 and 9 months on waves 1 and 2",
+   "line": 4
+  },
+  {
+   "s": "exp-301",
+   "type": "other",
+   "label": "tests",
+   "o": "dormancy-cutoff",
+   "quote": "dormancy cutoffs of 5, 6 and 9 months on waves 1 and 2",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "ds-rdm-dormant-pool",
+  "feat-rdm-last-activity-v1",
+  "q-rdm-dormancy-cutoff"
+ ],
+ "built_on": [
+  {
+   "what": "ds-rdm-dormant-pool",
+   "quote": "Builds on ds-rdm-dormant-pool, feat-rdm-last-activity-v1 and q-rdm-dormancy-cutoff.",
+   "line": 8
+  },
+  {
+   "what": "feat-rdm-last-activity-v1",
+   "quote": "Builds on ds-rdm-dormant-pool, feat-rdm-last-activity-v1 and q-rdm-dormancy-cutoff.",
+   "line": 8
+  },
+  {
+   "what": "q-rdm-dormancy-cutoff",
+   "quote": "Builds on ds-rdm-dormant-pool, feat-rdm-last-activity-v1 and q-rdm-dormancy-cutoff.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reactivation-dormant/exp-301.md",
+ "sha": "fa848afea8a48b950b900619773c640314eccb002cd6f9eca3727336bddb1def",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

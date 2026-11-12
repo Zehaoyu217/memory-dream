@@ -1,0 +1,136 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-307",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-307"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "disp-oot-2026h1",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "disp-oot-2026h1"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "disp-lgbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "disp-lgbm-v3"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "disp-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "v2"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "exp-306",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "the fresh april 2026 labels experiment"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-disp-fraud-score",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-disp-fraud-score"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "coverage",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "coverage 29%"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-307",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "disp-oot-2026h1",
+   "quote": "Eval set: disp-oot-2026h1",
+   "line": 5
+  },
+  {
+   "s": "disp-lgbm-v3",
+   "type": "uses",
+   "label": "v2 plus",
+   "o": "disp-lgbm-v2",
+   "quote": "disp-lgbm-v3 (v2 plus fraud score)",
+   "line": 6
+  },
+  {
+   "s": "disp-lgbm-v3",
+   "type": "measured-by",
+   "label": "coverage",
+   "o": "coverage",
+   "quote": "coverage 29%",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "feat-disp-fraud-score"
+ ],
+ "built_on": [
+  {
+   "what": "exp-306",
+   "quote": "Builds on the fresh april 2026 labels experiment and feat-disp-fraud-score.",
+   "line": 8
+  },
+  {
+   "what": "feat-disp-fraud-score",
+   "quote": "Builds on the fresh april 2026 labels experiment and feat-disp-fraud-score.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [
+   "precision-at-0.95"
+  ],
+  "relations": 2
+ },
+ "path": "dispute-triage/exp-307.md",
+ "sha": "35848582ba9471aad0f6619e02898ebaecd6db1bf754ee42474b8f8048adc7a2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

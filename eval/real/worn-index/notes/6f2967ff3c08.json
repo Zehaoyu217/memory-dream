@@ -1,0 +1,92 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "fraud25-gbm-v2",
+   "type": "model",
+   "label": "2025 champion model",
+   "as": [
+    "fraud25-gbm-v2",
+    "the 2025 champion lightgbm model"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "travel-merchant-code-list",
+   "type": "dataset",
+   "label": "travel merchant code list",
+   "as": [
+    "the travel merchant code list"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fraud25_alerts_log",
+   "type": "dataset",
+   "label": "alert log",
+   "as": [
+    "fraud25_alerts_log"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "travel-mcc-alerts",
+   "type": "other",
+   "label": "travel-mcc alert share",
+   "as": [
+    "travel-MCC alerts take about 31% of the fraud-2025 queue"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "measured-by",
+   "label": "alerts share measured",
+   "o": "travel-mcc-alerts",
+   "quote": "about 31% of alerts from fraud25-gbm-v2",
+   "line": 5
+  },
+  {
+   "s": "travel-mcc-alerts",
+   "type": "evaluated-on",
+   "label": "replayed on",
+   "o": "fraud25_alerts_log",
+   "quote": "in the Jul-Sep 2025 replay (exp-106, `fraud25_alerts_log`)",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-106"
+ ],
+ "built_on": [
+  {
+   "what": "travel-merchant-code-list",
+   "quote": "Builds on the travel merchant code list and the 2025 champion lightgbm model.",
+   "line": 7
+  },
+  {
+   "what": "fraud25-gbm-v2",
+   "quote": "Builds on the travel merchant code list and the 2025 champion lightgbm model.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/q-f25-travel-overflag.md",
+ "sha": "6f2967ff3c0864961062db19b4930a8b6ae7a687607d0df22a70e0f1e4199a05",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

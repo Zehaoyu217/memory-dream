@@ -1,0 +1,78 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "data-quality-gate",
+   "type": "policy",
+   "label": "gate",
+   "as": [
+    "The gate compares the week's daily row count"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "tomas-rivera",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "Tomás Rivera's team clears it"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "weekly-kpi-deck",
+   "type": "document",
+   "label": "deck",
+   "as": [
+    "the weekly deck"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "data-quality-gate",
+   "type": "uses",
+   "label": "compares",
+   "o": "cards.txn_daily",
+   "quote": "The gate compares the week's daily row count in `cards.txn_daily` with the trailing 7-day mean.",
+   "line": 5
+  },
+  {
+   "s": "tomas-rivera",
+   "type": "owned-by",
+   "label": "clears gap",
+   "o": "data-quality-gate",
+   "quote": "Tomás Rivera's team clears it.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/data-quality-gate.md",
+ "sha": "064281c5ebedd19e152a8df84ebf34e2b9f9e10eebbd5f49b517d178b56fae1f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

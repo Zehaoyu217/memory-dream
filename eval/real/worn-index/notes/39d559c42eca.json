@@ -1,0 +1,114 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-203",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-203: adding the 90-day limit change lifts ed-gbm-v1 AUC to 0.812 on early-delinquency-holdout-2024q4"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ed-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ed-gbm-v1"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-ed-limit-change-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ed-limit-change-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "early-delinquency-holdout-2024q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "early-delinquency-holdout-2024q4"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-203",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "early-delinquency-holdout-2024q4",
+   "quote": "Same holdout (n=402,000)",
+   "line": 5
+  },
+  {
+   "s": "exp-203",
+   "type": "uses",
+   "label": "adds feature",
+   "o": "feat-ed-limit-change-v1",
+   "quote": "ed-gbm-v1 plus feat-ed-limit-change-v1",
+   "line": 5
+  },
+  {
+   "s": "exp-203",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.812",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "ed-gbm-v1",
+  "feat-ed-limit-change-v1"
+ ],
+ "built_on": [
+  {
+   "what": "ed-gbm-v1",
+   "quote": "Builds on ed-gbm-v1 and the 90-day credit-limit change feature.",
+   "line": 8
+  },
+  {
+   "what": "feat-ed-limit-change-v1",
+   "quote": "Builds on ed-gbm-v1 and the 90-day credit-limit change feature.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "early-delinquency/exp-203.md",
+ "sha": "39d559c42eca8f0ca267f15d67dc84760eeae5408ecbad99d3c67fb93f12efa7",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

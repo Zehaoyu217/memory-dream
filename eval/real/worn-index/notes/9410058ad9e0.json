@@ -1,0 +1,117 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-txc-mcc-prior",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-txc-mcc-prior"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "txc-logreg-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "txc-logreg-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "txc-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "txc-gbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "txc-gbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "txc-gbm-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-txc-mcc-crosswalk",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "crosswalk"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-txc-mcc-prior",
+   "type": "uses",
+   "label": "kept in",
+   "o": "txc-gbm-v2",
+   "quote": "Kept in txc-gbm-v2 and txc-gbm-v3.",
+   "line": 7
+  },
+  {
+   "s": "feat-txc-mcc-prior",
+   "type": "uses",
+   "label": "kept in",
+   "o": "txc-gbm-v3",
+   "quote": "Kept in txc-gbm-v2 and txc-gbm-v3.",
+   "line": 7
+  },
+  {
+   "s": "feat-txc-mcc-prior",
+   "type": "uses",
+   "label": "built on",
+   "o": "ds-txc-mcc-crosswalk",
+   "quote": "Builds on ds-txc-mcc-crosswalk.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-102"
+ ],
+ "built_on": [
+  {
+   "what": "ds-txc-mcc-crosswalk",
+   "quote": "Builds on ds-txc-mcc-crosswalk.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "txn-categorization/feat-txc-mcc-prior.md",
+ "sha": "9410058ad9e01d2a0aa66cf0f190bec2bf45d8a0dca83dfe52de34deba46a1c6",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

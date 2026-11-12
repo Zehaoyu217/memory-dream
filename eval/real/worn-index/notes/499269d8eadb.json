@@ -1,0 +1,87 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "promo-cohort-roll-off",
+   "type": "term",
+   "label": "promo roll-off",
+   "as": [
+    "Promo cohorts roll off"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-306",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-306"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "fin-rate-schedule",
+   "type": "dataset",
+   "label": "rate schedule",
+   "as": [
+    "fin.rate_schedule"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fy26-27-interest-variance",
+   "type": "metric",
+   "label": "interest variance",
+   "as": [
+    "interest variance"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "promo-cohort-roll-off",
+   "type": "other",
+   "label": "largest source of",
+   "o": "fy26-27-interest-variance",
+   "quote": "The timing of each cohort's roll-off is the largest single source of interest variance in FY26-27",
+   "line": 6
+  },
+  {
+   "s": "promo-cohort-roll-off",
+   "type": "uses",
+   "label": "monitored against",
+   "o": "fin-rate-schedule",
+   "quote": "Monitored monthly against fin.rate_schedule.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fin.rate_schedule",
+  "exp-306"
+ ],
+ "built_on": [
+  {
+   "what": "exp-306",
+   "quote": "Builds on the apr and promo rate schedule and exp-306.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "revenue-forecast-2026/fnd-rev26-promo-tail.md",
+ "sha": "499269d8eadbe4400812eec927c84f5236ee1bb68d82842e8956e2e818ce234c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

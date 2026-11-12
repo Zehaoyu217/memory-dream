@@ -1,0 +1,107 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "lbl-churn-xgb-v2",
+   "type": "model",
+   "label": "churn model",
+   "as": [
+    "lbl-churn-xgb-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "lbl-oot-2025h2",
+   "type": "segment",
+   "label": "holdout",
+   "as": [
+    "lbl-oot-2025h2 (n=680,000 account-snapshots)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-lbl-churn-flag-closure",
+   "type": "feature",
+   "label": "churn label",
+   "as": [
+    "feat-lbl-churn-flag-closure"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.768",
+    "0.751"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "exp-407",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-407"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "lbl-churn-xgb-v2",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "lbl-oot-2025h2",
+   "quote": "AUC 0.768 on lbl-oot-2025h2 (n=680,000 account-snapshots)",
+   "line": 6
+  },
+  {
+   "s": "lbl-churn-xgb-v2",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.768 on lbl-oot-2025h2",
+   "line": 4
+  },
+  {
+   "s": "lbl-churn-xgb-v2",
+   "type": "trained-on",
+   "label": "retrained on",
+   "o": "feat-lbl-churn-flag-closure",
+   "quote": "retrained on feat-lbl-churn-flag-closure",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-407"
+ ],
+ "built_on": [
+  {
+   "what": "exp-407",
+   "quote": "Builds on exp-407.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "label-pipeline-rebuild/lbl-churn-xgb-v2.md",
+ "sha": "c40ffc0fec61e0a44e7b1e12f4431eca387de4ccc6feeffe8096618a6b2418e7",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

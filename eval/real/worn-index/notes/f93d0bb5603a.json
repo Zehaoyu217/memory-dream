@@ -1,0 +1,117 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-sfc-ship-hier-v3",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: adopt sfc-hier-v3 as the segment volume forecast for finance"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "sfc-hier-v3",
+   "type": "model",
+   "label": "segment forecast",
+   "as": [
+    "sfc-hier-v3"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "sfc-lgbm-v2",
+   "type": "model",
+   "label": "earlier model",
+   "as": [
+    "sfc-lgbm-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "revenue-forecast-2026",
+   "type": "other",
+   "label": "downstream forecast",
+   "as": [
+    "revenue-forecast-2026"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-207",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-207"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fnd-sfc-q4-reconciled",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-sfc-q4-reconciled"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "revenue-forecast-2026",
+   "type": "uses",
+   "label": "uses as input",
+   "o": "sfc-hier-v3",
+   "quote": "revenue-forecast-2026 uses it as the spend volume input for interchange.",
+   "line": 7
+  },
+  {
+   "s": "dec-sfc-ship-hier-v3",
+   "type": "replaces",
+   "label": "in place of",
+   "o": "sfc-lgbm-v2",
+   "quote": "in place of sfc-lgbm-v2.",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "exp-207",
+   "quote": "Builds on exp-207, fnd-sfc-q4-reconciled and sfc-hier-v3.",
+   "line": 8
+  },
+  {
+   "what": "fnd-sfc-q4-reconciled",
+   "quote": "Builds on exp-207, fnd-sfc-q4-reconciled and sfc-hier-v3.",
+   "line": 8
+  },
+  {
+   "what": "sfc-hier-v3",
+   "quote": "Builds on exp-207, fnd-sfc-q4-reconciled and sfc-hier-v3.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "spend-forecasting/dec-sfc-ship-hier-v3.md",
+ "sha": "f93d0bb5603abdd54efc5a972c9e8532546294fba9dfda8d9451bbaf303b6109",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

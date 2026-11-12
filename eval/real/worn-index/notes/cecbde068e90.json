@@ -1,0 +1,96 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "fraud25-gbm-v2",
+   "type": "model",
+   "label": "live model",
+   "as": [
+    "fraud25-gbm-v2"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "live-alert-threshold",
+   "type": "flag",
+   "label": "live alert threshold",
+   "as": [
+    "live alerts from fraud25-gbm-v2 use score >= 0.70"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "alert-precision",
+   "type": "metric",
+   "label": "alert precision",
+   "as": [
+    "alert precision 9.2% at 0.70"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fraud25-find-travel-overflag",
+   "type": "other",
+   "label": "travel over-flagging finding",
+   "as": [
+    "travel over-flagging (fraud25-find-travel-overflag)"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "uses",
+   "label": "live threshold 0.70",
+   "o": "live-alert-threshold",
+   "quote": "live alerts from fraud25-gbm-v2 use score >= 0.70 from 2025-10-08",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-108",
+  "dec-f25-threshold-062"
+ ],
+ "built_on": [
+  {
+   "what": "dec-f25-threshold-062",
+   "quote": "Builds on the 0.62 live alert threshold decision",
+   "line": 8
+  },
+  {
+   "what": "exp-108",
+   "quote": "exp-108 and the travel alert over-flagging finding",
+   "line": 8
+  },
+  {
+   "what": "fraud25-find-travel-overflag",
+   "quote": "the travel alert over-flagging finding",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "dec-f25-threshold-062",
+   "quote": "Replaces dec-f25-threshold-062.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/dec-f25-threshold-070.md",
+ "sha": "cecbde068e901352c2db1b128cf295f9883ffc394656ee2825b75c103386a61e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

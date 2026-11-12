@@ -1,0 +1,85 @@
+{
+ "kind": "risk",
+ "entities": [
+  {
+   "id": "leakage",
+   "type": "term",
+   "label": "leakage",
+   "as": [
+    "leakage"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-velocity-v2",
+   "type": "feature",
+   "label": "velocity features",
+   "as": [
+    "velocity features"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "post-observation-days",
+   "type": "term",
+   "label": "days after the observation date",
+   "as": [
+    "days after it"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "0.81 AUC"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-velocity-v2",
+   "type": "other",
+   "label": "may include",
+   "o": "post-observation-days",
+   "quote": "it may include days after it",
+   "line": 6
+  },
+  {
+   "s": "leakage",
+   "type": "other",
+   "label": "suspected behind",
+   "o": "auc",
+   "quote": "Suspect leakage behind the 0.81 AUC",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "exp-017-leak-check"
+ ],
+ "built_on": [
+  {
+   "what": "exp-014",
+   "quote": "Builds on exp-014.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2026/leak-hypothesis.md",
+ "sha": "96185ff18385675cc1407fc003a89dd8dac433309208b072d0952eb69e7da4d8",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

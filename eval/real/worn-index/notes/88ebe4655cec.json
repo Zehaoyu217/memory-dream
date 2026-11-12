@@ -1,0 +1,105 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-csb-seasonal-trap",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Raw spend scores December-peak merchants as safe"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-csb-spend-raw",
+   "type": "feature",
+   "label": "raw spend feature",
+   "as": [
+    "Raw spend",
+    "feat-csb-spend-raw"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  },
+  {
+   "id": "q-csb-seasonality",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "q-csb-seasonality"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "dec-peak-merchant-accounts",
+   "type": "segment",
+   "label": "december-peak merchant accounts",
+   "as": [
+    "Dec-peak merchant accounts"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "churn-score",
+   "type": "metric",
+   "label": "churn score",
+   "as": [
+    "churn score"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fnd-csb-seasonal-trap",
+   "type": "uses",
+   "label": "basis",
+   "o": "feat-csb-spend-raw",
+   "quote": "Basis: feat-csb-spend-raw on the 2024 snapshots.",
+   "line": 7
+  },
+  {
+   "s": "dec-peak-merchant-accounts",
+   "type": "measured-by",
+   "label": "mean churn score",
+   "o": "churn-score",
+   "quote": "Mean churn score for Dec-peak merchant accounts is 0.058",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "feat-csb-spend-raw",
+  "q-csb-seasonality"
+ ],
+ "built_on": [
+  {
+   "what": "feat-csb-spend-raw",
+   "quote": "Builds on the raw three-month card spend feature and q-csb-seasonality.",
+   "line": 8
+  },
+  {
+   "what": "q-csb-seasonality",
+   "quote": "Builds on the raw three-month card spend feature and q-csb-seasonality.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-small-business/fnd-csb-seasonal-trap.md",
+ "sha": "88ebe4655cec0ffc0dc547343442e882a8519c71c9af3168d1b29e1b192ebdd8",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,150 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cld-util-after-decrease",
+   "type": "feature",
+   "label": "utilisation after cut",
+   "as": [
+    "utilisation against the new limit for 60 days after a cut"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cld-complaint-logit",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cld-complaint-logit"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-cld-payment-shock",
+   "type": "feature",
+   "label": "payment shock",
+   "as": [
+    "feat-cld-payment-shock"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-cld-complaint-calls",
+   "type": "dataset",
+   "label": "complaint calls",
+   "as": [
+    "ds-cld-complaint-calls"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-cld-risk-band-v2",
+   "type": "feature",
+   "label": "bands",
+   "as": [
+    "feat-cld-risk-band-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "30plus-dpd-roll",
+   "type": "metric",
+   "label": "roll",
+   "as": [
+    "30+ DPD roll"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "high-util-accounts",
+   "type": "segment",
+   "label": "high-utilisation accounts",
+   "as": [
+    "Accounts above 0.95 for 60 days"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cld-complaint-logit",
+   "type": "uses",
+   "label": "feeds",
+   "o": "feat-cld-util-after-decrease",
+   "quote": "Feeds cld-complaint-logit and feat-cld-payment-shock.",
+   "line": 7
+  },
+  {
+   "s": "feat-cld-payment-shock",
+   "type": "uses",
+   "label": "feeds",
+   "o": "feat-cld-util-after-decrease",
+   "quote": "Feeds cld-complaint-logit and feat-cld-payment-shock.",
+   "line": 7
+  },
+  {
+   "s": "feat-cld-util-after-decrease",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-cld-complaint-calls",
+   "quote": "Builds on ds-cld-complaint-calls and feat-cld-risk-band-v2.",
+   "line": 8
+  },
+  {
+   "s": "feat-cld-util-after-decrease",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-cld-risk-band-v2",
+   "quote": "Builds on ds-cld-complaint-calls and feat-cld-risk-band-v2.",
+   "line": 8
+  },
+  {
+   "s": "high-util-accounts",
+   "type": "measured-by",
+   "label": "roll 2.2x",
+   "o": "30plus-dpd-roll",
+   "quote": "Accounts above 0.95 for 60 days show 30+ DPD roll 2.2x the cohort average.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "cld-complaint-logit",
+  "feat-cld-payment-shock",
+  "ds-cld-complaint-calls",
+  "feat-cld-risk-band-v2"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cld-complaint-calls",
+   "quote": "Builds on ds-cld-complaint-calls and feat-cld-risk-band-v2.",
+   "line": 8
+  },
+  {
+   "what": "feat-cld-risk-band-v2",
+   "quote": "Builds on ds-cld-complaint-calls and feat-cld-risk-band-v2.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "limit-decrease-policy/feat-cld-util-after-decrease.md",
+ "sha": "312bbbcde75fab761dd78cc4a1499ae94dcdf2c585074499a9e3475af30f3c81",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

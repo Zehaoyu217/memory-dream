@@ -1,0 +1,98 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-f26-geo-mismatch",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-f26-geo-mismatch"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fraud26-gbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fraud26-gbm-v3"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fraud26-find-geo-drift",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fraud26-find-geo-drift"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-f26-cnp-txn",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-f26-cnp-txn"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "psi",
+   "as": [
+    "PSI rose to 0.14"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud26-gbm-v3",
+   "type": "uses",
+   "label": "added in",
+   "o": "feat-f26-geo-mismatch",
+   "quote": "Added in fraud26-gbm-v3",
+   "line": 6
+  },
+  {
+   "s": "feat-f26-geo-mismatch",
+   "type": "measured-by",
+   "label": "drifted",
+   "o": "psi",
+   "quote": "PSI rose to 0.14 after August 2026",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fraud26-find-geo-drift",
+  "ds-f26-cnp-txn",
+  "fraud26-gbm-v3"
+ ],
+ "built_on": [
+  {
+   "what": "ds-f26-cnp-txn",
+   "quote": "Builds on ds-f26-cnp-txn.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2026/feat-f26-geo-mismatch.md",
+ "sha": "a9d562b15490640599089fd6531ddb0b50f1e226e50bfd739377899ec8d2afe8",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

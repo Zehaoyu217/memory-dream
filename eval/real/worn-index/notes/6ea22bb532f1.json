@@ -1,0 +1,206 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "rdm-propensity-lr",
+   "type": "model",
+   "label": "baseline model",
+   "as": [
+    "rdm-propensity-lr"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-rdm-campaign-history",
+   "type": "dataset",
+   "label": "campaign history",
+   "as": [
+    "ds-rdm-campaign-history"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-rdm-app-installed",
+   "type": "feature",
+   "label": "app installed flag",
+   "as": [
+    "feat-rdm-app-installed"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-rdm-balance-band",
+   "type": "feature",
+   "label": "balance band",
+   "as": [
+    "the residual balance bands feature"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-rdm-last-activity-v1",
+   "type": "feature",
+   "label": "last activity feature",
+   "as": [
+    "feat-rdm-last-activity-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-rdm-prior-response",
+   "type": "feature",
+   "label": "prior response flag",
+   "as": [
+    "the prior reactivation response flag"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "rdm-oot-2025q1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift@20%",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "response auc",
+   "as": [
+    "response AUC 0.641"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rdm-propensity-lr",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-rdm-campaign-history",
+   "quote": "Builds on ds-rdm-campaign-history",
+   "line": 8
+  },
+  {
+   "s": "rdm-propensity-lr",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-rdm-app-installed",
+   "quote": "feat-rdm-app-installed",
+   "line": 8
+  },
+  {
+   "s": "rdm-propensity-lr",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-rdm-balance-band",
+   "quote": "the residual balance bands feature",
+   "line": 8
+  },
+  {
+   "s": "rdm-propensity-lr",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-rdm-last-activity-v1",
+   "quote": "feat-rdm-last-activity-v1",
+   "line": 8
+  },
+  {
+   "s": "rdm-propensity-lr",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-rdm-prior-response",
+   "quote": "the prior reactivation response flag",
+   "line": 8
+  },
+  {
+   "s": "rdm-propensity-lr",
+   "type": "measured-by",
+   "label": "scored by",
+   "o": "uplift-at-20",
+   "quote": "holdout uplift@20% 0.9pp",
+   "line": 4
+  },
+  {
+   "s": "rdm-propensity-lr",
+   "type": "measured-by",
+   "label": "scored by",
+   "o": "auc",
+   "quote": "response AUC 0.641",
+   "line": 6
+  },
+  {
+   "s": "rdm-propensity-lr",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "holdout-2025q1",
+   "quote": "Targeting the top 20% by propensity gives 0.9pp uplift on rdm-oot-2025q1",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-rdm-campaign-history",
+   "quote": "Builds on ds-rdm-campaign-history, feat-rdm-app-installed, the residual balance bands feature, feat-rdm-last-activity-v1 and the prior reactivation response flag.",
+   "line": 8
+  },
+  {
+   "what": "feat-rdm-app-installed",
+   "quote": "Builds on ds-rdm-campaign-history, feat-rdm-app-installed, the residual balance bands feature, feat-rdm-last-activity-v1 and the prior reactivation response flag.",
+   "line": 8
+  },
+  {
+   "what": "feat-rdm-balance-band",
+   "quote": "the residual balance bands feature",
+   "line": 8
+  },
+  {
+   "what": "feat-rdm-last-activity-v1",
+   "quote": "feat-rdm-last-activity-v1 and the prior reactivation response flag.",
+   "line": 8
+  },
+  {
+   "what": "feat-rdm-prior-response",
+   "quote": "the prior reactivation response flag",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reactivation-dormant/rdm-propensity-lr.md",
+ "sha": "6ea22bb532f1037c0cb007d4a7d1ecb6fd5c25bb2b872bdb2aff9c0d9c819702",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

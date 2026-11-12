@@ -1,0 +1,66 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "frozen holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.fraud_labels",
+   "type": "dataset",
+   "label": "fraud labels table",
+   "as": [
+    "cards.fraud_labels"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "holdout-2025q1",
+   "type": "uses",
+   "label": "labels pulled from",
+   "o": "cards.fraud_labels",
+   "quote": "Labels pulled 2025-05-15 from `cards.fraud_labels`",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-101",
+  "exp-102",
+  "exp-103",
+  "exp-104",
+  "exp-107",
+  "ds-f25-labels",
+  "ds-f25-txn-2024-2025"
+ ],
+ "built_on": [
+  {
+   "what": "ds-f25-labels",
+   "quote": "Builds on ds-f25-labels and the card-not-present transaction extract.",
+   "line": 8
+  },
+  {
+   "what": "ds-f25-txn-2024-2025",
+   "quote": "Builds on ds-f25-labels and the card-not-present transaction extract.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/ds-f25-holdout-2025q1.md",
+ "sha": "b07351a812c36ea88aa073ae79b58ade0da004e894835337336282ca6ab3156b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

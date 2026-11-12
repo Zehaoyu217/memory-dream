@@ -1,0 +1,85 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-506",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-506: exponential-decay balance forecast has MAPE 11% on 12-month balance, against 19% flat"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "february-cohort",
+   "type": "segment",
+   "label": "cohort",
+   "as": [
+    "the February cohort"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "error metric",
+   "as": [
+    "MAPE 11% for the decay forecast, 19% for flat-at-month-6"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-pa-balance-panel",
+   "type": "dataset",
+   "label": "balance panel",
+   "as": [
+    "Builds on ds-pa-balance-panel."
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-506",
+   "type": "evaluated-on",
+   "label": "holdout of",
+   "o": "february-cohort",
+   "quote": "Holdout of the February cohort",
+   "line": 5
+  },
+  {
+   "s": "exp-506",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "mape",
+   "quote": "MAPE 11% for the decay forecast, 19% for flat-at-month-6",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-pa-balance-panel"
+ ],
+ "built_on": [
+  {
+   "what": "ds-pa-balance-panel",
+   "quote": "Builds on ds-pa-balance-panel.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "promo-apr-test/exp-506-balance-forecast.md",
+ "sha": "adb5c9c472218e2cc1c460baa2266fac7408cfdec5e59730a8d9996d696cd64e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

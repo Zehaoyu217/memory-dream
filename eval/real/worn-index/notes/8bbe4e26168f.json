@@ -1,0 +1,134 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "sms",
+   "type": "term",
+   "label": "channel",
+   "as": [
+    "SMS"
+   ],
+   "lines": [
+    4,
+    5,
+    6,
+    8,
+    9
+   ]
+  },
+  {
+   "id": "email",
+   "type": "term",
+   "label": "channel",
+   "as": [
+    "email"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "exp-306",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-306"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "fnd-rdm-sms-uplift",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-rdm-sms-uplift"
+   ],
+   "lines": [
+    8,
+    9
+   ]
+  },
+  {
+   "id": "dec-rdm-ship-uplift-v2",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-rdm-ship-uplift-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "rdm-oot-2025q1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "uplift"
+   ],
+   "lines": [
+    4,
+    5,
+    7,
+    8,
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "sms",
+   "type": "measured-by",
+   "label": "corrected uplift",
+   "o": "uplift-at-20",
+   "quote": "Corrected uplift: SMS 2.1pp, email 1.4pp",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-306",
+  "dec-rdm-ship-uplift-v2"
+ ],
+ "built_on": [
+  {
+   "what": "exp-306",
+   "quote": "Builds on exp-306 and fnd-rdm-sms-uplift.",
+   "line": 8
+  },
+  {
+   "what": "fnd-rdm-sms-uplift",
+   "quote": "Builds on exp-306 and fnd-rdm-sms-uplift.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "fnd-rdm-sms-uplift",
+   "quote": "Replaces fnd-rdm-sms-uplift.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "reactivation-dormant/fnd-rdm-sms-uplift-v2.md",
+ "sha": "8bbe4e26168f99e49d26620cb4872f10fa7254a4ce0c23e833daa86158f2ce15",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

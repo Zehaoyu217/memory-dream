@@ -1,0 +1,154 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-308",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-308"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "rs-xgb-v3",
+   "type": "model",
+   "label": "recalibrated model",
+   "as": [
+    "rs-xgb-v3"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "rs-xgb-v2",
+   "type": "model",
+   "label": "comparison model",
+   "as": [
+    "rs-xgb-v2"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "recovered-share mape",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "recovery-scoring-agency-2025h2",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "recovery-scoring-agency-2025h2"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "classification gini",
+   "as": [
+    "Gini"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2023h2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2023h2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-rs-agency-placements",
+   "type": "dataset",
+   "label": "placements dataset",
+   "as": [
+    "2025h1 agency placements dataset"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rs-xgb-v3",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "recovery-scoring-agency-2025h2",
+   "quote": "rs-xgb-v3 (rs-xgb-v2 plus a regression head for recovered share of balance, recalibrated on 2025 vintages): MAPE 14.2%.",
+   "line": 5
+  },
+  {
+   "s": "rs-xgb-v3",
+   "type": "measured-by",
+   "label": "cuts MAPE to",
+   "o": "mape",
+   "quote": "cuts recovered-share MAPE from 19.8% to 14.2%",
+   "line": 4
+  },
+  {
+   "s": "rs-xgb-v2",
+   "type": "measured-by",
+   "label": "MAPE on same set",
+   "o": "mape",
+   "quote": "rs-xgb-v2 on the same set: MAPE 19.8%.",
+   "line": 5
+  },
+  {
+   "s": "gini",
+   "type": "evaluated-on",
+   "label": "unchanged on",
+   "o": "holdout-2023h2",
+   "quote": "Classification Gini is unchanged at 0.47 on holdout-2023h2.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "rs-xgb-v2"
+ ],
+ "built_on": [
+  {
+   "what": "ds-rs-agency-placements",
+   "quote": "Builds on the 2025h1 agency placements dataset and rs-xgb-v2.",
+   "line": 8
+  },
+  {
+   "what": "rs-xgb-v2",
+   "quote": "Builds on the 2025h1 agency placements dataset and rs-xgb-v2.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "recovery-scoring/exp-308.md",
+ "sha": "e026e305a7f923a5884d08e2c482dc7c04fcf4543e79b5d46a928358dc95f1ef",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,122 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "app-scorecard-v3",
+   "type": "model",
+   "label": "production form",
+   "as": [
+    "points-based logistic"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "app-gbm-v2",
+   "type": "model",
+   "label": "reference model",
+   "as": [
+    "app-gbm-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "app-scorecard-v4",
+   "type": "model",
+   "label": "rebuild",
+   "as": [
+    "the rebuild"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "omar-haddad",
+   "type": "person",
+   "label": "compliance sign-off",
+   "as": [
+    "Omar Haddad"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "adverse-action-explanation-test",
+   "type": "term",
+   "label": "adverse-action explanation test",
+   "as": [
+    "adverse-action test"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "app-gbm-v2",
+   "type": "other",
+   "label": "reference model for",
+   "o": "app-scorecard-v4",
+   "quote": "reference model for the rebuild, not for decisions",
+   "line": 6
+  },
+  {
+   "s": "app-scorecard-v3",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "lena-fischer",
+   "quote": "Owner: Lena Fischer",
+   "line": 7
+  },
+  {
+   "s": "app-scorecard-v3",
+   "type": "approved-by",
+   "label": "compliance sign-off",
+   "o": "omar-haddad",
+   "quote": "compliance sign-off from Omar Haddad",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-503",
+  "app-gbm-v2",
+  "exp-504"
+ ],
+ "built_on": [
+  {
+   "what": "adverse-action-explanation-test",
+   "quote": "Builds on the gbm challenger's adverse-action explanation test and exp-504.",
+   "line": 8
+  },
+  {
+   "what": "exp-504",
+   "quote": "Builds on the gbm challenger's adverse-action explanation test and exp-504.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "application-scorecard/dec-app-no-gbm.md",
+ "sha": "af1c2a3ebe923f493eadf23b2fcdcecfbd64a2c4d40bb82689c01fc1b2bfb077",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

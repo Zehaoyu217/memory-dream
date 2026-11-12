@@ -1,0 +1,78 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "fraud25-gbm-v3",
+   "type": "model",
+   "label": "rejected challenger",
+   "as": [
+    "v3"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "fraud25-gbm-v2",
+   "type": "model",
+   "label": "live model",
+   "as": [
+    "v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "travel-alert-share",
+   "type": "metric",
+   "label": "travel alert share",
+   "as": [
+    "cuts travel alert share from 31% to 17%"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fraud-2026",
+   "type": "other",
+   "label": "2026 rebuild",
+   "as": [
+    "fraud-2026"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud25-gbm-v3",
+   "type": "measured-by",
+   "label": "share cut",
+   "o": "travel-alert-share",
+   "quote": "cuts travel alert share from 31% to 17%",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-107"
+ ],
+ "built_on": [
+  {
+   "what": "exp-107",
+   "quote": "Builds on exp-107 and the travel flag halved model.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/dec-f25-no-v3.md",
+ "sha": "f070ed206c1f853c9c9475788e58847adb51ebbed3c256a7ac2a2dbdafe02999",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

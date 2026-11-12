@@ -1,0 +1,57 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "`cards.payments_daily`"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "payment-coverage",
+   "type": "metric",
+   "label": "coverage",
+   "as": [
+    "Coverage 99.6% of accounts"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cards.payments_daily",
+   "type": "measured-by",
+   "label": "coverage",
+   "o": "payment-coverage",
+   "quote": "Coverage 99.6% of accounts, the gap being closed accounts.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-pa-ab-assignments",
+  "feat-pa-payment-rate"
+ ],
+ "built_on": [
+  {
+   "what": "ds-pa-ab-assignments",
+   "quote": "Builds on ds-pa-ab-assignments.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "promo-apr-test/ds-pa-payments.md",
+ "sha": "eb3f6f80d734cbfd852fa8ea61534bde0537c0a72de7fa5e13ad35e967f45d16",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

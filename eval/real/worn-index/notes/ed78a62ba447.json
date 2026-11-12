@@ -1,0 +1,98 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-trv-fx-no-signal",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "FX volatility carries no signal for travel spend in the ridge model"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-trv-fx-vol",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-trv-fx-vol"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-506",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-506"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cross-border-share",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "Cross-border share"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-trv-fx-vol",
+   "type": "measured-by",
+   "label": "moves MAPE",
+   "o": "mape",
+   "quote": "Adding the 90-day FX volatility index moves MAPE from 4.3% to 4.4% (exp-506).",
+   "line": 5
+  },
+  {
+   "s": "fnd-trv-fx-no-signal",
+   "type": "other",
+   "label": "builds on",
+   "o": "exp-506",
+   "quote": "Builds on exp-506.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-506",
+  "feat-trv-fx-vol"
+ ],
+ "built_on": [
+  {
+   "what": "exp-506",
+   "quote": "Builds on exp-506.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "travel-spend-recovery/fnd-trv-fx-no-signal.md",
+ "sha": "ed78a62ba447206db7b6e78244dbd8b71a939472210a49cd86f8cb65ac8a8209",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

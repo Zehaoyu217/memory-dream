@@ -1,0 +1,137 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-fsm-cutover",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: churn v2 moves to store features on 2026-03-02"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fsm-churn-xgb-v2",
+   "type": "model",
+   "label": "churn v2 model",
+   "as": [
+    "churn v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fnd-parity-post-fix",
+   "type": "other",
+   "label": "parity finding",
+   "as": [
+    "fnd-parity-post-fix"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "fsm-spend-lgbm-v2",
+   "type": "model",
+   "label": "spend v2 model",
+   "as": [
+    "fsm-spend-lgbm-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "approver",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "credit-risk",
+   "type": "team",
+   "label": "credit risk team",
+   "as": [
+    "credit risk"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fsm-parity-sample",
+   "type": "dataset",
+   "label": "parity sample",
+   "as": [
+    "fsm_parity_sample_2025h2"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-fsm-cutover",
+   "type": "owned-by",
+   "label": "approved by",
+   "o": "lena-fischer",
+   "quote": "Approved by Lena Fischer for credit risk.",
+   "line": 6
+  },
+  {
+   "s": "dec-fsm-cutover",
+   "type": "other",
+   "label": "moves to store",
+   "o": "fsm-churn-xgb-v2",
+   "quote": "churn v2 moves to store features",
+   "line": 4
+  },
+  {
+   "s": "dec-fsm-cutover",
+   "type": "evaluated-on",
+   "label": "gated on",
+   "o": "fsm-parity-sample",
+   "quote": "Gate: at least 99 percent of rows within 0.5 percent on fsm_parity_sample_2025h2",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "fsm-spend-lgbm-v2"
+ ],
+ "built_on": [
+  {
+   "what": "fnd-churn-lift",
+   "quote": "Builds on the churn auc gain finding, fnd-parity-post-fix and fsm-churn-xgb-v2.",
+   "line": 7
+  },
+  {
+   "what": "fnd-parity-post-fix",
+   "quote": "Builds on the churn auc gain finding, fnd-parity-post-fix and fsm-churn-xgb-v2.",
+   "line": 7
+  },
+  {
+   "what": "fsm-churn-xgb-v2",
+   "quote": "Builds on the churn auc gain finding, fnd-parity-post-fix and fsm-churn-xgb-v2.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "feature-store-migration/dec-fsm-cutover.md",
+ "sha": "0b442d8fd71086ab935ad2486ca9a7fb31bd4a85a7078695f618c168615e9962",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

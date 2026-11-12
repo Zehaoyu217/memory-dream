@@ -1,0 +1,223 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "fraud26-gbm-v3",
+   "type": "model",
+   "label": "fraud model",
+   "as": [
+    "fraud26-gbm-v3"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-f26-geo-mismatch",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-f26-geo-mismatch"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-f26-amt-zscore",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-f26-amt-zscore"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "fraud26-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fraud26-gbm-v2"
+   ],
+   "lines": [
+    8,
+    9
+   ]
+  },
+  {
+   "id": "fraud26-oot-2026h1",
+   "type": "dataset",
+   "label": "evaluation set",
+   "as": [
+    "fraud26-oot-2026h1"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.933"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "KS 0.72"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "recall-at-1pct",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "recall@1% 0.61"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-207",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-207"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-208",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-208"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dec-f26-promote-v3",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-f26-promote-v3"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud26-gbm-v3",
+   "type": "uses",
+   "label": "adds",
+   "o": "feat-f26-geo-mismatch",
+   "quote": "Adds feat-f26-geo-mismatch and feat-f26-amt-zscore to the v2 feature set",
+   "line": 5
+  },
+  {
+   "s": "fraud26-gbm-v3",
+   "type": "uses",
+   "label": "adds",
+   "o": "feat-f26-amt-zscore",
+   "quote": "Adds feat-f26-geo-mismatch and feat-f26-amt-zscore to the v2 feature set",
+   "line": 5
+  },
+  {
+   "s": "fraud26-gbm-v3",
+   "type": "evaluated-on",
+   "label": "eval on",
+   "o": "fraud26-oot-2026h1",
+   "quote": "Eval on fraud26-oot-2026h1: AUC 0.933",
+   "line": 6
+  },
+  {
+   "s": "fraud26-gbm-v3",
+   "type": "measured-by",
+   "label": "eval on",
+   "o": "auc",
+   "quote": "AUC 0.933, KS 0.72",
+   "line": 6
+  },
+  {
+   "s": "fraud26-gbm-v3",
+   "type": "measured-by",
+   "label": "eval on",
+   "o": "ks",
+   "quote": "KS 0.72",
+   "line": 6
+  },
+  {
+   "s": "fraud26-gbm-v3",
+   "type": "measured-by",
+   "label": "eval on",
+   "o": "recall-at-1pct",
+   "quote": "recall@1% 0.61",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-207",
+  "exp-208",
+  "dec-f26-promote-v3",
+  "fraud26-oot-2026h1"
+ ],
+ "built_on": [
+  {
+   "what": "exp-207",
+   "quote": "Builds on the geo-mismatch and amount z-score experiment",
+   "line": 8
+  },
+  {
+   "what": "feat-f26-amt-zscore",
+   "quote": "feat-f26-amt-zscore, the geo-mismatch feature and fraud26-gbm-v2.",
+   "line": 8
+  },
+  {
+   "what": "feat-f26-geo-mismatch",
+   "quote": "the geo-mismatch feature and fraud26-gbm-v2.",
+   "line": 8
+  },
+  {
+   "what": "fraud26-gbm-v2",
+   "quote": "the geo-mismatch feature and fraud26-gbm-v2.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "fraud26-gbm-v2",
+   "quote": "Replaces fraud26-gbm-v2.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2026/fraud26-gbm-v3.md",
+ "sha": "4900bcad93d4e6ee9f8a42a58754538d4ca3aeb56f576002e916b814c326c2f0",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,143 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "ds-bsm-v10-cohorts-2026",
+   "type": "dataset",
+   "label": "cohort dataset",
+   "as": [
+    "ds-bsm-v10-cohorts-2026",
+    "n=71,300"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cutoff-652",
+   "type": "other",
+   "label": "cutoff",
+   "as": [
+    "cutoff 652"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "cutoff-640",
+   "type": "other",
+   "label": "cutoff",
+   "as": [
+    "cutoff 640 on v8"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "approval-rate",
+   "type": "metric",
+   "label": "approval rate",
+   "as": [
+    "approval rate",
+    "2025 approval rate of 58%"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "bad-rate-60d",
+   "type": "metric",
+   "label": "60-day bad rate",
+   "as": [
+    "60-day bad rate"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-bsm-cutover-2026q3",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-bsm-cutover-2026q3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "bsm-cutoff-logit",
+   "type": "model",
+   "label": "cutoff model",
+   "as": [
+    "bsm-cutoff-logit"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-bsm-v10-band",
+   "type": "feature",
+   "label": "band rule",
+   "as": [
+    "feat-bsm-v10-band",
+    "mapped band rule"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "approval-rate",
+   "type": "measured-by",
+   "label": "gives",
+   "o": "approval-rate",
+   "quote": "the approval rate is 58.0%",
+   "line": 6
+  },
+  {
+   "s": "bad-rate-60d",
+   "type": "measured-by",
+   "label": "bad rate",
+   "o": "bad-rate-60d",
+   "quote": "the 60-day bad rate is 4.1% for both",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-bsm-v10-cohorts-2026",
+  "dec-bsm-cutover-2026q3",
+  "bsm-cutoff-logit",
+  "feat-bsm-v10-band"
+ ],
+ "built_on": [
+  {
+   "what": "bsm-cutoff-logit",
+   "quote": "Builds on bsm-cutoff-logit and feat-bsm-v10-band.",
+   "line": 8
+  },
+  {
+   "what": "feat-bsm-v10-band",
+   "quote": "Builds on bsm-cutoff-logit and feat-bsm-v10-band.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 3
+ },
+ "path": "bureau-score-migration/exp-305.md",
+ "sha": "616ab493d77fc548bec9c071f038efca47c6332474d1c21362545f5e5985b402",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,99 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-401",
+   "type": "other",
+   "label": "naive comparison",
+   "as": [
+    "exp-401"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-hp-enrolled",
+   "type": "dataset",
+   "label": "enrolled group",
+   "as": [
+    "2024 hardship enrolment dataset"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-hp-roll-matrix",
+   "type": "dataset",
+   "label": "eligible pool",
+   "as": [
+    "2024 eligible pool"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "roll-rate",
+   "type": "metric",
+   "label": "roll rate",
+   "as": [
+    "enrolled accounts roll at 21.0% against 9.4%"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-401",
+   "type": "measured-by",
+   "label": "compares roll",
+   "o": "roll-rate",
+   "quote": "enrolled accounts roll at 21.0% against 9.4%",
+   "line": 4
+  },
+  {
+   "s": "exp-401",
+   "type": "uses",
+   "label": "compares enrolled",
+   "o": "ds-hp-enrolled",
+   "quote": "enrolled 21.0% (n=14,820)",
+   "line": 5
+  },
+  {
+   "s": "exp-401",
+   "type": "uses",
+   "label": "eligible pool",
+   "o": "ds-hp-roll-matrix",
+   "quote": "Naive comparison on the 2024 eligible pool",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "ds-hp-enrolled",
+  "ds-hp-roll-matrix"
+ ],
+ "built_on": [
+  {
+   "what": "ds-hp-enrolled",
+   "quote": "Builds on the 2024 hardship enrolment dataset and ds-hp-roll-matrix.",
+   "line": 8
+  },
+  {
+   "what": "ds-hp-roll-matrix",
+   "quote": "Builds on the 2024 hardship enrolment dataset and ds-hp-roll-matrix.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "hardship-programs/exp-401.md",
+ "sha": "5f165dca868d3d14a93dfb7e6bf56fd4bc389d0d189a03987fa1aa38890529bd",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

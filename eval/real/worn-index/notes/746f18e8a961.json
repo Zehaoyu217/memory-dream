@@ -1,0 +1,55 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "ben-carter",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Ben Carter (finance)"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dec-clv-discount-rate",
+   "type": "decision",
+   "label": "decision",
+   "as": [
+    "discount CLV at 9% a year"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-clv-discount-rate",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "ben-carter",
+   "quote": "Owner: Ben Carter (finance).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-clv-include-losses"
+ ],
+ "built_on": [
+  {
+   "what": "dec-clv-include-losses",
+   "quote": "Builds on dec-clv-include-losses.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "customer-lifetime-value/dec-clv-discount-rate.md",
+ "sha": "746f18e8a961d3ba291e94eafd145be4c8b0f1b0d22ef27c06de7257f9a7ac4c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

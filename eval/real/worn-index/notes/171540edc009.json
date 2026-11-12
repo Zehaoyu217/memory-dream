@@ -1,0 +1,74 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-rev26-interest-accrual",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "Monthly interest accrual by segment"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards-accounts-monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-rev26-charge-off-haircut",
+   "type": "feature",
+   "label": "haircut",
+   "as": [
+    "the haircut"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-rev26-interest-accrual",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards-accounts-monthly",
+   "quote": "built from `cards.accounts_monthly` balances times APR",
+   "line": 5
+  },
+  {
+   "s": "ds-rev26-interest-accrual",
+   "type": "other",
+   "label": "gross of",
+   "o": "feat-rev26-charge-off-haircut",
+   "quote": "Accrual is gross of charge-offs; the haircut is applied in the model (feat-rev26-charge-off-haircut).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-rev26-charge-off-haircut"
+ ],
+ "built_on": [
+  {
+   "what": "cards-accounts-monthly",
+   "quote": "built from `cards.accounts_monthly` balances times APR",
+   "line": 5
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "revenue-forecast-2026/ds-rev26-interest-accrual.md",
+ "sha": "171540edc009833560deb4b403cfff52c979d2f46396714a8bae5f0afeb28c48",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

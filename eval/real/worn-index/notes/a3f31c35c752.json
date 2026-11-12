@@ -1,0 +1,178 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-cli-uplift-targeting",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: Q4 2026 CLI batch targets the top 20%"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cli-xgb-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cli-xgb-v3"
+   ],
+   "lines": [
+    4,
+    8
+   ]
+  },
+  {
+   "id": "dec-cli-cutoff-2025",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-cli-cutoff-2025"
+   ],
+   "lines": [
+    5,
+    9
+   ]
+  },
+  {
+   "id": "dec-cli-loss-cap",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "1.5% loss cap in dec-cli-loss-cap"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cli-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cli-xgb-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-106",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-106"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "find-cli-uplift-wins",
+   "type": "document",
+   "label": "finding",
+   "as": [
+    "find-cli-uplift-wins"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cli-oot-2026h1",
+   "type": "dataset",
+   "label": "out-of-time dataset",
+   "as": [
+    "cli-oot-2026h1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.72"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-cli-uplift-targeting",
+   "type": "uses",
+   "label": "targets by",
+   "o": "cli-xgb-v3",
+   "quote": "targets the top 20% by cli-xgb-v3 uplift score",
+   "line": 4
+  },
+  {
+   "s": "dec-cli-uplift-targeting",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "dec-cli-cutoff-2025",
+   "quote": "Replaces the 2025 logistic cutoff of 0.031 (dec-cli-cutoff-2025)",
+   "line": 5
+  },
+  {
+   "s": "dec-cli-uplift-targeting",
+   "type": "uses",
+   "label": "still applies",
+   "o": "dec-cli-loss-cap",
+   "quote": "The 1.5% loss cap in dec-cli-loss-cap still applies",
+   "line": 7
+  },
+  {
+   "s": "exp-106",
+   "type": "measured-by",
+   "label": "showed drift",
+   "o": "auc",
+   "quote": "exp-106 showed cli-xgb-v2 drift on cli-oot-2026h1 (AUC 0.72)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-106",
+  "find-cli-uplift-wins",
+  "dec-cli-cutoff-2025",
+  "dec-cli-loss-cap"
+ ],
+ "built_on": [
+  {
+   "what": "cli-xgb-v3",
+   "quote": "Builds on cli-xgb-v3, the out-of-time auc check for v2 and the finding that uplift beats propensity.",
+   "line": 8
+  },
+  {
+   "what": "exp-106",
+   "quote": "the out-of-time auc check for v2",
+   "line": 8
+  },
+  {
+   "what": "find-cli-uplift-wins",
+   "quote": "the finding that uplift beats propensity",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "dec-cli-cutoff-2025",
+   "quote": "Replaces the 2025 logistic cutoff of 0.031 (dec-cli-cutoff-2025)",
+   "line": 5
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/dec-cli-uplift-targeting.md",
+ "sha": "a3f31c35c752c4e86c41b792530736bd285e7d8481c2a7f6cd0c5be6b1375b71",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

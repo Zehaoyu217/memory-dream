@@ -1,0 +1,95 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "mrisk-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "merchants scoring 0.70 or above from mrisk-gbm-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-506",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "Basis: exp-506"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-mrisk-threshold-065",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Superseded by dec-mrisk-threshold-065"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "precision",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "precision 0.31"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-506",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "precision",
+   "quote": "precision 0.31",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-506",
+  "dec-mrisk-threshold-065"
+ ],
+ "built_on": [
+  {
+   "what": "mrisk-find-watchlist-07",
+   "quote": "Builds on mrisk-find-watchlist-07, mrisk-gbm-v2 and the open question on watchlist cut.",
+   "line": 8
+  },
+  {
+   "what": "mrisk-gbm-v2",
+   "quote": "Builds on mrisk-find-watchlist-07, mrisk-gbm-v2 and the open question on watchlist cut.",
+   "line": 8
+  },
+  {
+   "what": "q-mrisk-watchlist-cut",
+   "quote": "Builds on mrisk-find-watchlist-07, mrisk-gbm-v2 and the open question on watchlist cut.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "dec-mrisk-threshold-065",
+   "quote": "Superseded by dec-mrisk-threshold-065 once v3 is in place.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "merchant-risk/dec-mrisk-watchlist-07.md",
+ "sha": "b7835b6e0802f383dd98921598bf929c538596a03e31f078e17a3ea55bf9cad1",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

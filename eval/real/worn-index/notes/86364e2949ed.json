@@ -1,0 +1,84 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-206",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-206"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "mm-limit-glm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "mm-limit-glm-v1"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "ds-mm-reference-train",
+   "type": "dataset",
+   "label": "reference",
+   "as": [
+    "ds-mm-reference-train"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-mm-incident-log",
+   "type": "dataset",
+   "label": "incident log",
+   "as": [
+    "the incident log"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-206",
+   "type": "other",
+   "label": "replayed",
+   "o": "mm-limit-glm-v1",
+   "quote": "Replayed November and December 2024 on mm-limit-glm-v1.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "ds-mm-reference-train",
+  "mm-limit-glm-v1"
+ ],
+ "built_on": [
+  {
+   "what": "ds-mm-reference-train",
+   "quote": "Builds on ds-mm-reference-train and mm-limit-glm-v1.",
+   "line": 7
+  },
+  {
+   "what": "mm-limit-glm-v1",
+   "quote": "Builds on ds-mm-reference-train and mm-limit-glm-v1.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "model-monitoring/exp-206.md",
+ "sha": "86364e2949ed55ff4ce53a2fec7f0a50543332a7909fcfd1537432187022b09f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

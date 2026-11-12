@@ -1,0 +1,93 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "threshold-0.62",
+   "type": "term",
+   "label": "threshold",
+   "as": [
+    "0.62 alert threshold"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "precision",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "14.2% precision"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "recall",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "0.58 recall"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fraud25-find-travel-overflag",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fraud25-find-travel-overflag"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "threshold-0.62",
+   "type": "measured-by",
+   "label": "gives",
+   "o": "precision",
+   "quote": "threshold 0.62 gives 14.2% precision",
+   "line": 5
+  },
+  {
+   "s": "threshold-0.62",
+   "type": "measured-by",
+   "label": "gives",
+   "o": "recall",
+   "quote": "0.58 recall",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-103",
+  "fraud25-find-travel-overflag"
+ ],
+ "built_on": [
+  {
+   "what": "exp-103",
+   "quote": "Builds on exp-103 and the new model's head-to-head win.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "fraud25-find-travel-overflag",
+   "quote": "Overturned by fraud25-find-travel-overflag once the live alert log was replayed.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/fraud25-find-threshold-fine.md",
+ "sha": "3c14a905a5452d3e8137e84dae26014b68f05e5b4b4900f6831950d0145fa721",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

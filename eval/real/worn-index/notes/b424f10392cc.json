@@ -1,0 +1,128 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "ead",
+   "type": "metric",
+   "label": "exposure",
+   "as": [
+    "EAD"
+   ],
+   "lines": [
+    4,
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "ccf",
+   "type": "metric",
+   "label": "factor",
+   "as": [
+    "CCF"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "undrawn-limit",
+   "type": "term",
+   "label": "amount",
+   "as": [
+    "undrawn limit"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "current-balance",
+   "type": "term",
+   "label": "amount",
+   "as": [
+    "current balance"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "lgd-ead-model-2025",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "2025 LGD/EAD model"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "q3-2025-provision",
+   "type": "metric",
+   "label": "provision",
+   "as": [
+    "Q3 2025 provision EAD"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ead",
+   "type": "uses",
+   "label": "adds drawdown",
+   "o": "undrawn-limit",
+   "quote": "EAD = current balance + CCF x undrawn limit",
+   "line": 5
+  },
+  {
+   "s": "ead",
+   "type": "uses",
+   "label": "uses balance",
+   "o": "current-balance",
+   "quote": "The old note used the current balance only.",
+   "line": 5
+  },
+  {
+   "s": "ccf",
+   "type": "trained-on",
+   "label": "from model",
+   "o": "lgd-ead-model-2025",
+   "quote": "with CCF = 45% from the 2025 LGD/EAD model",
+   "line": 5
+  },
+  {
+   "s": "q3-2025-provision",
+   "type": "other",
+   "label": "rose with",
+   "o": "ead",
+   "quote": "Q3 2025 provision EAD rose about 12%",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "glossary/ead"
+ ],
+ "replaces": [
+  {
+   "what": "glossary/ead",
+   "quote": "Replaces glossary/ead.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "corrections/ead-includes-drawdown.md",
+ "sha": "b424f10392cc1317d9691f3fca738b4324794620610d66313988c216611fc649",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

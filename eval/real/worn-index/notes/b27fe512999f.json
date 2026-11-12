@@ -1,0 +1,77 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-mm-payment-ratio-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mm-payment-ratio-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-mm-payment-ratio-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mm-payment-ratio-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.payments_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fnd-payment-ratio-bug",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-payment-ratio-bug"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-mm-payment-ratio-v1",
+   "type": "uses",
+   "label": "from",
+   "o": "cards.payments_daily",
+   "quote": "from `cards.payments_daily` and the statement table",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "fnd-payment-ratio-bug"
+ ],
+ "replaces": [
+  {
+   "what": "feat-mm-payment-ratio-v2",
+   "quote": "Superseded by feat-mm-payment-ratio-v2 after fnd-payment-ratio-bug.",
+   "line": 6
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "model-monitoring/feat-mm-payment-ratio-v1.md",
+ "sha": "b27fe512999fbe4285b4d14183814a3cc770840f5a7434b48048d59e1c49c3a0",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

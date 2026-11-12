@@ -1,0 +1,67 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "cards.fraud_labels",
+   "type": "dataset",
+   "label": "label source",
+   "as": [
+    "2026 CNP chargeback labels"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "label-maturity-auc-bias",
+   "type": "metric",
+   "label": "auc understatement",
+   "as": [
+    "understates AUC by about 0.02"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fraud26-find-label-bias",
+   "type": "other",
+   "label": "label bias finding",
+   "as": [
+    "fraud26-find-label-bias"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud26-find-label-bias",
+   "type": "other",
+   "label": "answers",
+   "o": "cards.fraud_labels",
+   "quote": "Answer in fraud26-find-label-bias: wait for maturity or drop the young labels.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-f26-labels-2026",
+  "fraud26-find-label-bias"
+ ],
+ "built_on": [
+  {
+   "what": "ds-f26-labels-2026",
+   "quote": "Builds on ds-f26-labels-2026.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2026/q-f26-label-lag.md",
+ "sha": "c80487e05ed81b8d3d057c2824213206c269318f0ff37ea5a10576219279451c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,157 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "ch-propensity-v2",
+   "type": "model",
+   "label": "channel-choice model",
+   "as": [
+    "ch-propensity-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-ch-prefer-channel-v1",
+   "type": "feature",
+   "label": "prefer-channel feature",
+   "as": [
+    "feat-ch-prefer-channel-v1"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-ch-send-window-v1",
+   "type": "feature",
+   "label": "send-window feature",
+   "as": [
+    "feat-ch-send-window-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-ch-prior-contact-v1",
+   "type": "feature",
+   "label": "prior-contact feature",
+   "as": [
+    "feat-ch-prior-contact-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-ch-ab-wave1",
+   "type": "dataset",
+   "label": "wave-1 holdout split",
+   "as": [
+    "wave-1 holdout split (n=17,200)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift metric",
+   "as": [
+    "uplift@20% 0.027"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ch-bandit-v1",
+   "type": "model",
+   "label": "bandit",
+   "as": [
+    "The bandit in ch-bandit-v1"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ch-propensity-v2",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-ch-send-window-v1",
+   "quote": "Features: feat-ch-send-window-v1, feat-ch-prior-contact-v1, feat-ch-prefer-channel-v1.",
+   "line": 5
+  },
+  {
+   "s": "ch-propensity-v2",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-ch-prior-contact-v1",
+   "quote": "Features: feat-ch-send-window-v1, feat-ch-prior-contact-v1, feat-ch-prefer-channel-v1.",
+   "line": 5
+  },
+  {
+   "s": "ch-propensity-v2",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-ch-prefer-channel-v1",
+   "quote": "feat-ch-prefer-channel-v1.",
+   "line": 5
+  },
+  {
+   "s": "ch-propensity-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "ds-ch-ab-wave1",
+   "quote": "uplift@20% 0.027 on the wave-1 holdout split (n=17,200)",
+   "line": 6
+  },
+  {
+   "s": "ch-propensity-v2",
+   "type": "measured-by",
+   "label": "reaches",
+   "o": "uplift-at-20",
+   "quote": "uplift@20% 0.027 on the wave-1 holdout",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "ch-bandit-v1",
+  "exp-506"
+ ],
+ "built_on": [
+  {
+   "what": "exp-506",
+   "quote": "Builds on the original sms-or-call propensity model, exp-506 and feat-ch-prefer-channel-v1.",
+   "line": 8
+  },
+  {
+   "what": "feat-ch-prefer-channel-v1",
+   "quote": "feat-ch-prefer-channel-v1.",
+   "line": 5
+  }
+ ],
+ "replaces": [
+  {
+   "what": "ch-propensity-v1",
+   "quote": "Replaces the original sms-or-call propensity model.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "collections-channel-mix/ch-propensity-v2.md",
+ "sha": "a5f6e35b4bf5b635de3475fe8fd9e0815186e1bc6c7da8edda3c9491860cf685",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

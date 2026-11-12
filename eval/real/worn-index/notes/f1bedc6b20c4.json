@@ -1,0 +1,127 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-201",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-201"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "csb-lr-base",
+   "type": "model",
+   "label": "logistic baseline",
+   "as": [
+    "Same LR baseline"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-csb-oot-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "csb-oot-2025q1"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "ds-csb-churn-labels",
+   "type": "dataset",
+   "label": "churn labels",
+   "as": [
+    "ds-csb-churn-labels"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-201",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "ds-csb-oot-2025q1",
+   "quote": "scored on csb-oot-2025q1",
+   "line": 5
+  },
+  {
+   "s": "exp-201",
+   "type": "uses",
+   "label": "builds on",
+   "o": "csb-lr-base",
+   "quote": "Builds on csb-lr-base",
+   "line": 8
+  },
+  {
+   "s": "exp-201",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.684",
+   "line": 4
+  },
+  {
+   "s": "exp-201",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-csb-churn-labels",
+   "quote": "ds-csb-churn-labels",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "csb-lr-base",
+  "ds-csb-churn-labels",
+  "ds-csb-oot-2025q1",
+  "dec-csb-90d-window"
+ ],
+ "built_on": [
+  {
+   "what": "csb-lr-base",
+   "quote": "Builds on csb-lr-base, ds-csb-churn-labels and ds-csb-oot-2025q1.",
+   "line": 8
+  },
+  {
+   "what": "ds-csb-churn-labels",
+   "quote": "Builds on csb-lr-base, ds-csb-churn-labels and ds-csb-oot-2025q1.",
+   "line": 8
+  },
+  {
+   "what": "ds-csb-oot-2025q1",
+   "quote": "Builds on csb-lr-base, ds-csb-churn-labels and ds-csb-oot-2025q1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-small-business/exp-201.md",
+ "sha": "f1bedc6b20c48c50cd7f997bd252a6e83b78e1f0e66c8993042845e1467e2f8c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

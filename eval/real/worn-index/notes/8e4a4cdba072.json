@@ -1,0 +1,139 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-203",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-203"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "csb-lr-base",
+   "type": "model",
+   "label": "logistic baseline",
+   "as": [
+    "csb-lr-base"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-csb-deposit-volatility",
+   "type": "feature",
+   "label": "deposit volatility feature",
+   "as": [
+    "feat-csb-deposit-volatility"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-csb-oot-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "csb-oot-2025q1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-203",
+   "type": "uses",
+   "label": "plus",
+   "o": "csb-lr-base",
+   "quote": "csb-lr-base plus feat-csb-deposit-volatility",
+   "line": 5
+  },
+  {
+   "s": "exp-203",
+   "type": "uses",
+   "label": "plus",
+   "o": "feat-csb-deposit-volatility",
+   "quote": "csb-lr-base plus feat-csb-deposit-volatility",
+   "line": 5
+  },
+  {
+   "s": "exp-203",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "ds-csb-oot-2025q1",
+   "quote": "scored on csb-oot-2025q1",
+   "line": 5
+  },
+  {
+   "s": "exp-203",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.705",
+   "line": 6
+  },
+  {
+   "s": "exp-203",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "ks",
+   "quote": "KS 0.29",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "csb-lr-base",
+  "feat-csb-deposit-volatility"
+ ],
+ "built_on": [
+  {
+   "what": "csb-lr-base",
+   "quote": "Builds on csb-lr-base and the deposit volatility feature.",
+   "line": 8
+  },
+  {
+   "what": "feat-csb-deposit-volatility",
+   "quote": "Builds on csb-lr-base and the deposit volatility feature.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-small-business/exp-203.md",
+ "sha": "8e4a4cdba07251832b2157066cbfd72ab500f4e49917c5c597683e38d48f5886",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

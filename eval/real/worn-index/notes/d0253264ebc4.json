@@ -1,0 +1,75 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "cb.spend_panel",
+   "type": "dataset",
+   "label": "spend panel",
+   "as": [
+    "`cb.spend_panel` is monthly spend per account for 612,000 active accounts, 2024-07 to 2026-06"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "finance-analytics",
+   "type": "team",
+   "label": "owner team",
+   "as": [
+    "finance analytics"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "data-eng contact",
+   "as": [
+    "Tomas Rivera"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cb.spend_panel",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "finance-analytics",
+   "quote": "Owner: finance analytics, with data-eng-cards (Tomas Rivera).",
+   "line": 5
+  },
+  {
+   "s": "cb.spend_panel",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "tomas-rivera",
+   "quote": "Owner: finance analytics, with data-eng-cards (Tomas Rivera).",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "cb_spend_panel.sql",
+  "cards.txn_daily"
+ ],
+ "built_on": [
+  {
+   "what": "cards.txn_daily",
+   "quote": "Built by `cb_spend_panel.sql` from `cards.txn_daily`",
+   "line": 5
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/ds-cb-spend-panel.md",
+ "sha": "d0253264ebc4d568c434188c95811793a166323e0abe6705aa52e1947a83c1ff",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

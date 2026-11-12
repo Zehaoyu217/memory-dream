@@ -1,0 +1,65 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-cb-intent-eval",
+   "type": "dataset",
+   "label": "labelled eval set",
+   "as": [
+    "3,500 chat messages labelled into 22 intents; 1,100 held out as holdout-2025q3"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-2025q3",
+   "type": "dataset",
+   "label": "held-out set",
+   "as": [
+    "The 1,100 held-out messages are holdout-2025q3, never used in training."
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "yuki-tanaka",
+   "type": "person",
+   "label": "labeller lead",
+   "as": [
+    "Labelled by Yuki Tanaka's team from July to September 2025 samples."
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "holdout-2025q3",
+   "type": "part-of",
+   "label": "held out from",
+   "o": "ds-cb-intent-eval",
+   "quote": "1,100 held out as holdout-2025q3",
+   "line": 4
+  },
+  {
+   "s": "ds-cb-intent-eval",
+   "type": "owned-by",
+   "label": "labelled by",
+   "o": "yuki-tanaka",
+   "quote": "Labelled by Yuki Tanaka's team",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "chatbot-deflection/ds-cb-intent-eval.md",
+ "sha": "689d59f5eff20c09a7bfae0701b42fe2cf790b9206fe5ef23eaa7fcd6f0718e5",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

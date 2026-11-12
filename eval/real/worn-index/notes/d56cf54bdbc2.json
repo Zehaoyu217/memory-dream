@@ -1,0 +1,93 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-206",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "Threshold sweep for auto-coding"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cc-ft-v1",
+   "type": "model",
+   "label": "probabilities",
+   "as": [
+    "cc-ft-v1 probabilities"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4 (n = 1,800 tickets)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auto-code-coverage",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "58 percent coverage at 0.95 precision"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-206",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "holdout-2025q4",
+   "quote": "holdout-2025q4 (n = 1,800 tickets)",
+   "line": 5
+  },
+  {
+   "s": "exp-206",
+   "type": "measured-by",
+   "label": "scored by",
+   "o": "auto-code-coverage",
+   "quote": "At 0.95 precision coverage is 58 percent (1,044 tickets)",
+   "line": 6
+  },
+  {
+   "s": "exp-206",
+   "type": "uses",
+   "label": "uses",
+   "o": "cc-ft-v1",
+   "quote": "cc-ft-v1 probabilities",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "fnd-cc-coverage"
+ ],
+ "built_on": [
+  {
+   "what": "cc-ft-v1",
+   "quote": "Builds on cc-ft-v1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "complaint-classification/exp-206.md",
+ "sha": "d56cf54bdbc2b2fc089fdfb5fd3b690bdf212f1b0418e2844490fc344a23c45e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,94 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4 sessions (n = 18,400)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.77 with prior-calls count, 0.73 without"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cb-escalate-v1",
+   "type": "model",
+   "label": "escalation model",
+   "as": [
+    "cb-escalate-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-cb-prior-calls-v1",
+   "type": "feature",
+   "label": "prior-calls count",
+   "as": [
+    "prior-calls count"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cb-escalate-v1",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q4",
+   "quote": "Escalation holdout: holdout-2025q4 sessions (n = 18,400)",
+   "line": 5
+  },
+  {
+   "s": "cb-escalate-v1",
+   "type": "measured-by",
+   "label": "AUC with prior calls",
+   "o": "auc",
+   "quote": "AUC 0.77 with prior-calls count, 0.73 without",
+   "line": 5
+  },
+  {
+   "s": "cb-escalate-v1",
+   "type": "uses",
+   "label": "adds feature",
+   "o": "feat-cb-prior-calls-v1",
+   "quote": "prior-calls count adds +0.04 AUC",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "cb-escalate-v1"
+ ],
+ "built_on": [
+  {
+   "what": "cb-escalate-v1",
+   "quote": "Builds on cb-escalate-v1.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "chatbot-deflection/exp-305.md",
+ "sha": "92d210e4b8ef9dff50405be57aef936fc924971dc0389bf5b2aaabf905cacd07",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

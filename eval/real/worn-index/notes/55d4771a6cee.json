@@ -1,0 +1,103 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-407",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-407"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "verified-2026-holdout",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "verified-2026 holdout (n=1,980)"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "self-employed",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "self-employed accounts"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "salaried",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "salaried"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "MAPE 33%",
+    "17%"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-407",
+   "type": "evaluated-on",
+   "label": "split of",
+   "o": "verified-2026-holdout",
+   "quote": "Split of the 1,980 holdout by employment type",
+   "line": 5
+  },
+  {
+   "s": "exp-407",
+   "type": "measured-by",
+   "label": "measures",
+   "o": "mape",
+   "quote": "self-employed accounts run MAPE 33% against 17% for salaried",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "find-inc-self-employed-bias"
+ ],
+ "built_on": [
+  {
+   "what": "feat-inc-payroll-cadence-v2",
+   "quote": "Builds on feat-inc-payroll-cadence-v2 and the log-target income model.",
+   "line": 8
+  },
+  {
+   "what": "log-target income model",
+   "quote": "Builds on feat-inc-payroll-cadence-v2 and the log-target income model.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "income-estimation/exp-407.md",
+ "sha": "55d4771a6cee7ccd37e976f67bc95281c18746db3626bd6ed01c4265430ac3b7",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,110 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ror-value-band-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ror-value-band-v2: expected revenue net of expected credit loss, from bureau PD bands"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "bureau table",
+   "as": [
+    "bureau.scores_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-ror-value-band-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ror-value-band-v1"
+   ],
+   "lines": [
+    8,
+    9
+   ]
+  },
+  {
+   "id": "feat-ror-expected-revenue",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "12-month expected revenue feature"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ror-roi-v2",
+   "type": "model",
+   "label": "roi model",
+   "as": [
+    "ror-roi-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dec-ror-matrix-v4",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "matrix v4 candidate"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ror-value-band-v2",
+   "type": "uses",
+   "label": "PD from",
+   "o": "bureau.scores_monthly",
+   "quote": "PD from the bureau.scores_monthly bands (credit-data)",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "feat-ror-expected-revenue",
+   "quote": "Builds on the 12-month expected revenue feature, feat-ror-value-band-v1 and the finding on cashback versus fee waiver.",
+   "line": 8
+  },
+  {
+   "what": "feat-ror-value-band-v1",
+   "quote": "Builds on the 12-month expected revenue feature, feat-ror-value-band-v1 and the finding on cashback versus fee waiver.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-ror-value-band-v1",
+   "quote": "Replaces feat-ror-value-band-v1.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "retention-offers-roi/feat-ror-value-band-v2.md",
+ "sha": "0e01656b82aec827b0ee7a636294fca678744e8303e371ff8d54dc2d683e0f16",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,87 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cb-tier-eligibility",
+   "type": "feature",
+   "label": "eligibility flag",
+   "as": [
+    "feat-cb-tier-eligibility"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "proposal-a",
+   "type": "other",
+   "label": "proposal",
+   "as": [
+    "proposal A"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "cb.spend_panel",
+   "type": "dataset",
+   "label": "panel",
+   "as": [
+    "`cb.spend_panel`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cb-sim-v1",
+   "type": "model",
+   "label": "simulator",
+   "as": [
+    "cb-sim-v1"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cb-tier-eligibility",
+   "type": "uses",
+   "label": "source",
+   "o": "cb.spend_panel",
+   "quote": "Source `cb.spend_panel`.",
+   "line": 6
+  },
+  {
+   "s": "cb-sim-v1",
+   "type": "uses",
+   "label": "eligibility input",
+   "o": "feat-cb-tier-eligibility",
+   "quote": "Used as the eligibility input of cb-sim-v1.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-cb-spend-band-v2",
+  "cb-sim-v1"
+ ],
+ "built_on": [
+  {
+   "what": "feat-cb-spend-band-v2",
+   "quote": "Builds on feat-cb-spend-band-v2.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/feat-cb-tier-eligibility.md",
+ "sha": "02e5d37b8b93d446bc5c233be4c0eb4ab21b53f705add2071d6eaeb2ef12b292",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

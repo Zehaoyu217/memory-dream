@@ -1,0 +1,85 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-205-uplift-qini",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-205"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cb-uplift-v1",
+   "type": "model",
+   "label": "uplift model",
+   "as": [
+    "cb-uplift-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift",
+   "as": [
+    "uplift@20% of 1.9x"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cb-sim-v1",
+   "type": "model",
+   "label": "simulator",
+   "as": [
+    "cb-sim-v1 ranking"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-205-uplift-qini",
+   "type": "measured-by",
+   "label": "uplift",
+   "o": "uplift-at-20",
+   "quote": "The top 20% by predicted uplift gain 1.9x the average incremental spend.",
+   "line": 5
+  },
+  {
+   "s": "exp-205-uplift-qini",
+   "type": "uses",
+   "label": "feeds",
+   "o": "cb-sim-v1",
+   "quote": "Feeds the cb-sim-v1 ranking.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "cb-sim-v1"
+ ],
+ "built_on": [
+  {
+   "what": "cb-uplift-v1",
+   "quote": "Builds on the tier pilot uplift model.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "cashback-redesign/exp-205-uplift-qini.md",
+ "sha": "16729267cad088ca36434a31729d929ff604823ab71b2edef8f0fdeaa6c4e515",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

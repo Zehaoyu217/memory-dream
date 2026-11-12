@@ -1,0 +1,60 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "cards.fraud_labels",
+   "type": "dataset",
+   "label": "fraud labels table",
+   "as": [
+    "cards.fraud_labels"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "ds-f25-txn-2024-2025",
+   "type": "dataset",
+   "label": "cnp transaction extract",
+   "as": [
+    "ds-f25-txn-2024-2025"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "45-day-maturity-cut",
+   "type": "term",
+   "label": "maturity cut",
+   "as": [
+    "45-day maturity cut"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cards.fraud_labels",
+   "type": "other",
+   "label": "same window as",
+   "o": "ds-f25-txn-2024-2025",
+   "quote": "for the same CNP window as ds-f25-txn-2024-2025",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "fraud-2026"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/ds-f25-labels.md",
+ "sha": "3529f9b41e3ac948d0d7f9ccc12a428e9081abb515346306e4609e2b954ec20c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

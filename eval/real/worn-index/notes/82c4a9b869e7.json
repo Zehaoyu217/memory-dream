@@ -1,0 +1,84 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "ds-cb-call-linkage",
+   "type": "dataset",
+   "label": "call linkage",
+   "as": [
+    "ds-cb-call-linkage"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-cb-prior-calls-v1",
+   "type": "feature",
+   "label": "prior-calls count",
+   "as": [
+    "feat-cb-prior-calls-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fnd-cb-repeat-contact",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-cb-repeat-contact"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "contained-sessions-2025",
+   "type": "segment",
+   "label": "contained sessions",
+   "as": [
+    "contained sessions from 2025 (n = 312,000)"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "contained-sessions-2025",
+   "type": "uses",
+   "label": "joined to calls",
+   "o": "ds-cb-call-linkage",
+   "quote": "contained sessions from 2025 (n = 312,000) joined to calls on caller_key",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "fnd-cb-repeat-contact",
+  "ds-cb-call-linkage",
+  "feat-cb-prior-calls-v1"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cb-call-linkage",
+   "quote": "Builds on ds-cb-call-linkage and feat-cb-prior-calls-v1.",
+   "line": 8
+  },
+  {
+   "what": "feat-cb-prior-calls-v1",
+   "quote": "Builds on ds-cb-call-linkage and feat-cb-prior-calls-v1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "chatbot-deflection/exp-307.md",
+ "sha": "82c4a9b869e71c4523de95abb5f1c8134cdbc72c7c5478aa09c8079afeb646a2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

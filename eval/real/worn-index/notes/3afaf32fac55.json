@@ -1,0 +1,132 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-cr-caller-v2",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Retire caller history v1 and use v2 everywhere in the routing stack"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-cr-caller-history-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "Caller history v1"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "feat-cr-caller-history-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "v2"
+   ],
+   "lines": [
+    4,
+    5,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "feature-store",
+   "type": "other",
+   "label": "feature store",
+   "as": [
+    "feature store"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Sam Lee"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "engineer",
+   "as": [
+    "Tomás Rivera"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cr-caller-history-v1",
+   "type": "other",
+   "label": "removed from",
+   "o": "feature-store",
+   "quote": "Caller history v1 is removed from the feature store.",
+   "line": 5
+  },
+  {
+   "s": "dec-cr-caller-v2",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "sam-lee",
+   "quote": "Owner Sam Lee.",
+   "line": 7
+  },
+  {
+   "s": "tomas-rivera",
+   "type": "other",
+   "label": "backfills",
+   "o": "feat-cr-caller-history-v2",
+   "quote": "Tomás Rivera backfills v2 from 2025-07 onward.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-cr-leak-corrected",
+  "feat-cr-caller-history-v2"
+ ],
+ "built_on": [
+  {
+   "what": "feat-cr-caller-history-v2",
+   "quote": "Builds on feat-cr-caller-history-v2 and fnd-cr-leak-corrected.",
+   "line": 8
+  },
+  {
+   "what": "fnd-cr-leak-corrected",
+   "quote": "Builds on feat-cr-caller-history-v2 and fnd-cr-leak-corrected.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-cr-caller-history-v1",
+   "quote": "Retire caller history v1 and use v2 everywhere in the routing stack",
+   "line": 4
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/dec-cr-caller-v2.md",
+ "sha": "3afaf32fac5539b775f7eacd52fdeaa7122a077a2dff8d5c6e4d1cc1db10aaaf",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

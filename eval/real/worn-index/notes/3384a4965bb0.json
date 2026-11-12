@@ -1,0 +1,145 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "grocery-heavy-accounts",
+   "type": "segment",
+   "label": "accounts",
+   "as": [
+    "grocery-heavy accounts",
+    "accounts with grocery share above 30%"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "grocery-elasticity",
+   "type": "metric",
+   "label": "elasticity",
+   "as": [
+    "elasticity 0.38"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "pooled-elasticity",
+   "type": "metric",
+   "label": "elasticity",
+   "as": [
+    "0.21 pooled"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-cb-grocery-share",
+   "type": "feature",
+   "label": "grocery share",
+   "as": [
+    "grocery share"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "middle-tier",
+   "type": "other",
+   "label": "1.5% tier",
+   "as": [
+    "1.5% tier"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cb.spend_panel",
+   "type": "dataset",
+   "label": "panel",
+   "as": [
+    "`cb.spend_panel`"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "grocery-heavy-accounts",
+   "type": "measured-by",
+   "label": "respond at",
+   "o": "grocery-elasticity",
+   "quote": "accounts with grocery share above 30% respond at 0.38",
+   "line": 5
+  },
+  {
+   "s": "grocery-heavy-accounts",
+   "type": "uses",
+   "label": "defined by",
+   "o": "feat-cb-grocery-share",
+   "quote": "accounts with grocery share above 30%",
+   "line": 5
+  },
+  {
+   "s": "grocery-heavy-accounts",
+   "type": "other",
+   "label": "explains response",
+   "o": "middle-tier",
+   "quote": "which explains most of the middle-tier response",
+   "line": 4
+  },
+  {
+   "s": "grocery-heavy-accounts",
+   "type": "uses",
+   "label": "source",
+   "o": "cb.spend_panel",
+   "quote": "Source: `cb.spend_panel` by merchant group, pilot cells.",
+   "line": 7
+  },
+  {
+   "s": "grocery-elasticity",
+   "type": "other",
+   "label": "compared with",
+   "o": "pooled-elasticity",
+   "quote": "against 0.21 pooled",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "cb-elasticity-v2",
+  "exp-204-band-split",
+  "feat-cb-grocery-share"
+ ],
+ "built_on": [
+  {
+   "what": "cb-elasticity-v2",
+   "quote": "Builds on the banded elasticity estimate by spend, the elasticity-by-spend-band experiment and feat-cb-grocery-share.",
+   "line": 8
+  },
+  {
+   "what": "exp-204-band-split",
+   "quote": "Builds on the banded elasticity estimate by spend, the elasticity-by-spend-band experiment and feat-cb-grocery-share.",
+   "line": 8
+  },
+  {
+   "what": "feat-cb-grocery-share",
+   "quote": "Builds on the banded elasticity estimate by spend, the elasticity-by-spend-band experiment and feat-cb-grocery-share.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/find-cb-grocery-driver.md",
+ "sha": "3384a4965bb095ce5521e74db99006bf6f1dcc90414f0ea26e9b8ac0dfcad751",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

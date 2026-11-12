@@ -1,0 +1,86 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "response-rate",
+   "type": "metric",
+   "label": "rate",
+   "as": [
+    "Response rate"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "accounts-contacted",
+   "type": "term",
+   "label": "denominator",
+   "as": [
+    "accounts actually contacted"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sept-2024-cli-email",
+   "type": "other",
+   "label": "campaign",
+   "as": [
+    "Sept 2024 CLI email"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "marketing-campaign-responses",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "marketing.campaign_responses"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "response-rate",
+   "type": "uses",
+   "label": "divides by contacts",
+   "o": "accounts-contacted",
+   "quote": "Response rate is responses divided by accounts actually contacted.",
+   "line": 5
+  },
+  {
+   "s": "sept-2024-cli-email",
+   "type": "measured-by",
+   "label": "5.2% over contacts",
+   "o": "response-rate",
+   "quote": "The Sept 2024 CLI email was 5.2% over contacts",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "glossary/response-rate"
+ ],
+ "replaces": [
+  {
+   "what": "glossary/response-rate",
+   "quote": "Replaces glossary/response-rate.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "corrections/response-rate-over-contacts.md",
+ "sha": "d16fadb4e868886832ff2078100c937f01d01983b357b8cedbc587633cb1a729",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

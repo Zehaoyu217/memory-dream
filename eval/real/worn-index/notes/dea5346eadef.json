@@ -1,0 +1,140 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "retrain-cadence",
+   "type": "other",
+   "label": "retrain schedule",
+   "as": [
+    "Retrain churn-xgb-v3 monthly"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "churn-xgb-v3",
+   "type": "model",
+   "label": "xgboost model",
+   "as": [
+    "churn-xgb-v3"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  },
+  {
+   "id": "ds-churn-labels",
+   "type": "dataset",
+   "label": "churn labels",
+   "as": [
+    "cards.churn_labels"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "decider",
+   "as": [
+    "Sam Lee"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "retention",
+   "type": "team",
+   "label": "retention",
+   "as": [
+    "retention"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "risk-tier-cuts",
+   "type": "term",
+   "label": "tier cuts",
+   "as": [
+    "risk-tier cuts"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "q-recalibrate-tiers",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "q-recalibrate-tiers"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-xgb-v3",
+   "type": "trained-on",
+   "label": "retrained on",
+   "o": "ds-churn-labels",
+   "quote": "Monthly retrain on the latest 9 observation months of `cards.churn_labels`",
+   "line": 5
+  },
+  {
+   "s": "retrain-cadence",
+   "type": "owned-by",
+   "label": "decided by",
+   "o": "sam-lee",
+   "quote": "Sam Lee with retention",
+   "line": 5
+  },
+  {
+   "s": "retrain-cadence",
+   "type": "owned-by",
+   "label": "decided with",
+   "o": "retention",
+   "quote": "Sam Lee with retention",
+   "line": 5
+  },
+  {
+   "s": "risk-tier-cuts",
+   "type": "other",
+   "label": "stay until",
+   "o": "q-recalibrate-tiers",
+   "quote": "the 0.20 / 0.50 risk-tier cuts stay until q-recalibrate-tiers is answered",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "q-recalibrate-tiers"
+ ],
+ "built_on": [
+  {
+   "what": "churn-xgb-v3",
+   "quote": "Builds on churn-xgb-v3 and the three-tier risk cutoff decision.",
+   "line": 7
+  },
+  {
+   "what": "dec-risk-tiers",
+   "quote": "Builds on churn-xgb-v3 and the three-tier risk cutoff decision.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2026/dec-retrain-cadence.md",
+ "sha": "dea5346eadefdb491af32d58fbe5902c40f6412838c70acedf08501cce5b845b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

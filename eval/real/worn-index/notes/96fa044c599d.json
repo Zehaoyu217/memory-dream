@@ -1,0 +1,195 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cb-sim-v1",
+   "type": "model",
+   "label": "simulator",
+   "as": [
+    "cb-sim-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cb-elasticity-v2",
+   "type": "model",
+   "label": "elasticity model",
+   "as": [
+    "cb-elasticity-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-cb-rewards-ledger",
+   "type": "dataset",
+   "label": "rewards ledger",
+   "as": [
+    "ds-cb-rewards-ledger"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "exp-207-oot-replay",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-207-oot-replay"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "proposal-a",
+   "type": "other",
+   "label": "proposal",
+   "as": [
+    "Proposal A"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "2500-variant",
+   "type": "other",
+   "label": "variant",
+   "as": [
+    "$2,500 variant"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "break-even-lift",
+   "type": "metric",
+   "label": "break-even lift",
+   "as": [
+    "break-even spend lift"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "net-per-account",
+   "type": "metric",
+   "label": "net per account",
+   "as": [
+    "net $ per account"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cb-sim-v1",
+   "type": "uses",
+   "label": "applies",
+   "o": "cb-elasticity-v2",
+   "quote": "applies cb-elasticity-v2 to each spend band",
+   "line": 5
+  },
+  {
+   "s": "cb-sim-v1",
+   "type": "uses",
+   "label": "applies rewards cost",
+   "o": "ds-cb-rewards-ledger",
+   "quote": "applies rewards cost from ds-cb-rewards-ledger",
+   "line": 5
+  },
+  {
+   "s": "cb-sim-v1",
+   "type": "other",
+   "label": "replayed in",
+   "o": "exp-207-oot-replay",
+   "quote": "Replay on 2026 spend: exp-207-oot-replay.",
+   "line": 6
+  },
+  {
+   "s": "cb-sim-v1",
+   "type": "other",
+   "label": "runs",
+   "o": "proposal-a",
+   "quote": "Proposal A and the $2,500 variant run in the same script.",
+   "line": 6
+  },
+  {
+   "s": "cb-sim-v1",
+   "type": "other",
+   "label": "runs",
+   "o": "2500-variant",
+   "quote": "Proposal A and the $2,500 variant run in the same script.",
+   "line": 6
+  },
+  {
+   "s": "cb-sim-v1",
+   "type": "measured-by",
+   "label": "returns",
+   "o": "break-even-lift",
+   "quote": "returns net $ per account and the break-even spend lift",
+   "line": 5
+  },
+  {
+   "s": "cb-sim-v1",
+   "type": "measured-by",
+   "label": "returns",
+   "o": "net-per-account",
+   "quote": "returns net $ per account and the break-even spend lift",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "cb-elasticity-v2",
+  "cb-uplift-v1",
+  "ds-cb-rewards-ledger",
+  "feat-cb-redemption-rate",
+  "feat-cb-tier-eligibility",
+  "exp-207-oot-replay"
+ ],
+ "built_on": [
+  {
+   "what": "cb-elasticity-v2",
+   "quote": "Builds on the banded elasticity estimate by spend, cb-uplift-v1, ds-cb-rewards-ledger, feat-cb-redemption-rate and feat-cb-tier-eligibility.",
+   "line": 8
+  },
+  {
+   "what": "cb-uplift-v1",
+   "quote": "Builds on the banded elasticity estimate by spend, cb-uplift-v1, ds-cb-rewards-ledger, feat-cb-redemption-rate and feat-cb-tier-eligibility.",
+   "line": 8
+  },
+  {
+   "what": "ds-cb-rewards-ledger",
+   "quote": "Builds on the banded elasticity estimate by spend, cb-uplift-v1, ds-cb-rewards-ledger, feat-cb-redemption-rate and feat-cb-tier-eligibility.",
+   "line": 8
+  },
+  {
+   "what": "feat-cb-redemption-rate",
+   "quote": "Builds on the banded elasticity estimate by spend, cb-uplift-v1, ds-cb-rewards-ledger, feat-cb-redemption-rate and feat-cb-tier-eligibility.",
+   "line": 8
+  },
+  {
+   "what": "feat-cb-tier-eligibility",
+   "quote": "Builds on the banded elasticity estimate by spend, cb-uplift-v1, ds-cb-rewards-ledger, feat-cb-redemption-rate and feat-cb-tier-eligibility.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/cb-sim-v1.md",
+ "sha": "96fa044c599dba6f92a8bd64ee740ec2a624c91980a23d6be9715340fd6488bf",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

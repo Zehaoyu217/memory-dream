@@ -1,0 +1,134 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-app-bureau-v10-band",
+   "type": "feature",
+   "label": "bureau band",
+   "as": [
+    "feat-app-bureau-v10-band"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-app-bureau-v10-pull",
+   "type": "dataset",
+   "label": "bureau pull",
+   "as": [
+    "ds-app-bureau-v10-pull"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini gain",
+   "as": [
+    "Gini gain"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "app-scorecard-v4",
+   "type": "model",
+   "label": "scorecard",
+   "as": [
+    "app-scorecard-v4"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "v8-band",
+   "type": "feature",
+   "label": "v8 band",
+   "as": [
+    "v8 band"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-app-bureau-v10-band",
+   "type": "uses",
+   "label": "cut from",
+   "o": "ds-app-bureau-v10-pull",
+   "quote": "Ten bands cut from the isotonic-mapped v10 score on ds-app-bureau-v10-pull",
+   "line": 5
+  },
+  {
+   "s": "app-scorecard-v4",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-app-bureau-v10-band",
+   "quote": "Used in app-scorecard-v4.",
+   "line": 7
+  },
+  {
+   "s": "feat-app-bureau-v10-band",
+   "type": "measured-by",
+   "label": "gini gain",
+   "o": "gini",
+   "quote": "Gini gain on holdout-2025q1 is 0.03 over the v8 band",
+   "line": 6
+  },
+  {
+   "s": "feat-app-bureau-v10-band",
+   "type": "evaluated-on",
+   "label": "on",
+   "o": "holdout-2025q1",
+   "quote": "Gini gain on holdout-2025q1 is 0.03",
+   "line": 6
+  },
+  {
+   "s": "feat-app-bureau-v10-band",
+   "type": "other",
+   "label": "gain over",
+   "o": "v8-band",
+   "quote": "is 0.03 over the v8 band",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-505",
+  "ds-app-bureau-v10-pull",
+  "app-scorecard-v4"
+ ],
+ "built_on": [
+  {
+   "what": "ds-app-bureau-v10-pull",
+   "quote": "Builds on ds-app-bureau-v10-pull.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "application-scorecard/feat-app-bureau-v10-band.md",
+ "sha": "a834e845de36b94881b63f891943e0165b79c1856a11bc2498352c0b37c82813",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

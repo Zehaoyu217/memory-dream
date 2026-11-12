@@ -1,0 +1,111 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-pa-promo-exit-cliff",
+   "type": "feature",
+   "label": "promo exit ratio",
+   "as": [
+    "balance at promo expiry relative to the balance at month 1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cliff-group",
+   "type": "segment",
+   "label": "cliff group",
+   "as": [
+    "cliff group"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "pa-churn-hazard-v1",
+   "type": "model",
+   "label": "churn hazard model",
+   "as": [
+    "pa-churn-hazard-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-pa-balance-panel",
+   "type": "dataset",
+   "label": "balance panel",
+   "as": [
+    "the balance panel"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-pa-churn-labels",
+   "type": "dataset",
+   "label": "churn labels",
+   "as": [
+    "the churn labels after promo expiry"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cliff-group",
+   "type": "other",
+   "label": "defined by",
+   "o": "feat-pa-promo-exit-cliff",
+   "quote": "Accounts with a ratio below 0.5 are the cliff group",
+   "line": 6
+  },
+  {
+   "s": "pa-churn-hazard-v1",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-pa-promo-exit-cliff",
+   "quote": "Used in pa-churn-hazard-v1.",
+   "line": 6
+  },
+  {
+   "s": "feat-pa-promo-exit-cliff",
+   "type": "uses",
+   "label": "from",
+   "o": "ds-pa-balance-panel",
+   "quote": "from the balance panel",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "pa-churn-hazard-v1",
+  "ds-pa-balance-panel",
+  "ds-pa-churn-labels"
+ ],
+ "built_on": [
+  {
+   "what": "ds-pa-balance-panel",
+   "quote": "Builds on the monthly balance panel by arm and the churn labels after promo expiry.",
+   "line": 7
+  },
+  {
+   "what": "ds-pa-churn-labels",
+   "quote": "Builds on the monthly balance panel by arm and the churn labels after promo expiry.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "promo-apr-test/feat-pa-promo-exit-cliff.md",
+ "sha": "5e6be33db5498ddc7195025058a12e4f9bb459e6e8ecd3ae1bbe5e8d32a534f6",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,95 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-404",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-404"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-lbl-fraud-flag-v2",
+   "type": "feature",
+   "label": "fraud flag",
+   "as": [
+    "feat-lbl-fraud-flag-v2"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "legacy-set-a-label",
+   "type": "feature",
+   "label": "legacy label",
+   "as": [
+    "legacy set-A label"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cohen-kappa",
+   "type": "metric",
+   "label": "agreement metric",
+   "as": [
+    "Cohen kappa 0.83"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "friendly-fraud-category-b",
+   "type": "term",
+   "label": "missed cases",
+   "as": [
+    "category B cases"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-404",
+   "type": "evaluated-on",
+   "label": "compared on",
+   "o": "feat-lbl-fraud-flag-v2",
+   "quote": "Compared the legacy set-A label with feat-lbl-fraud-flag-v2",
+   "line": 5
+  },
+  {
+   "s": "exp-404",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "cohen-kappa",
+   "quote": "Kappa 0.83",
+   "line": 4
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "feat-lbl-fraud-flag-v2",
+   "quote": "Builds on feat-lbl-fraud-flag-v2.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "label-pipeline-rebuild/exp-404.md",
+ "sha": "5dc96f989d3ab8a6905a5d0c388457d919c42ab006e096ff587320166fb4ee2e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

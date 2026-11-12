@@ -1,0 +1,191 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "hp-psm-v2",
+   "type": "model",
+   "label": "propensity matching",
+   "as": [
+    "hp-psm-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-hp-match-covars-v1",
+   "type": "feature",
+   "label": "covariate",
+   "as": [
+    "feat-hp-match-covars-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-hp-pre-dpd-v1",
+   "type": "feature",
+   "label": "covariate",
+   "as": [
+    "feat-hp-pre-dpd-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-hp-txn-drop-v1",
+   "type": "feature",
+   "label": "covariate",
+   "as": [
+    "feat-hp-txn-drop-v1"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-hp-bureau-delta",
+   "type": "feature",
+   "label": "covariate",
+   "as": [
+    "feat-hp-bureau-delta"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "hardship-programs-holdout-2025q4",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "hardship-programs-holdout-2025q4"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "roll-rate",
+   "type": "metric",
+   "label": "30-to-60 roll",
+   "as": [
+    "30-to-60 roll"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-408",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-408"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "hp-psm-v2",
+   "type": "uses",
+   "label": "covariate",
+   "o": "feat-hp-match-covars-v1",
+   "quote": "Covariates: feat-hp-match-covars-v1, feat-hp-pre-dpd-v1, feat-hp-txn-drop-v1, feat-hp-bureau-delta.",
+   "line": 5
+  },
+  {
+   "s": "hp-psm-v2",
+   "type": "uses",
+   "label": "covariate",
+   "o": "feat-hp-pre-dpd-v1",
+   "quote": "Covariates: feat-hp-match-covars-v1, feat-hp-pre-dpd-v1, feat-hp-txn-drop-v1, feat-hp-bureau-delta.",
+   "line": 5
+  },
+  {
+   "s": "hp-psm-v2",
+   "type": "uses",
+   "label": "covariate",
+   "o": "feat-hp-txn-drop-v1",
+   "quote": "Covariates: feat-hp-match-covars-v1, feat-hp-pre-dpd-v1, feat-hp-txn-drop-v1, feat-hp-bureau-delta.",
+   "line": 5
+  },
+  {
+   "s": "hp-psm-v2",
+   "type": "uses",
+   "label": "covariate",
+   "o": "feat-hp-bureau-delta",
+   "quote": "Covariates: feat-hp-match-covars-v1, feat-hp-pre-dpd-v1, feat-hp-txn-drop-v1, feat-hp-bureau-delta.",
+   "line": 5
+  },
+  {
+   "s": "hp-psm-v2",
+   "type": "evaluated-on",
+   "label": "effect on",
+   "o": "hardship-programs-holdout-2025q4",
+   "quote": "Effect on the 30-to-60 roll: -4.7pp on hardship-programs-holdout-2025q4 (exp-408).",
+   "line": 7
+  },
+  {
+   "s": "hp-psm-v2",
+   "type": "measured-by",
+   "label": "effect on",
+   "o": "roll-rate",
+   "quote": "Effect on the 30-to-60 roll: -4.7pp",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-hp-match-covars-v1",
+  "feat-hp-pre-dpd-v1",
+  "feat-hp-txn-drop-v1",
+  "feat-hp-bureau-delta",
+  "exp-408",
+  "hp-psm-v1"
+ ],
+ "built_on": [
+  {
+   "what": "exp-408",
+   "quote": "Builds on exp-408, feat-hp-bureau-delta, feat-hp-txn-drop-v1 and the first hardship propensity matching model.",
+   "line": 8
+  },
+  {
+   "what": "feat-hp-bureau-delta",
+   "quote": "Builds on exp-408, feat-hp-bureau-delta, feat-hp-txn-drop-v1 and the first hardship propensity matching model.",
+   "line": 8
+  },
+  {
+   "what": "feat-hp-txn-drop-v1",
+   "quote": "Builds on exp-408, feat-hp-bureau-delta, feat-hp-txn-drop-v1 and the first hardship propensity matching model.",
+   "line": 8
+  },
+  {
+   "what": "hp-psm-v1",
+   "quote": "Builds on exp-408, feat-hp-bureau-delta, feat-hp-txn-drop-v1 and the first hardship propensity matching model.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "hp-psm-v1",
+   "quote": "Replaces hp-psm-v1.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "hardship-programs/hp-psm-v2.md",
+ "sha": "146aaf91b3b986d6f3a3fcf0ba87b5db1644d0163c3ebc603aa580ba0a37bbe0",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

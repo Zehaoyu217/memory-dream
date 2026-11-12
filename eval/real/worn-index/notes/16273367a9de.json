@@ -1,0 +1,97 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "q-inc-coverage",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "Q: what share of active accounts can get an income estimate with MAPE under 25%?"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "asker",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-inc-payroll-proxy",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-inc-payroll-proxy"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-401",
+   "type": "experiment",
+   "label": "answer",
+   "as": [
+    "exp-401"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-inc-stated-income-2025",
+   "type": "dataset",
+   "label": "basis",
+   "as": [
+    "the stated-income applications dataset"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "q-inc-coverage",
+   "type": "uses",
+   "label": "depends on",
+   "o": "ds-inc-payroll-proxy",
+   "quote": "Coverage depends on payroll cadence (ds-inc-payroll-proxy)",
+   "line": 6
+  },
+  {
+   "s": "exp-401",
+   "type": "other",
+   "label": "answers",
+   "o": "q-inc-coverage",
+   "quote": "answered by exp-401 (2025-03-25)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-inc-payroll-proxy",
+  "exp-401"
+ ],
+ "built_on": [
+  {
+   "what": "ds-inc-stated-income-2025",
+   "quote": "Builds on the stated-income applications dataset.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "income-estimation/q-inc-coverage.md",
+ "sha": "16273367a9de6ec7174c1a7306ce26e2288030e6f344e1efadfcbd53f38fb614",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

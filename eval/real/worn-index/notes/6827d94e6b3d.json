@@ -1,0 +1,131 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "pa-margin-v1",
+   "type": "model",
+   "label": "margin model",
+   "as": [
+    "pa-margin-v1: 24-month net margin per account by arm; no churn and no loss; +$210 for arm B"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "pa-margin-v2",
+   "type": "model",
+   "label": "margin model",
+   "as": [
+    "Superseded by pa-margin-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "pa-bal-forecast-v1",
+   "type": "model",
+   "label": "balance path",
+   "as": [
+    "the balance path from pa-bal-forecast-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-pa-balance-panel",
+   "type": "dataset",
+   "label": "balance panel",
+   "as": [
+    "ds-pa-balance-panel"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-pa-credit-band",
+   "type": "feature",
+   "label": "credit band feature",
+   "as": [
+    "the three bureau score band feature"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "arm-b",
+   "type": "segment",
+   "label": "arm",
+   "as": [
+    "Arm B against control: +$210 per account over 24 months"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "pa-margin-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "pa-bal-forecast-v1",
+   "quote": "on the balance path from pa-bal-forecast-v1",
+   "line": 5
+  },
+  {
+   "s": "pa-margin-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-pa-balance-panel",
+   "quote": "Builds on ds-pa-balance-panel",
+   "line": 8
+  },
+  {
+   "s": "pa-margin-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-pa-credit-band",
+   "quote": "the three bureau score band feature",
+   "line": 8
+  },
+  {
+   "s": "pa-margin-v2",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "pa-margin-v1",
+   "quote": "Superseded by pa-margin-v2",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-pa-balance-panel",
+   "quote": "Builds on ds-pa-balance-panel, the three bureau score band feature and pa-bal-forecast-v1.",
+   "line": 8
+  },
+  {
+   "what": "feat-pa-credit-band",
+   "quote": "the three bureau score band feature",
+   "line": 8
+  },
+  {
+   "what": "pa-bal-forecast-v1",
+   "quote": "pa-bal-forecast-v1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "promo-apr-test/pa-margin-v1.md",
+ "sha": "6827d94e6b3d47ddd1685253cba6f9eb9a6c3b81e034d1da37781b92dcd9d0a7",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

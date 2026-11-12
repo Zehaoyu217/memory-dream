@@ -1,0 +1,135 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "640-score-floor",
+   "type": "policy",
+   "label": "score floor",
+   "as": [
+    "the 640 score floor"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "psi",
+   "as": [
+    "PSI 0.22"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "dec-cld-band-policy-2025",
+   "type": "policy",
+   "label": "decision",
+   "as": [
+    "dec-cld-band-policy-2025"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dec-cld-band-policy-2026",
+   "type": "policy",
+   "label": "decision",
+   "as": [
+    "dec-cld-band-policy-2026"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "score-pulls",
+   "type": "dataset",
+   "label": "score pulls",
+   "as": [
+    "score pulls"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-cld-decrease-cohort",
+   "type": "dataset",
+   "label": "cohort",
+   "as": [
+    "ds-cld-decrease-cohort"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-cld-risk-band-v2",
+   "type": "feature",
+   "label": "bands",
+   "as": [
+    "feat-cld-risk-band-v2"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "score-pulls",
+   "type": "measured-by",
+   "label": "PSI",
+   "o": "psi",
+   "quote": "PSI 0.22 between the 2025-Q4 and 2026-Q1 score pulls means the floor now cuts a different population.",
+   "line": 6
+  },
+  {
+   "s": "640-score-floor",
+   "type": "other",
+   "label": "set in",
+   "o": "dec-cld-band-policy-2025",
+   "quote": "Floor of 640 on the v8 score was set in dec-cld-band-policy-2025 on the 2024 cohort.",
+   "line": 5
+  },
+  {
+   "s": "dec-cld-band-policy-2026",
+   "type": "other",
+   "label": "drops floor",
+   "o": "640-score-floor",
+   "quote": "Basis for dropping the floor in dec-cld-band-policy-2026.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-cld-decrease-cohort",
+  "feat-cld-risk-band-v2",
+  "dec-cld-band-policy-2025",
+  "dec-cld-band-policy-2026"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cld-decrease-cohort",
+   "quote": "Builds on ds-cld-decrease-cohort and feat-cld-risk-band-v2.",
+   "line": 8
+  },
+  {
+   "what": "feat-cld-risk-band-v2",
+   "quote": "Builds on ds-cld-decrease-cohort and feat-cld-risk-band-v2.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "limit-decrease-policy/find-cld-cut-640.md",
+ "sha": "7d7d562b39a09ed2aca906d7048369952f3fdb6001d40e0ca03820e1523b44ba",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

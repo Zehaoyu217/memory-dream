@@ -1,0 +1,118 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "thin-file",
+   "type": "segment",
+   "label": "subgroup",
+   "as": [
+    "Thin-file subgroup"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-app-thin-file",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-app-thin-file"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "app-scorecard-v3",
+   "type": "model",
+   "label": "scorecard",
+   "as": [
+    "app-scorecard-v3"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-app-velocity-apps",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "Velocity feature"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ds-app-applications-2024",
+   "type": "dataset",
+   "label": "applications",
+   "as": [
+    "ds-app-applications-2024"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-app-velocity-apps",
+   "type": "measured-by",
+   "label": "adds Gini",
+   "o": "holdout-2025q1",
+   "quote": "Velocity feature adds Gini +0.01 on holdout-2025q1 (n=21,300)",
+   "line": 6
+  },
+  {
+   "s": "thin-file",
+   "type": "uses",
+   "label": "from",
+   "o": "feat-app-thin-file",
+   "quote": "Thin-file subgroup from feat-app-thin-file",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "find-app-thin-file-gap"
+ ],
+ "built_on": [
+  {
+   "what": "ds-app-applications-2024",
+   "quote": "Builds on ds-app-applications-2024, the thin-file flag under three tradelines and the application starts per device feature.",
+   "line": 8
+  },
+  {
+   "what": "feat-app-thin-file",
+   "quote": "the thin-file flag under three tradelines",
+   "line": 8
+  },
+  {
+   "what": "feat-app-velocity-apps",
+   "quote": "the application starts per device feature",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "application-scorecard/exp-502.md",
+ "sha": "20ac7a7a9b2635abb919d0332767ea2c2c63dcab2164115e78d513bbed49df68",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

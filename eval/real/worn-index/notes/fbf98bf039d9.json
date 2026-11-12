@@ -1,0 +1,113 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-401",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-401"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "xs-holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "xs-holdout-2025q1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "xs-logit-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "logistic baseline"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.64"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "xs-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "xs-gbm-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "open-rate",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Open rate 2.9%"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-401",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "xs-holdout-2025q1",
+   "quote": "Holdout: 52,000 cardholders from the Jan-Mar 2025 waves",
+   "line": 5
+  },
+  {
+   "s": "xs-logit-v1",
+   "type": "measured-by",
+   "label": "reaches",
+   "o": "auc",
+   "quote": "logistic baseline reaches AUC 0.64",
+   "line": 4
+  },
+  {
+   "s": "exp-401",
+   "type": "measured-by",
+   "label": "open rate",
+   "o": "open-rate",
+   "quote": "Open rate 2.9%.",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-xs-offer-log",
+   "quote": "Builds on ds-xs-offer-log.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cross-sell-savings/exp-401-logit-baseline.md",
+ "sha": "fbf98bf039d9c7f2e5b8d567187dccfcca0a3ff7b019a970731af7fd9d308c0e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

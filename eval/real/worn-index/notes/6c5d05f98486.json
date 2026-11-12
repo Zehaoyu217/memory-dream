@@ -1,0 +1,103 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-cb-intent-acc",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Intent model v2 reaches macro F1 0.88 on holdout-2025q3 messages"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-303",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-303"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro f1",
+   "as": [
+    "macro F1 by 0.05"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q3",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q3 (n = 1,100 messages)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cb-intent-v2",
+   "type": "model",
+   "label": "intent model v2",
+   "as": [
+    "Intent model v2"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fnd-cb-intent-acc",
+   "type": "uses",
+   "label": "from",
+   "o": "exp-303",
+   "quote": "From exp-303",
+   "line": 5
+  },
+  {
+   "s": "cb-intent-v2",
+   "type": "measured-by",
+   "label": "reaches",
+   "o": "macro-f1",
+   "quote": "Intent model v2 reaches macro F1 0.88",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "cb-intent-v2",
+  "exp-303"
+ ],
+ "built_on": [
+  {
+   "what": "cb-intent-v2",
+   "quote": "Builds on cb-intent-v2 and exp-303.",
+   "line": 7
+  },
+  {
+   "what": "exp-303",
+   "quote": "Builds on cb-intent-v2 and exp-303.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "chatbot-deflection/fnd-cb-intent-acc.md",
+ "sha": "6c5d05f98486cbb2229b2f51fde6aa54aca60dc5804f48555564e95dd0b65f9c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

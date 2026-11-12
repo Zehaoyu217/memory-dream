@@ -1,0 +1,83 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-406",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-406"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "legacy-churn-job",
+   "type": "pipeline",
+   "label": "legacy job",
+   "as": [
+    "legacy churn job"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "churn-labels",
+   "type": "dataset",
+   "label": "churn labels table",
+   "as": [
+    "churn labels table"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-lbl-legacy-jobs",
+   "type": "document",
+   "label": "job inventory",
+   "as": [
+    "ds-lbl-legacy-jobs"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "legacy-churn-job",
+   "type": "produces",
+   "label": "duplicates rows in",
+   "o": "churn-labels",
+   "quote": "2.3 percent of the table became duplicates of existing account-snapshots",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "ds-lbl-legacy-jobs"
+ ],
+ "built_on": [
+  {
+   "what": "ds-lbl-legacy-jobs",
+   "quote": "Builds on the churn labels table and ds-lbl-legacy-jobs.",
+   "line": 7
+  },
+  {
+   "what": "churn-labels",
+   "quote": "Builds on the churn labels table and ds-lbl-legacy-jobs.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "label-pipeline-rebuild/exp-406.md",
+ "sha": "e179f0a15c96c416e03c44cbf2f0d92d906809e2071a18dfa19383d568ef1261",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

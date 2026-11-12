@@ -1,0 +1,87 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-inc-merchant-mix",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-inc-merchant-mix",
+    "share of spend in grocery, travel, dining and luxury categories"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-inc-txn-categories",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-inc-txn-categories"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-404",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-404"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "inc-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "inc-gbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-inc-merchant-mix",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-inc-txn-categories",
+   "quote": "Builds on ds-inc-txn-categories.",
+   "line": 8
+  },
+  {
+   "s": "exp-404",
+   "type": "other",
+   "label": "tested before inclusion in",
+   "o": "inc-gbm-v2",
+   "quote": "Tested in exp-404 (2025-07-08) before inclusion in inc-gbm-v2.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-404",
+  "inc-gbm-v2"
+ ],
+ "built_on": [
+  {
+   "what": "ds-inc-txn-categories",
+   "quote": "Builds on ds-inc-txn-categories.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "income-estimation/feat-inc-merchant-mix.md",
+ "sha": "e59a99efb826792c6cb75723b8f64649aba4118e1df76c38b6f49fbdacd0fb45",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

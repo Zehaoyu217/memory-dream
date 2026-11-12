@@ -1,0 +1,170 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cli-xgb-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cli-xgb-v3"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cli-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cli-xgb-v2"
+   ],
+   "lines": [
+    7,
+    9
+   ]
+  },
+  {
+   "id": "cli-rct-2025q3",
+   "type": "dataset",
+   "label": "evaluation set",
+   "as": [
+    "cli-rct-2025q3"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "qini",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Qini"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-cli-loss-cap",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-cli-loss-cap"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-107",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-107"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "find-cli-uplift-wins",
+   "type": "document",
+   "label": "finding",
+   "as": [
+    "find-cli-uplift-wins"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cli-xgb-v3",
+   "type": "evaluated-on",
+   "label": "eval on",
+   "o": "cli-rct-2025q3",
+   "quote": "Eval: cli-rct-2025q3, n=36,000 randomised exposures",
+   "line": 6
+  },
+  {
+   "s": "cli-xgb-v3",
+   "type": "measured-by",
+   "label": "scored",
+   "o": "uplift-at-20",
+   "quote": "uplift@20% 1.9",
+   "line": 4
+  },
+  {
+   "s": "cli-xgb-v3",
+   "type": "measured-by",
+   "label": "scored",
+   "o": "qini",
+   "quote": "Qini 0.081",
+   "line": 6
+  },
+  {
+   "s": "cli-xgb-v3",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "cli-xgb-v2",
+   "quote": "Replaces cli-xgb-v2 as the targeting score",
+   "line": 7
+  },
+  {
+   "s": "cli-xgb-v3",
+   "type": "uses",
+   "label": "guarded by",
+   "o": "dec-cli-loss-cap",
+   "quote": "loss guard remains the 1.5% cap (dec-cli-loss-cap)",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-107",
+  "find-cli-uplift-wins",
+  "dec-cli-loss-cap"
+ ],
+ "built_on": [
+  {
+   "what": "exp-107",
+   "quote": "Builds on the out-of-time auc check for v2, exp-107 and find-cli-uplift-wins.",
+   "line": 8
+  },
+  {
+   "what": "find-cli-uplift-wins",
+   "quote": "Builds on the out-of-time auc check for v2, exp-107 and find-cli-uplift-wins.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "cli-xgb-v2",
+   "quote": "Replaces cli-xgb-v2 as the targeting score",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/cli-xgb-v3.md",
+ "sha": "39cedca1cba921a33741475e0bf7f4692b7e6e84b23e4bfd94204b9e0906a71e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

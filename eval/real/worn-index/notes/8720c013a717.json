@@ -1,0 +1,183 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-303",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-303"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "rdm-oot-2025q1",
+    "Holdout rdm-oot-2025q1 (n=11,260)"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift@20%",
+   "as": [
+    "uplift@20% 2.8pp"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "qini",
+   "type": "metric",
+   "label": "qini",
+   "as": [
+    "Qini 0.41"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "rdm-propensity-lr",
+   "type": "model",
+   "label": "baseline model",
+   "as": [
+    "rdm-propensity-lr"
+   ],
+   "lines": [
+    5,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "feat-rdm-app-installed",
+   "type": "feature",
+   "label": "app installed flag",
+   "as": [
+    "the app installed flag feature"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-rdm-prior-response",
+   "type": "feature",
+   "label": "prior response flag",
+   "as": [
+    "feat-rdm-prior-response"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "dec-rdm-target-by-uplift",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-rdm-target-by-uplift"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-rdm-holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "ds-rdm-holdout-2025q1"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-303",
+   "type": "measured-by",
+   "label": "scored at",
+   "o": "uplift-at-20",
+   "quote": "uplift@20% 2.8pp",
+   "line": 6
+  },
+  {
+   "s": "exp-303",
+   "type": "measured-by",
+   "label": "scored by",
+   "o": "qini",
+   "quote": "Qini 0.41",
+   "line": 6
+  },
+  {
+   "s": "exp-303",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "holdout-2025q1",
+   "quote": "Holdout rdm-oot-2025q1 (n=11,260)",
+   "line": 6
+  },
+  {
+   "s": "exp-303",
+   "type": "uses",
+   "label": "built on",
+   "o": "feat-rdm-app-installed",
+   "quote": "the app installed flag feature",
+   "line": 8
+  },
+  {
+   "s": "exp-303",
+   "type": "uses",
+   "label": "built on",
+   "o": "rdm-propensity-lr",
+   "quote": "rdm-propensity-lr",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "dec-rdm-target-by-uplift"
+ ],
+ "built_on": [
+  {
+   "what": "ds-rdm-holdout-2025q1",
+   "quote": "Builds on ds-rdm-holdout-2025q1, the app installed flag feature, feat-rdm-prior-response and rdm-propensity-lr.",
+   "line": 8
+  },
+  {
+   "what": "feat-rdm-app-installed",
+   "quote": "the app installed flag feature",
+   "line": 8
+  },
+  {
+   "what": "feat-rdm-prior-response",
+   "quote": "feat-rdm-prior-response",
+   "line": 8
+  },
+  {
+   "what": "rdm-propensity-lr",
+   "quote": "rdm-propensity-lr",
+   "line": 5
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reactivation-dormant/exp-303.md",
+ "sha": "8720c013a71724049ed9241c6eb99f18d22d8169eb679cdfc12040a5980f1aa5",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

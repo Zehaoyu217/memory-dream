@@ -1,0 +1,148 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift@20%",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cu-uplift-v3",
+   "type": "model",
+   "label": "uplift model",
+   "as": [
+    "cu-uplift-v3"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cu-uplift-v2",
+   "type": "model",
+   "label": "uplift model",
+   "as": [
+    "cu-uplift-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-cu-oot-2026h1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "collections-uplift-oot-2026h1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-cu-bureau-delta",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-bureau-delta"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "40-point-drop-accounts",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "Accounts with the 40-point drop flag"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-106",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-106"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cu-uplift-v3",
+   "type": "measured-by",
+   "label": "uplift@20%",
+   "o": "uplift-at-20",
+   "quote": "cu-uplift-v3 0.038 against cu-uplift-v2 0.033.",
+   "line": 5
+  },
+  {
+   "s": "cu-uplift-v2",
+   "type": "measured-by",
+   "label": "uplift@20%",
+   "o": "uplift-at-20",
+   "quote": "cu-uplift-v3 0.038 against cu-uplift-v2 0.033.",
+   "line": 5
+  },
+  {
+   "s": "40-point-drop-accounts",
+   "type": "measured-by",
+   "label": "uplift",
+   "o": "uplift-at-20",
+   "quote": "Accounts with the 40-point drop flag: uplift 0.061 (n=2,140).",
+   "line": 6
+  },
+  {
+   "s": "feat-cu-bureau-delta",
+   "type": "measured-by",
+   "label": "lifts",
+   "o": "uplift-at-20",
+   "quote": "Bureau 3-month delta lifts uplift@20% from 0.033 to 0.038, mostly in accounts with a 40-point score drop",
+   "line": 4
+  },
+  {
+   "s": "exp-106",
+   "type": "evaluated-on",
+   "label": "eval on",
+   "o": "ds-cu-oot-2026h1",
+   "quote": "exp-106 on collections-uplift-oot-2026h1 (n=28,450)",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-106",
+  "feat-cu-bureau-delta"
+ ],
+ "built_on": [
+  {
+   "what": "exp-106",
+   "quote": "Builds on the bureau delta uplift experiment and feat-cu-bureau-delta.",
+   "line": 9
+  },
+  {
+   "what": "feat-cu-bureau-delta",
+   "quote": "Builds on the bureau delta uplift experiment and feat-cu-bureau-delta.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-uplift/find-cu-bureau-lift.md",
+ "sha": "8264268e88826bf021bee7f0d030a9684a0fb7d173d1f7766ab8f7db4464a2e6",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

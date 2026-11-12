@@ -1,0 +1,103 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-201",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-201"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holt-winters",
+   "type": "model",
+   "label": "baseline",
+   "as": [
+    "Damped Holt-Winters"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sfc-bt-2024",
+   "type": "dataset",
+   "label": "backtest",
+   "as": [
+    "sfc-bt-2024"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "student-segment",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "the Student segment"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mape-1-month",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "MAPE 7.9%"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "holt-winters",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "sfc-bt-2024",
+   "quote": "Damped Holt-Winters per segment on sfc-bt-2024",
+   "line": 5
+  },
+  {
+   "s": "holt-winters",
+   "type": "measured-by",
+   "label": "scored",
+   "o": "mape-1-month",
+   "quote": "MAPE 7.9%, 3-month 11.4%",
+   "line": 6
+  },
+  {
+   "s": "student-segment",
+   "type": "measured-by",
+   "label": "scored",
+   "o": "mape-1-month",
+   "quote": "the Student segment alone is 14.8%",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "sfc-ets-v1",
+   "quote": "Builds on sfc-ets-v1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "spend-forecasting/exp-201.md",
+ "sha": "d74a5f1e51b6ae662efbe7f3a7983cbacb0110c9de6a555c019528a4fe6ed55a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

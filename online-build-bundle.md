@@ -639,7 +639,7 @@ or to a fresh worker given the packet, at most twice. After that, it stops and r
 
 ## Appendix A — the contract surface, verbatim: `skills/memory-dream/SKILL.md` and the dreamer agent
 
-_Part 5 · copied at commit 51df239. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
+_Part 5 · copied at commit 30c89f6. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
 
 ```markdown
 ---
@@ -780,7 +780,7 @@ Touch nothing else.
 
 ## Appendix B — the graph contract, verbatim: `.specs/memory-dream/CONTRACT.md`
 
-_Part 6 · copied at commit 51df239. Schema 1; `memory.py check` validates against it (A38)._
+_Part 6 · copied at commit 30c89f6. Schema 1; `memory.py check` validates against it (A38)._
 
 ## memory-dream — the graph contract (schema 1)
 
@@ -870,7 +870,11 @@ prose and a keeper read with the words that state it (the `built_on` and `replac
 an item names is looked up as a note (a path, or a file name, in the note's own folder first), then through the
 things' names (the home note of the thing); an item that names no note is counted, not kept. A line of frontmatter
 that already says it leaves it out, and for a replacement so does `compatible: a / b` in `CONFLICTS.md` or the
-reverse replacement. A `refs` edge between the same two notes gives way to it. `from` and `supersedes` come from frontmatter (resolution:
+reverse replacement. A replacement is not taken from a note older than the one it names ("Superseded by X", read the
+wrong way round), nor from a note of another kind when a note of the replaced note's own kind says it too (a
+decision that reports "v3 replaces v2"); two notes that each claim to replace the other are believed neither. A
+`refs` edge between the same two notes gives way to it. The counts are in `dedup` (`lineage_read`, `…_unplaced`,
+`…_older`, `…_other_kind`, `…_both_ways`). `from` and `supersedes` come from frontmatter (resolution:
 relative path, exact path, unique filename, same-project filename → C1 if ambiguous, then moved paths; a target that
 `drop` recorded → C14 for `from`, and for `supersedes` an edge to each note the dropped one had replaced; otherwise
 unresolved → C2). `refs`: `[[links]]`, the dreamer's refs, and body slugs that name a note in the same project or a
@@ -1056,7 +1060,7 @@ origin by adding the file. What changes for the notes under it, and nothing else
 
 ## Appendix C — the build guide, verbatim: `BUILD-GUIDE.md` §3–§10
 
-_Part 7 · copied at commit 51df239. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
+_Part 7 · copied at commit 30c89f6. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
 
 ### 3. The design in one page
 
@@ -1279,7 +1283,11 @@ constants, each with the measurement that set it.
   which a keeper says what the note itself builds on and what it replaces: an item is kept with the words that say so.
 - **Lineage as read** (`lineage_as_read`, in `build`): each kept item becomes a `from` or `supersedes` edge marked
   `by: "reading"`, once what it names is placed: as a note by path or file name (the note's own folder first), else as
-  the home note of the thing of that name after the merge. Frontmatter and `CONFLICTS.md` win. So that a keeper can
+  the home note of the thing of that name after the merge. Frontmatter and `CONFLICTS.md` win. Replacements are
+  collected first and then judged together: none from a note older than the one it names, none from a note of
+  another kind when a note of the replaced note's own kind claims it too, none when two notes claim each other.
+  These three were set on the whole worn bank (RESULTS S5), where a plainer rule, one kind only, held 68% of the
+  replacements and these hold 91%; do not go back to judging each claim as it comes, in note order. So that a keeper can
   name the note a phrase means ("the dispositions dataset"), both prompts carry `FOLDER`: the notes of the folder as
   `file name: first line` (`folder_lines`, at most 80 a folder), part of the prefix that every call of a folder shares.
 - **Command mode** (`MEMORY_LLM` set): waves of `-j` parallel calls, one retry for unusable answers. A call runs in a
@@ -1663,7 +1671,7 @@ preferences 0.95 when the task names them, 0.84 when it names only their meeting
 
 ## Appendix D — prompts, seeds and tuned tables, verbatim from `memory.py`
 
-_Part 8 · extracted at commit 51df239 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
+_Part 8 · extracted at commit 30c89f6 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
 
 ### D.1 `EXTRACT` — the per-note prompt: fixed guidance, then `KINDS:`, `TYPES:`, `EDGES:` and `KNOWN:` from the registries (the static part is cached), then `NOTE`
 

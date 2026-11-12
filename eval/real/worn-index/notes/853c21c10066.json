@@ -1,0 +1,104 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "student",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "Student"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "1-month MAPE"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "semester-timing",
+   "type": "term",
+   "label": "driver",
+   "as": [
+    "semester timing"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-203",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "the fourier and calendar terms experiment"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-204",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "the six-month cpi lag experiment"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "student",
+   "type": "measured-by",
+   "label": "1-month MAPE stayed at",
+   "o": "mape",
+   "quote": "its 1-month MAPE stayed at 9.7%",
+   "line": 5
+  },
+  {
+   "s": "semester-timing",
+   "type": "other",
+   "label": "drives",
+   "o": "student",
+   "quote": "The driver is semester timing, which the calendar does not capture well.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-203",
+  "exp-204"
+ ],
+ "built_on": [
+  {
+   "what": "exp-203",
+   "quote": "Builds on the fourier and calendar terms experiment and the six-month cpi lag experiment.",
+   "line": 8
+  },
+  {
+   "what": "exp-204",
+   "quote": "Builds on the fourier and calendar terms experiment and the six-month cpi lag experiment.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "spend-forecasting/fnd-sfc-student-volatile.md",
+ "sha": "853c21c100666878566f4c33dfa59582208b78422d90e0be4cd38ae7f8835543",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

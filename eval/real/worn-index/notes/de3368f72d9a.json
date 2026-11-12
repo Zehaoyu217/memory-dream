@@ -1,0 +1,178 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "mq3-uplift-xl-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "mq3-uplift-xl-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-mq3-recency-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mq3-recency-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-mq3-app-sessions-30d",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mq3-app-sessions-30d"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-mq3-prior-treat",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mq3-prior-treat"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "uplift@20% 2.6x"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mq3-uplift-tlearner-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "mq3-uplift-tlearner-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "oot set",
+   "as": [
+    "Q1 2026 OOT set"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mq3-uplift-xl-v2",
+   "type": "uses",
+   "label": "inputs",
+   "o": "feat-mq3-recency-v2",
+   "quote": "Inputs: feat-mq3-recency-v2, feat-mq3-app-sessions-30d, feat-mq3-prior-treat.",
+   "line": 5
+  },
+  {
+   "s": "mq3-uplift-xl-v2",
+   "type": "uses",
+   "label": "inputs",
+   "o": "feat-mq3-app-sessions-30d",
+   "quote": "Inputs: feat-mq3-recency-v2, feat-mq3-app-sessions-30d, feat-mq3-prior-treat.",
+   "line": 5
+  },
+  {
+   "s": "mq3-uplift-xl-v2",
+   "type": "uses",
+   "label": "inputs",
+   "o": "feat-mq3-prior-treat",
+   "quote": "Inputs: feat-mq3-recency-v2, feat-mq3-app-sessions-30d, feat-mq3-prior-treat.",
+   "line": 5
+  },
+  {
+   "s": "mq3-uplift-xl-v2",
+   "type": "measured-by",
+   "label": "uplift at 20%",
+   "o": "uplift-at-20",
+   "quote": "uplift@20% 2.6x",
+   "line": 6
+  },
+  {
+   "s": "mq3-uplift-xl-v2",
+   "type": "evaluated-on",
+   "label": "Q2 split eval",
+   "o": "holdout-2025q1",
+   "quote": "Eval on the 30% Q2 split (n=330,000)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-306-oot-q1-2026",
+  "dec-mq3-ship-xl",
+  "exp-303-xlearner",
+  "exp-307-app-drop",
+  "mq3-uplift-tlearner-v1"
+ ],
+ "built_on": [
+  {
+   "what": "exp-303-xlearner",
+   "quote": "Builds on exp-303-xlearner, the drop-app-sessions experiment, the 30-day app sessions feature, the prior campaign contact feature, the recency feature without refunds and mq3-uplift-tlearner-v1.",
+   "line": 8
+  },
+  {
+   "what": "exp-307-app-drop",
+   "quote": "Builds on exp-303-xlearner, the drop-app-sessions experiment, the 30-day app sessions feature, the prior campaign contact feature, the recency feature without refunds and mq3-uplift-tlearner-v1.",
+   "line": 8
+  },
+  {
+   "what": "feat-mq3-app-sessions-30d",
+   "quote": "Builds on exp-303-xlearner, the drop-app-sessions experiment, the 30-day app sessions feature, the prior campaign contact feature, the recency feature without refunds and mq3-uplift-tlearner-v1.",
+   "line": 8
+  },
+  {
+   "what": "feat-mq3-prior-treat",
+   "quote": "Builds on exp-303-xlearner, the drop-app-sessions experiment, the 30-day app sessions feature, the prior campaign contact feature, the recency feature without refunds and mq3-uplift-tlearner-v1.",
+   "line": 8
+  },
+  {
+   "what": "feat-mq3-recency-v2",
+   "quote": "Builds on exp-303-xlearner, the drop-app-sessions experiment, the 30-day app sessions feature, the prior campaign contact feature, the recency feature without refunds and mq3-uplift-tlearner-v1.",
+   "line": 8
+  },
+  {
+   "what": "mq3-uplift-tlearner-v1",
+   "quote": "Builds on exp-303-xlearner, the drop-app-sessions experiment, the 30-day app sessions feature, the prior campaign contact feature, the recency feature without refunds and mq3-uplift-tlearner-v1.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "mq3-uplift-tlearner-v1",
+   "quote": "Replaces the t-learner uplift model.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "marketing-uplift-q3/mq3-uplift-xl-v2.md",
+ "sha": "de3368f72d9ab81c66c8e4b7907bec5023417d37db411accd7695d213844ed7d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,107 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-101",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "Logistic regression vs LightGBM on the same features: 0.61 vs 0.738 macro F1 on holdout-2025q4"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "logistic-regression-baseline",
+   "type": "model",
+   "label": "baseline",
+   "as": [
+    "the logistic regression baseline"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "model family",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    4,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "account-tenure-features",
+   "type": "feature",
+   "label": "features",
+   "as": [
+    "the account tenure features"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "dec-cr-lgbm",
+   "type": "decision",
+   "label": "decision",
+   "as": [
+    "dec-cr-lgbm"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "lightgbm",
+   "type": "measured-by",
+   "label": "macro F1",
+   "o": "holdout-2025q4",
+   "quote": "LightGBM macro F1 0.738 (n = 380,000 calls, holdout-2025q4)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "dec-cr-lgbm"
+ ],
+ "built_on": [
+  {
+   "what": "logistic-regression-baseline",
+   "quote": "Builds on the logistic regression baseline and the account tenure features.",
+   "line": 9
+  },
+  {
+   "what": "account-tenure-features",
+   "quote": "Builds on the logistic regression baseline and the account tenure features.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/exp-101.md",
+ "sha": "a2a78c269c5364285a00650c818f63dfa2affa7eef0a36f475626a0fe6513ab9",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

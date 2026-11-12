@@ -1,0 +1,122 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "xs-logit-v1",
+   "type": "model",
+   "label": "reference model",
+   "as": [
+    "Regularized logistic regression"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "xs-holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "xs-holdout-2025q1 (n=52,000)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.64"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "top-decile-open-rate",
+   "type": "metric",
+   "label": "top-decile open rate",
+   "as": [
+    "top-decile open rate 5.6%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-401-logit-baseline",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-401-logit-baseline"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-xs-offer-log",
+   "type": "dataset",
+   "label": "offer log table",
+   "as": [
+    "the eligible offer log table"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "xs-logit-v1",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "xs-holdout-2025q1",
+   "quote": "AUC 0.64 on xs-holdout-2025q1 (n=52,000)",
+   "line": 6
+  },
+  {
+   "s": "xs-logit-v1",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.64 on xs-holdout-2025q1",
+   "line": 6
+  },
+  {
+   "s": "xs-logit-v1",
+   "type": "measured-by",
+   "label": "top-decile open rate",
+   "o": "top-decile-open-rate",
+   "quote": "top-decile open rate 5.6%",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-xs-offer-log",
+  "exp-401-logit-baseline"
+ ],
+ "built_on": [
+  {
+   "what": "ds-xs-offer-log",
+   "quote": "Builds on the eligible offer log table and exp-401-logit-baseline.",
+   "line": 7
+  },
+  {
+   "what": "exp-401-logit-baseline",
+   "quote": "Builds on the eligible offer log table and exp-401-logit-baseline.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cross-sell-savings/xs-logit-v1.md",
+ "sha": "4fa6f59c3180417461c1c37b2b2c39572b707b31a81d1304a6a90ace4636867c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,130 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "handoff-rule-v1",
+   "type": "flag",
+   "label": "handoff rule v1",
+   "as": [
+    "v1 (2 failures)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "handoff-rule-v2",
+   "type": "flag",
+   "label": "handoff rule v2",
+   "as": [
+    "v2 (3 failures)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "containment",
+   "type": "metric",
+   "label": "containment",
+   "as": [
+    "containment 29 percent",
+    "containment 25 percent"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "repeat-contact-14d",
+   "type": "metric",
+   "label": "14-day repeat contact",
+   "as": [
+    "14-day repeat contact 21 percent",
+    "14-day repeat contact 15 percent"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fnd-cb-repeat-contact",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-cb-repeat-contact"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-cb-sessions-replay",
+   "type": "dataset",
+   "label": "replay sessions",
+   "as": [
+    "96,000 sessions"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "handoff-rule-v1",
+   "type": "measured-by",
+   "label": "measured",
+   "o": "repeat-contact-14d",
+   "quote": "14-day repeat contact 21 percent",
+   "line": 6
+  },
+  {
+   "s": "handoff-rule-v2",
+   "type": "measured-by",
+   "label": "measured",
+   "o": "repeat-contact-14d",
+   "quote": "14-day repeat contact 15 percent",
+   "line": 6
+  },
+  {
+   "s": "handoff-rule-v1",
+   "type": "measured-by",
+   "label": "measured",
+   "o": "containment",
+   "quote": "v1 (2 failures): containment 29 percent",
+   "line": 6
+  },
+  {
+   "s": "handoff-rule-v2",
+   "type": "measured-by",
+   "label": "measured",
+   "o": "containment",
+   "quote": "v2 (3 failures): containment 25 percent",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fnd-cb-repeat-contact"
+ ],
+ "built_on": [
+  {
+   "what": "feat-cb-handoff-rule-v1",
+   "quote": "Builds on the escalation label definition and feat-cb-handoff-rule-v1.",
+   "line": 8
+  },
+  {
+   "what": "ds-cb-escalation-labels",
+   "quote": "Builds on the escalation label definition",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "chatbot-deflection/exp-304.md",
+ "sha": "4a2a0b2d7a994f9d561ebe5e6143ed956486c151ea1290eba30ca8353d40a32a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

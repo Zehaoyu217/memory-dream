@@ -1,0 +1,273 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-204",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-204"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-csb-spend-raw",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "spend-raw"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-csb-tenure-band",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "tenure band"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-csb-deposit-volatility",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "deposit volatility"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "employee-cards",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "employee cards"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "six-month-plus-accounts",
+   "type": "segment",
+   "label": "6-month-plus accounts",
+   "as": [
+    "6-month-plus accounts"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "six-month-plus-subset",
+   "type": "segment",
+   "label": "holdout subset",
+   "as": [
+    "Holdout subset (n=7,930)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-peak-merchant-accounts",
+   "type": "segment",
+   "label": "december-peak merchant accounts",
+   "as": [
+    "Dec-peak merchant accounts"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "churn-score",
+   "type": "metric",
+   "label": "churn score",
+   "as": [
+    "median score"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "recall-at-10",
+   "type": "metric",
+   "label": "recall at 10%",
+   "as": [
+    "recall@10%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-203",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "the experiment adding deposit volatility to logistic"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fnd-csb-seasonal-trap",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "the finding on december merchants scored safe"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-204",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-csb-spend-raw",
+   "quote": "features spend-raw",
+   "line": 5
+  },
+  {
+   "s": "exp-204",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-csb-tenure-band",
+   "quote": "tenure band",
+   "line": 5
+  },
+  {
+   "s": "exp-204",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-csb-deposit-volatility",
+   "quote": "deposit volatility",
+   "line": 5
+  },
+  {
+   "s": "exp-204",
+   "type": "uses",
+   "label": "features",
+   "o": "employee-cards",
+   "quote": "employee cards",
+   "line": 5
+  },
+  {
+   "s": "exp-204",
+   "type": "trained-on",
+   "label": "trained on",
+   "o": "six-month-plus-accounts",
+   "quote": "trained on 6-month-plus accounts",
+   "line": 5
+  },
+  {
+   "s": "exp-204",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "six-month-plus-subset",
+   "quote": "Holdout subset (n=7,930): AUC 0.742",
+   "line": 6
+  },
+  {
+   "s": "exp-204",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.742",
+   "line": 6
+  },
+  {
+   "s": "exp-204",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "ks",
+   "quote": "KS 0.37",
+   "line": 6
+  },
+  {
+   "s": "exp-204",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "recall-at-10",
+   "quote": "recall@10% 0.27",
+   "line": 6
+  },
+  {
+   "s": "dec-peak-merchant-accounts",
+   "type": "measured-by",
+   "label": "median score",
+   "o": "churn-score",
+   "quote": "the median score for Dec-peak merchant accounts is 0.04",
+   "line": 7
+  },
+  {
+   "s": "exp-204",
+   "type": "uses",
+   "label": "builds on",
+   "o": "exp-203",
+   "quote": "Builds on the experiment adding deposit volatility to logistic and the finding on december merchants scored safe.",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "exp-203",
+   "quote": "Builds on the experiment adding deposit volatility to logistic and the finding on december merchants scored safe.",
+   "line": 8
+  },
+  {
+   "what": "fnd-csb-seasonal-trap",
+   "quote": "Builds on the experiment adding deposit volatility to logistic and the finding on december merchants scored safe.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-small-business/exp-204.md",
+ "sha": "237777d57acb0e119c40e4919b2aed9e8c47a67c8f3c564d2e041f61f47b42e5",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

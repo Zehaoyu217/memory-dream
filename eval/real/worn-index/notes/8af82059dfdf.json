@@ -1,0 +1,217 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-505",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "Logistic-fitted weights on active days and depth v2, no push"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ae-score-v1",
+   "type": "metric",
+   "label": "engagement score",
+   "as": [
+    "equal-weight v1 blend"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ae-score-v2",
+   "type": "metric",
+   "label": "engagement score",
+   "as": [
+    "ae-score-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dec-ae-score-v2",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-ae-score-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-ae-holdout",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "training-split",
+   "type": "dataset",
+   "label": "split",
+   "as": [
+    "training split"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-ae-active-days-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "ae_act28"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-ae-depth-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "depth v2"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "exp-502",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-502"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.76"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-505",
+   "type": "uses",
+   "label": "set-up inputs",
+   "o": "feat-ae-active-days-v1",
+   "quote": "logistic regression on ae_act28 and depth v2",
+   "line": 5
+  },
+  {
+   "s": "exp-505",
+   "type": "uses",
+   "label": "set-up inputs",
+   "o": "feat-ae-depth-v2",
+   "quote": "logistic regression on ae_act28 and depth v2",
+   "line": 5
+  },
+  {
+   "s": "exp-505",
+   "type": "trained-on",
+   "label": "trained on",
+   "o": "training-split",
+   "quote": "trained on the training split",
+   "line": 5
+  },
+  {
+   "s": "exp-505",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "ds-ae-holdout",
+   "quote": "scored on holdout-2025q4 (n = 610,000)",
+   "line": 5
+  },
+  {
+   "s": "exp-505",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "auc",
+   "quote": "AUC 0.76, against 0.73",
+   "line": 6
+  },
+  {
+   "s": "exp-505",
+   "type": "other",
+   "label": "compared with",
+   "o": "ae-score-v1",
+   "quote": "against 0.73 for the equal-weight v1 blend (exp-502)",
+   "line": 6
+  },
+  {
+   "s": "exp-505",
+   "type": "other",
+   "label": "basis for",
+   "o": "ae-score-v2",
+   "quote": "Basis for ae-score-v2 and dec-ae-score-v2.",
+   "line": 7
+  },
+  {
+   "s": "exp-505",
+   "type": "other",
+   "label": "basis for",
+   "o": "dec-ae-score-v2",
+   "quote": "Basis for ae-score-v2 and dec-ae-score-v2.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-502",
+  "ae-score-v2",
+  "dec-ae-score-v2",
+  "ds-ae-holdout",
+  "feat-ae-active-days-v1",
+  "feat-ae-depth-v2"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ae-holdout",
+   "quote": "Builds on ds-ae-holdout, feat-ae-active-days-v1 and feat-ae-depth-v2.",
+   "line": 8
+  },
+  {
+   "what": "feat-ae-active-days-v1",
+   "quote": "Builds on ds-ae-holdout, feat-ae-active-days-v1 and feat-ae-depth-v2.",
+   "line": 8
+  },
+  {
+   "what": "feat-ae-depth-v2",
+   "quote": "Builds on ds-ae-holdout, feat-ae-active-days-v1 and feat-ae-depth-v2.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "app-engagement/exp-505.md",
+ "sha": "8af82059dfdfaf08a5b21a5b7a64ccdd1ccdcc9fcaa9b770495a18f63c8fe226",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

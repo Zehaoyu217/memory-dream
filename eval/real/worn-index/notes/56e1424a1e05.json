@@ -1,0 +1,47 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "ds-aml-cash-txn",
+   "type": "dataset",
+   "label": "subset",
+   "as": [
+    "cash-like subset"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-aml-cash-txn",
+   "type": "part-of",
+   "label": "filtered from",
+   "o": "cards.txn_daily",
+   "quote": "Source: `cards.txn_daily` filtered to MCC 6011",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "aml-alerts/ds-aml-cash-txn.md",
+ "sha": "56e1424a1e057cc961ffe08292d935f4464832bca7fbe42d054cfb0e3d491d64",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

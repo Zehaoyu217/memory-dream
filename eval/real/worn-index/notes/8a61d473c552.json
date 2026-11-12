@@ -1,0 +1,85 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "containment-rate",
+   "type": "metric",
+   "label": "containment",
+   "as": [
+    "34 percent containment"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "repeat-contact-48h",
+   "type": "metric",
+   "label": "48-hour repeat contact",
+   "as": [
+    "48-hour repeat contact 14 percent"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fnd-cb-repeat-contact",
+   "type": "finding",
+   "label": "overturning finding",
+   "as": [
+    "Overturned by fnd-cb-repeat-contact once repeat contact was measured on a 14-day window."
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-301",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "From exp-301"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-301",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "containment-rate",
+   "quote": "34 percent containment",
+   "line": 5
+  },
+  {
+   "s": "exp-301",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "repeat-contact-48h",
+   "quote": "48-hour repeat contact 14 percent",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "fnd-cb-repeat-contact"
+ ],
+ "built_on": [
+  {
+   "what": "exp-301",
+   "quote": "Builds on exp-301.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "chatbot-deflection/fnd-cb-containment-high.md",
+ "sha": "8a61d473c552ac87c61a522de114c8b040bc45b1b33a538ca54fed698538e7d8",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,102 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-inc-payroll-proxy",
+   "type": "dataset",
+   "label": "payroll proxy",
+   "as": [
+    "ds-inc-payroll-proxy"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.payments_daily`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "payroll-cadence",
+   "type": "feature",
+   "label": "cadence rule",
+   "as": [
+    "payroll candidate"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cadence-coverage",
+   "type": "metric",
+   "label": "coverage",
+   "as": [
+    "Coverage is 38% of booked accounts"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-inc-stated-income-2025",
+   "type": "dataset",
+   "label": "stated-income dataset",
+   "as": [
+    "stated-income applications dataset"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-inc-payroll-proxy",
+   "type": "uses",
+   "label": "inflows from",
+   "o": "cards.payments_daily",
+   "quote": "Inflows from ACH payment sources in `cards.payments_daily`",
+   "line": 5
+  },
+  {
+   "s": "ds-inc-payroll-proxy",
+   "type": "measured-by",
+   "label": "coverage",
+   "o": "cadence-coverage",
+   "quote": "Coverage is 38% of booked accounts",
+   "line": 7
+  },
+  {
+   "s": "ds-inc-payroll-proxy",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-inc-stated-income-2025",
+   "quote": "Builds on the stated-income applications dataset.",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-inc-stated-income-2025",
+   "quote": "Builds on the stated-income applications dataset.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "income-estimation/ds-inc-payroll-proxy.md",
+ "sha": "608423bcde76dc75573ac0d8041eb1206c320fd3b57c44c88eb7c3f6d4383e69",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

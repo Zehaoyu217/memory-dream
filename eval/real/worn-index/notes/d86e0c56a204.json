@@ -1,0 +1,136 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-502-arm-6m",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-502"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "arm-c",
+   "type": "segment",
+   "label": "promo arm",
+   "as": [
+    "arm C"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "control",
+   "type": "segment",
+   "label": "control group",
+   "as": [
+    "control"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "revolving-balance-m6",
+   "type": "metric",
+   "label": "revolving balance",
+   "as": [
+    "Revolving balance at month 6"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-pa-bt-inflow-v1",
+   "type": "feature",
+   "label": "bt inflow feature",
+   "as": [
+    "v1 basis"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-501-readout-12m",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-501"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "ds-pa-ab-assignments",
+   "type": "dataset",
+   "label": "randomized three-arm assignment dataset",
+   "as": [
+    "randomized three-arm account assignment dataset"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-502-arm-6m",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "revolving-balance-m6",
+   "quote": "Revolving balance at month 6: +$1,240 per account for arm C against control.",
+   "line": 6
+  },
+  {
+   "s": "exp-502-arm-6m",
+   "type": "uses",
+   "label": "same basis as",
+   "o": "feat-pa-bt-inflow-v1",
+   "quote": "Same cohorts and v1 basis as exp-501.",
+   "line": 5
+  },
+  {
+   "s": "exp-502-arm-6m",
+   "type": "other",
+   "label": "same cohorts as",
+   "o": "exp-501-readout-12m",
+   "quote": "Same cohorts and v1 basis as exp-501.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-501-readout-12m",
+  "ds-pa-ab-assignments"
+ ],
+ "built_on": [
+  {
+   "what": "ds-pa-ab-assignments",
+   "quote": "Builds on the randomized three-arm account assignment dataset and exp-501-readout-12m.",
+   "line": 7
+  },
+  {
+   "what": "exp-501-readout-12m",
+   "quote": "Builds on the randomized three-arm account assignment dataset and exp-501-readout-12m.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "promo-apr-test/exp-502-arm-6m.md",
+ "sha": "d86e0c56a204346a216235cd48267a4fcf387509ea033822ce9e3328ffa24620",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

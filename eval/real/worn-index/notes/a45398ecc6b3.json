@@ -1,0 +1,144 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-rdm-prior-responder-trap",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Prior responders look best on raw response but show 0.2pp uplift"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "prior-responders",
+   "type": "segment",
+   "label": "prior responders",
+   "as": [
+    "Prior responders"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "feat-rdm-prior-response",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rdm-prior-response"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-rdm-campaign-history",
+   "type": "dataset",
+   "label": "campaign history",
+   "as": [
+    "the reactivation waves campaign history"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "raw-response",
+   "type": "metric",
+   "label": "raw response",
+   "as": [
+    "Raw response of prior responders"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "uplift",
+   "type": "metric",
+   "label": "uplift",
+   "as": [
+    "0.2pp uplift"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "response-propensity-targeting",
+   "type": "term",
+   "label": "targeting",
+   "as": [
+    "Targeting by response propensity"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "control-group",
+   "type": "term",
+   "label": "control",
+   "as": [
+    "the 10% control"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "prior-responders",
+   "type": "measured-by",
+   "label": "raw response",
+   "o": "raw-response",
+   "quote": "Raw response of prior responders is 9.8%, against 2.7% for everyone else (waves 1 and 2).",
+   "line": 5
+  },
+  {
+   "s": "prior-responders",
+   "type": "measured-by",
+   "label": "uplift",
+   "o": "uplift",
+   "quote": "Their uplift against the 10% control is 0.2pp, so most of their response is not caused by the send.",
+   "line": 6
+  },
+  {
+   "s": "response-propensity-targeting",
+   "type": "other",
+   "label": "wastes budget on",
+   "o": "prior-responders",
+   "quote": "sends to them first and wastes the budget",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-rdm-prior-response",
+  "ds-rdm-campaign-history"
+ ],
+ "built_on": [
+  {
+   "what": "ds-rdm-campaign-history",
+   "quote": "Builds on the reactivation waves campaign history and feat-rdm-prior-response.",
+   "line": 8
+  },
+  {
+   "what": "feat-rdm-prior-response",
+   "quote": "Builds on the reactivation waves campaign history and feat-rdm-prior-response.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reactivation-dormant/fnd-rdm-prior-responder-trap.md",
+ "sha": "a45398ecc6b3732e31efdaf2229473f30b089c4d0a3d951a5ae4799749bcde3b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

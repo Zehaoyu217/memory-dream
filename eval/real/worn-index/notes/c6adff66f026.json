@@ -1,0 +1,189 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-cr-intent-labels",
+   "type": "dataset",
+   "label": "labels",
+   "as": [
+    "Intent labels"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "callcenter.calls.wrap_intent",
+   "type": "feature",
+   "label": "column",
+   "as": [
+    "callcenter.calls.wrap_intent"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "the inbound calls table"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "intents",
+   "type": "term",
+   "label": "14 intents",
+   "as": [
+    "14 intents"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "qa-team",
+   "type": "team",
+   "label": "qa team",
+   "as": [
+    "QA team"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "callcenter.qa_double_code",
+   "type": "dataset",
+   "label": "qa table",
+   "as": [
+    "callcenter.qa_double_code"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cx-analytics",
+   "type": "team",
+   "label": "owner",
+   "as": [
+    "cx-analytics"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "adjudicated-labels",
+   "type": "dataset",
+   "label": "adjudicated labels",
+   "as": [
+    "Adjudicated labels"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cr-lgbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cr-lgbm-v3"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-cr-intent-labels",
+   "type": "uses",
+   "label": "come from",
+   "o": "callcenter.calls.wrap_intent",
+   "quote": "Labels come from the agent wrap-up code in",
+   "line": 5
+  },
+  {
+   "s": "callcenter.calls.wrap_intent",
+   "type": "part-of",
+   "label": "column of",
+   "o": "callcenter.calls",
+   "quote": "callcenter.calls.wrap_intent",
+   "line": 5
+  },
+  {
+   "s": "ds-cr-intent-labels",
+   "type": "other",
+   "label": "mapped to",
+   "o": "intents",
+   "quote": "mapped to 14 intents",
+   "line": 4
+  },
+  {
+   "s": "qa-team",
+   "type": "produces",
+   "label": "double-coded",
+   "o": "callcenter.qa_double_code",
+   "quote": "Double-coding of 1,200 calls by the QA team in July 2026",
+   "line": 6
+  },
+  {
+   "s": "callcenter.qa_double_code",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "cx-analytics",
+   "quote": "owner cx-analytics",
+   "line": 8
+  },
+  {
+   "s": "adjudicated-labels",
+   "type": "uses",
+   "label": "source",
+   "o": "callcenter.qa_double_code",
+   "quote": "Source for adjudication",
+   "line": 8
+  },
+  {
+   "s": "cr-lgbm-v3",
+   "type": "trained-on",
+   "label": "trained on",
+   "o": "adjudicated-labels",
+   "quote": "Adjudicated labels for those 1,200 calls replace the wrap-up code in training from cr-lgbm-v3 onward (exp-106).",
+   "line": 7
+  },
+  {
+   "s": "adjudicated-labels",
+   "type": "other",
+   "label": "replaces in training",
+   "o": "callcenter.calls.wrap_intent",
+   "quote": "Adjudicated labels for those 1,200 calls replace the wrap-up code in training from cr-lgbm-v3 onward (exp-106).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-106"
+ ],
+ "built_on": [
+  {
+   "what": "callcenter.calls",
+   "quote": "Builds on the inbound calls table.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/ds-cr-intent-labels.md",
+ "sha": "c6adff66f026c0b0950b0871f9b8c005741673072b77ef96cf875e5551ac23db",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

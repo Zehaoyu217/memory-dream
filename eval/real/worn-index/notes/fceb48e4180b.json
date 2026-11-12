@@ -1,0 +1,71 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "xs-gbm-v2",
+   "type": "model",
+   "label": "boosting model",
+   "as": [
+    "xs-gbm-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "savings-offer",
+   "type": "other",
+   "label": "offer",
+   "as": [
+    "savings offer"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "top-two-deciles",
+   "type": "segment",
+   "label": "top deciles",
+   "as": [
+    "top two deciles"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "savings-offer",
+   "type": "other",
+   "label": "goes only to",
+   "o": "top-two-deciles",
+   "quote": "savings offer goes only to the top two deciles",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "exp-405-top-decile"
+ ],
+ "built_on": [
+  {
+   "what": "exp-405-top-decile",
+   "quote": "Builds on exp-405-top-decile and the boosting model with payroll.",
+   "line": 7
+  },
+  {
+   "what": "xs-gbm-v2",
+   "quote": "the boosting model with payroll",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cross-sell-savings/dec-xs-top-decile-offer.md",
+ "sha": "fceb48e4180b76a8c07b6478f1de354339df4184cc133c87e687756e03b7dc41",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

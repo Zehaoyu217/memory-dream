@@ -1,0 +1,80 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "wape",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "WAPE"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "accounts-under-50",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "Accounts under $50"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ben-carter",
+   "type": "person",
+   "label": "team owner",
+   "as": [
+    "Ben Carter"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "accounts-under-50",
+   "type": "other",
+   "label": "drove",
+   "o": "mape",
+   "quote": "Accounts under $50 drove 48% MAPE",
+   "line": 5
+  },
+  {
+   "s": "ben-carter",
+   "type": "uses",
+   "label": "reads",
+   "o": "wape",
+   "quote": "reads WAPE as the headline",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/mape-small-balances.md",
+ "sha": "77b75be30cbc5d8bc2a2ef65115582c6804123c14ae7b037c6b35d706cf9d212",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

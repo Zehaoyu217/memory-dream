@@ -1,0 +1,104 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "bt-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bt-xgb-v2"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "bt-oot-2026h1",
+   "type": "dataset",
+   "label": "out-of-time set",
+   "as": [
+    "bt-oot-2026h1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "limit-policy-2026",
+   "type": "other",
+   "label": "limit policy change",
+   "as": [
+    "The January 2026 limit-policy change"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bt-xgb-v3",
+   "type": "model",
+   "label": "next model",
+   "as": [
+    "bt-xgb-v3"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bt-xgb-v2",
+   "type": "measured-by",
+   "label": "out-of-time AUC",
+   "o": "auc",
+   "quote": "Out-of-time AUC for bt-xgb-v2 on bt-oot-2026h1 is 0.66",
+   "line": 5
+  },
+  {
+   "s": "bt-xgb-v2",
+   "type": "evaluated-on",
+   "label": "out-of-time on",
+   "o": "bt-oot-2026h1",
+   "quote": "Out-of-time AUC for bt-xgb-v2 on bt-oot-2026h1 is 0.66",
+   "line": 5
+  },
+  {
+   "s": "bt-xgb-v3",
+   "type": "uses",
+   "label": "picks up 2026 H1 data",
+   "o": "bt-oot-2026h1",
+   "quote": "bt-xgb-v3 picks up 2026 H1 data at the next retrain",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "exp-106-oot-2026h1",
+   "quote": "Builds on exp-106-oot-2026h1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "balance-transfer-propensity/find-bt-oot-drop.md",
+ "sha": "417d4059c79849faf73184aa764343a03f48963a8c879e0499f8aecc32021b22",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

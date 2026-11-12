@@ -1,0 +1,74 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-bsm-linear-map",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: use the linear percentile map as the v10 to v8 bridge for the first model retrain"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "bsm-app-gbm-v10a",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bsm-app-gbm-v10a"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dec-bsm-isotonic-map",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-bsm-isotonic-map"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-bsm-linear-map",
+   "type": "other",
+   "label": "unblocks",
+   "o": "bsm-app-gbm-v10a",
+   "quote": "Adopted on 2026-01-29 to unblock bsm-app-gbm-v10a",
+   "line": 5
+  },
+  {
+   "s": "dec-bsm-isotonic-map",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "dec-bsm-linear-map",
+   "quote": "Superseded by dec-bsm-isotonic-map (2026-05-29).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-bsm-isotonic-map"
+ ],
+ "built_on": [
+  {
+   "what": "exp-301",
+   "quote": "Builds on the linear map psi experiment.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "bureau-score-migration/dec-bsm-linear-map.md",
+ "sha": "8e2b3f94499f2e5b64f9a7ac71ded3e8025be46712e89206504014564f678bcc",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

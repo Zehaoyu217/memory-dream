@@ -1,0 +1,135 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "lift-curve",
+   "type": "term",
+   "label": "lift curve",
+   "as": [
+    "lift curve"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cumulative-lift",
+   "type": "metric",
+   "label": "cumulative lift",
+   "as": [
+    "Cumulative lift"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "decile",
+   "type": "term",
+   "label": "decile",
+   "as": [
+    "decile"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "deck-template",
+   "type": "document",
+   "label": "deck template",
+   "as": [
+    "Chloe Martin's deck template"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "chloe-martin",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Chloe Martin"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "top-decile-value",
+   "type": "metric",
+   "label": "top-decile value",
+   "as": [
+    "top-decile value"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "lift-curve-chart-for-deck",
+   "type": "document",
+   "label": "howto",
+   "as": [
+    "howto/lift-curve-chart-for-deck"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "lift-curve",
+   "type": "measured-by",
+   "label": "plots",
+   "o": "cumulative-lift",
+   "quote": "Cumulative lift on the y-axis",
+   "line": 4
+  },
+  {
+   "s": "lift-curve",
+   "type": "measured-by",
+   "label": "labels",
+   "o": "top-decile-value",
+   "quote": "the top-decile value is labelled directly",
+   "line": 5
+  },
+  {
+   "s": "deck-template",
+   "type": "uses",
+   "label": "uses standard",
+   "o": "lift-curve",
+   "quote": "Chloe Martin's deck template uses this standard.",
+   "line": 5
+  },
+  {
+   "s": "deck-template",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "chloe-martin",
+   "quote": "Chloe Martin's deck template",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "howto/lift-curve-chart-for-deck"
+ ],
+ "built_on": [
+  {
+   "what": "lift-curve-chart-for-deck",
+   "quote": "Builds on howto/lift-curve-chart-for-deck.",
+   "line": 6
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/lift-chart-standard.md",
+ "sha": "8ceb3aa1e864048e4d02437e9651fbaba70d6a95a9116b39319bac8b46bfe8f9",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

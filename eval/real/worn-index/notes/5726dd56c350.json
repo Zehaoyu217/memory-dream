@@ -1,0 +1,72 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-307",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-307"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "2025-Q4 partitions"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dispute-rate",
+   "type": "metric",
+   "label": "join",
+   "as": [
+    "dispute join"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-307",
+   "type": "other",
+   "label": "validates",
+   "o": "dispute-rate",
+   "quote": "The dispute join matched exp-305.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "dec-dq-dedupe-first-arrival",
+  "ds-dq-dispute-join"
+ ],
+ "built_on": [
+  {
+   "what": "dec-dq-dedupe-first-arrival",
+   "quote": "Builds on dec-dq-dedupe-first-arrival and ds-dq-dispute-join.",
+   "line": 7
+  },
+  {
+   "what": "ds-dq-dispute-join",
+   "quote": "Builds on dec-dq-dedupe-first-arrival and ds-dq-dispute-join.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "data-quality-txn/exp-307.md",
+ "sha": "5726dd56c350acb676792dc9170127d67019299139c67db50a1b07e2e288efca",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

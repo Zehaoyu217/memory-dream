@@ -1,0 +1,103 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "sav-offer-log",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "`sav.offer_log`"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  },
+  {
+   "id": "crm-contacts",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`crm.contacts`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "priya-nair",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "onboarding (Priya Nair)"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "open-rate",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "open rate 2.9%"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "q-xs-propensity",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "q-xs-propensity"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "sav-offer-log",
+   "type": "uses",
+   "label": "built from",
+   "o": "crm-contacts",
+   "quote": "Built from `crm.contacts` and the offer engine.",
+   "line": 5
+  },
+  {
+   "s": "sav-offer-log",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "priya-nair",
+   "quote": "Owner: onboarding (Priya Nair).",
+   "line": 7
+  },
+  {
+   "s": "sav-offer-log",
+   "type": "measured-by",
+   "label": "open rate",
+   "o": "open-rate",
+   "quote": "open rate 2.9%",
+   "line": 4
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "q-xs-propensity",
+   "quote": "Builds on q-xs-propensity.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cross-sell-savings/ds-xs-offer-log.md",
+ "sha": "61e93a248ccd0cbbafec01d3ec9886ff52f2adfdc17d7f9411842ad22c1ed5d9",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

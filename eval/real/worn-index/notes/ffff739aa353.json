@@ -1,0 +1,144 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-503-intrabank-fix",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-503"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "intra-bank-transfers",
+   "type": "term",
+   "label": "intra-bank transfers",
+   "as": [
+    "intra-bank transfers"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-pa-bt-inflow-v1",
+   "type": "feature",
+   "label": "bt inflow feature",
+   "as": [
+    "v1 BT inflow"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-pa-bt-inflow-v2",
+   "type": "feature",
+   "label": "external bt inflow",
+   "as": [
+    "External-only BT inflow"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "arm-b",
+   "type": "segment",
+   "label": "promo arm",
+   "as": [
+    "arm B"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "arm-c",
+   "type": "segment",
+   "label": "promo arm",
+   "as": [
+    "Arm C external"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "internal-account-key",
+   "type": "term",
+   "label": "internal account key",
+   "as": [
+    "the internal account key"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-pa-balance-panel",
+   "type": "dataset",
+   "label": "balance panel",
+   "as": [
+    "ds-pa-balance-panel"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "intra-bank-transfers",
+   "type": "part-of",
+   "label": "are 14% of",
+   "o": "feat-pa-bt-inflow-v1",
+   "quote": "intra-bank transfers are 14% of v1 BT inflow",
+   "line": 4
+  },
+  {
+   "s": "exp-503-intrabank-fix",
+   "type": "uses",
+   "label": "matched against",
+   "o": "internal-account-key",
+   "quote": "Matched transfers against the internal account key.",
+   "line": 5
+  },
+  {
+   "s": "arm-b",
+   "type": "other",
+   "label": "falls to",
+   "o": "feat-pa-bt-inflow-v2",
+   "quote": "External-only BT inflow for arm B",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-pa-balance-panel",
+  "feat-pa-bt-inflow-v1"
+ ],
+ "built_on": [
+  {
+   "what": "ds-pa-balance-panel",
+   "quote": "Builds on ds-pa-balance-panel and feat-pa-bt-inflow-v1.",
+   "line": 7
+  },
+  {
+   "what": "feat-pa-bt-inflow-v1",
+   "quote": "Builds on ds-pa-balance-panel and feat-pa-bt-inflow-v1.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "promo-apr-test/exp-503-intrabank-fix.md",
+ "sha": "ffff739aa35358057b42d18f3a9608fd876700aff225d2067ed73f5b83a62ee5",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,97 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "q-txc-unlabelled-share",
+   "type": "other",
+   "label": "open question",
+   "as": [
+    "How much spend does txn-categorization leave in 'other', and what is the target?"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "txc-gbm-v2",
+   "type": "model",
+   "label": "lightgbm model",
+   "as": [
+    "txc-gbm-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fnd-txc-long-tail",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-txc-long-tail"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "q-txc-fuzzy-vs-rules",
+   "type": "other",
+   "label": "open question",
+   "as": [
+    "q-txc-fuzzy-vs-rules"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "transactions table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "q-txc-unlabelled-share",
+   "type": "uses",
+   "label": "measured on",
+   "o": "cards.txn_daily",
+   "quote": "Measured on `cards.txn_daily` joined to the category output",
+   "line": 7
+  },
+  {
+   "s": "q-txc-unlabelled-share",
+   "type": "other",
+   "label": "has residue from",
+   "o": "fnd-txc-long-tail",
+   "quote": "Most of the residue is long-tail merchants (fnd-txc-long-tail).",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fnd-txc-long-tail",
+  "q-txc-fuzzy-vs-rules"
+ ],
+ "built_on": [
+  {
+   "what": "txc-gbm-v2",
+   "quote": "With txc-gbm-v2 in place, 9.4% of Q4-2025 monthly spend lands in the 'other' bucket.",
+   "line": 5
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "txn-categorization/q-txc-unlabelled-share.md",
+ "sha": "cd567c80d49db0828a8769c28b91556e774a377c3039863d6ef9534ab51c2010",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

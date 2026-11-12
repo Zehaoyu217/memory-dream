@@ -1,0 +1,83 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cli-bureau-delta",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cli-bureau-delta: 3-month change in bureau score from bureau.scores_monthly"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "bureau.scores_monthly"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cli-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "First used in cli-xgb-v2 (2026-03-02)."
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-cli-eligible-pop",
+   "type": "segment",
+   "label": "population",
+   "as": [
+    "cli-eligible population counts"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cli-bureau-delta",
+   "type": "uses",
+   "label": "from",
+   "o": "bureau.scores_monthly",
+   "quote": "3-month change in bureau score from bureau.scores_monthly",
+   "line": 4
+  },
+  {
+   "s": "feat-cli-bureau-delta",
+   "type": "uses",
+   "label": "first used in",
+   "o": "cli-xgb-v2",
+   "quote": "First used in cli-xgb-v2 (2026-03-02).",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-cli-eligible-pop",
+   "quote": "Builds on the cli-eligible population counts.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/feat-cli-bureau-delta.md",
+ "sha": "6c677b08bcea535b144af61dcd9bdfaffad34b3f323b72f31f16c2a67d76c5b0",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,112 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-303",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-303"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "dq-late-logit-v1",
+   "type": "model",
+   "label": "late model",
+   "as": [
+    "late model v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "dq-oot-2025q2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "dq-oot-2025q2"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.71"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "training-partitions-2025q1",
+   "type": "dataset",
+   "label": "training partitions",
+   "as": [
+    "2025-01 to 2025-03 partitions"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dq-late-logit-v1",
+   "type": "trained-on",
+   "label": "trained on",
+   "o": "training-partitions-2025q1",
+   "quote": "Trained the three-input logistic model on 2025-01 to 2025-03 partitions",
+   "line": 5
+  },
+  {
+   "s": "dq-late-logit-v1",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "dq-oot-2025q2",
+   "quote": "scored dq-oot-2025q2 at three checkpoints per day (n=273).",
+   "line": 5
+  },
+  {
+   "s": "dq-late-logit-v1",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.71",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "ds-dq-partition-arrivals",
+  "feat-dq-late-rate-7d"
+ ],
+ "built_on": [
+  {
+   "what": "ds-dq-partition-arrivals",
+   "quote": "Builds on ds-dq-partition-arrivals and feat-dq-late-rate-7d.",
+   "line": 7
+  },
+  {
+   "what": "feat-dq-late-rate-7d",
+   "quote": "Builds on ds-dq-partition-arrivals and feat-dq-late-rate-7d.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "data-quality-txn/exp-303.md",
+ "sha": "b8b4d936ea17fa7628e2ffb00e98d2e2c68e411f9927230fbea645a6d2d68f9d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

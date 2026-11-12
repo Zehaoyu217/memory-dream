@@ -1,0 +1,104 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-504",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-504: a 24-month label window gives no AUC gain over 12 months (0.868 vs 0.870)"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "mrisk-oot-2025h2",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "Eval set: mrisk-oot-2025h2 (212,900 merchant-months, 1,184 high-risk)."
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.868"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mrisk-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "mrisk-gbm-v2 built on this setting"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-mrisk-chargebacks",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "Builds on ds-mrisk-chargebacks"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mrisk-gbm-v2",
+   "type": "trained-on",
+   "label": "built on",
+   "o": "exp-504",
+   "quote": "mrisk-gbm-v2 built on this setting",
+   "line": 7
+  },
+  {
+   "s": "exp-504",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "mrisk-oot-2025h2",
+   "quote": "Eval set: mrisk-oot-2025h2",
+   "line": 5
+  },
+  {
+   "s": "exp-504",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "Training on 24 months of confirmed-fraud labels: AUC 0.868; 12 months: 0.870.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-mrisk-chargebacks"
+ ],
+ "built_on": [
+  {
+   "what": "ds-mrisk-chargebacks",
+   "quote": "Builds on ds-mrisk-chargebacks and the mcc base rate experiment.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "merchant-risk/exp-504.md",
+ "sha": "88565212dafce9f412b618aa51cca7fd90b0d5bccbf898c1c19d563c4a07a1b2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

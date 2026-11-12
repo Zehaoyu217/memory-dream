@@ -1,0 +1,217 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "mq3-response-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "gradient boosting for 14-day response"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-mq3-q2-rct",
+   "type": "dataset",
+   "label": "rct",
+   "as": [
+    "treated Q2 accounts"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.74"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "exp-301-response-only",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-301"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-mq3-target-uplift",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-mq3-target-uplift"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-mq3-app-sessions-30d",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mq3-app-sessions-30d"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-mq3-email-open-90d",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "the 90-day email opens feature"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-mq3-prior-treat",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mq3-prior-treat"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-mq3-recency-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mq3-recency-v1"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mq3-response-gbm-v1",
+   "type": "trained-on",
+   "label": "trained on",
+   "o": "ds-mq3-q2-rct",
+   "quote": "Trained on treated Q2 accounts only.",
+   "line": 5
+  },
+  {
+   "s": "mq3-response-gbm-v1",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "ds-mq3-q2-rct",
+   "quote": "AUC 0.74 on a 30% split of the treated accounts.",
+   "line": 6
+  },
+  {
+   "s": "mq3-response-gbm-v1",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.74 on a 30% split of the treated accounts.",
+   "line": 6
+  },
+  {
+   "s": "mq3-response-gbm-v1",
+   "type": "other",
+   "label": "measured in",
+   "o": "exp-301-response-only",
+   "quote": "Top-20% response rate is 3.8% against a 2.1% base (exp-301).",
+   "line": 6
+  },
+  {
+   "s": "mq3-response-gbm-v1",
+   "type": "other",
+   "label": "not used after",
+   "o": "dec-mq3-target-uplift",
+   "quote": "Not used for targeting after dec-mq3-target-uplift.",
+   "line": 7
+  },
+  {
+   "s": "mq3-response-gbm-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-mq3-app-sessions-30d",
+   "quote": "Builds on feat-mq3-app-sessions-30d, the 90-day email opens feature, feat-mq3-prior-treat and feat-mq3-recency-v1.",
+   "line": 8
+  },
+  {
+   "s": "mq3-response-gbm-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-mq3-email-open-90d",
+   "quote": "Builds on feat-mq3-app-sessions-30d, the 90-day email opens feature, feat-mq3-prior-treat and feat-mq3-recency-v1.",
+   "line": 8
+  },
+  {
+   "s": "mq3-response-gbm-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-mq3-prior-treat",
+   "quote": "Builds on feat-mq3-app-sessions-30d, the 90-day email opens feature, feat-mq3-prior-treat and feat-mq3-recency-v1.",
+   "line": 8
+  },
+  {
+   "s": "mq3-response-gbm-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-mq3-recency-v1",
+   "quote": "Builds on feat-mq3-app-sessions-30d, the 90-day email opens feature, feat-mq3-prior-treat and feat-mq3-recency-v1.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-mq3-app-sessions-30d",
+  "feat-mq3-email-open-90d",
+  "feat-mq3-prior-treat",
+  "feat-mq3-recency-v1",
+  "exp-301-response-only",
+  "dec-mq3-target-uplift"
+ ],
+ "built_on": [
+  {
+   "what": "feat-mq3-app-sessions-30d",
+   "quote": "Builds on feat-mq3-app-sessions-30d, the 90-day email opens feature, feat-mq3-prior-treat and feat-mq3-recency-v1.",
+   "line": 8
+  },
+  {
+   "what": "feat-mq3-email-open-90d",
+   "quote": "Builds on feat-mq3-app-sessions-30d, the 90-day email opens feature, feat-mq3-prior-treat and feat-mq3-recency-v1.",
+   "line": 8
+  },
+  {
+   "what": "feat-mq3-prior-treat",
+   "quote": "Builds on feat-mq3-app-sessions-30d, the 90-day email opens feature, feat-mq3-prior-treat and feat-mq3-recency-v1.",
+   "line": 8
+  },
+  {
+   "what": "feat-mq3-recency-v1",
+   "quote": "Builds on feat-mq3-app-sessions-30d, the 90-day email opens feature, feat-mq3-prior-treat and feat-mq3-recency-v1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "marketing-uplift-q3/mq3-response-gbm-v1.md",
+ "sha": "7cf6aef914630cb6e7e78601732e90cd2f83fd587135e0d8925bc9b070aa474a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

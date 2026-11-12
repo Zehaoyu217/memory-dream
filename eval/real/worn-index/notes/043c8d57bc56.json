@@ -1,0 +1,115 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-rdm-last-activity-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rdm-last-activity-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-rdm-last-activity-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rdm-last-activity-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "Source `cards.txn_daily`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "rdm-propensity-lr",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rdm-propensity-lr"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "rdm-uplift-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "the first rdm-uplift model"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-rdm-last-activity-v1",
+   "type": "uses",
+   "label": "source",
+   "o": "cards.txn_daily",
+   "quote": "Source `cards.txn_daily`",
+   "line": 5
+  },
+  {
+   "s": "rdm-propensity-lr",
+   "type": "uses",
+   "label": "uses feature",
+   "o": "feat-rdm-last-activity-v1",
+   "quote": "Used in rdm-propensity-lr and the first rdm-uplift model.",
+   "line": 5
+  },
+  {
+   "s": "rdm-uplift-v1",
+   "type": "uses",
+   "label": "uses feature",
+   "o": "feat-rdm-last-activity-v1",
+   "quote": "Used in rdm-propensity-lr and the first rdm-uplift model.",
+   "line": 5
+  },
+  {
+   "s": "feat-rdm-last-activity-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "feat-rdm-last-activity-v1",
+   "quote": "Replaced by feat-rdm-last-activity-v2 in June 2025",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-rdm-dormant-pool",
+  "rdm-propensity-lr",
+  "rdm-uplift-v1",
+  "feat-rdm-last-activity-v2"
+ ],
+ "built_on": [
+  {
+   "what": "ds-rdm-dormant-pool",
+   "quote": "Builds on ds-rdm-dormant-pool.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reactivation-dormant/feat-rdm-last-activity-v1.md",
+ "sha": "043c8d57bc56e7e4aeecb7ee2d481f72772b1f6aa3e3de9a5f976d45c73cd97a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

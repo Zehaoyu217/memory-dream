@@ -1,0 +1,86 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ae-push-open-v1",
+   "type": "feature",
+   "label": "push open rate",
+   "as": [
+    "Push open rate: opened sends over sends in the last 28 days, from `app.push_log`"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "app-push-log",
+   "type": "dataset",
+   "label": "push log",
+   "as": [
+    "`app.push_log`"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ae-score-v1",
+   "type": "model",
+   "label": "engagement score v1",
+   "as": [
+    "Carried as a weighted term in ae-score-v1 (weight 0.25). Dropped in ae-score-v2."
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-ae-push-log",
+   "type": "dataset",
+   "label": "push log",
+   "as": [
+    "Builds on ds-ae-push-log."
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ae-push-open-v1",
+   "type": "uses",
+   "label": "reads from",
+   "o": "app-push-log",
+   "quote": "from `app.push_log`",
+   "line": 4
+  },
+  {
+   "s": "ae-score-v1",
+   "type": "uses",
+   "label": "carries term",
+   "o": "feat-ae-push-open-v1",
+   "quote": "Carried as a weighted term in ae-score-v1 (weight 0.25)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-ae-push-log",
+  "ae-score-v1"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ae-push-log",
+   "quote": "Builds on ds-ae-push-log.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "app-engagement/feat-ae-push-open-v1.md",
+ "sha": "82e231125191ece77468d3c0fc7a94d8018048584690a859a219845897d6bffb",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

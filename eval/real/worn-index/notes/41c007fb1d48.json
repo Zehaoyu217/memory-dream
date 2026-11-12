@@ -1,0 +1,178 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cld-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cld-gbm-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-cld-decrease-cohort",
+   "type": "dataset",
+   "label": "decrease cohort",
+   "as": [
+    "ds-cld-decrease-cohort"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-cld-risk-band-v1",
+   "type": "feature",
+   "label": "risk-band feature",
+   "as": [
+    "feat-cld-risk-band-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "utilisation-features",
+   "type": "feature",
+   "label": "features",
+   "as": [
+    "utilisation features"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cld-test-2025q1",
+   "type": "dataset",
+   "label": "test set",
+   "as": [
+    "cld-test-2025q1"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.73"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.33"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cld-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cld-gbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cld-gbm-v1",
+   "type": "trained-on",
+   "label": "trained on",
+   "o": "ds-cld-decrease-cohort",
+   "quote": "Trained on decrease events from Jul 2024 to Jan 2025",
+   "line": 5
+  },
+  {
+   "s": "cld-gbm-v1",
+   "type": "uses",
+   "label": "trained with",
+   "o": "feat-cld-risk-band-v1",
+   "quote": "Trained on decrease events from Jul 2024 to Jan 2025 with feat-cld-risk-band-v1 and utilisation features.",
+   "line": 5
+  },
+  {
+   "s": "cld-gbm-v1",
+   "type": "uses",
+   "label": "trained with",
+   "o": "utilisation-features",
+   "quote": "Trained on decrease events from Jul 2024 to Jan 2025 with feat-cld-risk-band-v1 and utilisation features.",
+   "line": 5
+  },
+  {
+   "s": "cld-gbm-v1",
+   "type": "evaluated-on",
+   "label": "eval on",
+   "o": "cld-test-2025q1",
+   "quote": "Eval: cld-test-2025q1, n=22,000, AUC 0.73, KS 0.33.",
+   "line": 6
+  },
+  {
+   "s": "cld-gbm-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.73",
+   "line": 4
+  },
+  {
+   "s": "cld-gbm-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "ks",
+   "quote": "KS 0.33",
+   "line": 6
+  },
+  {
+   "s": "cld-gbm-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "cld-gbm-v1",
+   "quote": "Superseded by cld-gbm-v2 (2025-11-12).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-cld-decrease-cohort",
+  "feat-cld-risk-band-v1",
+  "cld-gbm-v2"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cld-decrease-cohort",
+   "quote": "Builds on ds-cld-decrease-cohort and the first four-band risk split.",
+   "line": 8
+  },
+  {
+   "what": "feat-cld-risk-band-v1",
+   "quote": "Builds on ds-cld-decrease-cohort and the first four-band risk split.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "limit-decrease-policy/cld-gbm-v1.md",
+ "sha": "41c007fb1d4830fb50dc23c7f144a6ce2edfb6ffa2f1d0e7f4efc190c1f4e49d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

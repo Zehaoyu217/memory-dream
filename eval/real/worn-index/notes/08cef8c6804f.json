@@ -1,0 +1,186 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-107",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-107"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cli-rct-2025q3",
+   "type": "dataset",
+   "label": "randomised set",
+   "as": [
+    "cli-rct-2025q3"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "exp-102",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-102"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "qini",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Qini"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Uplift@20%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "t-learner",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "T-learner"
+   ],
+   "lines": [
+    4,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "s-learner",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "S-learner"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "find-cli-uplift-wins",
+   "type": "document",
+   "label": "finding",
+   "as": [
+    "find-cli-uplift-wins"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cli-xgb-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cli-xgb-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-cli-outcome-90d",
+   "type": "dataset",
+   "label": "outcome dataset",
+   "as": [
+    "90-day cli outcome dataset"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-107",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "cli-rct-2025q3",
+   "quote": "Same randomised set as exp-102 (cli-rct-2025q3, n=36,000)",
+   "line": 5
+  },
+  {
+   "s": "exp-107",
+   "type": "measured-by",
+   "label": "measured",
+   "o": "qini",
+   "quote": "T-learner beats S-learner on Qini, 0.081 versus 0.067",
+   "line": 4
+  },
+  {
+   "s": "exp-107",
+   "type": "measured-by",
+   "label": "measured",
+   "o": "uplift-at-20",
+   "quote": "Uplift@20%: T-learner 1.9, S-learner 1.6.",
+   "line": 6
+  },
+  {
+   "s": "exp-107",
+   "type": "uses",
+   "label": "builds on",
+   "o": "exp-102",
+   "quote": "Builds on the 90-day cli outcome dataset and exp-102.",
+   "line": 8
+  },
+  {
+   "s": "cli-xgb-v3",
+   "type": "uses",
+   "label": "carried into",
+   "o": "t-learner",
+   "quote": "the T-learner is carried into cli-xgb-v3",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "find-cli-uplift-wins",
+  "cli-xgb-v3"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cli-outcome-90d",
+   "quote": "Builds on the 90-day cli outcome dataset and exp-102.",
+   "line": 8
+  },
+  {
+   "what": "exp-102",
+   "quote": "Builds on the 90-day cli outcome dataset and exp-102.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/exp-107.md",
+ "sha": "08cef8c6804f0f408e2d64d052ecc686deafe7b52149a1f8434a2841e255c740",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,154 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "ch-propensity-v1",
+   "type": "model",
+   "label": "channel-choice model",
+   "as": [
+    "ch-propensity-v1 chooses between SMS and call per account"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-ch-ab-wave1",
+   "type": "dataset",
+   "label": "wave-1 test data",
+   "as": [
+    "ds-ch-ab-wave1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-ch-send-window-v1",
+   "type": "feature",
+   "label": "send-window feature",
+   "as": [
+    "feat-ch-send-window-v1"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "feat-ch-prior-contact-v1",
+   "type": "feature",
+   "label": "prior-contact feature",
+   "as": [
+    "prior contact"
+   ],
+   "lines": [
+    4,
+    8
+   ]
+  },
+  {
+   "id": "exp-505",
+   "type": "experiment",
+   "label": "holdout evaluation",
+   "as": [
+    "exp-505"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ch-propensity-v2",
+   "type": "model",
+   "label": "successor model",
+   "as": [
+    "ch-propensity-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "promise-to-pay",
+   "type": "metric",
+   "label": "target outcome",
+   "as": [
+    "randomised PTP outcome"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ch-propensity-v1",
+   "type": "trained-on",
+   "label": "target is",
+   "o": "ds-ch-ab-wave1",
+   "quote": "target is the randomised PTP outcome from wave 1",
+   "line": 5
+  },
+  {
+   "s": "ch-propensity-v1",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-ch-send-window-v1",
+   "quote": "Features: feat-ch-send-window-v1, feat-ch-prior-contact-v1",
+   "line": 6
+  },
+  {
+   "s": "ch-propensity-v1",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-ch-prior-contact-v1",
+   "quote": "feat-ch-prior-contact-v1",
+   "line": 6
+  },
+  {
+   "s": "ch-propensity-v1",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "exp-505",
+   "quote": "Evaluated on the wave-1 holdout split (exp-505)",
+   "line": 7
+  },
+  {
+   "s": "ch-propensity-v2",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "ch-propensity-v1",
+   "quote": "Superseded by ch-propensity-v2 (2025-11-18).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ch-propensity-v2"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ch-ab-wave1",
+   "quote": "Builds on ds-ch-ab-wave1, the 30-day prior contact count and feat-ch-send-window-v1.",
+   "line": 8
+  },
+  {
+   "what": "feat-ch-prior-contact-v1",
+   "quote": "the 30-day prior contact count",
+   "line": 8
+  },
+  {
+   "what": "feat-ch-send-window-v1",
+   "quote": "feat-ch-send-window-v1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-channel-mix/ch-propensity-v1.md",
+ "sha": "edd8dc2da9327b0ab7c24301913f681b598fd8c10fbdb1d916cdda5dbb2e44a1",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,147 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-disp-fraud-score-in",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-disp-fraud-score",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-disp-fraud-score"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "disp-lgbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "disp-lgbm-v3"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-307",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-307"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "fraud26-gbm-v3",
+   "type": "model",
+   "label": "score model",
+   "as": [
+    "fraud-2026/fraud26-gbm-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "daniel-okafor",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Daniel Okafor"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-disp-fraud-score-in",
+   "type": "other",
+   "label": "adds",
+   "o": "feat-disp-fraud-score",
+   "quote": "add feat-disp-fraud-score",
+   "line": 5
+  },
+  {
+   "s": "dec-disp-fraud-score-in",
+   "type": "other",
+   "label": "ships",
+   "o": "disp-lgbm-v3",
+   "quote": "ship disp-lgbm-v3 with the auto-resolve threshold at p>=0.95",
+   "line": 5
+  },
+  {
+   "s": "dec-disp-fraud-score-in",
+   "type": "uses",
+   "label": "basis",
+   "o": "exp-307",
+   "quote": "Basis: exp-307 (95.3% precision, 29% coverage on disp-oot-2026h1 vs 94.0% without the score).",
+   "line": 6
+  },
+  {
+   "s": "dec-disp-fraud-score-in",
+   "type": "uses",
+   "label": "creates dependency",
+   "o": "fraud26-gbm-v3",
+   "quote": "Creates a dependency on fraud-2026/fraud26-gbm-v3",
+   "line": 7
+  },
+  {
+   "s": "fraud26-gbm-v3",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "daniel-okafor",
+   "quote": "the fraud-ops owner for both is Daniel Okafor",
+   "line": 7
+  },
+  {
+   "s": "disp-lgbm-v3",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "daniel-okafor",
+   "quote": "the fraud-ops owner for both is Daniel Okafor",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-307",
+  "feat-disp-fraud-score"
+ ],
+ "built_on": [
+  {
+   "what": "exp-307",
+   "quote": "Builds on exp-307 and feat-disp-fraud-score.",
+   "line": 8
+  },
+  {
+   "what": "feat-disp-fraud-score",
+   "quote": "Builds on exp-307 and feat-disp-fraud-score.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "dispute-triage/dec-disp-fraud-score-in.md",
+ "sha": "0ab3a1538c5597707d74a8eef120eae5830c320eb98db596f08869b241d244cd",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

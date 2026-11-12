@@ -1,0 +1,185 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cld-gbm-v2",
+   "type": "model",
+   "label": "roll model",
+   "as": [
+    "roll model"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cld-gbm-v1",
+   "type": "model",
+   "label": "tree family",
+   "as": [
+    "Same tree family as v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-cld-risk-band-v2",
+   "type": "feature",
+   "label": "v2 bands",
+   "as": [
+    "v2 bands"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "utilisation-slope",
+   "type": "feature",
+   "label": "slope",
+   "as": [
+    "a utilisation slope from the CLI project"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cld-test-2025q3",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "cld-test-2025q3"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.78"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini 0.56"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cld-gbm-v3",
+   "type": "model",
+   "label": "successor",
+   "as": [
+    "Superseded by cld-gbm-v3"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cld-gbm-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-cld-risk-band-v2",
+   "quote": "Same tree family as v1 with feat-cld-risk-band-v2 replacing the v1 bands",
+   "line": 5
+  },
+  {
+   "s": "cld-gbm-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "utilisation-slope",
+   "quote": "a utilisation slope from the CLI project",
+   "line": 5
+  },
+  {
+   "s": "cld-gbm-v2",
+   "type": "evaluated-on",
+   "label": "eval",
+   "o": "cld-test-2025q3",
+   "quote": "Eval: cld-test-2025q3, n=19,400, AUC 0.78, Gini 0.56.",
+   "line": 6
+  },
+  {
+   "s": "cld-gbm-v2",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.78",
+   "line": 4
+  },
+  {
+   "s": "cld-gbm-v2",
+   "type": "measured-by",
+   "label": "Gini",
+   "o": "gini",
+   "quote": "Gini 0.56",
+   "line": 6
+  },
+  {
+   "s": "cld-gbm-v3",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "cld-gbm-v2",
+   "quote": "Superseded by cld-gbm-v3 (2026-05-18).",
+   "line": 7
+  },
+  {
+   "s": "cld-gbm-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "cld-gbm-v1",
+   "quote": "Replaces cld-gbm-v1.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "cld-gbm-v1",
+  "feat-cld-risk-band-v2",
+  "cld-gbm-v3"
+ ],
+ "built_on": [
+  {
+   "what": "cld-gbm-v1",
+   "quote": "Builds on cld-gbm-v1 and feat-cld-risk-band-v2.",
+   "line": 8
+  },
+  {
+   "what": "feat-cld-risk-band-v2",
+   "quote": "Builds on cld-gbm-v1 and feat-cld-risk-band-v2.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "cld-gbm-v1",
+   "quote": "Replaces cld-gbm-v1.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "limit-decrease-policy/cld-gbm-v2.md",
+ "sha": "d9c2afe1fabc3781bd7fef17f54a577f08674bbc01110721528e7e5090c22ca1",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

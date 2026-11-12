@@ -1,0 +1,83 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "cross-sell-savings",
+   "type": "other",
+   "label": "workstream",
+   "as": [
+    "[cross-sell-savings]"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "payroll-flag",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "Payroll flag"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "balance-proxy",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "Balance proxy"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.71 to 0.73"
+   ],
+   "lines": [
+    3
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cross-sell-savings",
+   "type": "uses",
+   "label": "payroll flag",
+   "o": "payroll-flag",
+   "quote": "Payroll flag: AUC 0.71 to 0.73",
+   "line": 3
+  },
+  {
+   "s": "payroll-flag",
+   "type": "measured-by",
+   "label": "AUC gain",
+   "o": "auc",
+   "quote": "AUC 0.71 to 0.73",
+   "line": 3
+  }
+ ],
+ "refs": [],
+ "replaces": [
+  {
+   "what": "balance-proxy",
+   "quote": "Balance proxy retired.",
+   "line": 3
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2025-07-09.md",
+ "sha": "d9d98f27a764c45da6921c6637e854ee07c5897b3b8ed3f6c9efee17c7556643",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,112 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "find-cb-flat-wins",
+   "type": "document",
+   "label": "finding",
+   "as": [
+    "Finding"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "pooled-elasticity",
+   "type": "metric",
+   "label": "elasticity",
+   "as": [
+    "Pooled elasticity (0.21)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "flat-1-25",
+   "type": "other",
+   "label": "rate",
+   "as": [
+    "flat 1.25%"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "tier-a",
+   "type": "other",
+   "label": "tier",
+   "as": [
+    "tier A"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "find-cb-band-elasticity",
+   "type": "document",
+   "label": "finding",
+   "as": [
+    "find-cb-band-elasticity"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "find-cb-flat-wins",
+   "type": "measured-by",
+   "label": "net profit",
+   "o": "pooled-elasticity",
+   "quote": "Pooled elasticity (0.21) with exp-201 and exp-202.",
+   "line": 5
+  },
+  {
+   "s": "find-cb-band-elasticity",
+   "type": "replaces",
+   "label": "overturns",
+   "o": "find-cb-flat-wins",
+   "quote": "Overturned by find-cb-band-elasticity once band-specific response was measured.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "find-cb-band-elasticity",
+  "exp-201-flat-rate-pilot",
+  "exp-202-tier-pilot",
+  "cb-elasticity-v1"
+ ],
+ "built_on": [
+  {
+   "what": "cb-elasticity-v1",
+   "quote": "Builds on cb-elasticity-v1, exp-201-flat-rate-pilot and the tier a pilot experiment.",
+   "line": 7
+  },
+  {
+   "what": "exp-201-flat-rate-pilot",
+   "quote": "Builds on cb-elasticity-v1, exp-201-flat-rate-pilot and the tier a pilot experiment.",
+   "line": 7
+  },
+  {
+   "what": "exp-202-tier-pilot",
+   "quote": "Builds on cb-elasticity-v1, exp-201-flat-rate-pilot and the tier a pilot experiment.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/find-cb-flat-wins.md",
+ "sha": "b11aa5ceb13383964008267e5b0d1864ef3dccb1e52b9a970bf2042f6c4a6d3f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

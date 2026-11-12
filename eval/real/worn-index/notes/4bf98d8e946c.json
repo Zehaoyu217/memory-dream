@@ -1,0 +1,115 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-103",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-103: alert threshold sweep for the v2 candidate; 0.62 gives 14.2% precision"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "precision",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "precision 14.2%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "recall",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "recall 0.58"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "alert-rate",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "alert rate 0.9%"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-103",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "holdout-2025q1",
+   "quote": "Eval set: holdout-2025q1 (2,310 fraud labels)",
+   "line": 5
+  },
+  {
+   "s": "exp-103",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "precision",
+   "quote": "alert rate 0.9%, precision 14.2%, recall 0.58",
+   "line": 6
+  },
+  {
+   "s": "exp-103",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "recall",
+   "quote": "alert rate 0.9%, precision 14.2%, recall 0.58",
+   "line": 6
+  },
+  {
+   "s": "exp-103",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "alert-rate",
+   "quote": "alert rate 0.9%, precision 14.2%, recall 0.58",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-f25-holdout-2025q1",
+   "quote": "Builds on the jan-mar 2025 holdout dataset and the first model's baseline score.",
+   "line": 8
+  },
+  {
+   "what": "exp-101",
+   "quote": "Builds on the jan-mar 2025 holdout dataset and the first model's baseline score.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/exp-103.md",
+ "sha": "4bf98d8e946cc0c4b80965b3e5d4e3b96f5ab4b10b70c5725123fa53e6cb8545",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

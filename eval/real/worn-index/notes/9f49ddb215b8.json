@@ -1,0 +1,105 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "app-scorecard-v4",
+   "type": "model",
+   "label": "rebuilt scorecard",
+   "as": [
+    "rebuilt new-account scorecard"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "raiser",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2026q1",
+   "type": "dataset",
+   "label": "2026-q1 holdout",
+   "as": [
+    "2026-Q1 holdout"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "collections-scoring",
+   "type": "other",
+   "label": "collections scoring",
+   "as": [
+    "collections scoring"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "app-scorecard-v4",
+   "type": "measured-by",
+   "label": "target",
+   "o": "gini",
+   "quote": "Target is 0.42 Gini on the next out-of-time set",
+   "line": 5
+  },
+  {
+   "s": "app-scorecard-v4",
+   "type": "other",
+   "label": "scope excludes",
+   "o": "collections-scoring",
+   "quote": "collections scoring is out of scope",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-507",
+  "dec-app-cutoff-v4",
+  "find-app-gini-v3-drift"
+ ],
+ "built_on": [
+  {
+   "what": "ds-app-applications-2024",
+   "quote": "Builds on ds-app-applications-2024 and find-app-gini-v3-drift.",
+   "line": 8
+  },
+  {
+   "what": "find-app-gini-v3-drift",
+   "quote": "Builds on ds-app-applications-2024 and find-app-gini-v3-drift.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "application-scorecard/q-app-gini-target.md",
+ "sha": "9f49ddb215b89032f4464186b3ef7754857020382db8ccd4efc52e5b79a243a7",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

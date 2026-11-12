@@ -1,0 +1,141 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-101",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "utilisation trigger"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cli-test-2025q1",
+   "type": "segment",
+   "label": "test cohort",
+   "as": [
+    "cli-test-2025q1 cohort"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cli-logreg-baseline",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "the logistic model"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "incremental-spend",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "incremental spend"
+   ],
+   "lines": [
+    4,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "utilisation-trigger",
+   "type": "term",
+   "label": "trigger rule",
+   "as": [
+    "utilisation trigger"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "q-cli-utilization-trigger",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "q-cli-utilization-trigger"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "find-cli-util-best",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-cli-util-best"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-101",
+   "type": "evaluated-on",
+   "label": "eval on",
+   "o": "cli-test-2025q1",
+   "quote": "Eval: cli-test-2025q1 cohort, n=60,000",
+   "line": 6
+  },
+  {
+   "s": "exp-101",
+   "type": "measured-by",
+   "label": "captures",
+   "o": "incremental-spend",
+   "quote": "captures 0.58 of incremental spend",
+   "line": 4
+  },
+  {
+   "s": "exp-101",
+   "type": "other",
+   "label": "compared with",
+   "o": "cli-logreg-baseline",
+   "quote": "cli-logreg-baseline 0.71",
+   "line": 7
+  },
+  {
+   "s": "exp-101",
+   "type": "uses",
+   "label": "tests",
+   "o": "utilisation-trigger",
+   "quote": "Trigger rule: utilisation of at least 80% and no late payment in 12 months.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "find-cli-util-best"
+ ],
+ "built_on": [
+  {
+   "what": "cli-logreg-baseline",
+   "quote": "Builds on the logistic baseline for 90-day loss and q-cli-utilization-trigger.",
+   "line": 9
+  },
+  {
+   "what": "q-cli-utilization-trigger",
+   "quote": "Builds on the logistic baseline for 90-day loss and q-cli-utilization-trigger.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/exp-101.md",
+ "sha": "61493046344465683b68e5194bb479e369a1b22958e492cdb0c3dcfe6d003cea",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

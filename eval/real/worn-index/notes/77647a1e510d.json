@@ -1,0 +1,117 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-402",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-402"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "aml-xgb-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "aml-xgb-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-aml-structuring-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "structuring-v1"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "feat-aml-new-counterparty",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "new counterparty share feature"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "aml-xgb-v1",
+   "type": "uses",
+   "label": "with",
+   "o": "feat-aml-structuring-v1",
+   "quote": "aml-xgb-v1 with structuring-v1 and new-counterparty",
+   "line": 6
+  },
+  {
+   "s": "aml-xgb-v1",
+   "type": "uses",
+   "label": "with",
+   "o": "feat-aml-new-counterparty",
+   "quote": "aml-xgb-v1 with structuring-v1 and new-counterparty",
+   "line": 6
+  },
+  {
+   "s": "aml-xgb-v1",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.84",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "exp-401",
+  "exp-403"
+ ],
+ "built_on": [
+  {
+   "what": "exp-401",
+   "quote": "Builds on exp-401, the new counterparty share feature and feat-aml-structuring-v1.",
+   "line": 8
+  },
+  {
+   "what": "feat-aml-new-counterparty",
+   "quote": "Builds on exp-401, the new counterparty share feature and feat-aml-structuring-v1.",
+   "line": 8
+  },
+  {
+   "what": "feat-aml-structuring-v1",
+   "quote": "Builds on exp-401, the new counterparty share feature and feat-aml-structuring-v1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "aml-alerts/exp-402.md",
+ "sha": "77647a1e510d96a6dec493201b827e96cf6097b62d3462dc6f44c53b9e61bf10",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

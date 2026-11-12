@@ -1,0 +1,124 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-bsm-v10-cohorts-2026",
+   "type": "dataset",
+   "label": "applicant cohort",
+   "as": [
+    "ds-bsm-v10-cohorts-2026"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`bureau.scores_monthly`"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "60-day-delinquency",
+   "type": "metric",
+   "label": "outcome",
+   "as": [
+    "60-day delinquency"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-302",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-302"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-303",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-303"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-bsm-dual-pull-sample",
+   "type": "dataset",
+   "label": "dual-pull account sample",
+   "as": [
+    "december 2025 dual-pull account sample"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-bsm-v10-cohorts-2026",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "bureau.scores_monthly",
+   "quote": "Source `bureau.scores_monthly` (both versions)",
+   "line": 7
+  },
+  {
+   "s": "ds-bsm-v10-cohorts-2026",
+   "type": "measured-by",
+   "label": "outcome is",
+   "o": "60-day-delinquency",
+   "quote": "outcome is 60-day delinquency",
+   "line": 5
+  },
+  {
+   "s": "ds-bsm-v10-cohorts-2026",
+   "type": "uses",
+   "label": "used in",
+   "o": "exp-302",
+   "quote": "Used as the post-cutover check set for maps and models in exp-302 and exp-303.",
+   "line": 6
+  },
+  {
+   "s": "ds-bsm-v10-cohorts-2026",
+   "type": "uses",
+   "label": "used in",
+   "o": "exp-303",
+   "quote": "Used as the post-cutover check set for maps and models in exp-302 and exp-303.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-302",
+  "exp-303"
+ ],
+ "built_on": [
+  {
+   "what": "ds-bsm-dual-pull-sample",
+   "quote": "Builds on the december 2025 dual-pull account sample.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "bureau-score-migration/ds-bsm-v10-cohorts-2026.md",
+ "sha": "9238784f564c5365f51b5bdc0972372e97549f7507ba27dc7661c32d4a0e129c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

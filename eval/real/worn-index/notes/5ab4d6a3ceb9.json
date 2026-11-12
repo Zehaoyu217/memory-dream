@@ -1,0 +1,206 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-307",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-307"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "x-learner",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "X-learner"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "t-learner",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "T-learner"
+   ],
+   "lines": [
+    4,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "last-activity-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "last-activity v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "prior-response",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "prior response"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "balance-band",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "balance band"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "app-installed",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "app installed"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "rdm-oot-2025q1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "qini",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Qini"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "rdm-uplift-v2",
+   "type": "model",
+   "label": "targeting model",
+   "as": [
+    "rdm-uplift-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "x-learner",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q1",
+   "quote": "Holdout rdm-oot-2025q1: X-learner uplift@20% 3.6pp",
+   "line": 6
+  },
+  {
+   "s": "x-learner",
+   "type": "measured-by",
+   "label": "scored",
+   "o": "uplift-at-20",
+   "quote": "X-learner uplift@20% 3.6pp",
+   "line": 6
+  },
+  {
+   "s": "t-learner",
+   "type": "measured-by",
+   "label": "scored",
+   "o": "uplift-at-20",
+   "quote": "T-learner 3.0pp",
+   "line": 6
+  },
+  {
+   "s": "x-learner",
+   "type": "measured-by",
+   "label": "scored",
+   "o": "qini",
+   "quote": "Qini 0.47",
+   "line": 6
+  },
+  {
+   "s": "t-learner",
+   "type": "measured-by",
+   "label": "scored",
+   "o": "qini",
+   "quote": "T-learner 3.0pp, Qini 0.44",
+   "line": 6
+  },
+  {
+   "s": "last-activity-v2",
+   "type": "uses",
+   "label": "used by",
+   "o": "x-learner",
+   "quote": "Both models use last-activity v2",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "exp-305",
+   "quote": "Builds on exp-305, exp-306 and the t-learner targeting model.",
+   "line": 8
+  },
+  {
+   "what": "exp-306",
+   "quote": "Builds on exp-305, exp-306 and the t-learner targeting model.",
+   "line": 8
+  },
+  {
+   "what": "t-learner",
+   "quote": "Builds on exp-305, exp-306 and the t-learner targeting model.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reactivation-dormant/exp-307.md",
+ "sha": "5ab4d6a3ceb97d3d5e632cf5aee072d1db9043c0a29b4f24f7f157c8e78b01a2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,111 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "xs-gbm-v2",
+   "type": "model",
+   "label": "boosting model",
+   "as": [
+    "xs-gbm-v2"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "xs-oot-2026h1",
+   "type": "dataset",
+   "label": "out-of-time waves",
+   "as": [
+    "xs-oot-2026h1"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "feat-xs-payroll-flag-v2",
+   "type": "feature",
+   "label": "payroll flag",
+   "as": [
+    "payroll flag"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "payroll-detection-rate",
+   "type": "metric",
+   "label": "detection rate",
+   "as": [
+    "payroll detection rate"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "xs-gbm-v2",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "xs-oot-2026h1",
+   "quote": "Frozen xs-gbm-v2 on xs-oot-2026h1 (210,000 eligible).",
+   "line": 5
+  },
+  {
+   "s": "xs-gbm-v2",
+   "type": "measured-by",
+   "label": "AUC on",
+   "o": "auc",
+   "quote": "AUC 0.70, down from 0.73 on the holdout.",
+   "line": 5
+  },
+  {
+   "s": "xs-gbm-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-xs-payroll-flag-v2",
+   "quote": "the payroll flag lost most of its signal.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-xs-oot-2026h1",
+   "quote": "Builds on ds-xs-oot-2026h1 and the boosting model with payroll.",
+   "line": 7
+  },
+  {
+   "what": "xs-gbm-v2",
+   "quote": "Builds on ds-xs-oot-2026h1 and the boosting model with payroll.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cross-sell-savings/exp-407-oot-2026h1.md",
+ "sha": "1f07b274dfe23c900c3c07e0ec5dc124ca64504b47455fda2d09470afe605b66",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

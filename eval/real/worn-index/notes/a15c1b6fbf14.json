@@ -1,0 +1,88 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "feature-store-migration",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "feature-store-migration"
+   ],
+   "lines": [
+    3,
+    4
+   ]
+  },
+  {
+   "id": "parity-harness",
+   "type": "tool",
+   "label": "harness",
+   "as": [
+    "parity harness"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "frozen-250k-sample",
+   "type": "dataset",
+   "label": "sample",
+   "as": [
+    "frozen 250k sample"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "13-features",
+   "type": "feature",
+   "label": "features",
+   "as": [
+    "13 features"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "month-end-local-time-windows",
+   "type": "term",
+   "label": "failure cause",
+   "as": [
+    "month-end local-time windows"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "parity-harness",
+   "type": "evaluated-on",
+   "label": "run on",
+   "o": "frozen-250k-sample",
+   "quote": "parity harness done on the frozen 250k sample",
+   "line": 3
+  },
+  {
+   "s": "feature-store-migration",
+   "type": "other",
+   "label": "failures are",
+   "o": "month-end-local-time-windows",
+   "quote": "most failures are month-end local-time windows, not store bugs",
+   "line": 4
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2025-11-04.md",
+ "sha": "a15c1b6fbf14b6f0adb527294853abb5b3c953047260eeb3e8e9754884dad5f5",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

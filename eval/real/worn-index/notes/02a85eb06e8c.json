@@ -1,0 +1,67 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-mrisk-monthly-scoring",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Score every active merchant monthly on the merchant-month panel; the score feeds review only"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-mrisk-merchant-month",
+   "type": "dataset",
+   "label": "panel",
+   "as": [
+    "merchant-month panel"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-mrisk-monthly-scoring",
+   "type": "uses",
+   "label": "scores on",
+   "o": "ds-mrisk-merchant-month",
+   "quote": "Score every active merchant monthly on the merchant-month panel",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "q-mrisk-score-use",
+  "exp-502"
+ ],
+ "built_on": [
+  {
+   "what": "ds-mrisk-merchant-month",
+   "quote": "Builds on ds-mrisk-merchant-month, the three-feature gbm experiment and q-mrisk-score-use.",
+   "line": 8
+  },
+  {
+   "what": "exp-502",
+   "quote": "Basis: exp-502 (AUC 0.85) on the merchant-month panel.",
+   "line": 6
+  },
+  {
+   "what": "q-mrisk-score-use",
+   "quote": "Builds on ds-mrisk-merchant-month, the three-feature gbm experiment and q-mrisk-score-use.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "merchant-risk/dec-mrisk-monthly-scoring.md",
+ "sha": "02a85eb06e8cb9655b57d7abb3d7ea7586d1cded3184de5ab5f4d5d63d1852bf",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

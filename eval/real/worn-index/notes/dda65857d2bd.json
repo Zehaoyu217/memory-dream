@@ -1,0 +1,85 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "threshold-fixed-05",
+   "type": "term",
+   "label": "superseded rule",
+   "as": [
+    "A decision cutoff of 0.5 on the score"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "collections-queue",
+   "type": "term",
+   "label": "queue",
+   "as": [
+    "the collections queue"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "threshold-selection-cost-matrix",
+   "type": "term",
+   "label": "replacement method",
+   "as": [
+    "howto/threshold-selection-cost-matrix"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "scoring-service",
+   "type": "service",
+   "label": "service",
+   "as": [
+    "The scoring service"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "scoring-service",
+   "type": "uses",
+   "label": "flags accounts with",
+   "o": "threshold-fixed-05",
+   "quote": "flagged accounts above a fixed 0.5 probability for review",
+   "line": 5
+  },
+  {
+   "s": "threshold-selection-cost-matrix",
+   "type": "other",
+   "label": "supersedes",
+   "o": "threshold-fixed-05",
+   "quote": "Superseded by `howto/threshold-selection-cost-matrix`.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "threshold-selection-cost-matrix"
+ ],
+ "replaces": [
+  {
+   "what": "threshold-fixed-05",
+   "quote": "A decision cutoff of 0.5 on the score was the default until December 2025 (superseded)",
+   "line": 4
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/threshold-fixed-05.md",
+ "sha": "dda65857d2bd5f6d20f1567c0c572b030533b5e2a4f6f3dee448891658cfb79b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

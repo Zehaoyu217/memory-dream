@@ -1,0 +1,112 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-bsm-v10-band",
+   "type": "feature",
+   "label": "band rule",
+   "as": [
+    "feat-bsm-v10-band",
+    "ten v10 bands"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "isotonic-map",
+   "type": "feature",
+   "label": "isotonic map",
+   "as": [
+    "isotonic-mapped v10 score"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bsm-cutoff-logit",
+   "type": "model",
+   "label": "cutoff model",
+   "as": [
+    "bsm-cutoff-logit"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cutover-2026",
+   "type": "other",
+   "label": "cutover",
+   "as": [
+    "the 2026 cutover"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-303",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-303"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-bsm-v10-band",
+   "type": "uses",
+   "label": "cut from",
+   "o": "isotonic-map",
+   "quote": "Bands are the isotonic-mapped v10 score cut at the points",
+   "line": 5
+  },
+  {
+   "s": "feat-bsm-v10-band",
+   "type": "uses",
+   "label": "used in",
+   "o": "bsm-cutoff-logit",
+   "quote": "Used in bsm-cutoff-logit and the 2026 cutover.",
+   "line": 7
+  },
+  {
+   "s": "feat-bsm-v10-band",
+   "type": "uses",
+   "label": "used in",
+   "o": "cutover-2026",
+   "quote": "Used in bsm-cutoff-logit and the 2026 cutover.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-303",
+  "feat-bsm-score-map-v2",
+  "bsm-cutoff-logit"
+ ],
+ "built_on": [
+  {
+   "what": "exp-303",
+   "quote": "Builds on exp-303 and feat-bsm-score-map-v2.",
+   "line": 8
+  },
+  {
+   "what": "isotonic-map",
+   "quote": "Builds on exp-303 and feat-bsm-score-map-v2.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "bureau-score-migration/feat-bsm-v10-band.md",
+ "sha": "4be4e6e00fc923d7eee27a727a815003fbc16ef2fdbf009f5704502f6df2aed2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

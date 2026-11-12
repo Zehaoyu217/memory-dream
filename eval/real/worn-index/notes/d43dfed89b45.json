@@ -1,0 +1,135 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "find-cli-util-not-enough",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Finding: utilisation alone is not enough; the combined model reaches AUC 0.71 on holdout-2025q4"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cli-xgb-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cli-xgb-v1 with payment behaviour and spend velocity"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "holdout-2025q4 (n=118,400)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cli-test-2025q1",
+   "type": "dataset",
+   "label": "test set",
+   "as": [
+    "cli-test-2025q1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.64",
+    "AUC 0.71"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "find-cli-util-best",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-cli-util-best"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "find-cli-util-not-enough",
+   "type": "measured-by",
+   "label": "gives",
+   "o": "auc",
+   "quote": "Utilisation alone gives AUC 0.64 on cli-test-2025q1",
+   "line": 5
+  },
+  {
+   "s": "find-cli-util-not-enough",
+   "type": "evaluated-on",
+   "label": "eval on",
+   "o": "holdout-2025q4",
+   "quote": "cli-xgb-v1 with payment behaviour and spend velocity reaches 0.71 on holdout-2025q4 (n=118,400).",
+   "line": 5
+  },
+  {
+   "s": "find-cli-util-not-enough",
+   "type": "other",
+   "label": "overturns",
+   "o": "find-cli-util-best",
+   "quote": "This overturns find-cli-util-best.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "find-cli-util-best"
+ ],
+ "built_on": [
+  {
+   "what": "cli-xgb-v1",
+   "quote": "Builds on cli-xgb-v1",
+   "line": 8
+  },
+  {
+   "what": "exp-103",
+   "quote": "the utilisation slope auc experiment",
+   "line": 8
+  },
+  {
+   "what": "find-cli-util-best",
+   "quote": "find-cli-util-best",
+   "line": 7
+  }
+ ],
+ "replaces": [
+  {
+   "what": "find-cli-util-best",
+   "quote": "Replaces the overturned utilisation-as-best-predictor finding.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/find-cli-util-not-enough.md",
+ "sha": "d43dfed89b451a18c2944c36012578fa293995c71f8dca8407602b54d9a4fe84",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

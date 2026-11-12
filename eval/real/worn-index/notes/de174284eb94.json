@@ -1,0 +1,97 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-cc-coverage",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "the fine-tuned encoder auto-codes 58 percent of holdout tickets"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cc-ft-v1",
+   "type": "model",
+   "label": "encoder",
+   "as": [
+    "the fine-tuned encoder"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout tickets"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "auto-code-coverage",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "58 percent"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "dec-cc-auto-threshold",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-cc-auto-threshold"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fnd-cc-coverage",
+   "type": "measured-by",
+   "label": "measures",
+   "o": "auto-code-coverage",
+   "quote": "auto-codes 58 percent of holdout tickets",
+   "line": 4
+  },
+  {
+   "s": "fnd-cc-coverage",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "holdout-2025q4",
+   "quote": "auto-codes 58 percent of holdout tickets",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "dec-cc-auto-threshold"
+ ],
+ "built_on": [
+  {
+   "what": "exp-206",
+   "quote": "From exp-206",
+   "line": 5
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "complaint-classification/fnd-cc-coverage.md",
+ "sha": "de174284eb949958ef388201befd681faa1fe6aaa7eb84b638beaa8ecd1c48c1",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

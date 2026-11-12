@@ -1,0 +1,162 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-301",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-301"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "logistic-baseline",
+   "type": "model",
+   "label": "logistic baseline",
+   "as": [
+    "a logistic baseline on balance and payment history",
+    "Logistic regression on the same two feature groups as rs-xgb-v1"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "recovery-scoring-holdout-2023h2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "recovery-scoring-holdout-2023h2"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Gini 0.33"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "KS 0.24"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-rs-balance-at-co",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rs-balance-at-co"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-rs-pay-before-co",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "the pre-charge-off payment history feature"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "rs-xgb-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rs-xgb-v1"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-301",
+   "type": "measured-by",
+   "label": "result",
+   "o": "auc",
+   "quote": "Result: Gini 0.33, KS 0.24.",
+   "line": 6
+  },
+  {
+   "s": "exp-301",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "recovery-scoring-holdout-2023h2",
+   "quote": "Eval set recovery-scoring-holdout-2023h2, n=6,120 charge-offs.",
+   "line": 5
+  },
+  {
+   "s": "logistic-baseline",
+   "type": "uses",
+   "label": "uses features",
+   "o": "feat-rs-balance-at-co",
+   "quote": "a logistic baseline on balance and payment history",
+   "line": 4
+  },
+  {
+   "s": "logistic-baseline",
+   "type": "uses",
+   "label": "uses features",
+   "o": "feat-rs-pay-before-co",
+   "quote": "Logistic regression on the same two feature groups as rs-xgb-v1",
+   "line": 5
+  },
+  {
+   "s": "exp-301",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "ks",
+   "quote": "Result: Gini 0.33, KS 0.24.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "recovery_scoring/exp301_logit.ipynb"
+ ],
+ "built_on": [
+  {
+   "what": "feat-rs-balance-at-co",
+   "quote": "Builds on feat-rs-balance-at-co and the pre-charge-off payment history feature.",
+   "line": 8
+  },
+  {
+   "what": "feat-rs-pay-before-co",
+   "quote": "the pre-charge-off payment history feature",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "recovery-scoring/exp-301.md",
+ "sha": "1860e3d6a1f91089f36f655405d190d473b0a7a28494a298d27e0bdac76f0992",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

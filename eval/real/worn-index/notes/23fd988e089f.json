@@ -1,0 +1,72 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-mq3-email-open-90d",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mq3-email-open-90d"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "marketing.campaign_responses",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "marketing.campaign_responses"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "response-model AUC"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-mq3-email-open-90d",
+   "type": "uses",
+   "label": "from",
+   "o": "marketing.campaign_responses",
+   "quote": "from `marketing.campaign_responses` (email rows only)",
+   "line": 5
+  },
+  {
+   "s": "feat-mq3-email-open-90d",
+   "type": "measured-by",
+   "label": "adds to",
+   "o": "auc",
+   "quote": "Adds 0.01 to response-model AUC",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-mq3-contacts-snap",
+   "quote": "Builds on the contacts snapshot from june.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "marketing-uplift-q3/feat-mq3-email-open-90d.md",
+ "sha": "23fd988e089ff8a0450598b187eece944781242cb20da598330e6e08582e5180",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

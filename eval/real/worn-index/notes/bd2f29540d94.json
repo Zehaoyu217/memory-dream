@@ -1,0 +1,139 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "recall-at-10",
+   "type": "metric",
+   "label": "recall@10",
+   "as": [
+    "recall@10"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "retention-model",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "The retention model"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "2025q4 holdout"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "retention-q4-deck",
+   "type": "document",
+   "label": "deck",
+   "as": [
+    "the deck"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "alex-chen",
+   "type": "person",
+   "label": "agreer",
+   "as": [
+    "Alex Chen"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "scored-population",
+   "type": "segment",
+   "label": "scored population",
+   "as": [
+    "scored population"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "recall-at-k-definition",
+   "type": "document",
+   "label": "howto",
+   "as": [
+    "howto/recall-at-k-definition"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "retention-model",
+   "type": "measured-by",
+   "label": "shows",
+   "o": "recall-at-10",
+   "quote": "shows recall@10 of 0.37 in the deck and 0.41 in the notebook",
+   "line": 5
+  },
+  {
+   "s": "retention-model",
+   "type": "evaluated-on",
+   "label": "on",
+   "o": "holdout-2025q4",
+   "quote": "The retention model on the 2025q4 holdout",
+   "line": 5
+  },
+  {
+   "s": "retention-q4-deck",
+   "type": "owned-by",
+   "label": "agreed with",
+   "o": "alex-chen",
+   "quote": "Agreed with Alex Chen on 2026-03-03",
+   "line": 6
+  },
+  {
+   "s": "retention-q4-deck",
+   "type": "other",
+   "label": "regenerated on",
+   "o": "scored-population",
+   "quote": "the deck will be regenerated on the scored population",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "howto/recall-at-k-definition",
+  "reports/retention_q4_deck.pptx",
+  "notebooks/recall_check.ipynb"
+ ],
+ "built_on": [
+  {
+   "what": "recall-at-k-definition",
+   "quote": "Builds on howto/recall-at-k-definition.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/recall10-deck-vs-notebook.md",
+ "sha": "bd2f29540d945e169012bc6861bf872570cc4c8a5086dbadade613f567373408",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

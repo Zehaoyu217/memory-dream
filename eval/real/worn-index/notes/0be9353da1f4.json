@@ -1,0 +1,154 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-cli-oot-2026h1",
+   "type": "dataset",
+   "label": "out-of-time set",
+   "as": [
+    "ds-cli-oot-2026h1: out-of-time set of 204,060 accounts, CLI-eligible in Jan-Jun 2026"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "`cards.payments_daily`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "`bureau.scores_monthly` (v8 pull, before the v10 switch)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-cli-holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout set",
+   "as": [
+    "ds-cli-holdout-2025q4"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "metric-loss-prevalence",
+   "type": "metric",
+   "label": "loss prevalence",
+   "as": [
+    "Loss prevalence 1.3%"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cli-oot-2026h1",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "cli-oot-2026h1"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-cli-oot-2026h1",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cards.accounts_monthly",
+   "quote": "Sources: `cards.accounts_monthly`, `cards.txn_daily`, `cards.payments_daily`, `bureau.scores_monthly`",
+   "line": 6
+  },
+  {
+   "s": "ds-cli-oot-2026h1",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cards.txn_daily",
+   "quote": "Sources: `cards.accounts_monthly`, `cards.txn_daily`, `cards.payments_daily`, `bureau.scores_monthly`",
+   "line": 6
+  },
+  {
+   "s": "ds-cli-oot-2026h1",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cards.payments_daily",
+   "quote": "Sources: `cards.accounts_monthly`, `cards.txn_daily`, `cards.payments_daily`, `bureau.scores_monthly`",
+   "line": 6
+  },
+  {
+   "s": "ds-cli-oot-2026h1",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "bureau.scores_monthly",
+   "quote": "`bureau.scores_monthly` (v8 pull, before the v10 switch)",
+   "line": 6
+  },
+  {
+   "s": "ds-cli-oot-2026h1",
+   "type": "measured-by",
+   "label": "prevalence",
+   "o": "metric-loss-prevalence",
+   "quote": "Loss prevalence 1.3%, above holdout-2025q4 (1.0%)",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-cli-holdout-2025q4"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cli-holdout-2025q4",
+   "quote": "Builds on ds-cli-holdout-2025q4.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/ds-cli-oot-2026h1.md",
+ "sha": "0be9353da1f4594a882f7adf850e9e3e9e8783fb291fb578f1341df85ce871eb",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

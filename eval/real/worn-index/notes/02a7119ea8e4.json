@@ -1,0 +1,120 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "bt-logit-baseline",
+   "type": "model",
+   "label": "reference model",
+   "as": [
+    "bt-logit-baseline"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "bt-holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout set",
+   "as": [
+    "bt-holdout-2025q1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-bt-util-3m",
+   "type": "feature",
+   "label": "utilization feature",
+   "as": [
+    "feat-bt-util-3m"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "ds-bt-bureau-join",
+   "type": "dataset",
+   "label": "bureau join",
+   "as": [
+    "ds-bt-bureau-join"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.63"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bt-logit-baseline",
+   "type": "trained-on",
+   "label": "trained on",
+   "o": "bt-holdout-2025q1",
+   "quote": "Trained on 2025 waves excluding holdout accounts.",
+   "line": 6
+  },
+  {
+   "s": "bt-logit-baseline",
+   "type": "evaluated-on",
+   "label": "AUC on",
+   "o": "bt-holdout-2025q1",
+   "quote": "AUC 0.63 on bt-holdout-2025q1 (n=41,800)",
+   "line": 6
+  },
+  {
+   "s": "bt-logit-baseline",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-bt-util-3m",
+   "quote": "Regularized logistic regression (C=0.5) on bureau score band, feat-bt-util-3m and tenure months.",
+   "line": 5
+  },
+  {
+   "s": "bt-logit-baseline",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.63 on bt-holdout-2025q1",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-bt-bureau-join",
+  "feat-bt-util-3m"
+ ],
+ "built_on": [
+  {
+   "what": "ds-bt-bureau-join",
+   "quote": "Builds on ds-bt-bureau-join and feat-bt-util-3m.",
+   "line": 8
+  },
+  {
+   "what": "feat-bt-util-3m",
+   "quote": "Builds on ds-bt-bureau-join and feat-bt-util-3m.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "balance-transfer-propensity/bt-logit-baseline.md",
+ "sha": "02a7119ea8e43d755bdac6a6b4c0c983bb83dafc0930e5bdff7ed701ef846dff",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

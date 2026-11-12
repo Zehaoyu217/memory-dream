@@ -1,0 +1,89 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-txc-merchant-history-v1",
+   "type": "feature",
+   "label": "merchant-history feature",
+   "as": [
+    "90-day category distribution per merchant_id"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-106",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-106"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "txc-gbm-v3",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "txc-gbm-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fnd-txc-history-leaks",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-txc-history-leaks"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-txc-descriptor-sample",
+   "type": "dataset",
+   "label": "descriptor sample",
+   "as": [
+    "sample of transaction descriptors"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-txc-merchant-history-v1",
+   "type": "other",
+   "label": "not used in",
+   "o": "txc-gbm-v3",
+   "quote": "Not used in txc-gbm-v3",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-txc-history-leaks",
+  "exp-106"
+ ],
+ "built_on": [
+  {
+   "what": "ds-txc-descriptor-sample",
+   "quote": "Builds on the sample of transaction descriptors.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "txn-categorization/feat-txc-merchant-history-v1.md",
+ "sha": "1026c819d2832b958ce0f68b9340999e930dedeed043cb4a28aabd0b77d7b783",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

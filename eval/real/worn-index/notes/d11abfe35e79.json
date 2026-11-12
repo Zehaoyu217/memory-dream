@@ -1,0 +1,105 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-app-velocity-apps",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "application starts per device in the last 90 days"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "app-sessions-daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "app.sessions_daily"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "app-scorecard-v3",
+   "type": "model",
+   "label": "scorecard",
+   "as": [
+    "app-scorecard-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "app-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "app-gbm-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-app-applications-2024",
+   "type": "dataset",
+   "label": "applications",
+   "as": [
+    "ds-app-applications-2024"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-app-velocity-apps",
+   "type": "uses",
+   "label": "from",
+   "o": "app-sessions-daily",
+   "quote": "from `app.sessions_daily` (digital-analytics)",
+   "line": 5
+  },
+  {
+   "s": "feat-app-velocity-apps",
+   "type": "uses",
+   "label": "included in",
+   "o": "app-scorecard-v3",
+   "quote": "Included in app-scorecard-v3 and app-gbm-v1.",
+   "line": 7
+  },
+  {
+   "s": "feat-app-velocity-apps",
+   "type": "uses",
+   "label": "included in",
+   "o": "app-gbm-v1",
+   "quote": "Included in app-scorecard-v3 and app-gbm-v1.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-app-applications-2024"
+ ],
+ "built_on": [
+  {
+   "what": "ds-app-applications-2024",
+   "quote": "Builds on ds-app-applications-2024.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "application-scorecard/feat-app-velocity-apps.md",
+ "sha": "d11abfe35e798307c371660e703551ce3a62e2067635b0326ea2bfdcb7b53c25",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

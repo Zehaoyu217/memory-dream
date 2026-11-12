@@ -1,0 +1,116 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "clv-ml-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "clv-ml-v1"
+   ],
+   "lines": [
+    4,
+    8
+   ]
+  },
+  {
+   "id": "bg-nbd",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "BG/NBD"
+   ],
+   "lines": [
+    4,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "clv-ml-v2",
+   "type": "model",
+   "label": "decision",
+   "as": [
+    "dec-clv-ship-ml-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dec-clv-ship-ml-v2",
+   "type": "decision",
+   "label": "decision",
+   "as": [
+    "dec-clv-ship-ml-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-503",
+   "type": "experiment",
+   "label": "basis",
+   "as": [
+    "exp-503 (18.4% against 22.6%)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fnd-clv-bgnbd-bias",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-clv-bgnbd-bias"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dec-clv-discount-rate",
+   "type": "decision",
+   "label": "decision",
+   "as": [
+    "dec-clv-discount-rate"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [],
+ "refs": [
+  "exp-503",
+  "fnd-clv-bgnbd-bias",
+  "dec-clv-ship-ml-v2"
+ ],
+ "built_on": [
+  {
+   "what": "clv-ml-v1",
+   "quote": "Builds on clv-ml-v1, dec-clv-discount-rate and the bg/nbd top-decile overprediction finding.",
+   "line": 8
+  },
+  {
+   "what": "dec-clv-discount-rate",
+   "quote": "Builds on clv-ml-v1, dec-clv-discount-rate and the bg/nbd top-decile overprediction finding.",
+   "line": 8
+  },
+  {
+   "what": "fnd-clv-bgnbd-bias",
+   "quote": "Builds on clv-ml-v1, dec-clv-discount-rate and the bg/nbd top-decile overprediction finding.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 2
+ },
+ "path": "customer-lifetime-value/dec-clv-ship-ml-v1.md",
+ "sha": "6a7e1105a26b389ad4460c20ea19d31373b18d94fc12a0cfad21d014b68da5c5",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

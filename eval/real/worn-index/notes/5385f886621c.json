@@ -1,0 +1,85 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "churn-gbm-2025",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "churn-gbm-2025"
+   ],
+   "lines": [
+    4,
+    8
+   ]
+  },
+  {
+   "id": "churn-lr-base-2025",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "churn-lr-base-2025"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "champion-challenger",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "Champion/challenger"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dec-c25-ship-gbm-v2",
+   "type": "decision",
+   "label": "decision",
+   "as": [
+    "dec-c25-ship-gbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [],
+ "refs": [
+  "dec-c25-label-60d",
+  "churn-gbm-2025",
+  "churn-lr-base-2025",
+  "dec-c25-ship-gbm-v2"
+ ],
+ "built_on": [
+  {
+   "what": "churn-gbm-2025",
+   "quote": "Builds on churn-gbm-2025 and churn-lr-base-2025.",
+   "line": 8
+  },
+  {
+   "what": "churn-lr-base-2025",
+   "quote": "Builds on churn-gbm-2025 and churn-lr-base-2025.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "dec-c25-ship-gbm-v1",
+   "quote": "Superseded by dec-c25-ship-gbm-v2 for production scoring from November 2025.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 3
+ },
+ "path": "churn-2025/dec-c25-ship-gbm-v1.md",
+ "sha": "5385f886621cadac2db3f9e2e4321b505adbf84b0fc2ac57f4cef053283bc7dd",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

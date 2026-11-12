@@ -1,0 +1,131 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "notice-before-decrease",
+   "type": "policy",
+   "label": "notice rule",
+   "as": [
+    "30-day notice before any risk-based credit-line decrease"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-202",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-202"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "yuki-tanaka",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Yuki Tanaka"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "raj-patel",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Raj Patel"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "complaint-rate",
+   "type": "metric",
+   "label": "complaints per 1,000",
+   "as": [
+    "3.1 versus 4.6 complaints per 1,000"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "emergency-decreases",
+   "type": "policy",
+   "label": "exemption",
+   "as": [
+    "emergency decreases under compliance rules are exempt"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "notice-before-decrease",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "yuki-tanaka",
+   "quote": "Owner: Yuki Tanaka",
+   "line": 7
+  },
+  {
+   "s": "notice-before-decrease",
+   "type": "owned-by",
+   "label": "owner with",
+   "o": "raj-patel",
+   "quote": "Owner: Yuki Tanaka with Raj Patel for the collections side.",
+   "line": 7
+  },
+  {
+   "s": "notice-before-decrease",
+   "type": "other",
+   "label": "adopted after",
+   "o": "exp-202",
+   "quote": "Adopted on 2025-04-02 after exp-202",
+   "line": 5
+  },
+  {
+   "s": "exp-202",
+   "type": "measured-by",
+   "label": "compared",
+   "o": "complaint-rate",
+   "quote": "3.1 versus 4.6 complaints per 1,000 in 30 days",
+   "line": 5
+  },
+  {
+   "s": "notice-before-decrease",
+   "type": "other",
+   "label": "exempts",
+   "o": "emergency-decreases",
+   "quote": "emergency decreases under compliance rules are exempt",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-202"
+ ],
+ "built_on": [
+  {
+   "what": "exp-202",
+   "quote": "Builds on the notice-before-cut complaint comparison.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "limit-decrease-policy/dec-cld-notice-first.md",
+ "sha": "353a4b93d6aa0fb6c572c7be2567fa68b0eaa5b3ed1cc65b4aef9516f0dc0fc8",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

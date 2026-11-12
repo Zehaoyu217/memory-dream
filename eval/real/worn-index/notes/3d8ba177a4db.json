@@ -1,0 +1,117 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-503",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-503"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-trv-cross-border-share",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "cross-border share"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "trv-bt-2025h1",
+   "type": "segment",
+   "label": "backtest window",
+   "as": [
+    "trv-bt-2025h1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-502",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-502"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "trv-ridge-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "trv-ridge-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-503",
+   "type": "uses",
+   "label": "adds regressor",
+   "o": "feat-trv-cross-border-share",
+   "quote": "Adds feat-trv-cross-border-share to the exp-502 ridge",
+   "line": 5
+  },
+  {
+   "s": "exp-503",
+   "type": "measured-by",
+   "label": "MAPE",
+   "o": "trv-bt-2025h1",
+   "quote": "MAPE 5.2%",
+   "line": 6
+  },
+  {
+   "s": "exp-503",
+   "type": "uses",
+   "label": "builds on",
+   "o": "exp-502",
+   "quote": "Builds on exp-502 and feat-trv-cross-border-share.",
+   "line": 8
+  },
+  {
+   "s": "exp-503",
+   "type": "produces",
+   "label": "basis for",
+   "o": "trv-ridge-v2",
+   "quote": "Basis for trv-ridge-v2.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "exp-502",
+   "quote": "Builds on exp-502 and feat-trv-cross-border-share.",
+   "line": 8
+  },
+  {
+   "what": "feat-trv-cross-border-share",
+   "quote": "Builds on exp-502 and feat-trv-cross-border-share.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "travel-spend-recovery/exp-503.md",
+ "sha": "3d8ba177a4dbda109298503eb87e2a7bfe657b8171fe0e0170ebad81f05b7dff",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

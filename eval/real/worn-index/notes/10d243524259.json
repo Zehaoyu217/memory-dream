@@ -1,0 +1,91 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "find-bsm-thin-file-gap",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Finding: 41% of thin-file applicants have no v10 score, so v10-only decisions would leave 2.6% of applicants unscored"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-304",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-304"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "feat-bsm-thin-file-flag",
+   "type": "feature",
+   "label": "flag",
+   "as": [
+    "feat-bsm-thin-file-flag"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dec-bsm-keep-v8-fallback",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-bsm-keep-v8-fallback"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "find-bsm-thin-file-gap",
+   "type": "other",
+   "label": "from",
+   "o": "exp-304",
+   "quote": "From exp-304",
+   "line": 5
+  },
+  {
+   "s": "find-bsm-thin-file-gap",
+   "type": "other",
+   "label": "fallback kept in",
+   "o": "dec-bsm-keep-v8-fallback",
+   "quote": "so the fallback is kept in dec-bsm-keep-v8-fallback",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "dec-bsm-keep-v8-fallback"
+ ],
+ "built_on": [
+  {
+   "what": "exp-304",
+   "quote": "Builds on exp-304 and feat-bsm-thin-file-flag.",
+   "line": 7
+  },
+  {
+   "what": "feat-bsm-thin-file-flag",
+   "quote": "Builds on exp-304 and feat-bsm-thin-file-flag.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "bureau-score-migration/find-bsm-thin-file-gap.md",
+ "sha": "10d2435242594156b4c5bc9a67ce6eb39605c653a23b4292ca1d20e75b4ccda1",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

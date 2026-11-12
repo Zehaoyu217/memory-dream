@@ -1,0 +1,74 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-f25-device-age",
+   "type": "feature",
+   "label": "device age feature",
+   "as": [
+    "days since the device was first seen on the card"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fraud25-gbm-v1",
+   "type": "model",
+   "label": "v1 model",
+   "as": [
+    "fraud25-gbm-v1 onward"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "psi",
+   "as": [
+    "PSI"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud25-gbm-v1",
+   "type": "uses",
+   "label": "used from",
+   "o": "feat-f25-device-age",
+   "quote": "Used from fraud25-gbm-v1 onward.",
+   "line": 6
+  },
+  {
+   "s": "feat-f25-device-age",
+   "type": "measured-by",
+   "label": "PSI rose to",
+   "o": "psi",
+   "quote": "Its PSI rose to 0.19 between June and October 2025",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fraud25-find-device-drift"
+ ],
+ "built_on": [
+  {
+   "what": "ds-f25-txn-2024-2025",
+   "quote": "Builds on ds-f25-txn-2024-2025.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/feat-f25-device-age.md",
+ "sha": "f431801b523913ff710c7179f70be82f09994801bf4cd8e8a9290437de0a5247",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

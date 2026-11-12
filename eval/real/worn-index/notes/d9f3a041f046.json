@@ -1,0 +1,66 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-hp-cure-tracking",
+   "type": "dataset",
+   "label": "cure tracking",
+   "as": [
+    "Cure tracking"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-hp-enrolled",
+   "type": "dataset",
+   "label": "enrolment dataset",
+   "as": [
+    "2024 hardship enrolment dataset"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-hp-cure-tracking",
+   "type": "uses",
+   "label": "source",
+   "o": "cards.accounts_monthly",
+   "quote": "Source: `cards.accounts_monthly` for the 2024H1 enrolment cohorts",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "ds-hp-enrolled"
+ ],
+ "built_on": [
+  {
+   "what": "ds-hp-enrolled",
+   "quote": "Builds on the 2024 hardship enrolment dataset.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "hardship-programs/ds-hp-cure-tracking.md",
+ "sha": "d9f3a041f04697d53e9748556010bb820b2c9270739dca39ed92f36743b2bc90",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

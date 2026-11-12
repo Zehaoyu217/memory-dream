@@ -1,0 +1,93 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-507",
+   "type": "experiment",
+   "label": "bandit simulation",
+   "as": [
+    "exp-507"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ch-propensity-v2",
+   "type": "model",
+   "label": "channel-choice model",
+   "as": [
+    "ch-propensity-v2 scores"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-ch-ab-wave2",
+   "type": "dataset",
+   "label": "second randomised channel test",
+   "as": [
+    "the wave-2 data",
+    "the second randomised channel test"
+   ],
+   "lines": [
+    5,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "ch-bandit-v1",
+   "type": "model",
+   "label": "bandit allocator",
+   "as": [
+    "Thompson-sampling bandit"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-507",
+   "type": "uses",
+   "label": "uses priors from",
+   "o": "ch-propensity-v2",
+   "quote": "Simulation on the wave-2 data with ch-propensity-v2 scores as priors",
+   "line": 5
+  },
+  {
+   "s": "exp-507",
+   "type": "evaluated-on",
+   "label": "simulated on",
+   "o": "ds-ch-ab-wave2",
+   "quote": "Simulation on the wave-2 data",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "collections_channel/exp507_bandit_sim.ipynb"
+ ],
+ "built_on": [
+  {
+   "what": "ch-propensity-v2",
+   "quote": "Builds on ch-propensity-v2 and the second randomised channel test.",
+   "line": 8
+  },
+  {
+   "what": "ds-ch-ab-wave2",
+   "quote": "Builds on ch-propensity-v2 and the second randomised channel test.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-channel-mix/exp-507.md",
+ "sha": "7ddc8e5b8ecc656af997a6425d21fcea3f01fb3b659a9d50bbe8c41218d9239b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

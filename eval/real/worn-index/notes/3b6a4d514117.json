@@ -1,0 +1,188 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "app-scorecard-v4",
+   "type": "model",
+   "label": "scorecard",
+   "as": [
+    "app-scorecard-v4"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-app-bureau-v10-band",
+   "type": "feature",
+   "label": "bureau band",
+   "as": [
+    "feat-app-bureau-v10-band"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-app-income-est",
+   "type": "feature",
+   "label": "income estimate",
+   "as": [
+    "feat-app-income-est"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "reject-inference",
+   "type": "term",
+   "label": "reject inference weights",
+   "as": [
+    "reject-inference weights"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-app-oot-2026h1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "application-scorecard-oot-2026h1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "app-scorecard-v3",
+   "type": "model",
+   "label": "scorecard",
+   "as": [
+    "app-scorecard-v3"
+   ],
+   "lines": [
+    7,
+    9
+   ]
+  },
+  {
+   "id": "app-gbm-v2",
+   "type": "model",
+   "label": "gbm",
+   "as": [
+    "app-gbm-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini 0.42"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "app-scorecard-v4",
+   "type": "uses",
+   "label": "built on",
+   "o": "feat-app-bureau-v10-band",
+   "quote": "Builds on app-gbm-v2, exp-507, feat-app-bureau-v10-band and feat-app-income-est.",
+   "line": 8
+  },
+  {
+   "s": "app-scorecard-v4",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-app-income-est",
+   "quote": "rebuilt points scorecard on v10 bands and income estimate",
+   "line": 4
+  },
+  {
+   "s": "app-scorecard-v4",
+   "type": "uses",
+   "label": "uses weights",
+   "o": "reject-inference",
+   "quote": "reject-inference weights",
+   "line": 5
+  },
+  {
+   "s": "app-scorecard-v4",
+   "type": "evaluated-on",
+   "label": "eval",
+   "o": "ds-app-oot-2026h1",
+   "quote": "Eval: application-scorecard-oot-2026h1 (n=61,700)",
+   "line": 6
+  },
+  {
+   "s": "app-scorecard-v4",
+   "type": "measured-by",
+   "label": "Gini",
+   "o": "auc",
+   "quote": "Gini 0.42, KS 0.38, bad rate 4.9%",
+   "line": 6
+  },
+  {
+   "s": "app-scorecard-v4",
+   "type": "other",
+   "label": "replaces",
+   "o": "app-scorecard-v3",
+   "quote": "Replaces app-scorecard-v3 once dec-app-cutoff-v4 is in force.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-app-cutoff-v4",
+  "exp-507"
+ ],
+ "built_on": [
+  {
+   "what": "app-gbm-v2",
+   "quote": "Builds on app-gbm-v2, exp-507, feat-app-bureau-v10-band and feat-app-income-est.",
+   "line": 8
+  },
+  {
+   "what": "exp-507",
+   "quote": "Builds on app-gbm-v2, exp-507, feat-app-bureau-v10-band and feat-app-income-est.",
+   "line": 8
+  },
+  {
+   "what": "feat-app-bureau-v10-band",
+   "quote": "Builds on app-gbm-v2, exp-507, feat-app-bureau-v10-band and feat-app-income-est.",
+   "line": 8
+  },
+  {
+   "what": "feat-app-income-est",
+   "quote": "Builds on app-gbm-v2, exp-507, feat-app-bureau-v10-band and feat-app-income-est.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "app-scorecard-v3",
+   "quote": "Replaces app-scorecard-v3",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "application-scorecard/app-scorecard-v4.md",
+ "sha": "3b6a4d514117f660cdaee45f2fd885db0d1bd7bc34d9f1eb33715609f18901ea",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

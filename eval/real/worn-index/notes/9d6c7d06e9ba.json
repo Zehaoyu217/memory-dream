@@ -1,0 +1,134 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "active-app-user",
+   "type": "term",
+   "label": "active user",
+   "as": [
+    "active app users"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "user_id",
+   "type": "feature",
+   "label": "user id",
+   "as": [
+    "user_id"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "app.sessions_daily",
+   "type": "dataset",
+   "label": "sessions table",
+   "as": [
+    "app.sessions_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "session_count",
+   "type": "feature",
+   "label": "session count",
+   "as": [
+    "session_count"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "engagement",
+   "type": "metric",
+   "label": "engagement",
+   "as": [
+    "Engagement"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "digital-analytics-team",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "digital analytics team"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "app-sessions-dedupe",
+   "type": "document",
+   "label": "how-to",
+   "as": [
+    "howto/app-sessions-dedupe"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "active-app-user",
+   "type": "uses",
+   "label": "counts distinct",
+   "o": "user_id",
+   "quote": "Count distinct user_id",
+   "line": 4
+  },
+  {
+   "s": "app.sessions_daily",
+   "type": "other",
+   "label": "double counts users",
+   "o": "active-app-user",
+   "quote": "double counts those users",
+   "line": 5
+  },
+  {
+   "s": "engagement",
+   "type": "uses",
+   "label": "uses sum of",
+   "o": "session_count",
+   "quote": "Engagement uses the sum of",
+   "line": 5
+  },
+  {
+   "s": "active-app-user",
+   "type": "approved-by",
+   "label": "agreed by",
+   "o": "digital-analytics-team",
+   "quote": "The digital analytics team agreed the definition",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "howto/app-sessions-dedupe"
+ ],
+ "built_on": [
+  {
+   "what": "app-sessions-dedupe",
+   "quote": "Builds on howto/app-sessions-dedupe",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/app-active-users.md",
+ "sha": "9d6c7d06e9ba3453bfd26179c84a0f4264cf8ed56fbc0cd677fab7333d76af95",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

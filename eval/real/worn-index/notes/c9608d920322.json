@@ -1,0 +1,103 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "fixed-cutoff",
+   "type": "term",
+   "label": "fixed cutoff",
+   "as": [
+    "fixed 0.5 cutoff"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cost-matrix-cutoff",
+   "type": "term",
+   "label": "cost-matrix cutoff",
+   "as": [
+    "cost-matrix cutoff"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "scoring-service",
+   "type": "service",
+   "label": "scoring service",
+   "as": [
+    "scoring service"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ben-carter",
+   "type": "person",
+   "label": "finance team",
+   "as": [
+    "Ben Carter's finance team"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "threshold-selection-cost-matrix",
+   "type": "document",
+   "label": "howto",
+   "as": [
+    "howto/threshold-selection-cost-matrix"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "scoring-service",
+   "type": "uses",
+   "label": "reads cutoff from",
+   "o": "cost-matrix-cutoff",
+   "quote": "The scoring service now reads each model's cutoff from the validation-slice cost minimum.",
+   "line": 5
+  },
+  {
+   "s": "ben-carter",
+   "type": "other",
+   "label": "refreshes costs",
+   "o": "cost-matrix-cutoff",
+   "quote": "Ben Carter's finance team refreshes the costs each January.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "howto/threshold-selection-cost-matrix"
+ ],
+ "built_on": [
+  {
+   "what": "threshold-selection-cost-matrix",
+   "quote": "Builds on howto/threshold-selection-cost-matrix.",
+   "line": 6
+  }
+ ],
+ "replaces": [
+  {
+   "what": "fixed-cutoff",
+   "quote": "it was retired in December 2025 in favour of the cost-matrix cutoff",
+   "line": 4
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/fixed-cutoff-retired.md",
+ "sha": "c9608d920322f5359e5c2f0619ac4b132c716abba4d2fd3ad0b0723f8a13c910",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,129 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-rdm-cutoff-5m",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "A 5-month cutoff dilutes the pool"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "five-month-pool",
+   "type": "segment",
+   "label": "pool",
+   "as": [
+    "Five-month accounts"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "nine-month-pool",
+   "type": "segment",
+   "label": "pool",
+   "as": [
+    "The 9-month pool"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "seasonal-lulls",
+   "type": "segment",
+   "label": "seasonal lulls",
+   "as": [
+    "seasonal lulls"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift",
+   "as": [
+    "uplift 1.1pp against 1.6pp"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-301",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "Basis: exp-301"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fnd-rdm-cutoff-5m",
+   "type": "other",
+   "label": "dilutes",
+   "o": "five-month-pool",
+   "quote": "A 5-month cutoff dilutes the pool",
+   "line": 4
+  },
+  {
+   "s": "fnd-rdm-cutoff-5m",
+   "type": "measured-by",
+   "label": "uplift",
+   "o": "uplift-at-20",
+   "quote": "uplift 1.1pp against 1.6pp at 6 months",
+   "line": 4
+  },
+  {
+   "s": "nine-month-pool",
+   "type": "measured-by",
+   "label": "uplift",
+   "o": "uplift-at-20",
+   "quote": "The 9-month pool is smaller and gives 1.2pp",
+   "line": 6
+  },
+  {
+   "s": "seasonal-lulls",
+   "type": "part-of",
+   "label": "included in",
+   "o": "five-month-pool",
+   "quote": "Five-month accounts include many seasonal lulls",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-301",
+  "q-rdm-dormancy-cutoff"
+ ],
+ "built_on": [
+  {
+   "what": "exp-301",
+   "quote": "Builds on the dormancy cutoff comparison experiment and the question of dormancy cutoff length.",
+   "line": 8
+  },
+  {
+   "what": "q-rdm-dormancy-cutoff",
+   "quote": "Builds on the dormancy cutoff comparison experiment and the question of dormancy cutoff length.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reactivation-dormant/fnd-rdm-cutoff-5m.md",
+ "sha": "5798c359fd449a62984b8c02d16372284b8211ec6072ac996d41849749ac7895",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

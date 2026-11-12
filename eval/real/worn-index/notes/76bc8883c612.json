@@ -1,0 +1,184 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "churn-xgb-v2",
+   "type": "model",
+   "label": "xgboost model",
+   "as": [
+    "churn-xgb-v2"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "feat-velocity-v2",
+   "type": "feature",
+   "label": "velocity features",
+   "as": [
+    "feat-velocity-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-utilization-v1",
+   "type": "feature",
+   "label": "utilization features",
+   "as": [
+    "feat-utilization-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-churn-labels",
+   "type": "dataset",
+   "label": "churn labels",
+   "as": [
+    "cards.churn_labels"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.81"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "metric-recall-at-10",
+   "type": "metric",
+   "label": "recall@10",
+   "as": [
+    "recall@10 0.52"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cards.churn_scores",
+   "type": "dataset",
+   "label": "scores table",
+   "as": [
+    "cards.churn_scores"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-014",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "30-day velocity xgboost experiment"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-xgb-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-velocity-v2",
+   "quote": "churn-xgb-v2 uses feat-velocity-v2",
+   "line": 5
+  },
+  {
+   "s": "churn-xgb-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-utilization-v1",
+   "quote": "uses feat-velocity-v2 and feat-utilization-v1",
+   "line": 5
+  },
+  {
+   "s": "churn-xgb-v2",
+   "type": "trained-on",
+   "label": "fit on",
+   "o": "ds-churn-labels",
+   "quote": "fit on `cards.churn_labels`",
+   "line": 5
+  },
+  {
+   "s": "churn-xgb-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q4",
+   "quote": "Evaluated on holdout-2025q4",
+   "line": 6
+  },
+  {
+   "s": "churn-xgb-v2",
+   "type": "measured-by",
+   "label": "scores",
+   "o": "auc",
+   "quote": "AUC 0.81, recall@10 0.52",
+   "line": 6
+  },
+  {
+   "s": "churn-xgb-v2",
+   "type": "measured-by",
+   "label": "scores",
+   "o": "metric-recall-at-10",
+   "quote": "recall@10 0.52",
+   "line": 6
+  },
+  {
+   "s": "churn-xgb-v2",
+   "type": "produces",
+   "label": "writes scores to",
+   "o": "cards.churn_scores",
+   "quote": "Scores written nightly to `cards.churn_scores`",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-velocity-v2",
+  "feat-utilization-v1"
+ ],
+ "built_on": [
+  {
+   "what": "exp-014",
+   "quote": "Builds on the 30-day velocity xgboost experiment.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2026/churn-xgb-v2.md",
+ "sha": "76bc8883c61272b136ed1f45490fc3f37554eea829c087e1c71181a0dfbfb768",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

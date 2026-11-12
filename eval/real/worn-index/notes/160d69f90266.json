@@ -1,0 +1,124 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ep-tenure-months",
+   "type": "feature",
+   "label": "segment variable",
+   "as": [
+    "feat-ep-tenure-months"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ep-uplift-forest-v1",
+   "type": "model",
+   "label": "causal forest",
+   "as": [
+    "ep-uplift-forest-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "product-tier",
+   "type": "feature",
+   "label": "product tier",
+   "as": [
+    "product tier"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-ep-prior-logins-14d",
+   "type": "feature",
+   "label": "covariate",
+   "as": [
+    "feat-ep-prior-logins-14d"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-ep-assignments",
+   "type": "dataset",
+   "label": "assignments table",
+   "as": [
+    "assignments table"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ep-tenure-months",
+   "type": "uses",
+   "label": "from",
+   "o": "cards.accounts_monthly",
+   "quote": "from cards.accounts_monthly",
+   "line": 4
+  },
+  {
+   "s": "ep-uplift-forest-v1",
+   "type": "uses",
+   "label": "input to",
+   "o": "feat-ep-tenure-months",
+   "quote": "Input to ep-uplift-forest-v1 together with the product tier and feat-ep-prior-logins-14d.",
+   "line": 6
+  },
+  {
+   "s": "ep-uplift-forest-v1",
+   "type": "uses",
+   "label": "input to",
+   "o": "product-tier",
+   "quote": "Input to ep-uplift-forest-v1 together with the product tier and feat-ep-prior-logins-14d.",
+   "line": 6
+  },
+  {
+   "s": "ep-uplift-forest-v1",
+   "type": "uses",
+   "label": "input to",
+   "o": "feat-ep-prior-logins-14d",
+   "quote": "Input to ep-uplift-forest-v1 together with the product tier and feat-ep-prior-logins-14d.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ep-uplift-forest-v1",
+  "feat-ep-prior-logins-14d"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ep-assignments",
+   "quote": "Builds on the assignments table, hash-based units across tests.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "experiment-platform/feat-ep-tenure-months.md",
+ "sha": "160d69f902665967f2170bd0b4f143bf1fc932d730ece3ce96812d62fbac4353",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

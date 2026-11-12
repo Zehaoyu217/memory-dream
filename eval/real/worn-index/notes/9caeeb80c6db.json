@@ -1,0 +1,137 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "aml-xgb-v1",
+   "type": "model",
+   "label": "ranker",
+   "as": [
+    "XGBoost ranker"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "aml-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "aml-xgb-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-aml-dispositions",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "aml analyst dispositions dataset"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-aml-new-counterparty",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-aml-new-counterparty"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-aml-structuring-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-aml-structuring-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-402",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-402"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "aml-xgb-v1",
+   "type": "trained-on",
+   "label": "trained on",
+   "o": "ds-aml-dispositions",
+   "quote": "Trained on 2025 dispositions with two features in v1",
+   "line": 6
+  },
+  {
+   "s": "aml-xgb-v1",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.84 on Jul-Sep 2025 dispositions",
+   "line": 6
+  },
+  {
+   "s": "aml-xgb-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "aml-xgb-v1",
+   "quote": "Superseded by aml-xgb-v2 on 2026-03-30.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-402",
+  "aml-xgb-v2"
+ ],
+ "built_on": [
+  {
+   "what": "ds-aml-dispositions",
+   "quote": "Builds on the aml analyst dispositions dataset, feat-aml-new-counterparty and feat-aml-structuring-v1.",
+   "line": 8
+  },
+  {
+   "what": "feat-aml-new-counterparty",
+   "quote": "Builds on the aml analyst dispositions dataset, feat-aml-new-counterparty and feat-aml-structuring-v1.",
+   "line": 8
+  },
+  {
+   "what": "feat-aml-structuring-v1",
+   "quote": "Builds on the aml analyst dispositions dataset, feat-aml-new-counterparty and feat-aml-structuring-v1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "aml-alerts/aml-xgb-v1.md",
+ "sha": "9caeeb80c6db5386546450094c82bdf4b1854c5f654ad0658b6f26f4fe3943b1",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

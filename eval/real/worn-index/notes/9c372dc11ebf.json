@@ -1,0 +1,112 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "promo.ab_assignments",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`promo.ab_assignments`"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "control-arm",
+   "type": "segment",
+   "label": "control",
+   "as": [
+    "control 32,000 (19.99%)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "arm-b",
+   "type": "segment",
+   "label": "arm b",
+   "as": [
+    "arm B 32,000 (0% for 12 months)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "arm-c",
+   "type": "segment",
+   "label": "arm c",
+   "as": [
+    "arm C 32,000 (0% for 6 months)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "eligible-cardholders",
+   "type": "segment",
+   "label": "eligible cardholders",
+   "as": [
+    "standard-APR cardholders with no promo in the last 12 months and a bureau score on file"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "promo.ab_assignments",
+   "type": "other",
+   "label": "randomizes into",
+   "o": "control-arm",
+   "quote": "`promo.ab_assignments` randomizes 96,000 accounts into three arms",
+   "line": 4
+  },
+  {
+   "s": "promo.ab_assignments",
+   "type": "other",
+   "label": "randomizes into",
+   "o": "arm-b",
+   "quote": "`promo.ab_assignments` randomizes 96,000 accounts into three arms",
+   "line": 4
+  },
+  {
+   "s": "promo.ab_assignments",
+   "type": "other",
+   "label": "randomizes into",
+   "o": "arm-c",
+   "quote": "`promo.ab_assignments` randomizes 96,000 accounts into three arms",
+   "line": 4
+  },
+  {
+   "s": "eligible-cardholders",
+   "type": "other",
+   "label": "eligibility for",
+   "o": "promo.ab_assignments",
+   "quote": "Eligibility: standard-APR cardholders with no promo in the last 12 months and a bureau score on file.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "q-pa-readout-question"
+ ],
+ "built_on": [
+  {
+   "what": "q-pa-readout-question",
+   "quote": "Builds on q-pa-readout-question.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "promo-apr-test/ds-pa-ab-assignments.md",
+ "sha": "9c372dc11ebf522c4c779f362f8a9039e000395b06830885314afa1ab9d8b700",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

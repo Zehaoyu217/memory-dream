@@ -1,0 +1,97 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "feat-f25-velocity-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "velocity v1",
+    "feat-f25-velocity-v1"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "drops AUC by 0.021"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "PSI of the velocity score Jan to Mar 2025 is 0.04"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-f25-velocity-v1",
+   "type": "evaluated-on",
+   "label": "drop-column test on",
+   "o": "holdout-2025q1",
+   "quote": "Drop-column test: removing feat-f25-velocity-v1 drops AUC by 0.021 on holdout-2025q1",
+   "line": 5
+  },
+  {
+   "s": "feat-f25-velocity-v1",
+   "type": "measured-by",
+   "label": "drops",
+   "o": "auc",
+   "quote": "drops AUC by 0.021",
+   "line": 5
+  },
+  {
+   "s": "feat-f25-velocity-v1",
+   "type": "measured-by",
+   "label": "measured",
+   "o": "psi",
+   "quote": "PSI of the velocity score Jan to Mar 2025 is 0.04",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-f25-holdout-2025q1"
+ ],
+ "built_on": [
+  {
+   "what": "ds-f25-holdout-2025q1",
+   "quote": "Builds on ds-f25-holdout-2025q1 and the card velocity counts feature.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/fraud25-find-velocity-stable.md",
+ "sha": "b58914724f95498da019c01a6c6b3e337677b49953a9b6501afa3e1ef0deac93",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

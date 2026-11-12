@@ -1,0 +1,83 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cu-contact-hist-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-contact-hist-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`callcenter.calls`"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1 (n=24,860)"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cu-resp-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cu-resp-v1"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cu-contact-hist-v2",
+   "type": "uses",
+   "label": "source",
+   "o": "callcenter.calls",
+   "quote": "Source: `callcenter.calls` plus the SMS delivery log.",
+   "line": 7
+  },
+  {
+   "s": "feat-cu-contact-hist-v2",
+   "type": "part-of",
+   "label": "adds AUC to",
+   "o": "cu-resp-v1",
+   "quote": "Adds +0.012 AUC to cu-resp-v1 on holdout-2025q1 (n=24,860).",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "promise-to-pay label source",
+   "quote": "Builds on the call outcomes promise-to-pay label source.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-uplift/feat-cu-contact-hist-v2.md",
+ "sha": "d2c28033bc7df06f2d31cbf8f88c61f2271d6118599a728a96d1847c06c0f205",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,55 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-utilization-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "Credit utilization features: balance / limit over 1, 3 and 6 months (v1)"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards-txn-daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-utilization-v1",
+   "type": "uses",
+   "label": "uses",
+   "o": "cards-txn-daily",
+   "quote": "uses `balance` and `credit_limit` from `cards.txn_daily`",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "features/utilization_v1.py"
+ ],
+ "built_on": [
+  {
+   "what": "ds-txn-2025q4",
+   "quote": "Builds on ds-txn-2025q4.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2026/feat-utilization-v1.md",
+ "sha": "26a42f17d3b4864c8809b6f76f4fb0d0982c43bf05ae89c5fcf978d2d7998bfb",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

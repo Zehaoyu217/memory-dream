@@ -1,0 +1,79 @@
+{
+ "kind": "metric",
+ "entities": [
+  {
+   "id": "recall-at-10",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "recall@10"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "churn-2026",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "churn-2026"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "retention",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "retention"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-2026",
+   "type": "measured-by",
+   "label": "decides on",
+   "o": "recall-at-10",
+   "quote": "decisions use recall@10",
+   "line": 6
+  },
+  {
+   "s": "churn-2026",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC is reported alongside",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "nb/metrics.py"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2026/metric-recall-at-10.md",
+ "sha": "f884c76682932b918ff32b1559705db24b548291c272532c3f15d05108e8bfc4",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

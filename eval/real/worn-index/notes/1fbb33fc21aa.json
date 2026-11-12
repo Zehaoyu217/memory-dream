@@ -1,0 +1,60 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "rev26-interchange-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rev26-interchange-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "spend-forecasting/sfc-hier-v3",
+   "type": "model",
+   "label": "volume source",
+   "as": [
+    "spend-forecasting/sfc-hier-v3"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rev26-interchange-v1",
+   "type": "uses",
+   "label": "volume from",
+   "o": "spend-forecasting/sfc-hier-v3",
+   "quote": "Volume source is spend-forecasting/sfc-hier-v3 from 2026.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-rev26-spend-volume"
+ ],
+ "built_on": [
+  {
+   "what": "feat-rev26-interchange-bps",
+   "quote": "Builds on the blended interchange bps feature and feat-rev26-volume-lag.",
+   "line": 8
+  },
+  {
+   "what": "feat-rev26-volume-lag",
+   "quote": "Builds on the blended interchange bps feature and feat-rev26-volume-lag.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "revenue-forecast-2026/rev26-interchange-v1.md",
+ "sha": "1fbb33fc21aa024a06a62e8d332b30fd556553d4ae6fe7106431b8378b4918a0",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

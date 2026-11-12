@@ -1,0 +1,96 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-cld-decrease-cohort",
+   "type": "dataset",
+   "label": "decrease cohort",
+   "as": [
+    "312,480 credit-line decreases, Jul 2024 to Jan 2025"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.limits_history",
+   "type": "dataset",
+   "label": "decrease events",
+   "as": [
+    "cards.limits_history"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "balances table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "roll-rate-30-plus",
+   "type": "metric",
+   "label": "loss label",
+   "as": [
+    "30+ DPD roll"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-cld-decrease-cohort",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards.limits_history",
+   "quote": "Built from `cards.limits_history` (decrease events)",
+   "line": 5
+  },
+  {
+   "s": "ds-cld-decrease-cohort",
+   "type": "uses",
+   "label": "joined to",
+   "o": "cards.accounts_monthly",
+   "quote": "joined to `cards.accounts_monthly` for balances and delinquency",
+   "line": 5
+  },
+  {
+   "s": "ds-cld-decrease-cohort",
+   "type": "measured-by",
+   "label": "loss label",
+   "o": "roll-rate-30-plus",
+   "quote": "with 30+ DPD roll as the main loss label",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "cards.limits_history",
+   "quote": "Built from `cards.limits_history`",
+   "line": 5
+  },
+  {
+   "what": "cards.accounts_monthly",
+   "quote": "joined to `cards.accounts_monthly`",
+   "line": 5
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "limit-decrease-policy/ds-cld-decrease-cohort.md",
+ "sha": "9cc967488181db71a10595dd21543b4f6ccf21d46f9a8c3a3bbfccce5bea432d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,105 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "fraud25-gbm-v2",
+   "type": "model",
+   "label": "replayed model",
+   "as": [
+    "fraud25-gbm-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fraud25_alerts_log",
+   "type": "dataset",
+   "label": "alert log",
+   "as": [
+    "fraud25_alerts_log"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "alert-precision",
+   "type": "metric",
+   "label": "alert precision",
+   "as": [
+    "alert precision 9.2%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "travel-alert-share",
+   "type": "metric",
+   "label": "travel share",
+   "as": [
+    "travel share of alerts 27%"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "evaluated-on",
+   "label": "replay on alert log",
+   "o": "fraud25_alerts_log",
+   "quote": "Replay of Jul-Sep 2025 alerts (`fraud25_alerts_log`, 18,420 alerts)",
+   "line": 5
+  },
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "measured-by",
+   "label": "precision reported",
+   "o": "alert-precision",
+   "quote": "alert precision 9.2%",
+   "line": 6
+  },
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "measured-by",
+   "label": "travel share reported",
+   "o": "travel-alert-share",
+   "quote": "travel share of alerts 27%",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-103"
+ ],
+ "built_on": [
+  {
+   "what": "dec-f25-threshold-062",
+   "quote": "Builds on dec-f25-threshold-062 and exp-107.",
+   "line": 8
+  },
+  {
+   "what": "exp-107",
+   "quote": "Builds on dec-f25-threshold-062 and exp-107.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "exp-103",
+   "quote": "Replaces exp-103.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/exp-108.md",
+ "sha": "805b271df3532a0e73ed551d06249e338e8fb1a5a4dfdda6b8955331f2cf2f32",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,115 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ror-value-band-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ror-value-band-v1",
+    "three value bands from expected-revenue deciles"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-ror-expected-revenue",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ror-expected-revenue"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-ror-tier-matrix",
+   "type": "dataset",
+   "label": "matrix table",
+   "as": [
+    "the v3 five-tier offer matrix table",
+    "ds-ror-tier-matrix v3"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "feat-ror-value-band-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ror-value-band-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fnd-ror-cashback-roi-v2",
+   "type": "other",
+   "label": "credit-loss check",
+   "as": [
+    "credit-loss check"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ror-value-band-v1",
+   "type": "part-of",
+   "label": "column of",
+   "o": "ds-ror-tier-matrix",
+   "quote": "Column of the matrix grid in ds-ror-tier-matrix v3.",
+   "line": 6
+  },
+  {
+   "s": "feat-ror-value-band-v1",
+   "type": "uses",
+   "label": "built from",
+   "o": "feat-ror-expected-revenue",
+   "quote": "three value bands from expected-revenue deciles",
+   "line": 4
+  },
+  {
+   "s": "feat-ror-value-band-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "feat-ror-value-band-v1",
+   "quote": "Replaced by feat-ror-value-band-v2 after the credit-loss check",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-ror-tier-matrix",
+  "feat-ror-expected-revenue",
+  "feat-ror-value-band-v2",
+  "fnd-ror-cashback-roi-v2"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ror-tier-matrix",
+   "quote": "Builds on the v3 five-tier offer matrix table and feat-ror-expected-revenue.",
+   "line": 8
+  },
+  {
+   "what": "feat-ror-expected-revenue",
+   "quote": "Builds on the v3 five-tier offer matrix table and feat-ror-expected-revenue.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "retention-offers-roi/feat-ror-value-band-v1.md",
+ "sha": "4d469dfae735c5d0ac666ba56d096b88f09a0badec595161558085aecb664003",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

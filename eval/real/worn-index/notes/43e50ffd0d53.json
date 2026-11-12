@@ -1,0 +1,74 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-mq3-cap-inapp",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: cap in-app at two touches per 14 days"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "in-app",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "in-app"
+   ],
+   "lines": [
+    4,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "email",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "email"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-mq3-cap-inapp",
+   "type": "other",
+   "label": "moves sends to",
+   "o": "email",
+   "quote": "the cap moves those sends to email.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "find-mq3-inapp-saturates",
+  "dec-mq3-ship-xl"
+ ],
+ "built_on": [
+  {
+   "what": "find-mq3-inapp-saturates",
+   "quote": "Based on find-mq3-inapp-saturates.",
+   "line": 5
+  },
+  {
+   "what": "dec-mq3-ship-xl",
+   "quote": "Builds on dec-mq3-ship-xl and the finding on in-app saturation.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "marketing-uplift-q3/dec-mq3-cap-inapp.md",
+ "sha": "43e50ffd0d53d6f833b1c6be3a02ceb5986e2b3fd2ed583d9e057fa6fc9a8f54",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

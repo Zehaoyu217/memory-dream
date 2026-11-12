@@ -1,0 +1,84 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-bt-bureau-join",
+   "type": "dataset",
+   "label": "bureau join",
+   "as": [
+    "Bureau scores join"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "bureau table",
+   "as": [
+    "`bureau.scores_monthly`"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "ds-bt-offer-log",
+   "type": "dataset",
+   "label": "offer log",
+   "as": [
+    "the bt offer log dataset"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "thin-file-bt",
+   "type": "segment",
+   "label": "thin-file accounts",
+   "as": [
+    "Thin-file accounts (no score)"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-bt-bureau-join",
+   "type": "uses",
+   "label": "pulled from",
+   "o": "bureau.scores_monthly",
+   "quote": "Pulled from `bureau.scores_monthly` (credit-data)",
+   "line": 5
+  },
+  {
+   "s": "ds-bt-bureau-join",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-bt-offer-log",
+   "quote": "Builds on the bt offer log dataset.",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-bt-offer-log",
+   "quote": "Builds on the bt offer log dataset.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "balance-transfer-propensity/ds-bt-bureau-join.md",
+ "sha": "75ad0c2e8dfac62c3289a6f42cba00f2a5bad35cdcecd6df17efdb560db03fbb",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

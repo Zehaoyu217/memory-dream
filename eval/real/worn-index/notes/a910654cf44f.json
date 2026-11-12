@@ -1,0 +1,103 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-f26-velocity-v2",
+   "type": "feature",
+   "label": "velocity feature",
+   "as": [
+    "feat-f26-velocity-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-f25-velocity-v1",
+   "type": "feature",
+   "label": "2025 velocity feature",
+   "as": [
+    "feat-f25-velocity-v1"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "ds-f26-cnp-txn",
+   "type": "dataset",
+   "label": "cnp transactions",
+   "as": [
+    "ds-f26-cnp-txn"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fraud26-gbm-v2",
+   "type": "model",
+   "label": "v2",
+   "as": [
+    "fraud26-gbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fraud26-find-velocity-clean",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fraud26-find-velocity-clean"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-f26-velocity-v2",
+   "type": "other",
+   "label": "extends",
+   "o": "feat-f25-velocity-v1",
+   "quote": "Extends feat-f25-velocity-v1 with a 7-day window",
+   "line": 5
+  },
+  {
+   "s": "fraud26-gbm-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-f26-velocity-v2",
+   "quote": "Clean version used from fraud26-gbm-v2.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fraud26-find-velocity-clean",
+  "fraud26-gbm-v2"
+ ],
+ "built_on": [
+  {
+   "what": "feat-f25-velocity-v1",
+   "quote": "Builds on fraud-2025/feat-f25-velocity-v1 and ds-f26-cnp-txn.",
+   "line": 8
+  },
+  {
+   "what": "ds-f26-cnp-txn",
+   "quote": "Builds on fraud-2025/feat-f25-velocity-v1 and ds-f26-cnp-txn.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2026/feat-f26-velocity-v2.md",
+ "sha": "a910654cf44f0e55590aa14bf90f562fcdd402eb0f5a5d61f2f7f4caf4f3f992",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,79 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-txn-2025q4",
+   "type": "dataset",
+   "label": "snapshot",
+   "as": [
+    "Q4-2025 snapshot of cards.txn_daily"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards-txn-daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "data-eng-cards",
+   "type": "team",
+   "label": "owner",
+   "as": [
+    "data-eng-cards"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "txn-backfill",
+   "type": "other",
+   "label": "known gap",
+   "as": [
+    "September 2025 partitions were short by about 6%"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-txn-2025q4",
+   "type": "part-of",
+   "label": "snapshot of",
+   "o": "cards-txn-daily",
+   "quote": "Q4-2025 snapshot of cards.txn_daily",
+   "line": 4
+  },
+  {
+   "s": "ds-txn-2025q4",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "data-eng-cards",
+   "quote": "Owned by data-eng-cards.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "txn-backfill",
+  "sql/txn_snapshot.sql"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2026/ds-txn-2025q4.md",
+ "sha": "0067ae049a969fe3098ea0aa75ad090d8a512a61f7206550b8380f9d56ce85c1",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

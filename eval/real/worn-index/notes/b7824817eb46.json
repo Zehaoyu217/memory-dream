@@ -1,0 +1,72 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-501",
+   "type": "experiment",
+   "label": "active days test",
+   "as": [
+    "Active days alone: AUC 0.68 for 90-day attrition on holdout-2025q4 (n = 610,000)"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "segment",
+   "label": "holdout set",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "feat-ae-active-days-v1",
+   "type": "feature",
+   "label": "active days",
+   "as": [
+    "the 28-day active days count"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-501",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "holdout-2025q4",
+   "quote": "scored on holdout-2025q4",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "fnd-ae-active-days-weak"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ae-holdout",
+   "quote": "Builds on ds-ae-holdout and the 28-day active days count.",
+   "line": 8
+  },
+  {
+   "what": "feat-ae-active-days-v1",
+   "quote": "Builds on ds-ae-holdout and the 28-day active days count.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "app-engagement/exp-501.md",
+ "sha": "b7824817eb46bddcf7950cbbbfe09528b63e9eb0d28726975e779d5db1abcaa6",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

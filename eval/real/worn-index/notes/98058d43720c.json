@@ -1,0 +1,108 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-205",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-205"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-sfc-util-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-sfc-util-v1"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "rewards-segment",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "Rewards segment"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sfc-bt-2024",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "sfc-bt-2024"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sfc-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "the per-segment lightgbm model"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-205",
+   "type": "uses",
+   "label": "adds",
+   "o": "feat-sfc-util-v1",
+   "quote": "Adds feat-sfc-util-v1 to the Rewards segment model only",
+   "line": 5
+  },
+  {
+   "s": "exp-205",
+   "type": "evaluated-on",
+   "label": "tested on",
+   "o": "sfc-bt-2024",
+   "quote": "sfc-bt-2024",
+   "line": 5
+  },
+  {
+   "s": "exp-205",
+   "type": "uses",
+   "label": "built on",
+   "o": "sfc-lgbm-v2",
+   "quote": "the per-segment lightgbm model",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "feat-sfc-util-v1",
+   "quote": "Builds on feat-sfc-util-v1 and the per-segment lightgbm model.",
+   "line": 8
+  },
+  {
+   "what": "sfc-lgbm-v2",
+   "quote": "Builds on feat-sfc-util-v1 and the per-segment lightgbm model.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "spend-forecasting/exp-205.md",
+ "sha": "98058d43720c089c5f8fc626fcb8aae504c3f8cc8e80e0802c060ea1f52c5362",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

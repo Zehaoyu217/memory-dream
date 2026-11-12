@@ -1,0 +1,122 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-507",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "Session trend added to the attrition model"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ae-attr-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ae-attr-gbm-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-ae-session-trend-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "28-day session-trend slope"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-ae-holdout",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.82 with trend against 0.81 without"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-507",
+   "type": "uses",
+   "label": "set-up model",
+   "o": "ae-attr-gbm-v1",
+   "quote": "ae-attr-gbm-v1 with and without the 28-day session-trend slope",
+   "line": 5
+  },
+  {
+   "s": "exp-507",
+   "type": "uses",
+   "label": "set-up feature",
+   "o": "feat-ae-session-trend-v1",
+   "quote": "with and without the 28-day session-trend slope",
+   "line": 5
+  },
+  {
+   "s": "exp-507",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "ds-ae-holdout",
+   "quote": "(holdout-2025q4, n = 610,000)",
+   "line": 6
+  },
+  {
+   "s": "exp-507",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "auc",
+   "quote": "AUC 0.82 with trend against 0.81 without",
+   "line": 6
+  },
+  {
+   "s": "ae-attr-gbm-v1",
+   "type": "other",
+   "label": "not added",
+   "o": "feat-ae-session-trend-v1",
+   "quote": "Trend is not added",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-ae-session-trend-v1",
+  "ae-attr-gbm-v1"
+ ],
+ "built_on": [
+  {
+   "what": "feat-ae-session-trend-v1",
+   "quote": "Builds on feat-ae-session-trend-v1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "app-engagement/exp-507.md",
+ "sha": "00da6e1d255c5d3de66fa45433825bd205ebd06177ba75805461e21d9671f58a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

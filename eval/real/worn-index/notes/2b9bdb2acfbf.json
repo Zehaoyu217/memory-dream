@@ -1,0 +1,115 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-302",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-302: adding amount band and transaction match lifts precision@0.90 to 88.5%"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-disp-analyst-labels",
+   "type": "dataset",
+   "label": "two-analyst labels",
+   "as": [
+    "Same CV setup as exp-301 (n=1,980 two-analyst labels, January-February 2026)."
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-disp-amount-band",
+   "type": "feature",
+   "label": "amount band feature",
+   "as": [
+    "Added feat-disp-amount-band"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-disp-txn-match",
+   "type": "feature",
+   "label": "transaction match feature",
+   "as": [
+    "feat-disp-txn-match"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-301",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-301"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-302",
+   "type": "evaluated-on",
+   "label": "same CV setup",
+   "o": "ds-disp-analyst-labels",
+   "quote": "Same CV setup as exp-301 (n=1,980 two-analyst labels, January-February 2026).",
+   "line": 5
+  },
+  {
+   "s": "exp-302",
+   "type": "uses",
+   "label": "added",
+   "o": "feat-disp-amount-band",
+   "quote": "Added feat-disp-amount-band and feat-disp-txn-match",
+   "line": 6
+  },
+  {
+   "s": "exp-302",
+   "type": "uses",
+   "label": "added",
+   "o": "feat-disp-txn-match",
+   "quote": "Added feat-disp-amount-band and feat-disp-txn-match",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-301"
+ ],
+ "built_on": [
+  {
+   "what": "exp-301",
+   "quote": "Builds on exp-301, the disputed amount band feature and the authorisation match feature.",
+   "line": 8
+  },
+  {
+   "what": "feat-disp-amount-band",
+   "quote": "the disputed amount band feature",
+   "line": 8
+  },
+  {
+   "what": "feat-disp-txn-match",
+   "quote": "the authorisation match feature",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "dispute-triage/exp-302.md",
+ "sha": "2b9bdb2acfbfb1e80e28201b7509d47dcb6b2e6172d5383047e7fe090bc00513",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

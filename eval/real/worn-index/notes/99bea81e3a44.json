@@ -1,0 +1,89 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "feat-cb-handoff-rule-v2",
+   "type": "feature",
+   "label": "handoff rule v2",
+   "as": [
+    "Handoff rule v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-304",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-304"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dec-cb-handoff-v2",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-cb-handoff-v2"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cb-handoff-rule-v2",
+   "type": "evaluated-on",
+   "label": "replayed on",
+   "o": "exp-304",
+   "quote": "On the 14-day repeat window the v2 rule gives repeat contact 15 percent against 21 percent for v1 (exp-304)",
+   "line": 5
+  },
+  {
+   "s": "feat-cb-handoff-rule-v2",
+   "type": "other",
+   "label": "in production under",
+   "o": "dec-cb-handoff-v2",
+   "quote": "Current rule in production under dec-cb-handoff-v2.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "dec-cb-handoff-v2",
+  "exp-304",
+  "feat-cb-handoff-rule-v1",
+  "fnd-cb-repeat-contact"
+ ],
+ "built_on": [
+  {
+   "what": "exp-304",
+   "quote": "Builds on the handoff rule v1 versus v2 replay",
+   "line": 7
+  },
+  {
+   "what": "feat-cb-handoff-rule-v1",
+   "quote": "and feat-cb-handoff-rule-v1.",
+   "line": 7
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-cb-handoff-rule-v1",
+   "quote": "Replaces the handoff rule after two misses.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "chatbot-deflection/feat-cb-handoff-rule-v2.md",
+ "sha": "99bea81e3a44ffb3f5b2d516fdb00fb7bd8d2732bfa559ef43719141f8bfb407",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

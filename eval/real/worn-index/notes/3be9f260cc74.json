@@ -1,0 +1,118 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ed-cashadv-v1",
+   "type": "feature",
+   "label": "cash-advance feature",
+   "as": [
+    "feat-ed-cashadv-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ed-gbm-v1",
+   "type": "model",
+   "label": "gbm model",
+   "as": [
+    "ed-gbm-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-ed-util-trend-v1",
+   "type": "feature",
+   "label": "utilisation feature",
+   "as": [
+    "feat-ed-util-trend-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-202",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-202"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "current-account-scoring-population",
+   "type": "segment",
+   "label": "scoring population",
+   "as": [
+    "current-account scoring population"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ed-cashadv-v1",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cards.txn_daily",
+   "quote": "Source: `cards.txn_daily` aggregated to account-month, joined to the snapshot.",
+   "line": 6
+  },
+  {
+   "s": "ed-gbm-v1",
+   "type": "uses",
+   "label": "combined with",
+   "o": "feat-ed-util-trend-v1",
+   "quote": "Adds about +0.02 AUC to ed-gbm-v1 when combined with feat-ed-util-trend-v1 (exp-202).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-202"
+ ],
+ "built_on": [
+  {
+   "what": "current-account-scoring-population",
+   "quote": "Builds on the current-account scoring population.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "early-delinquency/feat-ed-cashadv-v1.md",
+ "sha": "3be9f260cc74eb3b8e46576c9db281e7c2fbc455d453553d35a275bfaf5aa171",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

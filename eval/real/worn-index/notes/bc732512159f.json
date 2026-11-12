@@ -1,0 +1,134 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "rs-xgb-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rs-xgb-v3"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "rs-xgb-v2",
+   "type": "model",
+   "label": "predecessor model",
+   "as": [
+    "rs-xgb-v2"
+   ],
+   "lines": [
+    4,
+    5,
+    6,
+    8,
+    9
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE 14.2%",
+    "MAPE 14.2% on recovery-scoring-agency-2025h2",
+    "19.8%"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "recovery-scoring-agency-2025h2",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "recovery-scoring-agency-2025h2 (n=3,480)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "placement-cutoff-0.18",
+   "type": "term",
+   "label": "placement cutoff",
+   "as": [
+    "the 0.18 cutoff"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-308",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-308"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rs-xgb-v3",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "recovery-scoring-agency-2025h2",
+   "quote": "MAPE 14.2% on recovery-scoring-agency-2025h2 (n=3,480)",
+   "line": 6
+  },
+  {
+   "s": "rs-xgb-v3",
+   "type": "measured-by",
+   "label": "MAPE",
+   "o": "mape",
+   "quote": "MAPE 14.2% on recovery-scoring-agency-2025h2 (n=3,480) against 19.8% for rs-xgb-v2.",
+   "line": 6
+  },
+  {
+   "s": "rs-xgb-v3",
+   "type": "uses",
+   "label": "placement uses cutoff",
+   "o": "placement-cutoff-0.18",
+   "quote": "Placement uses the classifier probability with the 0.18 cutoff from dec-rs-placement-cutoff.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-rs-placement-cutoff"
+ ],
+ "built_on": [
+  {
+   "what": "exp-308",
+   "quote": "Builds on exp-308 and rs-xgb-v2.",
+   "line": 8
+  },
+  {
+   "what": "rs-xgb-v2",
+   "quote": "Builds on exp-308 and rs-xgb-v2.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "rs-xgb-v2",
+   "quote": "Replaces rs-xgb-v2.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "recovery-scoring/rs-xgb-v3.md",
+ "sha": "bc732512159f4be3100d363a90dab08184751d2d7aab7f3df258f34a726e0ccb",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

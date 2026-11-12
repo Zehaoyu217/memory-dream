@@ -1,0 +1,133 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-bt-drop-post-offer-features",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: drop all limit-history rows dated after offer open from every BT model"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "maya-ortiz",
+   "type": "person",
+   "label": "person",
+   "as": [
+    "Maya Ortiz"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "engineer",
+   "as": [
+    "Sam Lee"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "retention",
+   "type": "team",
+   "label": "owner",
+   "as": [
+    "retention"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "bt-xgb-v2",
+   "type": "model",
+   "label": "clean model",
+   "as": [
+    "bt-xgb-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "0.68 holdout AUC",
+    "0.81"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "find-bt-limit-leak",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "the finding that post-offer limits leak"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bt-xgb-v2",
+   "type": "measured-by",
+   "label": "holdout AUC",
+   "o": "auc",
+   "quote": "the clean model reaches 0.68 holdout AUC (bt-xgb-v2), versus the 0.81 reported before.",
+   "line": 6
+  },
+  {
+   "s": "dec-bt-drop-post-offer-features",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "retention",
+   "quote": "Owner: retention.",
+   "line": 7
+  },
+  {
+   "s": "dec-bt-drop-post-offer-features",
+   "type": "decided-by",
+   "label": "agreed with",
+   "o": "maya-ortiz",
+   "quote": "Agreed with Maya Ortiz on 2025-07-08.",
+   "line": 5
+  },
+  {
+   "s": "sam-lee",
+   "type": "owned-by",
+   "label": "implements",
+   "o": "dec-bt-drop-post-offer-features",
+   "quote": "Sam Lee implements in the feature pipeline.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "find-bt-limit-leak",
+   "quote": "Builds on the finding that post-offer limits leak.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "balance-transfer-propensity/dec-bt-drop-post-offer-features.md",
+ "sha": "69c91999218a4339f4581ee75ce95eef9229fda67cb6e94a7885512892074fc5",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

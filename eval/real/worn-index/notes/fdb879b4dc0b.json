@@ -1,0 +1,77 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "bureau table",
+   "as": [
+    "bureau.scores_monthly"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "current-account-scoring-population",
+   "type": "segment",
+   "label": "scoring population",
+   "as": [
+    "current-account scoring population"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "thin-file-accounts",
+   "type": "segment",
+   "label": "thin-file segment",
+   "as": [
+    "Thin-file accounts",
+    "thin-file accounts"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bureau.scores_monthly",
+   "type": "uses",
+   "label": "joins to",
+   "o": "current-account-scoring-population",
+   "quote": "Join on account and snapshot month to `bureau.scores_monthly` (credit-data)",
+   "line": 5
+  },
+  {
+   "s": "thin-file-accounts",
+   "type": "other",
+   "label": "scored by",
+   "o": "bureau.scores_monthly",
+   "quote": "The 9% without a bureau record are thin-file accounts and are scored only by the features that do not need bureau data.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "find-ed-gbm-vs-logit"
+ ],
+ "built_on": [
+  {
+   "what": "current-account-scoring-population",
+   "quote": "Builds on the current-account scoring population.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "early-delinquency/ds-ed-bureau-join.md",
+ "sha": "fdb879b4dc0b1a53f42f0598b1941a68d2fd304eca1eb85409c28c292ea94c92",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

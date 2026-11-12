@@ -1,0 +1,88 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "find-mq3-q1-drift",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Finding: uplift@20% falls to 2.2 out of time"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-mq3-app-sessions-30d",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "Sessions-30d"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "app-redesign",
+   "type": "other",
+   "label": "event",
+   "as": [
+    "The redesign"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "app-redesign",
+   "type": "other",
+   "label": "renamed event",
+   "o": "feat-mq3-app-sessions-30d",
+   "quote": "The redesign renamed the session event.",
+   "line": 5
+  },
+  {
+   "s": "feat-mq3-app-sessions-30d",
+   "type": "other",
+   "label": "coverage fell",
+   "o": "uplift-at-20",
+   "quote": "coverage for in-app-heavy accounts fell from 71% to 58%.",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-mq3-app-engagement",
+   "quote": "Builds on ds-mq3-app-engagement and exp-306-oot-q1-2026.",
+   "line": 8
+  },
+  {
+   "what": "exp-306-oot-q1-2026",
+   "quote": "Builds on ds-mq3-app-engagement and exp-306-oot-q1-2026.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "marketing-uplift-q3/find-mq3-q1-drift.md",
+ "sha": "1408c7884353b6c36d63ba10aea46e0310bc5e8bf86dd397448432dd5906d27a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

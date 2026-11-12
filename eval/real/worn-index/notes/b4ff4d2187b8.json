@@ -1,0 +1,153 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.31"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini 0.52"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "oot-set",
+   "type": "dataset",
+   "label": "oot set",
+   "as": [
+    "OOT accounts"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "retention-model",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "the retention model"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "deck-headline",
+   "type": "other",
+   "label": "deck headline",
+   "as": [
+    "The deck headline"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "q1-2026-review",
+   "type": "other",
+   "label": "review",
+   "as": [
+    "Q1 2026 review"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ks-vs-gini-reporting",
+   "type": "document",
+   "label": "howto",
+   "as": [
+    "howto/ks-vs-gini-reporting"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "retention-model",
+   "type": "measured-by",
+   "label": "shows",
+   "o": "ks",
+   "quote": "KS 0.31 and Gini 0.52",
+   "line": 4
+  },
+  {
+   "s": "retention-model",
+   "type": "measured-by",
+   "label": "shows",
+   "o": "gini",
+   "quote": "KS 0.31 and Gini 0.52",
+   "line": 4
+  },
+  {
+   "s": "retention-model",
+   "type": "evaluated-on",
+   "label": "on",
+   "o": "oot-set",
+   "quote": "on n = 48,200 OOT accounts",
+   "line": 4
+  },
+  {
+   "s": "gini",
+   "type": "uses",
+   "label": "derived from",
+   "o": "auc",
+   "quote": "Gini is derived as 2 times AUC minus 1",
+   "line": 5
+  },
+  {
+   "s": "deck-headline",
+   "type": "measured-by",
+   "label": "headline is",
+   "o": "ks",
+   "quote": "The deck headline is KS",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "howto/ks-vs-gini-reporting"
+ ],
+ "built_on": [
+  {
+   "what": "ks-vs-gini-reporting",
+   "quote": "Builds on howto/ks-vs-gini-reporting.",
+   "line": 6
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/ks-gini-retention-q1.md",
+ "sha": "b4ff4d2187b885b2b42eee9e350de3e677800bc63b2f4762ea7820502e6a8a43",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

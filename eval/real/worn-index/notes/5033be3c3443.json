@@ -1,0 +1,156 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-205",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-205"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cap-25pct",
+   "type": "policy",
+   "label": "per-cycle cap",
+   "as": [
+    "a 25% per-cycle cap"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "40pct-cut",
+   "type": "other",
+   "label": "40% cut",
+   "as": [
+    "a 40% cap"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "roll-rate",
+   "type": "metric",
+   "label": "90-day roll",
+   "as": [
+    "90-day roll"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cld-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cld-gbm-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "2025-second-half-holdout",
+   "type": "other",
+   "label": "randomised holdout",
+   "as": [
+    "the 2025 second-half randomised holdout"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "dec-cld-cap-25pct",
+   "type": "policy",
+   "label": "decision",
+   "as": [
+    "dec-cld-cap-25pct"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-205",
+   "type": "measured-by",
+   "label": "measures",
+   "o": "roll-rate",
+   "quote": "roll is 30+ DPD within 90 days",
+   "line": 5
+  },
+  {
+   "s": "cap-25pct",
+   "type": "measured-by",
+   "label": "rolls 6.1%",
+   "o": "roll-rate",
+   "quote": "Cap of 25% per cycle rolls 6.1%",
+   "line": 6
+  },
+  {
+   "s": "40pct-cut",
+   "type": "measured-by",
+   "label": "rolls 8.4%",
+   "o": "roll-rate",
+   "quote": "a 40% cut in one cycle rolls 8.4%",
+   "line": 6
+  },
+  {
+   "s": "exp-205",
+   "type": "uses",
+   "label": "builds on",
+   "o": "cld-gbm-v1",
+   "quote": "Builds on cld-gbm-v1 and the 2025 second-half randomised holdout.",
+   "line": 8
+  },
+  {
+   "s": "exp-205",
+   "type": "uses",
+   "label": "cohort from",
+   "o": "2025-second-half-holdout",
+   "quote": "cohort from the H2 2025 control design",
+   "line": 5
+  },
+  {
+   "s": "dec-cld-cap-25pct",
+   "type": "uses",
+   "label": "basis",
+   "o": "exp-205",
+   "quote": "Basis for dec-cld-cap-25pct.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "cld-gbm-v1",
+  "dec-cld-cap-25pct"
+ ],
+ "built_on": [
+  {
+   "what": "cld-gbm-v1",
+   "quote": "Builds on cld-gbm-v1 and the 2025 second-half randomised holdout.",
+   "line": 8
+  },
+  {
+   "what": "2025-second-half-holdout",
+   "quote": "Builds on cld-gbm-v1 and the 2025 second-half randomised holdout.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "limit-decrease-policy/exp-205.md",
+ "sha": "5033be3c3443a87e54b831ac6904eba591103e85b4c09c61c1663d123a83ff22",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

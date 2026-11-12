@@ -1,0 +1,118 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-mm-payment-ratio-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mm-payment-ratio-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-mm-payment-ratio-v1",
+   "type": "feature",
+   "label": "earlier version",
+   "as": [
+    "feat-mm-payment-ratio-v1"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "mm-collect-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "mm-collect-xgb-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "feature psi",
+   "as": [
+    "Feature PSI"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-mm-scoring-log",
+   "type": "dataset",
+   "label": "scoring log",
+   "as": [
+    "the scoring log"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mm-collect-xgb-v2",
+   "type": "uses",
+   "label": "used by",
+   "o": "feat-mm-payment-ratio-v2",
+   "quote": "Used by mm-collect-xgb-v2 from 2025-08-12",
+   "line": 6
+  },
+  {
+   "s": "feat-mm-payment-ratio-v2",
+   "type": "measured-by",
+   "label": "stays under",
+   "o": "psi",
+   "quote": "Feature PSI on the v2 definition stays under 0.10",
+   "line": 6
+  },
+  {
+   "s": "feat-mm-payment-ratio-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "feat-mm-payment-ratio-v1",
+   "quote": "Replaces feat-mm-payment-ratio-v1.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-mm-payment-ratio-v1",
+  "fnd-payment-ratio-bug"
+ ],
+ "built_on": [
+  {
+   "what": "feat-mm-payment-ratio-v1",
+   "quote": "Builds on feat-mm-payment-ratio-v1 and the payment ratio v1 definition-change finding.",
+   "line": 7
+  },
+  {
+   "what": "fnd-payment-ratio-bug",
+   "quote": "Builds on feat-mm-payment-ratio-v1 and the payment ratio v1 definition-change finding.",
+   "line": 7
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-mm-payment-ratio-v1",
+   "quote": "Replaces feat-mm-payment-ratio-v1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "model-monitoring/feat-mm-payment-ratio-v2.md",
+ "sha": "97c51678169907b9da07b1c97b1b72f3c5c9ce928920a01d975a48d54a4ceaee",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

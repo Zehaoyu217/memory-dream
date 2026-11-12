@@ -1,0 +1,96 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "feat-fsm-txn-cnt-7d",
+   "type": "feature",
+   "label": "migrated feature",
+   "as": [
+    "txn_cnt_7d"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "txn_cnt_30d",
+   "type": "feature",
+   "label": "migrated feature",
+   "as": [
+    "txn_cnt_30d"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "data-eng-cards",
+   "type": "team",
+   "label": "owner team",
+   "as": [
+    "data-eng-cards"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "data-quality-txn",
+   "type": "other",
+   "label": "tracking place",
+   "as": [
+    "data-quality-txn"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-fsm-txn-cnt-7d",
+   "type": "uses",
+   "label": "reads",
+   "o": "cards.txn_daily",
+   "quote": "Six of the migrated features read `cards.txn_daily` directly, including txn_cnt_7d",
+   "line": 5
+  },
+  {
+   "s": "txn_cnt_30d",
+   "type": "uses",
+   "label": "reads",
+   "o": "cards.txn_daily",
+   "quote": "Six of the migrated features read `cards.txn_daily` directly, including txn_cnt_7d, txn_cnt_30d",
+   "line": 5
+  },
+  {
+   "s": "cards.txn_daily",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "data-eng-cards",
+   "quote": "cards.txn_daily feeds six migrated features, owned by data-eng-cards",
+   "line": 4
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "feature-store-migration/ds-fsm-txn-source.md",
+ "sha": "a5bfdf483d14668dd023a5389a894319d6940b153be65a69e1d844640c64b872",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

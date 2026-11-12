@@ -1,0 +1,131 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-204",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-204"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-sfc-cpi-lag6",
+   "type": "feature",
+   "label": "macro feature",
+   "as": [
+    "feat-sfc-cpi-lag6"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "exp-203",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-203"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "sfc-bt-2024",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "sfc-bt-2024"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "sfc-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "sfc-lgbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-204",
+   "type": "uses",
+   "label": "adds",
+   "o": "feat-sfc-cpi-lag6",
+   "quote": "Adds feat-sfc-cpi-lag6 to the exp-203 model, sfc-bt-2024",
+   "line": 5
+  },
+  {
+   "s": "exp-204",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "sfc-bt-2024",
+   "quote": "Adds feat-sfc-cpi-lag6 to the exp-203 model, sfc-bt-2024",
+   "line": 5
+  },
+  {
+   "s": "exp-204",
+   "type": "measured-by",
+   "label": "1-month MAPE",
+   "o": "mape",
+   "quote": "1-month MAPE 5.2% to 5.1%",
+   "line": 6
+  },
+  {
+   "s": "exp-204",
+   "type": "uses",
+   "label": "model is",
+   "o": "sfc-lgbm-v2",
+   "quote": "The model at this point is sfc-lgbm-v2.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-sfc-macro-weak",
+  "exp-203"
+ ],
+ "built_on": [
+  {
+   "what": "exp-203",
+   "quote": "Builds on exp-203 and feat-sfc-cpi-lag6.",
+   "line": 8
+  },
+  {
+   "what": "feat-sfc-cpi-lag6",
+   "quote": "Builds on exp-203 and feat-sfc-cpi-lag6.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "spend-forecasting/exp-204.md",
+ "sha": "a0729dab55ffd189fa896f646195a8a0a4b9b31bf3d0188a3ce0b54f52e5bd31",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

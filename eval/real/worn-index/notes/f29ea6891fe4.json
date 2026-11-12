@@ -1,0 +1,121 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-306",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-306"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "dq-late-logit-v1",
+   "type": "model",
+   "label": "v1",
+   "as": [
+    "v1"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "dq-late-logit-v2",
+   "type": "model",
+   "label": "v2",
+   "as": [
+    "v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dq-oot-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "dq-oot-2025q4"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-dq-late-rate-7d",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "trailing 7-day late rate feature"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-306",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "dq-oot-2025q4",
+   "quote": "Scored v1 and v2 on dq-oot-2025q4 (n=276 checkpoints).",
+   "line": 5
+  },
+  {
+   "s": "exp-306",
+   "type": "measured-by",
+   "label": "scored",
+   "o": "auc",
+   "quote": "v1 scored 0.72, v2 with the retry flag scored 0.79.",
+   "line": 5
+  },
+  {
+   "s": "dq-late-logit-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-dq-late-rate-7d",
+   "quote": "Builds on dq-late-logit-v1 and the trailing 7-day late rate feature.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "dq-late-logit-v1",
+   "quote": "Builds on dq-late-logit-v1 and the trailing 7-day late rate feature.",
+   "line": 7
+  },
+  {
+   "what": "feat-dq-late-rate-7d",
+   "quote": "Builds on dq-late-logit-v1 and the trailing 7-day late rate feature.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "data-quality-txn/exp-306.md",
+ "sha": "f29ea6891fe478ac2d26445ec5d2ee9c4c29c9da94c837dad389e5598eacebc8",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

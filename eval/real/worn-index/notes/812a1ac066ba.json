@@ -1,0 +1,109 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cb-spend-base",
+   "type": "feature",
+   "label": "spend base feature",
+   "as": [
+    "feat-cb-spend-base: trailing six-month average monthly spend"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cb-elasticity-v1",
+   "type": "model",
+   "label": "elasticity model",
+   "as": [
+    "cb-elasticity-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cb-uplift-v1",
+   "type": "model",
+   "label": "uplift model",
+   "as": [
+    "cb-uplift-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-cb-spend-band-v2",
+   "type": "feature",
+   "label": "replacement feature",
+   "as": [
+    "feat-cb-spend-band-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cb-elasticity-v2",
+   "type": "model",
+   "label": "elasticity model v2",
+   "as": [
+    "cb-elasticity-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cb-spend-base",
+   "type": "uses",
+   "label": "used as spend level in",
+   "o": "cb-elasticity-v1",
+   "quote": "Used as the spend level in cb-elasticity-v1 and cb-uplift-v1.",
+   "line": 5
+  },
+  {
+   "s": "feat-cb-spend-base",
+   "type": "uses",
+   "label": "used as spend level in",
+   "o": "cb-uplift-v1",
+   "quote": "Used as the spend level in cb-elasticity-v1 and cb-uplift-v1.",
+   "line": 5
+  },
+  {
+   "s": "feat-cb-spend-band-v2",
+   "type": "replaces",
+   "label": "replaced by",
+   "o": "feat-cb-spend-base",
+   "quote": "Replaced by feat-cb-spend-band-v2 in cb-elasticity-v2.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "cb.spend_panel",
+   "quote": "Mean monthly spend over the last six months from `cb.spend_panel`",
+   "line": 5
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-cb-spend-band-v2",
+   "quote": "Replaced by feat-cb-spend-band-v2 in cb-elasticity-v2.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/feat-cb-spend-base.md",
+ "sha": "812a1ac066bad27ac5cf90af919b3cf902438baefb1862f7f07191db7cf54e8e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

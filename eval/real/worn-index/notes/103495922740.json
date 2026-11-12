@@ -1,0 +1,119 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-disp-autoresolve-090",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Pilot auto-resolve at p>=0.90 for the five low-value reason codes"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "disp-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "disp-lgbm-v2"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "exp-304",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-304"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-disp-autoresolve-095",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-disp-autoresolve-095"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-305",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-305"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-disp-autoresolve-090",
+   "type": "uses",
+   "label": "pilot on",
+   "o": "disp-lgbm-v2",
+   "quote": "pilot auto-resolve on disp-lgbm-v2 at p>=0.90",
+   "line": 5
+  },
+  {
+   "s": "dec-disp-autoresolve-090",
+   "type": "other",
+   "label": "basis",
+   "o": "exp-304",
+   "quote": "Basis: exp-304 (93.4% precision, 31% coverage on disp-oot-2026h1).",
+   "line": 6
+  },
+  {
+   "s": "dec-disp-autoresolve-095",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "dec-disp-autoresolve-090",
+   "quote": "Superseded by dec-disp-autoresolve-095 once out-of-sample precision was checked.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-disp-autoresolve-095",
+  "exp-304",
+  "exp-305"
+ ],
+ "built_on": [
+  {
+   "what": "disp-lgbm-v2",
+   "quote": "Builds on disp-lgbm-v2, the out-of-time v2 evaluation experiment and exp-305.",
+   "line": 8
+  },
+  {
+   "what": "exp-305",
+   "quote": "Builds on disp-lgbm-v2, the out-of-time v2 evaluation experiment and exp-305.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "dec-disp-autoresolve-090",
+   "quote": "Superseded by dec-disp-autoresolve-095 once out-of-sample precision was checked.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "dispute-triage/dec-disp-autoresolve-090.md",
+ "sha": "103495922740bab4eaaeb1b6d569f21aaf68622a1d7af39efa44b33dc4fbdc6c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

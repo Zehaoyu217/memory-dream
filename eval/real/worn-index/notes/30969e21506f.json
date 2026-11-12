@@ -1,0 +1,87 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cu-call-tod-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-call-tod-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "callcenter.calls"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-103",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-103"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cu-call-tod-v1",
+   "type": "uses",
+   "label": "built from",
+   "o": "callcenter.calls",
+   "quote": "Built from `callcenter.calls`.",
+   "line": 6
+  },
+  {
+   "s": "exp-103",
+   "type": "evaluated-on",
+   "label": "adds AUC on",
+   "o": "holdout-2025q2",
+   "quote": "adds AUC in exp-103 on holdout-2025q2",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "find-cu-tod-leak",
+  "exp-103"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cu-call-outcomes",
+   "quote": "Builds on the call outcomes promise-to-pay label source.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-uplift/feat-cu-call-tod-v1.md",
+ "sha": "30969e21506fed389205617056ee21986a2b4e0771f495d608be13b9aecd8a6b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

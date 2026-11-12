@@ -1,0 +1,177 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-303-xlearner",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-303: X-learner with propensity weights"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "mq3-uplift-xl-v2",
+   "type": "model",
+   "label": "x-learner",
+   "as": [
+    "X-learner with propensity weights"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-mq3-q2-rct",
+   "type": "dataset",
+   "label": "q2 split",
+   "as": [
+    "Same Q2 split (n=330,000)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-mq3-recency-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mq3-recency-v2"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "feat-mq3-app-sessions-30d",
+   "type": "feature",
+   "label": "app sessions",
+   "as": [
+    "app sessions"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-mq3-prior-treat",
+   "type": "feature",
+   "label": "prior-treatment flag",
+   "as": [
+    "prior-treatment flag"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift@20%",
+   "as": [
+    "uplift@20% of 2.6x"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-302-tlearner",
+   "type": "other",
+   "label": "t-learner experiment",
+   "as": [
+    "the t-learner uplift experiment"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "mq3-uplift-tlearner-v1",
+   "type": "model",
+   "label": "t-learner",
+   "as": [
+    "the t-learner uplift model"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mq3-uplift-xl-v2",
+   "type": "evaluated-on",
+   "label": "run on",
+   "o": "ds-mq3-q2-rct",
+   "quote": "Same Q2 split (n=330,000).",
+   "line": 5
+  },
+  {
+   "s": "mq3-uplift-xl-v2",
+   "type": "uses",
+   "label": "cross-fitted on",
+   "o": "feat-mq3-recency-v2",
+   "quote": "Cross-fitted X-learner on feat-mq3-recency-v2, app sessions and prior-treatment flag.",
+   "line": 5
+  },
+  {
+   "s": "mq3-uplift-xl-v2",
+   "type": "uses",
+   "label": "cross-fitted on",
+   "o": "feat-mq3-app-sessions-30d",
+   "quote": "Cross-fitted X-learner on feat-mq3-recency-v2, app sessions and prior-treatment flag.",
+   "line": 5
+  },
+  {
+   "s": "mq3-uplift-xl-v2",
+   "type": "uses",
+   "label": "cross-fitted on",
+   "o": "feat-mq3-prior-treat",
+   "quote": "Cross-fitted X-learner on feat-mq3-recency-v2, app sessions and prior-treatment flag.",
+   "line": 5
+  },
+  {
+   "s": "mq3-uplift-xl-v2",
+   "type": "measured-by",
+   "label": "result",
+   "o": "uplift-at-20",
+   "quote": "Result: uplift@20% 2.6x against 2.1x for the T-learner.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "feat-mq3-recency-v2",
+  "mq3-uplift-tlearner-v1",
+  "exp-302-tlearner"
+ ],
+ "built_on": [
+  {
+   "what": "exp-302-tlearner",
+   "quote": "Builds on the t-learner uplift experiment, feat-mq3-recency-v2 and the t-learner uplift model.",
+   "line": 7
+  },
+  {
+   "what": "feat-mq3-recency-v2",
+   "quote": "Builds on the t-learner uplift experiment, feat-mq3-recency-v2 and the t-learner uplift model.",
+   "line": 7
+  },
+  {
+   "what": "mq3-uplift-tlearner-v1",
+   "quote": "Builds on the t-learner uplift experiment, feat-mq3-recency-v2 and the t-learner uplift model.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "marketing-uplift-q3/exp-303-xlearner.md",
+ "sha": "8d46d636a17572b5c1f16816abef1d99462a2570f834f0039968ef5bd6ad6edc",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

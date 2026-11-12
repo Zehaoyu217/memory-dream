@@ -1,0 +1,99 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "find-cld-complaints-2x",
+   "type": "other",
+   "label": "overturned finding",
+   "as": [
+    "Finding (overturned): cuts of 25% push complaints to 2.4x baseline"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-201",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-201"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "dec-cld-notice-first",
+   "type": "decision",
+   "label": "notice change",
+   "as": [
+    "dec-cld-notice-first"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "find-cld-complaints-controlled",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-cld-complaints-controlled (2025-08-04)"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "complaint-rate",
+   "type": "metric",
+   "label": "complaint rate",
+   "as": [
+    "4.6 complaints per 1,000 account-months",
+    "1.9 baseline"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "find-cld-complaints-2x",
+   "type": "uses",
+   "label": "from",
+   "o": "exp-201",
+   "quote": "From exp-201 (March 2025)",
+   "line": 5
+  },
+  {
+   "s": "find-cld-complaints-2x",
+   "type": "replaces",
+   "label": "overturned by",
+   "o": "find-cld-complaints-controlled",
+   "quote": "Overturned by find-cld-complaints-controlled (2025-08-04): the mix-adjusted ratio is 1.1x",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-cld-notice-first",
+  "find-cld-complaints-controlled"
+ ],
+ "built_on": [
+  {
+   "what": "exp-201",
+   "quote": "Builds on exp-201.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "limit-decrease-policy/find-cld-complaints-2x.md",
+ "sha": "a762a46175036c34d9e8520358b3c82aebe09b73fc47940f8257f6157124dbe4",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

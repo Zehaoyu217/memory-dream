@@ -1,0 +1,230 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "trv-ridge-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "trv-ridge-v3"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-trv-funnel-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-trv-funnel-v2"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-trv-cross-border-share",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-trv-cross-border-share"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-trv-seasonality-adj",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-trv-seasonality-adj"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "trv-bt-2025h2",
+   "type": "dataset",
+   "label": "backtest set",
+   "as": [
+    "trv-bt-2025h2"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "MAPE 4.3%"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "trv-ridge-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "trv-ridge-v2"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "feat-trv-fx-vol",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "FX volatility"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-505",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-505"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-506",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-506"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "quarterly-pack",
+   "type": "document",
+   "label": "pack",
+   "as": [
+    "quarterly pack"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "trv-ridge-v3",
+   "type": "uses",
+   "label": "regression on",
+   "o": "feat-trv-funnel-v2",
+   "quote": "Ridge regression on feat-trv-funnel-v2",
+   "line": 5
+  },
+  {
+   "s": "trv-ridge-v3",
+   "type": "uses",
+   "label": "regression on",
+   "o": "feat-trv-cross-border-share",
+   "quote": "feat-trv-cross-border-share",
+   "line": 5
+  },
+  {
+   "s": "trv-ridge-v3",
+   "type": "uses",
+   "label": "regression on",
+   "o": "feat-trv-seasonality-adj",
+   "quote": "feat-trv-seasonality-adj",
+   "line": 5
+  },
+  {
+   "s": "trv-ridge-v3",
+   "type": "measured-by",
+   "label": "MAPE",
+   "o": "mape",
+   "quote": "MAPE 4.3% on trv-bt-2025h2",
+   "line": 4
+  },
+  {
+   "s": "trv-ridge-v3",
+   "type": "evaluated-on",
+   "label": "tested on",
+   "o": "trv-bt-2025h2",
+   "quote": "MAPE 4.3% on trv-bt-2025h2",
+   "line": 4
+  },
+  {
+   "s": "trv-ridge-v3",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "trv-ridge-v2",
+   "quote": "Replaces the ridge model with cross-border share.",
+   "line": 9
+  },
+  {
+   "s": "trv-ridge-v3",
+   "type": "owned-by",
+   "label": "used in",
+   "o": "quarterly-pack",
+   "quote": "Used in the quarterly pack from June 2026.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-505",
+  "exp-506"
+ ],
+ "built_on": [
+  {
+   "what": "feat-trv-cross-border-share",
+   "quote": "Builds on the cross-border share feature, feat-trv-funnel-v2, feat-trv-seasonality-adj and trv-ridge-v2.",
+   "line": 8
+  },
+  {
+   "what": "feat-trv-funnel-v2",
+   "quote": "Builds on the cross-border share feature, feat-trv-funnel-v2, feat-trv-seasonality-adj and trv-ridge-v2.",
+   "line": 8
+  },
+  {
+   "what": "feat-trv-seasonality-adj",
+   "quote": "Builds on the cross-border share feature, feat-trv-funnel-v2, feat-trv-seasonality-adj and trv-ridge-v2.",
+   "line": 8
+  },
+  {
+   "what": "trv-ridge-v2",
+   "quote": "Builds on the cross-border share feature, feat-trv-funnel-v2, feat-trv-seasonality-adj and trv-ridge-v2.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "trv-ridge-v2",
+   "quote": "Replaces the ridge model with cross-border share.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "travel-spend-recovery/trv-ridge-v3.md",
+ "sha": "4c14c010084dbafded530edf01991840ba6e72284ddc0d5ca05ea9b86715c6db",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

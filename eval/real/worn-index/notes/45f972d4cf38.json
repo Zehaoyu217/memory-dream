@@ -1,0 +1,77 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "qini-curve",
+   "type": "term",
+   "label": "support curve",
+   "as": [
+    "Qini curve"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "marketing.campaign_responses",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "marketing.campaign_responses"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "historical-targeting-list",
+   "type": "dataset",
+   "label": "targeting list",
+   "as": [
+    "historical targeting list"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "qini-curve",
+   "type": "other",
+   "label": "supports",
+   "o": "uplift-at-20",
+   "quote": "show the Qini curve as support",
+   "line": 5
+  },
+  {
+   "s": "uplift-at-20",
+   "type": "evaluated-on",
+   "label": "uses randomised assignment in",
+   "o": "marketing.campaign_responses",
+   "quote": "Use the randomised assignment in `marketing.campaign_responses`",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/uplift-eval-qini-at-20pct.md",
+ "sha": "45f972d4cf38c7d46565c769226c8fd1917b9a79ac4cfe8b4a7a150e95abdfa8",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

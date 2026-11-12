@@ -55,6 +55,9 @@ def main(argv):
           + (": " + "; ".join(f"{s} {r} {d}" for s, d, r in wrong[:4]) if wrong else ""))
     by = collections.Counter(e.get("by", "frontmatter") for e in g["edges"] if e["rel"] in ("from", "supersedes") and (not only or area(e["src"]) in only))
     print("by:", dict(by), "· dedup counts:", {k: v for k, v in (g.get("dedup") or {}).items() if k.startswith("lineage")})
+    share = lambda rel: rows[(rel, "all")]["as lineage"] / max(1, sum(rows[(rel, "all")].values()))  # noqa: E731
+    print(json.dumps({"from": round(share("from"), 3), "supersedes": round(share("supersedes"), 3),
+                      "true": round(right / max(1, len(made)), 3), "edges": len(made)}))
 
 
 if __name__ == "__main__":

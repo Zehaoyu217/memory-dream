@@ -1,0 +1,138 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-fsm-payment-lag-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "payment lag with timestamps in UTC",
+    "feat-fsm-payment-lag-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-fsm-payment-lag-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-fsm-payment-lag-v1"
+   ],
+   "lines": [
+    8,
+    9
+   ]
+  },
+  {
+   "id": "exp-101",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-101"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-102",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-102"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fsm-churn-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fsm-churn-xgb-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fsm-spend-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fsm-spend-lgbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-fsm-parity-sample",
+   "type": "dataset",
+   "label": "sample",
+   "as": [
+    "fsm_parity_sample_2025h2"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fsm-churn-xgb-v2",
+   "type": "uses",
+   "label": "reads",
+   "o": "feat-fsm-payment-lag-v2",
+   "quote": "fsm-churn-xgb-v2 and fsm-spend-lgbm-v2 read v2 only.",
+   "line": 7
+  },
+  {
+   "s": "fsm-spend-lgbm-v2",
+   "type": "uses",
+   "label": "reads",
+   "o": "feat-fsm-payment-lag-v2",
+   "quote": "fsm-churn-xgb-v2 and fsm-spend-lgbm-v2 read v2 only.",
+   "line": 7
+  },
+  {
+   "s": "feat-fsm-payment-lag-v2",
+   "type": "evaluated-on",
+   "label": "mismatch on",
+   "o": "ds-fsm-parity-sample",
+   "quote": "Mismatch against legacy on fsm_parity_sample_2025h2 fell",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "exp-102",
+   "quote": "Builds on the utc payment lag recompute and feat-fsm-payment-lag-v1.",
+   "line": 8
+  },
+  {
+   "what": "feat-fsm-payment-lag-v1",
+   "quote": "Builds on the utc payment lag recompute and feat-fsm-payment-lag-v1.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-fsm-payment-lag-v1",
+   "quote": "Replaces feat-fsm-payment-lag-v1.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "feature-store-migration/feat-fsm-payment-lag-v2.md",
+ "sha": "92485061fe61adf8f0545fde17a6f999aad3aa34c63e7b70df57e0956b056353",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

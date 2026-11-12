@@ -1,0 +1,133 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "lbl-fraud-gbm-v4",
+   "type": "model",
+   "label": "fraud model",
+   "as": [
+    "lbl-fraud-gbm-v4"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "lbl-oot-2025h2",
+   "type": "segment",
+   "label": "holdout",
+   "as": [
+    "lbl-oot-2025h2 (n=1.2M approved transactions)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "recall-at-1pct",
+   "type": "metric",
+   "label": "recall",
+   "as": [
+    "Recall at 1 percent alerts"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "lbl-fraud-gbm-v3",
+   "type": "model",
+   "label": "fraud model",
+   "as": [
+    "v3"
+   ],
+   "lines": [
+    5,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "feat-lbl-fraud-flag-v2",
+   "type": "feature",
+   "label": "fraud flag",
+   "as": [
+    "rebuilt label (categories A and B)"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "lbl-fraud-gbm-v4",
+   "type": "trained-on",
+   "label": "retrained on",
+   "o": "feat-lbl-fraud-flag-v2",
+   "quote": "retrained on the rebuilt label (categories A and B)",
+   "line": 5
+  },
+  {
+   "s": "lbl-fraud-gbm-v4",
+   "type": "evaluated-on",
+   "label": "recall on",
+   "o": "lbl-oot-2025h2",
+   "quote": "Recall at 1 percent alerts on lbl-oot-2025h2",
+   "line": 6
+  },
+  {
+   "s": "lbl-fraud-gbm-v4",
+   "type": "measured-by",
+   "label": "recall",
+   "o": "recall-at-1pct",
+   "quote": "Recall at 1 percent alerts on lbl-oot-2025h2 (n=1.2M approved transactions): 0.58",
+   "line": 6
+  },
+  {
+   "s": "lbl-fraud-gbm-v4",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "lbl-fraud-gbm-v3",
+   "quote": "Replaces the legacy-label fraud model.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "dec-lbl-promote-fraud-v4",
+  "exp-405"
+ ],
+ "built_on": [
+  {
+   "what": "exp-405",
+   "quote": "Builds on exp-405",
+   "line": 8
+  },
+  {
+   "what": "feat-lbl-fraud-flag-v2",
+   "quote": "Builds on exp-405, feat-lbl-fraud-flag-v2",
+   "line": 8
+  },
+  {
+   "what": "lbl-fraud-gbm-v3",
+   "quote": "lbl-fraud-gbm-v3",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "lbl-fraud-gbm-v3",
+   "quote": "Replaces the legacy-label fraud model.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "label-pipeline-rebuild/lbl-fraud-gbm-v4.md",
+ "sha": "94c014a5d65a5f04ede2ecd8a53952247cf993a10e59f251aaff75186df0a203",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

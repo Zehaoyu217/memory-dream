@@ -1,0 +1,97 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-cu-oot-2026h1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "collections-uplift-oot-2026h1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "collections.cases",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "collections.cases"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cu-uplift-v3",
+   "type": "model",
+   "label": "uplift model",
+   "as": [
+    "uplift v3"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-cu-treat-log",
+   "type": "dataset",
+   "label": "contact log",
+   "as": [
+    "randomised pilot contact log"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cu-uplift-v3",
+   "type": "evaluated-on",
+   "label": "eval set for",
+   "o": "ds-cu-oot-2026h1",
+   "quote": "out-of-time eval set for uplift v3",
+   "line": 4
+  },
+  {
+   "s": "ds-cu-oot-2026h1",
+   "type": "replaces",
+   "label": "replaces for selection",
+   "o": "holdout-2025q4",
+   "quote": "holdout-2025q4 is retired for selection",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-cu-treat-log",
+  "cu-uplift-v3"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cu-treat-log",
+   "quote": "Builds on the randomised pilot contact log.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 2
+ },
+ "path": "collections-uplift/ds-cu-oot-2026h1.md",
+ "sha": "73e97ff3631ba573f43a3d9d2751cdc33e9e1d64749a9a207bcf6c0ea8157bfc",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

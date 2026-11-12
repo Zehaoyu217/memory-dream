@@ -1,0 +1,135 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ror-churn-score",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ror-churn-score",
+    "60-day churn score"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "churn-gbm-2025-v2",
+   "type": "model",
+   "label": "churn model",
+   "as": [
+    "churn-gbm-2025-v2"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "churn-2025",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "churn-2025 project"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "october-2025-snapshot",
+   "type": "dataset",
+   "label": "snapshot",
+   "as": [
+    "October 2025 snapshot"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ror-uplift-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ror-uplift-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-ror-tier-matrix",
+   "type": "dataset",
+   "label": "tier matrix",
+   "as": [
+    "tier matrix"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-gbm-2025-v2",
+   "type": "produces",
+   "label": "scores",
+   "o": "feat-ror-churn-score",
+   "quote": "Scores from the churn-2025 project's churn-gbm-2025-v2, run on the October 2025 snapshot.",
+   "line": 5
+  },
+  {
+   "s": "churn-gbm-2025-v2",
+   "type": "part-of",
+   "label": "project's",
+   "o": "churn-2025",
+   "quote": "Scores from the churn-2025 project's churn-gbm-2025-v2",
+   "line": 5
+  },
+  {
+   "s": "churn-gbm-2025-v2",
+   "type": "uses",
+   "label": "run on",
+   "o": "october-2025-snapshot",
+   "quote": "run on the October 2025 snapshot",
+   "line": 5
+  },
+  {
+   "s": "feat-ror-churn-score",
+   "type": "~used-by",
+   "label": "main input to",
+   "o": "ror-uplift-v1",
+   "quote": "Used as the main input to ror-uplift-v1.",
+   "line": 7
+  },
+  {
+   "s": "feat-ror-churn-score",
+   "type": "~used-by",
+   "label": "rows of",
+   "o": "ds-ror-tier-matrix",
+   "quote": "Deciles give the rows of the tier matrix.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ror-uplift-v1",
+  "ds-ror-tier-matrix"
+ ],
+ "built_on": [
+  {
+   "what": "churn-gbm-2025-v2",
+   "quote": "Builds on churn-2025/churn-gbm-2025-v2.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "retention-offers-roi/feat-ror-churn-score.md",
+ "sha": "9e6f5ed6d0fef1e3c2220fe1310c3b46dc7815f61a7dcdcf89f8f031d95bc8a0",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

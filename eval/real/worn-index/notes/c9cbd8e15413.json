@@ -1,0 +1,106 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-xs-call-recent",
+   "type": "feature",
+   "label": "binary flag",
+   "as": [
+    "Binary flag from `callcenter.calls`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "calls table",
+   "as": [
+    "`callcenter.calls`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "xs-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "xs-gbm-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "xs-call-uplift-v1",
+   "type": "model",
+   "label": "causal forest",
+   "as": [
+    "xs-call-uplift-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-xs-callcentre",
+   "type": "dataset",
+   "label": "joined dataset",
+   "as": [
+    "ds-xs-callcentre"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-xs-call-recent",
+   "type": "uses",
+   "label": "binary flag from",
+   "o": "callcenter.calls",
+   "quote": "Binary flag from `callcenter.calls`",
+   "line": 5
+  },
+  {
+   "s": "feat-xs-call-recent",
+   "type": "other",
+   "label": "excluded from",
+   "o": "xs-gbm-v2",
+   "quote": "Excluded from xs-gbm-v2",
+   "line": 6
+  },
+  {
+   "s": "xs-call-uplift-v1",
+   "type": "uses",
+   "label": "used only in",
+   "o": "feat-xs-call-recent",
+   "quote": "used only in the call uplift study (xs-call-uplift-v1)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-xs-callcentre",
+  "xs-call-uplift-v1",
+  "xs-gbm-v2"
+ ],
+ "built_on": [
+  {
+   "what": "ds-xs-callcentre",
+   "quote": "Builds on ds-xs-callcentre.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cross-sell-savings/feat-xs-call-recent.md",
+ "sha": "c9cbd8e1541392ba6c0cd8d928d7cc040c4d7c84011e5d9c5ebe12d131672a04",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

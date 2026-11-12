@@ -5,12 +5,17 @@ eval/retrieval.py and eval/adversarial.py, and fail when a number drops under it
   retrieval_gate.py bank      [--work DIR]   the 1,677-note bank (eval/bank/generated + tests/fixture/memory), 326 questions
   retrieval_gate.py software  [--work DIR]   tests/fixture-software/memory, eval/questions/software-*.jsonl
   retrieval_gate.py bank-index [--work DIR]  the bank with the real Haiku index restored from eval/real/bank-index (0 calls)
+  retrieval_gate.py worn      [--work DIR]   the worn bank (eval/hard/make_hard.py: no lineage frontmatter, every link said in
+                                             prose) with what Haiku read in it restored from eval/real/worn-index (0 calls):
+                                             how much of the lineage the memory holds, against the answer key
 
 Floors (set from the measured numbers minus a small margin; raise them when the numbers rise):
   bank:     gold ≥ 0.96 (0.93 until phase L, 2026-11-11: measured 0.939 before it and 0.978 after) · numbers ≥ 0.97 ·
             chars per question ≤ 3,000 · stale: successor above the old note ≥ 0.95, old marked 1.0 · absence flagged 1.0
   bank-index: the same, chars ≤ 3,200, and alias ≥ 0.80
   software: gold ≥ 0.90 · numbers ≥ 0.95 · stale: successor above ≥ 0.95 (when the set is non-empty), old marked 1.0
+  worn:     `from` links held as lineage ≥ 0.93 (measured 0.943) · `supersedes` ≥ 0.90 (0.912) · lineage edges that are true
+            ≥ 0.98 (0.989) · of the 98 linkage questions, `ask` alone names every note of the answer for ≥ 80 (82)
 """
 import json
 import re
@@ -47,9 +52,36 @@ def first_json(text):
     raise SystemExit("no JSON in output:\n" + text[:1000])
 
 
+def worn(work):
+    """The worn bank and its readings, all from the repository: lineage as the keepers read it, scored exactly."""
+    tidy, out = work / "tidy" / "memory", work / "worn"
+    for d in (work / "tidy", out):
+        if d.exists():
+            shutil.rmtree(d)
+    run([sys.executable, ROOT / "eval/bank/assemble.py", ROOT / "eval/bank/generated", ROOT / "tests/fixture/memory", tidy])
+    run([sys.executable, ROOT / "eval/real/bank-index/restore.py", tidy])
+    run([sys.executable, MEM, "--root", tidy, "dream"])
+    run([sys.executable, ROOT / "eval/hard/make_hard.py", tidy, out])
+    run([sys.executable, ROOT / "eval/real/worn-index/restore.py", out / "memory"])
+    dreamed = run([sys.executable, MEM, "--root", out / "memory", "dream"])
+    if "0 indexed (0 calls)" not in dreamed or "without entities" in dreamed:
+        raise SystemExit("worn: the restored readings were not used (did make_hard.py write other notes?): " + dreamed)
+    got = json.loads(run([sys.executable, ROOT / "eval/hard/lineage_score.py", out / "memory", out / "truth.json"]).strip().splitlines()[-1])
+    asked = run([sys.executable, ROOT / "eval/linkage.py", "ask", out / "memory", ROOT / "eval/questions/linkage-100.jsonl"])
+    got["ask_named"] = int(re.search(r"headed or named for (\d+)", asked).group(1))
+    floors = {"from": 0.93, "supersedes": 0.90, "true": 0.98, "ask_named": 80}
+    bad = [f"{k}: {got[k]} (floor {v})" for k, v in floors.items() if got[k] < v]
+    print(json.dumps({"world": "worn", **got}))
+    if bad:
+        raise SystemExit("retrieval gate failed: " + "; ".join(bad))
+    print("retrieval gate ok")
+
+
 def main(argv):
     world = argv[1] if len(argv) > 1 else "bank"
     work = Path(argv[argv.index("--work") + 1]) if "--work" in argv else Path(tempfile.mkdtemp(prefix="gate-"))
+    if world == "worn":
+        return worn(work)
     mem = work / "memory"
     if mem.exists():
         shutil.rmtree(mem)

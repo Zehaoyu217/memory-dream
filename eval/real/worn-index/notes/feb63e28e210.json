@@ -1,0 +1,133 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "feat-xs-payroll-flag-v2",
+   "type": "feature",
+   "label": "payroll-deposit flag",
+   "as": [
+    "payroll-deposit flag"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-xs-balance-proxy",
+   "type": "feature",
+   "label": "balance proxy",
+   "as": [
+    "balance proxy"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "exp-402-payroll-flag",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-402"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "xs-holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "on xs-holdout-2025q1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "top-decile-open-rate",
+   "type": "metric",
+   "label": "top decile",
+   "as": [
+    "the top decile opens at 7.8%"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-xs-payroll-flag-v2",
+   "type": "replaces",
+   "label": "replacing",
+   "o": "feat-xs-balance-proxy",
+   "quote": "Replacing the balance proxy with feat-xs-payroll-flag-v2 adds 0.02 AUC",
+   "line": 5
+  },
+  {
+   "s": "feat-xs-payroll-flag-v2",
+   "type": "measured-by",
+   "label": "adds 0.02 AUC",
+   "o": "auc",
+   "quote": "adds 0.02 AUC on xs-holdout-2025q1 (exp-402)",
+   "line": 5
+  },
+  {
+   "s": "feat-xs-payroll-flag-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "xs-holdout-2025q1",
+   "quote": "adds 0.02 AUC on xs-holdout-2025q1 (exp-402)",
+   "line": 5
+  },
+  {
+   "s": "feat-xs-payroll-flag-v2",
+   "type": "measured-by",
+   "label": "top decile",
+   "o": "top-decile-open-rate",
+   "quote": "the top decile opens at 7.8%",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-402-payroll-flag"
+ ],
+ "built_on": [
+  {
+   "what": "exp-402-payroll-flag",
+   "quote": "Builds on exp-402-payroll-flag.",
+   "line": 7
+  }
+ ],
+ "replaces": [
+  {
+   "what": "find-xs-proxy-ok",
+   "quote": "Replaces the balance proxy sufficiency finding.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cross-sell-savings/find-xs-payroll-lift.md",
+ "sha": "feb63e28e210c77210aa3c44d861dfce9ec64ef92112cad8b0b86c20e3f6a6cb",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

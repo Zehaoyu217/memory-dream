@@ -1,0 +1,76 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ae-depth-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "Depth v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "app.sessions_daily",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "app.sessions_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-ae-depth-v2",
+   "type": "feature",
+   "label": "successor",
+   "as": [
+    "feat-ae-depth-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ae-depth-v1",
+   "type": "uses",
+   "label": "from",
+   "o": "app.sessions_daily",
+   "quote": "Screens and features from `app.sessions_daily`",
+   "line": 5
+  },
+  {
+   "s": "feat-ae-depth-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "feat-ae-depth-v1",
+   "quote": "Superseded by feat-ae-depth-v2.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-ae-sessions-daily",
+  "feat-ae-depth-v2",
+  "exp-504"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ae-sessions-daily",
+   "quote": "Builds on ds-ae-sessions-daily.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "app-engagement/feat-ae-depth-v1.md",
+ "sha": "115ae405b1a3002dbc9e5f6ef05713a23316fc0bbf2b94588b1474a13e14b2fc",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

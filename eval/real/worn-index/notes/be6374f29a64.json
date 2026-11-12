@@ -1,0 +1,62 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "dpd",
+   "type": "term",
+   "label": "dpd counting",
+   "as": [
+    "DPD day 1 starts the day after the due date"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "pipeline",
+   "as": [
+    "`cards.payments_daily` pipeline"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dpd",
+   "type": "other",
+   "label": "fixed in",
+   "o": "cards.payments_daily",
+   "quote": "Fixed in the `cards.payments_daily` pipeline on 2026-01-15.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "dpd-due-date"
+ ],
+ "built_on": [
+  {
+   "what": "dpd-due-date",
+   "quote": "This corrects dpd-due-date.",
+   "line": 5
+  }
+ ],
+ "replaces": [
+  {
+   "what": "dpd-due-date",
+   "quote": "Replaces the dpd counting origin.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "corrections/dpd-due-date-offbyone.md",
+ "sha": "be6374f29a64b7eded39fe4dbd9ddc41e12ae91ee9765d64dca88dbbd63c24b8",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

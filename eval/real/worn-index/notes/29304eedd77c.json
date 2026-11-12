@@ -1,0 +1,65 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "friendly-fraud-category-b",
+   "type": "term",
+   "label": "category b",
+   "as": [
+    "Friendly-fraud category B"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fraud-label-rate",
+   "type": "metric",
+   "label": "fraud label rate",
+   "as": [
+    "fraud label rate"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-403",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-403"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "friendly-fraud-category-b",
+   "type": "measured-by",
+   "label": "adds to",
+   "o": "fraud-label-rate",
+   "quote": "Friendly-fraud category B adds about 0.06 points to the fraud label rate",
+   "line": 4
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "exp-403",
+   "quote": "Builds on exp-403.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "label-pipeline-rebuild/fnd-friendly-fraud.md",
+ "sha": "29304eedd77ccd214cacb354b52acd7aa927f5422fdb5a1953d1c57091ae0ed5",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

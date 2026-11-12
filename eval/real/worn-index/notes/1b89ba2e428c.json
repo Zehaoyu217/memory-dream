@@ -1,0 +1,137 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-xs-payroll-flag-v2",
+   "type": "feature",
+   "label": "payroll flag",
+   "as": [
+    "Flag set when recurring inflows of at least $800 arrive near-monthly over 90 days"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`cards.payments_daily`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-xs-balance-proxy",
+   "type": "feature",
+   "label": "balance proxy",
+   "as": [
+    "feat-xs-balance-proxy"
+   ],
+   "lines": [
+    8,
+    9
+   ]
+  },
+  {
+   "id": "xs-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "xs-gbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "open-rate",
+   "type": "metric",
+   "label": "open rate",
+   "as": [
+    "open at 4.8%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-xs-offer-log",
+   "type": "dataset",
+   "label": "offer log table",
+   "as": [
+    "the eligible offer log table"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-xs-payroll-flag-v2",
+   "type": "uses",
+   "label": "detected from",
+   "o": "cards.payments_daily",
+   "quote": "detected from `cards.payments_daily` by pattern matching",
+   "line": 5
+  },
+  {
+   "s": "feat-xs-payroll-flag-v2",
+   "type": "measured-by",
+   "label": "open rate",
+   "o": "open-rate",
+   "quote": "open at 4.8%",
+   "line": 6
+  },
+  {
+   "s": "xs-gbm-v2",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-xs-payroll-flag-v2",
+   "quote": "Used in xs-gbm-v2.",
+   "line": 7
+  },
+  {
+   "s": "feat-xs-payroll-flag-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "feat-xs-balance-proxy",
+   "quote": "Replaces feat-xs-balance-proxy.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "feat-xs-balance-proxy",
+  "xs-gbm-v2"
+ ],
+ "built_on": [
+  {
+   "what": "ds-xs-offer-log",
+   "quote": "Builds on the eligible offer log table and feat-xs-balance-proxy.",
+   "line": 8
+  },
+  {
+   "what": "feat-xs-balance-proxy",
+   "quote": "Builds on the eligible offer log table and feat-xs-balance-proxy.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-xs-balance-proxy",
+   "quote": "Replaces feat-xs-balance-proxy.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cross-sell-savings/feat-xs-payroll-flag-v2.md",
+ "sha": "1b89ba2e428c6daedd123992432735f5ff86c3b2248763e3ae927746a6ba279d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

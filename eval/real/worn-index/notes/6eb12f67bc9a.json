@@ -1,0 +1,134 @@
+{
+ "kind": "incident",
+ "entities": [
+  {
+   "id": "calibration-drift-alarm",
+   "type": "other",
+   "label": "alarm",
+   "as": [
+    "calibration drift alarm"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "retention-propensity-model",
+   "type": "model",
+   "label": "retention model",
+   "as": [
+    "retention propensity model"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "limit-increase-campaign",
+   "type": "other",
+   "label": "campaign",
+   "as": [
+    "limit-increase campaign"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "isotonic-calibration",
+   "type": "term",
+   "label": "calibration method",
+   "as": [
+    "Isotonic recalibration"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "training-split",
+   "type": "dataset",
+   "label": "training split",
+   "as": [
+    "training split"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "mean-predicted-gap",
+   "type": "metric",
+   "label": "calibration gap",
+   "as": [
+    "mean predicted above observed"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "brier-score-calibration",
+   "type": "document",
+   "label": "how-to",
+   "as": [
+    "howto/brier-score-calibration"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "calibration-drift-alarm",
+   "type": "measured-by",
+   "label": "fired on",
+   "o": "mean-predicted-gap",
+   "quote": "mean predicted above observed by more than 1 point",
+   "line": 5
+  },
+  {
+   "s": "limit-increase-campaign",
+   "type": "other",
+   "label": "pushed scores up",
+   "o": "retention-propensity-model",
+   "quote": "a limit-increase campaign pushed scores up",
+   "line": 5
+  },
+  {
+   "s": "isotonic-calibration",
+   "type": "other",
+   "label": "brought back within band",
+   "o": "calibration-drift-alarm",
+   "quote": "brought it back within band",
+   "line": 5
+  },
+  {
+   "s": "isotonic-calibration",
+   "type": "uses",
+   "label": "fitted on",
+   "o": "training-split",
+   "quote": "Isotonic recalibration on the training split",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "howto/brier-score-calibration"
+ ],
+ "built_on": [
+  {
+   "what": "brier-score-calibration",
+   "quote": "Builds on howto/brier-score-calibration",
+   "line": 6
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/calibration-alarm-first-fire.md",
+ "sha": "6eb12f67bc9a020d6e70c2431b26748884cbb4adab71391a0d4de71fe1781309",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

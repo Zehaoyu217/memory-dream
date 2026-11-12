@@ -1,0 +1,98 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "maya-ortiz",
+   "type": "person",
+   "label": "asker",
+   "as": [
+    "Maya Ortiz"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "retention",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "retention"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards-churn-labels",
+   "type": "dataset",
+   "label": "labels table",
+   "as": [
+    "`cards.churn_labels`"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cards-txn-daily",
+   "type": "dataset",
+   "label": "transactions table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "recall-at-10",
+   "type": "metric",
+   "label": "success metric",
+   "as": [
+    "recall@10"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cards-churn-labels",
+   "type": "other",
+   "label": "labels",
+   "o": "cards-txn-daily",
+   "quote": "Labels live in `cards.churn_labels`; transactions in `cards.txn_daily`.",
+   "line": 8
+  },
+  {
+   "s": "maya-ortiz",
+   "type": "owned-by",
+   "label": "asked by",
+   "o": "retention",
+   "quote": "Asked by retention (Maya Ortiz)",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 2
+ },
+ "path": "churn-2026/q-churn-drivers.md",
+ "sha": "c43bce03d676afbf5d1723f47fe3e842cee2405a16f059edb628911d0b2867ba",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

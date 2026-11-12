@@ -1,0 +1,105 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "trv-bsts-v1",
+   "type": "model",
+   "label": "bsts line",
+   "as": [
+    "the BSTS line",
+    "trv-bsts-v1"
+   ],
+   "lines": [
+    4,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "trv-ridge-v2",
+   "type": "model",
+   "label": "ridge model",
+   "as": [
+    "ridge line",
+    "ridge"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "exp-504",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-504"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "trv-bsts-v1",
+   "type": "measured-by",
+   "label": "gave MAPE",
+   "o": "mape",
+   "quote": "BSTS gave 5.6% MAPE against 5.2% for the ridge",
+   "line": 5
+  },
+  {
+   "s": "exp-504",
+   "type": "other",
+   "label": "tests",
+   "o": "trv-bsts-v1",
+   "quote": "BSTS gave 5.6% MAPE against 5.2% for the ridge, and takes about three times as long to fit (exp-504)",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-504",
+  "trv-bsts-v1"
+ ],
+ "built_on": [
+  {
+   "what": "exp-504",
+   "quote": "Builds on exp-504 and trv-bsts-v1.",
+   "line": 8
+  },
+  {
+   "what": "trv-bsts-v1",
+   "quote": "Builds on exp-504 and trv-bsts-v1.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "trv-bsts-v1",
+   "quote": "Decision: stop trv-bsts-v1 and keep the ridge line for the travel model.",
+   "line": 6
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "travel-spend-recovery/dec-trv-stop-bsts.md",
+ "sha": "9d53c8738f291bb3ba7983bcaf352c17f4b37819de77b2b61829a6e296837012",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

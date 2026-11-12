@@ -1,0 +1,122 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "rdm-uplift-v1",
+   "type": "model",
+   "label": "targeting model",
+   "as": [
+    "rdm-uplift-v1"
+   ],
+   "lines": [
+    4,
+    8
+   ]
+  },
+  {
+   "id": "exp-303",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-303"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "exp-304",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-304"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "fnd-rdm-activity-v2-lift",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-rdm-activity-v2-lift"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dec-rdm-ship-uplift-v2",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-rdm-ship-uplift-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "sms",
+   "type": "term",
+   "label": "channel",
+   "as": [
+    "SMS"
+   ],
+   "lines": [
+    4,
+    6,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "sms",
+   "type": "measured-by",
+   "label": "weighted by",
+   "o": "exp-304",
+   "quote": "SMS is weighted by the 3.4pp channel uplift from exp-304",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-303",
+  "exp-304",
+  "fnd-rdm-activity-v2-lift",
+  "dec-rdm-ship-uplift-v2"
+ ],
+ "built_on": [
+  {
+   "what": "exp-303",
+   "quote": "Builds on exp-303, the channel-stratified uplift experiment and rdm-uplift-v1.",
+   "line": 8
+  },
+  {
+   "what": "exp-304",
+   "quote": "Basis: exp-303, exp-304 and fnd-rdm-activity-v2-lift.",
+   "line": 5
+  },
+  {
+   "what": "fnd-rdm-activity-v2-lift",
+   "quote": "Basis: exp-303, exp-304 and fnd-rdm-activity-v2-lift.",
+   "line": 5
+  },
+  {
+   "what": "rdm-uplift-v1",
+   "quote": "Builds on exp-303, the channel-stratified uplift experiment and rdm-uplift-v1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "reactivation-dormant/dec-rdm-ship-uplift-v1.md",
+ "sha": "f6d4c19c206be83646762156a3132396cf5413e2f2270ca01741f4e3af4288d2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,76 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "ptp",
+   "type": "metric",
+   "label": "promise to pay",
+   "as": [
+    "PTP",
+    "promise to pay"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "promised-amount",
+   "type": "term",
+   "label": "amount",
+   "as": [
+    "full promised amount"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sept-2024-kept-rate",
+   "type": "metric",
+   "label": "restated rate",
+   "as": [
+    "Sept 2024 kept rate restated from 62% to 41%"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ptp",
+   "type": "measured-by",
+   "label": "kept only if full amount",
+   "o": "promised-amount",
+   "quote": "A PTP is kept only if the full promised amount arrives by the promised date.",
+   "line": 5
+  },
+  {
+   "s": "sept-2024-kept-rate",
+   "type": "other",
+   "label": "restated from",
+   "o": "ptp",
+   "quote": "Sept 2024 kept rate restated from 62% to 41%",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "glossary/promise-to-pay"
+ ],
+ "replaces": [
+  {
+   "what": "glossary/promise-to-pay",
+   "quote": "Replaces glossary/promise-to-pay.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "corrections/ptp-full-amount.md",
+ "sha": "05d642e427b7aa52600dd92243ecdca28594cdd84fe6302d3dcdb96e34fd2acb",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

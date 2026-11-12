@@ -1,0 +1,107 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-disp-merchant-link",
+   "type": "dataset",
+   "label": "merchant join",
+   "as": [
+    "cards.disputes joined to cards.merchants on merchant_id"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.merchants",
+   "type": "dataset",
+   "label": "merchants table",
+   "as": [
+    "`cards.merchants`"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "data-eng-cards",
+   "type": "team",
+   "label": "owning team",
+   "as": [
+    "owned by data-eng-cards"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-disp-merchant-cb-rate",
+   "type": "feature",
+   "label": "merchant feature",
+   "as": [
+    "Used by feat-disp-merchant-cb-rate"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-mrisk-dispute-ratio",
+   "type": "feature",
+   "label": "merchant-risk feature",
+   "as": [
+    "merchant-risk (feat-mrisk-dispute-ratio)"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-disp-merchant-link",
+   "type": "uses",
+   "label": "joins to",
+   "o": "cards.merchants",
+   "quote": "Join on merchant_id to `cards.merchants`",
+   "line": 5
+  },
+  {
+   "s": "cards.merchants",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "data-eng-cards",
+   "quote": "owned by data-eng-cards",
+   "line": 5
+  },
+  {
+   "s": "feat-disp-merchant-cb-rate",
+   "type": "uses",
+   "label": "used by",
+   "o": "ds-disp-merchant-link",
+   "quote": "Used by feat-disp-merchant-cb-rate",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-disp-merchant-cb-rate",
+  "feat-mrisk-dispute-ratio",
+  "ds-disp-disputes"
+ ],
+ "built_on": [
+  {
+   "what": "ds-disp-disputes",
+   "quote": "Builds on ds-disp-disputes.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "dispute-triage/ds-disp-merchant-link.md",
+ "sha": "af55be284bf451a64ad1c6dcfb15b052771ed5fa74def60241827a4dcdc0b8df",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

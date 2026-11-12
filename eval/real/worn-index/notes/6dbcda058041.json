@@ -1,0 +1,78 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "control-group",
+   "type": "term",
+   "label": "control group",
+   "as": [
+    "control group"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "campaign-holdout",
+   "type": "term",
+   "label": "holdout",
+   "as": [
+    "holdout"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "marketing.campaign_responses",
+   "type": "dataset",
+   "label": "campaign responses table",
+   "as": [
+    "marketing.campaign_responses"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "campaign-holdout-design",
+   "type": "document",
+   "label": "how-to",
+   "as": [
+    "howto/campaign-holdout-design"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "control-group",
+   "type": "part-of",
+   "label": "stored in",
+   "o": "marketing.campaign_responses",
+   "quote": "The controls are stored in",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "howto/campaign-holdout-design"
+ ],
+ "built_on": [
+  {
+   "what": "campaign-holdout-design",
+   "quote": "Builds on howto/campaign-holdout-design",
+   "line": 6
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/campaign-control-size.md",
+ "sha": "6dbcda0580410f392b2d9bed56b50d9deeff81e04fe5acd7a614a105f347d535",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

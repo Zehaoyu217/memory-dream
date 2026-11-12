@@ -1,0 +1,114 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "nps-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "nps-gbm-v1"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "fee-shock-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "fee shock v1"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4 (n = 48,210)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "2026q1-wave",
+   "type": "dataset",
+   "label": "wave",
+   "as": [
+    "2026Q1 wave (n = 44,870)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fnd-nps-fee-top",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-nps-fee-top"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "spearman",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Spearman 0.52 on holdout-2025q4"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "nps-gbm-v1",
+   "type": "evaluated-on",
+   "label": "scores on",
+   "o": "holdout-2025q4",
+   "quote": "nps-gbm-v1 alone scores 0.46 on holdout-2025q4 (n = 48,210).",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "fnd-nps-fee-top"
+ ],
+ "built_on": [
+  {
+   "what": "ds-nps-holdout",
+   "quote": "Builds on ds-nps-holdout, feat-nps-fee-shock-v1 and nps-gbm-v1.",
+   "line": 8
+  },
+  {
+   "what": "feat-nps-fee-shock-v1",
+   "quote": "Builds on ds-nps-holdout, feat-nps-fee-shock-v1 and nps-gbm-v1.",
+   "line": 8
+  },
+  {
+   "what": "nps-gbm-v1",
+   "quote": "Builds on ds-nps-holdout, feat-nps-fee-shock-v1 and nps-gbm-v1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [
+   "exp-404"
+  ],
+  "relations": 2
+ },
+ "path": "nps-drivers/exp-404.md",
+ "sha": "b959074f60fed0aff856cd85b6ab78ce6f88a14068d4dd14f5ba24489631c4db",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

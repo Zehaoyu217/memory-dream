@@ -1,0 +1,83 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ep-pre-spend-cov-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ep-pre-spend-cov-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ep-cuped-v1",
+   "type": "other",
+   "label": "covariate use",
+   "as": [
+    "ep-cuped-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-ep-pre-spend-cov-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ep-pre-spend-cov-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ep-pre-spend-cov-v1",
+   "type": "uses",
+   "label": "source",
+   "o": "cards.txn_daily",
+   "quote": "from cards.txn_daily (superseded)",
+   "line": 4
+  },
+  {
+   "s": "ep-cuped-v1",
+   "type": "uses",
+   "label": "uses covariate",
+   "o": "feat-ep-pre-spend-cov-v1",
+   "quote": "Used as the CUPED covariate in ep-cuped-v1.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "replaces": [
+  {
+   "what": "feat-ep-pre-spend-cov-v1",
+   "quote": "Superseded by feat-ep-pre-spend-cov-v2 on 2025-10-09.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "experiment-platform/feat-ep-pre-spend-cov-v1.md",
+ "sha": "c856e85d5c982a23f0c66637608ce98a758704656b27f128cb0333958364d671",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

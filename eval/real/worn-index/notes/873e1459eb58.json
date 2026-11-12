@@ -1,0 +1,183 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "mm-limit-glm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "mm-limit-glm-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "mm-limit-glm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "mm-limit-glm-v1"
+   ],
+   "lines": [
+    8,
+    9
+   ]
+  },
+  {
+   "id": "feat-fsm-util-ratio",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feature-store-migration/feat-fsm-util-ratio"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "mm-oot-2024h2",
+   "type": "dataset",
+   "label": "evaluation set",
+   "as": [
+    "mm-oot-2024h2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ds-mm-reference-train",
+   "type": "dataset",
+   "label": "reference",
+   "as": [
+    "ds-mm-reference-train"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dec-mm-seasonal-reference",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-mm-seasonal-reference"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "exp-206",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "the nov-dec 2024 seasonal backtest"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mm-limit-glm-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-fsm-util-ratio",
+   "quote": "with feature-store-migration/feat-fsm-util-ratio in place of the legacy utilisation field",
+   "line": 5
+  },
+  {
+   "s": "mm-limit-glm-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "mm-oot-2024h2",
+   "quote": "Evaluated on mm-oot-2024h2 (n=96,000 accounts)",
+   "line": 6
+  },
+  {
+   "s": "mm-limit-glm-v2",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.712 against 0.704 for v1",
+   "line": 6
+  },
+  {
+   "s": "mm-limit-glm-v2",
+   "type": "uses",
+   "label": "checked against",
+   "o": "ds-mm-reference-train",
+   "quote": "Drift is checked against the same-month-last-year reference from ds-mm-reference-train",
+   "line": 7
+  },
+  {
+   "s": "mm-limit-glm-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "mm-limit-glm-v1",
+   "quote": "Replaces mm-limit-glm-v1.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "dec-mm-seasonal-reference",
+  "ds-mm-reference-train",
+  "mm-limit-glm-v1",
+  "exp-206",
+  "feature-store-migration/feat-fsm-util-ratio"
+ ],
+ "built_on": [
+  {
+   "what": "feat-fsm-util-ratio",
+   "quote": "Builds on feature-store-migration/feat-fsm-util-ratio, dec-mm-seasonal-reference, the nov-dec 2024 seasonal backtest and mm-limit-glm-v1.",
+   "line": 8
+  },
+  {
+   "what": "dec-mm-seasonal-reference",
+   "quote": "Builds on feature-store-migration/feat-fsm-util-ratio, dec-mm-seasonal-reference, the nov-dec 2024 seasonal backtest and mm-limit-glm-v1.",
+   "line": 8
+  },
+  {
+   "what": "exp-206",
+   "quote": "Builds on feature-store-migration/feat-fsm-util-ratio, dec-mm-seasonal-reference, the nov-dec 2024 seasonal backtest and mm-limit-glm-v1.",
+   "line": 8
+  },
+  {
+   "what": "mm-limit-glm-v1",
+   "quote": "Builds on feature-store-migration/feat-fsm-util-ratio, dec-mm-seasonal-reference, the nov-dec 2024 seasonal backtest and mm-limit-glm-v1.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "mm-limit-glm-v1",
+   "quote": "Replaces mm-limit-glm-v1.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "model-monitoring/mm-limit-glm-v2.md",
+ "sha": "873e1459eb583df192b70d46a0e29d8ca87c31979998c1649c2f930ecf79a8f3",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

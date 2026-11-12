@@ -1,0 +1,72 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "clv-ml-v2",
+   "type": "model",
+   "label": "clv model",
+   "as": [
+    "clv-ml-v2"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "origination-cohort-panel",
+   "type": "dataset",
+   "label": "cohort panel",
+   "as": [
+    "the origination cohort panel dataset"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-507",
+   "type": "other",
+   "label": "retrain experiment",
+   "as": [
+    "exp-507"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-507",
+   "type": "other",
+   "label": "triggered by",
+   "o": "clv-ml-v2",
+   "quote": "triggers the retrain in exp-507",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-507"
+ ],
+ "built_on": [
+  {
+   "what": "clv-ml-v2",
+   "quote": "Builds on the offer-netted lightgbm margin model",
+   "line": 8
+  },
+  {
+   "what": "ds-clv-cohort-panel",
+   "quote": "the origination cohort panel dataset",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "customer-lifetime-value/fnd-clv-cohort-drift.md",
+ "sha": "3e9670d81efd9fa4d9b93cf07dfd2b10414074a15ab418909f9b27b3d38930cb",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

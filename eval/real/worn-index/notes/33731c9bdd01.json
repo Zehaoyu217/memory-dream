@@ -1,0 +1,83 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-305",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-305"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "dispute-rate",
+   "type": "metric",
+   "label": "rate",
+   "as": [
+    "dispute rate per 10k approved txns"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.disputes",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.disputes"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-305",
+   "type": "measured-by",
+   "label": "measures",
+   "o": "dispute-rate",
+   "quote": "dispute rate per 10k approved txns is 11.8 with duplicates and 11.6 after dedupe",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "ds-dq-dispute-join",
+  "ds-dq-txn-daily"
+ ],
+ "built_on": [
+  {
+   "what": "ds-dq-dispute-join",
+   "quote": "Builds on the txn-to-disputes join dataset and ds-dq-txn-daily.",
+   "line": 7
+  },
+  {
+   "what": "ds-dq-txn-daily",
+   "quote": "Builds on the txn-to-disputes join dataset and ds-dq-txn-daily.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "data-quality-txn/exp-305.md",
+ "sha": "33731c9bdd01afd95e6da0b623f62ce7632f871e0b97400277b3367dba9b2a43",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

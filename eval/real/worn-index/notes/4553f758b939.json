@@ -1,0 +1,179 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cr-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "LightGBM v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-cr-caller-history-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "caller history v2"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "cr-lgbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cr-lgbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cr-lgbm-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout set",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "cr-oot-2026h1",
+   "type": "dataset",
+   "label": "out-of-time set",
+   "as": [
+    "cr-oot-2026h1"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Macro F1"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "top-1-accuracy",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Top-1 accuracy"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cr-lgbm-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-cr-caller-history-v2",
+   "quote": "LightGBM v2 uses caller history v2",
+   "line": 4
+  },
+  {
+   "s": "cr-lgbm-v2",
+   "type": "measured-by",
+   "label": "gives",
+   "o": "macro-f1",
+   "quote": "Macro F1 0.74 on holdout-2025q4 (n = 380,000)",
+   "line": 5
+  },
+  {
+   "s": "cr-lgbm-v2",
+   "type": "evaluated-on",
+   "label": "gives",
+   "o": "holdout-2025q4",
+   "quote": "Macro F1 0.74 on holdout-2025q4 (n = 380,000)",
+   "line": 5
+  },
+  {
+   "s": "cr-lgbm-v2",
+   "type": "evaluated-on",
+   "label": "gives",
+   "o": "cr-oot-2026h1",
+   "quote": "0.73 on cr-oot-2026h1 (n = 410,000)",
+   "line": 5
+  },
+  {
+   "s": "cr-lgbm-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "top-1-accuracy",
+   "quote": "Top-1 accuracy 0.79 on cr-oot-2026h1.",
+   "line": 6
+  },
+  {
+   "s": "cr-lgbm-v3",
+   "type": "replaces",
+   "label": "superseded",
+   "o": "cr-lgbm-v2",
+   "quote": "Superseded by cr-lgbm-v3",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-105",
+  "cr-lgbm-v3"
+ ],
+ "built_on": [
+  {
+   "what": "exp-105",
+   "quote": "Builds on exp-105 and the new caller history feature.",
+   "line": 8
+  },
+  {
+   "what": "feat-cr-caller-history-v2",
+   "quote": "Builds on exp-105 and the new caller history feature.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "cr-lgbm-v1",
+   "quote": "Replaces the first lightgbm router run.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/cr-lgbm-v2.md",
+ "sha": "4553f758b939375230ccc542f9d985eafbbeb0e45e5886059e078ecbc46abed2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,92 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-txc-descriptor-tokens-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-txc-descriptor-tokens-v1: char 3-5 gram TF-IDF on raw descriptors"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "txc-logreg-v1",
+   "type": "model",
+   "label": "baseline model",
+   "as": [
+    "txc-logreg-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "txc-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "txc-gbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-txc-descriptor-tokens-v2",
+   "type": "feature",
+   "label": "successor feature",
+   "as": [
+    "feat-txc-descriptor-tokens-v2"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-txc-descriptor-tokens-v1",
+   "type": "uses",
+   "label": "baseline for",
+   "o": "txc-logreg-v1",
+   "quote": "Baseline for txc-logreg-v1 and the first txc-gbm-v2 runs",
+   "line": 7
+  },
+  {
+   "s": "feat-txc-descriptor-tokens-v1",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "feat-txc-descriptor-tokens-v2",
+   "quote": "Superseded by feat-txc-descriptor-tokens-v2 once normalisation was added.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-101",
+  "exp-103",
+  "ds-txc-labelled-merchants"
+ ],
+ "built_on": [
+  {
+   "what": "ds-txc-descriptor-sample",
+   "quote": "Builds on the sample of transaction descriptors",
+   "line": 9
+  },
+  {
+   "what": "ds-txc-labelled-merchants",
+   "quote": "and ds-txc-labelled-merchants.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "txn-categorization/feat-txc-descriptor-tokens-v1.md",
+ "sha": "8806275364c00f3379a3aaf76f4705eb4d584a21de46f7087283977d9e663b37",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

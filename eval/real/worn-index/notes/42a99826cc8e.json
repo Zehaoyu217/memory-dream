@@ -1,0 +1,110 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-407",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-407"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-hp-roll-matrix",
+   "type": "dataset",
+   "label": "scenario input",
+   "as": [
+    "ds-hp-roll-matrix"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "hp-psm-v2",
+   "type": "model",
+   "label": "effect source",
+   "as": [
+    "hp-psm-v2 effect"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "markov-roll-model",
+   "type": "model",
+   "label": "scenario model",
+   "as": [
+    "Markov roll model"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "charge-off-rate",
+   "type": "metric",
+   "label": "long-run charge-off",
+   "as": [
+    "Base long-run charge-off rate for accounts entering 30+ DPD: 4.3%",
+    "-0.9pp"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-407",
+   "type": "uses",
+   "label": "scenario on",
+   "o": "ds-hp-roll-matrix",
+   "quote": "Scenario model on ds-hp-roll-matrix",
+   "line": 5
+  },
+  {
+   "s": "exp-407",
+   "type": "uses",
+   "label": "shifted by",
+   "o": "hp-psm-v2",
+   "quote": "enrolled accounts use the transition probabilities shifted by the hp-psm-v2 effect.",
+   "line": 5
+  },
+  {
+   "s": "exp-407",
+   "type": "measured-by",
+   "label": "implies change in",
+   "o": "charge-off-rate",
+   "quote": "Implied change per enrolled account: -0.9pp.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-hp-roll-matrix",
+   "quote": "Builds on ds-hp-roll-matrix and hp-psm-v2.",
+   "line": 8
+  },
+  {
+   "what": "hp-psm-v2",
+   "quote": "Builds on ds-hp-roll-matrix and hp-psm-v2.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "hardship-programs/exp-407.md",
+ "sha": "42a99826cc8eee68aed778a084c9d2dceaba84f777d57a732059380139e31741",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

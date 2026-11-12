@@ -1,0 +1,86 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "complaint-flagged-respondents",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "Complaint-flagged respondents"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "feat-nps-complaint-flag-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "complaint call flag feature"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "nps-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "nps-gbm-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "theme-shares",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "theme shares"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-nps-txn-freq-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "transaction frequency"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [],
+ "refs": [
+  "fnd-nps-complaint",
+  "nps-gbm-v1"
+ ],
+ "built_on": [
+  {
+   "what": "feat-nps-complaint-flag-v1",
+   "quote": "Builds on the complaint call flag feature and nps-gbm-v1",
+   "line": 8
+  },
+  {
+   "what": "nps-gbm-v1",
+   "quote": "Builds on the complaint call flag feature and nps-gbm-v1",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "nps-drivers/exp-406.md",
+ "sha": "86c7076b7e0c74b78dd3a557c5e6a00dde310c318d7e1d6929a4d313a0e64bac",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

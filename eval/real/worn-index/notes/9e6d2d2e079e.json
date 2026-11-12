@@ -1,0 +1,97 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cb-account-state-v1",
+   "type": "feature",
+   "label": "account state feature",
+   "as": [
+    "Account state: login status, card status (active, locked, closed), and days since last payment"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "card status source",
+   "as": [
+    "card status from `cards.accounts_monthly`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "payment source",
+   "as": [
+    "last payment from `cards.payments_daily`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cb-intent-v2",
+   "type": "model",
+   "label": "intent model v2",
+   "as": [
+    "Input to cb-intent-v2."
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fnd-cb-intent-acc",
+   "type": "finding",
+   "label": "intent finding",
+   "as": [
+    "Adds most of the intent gain on card-status questions (fnd-cb-intent-acc)."
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cb-account-state-v1",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cards.accounts_monthly",
+   "quote": "card status from `cards.accounts_monthly`",
+   "line": 5
+  },
+  {
+   "s": "feat-cb-account-state-v1",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cards.payments_daily",
+   "quote": "last payment from `cards.payments_daily`",
+   "line": 5
+  },
+  {
+   "s": "feat-cb-account-state-v1",
+   "type": "uses",
+   "label": "input to",
+   "o": "cb-intent-v2",
+   "quote": "Input to cb-intent-v2.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fnd-cb-intent-acc"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "chatbot-deflection/feat-cb-account-state-v1.md",
+ "sha": "9e6d2d2e079e27909d03f7c9b1043649fbe8610d466ef378b9945a873aad77c9",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

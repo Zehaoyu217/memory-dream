@@ -1,0 +1,100 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "ds-fsm-parity-sample",
+   "type": "dataset",
+   "label": "sample",
+   "as": [
+    "fsm_parity_sample_2025h2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-102",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-102"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-107",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-107"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "util-ratio-family",
+   "type": "feature",
+   "label": "feature family",
+   "as": [
+    "util-ratio family features"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "util-ratio-family",
+   "type": "other",
+   "label": "explained by",
+   "o": "exp-107",
+   "quote": "explained by the month-end limit rule (exp-107), not by a store bug.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "dec-fsm-timezone-utc",
+  "fnd-parity-pre-fix"
+ ],
+ "built_on": [
+  {
+   "what": "dec-fsm-timezone-utc",
+   "quote": "Builds on dec-fsm-timezone-utc, exp-102, the month-end utilization rule test and fnd-parity-pre-fix.",
+   "line": 8
+  },
+  {
+   "what": "exp-102",
+   "quote": "Builds on dec-fsm-timezone-utc, exp-102, the month-end utilization rule test and fnd-parity-pre-fix.",
+   "line": 8
+  },
+  {
+   "what": "exp-107",
+   "quote": "Builds on dec-fsm-timezone-utc, exp-102, the month-end utilization rule test and fnd-parity-pre-fix.",
+   "line": 8
+  },
+  {
+   "what": "fnd-parity-pre-fix",
+   "quote": "Builds on dec-fsm-timezone-utc, exp-102, the month-end utilization rule test and fnd-parity-pre-fix.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "fnd-parity-pre-fix",
+   "quote": "Replaces the parity result before fixes.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "feature-store-migration/fnd-parity-post-fix.md",
+ "sha": "6c4b0deb49821029dbae1656c29bbcbf58eb7cd23d2bc1a997a4f91dba73b12a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

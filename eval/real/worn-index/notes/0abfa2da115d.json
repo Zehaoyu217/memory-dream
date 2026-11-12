@@ -1,0 +1,115 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-sfc-lags-v1",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "feat-sfc-lags-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "segment-spend-lags",
+   "type": "feature",
+   "label": "lags",
+   "as": [
+    "Log-scaled spend for each segment at lags 1, 3 and 12 months"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sfc-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "sfc-lgbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "sfc-hier-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "sfc-hier-v3"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-202",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-202"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "monthly-segment-spend",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "the monthly segment spend dataset"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "sfc-lgbm-v2",
+   "type": "uses",
+   "label": "first feature set for",
+   "o": "feat-sfc-lags-v1",
+   "quote": "First feature set for sfc-lgbm-v2 (exp-202).",
+   "line": 7
+  },
+  {
+   "s": "sfc-hier-v3",
+   "type": "uses",
+   "label": "still an input to",
+   "o": "feat-sfc-lags-v1",
+   "quote": "Still an input to sfc-hier-v3.",
+   "line": 8
+  },
+  {
+   "s": "feat-sfc-lags-v1",
+   "type": "uses",
+   "label": "built on",
+   "o": "monthly-segment-spend",
+   "quote": "Builds on the monthly segment spend dataset.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "exp-202"
+ ],
+ "built_on": [
+  {
+   "what": "monthly-segment-spend",
+   "quote": "Builds on the monthly segment spend dataset.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "spend-forecasting/feat-sfc-lags-v1.md",
+ "sha": "0abfa2da115d834878830e0d77823c4f61d26686251e9e242d080d6592b83e9a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

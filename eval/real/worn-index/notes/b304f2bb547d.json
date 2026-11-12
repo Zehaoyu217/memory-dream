@@ -1,0 +1,206 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "app-gbm-v2",
+   "type": "model",
+   "label": "monotone-constrained gbm",
+   "as": [
+    "app-gbm-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "monotone-constraints",
+   "type": "term",
+   "label": "monotone constraints",
+   "as": [
+    "Monotone constraints"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "v8-score",
+   "type": "feature",
+   "label": "v8 score",
+   "as": [
+    "the v8 score"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-app-util-new",
+   "type": "feature",
+   "label": "utilisation",
+   "as": [
+    "utilisation"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "reject-inference",
+   "type": "term",
+   "label": "reject-inference parcelling",
+   "as": [
+    "reject-inference parcelling"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.40"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "app-gbm-v1",
+   "type": "model",
+   "label": "v1",
+   "as": [
+    "against v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "app-scorecard-v4",
+   "type": "model",
+   "label": "v4 rebuild",
+   "as": [
+    "v4 rebuild"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "monotone-constraints",
+   "type": "other",
+   "label": "constrains",
+   "o": "app-gbm-v2",
+   "quote": "Monotone constraints on utilisation and the v8 score",
+   "line": 5
+  },
+  {
+   "s": "app-gbm-v2",
+   "type": "uses",
+   "label": "sample weights from",
+   "o": "reject-inference",
+   "quote": "sample weights from the reject-inference parcelling",
+   "line": 5
+  },
+  {
+   "s": "app-gbm-v2",
+   "type": "evaluated-on",
+   "label": "eval",
+   "o": "holdout-2025q1",
+   "quote": "Eval: holdout-2025q1 (n=21,300)",
+   "line": 6
+  },
+  {
+   "s": "app-gbm-v2",
+   "type": "measured-by",
+   "label": "Gini",
+   "o": "gini",
+   "quote": "Gini 0.44, KS 0.40",
+   "line": 6
+  },
+  {
+   "s": "app-gbm-v2",
+   "type": "measured-by",
+   "label": "KS",
+   "o": "ks",
+   "quote": "Gini 0.44, KS 0.40",
+   "line": 6
+  },
+  {
+   "s": "monotone-constraints",
+   "type": "other",
+   "label": "costs",
+   "o": "gini",
+   "quote": "the constraint costs 0.02 Gini against v1",
+   "line": 6
+  },
+  {
+   "s": "app-gbm-v2",
+   "type": "other",
+   "label": "reference model for",
+   "o": "app-scorecard-v4",
+   "quote": "Reference model for the v4 rebuild; not deployed.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-504",
+  "find-app-reject-inference-gain"
+ ],
+ "built_on": [
+  {
+   "what": "app-gbm-v1",
+   "quote": "Builds on the gradient-boosted challenger that is not explainable and find-app-reject-inference-gain.",
+   "line": 8
+  },
+  {
+   "what": "find-app-reject-inference-gain",
+   "quote": "Builds on the gradient-boosted challenger that is not explainable and find-app-reject-inference-gain.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "app-gbm-v1",
+   "quote": "Replaces app-gbm-v1.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "application-scorecard/app-gbm-v2.md",
+ "sha": "b304f2bb547d3f8680ec78150fa97821572583967f4229db27cf532c69a6695f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

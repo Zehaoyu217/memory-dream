@@ -1,0 +1,66 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-302",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-302"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "dq.dup_audit_2025q1",
+   "type": "dataset",
+   "label": "audit table",
+   "as": [
+    "dq.dup_audit_2025q1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "authorisation-extract",
+   "type": "dataset",
+   "label": "source extract",
+   "as": [
+    "authorisation extract"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-302",
+   "type": "uses",
+   "label": "from",
+   "o": "dq.dup_audit_2025q1",
+   "quote": "From dq.dup_audit_2025q1: about 670,000 duplicate rows.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "ds-dq-dup-audit"
+ ],
+ "built_on": [
+  {
+   "what": "ds-dq-dup-audit",
+   "quote": "Builds on ds-dq-dup-audit.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "data-quality-txn/exp-302.md",
+ "sha": "b2b0bd36eccf71fe8dfd95f08fa248ebe41f5ace96900093210ff09903780bbb",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

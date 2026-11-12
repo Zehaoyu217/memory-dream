@@ -1,0 +1,86 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "payroll-detection-rate",
+   "type": "metric",
+   "label": "detection rate",
+   "as": [
+    "payroll detection"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "payroll-pattern-set",
+   "type": "other",
+   "label": "pattern set",
+   "as": [
+    "pattern set"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "xs-gbm-v2",
+   "type": "model",
+   "label": "boosting model",
+   "as": [
+    "xs-gbm-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-xs-payroll-flag-v2",
+   "type": "feature",
+   "label": "payroll flag",
+   "as": [
+    "The flag"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "xs-gbm-v2",
+   "type": "measured-by",
+   "label": "lost AUC",
+   "o": "auc",
+   "quote": "xs-gbm-v2 lost 0.03 AUC out of time.",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "exp-407-oot-2026h1",
+   "quote": "Builds on the out-of-time 2026 check.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cross-sell-savings/find-xs-drift-2026.md",
+ "sha": "3f6fdb5323f7cc4942e8f229e97e8f4740fe4d49d541dc0226bd3686a2bc4327",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

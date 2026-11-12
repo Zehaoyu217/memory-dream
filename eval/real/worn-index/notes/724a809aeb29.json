@@ -1,0 +1,96 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-pbs-interest-paid",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "interest charged and paid over 12 months"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "ds-pbs-statement-balances",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-pbs-statement-balances"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "pbs-gmm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "pbs-gmm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "pbs-gmm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "pbs-gmm-v3"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "pbs-gmm-v2",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-pbs-interest-paid",
+   "quote": "Used in pbs-gmm-v2 and pbs-gmm-v3.",
+   "line": 7
+  },
+  {
+   "s": "pbs-gmm-v3",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-pbs-interest-paid",
+   "quote": "Used in pbs-gmm-v2 and pbs-gmm-v3.",
+   "line": 7
+  },
+  {
+   "s": "feat-pbs-interest-paid",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-pbs-statement-balances",
+   "quote": "Builds on ds-pbs-statement-balances.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "pbs-gmm-v2",
+  "pbs-gmm-v3",
+  "ds-pbs-statement-balances"
+ ],
+ "built_on": [
+  {
+   "what": "ds-pbs-statement-balances",
+   "quote": "Builds on ds-pbs-statement-balances.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "payment-behavior-segments/feat-pbs-interest-paid.md",
+ "sha": "724a809aeb29555596c2a8cf03a9ffab30451c2370d3e5cda65f9fafb065697f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

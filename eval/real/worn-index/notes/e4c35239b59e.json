@@ -1,0 +1,178 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-202",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-202"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-201",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-201"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "fraud26-oot-2025q4",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "fraud26-oot-2025q4"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fraud26-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-f26-labels-2026",
+   "type": "dataset",
+   "label": "label table",
+   "as": [
+    "ds-f26-labels-2026"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "60-day-maturity-cut",
+   "type": "term",
+   "label": "maturity cut",
+   "as": [
+    "60-day maturity cut"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.912"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.67"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "recall-at-1pct",
+   "type": "metric",
+   "label": "recall@1%",
+   "as": [
+    "recall@1% 0.52"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-202",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "fraud26-oot-2025q4",
+   "quote": "Eval set: fraud26-oot-2025q4",
+   "line": 5
+  },
+  {
+   "s": "exp-202",
+   "type": "uses",
+   "label": "uses",
+   "o": "60-day-maturity-cut",
+   "quote": "training and scoring with the 60-day maturity cut restores AUC to 0.912",
+   "line": 4
+  },
+  {
+   "s": "exp-202",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.912",
+   "line": 6
+  },
+  {
+   "s": "exp-202",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "ks",
+   "quote": "KS 0.67",
+   "line": 6
+  },
+  {
+   "s": "exp-202",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "recall-at-1pct",
+   "quote": "recall@1% 0.52",
+   "line": 6
+  },
+  {
+   "s": "exp-202",
+   "type": "other",
+   "label": "compared with",
+   "o": "exp-201",
+   "quote": "Difference from exp-201 is 0.023 AUC",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-201"
+ ],
+ "built_on": [
+  {
+   "what": "ds-f26-labels-2026",
+   "quote": "Builds on ds-f26-labels-2026 and exp-201.",
+   "line": 8
+  },
+  {
+   "what": "exp-201",
+   "quote": "Builds on ds-f26-labels-2026 and exp-201.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2026/exp-202.md",
+ "sha": "e4c35239b59ec15b5baf2c214ff7d848aaa5a13339c294e52f0ec0518db65cf5",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

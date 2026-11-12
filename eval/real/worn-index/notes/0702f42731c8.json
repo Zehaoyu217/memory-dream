@@ -1,0 +1,109 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "label-pipeline-rebuild",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "label-pipeline-rebuild"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "legacy-churn-job",
+   "type": "pipeline",
+   "label": "job",
+   "as": [
+    "legacy churn job"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "payment-behavior-segments",
+   "type": "other",
+   "label": "workstream",
+   "as": [
+    "payment-behavior-segments"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-pbs-oot-2025h2",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-pbs-oot-2025h2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "retention-offers-roi",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "retention-offers-roi"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "matrix-v4",
+   "type": "other",
+   "label": "matrix",
+   "as": [
+    "Matrix v4"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "payment-behavior-segments",
+   "type": "measured-by",
+   "label": "KS",
+   "o": "ks",
+   "quote": "KS 0.31 on ds-pbs-oot-2025h2 for the segment alone",
+   "line": 4
+  },
+  {
+   "s": "payment-behavior-segments",
+   "type": "evaluated-on",
+   "label": "on",
+   "o": "ds-pbs-oot-2025h2",
+   "quote": "KS 0.31 on ds-pbs-oot-2025h2 for the segment alone",
+   "line": 4
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2026-03-18.md",
+ "sha": "0702f42731c85fbc8106d4348c5849a4bb161d12dfb2b5b560ab9ee9656d2185",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,90 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "q-trv-cross-border-recovery",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "Has cross-border travel spend recovered to its 2024 run-rate?"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "domestic-travel-spend",
+   "type": "metric",
+   "label": "spend",
+   "as": [
+    "Domestic travel spend"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fnd-trv-plateau",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-trv-plateau"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-trv-fx-cross-border",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-trv-fx-cross-border"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fnd-trv-cross-border-recovery",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-trv-cross-border-recovery"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "q-trv-cross-border-recovery",
+   "type": "uses",
+   "label": "needs split series",
+   "o": "ds-trv-fx-cross-border",
+   "quote": "The answer needs the split series from ds-trv-fx-cross-border",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-trv-plateau",
+  "ds-trv-fx-cross-border",
+  "fnd-trv-cross-border-recovery"
+ ],
+ "built_on": [
+  {
+   "what": "fnd-trv-plateau",
+   "quote": "Working reading: the 2025 plateau at 88% of the 2024 run-rate (fnd-trv-plateau) was driven by cross-border spend.",
+   "line": 6
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "travel-spend-recovery/q-trv-cross-border-recovery.md",
+ "sha": "3d4bd3613a2853d103e8c794a79a75790bf3fe206b93fab8784ae023b88b6748",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

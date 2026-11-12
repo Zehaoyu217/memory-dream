@@ -1,0 +1,93 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "rewards-accrual-cost",
+   "type": "metric",
+   "label": "accrual rate",
+   "as": [
+    "rewards accrual runs at 1.02% of spend"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "rate-card",
+   "type": "term",
+   "label": "rate card",
+   "as": [
+    "the 1.00% rate card"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "merchant-bonus-categories",
+   "type": "term",
+   "label": "gap cause",
+   "as": [
+    "merchant bonus categories and promotional multipliers"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cb.rewards_ledger",
+   "type": "dataset",
+   "label": "source dataset",
+   "as": [
+    "`cb.rewards_ledger`"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rewards-accrual-cost",
+   "type": "measured-by",
+   "label": "gap from",
+   "o": "rate-card",
+   "quote": "rewards accrual runs at 1.02% of spend, not the 1.00% rate card",
+   "line": 4
+  },
+  {
+   "s": "merchant-bonus-categories",
+   "type": "other",
+   "label": "causes gap",
+   "o": "rewards-accrual-cost",
+   "quote": "The gap comes from merchant bonus categories and promotional multipliers.",
+   "line": 5
+  },
+  {
+   "s": "rewards-accrual-cost",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cb.rewards_ledger",
+   "quote": "Source: `cb.rewards_ledger`.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-cb-rewards-ledger"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cb-rewards-ledger",
+   "quote": "Builds on the rewards ledger dataset.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/find-cb-cost-base.md",
+ "sha": "0da21601ddcc6a30e126d704fd418dad08bd1206d16ee130e86cb043b22ea37e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

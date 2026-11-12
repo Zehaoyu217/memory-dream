@@ -1,0 +1,100 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ror-expected-revenue",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ror-expected-revenue",
+    "12-month expected revenue per account"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ror-roi-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ror-roi-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ror-roi-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ror-roi-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-ror-value-band-v2",
+   "type": "feature",
+   "label": "value band",
+   "as": [
+    "feat-ror-value-band-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-ror-retained-revenue",
+   "type": "dataset",
+   "label": "revenue build",
+   "as": [
+    "ds-ror-retained-revenue"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ror-expected-revenue",
+   "type": "~used-by",
+   "label": "feeds",
+   "o": "ror-roi-v1",
+   "quote": "Feeds ror-roi-v1, ror-roi-v2 and the value band.",
+   "line": 6
+  },
+  {
+   "s": "feat-ror-expected-revenue",
+   "type": "~used-by",
+   "label": "feeds",
+   "o": "ror-roi-v2",
+   "quote": "Feeds ror-roi-v1, ror-roi-v2 and the value band.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-ror-retained-revenue",
+  "ror-roi-v1",
+  "ror-roi-v2",
+  "feat-ror-value-band-v2"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ror-retained-revenue",
+   "quote": "Builds on ds-ror-retained-revenue.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "retention-offers-roi/feat-ror-expected-revenue.md",
+ "sha": "660bf26ea5cc6b99068c60233f8cca0c0be4841211b7b30d818bb5c303b213c6",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

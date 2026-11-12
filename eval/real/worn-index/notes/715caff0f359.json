@@ -1,0 +1,93 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "q-tier-cutoffs",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "Where should the risk tier cutoffs sit for retention offers?"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "retention",
+   "type": "team",
+   "label": "retention",
+   "as": [
+    "Retention"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "maya-ortiz",
+   "type": "person",
+   "label": "asker",
+   "as": [
+    "Maya Ortiz"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "churn-xgb-v2",
+   "type": "model",
+   "label": "xgboost model",
+   "as": [
+    "churn-xgb-v2"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "q-tier-cutoffs",
+   "type": "other",
+   "label": "asked by",
+   "o": "maya-ortiz",
+   "quote": "Asked by Maya Ortiz",
+   "line": 6
+  },
+  {
+   "s": "q-tier-cutoffs",
+   "type": "uses",
+   "label": "uses",
+   "o": "churn-xgb-v2",
+   "quote": "tiers from churn-xgb-v2 scores",
+   "line": 5
+  },
+  {
+   "s": "retention",
+   "type": "other",
+   "label": "wants tiers",
+   "o": "q-tier-cutoffs",
+   "quote": "Retention wants three tiers",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "churn-xgb-v2",
+   "quote": "Builds on churn-xgb-v2.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2026/q-tier-cutoffs.md",
+ "sha": "715caff0f3594414569726c609abfe63b5068f3c9213f6966d21e96b7eb0d01c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,79 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-502",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-502"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bot-filter",
+   "type": "flag",
+   "label": "bot filter",
+   "as": [
+    "bot filter"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "sample-ratio-mismatch",
+   "type": "term",
+   "label": "srm check",
+   "as": [
+    "sample ratio checks"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "dec-ep-srm-gate",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-ep-srm-gate"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bot-filter",
+   "type": "other",
+   "label": "applied at readout",
+   "o": "exp-502",
+   "quote": "the bot filter was applied at readout, not at assignment, and only to the treatment arm.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "dec-ep-srm-gate",
+  "exp-502"
+ ],
+ "built_on": [
+  {
+   "what": "exp-502",
+   "quote": "Builds on the srm audit across 38 tests.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "experiment-platform/fnd-srm-bots.md",
+ "sha": "162dc6a996ede083b79d51fa8baa14369f85b1f654c0270d733191e0aeacff75",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

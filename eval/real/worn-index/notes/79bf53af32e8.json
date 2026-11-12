@@ -1,0 +1,152 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-rdm-campaign-history",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "Reactivation waves 1 to 3"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "marketing.campaign_responses",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "marketing.campaign_responses"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "wave-1",
+   "type": "other",
+   "label": "wave",
+   "as": [
+    "Wave 1 (2024-Q2)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "wave-2",
+   "type": "other",
+   "label": "wave",
+   "as": [
+    "Wave 2 (2024-Q4)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "wave-3",
+   "type": "other",
+   "label": "wave",
+   "as": [
+    "Wave 3 (2025-Q1)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "response",
+   "type": "metric",
+   "label": "response",
+   "as": [
+    "Response means card spend within 60 days of send"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "raw-response",
+   "type": "metric",
+   "label": "raw response",
+   "as": [
+    "Wave 2 raw response"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "control-group",
+   "type": "term",
+   "label": "control",
+   "as": [
+    "10% randomised control"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-rdm-campaign-history",
+   "type": "uses",
+   "label": "from",
+   "o": "marketing.campaign_responses",
+   "quote": "from marketing.campaign_responses",
+   "line": 4
+  },
+  {
+   "s": "wave-1",
+   "type": "part-of",
+   "label": "wave of",
+   "o": "ds-rdm-campaign-history",
+   "quote": "Wave 1 (2024-Q2): 60,000 sends.",
+   "line": 5
+  },
+  {
+   "s": "wave-2",
+   "type": "part-of",
+   "label": "wave of",
+   "o": "ds-rdm-campaign-history",
+   "quote": "Wave 2 (2024-Q4): 61,500 sends.",
+   "line": 5
+  },
+  {
+   "s": "wave-3",
+   "type": "part-of",
+   "label": "wave of",
+   "o": "ds-rdm-campaign-history",
+   "quote": "Wave 3 (2025-Q1): 58,200 sends.",
+   "line": 5
+  },
+  {
+   "s": "wave-2",
+   "type": "measured-by",
+   "label": "raw response",
+   "o": "raw-response",
+   "quote": "Wave 2 raw response: email 3.1%, SMS 4.6%.",
+   "line": 6
+  },
+  {
+   "s": "ds-rdm-campaign-history",
+   "type": "other",
+   "label": "carries",
+   "o": "control-group",
+   "quote": "Each wave carries a 10% randomised control.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reactivation-dormant/ds-rdm-campaign-history.md",
+ "sha": "79bf53af32e8e5e0a107da9266b03bb1689049c00c7eba10e8b8da4ff3efe307",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,204 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "churn-gbm-2025-v2",
+   "type": "model",
+   "label": "churn model",
+   "as": [
+    "churn-gbm-2025-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "util-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "util-v2"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "holdout-c25-oot-2024h1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Holdout c25-oot-2024h1 (n=312,470)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.772"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "KS 0.41"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "recall-at-10",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "recall@10% 0.34"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "brier",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Brier 0.0334"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "churn-lr-base-2025",
+   "type": "model",
+   "label": "v1 lightgbm churn model",
+   "as": [
+    "v1 lightgbm churn model"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-gbm-2025-v2",
+   "type": "measured-by",
+   "label": "holdout AUC",
+   "o": "auc",
+   "quote": "holdout AUC 0.772",
+   "line": 4
+  },
+  {
+   "s": "churn-gbm-2025-v2",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "holdout-c25-oot-2024h1",
+   "quote": "Holdout c25-oot-2024h1 (n=312,470): AUC 0.772",
+   "line": 6
+  },
+  {
+   "s": "churn-gbm-2025-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "util-v2",
+   "quote": "13 features: util-v2",
+   "line": 5
+  },
+  {
+   "s": "churn-gbm-2025-v2",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "ks",
+   "quote": "KS 0.41",
+   "line": 6
+  },
+  {
+   "s": "churn-gbm-2025-v2",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "recall-at-10",
+   "quote": "recall@10% 0.34",
+   "line": 6
+  },
+  {
+   "s": "churn-gbm-2025-v2",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "brier",
+   "quote": "Brier 0.0334",
+   "line": 6
+  },
+  {
+   "s": "churn-gbm-2025-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "churn-lr-base-2025",
+   "quote": "Replaces the v1 lightgbm churn model.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "dec-c25-drop-app-sessions",
+  "exp-106",
+  "feat-c25-payment-behaviour",
+  "feat-c25-txn-recency",
+  "feat-c25-util-v2",
+  "dec-c25-label-60d"
+ ],
+ "built_on": [
+  {
+   "what": "dec-c25-drop-app-sessions",
+   "quote": "Builds on the decision to drop app sessions",
+   "line": 8
+  },
+  {
+   "what": "exp-106",
+   "quote": "the monotone recency and early stopping run",
+   "line": 8
+  },
+  {
+   "what": "feat-c25-payment-behaviour",
+   "quote": "the payment ratio and late count features",
+   "line": 8
+  },
+  {
+   "what": "feat-c25-txn-recency",
+   "quote": "the card transaction recency feature",
+   "line": 8
+  },
+  {
+   "what": "feat-c25-util-v2",
+   "quote": "feat-c25-util-v2",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "churn-gbm-2025",
+   "quote": "Replaces the v1 lightgbm churn model.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2025/churn-gbm-2025-v2.md",
+ "sha": "d9508cb4c2c171541e9b8c26b523e3137e03e31dcb5fc7813cd3bca5c5507928",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

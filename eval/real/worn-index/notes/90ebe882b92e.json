@@ -1,0 +1,149 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cr-logreg-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "Multinomial logistic regression baseline"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "macro F1 0.61"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "top-1-accuracy",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "top-1 accuracy 0.66"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "feat-cr-ivr-path-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "one-hot IVR path tokens"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-cr-transcript-tfidf-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "TF-IDF SVD features"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dec-cr-lgbm",
+   "type": "decision",
+   "label": "decision",
+   "as": [
+    "dec-cr-lgbm"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cr-logreg-v1",
+   "type": "uses",
+   "label": "inputs",
+   "o": "feat-cr-transcript-tfidf-v1",
+   "quote": "Inputs: TF-IDF SVD features plus one-hot IVR path tokens.",
+   "line": 5
+  },
+  {
+   "s": "cr-logreg-v1",
+   "type": "uses",
+   "label": "inputs",
+   "o": "feat-cr-ivr-path-v1",
+   "quote": "Inputs: TF-IDF SVD features plus one-hot IVR path tokens.",
+   "line": 5
+  },
+  {
+   "s": "cr-logreg-v1",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "holdout-2025q4",
+   "quote": "Macro F1 0.61 and top-1 accuracy 0.66 on holdout-2025q4 (n = 380,000 calls).",
+   "line": 6
+  },
+  {
+   "s": "cr-logreg-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "macro-f1",
+   "quote": "Macro F1 0.61",
+   "line": 4
+  },
+  {
+   "s": "cr-logreg-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "top-1-accuracy",
+   "quote": "top-1 accuracy 0.66",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "dec-cr-lgbm"
+ ],
+ "built_on": [
+  {
+   "what": "feat-cr-ivr-path-v1",
+   "quote": "Builds on feat-cr-ivr-path-v1 and feat-cr-transcript-tfidf-v1.",
+   "line": 8
+  },
+  {
+   "what": "feat-cr-transcript-tfidf-v1",
+   "quote": "Builds on feat-cr-ivr-path-v1 and feat-cr-transcript-tfidf-v1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/cr-logreg-v1.md",
+ "sha": "90ebe882b92eb7c4542cd761b562bc07e84876f35a171011944d7c338bea7ce4",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,84 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-106",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-106: merchant-history features score 0.91 on a random split but 0.78 on a time split"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "txc-gbm-v2",
+   "type": "model",
+   "label": "lightgbm model",
+   "as": [
+    "txc-gbm-v2"
+   ],
+   "lines": [
+    5,
+    9
+   ]
+  },
+  {
+   "id": "feat-txc-merchant-history-v1",
+   "type": "feature",
+   "label": "merchant-history features",
+   "as": [
+    "feat-txc-merchant-history-v1"
+   ],
+   "lines": [
+    5,
+    9
+   ]
+  },
+  {
+   "id": "fnd-txc-history-leaks",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-txc-history-leaks"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-106",
+   "type": "uses",
+   "label": "adds",
+   "o": "feat-txc-merchant-history-v1",
+   "quote": "txc-gbm-v2 plus feat-txc-merchant-history-v1",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "fnd-txc-history-leaks"
+ ],
+ "built_on": [
+  {
+   "what": "feat-txc-merchant-history-v1",
+   "quote": "Builds on feat-txc-merchant-history-v1 and txc-gbm-v2.",
+   "line": 9
+  },
+  {
+   "what": "txc-gbm-v2",
+   "quote": "Builds on feat-txc-merchant-history-v1 and txc-gbm-v2.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "txn-categorization/exp-106.md",
+ "sha": "6b01819a6101528094e8c2cff4af97254c252294abe7065beb7e1a4871957f1a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

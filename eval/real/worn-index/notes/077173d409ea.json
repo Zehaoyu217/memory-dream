@@ -1,0 +1,125 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "rev26-interest-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rev26-interest-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "rev26-interest-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rev26-interest-v1"
+   ],
+   "lines": [
+    5,
+    8,
+    9
+   ]
+  },
+  {
+   "id": "feat-rev26-charge-off-haircut",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rev26-charge-off-haircut"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "exp-303",
+   "type": "other",
+   "label": "backtest",
+   "as": [
+    "exp-303"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "board-pack-feb-2026",
+   "type": "document",
+   "label": "board pack",
+   "as": [
+    "board pack from Feb 2026"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rev26-interest-v2",
+   "type": "uses",
+   "label": "applies",
+   "o": "feat-rev26-charge-off-haircut",
+   "quote": "with feat-rev26-charge-off-haircut applied to accrued interest",
+   "line": 5
+  },
+  {
+   "s": "rev26-interest-v2",
+   "type": "evaluated-on",
+   "label": "backtest error",
+   "o": "exp-303",
+   "quote": "Backtest 2024-Q3 to 2025-Q2: error $0.9M a quarter (exp-303)",
+   "line": 6
+  },
+  {
+   "s": "rev26-interest-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "rev26-interest-v1",
+   "quote": "Replaces rev26-interest-v1.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "exp-303",
+  "dec-rev26-v2-for-board"
+ ],
+ "built_on": [
+  {
+   "what": "exp-303",
+   "quote": "Builds on the charge-off haircut backtest experiment",
+   "line": 8
+  },
+  {
+   "what": "feat-rev26-charge-off-haircut",
+   "quote": "feat-rev26-charge-off-haircut",
+   "line": 5
+  },
+  {
+   "what": "rev26-interest-v1",
+   "quote": "rev26-interest-v1",
+   "line": 5
+  }
+ ],
+ "replaces": [
+  {
+   "what": "rev26-interest-v1",
+   "quote": "Replaces rev26-interest-v1.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "revenue-forecast-2026/rev26-interest-v2.md",
+ "sha": "077173d409ea03ca5a6acf64f85dddc1603519349902ff5a9c6fdfbf509e8ed2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

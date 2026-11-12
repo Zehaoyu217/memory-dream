@@ -1,0 +1,91 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-fsm-payment-lag-v1",
+   "type": "feature",
+   "label": "superseded feature",
+   "as": [
+    "feat-fsm-payment-lag-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.payments_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-fsm-payment-lag-v2",
+   "type": "feature",
+   "label": "successor feature",
+   "as": [
+    "feat-fsm-payment-lag-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-101",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-101"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-102",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-102"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-fsm-payment-lag-v1",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cards.payments_daily",
+   "quote": "Source `cards.payments_daily`.",
+   "line": 5
+  },
+  {
+   "s": "feat-fsm-payment-lag-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "feat-fsm-payment-lag-v1",
+   "quote": "Superseded by feat-fsm-payment-lag-v2 after exp-102.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-101",
+  "exp-102",
+  "feat-fsm-payment-lag-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "feature-store-migration/feat-fsm-payment-lag-v1.md",
+ "sha": "9f099f560bb1462d9d4655fecbec689ff77df9243c2ea389f1533eb657ad6cd4",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

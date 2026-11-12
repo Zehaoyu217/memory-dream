@@ -1,0 +1,110 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-403",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-403"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-inc-payroll-cadence-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-inc-payroll-cadence-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-inc-payroll-cadence-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-inc-payroll-cadence-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-inc-ach-inflow",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "recurring ach inflow dataset"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-403",
+   "type": "evaluated-on",
+   "label": "re-scored",
+   "o": "holdout-2025q1",
+   "quote": "re-scored the 12,400 holdout accounts",
+   "line": 5
+  },
+  {
+   "s": "exp-403",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-inc-payroll-cadence-v1",
+   "quote": "Builds on the recurring ach inflow dataset and feat-inc-payroll-cadence-v1.",
+   "line": 8
+  },
+  {
+   "s": "feat-inc-payroll-cadence-v2",
+   "type": "other",
+   "label": "accepted as",
+   "o": "exp-403",
+   "quote": "Accepted, as feat-inc-payroll-cadence-v2 on 2025-12-16.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-inc-payroll-cadence-v1",
+  "feat-inc-payroll-cadence-v2"
+ ],
+ "built_on": [
+  {
+   "what": "ds-inc-ach-inflow",
+   "quote": "Builds on the recurring ach inflow dataset and feat-inc-payroll-cadence-v1.",
+   "line": 8
+  },
+  {
+   "what": "feat-inc-payroll-cadence-v1",
+   "quote": "Builds on the recurring ach inflow dataset and feat-inc-payroll-cadence-v1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "income-estimation/exp-403.md",
+ "sha": "4604715633b430829854bb53e1ca7658cbe06591938fadbde4a8d66ef3ed0011",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,88 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "fraud25-gbm-v3",
+   "type": "model",
+   "label": "travel-halved challenger",
+   "as": [
+    "fraud25-gbm-v3 (travel flag x0.5)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "eval holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "travel-alert-share",
+   "type": "metric",
+   "label": "travel alert share",
+   "as": [
+    "Travel share of alerts 17% (from 31%)"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-f25-mcc-travel",
+   "type": "feature",
+   "label": "travel flag",
+   "as": [
+    "feat-f25-mcc-travel"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud25-gbm-v3",
+   "type": "evaluated-on",
+   "label": "AUC on eval set",
+   "o": "holdout-2025q1",
+   "quote": "Eval set: holdout-2025q1 for AUC",
+   "line": 5
+  },
+  {
+   "s": "fraud25-gbm-v3",
+   "type": "measured-by",
+   "label": "share reported",
+   "o": "travel-alert-share",
+   "quote": "Travel share of alerts 17% (from 31%).",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "travel-alert-share",
+   "quote": "Builds on the travel share of alerts and feat-f25-mcc-travel.",
+   "line": 8
+  },
+  {
+   "what": "feat-f25-mcc-travel",
+   "quote": "Builds on the travel share of alerts and feat-f25-mcc-travel.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/exp-107.md",
+ "sha": "bf33897141b331d364b7846ac28797f292863174d6d07c5d843092955a08d260",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

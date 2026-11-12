@@ -1,0 +1,100 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-504",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-504: the 24-month margin falls from +$210 to +$38 per account once churn and loss are counted"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "pa-margin-v1",
+   "type": "model",
+   "label": "margin model",
+   "as": [
+    "pa-margin-v1 (no churn, no loss)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "pa-margin-v2",
+   "type": "model",
+   "label": "margin model",
+   "as": [
+    "pa-margin-v2"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "arm-b",
+   "type": "segment",
+   "label": "arm",
+   "as": [
+    "Arm B against control over 24 months"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "under-640-band",
+   "type": "segment",
+   "label": "score band",
+   "as": [
+    "In the under-640 band v2 is -$72."
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-504",
+   "type": "evaluated-on",
+   "label": "compared on",
+   "o": "pa-margin-v1",
+   "quote": "Compared pa-margin-v1 (no churn, no loss) with pa-margin-v2",
+   "line": 5
+  },
+  {
+   "s": "exp-504",
+   "type": "evaluated-on",
+   "label": "compared on",
+   "o": "pa-margin-v2",
+   "quote": "Compared pa-margin-v1 (no churn, no loss) with pa-margin-v2",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "pa-margin-v1",
+   "quote": "Builds on pa-margin-v1 and pa-margin-v2.",
+   "line": 8
+  },
+  {
+   "what": "pa-margin-v2",
+   "quote": "Builds on pa-margin-v1 and pa-margin-v2.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "promo-apr-test/exp-504-margin-cohort.md",
+ "sha": "4af5c8b2ba087ddd39f4f329f932fee0584aa2cc62ea03c56292cba36682e383",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,132 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "yuki-tanaka",
+   "type": "person",
+   "label": "customer experience",
+   "as": [
+    "Yuki Tanaka"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "containment",
+   "type": "term",
+   "label": "containment",
+   "as": [
+    "Containment"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "containment-target",
+   "type": "metric",
+   "label": "target",
+   "as": [
+    "contain 40 percent of chats"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "repeat-contact",
+   "type": "metric",
+   "label": "repeat contact",
+   "as": [
+    "repeat contact"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "agent-handled-baseline",
+   "type": "metric",
+   "label": "baseline",
+   "as": [
+    "Agent-handled baseline"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "account-servicing-chatbot",
+   "type": "service",
+   "label": "chatbot",
+   "as": [
+    "account-servicing chatbot"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "call table",
+   "as": [
+    "`callcenter.calls`"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "containment-target",
+   "type": "owned-by",
+   "label": "set by",
+   "o": "yuki-tanaka",
+   "quote": "Yuki Tanaka (customer experience) set the target.",
+   "line": 5
+  },
+  {
+   "s": "repeat-contact",
+   "type": "uses",
+   "label": "measured across",
+   "o": "callcenter.calls",
+   "quote": "Repeat contact is measured at 14 days across chat and `callcenter.calls`.",
+   "line": 6
+  },
+  {
+   "s": "account-servicing-chatbot",
+   "type": "measured-by",
+   "label": "targets",
+   "o": "containment-target",
+   "quote": "contain 40 percent of chats",
+   "line": 4
+  },
+  {
+   "s": "repeat-contact",
+   "type": "other",
+   "label": "compared with",
+   "o": "agent-handled-baseline",
+   "quote": "without repeat contact rising above the agent-handled 16 percent",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "dec-cb-metric-24h",
+  "dec-cb-metric-48h",
+  "exp-301",
+  "exp-304",
+  "dec-cb-handoff-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "chatbot-deflection/q-cb-containment-target.md",
+ "sha": "3ce6298bc79efa67174842421cfa22b87fc5c13d4e8f2b09b77a3d0324caead0",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

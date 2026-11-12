@@ -1,0 +1,106 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "psi-thresholds-v1",
+   "type": "term",
+   "label": "superseded rule",
+   "as": [
+    "PSI alert at 0.10 watch and 0.20 retrain"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "drift metric",
+   "as": [
+    "PSI"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "psi-report-py",
+   "type": "module",
+   "label": "script",
+   "as": [
+    "psi_report.py"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "psi-thresholds",
+   "type": "term",
+   "label": "replacement rule",
+   "as": [
+    "howto/psi-thresholds"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "psi-thresholds-v1",
+   "type": "measured-by",
+   "label": "triggers on",
+   "o": "psi",
+   "quote": "a PSI above 0.20 on any scored feature triggered a retrain request",
+   "line": 5
+  },
+  {
+   "s": "psi-thresholds",
+   "type": "other",
+   "label": "supersedes",
+   "o": "psi-thresholds-v1",
+   "quote": "so it is superseded by `howto/psi-thresholds`",
+   "line": 6
+  },
+  {
+   "s": "psi",
+   "type": "produces",
+   "label": "binned by",
+   "o": "psi-report-py",
+   "quote": "Bins were deciles of the training distribution, computed in `psi_report.py`.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "psi-thresholds"
+ ],
+ "replaces": [
+  {
+   "what": "psi-thresholds-v1",
+   "quote": "Until October 2025 a PSI above 0.20 on any scored feature triggered a retrain request",
+   "line": 5
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/psi-thresholds-v1.md",
+ "sha": "efd9cfbb0ba37fd037050c8541ef5746784db490d8f8fe396cac5fb99cc5445d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

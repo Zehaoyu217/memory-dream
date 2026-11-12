@@ -1,0 +1,131 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-103",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-103"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-102",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-102"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  },
+  {
+   "id": "c25-oot-2024h1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "c25-oot-2024h1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.735"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.35"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-c25-app-sessions",
+   "type": "feature",
+   "label": "app session feature",
+   "as": [
+    "app sessions removed"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-103",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "c25-oot-2024h1",
+   "quote": "Holdout c25-oot-2024h1: AUC 0.735",
+   "line": 6
+  },
+  {
+   "s": "exp-103",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.735",
+   "line": 4
+  },
+  {
+   "s": "exp-103",
+   "type": "measured-by",
+   "label": "KS",
+   "o": "ks",
+   "quote": "KS 0.35",
+   "line": 6
+  },
+  {
+   "s": "exp-103",
+   "type": "other",
+   "label": "without",
+   "o": "feat-c25-app-sessions",
+   "quote": "app sessions removed",
+   "line": 5
+  },
+  {
+   "s": "exp-103",
+   "type": "other",
+   "label": "variant of",
+   "o": "exp-102",
+   "quote": "exp-102 without app sessions",
+   "line": 4
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "exp-102",
+   "quote": "Builds on the all-features lightgbm experiment",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2025/exp-103.md",
+ "sha": "170ae0aa735ef41cf53efa2bbfc23e0315ef2e27caf5ddf9f73228dc337b4947",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

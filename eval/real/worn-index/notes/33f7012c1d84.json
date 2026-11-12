@@ -1,0 +1,116 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "credit risk lead",
+   "as": [
+    "Lena Fischer (credit risk)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ben-carter",
+   "type": "person",
+   "label": "finance lead",
+   "as": [
+    "Ben Carter (finance)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-408",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-408"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "hp-psm-v2",
+   "type": "model",
+   "label": "matching model",
+   "as": [
+    "caliper-based hardship matching model"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "smd-gate",
+   "type": "policy",
+   "label": "effect gate",
+   "as": [
+    "no hardship effect is reported unless the max standardised mean difference after matching is below 0.1"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "smd-gate",
+   "type": "owned-by",
+   "label": "agreed by",
+   "o": "lena-fischer",
+   "quote": "Agreed 2026-02-02 by Lena Fischer (credit risk) and Ben Carter (finance).",
+   "line": 5
+  },
+  {
+   "s": "smd-gate",
+   "type": "owned-by",
+   "label": "agreed by",
+   "o": "ben-carter",
+   "quote": "Agreed 2026-02-02 by Lena Fischer (credit risk) and Ben Carter (finance).",
+   "line": 5
+  },
+  {
+   "s": "smd-gate",
+   "type": "uses",
+   "label": "applies to",
+   "o": "hp-psm-v2",
+   "quote": "Gate applies to every hardship effect estimate from hp-psm-v2 onward.",
+   "line": 6
+  },
+  {
+   "s": "exp-408",
+   "type": "measured-by",
+   "label": "passes at",
+   "o": "smd-gate",
+   "quote": "exp-408 passes at 0.08.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "exp-408",
+   "quote": "Builds on exp-408 and the caliper-based hardship matching model.",
+   "line": 7
+  },
+  {
+   "what": "hp-psm-v2",
+   "quote": "Builds on exp-408 and the caliper-based hardship matching model.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "hardship-programs/dec-hp-smd-gate.md",
+ "sha": "33f7012c1d849aef57bbe2f318dea6c7a3012a2ffedb8a933a645c7a022523dd",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

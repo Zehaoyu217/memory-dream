@@ -1,0 +1,146 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-ep-fixed-horizon",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: readouts happen once, at the planned end; early stops need a sequential boundary"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "dec-ep-daily-looks",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-ep-daily-looks"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "monitoring-dashboard",
+   "type": "dashboard",
+   "label": "monitoring dashboard",
+   "as": [
+    "monitoring dashboard"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "daily-peeking",
+   "type": "term",
+   "label": "daily looks",
+   "as": [
+    "Daily looks"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sequential-boundary",
+   "type": "term",
+   "label": "sequential boundary",
+   "as": [
+    "sequential boundary"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "fnd-peeking",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-peeking"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-503",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "the a/a simulation of daily peeking"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "monitoring-dashboard",
+   "type": "other",
+   "label": "shows",
+   "o": "daily-peeking",
+   "quote": "Daily looks are still shown on the monitoring dashboard, but no stop decision is taken from them.",
+   "line": 5
+  },
+  {
+   "s": "dec-ep-fixed-horizon",
+   "type": "uses",
+   "label": "needs boundary",
+   "o": "sequential-boundary",
+   "quote": "early stops need a sequential boundary",
+   "line": 4
+  },
+  {
+   "s": "dec-ep-fixed-horizon",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "dec-ep-daily-looks",
+   "quote": "Replaces dec-ep-daily-looks.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "dec-ep-daily-looks",
+  "fnd-peeking"
+ ],
+ "built_on": [
+  {
+   "what": "dec-ep-daily-looks",
+   "quote": "Builds on dec-ep-daily-looks, the a/a simulation of daily peeking and fnd-peeking.",
+   "line": 7
+  },
+  {
+   "what": "exp-503",
+   "quote": "Builds on dec-ep-daily-looks, the a/a simulation of daily peeking and fnd-peeking.",
+   "line": 7
+  },
+  {
+   "what": "fnd-peeking",
+   "quote": "Builds on dec-ep-daily-looks, the a/a simulation of daily peeking and fnd-peeking.",
+   "line": 7
+  }
+ ],
+ "replaces": [
+  {
+   "what": "dec-ep-daily-looks",
+   "quote": "Replaces dec-ep-daily-looks.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "experiment-platform/dec-ep-fixed-horizon.md",
+ "sha": "7f36c0f5532e4e6c2fd99975dbfc57630e00c203222ec778fb91a9317c8bb4e7",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

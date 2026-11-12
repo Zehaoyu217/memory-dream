@@ -1,0 +1,109 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "yuki-tanaka",
+   "type": "person",
+   "label": "normaliser",
+   "as": [
+    "Yuki Tanaka"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "call-volume",
+   "type": "metric",
+   "label": "call volume",
+   "as": [
+    "Call volumes",
+    "calls per 1,000 active accounts"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "raw-call-counts",
+   "type": "metric",
+   "label": "raw call counts",
+   "as": [
+    "raw call counts"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "call table",
+   "as": [
+    "`callcenter.calls`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "accounts table",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cx-review",
+   "type": "document",
+   "label": "cx review",
+   "as": [
+    "CX reviews"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "yuki-tanaka",
+   "type": "other",
+   "label": "normalises",
+   "o": "call-volume",
+   "quote": "Yuki Tanaka normalises call volumes per 1,000 active accounts",
+   "line": 4
+  },
+  {
+   "s": "call-volume",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "callcenter.calls",
+   "quote": "from `callcenter.calls` and `cards.accounts_monthly`",
+   "line": 5
+  },
+  {
+   "s": "call-volume",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cards.accounts_monthly",
+   "quote": "from `callcenter.calls` and `cards.accounts_monthly`",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "prefs/yuki-tanaka-volume-normalisation.md",
+ "sha": "88d03d6721585ab3e90ec4f1b247a97240210a2378e5c275a197e1ec265ef0fc",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

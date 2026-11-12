@@ -1,0 +1,195 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "ed-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ed-gbm-v2 is the LightGBM model"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-ed-minpay-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "min-pay ratio"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-ed-util-trend-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ed-util-trend-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-ed-cashadv-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ed-cashadv-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "early-delinquency-holdout-2024q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "early-delinquency-holdout-2024q4"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "early-delinquency-holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "early-delinquency-holdout-2025q1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC about 0.80"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "brier",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Brier 0.058"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ed-gbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ed-gbm-v3"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ed-gbm-v2",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-ed-util-trend-v1",
+   "quote": "Features: feat-ed-util-trend-v1, feat-ed-cashadv-v1, feat-ed-minpay-v2.",
+   "line": 5
+  },
+  {
+   "s": "ed-gbm-v2",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-ed-cashadv-v1",
+   "quote": "Features: feat-ed-util-trend-v1, feat-ed-cashadv-v1, feat-ed-minpay-v2.",
+   "line": 5
+  },
+  {
+   "s": "ed-gbm-v2",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-ed-minpay-v2",
+   "quote": "Features: feat-ed-util-trend-v1, feat-ed-cashadv-v1, feat-ed-minpay-v2.",
+   "line": 5
+  },
+  {
+   "s": "ed-gbm-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "early-delinquency-holdout-2024q4",
+   "quote": "AUC about 0.80 on early-delinquency-holdout-2024q4",
+   "line": 6
+  },
+  {
+   "s": "ed-gbm-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "early-delinquency-holdout-2025q1",
+   "quote": "Brier 0.058 on early-delinquency-holdout-2025q1",
+   "line": 6
+  },
+  {
+   "s": "ed-gbm-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC about 0.80",
+   "line": 6
+  },
+  {
+   "s": "ed-gbm-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "brier",
+   "quote": "Brier 0.058",
+   "line": 6
+  },
+  {
+   "s": "ed-gbm-v3",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "ed-gbm-v2",
+   "quote": "Superseded by ed-gbm-v3 (2026-06-15).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ed-gbm-v3"
+ ],
+ "built_on": [
+  {
+   "what": "ed-gbm-v1",
+   "quote": "Replaces ed-gbm-v1.",
+   "line": 9
+  }
+ ],
+ "replaces": [
+  {
+   "what": "ed-gbm-v1",
+   "quote": "Replaces ed-gbm-v1.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "early-delinquency/ed-gbm-v2.md",
+ "sha": "2324556444f0042ba66045de6002c9e4e0f91de87a9231bbfcbf98078b39d459",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

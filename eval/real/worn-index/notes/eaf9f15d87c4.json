@@ -1,0 +1,180 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-nps-gbm-v2",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Adopt the v2 driver model as the production NPS driver model"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "nps-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "nps-gbm-v2"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "nps-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "nps-gbm-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "nps-driver-dashboard",
+   "type": "dashboard",
+   "label": "dashboard",
+   "as": [
+    "NPS driver dashboard"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "chloe-martin",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Owner Chloe Martin"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-nps-no-leak-rule",
+   "type": "policy",
+   "label": "leakage rule",
+   "as": [
+    "the leakage rule in dec-nps-no-leak-rule"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "spearman",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Spearman 0.49"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "2026q1-wave",
+   "type": "other",
+   "label": "wave",
+   "as": [
+    "2026Q1 wave"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "nps-gbm-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "nps-gbm-v1",
+   "quote": "nps-gbm-v2 replaces nps-gbm-v1 on the NPS driver dashboard",
+   "line": 5
+  },
+  {
+   "s": "nps-gbm-v2",
+   "type": "other",
+   "label": "on dashboard",
+   "o": "nps-driver-dashboard",
+   "quote": "nps-gbm-v2 replaces nps-gbm-v1 on the NPS driver dashboard",
+   "line": 5
+  },
+  {
+   "s": "dec-nps-gbm-v2",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "chloe-martin",
+   "quote": "Owner Chloe Martin",
+   "line": 6
+  },
+  {
+   "s": "dec-nps-gbm-v2",
+   "type": "other",
+   "label": "governed by",
+   "o": "dec-nps-no-leak-rule",
+   "quote": "the leakage rule in dec-nps-no-leak-rule applies to every retrain",
+   "line": 6
+  },
+  {
+   "s": "nps-gbm-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q4",
+   "quote": "Spearman 0.49 on holdout-2025q4",
+   "line": 5
+  },
+  {
+   "s": "nps-gbm-v2",
+   "type": "measured-by",
+   "label": "scored by",
+   "o": "spearman",
+   "quote": "Spearman 0.49 on holdout-2025q4",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "dec-nps-no-leak-rule",
+  "nps-gbm-v1",
+  "nps-gbm-v2"
+ ],
+ "built_on": [
+  {
+   "what": "fnd-nps-fee-corrected",
+   "quote": "Builds on the corrected fee shock finding and nps-gbm-v2",
+   "line": 7
+  },
+  {
+   "what": "nps-gbm-v2",
+   "quote": "Builds on the corrected fee shock finding and nps-gbm-v2",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "nps-drivers/dec-nps-gbm-v2.md",
+ "sha": "eaf9f15d87c4846edb531cf579259cf93997acaacea4a1ef917bd05f7b55d55a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,140 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-trv-funnel-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-trv-funnel-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "search-to-book",
+   "type": "feature",
+   "label": "conversion",
+   "as": [
+    "Search-to-book and quote-to-book conversion"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "ds-trv-funnel-sessions",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "ds-trv-funnel-sessions"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "trv-ridge-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "trv-ridge-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "ridge MAPE"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "trv-ridge-v2",
+   "type": "model",
+   "label": "ridge model",
+   "as": [
+    "5.2%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "trv-bt-2025h2",
+   "type": "dataset",
+   "label": "backtest set",
+   "as": [
+    "trv-bt-2025h2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-505",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-505"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-trv-funnel-v2",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-trv-funnel-sessions",
+   "quote": "Builds on ds-trv-funnel-sessions.",
+   "line": 8
+  },
+  {
+   "s": "feat-trv-funnel-v2",
+   "type": "uses",
+   "label": "input to",
+   "o": "trv-ridge-v3",
+   "quote": "Input to trv-ridge-v3.",
+   "line": 7
+  },
+  {
+   "s": "feat-trv-funnel-v2",
+   "type": "measured-by",
+   "label": "MAPE 5.2% to 4.3%",
+   "o": "mape",
+   "quote": "ridge MAPE 5.2% to 4.3% on trv-bt-2025h2 (exp-505)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-trv-funnel-sessions",
+  "trv-ridge-v3",
+  "exp-505"
+ ],
+ "built_on": [
+  {
+   "what": "ds-trv-funnel-sessions",
+   "quote": "Builds on ds-trv-funnel-sessions.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "travel-spend-recovery/feat-trv-funnel-v2.md",
+ "sha": "dcc1087eba5a0241c46ba19c8a7bc6a1daf5968efd66b274f75b32eaff9fce5b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

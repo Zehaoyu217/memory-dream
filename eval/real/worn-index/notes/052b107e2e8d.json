@@ -1,0 +1,104 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-505",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-505: arm C accounts churn at 6.4% in 60 days after promo expiry, against 2.1% for control"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "arm-c",
+   "type": "segment",
+   "label": "promo arm",
+   "as": [
+    "Arm C cohorts whose promo expired from February to August 2026"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-pa-churn-labels",
+   "type": "dataset",
+   "label": "churn labels",
+   "as": [
+    "ds-pa-churn-labels"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cards.churn_labels",
+   "type": "dataset",
+   "label": "churn labels table",
+   "as": [
+    "`cards.churn_labels`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "churn-rate",
+   "type": "metric",
+   "label": "churn rate",
+   "as": [
+    "Arm C 6.4% against 2.1% for control"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-505",
+   "type": "evaluated-on",
+   "label": "uses label from",
+   "o": "cards.churn_labels",
+   "quote": "60-day churn label from `cards.churn_labels`",
+   "line": 5
+  },
+  {
+   "s": "exp-505",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "churn-rate",
+   "quote": "Arm C 6.4% against 2.1% for control",
+   "line": 6
+  },
+  {
+   "s": "arm-c",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "cards.churn_labels",
+   "quote": "60-day churn label from `cards.churn_labels`",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "ds-pa-churn-labels"
+ ],
+ "built_on": [
+  {
+   "what": "ds-pa-churn-labels",
+   "quote": "Builds on ds-pa-churn-labels and the balance-at-expiry cliff feature.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "promo-apr-test/exp-505-exit-churn.md",
+ "sha": "052b107e2e8dc29273ba6a2f8c1ccc6372e71bbb02fd28d60a01c9b8cd099d67",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

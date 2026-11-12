@@ -1,0 +1,72 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-rs-pay-before-co",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rs-pay-before-co"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.payments_daily`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "2023-2024-charge-off-base",
+   "type": "segment",
+   "label": "charge-off base",
+   "as": [
+    "the 2023-2024 charge-off base"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-rs-pay-before-co",
+   "type": "uses",
+   "label": "source",
+   "o": "cards.payments_daily",
+   "quote": "Source: `cards.payments_daily`, using posting date.",
+   "line": 6
+  },
+  {
+   "s": "feat-rs-pay-before-co",
+   "type": "uses",
+   "label": "builds on",
+   "o": "2023-2024-charge-off-base",
+   "quote": "Builds on the 2023-2024 charge-off base.",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-rs-chargeoff-base",
+   "quote": "Builds on the 2023-2024 charge-off base.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "recovery-scoring/feat-rs-pay-before-co.md",
+ "sha": "3712a7d701df237d71f4a6d8cc637a8ccfa3d989ce7a561ff380ba9659d59ed1",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

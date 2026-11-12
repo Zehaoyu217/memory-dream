@@ -1,0 +1,163 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-507",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-507: adding the dispute ratio lifts AUC from 0.86 to 0.91 on mrisk-oot-2026h1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "mrisk-oot-2026h1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "Eval set: mrisk-oot-2026h1 (labels as of 2026-06-30)."
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "mrisk-gbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "mrisk-gbm-v3 (v2 plus feat-mrisk-dispute-ratio): AUC 0.91, precision@100 0.58."
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mrisk-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "v2 on the same holdout for reference: AUC 0.86, precision@100 0.43."
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-mrisk-dispute-ratio",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "v2 plus feat-mrisk-dispute-ratio"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.91",
+    "AUC 0.86"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "precision-at-100",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "precision@100 0.58",
+    "precision@100 0.43"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "exp-506",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "Builds on exp-506"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mrisk-gbm-v3",
+   "type": "uses",
+   "label": "adds feature",
+   "o": "feat-mrisk-dispute-ratio",
+   "quote": "v2 plus feat-mrisk-dispute-ratio",
+   "line": 6
+  },
+  {
+   "s": "mrisk-gbm-v3",
+   "type": "evaluated-on",
+   "label": "eval on",
+   "o": "mrisk-oot-2026h1",
+   "quote": "Eval set: mrisk-oot-2026h1",
+   "line": 5
+  },
+  {
+   "s": "mrisk-gbm-v3",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.91, precision@100 0.58",
+   "line": 6
+  },
+  {
+   "s": "mrisk-gbm-v3",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "precision-at-100",
+   "quote": "precision@100 0.58",
+   "line": 6
+  },
+  {
+   "s": "mrisk-gbm-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.86, precision@100 0.43",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-506",
+  "feat-mrisk-dispute-ratio"
+ ],
+ "built_on": [
+  {
+   "what": "exp-506",
+   "quote": "Builds on exp-506, feat-mrisk-dispute-ratio and the model adding mcc base rate.",
+   "line": 8
+  },
+  {
+   "what": "feat-mrisk-dispute-ratio",
+   "quote": "Builds on exp-506, feat-mrisk-dispute-ratio and the model adding mcc base rate.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "merchant-risk/exp-507.md",
+ "sha": "790869e009046e4a90878ebae62b606921ce70dd26101880b670c1c0f4a18ed6",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

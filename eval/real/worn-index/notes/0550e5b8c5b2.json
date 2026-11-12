@@ -1,0 +1,105 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-fsm-parity-sample",
+   "type": "dataset",
+   "label": "parity sample",
+   "as": [
+    "fsm_parity_sample_2025h2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "product-tier",
+   "type": "other",
+   "label": "product tiers",
+   "as": [
+    "four product tiers"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sample-sql",
+   "type": "module",
+   "label": "sample script",
+   "as": [
+    "fsm/parity/sample.sql"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-101",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-101"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-fsm-legacy-features",
+   "type": "dataset",
+   "label": "legacy features dataset",
+   "as": [
+    "legacy features dataset"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "sample-sql",
+   "type": "produces",
+   "label": "builds",
+   "o": "ds-fsm-parity-sample",
+   "quote": "Built by `fsm/parity/sample.sql` with seed 20251020.",
+   "line": 6
+  },
+  {
+   "s": "exp-101",
+   "type": "uses",
+   "label": "parity runs use",
+   "o": "ds-fsm-parity-sample",
+   "quote": "every parity run from exp-101 on uses this same table",
+   "line": 6
+  },
+  {
+   "s": "ds-fsm-parity-sample",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-fsm-legacy-features",
+   "quote": "Builds on the legacy features dataset.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-101",
+  "ds-fsm-legacy-features"
+ ],
+ "built_on": [
+  {
+   "what": "ds-fsm-legacy-features",
+   "quote": "Builds on the legacy features dataset.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "feature-store-migration/ds-fsm-parity-sample.md",
+ "sha": "0550e5b8c5b26b400604334f1c466bff83894614686b5cb2d83da7bc7c8941c5",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

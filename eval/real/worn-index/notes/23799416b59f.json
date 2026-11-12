@@ -1,0 +1,85 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-ror-t3-overspend",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "The T3 APR cut returns $0.82 per offer dollar"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "t3-apr-cut",
+   "type": "other",
+   "label": "offer tier",
+   "as": [
+    "T3 APR cut"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "roi",
+   "type": "metric",
+   "label": "roi",
+   "as": [
+    "per offer dollar"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-401",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-401"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "t3-apr-cut",
+   "type": "measured-by",
+   "label": "returns",
+   "o": "roi",
+   "quote": "The T3 APR cut returns $0.82 per offer dollar",
+   "line": 4
+  },
+  {
+   "s": "fnd-ror-t3-overspend",
+   "type": "uses",
+   "label": "basis",
+   "o": "exp-401",
+   "quote": "Basis: exp-401.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-401"
+ ],
+ "built_on": [
+  {
+   "what": "exp-401",
+   "quote": "Builds on the july 2025 roi-by-tier experiment.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "retention-offers-roi/fnd-ror-t3-overspend.md",
+ "sha": "23799416b59f1c063f836893eb9e59568c04486f16cdd33cc3d515c480fcd5c0",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

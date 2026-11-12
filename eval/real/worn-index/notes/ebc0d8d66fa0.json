@@ -1,0 +1,55 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "cards.labels_qa",
+   "type": "dataset",
+   "label": "qa label table",
+   "as": [
+    "`complaints.labels_qa`"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "complaints-ops",
+   "type": "team",
+   "label": "table owner",
+   "as": [
+    "Table owner complaints-ops."
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cards.labels_qa",
+   "type": "owned-by",
+   "label": "table owner",
+   "o": "complaints-ops",
+   "quote": "Table owner complaints-ops.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "ds-cc-tickets-raw"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cc-tickets-raw",
+   "quote": "Builds on the raw complaint ticket table.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "complaint-classification/ds-cc-qa-labels.md",
+ "sha": "ebc0d8d66fa09a7fe403e21f8eaf91db0d94fc7f9e965b062390d7d0f8d01287",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

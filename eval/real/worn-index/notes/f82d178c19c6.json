@@ -1,0 +1,131 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-104",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "cutoff 0.031 on the logistic score"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cli-logreg-baseline",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cli-logreg-baseline"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "cli-test-2025q1",
+   "type": "segment",
+   "label": "test cohort",
+   "as": [
+    "2025-Q1 test cohort"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "net-margin",
+   "type": "metric",
+   "label": "net margin",
+   "as": [
+    "net margin"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "90-day-loss",
+   "type": "metric",
+   "label": "loss",
+   "as": [
+    "90-day loss"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "q-cli-revenue-loss-tradeoff",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "the question on cutoff margin versus loss"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-104",
+   "type": "uses",
+   "label": "sweep on",
+   "o": "cli-logreg-baseline",
+   "quote": "Sweep of cutoffs 0.020 to 0.050 on cli-logreg-baseline",
+   "line": 5
+  },
+  {
+   "s": "exp-104",
+   "type": "evaluated-on",
+   "label": "tested on",
+   "o": "cli-test-2025q1",
+   "quote": "over the 2025-Q1 test cohort (n=60,000)",
+   "line": 5
+  },
+  {
+   "s": "exp-104",
+   "type": "measured-by",
+   "label": "gives",
+   "o": "net-margin",
+   "quote": "net margin +$1.8M a year",
+   "line": 6
+  },
+  {
+   "s": "exp-104",
+   "type": "measured-by",
+   "label": "gives",
+   "o": "90-day-loss",
+   "quote": "90-day loss 1.4% of exposed book",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "cli-logreg-baseline"
+ ],
+ "built_on": [
+  {
+   "what": "cli-logreg-baseline",
+   "quote": "Builds on cli-logreg-baseline and the question on cutoff margin versus loss.",
+   "line": 8
+  },
+  {
+   "what": "q-cli-revenue-loss-tradeoff",
+   "quote": "Builds on cli-logreg-baseline and the question on cutoff margin versus loss.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/exp-104.md",
+ "sha": "f82d178c19c65531293ddbeae1cd4c0fef952d0cc95207c1c778a905476479d3",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

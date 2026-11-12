@@ -1,0 +1,143 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-304",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-304"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "rev26-revolving-balance-base",
+   "type": "dataset",
+   "label": "balance base",
+   "as": [
+    "2026 revolving balance base"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-rev26-rate-schedule",
+   "type": "dataset",
+   "label": "rate schedule",
+   "as": [
+    "ds-rev26-rate-schedule"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "29.99-apr-cap",
+   "type": "policy",
+   "label": "apr cap",
+   "as": [
+    "29.99% ceiling"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "rewards-segment",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "Rewards segment"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-rev26-apr-mix",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "blended apr mix feature"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "q-rev26-apr-cap-scenario",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "the question on the apr cap scenario"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-304",
+   "type": "uses",
+   "label": "applies",
+   "o": "29.99-apr-cap",
+   "quote": "Applies a 29.99% ceiling to the 2026 revolving balance base",
+   "line": 5
+  },
+  {
+   "s": "exp-304",
+   "type": "uses",
+   "label": "applies to",
+   "o": "rev26-revolving-balance-base",
+   "quote": "Applies a 29.99% ceiling to the 2026 revolving balance base",
+   "line": 5
+  },
+  {
+   "s": "exp-304",
+   "type": "uses",
+   "label": "reads",
+   "o": "ds-rev26-rate-schedule",
+   "quote": "2026 revolving balance base in ds-rev26-rate-schedule",
+   "line": 5
+  },
+  {
+   "s": "exp-304",
+   "type": "measured-by",
+   "label": "cuts annualised interest by",
+   "o": "29.99-apr-cap",
+   "quote": "Annualised interest falls by $54M",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-rev26-rate-schedule",
+  "dec-rev26-cap-scenario-separate",
+  "fnd-rev26-apr-sensitivity",
+  "q-rev26-apr-cap-scenario",
+  "feat-rev26-apr-mix"
+ ],
+ "built_on": [
+  {
+   "what": "feat-rev26-apr-mix",
+   "quote": "Builds on the blended apr mix feature",
+   "line": 8
+  },
+  {
+   "what": "q-rev26-apr-cap-scenario",
+   "quote": "the question on the apr cap scenario",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "revenue-forecast-2026/exp-304.md",
+ "sha": "86a9c5e8ef8ede9ffac115c2ef130e696e05cd8847f59223ca1605325bb9f9ae",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

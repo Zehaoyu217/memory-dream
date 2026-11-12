@@ -1,0 +1,82 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-c25-oot-2024h1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Holdout c25-oot-2024h1: 312,470 account-months, snapshots Feb to Apr 2024"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "build_churn_labels",
+   "type": "pipeline",
+   "label": "label builder",
+   "as": [
+    "build_churn_labels(window=60)"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-c25-accounts-snapshot",
+   "type": "dataset",
+   "label": "base population",
+   "as": [
+    "churn-2025 account-month population"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "ds-c25-churn-labels",
+   "type": "dataset",
+   "label": "label dataset",
+   "as": [
+    "ds-c25-churn-labels"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "build_churn_labels",
+   "type": "produces",
+   "label": "labels",
+   "o": "ds-c25-oot-2024h1",
+   "quote": "Labelled with the same `build_churn_labels(window=60)` as training.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-101"
+ ],
+ "built_on": [
+  {
+   "what": "ds-c25-accounts-snapshot",
+   "quote": "Builds on the churn-2025 account-month population",
+   "line": 9
+  },
+  {
+   "what": "ds-c25-churn-labels",
+   "quote": "ds-c25-churn-labels",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "churn-2025/ds-c25-oot-2024h1.md",
+ "sha": "a8ed5711bd5081879813b4dd3e375c66bb27c6c7ff90db1772f066f95fd4cfca",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

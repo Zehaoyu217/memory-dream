@@ -1,0 +1,94 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "txc-charcnn-v1",
+   "type": "model",
+   "label": "char-cnn model",
+   "as": [
+    "txc-charcnn-v1"
+   ],
+   "lines": [
+    7,
+    9
+   ]
+  },
+  {
+   "id": "txc-gbm-v2",
+   "type": "model",
+   "label": "lightgbm model",
+   "as": [
+    "txc-gbm-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "lightgbm",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "feat-txc-normalise-v2",
+   "type": "feature",
+   "label": "normalised descriptor path",
+   "as": [
+    "normalised descriptor path"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-105",
+   "type": "other",
+   "label": "latency experiment",
+   "as": [
+    "char-cnn latency experiment"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [],
+ "refs": [
+  "exp-105"
+ ],
+ "built_on": [
+  {
+   "what": "exp-105",
+   "quote": "Builds on the char-cnn latency experiment and txc-charcnn-v1.",
+   "line": 9
+  },
+  {
+   "what": "txc-charcnn-v1",
+   "quote": "Builds on the char-cnn latency experiment and txc-charcnn-v1.",
+   "line": 9
+  }
+ ],
+ "replaces": [
+  {
+   "what": "txc-charcnn-v1",
+   "quote": "Decision: drop txc-charcnn-v1",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 2
+ },
+ "path": "txn-categorization/dec-txc-drop-charcnn.md",
+ "sha": "b7f1ea4d1f0b99ad517eaa61882618c21964ab8ad69c4f2061e00377374cd727",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,159 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cld-gbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "adds payment-shock features"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cld-test-2026q1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "cld-test-2026q1"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "cld-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cld-gbm-v2"
+   ],
+   "lines": [
+    7,
+    8,
+    9
+   ]
+  },
+  {
+   "id": "feat-cld-payment-shock",
+   "type": "feature",
+   "label": "payment-shock features",
+   "as": [
+    "feat-cld-payment-shock"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.81"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini 0.62"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "decreases-jan-mar-2026",
+   "type": "segment",
+   "label": "decreases",
+   "as": [
+    "n=21,700 decreases from Jan-Mar 2026"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cld-gbm-v3",
+   "type": "uses",
+   "label": "adds",
+   "o": "feat-cld-payment-shock",
+   "quote": "Adds feat-cld-payment-shock to the v2 inputs.",
+   "line": 5
+  },
+  {
+   "s": "cld-gbm-v3",
+   "type": "evaluated-on",
+   "label": "eval",
+   "o": "cld-test-2026q1",
+   "quote": "Eval: cld-test-2026q1, n=21,700 decreases from Jan-Mar 2026",
+   "line": 6
+  },
+  {
+   "s": "cld-gbm-v3",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "adds payment-shock features, AUC 0.81 on cld-test-2026q1",
+   "line": 4
+  },
+  {
+   "s": "cld-gbm-v3",
+   "type": "measured-by",
+   "label": "Gini",
+   "o": "gini",
+   "quote": "Gini 0.62 against 0.56 for cld-gbm-v2 on the same set.",
+   "line": 7
+  },
+  {
+   "s": "cld-gbm-v3",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "cld-gbm-v2",
+   "quote": "Replaces cld-gbm-v2.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "cld-gbm-v2",
+  "feat-cld-payment-shock"
+ ],
+ "built_on": [
+  {
+   "what": "cld-gbm-v2",
+   "quote": "Builds on cld-gbm-v2 and feat-cld-payment-shock.",
+   "line": 8
+  },
+  {
+   "what": "feat-cld-payment-shock",
+   "quote": "Builds on cld-gbm-v2 and feat-cld-payment-shock.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "cld-gbm-v2",
+   "quote": "Replaces cld-gbm-v2.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "limit-decrease-policy/cld-gbm-v3.md",
+ "sha": "16c8bcc3e5716be8a1faa004109faf6fd91d3cebf7cd5e8afe6e8220f79d681a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

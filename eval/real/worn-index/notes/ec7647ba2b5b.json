@@ -1,0 +1,65 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "bureau-score-timing",
+   "type": "term",
+   "label": "pull timing rule",
+   "as": [
+    "Use the bureau score dated at least 30 days before the observation date"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`bureau.scores_monthly`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "reviewer",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bureau-score-timing",
+   "type": "uses",
+   "label": "takes score from",
+   "o": "bureau.scores_monthly",
+   "quote": "From `bureau.scores_monthly`, take the score with `score_date` at least 30 days before `observation_date`.",
+   "line": 5
+  },
+  {
+   "s": "lena-fischer",
+   "type": "other",
+   "label": "rejected same-month pull",
+   "o": "bureau-score-timing",
+   "quote": "Lena Fischer rejected it as leakage.",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/bureau-score-pull-timing.md",
+ "sha": "ec7647ba2b5b6d38e78546bed4eee3660029a5718819e025b6b501b1e45cdb3c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

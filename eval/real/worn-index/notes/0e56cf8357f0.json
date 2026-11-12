@@ -1,0 +1,181 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "txc-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "txc-gbm-v2: LightGBM on raw tokens and MCC prior reaches macro-F1 0.78"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "algorithm",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "feat-txc-descriptor-tokens-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-txc-descriptor-tokens-v1"
+   ],
+   "lines": [
+    5,
+    9
+   ]
+  },
+  {
+   "id": "feat-txc-mcc-prior",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-txc-mcc-prior"
+   ],
+   "lines": [
+    5,
+    9
+   ]
+  },
+  {
+   "id": "holdout-2025q2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q2 (n=2,000)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "txc-logreg-v1",
+   "type": "model",
+   "label": "baseline",
+   "as": [
+    "logistic regression baseline model"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "txc-gbm-v3",
+   "type": "model",
+   "label": "successor",
+   "as": [
+    "txc-gbm-v3"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "q-txc-unlabelled-share",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "q-txc-unlabelled-share"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "txc-gbm-v2",
+   "type": "uses",
+   "label": "built on",
+   "o": "feat-txc-descriptor-tokens-v1",
+   "quote": "Builds on feat-txc-descriptor-tokens-v1, feat-txc-mcc-prior and the logistic regression baseline model.",
+   "line": 9
+  },
+  {
+   "s": "txc-gbm-v2",
+   "type": "uses",
+   "label": "built on",
+   "o": "feat-txc-mcc-prior",
+   "quote": "Builds on feat-txc-descriptor-tokens-v1, feat-txc-mcc-prior and the logistic regression baseline model.",
+   "line": 9
+  },
+  {
+   "s": "txc-gbm-v2",
+   "type": "uses",
+   "label": "built on",
+   "o": "txc-logreg-v1",
+   "quote": "Builds on feat-txc-descriptor-tokens-v1, feat-txc-mcc-prior and the logistic regression baseline model.",
+   "line": 9
+  },
+  {
+   "s": "txc-gbm-v2",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "holdout-2025q2",
+   "quote": "Macro-F1 0.78 on holdout-2025q2 (n=2,000)",
+   "line": 6
+  },
+  {
+   "s": "txc-gbm-v2",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "txc-gbm-v3",
+   "quote": "Superseded by txc-gbm-v3 in March 2026.",
+   "line": 8
+  },
+  {
+   "s": "txc-gbm-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "txc-logreg-v1",
+   "quote": "Replaces txc-logreg-v1.",
+   "line": 10
+  }
+ ],
+ "refs": [
+  "q-txc-unlabelled-share"
+ ],
+ "built_on": [
+  {
+   "what": "feat-txc-descriptor-tokens-v1",
+   "quote": "Builds on feat-txc-descriptor-tokens-v1, feat-txc-mcc-prior and the logistic regression baseline model.",
+   "line": 9
+  },
+  {
+   "what": "feat-txc-mcc-prior",
+   "quote": "Builds on feat-txc-descriptor-tokens-v1, feat-txc-mcc-prior and the logistic regression baseline model.",
+   "line": 9
+  },
+  {
+   "what": "txc-logreg-v1",
+   "quote": "Builds on feat-txc-descriptor-tokens-v1, feat-txc-mcc-prior and the logistic regression baseline model.",
+   "line": 9
+  }
+ ],
+ "replaces": [
+  {
+   "what": "txc-logreg-v1",
+   "quote": "Replaces txc-logreg-v1.",
+   "line": 10
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "txn-categorization/txc-gbm-v2.md",
+ "sha": "0e56cf8357f072c00dd8cea4c00122c83746b6729d7a10d716794db881bbf896",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

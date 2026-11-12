@@ -1,0 +1,141 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "aml-xgb-v3",
+   "type": "model",
+   "label": "ranker",
+   "as": [
+    "aml-xgb-v3"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "aml-xgb-v2",
+   "type": "model",
+   "label": "ranker",
+   "as": [
+    "aml-xgb-v2"
+   ],
+   "lines": [
+    8,
+    9
+   ]
+  },
+  {
+   "id": "ds-aml-oot",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "aml-oot-2026h1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-aml-dispositions",
+   "type": "dataset",
+   "label": "dispositions",
+   "as": [
+    "Jan-Jun 2026 dispositions"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "top-40pct-capture",
+   "type": "metric",
+   "label": "capture",
+   "as": [
+    "top-40% capture"
+   ],
+   "lines": [
+    4,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "aml-xgb-v3",
+   "type": "trained-on",
+   "label": "recalibrated on",
+   "o": "ds-aml-dispositions",
+   "quote": "Recalibrated ranker on the same five features with Jan-Jun 2026 dispositions.",
+   "line": 5
+  },
+  {
+   "s": "aml-xgb-v3",
+   "type": "evaluated-on",
+   "label": "on",
+   "o": "ds-aml-oot",
+   "quote": "On aml-oot-2026h1: 96.3% of SAR-referred alerts in the top 40% of the queue",
+   "line": 6
+  },
+  {
+   "s": "aml-xgb-v3",
+   "type": "measured-by",
+   "label": "captures",
+   "o": "top-40pct-capture",
+   "quote": "96.3% of SAR-referred alerts in the top 40% of the queue",
+   "line": 6
+  },
+  {
+   "s": "aml-xgb-v3",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "aml-xgb-v2",
+   "quote": "Replaces aml-xgb-v2.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "aml-xgb-v2",
+  "ds-aml-oot",
+  "exp-405",
+  "exp-407",
+  "dec-aml-ranker-v3"
+ ],
+ "built_on": [
+  {
+   "what": "aml-xgb-v2",
+   "quote": "Builds on aml-xgb-v2, ds-aml-oot, exp-405 and the experiment on recalibrated v3 top-40% capture.",
+   "line": 8
+  },
+  {
+   "what": "ds-aml-oot",
+   "quote": "Builds on aml-xgb-v2, ds-aml-oot, exp-405 and the experiment on recalibrated v3 top-40% capture.",
+   "line": 8
+  },
+  {
+   "what": "exp-405",
+   "quote": "Builds on aml-xgb-v2, ds-aml-oot, exp-405 and the experiment on recalibrated v3 top-40% capture.",
+   "line": 8
+  },
+  {
+   "what": "exp-407",
+   "quote": "Builds on aml-xgb-v2, ds-aml-oot, exp-405 and the experiment on recalibrated v3 top-40% capture.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "aml-xgb-v2",
+   "quote": "Replaces aml-xgb-v2.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "aml-alerts/aml-xgb-v3.md",
+ "sha": "1831d970313cd2fb5b4bf807d554aa0c2149284bb6cee55a9fa33eddc8bf6b1c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,78 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-txc-mcc-crosswalk",
+   "type": "dataset",
+   "label": "crosswalk",
+   "as": [
+    "MCC-to-category crosswalk: 412 codes mapped to 23 categories"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Tomás Rivera"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "data-eng-cards",
+   "type": "team",
+   "label": "owner team",
+   "as": [
+    "data-eng-cards"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.merchants",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.merchants`"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-txc-mcc-crosswalk",
+   "type": "owned-by",
+   "label": "owner is",
+   "o": "tomas-rivera",
+   "quote": "Owner is data-eng-cards (Tomás Rivera).",
+   "line": 5
+  },
+  {
+   "s": "ds-txc-mcc-crosswalk",
+   "type": "uses",
+   "label": "source column is",
+   "o": "cards.merchants",
+   "quote": "Source column is the MCC in `cards.merchants`",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-txc-mcc-prior"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "txn-categorization/ds-txc-mcc-crosswalk.md",
+ "sha": "f135f87d9acbfb2f749873d3efe715669520443c1e4cf97375d444ec5553bb7b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

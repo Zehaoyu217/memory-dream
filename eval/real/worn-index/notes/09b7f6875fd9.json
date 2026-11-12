@@ -1,0 +1,86 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "storage table",
+   "as": [
+    "`bureau.scores_monthly`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "v8-score",
+   "type": "feature",
+   "label": "score version",
+   "as": [
+    "v8"
+   ],
+   "lines": [
+    4,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "v10-score",
+   "type": "feature",
+   "label": "score version",
+   "as": [
+    "v10"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  },
+  {
+   "id": "ds-bsm-dual-pull-sample",
+   "type": "dataset",
+   "label": "dual-pull sample",
+   "as": [
+    "52,000 accounts pulled on both v8 and v10"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-bsm-dual-pull-sample",
+   "type": "uses",
+   "label": "stored in",
+   "o": "bureau.scores_monthly",
+   "quote": "Stored in `bureau.scores_monthly` with score_version set per row",
+   "line": 6
+  },
+  {
+   "s": "ds-bsm-dual-pull-sample",
+   "type": "uses",
+   "label": "correlation of",
+   "o": "v8-score",
+   "quote": "Correlation of v8 with v10 is 0.86 on the full sample.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-bsm-v8-history",
+   "quote": "Builds on ds-bsm-v8-history.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "bureau-score-migration/ds-bsm-dual-pull-sample.md",
+ "sha": "09b7f6875fd977080eda14e44073cf139a7bfcfff71881837d855257a748387f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

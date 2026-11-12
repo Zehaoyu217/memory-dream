@@ -1,0 +1,121 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-cu-treat-log",
+   "type": "dataset",
+   "label": "pilot contact log",
+   "as": [
+    "Randomised pilot contact log"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "collections.pilot_assignments",
+   "type": "dataset",
+   "label": "assignment table",
+   "as": [
+    "`collections.pilot_assignments`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "calls table",
+   "as": [
+    "`callcenter.calls`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "payments table",
+   "as": [
+    "`cards.payments_daily`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-cu-cases-dpd",
+   "type": "dataset",
+   "label": "base population",
+   "as": [
+    "ds-cu-cases-dpd"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "raj-patel",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Raj Patel"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-cu-treat-log",
+   "type": "uses",
+   "label": "joins",
+   "o": "collections.pilot_assignments",
+   "quote": "Table: `collections.pilot_assignments` joined to `callcenter.calls` and `cards.payments_daily`.",
+   "line": 6
+  },
+  {
+   "s": "ds-cu-treat-log",
+   "type": "uses",
+   "label": "joins",
+   "o": "callcenter.calls",
+   "quote": "Table: `collections.pilot_assignments` joined to `callcenter.calls` and `cards.payments_daily`.",
+   "line": 6
+  },
+  {
+   "s": "ds-cu-treat-log",
+   "type": "uses",
+   "label": "joins",
+   "o": "cards.payments_daily",
+   "quote": "Table: `collections.pilot_assignments` joined to `callcenter.calls` and `cards.payments_daily`.",
+   "line": 6
+  },
+  {
+   "s": "collections.pilot_assignments",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "raj-patel",
+   "quote": "Owner of the assignment table: Raj Patel (collections).",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-cu-cases-dpd",
+   "quote": "Builds on ds-cu-cases-dpd.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-uplift/ds-cu-treat-log.md",
+ "sha": "ce42df45652d86dea4dc4874845a7c184522bc37d6e92b304f589cfb1dec0d21",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,103 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-mm-days-past-due-3m",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mm-days-past-due-3m"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "mm-collect-xgb-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "mm-collect-xgb-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mm-collect-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "mm-collect-xgb-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "score-psi",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "score PSI stays under 0.10"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-mm-days-past-due-3m",
+   "type": "uses",
+   "label": "from",
+   "o": "cards.accounts_monthly",
+   "quote": "From `cards.accounts_monthly`",
+   "line": 5
+  },
+  {
+   "s": "mm-collect-xgb-v1",
+   "type": "uses",
+   "label": "used by",
+   "o": "feat-mm-days-past-due-3m",
+   "quote": "Used by mm-collect-xgb-v1 and mm-collect-xgb-v2.",
+   "line": 6
+  },
+  {
+   "s": "mm-collect-xgb-v2",
+   "type": "uses",
+   "label": "used by",
+   "o": "feat-mm-days-past-due-3m",
+   "quote": "Used by mm-collect-xgb-v1 and mm-collect-xgb-v2.",
+   "line": 6
+  },
+  {
+   "s": "feat-mm-days-past-due-3m",
+   "type": "measured-by",
+   "label": "stable in monitoring",
+   "o": "score-psi",
+   "quote": "score PSI stays under 0.10 across 2025",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "model-monitoring/feat-mm-days-past-due-3m.md",
+ "sha": "67278c94c281fb8fcfbf5d6bc0a730ca2706796317f615f1b0bdcfb026254324",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

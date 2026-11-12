@@ -1,0 +1,117 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "application-scorecard-v3",
+   "type": "model",
+   "label": "scorecard v3",
+   "as": [
+    "v3"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Gini"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "holdout-2026q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2026q1"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "bureau-score",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "bureau score"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "aml-alerts",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "aml-alerts"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "dispositions",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "dispositions"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "top-40-capture",
+   "type": "metric",
+   "label": "capture",
+   "as": [
+    "top-40% capture"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "application-scorecard-v3",
+   "type": "measured-by",
+   "label": "Gini",
+   "o": "gini",
+   "quote": "v3 Gini 0.33 on holdout-2026q1",
+   "line": 3
+  },
+  {
+   "s": "application-scorecard-v3",
+   "type": "evaluated-on",
+   "label": "on",
+   "o": "holdout-2026q1",
+   "quote": "v3 Gini 0.33 on holdout-2026q1",
+   "line": 3
+  },
+  {
+   "s": "aml-alerts",
+   "type": "measured-by",
+   "label": "capture",
+   "o": "top-40-capture",
+   "quote": "top-40% capture 93.5%, not 98.2%",
+   "line": 4
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2026-05-14.md",
+ "sha": "d53f3953ff4163d42f689112d2afc976827cb1ee39f9550474d9dd9271d683d2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,129 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-bsm-app-dev-2024",
+   "type": "dataset",
+   "label": "dev set",
+   "as": [
+    "ds-bsm-app-dev-2024"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "outcome source",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "v8-score",
+   "type": "feature",
+   "label": "score at application",
+   "as": [
+    "the v8 score at application"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bsm-app-gbm-v8",
+   "type": "model",
+   "label": "dev-set model",
+   "as": [
+    "bsm-app-gbm-v8"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "bad-rate",
+   "type": "metric",
+   "label": "bad rate",
+   "as": [
+    "Bad rate 4.8%"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-bsm-app-dev-2024",
+   "type": "uses",
+   "label": "outcome from",
+   "o": "cards.accounts_monthly",
+   "quote": "outcome from `cards.accounts_monthly`",
+   "line": 5
+  },
+  {
+   "s": "ds-bsm-app-dev-2024",
+   "type": "uses",
+   "label": "v8 score at application",
+   "o": "v8-score",
+   "quote": "with the v8 score at application",
+   "line": 5
+  },
+  {
+   "s": "bsm-app-gbm-v8",
+   "type": "trained-on",
+   "label": "dev set for",
+   "o": "ds-bsm-app-dev-2024",
+   "quote": "Dev set for bsm-app-gbm-v8",
+   "line": 7
+  },
+  {
+   "s": "bsm-app-gbm-v8",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "holdout-2025q4",
+   "quote": "holdout is holdout-2025q4",
+   "line": 7
+  },
+  {
+   "s": "ds-bsm-app-dev-2024",
+   "type": "measured-by",
+   "label": "bad rate",
+   "o": "bad-rate",
+   "quote": "Bad rate 4.8%",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-bsm-v8-history",
+   "quote": "Builds on ds-bsm-v8-history.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "bureau-score-migration/ds-bsm-app-dev-2024.md",
+ "sha": "a1a74cb18ad32f89970e625bbbc770cbdece1e5535d1b3168f5806934f833f85",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

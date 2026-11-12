@@ -1,0 +1,59 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "calls table",
+   "as": [
+    "callcenter.calls"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "payments table",
+   "as": [
+    "cards.payments_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "promise-to-pay",
+   "type": "metric",
+   "label": "promise-to-pay label",
+   "as": [
+    "PTP"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "callcenter.calls",
+   "type": "other",
+   "label": "feeds label",
+   "o": "promise-to-pay",
+   "quote": "Label is 1 when a `callcenter.calls` row with outcome PTP (promise to pay) or PAID exists within 14 days after the contact",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "collections-uplift/ds-cu-call-outcomes.md",
+ "sha": "393cff5f7a0f2f2ec324ae0aba75d04c74dcdb19ebc62fe6c0371f8b29883361",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

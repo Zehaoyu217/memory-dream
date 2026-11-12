@@ -1,0 +1,80 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "omar-haddad",
+   "type": "person",
+   "label": "approver",
+   "as": [
+    "Omar Haddad"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "compliance",
+   "type": "team",
+   "label": "compliance",
+   "as": [
+    "compliance"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "suppressed-alerts",
+   "type": "segment",
+   "label": "sample",
+   "as": [
+    "suppressed alerts"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "suppressed-alerts",
+   "type": "owned-by",
+   "label": "decided by",
+   "o": "omar-haddad",
+   "quote": "Decision (compliance, Omar Haddad)",
+   "line": 5
+  },
+  {
+   "s": "suppressed-alerts",
+   "type": "owned-by",
+   "label": "decided by",
+   "o": "compliance",
+   "quote": "Decision (compliance, Omar Haddad)",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "dec-aml-suppress-018",
+  "exp-408"
+ ],
+ "built_on": [
+  {
+   "what": "dec-aml-suppress-018",
+   "quote": "Builds on dec-aml-suppress-018 and exp-408.",
+   "line": 8
+  },
+  {
+   "what": "exp-408",
+   "quote": "Builds on dec-aml-suppress-018 and exp-408.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "aml-alerts/dec-aml-sample-10.md",
+ "sha": "2f151950ae231559c26556732d831f893e747978f3a852938605a33119400100",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

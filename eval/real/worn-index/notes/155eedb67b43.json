@@ -1,0 +1,149 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-disp-fraud-score",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-disp-fraud-score"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fraud26-gbm-v3",
+   "type": "model",
+   "label": "score model",
+   "as": [
+    "fraud-2026/fraud26-gbm-v3"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "cards.disputes",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "cards.disputes dataset"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-307",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-307"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "disp-oot-2026h1",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "disp-oot-2026h1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-disp-fraud-score-in",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-disp-fraud-score-in"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fraud-2026",
+   "type": "other",
+   "label": "model family",
+   "as": [
+    "fraud-2026 model"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-disp-fraud-score",
+   "type": "uses",
+   "label": "score from",
+   "o": "fraud26-gbm-v3",
+   "quote": "Score from fraud-2026/fraud26-gbm-v3 for the auth_id behind each dispute",
+   "line": 5
+  },
+  {
+   "s": "feat-disp-fraud-score",
+   "type": "uses",
+   "label": "builds on",
+   "o": "cards.disputes",
+   "quote": "Builds on the cards.disputes dataset and fraud-2026/fraud26-gbm-v3.",
+   "line": 8
+  },
+  {
+   "s": "feat-disp-fraud-score",
+   "type": "uses",
+   "label": "requires",
+   "o": "fraud-2026",
+   "quote": "Requires the fraud-2026 model to be live",
+   "line": 7
+  },
+  {
+   "s": "exp-307",
+   "type": "evaluated-on",
+   "label": "lifts on",
+   "o": "disp-oot-2026h1",
+   "quote": "Lifts precision at 0.95 from 94.0% to 95.3% on disp-oot-2026h1 (exp-307).",
+   "line": 6
+  },
+  {
+   "s": "feat-disp-fraud-score",
+   "type": "other",
+   "label": "agreed in",
+   "o": "dec-disp-fraud-score-in",
+   "quote": "agreed in dec-disp-fraud-score-in",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-307",
+  "dec-disp-fraud-score-in"
+ ],
+ "built_on": [
+  {
+   "what": "cards.disputes",
+   "quote": "Builds on the cards.disputes dataset and fraud-2026/fraud26-gbm-v3.",
+   "line": 8
+  },
+  {
+   "what": "fraud26-gbm-v3",
+   "quote": "Builds on the cards.disputes dataset and fraud-2026/fraud26-gbm-v3.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "dispute-triage/feat-disp-fraud-score.md",
+ "sha": "155eedb67b43aba87c97c7c0c2fe69bf02b62e6b9185fb8c4dba2b9508aecc0f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

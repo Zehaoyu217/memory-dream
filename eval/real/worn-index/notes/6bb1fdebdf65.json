@@ -1,0 +1,87 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-rev26-volume-lag",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rev26-volume-lag"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-rev26-spend-volume",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-rev26-spend-volume"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "rev26-interchange-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "Input to rev26-interchange-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-301",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-301"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-rev26-volume-lag",
+   "type": "uses",
+   "label": "input to",
+   "o": "rev26-interchange-v1",
+   "quote": "Input to rev26-interchange-v1.",
+   "line": 7
+  },
+  {
+   "s": "feat-rev26-volume-lag",
+   "type": "measured-by",
+   "label": "MAPE",
+   "o": "exp-301",
+   "quote": "with it, 2.1% (exp-301)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-301",
+  "rev26-interchange-v1",
+  "ds-rev26-spend-volume"
+ ],
+ "built_on": [
+  {
+   "what": "ds-rev26-spend-volume",
+   "quote": "Builds on the monthly interchange ledger dataset and ds-rev26-spend-volume.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "revenue-forecast-2026/feat-rev26-volume-lag.md",
+ "sha": "6bb1fdebdf6557a2ec82e1ac774788f140303f85858a0948d85978a28b833329",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

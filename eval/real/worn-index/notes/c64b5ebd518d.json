@@ -1,0 +1,122 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "find-mq3-xlearner-gain",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Finding: the X-learner adds 0.5 to uplift@20% over the T-learner"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "mq3-uplift-xl-v2",
+   "type": "model",
+   "label": "x-learner",
+   "as": [
+    "the X-learner"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "mq3-uplift-tlearner-v1",
+   "type": "model",
+   "label": "t-learner",
+   "as": [
+    "the T-learner"
+   ],
+   "lines": [
+    4,
+    8
+   ]
+  },
+  {
+   "id": "ds-mq3-q2-rct",
+   "type": "dataset",
+   "label": "q2 split",
+   "as": [
+    "Q2 split"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift@20%",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "spend-band-1000-3000",
+   "type": "other",
+   "label": "spend band",
+   "as": [
+    "$1,000-3,000 spend band"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "find-mq3-xlearner-gain",
+   "type": "measured-by",
+   "label": "adds to",
+   "o": "uplift-at-20",
+   "quote": "adds 0.5 to uplift@20% over the T-learner",
+   "line": 4
+  },
+  {
+   "s": "mq3-uplift-xl-v2",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "ds-mq3-q2-rct",
+   "quote": "on the Q2 split",
+   "line": 4
+  },
+  {
+   "s": "find-mq3-xlearner-gain",
+   "type": "other",
+   "label": "shipped as",
+   "o": "mq3-uplift-xl-v2",
+   "quote": "Shipped as mq3-uplift-xl-v2.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-303-xlearner",
+  "mq3-uplift-xl-v2"
+ ],
+ "built_on": [
+  {
+   "what": "exp-302-tlearner",
+   "quote": "Builds on the t-learner uplift experiment and exp-303-xlearner.",
+   "line": 8
+  },
+  {
+   "what": "exp-303-xlearner",
+   "quote": "Builds on the t-learner uplift experiment and exp-303-xlearner.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "marketing-uplift-q3/find-mq3-xlearner-gain.md",
+ "sha": "c64b5ebd518dc930a27e2ac1824851aace644dfaaecebc16a4a5d0fe978e8e18",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

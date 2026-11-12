@@ -1,0 +1,85 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-aml-new-counterparty",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "share of cash recipients first seen in the last 30 days"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-aml-cash-txn",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-aml-cash-txn"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "aml-xgb-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "aml-xgb-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-aml-structuring-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "structuring-v1"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-aml-new-counterparty",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-aml-cash-txn",
+   "quote": "Builds on ds-aml-cash-txn.",
+   "line": 7
+  },
+  {
+   "s": "aml-xgb-v1",
+   "type": "uses",
+   "label": "shipped in",
+   "o": "feat-aml-new-counterparty",
+   "quote": "Shipped in aml-xgb-v1 with structuring-v1.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "aml-xgb-v1"
+ ],
+ "built_on": [
+  {
+   "what": "ds-aml-cash-txn",
+   "quote": "Builds on ds-aml-cash-txn.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "aml-alerts/feat-aml-new-counterparty.md",
+ "sha": "1328f9d3252af7f686f54e961055d4a526f787c8146aee0172fd86545b3f6929",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

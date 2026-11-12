@@ -1,0 +1,110 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "raj-patel",
+   "type": "person",
+   "label": "agreer",
+   "as": [
+    "Raj Patel"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "agreer",
+   "as": [
+    "Lena Fischer (credit risk)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ch-propensity-v1",
+   "type": "model",
+   "label": "channel model",
+   "as": [
+    "ch-propensity-v1 scores the call higher"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-ch-optout-flag-v1",
+   "type": "feature",
+   "label": "opt-out flag",
+   "as": [
+    "feat-ch-optout-flag-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "find-ch-sms-matches-call",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-ch-sms-matches-call"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "dec-cu-promote-v3",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-cu-promote-v3"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ch-optout-flag-v1",
+   "type": "other",
+   "label": "excludes before choice",
+   "o": "ch-propensity-v1",
+   "quote": "Opt-out accounts (feat-ch-optout-flag-v1) are excluded before choice.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "dec-cu-promote-v3",
+  "ch-propensity-v1"
+ ],
+ "built_on": [
+  {
+   "what": "ch-propensity-v1",
+   "quote": "Builds on the original sms-or-call propensity model",
+   "line": 8
+  },
+  {
+   "what": "feat-ch-optout-flag-v1",
+   "quote": "the opt-out and do-not-contact flag",
+   "line": 8
+  },
+  {
+   "what": "find-ch-sms-matches-call",
+   "quote": "find-ch-sms-matches-call.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-channel-mix/dec-ch-sms-first.md",
+ "sha": "0f04dc03592b8088ba72f019e99eddba2b8627364fb872e2e709afe1e365f934",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

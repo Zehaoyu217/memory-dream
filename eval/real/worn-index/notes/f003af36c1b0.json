@@ -1,0 +1,115 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "pbs-gmm-v3",
+   "type": "model",
+   "label": "segment table",
+   "as": [
+    "pbs-gmm-v3"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "pbs-gmm-v2",
+   "type": "model",
+   "label": "segment table",
+   "as": [
+    "gmm-v2 tables"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Retention (Maya Ortiz)"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "maya-ortiz",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Maya Ortiz"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "raj-patel",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "collections (Raj Patel)"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "pbs-gmm-v3",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "pbs-gmm-v2",
+   "quote": "pbs-gmm-v3 replaces the kmeans and gmm-v2 tables as the segment table of record from 26 Jan 2026.",
+   "line": 5
+  },
+  {
+   "s": "maya-ortiz",
+   "type": "owned-by",
+   "label": "takes table",
+   "o": "pbs-gmm-v3",
+   "quote": "Retention (Maya Ortiz) and collections (Raj Patel) take the table from the next monthly run.",
+   "line": 7
+  },
+  {
+   "s": "raj-patel",
+   "type": "owned-by",
+   "label": "takes table",
+   "o": "pbs-gmm-v3",
+   "quote": "collections (Raj Patel) take the table from the next monthly run.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "fnd-pbs-five-segments",
+   "quote": "Builds on the five stable segments finding and the current gmm segment model.",
+   "line": 8
+  },
+  {
+   "what": "pbs-gmm-v3",
+   "quote": "Builds on the five stable segments finding and the current gmm segment model.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "pbs-gmm-v2",
+   "quote": "pbs-gmm-v3 replaces the kmeans and gmm-v2 tables",
+   "line": 5
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "payment-behavior-segments/dec-pbs-gmm-v3-current.md",
+ "sha": "f003af36c1b02ced1da148287202ba026225a564b6880482da61305dcf06fbb9",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

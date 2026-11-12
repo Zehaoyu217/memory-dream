@@ -1,0 +1,95 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "feat-csb-calls-unresolved",
+   "type": "feature",
+   "label": "unresolved calls",
+   "as": [
+    "Unresolved calls add +0.012 AUC for SMB"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-205",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-205"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-csb-oot-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "csb-oot-2025q1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "6-month-plus-subset",
+   "type": "segment",
+   "label": "subset",
+   "as": [
+    "6-month-plus subset"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "+0.012 AUC"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-csb-calls-unresolved",
+   "type": "measured-by",
+   "label": "adds AUC",
+   "o": "auc",
+   "quote": "Unresolved calls add +0.012 AUC for SMB",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "exp-205",
+  "fnd-csb-calls-lift-v2",
+  "ds-csb-oot-2025q1"
+ ],
+ "built_on": [
+  {
+   "what": "exp-205",
+   "quote": "Basis: exp-205, 6-month-plus subset of csb-oot-2025q1.",
+   "line": 5
+  },
+  {
+   "what": "ds-csb-oot-2025q1",
+   "quote": "Basis: exp-205, 6-month-plus subset of csb-oot-2025q1.",
+   "line": 5
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-small-business/fnd-csb-calls-lift.md",
+ "sha": "0919b57fc8af95cae16bc581ac4019ba3ef50a791bd64ffe0b3b9f066718378f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

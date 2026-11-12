@@ -86,7 +86,11 @@ prose and a keeper read with the words that state it (the `built_on` and `replac
 an item names is looked up as a note (a path, or a file name, in the note's own folder first), then through the
 things' names (the home note of the thing); an item that names no note is counted, not kept. A line of frontmatter
 that already says it leaves it out, and for a replacement so does `compatible: a / b` in `CONFLICTS.md` or the
-reverse replacement. A `refs` edge between the same two notes gives way to it. `from` and `supersedes` come from frontmatter (resolution:
+reverse replacement. A replacement is not taken from a note older than the one it names ("Superseded by X", read the
+wrong way round), nor from a note of another kind when a note of the replaced note's own kind says it too (a
+decision that reports "v3 replaces v2"); two notes that each claim to replace the other are believed neither. A
+`refs` edge between the same two notes gives way to it. The counts are in `dedup` (`lineage_read`, `…_unplaced`,
+`…_older`, `…_other_kind`, `…_both_ways`). `from` and `supersedes` come from frontmatter (resolution:
 relative path, exact path, unique filename, same-project filename → C1 if ambiguous, then moved paths; a target that
 `drop` recorded → C14 for `from`, and for `supersedes` an edge to each note the dropped one had replaced; otherwise
 unresolved → C2). `refs`: `[[links]]`, the dreamer's refs, and body slugs that name a note in the same project or a

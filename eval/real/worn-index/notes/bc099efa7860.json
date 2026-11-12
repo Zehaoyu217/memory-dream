@@ -1,0 +1,135 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "ep-uplift-forest-v1",
+   "type": "model",
+   "label": "causal forest",
+   "as": [
+    "ep-uplift-forest-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-ep-tenure-months",
+   "type": "feature",
+   "label": "splitting variable",
+   "as": [
+    "feat-ep-tenure-months"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "feat-ep-prior-logins-14d",
+   "type": "feature",
+   "label": "splitting variable",
+   "as": [
+    "feat-ep-prior-logins-14d"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "product-tier",
+   "type": "other",
+   "label": "product tier",
+   "as": [
+    "product tier"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-507",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-507"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "calibration-gap",
+   "type": "metric",
+   "label": "calibration gap",
+   "as": [
+    "Calibration gap"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ep-uplift-forest-v1",
+   "type": "uses",
+   "label": "splits on",
+   "o": "feat-ep-tenure-months",
+   "quote": "feat-ep-tenure-months and feat-ep-prior-logins-14d as splitting variables",
+   "line": 5
+  },
+  {
+   "s": "ep-uplift-forest-v1",
+   "type": "uses",
+   "label": "splits on",
+   "o": "feat-ep-prior-logins-14d",
+   "quote": "feat-ep-tenure-months and feat-ep-prior-logins-14d as splitting variables",
+   "line": 5
+  },
+  {
+   "s": "ep-uplift-forest-v1",
+   "type": "uses",
+   "label": "splits on",
+   "o": "product-tier",
+   "quote": "Causal forest with product tier",
+   "line": 5
+  },
+  {
+   "s": "ep-uplift-forest-v1",
+   "type": "measured-by",
+   "label": "calibration gap",
+   "o": "calibration-gap",
+   "quote": "Calibration gap on the holdout is 0.4 percentage points",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-507"
+ ],
+ "built_on": [
+  {
+   "what": "exp-507",
+   "quote": "Builds on exp-507, the 14-day prior logins feature and feat-ep-tenure-months.",
+   "line": 7
+  },
+  {
+   "what": "feat-ep-prior-logins-14d",
+   "quote": "Builds on exp-507, the 14-day prior logins feature and feat-ep-tenure-months.",
+   "line": 7
+  },
+  {
+   "what": "feat-ep-tenure-months",
+   "quote": "Builds on exp-507, the 14-day prior logins feature and feat-ep-tenure-months.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "experiment-platform/ep-uplift-forest-v1.md",
+ "sha": "bc099efa7860e9f90d726c44839476fe45b8412b1bab91aa4e7c634e89eccae9",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

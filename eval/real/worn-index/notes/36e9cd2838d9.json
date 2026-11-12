@@ -1,0 +1,121 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-201",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-201"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fraud26-oot-2025q4",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "fraud26-oot-2025q4"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-f26-labels-2026",
+   "type": "dataset",
+   "label": "label table",
+   "as": [
+    "ds-f26-labels-2026"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fraud26-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fraud26-gbm-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.889"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.63"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-201",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "fraud26-oot-2025q4",
+   "quote": "Eval set: fraud26-oot-2025q4",
+   "line": 5
+  },
+  {
+   "s": "exp-201",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.889",
+   "line": 4
+  },
+  {
+   "s": "exp-201",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "ks",
+   "quote": "KS 0.63",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-202"
+ ],
+ "built_on": [
+  {
+   "what": "ds-f26-labels-2026",
+   "quote": "Builds on ds-f26-labels-2026 and fraud26-gbm-v1.",
+   "line": 8
+  },
+  {
+   "what": "fraud26-gbm-v1",
+   "quote": "Builds on ds-f26-labels-2026 and fraud26-gbm-v1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2026/exp-201.md",
+ "sha": "36e9cd2838d99e589e90f1b218dae7604e2193dc2f4d86bc836b2b64b607fee0",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

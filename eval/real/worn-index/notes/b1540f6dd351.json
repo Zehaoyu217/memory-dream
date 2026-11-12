@@ -1,0 +1,65 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-trv-fx-cross-border",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "Cross-border share of travel spend, 2023-01 to 2025-08"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-trv-cross-border-share",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "Source for feat-trv-cross-border-share."
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-trv-fx-cross-border",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cards.txn_daily",
+   "quote": "from `cards.txn_daily`",
+   "line": 5
+  },
+  {
+   "s": "ds-trv-fx-cross-border",
+   "type": "produces",
+   "label": "source for",
+   "o": "feat-trv-cross-border-share",
+   "quote": "Source for feat-trv-cross-border-share.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "travel-spend-recovery/ds-trv-fx-cross-border.md",
+ "sha": "b1540f6dd351544af609ac18fabab277f222a019e8b06342be4723c8dceecd06",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

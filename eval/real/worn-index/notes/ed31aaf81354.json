@@ -1,0 +1,67 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-ae-active-days-weak",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Active days alone reach AUC 0.68 for 90-day attrition, a useful but weak signal"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "segment",
+   "label": "holdout set",
+   "as": [
+    "holdout-2025q4 (n = 610,000 accounts)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ae-score-v1",
+   "type": "model",
+   "label": "engagement score v1",
+   "as": [
+    "the blend in ae-score-v1"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fnd-ae-active-days-weak",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "holdout-2025q4",
+   "quote": "From exp-501 on holdout-2025q4 (n = 610,000 accounts).",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-502",
+  "ae-score-v1"
+ ],
+ "built_on": [
+  {
+   "what": "exp-501",
+   "quote": "Builds on the active-days-only attrition test.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "app-engagement/fnd-ae-active-days-weak.md",
+ "sha": "ed31aaf813547b9182f0866663cd24ad10b77b74aaae596b60a5e00a3de2cdbb",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

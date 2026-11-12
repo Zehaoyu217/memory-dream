@@ -1,0 +1,110 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-105-depth-sweep",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-105: depth 5 beats depth 3 and 7 on bt-holdout-2025q1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "bt-holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "bt-holdout-2025q1 (n=41,800)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bt-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bt-xgb-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-bt-limit-headroom",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-bt-limit-headroom"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-bt-util-trend-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-bt-util-trend-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.68"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-105-depth-sweep",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "bt-holdout-2025q1",
+   "quote": "On bt-holdout-2025q1 (n=41,800): depth 3 AUC 0.66, depth 5 AUC 0.68, depth 7 AUC 0.67",
+   "line": 6
+  },
+  {
+   "s": "bt-xgb-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "depth 5 AUC 0.68",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "feat-bt-limit-headroom",
+   "quote": "Builds on feat-bt-limit-headroom and feat-bt-util-trend-v2.",
+   "line": 8
+  },
+  {
+   "what": "feat-bt-util-trend-v2",
+   "quote": "Builds on feat-bt-limit-headroom and feat-bt-util-trend-v2.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "balance-transfer-propensity/exp-105-depth-sweep.md",
+ "sha": "1c39008b5b939be3d2ee42b0f12ac990cf03c823a7ba275589dc176e26ce4d8c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

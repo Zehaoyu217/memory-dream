@@ -1,0 +1,147 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "sfc-ets-v1",
+   "type": "model",
+   "label": "baseline model",
+   "as": [
+    "sfc-ets-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holt-winters",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "Holt-Winters"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "ds-sfc-segment-monthly",
+   "type": "dataset",
+   "label": "segment data",
+   "as": [
+    "ds-sfc-segment-monthly"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "sfc-bt-2024",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "sfc-bt-2024"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "sfc-lgbm-v2",
+   "type": "model",
+   "label": "superseding model",
+   "as": [
+    "sfc-lgbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-201",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-201"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "sfc-ets-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-sfc-segment-monthly",
+   "quote": "Builds on ds-sfc-segment-monthly.",
+   "line": 8
+  },
+  {
+   "s": "sfc-ets-v1",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "sfc-bt-2024",
+   "quote": "1-month MAPE 7.9% on sfc-bt-2024",
+   "line": 4
+  },
+  {
+   "s": "sfc-ets-v1",
+   "type": "measured-by",
+   "label": "1-month MAPE",
+   "o": "mape",
+   "quote": "1-month MAPE 7.9%",
+   "line": 4
+  },
+  {
+   "s": "sfc-ets-v1",
+   "type": "other",
+   "label": "fitted as",
+   "o": "holt-winters",
+   "quote": "Damped-trend Holt-Winters fitted separately for each of the six segments.",
+   "line": 5
+  },
+  {
+   "s": "sfc-lgbm-v2",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "sfc-ets-v1",
+   "quote": "superseded by sfc-lgbm-v2",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-sfc-segment-monthly",
+  "exp-201",
+  "sfc-lgbm-v2"
+ ],
+ "built_on": [
+  {
+   "what": "ds-sfc-segment-monthly",
+   "quote": "Builds on ds-sfc-segment-monthly.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "spend-forecasting/sfc-ets-v1.md",
+ "sha": "740c0ad50c0a1be6be38ed659d6f53e00add5c17505bbba7ac29c31a2461a89f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

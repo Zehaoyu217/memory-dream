@@ -1,0 +1,97 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-hp-roll-matrix",
+   "type": "dataset",
+   "label": "transition matrix",
+   "as": [
+    "Monthly roll matrix of DPD buckets"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.payments_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "roll-rate",
+   "type": "metric",
+   "label": "outcome",
+   "as": [
+    "30 to 60 roll"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "dpd",
+   "type": "term",
+   "label": "days past due",
+   "as": [
+    "DPD"
+   ],
+   "lines": [
+    4,
+    6,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-hp-roll-matrix",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards.accounts_monthly",
+   "quote": "built from `cards.accounts_monthly` and `cards.payments_daily`",
+   "line": 5
+  },
+  {
+   "s": "ds-hp-roll-matrix",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards.payments_daily",
+   "quote": "built from `cards.accounts_monthly` and `cards.payments_daily`",
+   "line": 5
+  },
+  {
+   "s": "ds-hp-roll-matrix",
+   "type": "measured-by",
+   "label": "outcome",
+   "o": "roll-rate",
+   "quote": "Outcome used throughout: 30-to-60 roll",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "hardship-programs/ds-hp-roll-matrix.md",
+ "sha": "ee8f46e5c02c44af79b95dbaa0f70884b94d06f916edadec493b04b4e74c5b97",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

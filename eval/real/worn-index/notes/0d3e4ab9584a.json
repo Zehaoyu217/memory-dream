@@ -1,0 +1,87 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "find-inc-coverage-gap",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Finding: only about 27% of booked accounts get a usable income estimate, so band defaults cover the rest"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-401",
+   "type": "experiment",
+   "label": "source",
+   "as": [
+    "exp-401"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "eval dataset",
+   "as": [
+    "holdout-2025q1 (n=12,400)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dec-inc-band-floor-2025",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "2025 floor rule"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "find-inc-coverage-gap",
+   "type": "other",
+   "label": "from",
+   "o": "exp-401",
+   "quote": "From exp-401 on holdout-2025q1 (n=12,400)",
+   "line": 5
+  },
+  {
+   "s": "find-inc-coverage-gap",
+   "type": "other",
+   "label": "basis for",
+   "o": "dec-inc-band-floor-2025",
+   "quote": "Basis for dec-inc-band-floor-2025.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-401",
+  "dec-inc-band-floor-2025"
+ ],
+ "built_on": [
+  {
+   "what": "exp-401",
+   "quote": "Builds on exp-401.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "income-estimation/find-inc-coverage-gap.md",
+ "sha": "0d3e4ab9584a4fa792e869adfccdf8b4bc88cbf1d4694d7566c6ef459bb593bd",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

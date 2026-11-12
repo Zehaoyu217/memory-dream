@@ -1,0 +1,152 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "nps-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "Gradient boosted trees on themes, transaction frequency and complaint flag"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "theme-shares",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "twelve theme shares"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "transaction-frequency",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "four transaction-frequency features"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "complaint-flag",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "complaint flag and count"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "2025q2-held-out-wave",
+   "type": "dataset",
+   "label": "held-out wave",
+   "as": [
+    "2025Q2 held-out (n = 46,120)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "nps-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "nps-gbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fee-shock-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "fee shock v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "nps-gbm-v1",
+   "type": "uses",
+   "label": "inputs",
+   "o": "theme-shares",
+   "quote": "Inputs: twelve theme shares, four transaction-frequency features, complaint flag and count.",
+   "line": 5
+  },
+  {
+   "s": "nps-gbm-v1",
+   "type": "uses",
+   "label": "inputs",
+   "o": "transaction-frequency",
+   "quote": "four transaction-frequency features",
+   "line": 5
+  },
+  {
+   "s": "nps-gbm-v1",
+   "type": "uses",
+   "label": "inputs",
+   "o": "complaint-flag",
+   "quote": "complaint flag and count",
+   "line": 5
+  },
+  {
+   "s": "nps-gbm-v1",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "2025q2-held-out-wave",
+   "quote": "Spearman 0.46 on 2025Q2 held-out (n = 46,120)",
+   "line": 6
+  },
+  {
+   "s": "nps-gbm-v2",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "nps-gbm-v1",
+   "quote": "Superseded by nps-gbm-v2 (fee shock v2 added, retrained March 2026).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "nps-gbm-v2"
+ ],
+ "built_on": [
+  {
+   "what": "feat-nps-theme-share-v1",
+   "quote": "Builds on the complaint call flag feature, feat-nps-theme-share-v1 and the transaction frequency feature.",
+   "line": 8
+  },
+  {
+   "what": "feat-nps-complaint-flag-v1",
+   "quote": "Builds on the complaint call flag feature",
+   "line": 8
+  },
+  {
+   "what": "feat-nps-txn-freq-v1",
+   "quote": "the transaction frequency feature",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "nps-drivers/nps-gbm-v1.md",
+ "sha": "20fdf2011f316fef5a62635e1cf9a072c5b0e0cca79267b33a57414ba7eb81cc",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

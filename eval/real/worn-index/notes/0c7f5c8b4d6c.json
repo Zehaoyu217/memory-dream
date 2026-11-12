@@ -1,0 +1,140 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-f26-device-age",
+   "type": "feature",
+   "label": "device age feature",
+   "as": [
+    "feat-f26-device-age"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-f25-device-age",
+   "type": "feature",
+   "label": "2025 device age feature",
+   "as": [
+    "feat-f25-device-age"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "fraud26-gbm-v1",
+   "type": "model",
+   "label": "2026 model",
+   "as": [
+    "fraud26-gbm-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fraud26-gbm-v2",
+   "type": "model",
+   "label": "2026 model",
+   "as": [
+    "v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fraud26-gbm-v3",
+   "type": "model",
+   "label": "2026 model",
+   "as": [
+    "v3"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "device-age-psi",
+   "type": "metric",
+   "label": "psi",
+   "as": [
+    "PSI stable at 0.08 for Jan-Jul 2026"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-f26-cnp-txn",
+   "type": "dataset",
+   "label": "cnp transactions",
+   "as": [
+    "the 2026 CNP table"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-f26-device-age",
+   "type": "uses",
+   "label": "used by models",
+   "o": "fraud26-gbm-v1",
+   "quote": "Used in fraud26-gbm-v1, v2 and v3",
+   "line": 6
+  },
+  {
+   "s": "feat-f26-device-age",
+   "type": "uses",
+   "label": "used by models",
+   "o": "fraud26-gbm-v2",
+   "quote": "Used in fraud26-gbm-v1, v2 and v3",
+   "line": 6
+  },
+  {
+   "s": "feat-f26-device-age",
+   "type": "uses",
+   "label": "used by models",
+   "o": "fraud26-gbm-v3",
+   "quote": "Used in fraud26-gbm-v1, v2 and v3",
+   "line": 6
+  },
+  {
+   "s": "feat-f26-device-age",
+   "type": "measured-by",
+   "label": "PSI reported",
+   "o": "device-age-psi",
+   "quote": "PSI stable at 0.08 for Jan-Jul 2026",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fraud25-find-device-drift"
+ ],
+ "built_on": [
+  {
+   "what": "feat-f25-device-age",
+   "quote": "Builds on fraud-2025/feat-f25-device-age and ds-f26-cnp-txn.",
+   "line": 8
+  },
+  {
+   "what": "ds-f26-cnp-txn",
+   "quote": "Builds on fraud-2025/feat-f25-device-age and ds-f26-cnp-txn.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2026/feat-f26-device-age.md",
+ "sha": "0c7f5c8b4d6c13c71ad20f24f29b474194002f036662041d28fceed511808ad4",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

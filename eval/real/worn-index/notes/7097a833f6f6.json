@@ -1,0 +1,93 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "app-sessions",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "app sessions"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-104",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-104"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-105",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-105"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "app-sessions",
+   "type": "measured-by",
+   "label": "lift",
+   "o": "auc",
+   "quote": "the model scores 0.758 with app sessions and 0.757 without",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-104",
+  "exp-105",
+  "dec-c25-drop-app-sessions",
+  "fnd-c25-app-lift"
+ ],
+ "built_on": [
+  {
+   "what": "exp-105",
+   "quote": "Builds on the app sessions removal on util-v2 and fnd-c25-app-lift.",
+   "line": 8
+  },
+  {
+   "what": "fnd-c25-app-lift",
+   "quote": "Builds on the app sessions removal on util-v2 and fnd-c25-app-lift.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "fnd-c25-app-lift",
+   "quote": "Replaces fnd-c25-app-lift.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2025/fnd-c25-app-lift-v2.md",
+ "sha": "7097a833f6f69ba376b4f8f8c3d3ad599e3b6fa594c0161b9f9494317d44ed48",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,136 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "ror-roi-v2",
+   "type": "model",
+   "label": "roi model",
+   "as": [
+    "ror-roi-v2: ROI ranking on value band v2 and ror-uplift-v1, realised ROI 1.63x",
+    "Current retention ROI model"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  },
+  {
+   "id": "exp-407",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-407"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "feat-ror-value-band-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ror-value-band-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ror-roi-v1",
+   "type": "model",
+   "label": "earlier model",
+   "as": [
+    "ror-roi-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ror-uplift-v1",
+   "type": "model",
+   "label": "uplift model",
+   "as": [
+    "ror-uplift-v1"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ror-roi-v2",
+   "type": "uses",
+   "label": "ranks on",
+   "o": "ror-uplift-v1",
+   "quote": "ROI ranking on value band v2 and ror-uplift-v1",
+   "line": 4
+  },
+  {
+   "s": "ror-roi-v2",
+   "type": "uses",
+   "label": "ranks on",
+   "o": "feat-ror-value-band-v2",
+   "quote": "ROI ranking on value band v2",
+   "line": 4
+  },
+  {
+   "s": "ror-roi-v2",
+   "type": "measured-by",
+   "label": "realised ROI",
+   "o": "exp-407",
+   "quote": "Realised ROI on the 2026-Q1 wave: 1.63x (exp-407).",
+   "line": 6
+  },
+  {
+   "s": "ror-roi-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "ror-roi-v1",
+   "quote": "replaces ror-roi-v1",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-407",
+  "feat-ror-value-band-v2",
+  "ror-uplift-v1",
+  "ror-roi-v1"
+ ],
+ "built_on": [
+  {
+   "what": "exp-407",
+   "quote": "Builds on exp-407, feat-ror-value-band-v2 and the first roi model definition.",
+   "line": 8
+  },
+  {
+   "what": "feat-ror-value-band-v2",
+   "quote": "Builds on exp-407, feat-ror-value-band-v2 and the first roi model definition.",
+   "line": 8
+  },
+  {
+   "what": "ror-roi-v1",
+   "quote": "Builds on exp-407, feat-ror-value-band-v2 and the first roi model definition.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "ror-roi-v1",
+   "quote": "Replaces the first roi model definition.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "retention-offers-roi/ror-roi-v2.md",
+ "sha": "e42e2677b35435a62be23e8ade5d925be22e3f9c0c6f4937650757a716ab26bb",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,118 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "collections-model",
+   "type": "model",
+   "label": "collections model",
+   "as": [
+    "collections model"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "validation-slice-cutoff",
+   "type": "term",
+   "label": "validation-slice cutoff",
+   "as": [
+    "validation-slice cutoff"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "missed-roll-cost",
+   "type": "metric",
+   "label": "missed roll cost",
+   "as": [
+    "$95 per missed roll"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "collections-call-cost",
+   "type": "metric",
+   "label": "call cost",
+   "as": [
+    "$22 per collections call"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "oot-flagged-rate",
+   "type": "metric",
+   "label": "flagged rate",
+   "as": [
+    "OOT flagged rate"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "raj-patel",
+   "type": "person",
+   "label": "team",
+   "as": [
+    "Raj Patel's team"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "threshold-selection-cost-matrix",
+   "type": "document",
+   "label": "howto",
+   "as": [
+    "howto/threshold-selection-cost-matrix"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "collections-model",
+   "type": "uses",
+   "label": "uses cutoff",
+   "o": "validation-slice-cutoff",
+   "quote": "The validation-slice cutoff from the cost matrix, not 0.5.",
+   "line": 4
+  },
+  {
+   "s": "raj-patel",
+   "type": "other",
+   "label": "confirmed queue capacity",
+   "o": "collections-model",
+   "quote": "Raj Patel's team confirmed the queue capacity",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "howto/threshold-selection-cost-matrix"
+ ],
+ "built_on": [
+  {
+   "what": "threshold-selection-cost-matrix",
+   "quote": "Builds on howto/threshold-selection-cost-matrix.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/collections-threshold-cost.md",
+ "sha": "f05d0cf8294981ed0c5b1276907d85d1ace8e76ec82b1a9a43d70e3236480cf5",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

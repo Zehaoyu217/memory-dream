@@ -1,0 +1,131 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-c25-util-v1",
+   "type": "feature",
+   "label": "utilisation feature",
+   "as": [
+    "feat-c25-util-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-c25-util-v2",
+   "type": "feature",
+   "label": "replacement feature",
+   "as": [
+    "util-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "churn-lr-base-2025",
+   "type": "model",
+   "label": "baseline model",
+   "as": [
+    "churn-lr-base-2025"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "churn-gbm-2025",
+   "type": "model",
+   "label": "first gbm model",
+   "as": [
+    "first churn-gbm-2025 model"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fnd-c25-limit-cut-spike",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-c25-limit-cut-spike"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-c25-accounts-snapshot",
+   "type": "dataset",
+   "label": "base population",
+   "as": [
+    "ds-c25-accounts-snapshot"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-lr-base-2025",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-c25-util-v1",
+   "quote": "Used in churn-lr-base-2025",
+   "line": 6
+  },
+  {
+   "s": "churn-gbm-2025",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-c25-util-v1",
+   "quote": "and the first churn-gbm-2025 model.",
+   "line": 6
+  },
+  {
+   "s": "feat-c25-util-v1",
+   "type": "other",
+   "label": "shows inflated values for",
+   "o": "fnd-c25-limit-cut-spike",
+   "quote": "accounts whose limit was cut in the last 30 days show inflated utilisation (fnd-c25-limit-cut-spike)",
+   "line": 7
+  },
+  {
+   "s": "feat-c25-util-v2",
+   "type": "replaces",
+   "label": "replaced by",
+   "o": "feat-c25-util-v1",
+   "quote": "replaced by util-v2 in March 2025",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "fnd-c25-limit-cut-spike",
+  "ds-c25-accounts-snapshot"
+ ],
+ "built_on": [
+  {
+   "what": "ds-c25-accounts-snapshot",
+   "quote": "Builds on ds-c25-accounts-snapshot.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-c25-util-v1",
+   "quote": "replaced by util-v2 in March 2025",
+   "line": 4
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2025/feat-c25-util-v1.md",
+ "sha": "8a93fc9cac44a5573e7ff58331e88af894baf5d7ff48e8fbc705edfd07ee534d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

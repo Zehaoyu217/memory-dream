@@ -1,0 +1,110 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "finance",
+   "type": "desk",
+   "label": "department",
+   "as": [
+    "Finance wants"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "net-margin",
+   "type": "metric",
+   "label": "24-month net margin",
+   "as": [
+    "24-month net margin per account"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "score-band",
+   "type": "segment",
+   "label": "score band",
+   "as": [
+    "score band"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "churn",
+   "type": "metric",
+   "label": "churn",
+   "as": [
+    "churn"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "pa-bal-forecast-v1",
+   "type": "model",
+   "label": "forecast",
+   "as": [
+    "pa-bal-forecast-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "pa-churn-hazard-v1",
+   "type": "model",
+   "label": "churn hazard",
+   "as": [
+    "pa-churn-hazard-v1"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "finance",
+   "type": "other",
+   "label": "wants",
+   "o": "net-margin",
+   "quote": "Finance wants 24-month net margin per account by arm and by score band.",
+   "line": 5
+  },
+  {
+   "s": "net-margin",
+   "type": "other",
+   "label": "split by",
+   "o": "score-band",
+   "quote": "Finance wants 24-month net margin per account by arm and by score band.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "q-pa-readout-question",
+  "pa-bal-forecast-v1",
+  "pa-churn-hazard-v1"
+ ],
+ "built_on": [
+  {
+   "what": "q-pa-readout-question",
+   "quote": "Builds on q-pa-readout-question.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "promo-apr-test/q-pa-long-run-margin.md",
+ "sha": "3f15d50bca70f4257ba3f87a4645b2b708eacf2f23a4beb7f693f05698a1c410",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

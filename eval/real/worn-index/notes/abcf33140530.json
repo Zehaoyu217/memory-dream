@@ -1,0 +1,82 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "feat-lbl-churn-flag-closure",
+   "type": "feature",
+   "label": "churn flag",
+   "as": [
+    "feat-lbl-churn-flag-closure"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "churn-90d-rule",
+   "type": "term",
+   "label": "churn rule",
+   "as": [
+    "90-day-only rule"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-407",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-407"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-lbl-churn-flag-closure",
+   "type": "uses",
+   "label": "implemented as",
+   "o": "feat-lbl-churn-flag-closure",
+   "quote": "implemented as feat-lbl-churn-flag-closure in the rebuilt job",
+   "line": 6
+  },
+  {
+   "s": "exp-407",
+   "type": "evaluated-on",
+   "label": "shows",
+   "o": "feat-lbl-churn-flag-closure",
+   "quote": "exp-407 shows the closure-inclusive label gives the better model",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "dec-lbl-churn-90d",
+  "exp-407"
+ ],
+ "built_on": [
+  {
+   "what": "dec-lbl-churn-90d",
+   "quote": "Builds on the 90-day no-transaction churn rule",
+   "line": 7
+  }
+ ],
+ "replaces": [
+  {
+   "what": "dec-lbl-churn-90d",
+   "quote": "Replaces the 90-day-only rule.",
+   "line": 5
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 2
+ },
+ "path": "label-pipeline-rebuild/dec-lbl-churn-closure.md",
+ "sha": "abcf331405305a305553b3ba5d18aa352e480b5139f41ab9b12853ef75193c86",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

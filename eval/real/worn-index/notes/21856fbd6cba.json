@@ -1,0 +1,146 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-507-band-het",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-507"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-pa-credit-band",
+   "type": "feature",
+   "label": "credit band feature",
+   "as": [
+    "feat-pa-credit-band"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "band-640-699",
+   "type": "segment",
+   "label": "credit band",
+   "as": [
+    "640-699 band"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "band-under-640",
+   "type": "segment",
+   "label": "credit band",
+   "as": [
+    "Under 640"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "band-700-plus",
+   "type": "segment",
+   "label": "credit band",
+   "as": [
+    "700 and over"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "arm-b",
+   "type": "segment",
+   "label": "12-month promo arm",
+   "as": [
+    "arm B"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "pa-margin-v2",
+   "type": "model",
+   "label": "margin model",
+   "as": [
+    "pa-margin-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-501-readout-12m",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-501-readout-12m"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-507-band-het",
+   "type": "uses",
+   "label": "by",
+   "o": "feat-pa-credit-band",
+   "quote": "By credit band on the readout cohorts, v1 BT basis",
+   "line": 5
+  },
+  {
+   "s": "arm-b",
+   "type": "other",
+   "label": "has BT inflow in",
+   "o": "band-640-699",
+   "quote": "arm B BT inflow $2,300 per account in the 640-699 band",
+   "line": 5
+  },
+  {
+   "s": "exp-507-band-het",
+   "type": "other",
+   "label": "see",
+   "o": "pa-margin-v2",
+   "quote": "(see pa-margin-v2)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-501-readout-12m",
+  "feat-pa-credit-band",
+  "pa-margin-v2"
+ ],
+ "built_on": [
+  {
+   "what": "exp-501-readout-12m",
+   "quote": "Builds on exp-501-readout-12m and feat-pa-credit-band.",
+   "line": 7
+  },
+  {
+   "what": "feat-pa-credit-band",
+   "quote": "Builds on exp-501-readout-12m and feat-pa-credit-band.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "promo-apr-test/exp-507-band-het.md",
+ "sha": "21856fbd6cba554df8ca79a0ebad8cf7a3df56fa9f5194de9f80caa5a16f9f7b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

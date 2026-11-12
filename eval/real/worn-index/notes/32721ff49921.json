@@ -1,0 +1,157 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-cc-drop-dispute-v1",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Drop dispute link v1 from the classifier"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-cc-dispute-link-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "Dispute link v1"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "feat-cc-dispute-link-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "v2"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "cc-ft-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cc-ft-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cc-logreg-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cc-logreg-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fnd-cc-dispute-link-leak",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-cc-dispute-link-leak"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "aisha-khan",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Owner Aisha Khan (MLOps)"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-cc-drop-dispute-v1",
+   "type": "other",
+   "label": "removes",
+   "o": "feat-cc-dispute-link-v1",
+   "quote": "Dispute link v1 is removed from the feature store",
+   "line": 5
+  },
+  {
+   "s": "cc-ft-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-cc-dispute-link-v2",
+   "quote": "v2 is used in cc-ft-v2",
+   "line": 5
+  },
+  {
+   "s": "cc-logreg-v1",
+   "type": "uses",
+   "label": "reruns with",
+   "o": "feat-cc-dispute-link-v2",
+   "quote": "v2 is used in cc-ft-v2 and cc-logreg-v1 reruns",
+   "line": 5
+  },
+  {
+   "s": "dec-cc-drop-dispute-v1",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "aisha-khan",
+   "quote": "Owner Aisha Khan (MLOps)",
+   "line": 6
+  },
+  {
+   "s": "dec-cc-drop-dispute-v1",
+   "type": "other",
+   "label": "reason",
+   "o": "fnd-cc-dispute-link-leak",
+   "quote": "v1 gain was mostly leakage (fnd-cc-dispute-link-leak)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fnd-cc-dispute-link-leak"
+ ],
+ "built_on": [
+  {
+   "what": "feat-cc-dispute-link-v2",
+   "quote": "Builds on feat-cc-dispute-link-v2",
+   "line": 7
+  },
+  {
+   "what": "fnd-cc-dispute-link-leak",
+   "quote": "the dispute link leakage finding",
+   "line": 7
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-cc-dispute-link-v1",
+   "quote": "Dispute link v1 is removed from the feature store",
+   "line": 5
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "complaint-classification/dec-cc-drop-dispute-v1.md",
+ "sha": "32721ff4992168794b7764de4277476971386baa49f4c52eb1b3be7575ae4c0c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

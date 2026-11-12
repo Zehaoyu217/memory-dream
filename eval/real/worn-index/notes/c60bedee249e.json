@@ -1,0 +1,105 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cld-payment-shock",
+   "type": "feature",
+   "label": "payment shock",
+   "as": [
+    "change in minimum-payment ratio after a decrease"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "min-payment-ratio",
+   "type": "feature",
+   "label": "minimum-payment ratio",
+   "as": [
+    "the minimum payment as a share of balance"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "likely-missers",
+   "type": "segment",
+   "label": "at-risk accounts",
+   "as": [
+    "accounts likely to miss payments"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cld-gbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cld-gbm-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-cld-util-after-decrease",
+   "type": "feature",
+   "label": "utilisation",
+   "as": [
+    "feat-cld-util-after-decrease"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cld-payment-shock",
+   "type": "uses",
+   "label": "compares",
+   "o": "min-payment-ratio",
+   "quote": "Compares the minimum payment as a share of balance 2 cycles before and 2 cycles after the decrease.",
+   "line": 5
+  },
+  {
+   "s": "feat-cld-payment-shock",
+   "type": "other",
+   "label": "marks",
+   "o": "likely-missers",
+   "quote": "Shock above 0.02 of balance marks accounts likely to miss payments",
+   "line": 6
+  },
+  {
+   "s": "cld-gbm-v3",
+   "type": "uses",
+   "label": "first used in",
+   "o": "feat-cld-payment-shock",
+   "quote": "First used in cld-gbm-v3 (2026-05-18).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-cld-util-after-decrease",
+  "cld-gbm-v3"
+ ],
+ "built_on": [
+  {
+   "what": "feat-cld-util-after-decrease",
+   "quote": "Builds on feat-cld-util-after-decrease.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "limit-decrease-policy/feat-cld-payment-shock.md",
+ "sha": "c60bedee249e72b97025dd1d064c3d6aedb4a0b40f8889215680067906ae74dd",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

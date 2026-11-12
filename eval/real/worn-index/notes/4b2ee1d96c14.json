@@ -1,0 +1,94 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "hotel-spend",
+   "type": "metric",
+   "label": "hotel spend",
+   "as": [
+    "Hotel spend trails airline spend by about one quarter"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "airline-spend",
+   "type": "metric",
+   "label": "airline spend",
+   "as": [
+    "airline spend"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "exp-507",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-507"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "cohort-2024q4-travel-active",
+   "type": "segment",
+   "label": "cohort",
+   "as": [
+    "2024-Q4 cohort"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "hotel-spend",
+   "type": "other",
+   "label": "lags",
+   "o": "airline-spend",
+   "quote": "hotel spend returns about one quarter after airline spend",
+   "line": 5
+  },
+  {
+   "s": "exp-507",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "cohort-2024q4-travel-active",
+   "quote": "In the 2024-Q4 cohort, hotel spend returns about one quarter after airline spend (exp-507).",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-507",
+  "q-trv-hotel-lag"
+ ],
+ "built_on": [
+  {
+   "what": "exp-507",
+   "quote": "Builds on exp-507 and q-trv-hotel-lag.",
+   "line": 8
+  },
+  {
+   "what": "q-trv-hotel-lag",
+   "quote": "Builds on exp-507 and q-trv-hotel-lag.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "travel-spend-recovery/fnd-trv-hotel-lag.md",
+ "sha": "4b2ee1d96c1462aaa1b72e843712500b3adb5422578d77dd960f9c5cd34a462f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,90 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-503",
+   "type": "experiment",
+   "label": "randomised push holdout",
+   "as": [
+    "Randomised push holdout: pushes add +0.2 percent sessions over 28 days (n = 214,000 accounts)"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-ae-push-open-v1",
+   "type": "feature",
+   "label": "push open rate",
+   "as": [
+    "feat-ae-push-open-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "app-push-log",
+   "type": "dataset",
+   "label": "push log",
+   "as": [
+    "_HO campaigns"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-ae-push-log",
+   "type": "dataset",
+   "label": "push log",
+   "as": [
+    "ds-ae-push-log"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-503",
+   "type": "uses",
+   "label": "sends from",
+   "o": "ds-ae-push-log",
+   "quote": "campaign sends in Nov 2025 with a 10 percent randomised holdout (_HO campaigns) that received no push",
+   "line": 5
+  },
+  {
+   "s": "exp-503",
+   "type": "uses",
+   "label": "reads",
+   "o": "feat-ae-push-open-v1",
+   "quote": "The open-rate correlation of 0.31 is therefore mostly reverse causation.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fnd-ae-push-null"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ae-push-log",
+   "quote": "Builds on ds-ae-push-log and feat-ae-push-open-v1.",
+   "line": 8
+  },
+  {
+   "what": "feat-ae-push-open-v1",
+   "quote": "Builds on ds-ae-push-log and feat-ae-push-open-v1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "app-engagement/exp-503.md",
+ "sha": "8b66121a1a0afa48ff8f66bba8f1b3c464580f6ad371b65f449227925638d48d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

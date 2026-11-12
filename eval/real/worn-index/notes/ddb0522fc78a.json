@@ -1,0 +1,116 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-502",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-502"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "trv-bt-2025h1",
+   "type": "segment",
+   "label": "backtest window",
+   "as": [
+    "trv-bt-2025h1"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "ds-trv-funnel-sessions",
+   "type": "dataset",
+   "label": "app sessions",
+   "as": [
+    "app session counts only"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "trv-ridge-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "trv-ridge-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-503",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-503"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-502",
+   "type": "measured-by",
+   "label": "MAPE",
+   "o": "trv-bt-2025h1",
+   "quote": "MAPE 6.9%",
+   "line": 4
+  },
+  {
+   "s": "exp-502",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-trv-funnel-sessions",
+   "quote": "Builds on ds-trv-funnel-sessions and trv-ridge-v2.",
+   "line": 8
+  },
+  {
+   "s": "exp-502",
+   "type": "uses",
+   "label": "builds on",
+   "o": "trv-ridge-v2",
+   "quote": "Builds on ds-trv-funnel-sessions and trv-ridge-v2.",
+   "line": 8
+  },
+  {
+   "s": "exp-503",
+   "type": "uses",
+   "label": "starting point",
+   "o": "exp-502",
+   "quote": "Starting point for exp-503.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-trv-funnel-sessions",
+   "quote": "Builds on ds-trv-funnel-sessions and trv-ridge-v2.",
+   "line": 8
+  },
+  {
+   "what": "trv-ridge-v2",
+   "quote": "Builds on ds-trv-funnel-sessions and trv-ridge-v2.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "travel-spend-recovery/exp-502.md",
+ "sha": "ddb0522fc78aea1750324e41a70f82bec8dfd375d8469198756576f687654618",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

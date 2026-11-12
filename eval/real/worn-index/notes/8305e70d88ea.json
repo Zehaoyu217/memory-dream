@@ -1,0 +1,122 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "uplift",
+   "type": "metric",
+   "label": "effect measure",
+   "as": [
+    "uplift"
+   ],
+   "lines": [
+    4,
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "randomised-holdouts",
+   "type": "term",
+   "label": "design",
+   "as": [
+    "randomised holdouts"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "lift",
+   "type": "metric",
+   "label": "observational measure",
+   "as": [
+    "lift"
+   ],
+   "lines": [
+    4,
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "chloe-martin",
+   "type": "person",
+   "label": "report author",
+   "as": [
+    "Chloe Martin"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "oct-2025-cli-report",
+   "type": "document",
+   "label": "report",
+   "as": [
+    "Oct 2025 CLI report"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "marketing-campaign-responses",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "marketing.campaign_responses"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "uplift",
+   "type": "uses",
+   "label": "requires randomised",
+   "o": "randomised-holdouts",
+   "quote": "Uplift is reported only when treatment and control are randomised holdouts.",
+   "line": 5
+  },
+  {
+   "s": "oct-2025-cli-report",
+   "type": "owned-by",
+   "label": "written by",
+   "o": "chloe-martin",
+   "quote": "Chloe Martin's Oct 2025 CLI report",
+   "line": 6
+  },
+  {
+   "s": "lift",
+   "type": "uses",
+   "label": "from table",
+   "o": "marketing-campaign-responses",
+   "quote": "Observational differences from `marketing.campaign_responses` are called lift.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "glossary/uplift"
+ ],
+ "replaces": [
+  {
+   "what": "glossary/uplift",
+   "quote": "Replaces glossary/uplift.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "corrections/uplift-randomised-only.md",
+ "sha": "8305e70d88ea8d3726ed47b4ef09a34e29b2ef357a0ac4646f47520d3e3e65af",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

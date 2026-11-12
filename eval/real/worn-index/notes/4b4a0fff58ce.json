@@ -1,0 +1,163 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-cu-uplift-for-calls",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: route early-collections calls by uplift rank (cu-uplift-v2), not response rank"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cu-uplift-v2",
+   "type": "model",
+   "label": "uplift model",
+   "as": [
+    "cu-uplift-v2"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "cu-resp-v1",
+   "type": "model",
+   "label": "response model",
+   "as": [
+    "cu-resp-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "find-cu-response-misranks",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-cu-response-misranks"
+   ],
+   "lines": [
+    7,
+    9
+   ]
+  },
+  {
+   "id": "exp-105",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-105"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "credit risk",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "raj-patel",
+   "type": "person",
+   "label": "collections",
+   "as": [
+    "Raj Patel"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "1-29-dpd-accounts",
+   "type": "segment",
+   "label": "population",
+   "as": [
+    "1-29 DPD accounts"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-cu-uplift-for-calls",
+   "type": "uses",
+   "label": "routes by",
+   "o": "cu-uplift-v2",
+   "quote": "Calls go to the top 20% by cu-uplift-v2 score among 1-29 DPD accounts",
+   "line": 6
+  },
+  {
+   "s": "cu-resp-v1",
+   "type": "other",
+   "label": "reference only",
+   "o": "dec-cu-uplift-for-calls",
+   "quote": "cu-resp-v1 stays as an explainability reference only.",
+   "line": 8
+  },
+  {
+   "s": "dec-cu-uplift-for-calls",
+   "type": "owned-by",
+   "label": "agreed by",
+   "o": "lena-fischer",
+   "quote": "Agreed 2025-12-15 by Lena Fischer (credit risk) and Raj Patel (collections).",
+   "line": 5
+  },
+  {
+   "s": "dec-cu-uplift-for-calls",
+   "type": "owned-by",
+   "label": "agreed by",
+   "o": "raj-patel",
+   "quote": "Agreed 2025-12-15 by Lena Fischer (credit risk) and Raj Patel (collections).",
+   "line": 5
+  },
+  {
+   "s": "dec-cu-uplift-for-calls",
+   "type": "other",
+   "label": "reason",
+   "o": "find-cu-response-misranks",
+   "quote": "Reason: find-cu-response-misranks showed the response ranking spends calls on accounts that pay anyway.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-105",
+  "find-cu-response-misranks",
+  "cu-uplift-v2",
+  "cu-resp-v1"
+ ],
+ "built_on": [
+  {
+   "what": "exp-105",
+   "quote": "Builds on exp-105 and find-cu-response-misranks.",
+   "line": 9
+  },
+  {
+   "what": "find-cu-response-misranks",
+   "quote": "Builds on exp-105 and find-cu-response-misranks.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-uplift/dec-cu-uplift-for-calls.md",
+ "sha": "4b4a0fff58ce1a86660282266a53332b94e522dbf0d6c2033a296805e6d9794e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

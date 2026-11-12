@@ -1,0 +1,85 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-aml-cash-velocity",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "30-day cash total against the prior 90-day average"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "aml-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "aml-xgb-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-aml-round-amount",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "round-amount"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-aml-cash-txn",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-aml-cash-txn"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "aml-xgb-v2",
+   "type": "uses",
+   "label": "shipped with",
+   "o": "feat-aml-cash-velocity",
+   "quote": "shipped with round-amount in aml-xgb-v2",
+   "line": 6
+  },
+  {
+   "s": "feat-aml-cash-velocity",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-aml-cash-txn",
+   "quote": "Builds on ds-aml-cash-txn.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "aml-xgb-v2"
+ ],
+ "built_on": [
+  {
+   "what": "ds-aml-cash-txn",
+   "quote": "Builds on ds-aml-cash-txn.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "aml-alerts/feat-aml-cash-velocity.md",
+ "sha": "0192964ccedad603c8b7c97926a5ba0300cbe6d78ce4d4f0e5627d306fa3c40a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -93,9 +93,8 @@ A memory of it built with no model holds no lineage at all. It knows that 81% of
 A reading has two more lists: `built_on` and `replaces`, what the note itself says it builds on and what it
 replaces, each with the note's own words. The script keeps an item whose words are in the note, places what it
 names (a note by path or file name, the note's own folder first; else the home note of the thing of that name) and
-adds a `from` or `supersedes` edge marked `by: "reading"`. Frontmatter and `CONFLICTS.md` win, and a replacement is
-taken only between two notes of one kind. So that a keeper can name the note a phrase means, both prompts carry the
-folder's notes as `file name: first line`.
+adds a `from` or `supersedes` edge marked `by: "reading"`. Frontmatter and `CONFLICTS.md` win. So that a keeper can
+name the note a phrase means, both prompts carry the folder's notes as `file name: first line`.
 
 A pilot first, on the 300 notes of ten folders of the worn bank, each way of reading on its own copy:
 
@@ -117,8 +116,9 @@ A pilot first, on the 300 notes of ten folders of the worn bank, each way of rea
   the default packet is now 6,000 characters of notes, a dozen short ones, where phase P had set two dozen from
   sizes alone.
 - **What is wrong is mostly a replacement that is not the note's own.** Of the 12 wrong edges of the single calls,
-  6 said that a decision or a finding replaces a model. A replacement between notes of two kinds is no longer taken:
-  7 wrong edges are left, and no right one is lost.
+  6 said that a decision or a finding replaces a model. On the pilot a rule of one kind (a replacement only between
+  two notes of one kind) left 7 wrong edges and lost no right one. The whole bank showed that rule to be too plain;
+  S5 has what replaced it.
 
 ## S4 — identity by reading: the curator in place of the string ratio
 
@@ -175,6 +175,52 @@ a person's `not:` line overrules it and the join is not written again. Acceptanc
 Not done: the rule that joins an id to the one thing that writes it as a spelling still decides without a reader
 (203 merges on the bank); an edge's raw link word is still mapped onto a type only over the bar; a name that is two
 things in two folders stays one thing with two meanings, since nothing qualifies a name by its folder yet.
+
+## S5 — the whole worn bank read, and what the memory then holds
+
+```bash
+caffeinate -s -i env MEMORY_LLM="python3 tests/haiku_cmd.py" memory.py --root <worn>/memory dream --packets -j 6
+python3 eval/hard/lineage_score.py <worn>/memory <worn>/truth.json
+```
+
+All 1,677 notes in 142 packets of a dozen, one of them asked twice, no note left unread: **$1.27** ($0.00076 a
+note), 1.87M tokens in and 1.83M out, half of the output thinking; 100 minutes of model time, 46 minutes on the
+clock at `-j 6` beside other runs. The curator and the review after it: 50 calls, $0.11, 16 names joined and 19
+refused. (Before the pilot had settled the way of reading, 219 notes had been read one call each for $0.36; those
+readings were set aside.)
+
+| the links of the worn bank, against the answer key | links | held as lineage | only as a mention | missing |
+|---|---|---|---|---|
+| `from`, all | 2,213 | 2,086 (94%) | 53 | 74 |
+| · stated by its id | 1,432 | 1,429 (100%) | 3 | 0 |
+| · by its id, with its folder | 70 | 70 (100%) | 0 | 0 |
+| · by a phrase | 711 | 587 (83%) | 50 | 74 |
+| `supersedes`, all | 216 | 197 (91%) | 18 | 1 |
+| · stated by its id | 121 | 121 (100%) | 0 | 0 |
+| · by its id, with its folder | 48 | 35 (73%) | 13 | 0 |
+| · by a phrase | 47 | 41 (87%) | 5 | 1 |
+
+Of the 2,308 lineage edges in the graph, 2,283 are true (99%) and 25 are not. With no model the same notes give 0
+edges.
+
+- **A phrase is the hard case, and a cheap reader gets five in six.** "Builds on the aml analyst dispositions
+  dataset" names no id; the keeper, with the folder's notes listed in its prompt, writes `ds-aml-dispositions` for
+  it. 109 items named something the script could not place: the keeper gave a phrase an id of its own making.
+- **Replacements needed two exact rules, and the whole bank showed which.** As first built, the memory held 146 of
+  the 216 (68%). Twenty-three times "Superseded by X", in the older note, was read as the older note replacing X;
+  the claims were judged in note order, so the wrong edge was written first and the true one refused as its
+  reverse. And the rule of one kind, which had removed 6 wrong edges on the pilot, refused 34 true ones here (a
+  correction that replaces a glossary term) to stop 14 false ones (a decision that reports "v3 replaces v2"). Now
+  the claims are collected and judged together: none from a note older than the one it names; none from a note of
+  another kind when a note of the replaced note's own kind says it too; none when two notes claim each other. From
+  the same readings, with no call: 197 of 216 (91%).
+- **`ask` shows nearly what it shows on the tidy bank.** Put the 98 questions of S6 to `ask` alone, ten a call and
+  no agent: every note of the answer is named for 82 of them on the worn memory and for 83 on the tidy one, where
+  the links are frontmatter.
+- **The memory's own proof found a gap on its first day.** `SETUP.md` was written for this memory with five
+  questions. `check` reports 4 of 5: "what is the current fraud model of 2026 built on?" is answered with the
+  fraud models of another project, because the question names neither the folder nor the id. That is the open item
+  of phase L (a thing's own note when no folder wins the call), found by the base's own test and not by ours.
 
 # Phase R (2026-11-12) — step 1, items 6 and 7: setting a memory up with its own five questions, and filters on the page
 

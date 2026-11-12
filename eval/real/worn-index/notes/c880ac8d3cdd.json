@@ -1,0 +1,144 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-cld-collections-roll",
+   "type": "dataset",
+   "label": "roll outcomes",
+   "as": [
+    "roll outcomes for decrease-cohort accounts"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "collections.cases",
+   "type": "dataset",
+   "label": "collections table",
+   "as": [
+    "collections.cases"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "ds-cld-decrease-cohort",
+   "type": "dataset",
+   "label": "decrease cohort",
+   "as": [
+    "decrease cohort"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "hardship-accounts",
+   "type": "segment",
+   "label": "hardship accounts",
+   "as": [
+    "Hardship-programme accounts"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "roll-rate",
+   "type": "metric",
+   "label": "roll rate",
+   "as": [
+    "roll-rate evaluation"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cld-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cld-gbm-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "q-cld-hardship-roll",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "the hardship question"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-cld-collections-roll",
+   "type": "uses",
+   "label": "joins",
+   "o": "collections.cases",
+   "quote": "Joins the decrease cohort to `collections.cases`",
+   "line": 5
+  },
+  {
+   "s": "ds-cld-collections-roll",
+   "type": "uses",
+   "label": "joins",
+   "o": "ds-cld-decrease-cohort",
+   "quote": "Joins the decrease cohort to `collections.cases`",
+   "line": 5
+  },
+  {
+   "s": "ds-cld-collections-roll",
+   "type": "other",
+   "label": "flags",
+   "o": "hardship-accounts",
+   "quote": "Hardship-programme accounts are flagged from the case reason",
+   "line": 6
+  },
+  {
+   "s": "ds-cld-collections-roll",
+   "type": "other",
+   "label": "used for",
+   "o": "q-cld-hardship-roll",
+   "quote": "Used for the hardship question",
+   "line": 7
+  },
+  {
+   "s": "cld-gbm-v1",
+   "type": "measured-by",
+   "label": "evaluated by",
+   "o": "roll-rate",
+   "quote": "roll-rate evaluation in cld-gbm-v1",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-cld-decrease-cohort",
+  "cld-gbm-v1"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cld-decrease-cohort",
+   "quote": "Builds on ds-cld-decrease-cohort.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "limit-decrease-policy/ds-cld-collections-roll.md",
+ "sha": "c880ac8d3cdd480cd58127d8a1d261bef496a34f67e866eb5e3c2ecb941cd9bb",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,114 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-205",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-205: adding the payment-to-minimum ratio lifts ed-gbm-v1 to AUC 0.803 on early-delinquency-holdout-2024q4, without the limit feature"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ed-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ed-gbm-v1"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "feat-ed-minpay-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ed-minpay-v2"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "early-delinquency-holdout-2024q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Same holdout (n=402,000)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.803"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-205",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "early-delinquency-holdout-2024q4",
+   "quote": "Same holdout (n=402,000)",
+   "line": 5
+  },
+  {
+   "s": "exp-205",
+   "type": "uses",
+   "label": "adds feature",
+   "o": "feat-ed-minpay-v2",
+   "quote": "ed-gbm-v1 plus feat-ed-minpay-v2",
+   "line": 5
+  },
+  {
+   "s": "exp-205",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.803",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "ed-gbm-v1",
+  "feat-ed-minpay-v2"
+ ],
+ "built_on": [
+  {
+   "what": "ed-gbm-v1",
+   "quote": "Builds on ed-gbm-v1 and feat-ed-minpay-v2.",
+   "line": 7
+  },
+  {
+   "what": "feat-ed-minpay-v2",
+   "quote": "Builds on ed-gbm-v1 and feat-ed-minpay-v2.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "early-delinquency/exp-205.md",
+ "sha": "cdc79050fbc22046e4915bfde539aa7e7854672b4bd57d0317cafc76dccd3b61",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

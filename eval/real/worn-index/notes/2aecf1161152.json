@@ -1,0 +1,137 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-mq3-recency-v2",
+   "type": "feature",
+   "label": "recency feature",
+   "as": [
+    "Days since the last purchase (not refund)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-305-refund-fix",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "the refunds-as-activity inflation experiment"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "mq3-uplift-xl-v2",
+   "type": "model",
+   "label": "x-learner",
+   "as": [
+    "mq3-uplift-xl-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-mq3-recency-v1",
+   "type": "feature",
+   "label": "recency feature with refunds",
+   "as": [
+    "the recency feature with refunds"
+   ],
+   "lines": [
+    8,
+    9
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift@20%",
+   "as": [
+    "uplift@20% falls from 2.7 to 2.6"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-mq3-recency-v2",
+   "type": "uses",
+   "label": "from",
+   "o": "cards.txn_daily",
+   "quote": "Days since the last purchase (not refund) from `cards.txn_daily`.",
+   "line": 5
+  },
+  {
+   "s": "mq3-uplift-xl-v2",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-mq3-recency-v2",
+   "quote": "Used in mq3-uplift-xl-v2.",
+   "line": 7
+  },
+  {
+   "s": "feat-mq3-recency-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "feat-mq3-recency-v1",
+   "quote": "Replaces the recency feature with refunds.",
+   "line": 9
+  },
+  {
+   "s": "feat-mq3-recency-v2",
+   "type": "measured-by",
+   "label": "uplift falls",
+   "o": "uplift-at-20",
+   "quote": "uplift@20% falls from 2.7 to 2.6 once it is in (exp-305)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-305-refund-fix",
+  "mq3-uplift-xl-v2"
+ ],
+ "built_on": [
+  {
+   "what": "exp-305-refund-fix",
+   "quote": "Builds on the refunds-as-activity inflation experiment and the recency feature with refunds.",
+   "line": 8
+  },
+  {
+   "what": "feat-mq3-recency-v1",
+   "quote": "Builds on the refunds-as-activity inflation experiment and the recency feature with refunds.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-mq3-recency-v1",
+   "quote": "Replaces the recency feature with refunds.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "marketing-uplift-q3/feat-mq3-recency-v2.md",
+ "sha": "2aecf1161152e756262e8e31dafff33514ac0ebe2ed63567aecbce14f50f773f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

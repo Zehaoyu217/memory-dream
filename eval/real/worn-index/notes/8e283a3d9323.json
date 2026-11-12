@@ -1,0 +1,178 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-201",
+   "type": "term",
+   "label": "experiment",
+   "as": [
+    "exp-201"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "flat-1.25-cell",
+   "type": "segment",
+   "label": "flat 1.25% cell",
+   "as": [
+    "Flat 1.25% cell"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "control-cell",
+   "type": "segment",
+   "label": "control cell",
+   "as": [
+    "the control (flat 1.0%)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "spend-lift",
+   "type": "metric",
+   "label": "spend lift",
+   "as": [
+    "Spend per account +4.1%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "rewards-rate",
+   "type": "metric",
+   "label": "rewards rate change",
+   "as": [
+    "Rewards rate +25% (1.00 to 1.25)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "net-contribution",
+   "type": "metric",
+   "label": "net contribution",
+   "as": [
+    "Net contribution is +$1.10 per account per month after rewards cost"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cb.spend_panel",
+   "type": "dataset",
+   "label": "source dataset",
+   "as": [
+    "`cb.spend_panel`"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cb.rewards_ledger",
+   "type": "dataset",
+   "label": "source dataset",
+   "as": [
+    "`cb.rewards_ledger`"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cb-pilot-2025q4",
+   "type": "dataset",
+   "label": "pilot",
+   "as": [
+    "ds-cb-pilot-2025q4"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-201",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "cb-pilot-2025q4",
+   "quote": "Flat 1.25% cell vs the control (flat 1.0%), pilot Sep 15 to Dec 14 2025, n=18,000 per cell.",
+   "line": 5
+  },
+  {
+   "s": "flat-1.25-cell",
+   "type": "measured-by",
+   "label": "lifts",
+   "o": "spend-lift",
+   "quote": "flat 1.25% lifts spend 4.1%",
+   "line": 4
+  },
+  {
+   "s": "flat-1.25-cell",
+   "type": "measured-by",
+   "label": "raises",
+   "o": "rewards-rate",
+   "quote": "raises rewards cost 25%",
+   "line": 4
+  },
+  {
+   "s": "flat-1.25-cell",
+   "type": "measured-by",
+   "label": "net contribution",
+   "o": "net-contribution",
+   "quote": "Net contribution is +$1.10 per account per month after rewards cost.",
+   "line": 6
+  },
+  {
+   "s": "exp-201",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cb.spend_panel",
+   "quote": "Source: `cb.spend_panel` and `cb.rewards_ledger`.",
+   "line": 7
+  },
+  {
+   "s": "exp-201",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cb.rewards_ledger",
+   "quote": "Source: `cb.spend_panel` and `cb.rewards_ledger`.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-cb-pilot-2025q4",
+  "q-cb-tier-cost"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cb-pilot-2025q4",
+   "quote": "Builds on ds-cb-pilot-2025q4 and q-cb-tier-cost.",
+   "line": 8
+  },
+  {
+   "what": "q-cb-tier-cost",
+   "quote": "Builds on ds-cb-pilot-2025q4 and q-cb-tier-cost.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/exp-201-flat-rate-pilot.md",
+ "sha": "8e283a3d9323125d75b1d0dc72ab0e66eb4f428b1e28c16665d1cb1039237b79",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,80 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "structuring-rule",
+   "type": "other",
+   "label": "alert rule",
+   "as": [
+    "AML structuring rule"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "false-positive-rate",
+   "type": "metric",
+   "label": "rate",
+   "as": [
+    "false-positive rate"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-aml-alerts",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "ds-aml-alerts"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "ds-aml-dispositions",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "ds-aml-dispositions"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "structuring-rule",
+   "type": "measured-by",
+   "label": "false-positive rate",
+   "o": "false-positive-rate",
+   "quote": "What is the false-positive rate of the AML structuring rule?",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "aml-find-fp-baseline",
+  "ds-aml-alerts",
+  "ds-aml-dispositions"
+ ],
+ "built_on": [
+  {
+   "what": "ds-aml-alerts",
+   "quote": "Builds on ds-aml-alerts.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "aml-alerts/q-aml-fp-rate.md",
+ "sha": "175318139ec9be55557b896a89248b566e0b49516d036dac10dfbe1a84e81047",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,128 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-rdm-6m-cutoff",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "reactivation pool is accounts dormant for 6 or more months"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-301",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-301"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift",
+   "as": [
+    "best uplift at the top 20%"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fnd-rdm-cutoff-5m",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "The 5-month cutoff is dropped"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "priya-nair",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Priya Nair"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "reactivation-pool",
+   "type": "segment",
+   "label": "pool",
+   "as": [
+    "reactivation pool"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-rdm-6m-cutoff",
+   "type": "measured-by",
+   "label": "best uplift",
+   "o": "uplift-at-20",
+   "quote": "Gives the best uplift at the top 20% (1.6pp, exp-301)",
+   "line": 5
+  },
+  {
+   "s": "dec-rdm-6m-cutoff",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "priya-nair",
+   "quote": "Owner: Priya Nair (onboarding).",
+   "line": 7
+  },
+  {
+   "s": "dec-rdm-6m-cutoff",
+   "type": "other",
+   "label": "drops",
+   "o": "fnd-rdm-cutoff-5m",
+   "quote": "The 5-month cutoff is dropped (fnd-rdm-cutoff-5m).",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-301",
+  "fnd-rdm-cutoff-5m",
+  "q-rdm-dormancy-cutoff"
+ ],
+ "built_on": [
+  {
+   "what": "exp-301",
+   "quote": "Builds on exp-301, the five-month cutoff dilution finding and q-rdm-dormancy-cutoff.",
+   "line": 8
+  },
+  {
+   "what": "fnd-rdm-cutoff-5m",
+   "quote": "Builds on exp-301, the five-month cutoff dilution finding and q-rdm-dormancy-cutoff.",
+   "line": 8
+  },
+  {
+   "what": "q-rdm-dormancy-cutoff",
+   "quote": "Builds on exp-301, the five-month cutoff dilution finding and q-rdm-dormancy-cutoff.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reactivation-dormant/dec-rdm-6m-cutoff.md",
+ "sha": "4c531478471ce264e97350638679cd1350ea01d632a45eb32c85e398cea013c5",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

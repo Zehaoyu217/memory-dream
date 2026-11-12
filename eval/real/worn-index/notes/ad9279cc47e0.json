@@ -1,0 +1,121 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-401",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-401"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "structuring-rule",
+   "type": "other",
+   "label": "alert rule",
+   "as": [
+    "structuring alerts"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "ds-aml-alerts",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "compliance.aml_alerts"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-aml-dispositions",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "compliance.aml_dispositions"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "false-positive-rate",
+   "type": "metric",
+   "label": "rate",
+   "as": [
+    "false positives"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "sar-referral-rate",
+   "type": "metric",
+   "label": "rate",
+   "as": [
+    "SAR-referred"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-401",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "ds-aml-alerts",
+   "quote": "Eval set: 21,340 structuring alerts Jan-Aug 2025 from `compliance.aml_alerts`",
+   "line": 5
+  },
+  {
+   "s": "exp-401",
+   "type": "evaluated-on",
+   "label": "dispositions from",
+   "o": "ds-aml-dispositions",
+   "quote": "with dispositions from `compliance.aml_dispositions`",
+   "line": 5
+  },
+  {
+   "s": "exp-401",
+   "type": "measured-by",
+   "label": "closed as false positive",
+   "o": "false-positive-rate",
+   "quote": "Closed as false positive 94.1%",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "aml-find-fp-baseline"
+ ],
+ "built_on": [
+  {
+   "what": "ds-aml-alerts",
+   "quote": "Builds on ds-aml-alerts and the aml analyst dispositions dataset.",
+   "line": 8
+  },
+  {
+   "what": "ds-aml-dispositions",
+   "quote": "Builds on ds-aml-alerts and the aml analyst dispositions dataset.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "aml-alerts/exp-401.md",
+ "sha": "ad9279cc47e0bb263a837f41583e622f902d66896fc6b0227deb47545cb2c21c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

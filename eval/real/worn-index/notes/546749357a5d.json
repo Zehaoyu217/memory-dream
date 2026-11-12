@@ -1,0 +1,106 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "aml-xgb-v3",
+   "type": "model",
+   "label": "queue ranker",
+   "as": [
+    "aml-xgb-v3"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "aml-xgb-v2",
+   "type": "model",
+   "label": "ranker",
+   "as": [
+    "v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "suppression-cut",
+   "type": "policy",
+   "label": "suppression cut",
+   "as": [
+    "0.18 suppression cut"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "top-40pct-capture",
+   "type": "metric",
+   "label": "basis",
+   "as": [
+    "top 40%"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "aml-xgb-v3",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "aml-xgb-v2",
+   "quote": "aml-xgb-v3 replaces v2 as the queue ranker from 2026-07-08",
+   "line": 5
+  },
+  {
+   "s": "aml-xgb-v3",
+   "type": "measured-by",
+   "label": "basis",
+   "o": "top-40pct-capture",
+   "quote": "96.3% of SARs in top 40%",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "aml-xgb-v3",
+  "dec-aml-suppress-018",
+  "exp-407"
+ ],
+ "built_on": [
+  {
+   "what": "aml-xgb-v3",
+   "quote": "Builds on aml-xgb-v3, dec-aml-suppress-018 and exp-407.",
+   "line": 8
+  },
+  {
+   "what": "dec-aml-suppress-018",
+   "quote": "Builds on aml-xgb-v3, dec-aml-suppress-018 and exp-407.",
+   "line": 8
+  },
+  {
+   "what": "exp-407",
+   "quote": "Builds on aml-xgb-v3, dec-aml-suppress-018 and exp-407.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "aml-xgb-v2",
+   "quote": "aml-xgb-v3 replaces v2 as the queue ranker from 2026-07-08",
+   "line": 5
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "aml-alerts/dec-aml-ranker-v3.md",
+ "sha": "546749357a5d34a91e3206119069e0fe4ff2c672e1c7f64ba6f257cb309c9c89",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

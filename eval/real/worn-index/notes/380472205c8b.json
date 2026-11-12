@@ -1,0 +1,172 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "cc-ft-v1",
+   "type": "model",
+   "label": "fine-tuned encoder",
+   "as": [
+    "Fine-tuned small encoder (6 layers, 22M parameters)"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cc-ft-v2",
+   "type": "model",
+   "label": "superseding model",
+   "as": [
+    "cc-ft-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4 (n = 1,800)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-cc-qa-labels",
+   "type": "dataset",
+   "label": "training labels",
+   "as": [
+    "adjudicated labels"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-cc-taxonomy-v3",
+   "type": "other",
+   "label": "taxonomy",
+   "as": [
+    "taxonomy v3"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-cc-embed-v1",
+   "type": "feature",
+   "label": "embedding",
+   "as": [
+    "feat-cc-embed-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Macro F1 0.80"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "exp-206",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-206"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cc-ft-v1",
+   "type": "trained-on",
+   "label": "trained on",
+   "o": "ds-cc-qa-labels",
+   "quote": "Trained three epochs on adjudicated labels under taxonomy v3",
+   "line": 5
+  },
+  {
+   "s": "cc-ft-v1",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "holdout-2025q4",
+   "quote": "Macro F1 0.80 on holdout-2025q4 (n = 1,800)",
+   "line": 6
+  },
+  {
+   "s": "cc-ft-v1",
+   "type": "measured-by",
+   "label": "scored by",
+   "o": "macro-f1",
+   "quote": "Macro F1 0.80 on holdout-2025q4",
+   "line": 4
+  },
+  {
+   "s": "cc-ft-v1",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-cc-embed-v1",
+   "quote": "Builds on ds-cc-qa-labels, ds-cc-taxonomy-v3 and feat-cc-embed-v1.",
+   "line": 8
+  },
+  {
+   "s": "cc-ft-v1",
+   "type": "uses",
+   "label": "feeds",
+   "o": "exp-206",
+   "quote": "Its probability output feeds the 0.95 auto-code threshold (exp-206).",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-206",
+  "cc-ft-v2"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cc-qa-labels",
+   "quote": "Builds on ds-cc-qa-labels, ds-cc-taxonomy-v3 and feat-cc-embed-v1.",
+   "line": 8
+  },
+  {
+   "what": "ds-cc-taxonomy-v3",
+   "quote": "Builds on ds-cc-qa-labels, ds-cc-taxonomy-v3 and feat-cc-embed-v1.",
+   "line": 8
+  },
+  {
+   "what": "feat-cc-embed-v1",
+   "quote": "Builds on ds-cc-qa-labels, ds-cc-taxonomy-v3 and feat-cc-embed-v1.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "cc-ft-v2",
+   "quote": "Superseded by cc-ft-v2",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "complaint-classification/cc-ft-v1.md",
+ "sha": "380472205c8bddf9e4f8bffe96a5db2edcd541998802cf816ff31dc18cee067f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

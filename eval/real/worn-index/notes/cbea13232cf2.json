@@ -1,0 +1,197 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-106",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "Cost-matrix thresholds and adjudicated labels, tested in separate arms on cr-oot-2026h1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cost-matrix-thresholds",
+   "type": "term",
+   "label": "routing thresholds",
+   "as": [
+    "Cost-matrix thresholds"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "adjudicated-labels",
+   "type": "dataset",
+   "label": "adjudicated labels",
+   "as": [
+    "adjudicated labels"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "cr-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cr-lgbm-v2"
+   ],
+   "lines": [
+    5,
+    9
+   ]
+  },
+  {
+   "id": "cr-lgbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cr-lgbm-v3"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cr-oot-2026h1",
+   "type": "dataset",
+   "label": "out-of-time set",
+   "as": [
+    "cr-oot-2026h1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "dispute-queue-misroutes",
+   "type": "metric",
+   "label": "misroute rate",
+   "as": [
+    "dispute-queue misroutes"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "macro F1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "top-1-accuracy",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "top-1 accuracy"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-106",
+   "type": "evaluated-on",
+   "label": "tested on",
+   "o": "cr-oot-2026h1",
+   "quote": "tested in separate arms on cr-oot-2026h1",
+   "line": 4
+  },
+  {
+   "s": "cost-matrix-thresholds",
+   "type": "other",
+   "label": "applied to",
+   "o": "cr-lgbm-v2",
+   "quote": "Arm A: cost-matrix routing thresholds on cr-lgbm-v2",
+   "line": 5
+  },
+  {
+   "s": "cost-matrix-thresholds",
+   "type": "measured-by",
+   "label": "reduces",
+   "o": "dispute-queue-misroutes",
+   "quote": "Arm A: dispute-queue misroutes down 23 percent, macro F1 0.73 unchanged.",
+   "line": 7
+  },
+  {
+   "s": "cost-matrix-thresholds",
+   "type": "measured-by",
+   "label": "unchanged",
+   "o": "macro-f1",
+   "quote": "Arm A: dispute-queue misroutes down 23 percent, macro F1 0.73 unchanged.",
+   "line": 7
+  },
+  {
+   "s": "adjudicated-labels",
+   "type": "measured-by",
+   "label": "moves",
+   "o": "top-1-accuracy",
+   "quote": "Arm B: top-1 accuracy 0.79 to 0.81, macro F1 0.73 to 0.74 (n = 410,000 calls).",
+   "line": 7
+  },
+  {
+   "s": "adjudicated-labels",
+   "type": "measured-by",
+   "label": "moves",
+   "o": "macro-f1",
+   "quote": "Arm B: top-1 accuracy 0.79 to 0.81, macro F1 0.73 to 0.74 (n = 410,000 calls).",
+   "line": 7
+  },
+  {
+   "s": "cost-matrix-thresholds",
+   "type": "other",
+   "label": "goes into",
+   "o": "cr-lgbm-v3",
+   "quote": "Both arms go into cr-lgbm-v3.",
+   "line": 8
+  },
+  {
+   "s": "adjudicated-labels",
+   "type": "other",
+   "label": "goes into",
+   "o": "cr-lgbm-v3",
+   "quote": "Both arms go into cr-lgbm-v3.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-cr-intent-labels",
+  "cr-lgbm-v2",
+  "cr-lgbm-v3"
+ ],
+ "built_on": [
+  {
+   "what": "cr-lgbm-v2",
+   "quote": "Builds on cr-lgbm-v2 and ds-cr-intent-labels.",
+   "line": 9
+  },
+  {
+   "what": "ds-cr-intent-labels",
+   "quote": "Builds on cr-lgbm-v2 and ds-cr-intent-labels.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/exp-106.md",
+ "sha": "cbea13232cf2c099bd8a13549be8bd3fc60f9be1e7e30adcab98a9774eaa8867",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

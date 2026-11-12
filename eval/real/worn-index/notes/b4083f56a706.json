@@ -1,0 +1,123 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-103",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-103: LightGBM with the same inputs gives macro-F1 0.78"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "algorithm",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "feat-txc-descriptor-tokens-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-txc-descriptor-tokens-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-txc-mcc-prior",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-txc-mcc-prior"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q2 (n=2,000)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "txc-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "txc-gbm-v2"
+   ],
+   "lines": [
+    8,
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-103",
+   "type": "uses",
+   "label": "input",
+   "o": "feat-txc-descriptor-tokens-v1",
+   "quote": "on feat-txc-descriptor-tokens-v1 plus feat-txc-mcc-prior",
+   "line": 5
+  },
+  {
+   "s": "exp-103",
+   "type": "uses",
+   "label": "input",
+   "o": "feat-txc-mcc-prior",
+   "quote": "on feat-txc-descriptor-tokens-v1 plus feat-txc-mcc-prior",
+   "line": 5
+  },
+  {
+   "s": "exp-103",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "holdout-2025q2",
+   "quote": "holdout-2025q2 (n=2,000)",
+   "line": 5
+  },
+  {
+   "s": "exp-103",
+   "type": "produces",
+   "label": "basis for",
+   "o": "txc-gbm-v2",
+   "quote": "Basis for txc-gbm-v2.",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "txc-gbm-v2",
+   "quote": "Builds on the experiment adding the mcc prior and txc-gbm-v2.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "txn-categorization/exp-103.md",
+ "sha": "b4083f56a70646ec8e21b76fbeb0fe8f0bde31dc094c6d03b425e57c5ff259b3",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,88 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "domestic-spend",
+   "type": "metric",
+   "label": "domestic spend",
+   "as": [
+    "domestic"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "cross-border-spend",
+   "type": "metric",
+   "label": "cross-border spend",
+   "as": [
+    "cross-border"
+   ],
+   "lines": [
+    4,
+    5,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "fnd-trv-plateau",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-trv-plateau"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "fnd-trv-cross-border-recovery",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-trv-cross-border-recovery"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fnd-trv-plateau",
+   "type": "other",
+   "label": "hid lag",
+   "o": "cross-border-spend",
+   "quote": "The blended series hid a cross-border lag through 2025 (fnd-trv-plateau)",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "fnd-trv-plateau",
+  "fnd-trv-cross-border-recovery"
+ ],
+ "built_on": [
+  {
+   "what": "fnd-trv-cross-border-recovery",
+   "quote": "Builds on fnd-trv-cross-border-recovery and fnd-trv-plateau.",
+   "line": 8
+  },
+  {
+   "what": "fnd-trv-plateau",
+   "quote": "Builds on fnd-trv-cross-border-recovery and fnd-trv-plateau.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "travel-spend-recovery/dec-trv-report-split.md",
+ "sha": "8a3387f7a31dd74b32eb2fb5a78b49a0ccd220bf4184f1251464167187dc926c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

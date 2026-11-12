@@ -1,0 +1,215 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-505",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-505"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-clv-arpu-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "arpu v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-clv-hazard",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "hazard"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-clv-tenure",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "tenure"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-clv-loss-rate",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "loss rate"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "clv-oot-2021h1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "clv-oot-2021h1"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "MAPE 15.2%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "clv-ml-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "clv-ml-v1"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "clv-ml-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "clv-ml-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-503",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-503"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-505",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-clv-arpu-v2",
+   "quote": "Features: arpu v2, hazard, tenure, loss rate.",
+   "line": 5
+  },
+  {
+   "s": "exp-505",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-clv-hazard",
+   "quote": "Features: arpu v2, hazard, tenure, loss rate.",
+   "line": 5
+  },
+  {
+   "s": "exp-505",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-clv-tenure",
+   "quote": "Features: arpu v2, hazard, tenure, loss rate.",
+   "line": 5
+  },
+  {
+   "s": "exp-505",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-clv-loss-rate",
+   "quote": "Features: arpu v2, hazard, tenure, loss rate.",
+   "line": 5
+  },
+  {
+   "s": "exp-505",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "clv-oot-2021h1",
+   "quote": "Holdout clv-oot-2021h1: MAPE 15.2%",
+   "line": 6
+  },
+  {
+   "s": "exp-505",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "mape",
+   "quote": "MAPE 15.2%, against 18.4% for clv-ml-v1.",
+   "line": 6
+  },
+  {
+   "s": "clv-ml-v2",
+   "type": "replaces",
+   "label": "basis for",
+   "o": "exp-503",
+   "quote": "Basis for clv-ml-v2.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "clv-ml-v1",
+   "quote": "Builds on the first lightgbm margin model, the offer-netted seasonal revenue feature, the monthly retention hazard feature and fnd-clv-offer-cost.",
+   "line": 8
+  },
+  {
+   "what": "feat-clv-arpu-v2",
+   "quote": "Builds on the first lightgbm margin model, the offer-netted seasonal revenue feature, the monthly retention hazard feature and fnd-clv-offer-cost.",
+   "line": 8
+  },
+  {
+   "what": "feat-clv-hazard",
+   "quote": "Builds on the first lightgbm margin model, the offer-netted seasonal revenue feature, the monthly retention hazard feature and fnd-clv-offer-cost.",
+   "line": 8
+  },
+  {
+   "what": "fnd-clv-offer-cost",
+   "quote": "Builds on the first lightgbm margin model, the offer-netted seasonal revenue feature, the monthly retention hazard feature and fnd-clv-offer-cost.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "exp-503",
+   "quote": "Replaces exp-503.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "customer-lifetime-value/exp-505.md",
+ "sha": "34368a7b078812ec6598e5dae5bc0f943a58c461284f3f86140ca6812cc563b9",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

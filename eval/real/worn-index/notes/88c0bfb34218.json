@@ -1,0 +1,225 @@
+{
+ "kind": "metric",
+ "entities": [
+  {
+   "id": "ae-score-v2",
+   "type": "metric",
+   "label": "engagement score",
+   "as": [
+    "Engagement score v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ae-score-v1",
+   "type": "metric",
+   "label": "engagement score",
+   "as": [
+    "ae-score-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-ae-holdout",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-ae-active-days-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "ae_act28"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-ae-depth-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "tenure-baselined depth feature"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dec-ae-no-push-credit",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "the decision to drop push credit"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-ae-push-open-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "Push open rate"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "training-split",
+   "type": "dataset",
+   "label": "split",
+   "as": [
+    "training split"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-505",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-505"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ae-score-v2",
+   "type": "uses",
+   "label": "inputs",
+   "o": "feat-ae-active-days-v1",
+   "quote": "Inputs: ae_act28 and depth v2",
+   "line": 5
+  },
+  {
+   "s": "ae-score-v2",
+   "type": "uses",
+   "label": "inputs",
+   "o": "feat-ae-depth-v2",
+   "quote": "Inputs: ae_act28 and depth v2",
+   "line": 5
+  },
+  {
+   "s": "ae-score-v2",
+   "type": "trained-on",
+   "label": "fitted on",
+   "o": "training-split",
+   "quote": "Weights fitted by logistic regression for 90-day attrition on the training split.",
+   "line": 5
+  },
+  {
+   "s": "ae-score-v2",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "ds-ae-holdout",
+   "quote": "AUC 0.76 for 90-day attrition on holdout-2025q4 (n = 610,000)",
+   "line": 6
+  },
+  {
+   "s": "ae-score-v2",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "auc",
+   "quote": "AUC 0.76 for 90-day attrition",
+   "line": 6
+  },
+  {
+   "s": "ae-score-v2",
+   "type": "other",
+   "label": "measured in",
+   "o": "exp-505",
+   "quote": "measured in exp-505",
+   "line": 6
+  },
+  {
+   "s": "ae-score-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "ae-score-v1",
+   "quote": "Replaces ae-score-v1.",
+   "line": 8
+  },
+  {
+   "s": "ae-score-v2",
+   "type": "other",
+   "label": "removes",
+   "o": "feat-ae-push-open-v1",
+   "quote": "Push open rate removed.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-505",
+  "feat-ae-active-days-v1",
+  "feat-ae-depth-v2",
+  "ae-score-v1"
+ ],
+ "built_on": [
+  {
+   "what": "dec-ae-no-push-credit",
+   "quote": "Builds on the decision to drop push credit, exp-505, feat-ae-active-days-v1 and the tenure-baselined depth feature.",
+   "line": 7
+  },
+  {
+   "what": "exp-505",
+   "quote": "Builds on the decision to drop push credit, exp-505, feat-ae-active-days-v1 and the tenure-baselined depth feature.",
+   "line": 7
+  },
+  {
+   "what": "feat-ae-active-days-v1",
+   "quote": "Builds on the decision to drop push credit, exp-505, feat-ae-active-days-v1 and the tenure-baselined depth feature.",
+   "line": 7
+  },
+  {
+   "what": "feat-ae-depth-v2",
+   "quote": "Builds on the decision to drop push credit, exp-505, feat-ae-active-days-v1 and the tenure-baselined depth feature.",
+   "line": 7
+  }
+ ],
+ "replaces": [
+  {
+   "what": "ae-score-v1",
+   "quote": "Replaces ae-score-v1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "app-engagement/ae-score-v2.md",
+ "sha": "88c0bfb34218d3cc80883150d341565da2ef0e5a3843e48e205d7ea48a0bc7e2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

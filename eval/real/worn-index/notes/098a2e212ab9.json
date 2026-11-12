@@ -1,0 +1,150 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-206-breakeven-sim",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-206"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "proposal-a",
+   "type": "other",
+   "label": "proposal",
+   "as": [
+    "proposal A"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "break-even-lift",
+   "type": "metric",
+   "label": "break-even",
+   "as": [
+    "break-even 3.4%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "predicted-spend-lift",
+   "type": "metric",
+   "label": "predicted lift",
+   "as": [
+    "predicted spend lift 2.4%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cb-sim-v1",
+   "type": "model",
+   "label": "simulator",
+   "as": [
+    "cb-sim-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cb.spend_panel",
+   "type": "dataset",
+   "label": "panel",
+   "as": [
+    "`cb.spend_panel`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "2500-variant",
+   "type": "other",
+   "label": "variant",
+   "as": [
+    "$2,500"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-206-breakeven-sim",
+   "type": "uses",
+   "label": "runs",
+   "o": "cb-sim-v1",
+   "quote": "cb-sim-v1 on the Dec 2025 snapshot",
+   "line": 5
+  },
+  {
+   "s": "cb-sim-v1",
+   "type": "uses",
+   "label": "run on snapshot",
+   "o": "cb.spend_panel",
+   "quote": "cb-sim-v1 on the Dec 2025 snapshot of `cb.spend_panel` (612,000 accounts)",
+   "line": 5
+  },
+  {
+   "s": "proposal-a",
+   "type": "measured-by",
+   "label": "predicted",
+   "o": "predicted-spend-lift",
+   "quote": "predicted spend lift 2.4%",
+   "line": 6
+  },
+  {
+   "s": "proposal-a",
+   "type": "measured-by",
+   "label": "needs",
+   "o": "break-even-lift",
+   "quote": "proposal A needs 3.4% spend lift to break even",
+   "line": 4
+  },
+  {
+   "s": "2500-variant",
+   "type": "measured-by",
+   "label": "predicted",
+   "o": "predicted-spend-lift",
+   "quote": "gives a predicted 3.6%",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "cb-sim-v1",
+  "q-cb-breakeven-lift",
+  "dec-cb-threshold-2500"
+ ],
+ "built_on": [
+  {
+   "what": "cb-sim-v1",
+   "quote": "Builds on the cashback cost and break-even simulator and the question on break-even spend lift.",
+   "line": 8
+  },
+  {
+   "what": "q-cb-breakeven-lift",
+   "quote": "Builds on the cashback cost and break-even simulator and the question on break-even spend lift.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/exp-206-breakeven-sim.md",
+ "sha": "098a2e212ab9aa85bc49e169877341859357766e28f66f4a96866b8a4dfe9431",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

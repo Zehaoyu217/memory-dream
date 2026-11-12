@@ -1,0 +1,215 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "fraud26-gbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fraud26-gbm-v3"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "fraud26-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "v2"
+   ],
+   "lines": [
+    5,
+    8,
+    9
+   ]
+  },
+  {
+   "id": "alert-threshold-0.66",
+   "type": "flag",
+   "label": "alert threshold",
+   "as": [
+    "alert threshold 0.66"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "travel-uplift",
+   "type": "term",
+   "label": "uplift",
+   "as": [
+    "no travel-specific uplift"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-207",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-207"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-208",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-208"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "fraud26-oot-2026h1",
+   "type": "dataset",
+   "label": "evaluation set",
+   "as": [
+    "fraud26-oot-2026h1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.933"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "KS 0.72"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-f26-promote-v2",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-f26-promote-v2"
+   ],
+   "lines": [
+    8,
+    9
+   ]
+  },
+  {
+   "id": "fraud26-find-geo-drift",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fraud26-find-geo-drift"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "q-f26-travel-rule",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "q-f26-travel-rule"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud26-gbm-v3",
+   "type": "measured-by",
+   "label": "basis",
+   "o": "auc",
+   "quote": "exp-207 (AUC 0.933, KS 0.72 on fraud26-oot-2026h1)",
+   "line": 6
+  },
+  {
+   "s": "fraud26-gbm-v3",
+   "type": "measured-by",
+   "label": "basis",
+   "o": "ks",
+   "quote": "exp-207 (AUC 0.933, KS 0.72 on fraud26-oot-2026h1)",
+   "line": 6
+  },
+  {
+   "s": "fraud26-gbm-v3",
+   "type": "evaluated-on",
+   "label": "basis",
+   "o": "fraud26-oot-2026h1",
+   "quote": "exp-207 (AUC 0.933, KS 0.72 on fraud26-oot-2026h1)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-207",
+  "exp-208",
+  "fraud26-find-geo-drift",
+  "q-f26-travel-rule",
+  "dec-f26-promote-v2",
+  "fraud26-gbm-v3"
+ ],
+ "built_on": [
+  {
+   "what": "dec-f26-promote-v2",
+   "quote": "Builds on dec-f26-promote-v2, exp-208, fraud26-find-geo-drift and fraud26-gbm-v3.",
+   "line": 8
+  },
+  {
+   "what": "exp-208",
+   "quote": "Builds on dec-f26-promote-v2, exp-208, fraud26-find-geo-drift and fraud26-gbm-v3.",
+   "line": 8
+  },
+  {
+   "what": "fraud26-find-geo-drift",
+   "quote": "Builds on dec-f26-promote-v2, exp-208, fraud26-find-geo-drift and fraud26-gbm-v3.",
+   "line": 8
+  },
+  {
+   "what": "fraud26-gbm-v3",
+   "quote": "Builds on dec-f26-promote-v2, exp-208, fraud26-find-geo-drift and fraud26-gbm-v3.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "dec-f26-promote-v2",
+   "quote": "Replaces dec-f26-promote-v2.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2026/dec-f26-promote-v3.md",
+ "sha": "40de1dcf4a545eec773b1eea29b5bd2a37ecfeb8edb04c8cdc22b7663bebdf12",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

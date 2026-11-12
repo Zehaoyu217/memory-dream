@@ -1,0 +1,122 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-306",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-306"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "sms",
+   "type": "term",
+   "label": "channel",
+   "as": [
+    "SMS"
+   ],
+   "lines": [
+    4,
+    5,
+    6,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "email",
+   "type": "term",
+   "label": "channel",
+   "as": [
+    "Email"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "rdm-oot-2025q1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "crm.contacts",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "crm.contacts"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "uplift"
+   ],
+   "lines": [
+    4,
+    6,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-306",
+   "type": "uses",
+   "label": "used consent from",
+   "o": "crm.contacts",
+   "quote": "using consent history from crm.contacts at send time",
+   "line": 5
+  },
+  {
+   "s": "exp-306",
+   "type": "evaluated-on",
+   "label": "re-scored on",
+   "o": "holdout-2025q1",
+   "quote": "Re-scored the holdout",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "dormant pool contact channels",
+   "quote": "Builds on the dormant pool contact channels, ds-rdm-holdout-2025q1 and fnd-rdm-sms-uplift.",
+   "line": 8
+  },
+  {
+   "what": "ds-rdm-holdout-2025q1",
+   "quote": "Builds on the dormant pool contact channels, ds-rdm-holdout-2025q1 and fnd-rdm-sms-uplift.",
+   "line": 8
+  },
+  {
+   "what": "fnd-rdm-sms-uplift",
+   "quote": "Builds on the dormant pool contact channels, ds-rdm-holdout-2025q1 and fnd-rdm-sms-uplift.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reactivation-dormant/exp-306.md",
+ "sha": "2980783db2648fec8bd7ac039c64052124e57f0410407ee7a4d42dce08eb686c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

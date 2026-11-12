@@ -1,0 +1,73 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "aml-xgb-v3",
+   "type": "model",
+   "label": "ranker",
+   "as": [
+    "aml-xgb-v3"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "structuring-alerts",
+   "type": "segment",
+   "label": "structuring alerts",
+   "as": [
+    "structuring alerts"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "suppressed-alerts",
+   "type": "segment",
+   "label": "sample",
+   "as": [
+    "suppressed alerts"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "aml-xgb-v3",
+   "type": "evaluated-on",
+   "label": "scored",
+   "o": "structuring-alerts",
+   "quote": "Sample: 10% of structuring alerts scored below 0.18 by aml-xgb-v3",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "dec-aml-suppress-018",
+  "exp-407",
+  "dec-aml-sample-10"
+ ],
+ "built_on": [
+  {
+   "what": "dec-aml-suppress-018",
+   "quote": "Builds on dec-aml-suppress-018 and exp-407.",
+   "line": 8
+  },
+  {
+   "what": "exp-407",
+   "quote": "Builds on dec-aml-suppress-018 and exp-407.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "aml-alerts/exp-408.md",
+ "sha": "4e774006fc1a78f424ad444f5ce2f7e878f43a3624759654c251dc17650f8366",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,46 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "finance-reconciliation-tolerance",
+   "type": "policy",
+   "label": "tolerance",
+   "as": [
+    "Each line in the reconciliation table has a tolerance of $50k"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ben-carter",
+   "type": "person",
+   "label": "approver",
+   "as": [
+    "Ben Carter's sign-off"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "finance-reconciliation-tolerance",
+   "type": "owned-by",
+   "label": "sign-off blocked by",
+   "o": "ben-carter",
+   "quote": "A total difference above $100k across the table blocks Ben Carter's sign-off until it is resolved.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/finance-reconciliation-tolerance.md",
+ "sha": "d6c46f95b3973961655229e4013ae18a7681b57a1fb78c219d802d0906a30cfa",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

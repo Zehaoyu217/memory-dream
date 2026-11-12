@@ -1,0 +1,119 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "error measure",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    4,
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "wape",
+   "type": "metric",
+   "label": "error measure",
+   "as": [
+    "WAPE"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "zero-actual-rows",
+   "type": "term",
+   "label": "excluded rows",
+   "as": [
+    "zero-actual rows",
+    "zero-balance rows"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "balance-forecast",
+   "type": "model",
+   "label": "forecast",
+   "as": [
+    "balance forecast"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "q4-2024-forecast",
+   "type": "model",
+   "label": "forecast",
+   "as": [
+    "Q4 2024 forecast"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "balance-forecast",
+   "type": "measured-by",
+   "label": "reports WAPE",
+   "o": "wape",
+   "quote": "From 2025-11 the balance forecast reports WAPE",
+   "line": 5
+  },
+  {
+   "s": "balance-forecast",
+   "type": "measured-by",
+   "label": "reports MAPE",
+   "o": "mape",
+   "quote": "the balance forecast reports WAPE (weighted absolute percentage error) alongside MAPE",
+   "line": 5
+  },
+  {
+   "s": "mape",
+   "type": "other",
+   "label": "excludes",
+   "o": "zero-actual-rows",
+   "quote": "MAPE is undefined when the actual is 0, so zero-actual rows are dropped",
+   "line": 5
+  },
+  {
+   "s": "q4-2024-forecast",
+   "type": "measured-by",
+   "label": "MAPE restated",
+   "o": "mape",
+   "quote": "the Q4 2024 forecast's 2.1% MAPE, on 3.8m rows, is 4.7% when zero-balance rows are excluded",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "glossary/mape"
+ ],
+ "replaces": [
+  {
+   "what": "glossary/mape",
+   "quote": "Replaces glossary/mape.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "corrections/mape-exclude-zeros.md",
+ "sha": "1609c5687feb40c04f282dcbc3b34cf19f03c5cce1535904074522ed10dc0c15",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

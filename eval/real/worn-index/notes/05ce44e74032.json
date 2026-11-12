@@ -1,0 +1,109 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-205",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "Relabelling 1,240 split-billing training tickets"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cc-ft-v1",
+   "type": "model",
+   "label": "encoder",
+   "as": [
+    "fine-tuned encoder"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-cc-taxonomy-v3",
+   "type": "other",
+   "label": "taxonomy",
+   "as": [
+    "taxonomy v3"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "n = 1,800 holdout tickets"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "split-pair-f1",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Split-pair macro F1 0.52 before relabelling, 0.71 after"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-205",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "holdout-2025q4",
+   "quote": "n = 1,800 holdout tickets",
+   "line": 6
+  },
+  {
+   "s": "exp-205",
+   "type": "measured-by",
+   "label": "scored by",
+   "o": "split-pair-f1",
+   "quote": "Split-pair macro F1 0.52 before relabelling, 0.71 after",
+   "line": 6
+  },
+  {
+   "s": "cc-ft-v1",
+   "type": "trained-on",
+   "label": "trained under",
+   "o": "ds-cc-taxonomy-v3",
+   "quote": "Set-up: fine-tuned encoder under taxonomy v3",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "fnd-cc-taxonomy-drift"
+ ],
+ "built_on": [
+  {
+   "what": "cc-ft-v1",
+   "quote": "Builds on cc-ft-v1 and ds-cc-taxonomy-v3.",
+   "line": 8
+  },
+  {
+   "what": "ds-cc-taxonomy-v3",
+   "quote": "Builds on cc-ft-v1 and ds-cc-taxonomy-v3.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "complaint-classification/exp-205.md",
+ "sha": "05ce44e74032ce96fcefcd5b8a0199fbaed083123375250a5c5dc5a157d4b12b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

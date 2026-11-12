@@ -1,0 +1,175 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "pa-margin-v2",
+   "type": "model",
+   "label": "margin model",
+   "as": [
+    "pa-margin-v2: 24-month net margin with churn hazard and expected loss by band; +$38 overall, -$72 below 640"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "pa-churn-hazard-v1",
+   "type": "model",
+   "label": "churn hazard model",
+   "as": [
+    "Adds the post-expiry churn hazard (pa-churn-hazard-v1)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-pa-credit-band",
+   "type": "feature",
+   "label": "credit band feature",
+   "as": [
+    "feat-pa-credit-band"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-pa-bt-inflow-v2",
+   "type": "feature",
+   "label": "bt inflow feature",
+   "as": [
+    "the external-only balance transfer inflow feature"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "pa-bal-forecast-v1",
+   "type": "model",
+   "label": "balance forecast",
+   "as": [
+    "pa-bal-forecast-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "pa-margin-v1",
+   "type": "model",
+   "label": "margin model",
+   "as": [
+    "Replaces pa-margin-v1."
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "expected-loss",
+   "type": "metric",
+   "label": "expected loss",
+   "as": [
+    "expected credit loss by score band"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "pa-margin-v2",
+   "type": "uses",
+   "label": "adds",
+   "o": "pa-churn-hazard-v1",
+   "quote": "Adds the post-expiry churn hazard (pa-churn-hazard-v1)",
+   "line": 5
+  },
+  {
+   "s": "pa-margin-v2",
+   "type": "uses",
+   "label": "builds on",
+   "o": "pa-bal-forecast-v1",
+   "quote": "Builds on the external-only balance transfer inflow feature, feat-pa-credit-band, pa-bal-forecast-v1",
+   "line": 8
+  },
+  {
+   "s": "pa-margin-v2",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-pa-credit-band",
+   "quote": "feat-pa-credit-band",
+   "line": 8
+  },
+  {
+   "s": "pa-margin-v2",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-pa-bt-inflow-v2",
+   "quote": "the external-only balance transfer inflow feature",
+   "line": 8
+  },
+  {
+   "s": "pa-margin-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "pa-margin-v1",
+   "quote": "Replaces pa-margin-v1.",
+   "line": 9
+  },
+  {
+   "s": "pa-margin-v2",
+   "type": "measured-by",
+   "label": "adds loss term",
+   "o": "expected-loss",
+   "quote": "expected credit loss by score band",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "feat-pa-bt-inflow-v2",
+   "quote": "Builds on the external-only balance transfer inflow feature",
+   "line": 8
+  },
+  {
+   "what": "feat-pa-credit-band",
+   "quote": "feat-pa-credit-band",
+   "line": 8
+  },
+  {
+   "what": "pa-bal-forecast-v1",
+   "quote": "pa-bal-forecast-v1",
+   "line": 8
+  },
+  {
+   "what": "pa-churn-hazard-v1",
+   "quote": "pa-churn-hazard-v1",
+   "line": 5
+  },
+  {
+   "what": "pa-margin-v1",
+   "quote": "pa-margin-v1",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "pa-margin-v1",
+   "quote": "Replaces pa-margin-v1.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "promo-apr-test/pa-margin-v2.md",
+ "sha": "0a90d0aa4130f35b0744ff381d4b7f3a8a8b614a4a383eba2d2c954e083cb1d6",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

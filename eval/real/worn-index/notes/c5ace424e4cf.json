@@ -1,0 +1,105 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-rev26-revolve-balance",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rev26-revolve-balance"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "rev26-interest-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rev26-interest-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-rev26-interest-accrual",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-rev26-interest-accrual"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "interest-income",
+   "type": "other",
+   "label": "driver",
+   "as": [
+    "Main driver of interest income"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-rev26-revolve-balance",
+   "type": "uses",
+   "label": "reads from",
+   "o": "cards.accounts_monthly",
+   "quote": "from `cards.accounts_monthly`",
+   "line": 5
+  },
+  {
+   "s": "feat-rev26-revolve-balance",
+   "type": "uses",
+   "label": "input to",
+   "o": "rev26-interest-v1",
+   "quote": "First input to rev26-interest-v1.",
+   "line": 7
+  },
+  {
+   "s": "feat-rev26-revolve-balance",
+   "type": "other",
+   "label": "main driver of",
+   "o": "interest-income",
+   "quote": "Main driver of interest income",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-rev26-interest-accrual",
+  "rev26-interest-v1"
+ ],
+ "built_on": [
+  {
+   "what": "ds-rev26-interest-accrual",
+   "quote": "Builds on ds-rev26-interest-accrual.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "revenue-forecast-2026/feat-rev26-revolve-balance.md",
+ "sha": "c5ace424e4cf9583e7494568cdf2e6e4c2b2e752e8179b25b246b785aa4d2ac7",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

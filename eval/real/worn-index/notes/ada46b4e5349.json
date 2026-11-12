@@ -1,0 +1,109 @@
+{
+ "kind": "preference",
+ "entities": [
+  {
+   "id": "priya-nair",
+   "type": "person",
+   "label": "person",
+   "as": [
+    "Priya Nair"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "onboarding-copy",
+   "type": "document",
+   "label": "onboarding copy",
+   "as": [
+    "onboarding copy"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "drop-off",
+   "type": "term",
+   "label": "drop-off",
+   "as": [
+    "drop-off"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "churn",
+   "type": "term",
+   "label": "churn",
+   "as": [
+    "churn"
+   ],
+   "lines": [
+    4,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "retention-team",
+   "type": "team",
+   "label": "retention team",
+   "as": [
+    "retention team"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "account-closure-metric",
+   "type": "metric",
+   "label": "account-closure metric",
+   "as": [
+    "account-closure metric"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "onboarding-copy",
+   "type": "owned-by",
+   "label": "wants",
+   "o": "priya-nair",
+   "quote": "Priya Nair wants onboarding copy",
+   "line": 4
+  },
+  {
+   "s": "churn",
+   "type": "other",
+   "label": "reserved for",
+   "o": "account-closure-metric",
+   "quote": "reserved for the retention team's account-closure metric",
+   "line": 6
+  },
+  {
+   "s": "account-closure-metric",
+   "type": "owned-by",
+   "label": "belongs to",
+   "o": "retention-team",
+   "quote": "the retention team's account-closure metric",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "prefs/priya-nair-onboarding-copy.md",
+ "sha": "ada46b4e5349c98b9b3cb28da63c9554b17e543a076c769d74d66ca6a2afa36a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

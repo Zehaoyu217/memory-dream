@@ -1,0 +1,86 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-sfc-limits-util",
+   "type": "dataset",
+   "label": "credit-limit utilisation dataset",
+   "as": [
+    "Monthly credit-limit utilisation per account, 2023-01 to 2025-08"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.limits_history",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.limits_history`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "credit-data",
+   "type": "team",
+   "label": "owner",
+   "as": [
+    "owner credit-data"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-sfc-util-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-sfc-util-v1"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-sfc-limits-util",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cards.limits_history",
+   "quote": "from `cards.limits_history` (owner credit-data)",
+   "line": 5
+  },
+  {
+   "s": "cards.limits_history",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "credit-data",
+   "quote": "(owner credit-data)",
+   "line": 5
+  },
+  {
+   "s": "feat-sfc-util-v1",
+   "type": "uses",
+   "label": "built on",
+   "o": "ds-sfc-limits-util",
+   "quote": "Used only by feat-sfc-util-v1, for the Rewards segment.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-sfc-util-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "spend-forecasting/ds-sfc-limits-util.md",
+ "sha": "4d5d1eea9a39b4bb676dffee9a1f47878848e7cfd9d2086f9ef638975381b60c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

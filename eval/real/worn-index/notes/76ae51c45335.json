@@ -1,0 +1,133 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "find-cli-revolver-loss",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "revolvers lose 1.9x as much as full-payers in 90 days"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-105",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-105"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "cli-test-2025q1",
+   "type": "segment",
+   "label": "test cohort",
+   "as": [
+    "cli-test-2025q1 (n=60,000)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "90-day-loss",
+   "type": "metric",
+   "label": "loss",
+   "as": [
+    "in 90 days"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "incremental-spend",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "incremental spend per dollar of loss"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-cli-exclude-revolvers",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-cli-exclude-revolvers"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "find-cli-revolver-loss",
+   "type": "uses",
+   "label": "from",
+   "o": "exp-105",
+   "quote": "From exp-105 on cli-test-2025q1 (n=60,000).",
+   "line": 5
+  },
+  {
+   "s": "find-cli-revolver-loss",
+   "type": "evaluated-on",
+   "label": "on",
+   "o": "cli-test-2025q1",
+   "quote": "From exp-105 on cli-test-2025q1 (n=60,000).",
+   "line": 5
+  },
+  {
+   "s": "find-cli-revolver-loss",
+   "type": "measured-by",
+   "label": "shows",
+   "o": "90-day-loss",
+   "quote": "revolvers lose 1.9x as much as full-payers in 90 days",
+   "line": 4
+  },
+  {
+   "s": "find-cli-revolver-loss",
+   "type": "measured-by",
+   "label": "adds least",
+   "o": "incremental-spend",
+   "quote": "Revolver CLI exposure adds the least incremental spend per dollar of loss.",
+   "line": 6
+  },
+  {
+   "s": "dec-cli-exclude-revolvers",
+   "type": "uses",
+   "label": "basis for",
+   "o": "find-cli-revolver-loss",
+   "quote": "Basis for dec-cli-exclude-revolvers.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-105",
+  "dec-cli-exclude-revolvers"
+ ],
+ "built_on": [
+  {
+   "what": "exp-105",
+   "quote": "Builds on exp-105.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/find-cli-revolver-loss.md",
+ "sha": "76ae51c4533592a28154cdc3d7e5dca0696abc0cb9fab6cc96b50e5a229acfe9",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

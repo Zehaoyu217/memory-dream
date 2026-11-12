@@ -1,0 +1,95 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-pbs-frame-h1-2025",
+   "type": "dataset",
+   "label": "frame",
+   "as": [
+    "Active-account frame at 2025-06-30"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-405",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-405"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "roll-rate",
+   "type": "metric",
+   "label": "test",
+   "as": [
+    "roll-rate tests"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-pbs-payments-12m",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-pbs-payments-12m"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-pbs-statement-balances",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-pbs-statement-balances"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-405",
+   "type": "evaluated-on",
+   "label": "used for roll-rate tests",
+   "o": "ds-pbs-frame-h1-2025",
+   "quote": "the full frame is used for the roll-rate tests (exp-405)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-pbs-payments-12m",
+  "ds-pbs-statement-balances",
+  "exp-405"
+ ],
+ "built_on": [
+  {
+   "what": "ds-pbs-payments-12m",
+   "quote": "Builds on ds-pbs-payments-12m and ds-pbs-statement-balances",
+   "line": 8
+  },
+  {
+   "what": "ds-pbs-statement-balances",
+   "quote": "Builds on ds-pbs-payments-12m and ds-pbs-statement-balances",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "payment-behavior-segments/ds-pbs-frame-h1-2025.md",
+ "sha": "df016a2b9cdd4f487634004ffb1d5ef33cbffc4f450c03db2ffbc92793ac36b6",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,99 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-105",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-105: char-CNN gives macro-F1 0.80 but p95 latency of 210 ms"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-2025q2",
+   "type": "dataset",
+   "label": "holdout set",
+   "as": [
+    "holdout-2025q2 (n=2,000)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "txc-charcnn-v1",
+   "type": "model",
+   "label": "char-cnn model",
+   "as": [
+    "char-cnn model version one"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "feat-txc-normalise-v2",
+   "type": "feature",
+   "label": "normalised descriptors",
+   "as": [
+    "normalised descriptors"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "lightgbm",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dec-txc-drop-charcnn",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-txc-drop-charcnn"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-105",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "holdout-2025q2",
+   "quote": "scored on holdout-2025q2 (n=2,000)",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "dec-txc-drop-charcnn"
+ ],
+ "built_on": [
+  {
+   "what": "txc-charcnn-v1",
+   "quote": "Builds on the char-cnn model version one.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "txn-categorization/exp-105.md",
+ "sha": "14cfc9e34f915c8469ade7f45ad4ddfad687c87e1cb0b3769d51a1f042bd87dd",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

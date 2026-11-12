@@ -1,0 +1,113 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-csb-tenure-cut",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Accounts under 6 months churn at 11.2%"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "under-6-month-accounts",
+   "type": "segment",
+   "label": "under-6-month accounts",
+   "as": [
+    "Under 6 months"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "ds-csb-biz-accounts",
+   "type": "dataset",
+   "label": "accounts dataset",
+   "as": [
+    "ds-csb-biz-accounts"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-csb-churn-labels",
+   "type": "dataset",
+   "label": "churn labels",
+   "as": [
+    "ds-csb-churn-labels"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-csb-tenure-band",
+   "type": "feature",
+   "label": "tenure band feature",
+   "as": [
+    "feat-csb-tenure-band"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fnd-csb-tenure-cut",
+   "type": "uses",
+   "label": "basis",
+   "o": "ds-csb-churn-labels",
+   "quote": "Basis: ds-csb-churn-labels on the training snapshots",
+   "line": 6
+  },
+  {
+   "s": "under-6-month-accounts",
+   "type": "part-of",
+   "label": "share of accounts",
+   "o": "ds-csb-biz-accounts",
+   "quote": "Under 6 months: 14% of SMB accounts",
+   "line": 5
+  },
+  {
+   "s": "fnd-csb-tenure-cut",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-csb-tenure-band",
+   "quote": "Builds on ds-csb-biz-accounts and feat-csb-tenure-band.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-csb-churn-labels",
+  "ds-csb-biz-accounts",
+  "feat-csb-tenure-band",
+  "dec-csb-tenure-floor"
+ ],
+ "built_on": [
+  {
+   "what": "ds-csb-biz-accounts",
+   "quote": "Builds on ds-csb-biz-accounts and feat-csb-tenure-band.",
+   "line": 8
+  },
+  {
+   "what": "feat-csb-tenure-band",
+   "quote": "Builds on ds-csb-biz-accounts and feat-csb-tenure-band.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-small-business/fnd-csb-tenure-cut.md",
+ "sha": "23b656cbcf156c725170b9be099a9aa0cd35559bb05bc1254ac9747a5786e715",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

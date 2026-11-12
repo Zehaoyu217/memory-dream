@@ -1,0 +1,88 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "xs-gbm",
+   "type": "model",
+   "label": "gradient boosting model",
+   "as": [
+    "xs-gbm"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "payroll-pattern-set",
+   "type": "feature",
+   "label": "pattern set",
+   "as": [
+    "payroll pattern set"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "xs-oot-2026h1",
+   "type": "dataset",
+   "label": "out-of-time waves",
+   "as": [
+    "xs-oot-2026h1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "retrain-when-needed-rule",
+   "type": "policy",
+   "label": "retrain rule",
+   "as": [
+    "retrain-when-needed rule"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "xs-gbm",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "xs-oot-2026h1",
+   "quote": "the retrained model is scored on xs-oot-2026h1 before release.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "exp-407-oot-2026h1",
+   "quote": "Builds on exp-407-oot-2026h1 and find-xs-drift-2026.",
+   "line": 7
+  },
+  {
+   "what": "find-xs-drift-2026",
+   "quote": "Builds on exp-407-oot-2026h1 and find-xs-drift-2026.",
+   "line": 7
+  }
+ ],
+ "replaces": [
+  {
+   "what": "retrain-when-needed-rule",
+   "quote": "Replaces the earlier retrain-when-needed rule.",
+   "line": 5
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cross-sell-savings/dec-xs-retrain-quarterly.md",
+ "sha": "644d408f7a301456794296e1bf5ebd83ce656b3e7ec96e78ffe161317c96826c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

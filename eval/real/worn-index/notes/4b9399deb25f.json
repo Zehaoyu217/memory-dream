@@ -1,0 +1,76 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-disp-amount-band",
+   "type": "feature",
+   "label": "amount band feature",
+   "as": [
+    "feat-disp-amount-band: five USD bands for the disputed amount"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "disp-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "Shipped in disp-lgbm-v2."
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-disp-disputes",
+   "type": "dataset",
+   "label": "disputes dataset",
+   "as": [
+    "Builds on ds-disp-disputes."
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "disp-lgbm-v2",
+   "type": "uses",
+   "label": "shipped in",
+   "o": "feat-disp-amount-band",
+   "quote": "Shipped in disp-lgbm-v2.",
+   "line": 7
+  },
+  {
+   "s": "feat-disp-amount-band",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-disp-disputes",
+   "quote": "Builds on ds-disp-disputes.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-disp-disputes",
+  "exp-302",
+  "disp-lgbm-v2"
+ ],
+ "built_on": [
+  {
+   "what": "ds-disp-disputes",
+   "quote": "Builds on ds-disp-disputes.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "dispute-triage/feat-disp-amount-band.md",
+ "sha": "4b9399deb25fa7b2e6afe75c36c528f20fdb8f4d9560f7e34da01e07d8110b54",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

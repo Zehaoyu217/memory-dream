@@ -1,0 +1,143 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-ae-quintiles",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Top score quintile keeps 91 percent of accounts past 90 days"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-506",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-506"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-ae-holdout",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ae-score-v2",
+   "type": "metric",
+   "label": "engagement score",
+   "as": [
+    "ae-score-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ae-attr-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "gradient boosted attrition model"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dec-ae-dashboard",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-ae-dashboard"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "90-day-retention",
+   "type": "metric",
+   "label": "retention",
+   "as": [
+    "retention at 90 days"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fnd-ae-quintiles",
+   "type": "uses",
+   "label": "from",
+   "o": "exp-506",
+   "quote": "From exp-506 scored on holdout-2025q4 (n = 610,000)",
+   "line": 5
+  },
+  {
+   "s": "fnd-ae-quintiles",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "ds-ae-holdout",
+   "quote": "scored on holdout-2025q4 (n = 610,000)",
+   "line": 5
+  },
+  {
+   "s": "fnd-ae-quintiles",
+   "type": "uses",
+   "label": "quintiles of",
+   "o": "ae-score-v2",
+   "quote": "retention at 90 days is 91 percent in the top quintile of ae-score-v2",
+   "line": 5
+  },
+  {
+   "s": "fnd-ae-quintiles",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "90-day-retention",
+   "quote": "retention at 90 days is 91 percent",
+   "line": 5
+  },
+  {
+   "s": "fnd-ae-quintiles",
+   "type": "other",
+   "label": "drives",
+   "o": "dec-ae-dashboard",
+   "quote": "The score separates risk clearly enough to drive the weekly dashboard (dec-ae-dashboard).",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-506",
+  "dec-ae-dashboard"
+ ],
+ "built_on": [
+  {
+   "what": "ae-attr-gbm-v1",
+   "quote": "Builds on the gradient boosted attrition model.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "app-engagement/fnd-ae-quintiles.md",
+ "sha": "077da08effffdada8fa463fac28f1eecfa531517fe7a969c118a63cc47553199",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

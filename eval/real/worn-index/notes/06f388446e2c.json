@@ -1,0 +1,109 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-aml-queue-only",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "omar-haddad",
+   "type": "person",
+   "label": "approver",
+   "as": [
+    "Omar Haddad"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "compliance",
+   "type": "team",
+   "label": "owner",
+   "as": [
+    "compliance"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "aml-xgb-v1",
+   "type": "model",
+   "label": "ranker",
+   "as": [
+    "the first alert-priority ranker model"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "aml-find-fp-baseline",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "aml-find-fp-baseline"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-aml-queue-only",
+   "type": "owned-by",
+   "label": "approved by",
+   "o": "omar-haddad",
+   "quote": "Omar Haddad approves the ranker for queue ordering only",
+   "line": 4
+  },
+  {
+   "s": "dec-aml-queue-only",
+   "type": "uses",
+   "label": "basis",
+   "o": "aml-find-fp-baseline",
+   "quote": "Basis: aml-find-fp-baseline showed the structuring false-positive problem",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "dec-aml-suppress-018"
+ ],
+ "built_on": [
+  {
+   "what": "aml-find-fp-baseline",
+   "quote": "Builds on aml-find-fp-baseline, the first alert-priority ranker model and q-aml-signoff.",
+   "line": 8
+  },
+  {
+   "what": "aml-xgb-v1",
+   "quote": "Builds on aml-find-fp-baseline, the first alert-priority ranker model and q-aml-signoff.",
+   "line": 8
+  },
+  {
+   "what": "q-aml-signoff",
+   "quote": "Builds on aml-find-fp-baseline, the first alert-priority ranker model and q-aml-signoff.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "aml-alerts/dec-aml-queue-only.md",
+ "sha": "06f388446e2cf07c2c172714eda52fd8e606363f1f7d77159b7fb11d6f6d2d03",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

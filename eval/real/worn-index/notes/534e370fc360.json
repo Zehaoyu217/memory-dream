@@ -1,0 +1,78 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "early-stopping-patience",
+   "type": "term",
+   "label": "patience",
+   "as": [
+    "50 rounds"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "validation-slice",
+   "type": "dataset",
+   "label": "validation slice",
+   "as": [
+    "validation slice"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "oot-set",
+   "type": "dataset",
+   "label": "oot set",
+   "as": [
+    "OOT set"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "gbm-early-stopping-on-oot",
+   "type": "document",
+   "label": "howto",
+   "as": [
+    "howto/gbm-early-stopping-on-oot"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "early-stopping-patience",
+   "type": "uses",
+   "label": "stops on",
+   "o": "validation-slice",
+   "quote": "The validation slice is the most recent three months of the training window.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "howto/gbm-early-stopping-on-oot"
+ ],
+ "built_on": [
+  {
+   "what": "gbm-early-stopping-on-oot",
+   "quote": "Builds on howto/gbm-early-stopping-on-oot.",
+   "line": 6
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/gbm-patience-rounds.md",
+ "sha": "534e370fc360f56fee3212471ada1881b5e728e327ecabf7c83aab4c132932ef",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,166 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cu-uplift-v3",
+   "type": "model",
+   "label": "uplift model",
+   "as": [
+    "cu-uplift-v3 is cu-uplift-v2 plus the bureau 3-month delta"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cu-uplift-v2",
+   "type": "model",
+   "label": "uplift model",
+   "as": [
+    "cu-uplift-v2"
+   ],
+   "lines": [
+    4,
+    6,
+    10
+   ]
+  },
+  {
+   "id": "feat-cu-bureau-delta",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-bureau-delta"
+   ],
+   "lines": [
+    5,
+    9
+   ]
+  },
+  {
+   "id": "ds-cu-oot-2026h1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "collections-uplift-oot-2026h1"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift@20%",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "exp-106",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-106"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "dec-cu-promote-v3",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-cu-promote-v3"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cu-uplift-v3",
+   "type": "uses",
+   "label": "adds feature",
+   "o": "feat-cu-bureau-delta",
+   "quote": "Adds feat-cu-bureau-delta to the v2 feature set.",
+   "line": 5
+  },
+  {
+   "s": "cu-uplift-v3",
+   "type": "measured-by",
+   "label": "uplift@20%",
+   "o": "uplift-at-20",
+   "quote": "uplift@20% 0.038, against 0.033 for cu-uplift-v2 on the same set",
+   "line": 6
+  },
+  {
+   "s": "cu-uplift-v3",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "ds-cu-oot-2026h1",
+   "quote": "Eval collections-uplift-oot-2026h1 (n=28,450)",
+   "line": 6
+  },
+  {
+   "s": "cu-uplift-v3",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "cu-uplift-v2",
+   "quote": "Replaces cu-uplift-v2.",
+   "line": 10
+  },
+  {
+   "s": "cu-uplift-v3",
+   "type": "other",
+   "label": "promoted by",
+   "o": "dec-cu-promote-v3",
+   "quote": "promoted 2026-03-25 (dec-cu-promote-v3)",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-106",
+  "feat-cu-bureau-delta",
+  "dec-cu-promote-v3"
+ ],
+ "built_on": [
+  {
+   "what": "cu-uplift-v2",
+   "quote": "Builds on the calibrated uplift model used for routing, exp-106 and feat-cu-bureau-delta.",
+   "line": 9
+  },
+  {
+   "what": "exp-106",
+   "quote": "Builds on the calibrated uplift model used for routing, exp-106 and feat-cu-bureau-delta.",
+   "line": 9
+  },
+  {
+   "what": "feat-cu-bureau-delta",
+   "quote": "Builds on the calibrated uplift model used for routing, exp-106 and feat-cu-bureau-delta.",
+   "line": 9
+  }
+ ],
+ "replaces": [
+  {
+   "what": "cu-uplift-v2",
+   "quote": "Replaces cu-uplift-v2.",
+   "line": 10
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-uplift/cu-uplift-v3.md",
+ "sha": "0ed0c685396afc364467eca4cc0f4d1eeae244b54d92faafba0919e65b080e1c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

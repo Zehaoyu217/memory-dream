@@ -1,0 +1,201 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cr-lgbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "LightGBM v3"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "adjudicated-labels",
+   "type": "dataset",
+   "label": "adjudicated labels",
+   "as": [
+    "adjudicated labels"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-cr-intent-labels",
+   "type": "dataset",
+   "label": "labels",
+   "as": [
+    "ds-cr-intent-labels"
+   ],
+   "lines": [
+    5,
+    9
+   ]
+  },
+  {
+   "id": "cost-matrix-thresholds",
+   "type": "term",
+   "label": "routing thresholds",
+   "as": [
+    "cost-matrix thresholds"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cr-oot-2026h1",
+   "type": "dataset",
+   "label": "out-of-time set",
+   "as": [
+    "cr-oot-2026h1"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Macro F1"
+   ],
+   "lines": [
+    4,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "top-1-accuracy",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "top-1 accuracy"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dispute-queue-misroutes",
+   "type": "metric",
+   "label": "misroute rate",
+   "as": [
+    "Dispute-queue misroutes"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cr-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cr-lgbm-v2"
+   ],
+   "lines": [
+    10
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cr-lgbm-v3",
+   "type": "trained-on",
+   "label": "trained on",
+   "o": "adjudicated-labels",
+   "quote": "Trained on adjudicated labels for the 1,200 double-coded calls",
+   "line": 5
+  },
+  {
+   "s": "cr-lgbm-v3",
+   "type": "uses",
+   "label": "routed with",
+   "o": "cost-matrix-thresholds",
+   "quote": "routed with the cost-matrix thresholds from fnd-cr-threshold",
+   "line": 5
+  },
+  {
+   "s": "cr-lgbm-v3",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "macro-f1",
+   "quote": "Macro F1 0.74 and top-1 accuracy 0.81 on cr-oot-2026h1, scored 2026-08-18.",
+   "line": 6
+  },
+  {
+   "s": "cr-lgbm-v3",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "top-1-accuracy",
+   "quote": "Macro F1 0.74 and top-1 accuracy 0.81 on cr-oot-2026h1, scored 2026-08-18.",
+   "line": 6
+  },
+  {
+   "s": "cr-lgbm-v3",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "cr-oot-2026h1",
+   "quote": "Macro F1 0.74 and top-1 accuracy 0.81 on cr-oot-2026h1, scored 2026-08-18.",
+   "line": 6
+  },
+  {
+   "s": "cr-lgbm-v3",
+   "type": "measured-by",
+   "label": "falls",
+   "o": "dispute-queue-misroutes",
+   "quote": "Dispute-queue misroutes fall 23 percent against v2 with default thresholds, with macro F1 unchanged.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-cr-intent-labels",
+  "exp-106",
+  "fnd-cr-threshold",
+  "cr-lgbm-v2"
+ ],
+ "built_on": [
+  {
+   "what": "cr-lgbm-v2",
+   "quote": "Builds on the second lightgbm router, ds-cr-intent-labels, exp-106 and the cost matrix misroute finding.",
+   "line": 9
+  },
+  {
+   "what": "ds-cr-intent-labels",
+   "quote": "Builds on the second lightgbm router, ds-cr-intent-labels, exp-106 and the cost matrix misroute finding.",
+   "line": 9
+  },
+  {
+   "what": "exp-106",
+   "quote": "Builds on the second lightgbm router, ds-cr-intent-labels, exp-106 and the cost matrix misroute finding.",
+   "line": 9
+  },
+  {
+   "what": "fnd-cr-threshold",
+   "quote": "Builds on the second lightgbm router, ds-cr-intent-labels, exp-106 and the cost matrix misroute finding.",
+   "line": 9
+  }
+ ],
+ "replaces": [
+  {
+   "what": "cr-lgbm-v2",
+   "quote": "Replaces cr-lgbm-v2.",
+   "line": 10
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/cr-lgbm-v3.md",
+ "sha": "b359305d55092a0773dbdf47cfc7d74aeb26add7cfc5a1a474868c22a6ae5cb1",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

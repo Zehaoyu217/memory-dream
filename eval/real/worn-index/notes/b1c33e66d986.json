@@ -1,0 +1,125 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-app-reject-sample",
+   "type": "dataset",
+   "label": "sample",
+   "as": [
+    "manually approved rejects"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "credit-committee",
+   "type": "team",
+   "label": "committee",
+   "as": [
+    "credit committee"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "dec-app-cutoff-v3",
+   "type": "other",
+   "label": "cutoff",
+   "as": [
+    "585 cutoff"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-501",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-501"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "bad-rate",
+   "type": "metric",
+   "label": "bad rate",
+   "as": [
+    "bad rate"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-app-applications-2024",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-app-applications-2024"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-501",
+   "type": "uses",
+   "label": "used in",
+   "o": "ds-app-reject-sample",
+   "quote": "Used to estimate reject behaviour in exp-501",
+   "line": 7
+  },
+  {
+   "s": "ds-app-reject-sample",
+   "type": "measured-by",
+   "label": "bad rate",
+   "o": "bad-rate",
+   "quote": "bad rate among these 8,400 is 7.9%",
+   "line": 7
+  },
+  {
+   "s": "ds-app-reject-sample",
+   "type": "other",
+   "label": "weighted to",
+   "o": "dec-app-cutoff-v3",
+   "quote": "weighted to scores just under the 585 cutoff",
+   "line": 6
+  },
+  {
+   "s": "ds-app-reject-sample",
+   "type": "owned-by",
+   "label": "approved by",
+   "o": "credit-committee",
+   "quote": "that the credit committee approved by hand",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-501",
+  "ds-app-applications-2024"
+ ],
+ "built_on": [
+  {
+   "what": "ds-app-applications-2024",
+   "quote": "Builds on ds-app-applications-2024.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "application-scorecard/ds-app-reject-sample.md",
+ "sha": "b1c33e66d986a73342ebf6175838b98cfde60ecb74e8d896c0047e2c203cc0ed",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

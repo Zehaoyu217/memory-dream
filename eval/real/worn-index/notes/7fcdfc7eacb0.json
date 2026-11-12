@@ -1,0 +1,205 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "churn-gbm-2025",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "churn-gbm-2025 (v1)"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "library",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-c25-util-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "util-v1"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "app-sessions",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "app sessions"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "holdout-c25-oot-2024h1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Holdout c25-oot-2024h1 (n=312,470)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.741"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "KS 0.36"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "brier",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Brier 0.0352"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "churn-lr-base-2025",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "churn-lr-base-2025"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dec-c25-ship-gbm-v1",
+   "type": "decision",
+   "label": "decision",
+   "as": [
+    "dec-c25-ship-gbm-v1"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-gbm-2025",
+   "type": "uses",
+   "label": "includes",
+   "o": "feat-c25-util-v1",
+   "quote": "LightGBM on 14 features including util-v1 and app sessions",
+   "line": 5
+  },
+  {
+   "s": "churn-gbm-2025",
+   "type": "uses",
+   "label": "includes",
+   "o": "app-sessions",
+   "quote": "LightGBM on 14 features including util-v1 and app sessions",
+   "line": 5
+  },
+  {
+   "s": "churn-gbm-2025",
+   "type": "measured-by",
+   "label": "scored",
+   "o": "auc",
+   "quote": "AUC 0.741, KS 0.36, recall@10% 0.29, Brier 0.0352",
+   "line": 6
+  },
+  {
+   "s": "churn-gbm-2025",
+   "type": "measured-by",
+   "label": "scored",
+   "o": "ks",
+   "quote": "KS 0.36",
+   "line": 6
+  },
+  {
+   "s": "churn-gbm-2025",
+   "type": "measured-by",
+   "label": "scored",
+   "o": "brier",
+   "quote": "Brier 0.0352",
+   "line": 6
+  },
+  {
+   "s": "churn-gbm-2025",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "holdout-c25-oot-2024h1",
+   "quote": "Holdout c25-oot-2024h1 (n=312,470): AUC 0.741",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "dec-c25-label-60d",
+  "dec-c25-ship-gbm-v1",
+  "churn-lr-base-2025"
+ ],
+ "built_on": [
+  {
+   "what": "dec-c25-label-60d",
+   "quote": "Builds on dec-c25-label-60d, the all-features lightgbm experiment, the run without app sessions and the month-end over-limit utilisation feature.",
+   "line": 8
+  },
+  {
+   "what": "exp-102",
+   "quote": "Builds on dec-c25-label-60d, the all-features lightgbm experiment, the run without app sessions and the month-end over-limit utilisation feature.",
+   "line": 8
+  },
+  {
+   "what": "exp-103",
+   "quote": "Builds on dec-c25-label-60d, the all-features lightgbm experiment, the run without app sessions and the month-end over-limit utilisation feature.",
+   "line": 8
+  },
+  {
+   "what": "feat-c25-util-v1",
+   "quote": "Builds on dec-c25-label-60d, the all-features lightgbm experiment, the run without app sessions and the month-end over-limit utilisation feature.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2025/churn-gbm-2025.md",
+ "sha": "7fcdfc7eacb05b55b03d376b5a836a042a4bd87c1b291fd4098c3d7f4054aecd",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

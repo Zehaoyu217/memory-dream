@@ -1,0 +1,188 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-202",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-202"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ed-gbm-v1",
+   "type": "model",
+   "label": "gbm model",
+   "as": [
+    "ed-gbm-v1"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "early-delinquency-holdout-2024q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "early-delinquency-holdout-2024q4"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.781"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini 0.562"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.42"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "brier",
+   "type": "metric",
+   "label": "brier",
+   "as": [
+    "Brier 0.045"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-ed-util-trend-v1",
+   "type": "feature",
+   "label": "utilisation feature",
+   "as": [
+    "feat-ed-util-trend-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-ed-cashadv-v1",
+   "type": "feature",
+   "label": "cash-advance feature",
+   "as": [
+    "feat-ed-cashadv-v1"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-202",
+   "type": "evaluated-on",
+   "label": "same holdout",
+   "o": "early-delinquency-holdout-2024q4",
+   "quote": "Same holdout as exp-201 (n=402,000).",
+   "line": 5
+  },
+  {
+   "s": "ed-gbm-v1",
+   "type": "uses",
+   "label": "with",
+   "o": "feat-ed-util-trend-v1",
+   "quote": "ed-gbm-v1 with feat-ed-util-trend-v1 and feat-ed-cashadv-v1",
+   "line": 5
+  },
+  {
+   "s": "ed-gbm-v1",
+   "type": "uses",
+   "label": "with",
+   "o": "feat-ed-cashadv-v1",
+   "quote": "ed-gbm-v1 with feat-ed-util-trend-v1 and feat-ed-cashadv-v1",
+   "line": 5
+  },
+  {
+   "s": "exp-202",
+   "type": "measured-by",
+   "label": "result",
+   "o": "auc",
+   "quote": "AUC 0.781",
+   "line": 5
+  },
+  {
+   "s": "exp-202",
+   "type": "measured-by",
+   "label": "result",
+   "o": "gini",
+   "quote": "Gini 0.562",
+   "line": 5
+  },
+  {
+   "s": "exp-202",
+   "type": "measured-by",
+   "label": "result",
+   "o": "ks",
+   "quote": "KS 0.42",
+   "line": 5
+  },
+  {
+   "s": "exp-202",
+   "type": "measured-by",
+   "label": "result",
+   "o": "brier",
+   "quote": "Brier 0.045",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "find-ed-gbm-vs-logit",
+  "exp-201"
+ ],
+ "built_on": [
+  {
+   "what": "ed-gbm-v1",
+   "quote": "Builds on ed-gbm-v1 and exp-201.",
+   "line": 8
+  },
+  {
+   "what": "exp-201",
+   "quote": "Builds on ed-gbm-v1 and exp-201.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "early-delinquency/exp-202.md",
+ "sha": "5c62134a76ca1a443f01c7b6ac79e41951b88bd72e2826643e4cdcde93c7506b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

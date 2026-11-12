@@ -1,0 +1,87 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-pbs-timing-v2",
+   "type": "feature",
+   "label": "timing feature",
+   "as": [
+    "feat-pbs-timing-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-403",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-403"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "pbs-gmm-v3",
+   "type": "model",
+   "label": "segment model",
+   "as": [
+    "pbs-gmm-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-pbs-pay-ratio-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-pbs-pay-ratio-v1"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-pbs-timing-v2",
+   "type": "used by",
+   "label": "input to",
+   "o": "pbs-gmm-v3",
+   "quote": "Input to pbs-gmm-v3.",
+   "line": 7
+  },
+  {
+   "s": "exp-403",
+   "type": "measured-by",
+   "label": "lifts ARI",
+   "o": "feat-pbs-timing-v2",
+   "quote": "Lifts seed-to-seed ARI from 0.74 to 0.81 (exp-403).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-403",
+  "pbs-gmm-v3",
+  "feat-pbs-pay-ratio-v1"
+ ],
+ "built_on": [
+  {
+   "what": "feat-pbs-pay-ratio-v1",
+   "quote": "Builds on the twelve-month payments dataset and feat-pbs-pay-ratio-v1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "payment-behavior-segments/feat-pbs-timing-v2.md",
+ "sha": "7abf077d2339c4989197e84249bca140d3923b8072d362da271de95f645bc2d7",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

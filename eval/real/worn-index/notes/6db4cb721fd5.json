@@ -1,0 +1,65 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "sample-ratio-mismatch",
+   "type": "term",
+   "label": "check",
+   "as": [
+    "sample ratio mismatch"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "chi-square",
+   "type": "term",
+   "label": "test",
+   "as": [
+    "chi-square test"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "q4-2025-offer-test",
+   "type": "other",
+   "label": "offer test",
+   "as": [
+    "The Q4 2025 offer test"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "sample-ratio-mismatch",
+   "type": "uses",
+   "label": "tested with",
+   "o": "chi-square",
+   "quote": "Compare arm counts to the planned split with a chi-square test",
+   "line": 5
+  },
+  {
+   "s": "q4-2025-offer-test",
+   "type": "other",
+   "label": "fails",
+   "o": "sample-ratio-mismatch",
+   "quote": "The Q4 2025 offer test had 52.4% treatment against a planned 50%, p 0.0003, and was rerun.",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/sample-ratio-mismatch-check.md",
+ "sha": "6db4cb721fd51c96a7123ddcbde5602ea9a2afa4d1bd4576138e2ad1941a4f12",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

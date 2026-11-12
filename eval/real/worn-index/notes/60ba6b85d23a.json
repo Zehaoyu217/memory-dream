@@ -1,0 +1,91 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "find-ch-email-opens-inflated",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Email open rate of 61% overstates engagement: click rate is 2.2%, so opens are not a usable engagement signal"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "open-rate",
+   "type": "metric",
+   "label": "reported open rate",
+   "as": [
+    "the reported open rate is 61%"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "click-rate",
+   "type": "metric",
+   "label": "click rate",
+   "as": [
+    "a click rate of 2.2%"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-ch-email-open-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ch-email-open-v1"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "find-ch-email-opens-inflated",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "open-rate",
+   "quote": "the reported open rate is 61%",
+   "line": 5
+  },
+  {
+   "s": "find-ch-email-opens-inflated",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "click-rate",
+   "quote": "a click rate of 2.2%",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "ds-ch-email-engagement",
+  "feat-ch-email-open-v1"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ch-email-engagement",
+   "quote": "Builds on ds-ch-email-engagement and feat-ch-email-open-v1.",
+   "line": 7
+  },
+  {
+   "what": "feat-ch-email-open-v1",
+   "quote": "Builds on ds-ch-email-engagement and feat-ch-email-open-v1.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-channel-mix/find-ch-email-opens-inflated.md",
+ "sha": "60ba6b85d23a685aa2f3f9226f7f1cf14b54a1df7501ce4ac78ed4b87c8f2c9a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

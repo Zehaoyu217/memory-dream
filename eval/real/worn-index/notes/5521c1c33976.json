@@ -1,0 +1,67 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "psi",
+   "as": [
+    "PSI"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "limit-glm-v2",
+   "type": "model",
+   "label": "example model",
+   "as": [
+    "`limit-glm-v2`"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cli_spend_30d_sum",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "`cli_spend_30d_sum`"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "limit-glm-v2",
+   "type": "measured-by",
+   "label": "flagged at",
+   "o": "psi",
+   "quote": "was flagged at PSI 0.27 on `cli_spend_30d_sum` in 2026-02",
+   "line": 7
+  },
+  {
+   "s": "cli_spend_30d_sum",
+   "type": "part-of",
+   "label": "feature of model",
+   "o": "limit-glm-v2",
+   "quote": "was flagged at PSI 0.27 on `cli_spend_30d_sum` in 2026-02",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/monthly-review-psi-trigger.md",
+ "sha": "5521c1c339764cf0f5ca2047f109d72b0ac176a6a0d9790e28e20d9f72ca8c0f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

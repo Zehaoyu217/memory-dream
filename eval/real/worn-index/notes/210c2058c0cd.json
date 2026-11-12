@@ -1,0 +1,96 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "retention-touch",
+   "type": "term",
+   "label": "touch definition",
+   "as": [
+    "retention touch"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fee-complaint-calls",
+   "type": "term",
+   "label": "exclusion",
+   "as": [
+    "complaints about fees"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "yuki-tanaka-team",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "Yuki Tanaka's team"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cx-report-2025-07",
+   "type": "document",
+   "label": "cx report",
+   "as": [
+    "July 2025 CX report"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "callcenter-attribution-window",
+   "type": "document",
+   "label": "how-to",
+   "as": [
+    "howto/callcenter-attribution-window"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fee-complaint-calls",
+   "type": "other",
+   "label": "excluded from",
+   "o": "retention-touch",
+   "quote": "Calls that are complaints about fees are excluded.",
+   "line": 5
+  },
+  {
+   "s": "retention-touch",
+   "type": "approved-by",
+   "label": "approved by",
+   "o": "yuki-tanaka-team",
+   "quote": "Yuki Tanaka's team approved the rule for the July 2025 CX report.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "howto/callcenter-attribution-window"
+ ],
+ "built_on": [
+  {
+   "what": "callcenter-attribution-window",
+   "quote": "Builds on howto/callcenter-attribution-window",
+   "line": 6
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/callcenter-window-result.md",
+ "sha": "210c2058c0cd909eeb20a007841e53a0d4a3f64ba996a965f2f0767c25014d73",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

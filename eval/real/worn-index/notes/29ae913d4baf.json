@@ -1,0 +1,139 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "app-scorecard-v3",
+   "type": "model",
+   "label": "scorecard",
+   "as": [
+    "app-scorecard-v3"
+   ],
+   "lines": [
+    4,
+    8
+   ]
+  },
+  {
+   "id": "holdout-2026q1",
+   "type": "dataset",
+   "label": "2026-q1 holdout",
+   "as": [
+    "2026-Q1 holdout"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  },
+  {
+   "id": "v8-score",
+   "type": "feature",
+   "label": "v8 bureau score",
+   "as": [
+    "v8 bureau score"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-app-util-new",
+   "type": "feature",
+   "label": "utilisation",
+   "as": [
+    "utilisation"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-app-velocity-apps",
+   "type": "feature",
+   "label": "velocity",
+   "as": [
+    "velocity"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "app-scorecard-v3",
+   "type": "measured-by",
+   "label": "Gini falls",
+   "o": "gini",
+   "quote": "app-scorecard-v3 Gini falls from 0.41 to 0.33",
+   "line": 4
+  },
+  {
+   "s": "app-scorecard-v3",
+   "type": "evaluated-on",
+   "label": "on",
+   "o": "holdout-2026q1",
+   "quote": "on the 2026-Q1 holdout (n=18,900)",
+   "line": 4
+  },
+  {
+   "s": "v8-score",
+   "type": "other",
+   "label": "drives drop in",
+   "o": "gini",
+   "quote": "Score drift in the v8 bureau score accounts for most of the fall",
+   "line": 6
+  },
+  {
+   "s": "feat-app-util-new",
+   "type": "other",
+   "label": "stable",
+   "o": "holdout-2026q1",
+   "quote": "the utilisation and velocity features are stable",
+   "line": 6
+  },
+  {
+   "s": "feat-app-velocity-apps",
+   "type": "other",
+   "label": "stable",
+   "o": "holdout-2026q1",
+   "quote": "the utilisation and velocity features are stable",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "q-app-gini-target",
+  "dec-app-rebuild-v4"
+ ],
+ "built_on": [
+  {
+   "what": "app-scorecard-v3",
+   "quote": "Builds on app-scorecard-v3 and ds-app-applications-2024.",
+   "line": 8
+  },
+  {
+   "what": "ds-app-applications-2024",
+   "quote": "Builds on app-scorecard-v3 and ds-app-applications-2024.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "application-scorecard/find-app-gini-v3-drift.md",
+ "sha": "29ae913d4baf418f9dc3df72fe48bd07c3a533414e4f93200f42e6cc5b5c0e21",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

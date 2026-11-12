@@ -1,0 +1,112 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-301-response-only",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-301: response-only targeting"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "mq3-response-gbm-v1",
+   "type": "model",
+   "label": "response model",
+   "as": [
+    "mq3-response-gbm-v1"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "ds-mq3-q2-rct",
+   "type": "dataset",
+   "label": "q2 rct",
+   "as": [
+    "30% split of the Q2 RCT"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-302-tlearner",
+   "type": "other",
+   "label": "uplift experiment",
+   "as": [
+    "the uplift model (exp-302)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "q-mq3-uplift-vs-response",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "q-mq3-uplift-vs-response"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mq3-response-gbm-v1",
+   "type": "evaluated-on",
+   "label": "run on",
+   "o": "ds-mq3-q2-rct",
+   "quote": "mq3-response-gbm-v1 on the 30% split of the Q2 RCT",
+   "line": 5
+  },
+  {
+   "s": "exp-301-response-only",
+   "type": "uses",
+   "label": "runs",
+   "o": "mq3-response-gbm-v1",
+   "quote": "mq3-response-gbm-v1 on the 30% split of the Q2 RCT",
+   "line": 5
+  },
+  {
+   "s": "exp-301-response-only",
+   "type": "other",
+   "label": "compared with",
+   "o": "exp-302-tlearner",
+   "quote": "against $2.40 for the uplift model (exp-302)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "mq3-response-gbm-v1",
+  "q-mq3-uplift-vs-response",
+  "exp-302-tlearner"
+ ],
+ "built_on": [
+  {
+   "what": "mq3-response-gbm-v1",
+   "quote": "Builds on mq3-response-gbm-v1 and q-mq3-uplift-vs-response.",
+   "line": 8
+  },
+  {
+   "what": "q-mq3-uplift-vs-response",
+   "quote": "Builds on mq3-response-gbm-v1 and q-mq3-uplift-vs-response.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "marketing-uplift-q3/exp-301-response-only.md",
+ "sha": "776b937887090d032fe90c8dea6d38ae6a5bcc3480f6dcff5387c883ca1aadc1",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,66 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "ben-carter",
+   "type": "person",
+   "label": "reconciliation signer",
+   "as": [
+    "Ben Carter"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "board-deck",
+   "type": "document",
+   "label": "board deck",
+   "as": [
+    "Board decks"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ledger-reconciliation",
+   "type": "term",
+   "label": "ledger reconciliation",
+   "as": [
+    "ledger reconciliation"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ben-carter",
+   "type": "owned-by",
+   "label": "signs",
+   "o": "ledger-reconciliation",
+   "quote": "Ben Carter signs the reconciliation, not the analysis",
+   "line": 6
+  },
+  {
+   "s": "board-deck",
+   "type": "other",
+   "label": "blocked without",
+   "o": "ledger-reconciliation",
+   "quote": "an unsigned reconciliation blocks the board pack",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/sign-off-finance-recon.md",
+ "sha": "b6b54792d4b4c11234fcc925bb1ef2ed0dbdea96587943271d40a89a80aa13ad",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

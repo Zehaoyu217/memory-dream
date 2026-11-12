@@ -1,0 +1,80 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-508",
+   "type": "experiment",
+   "label": "escalation experiment",
+   "as": [
+    "exp-508"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "promise-to-pay",
+   "type": "metric",
+   "label": "promise-to-pay rate",
+   "as": [
+    "promise-to-pay"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-ch-ab-wave2",
+   "type": "dataset",
+   "label": "second randomised channel test",
+   "as": [
+    "the second randomised channel test"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-508",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "promise-to-pay",
+   "quote": "SMS-then-call arm (n=17,900): PTP 11.2% within 14 days",
+   "line": 5
+  },
+  {
+   "s": "exp-508",
+   "type": "evaluated-on",
+   "label": "run on",
+   "o": "ds-ch-ab-wave2",
+   "quote": "Builds on the second randomised channel test and the sms-only versus call-first comparison.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "collections_channel/exp508_escalation.ipynb",
+  "exp-504"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ch-ab-wave2",
+   "quote": "Builds on the second randomised channel test and the sms-only versus call-first comparison.",
+   "line": 8
+  },
+  {
+   "what": "exp-504",
+   "quote": "Builds on the second randomised channel test and the sms-only versus call-first comparison.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-channel-mix/exp-508.md",
+ "sha": "2bb652faa8ca782e62a37711f80cd5f52a974a8a60d1b0a8c2cd2cd31105d12e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

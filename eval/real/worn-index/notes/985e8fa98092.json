@@ -1,0 +1,122 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-305-refund-fix",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-305: counting refunds as activity"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-mq3-recency-v1",
+   "type": "feature",
+   "label": "recency v1",
+   "as": [
+    "Recency v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-mq3-recency-v2",
+   "type": "feature",
+   "label": "recency v2",
+   "as": [
+    "recency v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "x-learner-prototype",
+   "type": "other",
+   "label": "x-learner prototype",
+   "as": [
+    "X-learner prototype"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift@20%",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "mq3-uplift-tlearner-v1",
+   "type": "model",
+   "label": "t-learner",
+   "as": [
+    "mq3-uplift-tlearner-v1"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-305-refund-fix",
+   "type": "uses",
+   "label": "counted refunds in",
+   "o": "feat-mq3-recency-v1",
+   "quote": "Recency v1 counted refunds as recent activity",
+   "line": 5
+  },
+  {
+   "s": "exp-305-refund-fix",
+   "type": "uses",
+   "label": "re-ran with",
+   "o": "feat-mq3-recency-v2",
+   "quote": "Re-ran the X-learner prototype with recency v2.",
+   "line": 5
+  },
+  {
+   "s": "exp-305-refund-fix",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "uplift-at-20",
+   "quote": "Q2 split: uplift@20% 2.7 with v1, 2.6 with v2.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "feat-mq3-recency-v1",
+  "mq3-uplift-tlearner-v1"
+ ],
+ "built_on": [
+  {
+   "what": "feat-mq3-recency-v1",
+   "quote": "Builds on feat-mq3-recency-v1 and mq3-uplift-tlearner-v1.",
+   "line": 7
+  },
+  {
+   "what": "mq3-uplift-tlearner-v1",
+   "quote": "Builds on feat-mq3-recency-v1 and mq3-uplift-tlearner-v1.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "marketing-uplift-q3/exp-305-refund-fix.md",
+ "sha": "985e8fa980920262b3a9746648caf0ca5d2e9eac48820119315d1fde428506a2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

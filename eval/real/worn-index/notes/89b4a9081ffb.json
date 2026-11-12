@@ -1,0 +1,99 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "decider",
+   "as": [
+    "Lena Fischer (credit risk)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "aisha-khan",
+   "type": "person",
+   "label": "decider",
+   "as": [
+    "Aisha Khan (MLOps)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ed-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ed-gbm-v2"
+   ],
+   "lines": [
+    4,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "ed-logit-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ed-logit-v1"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "lena-fischer",
+   "type": "owned-by",
+   "label": "agreed",
+   "o": "ed-gbm-v2",
+   "quote": "Agreed 2025-09-15 by Lena Fischer (credit risk) and Aisha Khan (MLOps).",
+   "line": 5
+  },
+  {
+   "s": "aisha-khan",
+   "type": "owned-by",
+   "label": "agreed",
+   "o": "ed-gbm-v2",
+   "quote": "Agreed 2025-09-15 by Lena Fischer (credit risk) and Aisha Khan (MLOps).",
+   "line": 5
+  },
+  {
+   "s": "ed-gbm-v2",
+   "type": "uses",
+   "label": "scores full-file accounts",
+   "o": "ed-logit-v1",
+   "quote": "Full-file accounts are scored by ed-gbm-v2 from October 2025. Thin-file accounts (no bureau record) stay on ed-logit-v1.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ed-gbm-v2",
+   "quote": "Builds on ed-gbm-v2 and find-ed-gbm-vs-logit.",
+   "line": 8
+  },
+  {
+   "what": "find-ed-gbm-vs-logit",
+   "quote": "Builds on ed-gbm-v2 and find-ed-gbm-vs-logit.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "early-delinquency/dec-ed-gbm-for-watchlist.md",
+ "sha": "89b4a9081ffb9040a3290caf242a1abe7dcdebef88a4dddaac9bb972c3a388b2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

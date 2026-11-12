@@ -1,0 +1,127 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "balance-model",
+   "type": "model",
+   "label": "balance model",
+   "as": [
+    "balance model"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "wape",
+   "type": "metric",
+   "label": "wape",
+   "as": [
+    "WAPE"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "accounts-under-50",
+   "type": "segment",
+   "label": "small-balance accounts",
+   "as": [
+    "accounts under $50"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ben-carter-team",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "Ben Carter's team"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mape-small-balances",
+   "type": "document",
+   "label": "how-to",
+   "as": [
+    "howto/mape-small-balances"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "balance-model",
+   "type": "measured-by",
+   "label": "showed",
+   "o": "mape",
+   "quote": "The August 2025 run showed 48% MAPE",
+   "line": 5
+  },
+  {
+   "s": "balance-model",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "wape",
+   "quote": "WAPE on the same run is 12%",
+   "line": 5
+  },
+  {
+   "s": "accounts-under-50",
+   "type": "other",
+   "label": "drives",
+   "o": "mape",
+   "quote": "driven by accounts under $50",
+   "line": 5
+  },
+  {
+   "s": "ben-carter-team",
+   "type": "other",
+   "label": "agreed to headline",
+   "o": "wape",
+   "quote": "agreed to headline WAPE from the October review",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "howto/mape-small-balances"
+ ],
+ "built_on": [
+  {
+   "what": "mape-small-balances",
+   "quote": "Builds on howto/mape-small-balances",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/balance-model-mape-48.md",
+ "sha": "c506a886e279b3a64a975aa88ba72fcf376338938b18c28ccb24eec5e832350d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

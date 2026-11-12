@@ -1,0 +1,174 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "rev26-combined-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rev26-combined-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "rev26-interchange-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rev26-interchange-v1"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "rev26-interest-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rev26-interest-v2"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "sfc-hier-v3",
+   "type": "model",
+   "label": "forecast",
+   "as": [
+    "spend-forecasting/sfc-hier-v3"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fee-income",
+   "type": "other",
+   "label": "income",
+   "as": [
+    "fee income"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fy26-revenue",
+   "type": "metric",
+   "label": "revenue line",
+   "as": [
+    "FY26 revenue line"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "p10-p90-bands",
+   "type": "metric",
+   "label": "bands",
+   "as": [
+    "P10 and P90 bands"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "dec-rev26-cap-scenario-separate",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-rev26-cap-scenario-separate"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rev26-combined-v1",
+   "type": "uses",
+   "label": "sums",
+   "o": "rev26-interchange-v1",
+   "quote": "Sums rev26-interchange-v1, rev26-interest-v2 and fee income",
+   "line": 5
+  },
+  {
+   "s": "rev26-combined-v1",
+   "type": "uses",
+   "label": "sums",
+   "o": "rev26-interest-v2",
+   "quote": "Sums rev26-interchange-v1, rev26-interest-v2 and fee income",
+   "line": 5
+  },
+  {
+   "s": "rev26-combined-v1",
+   "type": "uses",
+   "label": "sums",
+   "o": "fee-income",
+   "quote": "Sums rev26-interchange-v1, rev26-interest-v2 and fee income",
+   "line": 5
+  },
+  {
+   "s": "rev26-combined-v1",
+   "type": "produces",
+   "label": "sums into",
+   "o": "fy26-revenue",
+   "quote": "Sums rev26-interchange-v1, rev26-interest-v2 and fee income into one FY26 revenue line",
+   "line": 5
+  },
+  {
+   "s": "rev26-combined-v1",
+   "type": "measured-by",
+   "label": "P10 and P90 bands",
+   "o": "p10-p90-bands",
+   "quote": "P10 and P90 bands come from scenario runs",
+   "line": 6
+  },
+  {
+   "s": "rev26-combined-v1",
+   "type": "uses",
+   "label": "sources volume from",
+   "o": "sfc-hier-v3",
+   "quote": "P10 and P90 bands come from scenario runs over volume (sfc-hier-v3 error)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "dec-rev26-cap-scenario-separate"
+ ],
+ "built_on": [
+  {
+   "what": "rev26-interchange-v1",
+   "quote": "Builds on rev26-interchange-v1, rev26-interest-v2 and spend-forecasting/sfc-hier-v3",
+   "line": 8
+  },
+  {
+   "what": "rev26-interest-v2",
+   "quote": "rev26-interest-v2 and spend-forecasting/sfc-hier-v3",
+   "line": 8
+  },
+  {
+   "what": "sfc-hier-v3",
+   "quote": "spend-forecasting/sfc-hier-v3",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "revenue-forecast-2026/rev26-combined-v1.md",
+ "sha": "ff88ebd68f55d6eba24d938c8926ad4a03ede32b0b216af3210eb31ba4e6d0f1",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,127 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-405",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-405"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "roll-rate",
+   "type": "metric",
+   "label": "roll",
+   "as": [
+    "30-to-60 roll"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "hp-psm-v1",
+   "type": "term",
+   "label": "matching method",
+   "as": [
+    "hp-psm-v1"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "dec-hp-6mo-default",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-hp-6mo-default"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-hp-plan-length-v1",
+   "type": "feature",
+   "label": "plan length",
+   "as": [
+    "feat-hp-plan-length-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "q-hp-plan-length",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "q-hp-plan-length"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-405",
+   "type": "measured-by",
+   "label": "cut",
+   "o": "roll-rate",
+   "quote": "6-month plans cut the 30-to-60 roll by 5.2pp",
+   "line": 4
+  },
+  {
+   "s": "exp-405",
+   "type": "uses",
+   "label": "matched controls from",
+   "o": "hp-psm-v1",
+   "quote": "Matched controls from hp-psm-v1.",
+   "line": 5
+  },
+  {
+   "s": "dec-hp-6mo-default",
+   "type": "uses",
+   "label": "based on",
+   "o": "exp-405",
+   "quote": "The 6-month effect is the basis for dec-hp-6mo-default.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "dec-hp-6mo-default",
+  "hp-psm-v1"
+ ],
+ "built_on": [
+  {
+   "what": "feat-hp-plan-length-v1",
+   "quote": "Builds on feat-hp-plan-length-v1, hp-psm-v1 and q-hp-plan-length.",
+   "line": 8
+  },
+  {
+   "what": "hp-psm-v1",
+   "quote": "Builds on feat-hp-plan-length-v1, hp-psm-v1 and q-hp-plan-length.",
+   "line": 8
+  },
+  {
+   "what": "q-hp-plan-length",
+   "quote": "Builds on feat-hp-plan-length-v1, hp-psm-v1 and q-hp-plan-length.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "hardship-programs/exp-405.md",
+ "sha": "b1d3b9ceb4772d74b4a2744543fbb5c8a57d06a4cd74cbd547b443c9b283c4fa",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

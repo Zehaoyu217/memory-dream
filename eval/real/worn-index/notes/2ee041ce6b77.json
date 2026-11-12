@@ -1,0 +1,83 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-velocity-v3",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-velocity-v3"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-velocity-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-velocity-v2"
+   ],
+   "lines": [
+    6,
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-velocity-v3",
+   "type": "uses",
+   "label": "reads",
+   "o": "cards.txn_daily",
+   "quote": "Reads `cards.txn_daily`",
+   "line": 6
+  },
+  {
+   "s": "feat-velocity-v3",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "feat-velocity-v2",
+   "quote": "replaces feat-velocity-v2",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "features/velocity_v3.py",
+  "dec-velocity-v3"
+ ],
+ "built_on": [
+  {
+   "what": "dec-velocity-v3",
+   "quote": "Builds on dec-velocity-v3.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-velocity-v2",
+   "quote": "replaces feat-velocity-v2",
+   "line": 6
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2026/feat-velocity-v3.md",
+ "sha": "2ee041ce6b77b031da112414e8f00a6224fef526f59caa39845e822de8bc7441",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

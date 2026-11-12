@@ -1,0 +1,149 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-mm-page-threshold",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: page on-call at feature or score PSI of 0.25 or more; warn at 0.10"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "dec-mm-page-threshold-2026",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-mm-page-threshold-2026"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "psi",
+   "as": [
+    "feature or score PSI"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-202",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-202"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "reviewer",
+   "as": [
+    "Sam Lee"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "raj-patel",
+   "type": "person",
+   "label": "reviewer",
+   "as": [
+    "Raj Patel"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "reviewer",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-mm-page-threshold",
+   "type": "decided-by",
+   "label": "agreed by",
+   "o": "sam-lee",
+   "quote": "Agreed at the monitoring review on 2025-03-10 (Sam Lee, Raj Patel, Lena Fischer).",
+   "line": 5
+  },
+  {
+   "s": "dec-mm-page-threshold",
+   "type": "decided-by",
+   "label": "agreed by",
+   "o": "raj-patel",
+   "quote": "Agreed at the monitoring review on 2025-03-10 (Sam Lee, Raj Patel, Lena Fischer).",
+   "line": 5
+  },
+  {
+   "s": "dec-mm-page-threshold",
+   "type": "decided-by",
+   "label": "agreed by",
+   "o": "lena-fischer",
+   "quote": "Agreed at the monitoring review on 2025-03-10 (Sam Lee, Raj Patel, Lena Fischer).",
+   "line": 5
+  },
+  {
+   "s": "dec-mm-page-threshold-2026",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "dec-mm-page-threshold",
+   "quote": "Superseded by dec-mm-page-threshold-2026 (2026-02-02).",
+   "line": 7
+  },
+  {
+   "s": "dec-mm-page-threshold",
+   "type": "uses",
+   "label": "basis",
+   "o": "exp-202",
+   "quote": "Basis: exp-202, where 0.25 caught 16 of 19 incidents with 4 false pages.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "dec-mm-page-threshold-2026",
+  "exp-202"
+ ],
+ "built_on": [
+  {
+   "what": "exp-202",
+   "quote": "Builds on exp-202 and the finding on 0.25 feature psi paging.",
+   "line": 8
+  },
+  {
+   "what": "fnd-psi-alert-bars",
+   "quote": "Builds on exp-202 and the finding on 0.25 feature psi paging.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "model-monitoring/dec-mm-page-threshold.md",
+ "sha": "d7dc06764f5005f3c6ca850efb80832df8044290eec04d4fbbb905b4f7ca0a8f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

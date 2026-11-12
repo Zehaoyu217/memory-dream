@@ -1,0 +1,128 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-trv-funnel-driver",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Search-to-book conversion is the strongest predictor after cross-border share"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-trv-funnel-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-trv-funnel-v2"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "trv-ridge-v2",
+   "type": "model",
+   "label": "ridge model",
+   "as": [
+    "trv-ridge-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "trv-ridge-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "trv-ridge-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-505",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-505"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "ridge MAPE"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cross-border-share",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "Cross-border share"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-trv-funnel-v2",
+   "type": "measured-by",
+   "label": "takes MAPE to",
+   "o": "mape",
+   "quote": "Adding feat-trv-funnel-v2 takes ridge MAPE from 5.2% to 4.3%",
+   "line": 5
+  },
+  {
+   "s": "feat-trv-funnel-v2",
+   "type": "uses",
+   "label": "main reason",
+   "o": "trv-ridge-v3",
+   "quote": "Funnel features are the main reason trv-ridge-v3 beats trv-ridge-v2.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "trv-ridge-v3",
+  "trv-ridge-v2",
+  "exp-505"
+ ],
+ "built_on": [
+  {
+   "what": "exp-505",
+   "quote": "Builds on exp-505 and feat-trv-funnel-v2.",
+   "line": 8
+  },
+  {
+   "what": "feat-trv-funnel-v2",
+   "quote": "Builds on exp-505 and feat-trv-funnel-v2.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "travel-spend-recovery/fnd-trv-funnel-driver.md",
+ "sha": "7a66d76354afe88624a97adfd9981e3aeb4308a90e3fe743950e21f2db426558",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

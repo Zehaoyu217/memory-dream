@@ -1,0 +1,102 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-502",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-502"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "mrisk-oot-2025h2",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "mrisk-oot-2025h2"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.85"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "precision-at-100",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "precision@100 0.41"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-502",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "mrisk-oot-2025h2",
+   "quote": "Eval set: mrisk-oot-2025h2",
+   "line": 5
+  },
+  {
+   "s": "exp-502",
+   "type": "measured-by",
+   "label": "gives AUC",
+   "o": "auc",
+   "quote": "AUC 0.85 and precision@100 0.41",
+   "line": 4
+  },
+  {
+   "s": "exp-502",
+   "type": "measured-by",
+   "label": "gives precision",
+   "o": "precision-at-100",
+   "quote": "precision@100 0.41",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "dec-mrisk-monthly-scoring",
+  "feat-mrisk-new-merchant"
+ ],
+ "built_on": [
+  {
+   "what": "exp-501",
+   "quote": "Builds on exp-501, feat-mrisk-new-merchant and the top-10-card volume share feature.",
+   "line": 8
+  },
+  {
+   "what": "feat-mrisk-new-merchant",
+   "quote": "Builds on exp-501, feat-mrisk-new-merchant and the top-10-card volume share feature.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "merchant-risk/exp-502.md",
+ "sha": "b3340d9640e4a3a1493401d512b122afa986881ed2f2a2839ddce6fa0e17a57f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

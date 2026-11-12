@@ -1,0 +1,131 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-ch-email-engagement",
+   "type": "dataset",
+   "label": "engagement extract",
+   "as": [
+    "Email engagement for collections emails, 2025H1: 61% reported open rate against 2.2% click rate"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "marketing.campaign_responses",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "marketing.campaign_responses"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "chloe-martin",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Chloe Martin"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "raj-patel",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Raj Patel"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "open-rate",
+   "type": "metric",
+   "label": "reported open rate",
+   "as": [
+    "Reported open rate 61%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "click-rate",
+   "type": "metric",
+   "label": "click rate",
+   "as": [
+    "click rate 2.2%"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-ch-email-engagement",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "marketing.campaign_responses",
+   "quote": "Source: `marketing.campaign_responses` for collections emails",
+   "line": 5
+  },
+  {
+   "s": "ds-ch-email-engagement",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "open-rate",
+   "quote": "Reported open rate 61%",
+   "line": 6
+  },
+  {
+   "s": "ds-ch-email-engagement",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "click-rate",
+   "quote": "click rate 2.2%",
+   "line": 6
+  },
+  {
+   "s": "marketing.campaign_responses",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "chloe-martin",
+   "quote": "Owner: Chloe Martin (marketing) for the table",
+   "line": 7
+  },
+  {
+   "s": "ds-ch-email-engagement",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "raj-patel",
+   "quote": "the collections read is Raj Patel's",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "q-ch-email-worth-it"
+ ],
+ "built_on": [
+  {
+   "what": "q-ch-email-worth-it",
+   "quote": "Builds on q-ch-email-worth-it.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-channel-mix/ds-ch-email-engagement.md",
+ "sha": "401eff2df0bab6c5ebe49219b4d3b0a30015609c7fc2adbfe5d0798d67e0455e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

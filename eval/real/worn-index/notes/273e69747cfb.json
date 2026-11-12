@@ -1,0 +1,89 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "imputation",
+   "type": "term",
+   "label": "fit rule",
+   "as": [
+    "imputers"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "training-split",
+   "type": "segment",
+   "label": "split",
+   "as": [
+    "training split"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "oot-set",
+   "type": "dataset",
+   "label": "oot set",
+   "as": [
+    "OOT"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "limit-model-2025",
+   "type": "model",
+   "label": "limit model",
+   "as": [
+    "2025 limit model"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "OOT AUC"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "imputation",
+   "type": "other",
+   "label": "applied to",
+   "o": "oot-set",
+   "quote": "applied unchanged to validation and OOT",
+   "line": 5
+  },
+  {
+   "s": "limit-model-2025",
+   "type": "measured-by",
+   "label": "inflated",
+   "o": "auc",
+   "quote": "which inflated its OOT AUC by 0.011",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/imputation-fit-on-train-only.md",
+ "sha": "273e69747cfb8b2d6b853beddf3a8f9fee190f1968c4589170794ad844aaf56a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

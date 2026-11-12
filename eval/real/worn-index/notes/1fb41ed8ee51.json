@@ -1,0 +1,148 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cr-caller-history-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "Caller history v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat_hist90_pre",
+   "type": "feature",
+   "label": "repo feature name",
+   "as": [
+    "feat_hist90_pre"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-cr-caller-history-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "v1"
+   ],
+   "lines": [
+    5,
+    7,
+    8,
+    9
+   ]
+  },
+  {
+   "id": "last-wrap-intent",
+   "type": "feature",
+   "label": "input",
+   "as": [
+    "the last wrap intent"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout set",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cr-oot-2026h1",
+   "type": "dataset",
+   "label": "out-of-time set",
+   "as": [
+    "cr-oot-2026h1"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cr-caller-history-v2",
+   "type": "evaluated-on",
+   "label": "gives",
+   "o": "holdout-2025q4",
+   "quote": "Retrain with v2 gives 0.74 on holdout-2025q4 and 0.73 on cr-oot-2026h1",
+   "line": 7
+  },
+  {
+   "s": "feat-cr-caller-history-v2",
+   "type": "evaluated-on",
+   "label": "gives",
+   "o": "cr-oot-2026h1",
+   "quote": "Retrain with v2 gives 0.74 on holdout-2025q4 and 0.73 on cr-oot-2026h1",
+   "line": 7
+  },
+  {
+   "s": "last-wrap-intent",
+   "type": "part-of",
+   "label": "plus",
+   "o": "feat-cr-caller-history-v2",
+   "quote": "plus the last wrap intent",
+   "line": 4
+  },
+  {
+   "s": "feat-cr-caller-history-v2",
+   "type": "other",
+   "label": "repo name",
+   "o": "feat_hist90_pre",
+   "quote": "Feature name in the repo: feat_hist90_pre.",
+   "line": 6
+  },
+  {
+   "s": "feat-cr-caller-history-v2",
+   "type": "other",
+   "label": "same window as",
+   "o": "feat-cr-caller-history-v1",
+   "quote": "Same 90-day window as v1",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-105",
+  "feat-cr-caller-history-v1",
+  "fnd-cr-leak-corrected"
+ ],
+ "built_on": [
+  {
+   "what": "feat-cr-caller-history-v1",
+   "quote": "Builds on feat-cr-caller-history-v1 and fnd-cr-leak-corrected.",
+   "line": 8
+  },
+  {
+   "what": "fnd-cr-leak-corrected",
+   "quote": "Builds on feat-cr-caller-history-v1 and fnd-cr-leak-corrected.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-cr-caller-history-v1",
+   "quote": "Replaces feat-cr-caller-history-v1.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/feat-cr-caller-history-v2.md",
+ "sha": "1fb41ed8ee511c68cb497b82df7e112176df61e631cec65ef31beb68112a7940",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,108 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-506",
+   "type": "experiment",
+   "label": "prefer-channel experiment",
+   "as": [
+    "exp-506"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-ch-prefer-channel-v1",
+   "type": "feature",
+   "label": "prefer-channel feature",
+   "as": [
+    "feat-ch-prefer-channel-v1"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "ch-propensity-v2",
+   "type": "model",
+   "label": "channel-choice model",
+   "as": [
+    "ch-propensity-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-ch-ab-wave1",
+   "type": "dataset",
+   "label": "wave-1 holdout split",
+   "as": [
+    "Same wave-1 holdout split as exp-505 (n=17,200)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift metric",
+   "as": [
+    "uplift@20% 0.027"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-506",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "ds-ch-ab-wave1",
+   "quote": "Same wave-1 holdout split as exp-505 (n=17,200)",
+   "line": 5
+  },
+  {
+   "s": "ch-propensity-v2",
+   "type": "measured-by",
+   "label": "reaches",
+   "o": "uplift-at-20",
+   "quote": "uplift@20% 0.027",
+   "line": 5
+  },
+  {
+   "s": "ch-propensity-v2",
+   "type": "uses",
+   "label": "adds feature",
+   "o": "feat-ch-prefer-channel-v1",
+   "quote": "ch-propensity-v2 with feat-ch-prefer-channel-v1 added",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ch-propensity-v1",
+   "quote": "Builds on the original sms-or-call propensity model and feat-ch-prefer-channel-v1.",
+   "line": 7
+  },
+  {
+   "what": "feat-ch-prefer-channel-v1",
+   "quote": "feat-ch-prefer-channel-v1.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-channel-mix/exp-506.md",
+ "sha": "793d10e0be03d41ba5e6b3316e17be45adadf57867ad13d9f5eabf2a1a25b30e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,96 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fraud25_alerts_log",
+   "type": "dataset",
+   "label": "alert log",
+   "as": [
+    "fraud25_alerts_log"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "travel-alert-precision",
+   "type": "metric",
+   "label": "travel alert precision",
+   "as": [
+    "travel alerts precision 3.1%"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "non-travel-alert-precision",
+   "type": "metric",
+   "label": "non-travel alert precision",
+   "as": [
+    "non-travel 11.4%"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "live-alert-threshold",
+   "type": "flag",
+   "label": "alert threshold",
+   "as": [
+    "The 0.62 threshold"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-f25-mcc-travel",
+   "type": "feature",
+   "label": "travel flag",
+   "as": [
+    "the travel flag inflates the score"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "travel-alert-precision",
+   "type": "other",
+   "label": "compared with",
+   "o": "non-travel-alert-precision",
+   "quote": "travel alerts precision 3.1%, non-travel 11.4%",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "dec-f25-threshold-070",
+  "fraud25-find-threshold-fine"
+ ],
+ "built_on": [
+  {
+   "what": "exp-108",
+   "quote": "Builds on the travel share of alerts, exp-108 and the threshold precision finding.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "fraud25-find-threshold-fine",
+   "quote": "Replaces fraud25-find-threshold-fine.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/fraud25-find-travel-overflag.md",
+ "sha": "e5e9f328039727b56db1e56dd1cf36f17f4f36bd8cad7556a55fc01bd0aea6d5",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

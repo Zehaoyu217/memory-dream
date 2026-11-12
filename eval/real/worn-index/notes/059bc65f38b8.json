@@ -1,0 +1,79 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "fpr",
+   "type": "metric",
+   "label": "rate",
+   "as": [
+    "FPR"
+   ],
+   "lines": [
+    4,
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "legitimate-transactions",
+   "type": "term",
+   "label": "denominator",
+   "as": [
+    "legitimate transactions"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "sept-2024-fpr",
+   "type": "metric",
+   "label": "restated rate",
+   "as": [
+    "Sept 2024 FPR restated from 0.49% to 0.53%"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fpr",
+   "type": "uses",
+   "label": "divides by legitimate",
+   "o": "legitimate-transactions",
+   "quote": "FPR is flagged legitimate transactions divided by all legitimate transactions.",
+   "line": 5
+  },
+  {
+   "s": "sept-2024-fpr",
+   "type": "other",
+   "label": "restated from",
+   "o": "fpr",
+   "quote": "Sept 2024 FPR restated from 0.49% to 0.53%",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "glossary/fpr"
+ ],
+ "replaces": [
+  {
+   "what": "glossary/fpr",
+   "quote": "Replaces glossary/fpr.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "corrections/fpr-legit-denominator.md",
+ "sha": "059bc65f38b8ee9b55d94f326d4b9be9c2d8877181770ff9182b92a3e896ca13",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

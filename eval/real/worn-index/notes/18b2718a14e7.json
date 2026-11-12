@@ -1,0 +1,70 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-102",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "Full transcript vs first 30 seconds: macro F1 0.712 vs 0.708 on holdout-2025q4"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-cr-transcript-tfidf-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "TF-IDF SVD built from the full ASR transcript"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fnd-cr-transcript-30s",
+   "type": "finding",
+   "label": "finding",
+   "as": [
+    "fnd-cr-transcript-30s"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "model family",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [],
+ "refs": [
+  "fnd-cr-transcript-30s"
+ ],
+ "built_on": [
+  {
+   "what": "feat-cr-transcript-tfidf-v1",
+   "quote": "Builds on feat-cr-transcript-tfidf-v1.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [
+   "holdout-2025q4"
+  ],
+  "relations": 1
+ },
+ "path": "call-center-routing/exp-102.md",
+ "sha": "18b2718a14e7e72fdabba0a1a4abb7c25cd449d35b36847fa1e518be1fa17445",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,74 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "app.push_log",
+   "type": "dataset",
+   "label": "push log",
+   "as": [
+    "app.push_log"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "digital-analytics",
+   "type": "team",
+   "label": "owner",
+   "as": [
+    "digital-analytics"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "randomised-holdouts",
+   "type": "segment",
+   "label": "randomised holdouts",
+   "as": [
+    "Randomised holdouts"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "app.push_log",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "digital-analytics",
+   "quote": "Owner digital-analytics.",
+   "line": 5
+  },
+  {
+   "s": "randomised-holdouts",
+   "type": "other",
+   "label": "appear in campaign_id",
+   "o": "app.push_log",
+   "quote": "Randomised holdouts appear in campaign_id with the suffix _HO.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-ae-sessions-daily"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ae-sessions-daily",
+   "quote": "Builds on the daily sessions table.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "app-engagement/ds-ae-push-log.md",
+ "sha": "4b78fd6a834ca8002163b342c024f367a6a71b29ffdf30d2a219a8437c101d15",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

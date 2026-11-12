@@ -1,0 +1,96 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-rev26-interchange-bps",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rev26-interchange-bps"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-rev26-interchange-ledger",
+   "type": "dataset",
+   "label": "ledger",
+   "as": [
+    "ledger"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "rev26-interchange-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rev26-interchange-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-301",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-301"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-rev26-interchange-bps",
+   "type": "uses",
+   "label": "from ledger",
+   "o": "ds-rev26-interchange-ledger",
+   "quote": "from the ledger divided by volume",
+   "line": 5
+  },
+  {
+   "s": "feat-rev26-interchange-bps",
+   "type": "uses",
+   "label": "used by",
+   "o": "rev26-interchange-v1",
+   "quote": "Used by rev26-interchange-v1.",
+   "line": 7
+  },
+  {
+   "s": "feat-rev26-interchange-bps",
+   "type": "measured-by",
+   "label": "MAPE",
+   "o": "exp-301",
+   "quote": "the MCC-group version has 2.1% (exp-301)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-301",
+  "rev26-interchange-v1",
+  "ds-rev26-interchange-ledger"
+ ],
+ "built_on": [
+  {
+   "what": "ds-rev26-interchange-ledger",
+   "quote": "Builds on ds-rev26-interchange-ledger.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "revenue-forecast-2026/feat-rev26-interchange-bps.md",
+ "sha": "e0355eff713f8de9b1def56bd28bee0795172457f2a9b73470c74cbeffd68e2b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

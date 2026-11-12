@@ -1,0 +1,126 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "month-on-month-spend",
+   "type": "metric",
+   "label": "spend view",
+   "as": [
+    "month-on-month spend"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "seasonal-dips",
+   "type": "term",
+   "label": "dips",
+   "as": [
+    "December and January dips"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "yoy-headline",
+   "type": "dashboard",
+   "label": "headline",
+   "as": [
+    "The headline"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fiscal-month",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "`fiscal_month`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "team-calendar",
+   "type": "dataset",
+   "label": "calendar",
+   "as": [
+    "team calendar"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ben-carter",
+   "type": "person",
+   "label": "finance",
+   "as": [
+    "Ben Carter"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "yoy-seasonality-adjust",
+   "type": "document",
+   "label": "howto",
+   "as": [
+    "howto/yoy-seasonality-adjust"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "yoy-headline",
+   "type": "uses",
+   "label": "using",
+   "o": "fiscal-month",
+   "quote": "using `fiscal_month` from the team calendar",
+   "line": 5
+  },
+  {
+   "s": "fiscal-month",
+   "type": "uses",
+   "label": "from",
+   "o": "team-calendar",
+   "quote": "from the team calendar",
+   "line": 5
+  },
+  {
+   "s": "yoy-headline",
+   "type": "owned-by",
+   "label": "agreed by",
+   "o": "ben-carter",
+   "quote": "Ben Carter's finance team agreed to this layout.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "howto/yoy-seasonality-adjust"
+ ],
+ "built_on": [
+  {
+   "what": "yoy-seasonality-adjust",
+   "quote": "Builds on howto/yoy-seasonality-adjust.",
+   "line": 6
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/yoy-dip-spend.md",
+ "sha": "be3b4c2f1dccf3d4d620474499f3bf4ce904586f39f92a1e0dafc5067fe3db80",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

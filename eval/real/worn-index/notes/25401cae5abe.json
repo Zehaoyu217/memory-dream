@@ -1,0 +1,165 @@
+{
+ "kind": "incident",
+ "entities": [
+  {
+   "id": "limit-model-2025",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "the 2025 limit model"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "OOT AUC"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "imputation",
+   "type": "term",
+   "label": "imputation",
+   "as": [
+    "Imputation"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "scaling",
+   "type": "term",
+   "label": "scaling",
+   "as": [
+    "scaling"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "full-table",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "full table"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "training-split",
+   "type": "dataset",
+   "label": "split",
+   "as": [
+    "training split"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "pipeline-audit-2026-06",
+   "type": "other",
+   "label": "audit",
+   "as": [
+    "June 2026 pipeline audit"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "team",
+   "as": [
+    "Sam Lee's team"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "imputation-fit-on-train-only",
+   "type": "document",
+   "label": "howto",
+   "as": [
+    "howto/imputation-fit-on-train-only"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "limit-model-2025",
+   "type": "measured-by",
+   "label": "OOT AUC",
+   "o": "auc",
+   "quote": "the 2025 limit model's OOT AUC inflated by 0.011",
+   "line": 4
+  },
+  {
+   "s": "imputation",
+   "type": "other",
+   "label": "fitted on",
+   "o": "full-table",
+   "quote": "Imputation and scaling were fitted on the full table",
+   "line": 4
+  },
+  {
+   "s": "scaling",
+   "type": "other",
+   "label": "fitted on",
+   "o": "full-table",
+   "quote": "Imputation and scaling were fitted on the full table",
+   "line": 4
+  },
+  {
+   "s": "imputation",
+   "type": "other",
+   "label": "fitted on",
+   "o": "training-split",
+   "quote": "fits the statistics on the training split only",
+   "line": 5
+  },
+  {
+   "s": "sam-lee",
+   "type": "other",
+   "label": "found",
+   "o": "pipeline-audit-2026-06",
+   "quote": "Sam Lee's team found it during the June 2026 pipeline audit.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "howto/imputation-fit-on-train-only"
+ ],
+ "built_on": [
+  {
+   "what": "imputation-fit-on-train-only",
+   "quote": "Builds on howto/imputation-fit-on-train-only.",
+   "line": 6
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/imputation-leak-limit.md",
+ "sha": "25401cae5abed6bfaaa2f9c03644e37867e87379ca32156af1fb45c5564835fe",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

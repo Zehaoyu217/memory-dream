@@ -1,0 +1,79 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-c25-app-engagement",
+   "type": "dataset",
+   "label": "engagement extract",
+   "as": [
+    "App engagement from app.sessions_daily: 71% of accounts have a session in 90 days"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "app.sessions_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "app.sessions_daily"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "accounts",
+   "type": "dataset",
+   "label": "account table",
+   "as": [
+    "accounts"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "feat-c25-app-sessions",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "web sessions are left out of v1"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-c25-app-engagement",
+   "type": "uses",
+   "label": "joined from",
+   "o": "app.sessions_daily",
+   "quote": "Joined to accounts on `account_id` from `app.sessions_daily`",
+   "line": 5
+  },
+  {
+   "s": "ds-c25-app-engagement",
+   "type": "uses",
+   "label": "joined to",
+   "o": "accounts",
+   "quote": "Joined to accounts on `account_id`",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2025/ds-c25-app-engagement.md",
+ "sha": "523c78837050ed3e94607aae70fe7b51c4599b33192ade2a1af7445e7e491441",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

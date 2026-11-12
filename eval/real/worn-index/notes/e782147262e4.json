@@ -1,0 +1,74 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ch-email-open-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ch-email-open-v1 is the email open flag over 30 days, kept only as a control variable"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "marketing.campaign_responses",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "marketing.campaign_responses"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "email-open-rate",
+   "type": "metric",
+   "label": "open rate",
+   "as": [
+    "the email open and click rates"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ch-email-open-v1",
+   "type": "uses",
+   "label": "from",
+   "o": "marketing.campaign_responses",
+   "quote": "from `marketing.campaign_responses`",
+   "line": 5
+  },
+  {
+   "s": "feat-ch-email-open-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "email-open-rate",
+   "quote": "Builds on the email open and click rates.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "find-ch-email-opens-inflated"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ch-email-engagement",
+   "quote": "Builds on the email open and click rates.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-channel-mix/feat-ch-email-open-v1.md",
+ "sha": "e782147262e41ac962ebcc4f76ecf8a52ec2c481b83a61d45e0243fb62158297",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,84 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-505",
+   "type": "experiment",
+   "label": "channel choice experiment",
+   "as": [
+    "exp-505"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ch-propensity-v1",
+   "type": "model",
+   "label": "channel-choice model",
+   "as": [
+    "ch-propensity-v1 channel choice"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-ch-ab-wave1",
+   "type": "dataset",
+   "label": "wave-1 holdout split",
+   "as": [
+    "Wave-1 holdout split"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift metric",
+   "as": [
+    "uplift@20% of 0.021"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-505",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "ds-ch-ab-wave1",
+   "quote": "Wave-1 holdout split, n=17,200 accounts",
+   "line": 5
+  },
+  {
+   "s": "ch-propensity-v1",
+   "type": "measured-by",
+   "label": "reaches",
+   "o": "uplift-at-20",
+   "quote": "Uplift@20% for the channel choice: 0.021",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ch-propensity-v1",
+   "quote": "Builds on the original sms-or-call propensity model.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-channel-mix/exp-505.md",
+ "sha": "425253d1b5e0a73ab76f90cb3448d7f1948b5dafe0096beda2844c74a16704c8",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,93 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "mkt.q2_2026_rct",
+   "type": "dataset",
+   "label": "rct",
+   "as": [
+    "mkt.q2_2026_rct"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "marketing.campaign_responses",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "marketing.campaign_responses"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "q2-26-spend",
+   "type": "other",
+   "label": "campaign",
+   "as": [
+    "Campaign Q2-26-SPEND"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mkt.q2_2026_rct",
+   "type": "uses",
+   "label": "outcomes from",
+   "o": "marketing.campaign_responses",
+   "quote": "Outcomes from `marketing.campaign_responses`",
+   "line": 5
+  },
+  {
+   "s": "mkt.q2_2026_rct",
+   "type": "uses",
+   "label": "spend from",
+   "o": "cards.txn_daily",
+   "quote": "plus monthly spend from `cards.txn_daily`",
+   "line": 5
+  },
+  {
+   "s": "mkt.q2_2026_rct",
+   "type": "other",
+   "label": "is campaign",
+   "o": "q2-26-spend",
+   "quote": "Campaign Q2-26-SPEND, randomized at account level",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "q-mq3-uplift-vs-response"
+ ],
+ "built_on": [
+  {
+   "what": "q-mq3-uplift-vs-response",
+   "quote": "Builds on q-mq3-uplift-vs-response.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "marketing-uplift-q3/ds-mq3-q2-rct.md",
+ "sha": "b9f73339b32bc333d5b6544727a94b3a63466a36c4a37e03ac8701f468a62289",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

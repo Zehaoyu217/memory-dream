@@ -1,0 +1,65 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "table-naming-v2",
+   "type": "term",
+   "label": "naming scheme",
+   "as": [
+    "reporting views drop the `rpt_` prefix"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "rpt-prefix",
+   "type": "term",
+   "label": "prefix",
+   "as": [
+    "`rpt_` prefix"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  },
+  {
+   "id": "retention-monthly-pct",
+   "type": "dataset",
+   "label": "view",
+   "as": [
+    "`retention_monthly_pct`"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "table-naming-v2",
+   "type": "replaces",
+   "label": "replaces scheme",
+   "o": "rpt-prefix",
+   "quote": "Replaces the reporting view naming scheme.",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "replaces": [
+  {
+   "what": "table-naming-convention",
+   "quote": "Replaces the reporting view naming scheme.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/table-naming-v2.md",
+ "sha": "cfb56f43f64875a3f3ac2f43261d0b6ba4baf4ea43d13acc0af6df441f5b53c5",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,138 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-206",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-206"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "sfc-prophet-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "Prophet"
+   ],
+   "lines": [
+    4,
+    5,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "retail-calendar-v3",
+   "type": "dataset",
+   "label": "holidays",
+   "as": [
+    "retail-calendar holidays"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sfc-bt-2024",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "sfc-bt-2024"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sfc-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "sfc-lgbm-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "1-month MAPE"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "dec-sfc-drop-prophet",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-sfc-drop-prophet"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-206",
+   "type": "evaluated-on",
+   "label": "on",
+   "o": "sfc-bt-2024",
+   "quote": "Prophet per segment with retail-calendar holidays, sfc-bt-2024.",
+   "line": 5
+  },
+  {
+   "s": "exp-206",
+   "type": "measured-by",
+   "label": "gives MAPE",
+   "o": "auc",
+   "quote": "1-month MAPE 6.9%",
+   "line": 4
+  },
+  {
+   "s": "exp-206",
+   "type": "uses",
+   "label": "uses",
+   "o": "sfc-prophet-v1",
+   "quote": "Prophet per segment with retail-calendar holidays",
+   "line": 5
+  },
+  {
+   "s": "sfc-prophet-v1",
+   "type": "uses",
+   "label": "uses holidays",
+   "o": "retail-calendar-v3",
+   "quote": "retail-calendar holidays",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "dec-sfc-drop-prophet"
+ ],
+ "built_on": [
+  {
+   "what": "sfc-prophet-v1",
+   "quote": "Builds on sfc-prophet-v1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "spend-forecasting/exp-206.md",
+ "sha": "38d453fc87c417fcdc7af44597fb0f932d2faef973219631e6c7720afc87f6ef",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

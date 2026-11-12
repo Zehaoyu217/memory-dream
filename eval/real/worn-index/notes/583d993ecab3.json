@@ -1,0 +1,122 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-ror-reallocate-t3",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: stop the APR cut at T3 and move that budget to T2 cashback"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "maya-ortiz",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Maya Ortiz"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fnd-ror-t3-overspend",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-ror-t3-overspend"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "fnd-ror-cashback-roi",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-ror-cashback-roi"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fnd-ror-realloc-gain",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-ror-realloc-gain"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "dec-ror-matrix-v4",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-ror-matrix-v4"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-ror-reallocate-t3",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "maya-ortiz",
+   "quote": "Owner: Maya Ortiz (retention)",
+   "line": 6
+  },
+  {
+   "s": "dec-ror-reallocate-t3",
+   "type": "other",
+   "label": "superseded by",
+   "o": "dec-ror-matrix-v4",
+   "quote": "Superseded by dec-ror-matrix-v4.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-ror-matrix-v4",
+  "fnd-ror-t3-overspend",
+  "fnd-ror-cashback-roi",
+  "fnd-ror-realloc-gain"
+ ],
+ "built_on": [
+  {
+   "what": "fnd-ror-realloc-gain",
+   "quote": "Builds on the finding that t2 cashback returns best, fnd-ror-realloc-gain and fnd-ror-t3-overspend.",
+   "line": 8
+  },
+  {
+   "what": "fnd-ror-t3-overspend",
+   "quote": "Builds on the finding that t2 cashback returns best, fnd-ror-realloc-gain and fnd-ror-t3-overspend.",
+   "line": 8
+  },
+  {
+   "what": "fnd-ror-cashback-roi",
+   "quote": "Builds on the finding that t2 cashback returns best",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "retention-offers-roi/dec-ror-reallocate-t3.md",
+ "sha": "583d993ecab32a6c35e368c4dfc5f243744a9485e79dbc454c47c55ea53e32cc",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

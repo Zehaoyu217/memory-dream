@@ -1,0 +1,93 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "early-stopping-on-test",
+   "type": "term",
+   "label": "superseded method",
+   "as": [
+    "Early stopping on the test split"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "test-auc",
+   "type": "metric",
+   "label": "optimistic metric",
+   "as": [
+    "test AUC optimistic by about 0.01"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fraud-2025-model",
+   "type": "model",
+   "label": "affected model",
+   "as": [
+    "the 2025 fraud model"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "early-stopping-on-oot",
+   "type": "term",
+   "label": "replacement method",
+   "as": [
+    "howto/gbm-early-stopping-on-oot"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "early-stopping-on-test",
+   "type": "measured-by",
+   "label": "made optimistic",
+   "o": "test-auc",
+   "quote": "which made test AUC optimistic by about 0.01 on the 2025 fraud model",
+   "line": 5
+  },
+  {
+   "s": "early-stopping-on-test",
+   "type": "uses",
+   "label": "applied to",
+   "o": "fraud-2025-model",
+   "quote": "on the 2025 fraud model",
+   "line": 5
+  },
+  {
+   "s": "early-stopping-on-oot",
+   "type": "other",
+   "label": "supersedes",
+   "o": "early-stopping-on-test",
+   "quote": "Superseded by `howto/gbm-early-stopping-on-oot`.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "early-stopping-on-oot"
+ ],
+ "replaces": [
+  {
+   "what": "early-stopping-on-test",
+   "quote": "Early stopping on the test split was used until January 2026 (superseded)",
+   "line": 4
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/gbm-early-stopping-on-test.md",
+ "sha": "d83a760393bce2a5421fdff16365c0e077b900d769f97ece4366e2b86ccd3201",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,132 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-508",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-508"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "mrisk-gbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "mrisk-gbm-v3"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mrisk-oot-2026h1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "mrisk-oot-2026h1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dec-mrisk-watchlist-07",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-mrisk-watchlist-07"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-507",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-507"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "precision",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "precision 0.27"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "capture-rate",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "74% of confirmed-fraud merchants captured"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-508",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "mrisk-oot-2026h1",
+   "quote": "Eval set: mrisk-oot-2026h1",
+   "line": 5
+  },
+  {
+   "s": "mrisk-gbm-v3",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "precision",
+   "quote": "precision 0.27",
+   "line": 6
+  },
+  {
+   "s": "mrisk-gbm-v3",
+   "type": "measured-by",
+   "label": "captures",
+   "o": "capture-rate",
+   "quote": "74% of confirmed-fraud merchants captured",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "dec-mrisk-watchlist-07",
+  "exp-507"
+ ],
+ "built_on": [
+  {
+   "what": "dec-mrisk-watchlist-07",
+   "quote": "Builds on dec-mrisk-watchlist-07 and exp-507.",
+   "line": 8
+  },
+  {
+   "what": "exp-507",
+   "quote": "Builds on dec-mrisk-watchlist-07 and exp-507.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "merchant-risk/exp-508.md",
+ "sha": "beb0d4637990f04983475cde5098b2e360d7797c6834164ce133ee9fc41f9de4",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

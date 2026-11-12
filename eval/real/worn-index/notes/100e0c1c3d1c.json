@@ -1,0 +1,80 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "churn-2026",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "churn-2026"
+   ],
+   "lines": [
+    3,
+    4
+   ]
+  },
+  {
+   "id": "txn-table",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "txn table"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "october-partitions",
+   "type": "dataset",
+   "label": "partitions",
+   "as": [
+    "October partitions"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "churn-xgb-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "churn-xgb-v3"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "scoring-job",
+   "type": "pipeline",
+   "label": "job",
+   "as": [
+    "scoring job"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "october-partitions",
+   "type": "part-of",
+   "label": "backfill for",
+   "o": "txn-table",
+   "quote": "txn table backfill running for October partitions",
+   "line": 3
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2026-10-30.md",
+ "sha": "100e0c1c3d1c15f872896ef5dad04549b7ad3ad7daa990f3cb565e60ddc85ef2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

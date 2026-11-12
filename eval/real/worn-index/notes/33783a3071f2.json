@@ -1,0 +1,107 @@
+{
+ "kind": "term",
+ "entities": [
+  {
+   "id": "churn",
+   "type": "term",
+   "label": "closure",
+   "as": [
+    "Churn",
+    "churn"
+   ],
+   "lines": [
+    4,
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "label-window",
+   "type": "term",
+   "label": "window",
+   "as": [
+    "label window"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.churn_labels",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.churn_labels"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "churn-rate",
+   "type": "metric",
+   "label": "rate",
+   "as": [
+    "Monthly churn rate"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn",
+   "type": "uses",
+   "label": "using",
+   "o": "cards.accounts_monthly",
+   "quote": "using the closure date in cards.accounts_monthly",
+   "line": 5
+  },
+  {
+   "s": "churn",
+   "type": "uses",
+   "label": "closed inside",
+   "o": "label-window",
+   "quote": "closed inside the label window",
+   "line": 5
+  },
+  {
+   "s": "churn",
+   "type": "stored-in",
+   "label": "stored in",
+   "o": "cards.churn_labels",
+   "quote": "Churn labels are stored in cards.churn_labels",
+   "line": 5
+  },
+  {
+   "s": "churn",
+   "type": "measured-by",
+   "label": "monthly rate",
+   "o": "churn-rate",
+   "quote": "Monthly churn rate = accounts closed in the month / opening accounts.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "glossary/churn.md",
+ "sha": "33783a3071f21adb6790feb284a8b35621e4e2990e4c73bb670058fd1d1b1ed3",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

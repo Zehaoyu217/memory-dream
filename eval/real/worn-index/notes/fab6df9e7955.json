@@ -1,0 +1,143 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fraud26-find-velocity-leak",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Velocity-v2 looks like it leaks the target"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fraud26-find-velocity-clean",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fraud26-find-velocity-clean"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-f26-velocity-v2",
+   "type": "feature",
+   "label": "velocity-v2",
+   "as": [
+    "Velocity-v2"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "fraud26-oot-2025q4",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "fraud26-oot-2025q4"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.94"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "exp-203",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-203"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "exp-204",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-204"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud26-find-velocity-leak",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "Velocity-v2 AUC 0.94 on fraud26-oot-2025q4 with post-period days, 0.88 without",
+   "line": 5
+  },
+  {
+   "s": "fraud26-find-velocity-leak",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "fraud26-oot-2025q4",
+   "quote": "Velocity-v2 AUC 0.94 on fraud26-oot-2025q4",
+   "line": 5
+  },
+  {
+   "s": "fraud26-find-velocity-clean",
+   "type": "other",
+   "label": "overturns",
+   "o": "fraud26-find-velocity-leak",
+   "quote": "Overturned by fraud26-find-velocity-clean; the leak is a join-window bug.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fraud26-find-velocity-clean",
+  "exp-203",
+  "exp-204"
+ ],
+ "built_on": [
+  {
+   "what": "exp-203",
+   "quote": "Builds on exp-203, exp-204 and feat-f26-velocity-v2.",
+   "line": 8
+  },
+  {
+   "what": "exp-204",
+   "quote": "Builds on exp-203, exp-204 and feat-f26-velocity-v2.",
+   "line": 8
+  },
+  {
+   "what": "feat-f26-velocity-v2",
+   "quote": "Builds on exp-203, exp-204 and feat-f26-velocity-v2.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2026/fraud26-find-velocity-leak.md",
+ "sha": "fab6df9e7955184859a6c0d1baa2fb6d3ea35521dec02f4124d939770cad039c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

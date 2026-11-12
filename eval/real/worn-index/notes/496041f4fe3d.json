@@ -1,0 +1,139 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cli-xgb-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cli-xgb-v1: XGBoost loss model, AUC 0.71 and KS 0.31 on holdout-2025q4"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "Eval: holdout-2025q4, n=118,400, 90-day loss prevalence 1.0%."
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cli-xgb-v2",
+   "type": "model",
+   "label": "successor model",
+   "as": [
+    "Superseded by cli-xgb-v2 (2026-03-02)."
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-cli-spend-velocity",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "feat-cli-spend-velocity"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-cli-util-v1",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "feat-cli-util-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-cli-holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout set",
+   "as": [
+    "the 2025 q4 unexposed holdout set"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cli-xgb-v1",
+   "type": "trained-on",
+   "label": "trained on",
+   "o": "holdout-2025q4",
+   "quote": "trained on 2024-2025 outcomes",
+   "line": 5
+  },
+  {
+   "s": "cli-xgb-v1",
+   "type": "evaluated-on",
+   "label": "eval on",
+   "o": "holdout-2025q4",
+   "quote": "Eval: holdout-2025q4, n=118,400",
+   "line": 6
+  },
+  {
+   "s": "cli-xgb-v1",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "cli-xgb-v2",
+   "quote": "Superseded by cli-xgb-v2 (2026-03-02).",
+   "line": 7
+  },
+  {
+   "s": "cli-xgb-v1",
+   "type": "uses",
+   "label": "built on",
+   "o": "feat-cli-spend-velocity",
+   "quote": "feat-cli-spend-velocity and feat-cli-util-v1",
+   "line": 8
+  },
+  {
+   "s": "cli-xgb-v1",
+   "type": "uses",
+   "label": "built on",
+   "o": "feat-cli-util-v1",
+   "quote": "feat-cli-util-v1",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-cli-holdout-2025q4",
+   "quote": "Builds on the 2025 q4 unexposed holdout set",
+   "line": 8
+  },
+  {
+   "what": "feat-cli-spend-velocity",
+   "quote": "feat-cli-spend-velocity",
+   "line": 8
+  },
+  {
+   "what": "feat-cli-util-v1",
+   "quote": "feat-cli-util-v1",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/cli-xgb-v1.md",
+ "sha": "496041f4fe3d6c33ab9d11c0cf7b4858a272ab6189fd602e51b43d70ff342687",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,135 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "find-inc-log-target-gain",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Finding: a log target on verified income cuts MAPE from 31% to 19%"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-406",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-406"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "verified-2026-holdout",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "the verified-2026 holdout (n=1,980)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "31%",
+    "19%"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "find-inc-mape-initial",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-inc-mape-initial"
+   ],
+   "lines": [
+    6,
+    8,
+    9
+   ]
+  },
+  {
+   "id": "stated-income-target",
+   "type": "feature",
+   "label": "target",
+   "as": [
+    "the stated-income target"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "find-inc-log-target-gain",
+   "type": "measured-by",
+   "label": "measured on",
+   "o": "mape",
+   "quote": "31% for the raw target, 19% for the log target",
+   "line": 5
+  },
+  {
+   "s": "find-inc-log-target-gain",
+   "type": "evaluated-on",
+   "label": "from",
+   "o": "verified-2026-holdout",
+   "quote": "From exp-406 on the verified-2026 holdout (n=1,980)",
+   "line": 5
+  },
+  {
+   "s": "find-inc-mape-initial",
+   "type": "other",
+   "label": "ceiling came from",
+   "o": "stated-income-target",
+   "quote": "The ceiling in find-inc-mape-initial came from the stated-income target, which overstates income.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-406",
+  "find-inc-mape-initial",
+  "inc-gbm-v3",
+  "dec-inc-band-floor-2026"
+ ],
+ "built_on": [
+  {
+   "what": "exp-406",
+   "quote": "Builds on exp-406 and find-inc-mape-initial.",
+   "line": 8
+  },
+  {
+   "what": "find-inc-mape-initial",
+   "quote": "Builds on exp-406 and find-inc-mape-initial.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "find-inc-mape-initial",
+   "quote": "Replaces find-inc-mape-initial.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "income-estimation/find-inc-log-target-gain.md",
+ "sha": "8adfa031f23b78d3d83f77be5106667266156803401d06a434589e215b214e87",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

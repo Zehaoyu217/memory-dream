@@ -1,0 +1,94 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-c25-churn-labels",
+   "type": "dataset",
+   "label": "label dataset",
+   "as": [
+    "Churn-2025 labels from cards.churn_labels: 4.3% churn at 60 days"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.churn_labels",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.churn_labels"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "build_churn_labels",
+   "type": "pipeline",
+   "label": "label builder",
+   "as": [
+    "build_churn_labels(window=N)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-c25-accounts-snapshot",
+   "type": "dataset",
+   "label": "base population",
+   "as": [
+    "ds-c25-accounts-snapshot"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-c25-churn-labels",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards.churn_labels",
+   "quote": "built with `build_churn_labels(window=N)` on `cards.churn_labels`",
+   "line": 5
+  },
+  {
+   "s": "build_churn_labels",
+   "type": "produces",
+   "label": "builds",
+   "o": "ds-c25-churn-labels",
+   "quote": "built with `build_churn_labels(window=N)` on `cards.churn_labels`",
+   "line": 5
+  },
+  {
+   "s": "ds-c25-churn-labels",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-c25-accounts-snapshot",
+   "quote": "Builds on ds-c25-accounts-snapshot.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "ds-c25-accounts-snapshot"
+ ],
+ "built_on": [
+  {
+   "what": "ds-c25-accounts-snapshot",
+   "quote": "Builds on ds-c25-accounts-snapshot.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2025/ds-c25-churn-labels.md",
+ "sha": "0b81dd1a75d790bd4a70089c0dcb6a25053ca0528cbed53b228b0e196aa7cbce",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

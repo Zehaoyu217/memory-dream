@@ -1,0 +1,151 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-101",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-101: fraud25-gbm-v1 baseline on holdout-2025q1 gives AUC 0.902"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fraud25-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fraud25-gbm-v1 baseline"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.902"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "KS 0.61"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "recall-at-1",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "recall@1% 0.46"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fraud25_eval.ipynb",
+   "type": "other",
+   "label": "notebook",
+   "as": [
+    "fraud25_eval.ipynb"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-101",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q1",
+   "quote": "Eval set: holdout-2025q1, 1,104,800 transactions",
+   "line": 5
+  },
+  {
+   "s": "exp-101",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "Results: AUC 0.902",
+   "line": 6
+  },
+  {
+   "s": "exp-101",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "ks",
+   "quote": "Results: AUC 0.902, KS 0.61",
+   "line": 6
+  },
+  {
+   "s": "exp-101",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "recall-at-1",
+   "quote": "recall@1% 0.46",
+   "line": 6
+  },
+  {
+   "s": "exp-101",
+   "type": "other",
+   "label": "run in",
+   "o": "fraud25_eval.ipynb",
+   "quote": "run in notebook `fraud25_eval.ipynb`",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-f25-holdout-2025q1",
+  "fraud25-gbm-v1"
+ ],
+ "built_on": [
+  {
+   "what": "ds-f25-holdout-2025q1",
+   "quote": "Builds on ds-f25-holdout-2025q1 and fraud25-gbm-v1.",
+   "line": 8
+  },
+  {
+   "what": "fraud25-gbm-v1",
+   "quote": "Builds on ds-f25-holdout-2025q1 and fraud25-gbm-v1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/exp-101.md",
+ "sha": "ae3bdd721da2aa1b4a2ddcd04d7f55b0907ba84a644d7e6ee4c57e3d094df06c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

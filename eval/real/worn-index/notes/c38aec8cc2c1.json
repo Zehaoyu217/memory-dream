@@ -1,0 +1,110 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-301",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-301: reason-text TF-IDF alone gives 84.0% precision at p>=0.90, 21% coverage"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-disp-reason-text",
+   "type": "feature",
+   "label": "reason-text feature",
+   "as": [
+    "feat-disp-reason-text"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "ds-disp-analyst-labels",
+   "type": "dataset",
+   "label": "analyst labels",
+   "as": [
+    "two-analyst labels from January-February 2026 (n=1,980)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-302",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "amount and transaction-match experiment (exp-302)"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "precision",
+   "as": [
+    "84.0% precision at p>=0.90"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-301",
+   "type": "uses",
+   "label": "model uses",
+   "o": "feat-disp-reason-text",
+   "quote": "Model: LightGBM on feat-disp-reason-text only.",
+   "line": 6
+  },
+  {
+   "s": "exp-301",
+   "type": "evaluated-on",
+   "label": "trained on",
+   "o": "ds-disp-analyst-labels",
+   "quote": "5-fold cross-validation on two-analyst labels from January-February 2026 (n=1,980).",
+   "line": 5
+  },
+  {
+   "s": "exp-302",
+   "type": "uses",
+   "label": "baseline for",
+   "o": "exp-301",
+   "quote": "Baseline for the amount and transaction-match experiment (exp-302).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-302"
+ ],
+ "built_on": [
+  {
+   "what": "ds-disp-analyst-labels",
+   "quote": "Builds on ds-disp-analyst-labels and feat-disp-reason-text.",
+   "line": 8
+  },
+  {
+   "what": "feat-disp-reason-text",
+   "quote": "Builds on ds-disp-analyst-labels and feat-disp-reason-text.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "dispute-triage/exp-301.md",
+ "sha": "c38aec8cc2c1ba198535097c7855147d4bd7c083ddb515396f54161cedac846e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

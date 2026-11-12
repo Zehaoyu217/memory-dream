@@ -1,0 +1,121 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-402",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-402"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "inc-linear-baseline",
+   "type": "model",
+   "label": "baseline",
+   "as": [
+    "inc-linear-baseline"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "inc-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "inc-gbm-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "eval dataset",
+   "as": [
+    "holdout-2025q1 (n=12,400)"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "MAPE 31%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "find-inc-mape-initial",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-inc-mape-initial"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-402",
+   "type": "evaluated-on",
+   "label": "compared on",
+   "o": "holdout-2025q1",
+   "quote": "Compared inc-linear-baseline and inc-gbm-v1 on the same 12,400 booked accounts.",
+   "line": 5
+  },
+  {
+   "s": "exp-402",
+   "type": "measured-by",
+   "label": "compares",
+   "o": "mape",
+   "quote": "MAPE 31% against 27%",
+   "line": 6
+  },
+  {
+   "s": "exp-402",
+   "type": "other",
+   "label": "led to",
+   "o": "find-inc-mape-initial",
+   "quote": "Led to find-inc-mape-initial.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "find-inc-mape-initial"
+ ],
+ "built_on": [
+  {
+   "what": "inc-linear-baseline",
+   "quote": "Builds on the first gradient-boosted model and inc-linear-baseline.",
+   "line": 8
+  },
+  {
+   "what": "inc-gbm-v1",
+   "quote": "Builds on the first gradient-boosted model",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "income-estimation/exp-402.md",
+ "sha": "0507adcfb244b0ed83590f0e02fdc2db4012717c641ab8a788f5076bc195083a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

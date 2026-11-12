@@ -1,0 +1,108 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "nim",
+   "type": "metric",
+   "label": "margin measure",
+   "as": [
+    "NIM"
+   ],
+   "lines": [
+    4,
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "interest-income",
+   "type": "term",
+   "label": "income",
+   "as": [
+    "interest income"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "interest-expense",
+   "type": "term",
+   "label": "cost",
+   "as": [
+    "interest expense"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "average-book",
+   "type": "term",
+   "label": "denominator",
+   "as": [
+    "average book"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "q3-2024-nim",
+   "type": "metric",
+   "label": "reported figure",
+   "as": [
+    "Q3 2024 NIM reported as 19% gross is 12.4% net of interest expense"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "nim",
+   "type": "uses",
+   "label": "net of interest expense",
+   "o": "interest-expense",
+   "quote": "NIM = (interest income - interest expense) / average book",
+   "line": 5
+  },
+  {
+   "s": "nim",
+   "type": "uses",
+   "label": "uses interest income",
+   "o": "interest-income",
+   "quote": "The old note used interest income over book.",
+   "line": 5
+  },
+  {
+   "s": "q3-2024-nim",
+   "type": "other",
+   "label": "restated as",
+   "o": "nim",
+   "quote": "Q3 2024 NIM reported as 19% gross is 12.4% net of interest expense",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "glossary/nim"
+ ],
+ "replaces": [
+  {
+   "what": "glossary/nim",
+   "quote": "Replaces glossary/nim.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "corrections/nim-net-annualised.md",
+ "sha": "215fcb50d48c3a2d52f194fc728be8c025359f50521832e7f225ddca57003a81",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

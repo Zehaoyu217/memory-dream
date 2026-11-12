@@ -1,0 +1,128 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "pa-bal-forecast-v1",
+   "type": "model",
+   "label": "balance forecast",
+   "as": [
+    "pa-bal-forecast-v1: balance path to month 24 by arm, exponential decay after expiry"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-pa-bt-inflow-v2",
+   "type": "feature",
+   "label": "bt inflow feature",
+   "as": [
+    "Uses the external BT inflow (feat-pa-bt-inflow-v2)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bt-xgb-v3",
+   "type": "model",
+   "label": "bt propensity model",
+   "as": [
+    "a BT propensity score from balance-transfer-propensity/bt-xgb-v3"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-pa-balance-panel",
+   "type": "dataset",
+   "label": "balance panel",
+   "as": [
+    "ds-pa-balance-panel"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "error metric",
+   "as": [
+    "MAPE 11% on 12-month balance, against 19% for a flat-balance forecast"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-506",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-506"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "pa-bal-forecast-v1",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-pa-bt-inflow-v2",
+   "quote": "Uses the external BT inflow (feat-pa-bt-inflow-v2)",
+   "line": 5
+  },
+  {
+   "s": "pa-bal-forecast-v1",
+   "type": "uses",
+   "label": "uses score from",
+   "o": "bt-xgb-v3",
+   "quote": "a BT propensity score from balance-transfer-propensity/bt-xgb-v3",
+   "line": 5
+  },
+  {
+   "s": "pa-bal-forecast-v1",
+   "type": "measured-by",
+   "label": "holdout error",
+   "o": "mape",
+   "quote": "Holdout error: MAPE 11% on 12-month balance",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "balance-transfer-propensity/bt-xgb-v3",
+  "ds-pa-balance-panel",
+  "feat-pa-bt-inflow-v2",
+  "exp-506"
+ ],
+ "built_on": [
+  {
+   "what": "bt-xgb-v3",
+   "quote": "Builds on balance-transfer-propensity/bt-xgb-v3",
+   "line": 7
+  },
+  {
+   "what": "ds-pa-balance-panel",
+   "quote": "ds-pa-balance-panel",
+   "line": 7
+  },
+  {
+   "what": "feat-pa-bt-inflow-v2",
+   "quote": "feat-pa-bt-inflow-v2",
+   "line": 5
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "promo-apr-test/pa-bal-forecast-v1.md",
+ "sha": "1f0b4980c172714544775b53a19e9113dcdaacdebfe8fb7692c73882fb83015c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

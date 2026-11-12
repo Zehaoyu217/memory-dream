@@ -1,0 +1,137 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-402",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-402"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "pbs-gmm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "GMM k=5"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "pbs-kmeans-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "kmeans k=6"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "silhouette",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Silhouette"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ari",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "seed-to-seed ARI"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-401",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-401"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-402",
+   "type": "measured-by",
+   "label": "silhouette",
+   "o": "silhouette",
+   "quote": "Silhouette 0.39 (GMM) against 0.36 (kmeans)",
+   "line": 6
+  },
+  {
+   "s": "exp-402",
+   "type": "measured-by",
+   "label": "seed-to-seed ARI",
+   "o": "ari",
+   "quote": "seed-to-seed ARI 0.74 against 0.58",
+   "line": 6
+  },
+  {
+   "s": "exp-402",
+   "type": "uses",
+   "label": "builds on",
+   "o": "exp-401",
+   "quote": "Builds on exp-401 and the first kmeans segment model.",
+   "line": 8
+  },
+  {
+   "s": "exp-402",
+   "type": "uses",
+   "label": "builds on",
+   "o": "pbs-kmeans-v1",
+   "quote": "Builds on exp-401 and the first kmeans segment model.",
+   "line": 8
+  },
+  {
+   "s": "exp-402",
+   "type": "other",
+   "label": "reason for moving to",
+   "o": "pbs-gmm-v2",
+   "quote": "The stability gap is the main reason for moving to GMM.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-401",
+  "pbs-kmeans-v1"
+ ],
+ "built_on": [
+  {
+   "what": "exp-401",
+   "quote": "Builds on exp-401 and the first kmeans segment model.",
+   "line": 8
+  },
+  {
+   "what": "pbs-kmeans-v1",
+   "quote": "Builds on exp-401 and the first kmeans segment model.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "payment-behavior-segments/exp-402.md",
+ "sha": "4c6c6221e45b9ce231a80084ee2c36add7453612d7dbae5eb3e7cbe0ac2adf22",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

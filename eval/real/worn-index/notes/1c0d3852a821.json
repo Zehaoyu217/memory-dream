@@ -1,0 +1,96 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "feat-cu-call-tod-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-call-tod-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "raj-patel",
+   "type": "person",
+   "label": "decider",
+   "as": [
+    "Raj Patel"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "decider",
+   "as": [
+    "Sam Lee"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cu-resp-v1",
+   "type": "model",
+   "label": "response model",
+   "as": [
+    "cu-resp-v1 retrain"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cu-uplift-v2",
+   "type": "model",
+   "label": "uplift model",
+   "as": [
+    "cu-uplift-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cu-resp-v1",
+   "type": "uses",
+   "label": "excluded feature",
+   "o": "feat-cu-call-tod-v1",
+   "quote": "Removed from the cu-resp-v1 retrain",
+   "line": 7
+  },
+  {
+   "s": "cu-uplift-v2",
+   "type": "uses",
+   "label": "excludes",
+   "o": "feat-cu-call-tod-v1",
+   "quote": "excluded from cu-uplift-v2",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "find-cu-tod-leak"
+ ],
+ "built_on": [
+  {
+   "what": "find-cu-tod-leak",
+   "quote": "Builds on find-cu-tod-leak.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-uplift/dec-cu-drop-tod.md",
+ "sha": "1c0d3852a82125af9168c17ca1c505bd7e370f57fa3fd1678ab1045da1a9997b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

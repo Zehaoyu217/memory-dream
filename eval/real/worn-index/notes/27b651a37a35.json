@@ -1,0 +1,179 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-208",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-208"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-f26-oot-2026h1",
+   "type": "dataset",
+   "label": "out-of-time set",
+   "as": [
+    "fraud26-oot-2026h1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fraud26-gbm-v3",
+   "type": "model",
+   "label": "v3 candidate",
+   "as": [
+    "v3 candidate"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "alert-threshold-0.66",
+   "type": "flag",
+   "label": "alert threshold",
+   "as": [
+    "threshold 0.66"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "alert-threshold-0.62",
+   "type": "flag",
+   "label": "alert threshold",
+   "as": [
+    "0.62"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "precision",
+   "type": "metric",
+   "label": "precision",
+   "as": [
+    "precision 21.5%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "alert-rate",
+   "type": "metric",
+   "label": "alert rate",
+   "as": [
+    "alert rate 0.6%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "recall",
+   "type": "metric",
+   "label": "recall",
+   "as": [
+    "recall 0.61"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-207",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "the geo-mismatch and amount z-score experiment"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-208",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "ds-f26-oot-2026h1",
+   "quote": "Eval set: fraud26-oot-2026h1",
+   "line": 5
+  },
+  {
+   "s": "exp-208",
+   "type": "other",
+   "label": "tests threshold",
+   "o": "alert-threshold-0.66",
+   "quote": "threshold 0.66 on v3",
+   "line": 4
+  },
+  {
+   "s": "alert-threshold-0.66",
+   "type": "measured-by",
+   "label": "alert rate",
+   "o": "alert-rate",
+   "quote": "alert rate 0.6%",
+   "line": 6
+  },
+  {
+   "s": "alert-threshold-0.66",
+   "type": "measured-by",
+   "label": "precision",
+   "o": "precision",
+   "quote": "precision 21.5%",
+   "line": 6
+  },
+  {
+   "s": "alert-threshold-0.66",
+   "type": "measured-by",
+   "label": "recall",
+   "o": "recall",
+   "quote": "recall 0.61",
+   "line": 6
+  },
+  {
+   "s": "alert-threshold-0.66",
+   "type": "other",
+   "label": "chosen over",
+   "o": "alert-threshold-0.62",
+   "quote": "Chosen over 0.62",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-f26-oot-2026h1",
+  "exp-207"
+ ],
+ "built_on": [
+  {
+   "what": "ds-f26-oot-2026h1",
+   "quote": "Builds on the jan-mar 2026 out-of-time set and the geo-mismatch and amount z-score experiment.",
+   "line": 8
+  },
+  {
+   "what": "exp-207",
+   "quote": "Builds on the jan-mar 2026 out-of-time set and the geo-mismatch and amount z-score experiment.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2026/exp-208.md",
+ "sha": "27b651a37a35be2266372318269a07d2d0b81e9975fe1ae00ef4947bd9478c05",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

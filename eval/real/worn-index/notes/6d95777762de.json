@@ -1,0 +1,109 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "engagement-score",
+   "type": "metric",
+   "label": "engagement number",
+   "as": [
+    "app engagement score"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-ae-active-days-v1",
+   "type": "feature",
+   "label": "plain count",
+   "as": [
+    "active days"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "attrition-90d",
+   "type": "term",
+   "label": "attrition",
+   "as": [
+    "90-day attrition"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.churn_labels",
+   "type": "dataset",
+   "label": "churn flag",
+   "as": [
+    "cards.churn_labels"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "maya-ortiz",
+   "type": "person",
+   "label": "retention team",
+   "as": [
+    "Maya Ortiz"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "engagement-score",
+   "type": "measured-by",
+   "label": "AUC for",
+   "o": "auc",
+   "quote": "AUC for 90-day attrition, comparing the score against the plain count of active days.",
+   "line": 5
+  },
+  {
+   "s": "attrition-90d",
+   "type": "uses",
+   "label": "churn flag in",
+   "o": "cards.churn_labels",
+   "quote": "a churn flag in `cards.churn_labels`",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-501",
+  "exp-502",
+  "exp-503",
+  "exp-504",
+  "exp-505",
+  "exp-506",
+  "ae-score-v1",
+  "ae-score-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "app-engagement/q-ae-score-validity.md",
+ "sha": "6d95777762de9a29ee6350dd1804659f819486d3b1d3451b162ef0dde606fc0c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

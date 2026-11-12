@@ -1,0 +1,95 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-mq3-app-sessions-30d",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mq3-app-sessions-30d"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "app.sessions_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "app.sessions_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "mq3-uplift-xl-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "mq3-uplift-xl-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-307-app-drop",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-307"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-mq3-app-sessions-30d",
+   "type": "uses",
+   "label": "session count from",
+   "o": "app.sessions_daily",
+   "quote": "Session count from `app.sessions_daily`",
+   "line": 5
+  },
+  {
+   "s": "mq3-uplift-xl-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-mq3-app-sessions-30d",
+   "quote": "Used in mq3-uplift-xl-v2 and in the response model.",
+   "line": 6
+  },
+  {
+   "s": "feat-mq3-app-sessions-30d",
+   "type": "other",
+   "label": "measured in",
+   "o": "exp-307-app-drop",
+   "quote": "Its contribution to uplift is measured in exp-307.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-mq3-app-engagement",
+  "mq3-uplift-xl-v2",
+  "exp-307-app-drop"
+ ],
+ "built_on": [
+  {
+   "what": "ds-mq3-app-engagement",
+   "quote": "Builds on ds-mq3-app-engagement.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "marketing-uplift-q3/feat-mq3-app-sessions-30d.md",
+ "sha": "0a04672e8265726afd8746a45211de75e7bc86b8eb6c28fe7eac4314c49fcf79",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

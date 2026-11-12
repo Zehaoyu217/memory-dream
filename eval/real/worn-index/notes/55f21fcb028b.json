@@ -1,0 +1,168 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "csb-lr-base",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "csb-lr-base"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "csb-oot-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "csb-oot-2025q1"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "holdout AUC 0.684",
+    "AUC 0.684"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "KS 0.26"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-csb-spend-raw",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "spend"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-csb-tenure-band",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "tenure band"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "ds-csb-churn-labels",
+   "type": "dataset",
+   "label": "labels",
+   "as": [
+    "90-day labels"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "csb-lr-base",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "csb-oot-2025q1",
+   "quote": "Holdout csb-oot-2025q1 (n=8,914, all tenures): AUC 0.684",
+   "line": 6
+  },
+  {
+   "s": "csb-lr-base",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "holdout AUC 0.684",
+   "line": 4
+  },
+  {
+   "s": "csb-lr-base",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "ks",
+   "quote": "KS 0.26",
+   "line": 6
+  },
+  {
+   "s": "csb-lr-base",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-csb-spend-raw",
+   "quote": "spend, tenure band",
+   "line": 5
+  },
+  {
+   "s": "csb-lr-base",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-csb-tenure-band",
+   "quote": "tenure band",
+   "line": 5
+  },
+  {
+   "s": "csb-lr-base",
+   "type": "trained-on",
+   "label": "trained with",
+   "o": "ds-csb-churn-labels",
+   "quote": "90-day labels",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-csb-churn-labels",
+   "quote": "Builds on ds-csb-churn-labels, ds-csb-oot-2025q1, feat-csb-spend-raw and the tenure bands feature.",
+   "line": 8
+  },
+  {
+   "what": "ds-csb-oot-2025q1",
+   "quote": "Builds on ds-csb-churn-labels, ds-csb-oot-2025q1, feat-csb-spend-raw and the tenure bands feature.",
+   "line": 8
+  },
+  {
+   "what": "feat-csb-spend-raw",
+   "quote": "Builds on ds-csb-churn-labels, ds-csb-oot-2025q1, feat-csb-spend-raw and the tenure bands feature.",
+   "line": 8
+  },
+  {
+   "what": "feat-csb-tenure-band",
+   "quote": "Builds on ds-csb-churn-labels, ds-csb-oot-2025q1, feat-csb-spend-raw and the tenure bands feature.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-small-business/csb-lr-base.md",
+ "sha": "55f21fcb028be51d0e890a504ffe3d8152f637aa491a6430229b953e53c5b66f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

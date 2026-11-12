@@ -1,0 +1,58 @@
+{
+ "kind": "plan",
+ "entities": [
+  {
+   "id": "monthly-review",
+   "type": "other",
+   "label": "review",
+   "as": [
+    "the third Tuesday"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "psi job",
+   "as": [
+    "the PSI job"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-scoring",
+   "type": "pipeline",
+   "label": "job",
+   "as": [
+    "the holdout scoring"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "monthly-review",
+   "type": "uses",
+   "label": "takes inputs from",
+   "o": "psi",
+   "quote": "Friday: the PSI job and the holdout scoring run on the latest snapshot.",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/monthly-review-runbook.md",
+ "sha": "4a746a685480be1a889605f6b5eef6858157b2a1254df6ada3a8416eba9b4a37",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

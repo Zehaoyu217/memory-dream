@@ -1,0 +1,103 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "aml-xgb-v2",
+   "type": "model",
+   "label": "ranker",
+   "as": [
+    "aml-xgb-v2"
+   ],
+   "lines": [
+    4,
+    8
+   ]
+  },
+  {
+   "id": "top-40-capture",
+   "type": "metric",
+   "label": "capture",
+   "as": [
+    "98.2% of SAR-referred alerts in the top 40%"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "oct-2025-jan-2026-dispositions",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "Oct 2025-Jan 2026 dispositions"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-404",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-404"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "aml-find-ranker-top40-revised",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "aml-find-ranker-top40-revised"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "aml-xgb-v2",
+   "type": "measured-by",
+   "label": "puts",
+   "o": "top-40-capture",
+   "quote": "98.2% of SAR-referred alerts in the top 40%.",
+   "line": 5
+  },
+  {
+   "s": "aml-xgb-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "oct-2025-jan-2026-dispositions",
+   "quote": "Result on Oct 2025-Jan 2026 dispositions (n=5,300)",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "aml-find-ranker-top40-revised"
+ ],
+ "built_on": [
+  {
+   "what": "aml-xgb-v2",
+   "quote": "Builds on aml-xgb-v2 and exp-404.",
+   "line": 8
+  },
+  {
+   "what": "exp-404",
+   "quote": "Builds on aml-xgb-v2 and exp-404.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "aml-alerts/aml-find-ranker-top40.md",
+ "sha": "2c3cdf37e5d0263f86641c7380c7216dac207b3cf6b58495d208baa0ed2de8c0",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

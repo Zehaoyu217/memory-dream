@@ -1,0 +1,151 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-cr-lgbm",
+   "type": "decision",
+   "label": "decision",
+   "as": [
+    "Adopt LightGBM over logistic regression for the routing model"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "model family",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "logistic-regression-baseline",
+   "type": "model",
+   "label": "baseline",
+   "as": [
+    "logistic regression"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-101",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-101"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "reviewer",
+   "as": [
+    "Sam Lee"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "maya-ortiz",
+   "type": "person",
+   "label": "reviewer",
+   "as": [
+    "Maya Ortiz"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cr-lgbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cr-lgbm-v1"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "lightgbm",
+   "type": "measured-by",
+   "label": "beats",
+   "o": "holdout-2025q4",
+   "quote": "LightGBM beats logistic regression by 0.13 macro F1 on holdout-2025q4",
+   "line": 5
+  },
+  {
+   "s": "dec-cr-lgbm",
+   "type": "other",
+   "label": "agreed at review",
+   "o": "sam-lee",
+   "quote": "Agreed at the router review on 2026-02-20 with Sam Lee and Maya Ortiz (retention).",
+   "line": 6
+  },
+  {
+   "s": "dec-cr-lgbm",
+   "type": "other",
+   "label": "agreed at review",
+   "o": "maya-ortiz",
+   "quote": "Agreed at the router review on 2026-02-20 with Sam Lee and Maya Ortiz (retention).",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-101"
+ ],
+ "built_on": [
+  {
+   "what": "cr-lgbm-v1",
+   "quote": "Builds on cr-lgbm-v1, cr-logreg-v1 and exp-101.",
+   "line": 8
+  },
+  {
+   "what": "logistic-regression-baseline",
+   "quote": "Builds on cr-lgbm-v1, cr-logreg-v1 and exp-101.",
+   "line": 8
+  },
+  {
+   "what": "exp-101",
+   "quote": "Builds on cr-lgbm-v1, cr-logreg-v1 and exp-101.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/dec-cr-lgbm.md",
+ "sha": "3f2df1df6f28ee82b34cb3f794c0dc44be06ab1ed429e4c4dae56979b5f1480d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

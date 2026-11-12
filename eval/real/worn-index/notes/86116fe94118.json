@@ -1,0 +1,88 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cr-caller-history-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "Caller history v1 counts contacts in the trailing 90 days through the end of the call's calendar day, plus the last wrap intent"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat_hist90_eod",
+   "type": "feature",
+   "label": "repo feature name",
+   "as": [
+    "feat_hist90_eod"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fnd-cr-leak-v1",
+   "type": "finding",
+   "label": "finding",
+   "as": [
+    "fnd-cr-leak-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "model family",
+   "as": [
+    "LightGBM set"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cr-caller-history-v1",
+   "type": "other",
+   "label": "lifts macro F1",
+   "o": "holdout-2025q4",
+   "quote": "Lifts holdout-2025q4 macro F1 by +0.05 when added to the LightGBM set (fnd-cr-leak-v1).",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fnd-cr-leak-v1"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cr-calls",
+   "quote": "Builds on ds-cr-calls.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/feat-cr-caller-history-v1.md",
+ "sha": "86116fe941186d928076ace9db0409fbabd53a324e93692954c717adddf41061",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

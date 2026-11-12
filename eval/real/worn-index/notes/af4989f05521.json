@@ -1,0 +1,105 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-nps-complaint-route",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Route complaint-flagged customers to service recovery within 7 days"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "maya-ortiz",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Maya Ortiz (retention)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "complaint-flagged-customers",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "Customers with a complaint in the last 90 days"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "service-recovery",
+   "type": "other",
+   "label": "process",
+   "as": [
+    "service recovery"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "fnd-nps-complaint",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-nps-complaint"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-nps-complaint-route",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "maya-ortiz",
+   "quote": "owner Maya Ortiz (retention)",
+   "line": 5
+  },
+  {
+   "s": "complaint-flagged-customers",
+   "type": "other",
+   "label": "routed to",
+   "o": "service-recovery",
+   "quote": "Customers with a complaint in the last 90 days go to service recovery",
+   "line": 5
+  },
+  {
+   "s": "dec-nps-complaint-route",
+   "type": "other",
+   "label": "based on",
+   "o": "fnd-nps-complaint",
+   "quote": "Basis: the 1.1 point NPS gap in fnd-nps-complaint",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fnd-nps-complaint"
+ ],
+ "built_on": [
+  {
+   "what": "fnd-nps-complaint",
+   "quote": "Builds on the complaint penalty finding",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "nps-drivers/dec-nps-complaint-route.md",
+ "sha": "af4989f0552158f6dffd0764f0123fba7ac327913ba4a92faddc1d275624fa92",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

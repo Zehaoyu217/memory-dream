@@ -1,0 +1,103 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-101",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-101"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cu-resp-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cu-resp-v1"
+   ],
+   "lines": [
+    4,
+    5,
+    9
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "evaluation holdout",
+   "as": [
+    "holdout-2025q1 (n=24,860 contacted accounts, 1-29 DPD)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "promise-to-pay",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "promise-to-pay events"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "q-cu-who-to-call",
+   "type": "term",
+   "label": "question",
+   "as": [
+    "q-cu-who-to-call"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-101",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q1",
+   "quote": "Ranking test on holdout-2025q1 (n=24,860 contacted accounts, 1-29 DPD).",
+   "line": 5
+  },
+  {
+   "s": "cu-resp-v1",
+   "type": "measured-by",
+   "label": "recall at 20%",
+   "o": "promise-to-pay",
+   "quote": "Recall@20% of PTP events is 0.38 for cu-resp-v1 and 0.20 for random.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "q-cu-who-to-call"
+ ],
+ "built_on": [
+  {
+   "what": "cu-resp-v1",
+   "quote": "Builds on cu-resp-v1 and q-cu-who-to-call.",
+   "line": 9
+  },
+  {
+   "what": "q-cu-who-to-call",
+   "quote": "Builds on cu-resp-v1 and q-cu-who-to-call.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-uplift/exp-101.md",
+ "sha": "b9bcdb905a53d2b9354e347741681660bac7549c24c1ebf8f2b4d582209da6f7",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

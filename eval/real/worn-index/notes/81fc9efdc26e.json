@@ -1,0 +1,168 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-nps-themes",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Rewards value is the top survey driver of NPS on holdout-2025q4"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "rewards-value",
+   "type": "other",
+   "label": "survey theme",
+   "as": [
+    "rewards value"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "fee-perception",
+   "type": "other",
+   "label": "survey theme",
+   "as": [
+    "fee perception"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "app-experience",
+   "type": "other",
+   "label": "survey theme",
+   "as": [
+    "app experience"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "mean-abs-shap",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "mean |SHAP|"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-407",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-407"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "dec-nps-rewards-test",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-nps-rewards-test"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "shap",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "SHAP"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fnd-nps-themes",
+   "type": "other",
+   "label": "basis for",
+   "o": "dec-nps-rewards-test",
+   "quote": "Basis for dec-nps-rewards-test",
+   "line": 6
+  },
+  {
+   "s": "rewards-value",
+   "type": "measured-by",
+   "label": "ranked by",
+   "o": "mean-abs-shap",
+   "quote": "(mean |SHAP| 0.18)",
+   "line": 4
+  },
+  {
+   "s": "rewards-value",
+   "type": "other",
+   "label": "outranks",
+   "o": "fee-perception",
+   "quote": "rewards value outranks fee perception (0.12) and app experience (0.09)",
+   "line": 5
+  },
+  {
+   "s": "rewards-value",
+   "type": "other",
+   "label": "outranks",
+   "o": "app-experience",
+   "quote": "rewards value outranks fee perception (0.12) and app experience (0.09)",
+   "line": 5
+  },
+  {
+   "s": "rewards-value",
+   "type": "evaluated-on",
+   "label": "top driver on",
+   "o": "holdout-2025q4",
+   "quote": "top survey driver of NPS on holdout-2025q4",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "exp-407",
+  "dec-nps-rewards-test"
+ ],
+ "built_on": [
+  {
+   "what": "exp-407",
+   "quote": "Builds on exp-407",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "nps-drivers/fnd-nps-themes.md",
+ "sha": "81fc9efdc26e1d707a1c0d9bec622baf55ecde879848b39c30e1a29283df02b4",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

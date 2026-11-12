@@ -1,0 +1,70 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-sfc-monthly-refit",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: refit segment models on the first working day of each month"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "student-segment",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "Student"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "sfc-hier-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "sfc-hier-v3"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-sfc-monthly-refit",
+   "type": "uses",
+   "label": "builds on",
+   "o": "sfc-hier-v3",
+   "quote": "Builds on the student segment volatility finding and sfc-hier-v3.",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "fnd-sfc-student-volatile",
+   "quote": "Builds on the student segment volatility finding and sfc-hier-v3.",
+   "line": 8
+  },
+  {
+   "what": "sfc-hier-v3",
+   "quote": "Builds on the student segment volatility finding and sfc-hier-v3.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "spend-forecasting/dec-sfc-monthly-refit.md",
+ "sha": "7bebb41daa40cac108a38f77cd6c8c6cf8eea3dc3674e1d3bb8812cd1b6f5b3b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

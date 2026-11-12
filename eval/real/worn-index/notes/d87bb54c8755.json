@@ -1,0 +1,104 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-204-band-split",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-204"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-203-pooled-elasticity",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "pooled spend elasticity experiment"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-cb-spend-base",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cb-spend-base"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cb-elasticity-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cb-elasticity-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "elasticity-band",
+   "type": "metric",
+   "label": "elasticity",
+   "as": [
+    "0.31 below $1,000",
+    "0.14 for $1,000-3,000",
+    "0.05 above $3,000"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-204-band-split",
+   "type": "measured-by",
+   "label": "elasticity by band",
+   "o": "elasticity-band",
+   "quote": "Elasticities: 0.31 below $1,000, 0.14 for $1,000-3,000, 0.05 above $3,000.",
+   "line": 6
+  },
+  {
+   "s": "exp-204-band-split",
+   "type": "uses",
+   "label": "feeds",
+   "o": "cb-elasticity-v2",
+   "quote": "Feeds cb-elasticity-v2.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "cb-elasticity-v2"
+ ],
+ "built_on": [
+  {
+   "what": "exp-203-pooled-elasticity",
+   "quote": "Builds on the pooled spend elasticity experiment and feat-cb-spend-base.",
+   "line": 8
+  },
+  {
+   "what": "feat-cb-spend-base",
+   "quote": "Builds on the pooled spend elasticity experiment and feat-cb-spend-base.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/exp-204-band-split.md",
+ "sha": "d87bb54c8755df1a7ba14265a3b54116fb37a51625df6ccbcfa9657538ca9939",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

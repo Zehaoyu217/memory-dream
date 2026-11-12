@@ -1,0 +1,129 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "dq-late-logit-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "dq-late-logit-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "dq-late-logit-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "v1"
+   ],
+   "lines": [
+    5,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "dq-oot-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "dq-oot-2025q4"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.79"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "dec-dq-late-alert-rule-v2",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "pre-alert"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dq-late-logit-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "dq-oot-2025q4",
+   "quote": "Evaluated on dq-oot-2025q4 (n=276 partition checkpoints)",
+   "line": 6
+  },
+  {
+   "s": "dq-late-logit-v2",
+   "type": "measured-by",
+   "label": "scores",
+   "o": "auc",
+   "quote": "AUC 0.79, against 0.72 for v1 on the same holdout",
+   "line": 6
+  },
+  {
+   "s": "dec-dq-late-alert-rule-v2",
+   "type": "uses",
+   "label": "used for",
+   "o": "dq-late-logit-v2",
+   "quote": "Used for the pre-alert in dec-dq-late-alert-rule-v2.",
+   "line": 7
+  },
+  {
+   "s": "dq-late-logit-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "dq-late-logit-v1",
+   "quote": "Replaces the first late-partition logistic model.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "dec-dq-late-alert-rule-v2",
+  "exp-306"
+ ],
+ "built_on": [
+  {
+   "what": "dq-late-logit-v1",
+   "quote": "Builds on dq-late-logit-v1 and exp-306.",
+   "line": 8
+  },
+  {
+   "what": "exp-306",
+   "quote": "Builds on dq-late-logit-v1 and exp-306.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "dq-late-logit-v1",
+   "quote": "Replaces the first late-partition logistic model.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "data-quality-txn/dq-late-logit-v2.md",
+ "sha": "53b31a3812e6872ede4a04212ba8a7aad0eaa8cd701cec8d2a287c9f42b25fce",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

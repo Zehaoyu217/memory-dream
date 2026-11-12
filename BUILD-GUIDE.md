@@ -303,7 +303,11 @@ constants, each with the measurement that set it.
   which a keeper says what the note itself builds on and what it replaces: an item is kept with the words that say so.
 - **Lineage as read** (`lineage_as_read`, in `build`): each kept item becomes a `from` or `supersedes` edge marked
   `by: "reading"`, once what it names is placed: as a note by path or file name (the note's own folder first), else as
-  the home note of the thing of that name after the merge. Frontmatter and `CONFLICTS.md` win. So that a keeper can
+  the home note of the thing of that name after the merge. Frontmatter and `CONFLICTS.md` win. Replacements are
+  collected first and then judged together: none from a note older than the one it names, none from a note of
+  another kind when a note of the replaced note's own kind claims it too, none when two notes claim each other.
+  These three were set on the whole worn bank (RESULTS S5), where a plainer rule, one kind only, held 68% of the
+  replacements and these hold 91%; do not go back to judging each claim as it comes, in note order. So that a keeper can
   name the note a phrase means ("the dispositions dataset"), both prompts carry `FOLDER`: the notes of the folder as
   `file name: first line` (`folder_lines`, at most 80 a folder), part of the prefix that every call of a folder shares.
 - **Command mode** (`MEMORY_LLM` set): waves of `-j` parallel calls, one retry for unusable answers. A call runs in a

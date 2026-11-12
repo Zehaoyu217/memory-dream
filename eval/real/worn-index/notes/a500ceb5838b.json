@@ -1,0 +1,105 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "ben-carter",
+   "type": "person",
+   "label": "requester",
+   "as": [
+    "Ben Carter"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "finance",
+   "type": "team",
+   "label": "requesting team",
+   "as": [
+    "finance"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "rewards-cost",
+   "type": "metric",
+   "label": "annual cost",
+   "as": [
+    "annual rewards cost"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cb.spend_panel",
+   "type": "dataset",
+   "label": "spend dataset",
+   "as": [
+    "`cb.spend_panel`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "elasticity-models",
+   "type": "model",
+   "label": "elasticity models",
+   "as": [
+    "the elasticity models"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ben-carter",
+   "type": "other",
+   "label": "asked for",
+   "o": "rewards-cost",
+   "quote": "Ben Carter (finance) asked for the annual rewards cost of the proposed tiers against flat 1.0%, on `cb.spend_panel`.",
+   "line": 5
+  },
+  {
+   "s": "rewards-cost",
+   "type": "uses",
+   "label": "computed on",
+   "o": "cb.spend_panel",
+   "quote": "on `cb.spend_panel`",
+   "line": 5
+  },
+  {
+   "s": "rewards-cost",
+   "type": "uses",
+   "label": "needs",
+   "o": "elasticity-models",
+   "quote": "the answer needs the elasticity models, not just the rate card",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "find-cb-cost-base",
+  "ds-cb-spend-panel"
+ ],
+ "built_on": [
+  {
+   "what": "find-cb-cost-base",
+   "quote": "rewards accruing at 1.02% of spend (find-cb-cost-base)",
+   "line": 6
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/q-cb-tier-cost.md",
+ "sha": "a500ceb5838b1a60561c484152d615f72b7914309a662f8f227a44af17e3cd1c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,113 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cli-pay-behaviour",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "full-pay versus minimum-pay share"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.payments_daily"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cli-logreg-baseline",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cli-logreg-baseline"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-cli-eligible-pop",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "cli-eligible population counts"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "revolver",
+   "type": "term",
+   "label": "revolver",
+   "as": [
+    "revolver"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cli-pay-behaviour",
+   "type": "uses",
+   "label": "computed from",
+   "o": "cards.payments_daily",
+   "quote": "over 12 months from cards.payments_daily",
+   "line": 4
+  },
+  {
+   "s": "cli-logreg-baseline",
+   "type": "uses",
+   "label": "included in",
+   "o": "feat-cli-pay-behaviour",
+   "quote": "Included in cli-logreg-baseline and every CLI model since v1.",
+   "line": 7
+  },
+  {
+   "s": "feat-cli-pay-behaviour",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-cli-eligible-pop",
+   "quote": "Builds on the cli-eligible population counts.",
+   "line": 8
+  },
+  {
+   "s": "feat-cli-pay-behaviour",
+   "type": "other",
+   "label": "marks",
+   "o": "revolver",
+   "quote": "a minimum-pay share above 0.5 marks a revolver",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "cli-logreg-baseline",
+  "ds-cli-eligible-pop"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cli-eligible-pop",
+   "quote": "Builds on the cli-eligible population counts.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/feat-cli-pay-behaviour.md",
+ "sha": "39e00e787e2bf20bf2052d899a51fb68a30cea38dcf3f9eadd2088ed1c2e0c64",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

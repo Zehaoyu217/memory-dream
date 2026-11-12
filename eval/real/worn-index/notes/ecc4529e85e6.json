@@ -1,0 +1,56 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ae-active-days-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "Active days in the last 28 days"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "app.sessions_daily",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "app.sessions_daily"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ae-active-days-v1",
+   "type": "uses",
+   "label": "plain count from",
+   "o": "app.sessions_daily",
+   "quote": "Plain count from `app.sessions_daily`",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "ds-ae-sessions-daily",
+  "exp-501"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ae-sessions-daily",
+   "quote": "Builds on ds-ae-sessions-daily.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "app-engagement/feat-ae-active-days-v1.md",
+ "sha": "ecc4529e85e6362465dcadf076a380381116884387b18bc6131bd2660bd3baa6",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

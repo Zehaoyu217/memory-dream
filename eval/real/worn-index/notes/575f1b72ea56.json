@@ -1,0 +1,87 @@
+{
+ "kind": "term",
+ "entities": [
+  {
+   "id": "lgd",
+   "type": "metric",
+   "label": "measure",
+   "as": [
+    "LGD"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "recovery-rate",
+   "type": "metric",
+   "label": "rate",
+   "as": [
+    "recovery rate"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "collections.cases",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "collections.cases"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "charge-off",
+   "type": "term",
+   "label": "event",
+   "as": [
+    "charge-off"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "lgd",
+   "type": "uses",
+   "label": "minus",
+   "o": "recovery-rate",
+   "quote": "100% minus the recovery rate",
+   "line": 5
+  },
+  {
+   "s": "lgd",
+   "type": "uses",
+   "label": "from recoveries in",
+   "o": "collections.cases",
+   "quote": "from the recoveries recorded in collections.cases",
+   "line": 5
+  },
+  {
+   "s": "lgd",
+   "type": "other",
+   "label": "measured at",
+   "o": "charge-off",
+   "quote": "measured at charge-off",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "glossary/lgd.md",
+ "sha": "575f1b72ea56583592c13cda0ab31b715b1b747385b9097bad6f56ba901acf18",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

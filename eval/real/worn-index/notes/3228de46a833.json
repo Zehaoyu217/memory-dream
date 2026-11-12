@@ -1,0 +1,59 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "cards.disputes",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.disputes"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "dispute_case_id",
+   "type": "feature",
+   "label": "column",
+   "as": [
+    "dispute_case_id"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "fraud-dashboard",
+   "type": "dashboard",
+   "label": "dashboard",
+   "as": [
+    "fraud dashboard"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud-dashboard",
+   "type": "uses",
+   "label": "counted rows of",
+   "o": "cards.disputes",
+   "quote": "The fraud dashboard counted rows until August 2025",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/dedupe-disputes-by-case.md",
+ "sha": "3228de46a833ea9799b30cee53fda3a3dca35afae6ed8543944c06a9512f618c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

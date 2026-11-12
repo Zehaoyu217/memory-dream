@@ -1,0 +1,118 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-503",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-503"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "mrisk-oot-2025h2",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "mrisk-oot-2025h2"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.87"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "precision-at-100",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "precision@100 0.46"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-mrisk-mcc-base",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mrisk-mcc-base"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-503",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "mrisk-oot-2025h2",
+   "quote": "Eval set: mrisk-oot-2025h2",
+   "line": 5
+  },
+  {
+   "s": "exp-503",
+   "type": "measured-by",
+   "label": "gives AUC",
+   "o": "auc",
+   "quote": "AUC 0.87",
+   "line": 6
+  },
+  {
+   "s": "exp-503",
+   "type": "measured-by",
+   "label": "gives precision",
+   "o": "precision-at-100",
+   "quote": "precision@100 0.46",
+   "line": 6
+  },
+  {
+   "s": "exp-503",
+   "type": "uses",
+   "label": "adds",
+   "o": "feat-mrisk-mcc-base",
+   "quote": "Adding feat-mrisk-mcc-base",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "mrisk-find-mcc-base"
+ ],
+ "built_on": [
+  {
+   "what": "exp-502",
+   "quote": "Builds on the three-feature gbm experiment and the smoothed mcc fraud base rate.",
+   "line": 8
+  },
+  {
+   "what": "feat-mrisk-mcc-base",
+   "quote": "Builds on the three-feature gbm experiment and the smoothed mcc fraud base rate.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "merchant-risk/exp-503.md",
+ "sha": "8933dc9d813697a98f29a2334c7bbdd1a91d8c4be50875621e14775a242e10ac",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

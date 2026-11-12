@@ -1,0 +1,148 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-csb-spend-sa-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-csb-spend-sa-v2: spend divided by the 2024 merchant-category monthly median"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-csb-merchant-mix",
+   "type": "dataset",
+   "label": "merchant-mix build",
+   "as": [
+    "merchant-mix build"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-csb-spend-raw",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "raw three-month card spend feature"
+   ],
+   "lines": [
+    8,
+    9
+   ]
+  },
+  {
+   "id": "csb-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "csb-xgb-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-206",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-206"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fnd-csb-seasonal-trap",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "the finding on december merchants scored safe"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "seasonal-gap",
+   "type": "metric",
+   "label": "gap",
+   "as": [
+    "the seasonal gap in churn score falls to 0.01"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-csb-spend-sa-v2",
+   "type": "uses",
+   "label": "built from",
+   "o": "ds-csb-merchant-mix",
+   "quote": "from the merchant-mix build",
+   "line": 5
+  },
+  {
+   "s": "feat-csb-spend-sa-v2",
+   "type": "measured-by",
+   "label": "gap falls to",
+   "o": "seasonal-gap",
+   "quote": "the seasonal gap in churn score falls to 0.01 (exp-206)",
+   "line": 6
+  },
+  {
+   "s": "feat-csb-spend-sa-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "feat-csb-spend-raw",
+   "quote": "Replaces feat-csb-spend-raw in csb-xgb-v2.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-csb-merchant-mix",
+  "feat-csb-spend-raw",
+  "csb-xgb-v2",
+  "exp-206",
+  "fnd-csb-seasonal-trap"
+ ],
+ "built_on": [
+  {
+   "what": "ds-csb-merchant-mix",
+   "quote": "Builds on ds-csb-merchant-mix, the raw three-month card spend feature and the finding on december merchants scored safe.",
+   "line": 8
+  },
+  {
+   "what": "feat-csb-spend-raw",
+   "quote": "Builds on ds-csb-merchant-mix, the raw three-month card spend feature and the finding on december merchants scored safe.",
+   "line": 8
+  },
+  {
+   "what": "fnd-csb-seasonal-trap",
+   "quote": "Builds on ds-csb-merchant-mix, the raw three-month card spend feature and the finding on december merchants scored safe.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-csb-spend-raw",
+   "quote": "Replaces the raw three-month card spend feature.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-small-business/feat-csb-spend-sa-v2.md",
+ "sha": "a1630c931ebca46f33f538cefc9172744f32936fe2d03530514c501be2f74e3f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

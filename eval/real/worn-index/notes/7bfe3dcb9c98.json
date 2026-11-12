@@ -1,0 +1,74 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-clv-offer-cost",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Offer credits are missing from CLV"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-clv-arpu-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-clv-arpu-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "offered-accounts",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "offered accounts"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fnd-clv-offer-cost",
+   "type": "measured-by",
+   "label": "overstates",
+   "o": "offered-accounts",
+   "quote": "offered accounts are overstated by 6.1%",
+   "line": 4
+  },
+  {
+   "s": "feat-clv-arpu-v2",
+   "type": "other",
+   "label": "fixes",
+   "o": "fnd-clv-offer-cost",
+   "quote": "Fixed in feat-clv-arpu-v2 (offer-netted ARPU).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-clv-arpu-v2"
+ ],
+ "built_on": [
+  {
+   "what": "exp-504",
+   "quote": "Builds on exp-504.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "customer-lifetime-value/fnd-clv-offer-cost.md",
+ "sha": "7bfe3dcb9c98d1303ee5a7e7debe42e4b662fc27f682ea0c4b817f98c668f539",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

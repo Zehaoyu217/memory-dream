@@ -1,0 +1,128 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cu-uplift-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cu-uplift-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-cu-dpd-roll-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-dpd-roll-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-cu-pay-behaviour",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-pay-behaviour"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-cu-treat-log",
+   "type": "dataset",
+   "label": "pilot data",
+   "as": [
+    "pilot arms",
+    "ds-cu-treat-log"
+   ],
+   "lines": [
+    7,
+    9
+   ]
+  },
+  {
+   "id": "cu-uplift-v2",
+   "type": "model",
+   "label": "successor model",
+   "as": [
+    "cu-uplift-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cu-resp-v1",
+   "type": "model",
+   "label": "response model",
+   "as": [
+    "the promise-to-pay response model"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cu-uplift-v1",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-cu-dpd-roll-v1",
+   "quote": "Features: feat-cu-dpd-roll-v1, feat-cu-pay-behaviour.",
+   "line": 6
+  },
+  {
+   "s": "cu-uplift-v1",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-cu-pay-behaviour",
+   "quote": "Features: feat-cu-dpd-roll-v1, feat-cu-pay-behaviour.",
+   "line": 6
+  },
+  {
+   "s": "cu-uplift-v1",
+   "type": "trained-on",
+   "label": "trained on",
+   "o": "ds-cu-treat-log",
+   "quote": "Trained on pilot arms through 2025-05-10",
+   "line": 7
+  },
+  {
+   "s": "cu-uplift-v2",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "cu-uplift-v1",
+   "quote": "Superseded by cu-uplift-v2 (2025-12-09).",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "cu-resp-v1",
+   "quote": "Builds on the promise-to-pay response model",
+   "line": 9
+  },
+  {
+   "what": "ds-cu-treat-log",
+   "quote": "ds-cu-treat-log",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-uplift/cu-uplift-v1.md",
+ "sha": "e70e8c4bbd606cb515ffc60c86f31dd232ec441b1028e526d8af6989426f7766",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

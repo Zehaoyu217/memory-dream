@@ -1,0 +1,161 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-ror-holdout-2025q3",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Holdout ror-oot-2025q3"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "august-2025-wave",
+   "type": "segment",
+   "label": "offer wave",
+   "as": [
+    "August 2025 offer wave"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "10-percent-control",
+   "type": "segment",
+   "label": "control",
+   "as": [
+    "10% randomised control"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "60-day-churn",
+   "type": "metric",
+   "label": "churn",
+   "as": [
+    "60-day churn"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-404",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-404"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-406",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-406"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-ror-redemptions",
+   "type": "dataset",
+   "label": "outcomes",
+   "as": [
+    "the retention offer outcomes dataset"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-ror-tier-matrix",
+   "type": "dataset",
+   "label": "tier matrix",
+   "as": [
+    "ds-ror-tier-matrix"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-ror-holdout-2025q3",
+   "type": "uses",
+   "label": "from",
+   "o": "august-2025-wave",
+   "quote": "48,015 accounts from the August 2025 offer wave, 10% randomised control",
+   "line": 4
+  },
+  {
+   "s": "ds-ror-holdout-2025q3",
+   "type": "uses",
+   "label": "randomised control",
+   "o": "10-percent-control",
+   "quote": "48,015 accounts from the August 2025 offer wave, 10% randomised control",
+   "line": 4
+  },
+  {
+   "s": "ds-ror-holdout-2025q3",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "60-day-churn",
+   "quote": "60-day churn: treated 5.1%, control 6.4%.",
+   "line": 6
+  },
+  {
+   "s": "exp-404",
+   "type": "evaluated-on",
+   "label": "test set for",
+   "o": "ds-ror-holdout-2025q3",
+   "quote": "Test set for ROI comparisons in exp-404 and exp-406.",
+   "line": 7
+  },
+  {
+   "s": "exp-406",
+   "type": "evaluated-on",
+   "label": "test set for",
+   "o": "ds-ror-holdout-2025q3",
+   "quote": "Test set for ROI comparisons in exp-404 and exp-406.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-404",
+  "exp-406",
+  "ds-ror-redemptions",
+  "ds-ror-tier-matrix"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ror-redemptions",
+   "quote": "Builds on the retention offer outcomes dataset and ds-ror-tier-matrix.",
+   "line": 8
+  },
+  {
+   "what": "ds-ror-tier-matrix",
+   "quote": "Builds on the retention offer outcomes dataset and ds-ror-tier-matrix.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "retention-offers-roi/ds-ror-holdout-2025q3.md",
+ "sha": "99011a244ec62562a08b2ca4abb540a11985c8b1197ce82f036fc93075a0f523",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

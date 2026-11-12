@@ -1,0 +1,199 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cr-lgbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "LightGBM multiclass v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4 (n = 380,000 calls)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc-macro-f1",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Macro F1 0.79",
+    "top-1 accuracy 0.84"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "cr-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cr-lgbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-104",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-104"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-cr-caller-history-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "caller history v1"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "feat-cr-ivr-path-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "IVR path tokens"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-cr-tenure-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "tenure and product count"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-cr-transcript-tfidf-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "TF-IDF SVD (200)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-101",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-101"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cr-lgbm-v1",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "holdout-2025q4",
+   "quote": "scored 2026-01-30",
+   "line": 6
+  },
+  {
+   "s": "cr-lgbm-v1",
+   "type": "measured-by",
+   "label": "macro F1",
+   "o": "auc-macro-f1",
+   "quote": "Macro F1 0.79 and top-1 accuracy 0.84 on holdout-2025q4",
+   "line": 6
+  },
+  {
+   "s": "cr-lgbm-v1",
+   "type": "uses",
+   "label": "inputs",
+   "o": "feat-cr-caller-history-v1",
+   "quote": "Inputs: TF-IDF SVD (200), IVR path tokens, caller history v1",
+   "line": 5
+  },
+  {
+   "s": "cr-lgbm-v1",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "cr-lgbm-v2",
+   "quote": "Superseded by cr-lgbm-v2 after the July 2026 out-of-time read (exp-104).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "cr-lgbm-v2",
+  "exp-104",
+  "exp-101"
+ ],
+ "built_on": [
+  {
+   "what": "exp-101",
+   "quote": "Builds on exp-101, feat-cr-caller-history-v1, feat-cr-ivr-path-v1, feat-cr-tenure-v1 and feat-cr-transcript-tfidf-v1.",
+   "line": 8
+  },
+  {
+   "what": "feat-cr-caller-history-v1",
+   "quote": "Builds on exp-101, feat-cr-caller-history-v1, feat-cr-ivr-path-v1, feat-cr-tenure-v1 and feat-cr-transcript-tfidf-v1.",
+   "line": 8
+  },
+  {
+   "what": "feat-cr-ivr-path-v1",
+   "quote": "Builds on exp-101, feat-cr-caller-history-v1, feat-cr-ivr-path-v1, feat-cr-tenure-v1 and feat-cr-transcript-tfidf-v1.",
+   "line": 8
+  },
+  {
+   "what": "feat-cr-tenure-v1",
+   "quote": "Builds on exp-101, feat-cr-caller-history-v1, feat-cr-ivr-path-v1, feat-cr-tenure-v1 and feat-cr-transcript-tfidf-v1.",
+   "line": 8
+  },
+  {
+   "what": "feat-cr-transcript-tfidf-v1",
+   "quote": "Builds on exp-101, feat-cr-caller-history-v1, feat-cr-ivr-path-v1, feat-cr-tenure-v1 and feat-cr-transcript-tfidf-v1.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "cr-lgbm-v2",
+   "quote": "Superseded by cr-lgbm-v2 after the July 2026 out-of-time read (exp-104).",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "call-center-routing/cr-lgbm-v1.md",
+ "sha": "b2f7a282eaa07b59f42686d676256d53d92dceb062d1e45074283f815bdf093b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

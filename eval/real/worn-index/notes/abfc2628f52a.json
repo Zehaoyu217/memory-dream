@@ -1,0 +1,168 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "mrisk-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "mrisk-gbm-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "mrisk-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "Superseded by mrisk-gbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-mrisk-merchant-month",
+   "type": "dataset",
+   "label": "panel",
+   "as": [
+    "merchant-month panel"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-mrisk-chargebacks",
+   "type": "dataset",
+   "label": "labels",
+   "as": [
+    "ds-mrisk-chargebacks"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.85"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  },
+  {
+   "id": "precision-at-100",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "precision@100 0.41"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "mrisk-oot-2025h2",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "mrisk-oot-2025h2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mrisk-gbm-v1",
+   "type": "trained-on",
+   "label": "trained on",
+   "o": "ds-mrisk-merchant-month",
+   "quote": "Gradient-boosted trees on the merchant-month panel",
+   "line": 5
+  },
+  {
+   "s": "mrisk-gbm-v1",
+   "type": "uses",
+   "label": "labels from",
+   "o": "ds-mrisk-chargebacks",
+   "quote": "Labels from ds-mrisk-chargebacks",
+   "line": 6
+  },
+  {
+   "s": "mrisk-gbm-v1",
+   "type": "measured-by",
+   "label": "gives AUC",
+   "o": "auc",
+   "quote": "AUC 0.85 and precision@100 0.41",
+   "line": 7
+  },
+  {
+   "s": "mrisk-gbm-v1",
+   "type": "measured-by",
+   "label": "gives precision",
+   "o": "precision-at-100",
+   "quote": "precision@100 0.41",
+   "line": 7
+  },
+  {
+   "s": "mrisk-gbm-v1",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "mrisk-oot-2025h2",
+   "quote": "AUC 0.85 and precision@100 0.41 on mrisk-oot-2025h2",
+   "line": 7
+  },
+  {
+   "s": "mrisk-gbm-v2",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "mrisk-gbm-v1",
+   "quote": "Superseded by mrisk-gbm-v2 on 2026-06-09.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-502"
+ ],
+ "built_on": [
+  {
+   "what": "ds-mrisk-merchant-month",
+   "quote": "Builds on ds-mrisk-merchant-month, feat-mrisk-cb-ratio-90d, feat-mrisk-new-merchant and the top-10-card volume share feature.",
+   "line": 8
+  },
+  {
+   "what": "feat-mrisk-cb-ratio-90d",
+   "quote": "Builds on ds-mrisk-merchant-month, feat-mrisk-cb-ratio-90d, feat-mrisk-new-merchant and the top-10-card volume share feature.",
+   "line": 8
+  },
+  {
+   "what": "feat-mrisk-new-merchant",
+   "quote": "Builds on ds-mrisk-merchant-month, feat-mrisk-cb-ratio-90d, feat-mrisk-new-merchant and the top-10-card volume share feature.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "mrisk-gbm-v1",
+   "quote": "Superseded by mrisk-gbm-v2 on 2026-06-09.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "merchant-risk/mrisk-gbm-v1.md",
+ "sha": "abfc2628f52a01944106eb099e9baef84b2cef2d4ef4636144b2d7a7d4d62ade",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

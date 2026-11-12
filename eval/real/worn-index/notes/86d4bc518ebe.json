@@ -1,0 +1,129 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "cb-elasticity-v1",
+   "type": "model",
+   "label": "elasticity estimate",
+   "as": [
+    "cb-elasticity-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cb-pilot-2025q4",
+   "type": "dataset",
+   "label": "pilot dataset",
+   "as": [
+    "2025 q4 cashback pilot dataset"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-cb-spend-base",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cb-spend-base"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "find-cb-flat-wins",
+   "type": "document",
+   "label": "finding",
+   "as": [
+    "find-cb-flat-wins"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cb-elasticity-v2",
+   "type": "model",
+   "label": "elasticity estimate",
+   "as": [
+    "cb-elasticity-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "pooled-elasticity",
+   "type": "metric",
+   "label": "elasticity",
+   "as": [
+    "Pooled elasticity 0.21"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cb-elasticity-v1",
+   "type": "trained-on",
+   "label": "regression on",
+   "o": "cb-pilot-2025q4",
+   "quote": "Regression of log monthly spend on log effective rewards rate across all three pilot cells",
+   "line": 5
+  },
+  {
+   "s": "cb-elasticity-v1",
+   "type": "measured-by",
+   "label": "pooled elasticity",
+   "o": "pooled-elasticity",
+   "quote": "Pooled elasticity 0.21: spend rises 0.21% per 1% rate increase.",
+   "line": 6
+  },
+  {
+   "s": "cb-elasticity-v1",
+   "type": "uses",
+   "label": "used in",
+   "o": "find-cb-flat-wins",
+   "quote": "Used in find-cb-flat-wins for the first profit comparison.",
+   "line": 6
+  },
+  {
+   "s": "cb-elasticity-v2",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "cb-elasticity-v1",
+   "quote": "Superseded by cb-elasticity-v2 once spend bands were checked.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "find-cb-flat-wins",
+  "cb-elasticity-v2"
+ ],
+ "built_on": [
+  {
+   "what": "cb-pilot-2025q4",
+   "quote": "Builds on the 2025 q4 cashback pilot dataset and feat-cb-spend-base.",
+   "line": 8
+  },
+  {
+   "what": "feat-cb-spend-base",
+   "quote": "Builds on the 2025 q4 cashback pilot dataset and feat-cb-spend-base.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/cb-elasticity-v1.md",
+ "sha": "86d4bc518ebe470b3b759fd39758693a3ce8692cde108527c08270cff7802288",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,115 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "bur_util_ratio_30d_v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "bur_util_ratio_30d_v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "psi",
+   "as": [
+    "PSI of 0.31"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "bureau-source-post-sept-2025",
+   "type": "dataset",
+   "label": "bureau source",
+   "as": [
+    "A new bureau source"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "reviewer",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "vintage-split",
+   "type": "term",
+   "label": "vintage split",
+   "as": [
+    "Split by vintage"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feature-drift-by-vintage",
+   "type": "document",
+   "label": "howto",
+   "as": [
+    "howto/feature-drift-by-vintage"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bur_util_ratio_30d_v1",
+   "type": "uses",
+   "label": "fed by",
+   "o": "bureau-source-post-sept-2025",
+   "quote": "A new bureau source for accounts opened after September 2025.",
+   "line": 4
+  },
+  {
+   "s": "bur_util_ratio_30d_v1",
+   "type": "measured-by",
+   "label": "has PSI",
+   "o": "psi",
+   "quote": "PSI of 0.31",
+   "line": 4
+  },
+  {
+   "s": "bureau-source-post-sept-2025",
+   "type": "other",
+   "label": "reviewed by",
+   "o": "lena-fischer",
+   "quote": "Lena Fischer reviewed the new source.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "howto/feature-drift-by-vintage"
+ ],
+ "built_on": [
+  {
+   "what": "feature-drift-by-vintage",
+   "quote": "Builds on howto/feature-drift-by-vintage.",
+   "line": 6
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/vintage-psi-bur-util.md",
+ "sha": "124f65bd3dd7b96001f155108ac40a90d835250286e57bd3282d2cdcfc52712e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

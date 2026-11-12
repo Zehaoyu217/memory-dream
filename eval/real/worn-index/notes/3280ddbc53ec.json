@@ -1,0 +1,129 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-203",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-203"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-cld-control-2025h2",
+   "type": "segment",
+   "label": "control group",
+   "as": [
+    "cld-control-2025h2"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "decreased-accounts",
+   "type": "segment",
+   "label": "decreased accounts",
+   "as": [
+    "decreased accounts"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "complaint-rate",
+   "type": "metric",
+   "label": "complaint rate",
+   "as": [
+    "complaint rate"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "feat-cld-complaint-flag",
+   "type": "feature",
+   "label": "complaint flag",
+   "as": [
+    "feat-cld-complaint-flag"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "find-cld-complaints-2x",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-cld-complaints-2x"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-203",
+   "type": "evaluated-on",
+   "label": "compared with",
+   "o": "ds-cld-control-2025h2",
+   "quote": "Compared decreased accounts (22,150) with cld-control-2025h2 (41,380, no decrease).",
+   "line": 5
+  },
+  {
+   "s": "exp-203",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "complaint-rate",
+   "quote": "Raw complaint rate ratio 2.3x",
+   "line": 6
+  },
+  {
+   "s": "exp-203",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-cld-complaint-flag",
+   "quote": "Builds on ds-cld-control-2025h2, feat-cld-complaint-flag and find-cld-complaints-2x.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-cld-control-2025h2",
+  "feat-cld-complaint-flag",
+  "find-cld-complaints-2x"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cld-control-2025h2",
+   "quote": "Builds on ds-cld-control-2025h2, feat-cld-complaint-flag and find-cld-complaints-2x.",
+   "line": 8
+  },
+  {
+   "what": "feat-cld-complaint-flag",
+   "quote": "Builds on ds-cld-control-2025h2, feat-cld-complaint-flag and find-cld-complaints-2x.",
+   "line": 8
+  },
+  {
+   "what": "find-cld-complaints-2x",
+   "quote": "Builds on ds-cld-control-2025h2, feat-cld-complaint-flag and find-cld-complaints-2x.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "limit-decrease-policy/exp-203.md",
+ "sha": "3280ddbc53ec24b5bf4281ad19a615a9d9719c853540a1db963f87ddce876687",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

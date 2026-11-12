@@ -1,0 +1,163 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cu-resp-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cu-resp-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "evaluation holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "feat-cu-dpd-roll-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-dpd-roll-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-cu-pay-behaviour",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-pay-behaviour"
+   ],
+   "lines": [
+    6,
+    9
+   ]
+  },
+  {
+   "id": "feat-cu-contact-hist-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-contact-hist-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-101",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-101"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-102",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-102"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "call-outcomes-ptp-label",
+   "type": "dataset",
+   "label": "label source",
+   "as": [
+    "the call outcomes promise-to-pay label source"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cu-resp-v1",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-cu-dpd-roll-v1",
+   "quote": "Features: feat-cu-dpd-roll-v1, feat-cu-pay-behaviour, feat-cu-contact-hist-v2.",
+   "line": 6
+  },
+  {
+   "s": "cu-resp-v1",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-cu-pay-behaviour",
+   "quote": "Features: feat-cu-dpd-roll-v1, feat-cu-pay-behaviour, feat-cu-contact-hist-v2.",
+   "line": 6
+  },
+  {
+   "s": "cu-resp-v1",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-cu-contact-hist-v2",
+   "quote": "Features: feat-cu-dpd-roll-v1, feat-cu-pay-behaviour, feat-cu-contact-hist-v2.",
+   "line": 6
+  },
+  {
+   "s": "cu-resp-v1",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q1",
+   "quote": "trained on 2024-H2 contacts and evaluated on holdout-2025q1.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-101",
+  "exp-102"
+ ],
+ "built_on": [
+  {
+   "what": "call-outcomes-ptp-label",
+   "quote": "Builds on the call outcomes promise-to-pay label source",
+   "line": 9
+  },
+  {
+   "what": "feat-cu-contact-hist-v2",
+   "quote": "the 30-day contact history feature",
+   "line": 9
+  },
+  {
+   "what": "feat-cu-dpd-roll-v1",
+   "quote": "the days-past-due roll pattern feature",
+   "line": 9
+  },
+  {
+   "what": "feat-cu-pay-behaviour",
+   "quote": "feat-cu-pay-behaviour",
+   "line": 6
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-uplift/cu-resp-v1.md",
+ "sha": "4dcd64bf5bbaa9242e661512e631e3bbdeb94b1d0bd264cd3fa0cfccdff8bdc0",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

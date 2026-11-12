@@ -1,0 +1,86 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-rs-contact-attempts",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rs-contact-attempts counts in-house contact attempts in the 60 days before placement, from callcenter.calls"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`callcenter.calls`"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "sms-delivery-log",
+   "type": "dataset",
+   "label": "source log",
+   "as": [
+    "the SMS delivery log"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-rs-chargeoff-base",
+   "type": "dataset",
+   "label": "base dataset",
+   "as": [
+    "ds-rs-chargeoff-base"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-rs-contact-attempts",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "callcenter.calls",
+   "quote": "Source: `callcenter.calls` and the SMS delivery log.",
+   "line": 6
+  },
+  {
+   "s": "feat-rs-contact-attempts",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "sms-delivery-log",
+   "quote": "Source: `callcenter.calls` and the SMS delivery log.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-rs-chargeoff-base"
+ ],
+ "built_on": [
+  {
+   "what": "ds-rs-chargeoff-base",
+   "quote": "Builds on ds-rs-chargeoff-base.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "recovery-scoring/feat-rs-contact-attempts.md",
+ "sha": "205b12319f7605e63145b884081d894de083f980187481d81fea5193fb3eff9c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

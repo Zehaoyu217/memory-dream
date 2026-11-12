@@ -1,0 +1,102 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-cb-call-linkage",
+   "type": "dataset",
+   "label": "linkage join",
+   "as": [
+    "Chat sessions joined to `callcenter.calls` on caller_key within 48 hours of session end"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "call table",
+   "as": [
+    "`callcenter.calls`"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cx-analytics",
+   "type": "team",
+   "label": "join builder",
+   "as": [
+    "Join built by cx-analytics and this project."
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-cb-sessions",
+   "type": "dataset",
+   "label": "session table",
+   "as": [
+    "Builds on ds-cb-sessions."
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "contained-sessions-2025",
+   "type": "segment",
+   "label": "contained sessions",
+   "as": [
+    "Of 312,000 contained sessions in 2025, 22 percent had a call within 48 hours."
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-cb-call-linkage",
+   "type": "uses",
+   "label": "joins",
+   "o": "callcenter.calls",
+   "quote": "joined to `callcenter.calls` on caller_key",
+   "line": 4
+  },
+  {
+   "s": "ds-cb-call-linkage",
+   "type": "owned-by",
+   "label": "built by",
+   "o": "cx-analytics",
+   "quote": "Join built by cx-analytics and this project.",
+   "line": 5
+  },
+  {
+   "s": "ds-cb-call-linkage",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-cb-sessions",
+   "quote": "Builds on ds-cb-sessions.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-cb-sessions",
+   "quote": "Builds on ds-cb-sessions.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "chatbot-deflection/ds-cb-call-linkage.md",
+ "sha": "a4222f425dea306b2749f82a9c544ccd18204e5930550f4285ce79057282474b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,94 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cli-spend-velocity",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "30-day over 90-day purchase volume ratio"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-cli-outcome-90d",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-cli-outcome-90d"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cli-logreg-baseline",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cli-logreg-baseline"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cli-spend-velocity",
+   "type": "uses",
+   "label": "computed from",
+   "o": "cards.txn_daily",
+   "quote": "30-day over 90-day purchase volume ratio from cards.txn_daily",
+   "line": 4
+  },
+  {
+   "s": "cli-logreg-baseline",
+   "type": "uses",
+   "label": "included in",
+   "o": "feat-cli-spend-velocity",
+   "quote": "Included in cli-logreg-baseline and every CLI model since.",
+   "line": 7
+  },
+  {
+   "s": "feat-cli-spend-velocity",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-cli-outcome-90d",
+   "quote": "Builds on ds-cli-outcome-90d.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "cli-logreg-baseline",
+  "ds-cli-outcome-90d"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cli-outcome-90d",
+   "quote": "Builds on ds-cli-outcome-90d.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/feat-cli-spend-velocity.md",
+ "sha": "a02ab5d5356cf7d5634637cd04084c3da1913c8331fc6a95ef255397bde286bc",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

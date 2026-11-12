@@ -1,0 +1,98 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "cross-sell-savings",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "cross-sell-savings"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "call-effect",
+   "type": "metric",
+   "label": "effect",
+   "as": [
+    "call effect"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "matching",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "Matching"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "payment-behavior-segments",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "payment-behavior-segments"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "gmm",
+   "type": "model",
+   "label": "clustering",
+   "as": [
+    "GMM k=5"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "kmeans",
+   "type": "model",
+   "label": "clustering",
+   "as": [
+    "kmeans"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cross-sell-savings",
+   "type": "measured-by",
+   "label": "naive effect",
+   "o": "call-effect",
+   "quote": "Naive call effect +1.8 pts",
+   "line": 3
+  },
+  {
+   "s": "gmm",
+   "type": "other",
+   "label": "more stable than",
+   "o": "kmeans",
+   "quote": "GMM k=5 more stable across seeds than kmeans",
+   "line": 4
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2025-09-24.md",
+ "sha": "ce17d0113f5d1ee7ee60aa49d034a4cd1d859ae72242316c93042f1b6f2204da",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

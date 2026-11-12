@@ -1,0 +1,143 @@
+{
+ "kind": "incident",
+ "entities": [
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "psi",
+   "as": [
+    "PSI"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "bureau-income-band",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "bureau income band"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "q4-promotion",
+   "type": "other",
+   "label": "promotion",
+   "as": [
+    "Q4 promotion"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "reviewer",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feature-drift-by-vintage",
+   "type": "document",
+   "label": "howto",
+   "as": [
+    "howto/feature-drift-by-vintage"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "psi-thresholds",
+   "type": "document",
+   "label": "howto",
+   "as": [
+    "howto/psi-thresholds"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bureau-income-band",
+   "type": "measured-by",
+   "label": "PSI above",
+   "o": "psi",
+   "quote": "The PSI was above 0.25",
+   "line": 5
+  },
+  {
+   "s": "q4-promotion",
+   "type": "other",
+   "label": "shifted",
+   "o": "bureau-income-band",
+   "quote": "the shift sits in accounts opened after September 2025, which is the Q4 promotion",
+   "line": 5
+  },
+  {
+   "s": "lena-fischer",
+   "type": "other",
+   "label": "agreed to document",
+   "o": "bureau-income-band",
+   "quote": "Lena Fischer agreed to document it rather than retrain.",
+   "line": 6
+  },
+  {
+   "s": "bureau-income-band",
+   "type": "measured-by",
+   "label": "KS moved",
+   "o": "ks",
+   "quote": "KS moved from 0.31 to 0.30.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "howto/feature-drift-by-vintage",
+  "howto/psi-thresholds"
+ ],
+ "built_on": [
+  {
+   "what": "feature-drift-by-vintage",
+   "quote": "Builds on howto/feature-drift-by-vintage and howto/psi-thresholds.",
+   "line": 7
+  },
+  {
+   "what": "psi-thresholds",
+   "quote": "Builds on howto/feature-drift-by-vintage and howto/psi-thresholds.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/psi-march-2026-income-band.md",
+ "sha": "5267d3321e04639c95b1b6d0c62abffb45831f88d16400b596e93e044c051110",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

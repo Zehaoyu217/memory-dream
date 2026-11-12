@@ -1,0 +1,76 @@
+{
+ "kind": "incident",
+ "entities": [
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "txn table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "data-eng-cards",
+   "type": "team",
+   "label": "data engineering team",
+   "as": [
+    "data-eng-cards"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "DE-4411",
+   "type": "issue",
+   "label": "ticket",
+   "as": [
+    "DE-4411"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-velocity-v2",
+   "type": "feature",
+   "label": "velocity features",
+   "as": [
+    "velocity features"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cards.txn_daily",
+   "type": "uses",
+   "label": "feeds",
+   "o": "feat-velocity-v2",
+   "quote": "The txn table feeds the velocity features",
+   "line": 6
+  },
+  {
+   "s": "DE-4411",
+   "type": "owned-by",
+   "label": "ticket of",
+   "o": "data-eng-cards",
+   "quote": "data-eng-cards ticket DE-4411",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2026/txn-backfill.md",
+ "sha": "522ea5d43f001eceb5cf160dafc615ed04f38c3c67c54363281f184e3b1a695a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

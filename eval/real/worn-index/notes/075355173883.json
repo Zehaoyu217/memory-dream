@@ -1,0 +1,216 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-cu-promote-v3",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: promote cu-uplift-v3 to call routing"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cu-uplift-v3",
+   "type": "model",
+   "label": "uplift model",
+   "as": [
+    "cu-uplift-v3"
+   ],
+   "lines": [
+    4,
+    9
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "credit risk",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "raj-patel",
+   "type": "person",
+   "label": "collections",
+   "as": [
+    "Raj Patel"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "aisha-khan",
+   "type": "person",
+   "label": "mlops",
+   "as": [
+    "Aisha Khan"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "1-7-dpd-accounts",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "1-7 DPD accounts"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "8-29-dpd-accounts",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "8-29 DPD accounts in the top 20%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "uplift",
+   "type": "metric",
+   "label": "uplift",
+   "as": [
+    "uplift +0.005"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "collections-channel-mix",
+   "type": "other",
+   "label": "channel test",
+   "as": [
+    "wave-2 channel test in collections-channel-mix"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "find-cu-bureau-lift",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-cu-bureau-lift"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "find-cu-sms-cost",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-cu-sms-cost"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-cu-promote-v3",
+   "type": "other",
+   "label": "promotes",
+   "o": "cu-uplift-v3",
+   "quote": "Decision: promote cu-uplift-v3 to call routing",
+   "line": 4
+  },
+  {
+   "s": "dec-cu-promote-v3",
+   "type": "owned-by",
+   "label": "approved by",
+   "o": "lena-fischer",
+   "quote": "Approved 2026-03-25 by Lena Fischer and Raj Patel",
+   "line": 5
+  },
+  {
+   "s": "dec-cu-promote-v3",
+   "type": "owned-by",
+   "label": "approved by",
+   "o": "raj-patel",
+   "quote": "Approved 2026-03-25 by Lena Fischer and Raj Patel",
+   "line": 5
+  },
+  {
+   "s": "dec-cu-promote-v3",
+   "type": "owned-by",
+   "label": "signed off by",
+   "o": "aisha-khan",
+   "quote": "with Aisha Khan (MLOps) signing off on the scoring job.",
+   "line": 5
+  },
+  {
+   "s": "dec-cu-promote-v3",
+   "type": "other",
+   "label": "routes SMS",
+   "o": "1-7-dpd-accounts",
+   "quote": "1-7 DPD accounts get SMS by default and a call only if in the top 20% by uplift v3.",
+   "line": 6
+  },
+  {
+   "s": "dec-cu-promote-v3",
+   "type": "measured-by",
+   "label": "expected gain",
+   "o": "uplift",
+   "quote": "Expected gain: uplift +0.005 over v2 on collections-uplift-oot-2026h1.",
+   "line": 7
+  },
+  {
+   "s": "collections-channel-mix",
+   "type": "other",
+   "label": "sets channel mix",
+   "o": "8-29-dpd-accounts",
+   "quote": "Channel mix for 8-29 DPD non-top accounts is being set by the wave-2 channel test in collections-channel-mix.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "cu-uplift-v3",
+  "find-cu-bureau-lift",
+  "find-cu-sms-cost",
+  "collections-channel-mix"
+ ],
+ "built_on": [
+  {
+   "what": "cu-uplift-v3",
+   "quote": "Builds on cu-uplift-v3, find-cu-bureau-lift and find-cu-sms-cost.",
+   "line": 9
+  },
+  {
+   "what": "find-cu-bureau-lift",
+   "quote": "Builds on cu-uplift-v3, find-cu-bureau-lift and find-cu-sms-cost.",
+   "line": 9
+  },
+  {
+   "what": "find-cu-sms-cost",
+   "quote": "Builds on cu-uplift-v3, find-cu-bureau-lift and find-cu-sms-cost.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-uplift/dec-cu-promote-v3.md",
+ "sha": "075355173883bfe9b9bfd0fa6a9601baa3a9d9ca7cc74cf9d496c90e2ae180ef",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

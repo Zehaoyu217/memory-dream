@@ -1,0 +1,115 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "hp-rollmodel-v1",
+   "type": "model",
+   "label": "roll model",
+   "as": [
+    "hp-rollmodel-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-hp-roll-matrix",
+   "type": "dataset",
+   "label": "transition input",
+   "as": [
+    "the transition matrix in ds-hp-roll-matrix"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "hp-psm-v2",
+   "type": "model",
+   "label": "effect source",
+   "as": [
+    "the enrolment effect from hp-psm-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-407",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-407"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "charge-off-change",
+   "type": "metric",
+   "label": "output estimate",
+   "as": [
+    "long-run charge-off change of -0.9pp per enrolled account"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "hp-rollmodel-v1",
+   "type": "uses",
+   "label": "takes input",
+   "o": "ds-hp-roll-matrix",
+   "quote": "Inputs: the transition matrix in ds-hp-roll-matrix",
+   "line": 5
+  },
+  {
+   "s": "hp-rollmodel-v1",
+   "type": "uses",
+   "label": "takes effect from",
+   "o": "hp-psm-v2",
+   "quote": "the enrolment effect from hp-psm-v2 (-4.7pp on the 30-to-60 roll)",
+   "line": 5
+  },
+  {
+   "s": "hp-rollmodel-v1",
+   "type": "measured-by",
+   "label": "outputs",
+   "o": "charge-off-change",
+   "quote": "Output: long-run charge-off change of -0.9pp per enrolled account (exp-407).",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-407"
+ ],
+ "built_on": [
+  {
+   "what": "ds-hp-roll-matrix",
+   "quote": "Builds on ds-hp-roll-matrix, exp-407 and the caliper-based hardship matching model.",
+   "line": 8
+  },
+  {
+   "what": "exp-407",
+   "quote": "Builds on ds-hp-roll-matrix, exp-407 and the caliper-based hardship matching model.",
+   "line": 8
+  },
+  {
+   "what": "hp-psm-v2",
+   "quote": "Builds on ds-hp-roll-matrix, exp-407 and the caliper-based hardship matching model.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "hardship-programs/hp-rollmodel-v1.md",
+ "sha": "f438a1d55b4fcb83326affde103a962468831a15b24f24a99d3236624dee79c1",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

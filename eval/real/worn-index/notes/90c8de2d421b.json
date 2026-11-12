@@ -1,0 +1,181 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cli-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cli-xgb-v2: adds utilisation slope and bureau delta, AUC 0.74 and KS 0.35 on holdout-2025q4"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cli-xgb-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "first xgboost loss model"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "feat-cli-util-v2",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "feat-cli-util-v2"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-cli-bureau-delta",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cli-bureau-delta"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "Eval: holdout-2025q4, n=118,400"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.74"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "KS 0.35"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "exp-106",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "Out-of-time result on cli-oot-2026h1 is in exp-106 (AUC 0.72)."
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cli-xgb-v2",
+   "type": "uses",
+   "label": "adds",
+   "o": "feat-cli-util-v2",
+   "quote": "Same trees as v1 plus feat-cli-util-v2",
+   "line": 5
+  },
+  {
+   "s": "cli-xgb-v2",
+   "type": "uses",
+   "label": "adds",
+   "o": "feat-cli-bureau-delta",
+   "quote": "plus feat-cli-util-v2 and feat-cli-bureau-delta",
+   "line": 5
+  },
+  {
+   "s": "cli-xgb-v2",
+   "type": "evaluated-on",
+   "label": "eval on",
+   "o": "holdout-2025q4",
+   "quote": "Eval: holdout-2025q4, n=118,400",
+   "line": 6
+  },
+  {
+   "s": "cli-xgb-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.74",
+   "line": 4
+  },
+  {
+   "s": "cli-xgb-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "ks",
+   "quote": "KS 0.35",
+   "line": 4
+  },
+  {
+   "s": "cli-xgb-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "cli-xgb-v1",
+   "quote": "Replaces the first xgboost loss model.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "exp-106"
+ ],
+ "built_on": [
+  {
+   "what": "cli-xgb-v1",
+   "quote": "Builds on cli-xgb-v1",
+   "line": 8
+  },
+  {
+   "what": "feat-cli-bureau-delta",
+   "quote": "the bureau score change feature",
+   "line": 8
+  },
+  {
+   "what": "feat-cli-util-v2",
+   "quote": "feat-cli-util-v2",
+   "line": 5
+  }
+ ],
+ "replaces": [
+  {
+   "what": "cli-xgb-v1",
+   "quote": "Replaces the first xgboost loss model.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/cli-xgb-v2.md",
+ "sha": "90c8de2d421b8837e4e89e729a17a518641310823ca4cbac774c4f3a7d2c6574",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

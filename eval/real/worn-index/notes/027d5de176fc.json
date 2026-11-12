@@ -1,0 +1,147 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "app-scorecard-v3",
+   "type": "model",
+   "label": "v3 scorecard",
+   "as": [
+    "app-scorecard-v3"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-app-bureau-v10-band",
+   "type": "feature",
+   "label": "mapped v10 band",
+   "as": [
+    "mapped v10 band"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "v8-band",
+   "type": "feature",
+   "label": "v8 bands",
+   "as": [
+    "v8 bands"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-app-bureau-v10-band",
+   "type": "other",
+   "label": "lifts Gini",
+   "o": "gini",
+   "quote": "v10 bands lift Gini from 0.41 to 0.44 against the v8 bands",
+   "line": 4
+  },
+  {
+   "s": "v8-band",
+   "type": "measured-by",
+   "label": "Gini",
+   "o": "gini",
+   "quote": "Gini 0.41 on v8 bands and 0.44 on v10 bands",
+   "line": 6
+  },
+  {
+   "s": "feat-app-bureau-v10-band",
+   "type": "measured-by",
+   "label": "Gini",
+   "o": "gini",
+   "quote": "Gini 0.41 on v8 bands and 0.44 on v10 bands",
+   "line": 6
+  },
+  {
+   "s": "v8-band",
+   "type": "measured-by",
+   "label": "KS",
+   "o": "ks",
+   "quote": "KS 0.36 against 0.38",
+   "line": 6
+  },
+  {
+   "s": "feat-app-bureau-v10-band",
+   "type": "measured-by",
+   "label": "KS",
+   "o": "ks",
+   "quote": "KS 0.36 against 0.38",
+   "line": 6
+  },
+  {
+   "s": "feat-app-bureau-v10-band",
+   "type": "evaluated-on",
+   "label": "same holdout",
+   "o": "holdout-2025q1",
+   "quote": "same holdout",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "feat-app-bureau-v10-band",
+  "app-scorecard-v4"
+ ],
+ "built_on": [
+  {
+   "what": "app-scorecard-v3",
+   "quote": "Builds on app-scorecard-v3 and feat-app-bureau-v10-band.",
+   "line": 8
+  },
+  {
+   "what": "feat-app-bureau-v10-band",
+   "quote": "Builds on app-scorecard-v3 and feat-app-bureau-v10-band.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "application-scorecard/exp-505.md",
+ "sha": "027d5de176fc6b5321b91ec714199bae484130a8918517337470c1257c57629e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

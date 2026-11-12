@@ -1,0 +1,183 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "ror-roi-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ror-roi-v1",
+    "expected ROI per account per tier = uplift times expected revenue, minus offer cost"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ror-uplift-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "using ror-uplift-v1",
+    "the t-learner uplift model"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "ds-ror-tier-matrix",
+   "type": "dataset",
+   "label": "matrix v3 costs",
+   "as": [
+    "matrix v3 costs"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-ror-holdout-2025q3",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "ror-oot-2025q3"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "roi",
+   "type": "metric",
+   "label": "roi",
+   "as": [
+    "Realised ROI"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-401",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-401"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-404",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-404"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-ror-expected-revenue",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ror-expected-revenue"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ror-roi-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ror-roi-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ror-roi-v1",
+   "type": "uses",
+   "label": "using",
+   "o": "ror-uplift-v1",
+   "quote": "Ranks the five tiers for each account using ror-uplift-v1 and the matrix v3 costs.",
+   "line": 5
+  },
+  {
+   "s": "ror-roi-v1",
+   "type": "uses",
+   "label": "using",
+   "o": "ds-ror-tier-matrix",
+   "quote": "Ranks the five tiers for each account using ror-uplift-v1 and the matrix v3 costs.",
+   "line": 5
+  },
+  {
+   "s": "ror-roi-v1",
+   "type": "measured-by",
+   "label": "realised",
+   "o": "roi",
+   "quote": "Realised ROI on ror-oot-2025q3 is 1.49x (exp-404)",
+   "line": 6
+  },
+  {
+   "s": "ror-roi-v1",
+   "type": "evaluated-on",
+   "label": "on",
+   "o": "ds-ror-holdout-2025q3",
+   "quote": "Realised ROI on ror-oot-2025q3 is 1.49x",
+   "line": 6
+  },
+  {
+   "s": "ror-roi-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "ror-roi-v1",
+   "quote": "Superseded by ror-roi-v2.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ror-uplift-v1",
+  "ror-roi-v2",
+  "exp-401",
+  "exp-404",
+  "feat-ror-expected-revenue",
+  "ds-ror-tier-matrix",
+  "ds-ror-holdout-2025q3"
+ ],
+ "built_on": [
+  {
+   "what": "exp-401",
+   "quote": "Builds on exp-401, feat-ror-expected-revenue and the t-learner uplift model.",
+   "line": 8
+  },
+  {
+   "what": "feat-ror-expected-revenue",
+   "quote": "Builds on exp-401, feat-ror-expected-revenue and the t-learner uplift model.",
+   "line": 8
+  },
+  {
+   "what": "ror-uplift-v1",
+   "quote": "Builds on exp-401, feat-ror-expected-revenue and the t-learner uplift model.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "retention-offers-roi/ror-roi-v1.md",
+ "sha": "0c5a375d6b0a8324aacf19ae5b0c9539f50b57c699d21f91c36c72239cc96e5f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

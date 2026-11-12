@@ -1,0 +1,111 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-sfc-drop-prophet",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: drop Prophet from the segment forecast"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "sfc-prophet-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "sfc-prophet-v1"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "sfc-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "sfc-lgbm-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-206",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-206"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "6.9% 1-month MAPE"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-sfc-drop-prophet",
+   "type": "measured-by",
+   "label": "gave MAPE",
+   "o": "auc",
+   "quote": "Prophet gave 6.9% 1-month MAPE against 5.1% for sfc-lgbm-v2",
+   "line": 5
+  },
+  {
+   "s": "exp-206",
+   "type": "other",
+   "label": "informs",
+   "o": "dec-sfc-drop-prophet",
+   "quote": "(exp-206)",
+   "line": 5
+  },
+  {
+   "s": "sfc-prophet-v1",
+   "type": "other",
+   "label": "stays in repo",
+   "o": "dec-sfc-drop-prophet",
+   "quote": "sfc-prophet-v1 stays in the repo for reference only.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "sfc-prophet-v1"
+ ],
+ "built_on": [
+  {
+   "what": "exp-206",
+   "quote": "Builds on exp-206 and sfc-prophet-v1.",
+   "line": 8
+  },
+  {
+   "what": "sfc-prophet-v1",
+   "quote": "Builds on exp-206 and sfc-prophet-v1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "spend-forecasting/dec-sfc-drop-prophet.md",
+ "sha": "6c32eb25af06d9dfb8a1859554d8cbfe02e14f375e9525554d81aaf7d8e365c8",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

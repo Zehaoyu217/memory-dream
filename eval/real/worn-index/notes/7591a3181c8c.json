@@ -1,0 +1,74 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-fsm-store-registry",
+   "type": "dataset",
+   "label": "feature registry",
+   "as": [
+    "Feature registry export"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-fsm-legacy-features",
+   "type": "dataset",
+   "label": "legacy features dataset",
+   "as": [
+    "the legacy features dataset"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-103",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-103"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-fsm-store-registry",
+   "type": "uses",
+   "label": "migrated from",
+   "o": "ds-fsm-legacy-features",
+   "quote": "214 migrated from legacy",
+   "line": 5
+  },
+  {
+   "s": "exp-103",
+   "type": "other",
+   "label": "flagged",
+   "o": "ds-fsm-store-registry",
+   "quote": "the 41 names that exp-103 flagged",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-fsm-naming-rule"
+ ],
+ "built_on": [
+  {
+   "what": "ds-fsm-legacy-features",
+   "quote": "Builds on the legacy features dataset.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "feature-store-migration/ds-fsm-store-registry.md",
+ "sha": "7591a3181c8ce364c0879afb0b31af95ca7a1f77b6bce3a7fc56d602c9cc8446",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

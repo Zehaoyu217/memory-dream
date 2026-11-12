@@ -1,0 +1,76 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "theme-shares",
+   "type": "feature",
+   "label": "feature family",
+   "as": [
+    "Theme shares"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "nps-ridge-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "nps-ridge-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "open-text-themes",
+   "type": "term",
+   "label": "source",
+   "as": [
+    "ds-nps-open-text"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "theme-shares",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "open-text-themes",
+   "quote": "Source: the coded output in ds-nps-open-text",
+   "line": 6
+  },
+  {
+   "s": "nps-ridge-v1",
+   "type": "uses",
+   "label": "only feature family",
+   "o": "theme-shares",
+   "quote": "Only feature family in nps-ridge-v1",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-nps-open-text",
+  "nps-ridge-v1"
+ ],
+ "built_on": [
+  {
+   "what": "ds-nps-open-text",
+   "quote": "Builds on ds-nps-open-text.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "nps-drivers/feat-nps-theme-share-v1.md",
+ "sha": "69cc2d4ccf7e80bf0689f2698c9faad65a47cca4aad6a85094fcf6d11c1a0a2f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

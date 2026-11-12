@@ -1,0 +1,72 @@
+{
+ "kind": "term",
+ "entities": [
+  {
+   "id": "churn",
+   "type": "metric",
+   "label": "churn label",
+   "as": [
+    "churn label"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.churn_labels",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`cards.churn_labels`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "backfiller",
+   "as": [
+    "Tomás Rivera's team"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn",
+   "type": "part-of",
+   "label": "in",
+   "o": "cards.churn_labels",
+   "quote": "The current churn label in `cards.churn_labels` uses a 90-day window.",
+   "line": 5
+  },
+  {
+   "s": "tomas-rivera",
+   "type": "produces",
+   "label": "backfilled",
+   "o": "cards.churn_labels",
+   "quote": "Tomás Rivera's team backfilled the table from 2024-01",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "replaces": [
+  {
+   "what": "churn-label-60d",
+   "quote": "Replaces churn-label-60d.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/churn-label-90d.md",
+ "sha": "e5a3bca8bb9936bdeb4aa0113df95f4af02b1cf7018b382bdd44375fdfc2a1d1",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

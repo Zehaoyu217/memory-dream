@@ -1,0 +1,92 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-rev26-no-haircut",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Interest v1 is within 2% of accrued interest without a haircut, so no haircut is needed"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "rev26-interest-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rev26-interest-v1"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "exp-302",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-302"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fnd-rev26-haircut-required",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-rev26-haircut-required"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fnd-rev26-no-haircut",
+   "type": "measured-by",
+   "label": "within 2%",
+   "o": "rev26-interest-v1",
+   "quote": "rev26-interest-v1 without a haircut is within 2% of accrued interest",
+   "line": 5
+  },
+  {
+   "s": "fnd-rev26-haircut-required",
+   "type": "other",
+   "label": "overturns",
+   "o": "fnd-rev26-no-haircut",
+   "quote": "Overturned by fnd-rev26-haircut-required",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-rev26-haircut-required",
+  "exp-302"
+ ],
+ "built_on": [
+  {
+   "what": "exp-302",
+   "quote": "Builds on exp-302 and rev26-interest-v1.",
+   "line": 8
+  },
+  {
+   "what": "rev26-interest-v1",
+   "quote": "Builds on exp-302 and rev26-interest-v1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "revenue-forecast-2026/fnd-rev26-no-haircut.md",
+ "sha": "0dd4ad2483afdd3676da5634d67d57d6a62a16db44f233ad5689ccf8886673a8",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

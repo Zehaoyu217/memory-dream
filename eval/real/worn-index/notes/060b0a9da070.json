@@ -1,0 +1,134 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "app-scorecard-v3",
+   "type": "model",
+   "label": "scorecard",
+   "as": [
+    "points-based logistic scorecard"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ds-app-applications-2024",
+   "type": "dataset",
+   "label": "applications",
+   "as": [
+    "ds-app-applications-2024"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-app-util-new",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "the external card utilisation feature at application"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-app-velocity-apps",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-app-velocity-apps"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "app-scorecard-v4",
+   "type": "model",
+   "label": "scorecard",
+   "as": [
+    "app-scorecard-v4"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "app-scorecard-v3",
+   "type": "uses",
+   "label": "built on",
+   "o": "feat-app-util-new",
+   "quote": "Builds on ds-app-applications-2024, the external card utilisation feature at application and feat-app-velocity-apps.",
+   "line": 8
+  },
+  {
+   "s": "app-scorecard-v3",
+   "type": "uses",
+   "label": "built on",
+   "o": "feat-app-velocity-apps",
+   "quote": "Builds on ds-app-applications-2024, the external card utilisation feature at application and feat-app-velocity-apps.",
+   "line": 8
+  },
+  {
+   "s": "app-scorecard-v3",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q1",
+   "quote": "Eval: holdout-2025q1 (n=21,300)",
+   "line": 6
+  },
+  {
+   "s": "app-scorecard-v4",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "app-scorecard-v3",
+   "quote": "Superseded by app-scorecard-v4 (2026-10-22).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "find-app-gini-v3-drift"
+ ],
+ "built_on": [
+  {
+   "what": "ds-app-applications-2024",
+   "quote": "Builds on ds-app-applications-2024, the external card utilisation feature at application and feat-app-velocity-apps.",
+   "line": 8
+  },
+  {
+   "what": "feat-app-util-new",
+   "quote": "the external card utilisation feature at application",
+   "line": 8
+  },
+  {
+   "what": "feat-app-velocity-apps",
+   "quote": "feat-app-velocity-apps.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "application-scorecard/app-scorecard-v3.md",
+ "sha": "060b0a9da0703fb6ca5d7d96d90e8ca2cc07f6b8e19c0ae1d06b923c79ded64d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

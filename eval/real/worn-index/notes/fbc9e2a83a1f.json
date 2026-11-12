@@ -1,0 +1,85 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-c25-accounts-snapshot",
+   "type": "dataset",
+   "label": "base population",
+   "as": [
+    "Churn-2025 base population: 1.18M account-months from cards.accounts_monthly"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "cards.limits_history",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.limits_history"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "util-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "util-v2"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-c25-accounts-snapshot",
+   "type": "part-of",
+   "label": "from",
+   "o": "cards.accounts_monthly",
+   "quote": "Month-end snapshots of open consumer accounts from `cards.accounts_monthly`",
+   "line": 5
+  },
+  {
+   "s": "ds-c25-accounts-snapshot",
+   "type": "uses",
+   "label": "joins",
+   "o": "cards.limits_history",
+   "quote": "Limit changes come from `cards.limits_history`, joined for util-v2.",
+   "line": 8
+  },
+  {
+   "s": "util-v2",
+   "type": "uses",
+   "label": "joined for",
+   "o": "cards.limits_history",
+   "quote": "joined for util-v2",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2025/ds-c25-accounts-snapshot.md",
+ "sha": "fbc9e2a83a1f53df34e068246abc141f834c659bc82dcd98a75d1e7b1629b25b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

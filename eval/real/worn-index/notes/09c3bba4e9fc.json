@@ -1,0 +1,126 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "pbs-gmm-v3",
+   "type": "model",
+   "label": "segment model",
+   "as": [
+    "pbs-gmm-v3"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "pbs-gmm-v2",
+   "type": "model",
+   "label": "segment model",
+   "as": [
+    "the pbs-gmm-v2 inputs"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-pbs-timing-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-pbs-timing-v2"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "exp-403",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-403"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-pbs-frame-h1-2025",
+   "type": "dataset",
+   "label": "frame",
+   "as": [
+    "ds-pbs-frame-h1-2025"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-pbs-monthly-refresh",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-pbs-monthly-refresh"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "pbs-gmm-v3",
+   "type": "uses",
+   "label": "built on inputs",
+   "o": "feat-pbs-timing-v2",
+   "quote": "on the pbs-gmm-v2 inputs plus feat-pbs-timing-v2",
+   "line": 5
+  },
+  {
+   "s": "pbs-gmm-v3",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "pbs-gmm-v2",
+   "quote": "Replaces the second gmm segment model.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "dec-pbs-monthly-refresh",
+  "ds-pbs-frame-h1-2025"
+ ],
+ "built_on": [
+  {
+   "what": "exp-403",
+   "quote": "Builds on exp-403, feat-pbs-timing-v2 and the second gmm segment model.",
+   "line": 8
+  },
+  {
+   "what": "feat-pbs-timing-v2",
+   "quote": "Builds on exp-403, feat-pbs-timing-v2 and the second gmm segment model.",
+   "line": 8
+  },
+  {
+   "what": "pbs-gmm-v2",
+   "quote": "Builds on exp-403, feat-pbs-timing-v2 and the second gmm segment model.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "pbs-gmm-v2",
+   "quote": "Replaces the second gmm segment model.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "payment-behavior-segments/pbs-gmm-v3.md",
+ "sha": "09c3bba4e9fc6f946dfa551a7503a4181d5a3ac7ca6b60731a63915ff1528bd7",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,145 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-rdm-contact-channels",
+   "type": "dataset",
+   "label": "contact channels",
+   "as": [
+    "Contact channels from crm.contacts"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "crm.contacts",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "crm.contacts"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "email-consent",
+   "type": "metric",
+   "label": "consent rate",
+   "as": [
+    "email consent 61%"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "sms-consent",
+   "type": "metric",
+   "label": "consent rate",
+   "as": [
+    "SMS consent 44%"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "email_opt_in",
+   "type": "feature",
+   "label": "consent flag",
+   "as": [
+    "email_opt_in"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sms_opt_in",
+   "type": "feature",
+   "label": "consent flag",
+   "as": [
+    "sms_opt_in"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-rdm-app-installed",
+   "type": "feature",
+   "label": "push-capable flag",
+   "as": [
+    "Push-capable"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-rdm-dormant-pool",
+   "type": "segment",
+   "label": "dormant pool",
+   "as": [
+    "dormant pool"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-rdm-contact-channels",
+   "type": "uses",
+   "label": "read from",
+   "o": "crm.contacts",
+   "quote": "Consent flags: email_opt_in and sms_opt_in in `crm.contacts`, read at list build time.",
+   "line": 5
+  },
+  {
+   "s": "email_opt_in",
+   "type": "part-of",
+   "label": "in",
+   "o": "crm.contacts",
+   "quote": "email_opt_in and sms_opt_in in `crm.contacts`",
+   "line": 5
+  },
+  {
+   "s": "sms_opt_in",
+   "type": "part-of",
+   "label": "in",
+   "o": "crm.contacts",
+   "quote": "email_opt_in and sms_opt_in in `crm.contacts`",
+   "line": 5
+  },
+  {
+   "s": "email-consent",
+   "type": "part-of",
+   "label": "share of",
+   "o": "ds-rdm-dormant-pool",
+   "quote": "email consent 61%, SMS consent 44% of the dormant pool",
+   "line": 4
+  },
+  {
+   "s": "sms-consent",
+   "type": "part-of",
+   "label": "share of",
+   "o": "ds-rdm-dormant-pool",
+   "quote": "email consent 61%, SMS consent 44% of the dormant pool",
+   "line": 4
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reactivation-dormant/ds-rdm-contact-channels.md",
+ "sha": "a385fcf39300a7ea1e28cbb63d423b5bb7fad9f0af7ddefb40c4759d39985204",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

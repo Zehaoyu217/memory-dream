@@ -1,0 +1,190 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-203",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-203"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-sfc-season-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-sfc-season-v2"
+   ],
+   "lines": [
+    5,
+    9
+   ]
+  },
+  {
+   "id": "exp-202",
+   "type": "other",
+   "label": "model experiment",
+   "as": [
+    "exp-202"
+   ],
+   "lines": [
+    5,
+    9
+   ]
+  },
+  {
+   "id": "sfc-bt-2024",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "sfc-bt-2024"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "1-month MAPE"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "premier",
+   "type": "segment",
+   "label": "customer segment",
+   "as": [
+    "Premier"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "small-business",
+   "type": "segment",
+   "label": "customer segment",
+   "as": [
+    "Small business"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "student",
+   "type": "segment",
+   "label": "customer segment",
+   "as": [
+    "Student"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-204",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-204"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-203",
+   "type": "uses",
+   "label": "adds",
+   "o": "feat-sfc-season-v2",
+   "quote": "Adds feat-sfc-season-v2 to the exp-202 model, sfc-bt-2024",
+   "line": 5
+  },
+  {
+   "s": "exp-203",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "sfc-bt-2024",
+   "quote": "Adds feat-sfc-season-v2 to the exp-202 model, sfc-bt-2024",
+   "line": 5
+  },
+  {
+   "s": "exp-203",
+   "type": "measured-by",
+   "label": "1-month MAPE",
+   "o": "mape",
+   "quote": "1-month MAPE 5.2% (from 5.6%)",
+   "line": 6
+  },
+  {
+   "s": "exp-203",
+   "type": "other",
+   "label": "gain mostly in",
+   "o": "premier",
+   "quote": "Most of the gain is in Premier and Small business",
+   "line": 7
+  },
+  {
+   "s": "exp-203",
+   "type": "other",
+   "label": "gain mostly in",
+   "o": "small-business",
+   "quote": "Most of the gain is in Premier and Small business",
+   "line": 7
+  },
+  {
+   "s": "student",
+   "type": "measured-by",
+   "label": "still 9.7%",
+   "o": "mape",
+   "quote": "Student still 9.7%",
+   "line": 7
+  },
+  {
+   "s": "exp-203",
+   "type": "other",
+   "label": "next step",
+   "o": "exp-204",
+   "quote": "CPI lag tested next (exp-204)",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-204",
+  "exp-202",
+  "feat-sfc-season-v2"
+ ],
+ "built_on": [
+  {
+   "what": "exp-202",
+   "quote": "Builds on exp-202 and feat-sfc-season-v2.",
+   "line": 9
+  },
+  {
+   "what": "feat-sfc-season-v2",
+   "quote": "Builds on exp-202 and feat-sfc-season-v2.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "spend-forecasting/exp-203.md",
+ "sha": "6b32b2d54e1fcfa6640682ea2cc12013a971af062430eb0aa94502f5a8f5d471",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

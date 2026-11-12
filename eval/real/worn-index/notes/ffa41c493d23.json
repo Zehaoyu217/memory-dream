@@ -1,0 +1,107 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-407",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-407: ROI model v2 candidate on the 2026-Q1 wave: realised ROI 1.63x, against 1.52x for ror-roi-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ror-roi-v2",
+   "type": "model",
+   "label": "roi model",
+   "as": [
+    "Candidate ror-roi-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-ror-value-band-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "value band v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ror-roi-v1",
+   "type": "model",
+   "label": "roi model",
+   "as": [
+    "v1"
+   ],
+   "lines": [
+    4,
+    5,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "ror-uplift-v1",
+   "type": "model",
+   "label": "uplift model",
+   "as": [
+    "ror-uplift-v1"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ror-roi-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-ror-value-band-v2",
+   "quote": "Candidate ror-roi-v2 uses value band v2",
+   "line": 5
+  },
+  {
+   "s": "ror-roi-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "ror-uplift-v1",
+   "quote": "uses value band v2 and ror-uplift-v1",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "exp-406",
+   "quote": "Builds on exp-406, feat-ror-value-band-v2 and ror-roi-v1.",
+   "line": 8
+  },
+  {
+   "what": "feat-ror-value-band-v2",
+   "quote": "Builds on exp-406, feat-ror-value-band-v2 and ror-roi-v1.",
+   "line": 8
+  },
+  {
+   "what": "ror-roi-v1",
+   "quote": "Builds on exp-406, feat-ror-value-band-v2 and ror-roi-v1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "retention-offers-roi/exp-407.md",
+ "sha": "ffa41c493d238b4cf3914265f3f654394c162b9dbee40f00fd5517aed0e87711",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

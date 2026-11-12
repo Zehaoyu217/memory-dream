@@ -1,0 +1,106 @@
+{
+ "kind": "preference",
+ "entities": [
+  {
+   "id": "raj-patel",
+   "type": "person",
+   "label": "person",
+   "as": [
+    "Raj Patel"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "roll-rate",
+   "type": "metric",
+   "label": "roll rate",
+   "as": [
+    "roll rate"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "billing-cycle",
+   "type": "term",
+   "label": "billing cycle",
+   "as": [
+    "billing cycle"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "delinquency-bucket",
+   "type": "term",
+   "label": "delinquency bucket",
+   "as": [
+    "delinquency bucket"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "monthly-roll-rate",
+   "type": "metric",
+   "label": "monthly roll rate",
+   "as": [
+    "Monthly roll rates"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "roll-rate",
+   "type": "owned-by",
+   "label": "expresses",
+   "o": "raj-patel",
+   "quote": "Raj Patel expresses roll rates",
+   "line": 4
+  },
+  {
+   "s": "roll-rate",
+   "type": "other",
+   "label": "measured per",
+   "o": "billing-cycle",
+   "quote": "measured per billing cycle",
+   "line": 5
+  },
+  {
+   "s": "roll-rate",
+   "type": "other",
+   "label": "moves between",
+   "o": "delinquency-bucket",
+   "quote": "moving from one delinquency bucket to the next",
+   "line": 5
+  },
+  {
+   "s": "monthly-roll-rate",
+   "type": "other",
+   "label": "varies with",
+   "o": "billing-cycle",
+   "quote": "the billing cycle is 28 to 31 days",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "prefs/raj-patel-roll-rate-units.md",
+ "sha": "c667fe7e892427648d9517ae7dd0dbf61549a4c9d160d6ae9259d30289cc7aed",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

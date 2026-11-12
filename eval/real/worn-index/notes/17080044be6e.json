@@ -1,0 +1,98 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-ch-ab-wave1",
+   "type": "dataset",
+   "label": "test",
+   "as": [
+    "Wave-1 randomised channel test: 86,000 accounts at 1-29 DPD across SMS, call, email and control, Jul-Aug 2025"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "collections.cases",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`collections.cases`"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`callcenter.calls`"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "promise-to-pay",
+   "type": "metric",
+   "label": "outcome",
+   "as": [
+    "Outcome: promise-to-pay or payment within 14 days of the first contact."
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-ch-ab-wave1",
+   "type": "uses",
+   "label": "joined to",
+   "o": "collections.cases",
+   "quote": "`collections.cases` joined to `callcenter.calls`",
+   "line": 7
+  },
+  {
+   "s": "ds-ch-ab-wave1",
+   "type": "uses",
+   "label": "joined to",
+   "o": "callcenter.calls",
+   "quote": "`collections.cases` joined to `callcenter.calls`",
+   "line": 7
+  },
+  {
+   "s": "ds-ch-ab-wave1",
+   "type": "measured-by",
+   "label": "outcome",
+   "o": "promise-to-pay",
+   "quote": "Outcome: promise-to-pay or payment within 14 days of the first contact.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "q-ch-sms-vs-call"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ch-contact-costs",
+   "quote": "Builds on the per-contact cost by channel",
+   "line": 8
+  },
+  {
+   "what": "q-ch-sms-vs-call",
+   "quote": "and q-ch-sms-vs-call.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-channel-mix/ds-ch-ab-wave1.md",
+ "sha": "17080044be6e1f87b36d6359b0e999034fa6a0517be248968d423fe2045d59ff",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

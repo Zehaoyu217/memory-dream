@@ -1,0 +1,140 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cb-elasticity-v2",
+   "type": "model",
+   "label": "elasticity model",
+   "as": [
+    "cb-elasticity-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cb-elasticity-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cb-elasticity-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-204-band-split",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-204-band-split"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-cb-spend-band-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cb-spend-band-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "grocery-share",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "grocery share of spend feature"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "pooled-elasticity",
+   "type": "metric",
+   "label": "elasticity",
+   "as": [
+    "pooled elasticity estimate of 0.21"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "elasticity-band",
+   "type": "metric",
+   "label": "elasticity",
+   "as": [
+    "0.31 below $1,000",
+    "0.14 for $1,000-3,000",
+    "0.05 above $3,000"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cb-elasticity-v2",
+   "type": "measured-by",
+   "label": "elasticity",
+   "o": "elasticity-band",
+   "quote": "Elasticity is 0.31 below $1,000, 0.14 for $1,000-3,000, and 0.05 above $3,000.",
+   "line": 6
+  },
+  {
+   "s": "cb-elasticity-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "grocery-share",
+   "quote": "Log-log with spend-band interactions and grocery share",
+   "line": 5
+  },
+  {
+   "s": "cb-elasticity-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "pooled-elasticity",
+   "quote": "Replaces the pooled elasticity estimate of 0.21.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "cb-elasticity-v1",
+  "exp-204-band-split",
+  "feat-cb-spend-band-v2"
+ ],
+ "built_on": [
+  {
+   "what": "cb-elasticity-v1",
+   "quote": "Builds on cb-elasticity-v1, exp-204-band-split, the grocery share of spend feature and feat-cb-spend-band-v2.",
+   "line": 8
+  },
+  {
+   "what": "exp-204-band-split",
+   "quote": "Builds on cb-elasticity-v1, exp-204-band-split, the grocery share of spend feature and feat-cb-spend-band-v2.",
+   "line": 8
+  },
+  {
+   "what": "feat-cb-spend-band-v2",
+   "quote": "Builds on cb-elasticity-v1, exp-204-band-split, the grocery share of spend feature and feat-cb-spend-band-v2.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "cashback-redesign/cb-elasticity-v2.md",
+ "sha": "04af1bb5f77c40948815fd1af90e28a40a9b7902acf62b839c4b3618f99499b7",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

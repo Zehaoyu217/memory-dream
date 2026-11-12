@@ -1,0 +1,46 @@
+{
+ "kind": "note",
+ "entities": [
+  {
+   "id": "weekly-fraud-alert-report",
+   "type": "document",
+   "label": "weekly report",
+   "as": [
+    "The weekly fraud alert report"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "weekly-fraud-alert-report",
+   "type": "uses",
+   "label": "uses transactions from",
+   "o": "cards.txn_daily",
+   "quote": "Alerts per 1,000 transactions use the week's transactions from `cards.txn_daily`.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/fraud-alert-volume-report.md",
+ "sha": "ddd7bf562c56a002f6d301238ab9980d6ac073a803a94d1df6e30dc2a345abe0",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

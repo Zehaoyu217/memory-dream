@@ -1,0 +1,151 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "gbm",
+   "type": "model",
+   "label": "gbm",
+   "as": [
+    "GBM"
+   ],
+   "lines": [
+    4,
+    5,
+    6,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "ed-logit-v1",
+   "type": "model",
+   "label": "scorecard",
+   "as": [
+    "the scorecard"
+   ],
+   "lines": [
+    4,
+    5,
+    6,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.781"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini 0.562"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "early-delinquency-holdout-2024q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "early-delinquency-holdout-2024q4"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "thin-file-accounts",
+   "type": "segment",
+   "label": "thin-file segment",
+   "as": [
+    "thin-file"
+   ],
+   "lines": [
+    4,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "psi",
+   "as": [
+    "GBM score PSI",
+    "scorecard PSI"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "gbm",
+   "type": "evaluated-on",
+   "label": "overall on",
+   "o": "early-delinquency-holdout-2024q4",
+   "quote": "Overall on early-delinquency-holdout-2024q4: GBM AUC 0.781 against 0.742 for the scorecard",
+   "line": 5
+  },
+  {
+   "s": "gbm",
+   "type": "measured-by",
+   "label": "scores",
+   "o": "auc",
+   "quote": "GBM AUC 0.781 against 0.742 for the scorecard",
+   "line": 5
+  },
+  {
+   "s": "gbm",
+   "type": "measured-by",
+   "label": "scores",
+   "o": "gini",
+   "quote": "(Gini 0.562 against 0.484).",
+   "line": 5
+  },
+  {
+   "s": "gbm",
+   "type": "measured-by",
+   "label": "scores",
+   "o": "psi",
+   "quote": "the GBM score PSI between two consecutive months is 0.19",
+   "line": 6
+  },
+  {
+   "s": "ed-logit-v1",
+   "type": "measured-by",
+   "label": "scores",
+   "o": "psi",
+   "quote": "The scorecard PSI in that segment is 0.06.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "exp-201",
+   "quote": "Builds on exp-201 and the gbm lift over the scorecard.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "early-delinquency/find-ed-gbm-vs-logit.md",
+ "sha": "0d661eb6e9ec4add91c2dfe836580f75be85e8bb7928eb4f448370b228321098",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

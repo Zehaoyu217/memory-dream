@@ -1,0 +1,78 @@
+{
+ "kind": "metric",
+ "entities": [
+  {
+   "id": "180-day-revenue",
+   "type": "metric",
+   "label": "revenue metric",
+   "as": [
+    "180-day revenue per account"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards-txn-daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards-payments-daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.payments_daily"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-ror-value-band-v2",
+   "type": "feature",
+   "label": "credit-loss netting",
+   "as": [
+    "feat-ror-value-band-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "180-day-revenue",
+   "type": "uses",
+   "label": "computed from",
+   "o": "cards-txn-daily",
+   "quote": "from cards.txn_daily and cards.payments_daily",
+   "line": 4
+  },
+  {
+   "s": "180-day-revenue",
+   "type": "uses",
+   "label": "computed from",
+   "o": "cards-payments-daily",
+   "quote": "from cards.txn_daily and cards.payments_daily",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "feat-ror-value-band-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "retention-offers-roi/ds-ror-retained-revenue.md",
+ "sha": "e38c27bb142d8b79b6478d93a6f6c5ff803bbb2343ae8f24ebec28af81374823",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,97 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "cards.churn_labels",
+   "type": "dataset",
+   "label": "churn labels table",
+   "as": [
+    "cards.churn_labels"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "data-eng-cards",
+   "type": "team",
+   "label": "owning team",
+   "as": [
+    "data-eng-cards"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-pa-ab-assignments",
+   "type": "dataset",
+   "label": "assignment dataset",
+   "as": [
+    "ds-pa-ab-assignments"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "arm-c",
+   "type": "segment",
+   "label": "arm c cohorts",
+   "as": [
+    "arm C cohorts"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "arm-b",
+   "type": "segment",
+   "label": "arm b",
+   "as": [
+    "arm B expiry"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cards.churn_labels",
+   "type": "owned-by",
+   "label": "from team",
+   "o": "data-eng-cards",
+   "quote": "Label from `cards.churn_labels` (data-eng-cards)",
+   "line": 5
+  },
+  {
+   "s": "cards.churn_labels",
+   "type": "other",
+   "label": "observed for",
+   "o": "arm-c",
+   "quote": "the label is observed for arm C",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-pa-ab-assignments"
+ ],
+ "built_on": [
+  {
+   "what": "ds-pa-ab-assignments",
+   "quote": "Builds on ds-pa-ab-assignments.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "promo-apr-test/ds-pa-churn-labels.md",
+ "sha": "f5533856fca16fce9abc36a19aa247b40b2d25e99d6d8abe75bf20fe15cdd110",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

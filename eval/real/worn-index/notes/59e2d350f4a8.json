@@ -1,0 +1,107 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "precision-at-1800",
+   "type": "metric",
+   "label": "precision",
+   "as": [
+    "precision@1800"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "recall-at-1800",
+   "type": "metric",
+   "label": "recall",
+   "as": [
+    "recall@1800"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "oot-set",
+   "type": "dataset",
+   "label": "oot set",
+   "as": [
+    "OOT set"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "daniel-okafor",
+   "type": "person",
+   "label": "team",
+   "as": [
+    "Daniel Okafor's team"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "review-capacity",
+   "type": "term",
+   "label": "review capacity",
+   "as": [
+    "weekly review capacity"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "precision-at-k-review-capacity",
+   "type": "document",
+   "label": "howto",
+   "as": [
+    "howto/precision-at-k-review-capacity"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "recall-at-1800",
+   "type": "evaluated-on",
+   "label": "on the",
+   "o": "oot-set",
+   "quote": "reports precision@1800 beside recall@1800 on the OOT set",
+   "line": 5
+  },
+  {
+   "s": "daniel-okafor",
+   "type": "other",
+   "label": "reports",
+   "o": "precision-at-1800",
+   "quote": "Daniel Okafor's team reports precision@1800 beside recall@1800 on the OOT set.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "howto/precision-at-k-review-capacity"
+ ],
+ "built_on": [
+  {
+   "what": "precision-at-k-review-capacity",
+   "quote": "Builds on howto/precision-at-k-review-capacity.",
+   "line": 6
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/precision-capacity-k.md",
+ "sha": "59e2d350f4a892b364fcb4704811e865483b49447477d1b10f9aef25a08b05f5",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

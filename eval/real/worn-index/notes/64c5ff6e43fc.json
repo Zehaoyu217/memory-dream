@@ -1,0 +1,103 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "cb.rewards_ledger",
+   "type": "dataset",
+   "label": "rewards ledger",
+   "as": [
+    "`cb.rewards_ledger` accrues rewards per account-month and reconciles to the GL within 0.4%"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "rewards-engine-export",
+   "type": "dataset",
+   "label": "source export",
+   "as": [
+    "the rewards engine export"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "general-ledger",
+   "type": "term",
+   "label": "reconciliation ledger",
+   "as": [
+    "the general ledger"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cb.rewards_ledger",
+   "type": "uses",
+   "label": "built on",
+   "o": "cards.accounts_monthly",
+   "quote": "Built on `cards.accounts_monthly` and the rewards engine export.",
+   "line": 5
+  },
+  {
+   "s": "cb.rewards_ledger",
+   "type": "uses",
+   "label": "built on",
+   "o": "rewards-engine-export",
+   "quote": "Built on `cards.accounts_monthly` and the rewards engine export.",
+   "line": 5
+  },
+  {
+   "s": "cb.rewards_ledger",
+   "type": "measured-by",
+   "label": "reconciled against",
+   "o": "general-ledger",
+   "quote": "Reconciled against the general ledger for 2025-01 to 2025-05",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-cb-spend-panel"
+ ],
+ "built_on": [
+  {
+   "what": "cards.accounts_monthly",
+   "quote": "Built on `cards.accounts_monthly` and the rewards engine export.",
+   "line": 5
+  },
+  {
+   "what": "rewards-engine-export",
+   "quote": "Built on `cards.accounts_monthly` and the rewards engine export.",
+   "line": 5
+  },
+  {
+   "what": "ds-cb-spend-panel",
+   "quote": "Builds on ds-cb-spend-panel.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/ds-cb-rewards-ledger.md",
+ "sha": "64c5ff6e43fcb1ca92ca5d972f8763ba0e7d39bd88aa922bbbfb829a145d464b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

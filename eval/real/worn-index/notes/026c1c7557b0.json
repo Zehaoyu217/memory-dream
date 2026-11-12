@@ -1,0 +1,98 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "dpd",
+   "type": "metric",
+   "label": "delinquency measure",
+   "as": [
+    "DPD"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "payment-due-date",
+   "type": "term",
+   "label": "anchor date",
+   "as": [
+    "minimum payment due date",
+    "due date"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "cards-payments-daily",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "cards.payments_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "roll-rates",
+   "type": "metric",
+   "label": "rates",
+   "as": [
+    "roll rates",
+    "30+ shares"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dpd",
+   "type": "uses",
+   "label": "counts from due date",
+   "o": "payment-due-date",
+   "quote": "From 2025-11-01 DPD counts from the minimum payment due date",
+   "line": 5
+  },
+  {
+   "s": "dpd",
+   "type": "uses",
+   "label": "source is",
+   "o": "cards-payments-daily",
+   "quote": "Source is `cards.payments_daily`.",
+   "line": 5
+  },
+  {
+   "s": "roll-rates",
+   "type": "other",
+   "label": "recomputed with",
+   "o": "dpd",
+   "quote": "roll rates and 30+ shares were recomputed back to 2025-01",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "glossary/dpd"
+ ],
+ "replaces": [
+  {
+   "what": "glossary/dpd",
+   "quote": "Replaces glossary/dpd.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "corrections/dpd-due-date.md",
+ "sha": "026c1c7557b015e2097a253e14f37247479f89b95a8a1275658abc3526665b1a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

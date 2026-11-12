@@ -1,0 +1,75 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-dq-late-alert-rule-v1",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: page the data-eng on-call if a partition has not landed by 11:00 on D+1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "dec-dq-late-alert-rule-v2",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-dq-late-alert-rule-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "data-eng-on-call",
+   "type": "team",
+   "label": "on-call",
+   "as": [
+    "data-eng on-call"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-dq-late-alert-rule-v1",
+   "type": "other",
+   "label": "pages",
+   "o": "data-eng-on-call",
+   "quote": "Decision: page the data-eng on-call if a partition has not landed by 11:00 on D+1",
+   "line": 4
+  },
+  {
+   "s": "dec-dq-late-alert-rule-v2",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "dec-dq-late-alert-rule-v1",
+   "quote": "Superseded by dec-dq-late-alert-rule-v2 (2026-02-12).",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "dec-dq-late-alert-rule-v2",
+  "fnd-late-share-2025"
+ ],
+ "built_on": [
+  {
+   "what": "fnd-late-share-2025",
+   "quote": "Builds on fnd-late-share-2025.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "data-quality-txn/dec-dq-late-alert-rule-v1.md",
+ "sha": "c2be315048304df65271546485594d408d9ea0cd6e81b039af8f6cf8377348b7",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,182 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "feat-c25-txn-recency",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-c25-txn-recency"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "util-v2-model",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "util-v2 model"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-c25-oot-2024h1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "c25-oot-2024h1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.772"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "KS 0.41"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "recall-at-10",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "recall@10% 0.34"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "brier",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Brier 0.0334"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "PSI"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "util-v2-model",
+   "type": "uses",
+   "label": "constrains",
+   "o": "feat-c25-txn-recency",
+   "quote": "Monotone decreasing constraint on feat-c25-txn-recency",
+   "line": 5
+  },
+  {
+   "s": "util-v2-model",
+   "type": "measured-by",
+   "label": "scored",
+   "o": "auc",
+   "quote": "AUC 0.772, KS 0.41, recall@10% 0.34, Brier 0.0334",
+   "line": 6
+  },
+  {
+   "s": "util-v2-model",
+   "type": "measured-by",
+   "label": "scored",
+   "o": "ks",
+   "quote": "KS 0.41",
+   "line": 6
+  },
+  {
+   "s": "util-v2-model",
+   "type": "measured-by",
+   "label": "scored",
+   "o": "recall-at-10",
+   "quote": "recall@10% 0.34",
+   "line": 6
+  },
+  {
+   "s": "util-v2-model",
+   "type": "measured-by",
+   "label": "scored",
+   "o": "brier",
+   "quote": "Brier 0.0334",
+   "line": 6
+  },
+  {
+   "s": "util-v2-model",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "holdout-c25-oot-2024h1",
+   "quote": "Holdout c25-oot-2024h1: AUC 0.772",
+   "line": 6
+  },
+  {
+   "s": "feat-c25-txn-recency",
+   "type": "measured-by",
+   "label": "PSI falls to",
+   "o": "psi",
+   "quote": "Recency PSI across the 2024 months falls to 0.03 from 0.11 unconstrained",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-c25-drop-app-sessions",
+  "exp-104",
+  "fnd-c25-recency-dominates"
+ ],
+ "built_on": [
+  {
+   "what": "dec-c25-drop-app-sessions",
+   "quote": "Builds on the decision to drop app sessions",
+   "line": 8
+  },
+  {
+   "what": "exp-104",
+   "quote": "the util-v2 swap experiment",
+   "line": 8
+  },
+  {
+   "what": "fnd-c25-recency-dominates",
+   "quote": "the finding that card recency dominates churn",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2025/exp-106.md",
+ "sha": "a5ffc2c701bccb6ea5bc0ae5419aee376f86e03aec8fcbd8a7d62798ab1b5bba",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

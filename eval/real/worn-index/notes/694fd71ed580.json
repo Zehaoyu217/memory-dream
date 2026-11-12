@@ -1,0 +1,159 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "sfc-hier-v3",
+   "type": "model",
+   "label": "segment forecast",
+   "as": [
+    "sfc-hier-v3 is the current segment forecast"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "sfc-oot-2025h2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "sfc-oot-2025h2"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "feat-sfc-active-accounts",
+   "type": "feature",
+   "label": "regressor",
+   "as": [
+    "Adds feat-sfc-active-accounts as a regressor"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "sfc-lgbm-v2",
+   "type": "model",
+   "label": "earlier model",
+   "as": [
+    "sfc-lgbm-v2"
+   ],
+   "lines": [
+    6,
+    10
+   ]
+  },
+  {
+   "id": "exp-207",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-207"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-sfc-ship-hier-v3",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-sfc-ship-hier-v3"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fnd-sfc-q4-reconciled",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-sfc-q4-reconciled"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "sfc-hier-v3",
+   "type": "measured-by",
+   "label": "total MAPE",
+   "o": "sfc-oot-2025h2",
+   "quote": "total MAPE 2.3% and segment MAPE 4.9%",
+   "line": 6
+  },
+  {
+   "s": "sfc-hier-v3",
+   "type": "uses",
+   "label": "adds regressor",
+   "o": "feat-sfc-active-accounts",
+   "quote": "Adds feat-sfc-active-accounts as a regressor.",
+   "line": 7
+  },
+  {
+   "s": "sfc-hier-v3",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "sfc-lgbm-v2",
+   "quote": "Replaces sfc-lgbm-v2.",
+   "line": 10
+  },
+  {
+   "s": "sfc-hier-v3",
+   "type": "other",
+   "label": "adopted for",
+   "o": "dec-sfc-ship-hier-v3",
+   "quote": "Adopted for finance FY26 volume (dec-sfc-ship-hier-v3).",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "dec-sfc-ship-hier-v3",
+  "fnd-sfc-q4-reconciled"
+ ],
+ "built_on": [
+  {
+   "what": "exp-207",
+   "quote": "Builds on the mint reconciliation experiment, the active accounts denominator feature, fnd-sfc-q4-reconciled and the per-segment lightgbm model.",
+   "line": 9
+  },
+  {
+   "what": "fnd-sfc-q4-reconciled",
+   "quote": "Builds on the mint reconciliation experiment, the active accounts denominator feature, fnd-sfc-q4-reconciled and the per-segment lightgbm model.",
+   "line": 9
+  },
+  {
+   "what": "feat-sfc-active-accounts",
+   "quote": "Builds on the mint reconciliation experiment, the active accounts denominator feature, fnd-sfc-q4-reconciled and the per-segment lightgbm model.",
+   "line": 9
+  },
+  {
+   "what": "sfc-lgbm-v2",
+   "quote": "Builds on the mint reconciliation experiment, the active accounts denominator feature, fnd-sfc-q4-reconciled and the per-segment lightgbm model.",
+   "line": 9
+  }
+ ],
+ "replaces": [
+  {
+   "what": "sfc-lgbm-v2",
+   "quote": "Replaces sfc-lgbm-v2.",
+   "line": 10
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "spend-forecasting/sfc-hier-v3.md",
+ "sha": "694fd71ed580b565c5a2eb83fc2391d1a4d4d6c902b5508e138e87da943d4dee",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

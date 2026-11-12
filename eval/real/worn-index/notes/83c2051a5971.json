@@ -1,0 +1,78 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-aml-dispositions",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "compliance.aml_dispositions"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "ds-aml-alerts",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "ds-aml-alerts"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "sar-referral-rate",
+   "type": "metric",
+   "label": "rate",
+   "as": [
+    "SAR referral rate"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "structuring-rule",
+   "type": "other",
+   "label": "alert rule",
+   "as": [
+    "structuring"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-aml-dispositions",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "sar-referral-rate",
+   "quote": "Overall SAR referral rate 1.9% of alerts",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "aml-find-fp-baseline"
+ ],
+ "built_on": [
+  {
+   "what": "ds-aml-alerts",
+   "quote": "Builds on ds-aml-alerts.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "aml-alerts/ds-aml-dispositions.md",
+ "sha": "83c2051a5971b5898ef8e9bcd81d873bc09fe8876da906d91cddd0a55d05fad7",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

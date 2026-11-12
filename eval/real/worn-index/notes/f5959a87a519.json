@@ -1,0 +1,113 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "find-mq3-inapp-saturates",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Finding: in-app returns fall past two touches in 14 days"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "in-app",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "in-app"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "find-mq3-inapp-best",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-mq3-inapp-best"
+   ],
+   "lines": [
+    8,
+    9
+   ]
+  },
+  {
+   "id": "exp-304",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-304-channel-split"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "dec-mq3-cap-inapp",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "two-touch cap in dec-mq3-cap-inapp"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "find-mq3-inapp-saturates",
+   "type": "measured-by",
+   "label": "returns per dollar",
+   "o": "in-app",
+   "quote": "one or two touches return 14.2 per dollar; three or more return 4.8 per dollar.",
+   "line": 5
+  },
+  {
+   "s": "find-mq3-inapp-saturates",
+   "type": "other",
+   "label": "led to",
+   "o": "dec-mq3-cap-inapp",
+   "quote": "Led to the two-touch cap in dec-mq3-cap-inapp.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-mq3-cap-inapp",
+  "exp-304-channel-split",
+  "find-mq3-inapp-best"
+ ],
+ "built_on": [
+  {
+   "what": "exp-304-channel-split",
+   "quote": "Builds on exp-304-channel-split and find-mq3-inapp-best.",
+   "line": 8
+  },
+  {
+   "what": "find-mq3-inapp-best",
+   "quote": "Builds on exp-304-channel-split and find-mq3-inapp-best.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "find-mq3-inapp-best",
+   "quote": "Replaces find-mq3-inapp-best.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "marketing-uplift-q3/find-mq3-inapp-saturates.md",
+ "sha": "f5959a87a51911f9b58d2c041803d87e4609a169ceeed5891d75fba423264eeb",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

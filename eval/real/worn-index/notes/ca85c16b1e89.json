@@ -1,0 +1,109 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-105",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-105: removing the hour band leaves v2 AUC unchanged at 0.911"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-f25-hour-band",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-f25-hour-band"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.911 (delta under 0.001)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "KS 0.66"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-105",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "holdout-2025q1",
+   "quote": "Eval set: holdout-2025q1 (1,104,800 transactions, 2,310 fraud).",
+   "line": 5
+  },
+  {
+   "s": "exp-105",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.911 (delta under 0.001)",
+   "line": 6
+  },
+  {
+   "s": "exp-105",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "ks",
+   "quote": "KS 0.66",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-104"
+ ],
+ "built_on": [
+  {
+   "what": "exp-104",
+   "quote": "Builds on exp-104 and feat-f25-hour-band.",
+   "line": 8
+  },
+  {
+   "what": "feat-f25-hour-band",
+   "quote": "Builds on exp-104 and feat-f25-hour-band.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/exp-105.md",
+ "sha": "ca85c16b1e8923386c7e9763fdea0a1d1df12f63918ec69269072da761875287",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

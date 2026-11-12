@@ -1,0 +1,178 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-107",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-107"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cu-uplift-v3",
+   "type": "model",
+   "label": "uplift model",
+   "as": [
+    "cu-uplift-v3"
+   ],
+   "lines": [
+    5,
+    10
+   ]
+  },
+  {
+   "id": "ds-cu-cases-dpd",
+   "type": "dataset",
+   "label": "cases snapshot",
+   "as": [
+    "ds-cu-cases-dpd"
+   ],
+   "lines": [
+    10
+   ]
+  },
+  {
+   "id": "ds-cu-oot-2026h1",
+   "type": "dataset",
+   "label": "scoring population",
+   "as": [
+    "collections-uplift-oot-2026h1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "top-20pct-accounts",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "top 20%"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "sms",
+   "type": "other",
+   "label": "contact channel",
+   "as": [
+    "SMS"
+   ],
+   "lines": [
+    4,
+    6,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "uplift",
+   "type": "metric",
+   "label": "uplift",
+   "as": [
+    "Call uplift 0.036",
+    "SMS uplift 0.030"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cost-per-ptp",
+   "type": "metric",
+   "label": "cost per ptp",
+   "as": [
+    "Cost per incremental PTP"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "collections-channel-mix",
+   "type": "other",
+   "label": "channel test",
+   "as": [
+    "collections-channel-mix"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-107",
+   "type": "uses",
+   "label": "ranked by",
+   "o": "cu-uplift-v3",
+   "quote": "Economics run on the top 20% by cu-uplift-v3 in the collections-uplift-oot-2026h1 scoring population (n=5,690 accounts, 1-29 DPD).",
+   "line": 5
+  },
+  {
+   "s": "exp-107",
+   "type": "uses",
+   "label": "scoring population",
+   "o": "ds-cu-oot-2026h1",
+   "quote": "Economics run on the top 20% by cu-uplift-v3 in the collections-uplift-oot-2026h1 scoring population (n=5,690 accounts, 1-29 DPD).",
+   "line": 5
+  },
+  {
+   "s": "sms",
+   "type": "measured-by",
+   "label": "SMS uplift",
+   "o": "uplift",
+   "quote": "SMS uplift 0.030 at $0.37 per contact",
+   "line": 6
+  },
+  {
+   "s": "sms",
+   "type": "measured-by",
+   "label": "cost per PTP",
+   "o": "cost-per-ptp",
+   "quote": "Cost per incremental PTP: call about $114, SMS about $12.",
+   "line": 7
+  },
+  {
+   "s": "exp-107",
+   "type": "other",
+   "label": "channel test in",
+   "o": "collections-channel-mix",
+   "quote": "The randomised channel test is in collections-channel-mix.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "collections_uplift/exp107_econ.ipynb",
+  "collections-channel-mix"
+ ],
+ "built_on": [
+  {
+   "what": "cu-uplift-v3",
+   "quote": "Builds on cu-uplift-v3 and ds-cu-cases-dpd.",
+   "line": 10
+  },
+  {
+   "what": "ds-cu-cases-dpd",
+   "quote": "Builds on cu-uplift-v3 and ds-cu-cases-dpd.",
+   "line": 10
+  }
+ ],
+ "dropped": {
+  "entities": [
+   "call"
+  ],
+  "relations": 2
+ },
+ "path": "collections-uplift/exp-107.md",
+ "sha": "d3be1246ec44fd8bcc98d112cf0521ec54c807be9e7f3f23fb07ad1c7477954b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

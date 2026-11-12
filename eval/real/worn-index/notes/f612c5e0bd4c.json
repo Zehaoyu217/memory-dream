@@ -1,0 +1,82 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "thin-file",
+   "type": "segment",
+   "label": "subgroup",
+   "as": [
+    "thin-file applicants"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-app-thin-file",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-app-thin-file"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-app-income-est",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "income estimate"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "thin-file",
+   "type": "other",
+   "label": "approval gap",
+   "o": "feat-app-income-est",
+   "quote": "The income estimate later closes part of it",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "find-app-income-lift"
+ ],
+ "built_on": [
+  {
+   "what": "exp-502",
+   "quote": "From exp-502 on holdout-2025q1",
+   "line": 5
+  },
+  {
+   "what": "feat-app-thin-file",
+   "quote": "Builds on exp-502 and feat-app-thin-file.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "application-scorecard/find-app-thin-file-gap.md",
+ "sha": "f612c5e0bd4c062b2f3a3138d19f20e7f3ef568009753a29caa3c6453f81115b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

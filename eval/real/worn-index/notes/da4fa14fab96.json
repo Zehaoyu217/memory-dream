@@ -1,0 +1,180 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-207",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-207"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-f26-oot-2026h1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "Eval set: fraud26-oot-2026h1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.933"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.72"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "recall-at-1pct",
+   "type": "metric",
+   "label": "recall@1%",
+   "as": [
+    "recall@1% 0.61"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fraud26-gbm-v3",
+   "type": "model",
+   "label": "v3 candidate",
+   "as": [
+    "v3 candidate"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-f26-amt-zscore",
+   "type": "feature",
+   "label": "amount z-score",
+   "as": [
+    "amount z-score"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-f26-geo-mismatch",
+   "type": "feature",
+   "label": "geo-mismatch feature",
+   "as": [
+    "the geo-mismatch feature"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-206",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "the mcc risk addition experiment"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-207",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "ds-f26-oot-2026h1",
+   "quote": "Eval set: fraud26-oot-2026h1",
+   "line": 5
+  },
+  {
+   "s": "exp-207",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.933",
+   "line": 4
+  },
+  {
+   "s": "exp-207",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "ks",
+   "quote": "KS 0.72",
+   "line": 6
+  },
+  {
+   "s": "exp-207",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "recall-at-1pct",
+   "quote": "recall@1% 0.61",
+   "line": 6
+  },
+  {
+   "s": "exp-207",
+   "type": "other",
+   "label": "tests candidate",
+   "o": "fraud26-gbm-v3",
+   "quote": "v3 candidate: AUC 0.933",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-f26-oot-2026h1"
+ ],
+ "built_on": [
+  {
+   "what": "ds-f26-oot-2026h1",
+   "quote": "Builds on ds-f26-oot-2026h1, the mcc risk addition experiment, feat-f26-amt-zscore and the geo-mismatch feature.",
+   "line": 8
+  },
+  {
+   "what": "exp-206",
+   "quote": "Builds on ds-f26-oot-2026h1, the mcc risk addition experiment, feat-f26-amt-zscore and the geo-mismatch feature.",
+   "line": 8
+  },
+  {
+   "what": "feat-f26-amt-zscore",
+   "quote": "Builds on ds-f26-oot-2026h1, the mcc risk addition experiment, feat-f26-amt-zscore and the geo-mismatch feature.",
+   "line": 8
+  },
+  {
+   "what": "feat-f26-geo-mismatch",
+   "quote": "Builds on ds-f26-oot-2026h1, the mcc risk addition experiment, feat-f26-amt-zscore and the geo-mismatch feature.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2026/exp-207.md",
+ "sha": "da4fa14fab96f353c4d876477c6cc780f5a98477b308c6c7b8c3509690ebfd83",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

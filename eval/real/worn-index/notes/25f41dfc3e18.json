@@ -1,0 +1,111 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "app-sessions",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "app sessions"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "churn-gbm-2025",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "churn-gbm model (v1)"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "exp-102",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-102"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-103",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-103"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "fnd-c25-app-lift-v2",
+   "type": "finding",
+   "label": "finding",
+   "as": [
+    "fnd-c25-app-lift-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-gbm-2025",
+   "type": "uses",
+   "label": "uses",
+   "o": "app-sessions",
+   "quote": "App sessions add +0.006 AUC to the churn-gbm model (v1)",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "exp-102",
+  "exp-103",
+  "fnd-c25-app-lift-v2",
+  "q-c25-app-lift"
+ ],
+ "built_on": [
+  {
+   "what": "exp-103",
+   "quote": "Builds on exp-103 and the question of app session lift.",
+   "line": 8
+  },
+  {
+   "what": "q-c25-app-lift",
+   "quote": "Builds on exp-103 and the question of app session lift.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "churn-2025/fnd-c25-app-lift.md",
+ "sha": "25f41dfc3e18eb9c5e232fdef970155d7222bdc8519b48afa96ffd802495fc3e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

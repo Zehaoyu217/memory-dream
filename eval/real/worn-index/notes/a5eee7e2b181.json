@@ -1,0 +1,120 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "ds-ch-ab-wave2",
+   "type": "dataset",
+   "label": "wave-2 test",
+   "as": [
+    "Wave-2 channel test on 8-29 DPD accounts"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "collections-cases",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "collections.cases"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "callcenter-calls",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "callcenter.calls"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "sms-delivery-log",
+   "type": "dataset",
+   "label": "source log",
+   "as": [
+    "the SMS log"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-ch-ab-wave1",
+   "type": "dataset",
+   "label": "wave-1 test",
+   "as": [
+    "the first randomised channel test"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "find-ch-sms-matches-call",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-ch-sms-matches-call"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-ch-ab-wave2",
+   "type": "uses",
+   "label": "joins",
+   "o": "collections-cases",
+   "quote": "Source: `collections.cases` joined to `callcenter.calls` and the SMS log.",
+   "line": 7
+  },
+  {
+   "s": "ds-ch-ab-wave2",
+   "type": "uses",
+   "label": "joins",
+   "o": "callcenter-calls",
+   "quote": "joined to `callcenter.calls`",
+   "line": 7
+  },
+  {
+   "s": "ds-ch-ab-wave2",
+   "type": "uses",
+   "label": "joins",
+   "o": "sms-delivery-log",
+   "quote": "the SMS log",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "find-ch-sms-matches-call"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ch-ab-wave1",
+   "quote": "Builds on the first randomised channel test",
+   "line": 8
+  },
+  {
+   "what": "find-ch-sms-matches-call",
+   "quote": "find-ch-sms-matches-call.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-channel-mix/ds-ch-ab-wave2.md",
+ "sha": "a5eee7e2b1811d6cf8156f4e39959c8a1086e6f66edde3e7e17fd06d3a04e3f9",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

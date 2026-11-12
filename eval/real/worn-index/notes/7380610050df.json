@@ -1,0 +1,129 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-inc-estimate-live",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: inc-gbm-v3 becomes the live income estimate, with a 9% uplift for self-employed accounts"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "inc-gbm-v3",
+   "type": "model",
+   "label": "estimate",
+   "as": [
+    "inc-gbm-v3"
+   ],
+   "lines": [
+    4,
+    8
+   ]
+  },
+  {
+   "id": "dec-inc-stated-override",
+   "type": "other",
+   "label": "rule",
+   "as": [
+    "stated income rule from dec-inc-stated-override"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "affordability-review",
+   "type": "other",
+   "label": "review",
+   "as": [
+    "affordability review"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "application-scorecard",
+   "type": "model",
+   "label": "scorecard",
+   "as": [
+    "the application scorecard"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "self-employed",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "self-employed accounts"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-inc-estimate-live",
+   "type": "uses",
+   "label": "adopts",
+   "o": "inc-gbm-v3",
+   "quote": "inc-gbm-v3 becomes the live income estimate",
+   "line": 4
+  },
+  {
+   "s": "dec-inc-estimate-live",
+   "type": "uses",
+   "label": "downstream use",
+   "o": "affordability-review",
+   "quote": "Downstream use is in the affordability review",
+   "line": 7
+  },
+  {
+   "s": "application-scorecard",
+   "type": "uses",
+   "label": "may consume",
+   "o": "inc-gbm-v3",
+   "quote": "the application scorecard may consume it",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "find-inc-self-employed-bias",
+  "dec-inc-stated-override",
+  "find-inc-log-target-gain",
+  "inc-gbm-v3"
+ ],
+ "built_on": [
+  {
+   "what": "find-inc-self-employed-bias",
+   "quote": "Adopted 2026-05-12 with the uplift from find-inc-self-employed-bias",
+   "line": 5
+  },
+  {
+   "what": "find-inc-log-target-gain",
+   "quote": "Builds on find-inc-log-target-gain, the self-employed understatement finding and inc-gbm-v3.",
+   "line": 8
+  },
+  {
+   "what": "inc-gbm-v3",
+   "quote": "Builds on find-inc-log-target-gain, the self-employed understatement finding and inc-gbm-v3.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "income-estimation/dec-inc-estimate-live.md",
+ "sha": "7380610050df1d80a6776083a0ecabf5e82b564fbbafa162cbf72cd85afc322c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

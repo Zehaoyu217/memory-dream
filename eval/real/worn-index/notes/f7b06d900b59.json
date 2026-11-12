@@ -1,0 +1,76 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "exp-502",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-502"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "srm-check",
+   "type": "term",
+   "label": "srm check",
+   "as": [
+    "SRM check"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "bot-filter",
+   "type": "flag",
+   "label": "bot filter",
+   "as": [
+    "Bot filters"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "srm-check",
+   "type": "other",
+   "label": "gates readout",
+   "o": "bot-filter",
+   "quote": "The platform refuses to produce a readout for a test whose arm counts fail the SRM check, until the owner explains the imbalance.",
+   "line": 5
+  },
+  {
+   "s": "bot-filter",
+   "type": "other",
+   "label": "adopted after",
+   "o": "exp-502",
+   "quote": "Adopted after exp-502.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "fnd-srm-bots",
+  "exp-502"
+ ],
+ "built_on": [
+  {
+   "what": "fnd-srm-bots",
+   "quote": "Builds on fnd-srm-bots.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "experiment-platform/dec-ep-srm-gate.md",
+ "sha": "f7b06d900b59a03e072d2b885feb6c4fbbe0906b14e9f804b2dfc04d5a0c8014",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,126 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "clv-bgnbd-v1",
+   "type": "model",
+   "label": "baseline model",
+   "as": [
+    "clv-bgnbd-v1: BG/NBD with Gamma-Gamma, 36-month margin baseline, MAPE 22.6%"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-clv-oot-2021h1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Holdout clv-oot-2021h1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "MAPE 22.6%"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "dec-clv-ship-ml-v1",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-clv-ship-ml-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-clv-arpu-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "the six-month average revenue feature"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-clv-tenure",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "the months on book feature"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "clv-bgnbd-v1",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "holdout-clv-oot-2021h1",
+   "quote": "Holdout clv-oot-2021h1: MAPE 22.6%",
+   "line": 6
+  },
+  {
+   "s": "clv-bgnbd-v1",
+   "type": "measured-by",
+   "label": "MAPE",
+   "o": "mape",
+   "quote": "MAPE 22.6%",
+   "line": 4
+  },
+  {
+   "s": "clv-bgnbd-v1",
+   "type": "other",
+   "label": "kept for",
+   "o": "dec-clv-ship-ml-v1",
+   "quote": "kept as a sanity check for marketing (dec-clv-ship-ml-v1)",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-clv-ship-ml-v1"
+ ],
+ "built_on": [
+  {
+   "what": "bg/nbd versus gbm accuracy test",
+   "quote": "Builds on the bg/nbd versus gbm accuracy test",
+   "line": 8
+  },
+  {
+   "what": "feat-clv-arpu-v1",
+   "quote": "the six-month average revenue feature",
+   "line": 8
+  },
+  {
+   "what": "feat-clv-tenure",
+   "quote": "the months on book feature",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "customer-lifetime-value/clv-bgnbd-v1.md",
+ "sha": "b6c2184a7b5c56422eb2d7112e8640abcbde88ef1c5379a3cd659cfa45fcd3f2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

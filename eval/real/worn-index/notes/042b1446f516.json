@@ -1,0 +1,92 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-504",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-504"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "marketing-campaign-responses",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "marketing.campaign_responses"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fnd-clv-offer-cost",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-clv-offer-cost"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-clv-revenue-monthly",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-clv-revenue-monthly"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-504",
+   "type": "uses",
+   "label": "subtracts",
+   "o": "marketing-campaign-responses",
+   "quote": "Offer credits from marketing.campaign_responses subtracted from account-month revenue.",
+   "line": 5
+  },
+  {
+   "s": "fnd-clv-offer-cost",
+   "type": "built-on",
+   "label": "basis",
+   "o": "exp-504",
+   "quote": "Basis for fnd-clv-offer-cost.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-clv-offer-cost",
+  "dec-clv-ship-ml-v1",
+  "ds-clv-revenue-monthly"
+ ],
+ "built_on": [
+  {
+   "what": "dec-clv-ship-ml-v1",
+   "quote": "Builds on dec-clv-ship-ml-v1 and ds-clv-revenue-monthly.",
+   "line": 8
+  },
+  {
+   "what": "ds-clv-revenue-monthly",
+   "quote": "Builds on dec-clv-ship-ml-v1 and ds-clv-revenue-monthly.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "customer-lifetime-value/exp-504.md",
+ "sha": "042b1446f5160a287ba117509d3e705212642222f4f355fdd0e71085f1e67bf8",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

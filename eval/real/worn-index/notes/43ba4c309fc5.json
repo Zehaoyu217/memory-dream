@@ -1,0 +1,108 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-rdm-prior-response",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rdm-prior-response"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-rdm-campaign-history",
+   "type": "dataset",
+   "label": "campaign history",
+   "as": [
+    "the reactivation waves campaign history"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fnd-rdm-prior-responder-trap",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-rdm-prior-responder-trap"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "prior-responders",
+   "type": "segment",
+   "label": "subset",
+   "as": [
+    "Response within 60 days in waves 1 or 2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "raw-response",
+   "type": "metric",
+   "label": "raw response",
+   "as": [
+    "Raw response of prior responders is 9.8%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-rdm-dormant-pool",
+   "type": "segment",
+   "label": "dormant pool",
+   "as": [
+    "dormant pool"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "prior-responders",
+   "type": "part-of",
+   "label": "share of",
+   "o": "ds-rdm-dormant-pool",
+   "quote": "About 14% of the dormant pool has it.",
+   "line": 5
+  },
+  {
+   "s": "prior-responders",
+   "type": "measured-by",
+   "label": "raw response",
+   "o": "raw-response",
+   "quote": "Raw response of prior responders is 9.8%, against 2.7% for everyone else.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fnd-rdm-prior-responder-trap",
+  "ds-rdm-campaign-history"
+ ],
+ "built_on": [
+  {
+   "what": "ds-rdm-campaign-history",
+   "quote": "Builds on the reactivation waves campaign history.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reactivation-dormant/feat-rdm-prior-response.md",
+ "sha": "43ba4c309fc57a7d0a52c8ca22f73a34225eabbecbb59b86b9e4a6e0c9b2fd92",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,100 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-inc-payroll-cadence-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-inc-payroll-cadence-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-inc-payroll-cadence-v2",
+   "type": "feature",
+   "label": "successor",
+   "as": [
+    "feat-inc-payroll-cadence-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "recurring-ach-inflow",
+   "type": "dataset",
+   "label": "input dataset",
+   "as": [
+    "the recurring ach inflow dataset"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-inc-payroll-proxy",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-inc-payroll-proxy"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-inc-payroll-cadence-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "recurring-ach-inflow",
+   "quote": "Builds on the recurring ach inflow dataset",
+   "line": 8
+  },
+  {
+   "s": "feat-inc-payroll-cadence-v1",
+   "type": "other",
+   "label": "covers",
+   "o": "ds-inc-payroll-proxy",
+   "quote": "Covers 38% of booked accounts in ds-inc-payroll-proxy.",
+   "line": 6
+  },
+  {
+   "s": "feat-inc-payroll-cadence-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "feat-inc-payroll-cadence-v1",
+   "quote": "Superseded by feat-inc-payroll-cadence-v2 (2025-12-16).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-inc-payroll-cadence-v2",
+  "ds-inc-payroll-proxy",
+  "q-inc-coverage"
+ ],
+ "built_on": [
+  {
+   "what": "ds-inc-ach-inflow",
+   "quote": "Builds on the recurring ach inflow dataset",
+   "line": 8
+  },
+  {
+   "what": "q-inc-coverage",
+   "quote": "Builds on the recurring ach inflow dataset and the question on estimate coverage.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "income-estimation/feat-inc-payroll-cadence-v1.md",
+ "sha": "591931f7693e30e13c5bd99f88c5a524c44fefd3ec287e80b71f3fd635f9f694",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

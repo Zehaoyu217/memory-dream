@@ -1,0 +1,126 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "churn-xgb-v2",
+   "type": "model",
+   "label": "xgboost model",
+   "as": [
+    "churn-xgb-v2"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "new-accounts",
+   "type": "segment",
+   "label": "new accounts",
+   "as": [
+    "new accounts"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "tenure-6-plus",
+   "type": "segment",
+   "label": "tenured accounts",
+   "as": [
+    "tenure ≥ 6 months"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.69",
+    "AUC 0.83"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "metric-recall-at-10",
+   "type": "metric",
+   "label": "recall@10",
+   "as": [
+    "recall@10 0.31"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-xgb-v2",
+   "type": "evaluated-on",
+   "label": "split by tenure",
+   "o": "holdout-2025q4",
+   "quote": "holdout-2025q4 split at 6 months tenure",
+   "line": 5
+  },
+  {
+   "s": "new-accounts",
+   "type": "measured-by",
+   "label": "scores",
+   "o": "auc",
+   "quote": "new accounts n=168k (14%), AUC 0.69",
+   "line": 5
+  },
+  {
+   "s": "tenure-6-plus",
+   "type": "measured-by",
+   "label": "scores",
+   "o": "auc",
+   "quote": "tenure ≥ 6 months n=1.03M, AUC 0.83",
+   "line": 6
+  },
+  {
+   "s": "new-accounts",
+   "type": "measured-by",
+   "label": "scores",
+   "o": "metric-recall-at-10",
+   "quote": "recall@10 0.31",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "churn-xgb-v2",
+   "quote": "Builds on churn-xgb-v2.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2026/exp-015-tenure.md",
+ "sha": "53ce94b6f25657ed434cc1fec2b12dbdf69557306e2160777257a49199ff2d7d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

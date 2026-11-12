@@ -1,0 +1,91 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-lbl-fraud-flag-v2",
+   "type": "feature",
+   "label": "fraud flag",
+   "as": [
+    "feat-lbl-fraud-flag-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.fraud_labels",
+   "type": "dataset",
+   "label": "label table",
+   "as": [
+    "cards.fraud_labels"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "friendly-fraud-category-b",
+   "type": "term",
+   "label": "reason-code category",
+   "as": [
+    "set B code (first-party friendly fraud)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fraud-label-rate",
+   "type": "metric",
+   "label": "label rate",
+   "as": [
+    "fraud label rate"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-lbl-fraud-flag-v2",
+   "type": "part-of",
+   "label": "built into",
+   "o": "cards.fraud_labels",
+   "quote": "Built into cards.fraud_labels by the rebuilt job",
+   "line": 5
+  },
+  {
+   "s": "feat-lbl-fraud-flag-v2",
+   "type": "uses",
+   "label": "uses category",
+   "o": "friendly-fraud-category-b",
+   "quote": "a set B code (first-party friendly fraud)",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-403",
+  "fnd-friendly-fraud"
+ ],
+ "built_on": [
+  {
+   "what": "exp-403",
+   "quote": "Builds on exp-403 and fnd-friendly-fraud.",
+   "line": 7
+  },
+  {
+   "what": "fnd-friendly-fraud",
+   "quote": "Builds on exp-403 and fnd-friendly-fraud.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "label-pipeline-rebuild/feat-lbl-fraud-flag-v2.md",
+ "sha": "0699ddcd252d3e089300c7d923a7422ed030948151d2387801d9e012b9010952",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

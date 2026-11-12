@@ -1,0 +1,73 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-402",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-402"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.fraud_labels",
+   "type": "dataset",
+   "label": "fraud label table",
+   "as": [
+    "fraud labels"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fraud-label-lag",
+   "type": "metric",
+   "label": "label lag",
+   "as": [
+    "median lag 71 days",
+    "95th percentile 128 days"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-402",
+   "type": "measured-by",
+   "label": "measured lag",
+   "o": "fraud-label-lag",
+   "quote": "Median lag 71 days, 95th percentile 128 days.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-lbl-disputes",
+  "ds-lbl-fraud-labels"
+ ],
+ "built_on": [
+  {
+   "what": "ds-lbl-disputes",
+   "quote": "Builds on ds-lbl-disputes and ds-lbl-fraud-labels.",
+   "line": 7
+  },
+  {
+   "what": "ds-lbl-fraud-labels",
+   "quote": "Builds on ds-lbl-disputes and ds-lbl-fraud-labels.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "label-pipeline-rebuild/exp-402.md",
+ "sha": "c4186f4e4f80f03b46f34af0a1872d912d0a456d73b5e5821cd4b2b40774eae4",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

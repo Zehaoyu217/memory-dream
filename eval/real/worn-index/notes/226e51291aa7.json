@@ -1,0 +1,121 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-cli-cutoff-2025",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "logistic score cutoff 0.031"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-104",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "the exp-104 sweep"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dec-cli-loss-cap",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-cli-loss-cap"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cli-logreg-baseline",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cli-logreg-baseline"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "dec-cli-uplift-targeting",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-cli-uplift-targeting"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-cli-cutoff-2025",
+   "type": "uses",
+   "label": "set from",
+   "o": "exp-104",
+   "quote": "from the exp-104 sweep and the loss cap in dec-cli-loss-cap",
+   "line": 5
+  },
+  {
+   "s": "dec-cli-cutoff-2025",
+   "type": "uses",
+   "label": "set from",
+   "o": "dec-cli-loss-cap",
+   "quote": "from the exp-104 sweep and the loss cap in dec-cli-loss-cap",
+   "line": 5
+  },
+  {
+   "s": "dec-cli-cutoff-2025",
+   "type": "other",
+   "label": "applies to",
+   "o": "cli-logreg-baseline",
+   "quote": "Applies to cli-logreg-baseline only",
+   "line": 6
+  },
+  {
+   "s": "dec-cli-uplift-targeting",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "dec-cli-cutoff-2025",
+   "quote": "Superseded by dec-cli-uplift-targeting (2026-09-22).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-104",
+  "dec-cli-loss-cap",
+  "cli-logreg-baseline",
+  "dec-cli-uplift-targeting"
+ ],
+ "built_on": [
+  {
+   "what": "cli-logreg-baseline",
+   "quote": "Builds on cli-logreg-baseline and exp-104.",
+   "line": 8
+  },
+  {
+   "what": "exp-104",
+   "quote": "Builds on cli-logreg-baseline and exp-104.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/dec-cli-cutoff-2025.md",
+ "sha": "226e51291aa75bba49948d91d4ee06393ca6b5cd9d03c7f3c2abea710f725f21",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

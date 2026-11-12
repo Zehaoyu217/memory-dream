@@ -1,0 +1,126 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-rdm-app-installed",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rdm-app-installed"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "app.sessions_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "app.sessions_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "rdm-propensity-lr",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rdm-propensity-lr"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "rdm-uplift-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rdm-uplift-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "rdm-uplift-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rdm-uplift-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-rdm-contact-channels",
+   "type": "dataset",
+   "label": "channels",
+   "as": [
+    "ds-rdm-contact-channels"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-rdm-app-installed",
+   "type": "uses",
+   "label": "source",
+   "o": "app.sessions_daily",
+   "quote": "from `app.sessions_daily` device table",
+   "line": 5
+  },
+  {
+   "s": "rdm-propensity-lr",
+   "type": "uses",
+   "label": "uses feature",
+   "o": "feat-rdm-app-installed",
+   "quote": "Used in rdm-propensity-lr, rdm-uplift-v1 and rdm-uplift-v2.",
+   "line": 6
+  },
+  {
+   "s": "rdm-uplift-v1",
+   "type": "uses",
+   "label": "uses feature",
+   "o": "feat-rdm-app-installed",
+   "quote": "Used in rdm-propensity-lr, rdm-uplift-v1 and rdm-uplift-v2.",
+   "line": 6
+  },
+  {
+   "s": "rdm-uplift-v2",
+   "type": "uses",
+   "label": "uses feature",
+   "o": "feat-rdm-app-installed",
+   "quote": "Used in rdm-propensity-lr, rdm-uplift-v1 and rdm-uplift-v2.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-rdm-contact-channels",
+  "rdm-propensity-lr",
+  "rdm-uplift-v1",
+  "rdm-uplift-v2"
+ ],
+ "built_on": [
+  {
+   "what": "ds-rdm-contact-channels",
+   "quote": "Builds on ds-rdm-contact-channels.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reactivation-dormant/feat-rdm-app-installed.md",
+ "sha": "c3db57769a5fcaf46ddc811d916d5b1b7dabc186e9e963ec6ae8ce72b10f6b4a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

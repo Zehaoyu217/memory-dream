@@ -1,0 +1,99 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-dq-same-weekday-baseline",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: volume z-score uses the same weekday as its baseline, alert at absolute z above 3"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Tomas Rivera"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-304",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-304"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "data-quality-channel",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "data-quality channel"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-dq-same-weekday-baseline",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "tomas-rivera",
+   "quote": "Owner: Tomas Rivera.",
+   "line": 6
+  },
+  {
+   "s": "dec-dq-same-weekday-baseline",
+   "type": "uses",
+   "label": "adopted from",
+   "o": "exp-304",
+   "quote": "Adopted from the 2025-H1 replay (exp-304).",
+   "line": 5
+  },
+  {
+   "s": "dec-dq-same-weekday-baseline",
+   "type": "other",
+   "label": "alerts go to",
+   "o": "data-quality-channel",
+   "quote": "Alerts go to the data-quality channel, not to on-call pages.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-304",
+  "feat-dq-rowcount-z-v2"
+ ],
+ "built_on": [
+  {
+   "what": "feat-dq-rowcount-z-v2",
+   "quote": "Builds on feat-dq-rowcount-z-v2 and the finding on volume false alarms.",
+   "line": 7
+  },
+  {
+   "what": "fnd-volume-false-alarms",
+   "quote": "Builds on feat-dq-rowcount-z-v2 and the finding on volume false alarms.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "data-quality-txn/dec-dq-same-weekday-baseline.md",
+ "sha": "8a3874a898f83361c93625a69eb3ad4657c25c64686d7e1a9dbbddad025a50c7",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

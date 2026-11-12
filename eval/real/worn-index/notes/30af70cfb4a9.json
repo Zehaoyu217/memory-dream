@@ -1,0 +1,97 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-ror-cashback-roi-v2",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Once credit losses are netted, cashback leads the fee waiver by only 0.07x"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-405",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-405"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-ror-value-band-v2",
+   "type": "other",
+   "label": "feature",
+   "as": [
+    "feat-ror-value-band-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fnd-ror-cashback-roi",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-ror-cashback-roi"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fnd-ror-cashback-roi-v2",
+   "type": "other",
+   "label": "basis",
+   "o": "exp-405",
+   "quote": "credit-loss-adjusted basis (exp-405)",
+   "line": 5
+  },
+  {
+   "s": "fnd-ror-cashback-roi-v2",
+   "type": "other",
+   "label": "basis for",
+   "o": "feat-ror-value-band-v2",
+   "quote": "Basis for feat-ror-value-band-v2.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-ror-value-band-v2"
+ ],
+ "built_on": [
+  {
+   "what": "exp-405",
+   "quote": "Builds on the experiment netting credit losses from cashback and fnd-ror-cashback-roi.",
+   "line": 8
+  },
+  {
+   "what": "fnd-ror-cashback-roi",
+   "quote": "Builds on the experiment netting credit losses from cashback and fnd-ror-cashback-roi.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "fnd-ror-cashback-roi",
+   "quote": "Replaces the finding that t2 cashback returns best.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "retention-offers-roi/fnd-ror-cashback-roi-v2.md",
+ "sha": "30af70cfb4a92cb5be64605fb1099a2501ed500223e75721f106f4d83d119bc9",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

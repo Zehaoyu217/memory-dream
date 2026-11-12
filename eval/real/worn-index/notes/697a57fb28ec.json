@@ -1,0 +1,121 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "application-scorecard",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "application-scorecard"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "application-scorecard-v4",
+   "type": "model",
+   "label": "version",
+   "as": [
+    "v4"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "cutoff-592",
+   "type": "other",
+   "label": "cutoff",
+   "as": [
+    "cutoff 592"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "churn-2026",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "churn-2026"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "txn-backfill",
+   "type": "other",
+   "label": "backfill",
+   "as": [
+    "txn backfill"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-017",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-017"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "velocity-window",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "velocity window"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "observation-date",
+   "type": "other",
+   "label": "date",
+   "as": [
+    "observation date"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cutoff-592",
+   "type": "other",
+   "label": "applies to",
+   "o": "application-scorecard-v4",
+   "quote": "cutoff 592 for v4 from 2026-11-01",
+   "line": 3
+  },
+  {
+   "s": "velocity-window",
+   "type": "part-of",
+   "label": "part of",
+   "o": "exp-017",
+   "quote": "exp-017 queued with velocity window ending at observation date",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2026-10-27.md",
+ "sha": "697a57fb28eca490aaa7583b5378f76ec0ac121f76c51687fdb2b75b4bc84fdb",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,100 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-trv-travel-mcc-monthly",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "Monthly travel spend by MCC group"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "airline-spend",
+   "type": "metric",
+   "label": "airline group",
+   "as": [
+    "airlines (MCC 3000-3299, 4511)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "hotel-spend",
+   "type": "metric",
+   "label": "hotel group",
+   "as": [
+    "hotels (3500-3999, 7011)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "car-rental-spend",
+   "type": "metric",
+   "label": "car rental group",
+   "as": [
+    "car rental (7512)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-trv-seasonality-adj",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-trv-seasonality-adj"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-trv-travel-mcc-monthly",
+   "type": "uses",
+   "label": "from",
+   "o": "cards.txn_daily",
+   "quote": "Monthly travel spend from `cards.txn_daily`",
+   "line": 5
+  },
+  {
+   "s": "ds-trv-travel-mcc-monthly",
+   "type": "produces",
+   "label": "source for",
+   "o": "feat-trv-seasonality-adj",
+   "quote": "Source for feat-trv-seasonality-adj and the STL and ridge models.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-trv-seasonality-adj"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "travel-spend-recovery/ds-trv-travel-mcc-monthly.md",
+ "sha": "2fe39fa5930bd84a5e897167f7fdb9c72e9ed953907bbc22ecb7b2e0bc27080b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

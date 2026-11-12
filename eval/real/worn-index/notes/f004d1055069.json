@@ -1,0 +1,97 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-pbs-statement-balances",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "Statement balance, minimum due and credit limit per account per month, Jul 2024 to Jun 2025"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-pbs-pay-ratio-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "the pay ratio"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-pbs-minpay-flag",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "the minimum-payment flag"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-pbs-payments-12m",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-pbs-payments-12m"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-pbs-statement-balances",
+   "type": "uses",
+   "label": "aggregated from",
+   "o": "cards.accounts_monthly",
+   "quote": "Statement-cycle fields from `cards.accounts_monthly`",
+   "line": 5
+  },
+  {
+   "s": "feat-pbs-pay-ratio-v1",
+   "type": "uses",
+   "label": "denominator",
+   "o": "ds-pbs-statement-balances",
+   "quote": "Used as the denominator for the pay ratio and for the minimum-payment flag",
+   "line": 6
+  },
+  {
+   "s": "feat-pbs-minpay-flag",
+   "type": "uses",
+   "label": "denominator",
+   "o": "ds-pbs-statement-balances",
+   "quote": "Used as the denominator for the pay ratio and for the minimum-payment flag",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-pbs-payments-12m"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "payment-behavior-segments/ds-pbs-statement-balances.md",
+ "sha": "f004d105506975e8b0bd5e2b3ccb66c8c3e4c97742ddb66ebfbab3ee6e940c21",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,109 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-204",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-204: excluding cuts inside the 60-day freeze window cuts the limit feature's gain to +0.002 AUC (0.783)"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-ed-limit-change-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "limit feature"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "early-delinquency-holdout-2024q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Same holdout (n=402,000)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.783"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "reviewer",
+   "as": [
+    "checked by Lena Fischer"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-204",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "early-delinquency-holdout-2024q4",
+   "quote": "Same holdout (n=402,000)",
+   "line": 5
+  },
+  {
+   "s": "exp-204",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.783",
+   "line": 6
+  },
+  {
+   "s": "lena-fischer",
+   "type": "other",
+   "label": "checked",
+   "o": "exp-204",
+   "quote": "checked by Lena Fischer",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-204"
+ ],
+ "built_on": [
+  {
+   "what": "feat-ed-limit-change-v1",
+   "quote": "Builds on feat-ed-limit-change-v1 and find-ed-limit-gain.",
+   "line": 8
+  },
+  {
+   "what": "find-ed-limit-gain",
+   "quote": "Builds on feat-ed-limit-change-v1 and find-ed-limit-gain.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "early-delinquency/exp-204.md",
+ "sha": "00327a718ab6a9ddd8955963129dcbac1380f93e8c0ec6ba16fcccded1452124",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

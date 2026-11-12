@@ -1,0 +1,125 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-201",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-201"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "mm-collect-xgb-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "mm-collect-xgb-v1"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "feat-mm-payment-ratio-v1",
+   "type": "feature",
+   "label": "input",
+   "as": [
+    "feat-mm-payment-ratio-v1"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "feat-mm-days-past-due-3m",
+   "type": "feature",
+   "label": "input",
+   "as": [
+    "feat-mm-days-past-due-3m"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "psi",
+   "as": [
+    "PSI"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "ds-mm-reference-train",
+   "type": "dataset",
+   "label": "training reference samples",
+   "as": [
+    "the frozen training reference samples table"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-mm-scoring-log",
+   "type": "dataset",
+   "label": "scoring log",
+   "as": [
+    "the daily scoring log table"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-201",
+   "type": "measured-by",
+   "label": "computed",
+   "o": "psi",
+   "quote": "Computed PSI for every input of mm-collect-xgb-v1",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "ds-mm-reference-train",
+  "ds-mm-scoring-log",
+  "feat-mm-payment-ratio-v1"
+ ],
+ "built_on": [
+  {
+   "what": "ds-mm-reference-train",
+   "quote": "Builds on the frozen training reference samples table, the daily scoring log table and feat-mm-payment-ratio-v1.",
+   "line": 8
+  },
+  {
+   "what": "ds-mm-scoring-log",
+   "quote": "Builds on the frozen training reference samples table, the daily scoring log table and feat-mm-payment-ratio-v1.",
+   "line": 8
+  },
+  {
+   "what": "feat-mm-payment-ratio-v1",
+   "quote": "Builds on the frozen training reference samples table, the daily scoring log table and feat-mm-payment-ratio-v1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "model-monitoring/exp-201.md",
+ "sha": "60c5c9d2e1f6b0465bef3bdec0e65806e3cd25d427006dafcfdd277196a6fbc6",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,90 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-506",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-506"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "rdm-uplift-v1",
+   "type": "model",
+   "label": "uplift model",
+   "as": [
+    "rdm-uplift-v1"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "clv-ml-v2",
+   "type": "model",
+   "label": "clv model",
+   "as": [
+    "clv-ml-v2"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "chloe-martin",
+   "type": "person",
+   "label": "marketing contact",
+   "as": [
+    "Chloe Martin"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-506",
+   "type": "uses",
+   "label": "takes CLV from",
+   "o": "clv-ml-v2",
+   "quote": "a mean CLV of $146 for reactivated accounts from clv-ml-v2",
+   "line": 5
+  },
+  {
+   "s": "exp-506",
+   "type": "uses",
+   "label": "takes uplift from",
+   "o": "rdm-uplift-v1",
+   "quote": "Uplift of 2.8pp from rdm-uplift-v1",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "clv-ml-v2",
+   "quote": "Builds on clv-ml-v2 and reactivation-dormant/rdm-uplift-v1.",
+   "line": 8
+  },
+  {
+   "what": "rdm-uplift-v1",
+   "quote": "Builds on clv-ml-v2 and reactivation-dormant/rdm-uplift-v1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "customer-lifetime-value/exp-506.md",
+ "sha": "b80b9120472d17a934e08195a038f62ededcc62bdbec538235d55d0c03bdd573",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

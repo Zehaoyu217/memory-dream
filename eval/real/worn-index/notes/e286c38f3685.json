@@ -1,0 +1,101 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-app-income-est",
+   "type": "feature",
+   "label": "income band",
+   "as": [
+    "feat-app-income-est"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "inc-gbm-v3",
+   "type": "model",
+   "label": "income estimation model",
+   "as": [
+    "income-estimation/inc-gbm-v3"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "app-scorecard-v4",
+   "type": "model",
+   "label": "scorecard",
+   "as": [
+    "app-scorecard-v4"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "self-employed-uplift",
+   "type": "term",
+   "label": "self-employed uplift",
+   "as": [
+    "self-employed uplift"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-app-income-est",
+   "type": "uses",
+   "label": "band of estimate from",
+   "o": "inc-gbm-v3",
+   "quote": "Band of the monthly income estimate from income-estimation/inc-gbm-v3",
+   "line": 5
+  },
+  {
+   "s": "feat-app-income-est",
+   "type": "uses",
+   "label": "with",
+   "o": "self-employed-uplift",
+   "quote": "with the self-employed uplift",
+   "line": 5
+  },
+  {
+   "s": "app-scorecard-v4",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-app-income-est",
+   "quote": "used in app-scorecard-v4",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-506",
+  "app-scorecard-v4",
+  "income-estimation/inc-gbm-v3"
+ ],
+ "built_on": [
+  {
+   "what": "ds-app-applications-2024",
+   "quote": "Builds on ds-app-applications-2024 and income-estimation/inc-gbm-v3.",
+   "line": 8
+  },
+  {
+   "what": "inc-gbm-v3",
+   "quote": "Builds on ds-app-applications-2024 and income-estimation/inc-gbm-v3.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "application-scorecard/feat-app-income-est.md",
+ "sha": "e286c38f3685c2485e50fb00ad74a8955646aebdcf70041e1d94a67dc540277e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

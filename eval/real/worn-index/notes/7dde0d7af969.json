@@ -1,0 +1,151 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "bsm-cutoff-logit",
+   "type": "model",
+   "label": "logistic model",
+   "as": [
+    "Logistic model",
+    "bsm-cutoff-logit"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "feat-bsm-v10-band",
+   "type": "feature",
+   "label": "v10 bands",
+   "as": [
+    "v10 bands",
+    "feat-bsm-v10-band"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "approval-rate",
+   "type": "metric",
+   "label": "approval rate",
+   "as": [
+    "approval rate",
+    "58% approval"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "ds-bsm-v10-cohorts-2026",
+   "type": "dataset",
+   "label": "eval dataset",
+   "as": [
+    "ds-bsm-v10-cohorts-2026",
+    "n=71,300"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cutoff-652",
+   "type": "other",
+   "label": "cutoff",
+   "as": [
+    "cutoff 652"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "dec-bsm-cutover-2026q3",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-bsm-cutover-2026q3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-305",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-305"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bsm-cutoff-logit",
+   "type": "uses",
+   "label": "maps",
+   "o": "feat-bsm-v10-band",
+   "quote": "Logistic model maps v10 bands to the v8 approval decision",
+   "line": 5
+  },
+  {
+   "s": "bsm-cutoff-logit",
+   "type": "evaluated-on",
+   "label": "eval",
+   "o": "ds-bsm-v10-cohorts-2026",
+   "quote": "Eval: ds-bsm-v10-cohorts-2026, n=71,300",
+   "line": 6
+  },
+  {
+   "s": "bsm-cutoff-logit",
+   "type": "measured-by",
+   "label": "holds",
+   "o": "approval-rate",
+   "quote": "approval rate held at 58% with cutoff 652",
+   "line": 4
+  },
+  {
+   "s": "dec-bsm-cutover-2026q3",
+   "type": "uses",
+   "label": "used for",
+   "o": "bsm-cutoff-logit",
+   "quote": "Used for the cutover decision in dec-bsm-cutover-2026q3.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-bsm-cutover-2026q3",
+  "exp-305",
+  "feat-bsm-v10-band"
+ ],
+ "built_on": [
+  {
+   "what": "exp-305",
+   "quote": "Builds on exp-305 and feat-bsm-v10-band.",
+   "line": 8
+  },
+  {
+   "what": "feat-bsm-v10-band",
+   "quote": "Builds on exp-305 and feat-bsm-v10-band.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "bureau-score-migration/bsm-cutoff-logit.md",
+ "sha": "7dde0d7af96936314b32552b770091c16f2b49dc0d173ceb92479d7ea988cedc",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

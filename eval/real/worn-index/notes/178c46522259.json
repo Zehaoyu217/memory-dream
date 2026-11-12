@@ -1,0 +1,97 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "transactions table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "data-eng-cards",
+   "type": "team",
+   "label": "owner team",
+   "as": [
+    "data-eng-cards"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fraud-2025-pipeline",
+   "type": "pipeline",
+   "label": "fraud-2025 pipeline",
+   "as": [
+    "the fraud-2025 pipeline"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "card-not-present",
+   "type": "term",
+   "label": "cnp subset",
+   "as": [
+    "card-not-present"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "ds-f25-txn-2024-2025",
+   "type": "dataset",
+   "label": "cnp training extract",
+   "as": [
+    "cards.txn_daily card-not-present subset, 2024-07 to 2025-03"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-f25-txn-2024-2025",
+   "type": "uses",
+   "label": "filtered from",
+   "o": "cards.txn_daily",
+   "quote": "Source: `cards.txn_daily` filtered to card-not-present",
+   "line": 5
+  },
+  {
+   "s": "cards.txn_daily",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "data-eng-cards",
+   "quote": "Owned by data-eng-cards",
+   "line": 7
+  },
+  {
+   "s": "fraud-2025-pipeline",
+   "type": "uses",
+   "label": "reads",
+   "o": "ds-f25-txn-2024-2025",
+   "quote": "the fraud-2025 pipeline reads a frozen extract",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/ds-f25-txn-2024-2025.md",
+ "sha": "178c465222597e037f412db30197fe458331d83e67156a826a39b4f89dce06ce",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

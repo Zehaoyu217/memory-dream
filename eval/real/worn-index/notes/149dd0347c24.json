@@ -1,0 +1,139 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-106",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-106: travel merchants are 31% of v2 alerts but 11% of CNP volume"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fraud25-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "v2 alerts"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fraud25_alerts_log",
+   "type": "dataset",
+   "label": "log",
+   "as": [
+    "fraud25_alerts_log"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "travel-share-alerts",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Travel share of alerts 31%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "travel-share-volume",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "travel share of CNP volume 11%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-f25-travel-tags",
+   "type": "dataset",
+   "label": "tags",
+   "as": [
+    "ds-f25-travel-tags"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fraud25-find-travel-overflag",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fraud25-find-travel-overflag"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-106",
+   "type": "evaluated-on",
+   "label": "replay of",
+   "o": "fraud25_alerts_log",
+   "quote": "Replay of Jul-Sep 2025 alerts from `fraud25_alerts_log`",
+   "line": 5
+  },
+  {
+   "s": "exp-106",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "travel-share-alerts",
+   "quote": "Travel share of alerts 31%",
+   "line": 6
+  },
+  {
+   "s": "exp-106",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "travel-share-volume",
+   "quote": "travel share of CNP volume 11%",
+   "line": 6
+  },
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "measured-by",
+   "label": "alerts at 0.62",
+   "o": "travel-share-alerts",
+   "quote": "18,420 alerts from fraud25-gbm-v2 at threshold 0.62",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "fraud25-find-travel-overflag"
+ ],
+ "built_on": [
+  {
+   "what": "ds-f25-travel-tags",
+   "quote": "Builds on ds-f25-travel-tags",
+   "line": 8
+  },
+  {
+   "what": "fraud25-gbm-v2",
+   "quote": "the 2025 champion lightgbm model",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/exp-106.md",
+ "sha": "149dd0347c24fa0c0929b750a5ff06ea12e6cd9cd84c94af064fdd0f5b406581",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

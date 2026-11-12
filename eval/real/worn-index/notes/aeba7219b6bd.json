@@ -1,0 +1,154 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-103",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-103: utilisation slope adds +0.012 AUC to cli-xgb-v1 on holdout-2025q4"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cli-xgb-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cli-xgb-v1"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "Eval: holdout-2025q4, n=118,400"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.698 to 0.710"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "KS unchanged at 0.31"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-cli-util-v2",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "became feat-cli-util-v2 on 2025-10-14"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-cli-util-v1",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "feat-cli-util-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-cli-holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout set",
+   "as": [
+    "the 2025 q4 unexposed holdout set"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-103",
+   "type": "evaluated-on",
+   "label": "eval on",
+   "o": "holdout-2025q4",
+   "quote": "Eval: holdout-2025q4, n=118,400",
+   "line": 6
+  },
+  {
+   "s": "exp-103",
+   "type": "measured-by",
+   "label": "measures",
+   "o": "auc",
+   "quote": "AUC 0.698 to 0.710",
+   "line": 6
+  },
+  {
+   "s": "exp-103",
+   "type": "measured-by",
+   "label": "measures",
+   "o": "ks",
+   "quote": "KS unchanged at 0.31",
+   "line": 6
+  },
+  {
+   "s": "exp-103",
+   "type": "produces",
+   "label": "led to",
+   "o": "feat-cli-util-v2",
+   "quote": "became feat-cli-util-v2 on 2025-10-14",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "cli-xgb-v1",
+   "quote": "Builds on the first xgboost loss model",
+   "line": 8
+  },
+  {
+   "what": "ds-cli-holdout-2025q4",
+   "quote": "the 2025 q4 unexposed holdout set",
+   "line": 8
+  },
+  {
+   "what": "feat-cli-util-v1",
+   "quote": "feat-cli-util-v1",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/exp-103.md",
+ "sha": "aeba7219b6bd948e12c85aedd7e82f3e7448ae1e176edfda400a6501d83e7390",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

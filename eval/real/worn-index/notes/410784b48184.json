@@ -1,0 +1,97 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ed-util-trend-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ed-util-trend-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ed-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ed-gbm-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-ed-cashadv-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "cash-advance feature"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-ed-current-base",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-ed-current-base"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ed-util-trend-v1",
+   "type": "uses",
+   "label": "source",
+   "o": "cards.accounts_monthly",
+   "quote": "Source: `cards.accounts_monthly`, using statement balance over the credit limit at each month-end.",
+   "line": 6
+  },
+  {
+   "s": "feat-ed-util-trend-v1",
+   "type": "other",
+   "label": "largest contributor",
+   "o": "ed-gbm-v1",
+   "quote": "Largest single contributor to ed-gbm-v1 after the cash-advance feature.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-ed-current-base"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ed-current-base",
+   "quote": "Builds on ds-ed-current-base.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "early-delinquency/feat-ed-util-trend-v1.md",
+ "sha": "410784b48184aa61371db2b90e7f67875ae8a8aefc5fecc6d6dfde9280b0faff",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

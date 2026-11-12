@@ -1,0 +1,125 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-201",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-201"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "early-delinquency-holdout-2024q4",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "early-delinquency-holdout-2024q4"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.742"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini 0.484"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.36"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ed-logit-v1",
+   "type": "model",
+   "label": "scorecard",
+   "as": [
+    "the champion logistic scorecard"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-201",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "early-delinquency-holdout-2024q4",
+   "quote": "Eval set early-delinquency-holdout-2024q4: n=402,000 current accounts at the Oct-Dec 2024 snapshots",
+   "line": 5
+  },
+  {
+   "s": "exp-201",
+   "type": "measured-by",
+   "label": "result",
+   "o": "auc",
+   "quote": "Result: AUC 0.742",
+   "line": 6
+  },
+  {
+   "s": "exp-201",
+   "type": "measured-by",
+   "label": "result",
+   "o": "gini",
+   "quote": "Result: AUC 0.742, Gini 0.484",
+   "line": 6
+  },
+  {
+   "s": "exp-201",
+   "type": "measured-by",
+   "label": "result",
+   "o": "ks",
+   "quote": "KS 0.36",
+   "line": 4
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ed-logit-v1",
+   "quote": "Builds on the champion logistic scorecard.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "early-delinquency/exp-201.md",
+ "sha": "a19720331b5d69232413cd8f0f76739f861bc5df47094543d9c5895ca670e751",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,136 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-504",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-504"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "trv-bsts-v1",
+   "type": "model",
+   "label": "bsts model",
+   "as": [
+    "trv-bsts-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "trv-bt-2025h1",
+   "type": "segment",
+   "label": "backtest window",
+   "as": [
+    "trv-bt-2025h1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-trv-funnel-sessions",
+   "type": "dataset",
+   "label": "app sessions",
+   "as": [
+    "app sessions"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dec-trv-stop-bsts",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-trv-stop-bsts"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-503",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-503"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-504",
+   "type": "measured-by",
+   "label": "MAPE",
+   "o": "trv-bt-2025h1",
+   "quote": "MAPE 5.6%, worse than the 5.2% ridge",
+   "line": 6
+  },
+  {
+   "s": "exp-504",
+   "type": "uses",
+   "label": "uses sessions",
+   "o": "ds-trv-funnel-sessions",
+   "quote": "holiday effects plus app sessions.",
+   "line": 5
+  },
+  {
+   "s": "trv-bsts-v1",
+   "type": "measured-by",
+   "label": "MAPE",
+   "o": "trv-bt-2025h1",
+   "quote": "MAPE 5.6%",
+   "line": 4
+  },
+  {
+   "s": "exp-504",
+   "type": "produces",
+   "label": "result passed to",
+   "o": "dec-trv-stop-bsts",
+   "quote": "Result passed to dec-trv-stop-bsts.",
+   "line": 7
+  },
+  {
+   "s": "exp-504",
+   "type": "uses",
+   "label": "builds on",
+   "o": "exp-503",
+   "quote": "Builds on exp-503 and trv-bsts-v1.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "dec-trv-stop-bsts"
+ ],
+ "built_on": [
+  {
+   "what": "exp-503",
+   "quote": "Builds on exp-503 and trv-bsts-v1.",
+   "line": 8
+  },
+  {
+   "what": "trv-bsts-v1",
+   "quote": "Builds on exp-503 and trv-bsts-v1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "travel-spend-recovery/exp-504.md",
+ "sha": "9eeb6eea9523007a8a9bcdd70c3ef419dec30e5184b139fb543e4abe7b3057f8",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

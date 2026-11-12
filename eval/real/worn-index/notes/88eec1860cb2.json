@@ -1,0 +1,132 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "feat-mrisk-dispute-ratio",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "include feat-mrisk-dispute-ratio"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "mrisk-gbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "in mrisk-gbm-v3"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dispute-triage",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "borrowed from dispute-triage"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-disp-merchant-link",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "dispute-triage/ds-disp-merchant-link"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fraud-ops",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "the owner is the fraud-ops team"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-507",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-507 (AUC 0.86 to 0.91 on mrisk-oot-2026h1)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mrisk-oot-2026h1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "mrisk-oot-2026h1"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mrisk-gbm-v3",
+   "type": "uses",
+   "label": "includes feature",
+   "o": "feat-mrisk-dispute-ratio",
+   "quote": "include feat-mrisk-dispute-ratio, borrowed from dispute-triage, in mrisk-gbm-v3",
+   "line": 5
+  },
+  {
+   "s": "mrisk-gbm-v3",
+   "type": "uses",
+   "label": "depends on",
+   "o": "ds-disp-merchant-link",
+   "quote": "Introduces a dependency on dispute-triage/ds-disp-merchant-link",
+   "line": 7
+  },
+  {
+   "s": "ds-disp-merchant-link",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "fraud-ops",
+   "quote": "the owner is the fraud-ops team",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-507",
+  "feat-mrisk-dispute-ratio"
+ ],
+ "built_on": [
+  {
+   "what": "exp-507",
+   "quote": "Builds on the dispute ratio lift test and feat-mrisk-dispute-ratio.",
+   "line": 8
+  },
+  {
+   "what": "feat-mrisk-dispute-ratio",
+   "quote": "Builds on the dispute ratio lift test and feat-mrisk-dispute-ratio.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "merchant-risk/dec-mrisk-dispute-feature.md",
+ "sha": "88eec1860cb2d388c0d7911de23af27f1e6bf91be085808442ba2280056d6c2e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

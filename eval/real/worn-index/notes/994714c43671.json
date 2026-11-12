@@ -1,0 +1,175 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "mq3-uplift-tlearner-v1",
+   "type": "model",
+   "label": "t-learner",
+   "as": [
+    "T-learner on treated and control"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-mq3-q2-rct",
+   "type": "dataset",
+   "label": "q2 rct",
+   "as": [
+    "Q2 RCT"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift@20%",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "mq3-uplift-xl-v2",
+   "type": "model",
+   "label": "x-learner",
+   "as": [
+    "mq3-uplift-xl-v2 (X-learner)"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-mq3-app-sessions-30d",
+   "type": "feature",
+   "label": "30-day app sessions feature",
+   "as": [
+    "the 30-day app sessions feature"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-mq3-prior-treat",
+   "type": "feature",
+   "label": "prior campaign contact feature",
+   "as": [
+    "the prior campaign contact feature"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-mq3-recency-v1",
+   "type": "feature",
+   "label": "recency feature",
+   "as": [
+    "feat-mq3-recency-v1"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mq3-uplift-tlearner-v1",
+   "type": "trained-on",
+   "label": "fit on",
+   "o": "ds-mq3-q2-rct",
+   "quote": "Separate outcome models for treated and control accounts on the Q2 RCT",
+   "line": 5
+  },
+  {
+   "s": "mq3-uplift-tlearner-v1",
+   "type": "evaluated-on",
+   "label": "eval on",
+   "o": "ds-mq3-q2-rct",
+   "quote": "Eval on a 30% split of the Q2 RCT",
+   "line": 6
+  },
+  {
+   "s": "mq3-uplift-tlearner-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "uplift-at-20",
+   "quote": "uplift@20% of 2.1x",
+   "line": 4
+  },
+  {
+   "s": "mq3-uplift-xl-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "mq3-uplift-tlearner-v1",
+   "quote": "Superseded by mq3-uplift-xl-v2 (X-learner) for Q3 targeting.",
+   "line": 7
+  },
+  {
+   "s": "mq3-uplift-tlearner-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-mq3-app-sessions-30d",
+   "quote": "Builds on ds-mq3-q2-rct, the 30-day app sessions feature, the prior campaign contact feature and feat-mq3-recency-v1.",
+   "line": 8
+  },
+  {
+   "s": "mq3-uplift-tlearner-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-mq3-prior-treat",
+   "quote": "Builds on ds-mq3-q2-rct, the 30-day app sessions feature, the prior campaign contact feature and feat-mq3-recency-v1.",
+   "line": 8
+  },
+  {
+   "s": "mq3-uplift-tlearner-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-mq3-recency-v1",
+   "quote": "Builds on ds-mq3-q2-rct, the 30-day app sessions feature, the prior campaign contact feature and feat-mq3-recency-v1.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "mq3-uplift-xl-v2",
+  "ds-mq3-q2-rct"
+ ],
+ "built_on": [
+  {
+   "what": "ds-mq3-q2-rct",
+   "quote": "Builds on ds-mq3-q2-rct, the 30-day app sessions feature, the prior campaign contact feature and feat-mq3-recency-v1.",
+   "line": 8
+  },
+  {
+   "what": "feat-mq3-app-sessions-30d",
+   "quote": "Builds on ds-mq3-q2-rct, the 30-day app sessions feature, the prior campaign contact feature and feat-mq3-recency-v1.",
+   "line": 8
+  },
+  {
+   "what": "feat-mq3-prior-treat",
+   "quote": "Builds on ds-mq3-q2-rct, the 30-day app sessions feature, the prior campaign contact feature and feat-mq3-recency-v1.",
+   "line": 8
+  },
+  {
+   "what": "feat-mq3-recency-v1",
+   "quote": "Builds on ds-mq3-q2-rct, the 30-day app sessions feature, the prior campaign contact feature and feat-mq3-recency-v1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "marketing-uplift-q3/mq3-uplift-tlearner-v1.md",
+ "sha": "994714c43671133285286fdf29c1a3d0beb053b366efe12647220f5ee2541b8c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

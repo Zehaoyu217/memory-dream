@@ -1,0 +1,125 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "rev26-interest-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rev26-interest-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "rev26-interest-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rev26-interest-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-302",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-302"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-rev26-apr-mix",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "blended APR"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-rev26-revolve-balance",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "revolving balance"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rev26-interest-v1",
+   "type": "uses",
+   "label": "uses blended APR",
+   "o": "feat-rev26-apr-mix",
+   "quote": "Interest income = revolving balance times blended APR times yield",
+   "line": 5
+  },
+  {
+   "s": "rev26-interest-v1",
+   "type": "uses",
+   "label": "uses revolving balance",
+   "o": "feat-rev26-revolve-balance",
+   "quote": "Interest income = revolving balance times blended APR times yield",
+   "line": 5
+  },
+  {
+   "s": "rev26-interest-v1",
+   "type": "measured-by",
+   "label": "overstates",
+   "o": "exp-302",
+   "quote": "Backtest 2024-Q3 to 2025-Q2 overstates interest by $4.2M a quarter on average (exp-302).",
+   "line": 6
+  },
+  {
+   "s": "rev26-interest-v2",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "rev26-interest-v1",
+   "quote": "Superseded by rev26-interest-v2 in December 2025.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-302",
+  "rev26-interest-v2"
+ ],
+ "built_on": [
+  {
+   "what": "feat-rev26-apr-mix",
+   "quote": "Builds on feat-rev26-apr-mix and feat-rev26-revolve-balance.",
+   "line": 8
+  },
+  {
+   "what": "feat-rev26-revolve-balance",
+   "quote": "Builds on feat-rev26-apr-mix and feat-rev26-revolve-balance.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "rev26-interest-v1",
+   "quote": "Superseded by rev26-interest-v2 in December 2025.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "revenue-forecast-2026/rev26-interest-v1.md",
+ "sha": "6a90ff8b3a743a234b4ed160a6d7bc1d37a004b4e9760a594364a8ab2cc5b2cb",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

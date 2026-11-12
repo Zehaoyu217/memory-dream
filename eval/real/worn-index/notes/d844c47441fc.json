@@ -1,0 +1,144 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-105",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-105"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cu-uplift-v2",
+   "type": "model",
+   "label": "t-learner",
+   "as": [
+    "cu-uplift-v2 (T-learner, isotonic calibration of each arm)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cu-uplift-v1",
+   "type": "model",
+   "label": "t-learner",
+   "as": [
+    "cu-uplift-v1 on the same split"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Holdout-2025q4"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "uplift@20% 0.034",
+    "uplift@20% 0.031"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "brier",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "lower Brier",
+    "Brier 0.181",
+    "Brier 0.196"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cu-uplift-v2",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "holdout-2025q4",
+   "quote": "Holdout-2025q4, n=31,200 accounts.",
+   "line": 5
+  },
+  {
+   "s": "cu-uplift-v2",
+   "type": "measured-by",
+   "label": "uplift@20%",
+   "o": "uplift-at-20",
+   "quote": "uplift@20% 0.034",
+   "line": 5
+  },
+  {
+   "s": "cu-uplift-v1",
+   "type": "measured-by",
+   "label": "uplift@20%",
+   "o": "uplift-at-20",
+   "quote": "cu-uplift-v1 on the same split: uplift@20% 0.031",
+   "line": 5
+  },
+  {
+   "s": "cu-uplift-v2",
+   "type": "measured-by",
+   "label": "Brier",
+   "o": "brier",
+   "quote": "Brier 0.181",
+   "line": 5
+  },
+  {
+   "s": "cu-uplift-v1",
+   "type": "measured-by",
+   "label": "Brier",
+   "o": "brier",
+   "quote": "Brier 0.196",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "cu-uplift-v1",
+   "quote": "Builds on the first two-model uplift t-learner",
+   "line": 8
+  },
+  {
+   "what": "ds-cu-treat-log",
+   "quote": "Builds on the first two-model uplift t-learner, ds-cu-treat-log and find-cu-response-misranks.",
+   "line": 8
+  },
+  {
+   "what": "find-cu-response-misranks",
+   "quote": "Builds on the first two-model uplift t-learner, ds-cu-treat-log and find-cu-response-misranks.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "collections-uplift/exp-105.md",
+ "sha": "d844c47441fcf4fb9b6dfb94126afab1c93386f5eced9e4c9fcf4aaf6ca70d8c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

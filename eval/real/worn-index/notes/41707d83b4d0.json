@@ -1,0 +1,144 @@
+{
+ "kind": "preference",
+ "entities": [
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "person",
+   "as": [
+    "Tomás Rivera"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.payments_daily"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cards.disputes",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.disputes"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "sla",
+   "type": "policy",
+   "label": "sla",
+   "as": [
+    "SLA"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "status-page",
+   "type": "dashboard",
+   "label": "status page",
+   "as": [
+    "status page"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "data-eng-cards",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "data-eng-cards channel"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cards.txn_daily",
+   "type": "other",
+   "label": "has SLA",
+   "o": "sla",
+   "quote": "The SLA for `cards.txn_daily` is T+1",
+   "line": 5
+  },
+  {
+   "s": "cards.payments_daily",
+   "type": "other",
+   "label": "shares SLA",
+   "o": "sla",
+   "quote": "shares the same SLA",
+   "line": 6
+  },
+  {
+   "s": "cards.disputes",
+   "type": "other",
+   "label": "is T+2",
+   "o": "sla",
+   "quote": "`cards.disputes` is T+2",
+   "line": 6
+  },
+  {
+   "s": "sla",
+   "type": "owned-by",
+   "label": "expects",
+   "o": "tomas-rivera",
+   "quote": "Tomás Rivera expects",
+   "line": 4
+  },
+  {
+   "s": "status-page",
+   "type": "other",
+   "label": "shows late",
+   "o": "sla",
+   "quote": "the status page shows",
+   "line": 5
+  },
+  {
+   "s": "sla",
+   "type": "other",
+   "label": "posted in",
+   "o": "data-eng-cards",
+   "quote": "Missed SLAs are posted in the data-eng-cards channel",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "prefs/tomas-rivera-freshness-sla.md",
+ "sha": "41707d83b4d0a0724713f49600987e5a365468e7752d50d3c3eab08f3971f648",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

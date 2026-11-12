@@ -1,0 +1,243 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "sfc-lgbm-v2",
+   "type": "model",
+   "label": "forecast model",
+   "as": [
+    "sfc-lgbm-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "library",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "feat-sfc-lags-v1",
+   "type": "feature",
+   "label": "lag feature",
+   "as": [
+    "feat-sfc-lags-v1",
+    "the segment spend lags feature"
+   ],
+   "lines": [
+    5,
+    9
+   ]
+  },
+  {
+   "id": "feat-sfc-season-v2",
+   "type": "feature",
+   "label": "seasonal feature",
+   "as": [
+    "feat-sfc-season-v2"
+   ],
+   "lines": [
+    5,
+    9
+   ]
+  },
+  {
+   "id": "feat-sfc-cpi-lag6",
+   "type": "feature",
+   "label": "macro feature",
+   "as": [
+    "feat-sfc-cpi-lag6"
+   ],
+   "lines": [
+    5,
+    9
+   ]
+  },
+  {
+   "id": "sfc-bt-2024",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "sfc-bt-2024"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "1-month MAPE"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "sfc-ets-v1",
+   "type": "model",
+   "label": "baseline model",
+   "as": [
+    "sfc-ets-v1",
+    "the holt-winters segment model"
+   ],
+   "lines": [
+    6,
+    9,
+    10
+   ]
+  },
+  {
+   "id": "sfc-hier-v3",
+   "type": "model",
+   "label": "successor model",
+   "as": [
+    "sfc-hier-v3"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "sfc-oot-2025h2",
+   "type": "dataset",
+   "label": "out-of-time set",
+   "as": [
+    "sfc-oot-2025h2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "sfc-lgbm-v2",
+   "type": "uses",
+   "label": "on features",
+   "o": "feat-sfc-lags-v1",
+   "quote": "One LightGBM per segment on feat-sfc-lags-v1, feat-sfc-season-v2 and feat-sfc-cpi-lag6.",
+   "line": 5
+  },
+  {
+   "s": "sfc-lgbm-v2",
+   "type": "uses",
+   "label": "on features",
+   "o": "feat-sfc-season-v2",
+   "quote": "One LightGBM per segment on feat-sfc-lags-v1, feat-sfc-season-v2 and feat-sfc-cpi-lag6.",
+   "line": 5
+  },
+  {
+   "s": "sfc-lgbm-v2",
+   "type": "uses",
+   "label": "on features",
+   "o": "feat-sfc-cpi-lag6",
+   "quote": "One LightGBM per segment on feat-sfc-lags-v1, feat-sfc-season-v2 and feat-sfc-cpi-lag6.",
+   "line": 5
+  },
+  {
+   "s": "sfc-lgbm-v2",
+   "type": "uses",
+   "label": "built with",
+   "o": "lightgbm",
+   "quote": "One LightGBM per segment",
+   "line": 5
+  },
+  {
+   "s": "sfc-lgbm-v2",
+   "type": "evaluated-on",
+   "label": "eval on",
+   "o": "sfc-bt-2024",
+   "quote": "Eval on sfc-bt-2024",
+   "line": 6
+  },
+  {
+   "s": "sfc-lgbm-v2",
+   "type": "measured-by",
+   "label": "1-month MAPE",
+   "o": "mape",
+   "quote": "1-month MAPE 5.1%, 3-month MAPE 6.4%",
+   "line": 6
+  },
+  {
+   "s": "sfc-lgbm-v2",
+   "type": "evaluated-on",
+   "label": "under-forecast on",
+   "o": "sfc-oot-2025h2",
+   "quote": "Under-forecasts Nov-Dec by 3.1% on sfc-oot-2025h2",
+   "line": 7
+  },
+  {
+   "s": "sfc-hier-v3",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "sfc-lgbm-v2",
+   "quote": "Superseded by sfc-hier-v3 in February 2026.",
+   "line": 8
+  },
+  {
+   "s": "sfc-lgbm-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "sfc-ets-v1",
+   "quote": "Replaces the holt-winters segment model.",
+   "line": 10
+  }
+ ],
+ "refs": [
+  "fnd-sfc-q4-low-bias",
+  "sfc-ets-v1",
+  "feat-sfc-season-v2",
+  "feat-sfc-lags-v1",
+  "feat-sfc-cpi-lag6",
+  "sfc-hier-v3"
+ ],
+ "built_on": [
+  {
+   "what": "feat-sfc-cpi-lag6",
+   "quote": "Builds on feat-sfc-cpi-lag6, the segment spend lags feature, feat-sfc-season-v2 and sfc-ets-v1.",
+   "line": 9
+  },
+  {
+   "what": "feat-sfc-lags-v1",
+   "quote": "Builds on feat-sfc-cpi-lag6, the segment spend lags feature, feat-sfc-season-v2 and sfc-ets-v1.",
+   "line": 9
+  },
+  {
+   "what": "feat-sfc-season-v2",
+   "quote": "Builds on feat-sfc-cpi-lag6, the segment spend lags feature, feat-sfc-season-v2 and sfc-ets-v1.",
+   "line": 9
+  },
+  {
+   "what": "sfc-ets-v1",
+   "quote": "Builds on feat-sfc-cpi-lag6, the segment spend lags feature, feat-sfc-season-v2 and sfc-ets-v1.",
+   "line": 9
+  }
+ ],
+ "replaces": [
+  {
+   "what": "sfc-ets-v1",
+   "quote": "Replaces the holt-winters segment model.",
+   "line": 10
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "spend-forecasting/sfc-lgbm-v2.md",
+ "sha": "63a463178ce43f21a817d1f2045b6d87f4e2b0e4818fc90cca7d8a129209e393",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

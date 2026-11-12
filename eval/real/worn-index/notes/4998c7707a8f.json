@@ -1,0 +1,141 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "find-cli-util-best",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "utilisation at 90% or more is the best single predictor of 90-day loss"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cli-test-2025q1",
+   "type": "segment",
+   "label": "test cohort",
+   "as": [
+    "cli-test-2025q1 (n=60,000)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.64"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "90-day-loss",
+   "type": "metric",
+   "label": "loss",
+   "as": [
+    "90-day loss"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "find-cli-util-not-enough",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-cli-util-not-enough"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-cli-eligible-pop",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "ds-cli-eligible-pop"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-101",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "the utilisation trigger versus logistic experiment"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "find-cli-util-best",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "cli-test-2025q1",
+   "quote": "On cli-test-2025q1 (n=60,000)",
+   "line": 5
+  },
+  {
+   "s": "find-cli-util-best",
+   "type": "measured-by",
+   "label": "reached",
+   "o": "auc",
+   "quote": "utilisation alone reached AUC 0.64",
+   "line": 5
+  },
+  {
+   "s": "find-cli-util-best",
+   "type": "other",
+   "label": "predicts",
+   "o": "90-day-loss",
+   "quote": "best single predictor of 90-day loss",
+   "line": 4
+  },
+  {
+   "s": "find-cli-util-not-enough",
+   "type": "replaces",
+   "label": "overturns",
+   "o": "find-cli-util-best",
+   "quote": "Overturned by find-cli-util-not-enough (2025-10-22)",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "find-cli-util-not-enough"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cli-eligible-pop",
+   "quote": "Builds on ds-cli-eligible-pop and the utilisation trigger versus logistic experiment.",
+   "line": 8
+  },
+  {
+   "what": "exp-101",
+   "quote": "Builds on ds-cli-eligible-pop and the utilisation trigger versus logistic experiment.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/find-cli-util-best.md",
+ "sha": "4998c7707a8f52a71ac26e619ef1143d127a54c56304491f45820393a9445d40",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

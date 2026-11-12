@@ -1,0 +1,81 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-csb-spend-raw",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-csb-spend-raw"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-csb-spend-sa-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-csb-spend-sa-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-csb-spend-raw",
+   "type": "uses",
+   "label": "sums from",
+   "o": "cards.txn_daily",
+   "quote": "Sum of card spend over the last 3 months from `cards.txn_daily`",
+   "line": 5
+  },
+  {
+   "s": "feat-csb-spend-sa-v2",
+   "type": "other",
+   "label": "replaces from January 2026",
+   "o": "feat-csb-spend-raw",
+   "quote": "Replaced by feat-csb-spend-sa-v2 from January 2026.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-csb-seasonal-trap"
+ ],
+ "built_on": [
+  {
+   "what": "ds-csb-biz-accounts",
+   "quote": "Builds on ds-csb-biz-accounts.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-csb-spend-raw",
+   "quote": "Replaced by feat-csb-spend-sa-v2 from January 2026.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-small-business/feat-csb-spend-raw.md",
+ "sha": "6ac63eef4c68f060f01a1f7979c787ba34061a4fd65a28265992293d952d5c97",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

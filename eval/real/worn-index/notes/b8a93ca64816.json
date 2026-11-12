@@ -1,0 +1,150 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-ae-dashboard",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Publish the engagement score on the weekly retention dashboard"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "weekly-retention-dashboard",
+   "type": "dashboard",
+   "label": "dashboard",
+   "as": [
+    "weekly retention dashboard"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "ae-score-v2",
+   "type": "metric",
+   "label": "engagement score",
+   "as": [
+    "engagement score"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "digital-analytics",
+   "type": "team",
+   "label": "owner",
+   "as": [
+    "digital-analytics"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fnd-ae-quintiles",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-ae-quintiles"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "90-day-retention",
+   "type": "metric",
+   "label": "quintile retention",
+   "as": [
+    "Quintile retention"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "dec-ae-score-v2",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-ae-score-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ae-score-v2",
+   "type": "other",
+   "label": "shown on",
+   "o": "weekly-retention-dashboard",
+   "quote": "The score goes on the weekly retention dashboard",
+   "line": 5
+  },
+  {
+   "s": "dec-ae-dashboard",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "digital-analytics",
+   "quote": "owner digital-analytics",
+   "line": 5
+  },
+  {
+   "s": "dec-ae-dashboard",
+   "type": "other",
+   "label": "shows",
+   "o": "90-day-retention",
+   "quote": "Quintile retention (91 percent top, 58 percent bottom) is shown beside the score",
+   "line": 6
+  },
+  {
+   "s": "dec-ae-dashboard",
+   "type": "uses",
+   "label": "builds on",
+   "o": "dec-ae-score-v2",
+   "quote": "Builds on dec-ae-score-v2 and the score quintile retention finding.",
+   "line": 7
+  },
+  {
+   "s": "dec-ae-dashboard",
+   "type": "uses",
+   "label": "shows spread from",
+   "o": "fnd-ae-quintiles",
+   "quote": "so readers can see the spread (fnd-ae-quintiles)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fnd-ae-quintiles",
+  "dec-ae-score-v2"
+ ],
+ "built_on": [
+  {
+   "what": "dec-ae-score-v2",
+   "quote": "Builds on dec-ae-score-v2 and the score quintile retention finding.",
+   "line": 7
+  },
+  {
+   "what": "fnd-ae-quintiles",
+   "quote": "Builds on dec-ae-score-v2 and the score quintile retention finding.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "app-engagement/dec-ae-dashboard.md",
+ "sha": "b8a93ca64816cad041af569347bbd7eb1bbda793a0b88f90674d7221e9b8ee70",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

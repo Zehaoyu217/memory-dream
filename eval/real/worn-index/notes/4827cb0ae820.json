@@ -1,0 +1,83 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-rs-balance-at-co",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rs-balance-at-co"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "rs-xgb-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rs-xgb-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "charge-off-base",
+   "type": "dataset",
+   "label": "base",
+   "as": [
+    "2023-2024 charge-off base"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-rs-balance-at-co",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cards.accounts_monthly",
+   "quote": "Source: `cards.accounts_monthly`, the month of charge-off.",
+   "line": 6
+  },
+  {
+   "s": "rs-xgb-v1",
+   "type": "uses",
+   "label": "strongest feature in",
+   "o": "feat-rs-balance-at-co",
+   "quote": "Strongest single feature in rs-xgb-v1 by gain",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "charge-off-base",
+   "quote": "Builds on the 2023-2024 charge-off base.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "recovery-scoring/feat-rs-balance-at-co.md",
+ "sha": "4827cb0ae82082367309cf9f0b8165de45b803e67c49a853ccca2015a0708664",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

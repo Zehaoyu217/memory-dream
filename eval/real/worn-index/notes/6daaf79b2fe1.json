@@ -1,0 +1,94 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "attrition-label",
+   "type": "term",
+   "label": "attrition label",
+   "as": [
+    "Attrition label"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.churn_labels",
+   "type": "dataset",
+   "label": "churn flag",
+   "as": [
+    "cards.churn_labels"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "app.sessions_daily",
+   "type": "dataset",
+   "label": "session gap",
+   "as": [
+    "app.sessions_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "data-eng-cards",
+   "type": "team",
+   "label": "owner",
+   "as": [
+    "data-eng-cards"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "attrition-label",
+   "type": "uses",
+   "label": "churn flag from",
+   "o": "cards.churn_labels",
+   "quote": "Churn flag from `cards.churn_labels` (owner data-eng-cards).",
+   "line": 5
+  },
+  {
+   "s": "attrition-label",
+   "type": "uses",
+   "label": "session gap from",
+   "o": "app.sessions_daily",
+   "quote": "Session gap from `app.sessions_daily`.",
+   "line": 5
+  },
+  {
+   "s": "cards.churn_labels",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "data-eng-cards",
+   "quote": "Churn flag from `cards.churn_labels` (owner data-eng-cards).",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "ds-ae-sessions-daily"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ae-sessions-daily",
+   "quote": "Builds on the daily sessions table.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "app-engagement/ds-ae-attrition-labels.md",
+ "sha": "6daaf79b2fe174f3e11ca78e6fcf03e30fb0fda912bebefd522ea517716148ba",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

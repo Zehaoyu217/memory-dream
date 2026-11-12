@@ -1,0 +1,99 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-pbs-pay-ratio-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "payment divided by the statement balance"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-pbs-payments-12m",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "the twelve-month payments dataset"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-pbs-statement-balances",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-pbs-statement-balances"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "pbs-kmeans-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "pbs-kmeans-v1"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-pbs-pay-ratio-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-pbs-payments-12m",
+   "quote": "Builds on the twelve-month payments dataset and ds-pbs-statement-balances.",
+   "line": 8
+  },
+  {
+   "s": "feat-pbs-pay-ratio-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-pbs-statement-balances",
+   "quote": "Builds on the twelve-month payments dataset and ds-pbs-statement-balances.",
+   "line": 8
+  },
+  {
+   "s": "pbs-kmeans-v1",
+   "type": "uses",
+   "label": "uses input",
+   "o": "feat-pbs-pay-ratio-v1",
+   "quote": "Input to every pbs model from pbs-kmeans-v1 onward.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "pbs-kmeans-v1",
+  "ds-pbs-statement-balances"
+ ],
+ "built_on": [
+  {
+   "what": "ds-pbs-payments-12m",
+   "quote": "Builds on the twelve-month payments dataset and ds-pbs-statement-balances.",
+   "line": 8
+  },
+  {
+   "what": "ds-pbs-statement-balances",
+   "quote": "Builds on the twelve-month payments dataset and ds-pbs-statement-balances.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "payment-behavior-segments/feat-pbs-pay-ratio-v1.md",
+ "sha": "705dc6b7de780319443f35bd1bcc864aa4df0fad7e02c75fc609548e4849b844",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

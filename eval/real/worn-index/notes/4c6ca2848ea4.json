@@ -1,0 +1,85 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-rs-agency-placements",
+   "type": "dataset",
+   "label": "placement table",
+   "as": [
+    "Table: placements to three external agencies from 2025-01 to 2025-06"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "data-eng-cards",
+   "type": "team",
+   "label": "owner",
+   "as": [
+    "data-eng-cards"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "policy owner",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-rs-chargeoff-base",
+   "type": "dataset",
+   "label": "base dataset",
+   "as": [
+    "ds-rs-chargeoff-base"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-rs-agency-placements",
+   "type": "owned-by",
+   "label": "owner for join",
+   "o": "data-eng-cards",
+   "quote": "Owner: data-eng-cards for the join",
+   "line": 7
+  },
+  {
+   "s": "ds-rs-agency-placements",
+   "type": "owned-by",
+   "label": "owner for placement policy",
+   "o": "lena-fischer",
+   "quote": "Lena Fischer for placement policy",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-rs-chargeoff-base"
+ ],
+ "built_on": [
+  {
+   "what": "ds-rs-chargeoff-base",
+   "quote": "Builds on ds-rs-chargeoff-base.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "recovery-scoring/ds-rs-agency-placements.md",
+ "sha": "4c6ca2848ea48c49062e2bddafea49b9ebe44c9f8f8186daa4a2a1fd6041c18d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

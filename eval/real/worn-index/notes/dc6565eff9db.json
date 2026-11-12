@@ -1,0 +1,115 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-txc-normalise-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-txc-normalise-v2: strip store numbers, hash codes and city suffixes"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "txc-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "txc-gbm-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-104",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-104"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "txc-gbm-v3",
+   "type": "model",
+   "label": "successor",
+   "as": [
+    "txc-gbm-v3"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-txc-descriptor-sample",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "ds-txc-descriptor-sample"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-txc-normalise-v2",
+   "type": "uses",
+   "label": "lifts macro-F1 on",
+   "o": "txc-gbm-v2",
+   "quote": "On txc-gbm-v2 this lifts holdout-2025q2 macro-F1 from 0.78 to 0.81 (exp-104)",
+   "line": 6
+  },
+  {
+   "s": "feat-txc-normalise-v2",
+   "type": "evaluated-on",
+   "label": "lifts macro-F1 on",
+   "o": "holdout-2025q2",
+   "quote": "On txc-gbm-v2 this lifts holdout-2025q2 macro-F1 from 0.78 to 0.81 (exp-104)",
+   "line": 6
+  },
+  {
+   "s": "feat-txc-normalise-v2",
+   "type": "part-of",
+   "label": "part of input to",
+   "o": "txc-gbm-v3",
+   "quote": "Part of the input to txc-gbm-v3.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-104"
+ ],
+ "built_on": [
+  {
+   "what": "ds-txc-descriptor-sample",
+   "quote": "Builds on ds-txc-descriptor-sample.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "txn-categorization/feat-txc-normalise-v2.md",
+ "sha": "dc6565eff9db6e9cc725fcf959718be0535e611ae5b3f277d18ab3018906f46c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

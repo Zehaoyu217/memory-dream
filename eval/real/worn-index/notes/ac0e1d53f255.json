@@ -1,0 +1,126 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-csb-ship-xgb-v1",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: pilot csb-xgb-v1 on 25% of the SMB cohort"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "dec-csb-ship-xgb-v2",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-csb-ship-xgb-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "csb-xgb-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "csb-xgb-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "csb-lr-base",
+   "type": "model",
+   "label": "challenger",
+   "as": [
+    "csb-lr-base"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "smb-cohort",
+   "type": "segment",
+   "label": "cohort",
+   "as": [
+    "SMB cohort"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "december-peak",
+   "type": "term",
+   "label": "caveat",
+   "as": [
+    "December peak"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fnd-csb-volatility-lift",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-csb-volatility-lift"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-csb-ship-xgb-v1",
+   "type": "uses",
+   "label": "pilot",
+   "o": "csb-xgb-v1",
+   "quote": "Decision: pilot csb-xgb-v1 on 25% of the SMB cohort from the December 2025 cycle",
+   "line": 4
+  },
+  {
+   "s": "csb-xgb-v1",
+   "type": "other",
+   "label": "champion/challenger against",
+   "o": "csb-lr-base",
+   "quote": "Champion/challenger against csb-lr-base for two cycles.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "dec-csb-ship-xgb-v2",
+  "csb-lr-base",
+  "fnd-csb-volatility-lift",
+  "csb-xgb-v1"
+ ],
+ "built_on": [
+  {
+   "what": "csb-xgb-v1",
+   "quote": "Builds on the first xgboost on raw spend and fnd-csb-volatility-lift.",
+   "line": 8
+  },
+  {
+   "what": "fnd-csb-volatility-lift",
+   "quote": "Builds on the first xgboost on raw spend and fnd-csb-volatility-lift.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-small-business/dec-csb-ship-xgb-v1.md",
+ "sha": "ac0e1d53f2555a22497bb19d5f01d033b8a77dda475b6fe59dab5139d0922f92",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,98 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-504",
+   "type": "experiment",
+   "label": "wave-2 experiment",
+   "as": [
+    "exp-504"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "promise-to-pay",
+   "type": "metric",
+   "label": "promise-to-pay rate",
+   "as": [
+    "promise-to-pay lift"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "find-ch-sms-matches-call",
+   "type": "other",
+   "label": "earlier finding",
+   "as": [
+    "the 80% from wave 1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "find-cu-sms-cost",
+   "type": "other",
+   "label": "uplift finding",
+   "as": [
+    "find-cu-sms-cost"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-504",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "promise-to-pay",
+   "quote": "exp-504: SMS-only lift 3.1pp against call-first lift 5.9pp.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-504",
+  "find-ch-sms-matches-call",
+  "find-cu-sms-cost"
+ ],
+ "built_on": [
+  {
+   "what": "exp-504",
+   "quote": "Builds on exp-504, find-ch-sms-matches-call and collections-uplift/find-cu-sms-cost.",
+   "line": 7
+  },
+  {
+   "what": "find-ch-sms-matches-call",
+   "quote": "Builds on exp-504, find-ch-sms-matches-call and collections-uplift/find-cu-sms-cost.",
+   "line": 7
+  },
+  {
+   "what": "find-cu-sms-cost",
+   "quote": "Builds on exp-504, find-ch-sms-matches-call and collections-uplift/find-cu-sms-cost.",
+   "line": 7
+  }
+ ],
+ "replaces": [
+  {
+   "what": "find-ch-sms-matches-call",
+   "quote": "Replaces find-ch-sms-matches-call.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "collections-channel-mix/find-ch-sms-call-gap.md",
+ "sha": "2aec3ce6224f4f975f0dd0061c32dd11f473e4be20a3cad4752e685d72fad3c0",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

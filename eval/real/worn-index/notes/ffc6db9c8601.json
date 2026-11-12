@@ -1,0 +1,66 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-hp-txn-drop-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-hp-txn-drop-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-hp-enrolled",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-hp-enrolled"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-hp-txn-drop-v1",
+   "type": "uses",
+   "label": "source",
+   "o": "cards.txn_daily",
+   "quote": "Source: `cards.txn_daily` aggregated to account-month.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-hp-enrolled"
+ ],
+ "built_on": [
+  {
+   "what": "ds-hp-enrolled",
+   "quote": "Builds on ds-hp-enrolled.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "hardship-programs/feat-hp-txn-drop-v1.md",
+ "sha": "ffc6db9c8601966653dd063167dd92df9d3940adc5da1afa7940098c9c0f2d13",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,107 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "pd",
+   "type": "metric",
+   "label": "default label",
+   "as": [
+    "the default (PD) label is 90+ DPD within 12 months"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "credit-risk team lead",
+   "as": [
+    "Lena Fischer's credit-risk team"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards-churn-labels",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`cards.churn_labels`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "churn",
+   "type": "metric",
+   "label": "churn label",
+   "as": [
+    "The churn label stays at 6 months"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "pd-models-v2",
+   "type": "model",
+   "label": "pd models",
+   "as": [
+    "PD models from v2 onward"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "glossary-label-window",
+   "type": "document",
+   "label": "glossary entry",
+   "as": [
+    "glossary/label-window"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn",
+   "type": "other",
+   "label": "stored in",
+   "o": "cards-churn-labels",
+   "quote": "The churn label stays at 6 months in `cards.churn_labels`",
+   "line": 5
+  },
+  {
+   "s": "lena-fischer",
+   "type": "other",
+   "label": "moved PD horizon",
+   "o": "pd",
+   "quote": "after Lena Fischer's credit-risk team moved the PD horizon to 12 months",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "glossary/label-window"
+ ],
+ "replaces": [
+  {
+   "what": "glossary-label-window",
+   "quote": "Replaces glossary/label-window.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "corrections/label-window-12m.md",
+ "sha": "eb8e0a4465eb2ed67a82d5814befb35364236ebd5913b7404cc9c33e1072f149",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

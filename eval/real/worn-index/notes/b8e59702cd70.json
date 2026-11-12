@@ -1,0 +1,130 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-aml-suppress-018",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Structuring alerts below score 0.18 go to a 10% sampled review queue"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "omar-haddad",
+   "type": "person",
+   "label": "approver",
+   "as": [
+    "Omar Haddad"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "compliance",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "compliance"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "structuring-alerts-below-018",
+   "type": "segment",
+   "label": "alert group",
+   "as": [
+    "structuring alerts scored below 0.18 by the ranker"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sampled-review-queue",
+   "type": "other",
+   "label": "review queue",
+   "as": [
+    "sampled review queue"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "exp-406",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-406"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-aml-suppress-018",
+   "type": "owned-by",
+   "label": "decided by",
+   "o": "omar-haddad",
+   "quote": "Decision (compliance, Omar Haddad)",
+   "line": 5
+  },
+  {
+   "s": "structuring-alerts-below-018",
+   "type": "other",
+   "label": "routed to",
+   "o": "sampled-review-queue",
+   "quote": "go to a sampled review queue, not the standard queue.",
+   "line": 5
+  },
+  {
+   "s": "dec-aml-suppress-018",
+   "type": "uses",
+   "label": "basis",
+   "o": "exp-406",
+   "quote": "Basis: exp-406 (2 of 188 SARs missed on v2).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-aml-sample-10",
+  "dec-aml-queue-only",
+  "aml-find-ranker-top40-revised"
+ ],
+ "built_on": [
+  {
+   "what": "aml-find-ranker-top40-revised",
+   "quote": "Builds on aml-find-ranker-top40-revised, dec-aml-queue-only and exp-406.",
+   "line": 8
+  },
+  {
+   "what": "dec-aml-queue-only",
+   "quote": "Builds on aml-find-ranker-top40-revised, dec-aml-queue-only and exp-406.",
+   "line": 8
+  },
+  {
+   "what": "exp-406",
+   "quote": "Builds on aml-find-ranker-top40-revised, dec-aml-queue-only and exp-406.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "aml-alerts/dec-aml-suppress-018.md",
+ "sha": "b8e59702cd704827adebd0cc7f035490a69bfbe348369dd33a1807d3c0d5b1cb",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

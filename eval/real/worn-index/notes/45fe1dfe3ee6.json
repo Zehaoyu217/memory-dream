@@ -1,0 +1,130 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "feat-mrisk-mcc-base",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mrisk-mcc-base"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.85 to 0.87"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-503",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-503"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "mrisk-oot-2025h2",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "on mrisk-oot-2025h2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "mrisk-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "v2 is the first version to carry the MCC feature"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "smoothed-mcc-fraud-base-rate",
+   "type": "term",
+   "label": "term",
+   "as": [
+    "the smoothed mcc fraud base rate"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-503",
+   "type": "uses",
+   "label": "uses feature",
+   "o": "feat-mrisk-mcc-base",
+   "quote": "AUC 0.85 to 0.87 with feat-mrisk-mcc-base on mrisk-oot-2025h2",
+   "line": 5
+  },
+  {
+   "s": "exp-503",
+   "type": "evaluated-on",
+   "label": "eval on",
+   "o": "mrisk-oot-2025h2",
+   "quote": "on mrisk-oot-2025h2",
+   "line": 5
+  },
+  {
+   "s": "exp-503",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.85 to 0.87",
+   "line": 5
+  },
+  {
+   "s": "mrisk-gbm-v2",
+   "type": "uses",
+   "label": "first to carry",
+   "o": "feat-mrisk-mcc-base",
+   "quote": "v2 is the first version to carry the MCC feature",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-503",
+  "feat-mrisk-mcc-base"
+ ],
+ "built_on": [
+  {
+   "what": "exp-503",
+   "quote": "Builds on exp-503 and the smoothed mcc fraud base rate.",
+   "line": 8
+  },
+  {
+   "what": "smoothed-mcc-fraud-base-rate",
+   "quote": "Builds on exp-503 and the smoothed mcc fraud base rate.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "merchant-risk/mrisk-find-mcc-base.md",
+ "sha": "45fe1dfe3ee6b57e5a6a7cbc48f734bc469289545b208b078ffa74839a47bd14",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

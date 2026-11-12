@@ -1,0 +1,56 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-mq3-recency-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mq3-recency-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-mq3-recency-v1",
+   "type": "uses",
+   "label": "computed from",
+   "o": "cards.txn_daily",
+   "quote": "Days since the last transaction of any kind in `cards.txn_daily`",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "feat-mq3-recency-v2",
+  "ds-mq3-contacts-snap"
+ ],
+ "built_on": [
+  {
+   "what": "ds-mq3-contacts-snap",
+   "quote": "Builds on ds-mq3-contacts-snap.",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "marketing-uplift-q3/feat-mq3-recency-v1.md",
+ "sha": "ec4c5b7a1bb76c22d37d8eec1d69ef621ae16be75af88875930f95a7108650e2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

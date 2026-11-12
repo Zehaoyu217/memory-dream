@@ -1,0 +1,99 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-cb-repeat-contact",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "On a 14-day repeat window, the v1 handoff rule gives 21 percent repeat contact against 16 percent agent-handled, so containment is not yet safe"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-304",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-304"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-307",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-307"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fnd-cb-containment-high",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Replaces fnd-cb-containment-high."
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fnd-cb-repeat-contact",
+   "type": "evaluated-on",
+   "label": "measured in",
+   "o": "exp-304",
+   "quote": "From exp-304: v1 repeat contact 21 percent, v2 15 percent, agent-handled 16 percent",
+   "line": 5
+  },
+  {
+   "s": "exp-307",
+   "type": "other",
+   "label": "measures",
+   "o": "fnd-cb-repeat-contact",
+   "quote": "Same-intent call rebounds after containment run at 9 percent (exp-307).",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-304",
+  "exp-307",
+  "fnd-cb-containment-high"
+ ],
+ "built_on": [
+  {
+   "what": "exp-304",
+   "quote": "Builds on the handoff rule v1 versus v2 replay",
+   "line": 7
+  },
+  {
+   "what": "exp-307",
+   "quote": "the same-intent repeat call check",
+   "line": 7
+  }
+ ],
+ "replaces": [
+  {
+   "what": "fnd-cb-containment-high",
+   "quote": "Replaces fnd-cb-containment-high.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "chatbot-deflection/fnd-cb-repeat-contact.md",
+ "sha": "a47e60126198e089ca6725d826f85effef9e83600b6b0253a71ba8e3614b9363",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

@@ -1,0 +1,46 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "min-sample-for-rates",
+   "type": "policy",
+   "label": "rule",
+   "as": [
+    "Rates are shown only for groups with at least 200 cases or accounts; smaller groups show \"n<200\""
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "rate",
+   "type": "metric",
+   "label": "rate",
+   "as": [
+    "a rate shown in any deck"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "min-sample-for-rates",
+   "type": "measured-by",
+   "label": "sets minimum base for",
+   "o": "rate",
+   "quote": "The minimum base for a rate shown in any deck is 200 cases or accounts.",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/min-sample-for-rates.md",
+ "sha": "4b2f58a7986db1933ca66244c0a5a806f3f9dfd217de1b8b20bd5140b5b1eff3",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

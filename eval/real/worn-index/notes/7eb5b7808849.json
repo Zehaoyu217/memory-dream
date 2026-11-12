@@ -1,0 +1,108 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-402",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-402"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-hp-matched-controls",
+   "type": "dataset",
+   "label": "matched sample",
+   "as": [
+    "Matched sample"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "hp-psm-v1",
+   "type": "term",
+   "label": "matching method",
+   "as": [
+    "hp-psm-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "roll-rate",
+   "type": "metric",
+   "label": "roll",
+   "as": [
+    "roll"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "feat-hp-match-covars-v1",
+   "type": "feature",
+   "label": "covariates",
+   "as": [
+    "feat-hp-match-covars-v1"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-402",
+   "type": "uses",
+   "label": "matched sample from",
+   "o": "ds-hp-matched-controls",
+   "quote": "Matched sample: 14,020 enrolled and 56,080 controls",
+   "line": 5
+  },
+  {
+   "s": "exp-402",
+   "type": "uses",
+   "label": "matched with",
+   "o": "hp-psm-v1",
+   "quote": "hp-psm-v1 on six covariates",
+   "line": 5
+  },
+  {
+   "s": "exp-402",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "roll-rate",
+   "quote": "matched controls roll at 27.1% against 21.0% for enrolled accounts",
+   "line": 4
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-hp-matched-controls",
+   "quote": "Builds on ds-hp-matched-controls and feat-hp-match-covars-v1.",
+   "line": 8
+  },
+  {
+   "what": "feat-hp-match-covars-v1",
+   "quote": "Builds on ds-hp-matched-controls and feat-hp-match-covars-v1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "hardship-programs/exp-402.md",
+ "sha": "7eb5b780884972c6a8158ecc18efb921d9bd868a1b3fdf5df0e059672a26ad05",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

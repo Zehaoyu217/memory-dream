@@ -1,0 +1,179 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-106",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-106"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cli-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cli-xgb-v2"
+   ],
+   "lines": [
+    4,
+    8
+   ]
+  },
+  {
+   "id": "cli-oot-2026h1",
+   "type": "dataset",
+   "label": "out-of-time dataset",
+   "as": [
+    "cli-oot-2026h1"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.72"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "drift metric",
+   "as": [
+    "PSI 0.14"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "feat-cli-util-v2",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "feat-cli-util-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-107",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-107"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dec-cli-uplift-targeting",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-cli-uplift-targeting"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-106",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "cli-oot-2026h1",
+   "quote": "Scored on cli-oot-2026h1",
+   "line": 5
+  },
+  {
+   "s": "exp-106",
+   "type": "measured-by",
+   "label": "measured",
+   "o": "auc",
+   "quote": "AUC 0.72 against 0.74",
+   "line": 5
+  },
+  {
+   "s": "exp-106",
+   "type": "measured-by",
+   "label": "drift check",
+   "o": "psi",
+   "quote": "PSI 0.14 on the utilisation slope",
+   "line": 6
+  },
+  {
+   "s": "exp-106",
+   "type": "uses",
+   "label": "builds on",
+   "o": "cli-xgb-v2",
+   "quote": "Builds on cli-xgb-v2",
+   "line": 8
+  },
+  {
+   "s": "exp-106",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-cli-util-v2",
+   "quote": "feat-cli-util-v2",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-107",
+  "dec-cli-uplift-targeting"
+ ],
+ "built_on": [
+  {
+   "what": "cli-xgb-v2",
+   "quote": "Builds on cli-xgb-v2, the 2026 h1 out-of-time dataset and feat-cli-util-v2.",
+   "line": 8
+  },
+  {
+   "what": "cli-oot-2026h1",
+   "quote": "the 2026 h1 out-of-time dataset",
+   "line": 8
+  },
+  {
+   "what": "feat-cli-util-v2",
+   "quote": "feat-cli-util-v2",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "credit-line-increase/exp-106.md",
+ "sha": "51340a3b6a3904ec3fca57d8a8b88cb3c323dba130d58c63badf3b74b1625ea4",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

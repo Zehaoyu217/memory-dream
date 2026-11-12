@@ -1,0 +1,95 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ror-offer-fatigue",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ror-offer-fatigue",
+    "retention offers received in the trailing 12 months"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-ror-redemptions",
+   "type": "dataset",
+   "label": "offer history",
+   "as": [
+    "ds-ror-redemptions"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-402",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-402"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "retention-uplift",
+   "type": "metric",
+   "label": "uplift",
+   "as": [
+    "uplift"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ror-offer-fatigue",
+   "type": "uses",
+   "label": "built from",
+   "o": "ds-ror-redemptions",
+   "quote": "Built from the offer history in ds-ror-redemptions.",
+   "line": 6
+  },
+  {
+   "s": "feat-ror-offer-fatigue",
+   "type": "other",
+   "label": "tied to",
+   "o": "retention-uplift",
+   "quote": "Strongly tied to uplift",
+   "line": 7
+  },
+  {
+   "s": "exp-402",
+   "type": "measured-by",
+   "label": "shows",
+   "o": "retention-uplift",
+   "quote": "Strongly tied to uplift: 2.3pp with none, 0.4pp with three or more (exp-402).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-ror-redemptions",
+  "exp-402"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ror-redemptions",
+   "quote": "Builds on the retention offer outcomes dataset.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "retention-offers-roi/feat-ror-offer-fatigue.md",
+ "sha": "56cd0efe62e4ca4ce1edfad823db343432e4c8c9a467e9995d364b59be42df5c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

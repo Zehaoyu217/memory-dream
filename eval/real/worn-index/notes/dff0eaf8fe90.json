@@ -1,0 +1,88 @@
+{
+ "kind": "term",
+ "entities": [
+  {
+   "id": "merchant-category-grouping",
+   "type": "term",
+   "label": "merchant grouping",
+   "as": [
+    "Merchant categories: 38 MCCs collapse into nine spend groups; grocery is 22% of spend"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "grocery",
+   "type": "term",
+   "label": "spend group",
+   "as": [
+    "grocery"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "cards.merchants",
+   "type": "dataset",
+   "label": "merchant table",
+   "as": [
+    "`cards.merchants`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-cb-grocery-share",
+   "type": "feature",
+   "label": "grocery share feature",
+   "as": [
+    "feat-cb-grocery-share"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cb-grocery-share",
+   "type": "built on",
+   "label": "fed by",
+   "o": "merchant-category-grouping",
+   "quote": "Account-level grocery share feeds feat-cb-grocery-share.",
+   "line": 6
+  },
+  {
+   "s": "merchant-category-grouping",
+   "type": "uses",
+   "label": "maps from",
+   "o": "cards.merchants",
+   "quote": "Mapping from `cards.merchants` into nine groups",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "feat-cb-grocery-share",
+  "ds-cb-spend-panel"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cb-spend-panel",
+   "quote": "Builds on ds-cb-spend-panel.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "cashback-redesign/ds-cb-merchant-cat.md",
+ "sha": "dff0eaf8fe907de8ffb1fb4927b4bf2dd11fe131f27df334abca262f9c6fb64d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

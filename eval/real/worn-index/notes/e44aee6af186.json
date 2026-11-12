@@ -1,0 +1,109 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-401",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-401"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-pbs-frame-h1-2025",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-pbs-frame-h1-2025"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "pbs-kmeans-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "pbs-kmeans-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "silhouette",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Silhouette"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-401",
+   "type": "evaluated-on",
+   "label": "swept on",
+   "o": "ds-pbs-frame-h1-2025",
+   "quote": "on the 200k sample of ds-pbs-frame-h1-2025",
+   "line": 5
+  },
+  {
+   "s": "exp-401",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-pbs-frame-h1-2025",
+   "quote": "Builds on ds-pbs-frame-h1-2025 and pbs-kmeans-v1.",
+   "line": 8
+  },
+  {
+   "s": "exp-401",
+   "type": "uses",
+   "label": "builds on",
+   "o": "pbs-kmeans-v1",
+   "quote": "Builds on ds-pbs-frame-h1-2025 and pbs-kmeans-v1.",
+   "line": 8
+  },
+  {
+   "s": "exp-401",
+   "type": "measured-by",
+   "label": "silhouette peaks",
+   "o": "silhouette",
+   "quote": "Silhouette peaks at k=4 (0.41)",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "ds-pbs-frame-h1-2025",
+  "pbs-kmeans-v1"
+ ],
+ "built_on": [
+  {
+   "what": "ds-pbs-frame-h1-2025",
+   "quote": "Builds on ds-pbs-frame-h1-2025 and pbs-kmeans-v1.",
+   "line": 8
+  },
+  {
+   "what": "pbs-kmeans-v1",
+   "quote": "Builds on ds-pbs-frame-h1-2025 and pbs-kmeans-v1.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "payment-behavior-segments/exp-401.md",
+ "sha": "e44aee6af186e7c50db8014187ed52667ced5e1d60b1ec6a4659bec110cd6064",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

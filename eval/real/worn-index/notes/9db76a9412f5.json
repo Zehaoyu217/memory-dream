@@ -1,0 +1,124 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-txc-long-tail",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Long-tail merchants (under 20 transactions in 90 days) hold 11% of spend but 46% of 'other' rows"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "transactions table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "txc-gbm-v2",
+   "type": "model",
+   "label": "lightgbm model",
+   "as": [
+    "txc-gbm-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "q-txc-unlabelled-share",
+   "type": "other",
+   "label": "open question",
+   "as": [
+    "q-txc-unlabelled-share"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "dec-txc-ship-gbm-v3",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-txc-ship-gbm-v3"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-txc-descriptor-sample",
+   "type": "dataset",
+   "label": "descriptor sample",
+   "as": [
+    "ds-txc-descriptor-sample"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "fuzzy-matching",
+   "type": "term",
+   "label": "fuzzy path",
+   "as": [
+    "the fuzzy path"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fnd-txc-long-tail",
+   "type": "measured-by",
+   "label": "carries",
+   "o": "cards.txn_daily",
+   "quote": "Merchants with fewer than 20 transactions in 90 days carry 11% of spend in `cards.txn_daily` (Q3-2025 sample).",
+   "line": 5
+  },
+  {
+   "s": "fnd-txc-long-tail",
+   "type": "other",
+   "label": "accounts for rows in",
+   "o": "txc-gbm-v2",
+   "quote": "They account for 46% of the rows that end up in 'other' under txc-gbm-v2.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "q-txc-unlabelled-share",
+  "dec-txc-ship-gbm-v3"
+ ],
+ "built_on": [
+  {
+   "what": "ds-txc-descriptor-sample",
+   "quote": "Builds on ds-txc-descriptor-sample and the fuzzy matching versus exact rules experiment.",
+   "line": 9
+  },
+  {
+   "what": "exp-107",
+   "quote": "Builds on ds-txc-descriptor-sample and the fuzzy matching versus exact rules experiment.",
+   "line": 9
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "txn-categorization/fnd-txc-long-tail.md",
+ "sha": "9db76a9412f5e9bea8a80d6074aee9f2952bc8b9e357972d3108ccdb3f4d8204",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

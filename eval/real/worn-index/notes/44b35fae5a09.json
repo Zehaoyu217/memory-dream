@@ -1,0 +1,105 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-c25-limit-cut-spike",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Limit cuts inflate util-v1: churn is 11.9% when the limit fell in the last 30 days"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-c25-util-v1",
+   "type": "feature",
+   "label": "utilisation feature",
+   "as": [
+    "util-v1"
+   ],
+   "lines": [
+    4,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "feat-c25-util-v2",
+   "type": "feature",
+   "label": "replacement feature",
+   "as": [
+    "feat-c25-util-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cards.limits_history",
+   "type": "dataset",
+   "label": "limits source",
+   "as": [
+    "cards.limits_history"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-c25-accounts-snapshot",
+   "type": "dataset",
+   "label": "base population",
+   "as": [
+    "ds-c25-accounts-snapshot"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fnd-c25-limit-cut-spike",
+   "type": "other",
+   "label": "inflates",
+   "o": "feat-c25-util-v1",
+   "quote": "Limit cuts inflate util-v1",
+   "line": 4
+  },
+  {
+   "s": "feat-c25-util-v2",
+   "type": "uses",
+   "label": "time-matched limits from",
+   "o": "cards.limits_history",
+   "quote": "time-matched limits from `cards.limits_history`",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "cards.limits_history"
+ ],
+ "built_on": [
+  {
+   "what": "ds-c25-accounts-snapshot",
+   "quote": "Builds on ds-c25-accounts-snapshot",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-c25-util-v1",
+   "quote": "feat-c25-util-v2 fixes it",
+   "line": 7
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2025/fnd-c25-limit-cut-spike.md",
+ "sha": "44b35fae5a0956f85ea97c07825a906e8872ba67b4217b7e2b189200d9dab89e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

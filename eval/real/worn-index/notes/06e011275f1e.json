@@ -1,0 +1,71 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ed-minpay-v2",
+   "type": "feature",
+   "label": "payment ratio feature",
+   "as": [
+    "feat-ed-minpay-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.payments_daily"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-ed-label-30p3m",
+   "type": "dataset",
+   "label": "label",
+   "as": [
+    "ds-ed-label-30p3m"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ed-minpay-v2",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cards.payments_daily",
+   "quote": "Source: `cards.payments_daily`.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-ed-label-30p3m",
+   "quote": "Builds on ds-ed-label-30p3m.",
+   "line": 8
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-ed-minpay-v2",
+   "quote": "Version 2: the ratio uses payment posting date. Version 1 used value date and mis-assigned payments made after the due date.",
+   "line": 5
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "early-delinquency/feat-ed-minpay-v2.md",
+ "sha": "06e011275f1ece3da183ac4611398abe35d8ef15684dfeaa7fb2a58fcc853224",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

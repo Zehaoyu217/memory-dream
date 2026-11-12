@@ -1,0 +1,87 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "mon.incidents",
+   "type": "dataset",
+   "label": "incident table",
+   "as": [
+    "mon.incidents"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "on-call-tracker",
+   "type": "other",
+   "label": "tracker",
+   "as": [
+    "the on-call tracker"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-202",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-202"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-207",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-207"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mon.incidents",
+   "type": "other",
+   "label": "backfilled from",
+   "o": "on-call-tracker",
+   "quote": "Backfilled from the on-call tracker.",
+   "line": 5
+  },
+  {
+   "s": "exp-202",
+   "type": "uses",
+   "label": "used for",
+   "o": "mon.incidents",
+   "quote": "Used for every threshold comparison in this project (exp-202, exp-207).",
+   "line": 7
+  },
+  {
+   "s": "exp-207",
+   "type": "uses",
+   "label": "used for",
+   "o": "mon.incidents",
+   "quote": "Used for every threshold comparison in this project (exp-202, exp-207).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-202",
+  "exp-207"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "model-monitoring/ds-mm-incident-log.md",
+ "sha": "60e0090df1fcfa1d5a3055c93e652ab97827811876efc8e7f587ff48d0701c02",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

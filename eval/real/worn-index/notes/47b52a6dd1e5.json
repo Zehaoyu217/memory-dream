@@ -1,0 +1,163 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-107",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-107"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-fsm-util-ratio",
+   "type": "feature",
+   "label": "util ratio",
+   "as": [
+    "util ratio"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-fsm-parity-sample",
+   "type": "dataset",
+   "label": "parity sample",
+   "as": [
+    "fsm_parity_sample_2025h2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exact-month-end-rule",
+   "type": "term",
+   "label": "exact rule",
+   "as": [
+    "The exact month-end rule"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "store-month-end-rule",
+   "type": "term",
+   "label": "store rule",
+   "as": [
+    "The store rule"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "churn auc",
+   "as": [
+    "churn AUC"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "legacy-match-rate",
+   "type": "metric",
+   "label": "match rate",
+   "as": [
+    "matches legacy for 98.8 percent of accounts"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fnd-parity-pre-fix",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-parity-pre-fix"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-107",
+   "type": "other",
+   "label": "tests rule for",
+   "o": "feat-fsm-util-ratio",
+   "quote": "month-end rule test for util ratio",
+   "line": 4
+  },
+  {
+   "s": "store-month-end-rule",
+   "type": "measured-by",
+   "label": "matches legacy",
+   "o": "legacy-match-rate",
+   "quote": "matches legacy for 98.8 percent of accounts",
+   "line": 6
+  },
+  {
+   "s": "exp-107",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q2",
+   "quote": "Under the store rule, churn AUC on holdout-2025q2 moves by +0.002.",
+   "line": 7
+  },
+  {
+   "s": "exp-107",
+   "type": "measured-by",
+   "label": "churn AUC moves",
+   "o": "auc",
+   "quote": "churn AUC on holdout-2025q2 moves by +0.002",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-fsm-parity-sample",
+  "fnd-parity-pre-fix"
+ ],
+ "built_on": [
+  {
+   "what": "ds-fsm-parity-sample",
+   "quote": "Builds on ds-fsm-parity-sample and fnd-parity-pre-fix.",
+   "line": 8
+  },
+  {
+   "what": "fnd-parity-pre-fix",
+   "quote": "Builds on ds-fsm-parity-sample and fnd-parity-pre-fix.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "feature-store-migration/exp-107.md",
+ "sha": "47b52a6dd1e5fbffa644a3696d9ba63a59ba6808372b4838e31d77b11cdb5247",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

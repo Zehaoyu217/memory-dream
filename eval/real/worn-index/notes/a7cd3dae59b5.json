@@ -1,0 +1,74 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-velocity-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "30-day transaction velocity per account (v2)"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards-txn-daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-txn-2025q4",
+   "type": "dataset",
+   "label": "snapshot",
+   "as": [
+    "q4-2025 daily transaction snapshot"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-velocity-v2",
+   "type": "uses",
+   "label": "built on",
+   "o": "cards-txn-daily",
+   "quote": "Built on `cards.txn_daily`.",
+   "line": 6
+  },
+  {
+   "s": "feat-velocity-v2",
+   "type": "uses",
+   "label": "built on",
+   "o": "ds-txn-2025q4",
+   "quote": "Builds on the q4-2025 daily transaction snapshot.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "features/velocity_v2.py"
+ ],
+ "built_on": [
+  {
+   "what": "ds-txn-2025q4",
+   "quote": "Builds on the q4-2025 daily transaction snapshot.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "churn-2026/feat-velocity-v2.md",
+ "sha": "a7cd3dae59b5ce02424402cca2a754a484873e87344ebbba77117e18fea2de1f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

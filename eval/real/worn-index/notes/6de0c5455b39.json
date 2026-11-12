@@ -1,0 +1,126 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "fraud25-gbm-v3",
+   "type": "model",
+   "label": "challenger model",
+   "as": [
+    "fraud25-gbm-v3 halves the travel flag"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fraud25-gbm-v2",
+   "type": "model",
+   "label": "live model",
+   "as": [
+    "fraud25-gbm-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Holdout-2025q1 AUC 0.909"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "travel-alert-share",
+   "type": "metric",
+   "label": "travel alert share",
+   "as": [
+    "travel share of alerts falls from 31% to 17%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-f25-mcc-travel",
+   "type": "feature",
+   "label": "travel flag",
+   "as": [
+    "feat-f25-mcc-travel"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fraud-2026",
+   "type": "other",
+   "label": "2026 rebuild",
+   "as": [
+    "the rebuild was deferred to fraud-2026"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud25-gbm-v3",
+   "type": "uses",
+   "label": "travel flag halved",
+   "o": "feat-f25-mcc-travel",
+   "quote": "with the travel flag multiplied by 0.5 before training",
+   "line": 5
+  },
+  {
+   "s": "fraud25-gbm-v3",
+   "type": "evaluated-on",
+   "label": "AUC on holdout",
+   "o": "holdout-2025q1",
+   "quote": "Holdout-2025q1 AUC 0.909 against 0.911 for v2",
+   "line": 6
+  },
+  {
+   "s": "fraud25-gbm-v3",
+   "type": "measured-by",
+   "label": "share falls",
+   "o": "travel-alert-share",
+   "quote": "travel share of alerts falls from 31% to 17%",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-107",
+  "dec-f25-no-v3"
+ ],
+ "built_on": [
+  {
+   "what": "exp-106",
+   "quote": "Builds on exp-106, feat-f25-mcc-travel and fraud25-gbm-v2.",
+   "line": 8
+  },
+  {
+   "what": "feat-f25-mcc-travel",
+   "quote": "Builds on exp-106, feat-f25-mcc-travel and fraud25-gbm-v2.",
+   "line": 8
+  },
+  {
+   "what": "fraud25-gbm-v2",
+   "quote": "Builds on exp-106, feat-f25-mcc-travel and fraud25-gbm-v2.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "fraud-2025/fraud25-gbm-v3.md",
+ "sha": "6de0c5455b3906f6eeaabc97dcd89eaa797878424adfa33f49342d4d3fcfb0c6",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}

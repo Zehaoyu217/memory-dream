@@ -1,0 +1,129 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-304",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-304"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-rs-region-rate",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "the region feature"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "recovery-scoring-holdout-2023h2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Same holdout (n=6,120)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Gini 0.42"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "KS 0.30"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "omar-haddad",
+   "type": "person",
+   "label": "compliance reviewer",
+   "as": [
+    "Omar Haddad"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-304",
+   "type": "evaluated-on",
+   "label": "same holdout",
+   "o": "recovery-scoring-holdout-2023h2",
+   "quote": "Same holdout (n=6,120).",
+   "line": 5
+  },
+  {
+   "s": "exp-304",
+   "type": "measured-by",
+   "label": "gini",
+   "o": "auc",
+   "quote": "Without the region feature: Gini 0.42, KS 0.30.",
+   "line": 5
+  },
+  {
+   "s": "exp-304",
+   "type": "measured-by",
+   "label": "ks",
+   "o": "ks",
+   "quote": "Without the region feature: Gini 0.42, KS 0.30.",
+   "line": 5
+  },
+  {
+   "s": "exp-304",
+   "type": "uses",
+   "label": "removes",
+   "o": "feat-rs-region-rate",
+   "quote": "Without the region feature",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "recovery_scoring/exp304_fairness.ipynb"
+ ],
+ "built_on": [
+  {
+   "what": "exp-303",
+   "quote": "Builds on exp-303 and feat-rs-region-rate.",
+   "line": 8
+  },
+  {
+   "what": "feat-rs-region-rate",
+   "quote": "Builds on exp-303 and feat-rs-region-rate.",
+   "line": 8
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "recovery-scoring/exp-304.md",
+ "sha": "86753891abce57080f67ed802b74aef4e6a772cea08572f9f1394cd5be830bfd",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T11:59:51"
+}
