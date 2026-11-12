@@ -124,6 +124,40 @@ def scenario(w):
     w.ok("the file put back counts again, and its stale line is reported",
          "SUPERSEDED → a-v2 → a-v3" in w.head(out, "proj/a-v1.md") and re.search(r"dropped: proj/a-v2\.md names a note that exists", out) is not None, out)
     absorbing(w)
+    pointing(w)
+
+
+CODE ="import os\n\n\ndef load(path):\n    return open(path).read()\n\n\nLIMIT = 10\n\n\ndef main():\n    print(load('x'))\n"
+
+
+def pointing(w):
+    """Pointers into the project's files (PLAN §10): found at a dream, looked up again at every ask."""
+    code = w.dir / "src" / "app.py"
+    code.parent.mkdir(parents=True, exist_ok=True)
+    code.write_text(CODE)
+    w.write("proj/how-loading-works.md", "from: [exp-1]", "How loading works: one function, capped")
+    with open(w.root / "proj/how-loading-works.md", "a") as f:
+        f.write('It starts in `src/app.py#load` and is capped by `src/app.py:8 "LIMIT = 10"`. The entry point is app.py:11.\n'
+                "The cache hit ratio was 3.5:1 on staging.internal:8080, which is not a file.\n")
+    q = "how does loading work?"
+    out = w.run("dream") + w.run("ask", q)
+    w.ok("three pointers found in a note, by symbol, by quoted words and by a bare line; a ratio and a host are not pointers",
+         "→ src/app.py#load · at line 4" in out and '→ src/app.py:8 "LIMIT = 10" · still there' in out
+         and "→ src/app.py:11 · still there (a bare line: weak)" in out and out.count("  → ") == 3, out)
+    code.write_text("# a header\n# of two lines\n" + CODE)
+    out = w.run("ask", q)
+    w.ok("the file grew by two lines: every pointer says where it is now, with no dream in between",
+         "#load · at line 6" in out and '"LIMIT = 10" · now at line 10' in out and "app.py:11 · now at line 13" in out, out)
+    code.write_text(("# a header\n# of two lines\n" + CODE).replace("LIMIT = 10", "LIMIT = 20").replace("def load(", "def read_all("))
+    out = w.run("ask", q)
+    w.ok("the words and the symbol changed: the note is marked stale and says which pointers no longer hold",
+         "STALE: 2 of its pointers no longer hold" in w.head(out, "proj/how-loading-works.md")
+         and "the symbol is not defined there now" in out and "those words are not there now" in out, out)
+    out = w.run("dream") + w.run("check")
+    w.ok("the next dream sees that the file changed and reports both (C16)", "C16×2" in out and "contract: schema 1 ok" in out, out)
+    code.unlink()
+    out = w.run("ask", q)
+    w.ok("the file is gone: all three say so", out.count("the file is gone") == 3, out)
 
 
 OTHER = {  # another base, outside the memory: path → text

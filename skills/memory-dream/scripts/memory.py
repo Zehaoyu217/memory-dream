@@ -617,13 +617,37 @@ def parse_note(text):
 SLUG = re.compile(r"(?<![\w/-])([a-z][a-z0-9]*(?:-[a-z0-9]+)+)(?![\w-])")
 
 
+# A pointer into a file of the project, as agents write them: `memory.py#grep_lines`, `src/app.ts:120`, and
+# `src/app.ts:120 "export function main"`. Measured on this repository's history (RESULTS K3): a bare line is right
+# for 41% of definitions one version later and for none after five, its quoted words are found for 97%, a symbol for
+# 100%. So the quote and the symbol are what a pointer is checked by, and a bare line is kept by the text it had.
+POINTER = re.compile(r'(?<![\w/.:#-])((?:[\w.-]+/)*[\w.-]+\.[A-Za-z][A-Za-z0-9]{0,5})'
+                     r'(?:#([A-Za-z_][\w.]*)|:(\d{1,6})\b(?:`?\s+"([^"\n]{3,160})")?)')
+
+
+def pointers_in(text):
+    """The places a note's text points at: [{to, symbol} | {to, line, quote}]. Whether `to` is a file of the project
+    is decided where the project is known (pointer_states)."""
+    out, seen = [], set()
+    for m in POINTER.finditer(text):
+        p = {"to": m.group(1), "symbol": m.group(2)} if m.group(2) else \
+            {"to": m.group(1), "line": int(m.group(3)), "quote": m.group(4)}
+        key = json.dumps(p, sort_keys=True)
+        if key not in seen:
+            seen.add(key)
+            out.append(p)
+    return out
+
+
 def note_facts(text):
-    """What the graph needs from a note's text: frontmatter lineage and dates, the `# ` line, links, body slugs."""
+    """What the graph needs from a note's text: frontmatter lineage and dates, the `# ` line, links, body slugs, and
+    its pointers into files."""
     fm, title, tline, links = parse_note(text)
     return {"fm": {k: fm[k] for k in ("from", "supersedes", "type", "updated", "modified") if k in fm}, "title": title,
             "line": tline, "links": links, "nul": "\x00" in text,  # binary-looking: C9
             "lines": text.count("\n") + (0 if text.endswith("\n") or not text else 1),  # over 40: C11
-            "ids": sorted(set(SLUG.findall(text.lower().split("\n", tline)[-1]))) if tline else []}
+            "ids": sorted(set(SLUG.findall(text.lower().split("\n", tline)[-1]))) if tline else [],
+            "pointers": pointers_in(text.split("\n", tline)[-1]) if tline else pointers_in(text)}
 
 
 def fm_list(v):
@@ -636,6 +660,100 @@ def fm_list(v):
         if x:
             out.append(x)
     return out
+
+
+POINTER_WALK = 20000  # files looked through to find a pointer written by file name alone (`memory.py:2440`)
+DEFINES = (r"^\s*(?:(?:export|public|private|protected|static|async|pub|final|abstract)\s+)*"
+           r"(?:def|class|function|fn|func|struct|interface|type|enum|trait|impl|const|let|var|val|module|package)\s+{s}\b"
+           r"|^\s*{s}\s*(?::=|=|:|\()")
+
+
+def code_root(root):
+    """Where the files that notes point into live: the repository around the memory (the nearest folder upward
+    with a .git, at most four levels), else the folder the memory sits in. $MEMORY_CODE names another."""
+    if os.environ.get("MEMORY_CODE"):
+        return Path(os.environ["MEMORY_CODE"]).expanduser().resolve()
+    r = Path(root).resolve()
+    return next((p for p in [r.parent, *r.parent.parents][:4] if (p / ".git").exists()), r.parent)
+
+
+def pointer_states(root, wanted, was):
+    """Every pointer, looked up in the files as they are now. `wanted`: {note: its pointers as written}; `was`: what
+    the last dream recorded for them, which holds the text a bare line pointed at when it was first seen.
+    -> ({note: [{to, path, line, quote, symbol, text, state, now}]}, C16 checks). States: intact · moved (`now` is the
+    line) · changed (the file is there, the words or the symbol are not) · gone (the file is not). A name that was
+    never a file of the project is not a pointer and is left out."""
+    base, mem = code_root(root), Path(root).resolve()
+    cache, names = {}, None
+
+    def lines_of(rel):
+        if rel not in cache:
+            f = base / rel
+            ok = f.is_file() and mem not in f.resolve().parents and f.stat().st_size < 4_000_000
+            cache[rel] = f.read_text(encoding="utf-8", errors="replace").split("\n") if ok else None
+        return cache[rel]
+
+    def find(to):
+        """The file a pointer names: its path from the project's root, or the one file of that name."""
+        nonlocal names
+        if "/" in to or lines_of(to) is not None:
+            return to if lines_of(to) is not None else None
+        if names is None:  # by name alone: one walk, once
+            names, n = defaultdict(list), 0
+            for d, dirs, files in os.walk(base):
+                dirs[:] = sorted(x for x in dirs if not x.startswith(".") and x not in ("node_modules", "_dream", "__pycache__")
+                                 and Path(d, x).resolve() != mem)
+                for f in files:
+                    names[f].append(os.path.relpath(os.path.join(d, f), base).replace(os.sep, "/"))
+                n += len(files)
+                if n > POINTER_WALK:
+                    break
+        return names[to][0] if len(names.get(to, [])) == 1 else None
+
+    out, checks, squash = {}, [], lambda s: " ".join(s.split())
+    for note in sorted(wanted):
+        old = {json.dumps({k: p.get(k) for k in ("to", "line", "quote", "symbol")}, sort_keys=True): p for p in was.get(note, [])}
+        res = []
+        for p in wanted[note]:
+            prev = old.get(json.dumps({k: p.get(k) for k in ("to", "line", "quote", "symbol")}, sort_keys=True), {})
+            path = prev.get("path") or find(p["to"])
+            ls = lines_of(path) if path else None
+            if ls is None and not prev:
+                continue  # never a file here: a ratio, a host and its port, another base's path
+            rec = {"to": p["to"], "path": path, "line": p.get("line"), "quote": p.get("quote"), "symbol": p.get("symbol"),
+                   "text": prev.get("text"), "state": "gone", "now": None}
+            if ls is not None and p.get("symbol"):
+                rx = re.compile(DEFINES.replace("{s}", re.escape(p["symbol"].split(".")[-1])))
+                rec["now"] = next((i for i, ln in enumerate(ls, 1) if rx.search(ln)), None)
+                rec["state"] = "intact" if rec["now"] else "changed"
+            elif ls is not None:
+                at = p["line"]
+                if not p.get("quote") and rec["text"] is None:  # a bare line, first seen: keep the words it points at
+                    rec["text"] = squash(ls[at - 1]) if 0 < at <= len(ls) else ""
+                want = squash(p.get("quote") or rec["text"] or "")
+                hits = [i for i, ln in enumerate(ls, 1) if want and (want in squash(ln) if p.get("quote") else want == squash(ln))]
+                rec["now"] = at if at in hits else min(hits, key=lambda i: (abs(i - at), i)) if hits else None
+                rec["state"] = "intact" if rec["now"] == at else "moved" if rec["now"] else "changed"
+            res.append(rec)
+            if rec["state"] in ("changed", "gone"):
+                where = f"#{p['symbol']}" if p.get("symbol") else f":{p['line']}"
+                checks.append(("C16", f"{note}: points at {p['to']}{where}, which " + ("is gone" if rec["state"] == "gone" else
+                               "changed: " + ("the symbol is not defined there" if p.get("symbol") else "the words it pointed at are not there"))))
+        if res:
+            out[note] = res
+    return out, checks
+
+
+def pointer_sig(root, ptr):
+    """A signature of the files that pointers name: when one of them changes, a dream has pointers to look up again."""
+    base, sig = code_root(root), []
+    for path in sorted({p["path"] for ps in ptr.values() for p in ps if p.get("path")}):
+        try:
+            st = (base / path).stat()
+            sig.append((path, st.st_mtime_ns, st.st_size))
+        except OSError:
+            sig.append((path, None, None))
+    return hashlib.sha256(json.dumps(sig).encode()).hexdigest()[:12]
 
 
 def ground(ans, text):
@@ -1114,7 +1232,7 @@ def notes_part(root, man, cur, former, xs=None, facts=None):
         notes[rel] = {"path": rel, "id": posixpath.basename(rel)[:-3], "project": proj, "title": title,
                       "line": tline, "kind": kind_of(rel, fm.get("type"), (x or {}).get("kind")),
                       "superseded_by": [], "updated": up, "sha": h[:12], "indexed": bool(x)}
-        aux[rel] = {"fm": fm, "links": links, "x": x, "ids": set(f["ids"])}
+        aux[rel] = {"fm": fm, "links": links, "x": x, "ids": set(f["ids"]), "pointers": f.get("pointers") or []}
         by_stem[notes[rel]["id"]].append(rel)
         if not title:
             checks.append(("C6", f"{rel}: no '# ' line"))
@@ -1414,6 +1532,9 @@ def build(root, man, cur, former, et, at, xs=None, now=None, facts=None, base=No
     cf = root / "CONFLICTS.md"
     _, compat, unsure, _ = parse_conflicts(read(cf)) if cf.exists() else ([], set(), set(), [])
     conflicts = [c for c in conflict_candidates(notes, edges, unsure) if frozenset((c["a"], c["b"])) not in compat]
+    wanted = {rel: aux[rel]["pointers"] for rel in notes if aux[rel].get("pointers")}  # pointers into the project's files
+    ptr, pchecks = pointer_states(root, wanted, man.get("pointers") or {}) if wanted else ({}, [])
+    checks += pchecks
     checks += [("C10", f"conflict pending: {c['a']} / {c['b']} — both live, share: {', '.join(c['shared'][:3])}"
                 + (" · reviewer unsure, a person decides" if c["unsure"] else "")) for c in conflicts]
     return {"schema": SCHEMA, "v": V, "built": now.strftime("%Y-%m-%dT%H:%M"),
@@ -1426,7 +1547,7 @@ def build(root, man, cur, former, et, at, xs=None, now=None, facts=None, base=No
             "proposed_types": proposed_t,
             "tvocab": {"types": len(ttypes), "budget": tcfg["budget"], "promote": list(tcfg["promote"]), "probation": tcfg["probation"],
                        "labels": len(tprops), "below": len(tbelow), "demote": sorted(tdemote)},
-            "dedup": dict(dedup), "dropped": base.get("dropped", []),
+            "dedup": dict(dedup), "dropped": base.get("dropped", []), "pointers": ptr,
             "checks": [{"code": c, "msg": m} for c, m in sorted(checks, key=lambda z: z[0])]}
 
 
@@ -1492,7 +1613,8 @@ def validate(g, types=None):
             if not m or m.group(1) not in paths or int(m.group(2)) < 1:
                 bad.append(f"relation {r['s']} {t} {r['o']}: evidence {ev!r} is not path:line of a note")
     bad += [f"conflict {c.get('a')} / {c.get('b')}: unknown note" for c in g["conflicts"] if c.get("a") not in paths or c.get("b") not in paths]
-    bad += [f"check {c.get('code')}: unknown code" for c in g["checks"] if not re.fullmatch(r"C(?:[1-9]|1[0-5])", str(c.get("code", "")))]
+    bad += [f"check {c.get('code')}: unknown code" for c in g["checks"] if not re.fullmatch(r"C(?:[1-9]|1[0-6])", str(c.get("code", "")))]
+    bad += [f"pointers of {p}: not a note" for p in g.get("pointers", {}) if p not in paths]  # optional: pointers into files
     for d in g.get("dropped", []):  # optional: what `drop` recorded and what it means for the notes that are left
         if not isinstance(d.get("path"), str) or d["path"] in paths:
             bad.append(f"dropped {d.get('path')!r}: not a path, or a note that exists")
@@ -1533,11 +1655,13 @@ def load(root):
         g = rd(root / "_dream" / "graph.json") or read_index(root / "_dream")
         if g and g.get("v") == V:
             g.setdefault("dropped", man.get("dropped", []))  # index.db keeps rows; the manifest keeps what was dropped
+            g.setdefault("pointers", man.get("pointers", {}))  # … and what the notes point at
             return g, former
     elif len(cur) > WIDE:  # rebuilding takes minutes here: patch the last graph for what changed since the dream
         g = rd(root / "_dream" / "graph.json") or read_index(root / "_dream")
         if g and g.get("v") == V:
             g.setdefault("dropped", man.get("dropped", []))
+            g.setdefault("pointers", man.get("pointers", {}))
             return patch(root, g, man, cur), former
     return build(root, man, cur, former, et, at), former
 
@@ -1612,7 +1736,7 @@ class Store:
         for rel, f in cur.items():
             h, r = have.get(rel, (None, None))
             rec = json.loads(r) if h == f["sha"] else None
-            if rec is not None and "nul" in rec and "lines" in rec:  # rows written before the C9/C11 fields are re-read once
+            if rec is not None and "nul" in rec and "lines" in rec and "pointers" in rec:  # rows of an older shape are re-read once
                 out[rel] = rec
             else:
                 out[rel] = note_facts(read(root / rel))
@@ -1847,6 +1971,7 @@ class Dream:
         a, man, cur, dd, root = self.args, self.man, self.cur, self.dd, self.root
         return (not a.all and not a.review and man.get("v") == V and man.get("code") == CODE
                 and man.get("unindexed") == 0 and not man.get("due")
+                and man.get("psig", pointer_sig(root, {})) == pointer_sig(root, man.get("pointers") or {})  # a file a note points at changed
                 and {p: f["sha"] for p, f in cur.items()} == {p: f["sha"] for p, f in man.get("files", {}).items()}
                 and man.get("vsig") == vsig(*vocab_texts(root), shape_text(root), *domain_texts(root))
                 and (dd / "index.db").exists() and (dd / "graph.html").exists() and (root / "DIGEST.md").exists()
@@ -2196,6 +2321,7 @@ class Dream:
                                   "queue": [[r["a"], r["b"]] for r in g["review"]],
                                   "failed": self.failed, "attempts": self.attempts, "refs": refs,
                                   "dropped": g.get("dropped", []), "gone": self.gone,
+                                  "pointers": g.get("pointers", {}), "psig": pointer_sig(root, g.get("pointers", {})),
                                   "dreamed": now.isoformat(timespec="seconds"),
                                   "unindexed": sum(1 for n in g["notes"] if not n["indexed"]),
                                   "due": bool(self.cmd and (g["proposed"] or g.get("proposed_types") or g["review"]
@@ -2289,7 +2415,7 @@ class View:
     def __init__(self, g):
         self.g = g
         self._names = None
-        self.dropped = g.get("dropped", [])
+        self.dropped, self.pointers = g.get("dropped", []), g.get("pointers", {})
         self.notes = {n["path"]: n for n in g["notes"]}
         self.ents = {e["id"]: e for e in g["entities"]}
         self.out_r, self.in_r = defaultdict(list), defaultdict(list)
@@ -2361,7 +2487,7 @@ class DbView:
         self.rows = rows
         self.notes = {p: {"path": p, "id": i, "project": a, "title": t, "line": ln, "kind": k, "updated": u,
                           "superseded_by": list(sup or [])} for p, i, a, t, ln, k, u, sup in rows.notes()}
-        self.dropped = man.get("dropped", [])
+        self.dropped, self.pointers = man.get("dropped", []), man.get("pointers", {})
         old = {p: f["sha"] for p, f in man.get("files", {}).items()}
         changed = {p for p in cur if old.get(p) != cur[p]["sha"]}
         gone = {p for p in self.notes if p not in cur}
@@ -3083,6 +3209,26 @@ def ask(args, root):
     if getattr(args, "list", False):
         return list_notes(args, v)
     built, newest = drop_marks(v)
+    ptr_now = {}
+
+    def pointers_of(path):
+        """A note's pointers into the project's files, looked up now: the dream found them, the files may have moved on."""
+        recs = (getattr(v, "pointers", None) or {}).get(path)
+        if recs and path not in ptr_now:
+            ptr_now[path] = pointer_states(root, {path: recs}, {path: recs})[0].get(path, [])
+        return ptr_now.get(path, [])
+
+    def pointer_lines(path):
+        out = []
+        for r in pointers_of(path)[:4]:
+            loc = f"#{r['symbol']}" if r.get("symbol") else f":{r['line']}" + (f' "{r["quote"]}"' if r.get("quote") else "")
+            bare = not r.get("symbol") and not r.get("quote")  # held only by the words found there when first seen
+            now = {"intact": f"at line {r['now']}" if r.get("symbol") else "still there" + (" (a bare line: weak)" if bare else ""),
+                   "moved": f"now at line {r['now']}",
+                   "changed": "the symbol is not defined there now" if r.get("symbol") else "those words are not there now",
+                   "gone": "the file is gone"}[r["state"]]
+            out.append(f"  → {r.get('path') or r['to']}{loc} · {now}")
+        return out
     qs = [q.strip() for q in (args.questions or []) for q in q.split("\n") if q.strip()]
     if args.file:
         qs += [q.strip() for q in read(Path(args.file)).split("\n") if q.strip()]
@@ -3257,7 +3403,9 @@ def ask(args, root):
         sup = [v.notes[e["dst"]]["id"] for e in v.frm[path] if e["rel"] == "supersedes"]
         s += f" · from {', '.join(f)}" if f else ""
         s += f" · supersedes {', '.join(sup)}" if sup else ""
-        return s + chain_mark(v.notes, n) + (f" · its replacement {', '.join(newest[path])} was dropped" if path in newest else "")
+        stale = sum(r["state"] in ("changed", "gone") for r in pointers_of(path))
+        return s + chain_mark(v.notes, n) + (f" · its replacement {', '.join(newest[path])} was dropped" if path in newest else "") \
+            + (f" · STALE: {stale} of its pointers no longer hold" if stale else "")
 
     def body(path):
         """Compact note: title and body lines, no frontmatter, no blanks. A file gone since the dream has none."""
@@ -3318,6 +3466,7 @@ def ask(args, root):
                 out.append(header(path) if path not in printed else header(path).split(" · ")[0] + " (more)" + sup_mark)
                 for no, t in new:
                     out.append(f"  {t.strip()}" if full else f"  {no}: {t.strip()[:220]}")
+                out += pointer_lines(path) if path not in printed else []  # where its pointers are now, said once
                 printed.setdefault(path, set()).update(no for no, _ in new)
             if not x["ranked"]:
                 out.append("  (no match — try other words, or grep memory/)")
@@ -3337,13 +3486,13 @@ def ask(args, root):
             out.append(f"## memory — complete ({len(v.notes)} notes by area, oldest first; SUPERSEDED marks history)")
             for path in sorted(v.notes, key=lambda p: (area_of(p), v.notes[p]["updated"], p)):
                 out.append(header(path))
-                out += [f"  {t.strip()}" for _, t in body(path)]
+                out += [f"  {t.strip()}" for _, t in body(path)] + pointer_lines(path)
         for a in whole if not complete else []:
             ps = sorted((p for p in by_area[a] if (root / p).exists()), key=lambda p: (v.notes[p]["updated"], p))
             out.append(f"## {a}/ — the whole folder ({len(ps)} notes, oldest first; SUPERSEDED marks history)")
             for path in ps:
                 out.append(header(path))
-                out += [f"  {t.strip()}" for _, t in body(path)]
+                out += [f"  {t.strip()}" for _, t in body(path)] + pointer_lines(path)
         return "\n".join(out)
 
     text = render(False)

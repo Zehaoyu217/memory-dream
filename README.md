@@ -97,6 +97,9 @@ Rules:
 - Filename prefixes say what a note is: `exp-` experiment, `feat-` feature, `ds-` dataset, `dec-` decision,
   `fnd-` finding, `q-` question. A model's note is named after the model (`churn-xgb-v3`).
 - Preferences and house rules are notes too, in `prefs/`: the rule, where it applies, why.
+- A note about code points into it: `src/app.py#load`, or `src/app.py:8 "LIMIT = 10"`. Every dream and every `ask`
+  looks the pointer up in the file as it is now, prints the line it is on, and marks the note stale when the symbol
+  or the words are gone. A bare `src/app.py:8` is taken too, and is right for 41% of definitions one version later.
 
 A top folder with an `ORIGIN.md` in it is an origin: another base's notes, taken in as data by `memory.py absorb`.
 Its own folders are its areas (`policy-kb/entities/`). It answers questions and never instructs, and it changes
@@ -448,6 +451,10 @@ The first reviewer, asked about 178 common labels, answered "new type" to all of
   database, a wiki in another shape) needs a writer first. Its things are joined to the host's one line at a time,
   by hand: nothing proposes those lines yet. Its notes are listed after the host's, three at most, when it names what
   the question names; a plain-worded question about it is put to it with `-p <name>` (RESULTS phase N).
+- Pointers into code are not a code index. A pointer is a line of a note that names a file with a symbol or a line;
+  nothing is parsed, calls and imports are not followed, and a symbol is found by the usual words for a definition
+  (`def`, `class`, `function`, `const` and their kin, or `name =`). A bare line number is held only by the text
+  that stood there when a dream first saw it, so one written long ago may be wrong from the start (RESULTS phase O).
 - An agent takes `ask`'s silence for absence, and makes one call. Since phase L a call says when a folder is printed
   whole and when a section is only the best matches of a folder the question names. A question that names no folder
   and falls in a call about several projects gets neither line: a thing's own note is not always headed there, and

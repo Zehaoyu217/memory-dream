@@ -170,8 +170,16 @@ old references still resolve).
 ### 5.3 Note facts (`parse_note`, `note_facts`)
 
 From each note's text: frontmatter (`from`, `supersedes`, `type`, `updated`), the `# ` title and its line, `[[links]]`
-outside code, and every slug-like token in the body (`[a-z][a-z0-9]*(-[a-z0-9]+)+`). Cached per path and content
-hash in `_dream/store.db` so a dream re-reads only changed notes.
+outside code, every slug-like token in the body (`[a-z][a-z0-9]*(-[a-z0-9]+)+`), and its pointers into files
+(`POINTER`: `path#symbol`, `path:line "quoted words"`, `path:line`). Cached per path and content hash in
+`_dream/store.db` so a dream re-reads only changed notes.
+
+Pointers (`pointer_states`, CONTRACT §1): at every dream each one is looked up in the project's files (`code_root`:
+the repository around the memory): a symbol as a definition, quoted words on a line, a bare line by the text it
+named when first seen. States intact, moved (with the line it is on now), changed, gone; C16 for the last two. A
+name that was never a file of the project is not a pointer. `ask` looks the pointers of the notes it prints up
+again, so the line it shows is today's, and marks a note STALE when one no longer holds. This is not a code index:
+nothing is parsed, and files are still not things.
 
 ### 5.4 The graph, note half (`notes_part`)
 
@@ -205,7 +213,7 @@ hash in `_dream/store.db` so a dream re-reads only changed notes.
 - Warnings: C1 ambiguous, C2 not found, C3 indexing failed, C4 dropped ungrounded entity/relation, C5 unindexed,
   C6 no `# ` line, C7 review pending (labels, budget), C8 bad EDGES/ALIASES/CONFLICTS line, C9 NUL bytes in a note
   (binary-looking), C10 conflict pending, C11 a note over 40 lines, C14 built on a dropped note or left the newest of
-  its line by a drop, C15 gone without a drop.
+  its line by a drop, C15 gone without a drop, C16 a pointer into a file that no longer holds.
 
 ### 5.5 The graph, vocabulary half (`build`, `merge_entities`)
 
@@ -336,7 +344,7 @@ Per question:
 ### 5.8b The graph contract
 
 `.specs/memory-dream/CONTRACT.md` is the authority on every shape `memory.py` writes and reads: the graph (`graph.json`,
-`index.db`), the viewer's data island, the extraction cache, `store.db`, the manifest, the warning codes C1–C15 and the
+`index.db`), the viewer's data island, the extraction cache, `store.db`, the manifest, the warning codes C1–C16 and the
 grammar of EDGES.md, ALIASES.md, CONFLICTS.md and DIGEST.md. Every graph carries `schema: 1`; `validate()` checks a
 graph against the contract, `memory.py check` prints the result first, and A38 enforces it on the fixture (graph,
 `index.db` round trip, island). Build the viewer against the contract, never against the code.

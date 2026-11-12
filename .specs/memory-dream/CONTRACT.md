@@ -32,8 +32,19 @@ Produced by `build()`, written as `_dream/graph.json` (≤ `MEMORY_WIDE` notes) 
 | `proposed_types` | list of label | type words (things typed outside TYPES.md) over the `promote` bar of TYPES.md, offered to the review |
 | `tvocab` | object | the same shape as `vocab`, for TYPES.md |
 | `dedup` | object | counters from entity merging (`mentions`, `ids_as_written`, `after_folding`, …) |
-| `checks` | list of `{code, msg}` | warnings, sorted by code; codes `C1`–`C15` (§5) |
+| `checks` | list of `{code, msg}` | warnings, sorted by code; codes `C1`–`C16` (§5) |
 | `dropped` | list, optional | what `drop` recorded: `{path, date, replaced, built_on_by, left_newest}` (below) |
+| `pointers` | object, optional | `{note path: [pointer]}`: what the notes point at in the project's files (below) |
+
+**pointer** — `{to, path, line, quote, symbol, text, state, now}`. A note's text points into a file as
+`path#symbol`, `path:line "quoted words"` or `path:line`; `to` is the path as written and `path` the file it is,
+from the project's root (the repository around the memory, or `$MEMORY_CODE`): a name with no folder is the one file
+of that name. Only what is a file of the project at a dream is a pointer; a ratio or a host and its port is not.
+`state`: `intact` · `moved` (`now` is the line) · `changed` (the file is there; the symbol is not defined in it, or
+the words are on no line) · `gone` (the file is not). A symbol is looked for as a definition; quoted words on a
+line, spaces aside; a bare line by the whole text of the line it named when first seen (`text`), which is all that
+holds it. The list is in `manifest.json` too, with `psig`, a signature of the files named: a dream with nothing else
+new still runs when one of them changed. `ask` looks every pointer of the notes it prints up again.
 
 **dropped** — one entry per `dropped:` line of `CONFLICTS.md`, and one per dropped note inside a dropped folder that
 a note still names. `path`: the note, or the folder with a closing `/`; never a note that exists. `replaced`: what
@@ -133,8 +144,8 @@ relation is "current" when one of its evidence notes is live).
   `vsig` (hash of EDGES + ALIASES + CONFLICTS + KINDS + TYPES), `registry` (the type names of EDGES.md and TYPES.md at
   the last dream, for C13), `seen`, `queue`, `failed`, `attempts`, `refs`, `dreamed`, `unindexed`, `due`, `dropped`
   (the graph's list, §1), `gone {path: {seen, replaced, replaced_by, built_on_by}}` (notes that left without a `drop`,
-  with where they stood at the dream that noticed: C15, and what `drop` needs to record them later). A dream with
-  nothing changed in any of these stops after the scan.
+  with where they stood at the dream that noticed: C15, and what `drop` needs to record them later), `pointers` and
+  `psig` (§1). A dream with nothing changed in any of these, nor in a file a note points at, stops after the scan.
 - `pending/` — `<sha12>.prompt.md` and `review.prompt.md` written by `dream --prompts`, answered as `.json` by a helper
   agent; `TODO.md` lists them. `lock` — pid of a running dream.
 
@@ -152,7 +163,8 @@ its word: the readings show as `other/<word>`; merge the type into another (add 
 restore the line. `C7` covers type words of TYPES.md as it covers relation labels. `C14` a note built on a dropped
 note, or a note whose replacement was dropped and which is the newest left of its line · `C15` a note that is gone
 without a `drop`: nothing is written or deleted for it; `memory.py drop <path> --yes` records it, or the file comes
-back.
+back · `C16` a note points at a file that is gone, or at a symbol or words that are no longer in it: the note is
+stale, not wrong, and stays.
 
 ## 6. The user-owned files
 

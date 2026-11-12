@@ -639,7 +639,7 @@ or to a fresh worker given the packet, at most twice. After that, it stops and r
 
 ## Appendix A — the contract surface, verbatim: `skills/memory-dream/SKILL.md` and the dreamer agent
 
-_Part 5 · copied at commit ede6485. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
+_Part 5 · copied at commit 1448b96. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
 
 ```markdown
 ---
@@ -680,8 +680,10 @@ truth; everything else is derived and disposable. `memory.py` = `python3 <this s
    period, the sample), and the date; sources (tables, documents, queries, tickets) in backticks. ≤ 40 lines, plain
    markdown, nothing about the memory system. Taste is said once, in passing ("no pie charts", "round to one decimal
    for the board"): save it then — `prefs/<first>-<last>-<topic>.md` (your user's own: `prefs/me-<topic>.md`): the rule,
-   where it applies, why. When it changes, a new note with `supersedes:`. A note that restates another note or a
-   document says so: `source: [path]`. To take a note out altogether (a mistake, wrong material, a request to forget
+   where it applies, why. When it changes, a new note with `supersedes:`. A note about code points into it with
+   `path#symbol` or `path:line "a few words of that line"`: `ask` then prints where that is now, and marks the note
+   STALE when it is no longer there. A bare `path:line` is wrong within one edit. A note that restates another note
+   or a document says so: `source: [path]`. To take a note out altogether (a mistake, wrong material, a request to forget
    it): `memory.py drop <note or folder>` prints what goes with it and `--yes` does it. Never delete a note's file by
    hand: the note it had replaced would read as current again. Notes built on a dropped note stay and say so; notes
    made from it alone go with it.
@@ -739,7 +741,7 @@ Touch nothing else.
 
 ## Appendix B — the graph contract, verbatim: `.specs/memory-dream/CONTRACT.md`
 
-_Part 6 · copied at commit ede6485. Schema 1; `memory.py check` validates against it (A38)._
+_Part 6 · copied at commit 1448b96. Schema 1; `memory.py check` validates against it (A38)._
 
 ## memory-dream — the graph contract (schema 1)
 
@@ -775,8 +777,19 @@ Produced by `build()`, written as `_dream/graph.json` (≤ `MEMORY_WIDE` notes) 
 | `proposed_types` | list of label | type words (things typed outside TYPES.md) over the `promote` bar of TYPES.md, offered to the review |
 | `tvocab` | object | the same shape as `vocab`, for TYPES.md |
 | `dedup` | object | counters from entity merging (`mentions`, `ids_as_written`, `after_folding`, …) |
-| `checks` | list of `{code, msg}` | warnings, sorted by code; codes `C1`–`C15` (§5) |
+| `checks` | list of `{code, msg}` | warnings, sorted by code; codes `C1`–`C16` (§5) |
 | `dropped` | list, optional | what `drop` recorded: `{path, date, replaced, built_on_by, left_newest}` (below) |
+| `pointers` | object, optional | `{note path: [pointer]}`: what the notes point at in the project's files (below) |
+
+**pointer** — `{to, path, line, quote, symbol, text, state, now}`. A note's text points into a file as
+`path#symbol`, `path:line "quoted words"` or `path:line`; `to` is the path as written and `path` the file it is,
+from the project's root (the repository around the memory, or `$MEMORY_CODE`): a name with no folder is the one file
+of that name. Only what is a file of the project at a dream is a pointer; a ratio or a host and its port is not.
+`state`: `intact` · `moved` (`now` is the line) · `changed` (the file is there; the symbol is not defined in it, or
+the words are on no line) · `gone` (the file is not). A symbol is looked for as a definition; quoted words on a
+line, spaces aside; a bare line by the whole text of the line it named when first seen (`text`), which is all that
+holds it. The list is in `manifest.json` too, with `psig`, a signature of the files named: a dream with nothing else
+new still runs when one of them changed. `ask` looks every pointer of the notes it prints up again.
 
 **dropped** — one entry per `dropped:` line of `CONFLICTS.md`, and one per dropped note inside a dropped folder that
 a note still names. `path`: the note, or the folder with a closing `/`; never a note that exists. `replaced`: what
@@ -876,8 +889,8 @@ relation is "current" when one of its evidence notes is live).
   `vsig` (hash of EDGES + ALIASES + CONFLICTS + KINDS + TYPES), `registry` (the type names of EDGES.md and TYPES.md at
   the last dream, for C13), `seen`, `queue`, `failed`, `attempts`, `refs`, `dreamed`, `unindexed`, `due`, `dropped`
   (the graph's list, §1), `gone {path: {seen, replaced, replaced_by, built_on_by}}` (notes that left without a `drop`,
-  with where they stood at the dream that noticed: C15, and what `drop` needs to record them later). A dream with
-  nothing changed in any of these stops after the scan.
+  with where they stood at the dream that noticed: C15, and what `drop` needs to record them later), `pointers` and
+  `psig` (§1). A dream with nothing changed in any of these, nor in a file a note points at, stops after the scan.
 - `pending/` — `<sha12>.prompt.md` and `review.prompt.md` written by `dream --prompts`, answered as `.json` by a helper
   agent; `TODO.md` lists them. `lock` — pid of a running dream.
 
@@ -895,7 +908,8 @@ its word: the readings show as `other/<word>`; merge the type into another (add 
 restore the line. `C7` covers type words of TYPES.md as it covers relation labels. `C14` a note built on a dropped
 note, or a note whose replacement was dropped and which is the newest left of its line · `C15` a note that is gone
 without a `drop`: nothing is written or deleted for it; `memory.py drop <path> --yes` records it, or the file comes
-back.
+back · `C16` a note points at a file that is gone, or at a symbol or words that are no longer in it: the note is
+stale, not wrong, and stays.
 
 ### 6. The user-owned files
 
@@ -962,7 +976,7 @@ origin by adding the file. What changes for the notes under it, and nothing else
 
 ## Appendix C — the build guide, verbatim: `BUILD-GUIDE.md` §3–§10
 
-_Part 7 · copied at commit ede6485. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
+_Part 7 · copied at commit 1448b96. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
 
 ### 3. The design in one page
 
@@ -1053,8 +1067,16 @@ old references still resolve).
 #### 5.3 Note facts (`parse_note`, `note_facts`)
 
 From each note's text: frontmatter (`from`, `supersedes`, `type`, `updated`), the `# ` title and its line, `[[links]]`
-outside code, and every slug-like token in the body (`[a-z][a-z0-9]*(-[a-z0-9]+)+`). Cached per path and content
-hash in `_dream/store.db` so a dream re-reads only changed notes.
+outside code, every slug-like token in the body (`[a-z][a-z0-9]*(-[a-z0-9]+)+`), and its pointers into files
+(`POINTER`: `path#symbol`, `path:line "quoted words"`, `path:line`). Cached per path and content hash in
+`_dream/store.db` so a dream re-reads only changed notes.
+
+Pointers (`pointer_states`, CONTRACT §1): at every dream each one is looked up in the project's files (`code_root`:
+the repository around the memory): a symbol as a definition, quoted words on a line, a bare line by the text it
+named when first seen. States intact, moved (with the line it is on now), changed, gone; C16 for the last two. A
+name that was never a file of the project is not a pointer. `ask` looks the pointers of the notes it prints up
+again, so the line it shows is today's, and marks a note STALE when one no longer holds. This is not a code index:
+nothing is parsed, and files are still not things.
 
 #### 5.4 The graph, note half (`notes_part`)
 
@@ -1088,7 +1110,7 @@ hash in `_dream/store.db` so a dream re-reads only changed notes.
 - Warnings: C1 ambiguous, C2 not found, C3 indexing failed, C4 dropped ungrounded entity/relation, C5 unindexed,
   C6 no `# ` line, C7 review pending (labels, budget), C8 bad EDGES/ALIASES/CONFLICTS line, C9 NUL bytes in a note
   (binary-looking), C10 conflict pending, C11 a note over 40 lines, C14 built on a dropped note or left the newest of
-  its line by a drop, C15 gone without a drop.
+  its line by a drop, C15 gone without a drop, C16 a pointer into a file that no longer holds.
 
 #### 5.5 The graph, vocabulary half (`build`, `merge_entities`)
 
@@ -1219,7 +1241,7 @@ Per question:
 #### 5.8b The graph contract
 
 `.specs/memory-dream/CONTRACT.md` is the authority on every shape `memory.py` writes and reads: the graph (`graph.json`,
-`index.db`), the viewer's data island, the extraction cache, `store.db`, the manifest, the warning codes C1–C15 and the
+`index.db`), the viewer's data island, the extraction cache, `store.db`, the manifest, the warning codes C1–C16 and the
 grammar of EDGES.md, ALIASES.md, CONFLICTS.md and DIGEST.md. Every graph carries `schema: 1`; `validate()` checks a
 graph against the contract, `memory.py check` prints the result first, and A38 enforces it on the fixture (graph,
 `index.db` round trip, island). Build the viewer against the contract, never against the code.
@@ -1507,7 +1529,7 @@ preferences 0.95 when the task names them, 0.84 when it names only their meeting
 
 ## Appendix D — prompts, seeds and tuned tables, verbatim from `memory.py`
 
-_Part 8 · extracted at commit ede6485 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
+_Part 8 · extracted at commit 1448b96 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
 
 ### D.1 `EXTRACT` — the per-note prompt: fixed guidance, then `KINDS:`, `TYPES:`, `EDGES:` and `KNOWN:` from the registries (the static part is cached), then `NOTE`
 

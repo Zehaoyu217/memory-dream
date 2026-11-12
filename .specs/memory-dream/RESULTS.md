@@ -1,6 +1,25 @@
 # memory-dream v0.4 — results
 
-2026-10-30 (round 4: 2026-10-31; phase I: 2026-11-02; phases J to N: 2026-11-11) · built from the "Memory" email spec (`build-spec.md`) · macOS, Python 3.9.6, Claude Code 2.1.314.
+2026-10-30 (round 4: 2026-10-31; phase I: 2026-11-02; phases J to O: 2026-11-11) · built from the "Memory" email spec (`build-spec.md`) · macOS, Python 3.9.6, Claude Code 2.1.314.
+
+# Phase O (2026-11-11) — step 1, item 3: pointers into code (short: written at the end of a session)
+
+A note about code points into it as `path#symbol`, `path:line "quoted words"` or `path:line` (`PLAN.md` §10,
+`CONTRACT.md` §1). Every dream looks each pointer up in the project's files, and `ask` looks up again the pointers of
+the notes it prints, so the line it shows is today's. States: intact, moved (with the new line), changed, gone; `C16`
+for the last two, and the note's header says `STALE`. A name that was never a file of the project is not a pointer.
+
+- `tests/e2e.py`, five lines on each read path: three pointers found (a ratio and a host with a port are not);
+  the file grows by two lines and all three say where they are now with no dream in between; the symbol is renamed
+  and the quoted words edited, and the note is marked stale; the next dream reports `C16×2`; the file is deleted and
+  all three say so. 34 and 33 lines in all, acceptance 40 of 40, the three gates unchanged.
+- On this repository's own twelve documents there are three pointers. The plan's example `memory.py:2440` was
+  written when `grep_lines` stood on that line; today line 2440 is another function's `return`, and a bare line
+  first seen today is held by that text. `memory.py#grep_lines` is found at line 3069. That is K3's number (a bare
+  line is right for 41% of definitions one version later) seen once in the wild, and why `ask` calls a bare line weak.
+
+Not done: this section's own probe and a fuller write-up; `PLAN.md`, `CONTRACT-2.md` and `HANDOFF.md` do not yet say
+pointers are built; the rule that a file is never a thing still lives in the code, not in `TYPES.md`.
 
 # Phase N (2026-11-11) — step 1, first item: another base taken in, and kept apart
 
