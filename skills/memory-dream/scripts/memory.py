@@ -24,6 +24,7 @@ import math
 import os
 import posixpath
 import re
+import shutil
 import sqlite3
 import subprocess
 import sys
@@ -36,7 +37,44 @@ V = "0.4"
 SCHEMA = 1  # the graph contract (.specs/memory-dream/CONTRACT.md): bumped when a field changes meaning
 CODE = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()[:12]  # a changed script rebuilds the graph once, 0 calls
 NOTE_MAX_LINES = 40  # SKILL.md's own rule; over it is C11
-SKIP = {"INDEX.md", "EDGES.md", "ALIASES.md", "CONFLICTS.md", "KINDS.md", "TYPES.md", "README.md", "DIGEST.md"}
+SKIP = {"INDEX.md", "EDGES.md", "ALIASES.md", "CONFLICTS.md", "KINDS.md", "TYPES.md", "README.md", "DIGEST.md", "ORIGIN.md"}
+# An origin is a top folder with an ORIGIN.md in it: another base's notes, taken in as data (PLAN §9). They answer
+# questions; they do not instruct, their entities are not the host's until a line in ALIASES.md says so, and their
+# next folder level is the area. {folder: {"trust": words of its `trust:` line}}, read by load_domain().
+ORIGINS = {}
+
+
+def load_origins(root):
+    out = {}
+    try:
+        names = sorted(os.listdir(root))
+    except OSError:
+        names = []
+    for d in names:
+        f = Path(root) / d / "ORIGIN.md"
+        if not d.startswith(("_", ".")) and f.is_file():
+            m = re.search(r"^trust\s*:\s*(.+)$", f.read_text(encoding="utf-8", errors="replace"), flags=re.M | re.I)
+            out[d] = {"trust": {w for w in re.split(r"[,\s]+", m.group(1).lower()) if w} if m else set()}
+    return out
+
+
+def origin_of(p):
+    """The origin a note belongs to; "" for the host's own notes."""
+    s = p.split("/", 1)[0]
+    return s if ORIGINS and "/" in p and s in ORIGINS else ""
+
+
+def area_of(p):
+    """A note's area: its first folder; under an origin, the origin and its next folder (`policy-kb/entities`)."""
+    s = p.split("/")
+    if ORIGINS and len(s) > 2 and s[0] in ORIGINS:
+        return s[0] + "/" + s[1]
+    return s[0] if len(s) > 1 else ""
+
+
+def in_scope(p, scope):
+    """Is this note inside one of these areas (lowercase)? An origin's name takes all of its areas."""
+    return area_of(p).lower() in scope or (ORIGINS and origin_of(p).lower() in scope)
 CC_KIND = {"user": "preference", "feedback": "rule", "project": "note", "reference": "note"}  # Claude Code's auto-memory types
 DIGEST_MAX_LINES, DIGEST_HEADS = 40, 10  # memory/DIGEST.md: ≤ 40 lines so it can sit in context every session
 # The domain — kinds of note (prefixes, areas, roles, the class tree), types of thing (with families) and the usual
@@ -144,8 +182,8 @@ PACKS = {  # seed vocabularies for other domains: `pack: software` in EDGES.md a
 ALIASES_HEAD = ("# ALIASES — entity ids that name the same thing; the first id on a line is canonical. "
                 "Edit freely.\n")
 
-KINDS_SEED = """# KINDS — kinds of note. A note's kind is its frontmatter `type:`, else the kind whose prefix starts its filename
-# (`exp-014` → experiment; `…-vN` is a model), else the kind of its area (`prefs/` → preference), else note. One line per
+KINDS_SEED = """# KINDS — kinds of note. A note's kind is its frontmatter `type:`, else the kind of its area (`prefs/` → preference), else
+# the kind whose prefix starts its filename (`exp-014` → experiment; `…-vN` is a model), else note. One line per
 # kind: `- kind: definition | prefix: a, b | area: x, y | family: parent | role: R | digest: current | conflicts: yes
 # | answers: yes | not: what it is not`. role ∈ question, evidence, state, rule, reference, log; project work is question,
 # evidence and state. `answers: yes` kinds answer a question they are built on; `digest: current` kinds head the digest;
@@ -294,8 +332,10 @@ def domain_from(kt, tt, et):
 
 
 def load_domain(root):
-    """Read KINDS.md, TYPES.md and EDGES.md of this memory (seeds when absent) into the module's domain tables."""
+    """Read KINDS.md, TYPES.md and EDGES.md of this memory (seeds when absent) into the module's domain tables, and
+    which of its top folders are origins."""
     globals().update(domain_from(*domain_texts(root), vocab_texts(root)[0]))
+    globals()["ORIGINS"] = load_origins(root)
 
 
 EXTRACT = """Index this memory note for retrieval. Reply with JSON only:
@@ -425,23 +465,24 @@ def mmdd(d):
 
 
 def kind_of(rel, fm_type=None, x_kind=None):
-    """A note's kind: frontmatter `type:` (Claude Code's user/feedback/project/reference map onto ours), else a kind
-    prefix in the first or second part of the filename (exp-, feat-, ds-, dec-, fnd-, q-, …), else the area's kind,
-    else model for `…-vN`, else the dreamer's reading, else note."""
+    """A note's kind: frontmatter `type:` (Claude Code's user/feedback/project/reference map onto ours), else the
+    kind of its area when the area has one (under an origin, by the area's last part), else a kind prefix in the
+    first or second part of the filename (exp-, feat-, ds-, dec-, fnd-, q-, …), else model for `…-vN`, else the
+    dreamer's reading, else note."""
     t = (fm_type or "").strip().lower()
     if t:
         return CC_KIND.get(t, t)
     stem_ = posixpath.basename(rel)[:-3].lower()
-    area = rel.split("/")[0].lower() if "/" in rel else ""
+    area = area_of(rel).split("/")[-1].lower()  # under an origin, the kind of an area goes by its last part
     segs = stem_.split("-")
     # the name and the folder the writer chose come before the dreamer's reading (phase L: on the bank the reading had
     # relabelled 163 of the 886 notes named ds-, dec-, feat-, exp- or q-, and 61 of the 135 named …-vN; a dataset shown
     # as a "finding" cost an agent a right answer, and "every model" listed by kind found 8 of 15 lines)
+    if area in AREA_KIND:  # a folder that has a kind says more than a first word: howto/model-card-fields is a rule
+        return AREA_KIND[area]
     for pre in segs[:2]:  # exp-014, and project-prefixed ids such as aml-find-kyc-lift or mrisk-find-watchlist
         if len(segs) > 1 and pre in PREFIX_KIND:
             return PREFIX_KIND[pre]
-    if area in AREA_KIND:
-        return AREA_KIND[area]
     if re.search(r"-v\d+$", stem_):
         return "model"
     if x_kind and str(x_kind).lower() != "note":  # no name and no folder says what it is: the dreamer's reading does
@@ -456,7 +497,7 @@ def general_areas(by_area, kind):
     for a, ps in by_area.items():
         ks = [kind(p) for p in ps]
         ks = [k for k in ks if k != "note"]
-        if a.lower() in GENERAL or (ks and 2 * len(ks) >= len(ps) and 2 * sum(k in WORK for k in ks) < len(ks)):
+        if a.lower().split("/")[-1] in GENERAL or (ks and 2 * len(ks) >= len(ps) and 2 * sum(k in WORK for k in ks) < len(ks)):
             out.add(a)
     return out
 
@@ -515,7 +556,7 @@ def scan(root, man):
     """Current notes {path: {sha, mtime, size}}, re-hashing only files whose stat changed; detect moves."""
     old, cur = man.get("files", {}), {}
     for d, dirs, files in os.walk(root):
-        dirs[:] = [x for x in dirs if not x.startswith(".") and not (d == str(root) and x == "_dream")]
+        dirs[:] = [x for x in dirs if not x.startswith(".") and x != "_dream"]  # an absorbed base may bring its own _dream/
         base = os.path.relpath(d, root).replace(os.sep, "/")
         for f in files:
             if not f.endswith(".md") or f in SKIP or f.startswith("."):
@@ -966,10 +1007,12 @@ def merge_entities(occ, alines, nots, homes=None, stats=None):
     if stats is not None:  # counting groups costs a pass over every id
         st["after_aliases_md"] = roots()
     sf_index = defaultdict(set)
+    okeys = {fold(o) + ":" for o in ORIGINS}  # an origin's things carry its name; a surface form joins inside it only
+    pre = lambda k: next((o for o in okeys if k.startswith(o)), "")  # noqa: E731
     for k in raw:
         find(k)
         for a in surf[k]:
-            sf_index[fold(a)].add(k)
+            sf_index[pre(k) + fold(a)].add(k)
     for k in raw:  # exactly one other entity writes this id as a surface form → one entity
         users = sf_index.get(k, set())
         others = users - {k}
@@ -999,9 +1042,9 @@ def merge_entities(occ, alines, nots, homes=None, stats=None):
             names.update(surf[k])
             for p, ls in ment[k].items():
                 mm[p] |= ls
-        projects = Counter(p.split("/")[0] for p in mm)
+        projects = Counter(area_of(p) for p in mm)
         home = min((h for k in ks for h in homes.get(k, [])), default=None,
-                   key=lambda h: (-projects[h.split("/")[0]], h))
+                   key=lambda h: (-projects[area_of(h)], h))
         if FILEISH.search(fold(c)):
             st["dropped_file_like"] += 1
             continue
@@ -1067,7 +1110,7 @@ def notes_part(root, man, cur, former, xs=None, facts=None):
         stem_date = re.match(r"\d{4}-\d\d-\d\d$", posixpath.basename(rel)[:-3])  # log/YYYY-MM-DD.md
         up = up[:10] if re.match(r"\d{4}-\d\d-\d\d", up) else stem_date.group(0) if stem_date else \
             dt.date.fromtimestamp(cur[rel]["mtime"] / 1e9).isoformat()
-        proj = rel.split("/")[0] if "/" in rel else ""
+        proj = area_of(rel)
         notes[rel] = {"path": rel, "id": posixpath.basename(rel)[:-3], "project": proj, "title": title,
                       "line": tline, "kind": kind_of(rel, fm.get("type"), (x or {}).get("kind")),
                       "superseded_by": [], "updated": up, "sha": h[:12], "indexed": bool(x)}
@@ -1093,15 +1136,19 @@ def notes_part(root, man, cur, former, xs=None, facts=None):
     def resolve(v, src):
         v = re.sub(r"^\[\[|\]\]$", "", v.strip()).strip()
         v = v[:-3] if v.endswith(".md") else v
-        paths = [posixpath.normpath(posixpath.join(posixpath.dirname(src), v)) + ".md", posixpath.normpath(v) + ".md"]
+        so = origin_of(src)
+        paths = [posixpath.normpath(posixpath.join(posixpath.dirname(src), v)) + ".md", posixpath.normpath(v) + ".md"] \
+            + ([f"{so}/{posixpath.normpath(v)}.md"] if so else [])  # a path an absorbed base wrote from its own root
         for c in paths:
             if c in notes:
                 return c, ""
         stem, c = posixpath.basename(v), by_stem.get(posixpath.basename(v), [])
+        if ORIGINS:  # by name: inside the note's own origin, then the host; never guessed across origins
+            c = [p for p in c if origin_of(p) == so] or ([p for p in c if not origin_of(p)] if so else [])
         if len(c) == 1:
             return c[0], ""
         if c:
-            mine = [p for p in c if p.split("/")[0] == src.split("/")[0]]
+            mine = [p for p in c if area_of(p) == area_of(src)]
             return sorted(mine or c)[0], "C1"
         for c in paths:
             if c in old2cur:
@@ -1127,7 +1174,7 @@ def notes_part(root, man, cur, former, xs=None, facts=None):
             if tombstoned(tomb, c):
                 return c
         c = tstem.get(posixpath.basename(v), [])
-        mine = [p for p in c if p.split("/")[0] == src.split("/")[0]]
+        mine = [p for p in c if area_of(p) == area_of(src)]
         return sorted(mine or c)[0] if c else None
 
     def through(d, seen=frozenset()):
@@ -1161,10 +1208,10 @@ def notes_part(root, man, cur, former, xs=None, facts=None):
                     linked.add((rel, dst, kind))
                     edges.append({"src": rel, "dst": dst, "rel": kind})
         x = aux[rel]["x"] or {}
-        proj = rel.split("/")[0]
+        proj = area_of(rel)
         # a slug written in the body names a note of the same project (cross-project slugs measured nil for answers:
         # 67 links on the bank, gold 0.920 → 0.916, RESULTS phase F)
-        mentioned = [i for i in aux[rel]["ids"] if any(p_.split("/")[0] == proj for p_ in by_stem.get(i, []))]
+        mentioned = [i for i in aux[rel]["ids"] if any(area_of(p_) == proj for p_ in by_stem.get(i, []))]
         for v in aux[rel]["links"] + list(x.get("refs") or []) + sorted(mentioned):  # a slug written in the body points at that note
             dst = resolve(v, rel)[0]
             if dst and dst != rel and not any((rel, dst, k) in linked for k in ("from", "supersedes", "refs")):
@@ -1173,6 +1220,11 @@ def notes_part(root, man, cur, former, xs=None, facts=None):
     # supersessions decided by the review or a person: lineage, with the notes untouched
     sup, _, _, bad_c = parse_conflicts(ctext)
     checks += [("C8", f"CONFLICTS.md:{i}: {s}") for i, s in bad_c]
+    for o in ORIGINS:  # what an absorbed base had decided about its own notes holds inside it
+        of = root / o / "CONFLICTS.md"
+        osup, _, _, obad = parse_conflicts(read(of)) if of.exists() else ([], set(), set(), [])
+        sup += [(f"{o}/{a}", f"{o}/{b}") for a, b in osup]
+        checks += [("C8", f"{o}/CONFLICTS.md:{i}: {s}") for i, s in obad]
     for a, b in sup:
         for t in ([b] if b in notes else through(b) if b in tomb else []):
             if a in notes and a != t and (a, t, "supersedes") not in linked:
@@ -1215,7 +1267,7 @@ def canon_occ(occ, talias, tdrop):
             p = props.setdefault(w, {"type": w, "uses": 0, "notes": set(), "areas": set(), "examples": []})
             p["uses"] += 1
             p["notes"].add(rel)
-            p["areas"].add(rel.split("/")[0] if "/" in rel else "")
+            p["areas"].add(area_of(rel))
             if len(p["examples"]) < 3:
                 p["examples"].append(f"{e['id']}: {(e.get('as') or [e['id']])[0]}")
         out.append((rel, {**e, "type": T}))
@@ -1268,11 +1320,19 @@ def build(root, man, cur, former, et, at, xs=None, now=None, facts=None, base=No
     notes, aux, edges = base["notes"], base["aux"], base["edges"]
     checks += base["checks"]
 
-    occ, tprops = canon_occ(((rel, e) for rel in notes if aux[rel]["x"] for e in aux[rel]["x"].get("entities", [])), talias, tdrop)
+    # an origin's things are its own: `policy-kb:auc` is not the host's `auc` until a line of ALIASES.md joins them
+    own = lambda rel, i: f"{origin_of(rel)}:{i}" if origin_of(rel) else i  # noqa: E731
+    occ, tprops = canon_occ(((rel, {**e, "id": own(rel, e["id"])} if origin_of(rel) else e) for rel in notes if aux[rel]["x"]
+                             for e in aux[rel]["x"].get("entities", [])), talias, tdrop)
     homes = defaultdict(list)  # a note whose slug is an entity's id is that entity's home
     for rel, n in notes.items():
         if n["project"] != "log":
-            homes[fold(n["id"])].append(rel)
+            homes[fold(own(rel, n["id"]))].append(rel)
+    for o in ORIGINS:  # an origin's own ALIASES.md speaks of its own things
+        af = root / o / "ALIASES.md"
+        ol, on, _ = parse_aliases(read(af)) if af.exists() else ([], set(), [])
+        alines = alines + [[f"{o}:{i}" for i in ids] for ids in ol]
+        nots = nots | {frozenset(fold(f"{o}:{x}") for x in pair) for pair in on}
     dedup = Counter()
     ents, cmap, gkeys = merge_entities(occ, alines, nots, homes, dedup)
     tcfg = edges_cfg(tt)
@@ -1281,7 +1341,7 @@ def build(root, man, cur, former, et, at, xs=None, now=None, facts=None, base=No
         u = tusage.setdefault(e["type"], {"uses": 0, "notes": set(), "areas": set()})
         u["uses"] += sum(len(m["lines"]) for m in e["mentions"])
         u["notes"] |= {m["path"] for m in e["mentions"]}
-        u["areas"] |= {m["path"].split("/")[0] if "/" in m["path"] else "" for m in e["mentions"]}
+        u["areas"] |= {area_of(m["path"]) for m in e["mentions"]}
     proposed_t, tbelow, tdemote, tchecks = vocab_gate(tprops, tcfg, len(ttypes), tusage, now, "type word", "other/<word>")
     checks += tchecks
     cfg = edges_cfg(et)
@@ -1289,7 +1349,7 @@ def build(root, man, cur, former, et, at, xs=None, now=None, facts=None, base=No
     rels, props = {}, {}
     for rel in notes:
         for r in (aux[rel]["x"] or {}).get("relations", []):
-            s, o = cmap.get(fold(r["s"])), cmap.get(fold(r["o"]))
+            s, o = cmap.get(fold(own(rel, r["s"]))), cmap.get(fold(own(rel, r["o"])))
             if not s or not o:
                 continue
             t = fold(r["type"]).lstrip("~")
@@ -1304,7 +1364,7 @@ def build(root, man, cur, former, et, at, xs=None, now=None, facts=None, base=No
                 p = props.setdefault(lbl, {"type": lbl, "uses": 0, "notes": set(), "areas": set(), "examples": []})
                 p["uses"] += 1
                 p["notes"].add(rel)
-                p["areas"].add(rel.split("/")[0] if "/" in rel else "")
+                p["areas"].add(area_of(rel))
                 if len(p["examples"]) < 3:
                     p["examples"].append(f"{s} — {o}: {r['quote']}")
             s, o = (o, s) if rev else (s, o)
@@ -1338,7 +1398,7 @@ def build(root, man, cur, former, et, at, xs=None, now=None, facts=None, base=No
         u = usage.setdefault(T, {"uses": 0, "notes": set(), "areas": set()})
         u["uses"] += len(rec["evidence"])
         u["notes"] |= {ev.rsplit(":", 1)[0] for ev in rec["evidence"]}
-        u["areas"] |= {ev.split("/")[0] if "/" in ev else "" for ev in rec["evidence"]}
+        u["areas"] |= {area_of(ev) for ev in rec["evidence"]}
     proposed, below, demote, vchecks = vocab_gate(props, cfg, len(types), usage, now, "label", "other/<label>")
     checks += vchecks
     n_types = len(types)
@@ -1394,7 +1454,7 @@ def validate(g, types=None):
                 bad.append(f"note {n.get('path')}: no {k}")
         if n.get("id") != posixpath.basename(n["path"])[:-3]:
             bad.append(f"note {n['path']}: id {n.get('id')!r} is not the filename")
-        if n.get("project") != (n["path"].split("/")[0] if "/" in n["path"] else ""):
+        if n.get("project") != (area_of(n["path"])):
             bad.append(f"note {n['path']}: project {n.get('project')!r} is not the first path segment")
         if not re.fullmatch(r"\d{4}-\d\d-\d\d", str(n.get("updated", ""))):
             bad.append(f"note {n['path']}: updated {n.get('updated')!r} is not a date")
@@ -1447,6 +1507,16 @@ def conflicts_text(root):
     return read(cf) if cf.exists() else ""
 
 
+def shape_text(root):
+    """CONFLICTS.md, and the files of each origin that shape the graph: a change to any of them is a change to dream."""
+    out = conflicts_text(root)
+    for o in sorted(load_origins(root)):
+        for name in ("ORIGIN.md", "CONFLICTS.md", "ALIASES.md"):
+            f = root / o / name
+            out += f"\n<{o}/{name}>\n{read(f)}" if f.exists() else ""
+    return out
+
+
 def vsig(et, at, ct="", kt="", tt=""):
     """Signature of the user-owned files that shape the graph without a model: EDGES.md, ALIASES.md, CONFLICTS.md,
     KINDS.md, TYPES.md."""
@@ -1459,7 +1529,7 @@ def load(root):
     cur, former, _, _ = scan(root, man)
     et, at = vocab_texts(root)
     same = {p: f["sha"] for p, f in cur.items()} == {p: f["sha"] for p, f in man.get("files", {}).items()}
-    if same and man.get("vsig") == vsig(et, at, conflicts_text(root), *domain_texts(root)) and (man.get("code") == CODE or len(cur) > WIDE):
+    if same and man.get("vsig") == vsig(et, at, shape_text(root), *domain_texts(root)) and (man.get("code") == CODE or len(cur) > WIDE):
         g = rd(root / "_dream" / "graph.json") or read_index(root / "_dream")
         if g and g.get("v") == V:
             g.setdefault("dropped", man.get("dropped", []))  # index.db keeps rows; the manifest keeps what was dropped
@@ -1476,7 +1546,7 @@ def fresh_note(root, rel, cur, stems):
     """A note changed since the last dream: its record and its from:/supersedes: edges, from its text alone."""
     fm, title, tline, _ = parse_note(read(root / rel))
     up = fm.get("updated") or fm.get("modified") or ""
-    proj = rel.split("/")[0] if "/" in rel else ""
+    proj = area_of(rel)
     n = {"path": rel, "id": posixpath.basename(rel)[:-3], "project": proj, "title": title, "line": tline,
          "kind": kind_of(rel, fm.get("type")), "superseded_by": [],
          "updated": up[:10] if re.match(r"\d{4}-\d\d-\d\d", up) else
@@ -1485,7 +1555,7 @@ def fresh_note(root, rel, cur, stems):
     for kind in ("from", "supersedes"):
         for v in fm_list(fm.get(kind)):
             c = stems.get(posixpath.basename(re.sub(r"^\[\[|\]\]$|\.md$", "", v.strip())), [])
-            mine = [x for x in c if x.split("/")[0] == rel.split("/")[0]]
+            mine = [x for x in c if area_of(x) == area_of(rel)]
             if (mine or c) and sorted(mine or c)[0] != rel:
                 edges.append({"src": rel, "dst": sorted(mine or c)[0], "rel": kind})
     return n, edges
@@ -1685,7 +1755,7 @@ class Known:
     def __init__(self, ents, local=80):
         self.local = local
         self.by_n = sorted(ents.values(), key=lambda e: (-len(e["mentions"]), fold(e["id"])))
-        self.projs = [{m["path"].split("/")[0] for m in e["mentions"]} for e in self.by_n]
+        self.projs = [{area_of(m["path"]) for m in e["mentions"]} for e in self.by_n]
         self.top = defaultdict(list)
         for i, ps in enumerate(self.projs):
             for p in ps:
@@ -1778,7 +1848,7 @@ class Dream:
         return (not a.all and not a.review and man.get("v") == V and man.get("code") == CODE
                 and man.get("unindexed") == 0 and not man.get("due")
                 and {p: f["sha"] for p, f in cur.items()} == {p: f["sha"] for p, f in man.get("files", {}).items()}
-                and man.get("vsig") == vsig(*vocab_texts(root), conflicts_text(root), *domain_texts(root))
+                and man.get("vsig") == vsig(*vocab_texts(root), shape_text(root), *domain_texts(root))
                 and (dd / "index.db").exists() and (dd / "graph.html").exists() and (root / "DIGEST.md").exists()
                 and not any(self.pend.glob("*.json"))
                 and {f["sha"][:12] + ".json" for f in cur.values()} <= set(os.listdir(dd / "notes")))
@@ -1818,7 +1888,7 @@ class Dream:
             return u if re.match(r"\d{4}-\d\d-\d\d", u) else dt.date.fromtimestamp(cur[rel]["mtime"] / 1e9).isoformat()
         # by project, then date: a wave is one project, so its calls share one KNOWN and one cacheable prefix
         self.todo = sorted((h for h in self.by_sha if self.args.all or h not in self.xs),
-                           key=lambda h: (self.by_sha[h].split("/")[0], upd(self.by_sha[h]), self.by_sha[h]))
+                           key=lambda h: (area_of(self.by_sha[h]), upd(self.by_sha[h]), self.by_sha[h]))
 
     def entities_now(self):
         xs, cur = self.xs, self.cur
@@ -1834,7 +1904,7 @@ class Dream:
         if len(text) > NOTE_CAP:
             text = text[:NOTE_CAP] + f"\n… [{len(text) - NOTE_CAP} more characters cut: the note is far over the 40-line rule]"
         pr = fill(EXTRACT, kinds=self.kind_names, types="\n".join(self.ty_lines), edges="\n".join(self.tlines),
-                  known=known_lines(ents, rel.split("/")[0]), path=rel, text=text)
+                  known=known_lines(ents, area_of(rel)), path=rel, text=text)
         return pr, pr.index("\nNOTE ") + 1
 
     def ingest(self, h, ans):
@@ -1859,7 +1929,7 @@ class Dream:
                 ents, proj, since = None, None, 0
                 for w in range(0, len(todo), j):
                     wave = todo[w:w + j]
-                    p0 = self.by_sha[wave[0]].split("/")[0]
+                    p0 = area_of(self.by_sha[wave[0]])
                     # KNOWN is refreshed when the project changes (big memories: at most every 10 waves, the merge is
                     # slow there), so every call of a project shares one prefix that the model can cache
                     if ents is None or (p0 != proj and (len(self.cur) <= WIDE or since >= 10)):
@@ -2120,7 +2190,7 @@ class Dream:
         elif (pend / "TODO.md").exists():
             (pend / "TODO.md").unlink()
         wr(dd / "manifest.json", {"v": V, "code": CODE, "files": cur, "former": self.former,
-                                  "vsig": vsig(e2, a2, conflicts_text(root), *domain_texts(root)),
+                                  "vsig": vsig(e2, a2, shape_text(root), *domain_texts(root)),
                                   "seen": sorted(fold(e["id"]) for e in g["entities"]),
                                   "registry": {"edges": sorted(parse_edges(e2)[0]), "types": sorted(parse_edges(domain_texts(root)[1], TYPE_PACKS)[0])},
                                   "queue": [[r["a"], r["b"]] for r in g["review"]],
@@ -2166,8 +2236,10 @@ class Dream:
 def write_digest(root, g, now):
     """memory/DIGEST.md (REVIEW.md §8 R3): ≤ 40 lines that can sit in an agent's context every session — Claude Code
     loads it when CLAUDE.md imports it with `@memory/DIGEST.md`. How to ask, the user's own preferences, the newest
-    live decisions and models. Deterministic, 0 calls, nothing from anyone else's memory."""
-    notes = [n for n in g["notes"] if n["project"] != "log"]
+    live decisions and models. Deterministic, 0 calls, nothing from anyone else's memory: the digest is read as
+    instruction every session, so an origin's notes are not in it."""
+    load_domain(root)
+    notes = [n for n in g["notes"] if n["project"] != "log" and not origin_of(n["path"])]
     areas = sorted({n["project"] for n in notes if n["project"]})
     me = [n for n in notes if n["project"] == "prefs" and n["id"].startswith("me-") and not n["superseded_by"]]
     load_domain(root)
@@ -2400,6 +2472,213 @@ def open_view(root):
     return View(load(root)[0])
 
 
+def rebuild(root):
+    """The graph again from what is on disk, with no model: the dream's plan, graph and write stages. For the commands
+    that change which notes exist (drop, absorb); reading new notes and the review stay with `dream`."""
+    dm = Dream(argparse.Namespace(cmd=None, j=1, review=False, all=False, prompts=False), root)
+    dm.plan()
+    g = dm.demote(dm.graph())
+    dm.report(g, dm.write(g))
+    return g
+
+
+def named_in(text, name):
+    """Is this name written in the text, as a word of its own? Exact, case aside."""
+    return re.search(r"(?<!\w)" + re.escape(name) + r"(?!\w)", text, re.I) is not None
+
+
+def absorb_read(src):
+    """What a folder offers: {note path: text} (a note with no `# ` line gets one from its file name), the registries
+    it brings for its own notes, the files not taken with the reason, and the paths whose title was given."""
+    take, regs, skip, titled = {}, {}, [], []
+    for d, dirs, files in os.walk(src):
+        dirs[:] = sorted(x for x in dirs if not x.startswith(".") and x not in ("_dream", "_readings"))
+        base = os.path.relpath(d, src).replace(os.sep, "/")
+        for f in sorted(x for x in files if not x.startswith(".")):
+            rel = f if base == "." else f"{base}/{f}"
+            if base == "." and f in ("ALIASES.md", "CONFLICTS.md"):
+                regs[f] = read(Path(d) / f)  # what that base decided about its own notes holds inside it
+            elif base == "." and f in ("KINDS.md", "TYPES.md", "EDGES.md", "ORIGIN.md", "DIGEST.md", "relations.jsonl", "entities.jsonl"):
+                continue  # its words are read through this memory's registries; its graph is read below
+            elif not f.endswith(".md"):
+                skip.append((rel, "not a .md file"))
+            elif f in SKIP:
+                skip.append((rel, "a registry or a README is not a note here; rename it to take it"))
+            else:
+                text = read(Path(d) / f)
+                if not text.strip():
+                    skip.append((rel, "empty"))
+                    continue
+                if not parse_note(text)[1]:  # no claim line: the file's name is the best one there is
+                    ls = text.split("\n")
+                    at = next((j + 1 for j in range(1, min(len(ls), 80)) if ls[j].strip() == "---"), 0) if ls[0].strip() == "---" else 0
+                    text = "\n".join(ls[:at] + ["# " + re.sub(r"[-_]+", " ", f[:-3]).strip()] + ls[at:])
+                    titled.append(rel)
+                take[rel] = text
+    return take, regs, skip, titled
+
+
+def absorb_readings(src, take, titled):
+    """The readings that come with the folder, each checked against its note by ground(), the gate every reading
+    passes: an entity is kept if its words are in the note, a link if its quote is and both ends are named there.
+    Two sources: a memory-dream base's own readings (`_dream/notes/<sha12>.json`), and a graph written by someone
+    else's model, `relations.jsonl` (`{from, relation, to, evidence: [note paths]}`) with entity cards (notes whose
+    frontmatter has `id:`, and may have `entity_type:` and `aliases:`). A graph with no notes at all becomes one note
+    per entity whose lines state its links. -> {note path: reading}, [refused records with the reason]."""
+    readings, refused = {}, []
+    for cand in (src / "_dream" / "notes", src / "_readings"):
+        for rel in (sorted(take) if cand.is_dir() else []):
+            raw = (src / rel).read_bytes() if rel not in titled and (src / rel).is_file() else b""
+            x = rd(cand / (hashlib.sha256(raw).hexdigest()[:12] + ".json")) if raw else None
+            if x and raw == take[rel].encode("utf-8"):
+                readings[rel] = ground(x, take[rel])
+    rj = src / "relations.jsonl"
+    if not rj.is_file():
+        return readings, refused
+    rels = []
+    for i, ln in enumerate(read(rj).splitlines(), 1):
+        try:
+            r = json.loads(ln) if ln.strip() else None
+        except ValueError:
+            r = None
+            refused.append({"line": i, "why": "relations.jsonl: not JSON"})
+        if isinstance(r, dict):
+            s, o, t = (str(r.get(a) or r.get(b) or "").strip() for a, b in (("from", "s"), ("to", "o"), ("relation", "type")))
+            ev = r.get("evidence") or r.get("sources") or []
+            rels.append({"s": s, "o": o, "type": t, "label": str(r.get("label") or t), "evidence": [ev] if isinstance(ev, str) else list(ev)})
+    cards = {}
+    for rel, text in take.items():  # an entity card: the note that says which entity it is about
+        fm = parse_note(text)[0]
+        if fm.get("id"):
+            names = [fm["id"], fm.get("title", "")] + fm_list(fm.get("aliases"))
+            cards[fm["id"]] = {"type": (fm.get("entity_type") or "other").lower(), "names": sorted({n for n in names if n})}
+    if not take:  # a graph with no text: one note per entity, a line per link it takes part in
+        for i in sorted(({r["s"] for r in rels} | {r["o"] for r in rels}) - {""}):
+            mine = [f"{r['s']} {r['label']} {r['o']}." for r in rels if i in (r["s"], r["o"])]
+            take[f"entities/{i}.md"] = f"---\ntype: entity\n---\n# {i}\n" + "\n".join(mine) + "\n"
+        for r in rels:  # each link is stated on the note of the thing it starts from
+            r["evidence"] = [f"entities/{r['s']}.md"]
+    names = {i: [i] for r in rels for i in (r["s"], r["o"]) if i}
+    names.update({i: c["names"] for i, c in cards.items()})
+    cited = defaultdict(list)
+    for r in rels:
+        got = [e[:-3] + ".md" if e.endswith(".md") else e + ".md" for e in r["evidence"]]
+        got = [e for e in got if e in take]
+        if not (r["s"] and r["o"] and r["type"]):
+            refused.append({**r, "why": "a link needs two things and a word for it"})
+        elif not got:
+            refused.append({**r, "why": "it cites no note that was taken"})
+        for e in got:
+            cited[e].append(r)
+    for rel, text in take.items():
+        if rel in readings:
+            continue
+        found = {i: [n for n in ns if named_in(text, n)] for i, ns in names.items()}
+        found = {i: ns for i, ns in found.items() if ns}
+        lines, out = text.split("\n"), []
+        for r in cited.get(rel, []):
+            if r["s"] not in found or r["o"] not in found:
+                refused.append({**r, "why": f"{rel} does not name {r['s'] if r['s'] not in found else r['o']}"})
+                continue
+            both = [ln for ln in lines if any(named_in(ln, n) for n in found[r["s"]]) and any(named_in(ln, n) for n in found[r["o"]])]
+            q = (both or [ln for ln in lines if any(named_in(ln, n) for n in found[r["o"]])])[0].strip()
+            out.append({"s": r["s"], "type": r["type"], "label": r["label"], "o": r["o"], "quote": q})
+        if found:
+            ty = lambda i: cards.get(i, {}).get("type", "other")  # noqa: E731
+            readings[rel] = ground({"kind": "note", "entities": [{"id": i, "type": ty(i), "label": ty(i), "as": ns} for i, ns in sorted(found.items())],
+                                    "relations": out, "refs": []}, text)
+    return readings, refused
+
+
+def absorb(args, root):
+    """`absorb <folder> --as <origin> [--trust preferences] [--yes]`: another base's notes, taken in as an origin.
+    Without --yes it reads the folder and prints what it would take and what it would not, and changes nothing. With
+    it: the notes go under `<origin>/`, an `ORIGIN.md` says where they came from and what they are trusted for, their
+    readings come along checked, and the graph is rebuilt with no model. The origin stays apart: its things are not
+    the host's until a line of ALIASES.md joins them, its preferences are not served unless trusted, and `ask` lists
+    its notes after the host's own. Absorbing the same origin again replaces it; `drop <origin>` takes it out."""
+    src, origin = Path(args.folder).expanduser().resolve(), (args.origin or "").strip().strip("/")
+    dd, dst, me = root / "_dream", root / origin, root.resolve()
+    why = (f"{args.folder} is not a folder" if not src.is_dir() else
+           f"{origin!r} is not a name for a folder" if not re.fullmatch(r"[A-Za-z0-9][\w.-]*", origin) or origin + ".md" in SKIP else
+           "the folder and the memory must lie apart" if src == me or me in src.parents or src in me.parents else
+           f"{origin}/ exists here and is not an origin: choose another name with --as" if dst.exists() and not (dst / "ORIGIN.md").is_file() else "")
+    if why:
+        print(f"absorb: {why}")
+        sys.exit(2)
+    take, regs, skip, titled = absorb_read(src)
+    readings, refused = absorb_readings(src, take, titled)
+    if not take:
+        print(f"absorb: no note in {args.folder}: it takes .md files, or a relations.jsonl" + "".join(f"\n    {rel}: {w}" for rel, w in skip[:10]))
+        sys.exit(2)
+    g = load(root)[0]
+    here = defaultdict(set)  # a name the host uses → where: its things and its notes
+    title = {n["path"]: n["title"] for n in g["notes"]}
+    for e in g["entities"]:
+        if e["mentions"] and not origin_of(e["mentions"][0]["path"]):
+            for x in [e["id"], *e["aka"]]:
+                here[fold(x)].add(e.get("home") or e.get("headline") or e["mentions"][0]["path"])
+    for n in g["notes"]:
+        if not origin_of(n["path"]) and n["project"] != "log":
+            here[fold(n["id"])].add(n["path"])
+    there = defaultdict(set)  # a name the folder uses → its notes that use it
+    for rel in take:
+        there[fold(posixpath.basename(rel)[:-3])].add(rel)
+    for rel, x in readings.items():
+        for e in x["entities"]:
+            there[fold(e["id"])].add(rel)
+    both = sorted(k for k in there if k in here)
+    _, alias, drop_, _, _, _ = parse_edges(vocab_texts(root)[0])
+    _, talias, tdrop, _, _, _ = parse_edges(domain_texts(root)[1], TYPE_PACKS)
+    new_t = Counter(fold(e["type"]) for x in readings.values() for e in x["entities"]
+                    if fold(e["type"]) not in talias and fold(e["type"]) not in tdrop and fold(e["type"]) != "other")
+    new_r = Counter(fold(r["type"]).lstrip("~") for x in readings.values() for r in x["relations"]
+                    if not {fold(r["type"]).lstrip("~"), fold(r.get("label") or "").lstrip("~")} & (set(alias) | set(drop_)))
+    areas = Counter(rel.split("/")[0] if "/" in rel else "(its top folder)" for rel in take)
+    first = lambda text: next((ln.strip()[:90] for ln in text.split("\n") if ln.startswith("# ")), "")  # noqa: E731
+    print(f"absorb {args.folder} as {origin}/ — {len(take)} notes in {len(areas)} areas: "
+          + ", ".join(f"{a} {n}" for a, n in sorted(areas.items())[:10]) + (" …" if len(areas) > 10 else ""))
+    if titled:
+        print(f"  given a title from the file name: {len(titled)} — {', '.join(titled[:6])}" + (" …" if len(titled) > 6 else ""))
+    print(f"  not taken: {len(skip)}" + ("".join(f"\n    {rel}: {w}" for rel, w in skip[:10]) + (f"\n    … and {len(skip) - 10} more" if len(skip) > 10 else "")))
+    kept = sum(len(x["entities"]) for x in readings.values()), sum(len(x["relations"]) for x in readings.values())
+    lost = sum(len(x["dropped"]["entities"]) for x in readings.values()), sum(x["dropped"]["relations"] for x in readings.values())
+    print(f"  readings that come with it: {len(readings)} of {len(take)} notes — {kept[0]} things and {kept[1]} links kept; refused "
+          f"{lost[0]} things and {lost[1] + len(refused)} links" + ("".join(f"\n    {r.get('s', '')} {r.get('type', '')} {r.get('o', '')}: {r['why']}" for r in refused[:6])))
+    print(f"  names both sides use: {len(both)} — they stay two things until a line of ALIASES.md joins them (`- name = {origin}:name`)"
+          + "".join(f"\n    {k} — here: {(title.get(sorted(here[k])[0]) or sorted(here[k])[0])[:90]} · there: {first(take[sorted(there[k])[0]])[2:]}" for k in both[:8])
+          + (f"\n    … and {len(both) - 8} more" if len(both) > 8 else ""))
+    if new_t or new_r:
+        print("  words the registries do not know (kept as other/<word>; add a line to TYPES.md or EDGES.md to read them): "
+              + ", ".join(f"{w} ×{n}" for w, n in (new_t + new_r).most_common(12)))
+    if dst.exists():
+        print(f"  {origin}/ is an origin here already: its {sum(1 for _ in dst.rglob('*.md')) - 1} files are replaced")
+    if not args.yes:
+        print("  nothing is changed yet: run it again with --yes")
+        return
+    trust = sorted({"answers"} | {w for w in re.split(r"[,\s]+", (args.trust or "").lower()) if w})
+    now = dt.datetime.now()
+    (dd / "notes").mkdir(parents=True, exist_ok=True)
+    with Lock(dd):
+        shutil.rmtree(dst) if dst.exists() else None
+        for rel, text in take.items():
+            wr(dst / rel, text)
+        for name, text in regs.items():
+            wr(dst / name, text)
+        wr(dst / "ORIGIN.md", f"# ORIGIN — {origin}: notes of another base, taken in as data\nfrom: {args.folder}\nabsorbed: {now.date().isoformat()}\n"
+                              f"notes: {len(take)}\ntrust: {', '.join(trust)}\n")
+        for rel, x in readings.items():
+            sha = hashlib.sha256(take[rel].encode("utf-8")).hexdigest()
+            wr(dd / "notes" / f"{sha[:12]}.json", {**x, "path": f"{origin}/{rel}", "sha": sha, "model": f"absorb:{origin}",
+                                                   "indexed_at": now.isoformat(timespec="seconds")})
+        wr(dd / f"absorb-{origin}.json", {"origin": origin, "from": args.folder, "at": now.isoformat(timespec="seconds"), "notes": len(take),
+                                           "titled": titled, "not_taken": [{"path": p, "why": w} for p, w in skip], "refused": refused,
+                                           "names_both_sides": both, "unknown_words": dict(new_t + new_r)})
+        rebuild(root)
+    print(f"absorbed {len(take)} notes as {origin}/ (trust: {', '.join(trust)}). What was refused and why: _dream/absorb-{origin}.json. "
+          f"`memory.py drop {origin} --yes` takes it out again.")
+
+
 def drop(args, root):
     """`drop <note | folder> [--yes]`: the one way a note leaves the memory. Without --yes it prints what goes with the
     note and changes nothing. With it: the file and its reading are deleted, one line `dropped: <path> (date) > <what
@@ -2485,15 +2764,16 @@ def drop(args, root):
             h = cur.get(p, {}).get("sha", "")[:12]
             if h and h not in keep and (dd / "notes" / f"{h}.json").exists():
                 (dd / "notes" / f"{h}.json").unlink()  # its reading goes with it
+        if folder and folder[:-1] in ORIGINS:  # an origin goes with the files that made it one
+            for name in ("ORIGIN.md", "ALIASES.md", "CONFLICTS.md"):
+                (root / folder / name).unlink() if (root / folder / name).exists() else None
+            (dd / f"absorb-{folder[:-1]}.json").unlink() if (dd / f"absorb-{folder[:-1]}.json").exists() else None
         if folder:  # the folder too, when nothing but its notes was in it
             for d_, _, _ in sorted(os.walk(root / folder), reverse=True):
                 os.rmdir(d_) if not os.listdir(d_) else None
             if (root / folder).exists():
                 print(f"  {folder} still holds files that are not notes; they are left alone")
-        dm = Dream(argparse.Namespace(cmd=None, j=1, review=False, all=False, prompts=False), root)
-        dm.plan()  # the graph again, with no model: index and review are for `dream`
-        g2 = dm.demote(dm.graph())
-        dm.report(g2, dm.write(g2))
+        rebuild(root)
     print(f"dropped {len(S)} note{'s' if len(S) != 1 else ''}: {len(lines)} line{'s' if len(lines) != 1 else ''} in CONFLICTS.md. "
           "To undo, restore the file from git and delete its line.")
 
@@ -2599,6 +2879,8 @@ W = {  # the tuned numbers of rank() and route(), in one place (REVIEW.md F9); s
     "seeds": 6, "picks": 8, "pick_floor": 0.2, "lines_top": 4, "lines_rest": 2,  # notes considered, printed, lines each
     "route_common": 50, "route_near": 0.9, "route_areas": 8, "route_floor": 0.6,  # big memories: where a question points
     "lineage_lines": 4,  # relatives of the picked notes shown as header + # line (F1: 4 beats 0 and 8; F9: for every question)
+    "other_notes": 3,  # notes of other bases (origins) listed after the host's own, two lines each
+    "other_floor": 0.8,  # … when one names what the question names, or scores this share of the host's best text match
     "relation_lines": 8, "relation_mode": "inputs", "relation_hops": 2,  # typed-link one-liners (phase I, typed_links()): the
     #   notes of the things a named thing is linked to; "cue" = only over the relation types the question's words point at,
     #   "inputs" = only questions about inputs or users, "always" = any type; input questions walk two hops (inputs of
@@ -2696,9 +2978,10 @@ def grep_lines(root, pats, areas=None):
     return hits
 
 
-def catalog(v):
-    """Every note's id and `# ` line in one lowercase string, for routing questions to areas."""
-    paths = sorted(v.notes)
+def catalog(v, other=False):
+    """Every note's id and `# ` line in one lowercase string, for routing questions to areas: the host's notes, or with
+    `other` those of the origins, which are routed apart so that another base never takes a host area's place."""
+    paths = sorted(p for p in v.notes if bool(origin_of(p)) == other)
     lines = [(v.notes[p]["id"] + " " + (v.notes[p]["title"] or "")).lower().replace("\n", " ") for p in paths]
     starts, k = [], 0
     for ln in lines:
@@ -2722,7 +3005,7 @@ def route(pats, cat):
                 hit.add(k)
             i = text.find(t, i + 1)
         idf = math.log(1 + len(paths) / max(1, len(hit)))
-        for a in {paths[k].split("/")[0] if "/" in paths[k] else "" for k in hit}:
+        for a in {area_of(paths[k]) for k in hit}:
             terms[a].append(w * idf)
     if not terms:
         return None, ""
@@ -2756,8 +3039,9 @@ def list_notes(args, v):
     whose answer is a set, or a relationship across a folder, is answered by reading these lines; `ask` does not guess
     a list from a question's wording (phase L)."""
     kind = (getattr(args, "kind", None) or "").lower()
-    area = lambda p: p.split("/")[0] if "/" in p else ""  # noqa: E731
-    rows = [p for p in sorted(v.notes) if (not args.p or area(p) == args.p)
+    area = lambda p: area_of(p)  # noqa: E731
+    here = (lambda p: in_scope(p, {args.p.lower().rstrip("/")})) if args.p else (lambda p: True)  # -p takes an origin whole
+    rows = [p for p in sorted(v.notes) if here(p)
             and (not kind or kind in (v.notes[p]["kind"], family(v.notes[p]["kind"])))]
     cap = len(rows) if getattr(args, "all", False) else LIST_MAX
     built, newest = drop_marks(v)
@@ -2770,7 +3054,8 @@ def list_notes(args, v):
                for e in v.frm[p] if e["rel"] == "from" and e["dst"] in v.notes] + [f"{i} (dropped)" for i in built.get(p, [])]
         sup = [name(e["dst"]) for e in v.frm[p] if e["rel"] == "supersedes" and e["dst"] in v.notes]
         out = sorted(e["src"][:-3] for e in v.down[p] if e["rel"] == "from" and e["src"] in v.notes and area(e["src"]) != area(p))
-        print(f"▸ {p} · {n['kind']} · {n['updated']}" + (f" · from {', '.join(frm)}" if frm else "")
+        print(f"▸ {p} · {n['kind']}" + (f" of {origin_of(p)}, another base" if origin_of(p) else "") + f" · {n['updated']}"
+              + (f" · from {', '.join(frm)}" if frm else "")
               + (f" · supersedes {', '.join(sup)}" if sup else "") + chain_mark(v.notes, n)
               + (f" · its replacement {', '.join(newest[p])} was dropped" if p in newest else "")
               + (f" · used in {', '.join(out)}" if out else "") + f" — {n['title'][:110]}")
@@ -2779,14 +3064,14 @@ def list_notes(args, v):
     if args.p:  # what the folder as a whole rests on, and what rests on it, outside itself
         for mark, edges, far, text in (("⇡", v.frm, "dst", f"{args.p}/ rests on {{n}} notes of other folders"),
                                        ("⇣", v.down, "src", f"{{n}} notes of other folders rest on {args.p}/")):
-            seen, todo = set(), [p for p in sorted(v.notes) if area(p) == args.p]
+            seen, todo = set(), [p for p in sorted(v.notes) if here(p)]
             start = set(todo)
             while todo:
                 for q in sorted(e[far] for e in edges[todo.pop(0)] if e["rel"] == "from"):
                     if q not in seen and q not in start and q in v.notes:
                         seen.add(q)
                         todo.append(q)
-            ext = sorted(q for q in seen if area(q) != args.p)
+            ext = sorted(q for q in seen if not here(q))
             if ext:
                 print(f"  {mark} {text.format(n=len(ext))}, directly or through other notes: "
                       + " · ".join(f"{q[:-3]} ({v.notes[q]['kind']})" for q in ext[:CLOSURE_MAX * 2])
@@ -2807,12 +3092,15 @@ def ask(args, root):
     stems = defaultdict(list)
     for p, n in v.notes.items():
         stems[n["id"].lower()].append(p)
-    folders = {p.split("/")[0].lower() for p in v.notes if "/" in p}
-    big, by_area, cat = len(v.notes) > WIDE, defaultdict(list), None
+    folders = {area_of(p).lower() for p in v.notes if area_of(p)}  # an origin is named in full: policy-kb/entities
+    big, by_area, cat, cat_o = len(v.notes) > WIDE, defaultdict(list), None, None
     for p in v.notes:
-        by_area[p.split("/")[0] if "/" in p else ""].append(p)
+        by_area[area_of(p)].append(p)
     general = general_areas(by_area, lambda p: v.notes[p]["kind"])  # by name, or mostly not project work
-    taste_pool = {p for a in general for p in by_area[a]}
+    # preferences and house rules instruct: an origin's are served only when its ORIGIN.md says `trust: preferences`,
+    # and a `me-` note of another base never is
+    taste_pool = {p for a in general for p in by_area[a] if not origin_of(p)
+                  or ("preferences" in ORIGINS[origin_of(p)]["trust"] and not posixpath.basename(p).startswith("me-"))}
     cc = claude_code_memory(root)  # Claude Code's own memory beside ours: read in the same call, never written
     per_q = []
     for q in qs:
@@ -2825,15 +3113,20 @@ def ask(args, root):
         # token that is a recorded name (a digit or separator in it, 4+ chars: "exp-102" — never "model" or "v2", which
         # the dreamer records as names of one model: F9), or a name of 2-3 words spelt out; loose names never become
         # patterns (MEMORY_NO_INDEX=1 switches this off: RESULTS phases D–F)
-        by_id = {i for t in pats if " " not in t and 0 < len(v.names_of(fold(t))) <= 2 for i in v.names_of(fold(t))
+        # a name the host and another base both use is two things (PLAN §9): unless the question is put to that base,
+        # only the host's thing lends its other names, so an absorbed base changes nothing in the host's own answers
+        there = bool(ORIGINS) and any(s.split("/")[0] in {o.lower() for o in ORIGINS}
+                                       for s in ({args.p.lower()} if args.p else {t for t in raw if t in folders}))
+        ours = (lambda ids: {i for i in ids if not (":" in i and i.split(":", 1)[0] in ORIGINS)}) if ORIGINS and not there else (lambda ids: ids)
+        by_id = {i for t in pats if " " not in t and 0 < len(ours(v.names_of(fold(t)))) <= 2 for i in ours(v.names_of(fold(t)))
                  if fold(i) == fold(t) or (len(t) >= 4 and pats[t] >= 1.5)} \
             if not os.environ.get("MEMORY_NO_INDEX") else set()
-        hit_ents = by_id | ({i for nm, ids in v.multi_names(low) if len(ids) <= 2 for i in ids}
+        hit_ents = by_id | ({i for nm, ids in v.multi_names(low) if 0 < len(ours(ids)) <= 2 for i in ours(ids)}
                             if not os.environ.get("MEMORY_NO_INDEX") else set())
         for eid in sorted(hit_ents):
             e = v.ents[eid]
             for x in [e["id"], *e["aka"], *(n["name"] for n in e["names"][:4])]:
-                if 3 <= len(x) <= 30 and len(x.split()) <= 3 and len(v.names_of(fold(x))) <= 2 \
+                if 3 <= len(x) <= 30 and len(x.split()) <= 3 and len(ours(v.names_of(fold(x)))) <= 2 \
                         and (x == e["id"] or " " in x or re.search(r"[\d._/@-]", x)):  # a plain word is not an alias
                     pats.setdefault(x.lower(), 1.5)
         # "in the aml-alerts project": matched on the question's own words, since the stemmer turns pricing into pric;
@@ -2844,30 +3137,33 @@ def ask(args, root):
         named = {p for t in pats for p in stems.get(t, [])} | \
                 {p for t in pats for p in ([t] if t in v.notes else [t + ".md"] if t + ".md" in v.notes else [])}
         if scope:
-            named = {p for p in named if p.split("/")[0].lower() in scope}
+            named = {p for p in named if in_scope(p, scope)}
         areas, hint = None, ""  # None: grep everything (memories up to WIDE notes)
         if big:
-            areas = sorted({a for a in by_area if a.lower() in scope}) if scope else None
+            areas = sorted({a for a in by_area if a.lower() in scope or ("/" in a and origin_of(a + "/").lower() in scope)}) if scope else None
             if not scope:  # where to look: titles that match, notes it names, areas that mention the ids it names
                 cat = cat or catalog(v)
                 areas, hint = route(pats, cat)
                 ids = [t for t in own if len(t) >= 4 and re.search(r"[0-9._@-]", t)]
                 named = {p for p in named if len(stems.get(v.notes[p]["id"].lower(), ())) <= 3}  # a name used everywhere names nothing
-                near = {p.split("/")[0] for p in named if "/" in p}
+                near = {area_of(p) for p in named if "/" in p}
                 for t in ids:  # each id points at the areas that mention it, unless it is mentioned everywhere
-                    at = {m["path"].split("/")[0] for e in v.names_of(fold(t)) for m in v.ents[e]["mentions"]}
+                    at = {area_of(m["path"]) for e in ours(v.names_of(fold(t))) for m in v.ents[e]["mentions"]}
                     near |= at if len(at) <= 12 else set()
                 near = near if len(near) <= 12 else set()
                 near |= {a for a in general if not near}  # no project in sight: the general areas too
                 if not areas and not near and ids:  # ids the index does not know: grep everything for them alone
-                    near = {p.split("/")[0] for p in grep_lines(root, ids) if "/" in p}
+                    near = {area_of(p) for p in grep_lines(root, ids) if "/" in p}
                     near = near if len(near) <= 12 else set()
                 areas = sorted(set(areas or []) | near) if areas or near else None
+                if ORIGINS and areas is not None:  # and the two areas of other bases that match best, beside the host's
+                    cat_o = cat_o or catalog(v, True)
+                    areas = sorted(set(areas) | set((route(pats, cat_o)[0] or [])[:2]))
             if "task" in intent and areas is not None:
                 areas = sorted(set(areas) | general)
         pool = v.notes if areas is None else [p for a in areas for p in by_area[a]]
         paths = {p: [t for t in pats if len(t) >= 4 and t not in scoped_pats and t in p.lower()] for p in pool
-                 if not scope or p.split("/")[0].lower() in scope}
+                 if not scope or in_scope(p, scope)}
         per_q.append({"q": q, "pats": {t: w for t, w in pats.items() if t not in scoped_pats}, "intent": intent, "hint": hint,
                       "own": set(own), "ents": hit_ents, "by_id": by_id, "named": named, "scope": scope, "areas": areas,
                       "paths": {p: ts for p, ts in paths.items() if ts}})
@@ -2878,10 +3174,10 @@ def ask(args, root):
         allpats = {p for x in xs for p in x["pats"]}
         hits = grep_lines(root, allpats, areas)
         if args.p:
-            hits = {p: h for p, h in hits.items() if p.split("/")[0] == args.p}
+            hits = {p: h for p, h in hits.items() if in_scope(p, {args.p.lower()})}
         rx = {p: boundary(p) for p in allpats}
         line_pats = {}  # (path, line) → patterns that really match there (word start)
-        df = Counter()
+        df, df_host = Counter(), Counter()
         for path, rows in hits.items():
             seen = set()
             for no, text in rows:
@@ -2891,19 +3187,21 @@ def ask(args, root):
                     line_pats[(path, no)] = (ms, text)
                     seen |= ms
             df.update(seen)
+            df_host.update(seen) if ORIGINS and not origin_of(path) else None
         N = max(len(v.notes) if areas is None else sum(len(by_area[a]) for a in areas), 1)
         idf = {p: math.log(1 + N / df[p]) for p in df}
+        idf_host = None
+        if ORIGINS:  # the host's own notes are ranked as if no other base were there (rank())
+            Nh = max(sum(not origin_of(p) for p in (v.notes if areas is None else [p for a in areas for p in by_area[a]])), 1)
+            idf_host = {p: math.log(1 + Nh / df_host[p]) for p in df_host}
         by_file = defaultdict(list)
         for (path, no), (ms, text) in line_pats.items():
             by_file[path].append((no, ms, text))
         for x in xs:
-            x["ranked"] = rank(x, by_file, idf, v)
+            x["ranked"] = rank(x, by_file, idf, v, idf_host)
             x["taste"] = taste(x, by_file, v, taste_pool) if "task" in x["intent"] else []
     cc_search(cc, per_q) if cc else None
     budget = args.budget or 900 * len(qs) + 1500
-
-    def area_of(p):
-        return p.split("/")[0] if "/" in p else ""
 
     # where the call points (phase L): questions asked together are usually about one piece of work. When at least half
     # of them, and two, have a note of one project folder among their first three notes, and the folder is small, it is
@@ -2912,7 +3210,7 @@ def ask(args, root):
     if len(v.notes) > COMPLETE_MAX_NOTES and not args.budget:
         votes = Counter()
         for x in per_q:
-            x["tops"] = {area_of(p) for p, _ in x["ranked"][:3]} | {area_of(p) for p in x["named"]}
+            x["tops"] = {area_of(p) for p, _ in x["ranked"][:3]} | {area_of(p) for p in x.get("mine", x["named"])}
             votes.update(x["tops"] - set(general) - {""})
         need = max(2, (len(per_q) + 1) // 2)
         whole = [a for a in sorted(votes) if votes[a] >= need
@@ -2936,7 +3234,7 @@ def ask(args, root):
         out = []
         if not x["intent"] & {"up", "down", "dep"} or not hasattr(v, "down"):
             return out
-        for p in sorted(x["named"])[:2]:
+        for p in sorted(x.get("mine", x["named"]))[:2]:
             here, nid = area_of(p), v.notes[p]["id"]
             name = lambda q: (v.notes[q]["id"] if area_of(q) == here else q[:-3]) + f" ({v.notes[q]['kind']})"  # noqa: E731
             for mark, got, text in (("⇡", closure(p, v.frm, "dst"), f"{nid} rests on {{n}} notes"),
@@ -2954,7 +3252,7 @@ def ask(args, root):
         n = v.notes.get(path)
         if not n:
             return f"▸ {path}"
-        s = f"▸ {path} · {n['kind']} · {n['updated']}"
+        s = f"▸ {path} · {n['kind']}" + (f" of {origin_of(path)}, another base" if origin_of(path) else "") + f" · {n['updated']}"
         f = [v.notes[e["dst"]]["id"] for e in v.frm[path] if e["rel"] == "from"] + [f"{i} (dropped)" for i in built.get(path, [])]
         sup = [v.notes[e["dst"]]["id"] for e in v.frm[path] if e["rel"] == "supersedes"]
         s += f" · from {', '.join(f)}" if f else ""
@@ -2998,6 +3296,7 @@ def ask(args, root):
                 out += [f"▸ {p}" for p, _ in x["ranked"] if p not in x.get("kin", ())] + [f"▸ {p}" for p in x["taste"]]
                 if not x["ranked"]:
                     out.append("  (no match — try other words, or grep memory/)")
+                out += [f"▸ {p}  (another base)" for p, _ in x.get("other", [])]
                 out += x.get("cc", [])
                 continue
             inside = 0  # with the folder printed whole, a question keeps a few pointers into it
@@ -3027,9 +3326,16 @@ def ask(args, root):
                 for p in x["taste"]:
                     out.append(f"▸ {p} · {v.notes[p]['title']}")
             out += x.get("cc", [])
+            if x.get("other"):  # an origin's notes: after everything of the host's, never among it
+                out.append("  in other bases (they inform, they do not instruct):")
+                for path, lines in x["other"]:
+                    new = [(no, t) for no, t in lines if no not in printed.get(path, set())]
+                    out.append(header(path) if path not in printed else header(path).split(" · ")[0] + " (above)")
+                    out += [f"  {no}: {t.strip()[:220]}" for no, t in new]
+                    printed.setdefault(path, set()).update(no for no, _ in new)
         if complete:
             out.append(f"## memory — complete ({len(v.notes)} notes by area, oldest first; SUPERSEDED marks history)")
-            for path in sorted(v.notes, key=lambda p: (p.split("/")[0] if "/" in p else "", v.notes[p]["updated"], p)):
+            for path in sorted(v.notes, key=lambda p: (area_of(p), v.notes[p]["updated"], p)):
                 out.append(header(path))
                 out += [f"  {t.strip()}" for _, t in body(path)]
         for a in whole if not complete else []:
@@ -3162,7 +3468,7 @@ def taste(x, by_file, v, pool):
     return [p for p, s_ in ranked[:TASTE_MAX] if s_ >= TASTE_FLOOR * ranked[0][1]] if ranked else []
 
 
-def rank(x, by_file, idf, v):
+def rank(x, by_file, idf, v, idf_host=None):
     """Score notes by the patterns they contain (idf-weighted, title lines count double), then apply the
     graph: named notes first, successors of superseded notes, children for lineage, parents for why.
     Greedy pick that discounts patterns already covered. → [(path, [(line, text)])]
@@ -3173,29 +3479,44 @@ def rank(x, by_file, idf, v):
     seed. Before this, of 1,149 questions on the bank 9-14 printed differently under another hash seed and 4 with
     the files listed in another order (RESULTS phase J; tests/acceptance.py A42)."""
     pats, intent = x["pats"], x["intent"]
-    base = {}
-    for path, rows in by_file.items():
+    # Another base's notes (an origin) are data beside the host's, not among them: unless the question names the
+    # origin, the host's notes are ranked exactly as if it were not there, and its best notes are listed after them.
+    apart = bool(ORIGINS) and not any(s.split("/")[0] in {o.lower() for o in ORIGINS} for s in x["scope"])
+    theirs, idf_all, named = {}, idf, x["named"]
+    if apart:
+        theirs = {p: rows for p, rows in by_file.items() if origin_of(p)}
+        by_file = {p: rows for p, rows in by_file.items() if not origin_of(p)}
+        idf = idf_host if idf_host is not None else idf
+        named = {p for p in named if not origin_of(p)}
+    x["mine"] = named  # the notes the question names that the answer is about: the host's, unless it names an origin
+
+    def matched(path, rows):
+        """The patterns a note contains, its `# ` line counting double."""
         n = v.notes.get(path)
-        tl = n["line"] if n else 0
-        got = Counter()
+        tl, got = (n["line"] if n else 0), Counter()
         for no, ms, _ in rows:
             for p in ms:
                 if p in pats:
                     got[p] += 2 if no == tl else 1
+        return got
+    base = {}
+    for path, rows in by_file.items():
+        got = matched(path, rows)
         if got:
             base[path] = got
     score = {p: math.fsum(pats[t] * idf[t] * (1 + math.log(c)) for t, c in got.items()) for p, got in base.items()}
     for p, ts in x["paths"].items():  # the slug names the thing: count it like a title hit
-        score[p] = score.get(p, 0) + math.fsum(pats.get(t, 1) * idf.get(t, 1) for t in ts)
+        if not (apart and origin_of(p)):
+            score[p] = score.get(p, 0) + math.fsum(pats.get(t, 1) * idf.get(t, 1) for t in ts)
     if x["scope"]:
-        score = {p: s_ for p, s_ in score.items() if p.split("/")[0].lower() in x["scope"]}
+        score = {p: s_ for p, s_ in score.items() if in_scope(p, x["scope"])}
     top = max(score.values(), default=0) or 1.0
-    for p in x["named"]:
+    for p in named:
         score[p] = score.get(p, 0) + top + 1
     inside = {a.lower() for a in (x["scope"] or x.get("areas") or ())}
     for eid in x["by_id"]:  # notes that mention an entity the question names by id (phrase matches only add aliases)
         for m in v.ents[eid]["mentions"]:
-            if inside and m["path"].split("/")[0].lower() not in inside:
+            if (inside and not in_scope(m["path"], inside)) or (apart and origin_of(m["path"])):
                 continue
             score[m["path"]] = score.get(m["path"], 0) + W["entity_named"] * top
     up = intent & {"up", "why", "dep"}
@@ -3214,7 +3535,7 @@ def rank(x, by_file, idf, v):
                         score[e["dst"]] = max(score.get(e["dst"], 0), s * W["why_parent"])
         if "current" in intent and n["superseded_by"]:
             score[p] = s * W["superseded_current"]  # still shown (answers cite what was replaced), below its successor
-        if "down" in intent or (p in x["named"] and not up and len(x["named"]) == 1) or \
+        if "down" in intent or (p in named and not up and len(named) == 1) or \
                 ("current" in intent and p == best_live):
             for e in v.down[p]:
                 if e["rel"] in ("from", "refs"):
@@ -3248,7 +3569,29 @@ def rank(x, by_file, idf, v):
     ids_missing = [t for t in missing if re.search(r"\d|[._/@]", t)]  # an id, version or number the question names and
     x["weak"] = ""  # no note mentions: always said, even when its neighbours match (phase G absence set: 97% flagged)
     if picks and (ids_missing or (missing and not strong and content and len(hit & content) <= WEAK_SHARE * len(content))):
-        x["weak"] = "weak match: " + ", ".join(f"'{t}'" for t in (ids_missing or missing)[:3]) + " found nowhere in memory"
+        said = (ids_missing or missing)[:3]
+        x["weak"] = "weak match: " + ", ".join(f"'{t}'" for t in said) + \
+            (" found only in another base, below" if apart and all(t in idf_all for t in said) else " found nowhere in memory")
+    # The other bases' best notes for this question, by the words alone. One is listed when it speaks of what the
+    # question names (the note itself, or an id the question wrote: letters with a digit or a separator, four
+    # characters or more), or matches as well as the host's own best. A common word, a year or `v2` shared with
+    # another base is no reason to quote it, and a question put to one of the host's projects is not put to it.
+    x["other"] = []
+    said = {t for t in x["own"] if len(t) >= 4 and re.search(r"[a-z]", t) and re.search(r"[0-9._@-]", t)}
+    osc = {}
+    for p, rows in ({} if x["scope"] else theirs).items():
+        got = matched(p, rows)
+        s_ = math.fsum(pats[t] * idf_all[t] * (1 + math.log(c)) for t, c in got.items())
+        if p in x["named"] or said & set(got) or (s_ and s_ >= float(os.environ.get("MEMORY_OTHER_FLOOR", W["other_floor"])) * top):
+            osc[p] = (s_, p in x["named"])
+    for p in sorted(osc, key=lambda p: (not osc[p][1], -osc[p][0], p))[:W["other_notes"]]:
+        n = v.notes.get(p)
+        rows = sorted((r for r in theirs[p] if not n or r[0] >= n["line"]),
+                      key=lambda r: (-math.fsum(pats.get(t, 0) * idf_all.get(t, 0) for t in r[1]), r[0]))
+        lines = {(no, t) for no, _, t in rows[:W["lines_rest"]]}
+        if n and n["line"]:
+            lines.add((n["line"], "# " + n["title"]))
+        x["other"].append((p, sorted(lines)))
     if os.environ.get("MEMORY_DEBUG"):
         sys.stderr.write(f"Q {x['q']} intent={sorted(intent)} named={sorted(x['named'])}\n  pats={pats}\n")
         for p, s in sorted(score.items(), key=lambda z: (-z[1], z[0]))[:12]:
@@ -3553,6 +3896,11 @@ def main(argv=None):
     vz = sp.add_parser("viz", parents=[common], help="write the HTML viewer (dream refreshes it too)")
     vz.add_argument("--out", help="output file (default memory/_dream/graph.html)")
     sp.add_parser("check", parents=[common], help="warnings in full")
+    ab = sp.add_parser("absorb", parents=[common], help="take another base in as an origin: prints what it would take, acts with --yes")
+    ab.add_argument("folder", help="a folder of notes: .md files, with its readings or a relations.jsonl if it has them")
+    ab.add_argument("--as", dest="origin", required=True, help="the folder it becomes here")
+    ab.add_argument("--trust", default="", help="preferences: its preference and rule notes may shape tasks here")
+    ab.add_argument("--yes", action="store_true", help="copy the notes, write ORIGIN.md, bring the readings, rebuild with no model")
     dr = sp.add_parser("drop", parents=[common], help="remove a note or a folder: prints what goes with it, acts with --yes")
     dr.add_argument("target", help="a note (its path or its id) or a folder")
     dr.add_argument("--yes", action="store_true", help="delete it, leave a tombstone in CONFLICTS.md, rebuild with no model")
@@ -3564,13 +3912,13 @@ def main(argv=None):
     args = ap.parse_args(argv)
     root = find_root(args.root or args.root0)
     load_domain(root)
-    if args.verb in ("dream", "log", "drop") or (args.verb == "viz" and not args.out):  # REVIEW.md §8 R2: never write there
+    if args.verb in ("dream", "log", "drop", "absorb") or (args.verb == "viz" and not args.out):  # REVIEW.md §8 R2: never write there
         why = claude_code_owned(root)
         if why:
             sys.stderr.write(f"memory.py: {root} is Claude Code's own memory ({why}); memory-dream reads it but never "
                              "writes there. Point --root at your notes.\n")
             sys.exit(2)
-    {"dream": dream, "ask": ask, "viz": viz, "check": check, "log": log, "export": export, "drop": drop}[args.verb](args, root)
+    {"dream": dream, "ask": ask, "viz": viz, "check": check, "log": log, "export": export, "drop": drop, "absorb": absorb}[args.verb](args, root)
 
 
 if __name__ == "__main__":

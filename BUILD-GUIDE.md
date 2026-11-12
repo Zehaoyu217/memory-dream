@@ -176,11 +176,11 @@ hash in `_dream/store.db` so a dream re-reads only changed notes.
 ### 5.4 The graph, note half (`notes_part`)
 
 - One record per note: path, id (filename), project (top folder), title, line, kind (`kind_of`: frontmatter `type`
-  with Claude Code's user/feedback/project/reference mapped to preference/rule/note/note, else the kind whose prefix
-  is the first or second part of the filename (the `prefix:` fields of `KINDS.md`: `exp- feat- ds- dec- fnd- find- q-
-  metric- plan- req- risk- inc- rpt-` in the seed), else the area (the `area:` fields: `prefs/ glossary/ corrections/
-  reporting/ howto/ log/`), else `…-vN` = model, else the dreamer's kind unless it is the fallback "note", else
-  `note`: the name and the folder a writer chose come before the dreamer's reading), updated (frontmatter `updated`
+  with Claude Code's user/feedback/project/reference mapped to preference/rule/note/note, else the area when it has a
+  kind (the `area:` fields: `prefs/ glossary/ corrections/ reporting/ howto/ log/`), else the kind whose prefix is the
+  first or second part of the filename (the `prefix:` fields of `KINDS.md`: `exp- feat- ds- dec- fnd- find- q- metric-
+  plan- req- risk- inc- rpt-` in the seed), else `…-vN` = model, else the dreamer's kind unless it is the fallback
+  "note", else `note`: the folder and the name a writer chose come before the dreamer's reading), updated (frontmatter `updated`
   or `modified`, log filename date, or mtime), superseded_by. `general_areas` judges an area on its kinded notes only.
 - Edges: `from` and `supersedes` resolved by relative path, then exact path, then unique filename, then same-project
   filename (warning C1 if ambiguous), then moved paths; unresolved → C2. Plus `refs`: `[[links]]`, the dreamer's refs,
@@ -194,6 +194,14 @@ hash in `_dream/store.db` so a dream re-reads only changed notes.
   readings, appends the tombstones, and runs the dream's plan, graph and write stages with no model. Notes whose every
   `source:` is dropped go too. A file that is gone without a drop is never treated as one: the dream keeps where it
   stood in the manifest (`gone`) and reports C15 with the command.
+- Origins (`ORIGINS`, `area_of`, `origin_of`; CONTRACT §7): a top folder with an `ORIGIN.md` is another base's notes.
+  One function gives a note's area everywhere (`<origin>/<next folder>` under an origin, the first folder otherwise),
+  so its kinds by area survive. A lineage target is looked for inside the origin before the host and never guessed
+  across; an entity read from its notes is `<origin>:<id>` until a line of `ALIASES.md` joins it; its preferences are
+  served only with `trust: preferences`; none of its notes is in the digest. In `ask` the host's notes are ranked as
+  if the origin were not there (their own document frequencies, their own things' names) and at most three of its
+  notes follow in a block of their own. `absorb <folder> --as <name> [--yes]` copies a folder in as one, brings its
+  readings through `ground()`, turns a `relations.jsonl` with entity cards into readings, and reports what it refused.
 - Warnings: C1 ambiguous, C2 not found, C3 indexing failed, C4 dropped ungrounded entity/relation, C5 unindexed,
   C6 no `# ` line, C7 review pending (labels, budget), C8 bad EDGES/ALIASES/CONFLICTS line, C9 NUL bytes in a note
   (binary-looking), C10 conflict pending, C11 a note over 40 lines, C14 built on a dropped note or left the newest of
@@ -440,7 +448,7 @@ when the page opens (tab order Timeline · Map · Connections; `#view=map` and `
 
 ```bash
 python3 tests/acceptance.py            # 40 checks, A1–A20, A24, A25–A43, with the fake dreamer, about 30 s
-python3 tests/e2e.py                   # one run on both read paths: dream, ask, a file gone by hand, drop a note, the end of a line, a folder
+python3 tests/e2e.py                   # one run on both read paths: dream, ask, a file gone by hand, drop a note, the end of a line, a folder, absorb a base
 python3 tests/retrieval_gate.py bank   # the model-free numbers with floors (README Results); `software` for the second fixture
 MEMORY_STORE_URL=postgresql://… python3 tests/store_parity.py postgres --bank   # needs psycopg: the PostgreSQL store (ADR-001)
 python3 tests/acceptance.py A6 A24     # some

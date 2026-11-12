@@ -8,7 +8,8 @@ experiments, and four more measurements were made. This draft is what survived.
 below grep. That question was answered before anything else was built (RESULTS phase L), and it built most of §11:
 items 2, 4 and 5 are in `ask`, item 1 in the case that was measured. §11 and §14 carry what the measurements
 changed. Step 0 is built (RESULTS phase M): `memory.py drop`, the tombstone, and an `ask` that survives a missing
-file; §8 says where the build went past the draft. The rest of step 1 is not started.
+file; §8 says where the build went past the draft. Of step 1, item 1 is built (RESULTS phase N): origins and
+`memory.py absorb`; §9 says what it added to the draft. Items 3 to 7 are not started.
 
 The contract field by field is `CONTRACT-2.md`. Every number has a command, all without a model:
 `python3 eval/contract_probe.py <bank-index world>` (drop, absorb, documents, sets), `python3 eval/agent/arms.py`
@@ -282,6 +283,14 @@ itself, with no model, so nothing reads a half-dropped memory.
    did not take. A graph with no text becomes one note per entity whose lines state its edges, and needs no reading.
 8. Absorbing again replaces the folder. Dropping it is dropping the folder (§8).
 
+Built in phase N, with one rule the draft did not have. "Apart" was written for identity and for trust. Measured on
+the bank, an absorbed base also changed 19 of 326 answers the host gave from its own notes, by ranking among them.
+So `ask` now ranks the host's notes as if the origin were not there and lists the origin's notes after them, in a
+block of their own, when the origin names what the question names: 0 of 326 host answers change, and a question
+across the two still gets both. Item 5 is built for `ALIASES.md` and `CONFLICTS.md`; the origin's registry lines
+are reported as words the host does not know, not written anywhere. The graph input of item 7 is a
+`relations.jsonl` with entity cards, as in `eval/absorb/policy-kb`.
+
 "In general" is not shown: the one sample is hand-made, in a shape its own project has since withdrawn. Step 1 runs
 one real export of another system before that word is used.
 
@@ -353,6 +362,7 @@ A dropped note must not bring back the note it replaced (`drop` and the tombston
 **Step 1, no model.**
 
 1. Origins: `ORIGIN.md`, one function for a note's area, trust, readings that come along, the reports (§9).
+   *Done: RESULTS phase N.*
 2. Retrieval for a cheap reader: the own note first, complete inputs, filters with a cap, the weak marker (§11).
    Done in phase L but for the own note where no folder wins the call, and the tag filter.
 3. Pointers (§10).
@@ -396,8 +406,8 @@ step 1 adds its lines.
 | the inputs of an entity named in full | fails for `sfc-hier-v3` in every arm; after phase L the call prints all 17, and Haiku names the first four | 0.95 |
 | a set by filter | 0.47 by question; after phase L Haiku answers 37 of 37 set questions exactly with the map | the whole set, by construction |
 | after `drop` | the chain cut; a crash on a big memory; after phase M the chain holds, no crash, the reading gone, 5 of 5 notes built on it marked | the chain holds; no crash; nothing derived left |
-| the host's answers changed by an absorb | 21 of 326 | 0 until something is joined |
-| an absorbed base's preference notes | lose their kind (0 of 2 kept) | keep their kind (2 of 2) and are never served as the host's own |
+| the host's answers changed by an absorb | 21 of 326 (19 on the script of phase M); after phase N 0, with the origin's notes in a block of their own for 6 | 0 until something is joined |
+| an absorbed base's preference notes | lose their kind (0 of 2 kept); after phase N 2 of 2 kept, served to a host task only with `trust: preferences`, a `me-` note never | keep their kind (2 of 2) and are never served as the host's own |
 | pointers checked | none | every pointer has a state |
 | dream, 1,677 notes with their readings | 0.85 s | 1 s |
 | Haiku with the memory against Opus with grep (step 2) | 120 times cheaper, 8 times faster, 23 correct against 29; after phase L 107 times and 7.9 times, 25 against 29, and the same exact answers on 37 linkage questions at 35 to 46 times cheaper | as cheap; correct within the judge's own spread on 100 questions |

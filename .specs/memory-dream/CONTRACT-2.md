@@ -124,6 +124,12 @@ dropped with nothing after it becomes the newest left of its line, also `C14`.
    not, the names both sides use with a line from each, and the words the registries do not know. Absorbing again
    replaces the folder.
 
+Built in phase N, inside schema 1, and written into `CONTRACT.md` §7. Three things differ from this draft. An
+origin's notes are in no digest, with or without `trust: preferences`. Its registry lines are not offered anywhere:
+the report names the words the host's registries do not know, and a person adds a line. And one rule is new: `ask`
+ranks the host's notes as if the origin were not there and lists the origin's after them, so that absorbing a base
+changes no answer the host gave before.
+
 ## 8. Pointers
 
 `path#symbol` · `path:line "quoted words"` · `path:line` (taken, and reported as weak). States: intact · moved (the

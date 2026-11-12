@@ -280,8 +280,12 @@ Open, in the order I would take them:
 1. Step 0 of the plan: done the same day, RESULTS phase M. `memory.py drop <note | folder> [--yes]` writes a
    `dropped:` line in CONFLICTS.md that the build reads as a pass-through; a file deleted by hand is reported (C15)
    and nothing is written for it; `ask` survives a missing file on both read paths. `tests/e2e.py` is new and in CI.
-2. The rest of step 1: origins and `absorb`, pointers, packets and `--dry-run`, tags, the setup section of the
-   skill, the page's filters; each adds its lines to `tests/e2e.py`.
+2. Step 1, item 1: done the same day, RESULTS phase N. A top folder with an `ORIGIN.md` is another base's notes;
+   `memory.py absorb <folder> --as <name> [--trust preferences] [--yes]` takes one in with its readings or its
+   `relations.jsonl`. It stays apart: 0 of the host's 326 answers change, its notes follow in a block of their own,
+   its things are `<name>:<id>` until a line of ALIASES.md joins them. `eval/origin_probe.py` is new.
+   The rest of step 1: pointers, packets and `--dry-run`, tags, the setup section of the skill, the page's filters;
+   each adds its lines to `tests/e2e.py`.
 3. Small things this phase found and left: the own note of a thing when no folder wins the call (C-h1 Q6 is served
    only because its folder is printed whole); a check of each kind prefix against the readings at setup (`inc-`);
    `(weak match: … found nowhere in memory)` says "memory" when the search was scoped to one folder; "built directly

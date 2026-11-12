@@ -96,11 +96,34 @@ exactly as relation labels are.
 - Lineage between notes (`from:`, `supersedes:`, and note ids written in a body) is not a relation:
   it needs no model and no vocabulary.
 - Kinds need no model either: frontmatter `type:` wins (Claude Code's user/feedback/project/reference
-  count as preference/rule/note/note), then a prefix in the first or second part of the filename (`exp- feat- ds-
-  dec- fnd- q- metric-`), then the area (`prefs/` preference, `glossary/` term,
-  `corrections/` correction, `reporting/` and `howto/` rule), then `…-vN` is a model, and only then the dreamer's
-  kind: the name and the folder a writer chose come before a reading. `modified:` serves as the date when
+  count as preference/rule/note/note), then the area when it has a kind (`prefs/` preference, `glossary/` term,
+  `corrections/` correction, `reporting/` and `howto/` rule), then a prefix in the first or second part of the
+  filename (`exp- feat- ds- dec- fnd- q- metric-`), then `…-vN` is a model, and only then the dreamer's
+  kind: the folder and the name a writer chose come before a reading. `modified:` serves as the date when
   `updated:` is absent.
+
+## Another base, taken in (`absorb`, origins)
+
+```bash
+$M absorb ~/their-kb --as policy-kb            # what it would take, what it would not and why; changes nothing
+$M absorb ~/their-kb --as policy-kb --yes      # copy the notes under memory/policy-kb/, write ORIGIN.md, bring readings, rebuild
+$M ask -p policy-kb "who approves a tier 1 model?"   # ask that base alone
+$M drop policy-kb --yes                        # take it out again
+```
+
+What it takes: every `.md` under the folder (a file with no `# ` line gets one from its name), the readings of a
+memory-dream base (`_dream/notes/`), or a graph in `relations.jsonl` (`{from, relation, to, evidence: [note
+paths]}`) with entity cards (notes with `id:` in their frontmatter). What it leaves is listed with the reason, and
+so is every link it refuses: a link is kept when the note it cites names both ends. The full list stays in
+`memory/_dream/absorb-<name>.json`.
+
+What an origin is afterwards (CONTRACT §7): your answers are the same to the letter; its notes are listed after
+yours under `in other bases`, when it names what the question names; `-p <name>` asks it alone. Its preferences
+and rules reach a task only with `--trust preferences` (or `trust: answers, preferences` in its `ORIGIN.md`), a
+`me-` note never. The report names every name both sides use: they are two things until you add one line to
+`ALIASES.md`, `- auc = policy-kb:auc`. Words its readings use that the registries do not know show as
+`other/<word>`; a line in `TYPES.md` or `EDGES.md` reads them (0 calls). A folder you copied in by hand becomes an
+origin when you add an `ORIGIN.md` to it.
 
 ## Dream (index new or changed notes)
 
@@ -131,6 +154,7 @@ the index adds aliases, typed relations and the viewer's entity views (measured 
 
 ```bash
 python3 tests/acceptance.py                 # 40 checks (A1–A20, A24–A43) with the deterministic fake dreamer (~30 s)
+python3 tests/e2e.py                        # one run on both read paths: dream, ask, a file gone, drop, absorb (a few seconds)
 python3 tests/acceptance.py A6 A15          # a subset
 python3 tests/real_model.py a3  /tmp/w-a3   # A3/A18 with real Haiku in command mode (~60 s, ~$0.05)
 python3 tests/real_model.py a10-prep /tmp/w-a10   # A10: file mode; then run memory-dreamer on

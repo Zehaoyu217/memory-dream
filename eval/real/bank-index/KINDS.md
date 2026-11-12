@@ -1,5 +1,5 @@
-# KINDS — kinds of note. A note's kind is its frontmatter `type:`, else the kind whose prefix starts its filename
-# (`exp-014` → experiment; `…-vN` is a model), else the kind of its area (`prefs/` → preference), else note. One line per
+# KINDS — kinds of note. A note's kind is its frontmatter `type:`, else the kind of its area (`prefs/` → preference), else
+# the kind whose prefix starts its filename (`exp-014` → experiment; `…-vN` is a model), else note. One line per
 # kind: `- kind: definition | prefix: a, b | area: x, y | family: parent | role: R | digest: current | conflicts: yes
 # | answers: yes | not: what it is not`. role ∈ question, evidence, state, rule, reference, log; project work is question,
 # evidence and state. `answers: yes` kinds answer a question they are built on; `digest: current` kinds head the digest;

@@ -123,6 +123,68 @@ def scenario(w):
     out = w.run("dream") + w.run("check") + w.run("ask", "what came of a-v1?")
     w.ok("the file put back counts again, and its stale line is reported",
          "SUPERSEDED → a-v2 → a-v3" in w.head(out, "proj/a-v1.md") and re.search(r"dropped: proj/a-v2\.md names a note that exists", out) is not None, out)
+    absorbing(w)
+
+
+OTHER = {  # another base, outside the memory: path → text
+    "prefs/dana-lee-tables.md": "# Dana Lee wants every table sorted by date, newest first\nSaid at the March review.\n",
+    "prefs/me-units.md": "# I write amounts in thousands, never in millions\n",
+    "work/a-v3.md": "# a-v3 as the other team saw it\nThey scored a-v3 on holdout-x and got AUC 0.80.\n",
+    "work/untitled-run.md": "A run nobody gave a title: the batch took 41 minutes.\n",
+    "README.md": "# About this folder\n",
+    "notes.txt": "not a note\n",
+    "relations.jsonl": '{"from": "a-v3", "relation": "evaluated-on", "to": "holdout-x", "evidence": ["work/a-v3.md"]}\n'
+                       '{"from": "a-v3", "relation": "owned-by", "to": "team-z", "evidence": ["work/a-v3.md"]}\n',
+}
+
+
+def absorbing(w):
+    """Another base taken in as an origin (PLAN §9): it answers after the host's own notes and changes none of them."""
+    src = w.dir / "their-base"
+    for p, text in OTHER.items():
+        (src / p).parent.mkdir(parents=True, exist_ok=True)
+        (src / p).write_text(text)
+    cut = lambda s: s.split("  in other bases (they inform, they do not instruct):")[0]  # noqa: E731
+    qs = ["what is a-v3 built on?", "what came of a-v1?", "Make the summary table for Dana Lee"]
+    before = w.run("ask", *qs)
+    out = w.run("absorb", str(src), "--as", "other", "--yes")
+    w.ok("absorb will not take the name of a folder the host already has", "is not an origin" in out and len(list((w.root / "other").glob("*.md"))) == 1, out)
+    out = w.run("absorb", str(src), "--as", "theirs")
+    w.ok("absorb without --yes says what it would take, what it would not, and changes nothing",
+         "4 notes in 2 areas" in out and "not taken: 2" in out and "given a title from the file name: 1" in out
+         and "names both sides use: 1" in out and "does not name team-z" in out and not (w.root / "theirs").exists(), out)
+    out = w.run("absorb", str(src), "--as", "theirs", "--yes")
+    origin = (w.root / "theirs" / "ORIGIN.md").read_text() if (w.root / "theirs" / "ORIGIN.md").exists() else ""
+    w.ok("with --yes the notes are an origin: ORIGIN.md, trusted for answers only",
+         "trust: answers\n" in origin and "dream: 13 notes" in out and "contract: schema 1 ok" in w.run("check"), out + origin)
+    after = w.run("ask", *qs)
+    mine = lambda out: ["\n".join(ln for ln in cut(s).split("\n") if not ln.endswith("(another base)")).rstrip()  # noqa: E731
+                        for s in out.split("\n## ")[:len(qs)]]  # each question's own section; a small memory is printed whole after them
+    w.ok("the host's own answers are the same to the letter", "another base" in after and mine(after) == mine(before),
+         "\n".join(mine(after)) + "\n=== before ===\n" + "\n".join(mine(before)))
+    blk = after.split("\n## ")[0].split("  in other bases (they inform, they do not instruct):")
+    w.ok("what the other base says of a-v3 follows, marked as another base's",
+         len(blk) == 2 and "theirs/work/a-v3.md · " in blk[1] and "of theirs, another base" in blk[1] and "holdout-x" in blk[1], after)
+    out = w.run("ask", "--list", "-p", "theirs")
+    w.ok("its areas and kinds survive, and a note with no title got one",
+         "· preference of theirs" in w.head(out, "theirs/prefs/dana-lee-tables.md") and "untitled run" in w.head(out, "theirs/work/untitled-run.md"), out)
+    w.ok("its preferences are not served to a task here", "theirs/prefs" not in after.split("\n## ")[2].split("preferences and house rules")[-1]
+         or "preferences and house rules" not in after.split("\n## ")[2], after)
+    w.run("absorb", str(src), "--as", "theirs", "--trust", "preferences", "--yes")
+    task = w.run("ask", qs[2])
+    w.ok("absorbed again with --trust preferences they are, and a me- note never is",
+         "preferences and house rules" in task and "theirs/prefs/dana-lee-tables.md" in task.split("preferences and house rules")[1]
+         and "me-units" not in task.split("preferences and house rules")[1], task)
+    import json
+    g = json.loads((w.root / "_dream" / "graph.json").read_text()) if (w.root / "_dream" / "graph.json").exists() else None
+    if g:  # the graph in memory; on the rows path there is no graph.json
+        ids = {e["id"]: e for e in g["entities"]}
+        w.ok("its things carry its name and have their home in it", "theirs:a-v3" in ids and ids["theirs:a-v3"]["home"] == "theirs/work/a-v3.md"
+             and "a-v3" not in ids, str(sorted(ids)))
+    out = w.run("drop", "theirs", "--yes") + w.run("ask", *qs)
+    w.ok("drop takes the origin out: the folder, its ORIGIN.md, and every answer as before",
+         not (w.root / "theirs").exists() and "dropped: theirs/ (" in (w.root / "CONFLICTS.md").read_text()
+         and out.split("To undo, restore the file from git and delete its line.\n")[-1] == before, out)
 
 
 def main():

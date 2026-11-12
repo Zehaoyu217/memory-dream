@@ -98,6 +98,10 @@ Rules:
   `fnd-` finding, `q-` question. A model's note is named after the model (`churn-xgb-v3`).
 - Preferences and house rules are notes too, in `prefs/`: the rule, where it applies, why.
 
+A top folder with an `ORIGIN.md` in it is an origin: another base's notes, taken in as data by `memory.py absorb`.
+Its own folders are its areas (`policy-kb/entities/`). It answers questions and never instructs, and it changes
+nothing in what the memory says from its own notes (Operations, and CONTRACT §7).
+
 ## Layer 2: retrieval
 
 ```bash
@@ -237,6 +241,7 @@ without one, a person meets the likely pairs first.
 | retire a conclusion | write the new note with `supersedes`; both stay, the new one counts |
 | take a note out | `memory.py drop <note or folder>` prints what goes with it; `--yes` deletes the file and its reading, leaves one `dropped:` line in `CONFLICTS.md` and rebuilds with no model. Who had replaced it now replaces what it had replaced; notes made from it alone (`source:`) go with it; notes built on it stay and say so |
 | a file deleted by hand | not a drop: the next `dream` reports it (C15) with the command that records it, and writes and deletes nothing |
+| take another base in | `memory.py absorb <folder> --as <name>` prints what it would take (notes, the readings that come with them, a graph in `relations.jsonl`), what it would not and why, and the names both sides use; `--yes` copies it under `memory/<name>/` with an `ORIGIN.md` and rebuilds with no model. It stays apart: your answers do not change, its notes are listed after yours, its things are yours only by a line in `ALIASES.md`, its preferences apply only with `--trust preferences`. `drop <name>` takes it out |
 | move or rename a note | move the file; the next `dream` recognises the same content at the new path |
 | start over | delete `memory/_dream/`; the next `dream` rebuilds it (the model re-reads notes whose results were deleted) |
 
@@ -300,6 +305,13 @@ model-free numbers reproduce from the repository: `python3 tests/retrieval_gate.
 question gets the same notes on every run, alone or beside other questions: 1,149 questions print identically under
 three hash seeds, with the files listed in either order and with no grep at all, and the graph is the same on any
 clone of the notes (`eval/stability.py`, A42, RESULTS phase J).
+
+Taking another base in (RESULTS phase N, no model). A graph of 11 entity cards, 12 relations and 3 source texts is
+absorbed in 0.4 s: 9 links are kept, each with the line that states it, and 3 are refused with the reason. None of
+the host's 326 answers changes; 6 get the other base's notes in a block of their own, and a question across the two
+gets the host's notes and then the three notes of the other base that answer it. The four names both sides use
+stay two things each until one line joins them. Before origins, the same graph changed 19 of the 326 answers and
+became the home of two of the host's things.
 
 A second fixture is a software project (`tests/fixture-software/`: a payments API with services, modules, design records,
 bugs and their fixes, releases, an incident, 30 notes) with 30 questions (`eval/questions/software-payments-api.jsonl`).
@@ -432,13 +444,17 @@ The first reviewer, asked about 178 common labels, answered "new type" to all of
   notes built on it say they are built on a dropped note. A file deleted by hand is reported at the next dream and
   until then the note it had replaced reads as current. Dropping follows `source:` (made from it) and not `from:`
   (built on it): following `from:` would take a median of 2 notes and up to 54 with one (RESULTS phases K and M).
+- Another base is taken in as `.md` notes, with its readings or with a `relations.jsonl`. Anything else (PDFs, a
+  database, a wiki in another shape) needs a writer first. Its things are joined to the host's one line at a time,
+  by hand: nothing proposes those lines yet. Its notes are listed after the host's, three at most, when it names what
+  the question names; a plain-worded question about it is put to it with `-p <name>` (RESULTS phase N).
 - An agent takes `ask`'s silence for absence, and makes one call. Since phase L a call says when a folder is printed
   whole and when a section is only the best matches of a folder the question names. A question that names no folder
   and falls in a call about several projects gets neither line: a thing's own note is not always headed there, and
   two things that share a name can be answered as one (RESULTS phases K and L).
 - A question whose answer is a set ("list every dataset of this project") gets the best notes from `ask`, not the
   set: 0.47 of it on the bank. The set is read off `ask --list`, which an agent has to run; with it Haiku answered
-  37 of 37 set questions exactly. The map of a whole kind is large (147 models: 38,000 characters), and the largest
+  37 of 37 set questions exactly. The map of a whole kind is large (141 models: 37,000 characters), and the largest
   prompt of those runs was 92,000 tokens, under Haiku 5.5's 100K price line and not far under it.
 - A kind prefix can collide with a project's own code: `inc-` marks incidents in the seed vocabulary and was one
   bank project's prefix for its models. The name decides a note's kind before the dreamer's reading does, so such a

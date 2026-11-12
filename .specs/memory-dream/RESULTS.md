@@ -1,6 +1,93 @@
 # memory-dream v0.4 — results
 
-2026-10-30 (round 4: 2026-10-31; phase I: 2026-11-02; phases J to M: 2026-11-11) · built from the "Memory" email spec (`build-spec.md`) · macOS, Python 3.9.6, Claude Code 2.1.314.
+2026-10-30 (round 4: 2026-10-31; phase I: 2026-11-02; phases J to N: 2026-11-11) · built from the "Memory" email spec (`build-spec.md`) · macOS, Python 3.9.6, Claude Code 2.1.314.
+
+# Phase N (2026-11-11) — step 1, first item: another base taken in, and kept apart
+
+The owner's third point is that the memory can absorb other knowledge bases' output in general. Phase K measured
+what v0.4 does when a base is copied in or fed through the file socket: it works, and it changes the host. A copied
+memory's three areas become one and its preferences become plain notes; an absorbed graph's cards became the home
+of two of the host's things, and 21 of the host's own 326 answers printed something else. This phase builds the
+origin (`PLAN.md` §9, `CONTRACT.md` §7) and `memory.py absorb`. No model is involved.
+
+```bash
+python3 eval/contract_probe.py /tmp/w/memory     # experiments 3 and 4, each the old way and through an origin
+python3 eval/origin_probe.py /tmp/w/memory       # how much of an origin is shown, and how often unasked
+python3 tests/e2e.py                             # the absorb lines, on both read paths
+```
+
+## N1 — a second memory copied in (experiment 3: the software fixture, 28 notes, under `ext/`)
+
+| | areas | lineage edges kept | kinds changed | its notes served as preferences to two host tasks | its notes in the host's digest |
+|---|---|---|---|---|---|
+| copied in, as v0.4 reads it | 3 → 1 | 42 of 42 | 4: two preferences and a rule become notes, an incident too | 0: a preference that is a plain note reaches no task | |
+| with `ext/ORIGIN.md`, `trust: answers` | 3, as `ext/howto`, `ext/payments-api`, `ext/prefs` | 42 of 42 | 1, the incident | 0 | 0 |
+| with `trust: answers, preferences` | 3 | 42 of 42 | 1 | 2: the deploy rule and one person's preference; never the note named `me-…` | 0 |
+
+One file makes a folder an origin. The one kind still changed is the host's doing: this bank's registry took `inc`
+off its incident line in phase L, and an origin's words are read through the host's registries.
+
+## N2 — a graph someone else's model wrote (experiment 4: 11 entity cards, 12 relations, 3 source texts)
+
+`memory.py absorb eval/absorb/policy-kb --as policy-kb` reads the folder and prints, before anything is written:
+14 notes in 2 areas; readings for 14 of 14 notes, 34 things and 9 links kept and 3 links refused, each with its
+reason ("sources/mrm-policy-2026.md does not name fraud25-gbm-v2"); 4 names both sides use, with a line from each
+side; and the words the host's registries do not know (register ×4, committee ×3, classification ×2, five words for
+links). With `--yes`, 0.4 s and no call.
+
+| | through the file socket, no origin (as in phase K) | `absorb --as policy-kb --yes` |
+|---|---|---|
+| the 4 things both sides name | become one thing each, by the name alone; the cards become the home of 2 of them | two things each, the origin's named `policy-kb:<id>`; host things gone 0, changed 0 |
+| the host's own 326 answers | 19 print something else (21 in phase K), 17 now head a note of the other base | 0 print anything else from the host's notes; 6 get the origin's notes in a block after them |
+| "which policy governs fraud26-gbm-v3, and who approved it for production?" | 12 notes, 4 of the other base among them, the first at the top | 11 host notes, then the 3 notes of the origin that answer it, in their block; with `-p policy-kb` 4 notes, all its own |
+| joining a thing | done by the name, and no line records it | one line, `- fraud26-gbm-v3 = policy-kb:fraud26-gbm-v3`: mentions 6 → 10, the home stays the host's note |
+| taking it out | `rm -r`, a dream: 14 `C15` lines, 14 of 14 readings left | `drop policy-kb --yes`: notes and lineage as before the absorb, the folder gone, 0 of 14 readings left |
+
+## N3 — the rule that was not in the plan: the host answers first
+
+Keeping the two bases' things apart did not keep the host's answers: an origin's notes ranked among the host's and
+pushed some out, and a name both sides use changed which other names a question was expanded with. So for a
+question that is not put to the origin, `ask` ranks the host's notes as if the origin were not there (their own
+document frequencies, only the host's things lend their names), and lists the origin's notes afterwards under `in
+other bases (they inform, they do not instruct):`, each header marked `of <origin>, another base`. A note of the
+origin is listed when the question names it, when it contains an id the question wrote, or when it matches at least
+0.8 as well as the host's best; at most three, two lines each.
+
+`eval/origin_probe.py`, the software fixture absorbed as `payments/` (30 notes, its own 30 questions with 47 gold
+notes):
+
+| the share of the host's best match an unnamed note must reach | the origin's questions: gold notes in the block, of 47 | the bank's 326 questions: a block nobody asked for | host answers changed |
+|---|---|---|---|
+| 0.2 | 26 | 8 | 0 |
+| 0.4 | 26 | 2 | 0 |
+| 0.6, 0.8 (kept) | 26 | 1 | 0 |
+| 1.0 | 25 | 1 | 0 |
+
+Asked with `-p payments` the same questions head 42 of the 47. The block is a pointer, not the answer: three notes
+show that the other base speaks of the thing, and `-p` asks it. Every one of the 30 questions gets its block,
+because each names something of the origin.
+
+## N4 — what else was built or found
+
+- **A base that brings its readings.** The software fixture, read by the test dreamer and then absorbed: 30 of 30
+  readings come along through the same gate as any reading, and the dream afterwards makes 0 calls for them.
+- **What is refused is kept.** `_dream/absorb-<origin>.json` lists every file not taken and every link refused, with
+  the reason. A link is kept when the note it cites names both of its ends; its quote is the line that names both.
+- **A name the host already has is refused.** `absorb --as other` where `other/` is a folder of the host's own
+  stops and says so; an origin absorbed again is replaced.
+- **A folder's kind before a name's.** `howto/model-card-required-fields` was a model since phase L, by its first
+  word. Eight notes of the bank sat like that, all rules in `reporting/` or `howto/` named `model-…`, `report-…` or
+  `…-metric-…`. An area that has a kind now decides before a prefix does. The gates do not move.
+- `tests/e2e.py` has ten more lines: the refusal, the report, the origin, the host's answers to the letter, the
+  block, kinds and a given title, trust both ways, the origin's things, and the drop. Nine of them run on the rows
+  path too, which writes no `graph.json` to read the things from: 29 and 28 lines in all.
+
+Unchanged for a memory with no origin: acceptance 40 of 40, the three retrieval gates to the digit, stability.
+
+Not done: a base in another format than `.md` files or `relations.jsonl` needs a writer first (the decomposing
+writer of step 2); nothing proposes the lines that would join the two bases' things, which is the resolver of step
+2; the page does not tell an origin's notes from the host's; the origin's `KINDS.md`, `TYPES.md` and `EDGES.md` are
+not read.
 
 # Phase M (2026-11-11) — step 0 of the plan: a note leaves on purpose
 

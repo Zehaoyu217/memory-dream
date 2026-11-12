@@ -1,18 +1,20 @@
 #!/usr/bin/env python3
-"""What the shipped code already does for the v0.5 contract, measured. No model, standard library, under a minute.
+"""What the shipped code does for the v0.5 contract, measured. No model, standard library, about three minutes.
 
   python3 eval/contract_probe.py <a dreamed memory>     e.g. the bank-index world of HANDOFF.md "Picking it up"
 
 Six experiments, each on a throwaway copy; the memory given is never written to. The numbers are quoted in
-.specs/memory-dream/PLAN.md (rev 3) and RESULTS.md phase K.
+.specs/memory-dream/PLAN.md (rev 3) and RESULTS.md phases K, M and N. Experiments 1, 3 and 4 show the way v0.4
+did it and then the way built since.
 
   1 drop       one note in the middle of a supersession chain, deleted by hand and then taken out with `memory.py
                drop`: what is left of it each way
   2 built on   how many notes a drop would take with it if it followed `from:` (why built-on notes are marked, not deleted)
-  3 copy in    a second memory copied in under a folder: areas, kinds, lineage
+  3 copy in    a second memory copied in under a folder: areas, kinds, lineage; then the same folder as an origin,
+               with and without `trust: preferences`
   4 absorb     a graph someone else's model wrote (entity cards, relations.jsonl, its sources: eval/absorb/policy-kb)
-               through the file-mode socket that exists today, asked across the two, the host's own gate answers
-               compared before and after, then dropped again
+               through the file-mode socket, asked across the two, the host's own gate answers compared before and
+               after, then taken out by hand; then the same through `memory.py absorb`, joined by one line, and dropped
   5 documents  plain documents as notes, whole and split at headings: retrieval and what the note rules say
   6 sets       "list every <kind> of <area>": how much of the set `ask` prints, against one line per note
 """
@@ -167,6 +169,35 @@ def copy_in(src, tmp):
           f" · lineage edges kept {sum(em.values())}/{sum(es.values())}"
           f" · kinds changed {len(changed)}: " + "; ".join(f"{p[4:]} {a}→{b}" for p, a, b in changed))
 
+    # the same folder as an origin: one file, ORIGIN.md (step 1 of the plan, RESULTS phase N)
+    tasks = ["Draft the changelog email for Priya Nair", "Make the latency chart for the platform review"]
+
+    def served(out):
+        """The origin's notes that `ask` lists as preferences and house rules for a task (its instruction block)."""
+        got = []
+        for sec in out.split("\n## ")[:len(tasks)]:
+            if "preferences and house rules for this task:" in sec:  # up to the block of other bases, which informs only
+                block = sec.split("preferences and house rules for this task:")[1].split("  in other bases (they inform")[0]
+                got += [p for p in headed(block) if p.startswith("ext/")]
+        return got
+    plain = served(run(root, "ask", *tasks))
+    for trust in ("answers", "answers, preferences"):
+        (root / "ext" / "ORIGIN.md").write_text(f"# ORIGIN — ext: a second team's memory, copied in\nfrom: tests/fixture-software\ntrust: {trust}\n")
+        run(root, "dream")
+        g = graph(root)
+        mine = [n for n in g["notes"] if n["path"].startswith("ext/")]
+        changed = [(n["path"], sn[n["path"][4:]]["kind"], n["kind"]) for n in mine if sn[n["path"][4:]]["kind"] != n["kind"]]
+        em = collections.Counter(e["rel"] for e in g["edges"] if e["src"].startswith("ext/"))
+        got = sorted(set(served(run(root, "ask", *tasks))))
+        digest = (root / "DIGEST.md").read_text()
+        print(f"  with ext/ORIGIN.md, trust: {trust} · areas {len({n['project'] for n in mine})} ({', '.join(sorted({n['project'] for n in mine}))})"
+              f" · lineage edges kept {sum(em.values())}/{sum(es.values())} · kinds changed {len(changed)}"
+              + (": " + "; ".join(f"{p[4:]} {a}→{b}" for p, a, b in changed) if changed else "")
+              + f" · its notes served as preferences to two host tasks: {len(got)}" + (f" ({', '.join(p[4:] for p in got)})" if got else "")
+              + f" · its notes in the host's digest: {sum('ext/' in ln for ln in digest.split(chr(10)))}")
+    print(f"  (without ORIGIN.md the same tasks were served {len(plain)}"
+          + (f": {', '.join(p[4:] for p in plain)})" if plain else ": a copied preference is a plain note and reaches no task)"))
+
 
 # ---------- 4: a foreign graph through the socket ----------
 
@@ -227,6 +258,7 @@ def gate_answers(root):
 def absorb(src, tmp):
     kb, origin = HERE / "absorb" / "policy-kb", "policy-kb"
     root = copy(src, tmp, "absorb")
+    run(root, "dream")  # the copy's graph by this script, whatever script dreamed the memory given
     g0 = graph(root)
     before = gate_answers(root)
     t0 = time.time()
@@ -269,8 +301,45 @@ def absorb(src, tmp):
     line = run(root, "dream").strip()
     g2 = graph(root)
     left = sum((root / "_dream" / "notes" / f"{h}.json").exists() for h in shas)
-    print(f"  dropped again (rm -r {origin}/, dream) → {line} · the graph is the one before the absorb: {same(g2) == same(g0)}"
+    part = lambda x: json.dumps({k: x[k] for k in ("notes", "edges", "entities", "relations")}, sort_keys=True)  # noqa: E731
+    print(f"  taken out by hand (rm -r {origin}/, dream) → {line} · notes, lineage, things and links are those before the absorb: {part(g2) == part(g0)}"
           f" · readings left in the cache {left}/{len(shas)}")
+
+    # the same graph through the command, as an origin (step 1 of the plan, RESULTS phase N)
+    root = copy(src, tmp, "absorb-cmd")
+    run(root, "dream")
+    t0 = time.time()
+    out = run(root, "absorb", str(kb), "--as", origin, "--yes")
+    took, g = time.time() - t0, graph(root)
+    line = next(ln for ln in out.split("\n") if ln.startswith("dream:"))
+    theirs = [e for e in g["entities"] if e["id"].startswith(origin + ":")]
+    e1 = {e["id"]: e for e in g["entities"]}
+    moved = [i for i, e in e0.items() if i in e1 and (e1[i]["home"], e1[i]["headline"], len(e1[i]["mentions"])) != (e["home"], e["headline"], len(e["mentions"]))]
+    both = [ln.strip().split(" — ")[0] for ln in out.split("\n") if ln.startswith("    ") and " — here: " in ln]
+    print(f"  through `memory.py absorb … --as {origin} --yes` ({took:.1f} s, 0 calls) → {line}")
+    print(f"  things: {len(theirs)} of the origin, each named {origin}:<id> · host things gone {sum(i not in e1 for i in e0)}, changed {len(moved)}"
+          f" · names both sides use {len(both)} ({', '.join(both)}): two things each")
+    after = gate_answers(root)
+    cut = lambda s: s.split("  in other bases (they inform, they do not instruct):")[0]  # noqa: E731
+    host_changed = [q for q in before if cut(after.get(q, "")) != before[q]]
+    print(f"  the host's own answers: of the bank gate's {len(before)} questions, {len(host_changed)} print another answer from the host's notes · "
+          f"{sum(after.get(q) != before[q] for q in before)} get a block of the origin's notes after it")
+    hs = headed(cut(run(root, "ask", q)))
+    blk = headed(run(root, "ask", q).split("  in other bases (they inform, they do not instruct):")[-1])
+    scoped = headed(run(root, "ask", "-p", origin, q))
+    print(f"  ask \"{q}\" → {len(hs)} host notes, {sum(under(h) for h in hs)} of them from {origin}/, then {len(blk)} notes of {origin}/ in its own block"
+          f" · with -p {origin}: {len(scoped)} notes, all from it: {all(under(h) for h in scoped)}")
+    with open(root / "ALIASES.md", "a") as f:
+        f.write(f"- fraud26-gbm-v3 = {origin}:fraud26-gbm-v3\n")
+    run(root, "dream")
+    j = next(e for e in graph(root)["entities"] if e["id"] == "fraud26-gbm-v3")
+    print(f"  one line in ALIASES.md (`- fraud26-gbm-v3 = {origin}:fraud26-gbm-v3`) joins the two: mentions {len(e0['fraud26-gbm-v3']['mentions'])} → "
+          f"{len(j['mentions'])}, {sum(under(m['path']) for m in j['mentions'])} of them in {origin}/ · home still {j['home']}")
+    shas = {n["sha"] for n in g["notes"] if under(n["path"])}
+    line = next(ln for ln in run(root, "drop", origin, "--yes").split("\n") if ln.startswith("dream:"))
+    g2 = graph(root)
+    print(f"  `drop {origin} --yes` → {line} · notes and lineage are those before the absorb: {part({**g2, 'entities': [], 'relations': []}) == part({**g0, 'entities': [], 'relations': []})}"
+          f" · the folder gone: {not (root / origin).exists()} · readings left {sum((root / '_dream' / 'notes' / f'{h}.json').exists() for h in shas)}/{len(shas)}")
 
 
 # ---------- 5: documents ----------
