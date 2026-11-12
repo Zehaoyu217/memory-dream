@@ -81,7 +81,12 @@ a memory too large for `graph.json`.
 - `sha`: first 12 hex of the note's SHA-256; `indexed`: an extraction exists for this sha.
 
 **edge** — `{src, dst, rel}` with `rel ∈ {from, supersedes, refs}`; `by: "review"` marks a supersession recorded in
-`CONFLICTS.md`, `by: "drop"` one passed on by a tombstone. `from` and `supersedes` come from frontmatter (resolution:
+`CONFLICTS.md`, `by: "drop"` one passed on by a tombstone, `by: "reading"` lineage that the note states only in its
+prose and a keeper read with the words that state it (the `built_on` and `replaces` of its reading, §4). What such
+an item names is looked up as a note (a path, or a file name, in the note's own folder first), then through the
+things' names (the home note of the thing); an item that names no note is counted, not kept. A line of frontmatter
+that already says it leaves it out, and for a replacement so does `compatible: a / b` in `CONFLICTS.md` or the
+reverse replacement. A `refs` edge between the same two notes gives way to it. `from` and `supersedes` come from frontmatter (resolution:
 relative path, exact path, unique filename, same-project filename → C1 if ambiguous, then moved paths; a target that
 `drop` recorded → C14 for `from`, and for `supersedes` an edge to each note the dropped one had replaced; otherwise
 unresolved → C2). `refs`: `[[links]]`, the dreamer's refs, and body slugs that name a note in the same project or a
@@ -145,7 +150,9 @@ relation is "current" when one of its evidence notes is live).
 ## 4. Caches and the manifest (`_dream/`)
 
 - `notes/<sha12>.json` — one extraction per note content: `{kind, entities: [{id, type, label, as, lines}], relations:
-  [{s, type, label, o, quote, line}], refs, dropped: {entities, relations}, path, sha, model, indexed_at}`. `type` and
+  [{s, type, label, o, quote, line}], refs, built_on: [{what, quote, line}], replaces: [{what, quote, line}], dropped:
+  {entities, relations}, path, sha, model, indexed_at}`. `built_on` and `replaces` are what the note says of itself,
+  the document, kept only with words found in the note; a reading made before they existed has neither. `type` and
   `label` are the dreamer's raw words; the registries read them at merge time. Entities keep only surface forms (`as`)
   that occur in the note; relations only with their quote found (the rest counted in `dropped` → C4). Kept `KEEP_DAYS`
   after last use. This is the one folder of `_dream/` worth keeping in git: a clone then builds the same graph

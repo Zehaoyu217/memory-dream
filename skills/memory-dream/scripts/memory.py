@@ -391,7 +391,9 @@ EXTRACT = """Index this memory note for retrieval. Reply with JSON only:
                "as": ["text copied verbatim from the note"]}],
  "relations": [{"s": "entity id", "type": "an EDGES type or alias, or other", "label": "the note's own verb, 1-3 words",
                 "o": "entity id", "quote": "short text copied verbatim from the note that states it"}],
- "refs": ["ids or paths of other notes the text explicitly points to"]}
+ "refs": ["ids or paths of other notes the text explicitly points to"],
+ "built_on": [{"what": "its id", "quote": "words copied verbatim from the note that say so"}],
+ "replaces": [{"what": "its id", "quote": "words copied verbatim from the note that say so"}]}
 Entities are things someone would look up across notes; TYPES says which. Not numbers, dates, files,
 notebooks or note ids (those go in refs). Type each with a TYPES type or one of its aliases; if none fits
 a real thing, type is other and the label says what it is (a word that becomes common is offered as a type).
@@ -400,6 +402,13 @@ hyphens; a table keeps its dots (cards.txn_daily).
 Relations: only ones the note states, read "s <type> o". Use an EDGES type or one of its aliases
 (aliases marked ~ read in reverse) and always give the label. If no type fits a real link between two
 things, type is other: the label is kept and shown, and becomes a type once it is common.
+built_on and replaces are about this note itself, the document. built_on: one item for each note or thing it says it
+builds on, starts from, takes as an input or a basis, or follows from; a sentence that names three ("Builds on A, B
+and the C dataset") gives three items with the same quote. replaces: only what this note, or the thing it is named
+after, itself replaces or retires ("Replaces X."); that one thing replaced another ("v3 replaces v2", in a note that
+is neither) is a relation and not this. `what` is the file name of the note meant, without .md, whenever FOLDER
+lists it, however the text words it ("the dispositions dataset" is the note about that dataset); else its id in
+KNOWN, or the id you gave it under entities.
 KINDS: {kinds}
 TYPES:
 {types}
@@ -407,6 +416,8 @@ EDGES:
 {edges}
 KNOWN:
 {known}
+FOLDER (the notes of this folder, file name: first line):
+{folder}
 NOTE {path}:
 {text}
 """
@@ -445,9 +456,13 @@ one builds on the other; otherwise unsure. Never invent paths: copy them from th
 # A packet (PLAN §4): the same reading asked for many notes in one call. The rules are EXTRACT's own, cut from it, so
 # the two prompts cannot drift apart; a note is named by the first twelve characters of the hash of its text.
 PACKET = """Index each memory note below for retrieval. Reply with one line of JSON per note, in the order given, and nothing else:
-{"note": "the 12-character id on its NOTE line", "kind": "one of KINDS", "entities": [{"id": "...", "type": "a TYPES type or alias, or other", "label": "the note's own word for what it is, 1-2 words", "as": ["text copied verbatim from the note"]}], "relations": [{"s": "entity id", "type": "an EDGES type or alias, or other", "label": "the note's own verb, 1-3 words", "o": "entity id", "quote": "short text copied verbatim from the note that states it"}], "refs": ["ids or paths of other notes the text explicitly points to"]}
+{"note": "the 12-character id on its NOTE line", "kind": "one of KINDS", "entities": [{"id": "...", "type": "a TYPES type or alias, or other", "label": "the note's own word for what it is, 1-2 words", "as": ["text copied verbatim from the note"]}], "relations": [{"s": "entity id", "type": "an EDGES type or alias, or other", "label": "the note's own verb, 1-3 words", "o": "entity id", "quote": "short text copied verbatim from the note that states it"}], "refs": ["ids or paths of other notes the text explicitly points to"], "built_on": [{"what": "its id", "quote": "words copied verbatim from the note that say so"}], "replaces": [{"what": "its id", "quote": "words copied verbatim from the note that say so"}]}
 Read each note alone: its entities, its relations and every copied text come from that note's own lines, even when
-another note here says more. Skip no note: one with nothing to index gets its line with empty lists.
+another note here says more. Skip no note: one with nothing to index gets its line with empty lists. Index each note
+as fully as if it were the only one: every dataset, table, feature, model, metric, experiment, decision and person
+it names, and every use, evaluation, measurement, replacement and ownership it states.
+One thing has one id in all your lines. When a note speaks of something that a note listed in FOLDER is about (by a
+phrase, a short name, "the v2 model"), give it the id that note's file name gives it.
 """ + EXTRACT[EXTRACT.index("Entities are things"):EXTRACT.index("NOTE {path}:")]
 
 
@@ -888,10 +903,20 @@ def ground(ans, text):
                          "o": kept[fold(o)]["id"], "quote": q, "line": line_at(text, m.start())})
         else:
             dropped["relations"] += 1
+    said = {}
+    for field in ("built_on", "replaces"):  # lineage the note states in its prose: kept with the words that state it
+        said[field] = []
+        for b in ans.get(field) or []:
+            what, q = (str(b.get(k) or "").strip() for k in ("what", "quote")) if isinstance(b, dict) else ("", "")
+            m = qpat(q).search(text) if what and qpat(q) else None
+            if m:
+                said[field].append({"what": what, "quote": q, "line": line_at(text, m.start())})
+            elif what:
+                dropped["relations"] += 1
     kind = str(ans.get("kind") or "").strip().lower()
     return {"kind": kind if kind in KINDS else "note", "entities": ents,
             "relations": rels, "refs": [str(x) for x in (ans.get("refs") or []) if isinstance(x, str)],
-            "dropped": dropped}
+            **{k: v for k, v in said.items() if v}, "dropped": dropped}
 
 
 # ---------- vocabularies ----------
@@ -1525,6 +1550,59 @@ def vocab_gate(props, cfg, n_types, usage, now, noun, shown):
     return proposed, below, demote, checks
 
 
+def lineage_as_read(root, notes, aux, edges, ents, cmap, own):
+    """Lineage that a note states only in its prose, as its keeper read it: the `built_on` and `replaces` items of a
+    reading, each with the note's own words. What an item names is looked up as a note (a path, or an id, in the
+    note's own folder first), then through the things' names (the home note of the thing). It becomes a `from` or
+    `supersedes` edge marked `by: "reading"`; a line of frontmatter or of CONFLICTS.md that already says it, or says
+    otherwise (`compatible: a / b`, the reverse replacement), wins. -> (notes, edges, counts); the inputs are not
+    changed, because the note half of a graph is reused across rebuilds."""
+    if not any((aux[rel]["x"] or {}).get(f) for rel in notes for f in ("built_on", "replaces")):
+        return notes, edges, {}
+    cf = Path(root) / "CONFLICTS.md"
+    compat = parse_conflicts(read(cf))[1] if cf.exists() else set()
+    notes, edges, st = dict(notes), list(edges), Counter()
+    have = {(e["src"], e["dst"], e["rel"]) for e in edges}
+    by_stem = defaultdict(list)
+    for q, n in notes.items():
+        by_stem[fold(n["id"])].append(q)
+
+    def note_of(what, src):
+        w = what[:-3] if what.endswith(".md") else what
+        for c in (posixpath.normpath(posixpath.join(posixpath.dirname(src), w)) + ".md", posixpath.normpath(w) + ".md"):
+            if c in notes:
+                return c
+        c = by_stem.get(fold(posixpath.basename(w)), [])
+        mine = [q for q in c if area_of(q) == area_of(src)]
+        if len(mine) == 1 or len(c) == 1:
+            return (mine or c)[0]
+        e = cmap.get(fold(own(src, what)))
+        return ents[e]["home"] if e and e in ents else None
+
+    promoted = set()
+    for rel in sorted(notes):
+        x = aux[rel]["x"] or {}
+        for field, kind in (("built_on", "from"), ("replaces", "supersedes")):
+            for b in x.get(field) or []:
+                dst = note_of(b["what"], rel)
+                if not dst or dst == rel:
+                    st["lineage_read_unplaced"] += 1
+                    continue
+                if (rel, dst, kind) in have:
+                    st["lineage_read_already_written"] += 1
+                    continue
+                if kind == "supersedes" and (frozenset((rel, dst)) in compat or (dst, rel, "supersedes") in have):
+                    continue
+                have.add((rel, dst, kind))
+                promoted.add((rel, dst))
+                edges.append({"src": rel, "dst": dst, "rel": kind, "by": "reading"})
+                st["lineage_read"] += 1
+                if kind == "supersedes":
+                    notes[dst] = {**notes[dst], "superseded_by": notes[dst]["superseded_by"] + [rel]}
+    edges = [e for e in edges if not (e["rel"] == "refs" and (e["src"], e["dst"]) in promoted)]  # a mention that is lineage is said once
+    return notes, edges, dict(st)
+
+
 def build(root, man, cur, former, et, at, xs=None, now=None, facts=None, base=None):
     """The graph = union of current notes' cached subgraphs, renamed by EDGES.md and ALIASES.md. `base` reuses the
     note half (notes_part) when only the vocabulary changed."""
@@ -1555,6 +1633,8 @@ def build(root, man, cur, former, et, at, xs=None, now=None, facts=None, base=No
         nots = nots | {frozenset(fold(f"{o}:{x}") for x in pair) for pair in on}
     dedup = Counter()
     ents, cmap, gkeys = merge_entities(occ, alines, nots, homes, dedup)
+    notes, edges, read_stats = lineage_as_read(root, notes, aux, edges, ents, cmap, own)
+    dedup.update(read_stats)
     tcfg = edges_cfg(tt)
     tusage = {}  # thing types in use, for the probation of proposed types
     for e in ents.values():
@@ -2206,8 +2286,18 @@ class Dream:
         if len(text) > NOTE_CAP:
             text = text[:NOTE_CAP] + f"\n… [{len(text) - NOTE_CAP} more characters cut: the note is far over the 40-line rule]"
         pr = fill(EXTRACT, kinds=self.kind_names, types="\n".join(self.ty_lines), edges="\n".join(self.tlines),
-                  known=known_lines(ents, area_of(rel)), path=rel, text=text)
+                  known=known_lines(ents, area_of(rel)), folder=self.folder_lines([area_of(rel)]), path=rel, text=text)
         return pr, pr.index("\nNOTE ") + 1
+
+    def folder_lines(self, areas, cap=80):
+        """The notes of these folders as `file name: first line`: what lets a keeper name the note a phrase means
+        ("the dispositions dataset") when the text does not give its id. At most `cap` a folder."""
+        if not hasattr(self, "by_area"):
+            self.by_area = defaultdict(list)
+            for q in sorted(self.cur):
+                if self.facts[q]["title"] and area_of(q) != "log":
+                    self.by_area[area_of(q)].append(f"{posixpath.basename(q)[:-3]}: {self.facts[q]['title'][:80]}")
+        return "\n".join(ln for a in areas for ln in self.by_area.get(a, [])[:cap]) or "(none)"
 
     def ingest(self, h, ans):
         rel = self.by_sha[h]
@@ -2259,7 +2349,7 @@ class Dream:
         """The notes to read as packets, in their order (one project after another): [[note id, …]]. A packet closes
         when the next note would take its notes past PACKET_TEXT characters or its prompt past PACKET_TOKENS."""
         tokens, text = env_numbers("MEMORY_PACKET", (PACKET_TOKENS, PACKET_TEXT))
-        head = len(fill(PACKET, kinds=self.kind_names, types="\n".join(self.ty_lines), edges="\n".join(self.tlines), known="")) + KNOWN_ROOM
+        head = len(fill(PACKET, kinds=self.kind_names, types="\n".join(self.ty_lines), edges="\n".join(self.tlines), known="", folder="")) + KNOWN_ROOM
         out, size = [], 0
         for h in todo:
             n = min(self.cur[self.by_sha[h]]["size"], NOTE_CAP) + 80
@@ -2275,7 +2365,8 @@ class Dream:
         first; each note follows under `NOTE <id> <path>:`."""
         areas = list(dict.fromkeys(area_of(self.by_sha[h]) for h in hs))
         known = list(dict.fromkeys(ln for a in areas for ln in known_lines(ents, a).split("\n")))[:120]
-        pr = fill(PACKET, kinds=self.kind_names, types="\n".join(self.ty_lines), edges="\n".join(self.tlines), known="\n".join(known))
+        pr = fill(PACKET, kinds=self.kind_names, types="\n".join(self.ty_lines), edges="\n".join(self.tlines), known="\n".join(known),
+                  folder=self.folder_lines(areas))
         static = len(pr)
         for h in hs:
             rel = self.by_sha[h]

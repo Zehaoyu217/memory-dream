@@ -286,7 +286,13 @@ constants, each with the measurement that set it.
   entities of the note's project plus 20 most-mentioned shared ones
   (`Known`, one sort per wave), so ids are reused and the prompt stops growing (~2.2k tokens plus the CLI's own ~4.8k).
 - **Grounding** (`ground`): an entity survives only if one of its `as` strings occurs in the note; a relation only if
-  its quote occurs. Dropped ones are counted (C4).
+  its quote occurs. Dropped ones are counted (C4). The same holds for `built_on` and `replaces`, the two lists in
+  which a keeper says what the note itself builds on and what it replaces: an item is kept with the words that say so.
+- **Lineage as read** (`lineage_as_read`, in `build`): each kept item becomes a `from` or `supersedes` edge marked
+  `by: "reading"`, once what it names is placed: as a note by path or file name (the note's own folder first), else as
+  the home note of the thing of that name after the merge. Frontmatter and `CONFLICTS.md` win. So that a keeper can
+  name the note a phrase means ("the dispositions dataset"), both prompts carry `FOLDER`: the notes of the folder as
+  `file name: first line` (`folder_lines`, at most 80 a folder), part of the prefix that every call of a folder shares.
 - **Command mode** (`MEMORY_LLM` set): waves of `-j` parallel calls, one retry for unusable answers; notes ordered by
   project then date, one KNOWN per project (big memories: refreshed at most every 10 waves) so every call of a project
   shares one byte-identical prefix; its length goes to the command in `MEMORY_STATIC_PREFIX`, and `tests/haiku_cmd.py`

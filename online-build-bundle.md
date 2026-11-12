@@ -639,7 +639,7 @@ or to a fresh worker given the packet, at most twice. After that, it stops and r
 
 ## Appendix A — the contract surface, verbatim: `skills/memory-dream/SKILL.md` and the dreamer agent
 
-_Part 5 · copied at commit 55c55b7. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
+_Part 5 · copied at commit 6a969cd. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
 
 ```markdown
 ---
@@ -776,7 +776,7 @@ Touch nothing else.
 
 ## Appendix B — the graph contract, verbatim: `.specs/memory-dream/CONTRACT.md`
 
-_Part 6 · copied at commit 55c55b7. Schema 1; `memory.py check` validates against it (A38)._
+_Part 6 · copied at commit 6a969cd. Schema 1; `memory.py check` validates against it (A38)._
 
 ## memory-dream — the graph contract (schema 1)
 
@@ -861,7 +861,12 @@ a memory too large for `graph.json`.
 - `sha`: first 12 hex of the note's SHA-256; `indexed`: an extraction exists for this sha.
 
 **edge** — `{src, dst, rel}` with `rel ∈ {from, supersedes, refs}`; `by: "review"` marks a supersession recorded in
-`CONFLICTS.md`, `by: "drop"` one passed on by a tombstone. `from` and `supersedes` come from frontmatter (resolution:
+`CONFLICTS.md`, `by: "drop"` one passed on by a tombstone, `by: "reading"` lineage that the note states only in its
+prose and a keeper read with the words that state it (the `built_on` and `replaces` of its reading, §4). What such
+an item names is looked up as a note (a path, or a file name, in the note's own folder first), then through the
+things' names (the home note of the thing); an item that names no note is counted, not kept. A line of frontmatter
+that already says it leaves it out, and for a replacement so does `compatible: a / b` in `CONFLICTS.md` or the
+reverse replacement. A `refs` edge between the same two notes gives way to it. `from` and `supersedes` come from frontmatter (resolution:
 relative path, exact path, unique filename, same-project filename → C1 if ambiguous, then moved paths; a target that
 `drop` recorded → C14 for `from`, and for `supersedes` an edge to each note the dropped one had replaced; otherwise
 unresolved → C2). `refs`: `[[links]]`, the dreamer's refs, and body slugs that name a note in the same project or a
@@ -925,7 +930,9 @@ relation is "current" when one of its evidence notes is live).
 ### 4. Caches and the manifest (`_dream/`)
 
 - `notes/<sha12>.json` — one extraction per note content: `{kind, entities: [{id, type, label, as, lines}], relations:
-  [{s, type, label, o, quote, line}], refs, dropped: {entities, relations}, path, sha, model, indexed_at}`. `type` and
+  [{s, type, label, o, quote, line}], refs, built_on: [{what, quote, line}], replaces: [{what, quote, line}], dropped:
+  {entities, relations}, path, sha, model, indexed_at}`. `built_on` and `replaces` are what the note says of itself,
+  the document, kept only with words found in the note; a reading made before they existed has neither. `type` and
   `label` are the dreamer's raw words; the registries read them at merge time. Entities keep only surface forms (`as`)
   that occur in the note; relations only with their quote found (the rest counted in `dropped` → C4). Kept `KEEP_DAYS`
   after last use. This is the one folder of `_dream/` worth keeping in git: a clone then builds the same graph
@@ -1042,7 +1049,7 @@ origin by adding the file. What changes for the notes under it, and nothing else
 
 ## Appendix C — the build guide, verbatim: `BUILD-GUIDE.md` §3–§10
 
-_Part 7 · copied at commit 55c55b7. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
+_Part 7 · copied at commit 6a969cd. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
 
 ### 3. The design in one page
 
@@ -1248,7 +1255,13 @@ constants, each with the measurement that set it.
   entities of the note's project plus 20 most-mentioned shared ones
   (`Known`, one sort per wave), so ids are reused and the prompt stops growing (~2.2k tokens plus the CLI's own ~4.8k).
 - **Grounding** (`ground`): an entity survives only if one of its `as` strings occurs in the note; a relation only if
-  its quote occurs. Dropped ones are counted (C4).
+  its quote occurs. Dropped ones are counted (C4). The same holds for `built_on` and `replaces`, the two lists in
+  which a keeper says what the note itself builds on and what it replaces: an item is kept with the words that say so.
+- **Lineage as read** (`lineage_as_read`, in `build`): each kept item becomes a `from` or `supersedes` edge marked
+  `by: "reading"`, once what it names is placed: as a note by path or file name (the note's own folder first), else as
+  the home note of the thing of that name after the merge. Frontmatter and `CONFLICTS.md` win. So that a keeper can
+  name the note a phrase means ("the dispositions dataset"), both prompts carry `FOLDER`: the notes of the folder as
+  `file name: first line` (`folder_lines`, at most 80 a folder), part of the prefix that every call of a folder shares.
 - **Command mode** (`MEMORY_LLM` set): waves of `-j` parallel calls, one retry for unusable answers; notes ordered by
   project then date, one KNOWN per project (big memories: refreshed at most every 10 waves) so every call of a project
   shares one byte-identical prefix; its length goes to the command in `MEMORY_STATIC_PREFIX`, and `tests/haiku_cmd.py`
@@ -1625,7 +1638,7 @@ preferences 0.95 when the task names them, 0.84 when it names only their meeting
 
 ## Appendix D — prompts, seeds and tuned tables, verbatim from `memory.py`
 
-_Part 8 · extracted at commit 55c55b7 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
+_Part 8 · extracted at commit 6a969cd by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
 
 ### D.1 `EXTRACT` — the per-note prompt: fixed guidance, then `KINDS:`, `TYPES:`, `EDGES:` and `KNOWN:` from the registries (the static part is cached), then `NOTE`
 
@@ -1636,7 +1649,9 @@ Index this memory note for retrieval. Reply with JSON only:
                "as": ["text copied verbatim from the note"]}],
  "relations": [{"s": "entity id", "type": "an EDGES type or alias, or other", "label": "the note's own verb, 1-3 words",
                 "o": "entity id", "quote": "short text copied verbatim from the note that states it"}],
- "refs": ["ids or paths of other notes the text explicitly points to"]}
+ "refs": ["ids or paths of other notes the text explicitly points to"],
+ "built_on": [{"what": "its id", "quote": "words copied verbatim from the note that say so"}],
+ "replaces": [{"what": "its id", "quote": "words copied verbatim from the note that say so"}]}
 Entities are things someone would look up across notes; TYPES says which. Not numbers, dates, files,
 notebooks or note ids (those go in refs). Type each with a TYPES type or one of its aliases; if none fits
 a real thing, type is other and the label says what it is (a word that becomes common is offered as a type).
@@ -1645,6 +1660,13 @@ hyphens; a table keeps its dots (cards.txn_daily).
 Relations: only ones the note states, read "s <type> o". Use an EDGES type or one of its aliases
 (aliases marked ~ read in reverse) and always give the label. If no type fits a real link between two
 things, type is other: the label is kept and shown, and becomes a type once it is common.
+built_on and replaces are about this note itself, the document. built_on: one item for each note or thing it says it
+builds on, starts from, takes as an input or a basis, or follows from; a sentence that names three ("Builds on A, B
+and the C dataset") gives three items with the same quote. replaces: only what this note, or the thing it is named
+after, itself replaces or retires ("Replaces X."); that one thing replaced another ("v3 replaces v2", in a note that
+is neither) is a relation and not this. `what` is the file name of the note meant, without .md, whenever FOLDER
+lists it, however the text words it ("the dispositions dataset" is the note about that dataset); else its id in
+KNOWN, or the id you gave it under entities.
 KINDS: {kinds}
 TYPES:
 {types}
@@ -1652,6 +1674,8 @@ EDGES:
 {edges}
 KNOWN:
 {known}
+FOLDER (the notes of this folder, file name: first line):
+{folder}
 NOTE {path}:
 {text}
 ```

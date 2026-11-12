@@ -215,6 +215,19 @@ def vocabulary(w):
     w.ok("a type of link this base added, with its own question words: `ask` follows it to the note of the thing cited",
          "cued=['cites']" in out and "added=['lib/paper-b.md']" in out, out)
 
+    w.write("lib/paper-c.md", "", "paper-c: the drift test, run on card data")  # no frontmatter says what it rests on
+    with open(w.root / "lib/paper-c.md", "a") as f:
+        f.write("It takes the first drift test as its starting point.\n")
+    sha = hashlib.sha256((w.root / "lib/paper-c.md").read_bytes()).hexdigest()[:12]
+    (w.root / "_dream/pending" / f"{sha}.json").write_text(json.dumps({
+        "kind": "note", "entities": [{"id": "paper-c", "type": "document", "as": ["paper-c"]}], "relations": [], "refs": [],
+        "built_on": [{"what": "paper-b", "quote": "takes the first drift test as its starting point"},
+                     {"what": "exp-1", "quote": "words that are not in the note"}]}))
+    out = w.run("dream") + w.run("ask", "--list", "-p", "lib")
+    w.ok("what a note says it starts from, in its prose alone, is lineage once a keeper has read it with the words that "
+         "say so; an item whose words are not in the note is refused",
+         "from paper-b" in w.head(out, "lib/paper-c.md") and "exp-1" not in w.head(out, "lib/paper-c.md"), out)
+
 
 def proving(w):
     """A memory's own test (PLAN §13 item 6): questions kept in SETUP.md with the note that answers each."""
