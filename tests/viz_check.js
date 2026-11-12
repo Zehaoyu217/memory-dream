@@ -66,6 +66,25 @@ const path = require('path');
   out('map: one graph, hubs named at reading size, the flow in three columns, the two tables', map.visible && map.nodes === map.stNodes && map.nodes > 0 && map.edges === map.stEdges && map.hubs > 0 && map.hubPx >= 10 && map.hubPx <= 12 && map.flowCols === 3 && map.rows >= 10 && map.counts.length === 6, map);
   const mp = await page.evaluate(() => { const M = window.__memoryMap; const e = M.state.nodes[1]; location.hash = '#entity=' + encodeURIComponent(e.id); return new Promise(r => setTimeout(() => r({ id: e.id, picked: document.querySelectorAll('#lanes .mnode.picked').length, hot: document.querySelectorAll('#lanes .medge.hot').length, dim: document.querySelectorAll('#lanes .mnode.dim').length, flowHead: (document.querySelector('#lanes .mflow .col h4') || {}).textContent }), 500)); });
   out('map: picking a thing lights its links, dims the rest and rewrites the flow for it', mp.picked === 1 && mp.hot > 0 && mp.dim > 0 && mp.flowHead === 'The thing', mp);
+  // ---- filters beside the search: a picker writes its word into the box, and the box alone can carry it ----
+  await page.evaluate(() => { location.hash = ''; history.replaceState(null, '', location.pathname); window.__memoryGraph.setView('time'); }); await page.waitForTimeout(300);
+  const flt = await page.evaluate(() => {
+    const g = JSON.parse(document.getElementById('data-graph').textContent), input = document.querySelector('#header input');
+    const mentions = {}; for (const e of g.entities) for (const m of e.mentions) (mentions[m.path] = mentions[m.path] || []).push(e.type);
+    const sel = document.querySelector('#header .filters select[data-key="type"]');
+    if (!sel) return { picker: false };
+    const v = sel.options[1].value; sel.value = v; sel.dispatchEvent(new Event('change'));
+    const got = window.__memorySearch.search(input.value).map(r => r.n.path);
+    const typed = input.value;
+    const tag = Object.keys(g.tags || {})[0], tagSel = document.querySelector('#header .filters select[data-key="tag"]');
+    const byTag = tag ? window.__memorySearch.search('tag:' + tag).map(r => r.n.path) : [];
+    sel.value = ''; sel.dispatchEvent(new Event('change'));
+    const fam = t => ((g.families || {}).types || {})[t] || t;   // a type's family counts: a segment is a kind of dataset
+    return { picker: true, typed, n: got.length, allMention: got.every(p => (mentions[p] || []).some(t => t === v || fam(t) === v)), cleared: input.value === '',
+      tags: Object.keys(g.tags || {}).length, tagPicker: !!tagSel, tagOk: !tag || (byTag.length > 0 && byTag.every(p => g.tags[tag].includes(p))) };
+  });
+  out('filters: picking a type of thing writes type:… into the search and keeps only notes that mention one; a tag does the same',
+    flt.picker && /^type:\S+$/.test(flt.typed) && flt.n > 0 && flt.allMention && flt.cleared && flt.tagOk && flt.tagPicker === (flt.tags > 0), flt);
   out('no page errors', errors.length === 0, { errors });
   await browser.close();
   process.exit(ok ? 0 : 1);

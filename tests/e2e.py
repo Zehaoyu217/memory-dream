@@ -130,6 +130,7 @@ def scenario(w):
     pointing(w)
     reading(w)
     vocabulary(w)
+    proving(w)
 
 
 FAKE = f"{sys.executable} {Path(__file__).resolve().parent / 'fake_dreamer.py'}"  # a script that answers as a keeper would
@@ -213,6 +214,18 @@ def vocabulary(w):
     out = w.run("dream") + w.run("ask", "what does paper-a cite?", env={"MEMORY_DEBUG": "1"})
     w.ok("a type of link this base added, with its own question words: `ask` follows it to the note of the thing cited",
          "cued=['cites']" in out and "added=['lib/paper-b.md']" in out, out)
+
+
+def proving(w):
+    """A memory's own test (PLAN §13 item 6): questions kept in SETUP.md with the note that answers each."""
+    (w.root / "SETUP.md").write_text("# SETUP\nfor: the end-to-end run.\n\n## proof\n"
+                                     "- what does paper-a cite? -> lib/paper-b.md\n"
+                                     "- is the holdout still clean? -> q-holdout\n"
+                                     "- what is the tier cut? -> lib/paper-a.md\n")
+    out = w.run("dream") + w.run("check") + w.run("ask", "--list")
+    w.ok("check puts the questions of SETUP.md to ask and names the one its note does not answer; SETUP.md is no note",
+         "proof: 2 of 3 questions of SETUP.md are answered by their note" in out
+         and "not by lib/paper-a.md: what is the tier cut?" in out and "▸ SETUP.md" not in out, out)
 
 
 CODE ="import os\n\n\ndef load(path):\n    return open(path).read()\n\n\nLIMIT = 10\n\n\ndef main():\n    print(load('x'))\n"

@@ -28,7 +28,8 @@ memory/
   DIGEST.md  _dream/…            the digest, graph.json, index.db, graph.html, packets                      derived
 ```
 
-New against schema 1: `SETUP.md`, `TAGS.md`, `ORIGIN.md`, and `_dream/notes/` going into git (the build guide tells
+All four are built, inside schema 1 (phases N, P, Q and R); `SETUP.md` also holds the memory's own proof, lines
+`- a question? -> area/note.md` that `check` puts to `ask`. New against schema 1: `SETUP.md`, `TAGS.md`, `ORIGIN.md`, and `_dream/notes/` going into git (the build guide tells
 git to ignore all of `_dream/` today). Everything else under `_dream/` can be deleted at any time.
 
 ## 3. The records

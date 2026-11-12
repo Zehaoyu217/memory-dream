@@ -223,7 +223,8 @@ history, and that version put 12 of 209 symbols on the line of a call or of a lo
   C6 no `# ` line, C7 review pending (labels, budget), C8 bad EDGES/ALIASES/CONFLICTS line, C9 NUL bytes in a note
   (binary-looking), C10 conflict pending, C11 a note over 40 lines, C14 built on a dropped note or left the newest of
   its line by a drop, C15 gone without a drop, C16 a pointer into a file that no longer holds, C17 a tag that
-  TAGS.md does not list.
+  TAGS.md does not list. `check` also runs the memory's own proof (`proof`): each `- question? -> note` line of
+  `memory/SETUP.md` is put to `ask` alone, and the line counts when a section of the answer is headed by that note.
 
 ### 5.5 The graph, vocabulary half (`build`, `merge_entities`)
 
@@ -468,6 +469,11 @@ when the page opens (tab order Timeline · Map · Connections; `#view=map` and `
   id, text and entity names; the best 20 listed with matched letters marked, every match kept in the lanes while the
   rest fade (in the graph view, the entities those notes mention light up); `/` focuses, arrows and Enter pick, Esc
   clears.
+- **Filters** ride in the search box as words: `tag:risk`, `type:model` (notes that mention a thing of that type or
+  of its family), `origin:policy-kb`, `kind:decision`, alone or with search words, so a `#q=` link carries them.
+  Beside the box a picker for each of tag, type of thing and base lists what this memory has and writes the word
+  into the box; a picker with nothing to list is not shown. The page gets `tags`, `tag_defs` and `origins` in its
+  data (`write_viz`); an area page of a big memory gets its own notes' tags.
 - **Health** (collapsed): warnings by code, superseded → current, unlinked notes, the review queue (pairs, labels
   over the bar, conflicts). Deep links: `#note=`, `#entity=`, `#area=`, `#q=`, `#health`.
 - **Modes**: whole memory; `area` (one page per area past `MEMORY_WIDE`, with "← all areas"); `overview` (one card per

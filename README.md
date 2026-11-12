@@ -217,7 +217,9 @@ whose endpoints have unusual types, and a few more. `memory.py check` prints the
 The viewer is `memory/_dream/graph.html`, one file with no network requests, with three tabs. It opens on the
 Timeline, which places every note by topic and date with the lines between them; a picked note is shown rendered,
 with the things it mentions marked, its links, and the facts the model read from it, each with a button that copies
-a correction request for the agent.
+a correction request for the agent. The search box needs no agent and no server: it matches titles, ids, text and
+the names of things as you type, and takes filters as words (`tag:risk`, `type:model`, `origin:policy-kb`,
+`kind:decision`), which the three pickers beside it write for you.
 
 ![The Timeline with a note picked](docs/viewer-note.png)
 
@@ -242,6 +244,7 @@ without one, a person meets the likely pairs first.
 
 | task | what to do |
 |---|---|
+| set a memory up | the agent looks at the material with its own tools, asks at most three questions, writes `memory/SETUP.md` and the starting lines of the registries, takes the material in, has a cheap model read it, and proves it with five questions kept in `SETUP.md`; `memory.py check` asks them again after every change (SKILL.md, "Setting a memory up") |
 | search | `memory.py ask "q1" "q2" …` with every question and task of the session in one call |
 | add | write the note file; `memory.py log "…" -p <project>` for a scratch line that is not yet a note |
 | maintain | `memory.py dream` at the end of a session (safe in the background; stops early when nothing changed); `memory.py check`; `memory.py viz` |

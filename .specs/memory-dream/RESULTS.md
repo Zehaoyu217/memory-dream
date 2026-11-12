@@ -2,6 +2,49 @@
 
 2026-10-30 (round 4: 2026-10-31; phase I: 2026-11-02; phases J to N: 2026-11-11; phase O on: 2026-11-12) · built from the "Memory" email spec (`build-spec.md`) · macOS, Python 3.9.6, Claude Code 2.1.314.
 
+# Phase R (2026-11-12) — step 1, items 6 and 7: setting a memory up with its own five questions, and filters on the page
+
+The owner's sixth point: the skill is operated by an agent that does the detective work on the material and sets up
+writers, keepers and the starting vocabulary. This phase writes that into the skill and gives the last step
+something exact to stand on. No model is involved.
+
+- **The section "Setting a memory up" of `SKILL.md`**, seven steps for the agent that plans: look with its own tools
+  and without reading the material through; ask at most three questions; write `memory/SETUP.md`; start the
+  registries from what it saw, small; take the material in as it is (notes, another base through `absorb`, what
+  cannot be a note left where it is and pointed at); have a cheap model read it, after a dry run that says what it
+  will cost; prove it with five questions. The agent that plans never reads the corpus: that is what packets and
+  keepers are for.
+- **`SETUP.md`** is the page that step leaves behind: what the memory is for, what a note is here, who writes, who
+  keeps. It is for the next agent, which is told to read it first. It is not a note and is never indexed.
+- **The proof is kept and run again.** The five questions are lines of `SETUP.md`, `- the question? -> area/note.md`.
+  `memory.py check` puts each to `ask` alone and says `proof: 4 of 5 questions of SETUP.md are answered by their
+  note`, naming the fifth. So a change to a registry, a folder or a note that breaks an answer the memory was set
+  up to give is seen at the next check, by the memory's own measure and not by this repository's gates.
+
+There is no survey command: the plan cut it after the review, and an agent's own `ls`, `wc` and `grep -c` do that
+work. What the script adds is only what must be exact, the proof.
+
+`tests/e2e.py`, one line on each read path: three proof lines in `SETUP.md`, two that hold and one that names the
+wrong note; `check` reports 2 of 3 and the one, and `SETUP.md` is not listed as a note. 45 and 44 lines in all.
+
+Unchanged: acceptance 40 of 40, the three retrieval gates to the digit.
+
+Not done: no agent has yet set a memory up from this section on material it had not seen. That is the first thing
+step 2 does, on the base its evaluation needs.
+
+## R2 — item 7: filters on the page
+
+The page's search already needed no agent. It now takes filters as words in the same box: `tag:risk`, `type:model`
+(notes that mention a thing of that type or of its family), `origin:policy-kb`, `kind:decision`, alone or with
+search words. Three pickers beside the box list the tags with their definitions, the types of thing and the bases
+this memory has, and write the word into the box; a link to `#q=…` carries the filter. `tests/viz_check.js` has a
+sixteenth check: picking a type writes `type:…`, every note left mentions a thing of that type, clearing the picker
+clears the box, and a tag filter keeps exactly the tag's notes. 16 of 16 on a fixture with tags and on the plain
+one that CI builds.
+
+With this, every item of step 1 is built: origins (N), retrieval for a cheap reader (L), pointers (O), packets (P),
+tags and walk words (Q), the setup section (R), the page's filters. The end-to-end run has 45 and 44 lines.
+
 # Phase Q (2026-11-12) — step 1, item 5: tags, and the walk's words on registry lines
 
 Two things a base says about itself moved out of the code and into its own files. No model is involved.

@@ -292,6 +292,11 @@ $M export --to /tmp/graph-export   # no driver: CSV in neo4j-admin header format
 - `C14`: a note is built on a note that was dropped, or its replacement was dropped and it is the newest left of its
   line. Both are shown on the note's header in `ask`. Nothing to do unless the note should go too: drop it as well.
 - Undo a drop: restore the file from git and delete its `dropped:` line in CONFLICTS.md. `drop` never touches git.
+- `proof: 4 of 5 questions of SETUP.md are answered by their note`, with the fifth named: a question
+  the memory was set up to answer no longer leads to its note. Something changed since it did: a
+  registry line, a folder, the note itself. Put the question to `ask` and read what comes first.
+  The lines are `- the question? -> area/note.md` in `memory/SETUP.md`; change one only when the
+  note that answers it changed.
 - `C17`: a note's `tags:` line has a word that `memory/TAGS.md` does not list. Add its line
   (`- word: what it means`), or add the word to the `aka:` of the tag it is another spelling of. It
   filters either way (`ask --list --tag word`); the line is what gives it a definition.

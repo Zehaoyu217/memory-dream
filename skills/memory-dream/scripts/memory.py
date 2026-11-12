@@ -15,10 +15,12 @@ specified; `where`, `trace`, `--gists` and INDEX.md from it were replaced by `as
 """
 import argparse
 import bisect
+import contextlib
 import datetime as dt
 import difflib
 import functools
 import hashlib
+import io
 import json
 import math
 import os
@@ -3193,6 +3195,23 @@ def drop(args, root):
           "To undo, restore the file from git and delete its line.")
 
 
+PROOF = re.compile(r"^\s*-\s*(.+?\?)\s*(?:->|→)\s*(\S+)\s*$")
+
+
+def proof(root):
+    """A memory's own test, kept in memory/SETUP.md as lines `- a question? -> area/note.md`: each question is put to
+    `ask` alone and must be answered by a section headed by that note. -> [(question, note, held)]."""
+    f = Path(root) / "SETUP.md"
+    out = []
+    for q, note in ([m.groups() for m in map(PROOF.match, read(f).split("\n")) if m] if f.exists() else []):
+        want, buf = note if note.endswith(".md") else note + ".md", io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            ask(argparse.Namespace(questions=[q], file=None, p=None, budget=None, list=False, kind=None, all=False, tag=None), root)
+        heads = [ln[2:].split(" · ")[0] for ln in buf.getvalue().split("\n") if ln.startswith("▸ ")]
+        out.append((q, want, any(h == want or h.endswith("/" + want) for h in heads)))
+    return out
+
+
 def check(args, root):
     g, _ = load(root)
     d = g.get("dedup") or {}
@@ -3222,6 +3241,11 @@ def check(args, root):
         print(f"lineage: {sum(deg.values()) // 2} from/supersedes links over {len(proj)} live project notes "
               f"({sum(deg.values()) / 2 / len(proj):.1f} per note) · {len(loose)} link to nothing"
               + (": " + ", ".join(loose[:5]) + (" …" if len(loose) > 5 else "") if loose else ""))
+    asked = proof(root)
+    if asked:
+        missed = [(q, n) for q, n, held in asked if not held]
+        print(f"proof: {len(asked) - len(missed)} of {len(asked)} questions of SETUP.md are answered by their note"
+              + "".join(f"\n  not by {n}: {q}" for q, n in missed))
     by = defaultdict(list)
     for c in g["checks"]:
         by[c["code"]].append(c["msg"])
@@ -4224,6 +4248,7 @@ def note_text(root, n):
 def write_viz(root, g, out):
     """A self-contained HTML viewer of the graph: map, overview, explorer, health."""
     render_viz({"schema": g.get("schema", SCHEMA), "built": g["built"], "families": {"kinds": KIND_PARENT, "types": TYPE_PARENT},
+                "tags": g.get("tags", {}), "tag_defs": tags_registry(root)[0], "origins": sorted(ORIGINS),  # the page's filters
                 "notes": [{**n, "text": note_text(root, n)} for n in g["notes"]],
                 "entities": g["entities"], "relations": g["relations"], "edges": g["edges"], "checks": g["checks"],
                 "review": g["review"], "proposed": g["proposed"], "conflicts": g.get("conflicts", [])}, out)
@@ -4260,9 +4285,13 @@ def write_viz_big(root, g, dd, force=False):
     pages.mkdir(parents=True, exist_ok=True)
     old = rd(pages / "_sig.json", {}) or {}
     sigs, wrote = {}, 0
+    tag_defs = tags_registry(root)[0]
     tsig = hashlib.sha1(tpl.encode()).hexdigest()[:12]
     for a, ns in by.items():
-        sig = hashlib.sha1(json.dumps([tsig, [[n["path"], n["sha"], n["kind"], n["superseded_by"]] for n in ns],
+        mine = {n["path"] for n in ns}
+        atags = {t: [q for q in ps if q in mine] for t, ps in sorted(g.get("tags", {}).items()) if mine.intersection(ps)}
+        sig = hashlib.sha1(json.dumps([tsig, atags, {t: tag_defs.get(t) for t in atags},
+                                       [[n["path"], n["sha"], n["kind"], n["superseded_by"]] for n in ns],
                                        [[e["src"], e["dst"], e["rel"]] for e in e_by[a]],
                                        [[e["id"], e["type"], e["home"]] for e, _ in m_by[a]],  # not names: a hub's new spelling would redraw everything
                                        [[r["s"], r["type"], r["o"]] for r in r_by[a]], [c["msg"] for c in c_by[a]]]).encode()).hexdigest()[:16]
@@ -4273,6 +4302,7 @@ def write_viz_big(root, g, dd, force=False):
         stubs = {p: {**notes[p], "text": []} for e in e_by[a] for p in (e["src"], e["dst"]) if area(p) != a and p in notes}
         render_viz({"schema": g.get("schema", SCHEMA), "mode": "area", "area": a, "home": "../graph.html", "built": g["built"],
                     "families": {"kinds": KIND_PARENT, "types": TYPE_PARENT},
+                    "tags": atags, "tag_defs": {t: tag_defs[t] for t in atags if t in tag_defs}, "origins": sorted(ORIGINS),
                     "notes": [{**n, "text": note_text(root, n)} for n in ns] + list(stubs.values()),
                     "entities": [{**e, "names": e["names"][:6], "aka": e["aka"][:6], "mentions": mm} for e, mm in m_by[a]],
                     "relations": [{**r, "evidence": [x for x in r["evidence"] if area(x.rsplit(":", 1)[0]) == a]} for r in r_by[a]],

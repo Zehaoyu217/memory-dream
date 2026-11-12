@@ -639,7 +639,7 @@ or to a fresh worker given the packet, at most twice. After that, it stops and r
 
 ## Appendix A — the contract surface, verbatim: `skills/memory-dream/SKILL.md` and the dreamer agent
 
-_Part 5 · copied at commit ab7664e. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
+_Part 5 · copied at commit 55c55b7. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
 
 ```markdown
 ---
@@ -710,6 +710,34 @@ nothing already read is lost. `ALIASES.md` (`- canonical = other-id`, `not: a / 
 makes a supersede b without touching either note; `dropped: …` lines are written by `drop`, leave them) are the other
 two files at the root that are yours.
 
+## Setting a memory up (once, for a new body of work or material)
+If `memory/SETUP.md` exists, read it before anything else: it says what this memory is for, what a note is here and
+who keeps it. If it does not and there is material to take in, you set the memory up. You look and plan; cheap
+helpers read.
+1. **Look, with your own tools, without reading the material through.** `ls`, `wc`, `grep -c`, a few files opened:
+   what is there and how much; what one note would be here (a file as it is, when it can be read alone: never
+   rewrite what someone wrote); which folders would be areas; names that recur and the prefixes of file names; the
+   frontmatter fields and tags in use; how files link; what is another base with a structure of its own (an origin)
+   and what is code (notes point into it).
+2. **Ask at most three questions**, only what looking cannot answer: what the memory is for and who will ask it
+   what; what must never be lost, or read as current when it is not; what is someone else's and how far to trust it.
+3. **Write `memory/SETUP.md`**, one page: what it is for; what a note is here; the areas; who writes, by what rule;
+   who keeps (the command or helper model that reads notes, and when); what was taken in, from where, on which day.
+4. **Start the vocabulary from what you saw, and keep it small.** `KINDS.md`: the kinds these notes have, with the
+   prefixes and folders that mark them. `TYPES.md`: the things people will look up. `EDGES.md`: the links that
+   matter, each with the question words that follow it (`walk:`). `TAGS.md`: the tags in use, each with its
+   definition. Leave out a line you are unsure of: a word that fits nothing is kept and offered again later.
+5. **Take the material in.** Notes as they are into `memory/<area>/`; another base with `memory.py absorb`; what
+   cannot be a note (a transcript, a log, code) stays where it is and notes point at it. In git, ignore
+   `memory/_dream/*` and keep `!memory/_dream/notes/`: what a keeper read is paid for once.
+6. **Have it read cheaply.** `memory.py dream --dry-run --packets` says how many calls and about how much: tell the
+   user before spending. Then `dream --packets` on a cheap model: a command in `$MEMORY_LLM`, or helper agents on
+   the packets in parallel. You do not read the corpus yourself.
+7. **Prove it with five questions** the user would ask, each with the note that answers it, as lines of SETUP.md:
+   `- the question? -> area/note.md`. `memory.py check` puts each to `ask` and names the ones their note does not
+   answer. Then fix the vocabulary, the areas or the notes, never the question, and keep the five: they are this
+   memory's own test, run again after every change to the files above.
+
 ## Another base, taken in
 Someone else's knowledge base (a folder of notes, another memory with its readings, a graph of entity cards with a
 `relations.jsonl`) comes in as an **origin**: `memory.py absorb <folder> --as <name>` prints what it would take, what
@@ -748,7 +776,7 @@ Touch nothing else.
 
 ## Appendix B — the graph contract, verbatim: `.specs/memory-dream/CONTRACT.md`
 
-_Part 6 · copied at commit ab7664e. Schema 1; `memory.py check` validates against it (A38)._
+_Part 6 · copied at commit 55c55b7. Schema 1; `memory.py check` validates against it (A38)._
 
 ## memory-dream — the graph contract (schema 1)
 
@@ -761,8 +789,8 @@ Conventions. Paths are relative to the memory root with `/` separators and the `
 A note's **id** is its filename without `.md`; its **project** (area) is the first path segment, `""` at the root, and
 under an origin (§7) the origin and the next segment (`policy-kb/entities`). Dates
 are ISO `YYYY-MM-DD`. Line numbers are 1-based file lines. Everything under `_dream/` is derived and disposable; the
-notes and the six user-owned files (`KINDS.md`, `TYPES.md`, `EDGES.md`, `ALIASES.md`, `CONFLICTS.md`, and the generated
-`DIGEST.md`) are not.
+notes and the user-owned files (`KINDS.md`, `TYPES.md`, `EDGES.md`, `TAGS.md`, `ALIASES.md`, `CONFLICTS.md`,
+`SETUP.md`, and the generated `DIGEST.md`) are not. None of these files is a note.
 
 ### 1. The graph
 
@@ -971,6 +999,10 @@ belongs to one base, and a writer picks from this list. `ALIASES.md`: `- canonic
 <note.md | folder/> (YYYY-MM-DD) > <what it had replaced>, …`, written by `memory.py drop` and by nothing else: the
 build reads it as a pass-through in a line of replacements, so a clone with no `_dream/` builds the same lineage.
 Deleting the line and restoring the file undoes a drop; a line whose note exists is reported (C8) and ignored.
+`SETUP.md`: written once by the agent that sets a memory up, for the agents that come after: what the memory is
+for, what a note is here, who writes and who keeps. The script reads one thing in it: lines of the form
+`- a question? -> area/note.md` (or `→`), the memory's own proof. `memory.py check` puts each question to `ask`
+alone and reports how many are answered by a section headed by their note, naming the others.
 `DIGEST.md`: generated by every dream, ≤ 40 lines, never edited by hand. Removing a type line from `EDGES.md` or `TYPES.md` loses
 nothing (C13 reports it and the readings fall back to `other/<word>`); merging is the intended way to retire one.
 
@@ -1010,7 +1042,7 @@ origin by adding the file. What changes for the notes under it, and nothing else
 
 ## Appendix C — the build guide, verbatim: `BUILD-GUIDE.md` §3–§10
 
-_Part 7 · copied at commit ab7664e. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
+_Part 7 · copied at commit 55c55b7. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
 
 ### 3. The design in one page
 
@@ -1153,7 +1185,8 @@ history, and that version put 12 of 209 symbols on the line of a call or of a lo
   C6 no `# ` line, C7 review pending (labels, budget), C8 bad EDGES/ALIASES/CONFLICTS line, C9 NUL bytes in a note
   (binary-looking), C10 conflict pending, C11 a note over 40 lines, C14 built on a dropped note or left the newest of
   its line by a drop, C15 gone without a drop, C16 a pointer into a file that no longer holds, C17 a tag that
-  TAGS.md does not list.
+  TAGS.md does not list. `check` also runs the memory's own proof (`proof`): each `- question? -> note` line of
+  `memory/SETUP.md` is put to `ask` alone, and the line counts when a section of the answer is headed by that note.
 
 #### 5.5 The graph, vocabulary half (`build`, `merge_entities`)
 
@@ -1398,6 +1431,11 @@ when the page opens (tab order Timeline · Map · Connections; `#view=map` and `
   id, text and entity names; the best 20 listed with matched letters marked, every match kept in the lanes while the
   rest fade (in the graph view, the entities those notes mention light up); `/` focuses, arrows and Enter pick, Esc
   clears.
+- **Filters** ride in the search box as words: `tag:risk`, `type:model` (notes that mention a thing of that type or
+  of its family), `origin:policy-kb`, `kind:decision`, alone or with search words, so a `#q=` link carries them.
+  Beside the box a picker for each of tag, type of thing and base lists what this memory has and writes the word
+  into the box; a picker with nothing to list is not shown. The page gets `tags`, `tag_defs` and `origins` in its
+  data (`write_viz`); an area page of a big memory gets its own notes' tags.
 - **Health** (collapsed): warnings by code, superseded → current, unlinked notes, the review queue (pairs, labels
   over the bar, conflicts). Deep links: `#note=`, `#entity=`, `#area=`, `#q=`, `#health`.
 - **Modes**: whole memory; `area` (one page per area past `MEMORY_WIDE`, with "← all areas"); `overview` (one card per
@@ -1587,7 +1625,7 @@ preferences 0.95 when the task names them, 0.84 when it names only their meeting
 
 ## Appendix D — prompts, seeds and tuned tables, verbatim from `memory.py`
 
-_Part 8 · extracted at commit ab7664e by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
+_Part 8 · extracted at commit 55c55b7 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
 
 ### D.1 `EXTRACT` — the per-note prompt: fixed guidance, then `KINDS:`, `TYPES:`, `EDGES:` and `KNOWN:` from the registries (the static part is cached), then `NOTE`
 

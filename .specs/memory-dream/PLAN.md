@@ -12,7 +12,9 @@ file; §8 says where the build went past the draft. Of step 1, item 1 is built (
 `memory.py absorb`; §9 says what it added to the draft. Item 3 is built (RESULTS phase O): pointers into code; §10
 says what a probe on this repository's history changed. Item 4 is built (RESULTS phase P): packets and the dry
 run; §4 says which limit of a packet binds. Item 5 is built (RESULTS phase Q): tags through `TAGS.md`, and the
-walk's words on the lines of `EDGES.md`. Items 6 and 7 are not started.
+walk's words on the lines of `EDGES.md`. Item 6 is built (RESULTS phase R): the skill's section on setting a
+memory up, and a memory's own proof questions in `SETUP.md` that `check` asks again. Item 7 is built too: the
+page's filters. Step 1 is done; step 2 is next.
 
 The contract field by field is `CONTRACT-2.md`. Every number has a command, all without a model:
 `python3 eval/contract_probe.py <bank-index world>` (drop, absorb, documents, sets), `python3 eval/agent/arms.py`
@@ -352,7 +354,8 @@ What is built is marked.
 6. **Walk words on registry lines**, with `~` for the inward direction; a registry without them takes the seed's,
    so existing bases answer as before. What stays in the code is listed in the contract, not denied. *Built:* the
    `walk:` and `hops:` fields of `EDGES.md`; 0 differences from the tables they replace on 433 questions.
-7. **The page**: filters for tag, type and origin beside the search that exists.
+7. **The page**: filters for tag, type and origin beside the search that exists. *Built:* words in the search box
+   (`tag:`, `type:`, `origin:`, `kind:`) and a picker for each.
 8. **A note's kind from its name and folder before the keeper's reading.** *Built.* The reading had relabelled 268
    of the bank's 1,677 notes, and a map by kind left models out. New for the setup of §4: check each kind prefix
    against the readings, since a project's own code can be one (`inc-`).
@@ -391,8 +394,9 @@ A dropped note must not bring back the note it replaced (`drop` and the tombston
    *Done: RESULTS phase P.* One call a note stays the default until step 2 measures a packet's yield.
 5. Tags from frontmatter and `TAGS.md`; walk words on registry lines. *Done: RESULTS phase Q.*
 6. The skill's setup section: look with your own tools, ask at most three questions, write `SETUP.md` and the
-   starting vocabulary, take the materials in, prove it with five questions.
-7. The page's filters.
+   starting vocabulary, take the materials in, prove it with five questions. *Done: RESULTS phase R.* The five
+   questions are lines of `SETUP.md` and `memory.py check` asks them again.
+7. The page's filters. *Done: RESULTS phase R.*
 8. The end-to-end run (§14).
 
 **Step 2, Haiku.** Under $5 without the Opus arms.

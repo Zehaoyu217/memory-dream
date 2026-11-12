@@ -297,7 +297,11 @@ Open, in the order I would take them:
    Item 5 is done (RESULTS phase Q, 2026-11-12): `tags:` in a note's frontmatter read through `memory/TAGS.md`
    (definition and spellings a line; an unlisted word is C17), `ask --list --tag`, and the words that make `ask`
    follow a link type as `walk:` and `hops:` fields of EDGES.md in place of three tables in the code.
-   The rest of step 1: the setup section of the skill, the page's filters; each adds its lines to `tests/e2e.py`.
+   Item 6 is done (RESULTS phase R, 2026-11-12): SKILL.md has the section "Setting a memory up" (look, at most
+   three questions, SETUP.md, the starting registries, take in, a dry run and a cheap read, five proof questions),
+   and `memory.py check` runs the proof lines of `memory/SETUP.md` (`- question? -> area/note.md`).
+   Item 7 is done too: the page's search takes `tag:`, `type:`, `origin:` and `kind:` as words, with a picker for
+   each (`tests/viz_check.js`, 16 checks). Step 1 is complete; what is left is step 2 and the small list below.
 3. Small things this phase found and left: the own note of a thing when no folder wins the call (C-h1 Q6 is served
    only because its folder is printed whole); a check of each kind prefix against the readings at setup (`inc-`);
    `(weak match: … found nowhere in memory)` says "memory" when the search was scoped to one folder; "built directly

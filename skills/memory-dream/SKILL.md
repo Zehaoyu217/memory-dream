@@ -66,6 +66,34 @@ nothing already read is lost. `ALIASES.md` (`- canonical = other-id`, `not: a / 
 makes a supersede b without touching either note; `dropped: …` lines are written by `drop`, leave them) are the other
 two files at the root that are yours.
 
+## Setting a memory up (once, for a new body of work or material)
+If `memory/SETUP.md` exists, read it before anything else: it says what this memory is for, what a note is here and
+who keeps it. If it does not and there is material to take in, you set the memory up. You look and plan; cheap
+helpers read.
+1. **Look, with your own tools, without reading the material through.** `ls`, `wc`, `grep -c`, a few files opened:
+   what is there and how much; what one note would be here (a file as it is, when it can be read alone: never
+   rewrite what someone wrote); which folders would be areas; names that recur and the prefixes of file names; the
+   frontmatter fields and tags in use; how files link; what is another base with a structure of its own (an origin)
+   and what is code (notes point into it).
+2. **Ask at most three questions**, only what looking cannot answer: what the memory is for and who will ask it
+   what; what must never be lost, or read as current when it is not; what is someone else's and how far to trust it.
+3. **Write `memory/SETUP.md`**, one page: what it is for; what a note is here; the areas; who writes, by what rule;
+   who keeps (the command or helper model that reads notes, and when); what was taken in, from where, on which day.
+4. **Start the vocabulary from what you saw, and keep it small.** `KINDS.md`: the kinds these notes have, with the
+   prefixes and folders that mark them. `TYPES.md`: the things people will look up. `EDGES.md`: the links that
+   matter, each with the question words that follow it (`walk:`). `TAGS.md`: the tags in use, each with its
+   definition. Leave out a line you are unsure of: a word that fits nothing is kept and offered again later.
+5. **Take the material in.** Notes as they are into `memory/<area>/`; another base with `memory.py absorb`; what
+   cannot be a note (a transcript, a log, code) stays where it is and notes point at it. In git, ignore
+   `memory/_dream/*` and keep `!memory/_dream/notes/`: what a keeper read is paid for once.
+6. **Have it read cheaply.** `memory.py dream --dry-run --packets` says how many calls and about how much: tell the
+   user before spending. Then `dream --packets` on a cheap model: a command in `$MEMORY_LLM`, or helper agents on
+   the packets in parallel. You do not read the corpus yourself.
+7. **Prove it with five questions** the user would ask, each with the note that answers it, as lines of SETUP.md:
+   `- the question? -> area/note.md`. `memory.py check` puts each to `ask` and names the ones their note does not
+   answer. Then fix the vocabulary, the areas or the notes, never the question, and keep the five: they are this
+   memory's own test, run again after every change to the files above.
+
 ## Another base, taken in
 Someone else's knowledge base (a folder of notes, another memory with its readings, a graph of entity cards with a
 `relations.jsonl`) comes in as an **origin**: `memory.py absorb <folder> --as <name>` prints what it would take, what

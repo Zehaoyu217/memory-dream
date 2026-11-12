@@ -96,6 +96,10 @@
     #header .r .s { grid-column: 1 / -1; color: var(--muted); font: 400 12px/16px var(--sans); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     #header .hint { font: 400 12px/16px var(--sans); color: var(--meta); padding: 8px 12px 4px; }
     #header kbd { font: 400 11px/14px var(--mono); border: 1px solid var(--hair); padding: 0 4px; color: var(--muted); }
+    #header .filters { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; font: 400 12px/16px var(--sans); color: var(--meta); }
+    #header .filters[hidden] { display: none; }
+    #header .filters select { font: 400 14px/18px var(--sans); padding: 9px 28px 9px 12px; border: 1px solid var(--rule); background: var(--bg); color: var(--ink-2); max-width: 260px; cursor: pointer; }
+    #header .filters select:hover, #header .filters select[data-on="true"] { border-color: var(--ink); color: var(--ink); }
   </style>
   <p class="eyebrow">Your memory</p>
   <h1>Memory</h1>
@@ -105,6 +109,7 @@
       <input type="search" placeholder="Search your memory — press /" aria-label="search the memory" autocomplete="off" spellcheck="false">
       <div class="results" role="listbox" hidden></div>
     </div>
+    <div class="filters" hidden></div>
   </div>
 </header>
 
@@ -475,11 +480,32 @@
     }
     return { score: score / needle.length, pos };
   }
+  // filters ride in the search box as key:value words (tag:risk type:model origin:policy-kb kind:decision), so a link
+  // to #q=… carries them; the pickers beside the box only write them there. A tag is a word of TAGS.md.
+  const tagsOf = {};
+  for (const [t, ps] of Object.entries(g.tags || {})) for (const p of ps) (tagsOf[p] ||= []).push(t);
+  const originOf = p => (g.origins || []).find(o => p.startsWith(o + '/')) || '';
+  const FILTER = {
+    tag: (n, v) => (tagsOf[n.path] || []).includes(v),
+    kind: (n, v) => n.kind === v || fam(n.kind) === v,
+    type: (n, v) => (mentions[n.path] || []).some(m => m.e.type === v || tfam(m.e.type) === v),
+    origin: (n, v) => originOf(n.path) === v,
+  };
+  function parseQuery(q) {
+    const toks = [], filters = [];
+    for (const t of q.toLowerCase().trim().split(/\s+/).filter(Boolean)) {
+      const m = t.match(/^(tag|kind|type|origin):(.+)$/);
+      if (m) filters.push([m[1], m[2]]); else toks.push(t);
+    }
+    return { toks, filters };
+  }
+  const passes = (n, filters) => filters.every(([k, v]) => FILTER[k](n, v));
   function search(q) {
-    const toks = q.toLowerCase().trim().split(/\s+/).filter(Boolean);
-    if (!toks.length) return [];
+    const { toks, filters } = parseQuery(q);
+    if (!toks.length && !filters.length) return [];
     const res = [];
     for (const n of g.notes || []) {
+      if (!passes(n, filters)) continue;
       const h = hayOf[n.path]; let total = 0, titlePos = []; let ok = true;
       for (const t of toks) {
         const a = fuzzy(h.title, t), b = fuzzy(h.id, t), c = t.length >= 3 ? fuzzy(h.text, t) : null, d = fuzzy(h.names, t);
@@ -565,15 +591,39 @@
       results.hidden = false;
     };
     const choose = n => { input.value = titleOf(n); results.hidden = true; pick(n.path); };
+    // pickers for tag, type of thing and origin: each lists what this memory has, and writes its word into the box
+    const bar = $('#header .filters'), picker = {};
+    const setWord = (key, value) => {
+      const rest = input.value.trim().split(/\s+/).filter(t => t && !t.toLowerCase().startsWith(key + ':'));
+      input.value = (value ? [...rest, `${key}:${value}`] : rest).join(' ');
+      run(); if (value) results.hidden = false;
+    };
+    const addPicker = (key, label, options) => {   // options: [[value, text, title]]
+      if (!options.length || g.mode === 'overview') return;
+      const sel_ = el('select', { 'aria-label': `filter by ${label}`, 'data-key': key }, el('option', { value: '' }, `Any ${label}`),
+        ...options.map(([v, text, title]) => el('option', { value: v, title: title || '' }, text)));
+      sel_.addEventListener('change', () => setWord(key, sel_.value));
+      picker[key] = sel_; bar.append(sel_); bar.hidden = false;
+    };
+    const cut = (t, n) => t.length > n ? t.slice(0, n - 1) + '…' : t;
+    const defs = g.tag_defs || {};
+    addPicker('tag', 'tag', Object.entries(g.tags || {}).sort((a, b) => b[1].length - a[1].length || a[0].localeCompare(b[0]))
+      .map(([t, ps]) => [t, cut(`${t} (${ps.length})` + (defs[t] ? ` — ${defs[t]}` : ''), 44), defs[t] || 'not in TAGS.md: no definition']));
+    const typeCount = {};
+    for (const e of g.entities || []) typeCount[e.type] = (typeCount[e.type] || 0) + 1;
+    addPicker('type', 'type of thing', Object.entries(typeCount).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, 40)
+      .map(([t, c]) => [t, `${kindName(t)} (${fmt(c)})`, `notes that mention a ${t}`]));
+    addPicker('origin', 'base', (g.origins || []).map(o => [o.toLowerCase(), `${areaName(o)} (another base)`, `notes taken in from ${o}`]));
+    function syncFilters(filters) { for (const [k, s_] of Object.entries(picker)) { const f = filters.find(x => x[0] === k); s_.value = f && [...s_.options].some(o => o.value === f[1]) ? f[1] : ''; s_.dataset.on = String(!!s_.value); } }
     let timer = 0;
     const run = () => {
       const q = input.value;
       if (g.mode === 'overview') { fire('dp:search', { q }); return; }
-      if (!q.trim()) { S.hits = null; cur = []; results.hidden = true; fire('dp:search', { hits: null }); return; }
+      if (!q.trim()) { S.hits = null; cur = []; results.hidden = true; syncFilters([]); fire('dp:search', { hits: null }); return; }
       const all = search(q); cur = all; sel = -1;
-      const toks = q.toLowerCase().trim().split(/\s+/).filter(Boolean);
-      S.hits = new Set(g.notes.filter(n => { const h = hayOf[n.path]; return toks.every(t => fuzzy(h.title, t) || fuzzy(h.id, t) || (t.length >= 3 && fuzzy(h.text, t)) || fuzzy(h.names, t)); }).map(n => n.path));
-      render(); fire('dp:search', { hits: S.hits, q });
+      const { toks, filters } = parseQuery(q);
+      S.hits = new Set(g.notes.filter(n => { const h = hayOf[n.path]; return passes(n, filters) && toks.every(t => fuzzy(h.title, t) || fuzzy(h.id, t) || (t.length >= 3 && fuzzy(h.text, t)) || fuzzy(h.names, t)); }).map(n => n.path));
+      syncFilters(filters); render(); fire('dp:search', { hits: S.hits, q });
       if (q.trim()) history.replaceState(null, '', '#q=' + encodeURIComponent(q.trim()));
     };
     input.addEventListener('input', () => { clearTimeout(timer); timer = setTimeout(run, 70); });
