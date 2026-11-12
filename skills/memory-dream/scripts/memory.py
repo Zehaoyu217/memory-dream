@@ -802,9 +802,31 @@ def parse_conflicts(text):
             unsure.add(frozenset((norm(m.group(1)), norm(m.group(3)))))
         elif c:
             compat.add(frozenset((norm(c.group(1)), norm(c.group(2)))))
-        else:
+        elif not DROPPED.match(s):  # a tombstone is read by parse_dropped
             bad.append((i, s))
     return sup, compat, unsure, bad
+
+
+DROPPED = re.compile(r"dropped\s*:\s*(\S+)(?:\s+\((\d{4}-\d\d-\d\d)\))?(?:\s*>\s*(.+))?$", re.I)
+
+
+def parse_dropped(text):
+    """The tombstones of memory/CONFLICTS.md, written by `drop` and by nothing else:
+    `dropped: <note.md | folder/> (YYYY-MM-DD) > <what it had replaced>, …` -> {path: {date, replaced: [paths]}}.
+    A folder's key ends with "/". The build reads a tombstone as a pass-through in a line of replacements."""
+    out = {}
+    for ln in text.split("\n"):
+        m = DROPPED.match(ln.strip())
+        if m:
+            p = m.group(1) if m.group(1).endswith(("/", ".md")) else m.group(1) + ".md"
+            out[p] = {"date": m.group(2) or "", "replaced": [x.strip() + ("" if x.strip().endswith(".md") else ".md")
+                                                              for x in (m.group(3) or "").split(",") if x.strip()]}
+    return out
+
+
+def tombstoned(tomb, p):
+    """Is this path one `drop` recorded: a note's own line, or a folder's?"""
+    return p in tomb or any(f.endswith("/") and p.startswith(f) for f in tomb)
 
 
 SEED_SHAPES = parse_edges(EDGES_SEED)[5]["shape"]  # EDGES.md files written before `shape:` fields existed keep these
@@ -1086,11 +1108,53 @@ def notes_part(root, man, cur, former, xs=None, facts=None):
                 return old2cur[c], ""
         return (sorted(oldstem[stem])[0], "") if oldstem.get(stem) else (None, "C2")
 
+    cf = root / "CONFLICTS.md"  # decisions kept beside the notes: who replaced whom, and what was dropped
+    ctext = read(cf) if cf.exists() else ""
+    tomb = parse_dropped(ctext)
+    for d in [d for d in tomb if d in notes]:  # the file is back: the note counts, the line is stale
+        checks.append(("C8", f"CONFLICTS.md: dropped: {d} names a note that exists; delete the line"))
+        del tomb[d]
+    tstem = defaultdict(list)  # a bare id finds a dropped note as it finds a live one
+    for d in tomb:
+        if not d.endswith("/"):
+            tstem[posixpath.basename(d)[:-3]].append(d)
+
+    def was_dropped(v, src):
+        """The dropped note a reference names, when no note answers to it."""
+        v = re.sub(r"^\[\[|\]\]$", "", v.strip()).strip()
+        v = v[:-3] if v.endswith(".md") else v
+        for c in (posixpath.normpath(posixpath.join(posixpath.dirname(src), v)) + ".md", posixpath.normpath(v) + ".md"):
+            if tombstoned(tomb, c):
+                return c
+        c = tstem.get(posixpath.basename(v), [])
+        mine = [p for p in c if p.split("/")[0] == src.split("/")[0]]
+        return sorted(mine or c)[0] if c else None
+
+    def through(d, seen=frozenset()):
+        """What a dropped note had replaced, followed to notes that exist: a tombstone passes a replacement on."""
+        out = []
+        for t in tomb.get(d, {}).get("replaced", []):
+            if t in notes:
+                out.append(t)
+            elif t in tomb and t != d and t not in seen:
+                out += through(t, seen | {d})
+        return out
+
     edges, linked = [], set()
+    built_on = defaultdict(list)  # dropped note → the notes whose from: line names it; they stay, and say so
     for rel in notes:
         for kind in ("from", "supersedes"):
             for v in fm_list(aux[rel]["fm"].get(kind)):
                 dst, w = resolve(v, rel)
+                gone = was_dropped(v, rel) if tomb and not dst else None
+                if gone:  # C14, not C2: the note was dropped on purpose, and who replaced it now replaces what it had
+                    if kind == "from":
+                        built_on[gone].append(rel)
+                    for t in (through(gone) if kind == "supersedes" else []):
+                        if t != rel and (rel, t, kind) not in linked:
+                            linked.add((rel, t, kind))
+                            edges.append({"src": rel, "dst": t, "rel": kind, "by": "drop"})
+                    continue
                 if w:
                     checks.append((w, f"{rel}: {kind} {v} " + (f"is ambiguous, using {dst}" if dst else "not found")))
                 if dst and dst != rel and (rel, dst, kind) not in linked:
@@ -1106,17 +1170,28 @@ def notes_part(root, man, cur, former, xs=None, facts=None):
             if dst and dst != rel and not any((rel, dst, k) in linked for k in ("from", "supersedes", "refs")):
                 linked.add((rel, dst, "refs"))
                 edges.append({"src": rel, "dst": dst, "rel": "refs"})
-    cf = root / "CONFLICTS.md"  # supersessions decided by the review or a person: lineage, with the notes untouched
-    sup, _, _, bad_c = parse_conflicts(read(cf)) if cf.exists() else ([], set(), set(), [])
+    # supersessions decided by the review or a person: lineage, with the notes untouched
+    sup, _, _, bad_c = parse_conflicts(ctext)
     checks += [("C8", f"CONFLICTS.md:{i}: {s}") for i, s in bad_c]
     for a, b in sup:
-        if a in notes and b in notes and a != b and (a, b, "supersedes") not in linked:
-            linked.add((a, b, "supersedes"))
-            edges.append({"src": a, "dst": b, "rel": "supersedes", "by": "review"})
+        for t in ([b] if b in notes else through(b) if b in tomb else []):
+            if a in notes and a != t and (a, t, "supersedes") not in linked:
+                linked.add((a, t, "supersedes"))
+                edges.append({"src": a, "dst": t, "rel": "supersedes", "by": "review" if t == b else "drop"})
     for e in edges:
         if e["rel"] == "supersedes":
             notes[e["dst"]]["superseded_by"].append(e["src"])
-    return {"notes": notes, "aux": aux, "edges": edges, "checks": checks}
+    dropped = []  # what `drop` recorded, with what it means for the notes that are left (CONTRACT §1)
+    for d in sorted(set(tomb) | set(built_on)):
+        t = tomb.get(d) or next((tomb[f] for f in sorted(tomb) if f.endswith("/") and d.startswith(f)), {"date": "", "replaced": []})
+        when = f" on {t['date']}" if t["date"] else ""
+        by = sorted(set(built_on.get(d, [])))
+        left = [y for y in t["replaced"] if y in notes and not notes[y]["superseded_by"]] if d in tomb else []
+        dropped.append({"path": d, "date": t["date"], "replaced": list(t["replaced"]) if d in tomb else [],
+                        "built_on_by": by, "left_newest": left})
+        checks += [("C14", f"{r}: built on {d}, which was dropped{when}") for r in by]
+        checks += [("C14", f"{y}: {d} had replaced it and was dropped{when}; it is the newest note left of that line") for y in left]
+    return {"notes": notes, "aux": aux, "edges": edges, "checks": checks, "dropped": dropped}
 
 
 def canon_occ(occ, talias, tdrop):
@@ -1291,7 +1366,7 @@ def build(root, man, cur, former, et, at, xs=None, now=None, facts=None, base=No
             "proposed_types": proposed_t,
             "tvocab": {"types": len(ttypes), "budget": tcfg["budget"], "promote": list(tcfg["promote"]), "probation": tcfg["probation"],
                        "labels": len(tprops), "below": len(tbelow), "demote": sorted(tdemote)},
-            "dedup": dict(dedup),
+            "dedup": dict(dedup), "dropped": base.get("dropped", []),
             "checks": [{"code": c, "msg": m} for c, m in sorted(checks, key=lambda z: z[0])]}
 
 
@@ -1357,7 +1432,11 @@ def validate(g, types=None):
             if not m or m.group(1) not in paths or int(m.group(2)) < 1:
                 bad.append(f"relation {r['s']} {t} {r['o']}: evidence {ev!r} is not path:line of a note")
     bad += [f"conflict {c.get('a')} / {c.get('b')}: unknown note" for c in g["conflicts"] if c.get("a") not in paths or c.get("b") not in paths]
-    bad += [f"check {c.get('code')}: unknown code" for c in g["checks"] if not re.fullmatch(r"C(?:[1-9]|1[0-3])", str(c.get("code", "")))]
+    bad += [f"check {c.get('code')}: unknown code" for c in g["checks"] if not re.fullmatch(r"C(?:[1-9]|1[0-5])", str(c.get("code", "")))]
+    for d in g.get("dropped", []):  # optional: what `drop` recorded and what it means for the notes that are left
+        if not isinstance(d.get("path"), str) or d["path"] in paths:
+            bad.append(f"dropped {d.get('path')!r}: not a path, or a note that exists")
+        bad += [f"dropped {d.get('path')}: {k} {x} is not a note" for k in ("built_on_by", "left_newest") for x in d.get(k, []) if x not in paths]
     if [c["code"] for c in g["checks"]] != sorted(c["code"] for c in g["checks"]):
         bad.append("checks are not sorted by code")
     return bad
@@ -1383,10 +1462,12 @@ def load(root):
     if same and man.get("vsig") == vsig(et, at, conflicts_text(root), *domain_texts(root)) and (man.get("code") == CODE or len(cur) > WIDE):
         g = rd(root / "_dream" / "graph.json") or read_index(root / "_dream")
         if g and g.get("v") == V:
+            g.setdefault("dropped", man.get("dropped", []))  # index.db keeps rows; the manifest keeps what was dropped
             return g, former
     elif len(cur) > WIDE:  # rebuilding takes minutes here: patch the last graph for what changed since the dream
         g = rd(root / "_dream" / "graph.json") or read_index(root / "_dream")
         if g and g.get("v") == V:
+            g.setdefault("dropped", man.get("dropped", []))
             return patch(root, g, man, cur), former
     return build(root, man, cur, former, et, at), former
 
@@ -1432,7 +1513,8 @@ def patch(root, g, man, cur):
     if len(notes) < len(g["notes"]):  # something was deleted
         for e in g["entities"]:
             e["mentions"] = [m for m in e["mentions"] if m["path"] in notes]
-    return {**g, "notes": [notes[p] for p in sorted(notes)], "edges": edges}
+    dropped = [{**d, **{k: [x for x in d.get(k, []) if x in notes] for k in ("built_on_by", "left_newest")}} for d in g.get("dropped", [])]
+    return {**g, "notes": [notes[p] for p in sorted(notes)], "edges": edges, "dropped": dropped}
 
 
 # ---------- dream caches and the index ----------
@@ -1533,6 +1615,26 @@ def write_index(dd, g):
 def index_db(dd):
     p = dd / "index.db"
     return sqlite3.connect(f"file:{p}?mode=ro", uri=True) if p.exists() else None
+
+
+def old_lineage(dd, paths):
+    """Where each of these notes stood at the last dream (graph.json, or index.db on a big memory): what it had
+    replaced, what replaced it, what was built on it. -> {path: {replaced, replaced_by, built_on_by}}."""
+    out = {p: {"replaced": [], "replaced_by": [], "built_on_by": []} for p in paths}
+    g, db = rd(dd / "graph.json"), None
+    if g:
+        rows = [(e["src"], e["dst"], e["rel"]) for e in g.get("edges", []) if e["src"] in out or e["dst"] in out]
+    else:
+        db = index_db(dd)
+        rows = [r for p in (paths if db else []) for r in db.execute("SELECT src, dst, rel FROM edges WHERE src=? OR dst=?", (p, p))]
+    for s, d, rel in rows:
+        if rel == "supersedes" and s in out:
+            out[s]["replaced"].append(d)
+        if rel == "supersedes" and d in out:
+            out[d]["replaced_by"].append(s)
+        if rel == "from" and d in out:
+            out[d]["built_on_by"].append(s)
+    return {p: {k: sorted(set(v)) for k, v in r.items()} for p, r in out.items()}
 
 
 def read_index(dd):
@@ -1657,6 +1759,7 @@ class Dream:
         self.review = {"pairs": 0, "types": 0, "calls": 0, "aliases": 0, "mapped": 0, "new": 0, "refused": 0,
                        "demoted": 0, "conflicts": 0, "decided": 0}
         self.base = {}  # the note half of the graph, reused across rebuilds until a review changes lineage
+        self.gone = {}  # notes that left without a `drop` (plan)
 
     def run(self):
         if self.nothing_new():
@@ -1700,6 +1803,15 @@ class Dream:
         for rel in cur:
             if not rel.startswith("log/"):
                 self.homes[fold(posixpath.basename(rel)[:-3])].append(rel)
+        # a file that is merely gone is not a drop (a branch switch, a rename with an edit): nothing is written or
+        # deleted for it. It is remembered with what it had replaced, so `drop` can still record it, and C15 says so.
+        tomb = parse_dropped(conflicts_text(root))
+        self.gone = {p: r for p, r in (man.get("gone") or {}).items() if p not in cur and not tombstoned(tomb, p)}
+        new = [p for p in self.deleted if p not in self.gone and not tombstoned(tomb, p)]
+        if new:
+            was = old_lineage(self.dd, new)
+            for p in new:
+                self.gone[p] = {"seen": self.now.date().isoformat(), **was[p]}
 
         def upd(rel):
             u = self.facts[rel]["fm"].get("updated", "")
@@ -1792,7 +1904,11 @@ class Dream:
         e2, a2 = vocab_texts(self.root)
         man = {**self.man, "failed": self.failed}
         self.base.update(self.base or notes_part(self.root, man, self.cur, self.former, self.xs, self.facts))
-        return build(self.root, man, self.cur, self.former, e2, a2, xs=self.xs, now=self.now, facts=self.facts, base=self.base)
+        g = build(self.root, man, self.cur, self.former, e2, a2, xs=self.xs, now=self.now, facts=self.facts, base=self.base)
+        gone = [{"code": "C15", "msg": f"{p}: gone since {r['seen']} without a drop; `memory.py drop {p} --yes` records it "
+                 "and keeps what it had replaced replaced, or put the file back"} for p, r in sorted(self.gone.items())]
+        g["checks"] = sorted(g["checks"] + gone, key=lambda c: c["code"])
+        return g
 
     def demote(self, g):
         """Probation over and still under the bar: the type goes back to a label (EDGES.md) or a word (TYPES.md), 0 calls."""
@@ -2009,6 +2125,7 @@ class Dream:
                                   "registry": {"edges": sorted(parse_edges(e2)[0]), "types": sorted(parse_edges(domain_texts(root)[1], TYPE_PACKS)[0])},
                                   "queue": [[r["a"], r["b"]] for r in g["review"]],
                                   "failed": self.failed, "attempts": self.attempts, "refs": refs,
+                                  "dropped": g.get("dropped", []), "gone": self.gone,
                                   "dreamed": now.isoformat(timespec="seconds"),
                                   "unindexed": sum(1 for n in g["notes"] if not n["indexed"]),
                                   "due": bool(self.cmd and (g["proposed"] or g.get("proposed_types") or g["review"]
@@ -2100,6 +2217,7 @@ class View:
     def __init__(self, g):
         self.g = g
         self._names = None
+        self.dropped = g.get("dropped", [])
         self.notes = {n["path"]: n for n in g["notes"]}
         self.ents = {e["id"]: e for e in g["entities"]}
         self.out_r, self.in_r = defaultdict(list), defaultdict(list)
@@ -2171,11 +2289,15 @@ class DbView:
         self.rows = rows
         self.notes = {p: {"path": p, "id": i, "project": a, "title": t, "line": ln, "kind": k, "updated": u,
                           "superseded_by": list(sup or [])} for p, i, a, t, ln, k, u, sup in rows.notes()}
+        self.dropped = man.get("dropped", [])
         old = {p: f["sha"] for p, f in man.get("files", {}).items()}
         changed = {p for p in cur if old.get(p) != cur[p]["sha"]}
         gone = {p for p in self.notes if p not in cur}
         for p in gone:
             del self.notes[p]
+        for n in self.notes.values() if gone else []:  # a note that is gone replaces nothing: naming it here sent ask
+            if gone.intersection(n["superseded_by"]):  # to read a file that does not exist (RESULTS phase K)
+                n["superseded_by"] = [x for x in n["superseded_by"] if x not in gone]
         mine, added = {}, defaultdict(list)
         if changed:
             stems = defaultdict(list)
@@ -2276,6 +2398,104 @@ def open_view(root):
         if len(cur) > WIDE:
             return DbView(SqliteRows(index_db(root / "_dream")), root, man, cur)
     return View(load(root)[0])
+
+
+def drop(args, root):
+    """`drop <note | folder> [--yes]`: the one way a note leaves the memory. Without --yes it prints what goes with the
+    note and changes nothing. With it: the file and its reading are deleted, one line `dropped: <path> (date) > <what
+    it had replaced>` goes to CONFLICTS.md, and the graph is rebuilt with no model. Who had replaced the dropped note
+    now replaces what it had replaced; a note made from it alone (`source:`) goes with it; a note built on it
+    (`from:`) stays and says so. A file deleted by hand is not a drop: `dream` reports it (C15) and names this command."""
+    dd = root / "_dream"
+    man = rd(dd / "manifest.json", {}) or {}
+    cur, gone = scan(root, man)[0], man.get("gone") or {}
+    t = args.target.strip().replace("\\", "/")
+    t = (t[2:] if t.startswith("./") else t).rstrip("/")
+    paths = sorted(p for p in cur if p.startswith(t + "/"))
+    folder = t + "/" if paths else ""
+    if not paths:
+        c = t if t.endswith(".md") else t + ".md"
+        same = sorted(p for p in cur if "/" not in t and posixpath.basename(p) == c)
+        paths = [c] if c in cur or c in gone or c in man.get("files", {}) else same if len(same) == 1 else []
+        if not paths:
+            print(f"drop: no note or folder {args.target!r}" + (f": {', '.join(same)} share that name, give the path" if same else ""))
+            sys.exit(2)
+    g, S, srcs = load(root)[0], set(paths), {}
+    for p in cur:  # what each other note says it was made from: frontmatter, at the top of the file
+        text = read(root / p) if p not in S else ""
+        if "source:" in text[:1500]:
+            made_of = [x if posixpath.splitext(x)[1] else x + ".md" for x in fm_list(parse_note(text)[0].get("source"))]
+            if made_of:
+                srcs[p] = made_of
+    more = True
+    while more:  # made from dropped notes and from nothing else: it goes with them
+        more = [p for p, s in srcs.items() if p not in S and all(x in S for x in s)]
+        S.update(more)
+    sup_of, sup_by, built = defaultdict(list), defaultdict(list), defaultdict(list)
+    for e in g["edges"]:
+        if e["rel"] == "supersedes":
+            sup_of[e["src"]].append(e["dst"])
+            sup_by[e["dst"]].append(e["src"])
+        elif e["rel"] == "from" and e["dst"] in S and e["src"] not in S:
+            built[e["dst"]].append(e["src"])
+    for p in (p for p in paths if p not in cur):  # already gone: where it stood, by the dream that noticed or the last one
+        was = gone.get(p) or old_lineage(dd, [p])[p]
+        sup_of[p], sup_by[p] = list(was.get("replaced", [])), [x for x in was.get("replaced_by", []) if x in cur]
+        built[p] = [x for x in was.get("built_on_by", []) if x in cur]
+
+    def left(p, seen=frozenset()):
+        """What p had replaced, followed through the notes that go with it to the notes that stay."""
+        out = []
+        for y in sup_of.get(p, []):
+            out += [y] if y not in S else left(y, seen | {p}) if y not in seen else []
+        return sorted(set(out))
+
+    title = {n["path"]: n["title"] for n in g["notes"]}
+    stays = sorted({r for p in S for r in built.get(p, [])})
+    print(f"drop {folder or paths[0]}" + (f" — {len(paths)} notes" if folder else f" — {title.get(paths[0], '(the file is already gone)')[:100]}"))
+    made = sorted(S - set(paths))
+    if made:
+        print(f"  made from {'them' if folder else 'it'} alone, dropped as well: {len(made)} — {', '.join(made[:8])}" + (" …" if len(made) > 8 else ""))
+    for p in sorted(S):
+        old, took = left(p), [x for x in sup_by.get(p, []) if x not in S]
+        if old and took:
+            print(f"  {p} had replaced {', '.join(old)}; {', '.join(took)} replaced it and will replace "
+                  f"{'that' if len(old) == 1 else 'those'} directly")
+        elif old:
+            print(f"  {p} had replaced {', '.join(old)}, which will be the newest left of its line")
+        elif took:
+            print(f"  {p} was replaced by {', '.join(took)}")
+    if stays:
+        print(f"  built on {'them' if len(S) > 1 else 'it'}, kept and marked: {len(stays)} — {', '.join(stays[:8])}" + (" …" if len(stays) > 8 else ""))
+    if not args.yes:
+        print("  nothing is changed yet: run it again with --yes")
+        return
+    today = dt.date.today().isoformat()
+    mark = lambda p: f"dropped: {p} ({today})" + (f" > {', '.join(left(p))}" if left(p) else "")  # noqa: E731
+    lines = [f"dropped: {folder} ({today})"] if folder else []
+    lines += [mark(p) for p in sorted(S) if not (folder and p.startswith(folder))
+              or left(p) or built.get(p) or any(x not in S for x in sup_by.get(p, []))]  # in a folder: only notes others name
+    (dd / "notes").mkdir(parents=True, exist_ok=True)
+    with Lock(dd):
+        cf = root / "CONFLICTS.md"
+        wr(cf, (read(cf) if cf.exists() else CONFLICTS_HEAD).rstrip("\n") + "\n" + "\n".join(lines) + "\n")
+        keep = {cur[p]["sha"][:12] for p in cur if p not in S}
+        for p in sorted(S):
+            (root / p).unlink() if (root / p).exists() else None
+            h = cur.get(p, {}).get("sha", "")[:12]
+            if h and h not in keep and (dd / "notes" / f"{h}.json").exists():
+                (dd / "notes" / f"{h}.json").unlink()  # its reading goes with it
+        if folder:  # the folder too, when nothing but its notes was in it
+            for d_, _, _ in sorted(os.walk(root / folder), reverse=True):
+                os.rmdir(d_) if not os.listdir(d_) else None
+            if (root / folder).exists():
+                print(f"  {folder} still holds files that are not notes; they are left alone")
+        dm = Dream(argparse.Namespace(cmd=None, j=1, review=False, all=False, prompts=False), root)
+        dm.plan()  # the graph again, with no model: index and review are for `dream`
+        g2 = dm.demote(dm.graph())
+        dm.report(g2, dm.write(g2))
+    print(f"dropped {len(S)} note{'s' if len(S) != 1 else ''}: {len(lines)} line{'s' if len(lines) != 1 else ''} in CONFLICTS.md. "
+          "To undo, restore the file from git and delete its line.")
 
 
 def check(args, root):
@@ -2517,6 +2737,19 @@ def route(pats, cat):
 LIST_MAX = 150  # lines of `ask --list` before it says how many more there are
 
 
+def drop_marks(v):
+    """What `drop` left on the notes that stayed: {note: [dropped notes it was built on]} and {note: [dropped notes
+    that had replaced it]}, by id. A header says both, so a reader sees that a chain was cut on purpose."""
+    built, newest = defaultdict(list), defaultdict(list)
+    for d in getattr(v, "dropped", None) or []:
+        i = posixpath.basename(d["path"])[:-3]
+        for r in d.get("built_on_by", []):
+            built[r].append(i)
+        for r in d.get("left_newest", []):
+            newest[r].append(i)
+    return built, newest
+
+
 def list_notes(args, v):
     """`ask --list [-p folder] [--kind K]`: the map, one line per note — path, kind, date, what it was built on (marked
     when that note has since been replaced), what it replaced, whether it was replaced, and its `# ` line. A question
@@ -2527,17 +2760,19 @@ def list_notes(args, v):
     rows = [p for p in sorted(v.notes) if (not args.p or area(p) == args.p)
             and (not kind or kind in (v.notes[p]["kind"], family(v.notes[p]["kind"])))]
     cap = len(rows) if getattr(args, "all", False) else LIST_MAX
+    built, newest = drop_marks(v)
     print(f"## {len(rows)} notes" + (f" of {args.p}/" if args.p else "") + (f" of kind {kind}" if kind else "")
           + " — one line each: built on (a note of another folder with its folder) · replaces · replaced by · used in other folders")
     for p in rows[:cap]:
         n = v.notes[p]
         name = lambda q: v.notes[q]["id"] if area(q) == area(p) else q[:-3]  # noqa: E731
         frm = [name(e["dst"]) + (" (replaced)" if v.notes[e["dst"]]["superseded_by"] else "")
-               for e in v.frm[p] if e["rel"] == "from" and e["dst"] in v.notes]
+               for e in v.frm[p] if e["rel"] == "from" and e["dst"] in v.notes] + [f"{i} (dropped)" for i in built.get(p, [])]
         sup = [name(e["dst"]) for e in v.frm[p] if e["rel"] == "supersedes" and e["dst"] in v.notes]
         out = sorted(e["src"][:-3] for e in v.down[p] if e["rel"] == "from" and e["src"] in v.notes and area(e["src"]) != area(p))
         print(f"▸ {p} · {n['kind']} · {n['updated']}" + (f" · from {', '.join(frm)}" if frm else "")
               + (f" · supersedes {', '.join(sup)}" if sup else "") + chain_mark(v.notes, n)
+              + (f" · its replacement {', '.join(newest[p])} was dropped" if p in newest else "")
               + (f" · used in {', '.join(out)}" if out else "") + f" — {n['title'][:110]}")
     if len(rows) > cap:
         print(f"  ({len(rows) - cap} more: narrow it with -p <folder> or --kind <kind>, or print them all with --all)")
@@ -2562,6 +2797,7 @@ def ask(args, root):
     v = open_view(root)
     if getattr(args, "list", False):
         return list_notes(args, v)
+    built, newest = drop_marks(v)
     qs = [q.strip() for q in (args.questions or []) for q in q.split("\n") if q.strip()]
     if args.file:
         qs += [q.strip() for q in read(Path(args.file)).split("\n") if q.strip()]
@@ -2719,15 +2955,18 @@ def ask(args, root):
         if not n:
             return f"▸ {path}"
         s = f"▸ {path} · {n['kind']} · {n['updated']}"
-        f = [v.notes[e["dst"]]["id"] for e in v.frm[path] if e["rel"] == "from"]
+        f = [v.notes[e["dst"]]["id"] for e in v.frm[path] if e["rel"] == "from"] + [f"{i} (dropped)" for i in built.get(path, [])]
         sup = [v.notes[e["dst"]]["id"] for e in v.frm[path] if e["rel"] == "supersedes"]
         s += f" · from {', '.join(f)}" if f else ""
         s += f" · supersedes {', '.join(sup)}" if sup else ""
-        return s + chain_mark(v.notes, n)
+        return s + chain_mark(v.notes, n) + (f" · its replacement {', '.join(newest[path])} was dropped" if path in newest else "")
 
     def body(path):
-        """Compact note: title and body lines, no frontmatter, no blanks."""
-        ls, n = read(root / path).split("\n"), v.notes.get(path, {})
+        """Compact note: title and body lines, no frontmatter, no blanks. A file gone since the dream has none."""
+        try:
+            ls, n = read(root / path).split("\n"), v.notes.get(path, {})
+        except OSError:
+            return []
         start = (n.get("line") or 1) - 1
         return [(i + 1, ln) for i, ln in enumerate(ls) if i >= start and ln.strip()]
 
@@ -3314,6 +3553,9 @@ def main(argv=None):
     vz = sp.add_parser("viz", parents=[common], help="write the HTML viewer (dream refreshes it too)")
     vz.add_argument("--out", help="output file (default memory/_dream/graph.html)")
     sp.add_parser("check", parents=[common], help="warnings in full")
+    dr = sp.add_parser("drop", parents=[common], help="remove a note or a folder: prints what goes with it, acts with --yes")
+    dr.add_argument("target", help="a note (its path or its id) or a folder")
+    dr.add_argument("--yes", action="store_true", help="delete it, leave a tombstone in CONFLICTS.md, rebuild with no model")
     ex = sp.add_parser("export", parents=[common], help="the graph as CSV + Cypher for a graph database (no driver needed)")
     ex.add_argument("--to", required=True, help="output directory")
     lg = sp.add_parser("log", parents=[common], help="append to today's log")
@@ -3322,13 +3564,13 @@ def main(argv=None):
     args = ap.parse_args(argv)
     root = find_root(args.root or args.root0)
     load_domain(root)
-    if args.verb in ("dream", "log") or (args.verb == "viz" and not args.out):  # REVIEW.md §8 R2: never write there
+    if args.verb in ("dream", "log", "drop") or (args.verb == "viz" and not args.out):  # REVIEW.md §8 R2: never write there
         why = claude_code_owned(root)
         if why:
             sys.stderr.write(f"memory.py: {root} is Claude Code's own memory ({why}); memory-dream reads it but never "
                              "writes there. Point --root at your notes.\n")
             sys.exit(2)
-    {"dream": dream, "ask": ask, "viz": viz, "check": check, "log": log, "export": export}[args.verb](args, root)
+    {"dream": dream, "ask": ask, "viz": viz, "check": check, "log": log, "export": export, "drop": drop}[args.verb](args, root)
 
 
 if __name__ == "__main__":

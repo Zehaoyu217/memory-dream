@@ -639,7 +639,7 @@ or to a fresh worker given the packet, at most twice. After that, it stops and r
 
 ## Appendix A — the contract surface, verbatim: `skills/memory-dream/SKILL.md` and the dreamer agent
 
-_Part 5 · copied at commit 2b029cb. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
+_Part 5 · copied at commit f5a87e1. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
 
 ```markdown
 ---
@@ -680,7 +680,11 @@ truth; everything else is derived and disposable. `memory.py` = `python3 <this s
    period, the sample), and the date; sources (tables, documents, queries, tickets) in backticks. ≤ 40 lines, plain
    markdown, nothing about the memory system. Taste is said once, in passing ("no pie charts", "round to one decimal
    for the board"): save it then — `prefs/<first>-<last>-<topic>.md` (your user's own: `prefs/me-<topic>.md`): the rule,
-   where it applies, why. When it changes, a new note with `supersedes:`.
+   where it applies, why. When it changes, a new note with `supersedes:`. A note that restates another note or a
+   document says so: `source: [path]`. To take a note out altogether (a mistake, wrong material, a request to forget
+   it): `memory.py drop <note or folder>` prints what goes with it and `--yes` does it. Never delete a note's file by
+   hand: the note it had replaced would read as current again. Notes built on a dropped note stay and say so; notes
+   made from it alone go with it.
 3. **Dream at the end.** `memory.py dream` (background is fine) refreshes `_dream/graph.html` — the map, what is worth
    checking, the review queue — the digest `memory/DIGEST.md` and the index. With `$MEMORY_LLM` set (e.g. `claude -p
    --model haiku --tools ""`) a cheap model also names the things each note mentions and the typed links between them;
@@ -696,7 +700,8 @@ asked to use what these files list; a word that fits nothing is kept as `other/<
 review once it is common. A hand-written line is permanent and costs no model calls: the graph is re-derived from the
 cached readings. Add types freely; to retire one, merge it (add it to another type's `aka`) rather than delete it, so
 nothing already read is lost. `ALIASES.md` (`- canonical = other-id`, `not: a / b`) and `CONFLICTS.md` (`- a > b`
-makes a supersede b without touching either note) are the other two files at the root that are yours.
+makes a supersede b without touching either note; `dropped: …` lines are written by `drop`, leave them) are the other
+two files at the root that are yours.
 
 ## Beside Claude Code's own memory (when you are Claude Code)
 CLAUDE.md holds standing instructions people wrote; auto memory holds what you learned about the user; these notes
@@ -724,7 +729,7 @@ Touch nothing else.
 
 ## Appendix B — the graph contract, verbatim: `.specs/memory-dream/CONTRACT.md`
 
-_Part 6 · copied at commit 2b029cb. Schema 1; `memory.py check` validates against it (A38)._
+_Part 6 · copied at commit f5a87e1. Schema 1; `memory.py check` validates against it (A38)._
 
 ## memory-dream — the graph contract (schema 1)
 
@@ -759,7 +764,15 @@ Produced by `build()`, written as `_dream/graph.json` (≤ `MEMORY_WIDE` notes) 
 | `proposed_types` | list of label | type words (things typed outside TYPES.md) over the `promote` bar of TYPES.md, offered to the review |
 | `tvocab` | object | the same shape as `vocab`, for TYPES.md |
 | `dedup` | object | counters from entity merging (`mentions`, `ids_as_written`, `after_folding`, …) |
-| `checks` | list of `{code, msg}` | warnings, sorted by code; codes `C1`–`C13` (§5) |
+| `checks` | list of `{code, msg}` | warnings, sorted by code; codes `C1`–`C15` (§5) |
+| `dropped` | list, optional | what `drop` recorded: `{path, date, replaced, built_on_by, left_newest}` (below) |
+
+**dropped** — one entry per `dropped:` line of `CONFLICTS.md`, and one per dropped note inside a dropped folder that
+a note still names. `path`: the note, or the folder with a closing `/`; never a note that exists. `replaced`: what
+the line says the note had replaced. `built_on_by`: notes whose `from:` names it (they stay; C14). `left_newest`:
+notes it had replaced that no note replaces now (C14). Who had replaced a dropped note replaces what it had replaced:
+those are ordinary `supersedes` edges with `by: "drop"`. The same list is in `manifest.json`, where `ask` reads it on
+a memory too large for `graph.json`.
 
 **note** — `{path, id, project, title, line, kind, updated, superseded_by, sha, indexed}`
 - `title`: the text of the first `# ` line outside code fences (`""` when none → C6); `line`: its file line (0 when none).
@@ -778,9 +791,11 @@ Produced by `build()`, written as `_dream/graph.json` (≤ `MEMORY_WIDE` notes) 
 - `sha`: first 12 hex of the note's SHA-256; `indexed`: an extraction exists for this sha.
 
 **edge** — `{src, dst, rel}` with `rel ∈ {from, supersedes, refs}`; `by: "review"` marks a supersession recorded in
-`CONFLICTS.md`. `from` and `supersedes` come from frontmatter (resolution: relative path, exact path, unique filename,
-same-project filename → C1 if ambiguous, then moved paths; unresolved → C2). `refs`: `[[links]]`, the dreamer's refs,
-and body slugs that name a note in the same project or a unique note anywhere.
+`CONFLICTS.md`, `by: "drop"` one passed on by a tombstone. `from` and `supersedes` come from frontmatter (resolution:
+relative path, exact path, unique filename, same-project filename → C1 if ambiguous, then moved paths; a target that
+`drop` recorded → C14 for `from`, and for `supersedes` an edge to each note the dropped one had replaced; otherwise
+unresolved → C2). `refs`: `[[links]]`, the dreamer's refs, and body slugs that name a note in the same project or a
+unique note anywhere.
 
 **entity** — `{id, type, home, aka, names, headline, mentions}`
 - `id`: canonical (the `ALIASES.md` lead, else the most-used spelling); `type`: lowercase, a type of `TYPES.md` (the
@@ -847,7 +862,9 @@ relation is "current" when one of its evidence notes is live).
   `x(sha, mt, rec)` the extraction, valid while its file's mtime matches.
 - `manifest.json` — `v`, `code` (hash of memory.py), `files {path: {sha, mtime, size}}`, `former {path: [old paths]}`,
   `vsig` (hash of EDGES + ALIASES + CONFLICTS + KINDS + TYPES), `registry` (the type names of EDGES.md and TYPES.md at
-  the last dream, for C13), `seen`, `queue`, `failed`, `attempts`, `refs`, `dreamed`, `unindexed`, `due`. A dream with
+  the last dream, for C13), `seen`, `queue`, `failed`, `attempts`, `refs`, `dreamed`, `unindexed`, `due`, `dropped`
+  (the graph's list, §1), `gone {path: {seen, replaced, replaced_by, built_on_by}}` (notes that left without a `drop`,
+  with where they stood at the dream that noticed: C15, and what `drop` needs to record them later). A dream with
   nothing changed in any of these stops after the scan.
 - `pending/` — `<sha12>.prompt.md` and `review.prompt.md` written by `dream --prompts`, answered as `.json` by a helper
   agent; `TODO.md` lists them. `lock` — pid of a running dream.
@@ -863,7 +880,10 @@ unparseable line in EDGES.md, ALIASES.md or CONFLICTS.md · `C9` NUL bytes in a 
 metric, `owned-by` → party, `replaces` the same family on both sides; families by the class tree below): retype the
 entity or drop the relation · `C13` a type removed by hand from EDGES.md or TYPES.md while cached readings still use
 its word: the readings show as `other/<word>`; merge the type into another (add the word to that type's `aka`) or
-restore the line. `C7` covers type words of TYPES.md as it covers relation labels.
+restore the line. `C7` covers type words of TYPES.md as it covers relation labels. `C14` a note built on a dropped
+note, or a note whose replacement was dropped and which is the newest left of its line · `C15` a note that is gone
+without a `drop`: nothing is written or deleted for it; `memory.py drop <path> --yes` records it, or the file comes
+back.
 
 ### 6. The user-owned files
 
@@ -887,8 +907,11 @@ the word, or drop it; a proposed type still under the bar after the probation is
 
 `EDGES.md` (types of link): the same settings and `pack: software, research, ops` · type lines with `aka: a, ~b` (`~` =
 read in reverse), `shape: s → o` (`*` for any; `same`) · `drop: a, b`. `ALIASES.md`: `- canonical = other, …` ·
-`not: a / b`. `CONFLICTS.md`: `- a > b` (a supersedes b) · `compatible: a / b` · `- a ? b` (unsure). `DIGEST.md`:
-generated by every dream, ≤ 40 lines, never edited by hand. Removing a type line from `EDGES.md` or `TYPES.md` loses
+`not: a / b`. `CONFLICTS.md`: `- a > b` (a supersedes b) · `compatible: a / b` · `- a ? b` (unsure) · `dropped:
+<note.md | folder/> (YYYY-MM-DD) > <what it had replaced>, …`, written by `memory.py drop` and by nothing else: the
+build reads it as a pass-through in a line of replacements, so a clone with no `_dream/` builds the same lineage.
+Deleting the line and restoring the file undoes a drop; a line whose note exists is reported (C8) and ignored.
+`DIGEST.md`: generated by every dream, ≤ 40 lines, never edited by hand. Removing a type line from `EDGES.md` or `TYPES.md` loses
 nothing (C13 reports it and the readings fall back to `other/<word>`); merging is the intended way to retire one.
 
 
@@ -896,7 +919,7 @@ nothing (C13 reports it and the readings fall back to `other/<word>`); merging i
 
 ## Appendix C — the build guide, verbatim: `BUILD-GUIDE.md` §3–§10
 
-_Part 7 · copied at commit 2b029cb. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
+_Part 7 · copied at commit f5a87e1. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
 
 ### 3. The design in one page
 
@@ -1002,9 +1025,19 @@ hash in `_dream/store.db` so a dream re-reads only changed notes.
 - Edges: `from` and `supersedes` resolved by relative path, then exact path, then unique filename, then same-project
   filename (warning C1 if ambiguous), then moved paths; unresolved → C2. Plus `refs`: `[[links]]`, the dreamer's refs,
   and any body slug that names a note in the same project.
+- Tombstones (`parse_dropped`): a line `dropped: <note.md | folder/> (date) > <what it had replaced>` in
+  `CONFLICTS.md`, written only by `memory.py drop`. A reference that finds no note and names a tombstone is not C2:
+  a `from:` marks the note as built on a dropped note (C14), a `supersedes:` becomes an edge to each note the dropped
+  one had replaced, followed through further tombstones (`by: "drop"`). So a line of replacements holds when a note
+  in its middle leaves, on any clone, with no old graph. The graph's `dropped` list carries what was recorded.
+- `drop <note | folder> [--yes]`: prints what goes with the target and stops; with `--yes` deletes the files and their
+  readings, appends the tombstones, and runs the dream's plan, graph and write stages with no model. Notes whose every
+  `source:` is dropped go too. A file that is gone without a drop is never treated as one: the dream keeps where it
+  stood in the manifest (`gone`) and reports C15 with the command.
 - Warnings: C1 ambiguous, C2 not found, C3 indexing failed, C4 dropped ungrounded entity/relation, C5 unindexed,
   C6 no `# ` line, C7 review pending (labels, budget), C8 bad EDGES/ALIASES/CONFLICTS line, C9 NUL bytes in a note
-  (binary-looking), C10 conflict pending, C11 a note over 40 lines.
+  (binary-looking), C10 conflict pending, C11 a note over 40 lines, C14 built on a dropped note or left the newest of
+  its line by a drop, C15 gone without a drop.
 
 #### 5.5 The graph, vocabulary half (`build`, `merge_entities`)
 
@@ -1135,7 +1168,7 @@ Per question:
 #### 5.8b The graph contract
 
 `.specs/memory-dream/CONTRACT.md` is the authority on every shape `memory.py` writes and reads: the graph (`graph.json`,
-`index.db`), the viewer's data island, the extraction cache, `store.db`, the manifest, the warning codes C1–C13 and the
+`index.db`), the viewer's data island, the extraction cache, `store.db`, the manifest, the warning codes C1–C15 and the
 grammar of EDGES.md, ALIASES.md, CONFLICTS.md and DIGEST.md. Every graph carries `schema: 1`; `validate()` checks a
 graph against the contract, `memory.py check` prints the result first, and A38 enforces it on the fixture (graph,
 `index.db` round trip, island). Build the viewer against the contract, never against the code.
@@ -1247,6 +1280,7 @@ when the page opens (tab order Timeline · Map · Connections; `#view=map` and `
 
 ```bash
 python3 tests/acceptance.py            # 40 checks, A1–A20, A24, A25–A43, with the fake dreamer, about 30 s
+python3 tests/e2e.py                   # one run on both read paths: dream, ask, a file gone by hand, drop a note, the end of a line, a folder
 python3 tests/retrieval_gate.py bank   # the model-free numbers with floors (README Results); `software` for the second fixture
 MEMORY_STORE_URL=postgresql://… python3 tests/store_parity.py postgres --bank   # needs psycopg: the PostgreSQL store (ADR-001)
 python3 tests/acceptance.py A6 A24     # some
@@ -1422,7 +1456,7 @@ preferences 0.95 when the task names them, 0.84 when it names only their meeting
 
 ## Appendix D — prompts, seeds and tuned tables, verbatim from `memory.py`
 
-_Part 8 · extracted at commit 2b029cb by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
+_Part 8 · extracted at commit f5a87e1 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
 
 ### D.1 `EXTRACT` — the per-note prompt: fixed guidance, then `KINDS:`, `TYPES:`, `EDGES:` and `KNOWN:` from the registries (the static part is cached), then `NOTE`
 

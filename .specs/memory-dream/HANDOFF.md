@@ -277,9 +277,11 @@ Verified at the end: `tests/acceptance.py` 40 of 40; the three retrieval gates (
 
 Open, in the order I would take them:
 
-1. Step 0 of the plan: `ask` crashing on a big memory after a deletion, and `drop` with its tombstone.
+1. Step 0 of the plan: done the same day, RESULTS phase M. `memory.py drop <note | folder> [--yes]` writes a
+   `dropped:` line in CONFLICTS.md that the build reads as a pass-through; a file deleted by hand is reported (C15)
+   and nothing is written for it; `ask` survives a missing file on both read paths. `tests/e2e.py` is new and in CI.
 2. The rest of step 1: origins and `absorb`, pointers, packets and `--dry-run`, tags, the setup section of the
-   skill, the page's filters, `tests/e2e.py`.
+   skill, the page's filters; each adds its lines to `tests/e2e.py`.
 3. Small things this phase found and left: the own note of a thing when no folder wins the call (C-h1 Q6 is served
    only because its folder is printed whole); a check of each kind prefix against the readings at setup (`inc-`);
    `(weak match: … found nowhere in memory)` says "memory" when the search was scoped to one folder; "built directly

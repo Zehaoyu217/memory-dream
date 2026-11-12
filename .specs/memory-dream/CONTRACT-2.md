@@ -102,6 +102,11 @@ A reading that came with a note is used, and that note is not sent to a keeper u
 5. A file that is gone without a drop is reported (`C15`) and nothing is written or deleted.
 6. `ask` never fails on a note that is gone, on a small memory, a big one or a store.
 
+Built in phase M, inside schema 1, and written into `CONTRACT.md` (§1 `dropped`, §4 `gone`, §5, §6). Two things came
+out other than drafted here. The marks are not fields of a note: they are in the graph's `dropped` list
+(`built_on_by`, `left_newest`) and in the manifest, so no store had to change. And a note whose replacement was
+dropped with nothing after it becomes the newest left of its line, also `C14`.
+
 ## 7. Origins
 
 1. A folder with an `ORIGIN.md` is an origin. Its next folder level is the area; kinds by area and the areas that
@@ -126,8 +131,8 @@ new line is printed) · changed · gone. A note with a changed or gone pointer i
 
 ## 9. The graph
 
-`schema: 2`. Added: on a note `tags`, `source`, `origin`, `pointers` `[{to, line, state}]`, `built_on_dropped`; at
-the top `dropped` `[{path, date, replaced}]`. `project` stays the first folder for a host note and becomes
+`schema: 2`. Added: on a note `tags`, `source`, `origin`, `pointers` `[{to, line, state}]`; at the top `dropped`
+`[{path, date, replaced, built_on_by, left_newest}]` (already there in schema 1 since phase M). `project` stays the first folder for a host note and becomes
 `<origin>/<area>` under an origin. New warnings: `C14`, `C15`, `C16`.
 
 ## 10. Words of one field that stay in the code

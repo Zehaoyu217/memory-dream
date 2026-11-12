@@ -235,7 +235,8 @@ without one, a person meets the likely pairs first.
 | add | write the note file; `memory.py log "…" -p <project>` for a scratch line that is not yet a note |
 | maintain | `memory.py dream` at the end of a session (safe in the background; stops early when nothing changed); `memory.py check`; `memory.py viz` |
 | retire a conclusion | write the new note with `supersedes`; both stay, the new one counts |
-| delete a note | delete the file; the next `dream` drops it and warns about notes that still link to it |
+| take a note out | `memory.py drop <note or folder>` prints what goes with it; `--yes` deletes the file and its reading, leaves one `dropped:` line in `CONFLICTS.md` and rebuilds with no model. Who had replaced it now replaces what it had replaced; notes made from it alone (`source:`) go with it; notes built on it stay and say so |
+| a file deleted by hand | not a drop: the next `dream` reports it (C15) with the command that records it, and writes and deletes nothing |
 | move or rename a note | move the file; the next `dream` recognises the same content at the new path |
 | start over | delete `memory/_dream/`; the next `dream` rebuilds it (the model re-reads notes whose results were deleted) |
 
@@ -426,11 +427,11 @@ The first reviewer, asked about 178 common labels, answered "new type" to all of
 - The graph is used for answering in five ways: synonyms, lineage order, one line of typed links per named thing, a
   boost for notes that mention a named thing, and a two-step walk to the notes of what a thing is built from for input
   questions. It is not used for ranking, and no other relation type is walked (RESULTS phase I).
-- Deleting a note is safe for the graph and not for lineage. The things and links that rested only on it go at the
-  next dream, but if it sat in the middle of a supersession chain, the note it had replaced is shown as current again
-  (23 of the bank's 1,677 notes sit like that), and notes built on it get only a "not found" warning. On a memory
-  over `MEMORY_WIDE` notes, `ask` fails with a file-not-found error from the deletion until the next dream.
-  Supersede a note; do not delete it (RESULTS phase K).
+- A note leaves through `memory.py drop`, not by deleting its file. Dropped, the note it had replaced stays replaced
+  by whoever replaced the dropped one (23 of the bank's 1,677 notes sit in the middle of a line like that), and
+  notes built on it say they are built on a dropped note. A file deleted by hand is reported at the next dream and
+  until then the note it had replaced reads as current. Dropping follows `source:` (made from it) and not `from:`
+  (built on it): following `from:` would take a median of 2 notes and up to 54 with one (RESULTS phases K and M).
 - An agent takes `ask`'s silence for absence, and makes one call. Since phase L a call says when a folder is printed
   whole and when a section is only the best matches of a folder the question names. A question that names no folder
   and falls in a call about several projects gets neither line: a thing's own note is not always headed there, and

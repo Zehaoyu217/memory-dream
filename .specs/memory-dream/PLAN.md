@@ -7,7 +7,8 @@ experiments, and four more measurements were made. This draft is what survived.
 **Status, the same day.** The owner took every recommendation of §15 and asked first why the memory was graded
 below grep. That question was answered before anything else was built (RESULTS phase L), and it built most of §11:
 items 2, 4 and 5 are in `ask`, item 1 in the case that was measured. §11 and §14 carry what the measurements
-changed. Step 0 and the rest of step 1 are not started.
+changed. Step 0 is built (RESULTS phase M): `memory.py drop`, the tombstone, and an `ask` that survives a missing
+file; §8 says where the build went past the draft. The rest of step 1 is not started.
 
 The contract field by field is `CONTRACT-2.md`. Every number has a command, all without a model:
 `python3 eval/contract_probe.py <bank-index world>` (drop, absorb, documents, sets), `python3 eval/agent/arms.py`
@@ -256,6 +257,12 @@ from the first draft as too heavy; at a fortieth of the price per token it is th
 Following `from:` instead would take a median of 2 notes, 18 at the ninetieth percentile and up to 54 across
 three projects for one dropped note. That stays the owner's call (§15).
 
+Built in phase M as written, with four things the draft had left open. A folder is one line, and one more for each
+note in it that a note outside still names. When the dropped note was the newest of its line, the note it had
+replaced becomes the newest left and says that its replacement was dropped. A file that is gone is remembered in the
+manifest with where it stood, so `drop` can still record it after a dream has run. And `drop` rebuilds the graph
+itself, with no model, so nothing reads a half-dropped memory.
+
 ## 9. Absorbing another base
 
 1. **An origin is a folder with an `ORIGIN.md` in it**: what it is, where it came from, when, and what it is trusted
@@ -341,7 +348,7 @@ And the line to watch is the 100K prompt: the map of a whole kind is 38,000 char
 ## 13. The order of work
 
 **Step 0, two defects of v0.4, no model.** `ask` must not crash on a big memory or a store when a note is gone.
-A dropped note must not bring back the note it replaced (`drop` and the tombstone, §8).
+A dropped note must not bring back the note it replaced (`drop` and the tombstone, §8). *Done: RESULTS phase M.*
 
 **Step 1, no model.**
 
@@ -376,7 +383,9 @@ A dropped note must not bring back the note it replaced (`drop` and the tombston
 
 `tests/e2e.py`, no model, under two minutes, once on the small path and once with `MEMORY_WIDE=5`: set up a base,
 absorb documents and the policy graph, dream, ask (a lookup, a filter, an entity's own note, inputs, a question
-across origins), drop a note from the middle of a chain and drop an origin, check what is left, open the page.
+across origins), drop a note from the middle of a chain and drop an origin, check what is left, open the page. It
+exists since phase M with the dream, the ask and the drop parts (19 lines a path, a few seconds); each item of
+step 1 adds its lines.
 
 | measure | v0.4 today | floor for v0.5 |
 |---|---|---|
@@ -386,7 +395,7 @@ across origins), drop a note from the middle of a chain and drop an origin, chec
 | the own note headed when a question names an entity that has one | not measured; fails for recall@10 | 0.95 |
 | the inputs of an entity named in full | fails for `sfc-hier-v3` in every arm; after phase L the call prints all 17, and Haiku names the first four | 0.95 |
 | a set by filter | 0.47 by question; after phase L Haiku answers 37 of 37 set questions exactly with the map | the whole set, by construction |
-| after `drop` | the chain cut; a crash on a big memory | the chain holds; no crash; nothing derived left |
+| after `drop` | the chain cut; a crash on a big memory; after phase M the chain holds, no crash, the reading gone, 5 of 5 notes built on it marked | the chain holds; no crash; nothing derived left |
 | the host's answers changed by an absorb | 21 of 326 | 0 until something is joined |
 | an absorbed base's preference notes | lose their kind (0 of 2 kept) | keep their kind (2 of 2) and are never served as the host's own |
 | pointers checked | none | every pointer has a state |

@@ -36,7 +36,11 @@ truth; everything else is derived and disposable. `memory.py` = `python3 <this s
    period, the sample), and the date; sources (tables, documents, queries, tickets) in backticks. ≤ 40 lines, plain
    markdown, nothing about the memory system. Taste is said once, in passing ("no pie charts", "round to one decimal
    for the board"): save it then — `prefs/<first>-<last>-<topic>.md` (your user's own: `prefs/me-<topic>.md`): the rule,
-   where it applies, why. When it changes, a new note with `supersedes:`.
+   where it applies, why. When it changes, a new note with `supersedes:`. A note that restates another note or a
+   document says so: `source: [path]`. To take a note out altogether (a mistake, wrong material, a request to forget
+   it): `memory.py drop <note or folder>` prints what goes with it and `--yes` does it. Never delete a note's file by
+   hand: the note it had replaced would read as current again. Notes built on a dropped note stay and say so; notes
+   made from it alone go with it.
 3. **Dream at the end.** `memory.py dream` (background is fine) refreshes `_dream/graph.html` — the map, what is worth
    checking, the review queue — the digest `memory/DIGEST.md` and the index. With `$MEMORY_LLM` set (e.g. `claude -p
    --model haiku --tools ""`) a cheap model also names the things each note mentions and the typed links between them;
@@ -52,7 +56,8 @@ asked to use what these files list; a word that fits nothing is kept as `other/<
 review once it is common. A hand-written line is permanent and costs no model calls: the graph is re-derived from the
 cached readings. Add types freely; to retire one, merge it (add it to another type's `aka`) rather than delete it, so
 nothing already read is lost. `ALIASES.md` (`- canonical = other-id`, `not: a / b`) and `CONFLICTS.md` (`- a > b`
-makes a supersede b without touching either note) are the other two files at the root that are yours.
+makes a supersede b without touching either note; `dropped: …` lines are written by `drop`, leave them) are the other
+two files at the root that are yours.
 
 ## Beside Claude Code's own memory (when you are Claude Code)
 CLAUDE.md holds standing instructions people wrote; auto memory holds what you learned about the user; these notes

@@ -31,7 +31,15 @@ Produced by `build()`, written as `_dream/graph.json` (≤ `MEMORY_WIDE` notes) 
 | `proposed_types` | list of label | type words (things typed outside TYPES.md) over the `promote` bar of TYPES.md, offered to the review |
 | `tvocab` | object | the same shape as `vocab`, for TYPES.md |
 | `dedup` | object | counters from entity merging (`mentions`, `ids_as_written`, `after_folding`, …) |
-| `checks` | list of `{code, msg}` | warnings, sorted by code; codes `C1`–`C13` (§5) |
+| `checks` | list of `{code, msg}` | warnings, sorted by code; codes `C1`–`C15` (§5) |
+| `dropped` | list, optional | what `drop` recorded: `{path, date, replaced, built_on_by, left_newest}` (below) |
+
+**dropped** — one entry per `dropped:` line of `CONFLICTS.md`, and one per dropped note inside a dropped folder that
+a note still names. `path`: the note, or the folder with a closing `/`; never a note that exists. `replaced`: what
+the line says the note had replaced. `built_on_by`: notes whose `from:` names it (they stay; C14). `left_newest`:
+notes it had replaced that no note replaces now (C14). Who had replaced a dropped note replaces what it had replaced:
+those are ordinary `supersedes` edges with `by: "drop"`. The same list is in `manifest.json`, where `ask` reads it on
+a memory too large for `graph.json`.
 
 **note** — `{path, id, project, title, line, kind, updated, superseded_by, sha, indexed}`
 - `title`: the text of the first `# ` line outside code fences (`""` when none → C6); `line`: its file line (0 when none).
@@ -50,9 +58,11 @@ Produced by `build()`, written as `_dream/graph.json` (≤ `MEMORY_WIDE` notes) 
 - `sha`: first 12 hex of the note's SHA-256; `indexed`: an extraction exists for this sha.
 
 **edge** — `{src, dst, rel}` with `rel ∈ {from, supersedes, refs}`; `by: "review"` marks a supersession recorded in
-`CONFLICTS.md`. `from` and `supersedes` come from frontmatter (resolution: relative path, exact path, unique filename,
-same-project filename → C1 if ambiguous, then moved paths; unresolved → C2). `refs`: `[[links]]`, the dreamer's refs,
-and body slugs that name a note in the same project or a unique note anywhere.
+`CONFLICTS.md`, `by: "drop"` one passed on by a tombstone. `from` and `supersedes` come from frontmatter (resolution:
+relative path, exact path, unique filename, same-project filename → C1 if ambiguous, then moved paths; a target that
+`drop` recorded → C14 for `from`, and for `supersedes` an edge to each note the dropped one had replaced; otherwise
+unresolved → C2). `refs`: `[[links]]`, the dreamer's refs, and body slugs that name a note in the same project or a
+unique note anywhere.
 
 **entity** — `{id, type, home, aka, names, headline, mentions}`
 - `id`: canonical (the `ALIASES.md` lead, else the most-used spelling); `type`: lowercase, a type of `TYPES.md` (the
@@ -119,7 +129,9 @@ relation is "current" when one of its evidence notes is live).
   `x(sha, mt, rec)` the extraction, valid while its file's mtime matches.
 - `manifest.json` — `v`, `code` (hash of memory.py), `files {path: {sha, mtime, size}}`, `former {path: [old paths]}`,
   `vsig` (hash of EDGES + ALIASES + CONFLICTS + KINDS + TYPES), `registry` (the type names of EDGES.md and TYPES.md at
-  the last dream, for C13), `seen`, `queue`, `failed`, `attempts`, `refs`, `dreamed`, `unindexed`, `due`. A dream with
+  the last dream, for C13), `seen`, `queue`, `failed`, `attempts`, `refs`, `dreamed`, `unindexed`, `due`, `dropped`
+  (the graph's list, §1), `gone {path: {seen, replaced, replaced_by, built_on_by}}` (notes that left without a `drop`,
+  with where they stood at the dream that noticed: C15, and what `drop` needs to record them later). A dream with
   nothing changed in any of these stops after the scan.
 - `pending/` — `<sha12>.prompt.md` and `review.prompt.md` written by `dream --prompts`, answered as `.json` by a helper
   agent; `TODO.md` lists them. `lock` — pid of a running dream.
@@ -135,7 +147,10 @@ unparseable line in EDGES.md, ALIASES.md or CONFLICTS.md · `C9` NUL bytes in a 
 metric, `owned-by` → party, `replaces` the same family on both sides; families by the class tree below): retype the
 entity or drop the relation · `C13` a type removed by hand from EDGES.md or TYPES.md while cached readings still use
 its word: the readings show as `other/<word>`; merge the type into another (add the word to that type's `aka`) or
-restore the line. `C7` covers type words of TYPES.md as it covers relation labels.
+restore the line. `C7` covers type words of TYPES.md as it covers relation labels. `C14` a note built on a dropped
+note, or a note whose replacement was dropped and which is the newest left of its line · `C15` a note that is gone
+without a `drop`: nothing is written or deleted for it; `memory.py drop <path> --yes` records it, or the file comes
+back.
 
 ## 6. The user-owned files
 
@@ -159,6 +174,9 @@ the word, or drop it; a proposed type still under the bar after the probation is
 
 `EDGES.md` (types of link): the same settings and `pack: software, research, ops` · type lines with `aka: a, ~b` (`~` =
 read in reverse), `shape: s → o` (`*` for any; `same`) · `drop: a, b`. `ALIASES.md`: `- canonical = other, …` ·
-`not: a / b`. `CONFLICTS.md`: `- a > b` (a supersedes b) · `compatible: a / b` · `- a ? b` (unsure). `DIGEST.md`:
-generated by every dream, ≤ 40 lines, never edited by hand. Removing a type line from `EDGES.md` or `TYPES.md` loses
+`not: a / b`. `CONFLICTS.md`: `- a > b` (a supersedes b) · `compatible: a / b` · `- a ? b` (unsure) · `dropped:
+<note.md | folder/> (YYYY-MM-DD) > <what it had replaced>, …`, written by `memory.py drop` and by nothing else: the
+build reads it as a pass-through in a line of replacements, so a clone with no `_dream/` builds the same lineage.
+Deleting the line and restoring the file undoes a drop; a line whose note exists is reported (C8) and ignored.
+`DIGEST.md`: generated by every dream, ≤ 40 lines, never edited by hand. Removing a type line from `EDGES.md` or `TYPES.md` loses
 nothing (C13 reports it and the readings fall back to `other/<word>`); merging is the intended way to retire one.

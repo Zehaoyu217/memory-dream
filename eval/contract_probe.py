@@ -6,7 +6,8 @@
 Six experiments, each on a throwaway copy; the memory given is never written to. The numbers are quoted in
 .specs/memory-dream/PLAN.md (rev 3) and RESULTS.md phase K.
 
-  1 drop       delete one note in the middle of a supersession chain, dream, list what is left of it
+  1 drop       one note in the middle of a supersession chain, deleted by hand and then taken out with `memory.py
+               drop`: what is left of it each way
   2 built on   how many notes a drop would take with it if it followed `from:` (why built-on notes are marked, not deleted)
   3 copy in    a second memory copied in under a folder: areas, kinds, lineage
   4 absorb     a graph someone else's model wrote (entity cards, relations.jsonl, its sources: eval/absorb/policy-kb)
@@ -97,7 +98,7 @@ def drop(src, tmp):
     solo = [e["id"] for e in g["entities"] if {m["path"] for m in e["mentions"]} == {pick}]
     head = lambda out: next((ln for ln in out.split("\n") if ln.startswith(f"▸ {pred} ")), "")  # noqa: E731
     stem = notes[pick]["id"]
-    print(f"  dropped {pick} ({len(kids[pick])} notes built on it; it replaced {pred}) → {line}")
+    print(f"  deleted by hand: {pick} ({len(kids[pick])} notes built on it; it replaced {pred}) → {line}")
     print(f"  derived graph: the note gone {pick not in n2} · things that were only there, gone {sum(e not in ents2 for e in solo)}/{len(solo)}"
           f" · links resting only on it, gone {sum(k not in rels2 for k in only)}/{len(only)}"
           f" · evidence still pointing at it {sum(pick in ev(r) for r in g2['relations'])}"
@@ -108,6 +109,24 @@ def drop(src, tmp):
     warn = [c for c in g2["checks"] if c["code"] == "C2" and stem in c["msg"]]
     print(f"  notes built on it: {len(left)} of {len(kids[pick])} still there, told apart only by {len(warn)} C2 lines ('… not found')")
     print(f"  its reading still in the cache: {(root / '_dream' / 'notes' / (notes[pick]['sha'] + '.json')).exists()} (kept 30 days)")
+    gone = [c["msg"] for c in g2["checks"] if c["code"] == "C15"]
+    print(f"  and the dream says so: {len(gone)} C15 line" + (f" — {gone[0][:150]}" if gone else ""))
+
+    # the same note taken out with `memory.py drop` (step 0 of the plan, RESULTS phase M)
+    root = copy(src, tmp, "drop-cmd")
+    line = [ln for ln in run(root, "drop", pick, "--yes").split("\n") if ln.startswith("dream:")][0]
+    after, g3 = run(root, "ask", q), graph(root)
+    n3 = {n["path"]: n for n in g3["notes"]}
+    rec = next(d for d in g3["dropped"] if d["path"] == pick)
+    tomb = [ln for ln in (root / "CONFLICTS.md").read_text().split("\n") if ln.startswith(f"dropped: {pick}")]
+    heads = run(root, "ask", "--list", "--all")
+    print(f"  taken out with `drop --yes`: {line}")
+    print(f"  lineage: {pred} superseded after {bool(n3[pred]['superseded_by'])}, by {', '.join(n3[pred]['superseded_by'])}"
+          f" · `ask` marks it SUPERSEDED {'SUPERSEDED' in head(after)}")
+    print(f"  notes built on it: {sum(k in n3 for k in kids[pick])} of {len(kids[pick])} still there, {len(rec['built_on_by'])} recorded, "
+          f"{sum(f'{stem} (dropped)' in ln for ln in heads.split(chr(10)))} say '(dropped)' on their line of the map, "
+          f"{sum(c['code'] == 'C14' for c in g3['checks'])} C14 lines, {sum(c['code'] == 'C2' and stem in c['msg'] for c in g3['checks'])} C2 lines")
+    print(f"  its reading in the cache: {(root / '_dream' / 'notes' / (notes[pick]['sha'] + '.json')).exists()} · in CONFLICTS.md: {tomb[0] if tomb else 'nothing'}")
 
     # 2: what a drop that followed from: would take
     def closure(p):
@@ -200,7 +219,8 @@ def gate_answers(root):
     out = {}
     for i in range(0, len(qs), 10):
         parts = re.split(r"^## (.*)$", run(root, "ask", *qs[i:i + 10]), flags=re.M)
-        out.update({parts[k].strip(): parts[k + 1] for k in range(1, len(parts) - 1, 2)})
+        asked = set(qs[i:i + 10])  # a folder printed whole at the end of a call has a heading too, and is not a question
+        out.update({parts[k].strip(): parts[k + 1] for k in range(1, len(parts) - 1, 2) if parts[k].strip() in asked})
     return out
 
 

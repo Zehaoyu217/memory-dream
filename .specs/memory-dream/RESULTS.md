@@ -1,6 +1,53 @@
 # memory-dream v0.4 — results
 
-2026-10-30 (round 4: 2026-10-31; phase I: 2026-11-02; phases J, K and L: 2026-11-11) · built from the "Memory" email spec (`build-spec.md`) · macOS, Python 3.9.6, Claude Code 2.1.314.
+2026-10-30 (round 4: 2026-10-31; phase I: 2026-11-02; phases J to M: 2026-11-11) · built from the "Memory" email spec (`build-spec.md`) · macOS, Python 3.9.6, Claude Code 2.1.314.
+
+# Phase M (2026-11-11) — step 0 of the plan: a note leaves on purpose
+
+Phase K found two defects in what happens when a note's file is deleted: the note it had replaced reads as current
+again, and on a memory over `MEMORY_WIDE` notes `ask` crashes until the next dream. The plan's answer (§8) is that a
+note leaves through one command and a file that is merely gone is never taken for a drop. This phase builds that.
+No model is involved anywhere in it.
+
+```bash
+python3 tests/e2e.py                                 # 19 lines on each of the two read paths, a few seconds
+python3 eval/contract_probe.py /tmp/w/memory         # experiment 1 now shows both ways on the bank
+```
+
+| on the bank, `fraud-2025/fraud25-gbm-v2.md` (it had replaced `fraud25-gbm-v1`; `fraud26-gbm-v1` had replaced it; 5 notes built on it) | its file deleted by hand | `memory.py drop … --yes` |
+|---|---|---|
+| the note it had replaced | reads as current | `SUPERSEDED → fraud26-gbm-v1 → fraud26-gbm-v2 → fraud26-gbm-v3` |
+| the 5 notes built on it | stay, with 6 `C2 … not found` lines | stay; `from …, fraud25-gbm-v2 (dropped)` on each header and each line of the map; 5 `C14` lines, no `C2` |
+| what the dream says | `C15`: gone without a drop, with the command that records it | `1 deleted`, 0 calls |
+| its reading | kept (30 days) | deleted with it |
+| what is written | nothing | one line in `CONFLICTS.md`: `dropped: fraud-2025/fraud25-gbm-v2.md (2026-11-11) > fraud-2025/fraud25-gbm-v1.md` |
+| `ask` on the big read path before the next dream | answered (it crashed in v0.4) | the drop rebuilds: 0.4 s for the 1,677 notes |
+
+- **The tombstone is the whole mechanism.** The build reads the line as a pass-through: a `supersedes:` that names a
+  dropped note becomes an edge to each note the dropped one had replaced, through further tombstones if those were
+  dropped too. Nothing else is stored, so a clone with no `_dream/` builds the same lineage; `tests/e2e.py` deletes
+  `_dream/` and checks it.
+- **A file that is gone is not a drop.** The dream writes and deletes nothing for it. It keeps where the note stood
+  (what it had replaced, what replaced it, what was built on it) in the manifest and says `C15` with the command, at
+  every dream until the file is back or the drop is recorded. `drop` on a file that is already gone works from that
+  record, or from the last graph when no dream has run since.
+- **Made from goes, built on stays.** A note whose every `source:` is dropped is dropped with it. A note that names
+  the dropped one on its `from:` line stays and says so. Following `from:` instead would take a median of 2 notes, 18
+  at the ninetieth percentile and up to 54 with one drop (K1).
+- **The end of a line.** When the dropped note was the newest and nothing had replaced it, the note it had replaced
+  becomes the newest left and its header says `its replacement … was dropped`. The plan did not say; this is the
+  reading that leaves a line with a current note. Dropping that one too is one more command.
+- **A folder** is one line, `dropped: churn-2025/ (date)`, and one more for each note in it that a note outside
+  still names: 2 lines for the 30 notes of `churn-2025/`, where one note of another project is built on one model.
+- **The crash.** A note that is gone stayed in the `superseded_by` of the note it had replaced, and `ask` puts a
+  successor above the note it replaced, so it opened a file that was not there. The rows-on-demand view now forgets
+  a gone note there, and reading a note's text survives a missing file.
+- `drop` prints what will go and what will be marked, and changes nothing without `--yes`. It never touches git: to
+  undo, restore the file and delete its line. A line whose note exists is reported (`C8`) and ignored.
+
+Unchanged: `tests/acceptance.py` 40 of 40, the three retrieval gates to the digit, the bundle. New in CI: the
+end-to-end run, on Python 3.9 and 3.13. Not done: the page does not show dropped notes, and `drop` takes one target
+a call.
 
 # Phase L (2026-11-11) — why the memory answered worse than grep, and what one call has to show
 

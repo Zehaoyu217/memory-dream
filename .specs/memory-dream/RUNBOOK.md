@@ -16,7 +16,7 @@ can use it, with or without a model.
 
 Beside Claude Code's own memory: `ask` also reads the project's auto-memory topic files
 (`~/.claude/projects/<project>/memory/`, or `autoMemoryDirectory`; override with `MEMORY_CC_DIR`,
-switch off with `MEMORY_SOURCES=notes`) and never writes there — `dream`, `log` and `viz` refuse such a
+switch off with `MEMORY_SOURCES=notes`) and never writes there — `dream`, `log`, `drop` and `viz` refuse such a
 root. To keep `memory/DIGEST.md` (written by every dream, ≤ 40 lines) in context every session, add one
 line to CLAUDE.md: `@memory/DIGEST.md`.
 
@@ -27,7 +27,8 @@ M="python3 .claude/skills/memory-dream/scripts/memory.py"
 $M ask "what came of exp-014?" "who owns cards.txn_daily?"   # answering: grep + memory, every question in one call
 $M viz                            # memory/_dream/graph.html (dream refreshes it): Timeline, Map, Connections
 $M log "backfill running" -p churn-2026
-$M check                          # every warning C1–C13 in full
+$M check                          # every warning C1–C15 in full
+$M drop churn-2026/exp-014        # what would go with this note; add --yes to do it (a folder works the same way)
 grep -rn velocity memory/ --exclude-dir=_dream                 # plain grep stays first-class
 ```
 
@@ -243,6 +244,13 @@ $M export --to /tmp/graph-export   # no driver: CSV in neo4j-admin header format
   characters of a note).
 - `C13`: a type line was removed from EDGES.md or TYPES.md while readings still use its word; the things or links
   show as `other/<word>`. Merge the word into another type's `aka`, or restore the line.
+- `C15`: a note's file is gone and nobody dropped it (a wrong `rm`, another branch, a rename with an edit). Nothing
+  was written or deleted. Until it is settled the note it had replaced reads as current and notes built on it get
+  `C2 … not found`. Either put the file back, or run the command the line names: `memory.py drop <path> --yes`
+  records the drop from where the note stood at the last dream.
+- `C14`: a note is built on a note that was dropped, or its replacement was dropped and it is the newest left of its
+  line. Both are shown on the note's header in `ask`. Nothing to do unless the note should go too: drop it as well.
+- Undo a drop: restore the file from git and delete its `dropped:` line in CONFLICTS.md. `drop` never touches git.
 - `C7 … labels below the review bar`: links outside the vocabulary, shown as `other/<label>`; nothing
   to do unless you want one as a type — add a line to EDGES.md (0 calls). `C7 vocabulary budget full`:
   raise `budget:` or remove a type. `C10 conflict pending`: two live notes may disagree; let `dream`

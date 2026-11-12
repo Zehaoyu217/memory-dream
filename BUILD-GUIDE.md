@@ -61,7 +61,7 @@ echo '@memory/DIGEST.md' >> CLAUDE.md                              # Claude Code
 ```
 
 Beside Claude Code's own memory (CLAUDE.md, auto memory under `~/.claude/projects/<project>/memory/`): `ask` reads the
-auto-memory topic files in the same call and never writes there; `dream`, `log` and `viz` refuse such a root. Any other
+auto-memory topic files in the same call and never writes there; `dream`, `log`, `drop` and `viz` refuse such a root. Any other
 agent with a shell uses the same three steps SKILL.md gives: read once, write as you go, dream at the end.
 
 Daily use (what SKILL.md tells the agent):
@@ -185,9 +185,19 @@ hash in `_dream/store.db` so a dream re-reads only changed notes.
 - Edges: `from` and `supersedes` resolved by relative path, then exact path, then unique filename, then same-project
   filename (warning C1 if ambiguous), then moved paths; unresolved → C2. Plus `refs`: `[[links]]`, the dreamer's refs,
   and any body slug that names a note in the same project.
+- Tombstones (`parse_dropped`): a line `dropped: <note.md | folder/> (date) > <what it had replaced>` in
+  `CONFLICTS.md`, written only by `memory.py drop`. A reference that finds no note and names a tombstone is not C2:
+  a `from:` marks the note as built on a dropped note (C14), a `supersedes:` becomes an edge to each note the dropped
+  one had replaced, followed through further tombstones (`by: "drop"`). So a line of replacements holds when a note
+  in its middle leaves, on any clone, with no old graph. The graph's `dropped` list carries what was recorded.
+- `drop <note | folder> [--yes]`: prints what goes with the target and stops; with `--yes` deletes the files and their
+  readings, appends the tombstones, and runs the dream's plan, graph and write stages with no model. Notes whose every
+  `source:` is dropped go too. A file that is gone without a drop is never treated as one: the dream keeps where it
+  stood in the manifest (`gone`) and reports C15 with the command.
 - Warnings: C1 ambiguous, C2 not found, C3 indexing failed, C4 dropped ungrounded entity/relation, C5 unindexed,
   C6 no `# ` line, C7 review pending (labels, budget), C8 bad EDGES/ALIASES/CONFLICTS line, C9 NUL bytes in a note
-  (binary-looking), C10 conflict pending, C11 a note over 40 lines.
+  (binary-looking), C10 conflict pending, C11 a note over 40 lines, C14 built on a dropped note or left the newest of
+  its line by a drop, C15 gone without a drop.
 
 ### 5.5 The graph, vocabulary half (`build`, `merge_entities`)
 
@@ -318,7 +328,7 @@ Per question:
 ### 5.8b The graph contract
 
 `.specs/memory-dream/CONTRACT.md` is the authority on every shape `memory.py` writes and reads: the graph (`graph.json`,
-`index.db`), the viewer's data island, the extraction cache, `store.db`, the manifest, the warning codes C1–C13 and the
+`index.db`), the viewer's data island, the extraction cache, `store.db`, the manifest, the warning codes C1–C15 and the
 grammar of EDGES.md, ALIASES.md, CONFLICTS.md and DIGEST.md. Every graph carries `schema: 1`; `validate()` checks a
 graph against the contract, `memory.py check` prints the result first, and A38 enforces it on the fixture (graph,
 `index.db` round trip, island). Build the viewer against the contract, never against the code.
@@ -430,6 +440,7 @@ when the page opens (tab order Timeline · Map · Connections; `#view=map` and `
 
 ```bash
 python3 tests/acceptance.py            # 40 checks, A1–A20, A24, A25–A43, with the fake dreamer, about 30 s
+python3 tests/e2e.py                   # one run on both read paths: dream, ask, a file gone by hand, drop a note, the end of a line, a folder
 python3 tests/retrieval_gate.py bank   # the model-free numbers with floors (README Results); `software` for the second fixture
 MEMORY_STORE_URL=postgresql://… python3 tests/store_parity.py postgres --bank   # needs psycopg: the PostgreSQL store (ADR-001)
 python3 tests/acceptance.py A6 A24     # some
