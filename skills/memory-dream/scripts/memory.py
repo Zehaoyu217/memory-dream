@@ -408,6 +408,14 @@ threshold, a newer version as the current one); they are compatible when they ar
 one builds on the other; otherwise unsure. Never invent paths: copy them from the pair.
 """
 
+# A packet (PLAN §4): the same reading asked for many notes in one call. The rules are EXTRACT's own, cut from it, so
+# the two prompts cannot drift apart; a note is named by the first twelve characters of the hash of its text.
+PACKET = """Index each memory note below for retrieval. Reply with one line of JSON per note, in the order given, and nothing else:
+{"note": "the 12-character id on its NOTE line", "kind": "one of KINDS", "entities": [{"id": "...", "type": "a TYPES type or alias, or other", "label": "the note's own word for what it is, 1-2 words", "as": ["text copied verbatim from the note"]}], "relations": [{"s": "entity id", "type": "an EDGES type or alias, or other", "label": "the note's own verb, 1-3 words", "o": "entity id", "quote": "short text copied verbatim from the note that states it"}], "refs": ["ids or paths of other notes the text explicitly points to"]}
+Read each note alone: its entities, its relations and every copied text come from that note's own lines, even when
+another note here says more. Skip no note: one with nothing to index gets its line with empty lists.
+""" + EXTRACT[EXTRACT.index("Entities are things"):EXTRACT.index("NOTE {path}:")]
+
 
 # ---------- small helpers ----------
 
@@ -1776,9 +1784,9 @@ def extraction_files(dd):
 class Store:
     """dream's caches in _dream/store.db: parsed note facts by path, extractions by content hash (the files in
     _dream/notes/ stay the source; a row is used only while its file's mtime matches)."""
-    def __init__(self, dd):
+    def __init__(self, dd, keep=True):
         self.dd = dd
-        self.db = sqlite3.connect(dd / "store.db")
+        self.db = sqlite3.connect(dd / "store.db" if keep else ":memory:")  # a dry run writes no cache
         self.db.executescript("CREATE TABLE IF NOT EXISTS facts(path TEXT PRIMARY KEY, sha TEXT, rec TEXT);"
                               "CREATE TABLE IF NOT EXISTS x(sha TEXT PRIMARY KEY, mt INTEGER, rec TEXT);")
 
@@ -1908,9 +1916,48 @@ def read_index(dd):
 # ---------- dream ----------
 
 NOTE_CAP = 16000  # characters of note text per prompt: every call stays small (a note is 40 lines by rule)
+# Packets: the reading as a few large calls in place of one call a note. The instructions and the vocabulary travel
+# once a packet, and a helper agent that carries 35,000 tokens of its own in every request reads thirty notes for
+# the price of one. Two limits, and the first to bind closes the packet. The prompt stays under PACKET_TOKENS by the
+# script's own count of three characters a token: Haiku 5.5 costs five times as much over 100,000, and its tokenizer
+# counts about 30% more than the old four characters. The notes of a packet stay under PACKET_TEXT characters: a
+# reading is about three times its note (READING_RATIO, 3.2 on the bank's 1,677 readings), so 12,000 characters of
+# notes ask for an answer of about 13,000 tokens, and on short notes it is the answer's room that fills first (a
+# 60,000-token prompt would hold 330 of the bank's notes and ask for 135,000 tokens back).
+# $MEMORY_PACKET="tokens,characters" sets both; $MEMORY_PRICE="in,out" the $ a million tokens of the dry run.
+PACKET_TOKENS, PACKET_TEXT, KNOWN_ROOM = 60000, 12000, 8000
+READING_RATIO = 3.2
+PRICE = (0.10, 0.50)  # Haiku 5.5 under 100,000 tokens a prompt
 
 
-def call_model(cmd, prompt, static=0):
+def env_numbers(name, default):
+    """A comma-separated environment setting as numbers; anything unreadable leaves the default."""
+    try:
+        got = [float(x) for x in os.environ.get(name, "").split(",") if x.strip()]
+    except ValueError:
+        got = []
+    return tuple(got) if len(got) == len(default) else default
+
+
+def parse_packet(out, wanted):
+    """A packet's answer -> {note id: reading}: every JSON object in it that names one of the notes asked for, however
+    the model laid them out (a line each, an array, one object keyed by id). An answer cut off at its end loses only
+    the note it was cut in."""
+    got, dec = {}, json.JSONDecoder()
+    for m in re.finditer(r'\{\s*"note"\s*:', out or ""):
+        try:
+            obj = dec.raw_decode(out, m.start())[0]
+        except ValueError:
+            continue
+        if isinstance(obj, dict) and str(obj.get("note")) in wanted:
+            got.setdefault(str(obj["note"]), obj)
+    if not got:
+        whole = parse_json(out) or {}
+        got = {k: v for k, v in whole.items() if k in wanted and isinstance(v, dict)}
+    return got
+
+
+def call_model(cmd, prompt, static=0, parse=parse_json):
     """One prompt on stdin, answer on stdout; retry once when unusable. -> (obj or None, calls).
     MEMORY_STATIC_PREFIX tells a cache-aware command how many leading characters are the same for every call of this
     project (template, EDGES, KNOWN): it can place them where the model caches (tests/haiku_cmd.py does)."""
@@ -1918,10 +1965,10 @@ def call_model(cmd, prompt, static=0):
     for n in (1, 2):
         try:
             r = subprocess.run(cmd, shell=True, input=prompt, capture_output=True, text=True, timeout=TIMEOUT, env=env)
-            obj = parse_json(r.stdout) if r.returncode == 0 else None
+            obj = parse(r.stdout) if r.returncode == 0 else None
         except subprocess.TimeoutExpired:
             obj = None
-        if obj is not None:
+        if obj or (obj is not None and parse is parse_json):  # for one note an empty object is an answer: nothing to index
             return obj, n
     return None, 2
 
@@ -1974,6 +2021,8 @@ LOCK_STALE_S = 2 * 3600
 
 
 def dream(args, root):
+    if args.dry_run:  # no folder made, no lock taken, no cache written
+        return Dream(args, root).run()
     root.mkdir(parents=True, exist_ok=True)
     dd = root / "_dream"
     (dd / "notes").mkdir(parents=True, exist_ok=True)
@@ -1993,7 +2042,7 @@ class Dream:
     def __init__(self, args, root):
         self.args, self.root = args, root
         for name, seed in (("EDGES.md", EDGES_SEED), ("ALIASES.md", ALIASES_HEAD), ("KINDS.md", KINDS_SEED), ("TYPES.md", TYPES_SEED)):
-            if not (root / name).exists():
+            if not (root / name).exists() and not args.dry_run:
                 wr(root / name, seed)
         load_domain(root)
         self.dd, self.now = root / "_dream", dt.datetime.now()
@@ -2005,14 +2054,17 @@ class Dream:
         self.review = {"pairs": 0, "types": 0, "calls": 0, "aliases": 0, "mapped": 0, "new": 0, "refused": 0,
                        "demoted": 0, "conflicts": 0, "decided": 0}
         self.base = {}  # the note half of the graph, reused across rebuilds until a review changes lineage
+        self.fresh = set()  # notes read in this dream: `--all` does not ask for them twice
         self.gone = {}  # notes that left without a `drop` (plan)
 
     def run(self):
-        if self.nothing_new():
+        if self.nothing_new() and not self.args.dry_run:
             print(f"dream: {len(self.cur)} notes · 0 indexed (0 calls) · nothing new since {self.man.get('dreamed', '?')}"
                   + (f" · {store_publish(self.root, load(self.root)[0])}" if store_name() else ""))  # a store behind the index catches up
             return
         self.plan()
+        if self.args.dry_run:
+            return self.dry_run()
         self.index()
         g = self.demote(self.graph())
         g = self.run_review(g)
@@ -2037,7 +2089,7 @@ class Dream:
         self.by_sha = {}
         for rel in sorted(cur):
             self.by_sha.setdefault(cur[rel]["sha"][:12], rel)
-        self.store = Store(self.dd)
+        self.store = Store(self.dd, keep=not self.args.dry_run)
         self.facts = self.store.facts(root, cur)
         self.xs = self.store.extractions(self.by_sha)
         et, at = vocab_texts(root)
@@ -2092,15 +2144,85 @@ class Dream:
         wr(self.dd / "notes" / f"{h}.json", rec)
         self.store.put(h, rec)
         self.xs[h] = rec
+        self.fresh.add(h)
         self.failed.pop(h, None)
         self.attempts.pop(h, None)
         self.st["indexed"] += 1
 
+    def miss(self, h):
+        """A note that was asked for and got no usable answer: once more, then it is recorded as failed (C3)."""
+        if self.attempts.get(h, 0) >= 1:
+            self.failed[h] = "unusable answer after one retry"
+            self.attempts.pop(h, None)
+            return True
+        self.attempts[h] = self.attempts.get(h, 0) + 1
+        return False
+
+    def take_answers(self):
+        """Answer files left in _dream/pending/, whoever wrote them: `<note id>.json` for one note, `packet-….json`
+        for a packet. A reading that is on file is used, with a command set or without one (PLAN §6)."""
+        pend, by_sha = self.pend, self.by_sha
+        for pj in sorted(pend.glob("*.json")):
+            k, pp = pj.name[:-5], pend / (pj.name[:-5] + ".prompt.md")
+            if k.startswith("packet-"):
+                got = parse_packet(read(pj), by_sha)
+                asked = set(re.findall(r"^NOTE ([0-9a-f]{12}) ", read(pp), re.M)) if pp.exists() else set()
+                pj.unlink()
+                pp.unlink() if pp.exists() else None
+                for h, obj in got.items():
+                    self.ingest(h, obj)
+                for h in sorted(asked - set(got)):
+                    if h in by_sha and h not in self.xs:
+                        self.miss(h)
+            elif k in by_sha:
+                obj = parse_json(read(pj))
+                pj.unlink()
+                if obj is not None:
+                    self.ingest(k, obj)
+                if (obj is not None or self.miss(k)) and pp.exists():
+                    pp.unlink()
+
+    def pack(self, todo):
+        """The notes to read as packets, in their order (one project after another): [[note id, …]]. A packet closes
+        when the next note would take its notes past PACKET_TEXT characters or its prompt past PACKET_TOKENS."""
+        tokens, text = env_numbers("MEMORY_PACKET", (PACKET_TOKENS, PACKET_TEXT))
+        head = len(fill(PACKET, kinds=self.kind_names, types="\n".join(self.ty_lines), edges="\n".join(self.tlines), known="")) + KNOWN_ROOM
+        out, size = [], 0
+        for h in todo:
+            n = min(self.cur[self.by_sha[h]]["size"], NOTE_CAP) + 80
+            if not out or size + n > text or (head + size + n) / 3 > tokens:
+                out.append([])
+                size = 0
+            out[-1].append(h)
+            size += n
+        return out
+
+    def packet_prompt(self, hs, ents):
+        """-> (prompt, static length) for one packet. The rules, the vocabulary and KNOWN for the packet's areas come
+        first; each note follows under `NOTE <id> <path>:`."""
+        areas = list(dict.fromkeys(area_of(self.by_sha[h]) for h in hs))
+        known = list(dict.fromkeys(ln for a in areas for ln in known_lines(ents, a).split("\n")))[:120]
+        pr = fill(PACKET, kinds=self.kind_names, types="\n".join(self.ty_lines), edges="\n".join(self.tlines), known="\n".join(known))
+        static = len(pr)
+        for h in hs:
+            rel = self.by_sha[h]
+            text = read(self.root / rel)
+            if len(text) > NOTE_CAP:
+                text = text[:NOTE_CAP] + f"\n… [{len(text) - NOTE_CAP} more characters cut: the note is far over the 40-line rule]"
+            pr += f"NOTE {h} {rel}:\n{text.rstrip()}\n"
+        return pr, static
+
     def index(self):
-        """Command mode: waves of -j parallel calls, KNOWN refreshed between waves. File mode: ingest the answers
-        found beside the prompts, write prompts for what is still unindexed, drop stale prompts."""
-        todo, pend, by_sha, xs, args = self.todo, self.pend, self.by_sha, self.xs, self.args
-        if self.cmd:
+        """Answers left on file are taken first. Then, command mode: waves of -j parallel calls, a note each or with
+        --packets a packet each, KNOWN refreshed between waves. File mode: prompts (--prompts) or packets (--packets)
+        for what is still unread, written for a helper agent; the ones nobody needs any more are removed."""
+        pend, by_sha, xs, args = self.pend, self.by_sha, self.xs, self.args
+        pend.mkdir(parents=True, exist_ok=True)
+        self.take_answers()
+        todo = [h for h in self.todo if h not in xs or (args.all and h not in self.fresh)]
+        if self.cmd and args.packets:
+            self.index_packets(todo)
+        elif self.cmd:
             j = max(1, args.j)
             with ThreadPoolExecutor(j) as ex:
                 ents, proj, since = None, None, 0
@@ -2118,33 +2240,76 @@ class Dream:
                             self.failed[h] = "unusable answer after one retry"
                         else:
                             self.ingest(h, obj)
-            return
-        pend.mkdir(parents=True, exist_ok=True)
-        for pj in sorted(pend.glob("*.json")):
-            h = pj.name[:-5]
-            if h not in by_sha:
-                continue
-            obj = parse_json(read(pj))
-            pj.unlink()
-            if obj is not None:
-                self.ingest(h, obj)
-                (pend / f"{h}.prompt.md").unlink() if (pend / f"{h}.prompt.md").exists() else None
-            elif self.attempts.get(h, 0) >= 1:
-                self.failed[h] = "unusable answer after one retry"
-                self.attempts.pop(h, None)
-                (pend / f"{h}.prompt.md").unlink() if (pend / f"{h}.prompt.md").exists() else None
+        keep = set()
+        if not self.cmd and todo and (args.prompts or args.packets):  # only when asked: a memory used without any model stays quiet (phase F)
+            ents = Known(self.entities_now())
+            if args.packets:
+                for hs in self.pack(todo):
+                    name = "packet-" + hashlib.sha256(" ".join(hs).encode()).hexdigest()[:8]
+                    keep.add(name)
+                    if not (pend / f"{name}.prompt.md").exists():  # the same notes: the same packet, left as a helper may be reading it
+                        wr(pend / f"{name}.prompt.md", self.packet_prompt(hs, ents)[0])
             else:
-                self.attempts[h] = self.attempts.get(h, 0) + 1
-        if args.prompts:  # only when asked: a memory used without any model stays quiet (phase F)
-            ents = Known(self.entities_now()) if any(h not in xs or args.all for h in todo) else None
-            for h in todo:
-                if h in xs and not args.all:
-                    continue
-                wr(pend / f"{h}.prompt.md", self.prompt_for(h, ents)[0])
-        for pp in pend.glob("*.prompt.md"):  # stale prompts: note changed or gone, or prompts no longer wanted
+                for h in todo:
+                    keep.add(h)
+                    wr(pend / f"{h}.prompt.md", self.prompt_for(h, ents)[0])
+        for pp in pend.glob("*.prompt.md"):  # stale: the note changed or is gone, or nobody asked for prompts
             k = pp.name[:-len(".prompt.md")]
-            if not args.prompts or not (k in by_sha or k == "review"):
+            if k not in keep and not (k == "review" and (args.prompts or args.packets)):
                 pp.unlink()
+
+    def index_packets(self, todo):
+        """Command mode with --packets: -j packets at a time. A note whose line is missing from an answer is packed
+        once more with the others that were missed; after that it is recorded as failed (C3)."""
+        j = max(1, self.args.j)
+        for round_ in (1, 2):
+            packs = self.pack(todo)
+            with ThreadPoolExecutor(j) as ex:
+                for w in range(0, len(packs), j):
+                    wave = packs[w:w + j]
+                    ents = Known(self.entities_now())
+                    prompts = [self.packet_prompt(hs, ents) for hs in wave]
+                    calls = ex.map(lambda q: call_model(self.cmd, q[0][0], q[0][1], parse=lambda out: parse_packet(out, set(q[1]))),
+                                   list(zip(prompts, wave)))
+                    for hs, (got, n) in zip(wave, calls):
+                        self.st["calls"] += n
+                        self.st["packets"] += 1
+                        for h in hs:
+                            if got and h in got:
+                                self.ingest(h, got[h])
+            todo = [h for h in todo if h not in self.fresh]
+            if not todo:
+                break
+        for h in todo:
+            self.failed[h] = "unusable answer after one retry"
+
+    def dry_run(self):
+        """What this dream would read and about what it would cost. No call is made, and no note, registry, reading or
+        graph is written."""
+        todo = [h for h in self.todo if h not in self.xs or self.args.all]
+        pin, pout = env_numbers("MEMORY_PRICE", PRICE)
+        if not todo:
+            print(f"dream --dry-run: {len(self.cur)} notes · nothing to read: every note has its reading")
+            return
+        ents = Known(self.entities_now())
+        if self.args.packets:
+            packs = self.pack(todo)
+            sizes = [len(self.packet_prompt(hs, ents)[0]) // 3 for hs in packs]
+        else:
+            packs, sizes = [[h] for h in todo], [len(self.prompt_for(h, ents)[0]) // 3 for h in todo]
+        out = int(sum(min(self.cur[self.by_sha[h]]["size"], NOTE_CAP) for h in todo) * READING_RATIO / 3)
+        cost = sum(sizes) * pin / 1e6 + out * pout / 1e6
+        what = ("packet" + "s" * (len(packs) != 1)) if self.args.packets else "calls, one a note (`--packets` reads many notes a call)"
+        print(f"dream --dry-run: {len(self.cur)} notes · {len(todo)} to read in {len(packs)} {what} · about {sum(sizes):,} tokens in "
+              f"and {out:,} out · about ${cost:.2f} at ${pin:.2f} and ${pout:.2f} a million tokens · the largest prompt about "
+              f"{max(sizes):,} tokens" + (": OVER the 100,000 line, where a prompt costs five times as much" if max(sizes) > 100000 else "")
+              + " · nothing was called or written")
+        if self.args.packets:
+            for hs, n in list(zip(packs, sizes))[:40]:
+                areas = list(dict.fromkeys(area_of(self.by_sha[h]) or "(root)" for h in hs))
+                print(f"  {len(hs):>3} notes · about {n:>6,} tokens · {', '.join(areas[:4])}" + (f" and {len(areas) - 4} more" if len(areas) > 4 else ""))
+            if len(packs) > 40:
+                print(f"  … and {len(packs) - 40} more packets")
 
     def graph(self):
         """The graph now. The note half is reused across rebuilds in one dream unless a review changed lineage."""
@@ -2328,7 +2493,7 @@ class Dream:
                     g = self.graph()
                 rj.unlink()
                 (pend / "review.prompt.md").unlink() if (pend / "review.prompt.md").exists() else None
-            pr = self.review_prompt(g)[0] if args.prompts and (args.review or g["proposed"] or g.get("proposed_types") or g["review"] or open_(g)) else None
+            pr = self.review_prompt(g)[0] if (args.prompts or args.packets) and (args.review or g["proposed"] or g.get("proposed_types") or g["review"] or open_(g)) else None
             if pr:
                 wr(pend / "review.prompt.md", pr)
             elif (pend / "review.prompt.md").exists():
@@ -2384,7 +2549,7 @@ class Dream:
         st, review, cmd = self.st, self.review, self.cmd
         codes = Counter(c["code"] for c in g["checks"] if c["code"] != "C5")
         pl = lambda n, w: f"{n} {w}" + ("s" if n != 1 else "")  # noqa: E731
-        out = f"dream: {len(self.cur)} notes · {st['indexed']} indexed ({st['calls']} calls)"
+        out = f"dream: {len(self.cur)} notes · {st['indexed']} indexed ({st['calls']} calls" + (f", {st['packets']} packets)" if st["packets"] else ")")
         if review["pairs"] or review["types"] or review["conflicts"]:
             out += f" · review: {pl(review['pairs'], 'pair')}, {pl(review['types'], 'label')}, {pl(review['conflicts'], 'conflict')} " + \
                 (f"({pl(review['calls'], 'call')})" if cmd else "(file mode)")
@@ -2399,10 +2564,10 @@ class Dream:
         unindexed = sum(1 for n in g["notes"] if not n["indexed"])
         if cmd:
             out += f" · {unindexed} pending"
-        elif self.args.prompts:
+        elif self.args.prompts or self.args.packets:
             out += f" · {pending} pending"
         elif unindexed:
-            out += f" · {unindexed} without entities (no model; `dream --prompts` writes prompts for a helper agent)"
+            out += f" · {unindexed} without entities (no model; `dream --packets` writes them as packets for a helper agent)"
         out += (" · " + " ".join(f"{c}×{n}" for c, n in sorted(codes.items()))) if codes else ""
         out += f" · {self.published}" if getattr(self, "published", "") else ""
         print(out)
@@ -2653,7 +2818,7 @@ def open_view(root):
 def rebuild(root):
     """The graph again from what is on disk, with no model: the dream's plan, graph and write stages. For the commands
     that change which notes exist (drop, absorb); reading new notes and the review stay with `dream`."""
-    dm = Dream(argparse.Namespace(cmd=None, j=1, review=False, all=False, prompts=False), root)
+    dm = Dream(argparse.Namespace(cmd=None, j=1, review=False, all=False, prompts=False, packets=False, dry_run=False), root)
     dm.plan()
     g = dm.demote(dm.graph())
     dm.report(g, dm.write(g))
@@ -4087,7 +4252,9 @@ def main(argv=None):
     d.add_argument("-j", type=int, default=4, help="parallel calls")
     d.add_argument("--review", action="store_true", help="review the vocabulary even if nothing is due")
     d.add_argument("--all", action="store_true", help="re-index every note")
-    d.add_argument("--prompts", action="store_true", help="no model: write the prompts for a helper agent to _dream/pending/")
+    d.add_argument("--prompts", action="store_true", help="no model: write one prompt a note for a helper agent to _dream/pending/")
+    d.add_argument("--packets", action="store_true", help="read many notes a call: with a command, a packet a call; without one, packets written to _dream/pending/")
+    d.add_argument("--dry-run", action="store_true", help="print what would be read and about what it would cost; call and write nothing")
     a = sp.add_parser("ask", parents=[common], help="answer questions: grep with memory, one call for many questions")
     a.add_argument("questions", nargs="*")
     a.add_argument("-f", "--file", help="questions, one per line")

@@ -2,6 +2,76 @@
 
 2026-10-30 (round 4: 2026-10-31; phase I: 2026-11-02; phases J to N: 2026-11-11; phase O on: 2026-11-12) · built from the "Memory" email spec (`build-spec.md`) · macOS, Python 3.9.6, Claude Code 2.1.314.
 
+# Phase P (2026-11-12) — step 1, item 4: the reading in packets, and a dry run
+
+A keeper reads each note once. Until now that was one call a note: 1,687 calls for the bank in phase I. The plan
+(§4) asks for packets: the instructions and the vocabulary once, then as many notes as fit a budget, so that a
+helper agent which carries 35,000 tokens of its own in every request reads many notes for the price of one. This
+phase builds `dream --packets`, `dream --dry-run`, and the rule that a reading on file is never asked for again. No
+model is called in it; whether a packet reads as well as a single call is step 2's first measurement.
+
+```bash
+python3 skills/memory-dream/scripts/memory.py --root <bank world> dream --dry-run             # one call a note
+python3 skills/memory-dream/scripts/memory.py --root <bank world> dream --dry-run --packets   # the same in packets
+python3 tests/e2e.py                                                                          # five lines on each read path
+```
+
+## P1 — what fills a packet first
+
+The plan sized a packet by its prompt: 60,000 tokens at three characters a token. Measured on the bank's 1,677
+readings, a reading is 3.2 times the size of its note (1,232 characters against 389, with 5.0 things and 3.4 links
+a note). A prompt of 60,000 tokens would hold 330 of those notes and ask for 135,000 tokens back. So a packet
+has two limits and the first to bind closes it: 12,000 characters of notes, which ask for an answer of about 13,000
+tokens, and the plan's 60,000 tokens of prompt, which binds only when notes are long.
+
+| the bank's 1,677 notes, no reading on file (`dream --dry-run`) | calls | tokens in | tokens out | at $0.10 and $0.50 a million |
+|---|---|---|---|---|
+| one call a note | 1,677 | 3.71M | 0.70M | $0.72 |
+| packets, 12,000 characters of notes (the default) | 67, of 25 notes on average (19 to 53) | 0.39M | 0.70M | $0.39 |
+| packets, 24,000 characters | 34 | 0.32M | 0.70M | $0.38 |
+| packets by the prompt alone, 60,000 tokens | 5, of 330 notes | 0.26M | 0.70M | $0.37, if a model wrote 135,000 tokens in one answer |
+
+- **The prompt stops being the cost.** Packets send a tenth of the input; what is left is the answer, $0.35 of the
+  $0.39, and no packing changes that. Doubling the packet saves a cent, so the smaller one stays: its answer is
+  shorter and a failed call costs less.
+- **The largest prompt is 6,000 tokens**, far from the 100,000 line. The line matters for long notes and for helper
+  agents, whose own 35,000 tokens ride on every request.
+- **These are estimates from sizes**: the prompts as the script sends them, and a reading at 3.2 times its note. A
+  command adds its own tokens to every call (the lean one a few thousand), which is 1,677 times for single calls and
+  67 times for packets, and the dry run does not count it. The one real figure on file is phase I's: $2.69 for the
+  1,687 single calls, with a cache. Step 2 puts a real figure beside the packets.
+
+## P2 — what was built
+
+- **`dream --packets`.** With a command, a packet is one call and `-j` of them run at a time. Without one, the
+  packets are files in `_dream/pending/` for helper agents, named by the notes they hold, so the same unread notes
+  make the same packets and a second dream does not shuffle them under a helper at work. The rules of the packet
+  prompt are cut from the single prompt, so the two cannot drift apart.
+- **An answer is one line of JSON a note**, each naming its note by the hash of its text. Every line is checked
+  against its own note, as a single call's answer is. An answer that is cut off loses the note it was cut in; a note
+  that is skipped is asked once more with the others that were missed, then recorded as failed (`C3`).
+- **A reading on file is used.** Answer files are taken first, with a command set or without one. Before, a set
+  command made `dream` ignore them (the plan's §6).
+- **`dream --dry-run`**, with or without `--packets`: the notes to read, the calls, the tokens, a cost at prices that
+  `MEMORY_PRICE` sets, and a warning when a prompt would cross 100,000 tokens. It makes no folder, takes no lock and
+  writes no cache: the end-to-end run compares every file before and after.
+- **The readings go into git.** `_dream/notes/` is the one folder of `_dream/` that cost anything. The guide's
+  ignore lines are now `memory/_dream/*` and `!memory/_dream/notes/`.
+
+With the test's stand-in command, which answers a note the same way alone or in a packet, the 30-note fixture is
+read in 5 calls in place of 30 and the graph is the same to the letter: notes, things, links, lineage and checks.
+
+`tests/e2e.py`, five lines on each read path: the dry run names notes, packets and a cost and changes no file; with
+no command every unread note is in exactly one packet; an answer cut off at its end and one that skips a note cost
+those two notes, which are asked again; an answer on file is taken with a command set and nothing is read twice;
+three new notes are read in one call. 40 and 39 lines in all.
+
+Unchanged: acceptance 40 of 40 on Python 3.9 and 3.13, the three retrieval gates to the digit.
+
+Not done: one call a note is still the default with a command, until step 2 shows that packets read as well; a
+note over 16,000 characters is still cut, not read in windows; the dry run's prices are Haiku 5.5's and are not
+looked up.
+
 # Phase O (2026-11-11 and 12) — step 1, item 3: pointers into code
 
 A note about code points into it as `path#symbol`, `path:line "quoted words"` or `path:line` (`PLAN.md` §10,

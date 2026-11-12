@@ -54,7 +54,7 @@ cp -R skills/memory-dream ~/.claude/skills/
 cp skills/memory-dream/agents/memory-dreamer.md ~/.claude/agents/
 
 # in your project
-cd /path/to/project && mkdir -p memory && echo "memory/_dream/" >> .gitignore
+cd /path/to/project && mkdir -p memory && printf 'memory/_dream/*\n!memory/_dream/notes/\n' >> .gitignore  # the readings stay in git
 export MEMORY_LLM='claude -p --model haiku --tools "" --setting-sources "" --strict-mcp-config --no-session-persistence'
 python3 ~/.claude/skills/memory-dream/scripts/memory.py dream      # seeds KINDS.md, TYPES.md, EDGES.md, ALIASES.md, DIGEST.md, _dream/
 echo '@memory/DIGEST.md' >> CLAUDE.md                              # Claude Code: the digest in context every session
@@ -75,9 +75,10 @@ $M check            # warnings in full;  $M viz → _dream/graph.html
 ```
 
 Without `MEMORY_LLM`, `dream` builds everything that needs no model (lineage, kinds, conflicts, digest, viewer,
-index) and stays quiet about entities. To add them without a model command: `dream --prompts` writes prompts to
-`memory/_dream/pending/` and lists them in `TODO.md`; run the `memory-dreamer` subagent (Haiku) on them, then
-`dream --prompts` again.
+index) and stays quiet about entities. To add them without a model command: `dream --packets` writes the unread
+notes as packets to `memory/_dream/pending/` and lists them in `TODO.md`; run `memory-dreamer` subagents (Haiku) on
+them, one packet each, then `dream --packets` again. `dream --dry-run --packets` first says how many packets and
+about how much; with a command set, `dream --packets` sends each packet as one call.
 
 ---
 
@@ -291,6 +292,20 @@ constants, each with the measurement that set it.
   Note text is capped at 16k characters. **No model**: nothing is written for a helper and `check` summarises C5 in
   one line; **`--prompts`** writes the prompts to `_dream/pending/` for the `memory-dreamer` subagent and ingests its
   answers on the next dream.
+- **Packets** (`--packets`; `PACKET`, `pack`, `packet_prompt`, `parse_packet`, `index_packets`): the same reading
+  asked for many notes in one call. The rules are cut from `EXTRACT`, so the two prompts cannot drift; each note
+  follows under `NOTE <sha12> <path>:` and is answered by one line of JSON that names it. A packet closes at
+  `PACKET_TEXT` = 12,000 characters of notes or `PACKET_TOKENS` = 60,000 tokens of prompt, at three characters a
+  token, whichever comes first (`$MEMORY_PACKET="tokens,characters"`). On short notes the first limit binds: a
+  reading is 3.2 times its note on the bank, so the answer fills long before the prompt does. With a command, `-j`
+  packets run at a time, KNOWN is refreshed between waves, and a note whose line is missing is packed once more;
+  without one the packets are files, named by the notes they hold. Every answer is grounded against its own note,
+  as a single call's is. Answer files are taken first in both modes (`take_answers`): a reading on file is never
+  asked for again. The stand-in dreamer builds the same graph from packets as from single calls.
+- **Dry run** (`--dry-run`, with or without `--packets`): prints the notes to read, the calls or packets, the tokens
+  in and out and a cost at `$MEMORY_PRICE="in,out"` ($0.10 and $0.50 a million, Haiku 5.5 under 100,000 tokens),
+  and says when a prompt would cross that line. It counts the prompts as sent and a reading at 3.2 times its note:
+  what a command adds to every call is not in it. It makes no folder, takes no lock and writes no cache.
 - **Review** (`REVIEW`, one call when due): labels over the bar (`alias T`, `alias ~T`, `new: <definition>`,
   `label`, `drop`), entity pairs (`same` / `different`), conflicts (`a supersedes b`, `compatible`, `unsure`). At most
   40 labels, 30 pairs and 20 conflicts per dream; the code, not the prompt, enforces bar, budget and offered pairs.

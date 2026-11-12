@@ -251,7 +251,11 @@ without one, a person meets the likely pairs first.
 | start over | delete `memory/_dream/`; the next `dream` rebuilds it (the model re-reads notes whose results were deleted) |
 
 `dream` needs a model command in `$MEMORY_LLM` to build the index (for example `claude -p --model haiku --tools ""`).
-Without one it still builds lineage, kinds, conflicts, the digest and the page. Every `dream` writes
+Without one it still builds lineage, kinds, conflicts, the digest and the page. `dream --packets` asks for about 25
+short notes in one call in place of one call a note, or with no command leaves the packets on file for helper
+agents; `dream --dry-run` says first how many calls and about how much, and calls nothing. What a keeper read is in
+`memory/_dream/notes/`, one file per note text: keep that folder in git and a clone builds the same graph with no
+call. Every `dream` writes
 `memory/DIGEST.md`, at most 40 lines: current decisions and models, open questions, the user's own preferences.
 One line in `CLAUDE.md`, `@memory/DIGEST.md`, keeps it in the agent's context. Whether that line changes an agent's
 answers or tool calls is not measured.

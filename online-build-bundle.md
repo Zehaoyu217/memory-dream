@@ -639,7 +639,7 @@ or to a fresh worker given the packet, at most twice. After that, it stops and r
 
 ## Appendix A — the contract surface, verbatim: `skills/memory-dream/SKILL.md` and the dreamer agent
 
-_Part 5 · copied at commit e523219. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
+_Part 5 · copied at commit 7365762. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
 
 ```markdown
 ---
@@ -691,8 +691,10 @@ truth; everything else is derived and disposable. `memory.py` = `python3 <this s
 3. **Dream at the end.** `memory.py dream` (background is fine) refreshes `_dream/graph.html` — the map, what is worth
    checking, the review queue — the digest `memory/DIGEST.md` and the index. With `$MEMORY_LLM` set (e.g. `claude -p
    --model haiku --tools ""`) a cheap model also names the things each note mentions and the typed links between them;
-   without a model nothing is missing for answering, and `memory.py dream --prompts` writes prompts for any helper agent
-   (`memory-dreamer`) when you want the things too. `memory.py check` lists warnings. Scratch lines: `memory.py log "…" -p
+   without a model nothing is missing for answering. Many notes to read: `memory.py dream --dry-run --packets` says
+   how many calls and about how much, and `dream --packets` reads about 25 short notes a call; with no command it
+   leaves the packets in `_dream/pending/` for helper agents on a cheap model (`memory-dreamer`, one packet each, in
+   parallel), and the next `dream --packets` takes their answers. `memory.py check` lists warnings. Scratch lines: `memory.py log "…" -p
    <project>`.
 
 ## The domain is three files you may edit, never the code
@@ -732,9 +734,11 @@ description: Answers memory-dream prompts in memory/_dream/pending/. Use when me
 model: haiku
 tools: Read, Write, Glob
 ---
-memory/_dream/pending/TODO.md lists the pending prompt files, one path per line.
-For each listed *.prompt.md that has no matching .json: read it, follow it,
-and write only the JSON answer to the same path with .json in place of .prompt.md.
+memory/_dream/pending/TODO.md lists the pending prompt files, one path per line. If you were given
+specific files, do only those. For each *.prompt.md that has no matching .json: read it, follow it,
+and write only the answer to the same path with .json in place of .prompt.md.
+A file named packet-….prompt.md holds many notes: its answer is one line of JSON per note, every
+note of the packet, in the order given. Copy quoted text from the note it belongs to, exactly.
 Touch nothing else.
 ```
 
@@ -742,7 +746,7 @@ Touch nothing else.
 
 ## Appendix B — the graph contract, verbatim: `.specs/memory-dream/CONTRACT.md`
 
-_Part 6 · copied at commit e523219. Schema 1; `memory.py check` validates against it (A38)._
+_Part 6 · copied at commit 7365762. Schema 1; `memory.py check` validates against it (A38)._
 
 ## memory-dream — the graph contract (schema 1)
 
@@ -893,7 +897,8 @@ relation is "current" when one of its evidence notes is live).
   [{s, type, label, o, quote, line}], refs, dropped: {entities, relations}, path, sha, model, indexed_at}`. `type` and
   `label` are the dreamer's raw words; the registries read them at merge time. Entities keep only surface forms (`as`)
   that occur in the note; relations only with their quote found (the rest counted in `dropped` → C4). Kept `KEEP_DAYS`
-  after last use.
+  after last use. This is the one folder of `_dream/` worth keeping in git: a clone then builds the same graph
+  without paying a keeper again (ignore `_dream/*`, keep `!_dream/notes/`).
 - `store.db` — `facts(path, sha, rec)` parsed note facts (`fm`, `title`, `line`, `links`, `ids`, `nul`, `lines`);
   `x(sha, mt, rec)` the extraction, valid while its file's mtime matches.
 - `manifest.json` — `v`, `code` (hash of memory.py), `files {path: {sha, mtime, size}}`, `former {path: [old paths]}`,
@@ -902,8 +907,14 @@ relation is "current" when one of its evidence notes is live).
   (the graph's list, §1), `gone {path: {seen, replaced, replaced_by, built_on_by}}` (notes that left without a `drop`,
   with where they stood at the dream that noticed: C15, and what `drop` needs to record them later), `pointers` and
   `psig` (§1). A dream with nothing changed in any of these, nor in a file a note points at, stops after the scan.
-- `pending/` — `<sha12>.prompt.md` and `review.prompt.md` written by `dream --prompts`, answered as `.json` by a helper
-  agent; `TODO.md` lists them. `lock` — pid of a running dream.
+- `pending/` — what a helper agent is asked, each answered by a file of the same name ending in `.json`; `TODO.md`
+  lists them. `dream --prompts` writes `<sha12>.prompt.md`, one note each; `dream --packets` writes
+  `packet-<8 hex>.prompt.md`, many notes each under `NOTE <sha12> <path>:` lines and named by the notes it holds, so
+  the same unread notes make the same packets. A packet's answer is one JSON object a note, each with
+  `"note": "<sha12>"` beside the fields of a reading: one a line, or an array, or one object keyed by the id. An
+  answer that is cut off loses the note it was cut in and nothing else; a note asked for and not answered is asked
+  once more, then recorded as failed (C3). `review.prompt.md` is written with either flag. An answer file is taken
+  whether a command is set or not. `lock` — pid of a running dream.
 
 ### 5. Warnings
 
@@ -989,7 +1000,7 @@ origin by adding the file. What changes for the notes under it, and nothing else
 
 ## Appendix C — the build guide, verbatim: `BUILD-GUIDE.md` §3–§10
 
-_Part 7 · copied at commit e523219. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
+_Part 7 · copied at commit 7365762. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
 
 ### 3. The design in one page
 
@@ -1201,6 +1212,20 @@ constants, each with the measurement that set it.
   Note text is capped at 16k characters. **No model**: nothing is written for a helper and `check` summarises C5 in
   one line; **`--prompts`** writes the prompts to `_dream/pending/` for the `memory-dreamer` subagent and ingests its
   answers on the next dream.
+- **Packets** (`--packets`; `PACKET`, `pack`, `packet_prompt`, `parse_packet`, `index_packets`): the same reading
+  asked for many notes in one call. The rules are cut from `EXTRACT`, so the two prompts cannot drift; each note
+  follows under `NOTE <sha12> <path>:` and is answered by one line of JSON that names it. A packet closes at
+  `PACKET_TEXT` = 12,000 characters of notes or `PACKET_TOKENS` = 60,000 tokens of prompt, at three characters a
+  token, whichever comes first (`$MEMORY_PACKET="tokens,characters"`). On short notes the first limit binds: a
+  reading is 3.2 times its note on the bank, so the answer fills long before the prompt does. With a command, `-j`
+  packets run at a time, KNOWN is refreshed between waves, and a note whose line is missing is packed once more;
+  without one the packets are files, named by the notes they hold. Every answer is grounded against its own note,
+  as a single call's is. Answer files are taken first in both modes (`take_answers`): a reading on file is never
+  asked for again. The stand-in dreamer builds the same graph from packets as from single calls.
+- **Dry run** (`--dry-run`, with or without `--packets`): prints the notes to read, the calls or packets, the tokens
+  in and out and a cost at `$MEMORY_PRICE="in,out"` ($0.10 and $0.50 a million, Haiku 5.5 under 100,000 tokens),
+  and says when a prompt would cross that line. It counts the prompts as sent and a reading at 3.2 times its note:
+  what a command adds to every call is not in it. It makes no folder, takes no lock and writes no cache.
 - **Review** (`REVIEW`, one call when due): labels over the bar (`alias T`, `alias ~T`, `new: <definition>`,
   `label`, `drop`), entity pairs (`same` / `different`), conflicts (`a supersedes b`, `compatible`, `unsure`). At most
   40 labels, 30 pairs and 20 conflicts per dream; the code, not the prompt, enforces bar, budget and offered pairs.
@@ -1551,7 +1576,7 @@ preferences 0.95 when the task names them, 0.84 when it names only their meeting
 
 ## Appendix D — prompts, seeds and tuned tables, verbatim from `memory.py`
 
-_Part 8 · extracted at commit e523219 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
+_Part 8 · extracted at commit 7365762 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
 
 ### D.1 `EXTRACT` — the per-note prompt: fixed guidance, then `KINDS:`, `TYPES:`, `EDGES:` and `KNOWN:` from the registries (the static part is cached), then `NOTE`
 

@@ -147,7 +147,8 @@ relation is "current" when one of its evidence notes is live).
   [{s, type, label, o, quote, line}], refs, dropped: {entities, relations}, path, sha, model, indexed_at}`. `type` and
   `label` are the dreamer's raw words; the registries read them at merge time. Entities keep only surface forms (`as`)
   that occur in the note; relations only with their quote found (the rest counted in `dropped` → C4). Kept `KEEP_DAYS`
-  after last use.
+  after last use. This is the one folder of `_dream/` worth keeping in git: a clone then builds the same graph
+  without paying a keeper again (ignore `_dream/*`, keep `!_dream/notes/`).
 - `store.db` — `facts(path, sha, rec)` parsed note facts (`fm`, `title`, `line`, `links`, `ids`, `nul`, `lines`);
   `x(sha, mt, rec)` the extraction, valid while its file's mtime matches.
 - `manifest.json` — `v`, `code` (hash of memory.py), `files {path: {sha, mtime, size}}`, `former {path: [old paths]}`,
@@ -156,8 +157,14 @@ relation is "current" when one of its evidence notes is live).
   (the graph's list, §1), `gone {path: {seen, replaced, replaced_by, built_on_by}}` (notes that left without a `drop`,
   with where they stood at the dream that noticed: C15, and what `drop` needs to record them later), `pointers` and
   `psig` (§1). A dream with nothing changed in any of these, nor in a file a note points at, stops after the scan.
-- `pending/` — `<sha12>.prompt.md` and `review.prompt.md` written by `dream --prompts`, answered as `.json` by a helper
-  agent; `TODO.md` lists them. `lock` — pid of a running dream.
+- `pending/` — what a helper agent is asked, each answered by a file of the same name ending in `.json`; `TODO.md`
+  lists them. `dream --prompts` writes `<sha12>.prompt.md`, one note each; `dream --packets` writes
+  `packet-<8 hex>.prompt.md`, many notes each under `NOTE <sha12> <path>:` lines and named by the notes it holds, so
+  the same unread notes make the same packets. A packet's answer is one JSON object a note, each with
+  `"note": "<sha12>"` beside the fields of a reading: one a line, or an array, or one object keyed by the id. An
+  answer that is cut off loses the note it was cut in and nothing else; a note asked for and not answered is asked
+  once more, then recorded as failed (C3). `review.prompt.md` is written with either flag. An answer file is taken
+  whether a command is set or not. `lock` — pid of a running dream.
 
 ## 5. Warnings
 

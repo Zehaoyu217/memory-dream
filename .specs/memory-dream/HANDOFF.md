@@ -289,8 +289,13 @@ Open, in the order I would take them:
    (C16), and `eval/pointer_probe.py --built` scores the lookup on this repository's history: no wrong line in any
    form, after it found 12 of 209 symbols on a wrong line in the first build. The rule that a file is never a thing
    is the `drop-names:` line of TYPES.md now.
-   The rest of step 1: packets and `--dry-run`, tags, the setup section of the skill, the page's filters; each adds
-   its lines to `tests/e2e.py`.
+   Item 4, packets, is done (RESULTS phase P, 2026-11-12): `dream --packets` reads about 25 short notes a call, or
+   leaves the packets in `_dream/pending/` for helper agents; `dream --dry-run` prints the calls, tokens and a cost
+   and writes nothing; an answer on file is taken whether a command is set or not; `_dream/notes/` belongs in git.
+   By the dry run the bank is 67 packets in place of 1,677 calls. One call a note is still the default: no model
+   has read a packet yet.
+   The rest of step 1: tags, the setup section of the skill, the page's filters; each adds its lines to
+   `tests/e2e.py`.
 3. Small things this phase found and left: the own note of a thing when no folder wins the call (C-h1 Q6 is served
    only because its folder is printed whole); a check of each kind prefix against the readings at setup (`inc-`);
    `(weak match: … found nowhere in memory)` says "memory" when the search was scoped to one folder; "built directly

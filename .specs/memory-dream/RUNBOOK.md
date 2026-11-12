@@ -138,12 +138,29 @@ $M dream -j 6
 hooks, plugins and MCP servers: each call is then ~4.4k input tokens and ~$0.0015 with Haiku.
 `tests/haiku_cmd.py` is the same command with per-call cost logging (`$DREAM_COST_LOG`).
 
+Many notes to read: packets.
+
+```bash
+$M dream --dry-run --packets      # how many notes, in how many packets, about how many tokens and dollars; nothing is called
+$M dream --packets -j 6           # a packet a call: about 25 short notes each
+```
+
+A packet holds notes up to 12,000 characters, or a prompt of 60,000 tokens, whichever comes first
+(`MEMORY_PACKET="tokens,characters"`). An answer that skips a note or is cut off costs only that note,
+which is asked once more. Whether packets read as well as single calls is measured in step 2 of the
+plan; until then one call a note stays the default.
+
 No command: `dream` builds everything that needs no model — lineage, kinds, conflicts, digest,
 viewer, index — and says how many notes have no entities yet; `check` says it in one C5 line.
 Answering is unaffected. When you want entities and relations without a model command, run
-`dream --prompts`: it writes prompts to `memory/_dream/pending/` and lists them in `pending/TODO.md`;
-run the `memory-dreamer` subagent; run `dream --prompts` again. A review prompt can appear on the
-second pass, so loop until it reports 0 pending (normally 2 rounds).
+`dream --packets`: it writes the unread notes as packets to `memory/_dream/pending/` and lists them
+in `pending/TODO.md`; run `memory-dreamer` subagents on them, one packet each, in parallel; run
+`dream --packets` again. A review prompt can appear on the second pass, so loop until it reports
+0 pending (normally 2 rounds). `dream --prompts` does the same with one prompt a note.
+
+Keep the readings in git: `memory/_dream/notes/` is what a keeper was paid for, and with it a clone
+builds the same graph with no call. Ignore the rest of `_dream/` (`memory/_dream/*`, then
+`!memory/_dream/notes/`). Two branches that read the same note leave the same file name: take either.
 
 Other flags: `--review` forces the vocabulary review, `--all` re-indexes everything (after changing
 the dreamer model). Indexing is optional for answering: `ask` works on raw notes (grep plus lineage);

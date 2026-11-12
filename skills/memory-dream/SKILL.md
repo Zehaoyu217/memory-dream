@@ -47,8 +47,10 @@ truth; everything else is derived and disposable. `memory.py` = `python3 <this s
 3. **Dream at the end.** `memory.py dream` (background is fine) refreshes `_dream/graph.html` — the map, what is worth
    checking, the review queue — the digest `memory/DIGEST.md` and the index. With `$MEMORY_LLM` set (e.g. `claude -p
    --model haiku --tools ""`) a cheap model also names the things each note mentions and the typed links between them;
-   without a model nothing is missing for answering, and `memory.py dream --prompts` writes prompts for any helper agent
-   (`memory-dreamer`) when you want the things too. `memory.py check` lists warnings. Scratch lines: `memory.py log "…" -p
+   without a model nothing is missing for answering. Many notes to read: `memory.py dream --dry-run --packets` says
+   how many calls and about how much, and `dream --packets` reads about 25 short notes a call; with no command it
+   leaves the packets in `_dream/pending/` for helper agents on a cheap model (`memory-dreamer`, one packet each, in
+   parallel), and the next `dream --packets` takes their answers. `memory.py check` lists warnings. Scratch lines: `memory.py log "…" -p
    <project>`.
 
 ## The domain is three files you may edit, never the code

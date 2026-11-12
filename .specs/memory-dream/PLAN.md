@@ -10,7 +10,8 @@ items 2, 4 and 5 are in `ask`, item 1 in the case that was measured. §11 and §
 changed. Step 0 is built (RESULTS phase M): `memory.py drop`, the tombstone, and an `ask` that survives a missing
 file; §8 says where the build went past the draft. Of step 1, item 1 is built (RESULTS phase N): origins and
 `memory.py absorb`; §9 says what it added to the draft. Item 3 is built (RESULTS phase O): pointers into code; §10
-says what a probe on this repository's history changed. Items 4 to 7 are not started.
+says what a probe on this repository's history changed. Item 4 is built (RESULTS phase P): packets and the dry
+run; §4 says which limit of a packet binds. Items 5 to 7 are not started.
 
 The contract field by field is `CONTRACT-2.md`. Every number has a command, all without a model:
 `python3 eval/contract_probe.py <bank-index world>` (drop, absorb, documents, sets), `python3 eval/agent/arms.py`
@@ -163,6 +164,14 @@ How the heavy work is packed (points 11 and 12):
 What it costs today, at Haiku 5.5's prices: a reading is $0.0016 a note, one call each with 4.9K tokens in, about
 4K of them the same instructions every time, and 350 to 1,750 out ($2.72 for the bank's 1,677 notes); decomposing
 a handoff was $0.0055; ten answered questions $0.013. What packets save on the reading is measured in step 2.
+
+Built in phase P, with one number changed by a measurement. A packet is not sized by its prompt alone. A reading is
+3.2 times its note on the bank, so a 60,000-token prompt of short notes would ask for 135,000 tokens back: the
+answer's room fills first. A packet closes at 12,000 characters of notes or 60,000 tokens of prompt, whichever
+comes first, which is about 25 of the bank's notes and a prompt of 6,000 tokens. By the dry run the bank is 67
+packets in place of 1,677 calls, a tenth of the input, and $0.39 against $0.72 before what a command adds to each
+call; the answers are nine tenths of what is left. A packet's answer is one line a note, so a cut-off answer loses
+one note. The lean command existed already (`tests/haiku_cmd.py`, and the one-line `MEMORY_LLM` of the runbook).
 
 ## 5. The contract: what must exist and what may
 
@@ -377,6 +386,7 @@ A dropped note must not bring back the note it replaced (`drop` and the tombston
    Done in phase L but for the own note where no folder wins the call, and the tag filter.
 3. Pointers (§10). *Done: RESULTS phase O.*
 4. Packets: `dream --packets`, the budget, the lean command, `--dry-run` (§4). Readings in git.
+   *Done: RESULTS phase P.* One call a note stays the default until step 2 measures a packet's yield.
 5. Tags from frontmatter and `TAGS.md`; walk words on registry lines.
 6. The skill's setup section: look with your own tools, ask at most three questions, write `SETUP.md` and the
    starting vocabulary, take the materials in, prove it with five questions.

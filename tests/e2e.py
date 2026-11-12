@@ -52,8 +52,9 @@ class World:
         f.parent.mkdir(parents=True, exist_ok=True)
         f.write_text(f"---\nupdated: 2026-01-0{1 + len(p) % 9}\n{fm + chr(10) if fm else ''}---\n# {title}\nA line about {title.split(':')[0]}.\n")
 
-    def run(self, *args):
-        r = subprocess.run([sys.executable, str(MEM), "--root", str(self.root), *args], env=self.env, capture_output=True, text=True)
+    def run(self, *args, env=None):
+        r = subprocess.run([sys.executable, str(MEM), "--root", str(self.root), *args], env={**self.env, **(env or {})},
+                           capture_output=True, text=True)
         return r.stdout + r.stderr
 
     def head(self, out, note):
@@ -125,6 +126,57 @@ def scenario(w):
          "SUPERSEDED → a-v2 → a-v3" in w.head(out, "proj/a-v1.md") and re.search(r"dropped: proj/a-v2\.md names a note that exists", out) is not None, out)
     absorbing(w)
     pointing(w)
+    reading(w)
+
+
+FAKE = f"{sys.executable} {Path(__file__).resolve().parent / 'fake_dreamer.py'}"  # a script that answers as a keeper would
+
+
+def reading(w):
+    """Notes read into things and links (PLAN §4): the dry run, packets left on file for a helper, packets through a
+    command. The command here is a script with fixed answers, not a model."""
+    small = {"MEMORY_PACKET": "60000,700"}  # a few notes a packet, so that this small memory makes several
+    pend, notes = w.root / "_dream/pending", w.root / "_dream/notes"
+    ids = lambda files: [h for f in files for h in re.findall(r"^NOTE ([0-9a-f]{12}) ", f.read_text(), re.M)]  # noqa: E731
+    files = lambda: sorted(str(f) for f in w.root.rglob("*") if f.is_file())  # noqa: E731
+    n0, before = len(list(notes.glob("*.json"))), files()
+    out = w.run("dream", "--dry-run", "--packets", env=small)
+    m = re.search(r"(\d+) to read in (\d+) packets", out)
+    w.ok("the dry run says how many notes it would read, in how many packets, for about how much, and calls and writes nothing",
+         m is not None and int(m.group(2)) > 2 and "about $" in out and "nothing was called or written" in out and before == files(), out)
+    todo, n_packs = (int(m.group(1)), int(m.group(2))) if m else (0, 0)
+
+    out = w.run("dream", "--packets", env=small)
+    packs = sorted(pend.glob("packet-*.prompt.md"))
+    w.ok("with no command the packets are left on file for a helper: every unread note is in exactly one",
+         len(packs) == n_packs and len(ids(packs)) == todo == len(set(ids(packs))) and f"{n_packs} pending" in out, out)
+
+    def answer(f, **env):
+        r = subprocess.run(FAKE, shell=True, input=f.read_text(), capture_output=True, text=True, env={**w.env, **env})
+        (pend / (f.name[:-len(".prompt.md")] + ".json")).write_text(r.stdout)
+    skipped = re.findall(r"^NOTE [0-9a-f]{12} (\S+):", packs[1].read_text(), re.M)[0]
+    for i, f in enumerate(packs):
+        answer(f, **({"FAKE_CUT": "1"} if i == 0 else {"FAKE_SKIP": Path(skipped).stem} if i == 1 else {}))
+    out = w.run("dream", "--packets", env=small)
+    left = sorted(pend.glob("packet-*.prompt.md"))
+    w.ok("an answer cut off at its end, and one that skips a note: every other note is read and those two are asked again",
+         f"{todo - 2} indexed (0 calls)" in out and len(ids(left)) == 2, out)
+
+    for f in left:
+        answer(f)
+    log = w.dir / "calls.log"
+    cmd = {"MEMORY_LLM": FAKE, "FAKE_LOG": str(log)}
+    out = w.run("dream", "--packets", env={**small, **cmd})
+    calls = log.read_text() if log.exists() else ""
+    w.ok("an answer on file is taken with a command set too, and a note that has its reading is not read again",
+         "2 indexed (0 calls)" in out and "packet" not in calls and "extract" not in calls
+         and len(list(notes.glob("*.json"))) == n0 + todo, out + calls)
+
+    for i in (1, 2, 3):
+        w.write(f"proj/exp-9{i}.md", "", f"exp-9{i}: one more run, AUC 0.7{i}")
+    out = w.run("dream", "--packets", env=cmd) + w.run("check")
+    w.ok("with a command, three new notes are read in one call, and the graph meets the contract",
+         "3 indexed (1 calls, 1 packets)" in out and "packet 3" in log.read_text() and "contract: schema 1 ok" in out, out)
 
 
 CODE ="import os\n\n\ndef load(path):\n    return open(path).read()\n\n\nLIMIT = 10\n\n\ndef main():\n    print(load('x'))\n"

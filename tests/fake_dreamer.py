@@ -7,6 +7,10 @@ from a hand-written oracle. Knobs (env):
   FAKE_INJECT  JSON file {note stem: raw answer text} returned verbatim instead of the oracle
   FAKE_REVIEW  JSON file {"types": {...}, "entities": {...}, "conflicts": {...}, "etypes": {...}} overriding review answers
   FAKE_SAVE    directory: save every prompt there (NNN-<kind>.txt)
+  FAKE_SKIP    packets only: note stems, comma-separated, whose line is left out of the answer
+  FAKE_CUT     packets only: the answer's last line is cut in half, as an answer that ran out of room is
+
+A packet (`dream --packets`, many notes in one prompt) is answered with one line of JSON per note.
 """
 import json
 import os
@@ -147,6 +151,14 @@ def main():
         kind, stem = "extract", path.rsplit("/", 1)[-1][:-3]
         inject = json.load(open(os.environ["FAKE_INJECT"])) if os.environ.get("FAKE_INJECT") else {}
         out = inject[stem] if stem in inject else json.dumps(extraction(path, text))
+    elif prompt.startswith("Index each memory note"):
+        parts = re.split(r"^NOTE ([0-9a-f]{12}) (\S+):\n", prompt, flags=re.M)  # rules, then (id, path, text) per note
+        skip = set(filter(None, os.environ.get("FAKE_SKIP", "").split(",")))
+        lines = [json.dumps({"note": parts[i], **extraction(parts[i + 1], parts[i + 2])}) for i in range(1, len(parts), 3)
+                 if parts[i + 1].rsplit("/", 1)[-1][:-3] not in skip]
+        if os.environ.get("FAKE_CUT") and lines:
+            lines[-1] = lines[-1][:len(lines[-1]) // 2]
+        kind, path, out = "packet", str((len(parts) - 1) // 3), "\n".join(lines)
     elif prompt.startswith("You keep the vocabulary"):
         kind, path, out = "review", "-", json.dumps(review(prompt))
     else:

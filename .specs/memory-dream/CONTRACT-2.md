@@ -92,6 +92,11 @@ A quote is found exactly, spaces and case aside. There is no fuzzy step. What is
 
 A reading that came with a note is used, and that note is not sent to a keeper unless asked for by name.
 
+Built in phase P, inside schema 1 (`CONTRACT.md` §4, `pending/`). The files are `packet-<8 hex>.prompt.md`, named by
+the notes they hold, and the answer is the same name ending in `.json`: one JSON object a note with `"note": "<hash>"`,
+a line each. The budget has a second limit, 12,000 characters of notes, because on short notes the answer's room
+fills before the prompt's. `dream --packets` sends the same packets to a command, one call each.
+
 ## 6. Dropping
 
 1. Only `memory.py drop <note | folder>` drops. It prints what goes with the note and stops, unless given `--yes`.
