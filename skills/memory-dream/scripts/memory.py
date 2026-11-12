@@ -2076,16 +2076,18 @@ def read_index(dd):
 # ---------- dream ----------
 
 NOTE_CAP = 16000  # characters of note text per prompt: every call stays small (a note is 40 lines by rule)
-# Packets: the reading as a few large calls in place of one call a note. The instructions and the vocabulary travel
-# once a packet, and a helper agent that carries 35,000 tokens of its own in every request reads thirty notes for
-# the price of one. Two limits, and the first to bind closes the packet. The prompt stays under PACKET_TOKENS by the
-# script's own count of three characters a token: Haiku 5.5 costs five times as much over 100,000, and its tokenizer
-# counts about 30% more than the old four characters. The notes of a packet stay under PACKET_TEXT characters: a
-# reading is about three times its note (READING_RATIO, 3.2 on the bank's 1,677 readings), so 12,000 characters of
-# notes ask for an answer of about 13,000 tokens, and on short notes it is the answer's room that fills first (a
-# 60,000-token prompt would hold 330 of the bank's notes and ask for 135,000 tokens back).
+# Packets: the reading as fewer, larger calls in place of one call a note. The instructions and the vocabulary travel
+# once a packet, a helper agent that carries 35,000 tokens of its own in every request reads a dozen notes for the
+# price of one, and a keeper that sees a folder's notes together names the note a phrase means more often than one
+# that sees a single note. Two limits, and the first to bind closes the packet. The notes of a packet stay under
+# PACKET_TEXT characters: about a dozen short notes. Measured on Haiku 5.5 (RESULTS phase S): at two dozen notes a
+# call a reading held 0.60 of the things and 0.43 of the links of the same note read alone; at a dozen, with the
+# prompt that asks for each note in full, it held as many things, 0.94 of the links and more of the lineage (97%
+# against 93%), for 0.6 of the price. The prompt stays under PACKET_TOKENS by the script's own count of three
+# characters a token: Haiku 5.5 costs five times as much over 100,000, and its tokenizer counts about 30% more than
+# the old four characters; this limit binds only when notes are long.
 # $MEMORY_PACKET="tokens,characters" sets both; $MEMORY_PRICE="in,out" the $ a million tokens of the dry run.
-PACKET_TOKENS, PACKET_TEXT, KNOWN_ROOM = 60000, 12000, 8000
+PACKET_TOKENS, PACKET_TEXT, KNOWN_ROOM = 60000, 6000, 8000
 READING_RATIO = 3.2
 OUT_PER_CHAR = 3.3  # output tokens a character of note, as Haiku 5.5 wrote them in phase S with its thinking counted
 #   (2.2 in packets of 24, 3.3 one note a call, 4.1 in packets of 6): the dry run's estimate of the answer

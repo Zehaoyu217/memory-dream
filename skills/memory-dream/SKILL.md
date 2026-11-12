@@ -49,9 +49,12 @@ truth; everything else is derived and disposable. `memory.py` = `python3 <this s
    checking, the review queue — the digest `memory/DIGEST.md` and the index. With `$MEMORY_LLM` set (e.g. `claude -p
    --model haiku --tools ""`) a cheap model also names the things each note mentions and the typed links between them;
    without a model nothing is missing for answering. Many notes to read: `memory.py dream --dry-run --packets` says
-   how many calls and about how much, and `dream --packets` reads about 25 short notes a call; with no command it
+   how many calls and about how much, and `dream --packets` reads about a dozen short notes a call, which is cheaper
+   and reads the links between a folder's notes better than one call a note; with no command it
    leaves the packets in `_dream/pending/` for helper agents on a cheap model (`memory-dreamer`, one packet each, in
-   parallel), and the next `dream --packets` takes their answers. `memory.py check` lists warnings. Scratch lines: `memory.py log "…" -p
+   parallel), and the next `dream --packets` takes their answers. A keeper also reads what a note says in its own
+   words that it builds on or replaces ("Builds on the dispositions dataset and exp-404."), so a note without
+   `from:` still has its place in the map; the frontmatter stays the sure way to say it. `memory.py check` lists warnings. Scratch lines: `memory.py log "…" -p
    <project>`.
 
 ## The domain is three files you may edit, never the code

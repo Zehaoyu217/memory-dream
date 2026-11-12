@@ -639,7 +639,7 @@ or to a fresh worker given the packet, at most twice. After that, it stops and r
 
 ## Appendix A — the contract surface, verbatim: `skills/memory-dream/SKILL.md` and the dreamer agent
 
-_Part 5 · copied at commit 6a969cd. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
+_Part 5 · copied at commit fd0ae11. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
 
 ```markdown
 ---
@@ -693,9 +693,12 @@ truth; everything else is derived and disposable. `memory.py` = `python3 <this s
    checking, the review queue — the digest `memory/DIGEST.md` and the index. With `$MEMORY_LLM` set (e.g. `claude -p
    --model haiku --tools ""`) a cheap model also names the things each note mentions and the typed links between them;
    without a model nothing is missing for answering. Many notes to read: `memory.py dream --dry-run --packets` says
-   how many calls and about how much, and `dream --packets` reads about 25 short notes a call; with no command it
+   how many calls and about how much, and `dream --packets` reads about a dozen short notes a call, which is cheaper
+   and reads the links between a folder's notes better than one call a note; with no command it
    leaves the packets in `_dream/pending/` for helper agents on a cheap model (`memory-dreamer`, one packet each, in
-   parallel), and the next `dream --packets` takes their answers. `memory.py check` lists warnings. Scratch lines: `memory.py log "…" -p
+   parallel), and the next `dream --packets` takes their answers. A keeper also reads what a note says in its own
+   words that it builds on or replaces ("Builds on the dispositions dataset and exp-404."), so a note without
+   `from:` still has its place in the map; the frontmatter stays the sure way to say it. `memory.py check` lists warnings. Scratch lines: `memory.py log "…" -p
    <project>`.
 
 ## The domain is three files you may edit, never the code
@@ -776,7 +779,7 @@ Touch nothing else.
 
 ## Appendix B — the graph contract, verbatim: `.specs/memory-dream/CONTRACT.md`
 
-_Part 6 · copied at commit 6a969cd. Schema 1; `memory.py check` validates against it (A38)._
+_Part 6 · copied at commit fd0ae11. Schema 1; `memory.py check` validates against it (A38)._
 
 ## memory-dream — the graph contract (schema 1)
 
@@ -1049,7 +1052,7 @@ origin by adding the file. What changes for the notes under it, and nothing else
 
 ## Appendix C — the build guide, verbatim: `BUILD-GUIDE.md` §3–§10
 
-_Part 7 · copied at commit 6a969cd. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
+_Part 7 · copied at commit fd0ae11. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
 
 ### 3. The design in one page
 
@@ -1262,7 +1265,11 @@ constants, each with the measurement that set it.
   the home note of the thing of that name after the merge. Frontmatter and `CONFLICTS.md` win. So that a keeper can
   name the note a phrase means ("the dispositions dataset"), both prompts carry `FOLDER`: the notes of the folder as
   `file name: first line` (`folder_lines`, at most 80 a folder), part of the prefix that every call of a folder shares.
-- **Command mode** (`MEMORY_LLM` set): waves of `-j` parallel calls, one retry for unusable answers; notes ordered by
+- **Command mode** (`MEMORY_LLM` set): waves of `-j` parallel calls, one retry for unusable answers. A call runs in a
+  process group of its own (`run_command`): past `MEMORY_TIMEOUT` seconds (300) the whole group is killed, the pipes
+  are closed from this side and only the shell is waited for. Do not go back to `subprocess.run(timeout=…)`: it kills
+  the shell alone and reads on, so a hung grandchild keeps the dream waiting for good (`tests/hang_cmd.py` and a line
+  of `tests/e2e.py` hold this). Notes are ordered by
   project then date, one KNOWN per project (big memories: refreshed at most every 10 waves) so every call of a project
   shares one byte-identical prefix; its length goes to the command in `MEMORY_STATIC_PREFIX`, and `tests/haiku_cmd.py`
   puts that prefix in the system prompt, which `claude -p` caches (−32% per note on the sample, convergence 1.06×).
@@ -1272,9 +1279,10 @@ constants, each with the measurement that set it.
 - **Packets** (`--packets`; `PACKET`, `pack`, `packet_prompt`, `parse_packet`, `index_packets`): the same reading
   asked for many notes in one call. The rules are cut from `EXTRACT`, so the two prompts cannot drift; each note
   follows under `NOTE <sha12> <path>:` and is answered by one line of JSON that names it. A packet closes at
-  `PACKET_TEXT` = 12,000 characters of notes or `PACKET_TOKENS` = 60,000 tokens of prompt, at three characters a
-  token, whichever comes first (`$MEMORY_PACKET="tokens,characters"`). On short notes the first limit binds: a
-  reading is 3.2 times its note on the bank, so the answer fills long before the prompt does. With a command, `-j`
+  `PACKET_TEXT` = 6,000 characters of notes (a dozen short ones) or `PACKET_TOKENS` = 60,000 tokens of prompt, at
+  three characters a token, whichever comes first (`$MEMORY_PACKET="tokens,characters"`). The size is a measured
+  trade (RESULTS phase S): two dozen notes a call read thinner (0.60 of the things of a single call), a dozen read as
+  much and place more lineage, since the keeper sees the folder's notes together. With a command, `-j`
   packets run at a time, KNOWN is refreshed between waves, and a note whose line is missing is packed once more;
   without one the packets are files, named by the notes they hold. Every answer is grounded against its own note,
   as a single call's is. Answer files are taken first in both modes (`take_answers`): a reading on file is never
@@ -1638,7 +1646,7 @@ preferences 0.95 when the task names them, 0.84 when it names only their meeting
 
 ## Appendix D — prompts, seeds and tuned tables, verbatim from `memory.py`
 
-_Part 8 · extracted at commit 6a969cd by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
+_Part 8 · extracted at commit fd0ae11 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
 
 ### D.1 `EXTRACT` — the per-note prompt: fixed guidance, then `KINDS:`, `TYPES:`, `EDGES:` and `KNOWN:` from the registries (the static part is cached), then `NOTE`
 

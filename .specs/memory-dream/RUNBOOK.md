@@ -142,13 +142,15 @@ Many notes to read: packets.
 
 ```bash
 $M dream --dry-run --packets      # how many notes, in how many packets, about how many tokens and dollars; nothing is called
-$M dream --packets -j 6           # a packet a call: about 25 short notes each
+$M dream --packets -j 6           # a packet a call: about a dozen short notes each
 ```
 
-A packet holds notes up to 12,000 characters, or a prompt of 60,000 tokens, whichever comes first
+A packet holds notes up to 6,000 characters, or a prompt of 60,000 tokens, whichever comes first
 (`MEMORY_PACKET="tokens,characters"`). An answer that skips a note or is cut off costs only that note,
-which is asked once more. Whether packets read as well as single calls is measured in step 2 of the
-plan; until then one call a note stays the default.
+which is asked once more. Measured on Haiku 5.5 (RESULTS phase S): a dozen notes a call reads as many
+things a note as one call a note, places more of the links between a folder's notes, and costs 0.6 as
+much; two dozen a call costs 0.4 and reads thinner (0.60 of the things). One call a note is still what
+`dream` does when `--packets` is not given.
 
 No command: `dream` builds everything that needs no model — lineage, kinds, conflicts, digest,
 viewer, index — and says how many notes have no entities yet; `check` says it in one C5 line.
@@ -157,6 +159,13 @@ Answering is unaffected. When you want entities and relations without a model co
 in `pending/TODO.md`; run `memory-dreamer` subagents on them, one packet each, in parallel; run
 `dream --packets` again. A review prompt can appear on the second pass, so loop until it reports
 0 pending (normally 2 rounds). `dream --prompts` does the same with one prompt a note.
+
+A long dream on a laptop: keep the machine awake (`caffeinate -s -i $M dream -j 8` on macOS). A
+machine that sleeps freezes the dream and breaks the calls in flight, and it looks like a service
+that stopped answering. `MEMORY_TIMEOUT` (300 seconds) counts the time the machine is awake; a call
+that outlives it is ended with everything it started and tried once more, and the notes it held are
+left for the next dream (`C3`). A dream that was killed leaves `_dream/lock`: delete it. What it had
+read is on file and is not read again.
 
 Keep the readings in git: `memory/_dream/notes/` is what a keeper was paid for, and with it a clone
 builds the same graph with no call. Ignore the rest of `_dream/` (`memory/_dream/*`, then

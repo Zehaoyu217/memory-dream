@@ -293,7 +293,11 @@ constants, each with the measurement that set it.
   the home note of the thing of that name after the merge. Frontmatter and `CONFLICTS.md` win. So that a keeper can
   name the note a phrase means ("the dispositions dataset"), both prompts carry `FOLDER`: the notes of the folder as
   `file name: first line` (`folder_lines`, at most 80 a folder), part of the prefix that every call of a folder shares.
-- **Command mode** (`MEMORY_LLM` set): waves of `-j` parallel calls, one retry for unusable answers; notes ordered by
+- **Command mode** (`MEMORY_LLM` set): waves of `-j` parallel calls, one retry for unusable answers. A call runs in a
+  process group of its own (`run_command`): past `MEMORY_TIMEOUT` seconds (300) the whole group is killed, the pipes
+  are closed from this side and only the shell is waited for. Do not go back to `subprocess.run(timeout=…)`: it kills
+  the shell alone and reads on, so a hung grandchild keeps the dream waiting for good (`tests/hang_cmd.py` and a line
+  of `tests/e2e.py` hold this). Notes are ordered by
   project then date, one KNOWN per project (big memories: refreshed at most every 10 waves) so every call of a project
   shares one byte-identical prefix; its length goes to the command in `MEMORY_STATIC_PREFIX`, and `tests/haiku_cmd.py`
   puts that prefix in the system prompt, which `claude -p` caches (−32% per note on the sample, convergence 1.06×).
@@ -303,9 +307,10 @@ constants, each with the measurement that set it.
 - **Packets** (`--packets`; `PACKET`, `pack`, `packet_prompt`, `parse_packet`, `index_packets`): the same reading
   asked for many notes in one call. The rules are cut from `EXTRACT`, so the two prompts cannot drift; each note
   follows under `NOTE <sha12> <path>:` and is answered by one line of JSON that names it. A packet closes at
-  `PACKET_TEXT` = 12,000 characters of notes or `PACKET_TOKENS` = 60,000 tokens of prompt, at three characters a
-  token, whichever comes first (`$MEMORY_PACKET="tokens,characters"`). On short notes the first limit binds: a
-  reading is 3.2 times its note on the bank, so the answer fills long before the prompt does. With a command, `-j`
+  `PACKET_TEXT` = 6,000 characters of notes (a dozen short ones) or `PACKET_TOKENS` = 60,000 tokens of prompt, at
+  three characters a token, whichever comes first (`$MEMORY_PACKET="tokens,characters"`). The size is a measured
+  trade (RESULTS phase S): two dozen notes a call read thinner (0.60 of the things of a single call), a dozen read as
+  much and place more lineage, since the keeper sees the folder's notes together. With a command, `-j`
   packets run at a time, KNOWN is refreshed between waves, and a note whose line is missing is packed once more;
   without one the packets are files, named by the notes they hold. Every answer is grounded against its own note,
   as a single call's is. Answer files are taken first in both modes (`take_answers`): a reading on file is never
