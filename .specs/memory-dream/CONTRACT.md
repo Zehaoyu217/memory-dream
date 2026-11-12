@@ -162,7 +162,8 @@ relation is "current" when one of its evidence notes is live).
 - `manifest.json` — `v`, `code` (hash of memory.py), `files {path: {sha, mtime, size}}`, `former {path: [old paths]}`,
   `vsig` (hash of EDGES + ALIASES + CONFLICTS + KINDS + TYPES), `registry` (the type names of EDGES.md and TYPES.md at
   the last dream, for C13), `seen`, `queue`, `failed`, `attempts`, `refs`, `dreamed`, `unindexed`, `due`, `dropped`
-  (the graph's list, §1), `tags` (§1), `gone {path: {seen, replaced, replaced_by, built_on_by}}` (notes that left without a `drop`,
+  (the graph's list, §1), `tags` (§1), `curated {folder: signature of the things it held when the curator last read
+  it}`, `gone {path: {seen, replaced, replaced_by, built_on_by}}` (notes that left without a `drop`,
   with where they stood at the dream that noticed: C15, and what `drop` needs to record them later), `pointers` and
   `psig` (§1). A dream with nothing changed in any of these, nor in a file a note points at, stops after the scan.
 - `pending/` — what a helper agent is asked, each answered by a file of the same name ending in `.json`; `TODO.md`
@@ -221,7 +222,9 @@ link read the other way, as in "what uses X") and `hops: 2` (the links chain: an
 `ask` goes two steps) · `drop: a, b`. A type line without `walk:` or `hops:` takes the seed's line of the same name,
 so a file written before the fields existed answers as it did; a type the seed does not have is followed only once
 its line says by which words. `TAGS.md` (tags): `- tag: what it means | aka: other spellings`. It has no seed: a tag
-belongs to one base, and a writer picks from this list. `ALIASES.md`: `- canonical = other, …` ·
+belongs to one base, and a writer picks from this list. `ALIASES.md`: `- canonical = other, … [| why: … | by: …]`
+(what follows the first ` | ` is for people: the reason and who decided; the curator signs its lines `by: curator
+<date>`, and a line without `by:` is a person's) ·
 `not: a / b`. `CONFLICTS.md`: `- a > b` (a supersedes b) · `compatible: a / b` · `- a ? b` (unsure) · `dropped:
 <note.md | folder/> (YYYY-MM-DD) > <what it had replaced>, …`, written by `memory.py drop` and by nothing else: the
 build reads it as a pass-through in a line of replacements, so a clone with no `_dream/` builds the same lineage.

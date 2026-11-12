@@ -52,6 +52,130 @@ python3 eval/packets_probe.py compare <work>
 So one call a note stays the default with a command. Packets are for where calls are the scarce thing: a helper
 agent that carries 35,000 tokens into every request, or a first pass over a large base that is read again later.
 
+## S2 — the worn bank: the same notes, as people who keep no frontmatter would write them (`eval/hard/`)
+
+Phase L ended on a limit: on the bank grep is already exact, so nothing there can show a memory being the more
+accurate. This is why. Of the bank's 2,213 `from` links, 737 are stated in the note's prose by the other note's id,
+366 by another name, and 1,110, half of them, nowhere but on the `from:` line; 104 of the 216 `supersedes` links
+likewise. The frontmatter is a line that states every link by id, and an agent with a shell reads it exactly: asked
+ten linkage questions, Haiku with grep wrote four small scripts that load every note's `from:` line into a table
+and walk it.
+
+The worn bank is the same 1,677 notes with those two lines gone and the same thing said in a closing sentence:
+
+```
+Builds on the aml analyst dispositions dataset, feat-aml-new-counterparty and feat-aml-structuring-v1.
+Replaces fraud26-gbm-v2.
+```
+
+Each other note is named by its id (with its folder when it is in another one, as the bank wrote it), or, inside
+one folder and for 35% of the links, by the short phrase a colleague would use for it. The phrases were written
+once by Haiku from the notes' titles, one call a folder (`eval/hard/handles.py`: 1,360 of 1,524 notes got one, 47
+calls, $0.07; a phrase that held the note's id or was not unique in its folder was refused). Nothing else in a note
+changes and no note moves. Every link is still stated, once, as a link: what is lost is the fixed place and, for a
+third of them, the id.
+
+```bash
+python3 eval/hard/make_hard.py <dreamed tidy bank> <out>          # no model: the notes and truth.json, the answer key
+python3 eval/hard/lineage_score.py <dreamed worn memory> <out>/truth.json
+```
+
+| the 2,429 links of the worn bank | stated by its id | by its id, with its folder | by a phrase |
+|---|---|---|---|
+| `from` | 1,432 | 70 | 711 |
+| `supersedes` | 121 | 48 | 47 |
+
+A memory of it built with no model holds no lineage at all. It knows that 81% of the linked pairs name each other
+(the ids written in the prose become mentions), and for 419 `from` links it holds nothing.
+
+## S3 — a keeper reads the links out of the prose (`lineage_as_read`, `eval/hard/lineage_score.py`)
+
+A reading has two more lists: `built_on` and `replaces`, what the note itself says it builds on and what it
+replaces, each with the note's own words. The script keeps an item whose words are in the note, places what it
+names (a note by path or file name, the note's own folder first; else the home note of the thing of that name) and
+adds a `from` or `supersedes` edge marked `by: "reading"`. Frontmatter and `CONFLICTS.md` win, and a replacement is
+taken only between two notes of one kind. So that a keeper can name the note a phrase means, both prompts carry the
+folder's notes as `file name: first line`.
+
+A pilot first, on the 300 notes of ten folders of the worn bank, each way of reading on its own copy:
+
+| read by Haiku 5.5 | `from` links held as lineage, of 557 | of the 189 stated by a phrase | `supersedes`, of 35 | lineage edges that are true | $ a note | things a note | links a note |
+|---|---|---|---|---|---|---|---|
+| no model | 0 | 0 | 0 | – | 0 | 0 | 0 |
+| the first prompt, packets of 24 | 361 edges in all, 96% true; a list read as one item, a phrase not matched to its note | | 80% | 96% | 0.00068 | | |
+| one call a note | 518 (93%) | 157 (83%) | 34 (97%) | 552 of 564 (98%); 552 of 559 (99%) with the rule of one kind | 0.00187 | 5.38 | 3.46 |
+| packets of a dozen | 539 (97%) | 172 (91%) | 35 (100%) | 574 of 585 (98%) | 0.00112 | 5.44 | 3.24 |
+
+- **The first prompt read thinly and wrongly in three ways**, seen on the first notes opened: "Builds on A, B and C"
+  gave one item; "v3 replaces v2", in a decision, was taken for the decision replacing the model; and a phrase got
+  an id of the keeper's own making in place of the note's. The prompt now says each of the three, and lists the
+  folder.
+- **A dozen notes a call is the better reading here, and the cheaper.** With the prompt that asks for each note in
+  full, a packet of a dozen keeps as many things a note as a single call (5.44 and 5.38), nearly as many links, and
+  more of the lineage: the keeper has the folder's notes in front of it, so "the aml analyst dispositions dataset"
+  is the note `ds-aml-dispositions` in 91% of the cases against 83%. It costs 0.6 of the single calls. This is why
+  the default packet is now 6,000 characters of notes, a dozen short ones, where phase P had set two dozen from
+  sizes alone.
+- **What is wrong is mostly a replacement that is not the note's own.** Of the 12 wrong edges of the single calls,
+  6 said that a decision or a finding replaces a model. A replacement between notes of two kinds is no longer taken:
+  7 wrong edges are left, and no right one is lost.
+
+## S4 — identity by reading: the curator in place of the string ratio
+
+The owner's sixteenth point: dedup and merging are done by agents, and fuzzy matching is the wrong tool. v0.4
+proposed pairs to its review from two sources, a written form two things share and names that look alike (a string
+ratio of 0.85 or more). Measured on the bank with every decision set aside, 90 pairs are proposed:
+
+| what proposed the pair | pairs | the review had called them the same | different | no verdict on file |
+|---|---|---|---|---|
+| a written form they share | 44 | 10 | 31 | 3 |
+| names that look alike, and nothing else | 46 | 5, all a singular and its plural | 41, siblings such as `aml-oot-2026h1 / cli-oot-2026h1` | 0 |
+
+The ratio is gone from the script, and `difflib` with it. What it could not find at all, two unlike names for one
+thing, is now read: for each folder whose things changed, the curator, a cheap model, is shown everything the
+folder's notes name, each with its type, its written forms, the number of notes and one line that mentions it, and
+says which are one thing, with a reason. A join is one line a person can read and undo:
+
+```
+- feat-aml-structuring-v1 = structuring-v1 | why: Both are the feature "structuring-v1", and the second is written as "feat-aml-structuring-v1" … | by: curator 2026-11-12
+```
+
+Run on the bank from scratch with Haiku 5.5 (47 folders, 49 calls, $0.06 to $0.12 a run; three runs, as the rules grew):
+
+| | first run, no rule but versions and two home notes | third run, with the rules the script now holds |
+|---|---|---|
+| names joined | 80 | 29 |
+| refused by a rule | – | 46 |
+| among the 15 pairs the earlier review called the same | 10 | 6 |
+| against a pair it called different | 10 | 0 |
+| pairs nobody had proposed | 60 | 23, most a short name and a full id: `ds-cu-oot-2026h1 = collections-uplift-oot-2026h1`, `feat-bt-limit-headroom = limit-headroom`, `deciles-1-2 = top-two-deciles` |
+
+- **The first run made the mistake that matters.** "The response model" is what two projects call two different
+  models. Each folder's curator joined the short name to its own model, and the two lines met: one thing for
+  `cu-resp-v1` and `mq3-response-gbm-v1`. So the script now holds, whatever the answer says: the name that is joined
+  to another is used in this folder alone; a thing whose note is in another folder is not renamed here; no line may
+  come to join two things that each have a note, or two names in use beyond the folder; and a line is extended only
+  by the hand that signed it. With those, the cross-project joins are refused and the short name stays a thing of
+  its own.
+- **It does not move retrieval on the bank.** The gate's 719 name questions, made from the index on file and asked of
+  three versions of that memory: 0.811 with the earlier review's lines, 0.814 with no decision at all, 0.809 with
+  the curator's. A question that writes a thing as the notes do is answered from the readings' written forms; the
+  lines that join two ids add nothing that this measure sees. What the curator buys is a graph with 36 fewer
+  doubles (1,340 things to 1,304), a reason on every join, and no decision taken from spelling.
+- **Not every join is right.** Read by hand, the second run's `cc-ft-v2 = dispute-link-v2` was a model joined to a
+  feature set (the third run wrote `feat-cc-dispute-link-v2 = dispute-link-v2`, which is right), and
+  `email-channel = email-arm` is arguable. A wrong line is deleted and `not: a / b` written; the curator's next
+  answer is then refused. The review still judges the pairs that share a written form, and signs its lines
+  `by: review`: in the third run it called `feature-psi` and `psi` the same, against its own earlier verdict.
+
+`tests/e2e.py`, two lines on each read path: two unlike names in one folder are joined on a line with its reason;
+a person's `not:` line overrules it and the join is not written again. Acceptance A15 and A34 are rewritten for it
+(the fixture's `risk-tier-cuts` and `risk-tier-cutoffs` were a ratio pair).
+
+Not done: the rule that joins an id to the one thing that writes it as a spelling still decides without a reader
+(203 merges on the bank); an edge's raw link word is still mapped onto a type only over the bar; a name that is two
+things in two folders stays one thing with two meanings, since nothing qualifies a name by its folder yet.
+
 # Phase R (2026-11-12) — step 1, items 6 and 7: setting a memory up with its own five questions, and filters on the page
 
 The owner's sixth point: the skill is operated by an agent that does the detective work on the material and sets up

@@ -639,7 +639,7 @@ or to a fresh worker given the packet, at most twice. After that, it stops and r
 
 ## Appendix A — the contract surface, verbatim: `skills/memory-dream/SKILL.md` and the dreamer agent
 
-_Part 5 · copied at commit fd0ae11. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
+_Part 5 · copied at commit b4dff96. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
 
 ```markdown
 ---
@@ -709,7 +709,8 @@ analytics, software and finance work; `pack: research` or `pack: ops` adds a dom
 asked to use what these files list; a word that fits nothing is kept as `other/<word>`, and becomes a type through the
 review once it is common. A hand-written line is permanent and costs no model calls: the graph is re-derived from the
 cached readings. Add types freely; to retire one, merge it (add it to another type's `aka`) rather than delete it, so
-nothing already read is lost. `ALIASES.md` (`- canonical = other-id`, `not: a / b`) and `CONFLICTS.md` (`- a > b`
+nothing already read is lost. `ALIASES.md` (`- canonical = other-id`, `not: a / b`; a line the curator wrote ends
+with `| why: … | by: curator <date>`: delete it and write `not:` when it is wrong) and `CONFLICTS.md` (`- a > b`
 makes a supersede b without touching either note; `dropped: …` lines are written by `drop`, leave them) are the other
 two files at the root that are yours.
 
@@ -779,7 +780,7 @@ Touch nothing else.
 
 ## Appendix B — the graph contract, verbatim: `.specs/memory-dream/CONTRACT.md`
 
-_Part 6 · copied at commit fd0ae11. Schema 1; `memory.py check` validates against it (A38)._
+_Part 6 · copied at commit b4dff96. Schema 1; `memory.py check` validates against it (A38)._
 
 ## memory-dream — the graph contract (schema 1)
 
@@ -945,7 +946,8 @@ relation is "current" when one of its evidence notes is live).
 - `manifest.json` — `v`, `code` (hash of memory.py), `files {path: {sha, mtime, size}}`, `former {path: [old paths]}`,
   `vsig` (hash of EDGES + ALIASES + CONFLICTS + KINDS + TYPES), `registry` (the type names of EDGES.md and TYPES.md at
   the last dream, for C13), `seen`, `queue`, `failed`, `attempts`, `refs`, `dreamed`, `unindexed`, `due`, `dropped`
-  (the graph's list, §1), `tags` (§1), `gone {path: {seen, replaced, replaced_by, built_on_by}}` (notes that left without a `drop`,
+  (the graph's list, §1), `tags` (§1), `curated {folder: signature of the things it held when the curator last read
+  it}`, `gone {path: {seen, replaced, replaced_by, built_on_by}}` (notes that left without a `drop`,
   with where they stood at the dream that noticed: C15, and what `drop` needs to record them later), `pointers` and
   `psig` (§1). A dream with nothing changed in any of these, nor in a file a note points at, stops after the scan.
 - `pending/` — what a helper agent is asked, each answered by a file of the same name ending in `.json`; `TODO.md`
@@ -1004,7 +1006,9 @@ link read the other way, as in "what uses X") and `hops: 2` (the links chain: an
 `ask` goes two steps) · `drop: a, b`. A type line without `walk:` or `hops:` takes the seed's line of the same name,
 so a file written before the fields existed answers as it did; a type the seed does not have is followed only once
 its line says by which words. `TAGS.md` (tags): `- tag: what it means | aka: other spellings`. It has no seed: a tag
-belongs to one base, and a writer picks from this list. `ALIASES.md`: `- canonical = other, …` ·
+belongs to one base, and a writer picks from this list. `ALIASES.md`: `- canonical = other, … [| why: … | by: …]`
+(what follows the first ` | ` is for people: the reason and who decided; the curator signs its lines `by: curator
+<date>`, and a line without `by:` is a person's) ·
 `not: a / b`. `CONFLICTS.md`: `- a > b` (a supersedes b) · `compatible: a / b` · `- a ? b` (unsure) · `dropped:
 <note.md | folder/> (YYYY-MM-DD) > <what it had replaced>, …`, written by `memory.py drop` and by nothing else: the
 build reads it as a pass-through in a line of replacements, so a clone with no `_dream/` builds the same lineage.
@@ -1052,7 +1056,7 @@ origin by adding the file. What changes for the notes under it, and nothing else
 
 ## Appendix C — the build guide, verbatim: `BUILD-GUIDE.md` §3–§10
 
-_Part 7 · copied at commit fd0ae11. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
+_Part 7 · copied at commit b4dff96. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
 
 ### 3. The design in one page
 
@@ -1241,8 +1245,21 @@ families, roles and the `digest`, `conflicts` and `answers` flags. Evidence: 81%
 366 questions need lineage, a single note, or one of the 8 (`eval/type_coverage.py`, `eval/question_relations.py`);
 with Haiku on 70 notes the two-tier prompt gives 81% typed, 19% labels, 0 invented types (RESULTS "Phase C").
 
-Review candidates: new entities of the same type that share a rare surface form or have similar folded ids
-(difflib ≥ 0.85); pairs with two different home notes are never queued.
+Review candidates (`candidates`): new entities of the same type that some note writes with the same words; pairs with
+two different home notes are never queued. Nothing is proposed from how two names look. Do not bring a string
+distance back: on the bank the ratio that used to do it (0.85) offered 46 pairs, 5 of them one thing (all plurals)
+and 41 siblings such as aml-oot-2026h1 / cli-oot-2026h1.
+
+The curator (`CURATE`, `Dream.cards`, `Dream.run_curate`): identity by reading. For each folder whose things changed
+since it was last read, one prompt lists them, each with its type, its written forms, the number of notes and one
+line that mentions it; the answer names the ones that are one thing under two names, each with a reason. A join is a
+line of `ALIASES.md`, `- a = b | why: … | by: curator <date>`. The script holds five rules whatever the answer says:
+both are on the folder's list; never two versions; never against a `not:` line; the name joined to another is used
+in this folder alone, and a thing whose note is in another folder is not renamed here; no line may come to join two
+things that each have a note. The folder's signature after the joins is kept in the manifest (`curated`), so the
+same things are not read twice; at most 60 folders a dream. With a command it runs before the review, `-j` folders
+at a time; without one the prompts are `curate-<folder>.prompt.md` in `_dream/pending/`, written with `--prompts` or
+`--packets` and answered like the others.
 
 #### 5.6 The dreamer (`dream`)
 
@@ -1646,7 +1663,7 @@ preferences 0.95 when the task names them, 0.84 when it names only their meeting
 
 ## Appendix D — prompts, seeds and tuned tables, verbatim from `memory.py`
 
-_Part 8 · extracted at commit fd0ae11 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
+_Part 8 · extracted at commit b4dff96 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
 
 ### D.1 `EXTRACT` — the per-note prompt: fixed guidance, then `KINDS:`, `TYPES:`, `EDGES:` and `KNOWN:` from the registries (the static part is cached), then `NOTE`
 

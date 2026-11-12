@@ -7,6 +7,7 @@ from a hand-written oracle. Knobs (env):
   FAKE_INJECT  JSON file {note stem: raw answer text} returned verbatim instead of the oracle
   FAKE_REVIEW  JSON file {"types": {...}, "entities": {...}, "conflicts": {...}, "etypes": {...}} overriding review answers
   FAKE_SAVE    directory: save every prompt there (NNN-<kind>.txt)
+  FAKE_CURATE  JSON file with the curator's `same` list, returned in place of the oracle's
   FAKE_SKIP    packets only: note stems, comma-separated, whose line is left out of the answer
   FAKE_CUT     packets only: the answer's last line is cut in half, as an answer that ran out of room is
 
@@ -159,6 +160,12 @@ def main():
         if os.environ.get("FAKE_CUT") and lines:
             lines[-1] = lines[-1][:len(lines[-1]) // 2]
         kind, path, out = "packet", str((len(parts) - 1) // 3), "\n".join(lines)
+    elif prompt.startswith("You keep the names of things"):
+        ids = set(re.findall(r"^- (\S+) \(", prompt, re.M))
+        over = json.load(open(os.environ["FAKE_CURATE"])) if os.environ.get("FAKE_CURATE") else None
+        same = over if over is not None else [{"ids": sorted(p), "why": "the notes use both for the cut-offs between risk tiers"}
+                                              for p in SAME if p <= ids]
+        kind, path, out = "curate", "-", json.dumps({"same": same})
     elif prompt.startswith("You keep the vocabulary"):
         kind, path, out = "review", "-", json.dumps(review(prompt))
     else:

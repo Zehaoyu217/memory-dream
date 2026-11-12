@@ -131,6 +131,7 @@ def scenario(w):
     pointing(w)
     reading(w)
     vocabulary(w)
+    naming(w)
     proving(w)
 
 
@@ -245,6 +246,28 @@ def vocabulary(w):
     w.ok("what a note says it starts from, in its prose alone, is lineage once a keeper has read it with the words that "
          "say so; an item whose words are not in the note is refused",
          "from paper-b" in w.head(out, "lib/paper-c.md") and "exp-1" not in w.head(out, "lib/paper-c.md"), out)
+
+
+def naming(w):
+    """Two names for one thing (PLAN §7): a curator reads a folder's things together and the join is a line with its
+    reason. Nothing is proposed from how two names are spelled."""
+    for i, words in enumerate(("risk-tier cuts", "risk-tier cuts", "risk tier cutoffs", "risk tier cutoffs"), 1):
+        w.write(f"tiers/dec-tier-{i}.md", "", f"dec-tier-{i}: where the tiers are cut, part {i}")
+        with open(w.root / f"tiers/dec-tier-{i}.md", "a") as f:
+            f.write(f"The {words} were reviewed in month {i}.\n")
+    log = w.dir / "naming.log"
+    cmd = {"MEMORY_LLM": FAKE, "FAKE_LOG": str(log)}
+    out = w.run("dream", env=cmd)
+    line = next((ln for ln in (w.root / "ALIASES.md").read_text().split("\n") if "risk-tier" in ln), "")
+    w.ok("two unlike names for one thing: the curator reads the folder's things together and joins them on one line, with "
+         "its reason and its name on it", "curator: " in out and " | why: " in line and " | by: curator " in line
+         and "curate" in log.read_text(), out + line)
+    aliases = w.root / "ALIASES.md"
+    aliases.write_text(aliases.read_text().replace(line + "\n", "") + "not: risk-tier-cuts / risk-tier-cutoffs\n")
+    out = w.run("dream", env=cmd) + w.run("check")
+    w.ok("a person's `not:` line overrules it: the folder is read again, the same answer comes back, and the script "
+         "does not write the join a second time", "risk-tier-cuts = " not in aliases.read_text().replace("not: ", "")
+         and "= risk-tier-cutoffs" not in aliases.read_text() and "contract: schema 1 ok" in out, out + aliases.read_text())
 
 
 def proving(w):

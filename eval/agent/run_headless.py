@@ -8,7 +8,7 @@
         [--runs 3] [--batch 10] [-j 4] [--only 1,2] [--tidy] [--max-turns 80]
         one call a batch and a run; answers to <out>/<arm>-<model>-r<run>-b<batch>.md, the CLI's own usage and cost
         to <out>/usage.jsonl, every tool call to <out>/calls/…jsonl
-  python3 eval/agent/run_headless.py table <questions.jsonl> <out dir> [--batch 10]
+  python3 eval/agent/run_headless.py table <questions.jsonl> <out dir> [--batch 10] [--arms <arms dir>]
         per arm and model: exact answers, recall, precision, $ and seconds a ten questions, tool calls, over the runs
 
 The agent's world is its workspace: the prompt says so, and `table` counts the tool calls that named a path under a
@@ -82,6 +82,14 @@ def prompt_for(arm, W, batch, tidy):
             f"Answer these {len(batch)} questions:\n{ql}{TAIL}")
 
 
+def outside(calls, W):
+    """Tool calls that name a path under a home folder which is not the workspace: the notes of another world, or the
+    answer key. Scratch files an agent writes under /tmp are its own business, and so is a long tool result that the
+    CLI itself spilled to a file and the agent read back."""
+    return sum(1 for c in calls if any(str(W) not in m and "/tool-results/" not in m
+                                       for m in re.findall(r"/(?:Users|home)/[^\s\"']+", json.dumps(c["input"]))))
+
+
 def one(arm, model, W, batch, tidy, turns):
     cmd = ["claude", "-p", "--model", model, "--tools", "Bash,Read,Grep,Glob", "--allowedTools", "Bash", "Read", "Grep", "Glob",
            "--setting-sources", "", "--strict-mcp-config", "--no-session-persistence", "--output-format", "stream-json", "--verbose",
@@ -126,10 +134,7 @@ def run(arm, model, arms, qfile, out, runs, size, j, only, tidy, turns):
                "turns": res.get("num_turns"), "tools": len(calls), "seconds": secs, "ms": res.get("duration_ms"),
                "in": u.get("input_tokens", 0) + u.get("cache_read_input_tokens", 0) + u.get("cache_creation_input_tokens", 0),
                "out": u.get("output_tokens"), "models": sorted((res.get("modelUsage") or {})), "error": res.get("is_error"),
-               "subtype": res.get("subtype"),
-               # a path under a home folder that is not the workspace: the notes of another world, or the answer key.
-               # Scratch files an agent writes under /tmp are its own business.
-               "outside": sum(1 for c in calls if any(str(W) not in m for m in re.findall(r"/(?:Users|home)/[^\s\"']+", json.dumps(c["input"]))))}
+               "subtype": res.get("subtype"), "workspace": str(W), "outside": outside(calls, W)}
         with open(out / "usage.jsonl", "a") as f:
             f.write(json.dumps(row) + "\n")
         return row
@@ -139,7 +144,7 @@ def run(arm, model, arms, qfile, out, runs, size, j, only, tidy, turns):
                   f"{row['seconds']:.0f} s" + (" · ERROR " + str(row["subtype"]) if row["error"] or not row["cost"] else ""), flush=True)
 
 
-def table(qfile, out, size):
+def table(qfile, out, size, arms=None):
     from linkage import tally
     out = Path(out)
     qs = [json.loads(x) for x in Path(qfile).read_text().splitlines() if x.strip()]
@@ -152,6 +157,10 @@ def table(qfile, out, size):
     for (arm, model, run_, b), r in sorted(rows.items()):
         f = out / f"{arm}-{model}-r{run_}-b{b}.md"
         ex, full, rec, pre, kinds = tally(batches[b - 1], f.read_text() if f.exists() else "")
+        cf = out / "calls" / f"{arm}-{model}-r{run_}-b{b}.jsonl"
+        if cf.exists() and (r.get("workspace") or arms):  # counted again from the calls on file, by today's rule
+            r["outside"] = outside([json.loads(x) for x in cf.read_text().splitlines() if x.strip()],
+                                   r.get("workspace") or (Path(arms) / arm).resolve())
         by[(arm, model)].append({**r, "exact": ex, "full": full, "rec": rec * len(batches[b - 1]), "pre": pre * len(batches[b - 1]),
                                  "kinds": kinds})
     print("arm · model · runs × questions · exact answers · whole set named · recall · precision · $ a ten questions · "
@@ -185,6 +194,6 @@ if __name__ == "__main__":
         run(a[1], a[2], a[3], a[4], a[5], int(opt("--runs", 3)), int(opt("--batch", 10)), int(opt("-j", 4)),
             {int(x) for x in opt("--only", "").split(",") if x}, "--tidy" in a, int(opt("--max-turns", 80)))
     elif len(a) >= 3 and a[0] == "table":
-        table(a[1], a[2], int(opt("--batch", 10)))
+        table(a[1], a[2], int(opt("--batch", 10)), opt("--arms", None))
     else:
         raise SystemExit(__doc__)

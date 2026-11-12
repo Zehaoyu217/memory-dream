@@ -373,15 +373,21 @@ def A15():
     assert "feat-velocity-v2" in E and "feat-velocity-v3" in E
     v2v3 = {n["name"] for n in E["feat-velocity-v2"]["names"]} & {n["name"] for n in E["feat-velocity-v3"]["names"]}
     assert "velocity features" in v2v3
-    reviews = sorted((w.dir / "prompts").glob("*-review.txt"))
-    assert len(reviews) == 1
-    rv = reviews[0].read_text()
-    assert "- risk-tier-cutoffs / risk-tier-cuts:" in rv or "- risk-tier-cuts / risk-tier-cutoffs:" in rv, rv
-    assert "feat-velocity-v2 / feat-velocity-v3" not in rv and "txn" not in rv.split("ENTITY PAIRS", 1)[1]
-    assert "risk-tier" in w.text("ALIASES.md")
+    # two unlike names for one thing are found by the curator, which reads the folder's things together: nothing is
+    # proposed from how two names look, so no pair reaches the review
+    read = sorted((w.dir / "prompts").glob("*-curate.txt"))
+    assert len(read) == 1 and not list((w.dir / "prompts").glob("*-review.txt")), sorted(x.name for x in (w.dir / "prompts").iterdir())
+    cards = read[0].read_text()
+    assert "- risk-tier-cuts (" in cards and "- risk-tier-cutoffs (" in cards and "- feat-velocity-v2 (" in cards, cards[-600:]
+    line = next(ln for ln in w.text("ALIASES.md").split("\n") if "risk-tier" in ln)
+    assert " | why: " in line and " | by: curator " in line, line
+    E = ents(w.graph())
+    assert ("risk-tier-cuts" in E) != ("risk-tier-cutoffs" in E), "the two names are one thing now"
+    assert "feat-velocity-v2" in E and "feat-velocity-v3" in E, "two versions stay two"
     w.run("dream")
-    assert len(list((w.dir / "prompts").glob("*-review.txt"))) == 1, "asked again"
-    return "case fold + surface rule merged for free; v2/v3 never asked; risk-tier asked once → ALIASES.md"
+    assert len(list((w.dir / "prompts").glob("*-curate.txt"))) == 1, "read again"
+    return ("case fold + surface rule merged for free; v2/v3 never joined; risk-tier cuts and cutoffs joined by the curator, "
+            "once, on a line with its reason")
 
 
 def A16():
@@ -730,9 +736,7 @@ def A34():
     g = w.graph()
     assert ("churn-xgb-v2", "other/learned-from", "cards.churn_labels") in rels(g)
     rv = sorted((w.dir / "prompts").glob("*-review.txt"))
-    assert rv, "the entity pair should have caused one review"
-    labels = rv[0].read_text().split("LABELS the indexer used", 1)[1].split("ENTITY PAIRS", 1)[0]
-    assert "none" in labels and "learned-from" not in labels, labels
+    assert not rv, "a label under the bar is not offered, so nothing asks for a review"
     (w.root / "EDGES.md").write_text(w.text("EDGES.md").replace("promote: 5 uses, 5 notes, 2 areas", "promote: 3 uses, 3 notes, 1 area"))
     p = w.dir / "review.json"
     p.write_text(json.dumps({"types": {"learned-from": "new: a model was fit on a labelled dataset; unlike trained-on it names the label source"}}))

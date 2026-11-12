@@ -65,7 +65,8 @@ analytics, software and finance work; `pack: research` or `pack: ops` adds a dom
 asked to use what these files list; a word that fits nothing is kept as `other/<word>`, and becomes a type through the
 review once it is common. A hand-written line is permanent and costs no model calls: the graph is re-derived from the
 cached readings. Add types freely; to retire one, merge it (add it to another type's `aka`) rather than delete it, so
-nothing already read is lost. `ALIASES.md` (`- canonical = other-id`, `not: a / b`) and `CONFLICTS.md` (`- a > b`
+nothing already read is lost. `ALIASES.md` (`- canonical = other-id`, `not: a / b`; a line the curator wrote ends
+with `| why: … | by: curator <date>`: delete it and write `not:` when it is wrong) and `CONFLICTS.md` (`- a > b`
 makes a supersede b without touching either note; `dropped: …` lines are written by `drop`, leave them) are the other
 two files at the root that are yours.
 

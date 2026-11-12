@@ -353,13 +353,20 @@ its 7 stale questions the successor is listed above the old note and the old one
 
 - Ids are folded before comparison: case, spaces, `.`, `_` and `-` do not distinguish, so `cards.txn_daily` and
   `cards-txn-daily` are one thing.
-- `ALIASES.md` merges ids by hand (`- canonical = other`) or keeps them apart (`not: a / b`).
+- `ALIASES.md` merges ids (`- canonical = other`) or keeps them apart (`not: a / b`). A line may end with its
+  reason and who wrote it (`| why: … | by: curator 2026-11-12`); a line a person wrote or changed wins.
 - One rule merges automatically: an id that exactly one other entity writes as one of its spellings is that entity.
 - Ids that differ only in digits (`v2`, `v3`) are versions and are never merged, by rule or by review.
 - An entity is kept only if it has a note of its own, is mentioned in two or more notes, or is named in
   `ALIASES.md`. File names, notebooks and columns are dropped; grep finds those.
-- Remaining look-alikes are asked once of the cheap model (same or different), never when the two have different
-  notes of their own. The answer lands in `ALIASES.md`.
+- Two unlike names for one thing are found by reading, never by how they are spelled. A curator, the cheap model,
+  is shown everything a folder's notes name, each with its written forms and a line that mentions it, and says which
+  are one thing, with a reason; the join is a line of `ALIASES.md`. The script refuses a join between two versions,
+  against a `not:` line, of a name that other folders use too, of a thing whose note is in another folder, or one
+  that would make two things with notes of their own into one. On the bank, from scratch: 47 folders, $0.12, 32
+  joins such as `feat-aml-structuring-v1 = structuring-v1`, 48 refused by those rules. The string ratio it replaces
+  had offered 46 pairs, 5 of them one thing. Two things that some note writes with the same words are still asked of
+  the review, once.
 
 On the 1,677-note bank with the index kept in `eval/real/bank-index/` (`memory.py check` after `restore.py` and a
 model-free dream): 8,382 mentions, 3,216 ids as written, 3,190 after folding, 3,175 after the alias file, 2,972 after the

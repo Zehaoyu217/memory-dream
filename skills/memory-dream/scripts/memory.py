@@ -17,7 +17,6 @@ import argparse
 import bisect
 import contextlib
 import datetime as dt
-import difflib
 import functools
 import hashlib
 import io
@@ -453,6 +452,20 @@ Two notes: the newer one supersedes the older when it decides or states the same
 threshold, a newer version as the current one); they are compatible when they are about different things or
 one builds on the other; otherwise unsure. Never invent paths: copy them from the pair.
 """
+
+# The curator (PLAN §7): identity by reading. It sees every thing a folder's notes name, each with how it is written
+# and a line that mentions it, and says which are one thing under two names. Nothing here compares strings.
+CURATE = """You keep the names of things in a memory of work notes. Below are the things that the notes of one folder name,
+one per line: its id, what kind of thing it is, how the notes write it, in how many notes, and one line that mentions it.
+Some may be one thing written two ways: a short name and a full one, a plural, an abbreviation, a nickname. Find those.
+Not the same thing: two versions (v2 and v3), two periods or samples (2025 and 2026, h1 and h2), a thing and a part of
+it, siblings that only share a pattern of name, a thing and a note or a person that describes it. When unsure, leave it out.
+Reply with JSON only: {"same": [{"ids": ["<id>", "<id>"], "why": "<one short sentence: the words above that show it>"}]}
+An empty list is a good answer.
+FOLDER {area}:
+{cards}
+"""
+CURATE_MAX = 60  # folders a dream has read by the curator; the rest wait for the next one
 
 # A packet (PLAN §4): the same reading asked for many notes in one call. The rules are EXTRACT's own, cut from it, so
 # the two prompts cannot drift apart; a note is named by the first twelve characters of the hash of its text.
@@ -1028,10 +1041,10 @@ def parse_aliases(text):
             continue
         m = re.match(r"-\s*(.+?)\s*=\s*(.+)$", s)
         n = re.match(r"not\s*:(.+)$", s, re.I)
-        if m:
-            lines.append([m.group(1).strip()] + [x.strip() for x in m.group(2).split(",") if x.strip()])
+        if m:  # `- a = b, c | why: … | by: …`: what follows the first ` | ` is the reason and who decided, for people
+            lines.append([m.group(1).strip()] + [x.strip() for x in m.group(2).split(" | ")[0].split(",") if x.strip()])
         elif n and "/" in n.group(1):
-            a, b = split_pair(n.group(1))
+            a, b = split_pair(n.group(1).split(" | ")[0])
             nots.add(frozenset((fold(a), fold(b))))
         else:
             bad.append((i, s))
@@ -1182,20 +1195,40 @@ def conflict_candidates(notes, edges, decided):
     return out
 
 
-def edit_aliases(text, a, b, same, lead=None):
+def edit_aliases(text, a, b, same, lead=None, note=""):
+    """One decision into ALIASES.md: `- lead = other` or `not: a / b`. `note` is appended to a new line
+    (` | why: … | by: …`); names added to a line that exists go before its note. A line is extended only by the hand
+    that signed it (`by: curator`, `by: review`, or nobody: a person): another's decision gets a line of its own, so
+    that every line says who decided all of it."""
     lines = text.rstrip("\n").split("\n")
     if not same:
-        lines.append(f"not: {a} / {b}")
+        lines.append(f"not: {a} / {b}{note}")
         return "\n".join(lines) + "\n"
+    signer = lambda t: (re.search(r"\|\s*by:\s*(\S+)", " | " + t) or [None, ""])[1]  # noqa: E731
     for k, ln in enumerate(lines):
-        m = re.match(r"\s*-\s*(.+?)\s*=\s*(.+)$", ln)
+        core, sep, tail = ln.partition(" | ")
+        m = re.match(r"\s*-\s*(.+?)\s*=\s*(.+)$", core)
         if m:
             have = {fold(x) for x in [m.group(1)] + m.group(2).split(",")}
-            if fold(a) in have or fold(b) in have:
-                lines[k] += "".join(", " + x for x in (a, b) if fold(x) not in have)
+            if (fold(a) in have or fold(b) in have) and signer(tail) == signer(note):
+                lines[k] = core + "".join(", " + x for x in (a, b) if fold(x) not in have) + sep + tail
                 return "\n".join(lines) + "\n"
     first = lead or a
-    lines.append(f"- {first} = {b if first == a else a}")
+    lines.append(f"- {first} = {b if first == a else a}{note}")
+    return "\n".join(lines) + "\n"
+
+
+def lead_aliases(text, lead):
+    """The line of ALIASES.md that holds this id, rewritten so that the id leads it (the first id of a line is the
+    thing's name)."""
+    lines = text.rstrip("\n").split("\n")
+    for k, ln in enumerate(lines):
+        core, sep, tail = ln.partition(" | ")
+        m = re.match(r"\s*-\s*(.+?)\s*=\s*(.+)$", core)
+        ids = [m.group(1).strip()] + [x.strip() for x in m.group(2).split(",") if x.strip()] if m else []
+        if fold(lead) in {fold(x) for x in ids} and fold(ids[0]) != fold(lead):
+            rest = [x for x in ids if fold(x) != fold(lead)]
+            lines[k] = f"- {lead} = {', '.join(rest)}" + sep + tail
     return "\n".join(lines) + "\n"
 
 
@@ -1308,32 +1341,28 @@ def merge_entities(occ, alines, nots, homes=None, stats=None):
     return ents, cmap, gkeys
 
 
-def candidates(ents, new, gkeys, nots, limit_ratio=0.85):
-    """Review pairs: same type, sharing a non-generic surface form or with similar folded ids."""
+def candidates(ents, new, gkeys, nots):
+    """Pairs for the review: two things of one type that some note writes with the same words. Nothing is proposed
+    from how two names look: on the bank the string ratio that used to do it offered 46 pairs, 5 of them the same
+    thing (all plurals) and 41 siblings such as aml-oot-2026h1 / cli-oot-2026h1 (RESULTS phase S). Two unlike names
+    for one thing are found by the curator, which reads a folder's things together (Dream.run_curate)."""
     sfs = {c: {fold(n["name"]) for n in e["names"]} for c, e in ents.items()}
     cnt = Counter(s for v in sfs.values() for s in v)
     by_type = defaultdict(list)
     for c, e in ents.items():
         by_type[e["type"]].append(c)
-    out, sm = set(), difflib.SequenceMatcher(autojunk=False)
+    out = set()
     for a in new:
         fa = fold(a)
-        sm.set_seq2(fa)
         mine = {s for s in sfs[a] if cnt[s] <= 3}
         for b in by_type[ents[a]["type"]]:
-            fb = fold(b)
-            if b == a or versions(fa, fb):
+            if b == a or versions(fa, fold(b)):
                 continue
             pair = tuple(sorted((a, b), key=fold))
             ha, hb = ents[a].get("home"), ents[b].get("home")
             if pair in out or (ha and hb and ha != hb) or decided(a, b, gkeys, nots):  # two home notes: two things
                 continue
-            hit = bool(mine & sfs[b])
-            if not hit and 2 * min(len(fa), len(fb)) >= limit_ratio * (len(fa) + len(fb)):
-                sm.set_seq1(fb)
-                hit = sm.real_quick_ratio() >= limit_ratio and sm.quick_ratio() >= limit_ratio \
-                    and sm.ratio() >= limit_ratio
-            if hit:
+            if mine & sfs[b]:
                 out.add(pair)
     return out
 
@@ -2243,6 +2272,8 @@ class Dream:
         self.st = Counter()
         self.review = {"pairs": 0, "types": 0, "calls": 0, "aliases": 0, "mapped": 0, "new": 0, "refused": 0,
                        "demoted": 0, "conflicts": 0, "decided": 0}
+        self.curate = {"folders": 0, "calls": 0, "joined": 0, "refused": 0, "left": 0}
+        self.curated = dict(self.man.get("curated") or {})
         self.base = {}  # the note half of the graph, reused across rebuilds until a review changes lineage
         self.fresh = set()  # notes read in this dream: `--all` does not ask for them twice
         self.gone = {}  # notes that left without a `drop` (plan)
@@ -2257,6 +2288,7 @@ class Dream:
             return self.dry_run()
         self.index()
         g = self.demote(self.graph())
+        g = self.run_curate(g)
         g = self.run_review(g)
         self.report(g, self.write(g))
 
@@ -2456,7 +2488,7 @@ class Dream:
                     wr(pend / f"{h}.prompt.md", self.prompt_for(h, ents)[0])
         for pp in pend.glob("*.prompt.md"):  # stale: the note changed or is gone, or nobody asked for prompts
             k = pp.name[:-len(".prompt.md")]
-            if k not in keep and not (k == "review" and (args.prompts or args.packets)):
+            if k not in keep and not ((k == "review" or k.startswith("curate-")) and (args.prompts or args.packets)):
                 pp.unlink()
 
     def index_packets(self, todo):
@@ -2539,6 +2571,110 @@ class Dream:
             wr(self.root / "TYPES.md", t2)
         self.review["demoted"] = len(g["vocab"]["demote"]) + len(g["tvocab"]["demote"])
         return self.graph()
+
+    def cards(self, g, area, cap=150):
+        """The things a folder's notes name, for the curator: -> (ids, one line each). Most mentioned first."""
+        rows = []
+        for e in g["entities"]:
+            ms = [m for m in e["mentions"] if area_of(m["path"]) == area]
+            if ms:
+                rows.append((-len(ms), fold(e["id"]), e, ms[0]))
+        rows.sort(key=lambda r: r[:2])
+        out = []
+        for _, _, e, m in rows[:cap]:
+            try:
+                line = read(self.root / m["path"]).split("\n")[m["lines"][0] - 1].strip()[:140]
+            except (OSError, IndexError):
+                line = ""
+            out.append(f"- {e['id']} ({e['type']}) · written: " + "; ".join(f'"{x["name"]}"' for x in e["names"][:4])
+                       + f" · in {len(e['mentions'])} notes · «{line}»")
+        return [r[2]["id"] for r in rows[:cap]], out
+
+    def run_curate(self, g):
+        """Identity by reading (PLAN §7). For each folder whose things changed since the curator last read it: one
+        prompt with all of them, and an answer that says which are one thing under two names, each with its reason.
+        A join is one line of ALIASES.md, `- a = b | why: … | by: curator <date>`, which a person may delete or
+        overrule with `not: a / b`. What the script holds, whatever the answer says: a join is between things on the
+        folder's list; never between two versions, never against a `not:` line; the name that is joined to another
+        is used in this folder alone (a short name that two folders use, "the response model", may be two things, and
+        the first run on the bank joined two projects' models through one); a thing whose note is in another folder
+        is not renamed here; and no line, with what it already holds, may come to join two things that each have a
+        note, or two names in use beyond this folder; the one such name a line may hold leads it. With a command the folders are read `-j` at a time; without one the prompts are files, when asked
+        for, like the review's, and their answers are taken at the next dream."""
+        pend, args = self.pend, self.args
+        ask_files = not self.cmd and (args.prompts or args.packets)
+        sig = lambda ids: hashlib.sha256(" ".join(sorted(map(fold, ids))).encode()).hexdigest()[:12]  # noqa: E731
+        slug = lambda a: "curate-" + a.replace("/", "--")  # noqa: E731
+        areas = sorted({area_of(m["path"]) for e in g["entities"] for m in e["mentions"]} - {"log", ""})
+        todo = []
+        for a in areas:
+            ids, lines = self.cards(g, a)
+            if len(ids) >= 2 and self.curated.get(a) != sig(ids):
+                todo.append((a, ids, lines))
+        self.curate["left"] = max(0, len(todo) - CURATE_MAX)
+        todo = todo[:CURATE_MAX]
+        answers = {}
+        if self.cmd and todo:
+            with ThreadPoolExecutor(max(1, args.j)) as ex:
+                for (a, _, _), (obj, n) in zip(todo, ex.map(lambda t: call_model(self.cmd, fill(CURATE, area=t[0], cards="\n".join(t[2]))), todo)):
+                    answers[a] = obj
+                    self.curate["calls"] += n
+        elif not self.cmd and pend.exists():
+            for pj in sorted(pend.glob("curate-*.json")):  # what a helper agent left
+                answers[pj.name[len("curate-"):-5].replace("--", "/")] = parse_json(read(pj))
+                pj.unlink()
+        ents = {e["id"]: e for e in g["entities"]}
+        a2 = vocab_texts(self.root)[1]
+        nots = parse_aliases(a2)[1]
+        stamp = f" | by: curator {self.now.date().isoformat()}"
+        home = lambda i: ents[i]["home"] if i in ents else None  # noqa: E731
+        local = lambda i, a: all(area_of(m["path"]) == a for m in ents[i]["mentions"])  # noqa: E731
+
+        def line_of(text, i):
+            """The ids already joined with this one in ALIASES.md."""
+            return next((set(ln) for ln in parse_aliases(text)[0] if fold(i) in {fold(x) for x in ln}), {i})
+        read_now = []
+        for a, ids, _ in todo:
+            if a not in answers:
+                continue
+            read_now.append(a)
+            self.curate["folders"] += 1
+            have = {fold(i): i for i in ids}
+            for grp in ((answers[a] or {}).get("same") or []):
+                if not isinstance(grp, dict):
+                    continue
+                gi = list(dict.fromkeys(have[fold(str(x))] for x in (grp.get("ids") or []) if fold(str(x)) in have))
+                why = " ".join(str(grp.get("why") or "").split()).replace(" | ", " / ")[:160]
+                if len(gi) < 2 or not why:
+                    continue
+                lead = min(gi, key=lambda i: (not ents[i]["home"], -len(ents[i]["mentions"]), fold(i)))
+                for other in gi:
+                    if other == lead or versions(fold(lead), fold(other)) or frozenset((fold(lead), fold(other))) in nots:
+                        continue
+                    if not local(other, a) or any(home(i) and area_of(home(i)) != a for i in (lead, other)):
+                        self.curate["refused"] += 1  # a name other folders use too, or a thing that is another folder's
+                        continue
+                    line = line_of(a2, lead) | line_of(a2, other)  # what the line would hold, with what is joined already
+                    wide = sorted(i for i in line if i in ents and not local(i, a))
+                    if len({home(i) for i in line if home(i)}) > 1 or len(wide) > 1:
+                        self.curate["refused"] += 1  # two things with a note each, or two names in use beyond this folder
+                        continue
+                    a2 = edit_aliases(a2, lead, other, True, lead, note=f" | why: {why}{stamp}")
+                    if wide:  # the one name other folders use stays the thing's name: it leads its line
+                        a2 = lead_aliases(a2, wide[0])
+                    self.curate["joined"] += 1
+        if a2 != vocab_texts(self.root)[1]:
+            wr(self.root / "ALIASES.md", a2)
+            g = self.graph()
+        for a in read_now:  # what the folder holds after the joins: the same things are not read twice
+            self.curated[a] = sig(self.cards(g, a)[0])
+            if (pend / f"{slug(a)}.prompt.md").exists():
+                (pend / f"{slug(a)}.prompt.md").unlink()
+        if ask_files:
+            for a, ids, lines in todo:
+                if a not in read_now:
+                    wr(pend / f"{slug(a)}.prompt.md", fill(CURATE, area=a, cards="\n".join(lines)))
+        return g
 
     def review_prompt(self, g):
         """-> (prompt or None, labels offered, entity pairs offered, conflicts offered)."""
@@ -2639,7 +2775,7 @@ class Dream:
             if ab and v in ("same", "different"):
                 a, b = ab
                 lead = a if mentions.get(a, 0) >= mentions.get(b, 0) else b
-                a2 = edit_aliases(a2, a, b, v == "same", lead)
+                a2 = edit_aliases(a2, a, b, v == "same", lead, note=f" | by: review {now.date().isoformat()}")
                 review["aliases"] += v == "same"
         if e2 != vocab_texts(root)[0]:
             wr(root / "EDGES.md", e2)
@@ -2743,7 +2879,8 @@ class Dream:
                                   "tags": g.get("tags", {}),
                                   "dreamed": now.isoformat(timespec="seconds"),
                                   "unindexed": sum(1 for n in g["notes"] if not n["indexed"]),
-                                  "due": bool(self.cmd and (g["proposed"] or g.get("proposed_types") or g["review"]
+                                  "curated": self.curated,
+                                  "due": bool(self.cmd and (g["proposed"] or g.get("proposed_types") or g["review"] or self.curate["left"]
                                                             or [c for c in g["conflicts"] if not c["unsure"]]))})
         return len(todo_list)
 
@@ -2755,6 +2892,11 @@ class Dream:
         if review["pairs"] or review["types"] or review["conflicts"]:
             out += f" · review: {pl(review['pairs'], 'pair')}, {pl(review['types'], 'label')}, {pl(review['conflicts'], 'conflict')} " + \
                 (f"({pl(review['calls'], 'call')})" if cmd else "(file mode)")
+        cu = self.curate
+        if cu["folders"]:
+            out += (f" · curator: {pl(cu['folders'], 'folder')}, {pl(cu['joined'], 'name')} joined"
+                    + (f", {cu['refused']} refused" if cu["refused"] else "")
+                    + (f" ({pl(cu['calls'], 'call')})" if cmd else " (file mode)") + (f", {cu['left']} folders left" if cu["left"] else ""))
         out += f" · {review['decided']} conflicts decided" if review["decided"] else ""
         out += f" · +{review['aliases']} aliases" if review["aliases"] else ""
         out += f" · {review['mapped']} types mapped" if review["mapped"] else ""

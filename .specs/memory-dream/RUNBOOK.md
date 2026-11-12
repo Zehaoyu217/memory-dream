@@ -301,6 +301,11 @@ $M export --to /tmp/graph-export   # no driver: CSV in neo4j-admin header format
 - `C14`: a note is built on a note that was dropped, or its replacement was dropped and it is the newest left of its
   line. Both are shown on the note's header in `ask`. Nothing to do unless the note should go too: drop it as well.
 - Undo a drop: restore the file from git and delete its `dropped:` line in CONFLICTS.md. `drop` never touches git.
+- `curator: 12 folders, 5 names joined, 3 refused`: a cheap model read each folder's things together
+  and said which are one thing under two names. Every join is a line of `memory/ALIASES.md` with its
+  reason (`| why: …`) and `| by: curator <date>`. Read the new lines; delete one that is wrong and add
+  `not: a / b` so that it is not written again. `dream --review` runs the curator on a memory that was
+  read before it existed.
 - `proof: 4 of 5 questions of SETUP.md are answered by their note`, with the fifth named: a question
   the memory was set up to answer no longer leads to its note. Something changed since it did: a
   registry line, a folder, the note itself. Put the question to `ask` and read what comes first.

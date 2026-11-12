@@ -269,8 +269,21 @@ families, roles and the `digest`, `conflicts` and `answers` flags. Evidence: 81%
 366 questions need lineage, a single note, or one of the 8 (`eval/type_coverage.py`, `eval/question_relations.py`);
 with Haiku on 70 notes the two-tier prompt gives 81% typed, 19% labels, 0 invented types (RESULTS "Phase C").
 
-Review candidates: new entities of the same type that share a rare surface form or have similar folded ids
-(difflib ≥ 0.85); pairs with two different home notes are never queued.
+Review candidates (`candidates`): new entities of the same type that some note writes with the same words; pairs with
+two different home notes are never queued. Nothing is proposed from how two names look. Do not bring a string
+distance back: on the bank the ratio that used to do it (0.85) offered 46 pairs, 5 of them one thing (all plurals)
+and 41 siblings such as aml-oot-2026h1 / cli-oot-2026h1.
+
+The curator (`CURATE`, `Dream.cards`, `Dream.run_curate`): identity by reading. For each folder whose things changed
+since it was last read, one prompt lists them, each with its type, its written forms, the number of notes and one
+line that mentions it; the answer names the ones that are one thing under two names, each with a reason. A join is a
+line of `ALIASES.md`, `- a = b | why: … | by: curator <date>`. The script holds five rules whatever the answer says:
+both are on the folder's list; never two versions; never against a `not:` line; the name joined to another is used
+in this folder alone, and a thing whose note is in another folder is not renamed here; no line may come to join two
+things that each have a note. The folder's signature after the joins is kept in the manifest (`curated`), so the
+same things are not read twice; at most 60 folders a dream. With a command it runs before the review, `-j` folders
+at a time; without one the prompts are `curate-<folder>.prompt.md` in `_dream/pending/`, written with `--prompts` or
+`--packets` and answered like the others.
 
 ### 5.6 The dreamer (`dream`)
 
