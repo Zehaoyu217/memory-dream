@@ -62,14 +62,16 @@ Layer 1 is the only state that matters. Layers 2 to 4 live under `memory/_dream/
 
 | the agent or a person | the cheap model | the script (deterministic) |
 |---|---|---|
-| what is worth a note and what it claims | which named things a note mentions, and their types | lineage between notes, from the front matter |
-| which notes it was built on, which it replaces | which links between things the note states, each with a quote | which note is current (following `supersedes` to the end) |
-| numbers, dates, sources | synonyms: whether two names are the same thing | kinds, dates, which things are kept, the relation vocabulary's limits |
-| preferences and house rules | conflicts: whether one of two notes supersedes the other | which pairs of notes to flag as possibly conflicting |
-| the final word on anything the model marks unsure | | search, scoring, the thirteen checks, the digest, the page |
+| what is worth a note and what it claims | which named things a note mentions, and their types | lineage from the front matter, which always wins |
+| which notes it was built on, which it replaces | which links between things the note states, each with a quote | where what a keeper read is placed: a path or an id, a note of the same family, never a newer note |
+| numbers, dates, sources | what a note says in its own sentences that it builds on or replaces, in three readings: the note, each such line, and the words still not placed, beside the notes they could mean | which note is current (following `supersedes` to the end) |
+| preferences and house rules | synonyms: whether two names are the same thing (the curator, a folder at a time) | kinds, dates, which things are kept, the relation vocabulary's limits |
+| the final word on anything the model marks unsure | conflicts: whether one of two notes supersedes the other | which notes the model is shown; which pairs of notes to flag as possibly conflicting |
+| | | search, scoring, the eighteen checks, the digest, the page |
 
-The right column is rules anyone can read in `memory.py`. The middle column always leaves a quote behind. Only the
-left column is judgement.
+The right column is rules anyone can read in `memory.py`. The middle column always leaves a quote behind, and the
+script keeps it only when that quote is in the note. Only the left column is judgement. What each model step
+costs, stage by stage, is in `BUILD-GUIDE.md` §3: about a dollar a thousand notes, paid once.
 
 ## Layer 1: the notes
 

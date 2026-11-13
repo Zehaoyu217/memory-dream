@@ -639,7 +639,7 @@ or to a fresh worker given the packet, at most twice. After that, it stops and r
 
 ## Appendix A — the contract surface, verbatim: `skills/memory-dream/SKILL.md` and the dreamer agent
 
-_Part 5 · copied at commit ebe4315. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
+_Part 5 · copied at commit 0d75ece. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
 
 ```markdown
 ---
@@ -788,7 +788,7 @@ Touch nothing else.
 
 ## Appendix B — the graph contract, verbatim: `.specs/memory-dream/CONTRACT.md`
 
-_Part 6 · copied at commit ebe4315. Schema 1; `memory.py check` validates against it (A38)._
+_Part 6 · copied at commit 0d75ece. Schema 1; `memory.py check` validates against it (A38)._
 
 ## memory-dream — the graph contract (schema 1)
 
@@ -1083,7 +1083,7 @@ origin by adding the file. What changes for the notes under it, and nothing else
 
 ## Appendix C — the build guide, verbatim: `BUILD-GUIDE.md` §3–§10
 
-_Part 7 · copied at commit ebe4315. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
+_Part 7 · copied at commit 0d75ece. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
 
 ### 3. The design in one page
 
@@ -1091,12 +1091,19 @@ _Part 7 · copied at commit ebe4315. The design in one page, the repository layo
    change is benchmarked against a grep-only agent on the same questions.
 2. **One call.** Round 1 lost to grep (2.3× cost) because of round trips: every request re-sends ~37k tokens of
    context. `ask` takes every question at once and prints only the lines that answer.
-3. **Lineage is written by the author, not inferred.** `from:` (built on) and `supersedes:` (overturns) in
-   frontmatter; a superseded note is shown as history with its successor.
-4. **The index is optional for answering** and earns its keep for aliases, dedup, the viewer and management.
-   Measured on a real Haiku index of 1,677 notes (RESULTS F4, F9): with it `ask` gains 0.8 points of gold recall
-   and 6.4 on alias questions for 5% more characters; without it nothing is missing. It must stay cheap and
-   conservative: loose names hurt retrieval.
+3. **Lineage is the author's when it is written, and read when it is only said.** `from:` (built on) and
+   `supersedes:` (overturns) in frontmatter come first and always win; a superseded note is shown as history with
+   its successor. Where a note says it only in its own sentences ("Builds on exp-303 and the isotonic score map"),
+   a cheap keeper reads it, each item with the note's own words, and the script places it by exact rules (a path or
+   an id; a note replaces one of its own family; not a newer note; not two that claim each other). What cannot be
+   placed is listed (C18) and printed by `ask` beside the note, never dropped in silence.
+4. **An agent is as right as what the memory holds.** It makes one call and answers from it, so on a base whose
+   links are only in prose the readings are what make a chain whole: as first read the memory held 94% of the
+   links and its lineage alone answered 83 of 98 set questions, and Opus with it scored 82 (RESULTS S6). Measure
+   the lineage alone (`eval/linkage.py lineage`) before touching retrieval. On a base that writes its lineage in
+   frontmatter the index stays optional for answering, as measured before (RESULTS F4, F9: 0.8 points of gold
+   recall and 6.4 on alias questions for 5% more characters), and earns its keep for aliases, the viewer and
+   management. It must stay cheap and conservative: loose names hurt retrieval.
 5. **The domain is three registries, not code.** `KINDS.md` (kinds of note), `TYPES.md` (types of thing) and
    `EDGES.md` (types of link) are seeded for data, analytics, software and finance and read before every command; the
    extraction prompt is fixed guidance filled from them. Both vocabularies are constrained open: a word that fits no
@@ -1104,7 +1111,33 @@ _Part 7 · copied at commit ebe4315. The design in one page, the repository layo
    on probation. A registry edit never re-reads a note (the cached readings keep the raw words; the registries decide
    what they mean at merge time), and a type is retired by merging, not deleting (a deleted line is reported, C13).
 6. **Scale by routing, not by heavier machinery.** Past 10,000 notes, `ask` greps only where a question points,
-   reads an SQLite index row by row, and the viewer splits into an overview plus one page per area.
+   reads an SQLite index row by row, and the viewer splits into an overview plus one page per area. A folder too
+   large to list in a prompt is shown to a keeper by what is near the lines it reads (RESULTS S7).
+7. **Cheap readers, exact scripts.** Every model step is one prompt that returns JSON with the note's own words; the
+   script decides what is kept. Nothing is joined or placed by how alike two strings look: a name is one thing
+   because a keeper read both and said so (the curator), and a phrase is a note because a keeper chose it from the
+   notes the script showed.
+
+**What a dream does, and what it costs.** Measured for the bank of 1,677 notes on Haiku 5.5, once with its forty
+project folders and once with them poured into one (RESULTS S5 to S8). `dream --dry-run --packets` gives the
+estimate for a memory before anything is called.
+
+| stage | who | what it does | for the 1,677 notes |
+|---|---|---|---|
+| plan | script | finds the notes that are new or changed; checks pointers into code and tags | no call |
+| first reading (`index`, `PACKET`) | Haiku, a dozen notes a call | the things each note names, the links it states, and what it says it builds on or replaces, each with a quote | about 145 calls, $1.28 to $1.57, 17 to 22 minutes at six calls at once |
+| grounding (`ground`) | script | drops what its quote does not show; sends a lineage line it could not ground to the second reading | no call |
+| second reading (`PLACE`, `run_place`) | Haiku, up to 45 lineage lines of a folder a call | every member of every line that states lineage, each with the note meant; in a folder too large to list, beside the notes near the line | 50 to 77 calls, $0.18 to $0.28, about 3 minutes |
+| third reading (`CHOOSE`, `run_choose`) | Haiku, 8 items a call | the words two readings could not place, beside the six notes they could mean, with their first lines | 16 or 17 calls, $0.02 to $0.05 |
+| build (`build`, `lineage_as_read`) | script | places what was read by exact rules, merges names, decides what is current, the 18 checks | no call, about a second |
+| curator (`CURATE`) | Haiku, a folder a call | which names are one thing, each join signed with its reason; the script refuses a join that breaks its rules | 7 to 49 calls |
+| review (`REVIEW`) | Haiku, one call | labels mapped onto link types, and which of two conflicting live notes stands | 1 call; with the curator $0.03 to $0.12 |
+| write | script | `graph.json`, the page, `DIGEST.md`, the readings in `_dream/notes/` | no call |
+
+$1.59 for the bank with folders and $1.92 in one folder, about a dollar a thousand notes, paid once: a note is read
+again only when its text changes, and the readings kept in git let a clone rebuild the same graph with no call. With
+no model command nothing is read: `ask`, the checks, the digest and the page all work, and lineage is what the
+frontmatter says. How an agent sets a memory up and has it read is the skill's section "Setting a memory up".
 
 ---
 
@@ -1756,7 +1789,7 @@ preferences 0.95 when the task names them, 0.84 when it names only their meeting
 
 ## Appendix D — prompts, seeds and tuned tables, verbatim from `memory.py`
 
-_Part 8 · extracted at commit ebe4315 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
+_Part 8 · extracted at commit 0d75ece by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
 
 ### D.1 `EXTRACT` — the per-note prompt: fixed guidance, then `KINDS:`, `TYPES:`, `EDGES:` and `KNOWN:` from the registries (the static part is cached), then `NOTE`
 
