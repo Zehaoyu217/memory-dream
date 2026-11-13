@@ -486,5 +486,5 @@ Open, in the order I would take them:
 5. The items of the earlier list above: a base whose notes seldom name each other; the curator in a folder of a
    thousand notes; one call a note as the default.
 
-Spent on models for this part: Haiku 5.5 about $1.60 (the rebuilds $0.53, the third readings $0.06, the arms
-$1.00); Opus 5.5 $2.31. Opus in all on 2026-11-12: $30.42.
+Spent on models for this part: Haiku 5.5 $1.93 (the rebuilds and third readings $0.56, the arms $1.36); Opus 5.5
+$2.31. Opus in all on 2026-11-12: $30.42.
