@@ -639,7 +639,7 @@ or to a fresh worker given the packet, at most twice. After that, it stops and r
 
 ## Appendix A — the contract surface, verbatim: `skills/memory-dream/SKILL.md` and the dreamer agent
 
-_Part 5 · copied at commit 779a386. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
+_Part 5 · copied at commit ebe4315. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
 
 ```markdown
 ---
@@ -664,7 +664,8 @@ truth; everything else is derived and disposable. `memory.py` = `python3 <this s
    else is recorded there, answer from it. A section that says it holds `the best matches … not all of them` is not
    a set: when the question asks which, how many, all or every, run the map that line names before you answer. A `⇡`
    line names everything a note rests on and a `⇣` line everything that rests on it: first the notes one step away
-   (`directly`), then those reached `through them`; an answer about what something depends on gives both.
+   (`directly`), then those reached `through them`. What a note is built on, or uses, is the notes one step away;
+   what it rests on or depends on, "directly or through other notes", is both.
    A line `? it builds on «…», in its own words` under a note, or `not the whole chain`, means the note names
    something it builds on or replaces that the memory could not match to a note: the chain is short by that link.
    Find what the words name (`grep -rn` for their nouns in the folder, or `ask --list -p <folder>`) and follow it
@@ -673,7 +674,9 @@ truth; everything else is derived and disposable. `memory.py` = `python3 <this s
    projects built on this one) do not search for it: `memory.py ask --list [-p <project>] [--kind model] [--tag risk]` prints one
    line a note with what it was built on (marked when that was replaced), what replaced it and where else it is
    used, and with `-p` what rests on the project from outside; `--all` lifts the 150-line cap so you can pipe it
-   through grep. Otherwise `ask`'s silence is not absence: before you write "not recorded", read a headed note or
+   through grep. Never read a map of the whole memory: it can be larger than your context. Narrow it first
+   (`--kind model`, `-p <project>`) and grep it; a question across the whole memory gets a line from `ask` that
+   names the map to grep. Otherwise `ask`'s silence is not absence: before you write "not recorded", read a headed note or
    `grep -rn … memory/`. At most one batched follow-up.
 2. **Write as you go.** One note per thing, in `memory/<project>/`, or for what spans projects in `prefs/`,
    `reporting/`, `glossary/`, `corrections/`, `howto/`, `qa/`, `people/`. The filename is the id; a prefix from
@@ -785,7 +788,7 @@ Touch nothing else.
 
 ## Appendix B — the graph contract, verbatim: `.specs/memory-dream/CONTRACT.md`
 
-_Part 6 · copied at commit 779a386. Schema 1; `memory.py check` validates against it (A38)._
+_Part 6 · copied at commit ebe4315. Schema 1; `memory.py check` validates against it (A38)._
 
 ## memory-dream — the graph contract (schema 1)
 
@@ -953,7 +956,10 @@ relation is "current" when one of its evidence notes is live).
   line the item stands on has been read a second time, alone and beside the folder's notes, and this item is one
   member of what that reading found there: `quote` is the member's own words in the line, `what` the file name of
   the note the keeper named for it (`folder/name` for a note of another folder), or the words again when it named
-  none. The items a first reading had on that line are gone from the list. `type` and
+  none. The items a first reading had on that line are gone from the list. `looked`: the item's words were put
+  to a third reading with the few notes they could mean; `said`: the words or name it had before that reading named
+  a note. `recheck: [{field, line[, asked]}]`: lines that write what an item names whose copied words were not in
+  the note, so the item was not kept; the second reading reads them. `type` and
   `label` are the dreamer's raw words; the registries read them at merge time. Entities keep only surface forms (`as`)
   that occur in the note; relations only with their quote found (the rest counted in `dropped` → C4). Kept `KEEP_DAYS`
   after last use. This is the one folder of `_dream/` worth keeping in git: a clone then builds the same graph
@@ -995,7 +1001,7 @@ stale, not wrong, and stays · `C17` a word on a note's `tags:` line that `TAGS.
 the number of notes: it still filters, and it is not a tag until it has a line with its definition · `C18` a note
 says in its own words that it builds on or replaces something, a keeper read it, and no note answers to the name,
 neither as written nor by a path or id in the words themselves: the link is not in the lineage until a second
-reading or a line of frontmatter names the note.
+or third reading or a line of frontmatter names the note.
 
 ### 6. The user-owned files
 
@@ -1009,7 +1015,8 @@ readings keep the dreamer's raw words; the registries decide what they mean).
 `prefix: a, b` (filename prefixes), `area: x, y` (areas whose notes default to this kind), `family: parent` (the class
 tree), `role: question|evidence|state|rule|reference|log` (project work = question, evidence, state), `digest: current`
 (heads the digest), `conflicts: yes` (compared for disagreement; a child kind counts as its family), `answers: yes` (a
-note of this kind built on a question answers it), `not: …`.
+note of this kind built on a question answers it), `replaces: a, b` (kinds or families outside its own that a note of
+this kind may replace when a keeper reads it so: the seed gives `correction` `replaces: term`), `not: …`.
 
 `TYPES.md` (types of thing): `promote: U uses, N notes, A areas` · `budget: B` · `probation: D days` · `pack: research,
 ops` · type lines with `aka: a, b` (the dreamer's words read as this type), `family: parent`, `not: …` · `drop: a, b`
@@ -1076,7 +1083,7 @@ origin by adding the file. What changes for the notes under it, and nothing else
 
 ## Appendix C — the build guide, verbatim: `BUILD-GUIDE.md` §3–§10
 
-_Part 7 · copied at commit 779a386. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
+_Part 7 · copied at commit ebe4315. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
 
 ### 3. The design in one page
 
@@ -1309,7 +1316,14 @@ constants, each with the measurement that set it.
   One more exact step comes last (`named`): an item no note answers to, whose own words name one note by its path
   or id that no other item of the note took, is that note ("Replaces glossary/brier.", written down by a keeper as
   the thing `glossary-brier`: 13 on the worn bank, all right). Only a word written like a path or an id is looked
-  up, never a plain word of the sentence.
+  up, never a plain word of the sentence. And a replacement is taken from a note of the replaced note's own family
+  only, unless the replacing kind's line in KINDS.md names the other under `replaces:` (the seed: a correction
+  replaces a term). "pbs-gmm-v3 replaces the kmeans and gmm-v2 tables", in a decision, had made the decision the
+  replacement of the model, and the note in force wrong (RESULTS S8); on the worn bank the rule refused 20 claims
+  and no true replacement. A version may end in a letter: `bsm-app-gbm-v10a` is a model, as `…-v10` is.
+- **Grounding does not lose a line** (`ground`, `recheck`): an item whose copied words are not in the note is not
+  kept, as before, but the lines that write what it names are put to the second reading. A keeper had copied
+  "Builds on aml-xgb-v3, …" for a line that says v2, and the four members of that line were lost without a trace.
 - **The second reading** (`PLACE`, `Dream.run_place`): the first reading finds the lines of a note that say what it
   builds on or replaces among everything else it does for a dozen notes, and of the things such a line names by a
   phrase it left one in ten out without a trace (RESULTS S6). With a command, every such line is put to the keeper
@@ -1339,6 +1353,13 @@ constants, each with the measurement that set it.
   first reading does less in such a folder: its `FOLDER` list holds only the notes its own notes name by file
   name (`folder_lines(text=…)`), so it places ids, and a thing it cannot name it gives as an item with the note's
   words, which is what puts the line before the second reading.
+- **The third reading** (`CHOOSE`, `Dream.run_choose`): words that two readings could not place are put once more,
+  each with the few notes of its folder (six) whose file name, first line and next two lines share its rarest
+  words, shown with those lines; the keeper says which note is meant or that none is, and an answer counts only
+  when it names one of the notes shown. Asked once (`looked`). Three phrases had cost four of the six questions the
+  flat memory's lineage got wrong: their note was on the second reading's list beside a look-alike, and by a title
+  alone the keeper would not choose ("the bg/nbd versus gbm accuracy test": exp-501, against exp-503 on the same
+  models). On the worn bank it placed 17 of 28 such words in 17 calls.
 - **What `ask` does with an item that is still not placed** (`loose_ends`): it prints the note's own words under
   the note (`? it builds on «…», in its own words`), says `not the whole chain` on a `⇡` line that runs through such
   a note, and carries the words on the note's line of the map. Do not drop these lines to save characters. `ask` is
@@ -1412,6 +1433,13 @@ Per question:
    by area — complete, and no dearer than `cat`. An id, version or number the question names that no note mentions,
    or a plain word found nowhere when the best note covers at most half the question's words, gets a
    `(weak match: 'x' found nowhere …)` line; the rule reads the question's own words, never the index's aliases.
+   A question about a set across the whole memory (`SET_WIDE`: "across every project", "whole memory", "other
+   projects", with no folder named) gets a line that says its matches are not the set and names the map to grep,
+   by the kind it asks for (`SET_KIND`: "which model notes" → `ask --list --kind model --all`). The map of every
+   note of a big memory is larger than a reader's context, and a session under a 100,000-token window that read it
+   was compacted and got 2 of 8 (RESULTS S7, S8). A project's map (`--list -p`) prints what rests on the folder from
+   outside, and what it rests on, under its header and before its notes, so that a read cut short keeps the line
+   that answers "which notes outside X rest on X".
 9. **Taste** (task intent only, `taste`): scored inside the general areas so project notes cannot crowd them out; a
    person named in the task, or named inside one of the three best-matching house notes (their meeting's roster,
    their report; on a line the task's own words matched, never one that only another question of the call matched),
@@ -1728,7 +1756,7 @@ preferences 0.95 when the task names them, 0.84 when it names only their meeting
 
 ## Appendix D — prompts, seeds and tuned tables, verbatim from `memory.py`
 
-_Part 8 · extracted at commit 779a386 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
+_Part 8 · extracted at commit ebe4315 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
 
 ### D.1 `EXTRACT` — the per-note prompt: fixed guidance, then `KINDS:`, `TYPES:`, `EDGES:` and `KNOWN:` from the registries (the static part is cached), then `NOTE`
 
@@ -1839,10 +1867,11 @@ drop: related-to, associated-with, about, mentions, relates-to, answers, answere
 # KINDS — kinds of note. A note's kind is its frontmatter `type:`, else the kind of its area (`prefs/` → preference), else
 # the kind whose prefix starts its filename (`exp-014` → experiment; `…-vN` is a model), else note. One line per
 # kind: `- kind: definition | prefix: a, b | area: x, y | family: parent | role: R | digest: current | conflicts: yes
-# | answers: yes | not: what it is not`. role ∈ question, evidence, state, rule, reference, log; project work is question,
-# evidence and state. `answers: yes` kinds answer a question they are built on; `digest: current` kinds head the digest;
-# `conflicts: yes` kinds are compared for disagreement (a child kind counts as its family). `general:` names the areas
-# that span projects.
+# | answers: yes | replaces: kinds | not: what it is not`. role ∈ question, evidence, state, rule, reference, log; project
+# work is question, evidence and state. `answers: yes` kinds answer a question they are built on; `digest: current` kinds
+# head the digest; `conflicts: yes` kinds are compared for disagreement (a child kind counts as its family). A note that
+# a keeper reads as replacing another replaces one of its own family, or of a kind (or family) named after `replaces:`.
+# `general:` names the areas that span projects.
 # Edit freely: a hand-written line is permanent (0 model calls); `pack: research, ops` adds a domain's kinds.
 # The seed covers data, analytics, software and finance work.
 general: prefs, reporting, glossary, corrections, howto, qa, people, log
@@ -1866,7 +1895,7 @@ general: prefs, reporting, glossary, corrections, howto, qa, people, log
 - term: a defined word or concept | prefix: term | area: glossary | role: reference
 - preference: how a named person wants things done | prefix: pref | area: prefs | family: rule | role: rule
 - rule: a standing rule or procedure for the work | prefix: rule | area: reporting, howto | role: rule
-- correction: a past mistake and the rule that prevents it | area: corrections | family: rule | role: rule
+- correction: a past mistake and the rule that prevents it | area: corrections | family: rule | role: rule | replaces: term
 - log: a dated scratch line | area: log | role: log
 - note: anything else | role: reference
 ```

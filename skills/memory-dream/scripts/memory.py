@@ -191,10 +191,11 @@ ALIASES_HEAD = ("# ALIASES — entity ids that name the same thing; the first id
 KINDS_SEED = """# KINDS — kinds of note. A note's kind is its frontmatter `type:`, else the kind of its area (`prefs/` → preference), else
 # the kind whose prefix starts its filename (`exp-014` → experiment; `…-vN` is a model), else note. One line per
 # kind: `- kind: definition | prefix: a, b | area: x, y | family: parent | role: R | digest: current | conflicts: yes
-# | answers: yes | not: what it is not`. role ∈ question, evidence, state, rule, reference, log; project work is question,
-# evidence and state. `answers: yes` kinds answer a question they are built on; `digest: current` kinds head the digest;
-# `conflicts: yes` kinds are compared for disagreement (a child kind counts as its family). `general:` names the areas
-# that span projects.
+# | answers: yes | replaces: kinds | not: what it is not`. role ∈ question, evidence, state, rule, reference, log; project
+# work is question, evidence and state. `answers: yes` kinds answer a question they are built on; `digest: current` kinds
+# head the digest; `conflicts: yes` kinds are compared for disagreement (a child kind counts as its family). A note that
+# a keeper reads as replacing another replaces one of its own family, or of a kind (or family) named after `replaces:`.
+# `general:` names the areas that span projects.
 # Edit freely: a hand-written line is permanent (0 model calls); `pack: research, ops` adds a domain's kinds.
 # The seed covers data, analytics, software and finance work.
 general: prefs, reporting, glossary, corrections, howto, qa, people, log
@@ -218,7 +219,7 @@ general: prefs, reporting, glossary, corrections, howto, qa, people, log
 - term: a defined word or concept | prefix: term | area: glossary | role: reference
 - preference: how a named person wants things done | prefix: pref | area: prefs | family: rule | role: rule
 - rule: a standing rule or procedure for the work | prefix: rule | area: reporting, howto | role: rule
-- correction: a past mistake and the rule that prevents it | area: corrections | family: rule | role: rule
+- correction: a past mistake and the rule that prevents it | area: corrections | family: rule | role: rule | replaces: term
 - log: a dated scratch line | area: log | role: log
 - note: anything else | role: reference
 """
@@ -278,7 +279,7 @@ TYPE_PACKS = {
 
 
 def parse_kinds(text):
-    """KINDS.md -> {order, kinds: {kind: {def, prefix, area, family, role, digest, conflicts}}, general, bad}."""
+    """KINDS.md -> {order, kinds: {kind: {def, prefix, area, family, role, digest, conflicts, answers, replaces}}, general, bad}."""
     out = {"order": [], "kinds": {}, "general": set(), "bad": []}
     for i, ln in enumerate(expand_packs(text, KIND_PACKS).split("\n"), 1):
         s = ln.strip()
@@ -293,11 +294,12 @@ def parse_kinds(text):
         elif m:
             k = fold(m.group(1))
             segs = [x.strip() for x in m.group(2).split("|")]
-            d = {"def": segs[0], "prefix": [], "area": [], "family": k, "role": "reference", "digest": False, "conflicts": False, "answers": False, "not": ""}
+            d = {"def": segs[0], "prefix": [], "area": [], "family": k, "role": "reference", "digest": False, "conflicts": False, "answers": False,
+                 "replaces": [], "not": ""}
             for seg in segs[1:]:
                 key, _, val = seg.partition(":")
                 key, val = key.strip().lower(), val.strip()
-                if key in ("prefix", "area"):
+                if key in ("prefix", "area", "replaces"):
                     d[key] = [fold(x) for x in val.split(",") if x.strip()]
                 elif key == "family":
                     d["family"] = fold(val)
@@ -374,6 +376,7 @@ def domain_from(kt, tt, et):
             "DIGEST_KINDS": {k for k, d in ks.items() if d["digest"]},
             "ANSWER_KINDS": {k for k, d in ks.items() if d["answers"]},
             "ROLE_OF": {k: d["role"] for k, d in ks.items()},
+            "KIND_REPLACES": {k: set(d["replaces"]) for k, d in ks.items() if d["replaces"]},
             "TYPE_PARENT": tv[5]["family"], "SHAPES": {**SEED_SHAPES, **ev[5]["shape"]}, "NAME_DROP": name_drop(tt),
             **walk_tables(ev[0])}
 
@@ -492,6 +495,19 @@ LINES (number · the note it stands in · asked · the line):
 Reply with JSON only, one key per line: {"1": [{"words": "<copied from the line>", "note": "<file name>"}, {"words": "...", "note": null}], "2": []}
 """
 PLACE_LINES, PLACE_TEXT, PLACE_MAX = 45, 500, 400  # lines a call · characters of a line · calls a dream, the rest wait
+# The third reading (RESULTS S8). Words two readings could not place ("the bg/nbd versus gbm accuracy test", whose note
+# was on the second reading's list beside a look-alike): each is put once more with the few notes of its folder whose
+# name and first lines share its rarest words, shown with those lines, and the keeper says which is meant or that none
+# is. The script chooses what is shown; the keeper decides.
+CHOOSE = """A note of a work memory says, in a line of its own, that it builds on or replaces something, and names it in a few
+words. Two readings could not tell which note is meant. Under each item are the notes it could be, each with its
+first lines. For each item, say which of those notes the words mean. null when none of them is meant, or when their
+lines do not tell you.
+ITEMS:
+{items}
+Reply with JSON only, one key per item: {"1": "<file name of one of its notes>", "2": null}
+"""
+CHOOSE_ITEMS, CHOOSE_SHOWN, CHOOSE_MAX = 8, 6, 60  # items a call · notes shown an item · calls a dream
 # A folder with more notes than a prompt can list (the flat bank of RESULTS phase S: 1,224 in one). The keeper is then
 # shown the notes near the lines it reads: those within four steps of a line's note by a name written in a note,
 # either way, and beside them the eight notes whose first line and name share the rarest words with the line.
@@ -596,8 +612,8 @@ def mmdd(d):
 def kind_of(rel, fm_type=None, x_kind=None):
     """A note's kind: frontmatter `type:` (Claude Code's user/feedback/project/reference map onto ours), else the
     kind of its area when the area has one (under an origin, by the area's last part), else a kind prefix in the
-    first or second part of the filename (exp-, feat-, ds-, dec-, fnd-, q-, …), else model for `…-vN`, else the
-    dreamer's reading, else note."""
+    first or second part of the filename (exp-, feat-, ds-, dec-, fnd-, q-, …), else model for `…-vN` (and `…-v10a`, a
+    version with a letter), else the dreamer's reading, else note."""
     t = (fm_type or "").strip().lower()
     if t:
         return CC_KIND.get(t, t)
@@ -612,7 +628,7 @@ def kind_of(rel, fm_type=None, x_kind=None):
     for pre in segs[:2]:  # exp-014, and project-prefixed ids such as aml-find-kyc-lift or mrisk-find-watchlist
         if len(segs) > 1 and pre in PREFIX_KIND:
             return PREFIX_KIND[pre]
-    if re.search(r"-v\d+$", stem_):
+    if re.search(r"-v\d+[a-z]?$", stem_):  # bsm-app-gbm-v10a was read as an experiment, and its successor's replacing it refused
         return "model"
     if x_kind and str(x_kind).lower() != "note":  # no name and no folder says what it is: the dreamer's reading does
         return str(x_kind).lower()
@@ -962,7 +978,7 @@ def ground(ans, text):
                          "o": kept[fold(o)]["id"], "quote": q, "line": line_at(text, m.start())})
         else:
             dropped["relations"] += 1
-    said = {}
+    said, recheck = {}, set()
     for field in ("built_on", "replaces"):  # lineage the note states in its prose: kept with the words that state it
         said[field] = []
         for b in ans.get(field) or []:
@@ -972,10 +988,16 @@ def ground(ans, text):
                 said[field].append({"what": what, "quote": q, "line": line_at(text, m.start())})
             elif what:
                 dropped["relations"] += 1
+                # the words were not copied as they stand ("Builds on aml-xgb-v3, …" for a line that says v2, and all four
+                # of its members lost): the item is not kept, but the lines that write what it names are read again
+                w = posixpath.basename(what[:-3] if what.endswith(".md") else what)
+                if len(w) >= 3:
+                    recheck |= {(field, line_at(text, mm.start())) for mm in re.finditer(r"(?<![\w/.-])" + re.escape(w) + r"(?![\w-])", text, re.I)}
     kind = str(ans.get("kind") or "").strip().lower()
     return {"kind": kind if kind in KINDS else "note", "entities": ents,
             "relations": rels, "refs": [str(x) for x in (ans.get("refs") or []) if isinstance(x, str)],
-            **{k: v for k, v in said.items() if v}, "dropped": dropped}
+            **{k: v for k, v in said.items() if v}, **({"recheck": [{"field": f, "line": n} for f, n in sorted(recheck)]} if recheck else {}),
+            "dropped": dropped}
 
 
 # ---------- vocabularies ----------
@@ -1632,7 +1654,8 @@ def lineage_as_read(root, notes, aux, edges, ents, cmap, own):
     note of its own name the one note of the folder whose title names it). It becomes a `from` or
     `supersedes` edge marked `by: "reading"`; a line of frontmatter or of CONFLICTS.md that already says it, or says
     otherwise (`compatible: a / b`, the reverse replacement), wins. A replacement is not taken from a note older than
-    the one it names, nor from a note of another kind when a note of the replaced note's own kind says it too. -> (notes, edges, counts); the inputs are not
+    the one it names, nor from a note of another family unless KINDS.md says that kind replaces it (`replaces:`), nor
+    from a note of another kind when a note of the replaced note's own kind says it too. -> (notes, edges, counts); the inputs are not
     changed, because the note half of a graph is reused across rebuilds."""
     if not any((aux[rel]["x"] or {}).get(f) for rel in notes for f in ("built_on", "replaces")):
         return notes, edges, {}, []
@@ -1710,6 +1733,10 @@ def lineage_as_read(root, notes, aux, edges, ents, cmap, own):
     # right). So a note of the replaced note's own kind is believed before a note of another kind, and two notes that
     # each claim to replace the other are believed neither.
     fam = lambda q: family(notes[q]["kind"])  # noqa: E731
+
+    def may_replace(src, dst):  # its own family, or a kind or family its KINDS.md line names under `replaces:`
+        allow = KIND_REPLACES.get(notes[src]["kind"], set()) | KIND_REPLACES.get(fam(src), set())
+        return fam(src) == fam(dst) or notes[dst]["kind"] in allow or fam(dst) in allow
     said = defaultdict(set)
     for s_, d, r in have:
         if r == "supersedes":
@@ -1720,6 +1747,8 @@ def lineage_as_read(root, notes, aux, edges, ents, cmap, own):
     for src, dst in sorted(claims):
         if (dst, src) in pairs:
             st["lineage_read_both_ways"] += 1
+        elif not may_replace(src, dst):  # "pbs-gmm-v3 replaces the kmeans tables", in a decision: no decision replaces a model
+            st["lineage_read_other_family"] += 1
         elif fam(src) != fam(dst) and any(fam(q) == fam(dst) for q in said[dst]):
             st["lineage_read_other_kind"] += 1
         else:
@@ -2370,6 +2399,7 @@ class Dream:
                        "demoted": 0, "conflicts": 0, "decided": 0}
         self.curate = {"folders": 0, "calls": 0, "joined": 0, "refused": 0, "left": 0}
         self.placing = {"lines": 0, "members": 0, "links": 0, "calls": 0, "left": 0}
+        self.choosing = {"items": 0, "placed": 0, "calls": 0}
         self.curated = dict(self.man.get("curated") or {})
         self.base = {}  # the note half of the graph, reused across rebuilds until a review changes lineage
         self.fresh = set()  # notes read in this dream: `--all` does not ask for them twice
@@ -2386,6 +2416,7 @@ class Dream:
         self.index()
         g = self.demote(self.graph())
         g = self.run_place(g)
+        g = self.run_choose(g)
         g = self.run_curate(g)
         g = self.run_review(g)
         self.report(g, self.write(g))
@@ -2692,13 +2723,16 @@ class Dream:
         twice and no more. A member no note is named for stays an item with its words, which the build lists (C18)
         and `ask` prints. Nothing is lost by silence: an answer that names no member for a line leaves the line as
         the first reading had it, and an item of the first reading whose name is written in the line as it stands
-        ("Builds on ds-cc-tickets-raw.") stays whatever the answer left out. Command mode only."""
+        ("Builds on ds-cc-tickets-raw.") stays whatever the answer left out. The lines read are those of the first
+        reading's items, and the lines that write what an item names whose words grounding could not find (`recheck`).
+        Command mode only."""
         if not self.cmd:
             return g
         todo = defaultdict(list)  # folder → [(note, field, line number, the line)]
         for rel in sorted(self.cur):
             x = self.xs.get(self.cur[rel]["sha"][:12]) or {}
-            at = sorted({(f, b["line"]) for f in ("built_on", "replaces") for b in x.get(f) or [] if b.get("line") and not b.get("asked")})
+            at = sorted({(f, b["line"]) for f in ("built_on", "replaces") for b in x.get(f) or [] if b.get("line") and not b.get("asked")}
+                        | {(r["field"], r["line"]) for r in x.get("recheck") or [] if not r.get("asked")})
             if at:
                 ls = read(self.root / rel).split("\n")
                 todo[area_of(rel)] += [(rel, f, n, " ".join(ls[n - 1].split())[:PLACE_TEXT]) for f, n in at if n <= len(ls)]
@@ -2812,8 +2846,8 @@ class Dream:
                 x, ans = self.xs[h], obj.get(str(k))
                 changed.add(h)
                 self.placing["lines"] += 1
-                first = [b for b in x[f] if b.get("line") == ln]
-                for b in first:
+                first = [b for b in x.get(f) or [] if b.get("line") == ln]
+                for b in first + [r for r in x.get("recheck") or [] if r["field"] == f and r["line"] == ln]:
                     b["asked"] = True
                 new, low = [], text.lower()
                 for e in ans if isinstance(ans, list) else []:
@@ -2832,7 +2866,7 @@ class Dream:
                 took = {fold(posixpath.basename(b["what"])) for b in new}
                 new += [b for b in first if fold(posixpath.basename(b["what"])) not in took and re.search(r"[/\d_-]", b["what"])
                         and re.search(r"(?<![\w/-])" + re.escape(b["what"]) + r"(?![\w/-])", text, re.I)]
-                x[f] = sorted([b for b in x[f] if b.get("line") != ln] + new, key=lambda b: b.get("line") or 0)
+                x[f] = sorted([b for b in x.get(f) or [] if b.get("line") != ln] + new, key=lambda b: b.get("line") or 0)
                 self.placing["members"] += len(new)
         for h in changed:  # the reading on file is what the keepers read, the second reading included
             wr(self.dd / "notes" / f"{h}.json", self.xs[h])
@@ -2842,6 +2876,106 @@ class Dream:
         g = self.graph()
         self.placing["links"] = sum(e.get("by") == "reading" for e in g["edges"]) - before
         return g
+
+    def run_choose(self, g):
+        """The third reading, for the words two readings could not place (C18, items marked `asked`): each is shown
+        with the few notes of its folder (CHOOSE_SHOWN) whose file name, first line and next two lines share the rarest
+        of its words, those near its note first (within NEAR_STEPS by a name written in a note, as the second reading
+        orders them), with those lines, and the keeper says which note is meant or that none is. An answer that names
+        one of the notes shown becomes the item's `what`; every item asked is marked `looked` and not asked again.
+        Command mode only. Ranked by the words alone, two common ones ("test", "versus") had put six notes of other
+        projects before the one the words meant ("the bg/nbd versus gbm accuracy test": exp-501, one step away)."""
+        if not self.cmd:
+            return g
+        todo = []
+        for u in g.get("unplaced", []):
+            h = self.cur[u["note"]]["sha"][:12] if u["note"] in self.cur else None
+            items = (self.xs.get(h) or {}).get(u["field"]) or []
+            if u["i"] < len(items) and items[u["i"]].get("asked") and not items[u["i"]].get("looked"):
+                todo.append((u["note"], u["field"], items[u["i"]]))
+        if not todo:
+            return g
+        tok = re.compile(r"[a-z0-9]+(?:[/.][a-z0-9]+)*")
+        opening, index = {}, {}
+        shown = int(env_numbers("MEMORY_FOLDER", (FOLDER_SHOWN,))[0])
+        adj = defaultdict(set)
+        for e in g["edges"]:
+            if e["rel"] in ("refs", "from", "supersedes") and area_of(e["src"]) == area_of(e["dst"]):
+                adj[e["src"]].add(e["dst"])
+                adj[e["dst"]].add(e["src"])
+
+        def near(rel):  # the notes within NEAR_STEPS of rel by a name written in a note, either way
+            seen, queue = {rel: 0}, [rel]
+            while queue:
+                q = queue.pop(0)
+                if seen[q] < NEAR_STEPS:
+                    for r in sorted(adj[q]):
+                        if r not in seen:
+                            seen[r] = seen[q] + 1
+                            queue.append(r)
+            return set(seen)
+
+        def first_lines(q):  # `name: first line | next | next`, and its words
+            if q not in opening:
+                ls = [" ".join(t.split()) for t in read(self.root / q).split("\n")]
+                start, name, title = self.facts[q].get("line") or 1, posixpath.basename(q)[:-3], self.facts[q]["title"][:200]
+                text = (title if title.lower().startswith(name.lower()) else f"{name}: {title}") + "".join(
+                    f" | {t[:150]}" for t in [t for t in ls[start:] if t][:2])
+                opening[q] = (text, {w for w in tok.findall(text.lower().replace("-", " ")) if w not in STOP and len(w) >= 2})
+            return opening[q]
+
+        def candidates(rel, words):
+            a = area_of(rel)
+            if a not in index:
+                pool = [q for q in self.cur if area_of(q) == a and self.facts[q]["title"] and q.endswith(".md")]
+                df = Counter(w for q in pool for w in first_lines(q)[1])
+                index[a] = (pool, df)
+            pool, df = index[a]
+            close = near(rel) if len(pool) > shown else set(pool)  # a folder that is listed whole is all near
+            want = {w for w in tok.findall(words.lower().replace("-", " ")) if w not in STOP and len(w) >= 2}
+            score = {q: math.fsum(math.log(len(pool) / df[w]) for w in want & first_lines(q)[1]) for q in pool if q != rel}
+            return [q for q in sorted(score, key=lambda q: (q not in close, -score[q], q)) if score[q] > 0][:CHOOSE_SHOWN]
+        asks = []
+        for rel, f, b in todo:
+            cands = candidates(rel, f"{b['quote']} {b['what']}")
+            if cands:
+                ls = read(self.root / rel).split("\n")
+                line = " ".join(ls[b["line"] - 1].split())[:PLACE_TEXT] if b.get("line") and b["line"] <= len(ls) else b["quote"]
+                asks.append((rel, f, b, cands, line))
+            else:
+                b["looked"] = True  # nothing in its folder shares a word with it: there is nothing to choose from
+        by_area = defaultdict(list)
+        for x in asks:
+            by_area[area_of(x[0])].append(x)
+        parts = [xs[k:k + CHOOSE_ITEMS] for a in sorted(by_area) for xs in [by_area[a]] for k in range(0, len(xs), CHOOSE_ITEMS)][:CHOOSE_MAX]
+
+        def prompt(part):
+            out = []
+            for k, (rel, f, b, cands, line) in enumerate(part, 1):
+                out.append(f"{k} · {posixpath.basename(rel)[:-3]} {'builds on' if f == 'built_on' else 'replaces'} «{b['quote']}» · its line: «{line}»")
+                out += [f"   - {first_lines(q)[0]}" for q in cands]
+            return fill(CHOOSE, items="\n".join(out))
+        with ThreadPoolExecutor(max(1, self.args.j)) as ex:
+            answers = list(ex.map(lambda part: call_model(self.cmd, prompt(part)), parts))
+        changed = {self.cur[rel]["sha"][:12] for rel, f, b in todo if b.get("looked")}
+        for part, (obj, n) in zip(parts, answers):
+            self.choosing["calls"] += n
+            if not isinstance(obj, dict):
+                continue  # no answer: asked again at the next dream
+            for k, (rel, f, b, cands, line) in enumerate(part, 1):
+                name = str(obj.get(str(k)) or "").strip()
+                name = posixpath.basename(name[:-3] if name.endswith(".md") else name)
+                pick = [q for q in cands if posixpath.basename(q)[:-3] == name]
+                b["looked"] = True
+                self.choosing["items"] += 1
+                if pick:
+                    b["said"], b["what"] = b["what"], name
+                    self.choosing["placed"] += 1
+                changed.add(self.cur[rel]["sha"][:12])
+        for h in changed:
+            wr(self.dd / "notes" / f"{h}.json", self.xs[h])
+            self.store.put(h, self.xs[h])
+        return self.graph() if changed else g
 
     def cards(self, g, area, cap=150):
         """The things a folder's notes name, for the curator: -> (ids, one line each). Most mentioned first."""
@@ -3163,10 +3297,12 @@ class Dream:
         if review["pairs"] or review["types"] or review["conflicts"]:
             out += f" · review: {pl(review['pairs'], 'pair')}, {pl(review['types'], 'label')}, {pl(review['conflicts'], 'conflict')} " + \
                 (f"({pl(review['calls'], 'call')})" if cmd else "(file mode)")
-        pc = self.placing
+        pc, ch = self.placing, self.choosing
         if pc["calls"] or pc["left"]:  # calls with no line read are a command that did not answer: said, not hidden
             out += (f" · second reading: {pl(pc['lines'], 'line')} read once more, {pc['links']:+d} {'link' if abs(pc['links']) == 1 else 'links'} "
                     f"({pl(pc['calls'], 'call')})" + (f", {pl(pc['left'], 'line')} left for the next dream" if pc["left"] else ""))
+        if ch["calls"]:
+            out += f" · third reading: {ch['placed']} of {ch['items']} words placed ({pl(ch['calls'], 'call')})"
         cu = self.curate
         if cu["folders"]:
             out += (f" · curator: {pl(cu['folders'], 'folder')}, {pl(cu['joined'], 'name')} joined"
@@ -3843,6 +3979,11 @@ INTENT = {"current": re.compile(r"\b(current|currently|now|latest|today|still|va
 ART = re.compile(r"\b(chart|plot|graph|table|deck|slide|email|notebook|query|sql|model card|alert|report|page|dashboard|"
                  r"memo|summary|readout|title|label|column|axis|axes|colou?r)s?\b", re.I)
 WORD = re.compile(r"[\w@%$][\w.@%/+$-]*")  # \w: words in any script count (REVIEW.md F13)
+# A question about a set across the whole memory ("across every project, which model notes …"): `ask` prints its best
+# matches, which are not the set, and the map of every note of a big memory is larger than a reader's context (RESULTS
+# S7: a session that read it whole under a 100,000-token window was compacted and got 2 of 8). It says which map to grep.
+SET_WIDE = re.compile(r"\b(across (every|all|the whole|the memory)|every project|all projects|whole memory|other projects)\b", re.I)
+SET_KIND = re.compile(r"\b(?:which|every|all|how many|list)\s+(?:of the\s+)?(?:current\s+|live\s+)?([a-z]+?)s?\s+notes?\b", re.I)
 # Read-path constants, each with the measurement that set it (.specs/memory-dream/REVIEW.md F1, F4, F7).
 COMPLETE_MAX_NOTES = 200  # only this small a memory is considered for printing whole (reading every note is cheap)
 COMPLETE_RATIO = 1.2  # print the whole memory when it costs <= this x the surgical output; then nothing is missed
@@ -4052,6 +4193,22 @@ def list_notes(args, v, root=None):
     print(f"## {len(rows)} notes" + (f" of {args.p}/" if args.p else "") + (f" of kind {kind}" if kind else "")
           + (f" tagged {tag}" + (f" ({defs[tag]})" if defs.get(tag) else " (not in TAGS.md: no definition)") if tag else "")
           + " — one line each: built on (a note of another folder with its folder) · replaces · replaced by · used in other folders")
+    if args.p:  # what the folder as a whole rests on, and what rests on it, outside itself: first, so that a cut or a
+        # compacted read keeps it (RESULTS S8: one session that read four maps cut to 8,000 characters answered from the rest)
+        for mark, edges, far, text in (("⇡", v.frm, "dst", f"{args.p}/ rests on {{n}} notes of other folders"),
+                                       ("⇣", v.down, "src", f"{{n}} notes of other folders rest on {args.p}/")):
+            seen, todo = set(), [p for p in sorted(v.notes) if here(p)]
+            start = set(todo)
+            while todo:
+                for q in sorted(e[far] for e in edges[todo.pop(0)] if e["rel"] == "from"):
+                    if q not in seen and q not in start and q in v.notes:
+                        seen.add(q)
+                        todo.append(q)
+            ext = sorted(q for q in seen if not here(q))
+            if ext:
+                print(f"  {mark} {text.format(n=len(ext))}, directly or through other notes: "
+                      + " · ".join(f"{q[:-3]} ({v.notes[q]['kind']})" for q in ext[:CLOSURE_MAX * 2])
+                      + (f" · and {len(ext) - CLOSURE_MAX * 2} more" if len(ext) > CLOSURE_MAX * 2 else ""))
     for p in rows[:cap]:
         n = v.notes[p]
         name = lambda q: v.notes[q]["id"] if area(q) == area(p) else q[:-3]  # noqa: E731
@@ -4069,21 +4226,6 @@ def list_notes(args, v, root=None):
               + f" — {n['title'][:110]}")
     if len(rows) > cap:
         print(f"  ({len(rows) - cap} more: narrow it with -p <folder>, --kind <kind> or --tag <tag>, or print them all with --all)")
-    if args.p:  # what the folder as a whole rests on, and what rests on it, outside itself
-        for mark, edges, far, text in (("⇡", v.frm, "dst", f"{args.p}/ rests on {{n}} notes of other folders"),
-                                       ("⇣", v.down, "src", f"{{n}} notes of other folders rest on {args.p}/")):
-            seen, todo = set(), [p for p in sorted(v.notes) if here(p)]
-            start = set(todo)
-            while todo:
-                for q in sorted(e[far] for e in edges[todo.pop(0)] if e["rel"] == "from"):
-                    if q not in seen and q not in start and q in v.notes:
-                        seen.add(q)
-                        todo.append(q)
-            ext = sorted(q for q in seen if not here(q))
-            if ext:
-                print(f"  {mark} {text.format(n=len(ext))}, directly or through other notes: "
-                      + " · ".join(f"{q[:-3]} ({v.notes[q]['kind']})" for q in ext[:CLOSURE_MAX * 2])
-                      + (f" · and {len(ext) - CLOSURE_MAX * 2} more" if len(ext) > CLOSURE_MAX * 2 else ""))
 
 
 def ask(args, root):
@@ -4193,6 +4335,13 @@ def ask(args, root):
                     areas = sorted(set(areas) | set((route(pats, cat_o)[0] or [])[:2]))
             if "task" in intent and areas is not None:
                 areas = sorted(set(areas) | general)
+        if not scope and SET_WIDE.search(q):
+            km = SET_KIND.search(q)
+            k = fold(km.group(1)) if km and fold(km.group(1)) in KINDS else ""
+            hint = (f"a set across the whole memory, not these matches: `memory.py ask --list --kind {k} --all` lists every {k} note, "
+                    "one line each; pipe it through grep" if k else
+                    f"a set across the whole memory, not these matches: `memory.py ask --list --all` lists all {len(v.notes)} notes, one "
+                    "line each, more than to read: pipe it through grep, or narrow it with --kind")
         pool = v.notes if areas is None else [p for a in areas for p in by_area[a]]
         paths = {p: [t for t in pats if len(t) >= 4 and t not in scoped_pats and t in p.lower()] for p in pool
                  if not scope or in_scope(p, scope)}

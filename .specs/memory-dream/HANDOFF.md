@@ -444,3 +444,47 @@ Open after this, in the order I would take them (the list above still stands but
 
 Spent on models for this part: Haiku 5.5 about $8.40 (four readings of the flat bank's lineage, of which two whole
 builds, $4.29; the arms $4); Opus 5.5 $7.43 (grep $4.72, the memory $2.71). Opus in all on 2026-11-12: $28.11.
+
+### How the rest was fixed (2026-11-12, late evening)
+
+The owner asked "so, how do we fix it?" about S7's result, then said "continue the work". RESULTS S8 has it. Each of
+the six questions the flat memory's lineage got wrong was traced to the line behind it:
+
+| cause | fix | where |
+|---|---|---|
+| a quote copied with one word wrong lost a whole line | the lines that write what such an item names go to the second reading | `ground` (`recheck`), `run_place` |
+| a decision's sentence read as the decision replacing a model | a note replaces only one of its own family, unless its kind's line says `replaces:` (seed: correction replaces term); `…-v10a` is a version | `lineage_as_read`, `parse_kinds`, `kind_of` |
+| a phrase whose note was on the keeper's list beside a look-alike | a third reading: the six notes it could mean, near ones first, with their first lines | `CHOOSE`, `Dream.run_choose` |
+| a session asked about every model read the map of every note and was compacted | `ask` names the narrow map; the skill says never to read a whole map; a project's map says what rests on it from outside first | `SET_WIDE`/`SET_KIND` in `ask`, `list_notes`, SKILL.md |
+
+Results, the 100,000-token window on every arm: on the flat bank the lineage alone answers 70 of 72 (66 before); Opus
+with the memory 71 of 72 (Opus with grep 71 of 72) at $0.32 a ten questions against $0.66; Haiku with the memory 210
+of 216, 97% (89% before), at $0.012. On the folder bank under the same window Haiku with the memory answers 91% (269
+of 294; 89% before, and Haiku with grep 81%), and nearly all it loses is in the one session of questions across the
+whole memory, which still fills the window.
+
+Verified at the end: `tests/acceptance.py` 40 of 40 on Python 3.9 and 3.13; `tests/e2e.py` 58 and 57 lines; the five
+gates (bank 0.978, 0.978, 2,954; bank with the index 0.973, 0.978, 3,138, alias 0.811; software 1.0, 1.0; worn
+0.997, 0.995, 0.989, 94 answered, 85 named; flat 0.996, 1.0, 0.983, 70 answered); `eval/stability.py` all zeros;
+`tests/viz_check.js` 16 of 16; the bundle fresh.
+
+Open, in the order I would take them:
+
+1. **Questions across the whole memory under a 100,000-token window.** The memory arm reads two to six maps for
+   them and fills the window: on the folder bank that session was compacted in every run and scored 0, 5 and 6 of
+   8, where the other ninety questions scored 84 to 88. Fewer such questions a session, or a map without each
+   note's title line, are the two things to try.
+2. **The second reading's choice between look-alikes varies from run to run.** Two runs agree on 94.5% of lines;
+   where they differ about half of the notes named are wrong. A second reader on the lines where the first named a
+   note, with disagreements put to the third reading, is the next step; it doubles the second reading ($0.28).
+3. **The review decides replacements between live notes that no note states** (clv-ml-v2 over clv-bgnbd-v1 on the
+   folder bank, against the key). Writing `?` for a pair that no note speaks of, and leaving `>` to a person, would
+   be the smaller rule.
+4. **A line the first reading gives no item for is read by nobody twice** ("Replaces the pooled elasticity estimate
+   of 0.21."). The second reading could take every line that begins as a lineage line does in that base; it would
+   need the base's own words for it, which the setup step could write down.
+5. The items of the earlier list above: a base whose notes seldom name each other; the curator in a folder of a
+   thousand notes; one call a note as the default.
+
+Spent on models for this part: Haiku 5.5 about $1.60 (the rebuilds $0.53, the third readings $0.06, the arms
+$1.00); Opus 5.5 $2.31. Opus in all on 2026-11-12: $30.42.

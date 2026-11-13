@@ -177,6 +177,20 @@ def main():
                     if words:
                         ans[num].append({"words": words, "note": exact[0] if exact else best if hit else None})
         kind, path, out = "place", "-", json.dumps(ans)
+    elif prompt.startswith("A note of a work memory says, in a line of its own"):
+        # the third reading: the candidate whose name and first lines share two words of four letters with the item's words
+        ans = {}
+        for block in re.split(r"\n(?=\d+ · )", prompt.split("ITEMS:\n", 1)[1].split("\nReply with JSON", 1)[0]):
+            m = re.match(r"(\d+) · \S+ (?:builds on|replaces) «(.*?)»", block)
+            if not m:
+                continue
+            said = set(re.findall(r"[a-z]{4,}", m.group(2).lower()))
+            best = None
+            for c in re.findall(r"^   - (\S+): (.*)$", block, re.M):
+                if len(said & set(re.findall(r"[a-z]{4,}", c[1].lower()))) >= 2:
+                    best = best or c[0]
+            ans[m.group(1)] = best
+        kind, path, out = "choose", "-", json.dumps(ans)
     elif prompt.startswith("You keep the names of things"):
         ids = set(re.findall(r"^- (\S+) \(", prompt, re.M))
         over = json.load(open(os.environ["FAKE_CURATE"])) if os.environ.get("FAKE_CURATE") else None

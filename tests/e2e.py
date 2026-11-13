@@ -321,6 +321,41 @@ def placing(w):
          "too many to list. NEAR" in asked and "\npaper-b: " in asked and "paper-a" in head and "paper-b" in head,
          out + asked[asked.find("FOLDER"):] + head)
 
+    def pending(note, reading):
+        sha = hashlib.sha256((w.root / note).read_bytes()).hexdigest()[:12]
+        (w.root / "_dream/pending" / f"{sha}.json").write_text(json.dumps({"kind": "note", "entities": [], "relations": [], "refs": [], **reading}))
+    # a quote copied with one word wrong: the item is not kept, and its line goes to the second reading
+    w.write("lib/paper-h.md", "", "paper-h: the drift test, read again")
+    with open(w.root / "lib/paper-h.md", "a") as f:
+        f.write("Builds on paper-b and the first drift test.\n")
+    pending("lib/paper-h.md", {"built_on": [{"what": "paper-b", "quote": "Builds on paper-b and the first drift tests"}]})
+    before = w.head(w.run("dream") and w.run("ask", "--list", "-p", "lib"), "lib/paper-h.md")
+    # a decision that reads as replacing a note of another family: refused; the words two readings cannot place,
+    # shown with the first lines of the notes they could mean
+    w.write("lib/dec-swap.md", "", "Decision: paper-c replaces paper-a for the card work")
+    with open(w.root / "lib/dec-swap.md", "a") as f:
+        f.write("paper-c replaces paper-a.\n")
+    pending("lib/dec-swap.md", {"replaces": [{"what": "paper-a", "quote": "paper-c replaces paper-a"}]})
+    w.write("lib/paper-g.md", "", "paper-g: the second look")
+    with open(w.root / "lib/paper-g.md", "a") as f:
+        f.write("Retail books measured monthly.\n")
+    w.write("lib/paper-i.md", "", "paper-i: what the second look found")
+    with open(w.root / "lib/paper-i.md", "a") as f:
+        f.write("Builds on the monthly retail book measure.\n")
+    pending("lib/paper-i.md", {"built_on": [{"what": "monthly-retail-book-measure", "quote": "Builds on the monthly retail book measure"}]})
+    out = w.run("dream", "--review", env={"MEMORY_LLM": FAKE, "FAKE_LOG": str(log)})
+    listed = w.run("ask", "--list", "-p", "lib")
+    w.ok("a quote copied with one word wrong is not kept, and its line is read once more: the link is placed then",
+         "from" not in before and "from paper-b" in w.head(listed, "lib/paper-h.md"), before + "\n" + w.head(listed, "lib/paper-h.md"))
+    w.ok("a decision read as replacing a note of another family is refused: paper-a is not marked replaced by it",
+         "dec-swap" not in w.head(listed, "lib/paper-a.md"), w.head(listed, "lib/paper-a.md"))
+    w.ok("words two readings could not place go to a third, with the first lines of the notes they could mean: placed",
+         re.search(r"third reading: 1 of \d+ words? placed", out) is not None and "from paper-g" in w.head(listed, "lib/paper-i.md"),
+         out + "\n" + w.head(listed, "lib/paper-i.md"))
+    out = w.run("ask", "Across every project, which decision notes were replaced by a later note?")
+    w.ok("a question about a set across the whole memory is told which map to grep, not to read the matches as the set",
+         "ask --list --kind decision --all" in out, out)
+
 
 def proving(w):
     """A memory's own test (PLAN §13 item 6): questions kept in SETUP.md with the note that answers each."""

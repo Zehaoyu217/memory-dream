@@ -35,3 +35,4 @@ not: recall / recall-at-1pct | by: review 2026-11-12
 not: retention-uplift / uplift | by: review 2026-11-12
 not: retention-uplift / uplift-at-20 | by: review 2026-11-12
 not: uplift / uplift-at-20 | by: review 2026-11-12
+- ds-ae-push-log = app-push-log | why: Both are push log datasets: `app.push_log` is written in the notes as "ds-ae-push-log" in the same push-data context. | by: curator 2026-11-12

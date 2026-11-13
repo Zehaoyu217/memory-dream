@@ -453,6 +453,85 @@ seldom name each other gives the keeper fewer near notes, and the words alone he
 curator's view at 150 things; identity in a folder of a thousand notes was not measured. The questions across the
 whole memory are three of 72 here, and under a window they are where the memory arm is weakest.
 
+## S8 — how the rest was fixed
+
+The owner read S7 and asked: so, how do we fix it? S7 had left the memory one answer short of Opus with grep when
+Opus read it, and eight points short when Haiku did, on the flat bank under a 100,000-token window; its lineage alone
+answered 66 of the 72 questions. Each of the six questions it got wrong was traced to the line behind it, and four
+causes came out, each with an exact fix or a reading that decides.
+
+| cause | what it cost | fix |
+|---|---|---|
+| a keeper copied a quote with one word wrong ("Builds on aml-xgb-v3, …" for a line that says v2), so grounding dropped all four members of that line, without a trace | the note in force at the end of one line of replacements | **grounding does not lose a line**: an item whose copied words are not in the note is not kept, as before, but the lines that write what it names go to the second reading (`recheck`) |
+| "pbs-gmm-v3 replaces the kmeans and gmm-v2 tables", in a decision, read as the decision replacing the model; no note of the model's kind claimed it, so the rule of S5 let it through | the note in force at the end of another line | **a note replaces a note of its own family**, or of a kind its KINDS.md line names under `replaces:` (the seed: a correction replaces a term); and `…-v10a` is a version as `…-v10` is, so a model whose version ends in a letter is a model |
+| three phrases the second reading could not name although their note was on its list, beside a look-alike ("the bg/nbd versus gbm accuracy test": exp-501, against exp-503 on the same two models) | four questions | **a third reading** (`CHOOSE`): each such phrase with the six notes of its folder whose name and first lines share its rarest words, near ones first, shown with those lines; the keeper says which, or none |
+| under the window an agent asked about a set across the whole memory pulled the map of every note (318,000 characters) and was compacted (S7, the folder bank: 2 of 8 right in that session) | the questions across the whole memory | **`ask` says which map to grep** (`ask --list --kind model --all` for "which model notes … across every project"), and the skill says never to read a whole map |
+
+Two of them did not work as first built, and the measurements say why. The third reading's candidates were first
+ranked by their shared words alone, and two common words ("test", "versus") put six notes of other projects ahead of
+exp-501, which shares the one rare word "bg/nbd" and is one step away: the candidates now come from the near notes
+first, as the second reading orders them, and a title is no longer cut before its last word. And the second reading,
+read twice, does not name the same notes twice: the builds of S7 and S8 name the same notes on 1,357 of 1,436 lines,
+and on the lines where they differ 15 of the 25 notes that only one of them names are not in the key, so a rebuild
+moves a question or two either way by itself. Each fix was measured
+on the same readings where it could be: the third reading on the flat bank was undone and read again with the new
+candidates, the rest left as they were.
+
+**What each reading does on the flat bank now**, built from the keeper's first answers of S7 (no first reading paid
+again): the second reading read 1,439 lines (3 of them sent by grounding, whose 6 members are all in the key), the
+third reading 103 phrases in 16 calls for $0.046, placing 68, of which 66 are in the key. The family rule refused 13
+claims and no true replacement (on the folder bank 20, and none true).
+
+| the flat bank | `from` held | replacements held | lineage edges in the key | questions its lineage answers |
+|---|---|---|---|---|
+| S7 | 99.2% | 99.5% | 98.5% | 66 of 72 |
+| S8 | 99.6% | 100% | 98.3% | 70 of 72 |
+
+The two left: "the propensity matching holdout experiment" named by the second reading as exp-402 where the key has
+exp-408 (two experiments of one project that both match propensity scores), and one dataset that ch-bandit-v1 rests
+on by a link the key does not have. On the folder bank the lineage answers 94 of 98, where it answered 93. Its four
+come from three links: one replacement the review decided between two live notes (clv-ml-v2 over clv-bgnbd-v1, which
+the key keeps current), and two lines the first reading gave no item for ("Replaces the pooled elasticity estimate
+of 0.21."; ed-gbm-v2's "Builds on" line, whose only item was put on its "Replaces" line), so that no later reading
+saw them.
+
+**The arms**, the same questions and the same window as S7:
+
+| base | arm | reader | runs | exact answers | $ a ten questions | seconds a ten | tool calls a ten | largest request, tokens | sessions compacted |
+|---|---|---|---|---|---|---|---|---|---|
+| flat | grep (S7) | Opus 5.5 | 1 | 71 of 72 (99%) | 0.656 | 124 | 19.2 | 64,292 | 1 of 8 |
+| flat | memory, S7 | Opus 5.5 | 1 | 70 of 72 (97%) | 0.376 | 70 | 6.9 | 48,562 | 0 of 8 |
+| flat | memory, S8 | Opus 5.5 | 1 | 71 of 72 (99%) | 0.321 | 47 | 5.3 | 44,279 | 0 of 8 |
+| flat | grep (S7) | Haiku 5.5 | 3 | 141 of 216 (65%); 80% at five questions a session | 0.049 | 194 | 25.0 | 69,762 | 23 of 24 |
+| flat | memory, S7 | Haiku 5.5 | 3 | 192 of 216 (89%): 64, 66, 62 | 0.014 | 44 | 4.9 | 71,182 | 0 of 24 |
+| flat | memory, S8 | Haiku 5.5 | 3 | 210 of 216 (97%): 70, 70, 70 | 0.012 | 37 | 3.8 | 54,776 | 0 of 24 |
+| folders | grep (S7) | Haiku 5.5 | 1 | 79 of 98 (81%) | 0.038 | 109 | 16.4 | 85,986 | 5 of 10 |
+| folders | memory, S7 | Haiku 5.5 | 1 | 87 of 98 (89%) | 0.019 | 62 | 5.3 | 71,951 | 1 of 10 |
+| folders | memory, S8 | Haiku 5.5 | 3 | 269 of 294 (91%): 84, 91, 94 | 0.016 | 55 | 5.0 | 65,817 | 3 of 30 |
+
+Every miss of the memory arms on the flat bank is now a question its lineage gets wrong: Opus's one, and Haiku's six
+(the same two questions, in each of three runs). There the reader no longer loses answers of its own, and the
+in-force lists that a second count used to forgive are gone too, because the skill now says what "built on" means:
+the notes one step away; "rests on, directly or through other notes" is both. On the folder bank it still does,
+in one session: the eight questions across the whole memory, which need several maps, filled the window and were
+compacted in every run, and scored 0, 5 and 6 of 8; the other ninety scored 84, 86 and 88. The map of a project
+now prints what rests on it from outside under its header, where a read cut short keeps it; three runs made before
+that change scored 94, 86 and 94 in all (274 of 294), so it did not move the number.
+
+**Against the owner's bar.** On a base too large to read whole, with every context held to 100,000 tokens: Opus with
+the memory answers as Opus with grep does, 71 of 72, for half the price, in 38% of the time and with a quarter of the
+tool calls; Haiku with the memory answers 97%, for a 53rd of the price of Opus with grep and in 30% of its time. The
+fixes cost nothing to read the bank again: the third reading is $0.05 on top of the $1.88 of S7.
+
+**What is left.** Under a 100,000-token window, a session of questions across the whole memory: the memory arm reads
+two to six maps for them and fills the window; fewer such questions a session, or maps without each note's title
+line, are the two things to try. The second reading's choice between two look-alikes varies from run to run; a second
+reader on the lines where the first named a note, with disagreements put to the third reading, is the next step and
+was not built. The review still decides replacements between live notes that no note states (one link, behind two
+of the folder bank's four questions). And the third reading is less sure on words that are not lineage at all
+("Superseded by …", a table's name): on the folder bank it placed 8 of 17 right, against 66 of 68 on the flat bank,
+though the family and age rules refuse most of what it got wrong.
+
 # Phase R (2026-11-12) — step 1, items 6 and 7: setting a memory up with its own five questions, and filters on the page
 
 The owner's sixth point: the skill is operated by an agent that does the detective work on the material and sets up

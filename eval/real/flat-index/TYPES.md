@@ -15,7 +15,7 @@ probation: 60 days
 - term: a defined word, concept or method | aka: concept, method, definition, technique | not: a measured quantity (metric)
 - metric: a measured quantity used to judge something | aka: kpi, measure, statistic, score | not: a single value or threshold
 - tool: software or a platform used to do the work | aka: library, platform, framework, package, software | family: system | not: a service the team runs (service)
-- document: a report, deck, specification, policy document or paper named as a thing | aka: report, deck, spec, paper, memo, template, proposal
+- document: a report, deck, specification, policy document or paper named as a thing | aka: report, deck, spec, paper, memo, template
 - dataset: a table, file, feed or extract of records | aka: table, data set, feed, extract, view, source | not: one column of it (feature), one subset of it (segment)
 - segment: a defined subset of records, customers or accounts | aka: cohort, population, subset, arm | family: dataset
 - feature: an input variable or set of variables | aka: column, variable, field, feature set, attribute | not: the table it comes from (dataset)
@@ -36,9 +36,12 @@ probation: 60 days
 - flag: a feature flag, configuration setting or option | aka: feature flag, setting, config, option | family: system
 - test: a test suite, test case or benchmark named as a thing | aka: suite, test case, benchmark | family: system
 - issue: a ticket, issue or pull request named as a thing | aka: ticket, pr, pull request, bug report, merge request | family: document
-- experiment (proposed 2026-11-12): a planned or run test (exp-NNN) with a recorded result; differs from test, which is a test suite or benchmark in code
-- finding (proposed 2026-11-12): a reported result from an analysis, stated as a conclusion; differs from document, which is a named report or deck
-- decision (proposed 2026-11-12): a recorded choice that sets a rule, cutoff or action; differs from policy, which is a constraint the work must follow
-- channel (proposed 2026-11-12): a customer contact route such as SMS, call or email; differs from service, which is a running system
+- experiment (proposed 2026-11-12): a designed test or analysis run with its own id and results; differs from project (a body of work) and finding (a conclusion drawn from it) | aka: pilot | family: experiment
+- finding (proposed 2026-11-12): a conclusion or result recorded from analysis as a claim; differs from document (a named artifact) because the claim itself is what people look up | family: document
+- decision (proposed 2026-11-12): a recorded choice to adopt a cutoff, rule or option on a date; differs from policy (the constraint itself) because it records the act of choosing | family: decision
+- project (proposed 2026-11-12): a named body of work that groups experiments, decisions and models over time; differs from team (the people doing it) | aka: workstream | family: project
+- channel (proposed 2026-11-12): a medium used to reach customers, such as SMS, call or email; differs from service (a running app) because it is a route, not a system | family: channel
+- campaign (proposed 2026-11-12): a planned outbound contact or offer wave to a set of accounts; differs from project because it is one dispatch rather than a body of work | family: campaign
+- proposal (proposed 2026-11-12): a suggested course of action not yet adopted; differs from decision because it has not been chosen | family: proposal
 drop: number, date, file, notebook, note, line, page, link
 drop-names: *.py, *.sql, *.ipynb, *.csv, *.parquet, *.json, *.md, *notebook*, nb-*, *-script

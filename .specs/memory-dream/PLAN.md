@@ -31,6 +31,13 @@ the second reading shows it the notes near the lines it reads; the memory holds 
 46th, Haiku with grep 65%, or 80% at five questions a session. Not shown: a base whose notes seldom name each
 other; identity in a folder that large.
 
+**The fixes, the same evening** (RESULTS S8): each of the six questions the flat memory's lineage got wrong was traced
+to a line, and four causes were fixed (grounding sends a line it could not ground to the second reading; a note
+replaces only one of its own family unless KINDS.md says `replaces:`; a third reading shows the few notes a phrase
+could mean with their first lines; `ask` names the map to grep for a set across the whole memory). The lineage
+answers 70 of the 72; Opus with the memory 71 of 72, as Opus with grep, for half the price; Haiku with the memory
+97%, for a 53rd of it.
+
 The contract field by field is `CONTRACT-2.md`. Every number has a command, all without a model:
 `python3 eval/contract_probe.py <bank-index world>` (drop, absorb, documents, sets), `python3 eval/agent/arms.py`
 (the five arms), `python3 eval/pointer_probe.py [--built]`, `python3 eval/decompose_probe.py score …`. RESULTS phase K

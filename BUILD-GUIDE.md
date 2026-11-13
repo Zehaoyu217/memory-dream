@@ -313,7 +313,14 @@ constants, each with the measurement that set it.
   One more exact step comes last (`named`): an item no note answers to, whose own words name one note by its path
   or id that no other item of the note took, is that note ("Replaces glossary/brier.", written down by a keeper as
   the thing `glossary-brier`: 13 on the worn bank, all right). Only a word written like a path or an id is looked
-  up, never a plain word of the sentence.
+  up, never a plain word of the sentence. And a replacement is taken from a note of the replaced note's own family
+  only, unless the replacing kind's line in KINDS.md names the other under `replaces:` (the seed: a correction
+  replaces a term). "pbs-gmm-v3 replaces the kmeans and gmm-v2 tables", in a decision, had made the decision the
+  replacement of the model, and the note in force wrong (RESULTS S8); on the worn bank the rule refused 20 claims
+  and no true replacement. A version may end in a letter: `bsm-app-gbm-v10a` is a model, as `…-v10` is.
+- **Grounding does not lose a line** (`ground`, `recheck`): an item whose copied words are not in the note is not
+  kept, as before, but the lines that write what it names are put to the second reading. A keeper had copied
+  "Builds on aml-xgb-v3, …" for a line that says v2, and the four members of that line were lost without a trace.
 - **The second reading** (`PLACE`, `Dream.run_place`): the first reading finds the lines of a note that say what it
   builds on or replaces among everything else it does for a dozen notes, and of the things such a line names by a
   phrase it left one in ten out without a trace (RESULTS S6). With a command, every such line is put to the keeper
@@ -343,6 +350,13 @@ constants, each with the measurement that set it.
   first reading does less in such a folder: its `FOLDER` list holds only the notes its own notes name by file
   name (`folder_lines(text=…)`), so it places ids, and a thing it cannot name it gives as an item with the note's
   words, which is what puts the line before the second reading.
+- **The third reading** (`CHOOSE`, `Dream.run_choose`): words that two readings could not place are put once more,
+  each with the few notes of its folder (six) whose file name, first line and next two lines share its rarest
+  words, shown with those lines; the keeper says which note is meant or that none is, and an answer counts only
+  when it names one of the notes shown. Asked once (`looked`). Three phrases had cost four of the six questions the
+  flat memory's lineage got wrong: their note was on the second reading's list beside a look-alike, and by a title
+  alone the keeper would not choose ("the bg/nbd versus gbm accuracy test": exp-501, against exp-503 on the same
+  models). On the worn bank it placed 17 of 28 such words in 17 calls.
 - **What `ask` does with an item that is still not placed** (`loose_ends`): it prints the note's own words under
   the note (`? it builds on «…», in its own words`), says `not the whole chain` on a `⇡` line that runs through such
   a note, and carries the words on the note's line of the map. Do not drop these lines to save characters. `ask` is
@@ -416,6 +430,13 @@ Per question:
    by area — complete, and no dearer than `cat`. An id, version or number the question names that no note mentions,
    or a plain word found nowhere when the best note covers at most half the question's words, gets a
    `(weak match: 'x' found nowhere …)` line; the rule reads the question's own words, never the index's aliases.
+   A question about a set across the whole memory (`SET_WIDE`: "across every project", "whole memory", "other
+   projects", with no folder named) gets a line that says its matches are not the set and names the map to grep,
+   by the kind it asks for (`SET_KIND`: "which model notes" → `ask --list --kind model --all`). The map of every
+   note of a big memory is larger than a reader's context, and a session under a 100,000-token window that read it
+   was compacted and got 2 of 8 (RESULTS S7, S8). A project's map (`--list -p`) prints what rests on the folder from
+   outside, and what it rests on, under its header and before its notes, so that a read cut short keeps the line
+   that answers "which notes outside X rest on X".
 9. **Taste** (task intent only, `taste`): scored inside the general areas so project notes cannot crowd them out; a
    person named in the task, or named inside one of the three best-matching house notes (their meeting's roster,
    their report; on a line the task's own words matched, never one that only another question of the call matched),

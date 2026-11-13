@@ -17,11 +17,11 @@ Floors (set from the measured numbers minus a small margin; raise them when the 
             chars per question ≤ 3,000 · stale: successor above the old note ≥ 0.95, old marked 1.0 · absence flagged 1.0
   bank-index: the same, chars ≤ 3,200, and alias ≥ 0.80
   software: gold ≥ 0.90 · numbers ≥ 0.95 · stale: successor above ≥ 0.95 (when the set is non-empty), old marked 1.0
-  worn:     `from` links held as lineage ≥ 0.98 (measured 0.995) · `supersedes` ≥ 0.98 (0.995) · lineage edges that are true
-            ≥ 0.98 (0.990) · of the 98 linkage questions, the lineage alone gives the exact answer for ≥ 91 (93) and
-            `ask` alone names every note of the answer for ≥ 82 (84)
-  flat:     `from` links held as lineage ≥ 0.98 (measured 0.992) · `supersedes` ≥ 0.98 (0.995) · lineage edges that are true ≥ 0.97
-            (0.985) · of the 72 questions of the flat bank, the lineage alone gives the exact answer for ≥ 64 (66)
+  worn:     `from` links held as lineage ≥ 0.98 (measured 0.997) · `supersedes` ≥ 0.98 (0.995) · lineage edges that are true
+            ≥ 0.98 (0.989) · of the 98 linkage questions, the lineage alone gives the exact answer for ≥ 92 (94) and
+            `ask` alone names every note of the answer for ≥ 82 (85)
+  flat:     `from` links held as lineage ≥ 0.98 (measured 0.996) · `supersedes` ≥ 0.98 (1.000) · lineage edges that are true ≥ 0.97
+            (0.983) · of the 72 questions of the flat bank, the lineage alone gives the exact answer for ≥ 68 (70)
 """
 import json
 import re
@@ -85,7 +85,7 @@ def flat(work):
     got = json.loads(run([sys.executable, ROOT / "eval/hard/lineage_score.py", out / "memory", out / "truth.json"]).strip().splitlines()[-1])
     got["answered"] = json.loads(run([sys.executable, ROOT / "eval/linkage.py", "lineage", out / "memory",
                                       out / "questions.jsonl"]).strip().splitlines()[-1])["answered"]
-    floors = {"from": 0.98, "supersedes": 0.98, "true": 0.97, "answered": 64}
+    floors = {"from": 0.98, "supersedes": 0.98, "true": 0.97, "answered": 68}
     bad = [f"{k}: {got[k]} (floor {v})" for k, v in floors.items() if got[k] < v]
     print(json.dumps({"world": "flat", **got}))
     if bad:
@@ -105,7 +105,7 @@ def worn(work):
     got["ask_named"] = int(re.search(r"headed or named for (\d+)", asked).group(1))
     got["answered"] = json.loads(run([sys.executable, ROOT / "eval/linkage.py", "lineage", out / "memory",
                                       ROOT / "eval/questions/linkage-100.jsonl"]).strip().splitlines()[-1])["answered"]
-    floors = {"from": 0.98, "supersedes": 0.98, "true": 0.98, "answered": 91, "ask_named": 82}
+    floors = {"from": 0.98, "supersedes": 0.98, "true": 0.98, "answered": 92, "ask_named": 82}
     bad = [f"{k}: {got[k]} (floor {v})" for k, v in floors.items() if got[k] < v]
     print(json.dumps({"world": "worn", **got}))
     if bad:

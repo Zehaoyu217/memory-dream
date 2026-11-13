@@ -19,6 +19,9 @@ row of the table in RESULTS S6 again, with no model:
 | `flat` | the flat bank (`eval/hard/make_flat.py`) and its memory (`eval/real/flat-index`), the window | grep and memory, Haiku 5.5, three runs |
 | `flat-opus` | the same | grep and memory, Opus 5.5, one run |
 | `flat-five-a-session` | the same, five questions a session: print it with `--batch 5` | grep and memory, Haiku 5.5, three runs |
+| `flat-fixed` | the flat bank's memory after the fixes of RESULTS S8 (`eval/real/flat-index`), the window | memory, Haiku 5.5, three runs |
+| `flat-fixed-opus` | the same | memory, Opus 5.5, one run |
+| `folders-window-fixed` | the worn bank's memory after the fixes (`eval/real/worn-index`), the window | memory, Haiku 5.5, three runs |
 
 The flat rows are scored against the flat bank's own 72 questions, `eval/questions/linkage-flat.jsonl` (what
 `make_flat.py` writes as `<flat>/questions.jsonl`): `table eval/questions/linkage-flat.jsonl

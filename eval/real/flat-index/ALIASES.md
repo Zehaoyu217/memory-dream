@@ -1,5 +1,5 @@
 # ALIASES — entity ids that name the same thing; the first id on a line is canonical. Edit freely.
-- weekly-deck = weekly-kpi-deck | why: "The weekly KPI deck" and "the weekly deck" are the same weekly report, written with and without "KPI". | by: curator 2026-11-12
+- mrisk-gbm-v2 = mrisk-oot-2026h1 | why: Dataset and model; the model is evaluated on the dataset, not the same thing. | by: curator 2026-11-12
 - 2026q1-wave = wave-2026q1 | by: review 2026-11-12
 - roll-30-to-60 = 30-to-60-roll | by: review 2026-11-12
 not: acceptance-rate / open-rate | by: review 2026-11-12
@@ -16,7 +16,7 @@ not: cc-logreg-v1 / logistic-model | by: review 2026-11-12
 - cu-resp-v1 = response-model | by: review 2026-11-12
 - ds-pa-balance-panel = promo-balance-panel | by: review 2026-11-12
 not: elasticity / ks | by: review 2026-11-12
-not: feat-cr-ivr-path-v1 / ivr-path | by: review 2026-11-12
+- feat-cr-ivr-path-v1 = ivr-path | by: review 2026-11-12
 - feat-f26-velocity-v2 = velocity-v2 | by: review 2026-11-12
 - hp-psm-v1 = hardship-propensity-matching-model | by: review 2026-11-12
 not: macro-f1 / precision-at-k | by: review 2026-11-12

@@ -164,7 +164,10 @@ relation is "current" when one of its evidence notes is live).
   line the item stands on has been read a second time, alone and beside the folder's notes, and this item is one
   member of what that reading found there: `quote` is the member's own words in the line, `what` the file name of
   the note the keeper named for it (`folder/name` for a note of another folder), or the words again when it named
-  none. The items a first reading had on that line are gone from the list. `type` and
+  none. The items a first reading had on that line are gone from the list. `looked`: the item's words were put
+  to a third reading with the few notes they could mean; `said`: the words or name it had before that reading named
+  a note. `recheck: [{field, line[, asked]}]`: lines that write what an item names whose copied words were not in
+  the note, so the item was not kept; the second reading reads them. `type` and
   `label` are the dreamer's raw words; the registries read them at merge time. Entities keep only surface forms (`as`)
   that occur in the note; relations only with their quote found (the rest counted in `dropped` → C4). Kept `KEEP_DAYS`
   after last use. This is the one folder of `_dream/` worth keeping in git: a clone then builds the same graph
@@ -206,7 +209,7 @@ stale, not wrong, and stays · `C17` a word on a note's `tags:` line that `TAGS.
 the number of notes: it still filters, and it is not a tag until it has a line with its definition · `C18` a note
 says in its own words that it builds on or replaces something, a keeper read it, and no note answers to the name,
 neither as written nor by a path or id in the words themselves: the link is not in the lineage until a second
-reading or a line of frontmatter names the note.
+or third reading or a line of frontmatter names the note.
 
 ## 6. The user-owned files
 
@@ -220,7 +223,8 @@ readings keep the dreamer's raw words; the registries decide what they mean).
 `prefix: a, b` (filename prefixes), `area: x, y` (areas whose notes default to this kind), `family: parent` (the class
 tree), `role: question|evidence|state|rule|reference|log` (project work = question, evidence, state), `digest: current`
 (heads the digest), `conflicts: yes` (compared for disagreement; a child kind counts as its family), `answers: yes` (a
-note of this kind built on a question answers it), `not: …`.
+note of this kind built on a question answers it), `replaces: a, b` (kinds or families outside its own that a note of
+this kind may replace when a keeper reads it so: the seed gives `correction` `replaces: term`), `not: …`.
 
 `TYPES.md` (types of thing): `promote: U uses, N notes, A areas` · `budget: B` · `probation: D days` · `pack: research,
 ops` · type lines with `aka: a, b` (the dreamer's words read as this type), `family: parent`, `not: …` · `drop: a, b`

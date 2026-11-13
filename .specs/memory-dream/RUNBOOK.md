@@ -329,6 +329,9 @@ $M export --to /tmp/graph-export   # no driver: CSV in neo4j-admin header format
   `supersedes: [the-note]` to the note's frontmatter, which always wins.
 - `second reading: … N lines left for the next dream`: a dream reads at most 200 folders' worth of
   such lines; run `dream` again.
+- `third reading: K of N words placed`: words of a note's lineage that the second reading kept as
+  words, put once more beside the few notes they could mean, with their first lines. What is still
+  listed after it (C18) needs a line of frontmatter.
 - `C17`: a note's `tags:` line has a word that `memory/TAGS.md` does not list. Add its line
   (`- word: what it means`), or add the word to the `aka:` of the tag it is another spelling of. It
   filters either way (`ask --list --tag word`); the line is what gives it a definition.

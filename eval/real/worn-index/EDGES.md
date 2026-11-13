@@ -19,4 +19,5 @@ probation: 60 days
 - replaces: X is the newer version of Y | walk: replac*, supersed*, version, versions, predecessor, successor, newer, older, retire, retired | aka: supersedes, retires, ~replaced-by, ~superseded-by | shape: same
 - owned-by: X is maintained or decided by person or team Y | walk: own, owns, owner*, owned, maintain*, responsible, team, teams | aka: maintained-by, managed-by, run-by, approved-by, decided-by, set-by, signed-off-by, agreed-by, ~owns, ~maintains | shape: * → party
 - compared-with (proposed 2026-11-12): a link where one result is measured against a baseline or rival result on the same question; differs from evaluated-on (names the dataset) and replaces (names a newer version)
+- shows (proposed 2026-11-12): X presents a result, figure or fact about Y to a reader, as a dashboard or note does; differs from measured-by (X is judged by metric Y) and produces (X writes Y), since shows only displays Y
 drop: related-to, associated-with, about, mentions, relates-to, answers, answered-by, basis-for, evidence-for, led-to, leads-to, motivates, motivated-by, informs, follows, confirms, explains, supports, overturned-by, see

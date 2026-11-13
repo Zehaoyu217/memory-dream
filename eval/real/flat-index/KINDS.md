@@ -30,6 +30,6 @@ general: prefs, reporting, glossary, corrections, howto, qa, people, log
 - term: a defined word or concept | prefix: term | area: glossary | role: reference
 - preference: how a named person wants things done | prefix: pref | area: prefs | family: rule | role: rule
 - rule: a standing rule or procedure for the work | prefix: rule | area: reporting, howto | role: rule
-- correction: a past mistake and the rule that prevents it | area: corrections | family: rule | role: rule
+- correction: a past mistake and the rule that prevents it | area: corrections | family: rule | role: rule | replaces: term
 - log: a dated scratch line | area: log | role: log
 - note: anything else | role: reference

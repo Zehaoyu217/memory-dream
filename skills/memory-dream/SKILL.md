@@ -20,7 +20,8 @@ truth; everything else is derived and disposable. `memory.py` = `python3 <this s
    else is recorded there, answer from it. A section that says it holds `the best matches … not all of them` is not
    a set: when the question asks which, how many, all or every, run the map that line names before you answer. A `⇡`
    line names everything a note rests on and a `⇣` line everything that rests on it: first the notes one step away
-   (`directly`), then those reached `through them`; an answer about what something depends on gives both.
+   (`directly`), then those reached `through them`. What a note is built on, or uses, is the notes one step away;
+   what it rests on or depends on, "directly or through other notes", is both.
    A line `? it builds on «…», in its own words` under a note, or `not the whole chain`, means the note names
    something it builds on or replaces that the memory could not match to a note: the chain is short by that link.
    Find what the words name (`grep -rn` for their nouns in the folder, or `ask --list -p <folder>`) and follow it
@@ -29,7 +30,9 @@ truth; everything else is derived and disposable. `memory.py` = `python3 <this s
    projects built on this one) do not search for it: `memory.py ask --list [-p <project>] [--kind model] [--tag risk]` prints one
    line a note with what it was built on (marked when that was replaced), what replaced it and where else it is
    used, and with `-p` what rests on the project from outside; `--all` lifts the 150-line cap so you can pipe it
-   through grep. Otherwise `ask`'s silence is not absence: before you write "not recorded", read a headed note or
+   through grep. Never read a map of the whole memory: it can be larger than your context. Narrow it first
+   (`--kind model`, `-p <project>`) and grep it; a question across the whole memory gets a line from `ask` that
+   names the map to grep. Otherwise `ask`'s silence is not absence: before you write "not recorded", read a headed note or
    `grep -rn … memory/`. At most one batched follow-up.
 2. **Write as you go.** One note per thing, in `memory/<project>/`, or for what spans projects in `prefs/`,
    `reporting/`, `glossary/`, `corrections/`, `howto/`, `qa/`, `people/`. The filename is the id; a prefix from
