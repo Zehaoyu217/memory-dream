@@ -5,7 +5,7 @@
 
 In the worn bank a project is a folder of thirty short notes, about 3,500 tokens. An agent with grep reads such a
 folder whole, and a keeper is shown all of it by name. Neither holds once a folder is too large to read: here every
-project note is in one folder (1,224 notes, about 130,000 tokens, more than a 100,000-token window), with nothing
+project note is in one folder (1,224 notes, about 137,000 tokens, more than a 100,000-token window), with nothing
 that says which project a note belongs to but its own name and words. The general folders (prefs, reporting,
 glossary, corrections, howto, qa, log) stay as they are.
 
