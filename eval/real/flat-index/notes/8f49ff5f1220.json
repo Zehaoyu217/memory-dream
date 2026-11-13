@@ -1,0 +1,112 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "handoff-rule-v1",
+   "type": "policy",
+   "label": "handoff rule",
+   "as": [
+    "handoff rule v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "containment",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "containment"
+   ],
+   "lines": [
+    4,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "call-window",
+   "type": "term",
+   "label": "call window",
+   "as": [
+    "call window"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "24-hour-containment-definition",
+   "type": "term",
+   "label": "definition",
+   "as": [
+    "24-hour containment definition"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-cb-call-linkage",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-cb-call-linkage"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "july-october-2025-sessions",
+   "type": "dataset",
+   "label": "sessions",
+   "as": [
+    "July to October 2025 sessions"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "call-window",
+   "type": "measured-by",
+   "label": "gives containment",
+   "o": "containment",
+   "quote": "Containment 34 percent with a 24-hour call window, 29 percent with a 48-hour window.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fnd-cb-def-sensitivity",
+  "ds-cb-call-linkage"
+ ],
+ "built_on": [
+  {
+   "what": "dec-cb-metric-24h",
+   "quote": "the 24-hour containment definition",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-cb-call-linkage",
+   "quote": "ds-cb-call-linkage",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [
+   "exp-306-chatbot-deflection"
+  ],
+  "relations": 2
+ },
+ "path": "work/exp-306-chatbot-deflection.md",
+ "sha": "8f49ff5f122074089d0bd267513a645af3bb0309761c880e339a31514ead366e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

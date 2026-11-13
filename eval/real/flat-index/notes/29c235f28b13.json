@@ -1,0 +1,149 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "rdm-uplift-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rdm-uplift-v1"
+   ],
+   "lines": [
+    4,
+    8
+   ]
+  },
+  {
+   "id": "exp-303-reactivation-dormant",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-303-reactivation-dormant"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "exp-304-reactivation-dormant",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-304-reactivation-dormant"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "fnd-rdm-activity-v2-lift",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-rdm-activity-v2-lift"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dec-rdm-ship-uplift-v2",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-rdm-ship-uplift-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "sms",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "SMS"
+   ],
+   "lines": [
+    4,
+    6,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rdm-uplift-v1",
+   "type": "uses",
+   "label": "basis",
+   "o": "exp-303-reactivation-dormant",
+   "quote": "Basis: exp-303-reactivation-dormant",
+   "line": 5
+  },
+  {
+   "s": "sms",
+   "type": "measured-by",
+   "label": "channel uplift",
+   "o": "exp-304-reactivation-dormant",
+   "quote": "SMS is weighted by the 3.4pp channel uplift from exp-304-reactivation-dormant",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "dec-rdm-ship-uplift-v2"
+ ],
+ "built_on": [
+  {
+   "what": "rdm-uplift-v1",
+   "quote": "rdm-uplift-v1",
+   "line": 4,
+   "asked": true
+  },
+  {
+   "what": "exp-303-reactivation-dormant",
+   "quote": "exp-303-reactivation-dormant",
+   "line": 5,
+   "asked": true
+  },
+  {
+   "what": "exp-304-reactivation-dormant",
+   "quote": "exp-304-reactivation-dormant",
+   "line": 5,
+   "asked": true
+  },
+  {
+   "what": "fnd-rdm-activity-v2-lift",
+   "quote": "fnd-rdm-activity-v2-lift",
+   "line": 5,
+   "asked": true
+  },
+  {
+   "what": "exp-303-reactivation-dormant",
+   "quote": "exp-303-reactivation-dormant",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-304-reactivation-dormant",
+   "quote": "the channel-stratified uplift experiment",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "rdm-uplift-v1",
+   "quote": "rdm-uplift-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-rdm-ship-uplift-v1.md",
+ "sha": "29c235f28b13f481a93a0f29c3510abf5e7b77798a33055d45ac3fa6f2f77a9d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

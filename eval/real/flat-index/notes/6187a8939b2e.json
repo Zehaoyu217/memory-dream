@@ -1,0 +1,122 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "rev26-interest-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rev26-interest-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-302-revenue-forecast-2026",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-302-revenue-forecast-2026"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "rev26-interest-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rev26-interest-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-rev26-apr-mix",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rev26-apr-mix"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-rev26-revolve-balance",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rev26-revolve-balance"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rev26-interest-v1",
+   "type": "uses",
+   "label": "built on",
+   "o": "feat-rev26-apr-mix",
+   "quote": "Builds on feat-rev26-apr-mix and feat-rev26-revolve-balance.",
+   "line": 8
+  },
+  {
+   "s": "rev26-interest-v1",
+   "type": "uses",
+   "label": "built on",
+   "o": "feat-rev26-revolve-balance",
+   "quote": "Builds on feat-rev26-apr-mix and feat-rev26-revolve-balance.",
+   "line": 8
+  },
+  {
+   "s": "exp-302-revenue-forecast-2026",
+   "type": "evaluated-on",
+   "label": "backtest",
+   "o": "rev26-interest-v1",
+   "quote": "Backtest 2024-Q3 to 2025-Q2 overstates interest by $4.2M a quarter on average (exp-302-revenue-forecast-2026).",
+   "line": 6
+  },
+  {
+   "s": "rev26-interest-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "rev26-interest-v1",
+   "quote": "Superseded by rev26-interest-v2 in December 2025.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "rev26-interest-v2",
+  "feat-rev26-apr-mix",
+  "feat-rev26-revolve-balance",
+  "exp-302-revenue-forecast-2026"
+ ],
+ "built_on": [
+  {
+   "what": "feat-rev26-apr-mix",
+   "quote": "feat-rev26-apr-mix",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-rev26-revolve-balance",
+   "quote": "feat-rev26-revolve-balance",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/rev26-interest-v1.md",
+ "sha": "6187a8939b2e3c8c554c816ff8363dfdce83f320135e94aa687db738fffa4648",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

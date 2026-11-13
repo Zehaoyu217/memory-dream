@@ -1,0 +1,119 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "feat-disp-fraud-score",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-disp-fraud-score"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "disp-lgbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ship disp-lgbm-v3"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fraud26-gbm-v3",
+   "type": "model",
+   "label": "dependency",
+   "as": [
+    "fraud26-gbm-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-307-dispute-triage",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-307-dispute-triage"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "daniel-okafor",
+   "type": "person",
+   "label": "fraud-ops owner",
+   "as": [
+    "Daniel Okafor"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "disp-lgbm-v3",
+   "type": "uses",
+   "label": "adds",
+   "o": "feat-disp-fraud-score",
+   "quote": "add feat-disp-fraud-score and ship disp-lgbm-v3",
+   "line": 5
+  },
+  {
+   "s": "disp-lgbm-v3",
+   "type": "uses",
+   "label": "depends on",
+   "o": "fraud26-gbm-v3",
+   "quote": "Creates a dependency on fraud26-gbm-v3",
+   "line": 7
+  },
+  {
+   "s": "disp-lgbm-v3",
+   "type": "other",
+   "label": "basis",
+   "o": "exp-307-dispute-triage",
+   "quote": "Basis: exp-307-dispute-triage",
+   "line": 6
+  },
+  {
+   "s": "fraud26-gbm-v3",
+   "type": "owned-by",
+   "label": "fraud-ops owner",
+   "o": "daniel-okafor",
+   "quote": "the fraud-ops owner for both is Daniel Okafor",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "exp-307-dispute-triage",
+   "quote": "exp-307-dispute-triage",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-disp-fraud-score",
+   "quote": "feat-disp-fraud-score",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-disp-fraud-score-in.md",
+ "sha": "dfa9175cbcfc782656af9f28946911c46e954e3e40d9d19515c7455558c06337",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

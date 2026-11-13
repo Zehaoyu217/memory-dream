@@ -1,0 +1,182 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-202-fraud-2026",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-202-fraud-2026"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fraud26-oot-2025q4",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "fraud26-oot-2025q4"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fraud26-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.912"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.67"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "recall-at-1",
+   "type": "metric",
+   "label": "recall",
+   "as": [
+    "recall@1% 0.52"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-201-fraud-2026",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-201-fraud-2026"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "maturity-cut",
+   "type": "term",
+   "label": "maturity cut",
+   "as": [
+    "maturity cut"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ds-f26-labels-2026",
+   "type": "dataset",
+   "label": "labels",
+   "as": [
+    "ds-f26-labels-2026"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-202-fraud-2026",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "fraud26-oot-2025q4",
+   "quote": "Eval set: fraud26-oot-2025q4",
+   "line": 5
+  },
+  {
+   "s": "fraud26-gbm-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.912",
+   "line": 6
+  },
+  {
+   "s": "fraud26-gbm-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "ks",
+   "quote": "KS 0.67",
+   "line": 6
+  },
+  {
+   "s": "fraud26-gbm-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "recall-at-1",
+   "quote": "recall@1% 0.52",
+   "line": 6
+  },
+  {
+   "s": "fraud26-gbm-v1",
+   "type": "other",
+   "label": "retrained with",
+   "o": "maturity-cut",
+   "quote": "v1 retrained with the maturity cut",
+   "line": 6
+  },
+  {
+   "s": "exp-202-fraud-2026",
+   "type": "other",
+   "label": "difference from",
+   "o": "exp-201-fraud-2026",
+   "quote": "Difference from exp-201-fraud-2026 is 0.023 AUC, all from label timing.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-201-fraud-2026",
+  "ds-f26-labels-2026"
+ ],
+ "built_on": [
+  {
+   "what": "ds-f26-labels-2026",
+   "quote": "ds-f26-labels-2026",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-201-fraud-2026",
+   "quote": "exp-201-fraud-2026",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-202-fraud-2026.md",
+ "sha": "4feb780dac13f716ffd614ed11e753eda64885f34c9e15dd8366bc17e1023521",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

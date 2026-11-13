@@ -1,0 +1,139 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "rdm-propensity-lr",
+   "type": "model",
+   "label": "baseline model",
+   "as": [
+    "rdm-propensity-lr"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-rdm-campaign-history",
+   "type": "dataset",
+   "label": "campaign waves",
+   "as": [
+    "waves 1 and 2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "rdm-oot-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "rdm-oot-2025q1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "response AUC 0.641"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rdm-propensity-lr",
+   "type": "trained-on",
+   "label": "fit on",
+   "o": "ds-rdm-campaign-history",
+   "quote": "L2 logistic regression on waves 1 and 2 predicting raw response.",
+   "line": 5
+  },
+  {
+   "s": "rdm-propensity-lr",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "rdm-oot-2025q1",
+   "quote": "Targeting the top 20% by propensity gives 0.9pp uplift on rdm-oot-2025q1",
+   "line": 6
+  },
+  {
+   "s": "rdm-propensity-lr",
+   "type": "measured-by",
+   "label": "gives uplift",
+   "o": "uplift-at-20",
+   "quote": "Targeting the top 20% by propensity gives 0.9pp uplift on rdm-oot-2025q1",
+   "line": 6
+  },
+  {
+   "s": "rdm-propensity-lr",
+   "type": "measured-by",
+   "label": "response AUC",
+   "o": "auc",
+   "quote": "response AUC 0.641.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-rdm-campaign-history",
+  "feat-rdm-app-installed",
+  "feat-rdm-last-activity-v1"
+ ],
+ "built_on": [
+  {
+   "what": "ds-rdm-campaign-history",
+   "quote": "ds-rdm-campaign-history",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-rdm-app-installed",
+   "quote": "feat-rdm-app-installed",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-rdm-balance-band",
+   "quote": "the residual balance bands feature",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-rdm-last-activity-v1",
+   "quote": "feat-rdm-last-activity-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-rdm-prior-response",
+   "quote": "the prior reactivation response flag",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/rdm-propensity-lr.md",
+ "sha": "6ea22bb532f1037c0cb007d4a7d1ecb6fd5c25bb2b872bdb2aff9c0d9c819702",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

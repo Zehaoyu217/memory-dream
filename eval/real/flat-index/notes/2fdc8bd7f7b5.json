@@ -1,0 +1,129 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "collections.cases",
+   "type": "dataset",
+   "label": "snapshot",
+   "as": [
+    "collections.cases"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "1-29-dpd-accounts",
+   "type": "segment",
+   "label": "accounts",
+   "as": [
+    "accounts 1-29 days past due at month end"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "data-eng-cards",
+   "type": "team",
+   "label": "owner",
+   "as": [
+    "data-eng-cards"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Tomas Rivera"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "contact_channel",
+   "type": "feature",
+   "label": "value",
+   "as": [
+    "contact_channel"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dpd",
+   "type": "term",
+   "label": "days past due",
+   "as": [
+    "1 DPD"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "case",
+   "type": "term",
+   "label": "case",
+   "as": [
+    "A case"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "collections.cases",
+   "type": "uses",
+   "label": "joined to",
+   "o": "cards.accounts_monthly",
+   "quote": "joined to `cards.accounts_monthly`",
+   "line": 5
+  },
+  {
+   "s": "collections.cases",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "data-eng-cards",
+   "quote": "Owner: data-eng-cards",
+   "line": 8
+  },
+  {
+   "s": "1-29-dpd-accounts",
+   "type": "part-of",
+   "label": "restricted to",
+   "o": "collections.cases",
+   "quote": "restricted to accounts 1-29 days past due at month end",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-cu-cases-dpd.md",
+ "sha": "2fdc8bd7f7b5e8d64ba2b9f76ca0108d492e7d2519eea5bf05ebc552482c9f91",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

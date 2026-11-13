@@ -2,7 +2,7 @@
 
 2026-10-30 (round 4: 2026-10-31; phase I: 2026-11-02; phases J to N: 2026-11-11; phase O on: 2026-11-12) · built from the "Memory" email spec (`build-spec.md`) · macOS, Python 3.9.6, Claude Code 2.1.314.
 
-# Phase S (2026-11-12) — step 2: what a cheap reader costs, a bank that grep cannot read exactly, and the arms on it
+# Phase S (2026-11-12) — step 2: what a cheap reader costs, a bank that grep cannot read exactly, the arms on it, and the same in one folder under a 100K window
 
 Step 1 needed no model. Step 2 spends on Haiku 5.5, through `claude -p --model haiku` with no tools and no settings
 (`tests/haiku_cmd.py`): $0.10 and $0.50 a million tokens in and out, about 3,700 tokens of the CLI's own in every
@@ -344,11 +344,114 @@ the first reading never pointed at, so nobody read it twice.
 - *A base too large to read whole.* A project here is thirty short notes; the second reading sees all of a folder's
   notes by name (200 at most). A flat folder of a thousand needs candidates fetched for each phrase before a keeper
   can choose, and an agent with grep can no longer read the folder and script over it. Both arms would change.
+  *Made the same day: S7.*
 - *Opus with grep is still the most accurate arm* (99%), at 42 times the price of Haiku with the memory and
   twice the price of Opus with it.
 - *The Opus rows are one or two runs*; the Haiku rows are three, and their runs differ by up to seven answers.
 - *Lineage in the body of a note* is read as lineage. Whether "Features: a, b, c" is what a base means by built on
   is the base's to say; the frontmatter line stays the way to say it without a reader.
+
+## S7 — a folder too large to read whole, and every arm held to a 100,000-token window
+
+S6 left one test unmade: in the worn bank a project is a folder of thirty short notes, which an agent with grep
+reads outright and a keeper is shown whole by name. The owner asked for it with one more condition: lock the
+context at 100,000 tokens, with Haiku or Opus.
+
+**The base** (`eval/hard/make_flat.py`, no model). The worn bank with its forty project folders poured into one:
+1,224 notes in `work/`, about 137,000 tokens, more than the window; the 453 notes of the general folders stay
+where they are. Nothing says which project a note belongs to but its own name and words. 38 experiment ids were
+used by several projects (`exp-401` by seven): those 249 notes carry their old folder in their name, and the notes
+that name them say so. The answer key is the worn bank's with the new paths. 72 of the 98 questions can be asked
+without a project and were kept, reworded: what a note rests on (20), what rests on it (20), the note in force at
+the end of a line of replacements (18), the features two models share (11), three across the whole memory. With
+the key's links put back as frontmatter and no model, the lineage answers all 69 that name a note.
+
+**The window.** `run_headless.py --window 100000` sets `CLAUDE_CODE_AUTO_COMPACT_WINDOW=100000`, the least the CLI
+takes, and `CLAUDE_CODE_DISABLE_1M_CONTEXT=1`: Haiku 5.5 and Opus 5.5 otherwise run with a million-token window,
+as every arm of S6 did. It is where the CLI starts to compact the conversation, not a wall, so each session's
+largest request and its compactions are kept. One Haiku session told to read the whole bank folder by folder
+(163,000 tokens of notes) never sent more than 66,597 tokens and was compacted five times. No request of any arm
+below passed 100,000; the largest was 85,986.
+
+**A keeper in a folder it cannot be shown.** Both readings gave a keeper its folder's notes by name, 80 and 200 at
+most. Of 1,224 the first by alphabet are no help. As first read with that list, the flat memory held 80.6% of the
+`from` links, where the folders' first reading held 94.3%: an id is placed anywhere, a phrase is not. What was
+built, each step measured on this bank:
+
+- *Which notes to show.* With no model, for the 750 links stated by a phrase:
+
+  | shown for a note's lines | the note meant is among them | notes shown, median · most |
+  |---|---|---|
+  | within 3 steps by a name written in a note, either way | 89.6% | 24 · 55 |
+  | within 4 steps | 95.5% | 29 · 74 |
+  | the 15 notes whose first line and name share the rarest words with the line | 87.3% | 15 · 15 |
+  | 3 steps and those 15 | 99.3% | 33 · 63 |
+  | 4 steps and 8 by words (what is built) | 99.5% | 33 · 76 |
+
+  A third rule, on name tokens two notes share, added nothing to the two.
+- *Shown as one list of up to 200*, the second reading placed 389 more links (97.9% of `from`), and for 32 phrases
+  it named no note although the note was on its list. A shorter list, 70 a call, did no better (35 unnamed with
+  two thirds of the lines read) at five times the calls. The cause was the other half of the list: "the logistic
+  regression baseline" has a look-alike in every project, and the keeper answered that two notes could be meant.
+- *Shown apart*, the near notes first and the look-alikes under ELSEWHERE, with the rule that a near note that
+  fits is the one meant: 17 unnamed, 98.6%.
+- *The first reading gives a thing it cannot name as an item with the note's words*, in place of leaving it out,
+  so that its line comes before the second reading: 17 links had been lost on lines no reading saw twice.
+
+Built from scratch with all of it (`eval/real/flat-index`; `tests/retrieval_gate.py flat` rebuilds and scores it
+with no model): 146 calls and $1.57 for the first reading, 1,436 lines read once more in 76 calls for $0.28, the
+curator and the review $0.03; $1.88 and 25 minutes at six calls at once, no prompt over 21,000 tokens. The memory
+holds 2,196 of the 2,213 `from` links (99.2%) and 215 of the 216 replacements; of its 2,449 lineage edges 2,412 are
+in the key; of the 18 links it lacks it lists 10. With the folders it held 99.5% and 99.5%. Its lineage alone
+answers 66 of the 72 questions.
+
+**The arms**, every one with the window, ten questions a session unless said:
+
+| base | arm | reader | runs | exact answers | exact, or in force with its chain | $ a ten questions | seconds a ten | tool calls a ten | largest request, tokens | sessions compacted |
+|---|---|---|---|---|---|---|---|---|---|---|
+| flat | grep | Opus 5.5 | 1 | 71 of 72 (99%) | 99% | 0.656 | 124 | 19.2 | 64,292 | 1 of 8 |
+| flat | memory | Opus 5.5 | 1 | 70 of 72 (97%) | 99% | 0.376 | 70 | 6.9 | 48,562 | 0 of 8 |
+| flat | grep | Haiku 5.5 | 3 | 141 of 216 (65%): 46, 51, 44 | 68% | 0.049 | 194 | 25.0 | 69,762 | 23 of 24 |
+| flat | grep, five questions a session | Haiku 5.5 | 3 | 172 of 216 (80%): 59, 60, 53 | 81% | 0.054 | 211 | 33.3 | 69,044 | 16 of 45 |
+| flat | memory | Haiku 5.5 | 3 | 192 of 216 (89%): 64, 66, 62 | 92% | 0.014 | 44 | 4.9 | 71,182 | 0 of 24 |
+| flat | memory, five questions a session | Haiku 5.5 | 3 | 197 of 216 (91%): 67, 65, 65 | 93% | 0.016 | 56 | 6.0 | 57,802 | 0 of 45 |
+| folders | grep | Haiku 5.5 | 1 | 79 of 98 (81%) | 82% | 0.038 | 109 | 16.4 | 85,986 | 5 of 10 |
+| folders | memory | Haiku 5.5 | 1 | 87 of 98 (89%) | 89% | 0.019 | 62 | 5.3 | 71,951 | 1 of 10 |
+
+**What it shows.**
+
+- *With a cheap reader, grep does not survive the window; the memory does not notice it.* Haiku with grep filled
+  the window in 23 sessions of 24. Of its 216 answers 19 were never given, because the summary that the compaction
+  left had lost the questions ("I can answer Q9 from the notes I've read, but not the other nine"), and 56 were
+  another set. Five questions a session is the fairer way to run it under a window, and it reaches 80% at a
+  third more tool calls. The memory arm makes 5 tool calls a ten questions whatever the size of the base; its
+  largest request was 44,000 tokens at the median and no session was compacted.
+- *How much is the window and how much the folder.* On the kinds of question the flat bank keeps, Haiku with grep
+  answers 90% on the folder bank with no window (S6), 83% with it, and 65% once the folders are gone too. Haiku
+  with the memory answers 96%, 94% and 89% (92% by the second count): its lineage answers 69 of those 72 with the
+  folders and 66 without. Over all 98 questions of the folder bank the window costs the memory arm more, 96% to
+  89%, and all of it in the one session of questions across the whole memory, where it pulled the whole map and
+  was compacted (2 of 8 right there, 85 of 90 elsewhere).
+- *Opus with grep is not broken by any of this:* 99%, as on the folder bank, by searching sparingly (17 tool calls a
+  session, 35,000 to 64,000 tokens). Opus with the memory answers 70 of 72 against its 71, 71 by the second
+  count, at 57% of the price and of the time and a third of the tool calls, and never came near the window.
+- *The memory's answers are still what it holds.* Its lineage alone answers 66 of 72. Haiku's 24 misses are 13 of
+  those, 6 in-force lists and 5 of its own; Opus answered five of the six questions the lineage gets wrong, by the
+  notes' own sentences and the words `ask` prints as not placed. The six hang on five lines: a "Builds on" line of
+  three ids and a phrase for which the first reading gave no item at all, three phrases the second reading kept as
+  words and listed ("the bg/nbd versus gbm accuracy test" costs two questions), and a decision's line ("pbs-gmm-v3
+  replaces the kmeans and gmm-v2 tables") read as the decision replacing the model.
+
+**What it comes to, against the owner's bar** (an Opus agent with grep): on a base too large to read, with every
+context held to the window, Opus with the memory answers as many by the second count and one fewer by the exact
+one, for 0.57 of the price; Haiku with the memory answers 92% (89% by the exact count) for a 46th of the price, in
+a third of the time; Haiku with grep answers 65% to 80%. Reading the 1,677 notes into the memory cost $1.88 once, which Opus with grep spends on 29
+questions.
+
+**What is not shown.** One Opus run a row. One bank, whose projects are tightly linked by ids: a base whose notes
+seldom name each other gives the keeper fewer near notes, and the words alone held 87%. A folder list still caps a
+curator's view at 150 things; identity in a folder of a thousand notes was not measured. The questions across the
+whole memory are three of 72 here, and under a window they are where the memory arm is weakest.
 
 # Phase R (2026-11-12) — step 1, items 6 and 7: setting a memory up with its own five questions, and filters on the page
 

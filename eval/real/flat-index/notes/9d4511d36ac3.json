@@ -1,0 +1,145 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "feat-cu-call-tod-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-call-tod-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    4,
+    5,
+    6,
+    8,
+    9
+   ]
+  },
+  {
+   "id": "holdout-2025q2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "person",
+   "as": [
+    "Sam Lee"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-103-collections-uplift",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-103-collections-uplift"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cu-call-tod-v1",
+   "type": "measured-by",
+   "label": "drops to",
+   "o": "auc",
+   "quote": "AUC 0.75 drops to 0.69 once calls after the contact date are removed",
+   "line": 4
+  },
+  {
+   "s": "feat-cu-call-tod-v1",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q2",
+   "quote": "AUC on holdout-2025q2 falls from 0.75 to 0.69 (n=26,140)",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "collections_uplift/exp103_tod.ipynb"
+ ],
+ "built_on": [
+  {
+   "what": "exp-103-collections-uplift",
+   "quote": "the call-hour answer rate auc experiment",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-cu-call-tod-v1",
+   "quote": "the hour-of-day answer rate feature",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "find-cu-tod-gain",
+   "quote": "the finding on call-hour auc gain",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "the call-hour answer rate auc experiment",
+   "quote": "Builds on the call-hour answer rate auc experiment, the hour-of-day answer rate feature and the finding on call-hour auc gain.",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "the hour-of-day answer rate feature",
+   "quote": "Builds on the call-hour answer rate auc experiment, the hour-of-day answer rate feature and the finding on call-hour auc gain.",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "the finding on call-hour auc gain",
+   "quote": "Builds on the call-hour answer rate auc experiment, the hour-of-day answer rate feature and the finding on call-hour auc gain.",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "find-cu-tod-gain",
+   "quote": "the finding on call-hour auc gain",
+   "line": 9,
+   "asked": true
+  },
+  {
+   "what": "the finding on call-hour auc gain",
+   "quote": "Replaces the finding on call-hour auc gain.",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/find-cu-tod-leak.md",
+ "sha": "9d4511d36ac3ad2955a15ccda18ad12de1605024a3c90fd45d7d24145485c262",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

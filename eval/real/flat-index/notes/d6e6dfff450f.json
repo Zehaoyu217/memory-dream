@@ -1,0 +1,117 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "hp-rollmodel-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "hp-rollmodel-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-hp-roll-matrix",
+   "type": "dataset",
+   "label": "transition matrix",
+   "as": [
+    "transition matrix in ds-hp-roll-matrix"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "hp-psm-v2",
+   "type": "model",
+   "label": "matching model",
+   "as": [
+    "hp-psm-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-407-hardship-programs",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-407-hardship-programs"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "hardship-effect",
+   "type": "metric",
+   "label": "effect",
+   "as": [
+    "-4.7pp on the 30-to-60 roll"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "hp-rollmodel-v1",
+   "type": "uses",
+   "label": "takes input",
+   "o": "ds-hp-roll-matrix",
+   "quote": "Inputs: the transition matrix in ds-hp-roll-matrix",
+   "line": 5
+  },
+  {
+   "s": "hp-rollmodel-v1",
+   "type": "uses",
+   "label": "takes input",
+   "o": "hp-psm-v2",
+   "quote": "the enrolment effect from hp-psm-v2",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "ds-hp-roll-matrix",
+  "exp-407-hardship-programs"
+ ],
+ "built_on": [
+  {
+   "what": "ds-hp-roll-matrix",
+   "quote": "ds-hp-roll-matrix",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-407-hardship-programs",
+   "quote": "exp-407-hardship-programs",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "hp-psm-v2",
+   "quote": "the caliper-based hardship matching model",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "the caliper-based hardship matching model",
+   "quote": "and the caliper-based hardship matching model.",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/hp-rollmodel-v1.md",
+ "sha": "d6e6dfff450f399cf0c51d179882c1e5d91d80d2994bf01cfb4501353823253a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

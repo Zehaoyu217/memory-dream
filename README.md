@@ -333,7 +333,31 @@ a chain was short. Now every line that states lineage is read a second time on i
 folder ($0.18 for the bank on top of $1.27): the memory holds 99.5% of the links of both kinds, they answer 93 of
 the 98 questions, and what it could not place it lists and `ask` prints. With the same cheap
 reader the memory is then 6 points more accurate than grep at a fifth of the price; Opus with grep stays 3 points
-ahead at 42 times the price. Not tested: a base whose folders are too large to read whole.
+ahead at 42 times the price.
+
+A base too large to read whole, and every agent held to a 100,000-token context (RESULTS S7, the same day). The
+forty project folders were poured into one, 1,224 notes and about 137,000 tokens, with nothing but a note's name
+and words to say which project it belongs to, and the 72 questions that need no project were asked again. The CLI
+was told to compact a conversation at 100,000 tokens, the least it takes; Haiku 5.5 and Opus 5.5 otherwise run
+with a million.
+
+| | exact answers | $ a ten questions | seconds a ten | tool calls a ten | sessions that filled the window |
+|---|---|---|---|---|---|
+| Opus + grep (1 run) | 99% | 0.66 | 124 | 19.2 | 1 of 8 |
+| Opus + memory (1 run) | 97% | 0.38 | 70 | 6.9 | none |
+| Haiku + grep (3 runs) | 65% | 0.049 | 194 | 25.0 | 23 of 24 |
+| Haiku + grep, five questions a session (3 runs) | 80% | 0.054 | 211 | 33.3 | 16 of 45 |
+| Haiku + memory (3 runs) | 89% | 0.014 | 44 | 4.9 | none |
+| Haiku + memory, five questions a session (3 runs) | 91% | 0.016 | 56 | 6.0 | none |
+
+(By the second count of S6: 99%, 99%, 68%, 81%, 92% and 93%.) With a cheap reader grep does not survive the
+window: 23 of its 24 sessions were compacted, 9% of its answers were never given (one summary had lost the
+questions themselves) and 26% were another set. The memory arm makes five tool calls a ten questions whatever the
+size of the base. Opus with grep is as exact as ever, and Opus with the memory is within one answer of it for 0.57
+of the price. Reading the flat base into the memory cost $1.88: a folder of
+1,224 notes cannot be listed for the keeper, so it is shown the notes near the lines it reads (those that name each
+other within four steps, and beside them the few whose first lines share the line's rarest words), and the memory
+holds 99.2% of the links where with folders it held 99.5%. Not tested: a base whose notes seldom name each other.
 
 Earlier runs (rounds 2 and 4), on the code before the retrieval rewrite and against a grep arm that could not read
 folders: 30 notes 26/3/1 against 25/5/0 at 0.93× the cost; 1,677 notes 27/3/0 against 26/4/0 at 0.47× the cost and

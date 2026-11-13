@@ -1,0 +1,126 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-504-merchant-risk",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-504-merchant-risk"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "mrisk-oot-2025h2",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "mrisk-oot-2025h2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "mrisk-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "mrisk-gbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-mrisk-chargebacks",
+   "type": "dataset",
+   "label": "chargeback counts",
+   "as": [
+    "ds-mrisk-chargebacks"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "mcc-base-rate-experiment",
+   "type": "other",
+   "label": "prior experiment",
+   "as": [
+    "the mcc base rate experiment"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "label-window",
+   "type": "term",
+   "label": "label window",
+   "as": [
+    "24-month",
+    "12 months"
+   ],
+   "lines": [
+    4,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.868"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-504-merchant-risk",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "mrisk-oot-2025h2",
+   "quote": "Eval set: mrisk-oot-2025h2",
+   "line": 5
+  },
+  {
+   "s": "mrisk-gbm-v2",
+   "type": "uses",
+   "label": "built on setting",
+   "o": "label-window",
+   "quote": "Kept 12 months; mrisk-gbm-v2 built on this setting.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-mrisk-chargebacks",
+   "quote": "ds-mrisk-chargebacks",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-503-merchant-risk",
+   "quote": "the mcc base rate experiment",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-504-merchant-risk.md",
+ "sha": "a493613f5c260a715851a0056ed7a1765a24d774bd24d996abd4d770a4a124d9",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

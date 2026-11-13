@@ -1,0 +1,76 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "merchant-risk-v2",
+   "type": "model",
+   "label": "scoring model",
+   "as": [
+    "v2"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "mcc-base-rate",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "MCC base rate"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "cohort-panel",
+   "type": "dataset",
+   "label": "panel",
+   "as": [
+    "cohort panel"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "travel-active-cardholders",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "travel-active cardholders"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "merchant-risk-v2",
+   "type": "uses",
+   "label": "with",
+   "o": "mcc-base-rate",
+   "quote": "v2 with MCC base rate promoted for review scoring",
+   "line": 3
+  },
+  {
+   "s": "travel-active-cardholders",
+   "type": "part-of",
+   "label": "in",
+   "o": "cohort-panel",
+   "quote": "cohort panel: 62% of travel-active cardholders",
+   "line": 4
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2026-06-09.md",
+ "sha": "745f714a0d371555ce0c475b54f04a3547e49c23a903683939a9ef8a038815b0",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,74 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-301-data-quality-txn",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-301-data-quality-txn"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "dq.partition_arrivals",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "dq.partition_arrivals"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-302-data-quality-txn",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-302-data-quality-txn"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-301-data-quality-txn",
+   "type": "uses",
+   "label": "counted from",
+   "o": "dq.partition_arrivals",
+   "quote": "Counted late partitions in 2025-Q1 from dq.partition_arrivals",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-302-data-quality-txn",
+  "q-dq-late-cause"
+ ],
+ "built_on": [
+  {
+   "what": "ds-dq-partition-arrivals",
+   "quote": "the partition arrivals table",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "q-dq-late-cause",
+   "quote": "q-dq-late-cause",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-301-data-quality-txn.md",
+ "sha": "63de4e32dc07c5375381aed629ef285627d183f58255c1f856da87eef2c1915c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

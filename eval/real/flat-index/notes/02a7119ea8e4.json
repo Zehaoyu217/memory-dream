@@ -1,0 +1,228 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "bt-logit-baseline",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bt-logit-baseline"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-bt-util-3m",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-bt-util-3m"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "bureau-score-band",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "bureau score band"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "tenure-months",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "tenure months"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-bt-holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout set",
+   "as": [
+    "bt-holdout-2025q1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.63"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.19"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "top-30-lift",
+   "type": "metric",
+   "label": "lift",
+   "as": [
+    "top-30% lift 1.4x"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bt-2025-waves",
+   "type": "dataset",
+   "label": "waves",
+   "as": [
+    "2025 waves"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-bt-bureau-join",
+   "type": "dataset",
+   "label": "join",
+   "as": [
+    "ds-bt-bureau-join"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "production",
+   "type": "environment",
+   "label": "production",
+   "as": [
+    "production"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bt-logit-baseline",
+   "type": "uses",
+   "label": "input",
+   "o": "bureau-score-band",
+   "quote": "on bureau score band",
+   "line": 5
+  },
+  {
+   "s": "bt-logit-baseline",
+   "type": "uses",
+   "label": "input",
+   "o": "feat-bt-util-3m",
+   "quote": "feat-bt-util-3m and tenure months",
+   "line": 5
+  },
+  {
+   "s": "bt-logit-baseline",
+   "type": "uses",
+   "label": "input",
+   "o": "tenure-months",
+   "quote": "tenure months",
+   "line": 5
+  },
+  {
+   "s": "bt-logit-baseline",
+   "type": "trained-on",
+   "label": "trained on",
+   "o": "bt-2025-waves",
+   "quote": "Trained on 2025 waves excluding holdout accounts.",
+   "line": 6
+  },
+  {
+   "s": "bt-logit-baseline",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "ds-bt-holdout-2025q1",
+   "quote": "AUC 0.63 on bt-holdout-2025q1 (n=41,800)",
+   "line": 6
+  },
+  {
+   "s": "bt-logit-baseline",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.63",
+   "line": 4
+  },
+  {
+   "s": "bt-logit-baseline",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "ks",
+   "quote": "KS 0.19",
+   "line": 6
+  },
+  {
+   "s": "bt-logit-baseline",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "top-30-lift",
+   "quote": "top-30% lift 1.4x",
+   "line": 6
+  },
+  {
+   "s": "bt-logit-baseline",
+   "type": "other",
+   "label": "no longer scored in",
+   "o": "production",
+   "quote": "no longer scored in production.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-bt-bureau-join",
+  "feat-bt-util-3m"
+ ],
+ "built_on": [
+  {
+   "what": "ds-bt-bureau-join",
+   "quote": "ds-bt-bureau-join",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-bt-util-3m",
+   "quote": "feat-bt-util-3m",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/bt-logit-baseline.md",
+ "sha": "02a7119ea8e43d755bdac6a6b4c0c983bb83dafc0930e5bdff7ed701ef846dff",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,153 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-101-credit-line-increase",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-101-credit-line-increase"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "utilisation-trigger",
+   "type": "other",
+   "label": "trigger rule",
+   "as": [
+    "Trigger rule: utilisation of at least 80% and no late payment in 12 months."
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cli-test-2025q1",
+   "type": "segment",
+   "label": "eval cohort",
+   "as": [
+    "cli-test-2025q1 cohort, n=60,000"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "incremental-spend",
+   "type": "metric",
+   "label": "capture ratio",
+   "as": [
+    "captures 0.58 of incremental spend",
+    "0.71 for the logistic model"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cli-logreg-baseline",
+   "type": "model",
+   "label": "logistic model",
+   "as": [
+    "cli-logreg-baseline"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "q-cli-2025-q2-wave",
+   "type": "other",
+   "label": "wave",
+   "as": [
+    "Q2 2025 wave"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "find-cli-util-best",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-cli-util-best"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "q-cli-utilization-trigger",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "q-cli-utilization-trigger"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-101-credit-line-increase",
+   "type": "evaluated-on",
+   "label": "eval",
+   "o": "cli-test-2025q1",
+   "quote": "Eval: cli-test-2025q1 cohort, n=60,000",
+   "line": 6
+  },
+  {
+   "s": "exp-101-credit-line-increase",
+   "type": "measured-by",
+   "label": "measures",
+   "o": "incremental-spend",
+   "quote": "incremental spend measured in the 90 days after exposure",
+   "line": 6
+  },
+  {
+   "s": "utilisation-trigger",
+   "type": "measured-by",
+   "label": "captures",
+   "o": "incremental-spend",
+   "quote": "the trigger captures 0.58 of the incremental spend pool",
+   "line": 7
+  },
+  {
+   "s": "cli-logreg-baseline",
+   "type": "measured-by",
+   "label": "captures",
+   "o": "incremental-spend",
+   "quote": "cli-logreg-baseline 0.71",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "find-cli-util-best"
+ ],
+ "built_on": [
+  {
+   "what": "cli-logreg-baseline",
+   "quote": "the logistic baseline for 90-day loss",
+   "line": 9,
+   "asked": true
+  },
+  {
+   "what": "q-cli-utilization-trigger",
+   "quote": "q-cli-utilization-trigger",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-101-credit-line-increase.md",
+ "sha": "0a7270c0d3cbba32025415c11c406ca48e77247b8b992ad89467347ed31785af",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

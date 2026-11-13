@@ -1,0 +1,81 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-mrisk-cb-ratio-90d",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mrisk-cb-ratio-90d"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "chargeback-ratio",
+   "type": "term",
+   "label": "ratio",
+   "as": [
+    "chargeback ratio"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-mrisk-merchant-month",
+   "type": "dataset",
+   "label": "panel",
+   "as": [
+    "merchant-month panel"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-mrisk-cb-ratio-90d",
+   "type": "measured-by",
+   "label": "top feature",
+   "o": "chargeback-ratio",
+   "quote": "Top feature in every merchant-risk version",
+   "line": 6
+  },
+  {
+   "s": "feat-mrisk-cb-ratio-90d",
+   "type": "uses",
+   "label": "computed on",
+   "o": "ds-mrisk-merchant-month",
+   "quote": "Computed monthly on the merchant-month panel.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "mrisk-find-cb-ratio-top"
+ ],
+ "built_on": [
+  {
+   "what": "ds-mrisk-chargebacks",
+   "quote": "ds-mrisk-chargebacks",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-mrisk-merchant-month",
+   "quote": "ds-mrisk-merchant-month",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-mrisk-cb-ratio-90d.md",
+ "sha": "a1dd57cf6d73443b060f551ff4a9e44e0493cecb92a9298271991086b79701e8",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,137 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "find-inc-log-target-gain",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Finding: a log target on verified income cuts MAPE from 31% to 19%"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-406-income-estimation",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-406-income-estimation"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "find-inc-mape-initial",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-inc-mape-initial"
+   ],
+   "lines": [
+    6,
+    8,
+    9
+   ]
+  },
+  {
+   "id": "inc-gbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "inc-gbm-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dec-inc-band-floor-2026",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-inc-band-floor-2026"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    4,
+    6,
+    8,
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "find-inc-log-target-gain",
+   "type": "measured-by",
+   "label": "measures",
+   "o": "mape",
+   "quote": "cuts MAPE from 31% to 19%",
+   "line": 4
+  },
+  {
+   "s": "find-inc-log-target-gain",
+   "type": "other",
+   "label": "overturns",
+   "o": "find-inc-mape-initial",
+   "quote": "overturning the 27% ceiling",
+   "line": 4
+  },
+  {
+   "s": "inc-gbm-v3",
+   "type": "other",
+   "label": "basis for",
+   "o": "find-inc-log-target-gain",
+   "quote": "Basis for inc-gbm-v3 and dec-inc-band-floor-2026.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "inc-gbm-v3",
+  "dec-inc-band-floor-2026"
+ ],
+ "built_on": [
+  {
+   "what": "exp-406-income-estimation",
+   "quote": "exp-406-income-estimation",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "find-inc-mape-initial",
+   "quote": "find-inc-mape-initial",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "find-inc-mape-initial",
+   "quote": "find-inc-mape-initial",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/find-inc-log-target-gain.md",
+ "sha": "03ce0c3f4cc4db062f2e7331a2cbf3d8d7a4312a8fa31b2261e9b2be9c3767cf",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

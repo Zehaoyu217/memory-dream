@@ -1,0 +1,92 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-407-hardship-programs",
+   "type": "experiment",
+   "label": "scenario model",
+   "as": [
+    "Scenario model on ds-hp-roll-matrix"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-hp-roll-matrix",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-hp-roll-matrix"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "hp-psm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "hp-psm-v2"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "charge-off",
+   "type": "term",
+   "label": "term",
+   "as": [
+    "long-run charge-off rate"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-407-hardship-programs",
+   "type": "uses",
+   "label": "uses",
+   "o": "ds-hp-roll-matrix",
+   "quote": "Scenario model on ds-hp-roll-matrix",
+   "line": 5
+  },
+  {
+   "s": "exp-407-hardship-programs",
+   "type": "uses",
+   "label": "shifted by",
+   "o": "hp-psm-v2",
+   "quote": "shifted by the hp-psm-v2 effect",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-hp-roll-matrix",
+   "quote": "ds-hp-roll-matrix",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "hp-psm-v2",
+   "quote": "hp-psm-v2",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-407-hardship-programs.md",
+ "sha": "ab1ea4b590fc182175ea604923b34911ba29c5ab9d384309f1390592c6f1f3e6",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

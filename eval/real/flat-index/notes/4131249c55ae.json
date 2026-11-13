@@ -1,0 +1,134 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-fsm-timezone-utc",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: all date windows and day differences in the feature store and legacy notebooks use UTC"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "aisha-khan",
+   "type": "person",
+   "label": "reviewer",
+   "as": [
+    "Aisha Khan"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "reviewer",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-102-feature-store-migration",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-102-feature-store-migration"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-fsm-payment-lag-v2",
+   "type": "feature",
+   "label": "payment lag feature",
+   "as": [
+    "feat-fsm-payment-lag-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-fsm-payment-lag-v1",
+   "type": "feature",
+   "label": "payment lag feature",
+   "as": [
+    "v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feature-store",
+   "type": "tool",
+   "label": "feature store",
+   "as": [
+    "feature store"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-fsm-timezone-utc",
+   "type": "owned-by",
+   "label": "decided at review",
+   "o": "aisha-khan",
+   "quote": "Decided at the 2025-11-20 MLOps review (Aisha Khan, Lena Fischer).",
+   "line": 5
+  },
+  {
+   "s": "dec-fsm-timezone-utc",
+   "type": "owned-by",
+   "label": "decided at review",
+   "o": "lena-fischer",
+   "quote": "Decided at the 2025-11-20 MLOps review (Aisha Khan, Lena Fischer).",
+   "line": 5
+  },
+  {
+   "s": "feat-fsm-payment-lag-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "feat-fsm-payment-lag-v1",
+   "quote": "feat-fsm-payment-lag-v2 replaces v1 for all new models from 2026-01-12.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-102-feature-store-migration"
+ ],
+ "built_on": [
+  {
+   "what": "exp-102-feature-store-migration",
+   "quote": "exp-102-feature-store-migration",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fnd-parity-pre-fix",
+   "quote": "the parity result before fixes",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-fsm-timezone-utc.md",
+ "sha": "4131249c55ae9b1dc30d12a528f9974230d3d4ab138b16d93b5727ef04a19c8d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

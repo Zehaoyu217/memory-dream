@@ -1,0 +1,122 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "q-churn-drivers",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "What drives 90-day card churn in the 2025 book?"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "maya-ortiz",
+   "type": "person",
+   "label": "asker",
+   "as": [
+    "Maya Ortiz"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.churn_labels",
+   "type": "dataset",
+   "label": "labels table",
+   "as": [
+    "`cards.churn_labels`"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "transactions table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "recall-at-10",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "recall@10"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "q-churn-drivers",
+   "type": "uses",
+   "label": "labels live in",
+   "o": "cards.churn_labels",
+   "quote": "Labels live in `cards.churn_labels`",
+   "line": 8
+  },
+  {
+   "s": "q-churn-drivers",
+   "type": "uses",
+   "label": "transactions in",
+   "o": "cards.txn_daily",
+   "quote": "transactions in `cards.txn_daily`",
+   "line": 8
+  },
+  {
+   "s": "q-churn-drivers",
+   "type": "measured-by",
+   "label": "success metric",
+   "o": "recall-at-10",
+   "quote": "Success metric: recall@10 on holdout-2025q4.",
+   "line": 9
+  },
+  {
+   "s": "q-churn-drivers",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q4",
+   "quote": "recall@10 on holdout-2025q4",
+   "line": 9
+  },
+  {
+   "s": "q-churn-drivers",
+   "type": "owned-by",
+   "label": "asked by",
+   "o": "maya-ortiz",
+   "quote": "Asked by retention (Maya Ortiz), 2026-09-02.",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/q-churn-drivers.md",
+ "sha": "c43bce03d676afbf5d1723f47fe3e842cee2405a16f059edb628911d0b2867ba",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

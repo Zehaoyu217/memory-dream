@@ -1,0 +1,98 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "retail-calendar-v3",
+   "type": "dataset",
+   "label": "calendar",
+   "as": [
+    "retail-calendar-v3"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "shopping-events",
+   "type": "term",
+   "label": "shopping events",
+   "as": [
+    "shopping events"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "black-friday-cyber-week-dates",
+   "type": "dataset",
+   "label": "date set",
+   "as": [
+    "separate date set"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "forecasting-team",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "forecasting team"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-sfc-season-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-sfc-season-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "retail-calendar-v3",
+   "type": "owned-by",
+   "label": "maintained by",
+   "o": "forecasting-team",
+   "quote": "Maintained by the forecasting team",
+   "line": 7
+  },
+  {
+   "s": "feat-sfc-season-v2",
+   "type": "uses",
+   "label": "read by",
+   "o": "retail-calendar-v3",
+   "quote": "read by feat-sfc-season-v2",
+   "line": 7
+  },
+  {
+   "s": "shopping-events",
+   "type": "part-of",
+   "label": "listed in",
+   "o": "retail-calendar-v3",
+   "quote": "Calendar of fixed dates and shopping events",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "feat-sfc-season-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-sfc-holiday-calendar.md",
+ "sha": "cad5c44354db861c479d5e07db3e822a2a5f4c0ed6e38ab6b8b21dfd84aa7796",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

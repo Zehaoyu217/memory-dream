@@ -1,0 +1,97 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "cards.churn_labels",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.churn_labels"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "data-eng-cards",
+   "type": "team",
+   "label": "owner",
+   "as": [
+    "data-eng-cards"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "churn-60d-legacy-job",
+   "type": "pipeline",
+   "label": "legacy job",
+   "as": [
+    "labels/legacy/churn_60d.sql"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "rebuilt-churn-job",
+   "type": "pipeline",
+   "label": "rebuilt job",
+   "as": [
+    "The rebuilt job"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dec-lbl-churn-closure",
+   "type": "term",
+   "label": "decision",
+   "as": [
+    "dec-lbl-churn-closure"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cards.churn_labels",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "data-eng-cards",
+   "quote": "owned by data-eng-cards",
+   "line": 4
+  },
+  {
+   "s": "churn-60d-legacy-job",
+   "type": "produces",
+   "label": "built by",
+   "o": "cards.churn_labels",
+   "quote": "Built by the legacy job `labels/legacy/churn_60d.sql`",
+   "line": 5
+  },
+  {
+   "s": "rebuilt-churn-job",
+   "type": "other",
+   "label": "replaces",
+   "o": "churn-60d-legacy-job",
+   "quote": "The rebuilt job replaces it",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-lbl-churn-closure"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-lbl-churn-labels.md",
+ "sha": "67237d8e5182f747d0b6b6b2708fcb32e9efd7c1d7854f03f20ee36b9bd3bc7a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

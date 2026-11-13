@@ -1,0 +1,106 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-mm-incident-log",
+   "type": "dataset",
+   "label": "incident log",
+   "as": [
+    "mon.incidents"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "real-drift-set",
+   "type": "segment",
+   "label": "target set",
+   "as": [
+    "real-drift set"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "on-call-tracker",
+   "type": "other",
+   "label": "source",
+   "as": [
+    "on-call tracker"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-202-model-monitoring",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-202-model-monitoring"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-207-model-monitoring",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-207-model-monitoring"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-mm-incident-log",
+   "type": "uses",
+   "label": "backfilled from",
+   "o": "on-call-tracker",
+   "quote": "Backfilled from the on-call tracker.",
+   "line": 5
+  },
+  {
+   "s": "real-drift-set",
+   "type": "part-of",
+   "label": "subset of",
+   "o": "ds-mm-incident-log",
+   "quote": "The real-drift set is the target for detection tests.",
+   "line": 6
+  },
+  {
+   "s": "exp-202-model-monitoring",
+   "type": "uses",
+   "label": "used for",
+   "o": "ds-mm-incident-log",
+   "quote": "Used for every threshold comparison in this project (exp-202-model-monitoring, exp-207-model-monitoring).",
+   "line": 7
+  },
+  {
+   "s": "exp-207-model-monitoring",
+   "type": "uses",
+   "label": "used for",
+   "o": "ds-mm-incident-log",
+   "quote": "Used for every threshold comparison in this project (exp-202-model-monitoring, exp-207-model-monitoring).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-202-model-monitoring",
+  "exp-207-model-monitoring"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-mm-incident-log.md",
+ "sha": "344bc334ad45b54c041c9b4b5c4907aa7e6fb2315c1e8cb215b5c3f379b38471",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

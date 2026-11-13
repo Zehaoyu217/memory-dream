@@ -1,0 +1,76 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-hp-txn-drop-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-hp-txn-drop-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-hp-enrolled",
+   "type": "dataset",
+   "label": "source dataset",
+   "as": [
+    "ds-hp-enrolled"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "hardship-enrolment-selection",
+   "type": "term",
+   "label": "selection signal",
+   "as": [
+    "This is a selection signal."
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-hp-txn-drop-v1",
+   "type": "built-from",
+   "label": "aggregated from",
+   "o": "cards.txn_daily",
+   "quote": "`cards.txn_daily` aggregated to account-month.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-hp-enrolled",
+   "quote": "ds-hp-enrolled",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-hp-txn-drop-v1.md",
+ "sha": "ffc6db9c8601966653dd063167dd92df9d3940adc5da1afa7940098c9c0f2d13",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,127 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ror-value-band-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ror-value-band-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "bureau-scores-monthly",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "bureau.scores_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "credit-data",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "credit-data"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-ror-value-band-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ror-value-band-v1"
+   ],
+   "lines": [
+    8,
+    9
+   ]
+  },
+  {
+   "id": "ror-roi-v2",
+   "type": "other",
+   "label": "roi ranking",
+   "as": [
+    "ror-roi-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ror-value-band-v2",
+   "type": "uses",
+   "label": "takes PD from",
+   "o": "bureau-scores-monthly",
+   "quote": "PD from the bureau.scores_monthly bands (credit-data)",
+   "line": 5
+  },
+  {
+   "s": "bureau-scores-monthly",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "credit-data",
+   "quote": "bureau.scores_monthly bands (credit-data)",
+   "line": 5
+  },
+  {
+   "s": "feat-ror-value-band-v2",
+   "type": "uses",
+   "label": "basis for",
+   "o": "ror-roi-v2",
+   "quote": "Basis for the matrix v4 candidate and ror-roi-v2.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-ror-value-band-v1",
+  "ror-roi-v2"
+ ],
+ "built_on": [
+  {
+   "what": "feat-ror-expected-revenue",
+   "quote": "the 12-month expected revenue feature",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-ror-value-band-v1",
+   "quote": "feat-ror-value-band-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fnd-ror-cashback-roi-v2",
+   "quote": "the finding on cashback versus fee waiver",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-ror-value-band-v1",
+   "quote": "feat-ror-value-band-v1",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-ror-value-band-v2.md",
+ "sha": "0e01656b82aec827b0ee7a636294fca678744e8303e371ff8d54dc2d683e0f16",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

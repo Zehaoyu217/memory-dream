@@ -1,0 +1,123 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "aml-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "aml-xgb-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "aml-oot-2026h1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "aml-oot-2026h1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-405-aml-alerts",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-405-aml-alerts"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-407-aml-alerts",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-407-aml-alerts"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "sar-capture-rate",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "top-40% capture"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "aml-find-ranker-top40",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "aml-find-ranker-top40"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "aml-xgb-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "aml-oot-2026h1",
+   "quote": "Fresh Jan-Mar 2026 labels (aml-oot-2026h1, n=9,870, 188 SARs): aml-xgb-v2 captures 93.5% in the top 40%.",
+   "line": 5
+  },
+  {
+   "s": "aml-xgb-v2",
+   "type": "measured-by",
+   "label": "captures",
+   "o": "sar-capture-rate",
+   "quote": "aml-xgb-v2 captures 93.5% in the top 40%.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-407-aml-alerts",
+  "exp-405-aml-alerts"
+ ],
+ "built_on": [
+  {
+   "what": "aml-find-ranker-top40",
+   "quote": "the finding on v2 top-40% sar capture",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-405-aml-alerts",
+   "quote": "exp-405-aml-alerts",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "aml-find-ranker-top40",
+   "quote": "aml-find-ranker-top40",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/aml-find-ranker-top40-revised.md",
+ "sha": "b27a117074ee2fe86796e675118dd645ff4515a6962d6141a9f195c5e6ef13b0",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

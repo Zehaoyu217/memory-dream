@@ -1,0 +1,102 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "exp-504-app-engagement",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-504-app-engagement"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-ae-depth-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "Depth v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-ae-depth-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ae-depth-v1"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "mean-score",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Mean score for accounts under 90 days"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-504-app-engagement",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "mean-score",
+   "quote": "Mean score for accounts under 90 days drops from 62 under v1 to 48 under v2",
+   "line": 6
+  },
+  {
+   "s": "feat-ae-depth-v2",
+   "type": "built-on",
+   "label": "builds on",
+   "o": "feat-ae-depth-v1",
+   "quote": "Builds on the new-account depth comparison and feat-ae-depth-v1.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-504-app-engagement",
+  "feat-ae-depth-v1"
+ ],
+ "built_on": [
+  {
+   "what": "exp-504-app-engagement",
+   "quote": "the new-account depth comparison",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "feat-ae-depth-v1",
+   "quote": "feat-ae-depth-v1",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-ae-depth-v1",
+   "quote": "feat-ae-depth-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-ae-depth-v2.md",
+ "sha": "2e1e55296d90b533e104255b7408b356f38be05831682b7daac091f85b0246d1",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

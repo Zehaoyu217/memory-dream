@@ -1,0 +1,112 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "pa-margin-v1",
+   "type": "model",
+   "label": "margin model",
+   "as": [
+    "pa-margin-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "pa-bal-forecast-v1",
+   "type": "model",
+   "label": "balance path",
+   "as": [
+    "pa-bal-forecast-v1"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "ds-pa-balance-panel",
+   "type": "dataset",
+   "label": "balance panel",
+   "as": [
+    "ds-pa-balance-panel"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "bureau-score",
+   "type": "feature",
+   "label": "bureau score band feature",
+   "as": [
+    "the three bureau score band feature"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "pa-margin-v2",
+   "type": "model",
+   "label": "margin model",
+   "as": [
+    "pa-margin-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "pa-margin-v1",
+   "type": "uses",
+   "label": "built on",
+   "o": "pa-bal-forecast-v1",
+   "quote": "on the balance path from pa-bal-forecast-v1",
+   "line": 5
+  },
+  {
+   "s": "pa-margin-v2",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "pa-margin-v1",
+   "quote": "Superseded by pa-margin-v2",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "pa-bal-forecast-v1",
+  "pa-margin-v2",
+  "ds-pa-balance-panel"
+ ],
+ "built_on": [
+  {
+   "what": "ds-pa-balance-panel",
+   "quote": "ds-pa-balance-panel",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-pa-credit-band",
+   "quote": "the three bureau score band feature",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "pa-bal-forecast-v1",
+   "quote": "pa-bal-forecast-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/pa-margin-v1.md",
+ "sha": "6827d94e6b3d47ddd1685253cba6f9eb9a6c3b81e034d1da37781b92dcd9d0a7",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,135 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-205-spend-forecasting",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-205-spend-forecasting"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-sfc-util-v1",
+   "type": "feature",
+   "label": "utilisation feature",
+   "as": [
+    "feat-sfc-util-v1"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "rewards-segment",
+   "type": "segment",
+   "label": "rewards segment",
+   "as": [
+    "Rewards segment"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sfc-bt-2024",
+   "type": "dataset",
+   "label": "backtest dataset",
+   "as": [
+    "sfc-bt-2024"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "lightgbm",
+   "as": [
+    "lightgbm"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "1-month MAPE",
+    "total MAPE"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "other-segments",
+   "type": "segment",
+   "label": "other segments",
+   "as": [
+    "the other five segments"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rewards-segment",
+   "type": "measured-by",
+   "label": "MAPE fell",
+   "o": "mape",
+   "quote": "Rewards 1-month MAPE 8.2% to 6.9%",
+   "line": 6
+  },
+  {
+   "s": "rewards-segment",
+   "type": "uses",
+   "label": "adds",
+   "o": "feat-sfc-util-v1",
+   "quote": "Adds feat-sfc-util-v1 to the Rewards segment model only, sfc-bt-2024.",
+   "line": 5
+  },
+  {
+   "s": "exp-205-spend-forecasting",
+   "type": "evaluated-on",
+   "label": "tested on",
+   "o": "sfc-bt-2024",
+   "quote": "Adds feat-sfc-util-v1 to the Rewards segment model only, sfc-bt-2024.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "feat-sfc-util-v1"
+ ],
+ "built_on": [
+  {
+   "what": "feat-sfc-util-v1",
+   "quote": "feat-sfc-util-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "sfc-lgbm-v2",
+   "quote": "the per-segment lightgbm model",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-205-spend-forecasting.md",
+ "sha": "a23bae10fa81f5c379fbf9ff028a35b6776af01058e151ab7a1284c7c70bf175",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

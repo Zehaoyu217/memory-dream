@@ -1,0 +1,147 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-pa-credit-band",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-pa-credit-band"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "bureau-score",
+   "type": "feature",
+   "label": "bureau score",
+   "as": [
+    "bureau score"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "bureau.scores_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "pa-margin-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "pa-margin-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "pa-margin-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "pa-margin-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-507-band-het",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-507-band-het"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-pa-ab-assignments",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-pa-ab-assignments"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-pa-credit-band",
+   "type": "uses",
+   "label": "from",
+   "o": "bureau.scores_monthly",
+   "quote": "from `bureau.scores_monthly`",
+   "line": 5
+  },
+  {
+   "s": "pa-margin-v1",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-pa-credit-band",
+   "quote": "Used in pa-margin-v1 and pa-margin-v2",
+   "line": 6
+  },
+  {
+   "s": "pa-margin-v2",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-pa-credit-band",
+   "quote": "Used in pa-margin-v1 and pa-margin-v2",
+   "line": 6
+  },
+  {
+   "s": "exp-507-band-het",
+   "type": "uses",
+   "label": "heterogeneity cut",
+   "o": "feat-pa-credit-band",
+   "quote": "as the heterogeneity cut in exp-507-band-het",
+   "line": 6
+  },
+  {
+   "s": "feat-pa-credit-band",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-pa-ab-assignments",
+   "quote": "Builds on ds-pa-ab-assignments.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-pa-ab-assignments",
+  "pa-margin-v1",
+  "pa-margin-v2",
+  "exp-507-band-het"
+ ],
+ "built_on": [
+  {
+   "what": "ds-pa-ab-assignments",
+   "quote": "ds-pa-ab-assignments",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-pa-credit-band.md",
+ "sha": "8ca8908e5081b152ef349a91ee9810de4a6241f6843ca0e858bddbf8d4f5eff6",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

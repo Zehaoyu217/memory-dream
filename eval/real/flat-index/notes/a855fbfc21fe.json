@@ -1,0 +1,83 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "aml-xgb-v3",
+   "type": "model",
+   "label": "priority ranker",
+   "as": [
+    "aml-xgb-v3"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "aml-xgb-v2",
+   "type": "model",
+   "label": "queue ranker",
+   "as": [
+    "v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "suppression-cut",
+   "type": "policy",
+   "label": "suppression cut",
+   "as": [
+    "suppression cut stays at 0.18"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "aml-xgb-v3",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "aml-xgb-v2",
+   "quote": "aml-xgb-v3 replaces v2 as the queue ranker from 2026-07-08",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "dec-aml-suppress-018",
+  "exp-407-aml-alerts",
+  "aml-xgb-v3"
+ ],
+ "built_on": [
+  {
+   "what": "aml-xgb-v3",
+   "quote": "aml-xgb-v3",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "dec-aml-suppress-018",
+   "quote": "dec-aml-suppress-018",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-407-aml-alerts",
+   "quote": "exp-407-aml-alerts",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-aml-ranker-v3.md",
+ "sha": "a855fbfc21fed07dcd9f77b6885223924397ea20491ccc6869101ae67f3d5314",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

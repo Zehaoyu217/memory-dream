@@ -1,0 +1,156 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "channel-features",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "channel features"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "channel-one-hot",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "channel one-hot"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "hour-bucket",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "hour bucket"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "logistic-model",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "logistic model"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro f1",
+   "as": [
+    "macro F1"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "term",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "cc-logreg-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cc-logreg-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fnd-cc-channel-null",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-cc-channel-null"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "logistic-model",
+   "type": "measured-by",
+   "label": "macro F1",
+   "o": "macro-f1",
+   "quote": "Macro F1 0.742 with channel, 0.740 without",
+   "line": 6
+  },
+  {
+   "s": "logistic-model",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q4",
+   "quote": "n = 1,800 tickets, holdout-2025q4",
+   "line": 6
+  },
+  {
+   "s": "logistic-model",
+   "type": "uses",
+   "label": "with and without",
+   "o": "channel-one-hot",
+   "quote": "logistic model with and without channel one-hot and hour bucket",
+   "line": 5
+  },
+  {
+   "s": "logistic-model",
+   "type": "uses",
+   "label": "with and without",
+   "o": "hour-bucket",
+   "quote": "logistic model with and without channel one-hot and hour bucket",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "fnd-cc-channel-null",
+  "cc-logreg-v1"
+ ],
+ "built_on": [
+  {
+   "what": "cc-logreg-v1",
+   "quote": "cc-logreg-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-cc-channel-v1",
+   "quote": "the channel and hour features",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-203-complaint-classification.md",
+ "sha": "fe4f859c90f095e1d39e4e914ea54592ec310193024795f07873bd65e25b3eee",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

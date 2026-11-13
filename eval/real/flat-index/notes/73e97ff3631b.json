@@ -1,0 +1,117 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "collections-uplift-oot-2026h1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "collections-uplift-oot-2026h1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "uplift-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "uplift v3"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "collections-cases",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "`collections.cases`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "retired holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "randomised-pilot-contact-log",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "the randomised pilot contact log"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "collections-uplift-oot-2026h1",
+   "type": "used-by",
+   "label": "eval set for",
+   "o": "uplift-v3",
+   "quote": "is the out-of-time eval set for uplift v3",
+   "line": 4
+  },
+  {
+   "s": "collections-uplift-oot-2026h1",
+   "type": "uses",
+   "label": "built from",
+   "o": "collections-cases",
+   "quote": "Built 2026-02-20 from `collections.cases` Oct-Dec 2025 snapshots",
+   "line": 5
+  },
+  {
+   "s": "holdout-2025q4",
+   "type": "other",
+   "label": "retired for selection",
+   "o": "holdout-2025q4",
+   "quote": "holdout-2025q4 is retired for selection.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-cu-treat-log",
+   "quote": "the randomised pilot contact log",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "ds-holdout-2025q4",
+   "quote": "holdout-2025q4",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "holdout-2025q4",
+   "quote": "holdout-2025q4 is retired for selection.",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-cu-oot-2026h1.md",
+ "sha": "73e97ff3631ba573f43a3d9d2751cdc33e9e1d64749a9a207bcf6c0ea8157bfc",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

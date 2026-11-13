@@ -1,0 +1,155 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "sms",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "SMS-only"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "control-group",
+   "type": "segment",
+   "label": "control",
+   "as": [
+    "control"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "call",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "call-first"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "promise-to-pay",
+   "type": "metric",
+   "label": "promise-to-pay rate",
+   "as": [
+    "promise-to-pay"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "dpd",
+   "type": "term",
+   "label": "dpd band",
+   "as": [
+    "8-29 DPD"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ds-ch-ab-wave2",
+   "type": "dataset",
+   "label": "wave-2 dataset",
+   "as": [
+    "ds-ch-ab-wave2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "find-ch-sms-matches-call",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-ch-sms-matches-call"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "sms",
+   "type": "measured-by",
+   "label": "reaches",
+   "o": "promise-to-pay",
+   "quote": "SMS-only reaches 8.1% promise-to-pay",
+   "line": 4
+  },
+  {
+   "s": "call",
+   "type": "measured-by",
+   "label": "reaches",
+   "o": "promise-to-pay",
+   "quote": "call-first 10.9%",
+   "line": 4
+  },
+  {
+   "s": "control-group",
+   "type": "measured-by",
+   "label": "control",
+   "o": "promise-to-pay",
+   "quote": "control 5.0% (n=18,900)",
+   "line": 5
+  },
+  {
+   "s": "sms",
+   "type": "other",
+   "label": "tested on",
+   "o": "dpd",
+   "quote": "on 8-29 DPD, SMS-only reaches 8.1% promise-to-pay",
+   "line": 4
+  },
+  {
+   "s": "sms",
+   "type": "other",
+   "label": "captures",
+   "o": "call",
+   "quote": "SMS-only captures 3.1 of the 5.9pp call lift, about 53%",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-ch-ab-wave2",
+  "find-ch-sms-matches-call"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ch-ab-wave2",
+   "quote": "ds-ch-ab-wave2",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "find-ch-sms-matches-call",
+   "quote": "find-ch-sms-matches-call",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-504-collections-channel-mix.md",
+ "sha": "ca34e6bfcdc71242972d8f6fe551f3392d63af39608c9c2f4b1b2e69787f48f9",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

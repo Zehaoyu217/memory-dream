@@ -1,0 +1,138 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "frozen holdout",
+   "as": [
+    "holdout-2025q1: Jan-Mar 2025 CNP transactions, 1,104,800 rows, 2,310 fraud",
+    "Frozen holdout for every fraud-2025 model."
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "cards.fraud_labels",
+   "type": "dataset",
+   "label": "label table",
+   "as": [
+    "`cards.fraud_labels`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-f25-labels",
+   "type": "dataset",
+   "label": "label dataset",
+   "as": [
+    "ds-f25-labels"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "card-not-present-extract",
+   "type": "dataset",
+   "label": "transaction extract",
+   "as": [
+    "the card-not-present transaction extract"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-101-fraud-2025",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-101-fraud-2025"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-104-fraud-2025",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-104-fraud-2025"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-107-fraud-2025",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-107-fraud-2025"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "holdout-2025q1",
+   "type": "built on",
+   "label": "builds on",
+   "o": "ds-f25-labels",
+   "quote": "Builds on ds-f25-labels",
+   "line": 8
+  },
+  {
+   "s": "holdout-2025q1",
+   "type": "built on",
+   "label": "builds on",
+   "o": "card-not-present-extract",
+   "quote": "Builds on ds-f25-labels and the card-not-present transaction extract.",
+   "line": 8
+  },
+  {
+   "s": "exp-101-fraud-2025",
+   "type": "evaluated-on",
+   "label": "used by",
+   "o": "holdout-2025q1",
+   "quote": "Used by exp-101-fraud-2025 to exp-104-fraud-2025 and exp-107-fraud-2025.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-f25-labels",
+  "exp-101-fraud-2025",
+  "exp-104-fraud-2025",
+  "exp-107-fraud-2025"
+ ],
+ "built_on": [
+  {
+   "what": "ds-f25-labels",
+   "quote": "ds-f25-labels",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-f25-txn-2024-2025",
+   "quote": "the card-not-present transaction extract",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-f25-holdout-2025q1.md",
+ "sha": "00baff42ca54514a8766806228ed4a58aaeefd1065ca4781030939cdbc672112",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

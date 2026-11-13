@@ -1,0 +1,125 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-505-exit-churn",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-505"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "arm-c",
+   "type": "other",
+   "label": "arm",
+   "as": [
+    "Arm C"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "control-group",
+   "type": "other",
+   "label": "control",
+   "as": [
+    "control"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "churn-60-day",
+   "type": "metric",
+   "label": "churn rate",
+   "as": [
+    "churn at 6.4%"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.churn_labels",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.churn_labels"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "balance-at-expiry-cliff",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "balance-at-expiry cliff feature"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-505-exit-churn",
+   "type": "uses",
+   "label": "label from",
+   "o": "cards.churn_labels",
+   "quote": "60-day churn label from `cards.churn_labels`",
+   "line": 5
+  },
+  {
+   "s": "arm-c",
+   "type": "measured-by",
+   "label": "churn",
+   "o": "churn-60-day",
+   "quote": "Arm C 6.4% against 2.1% for control",
+   "line": 6
+  },
+  {
+   "s": "control-group",
+   "type": "measured-by",
+   "label": "churn",
+   "o": "churn-60-day",
+   "quote": "Arm C 6.4% against 2.1% for control",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-pa-churn-labels"
+ ],
+ "built_on": [
+  {
+   "what": "ds-pa-churn-labels",
+   "quote": "ds-pa-churn-labels",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "feat-pa-promo-exit-cliff",
+   "quote": "the balance-at-expiry cliff feature",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-505-exit-churn.md",
+ "sha": "052b107e2e8dc29273ba6a2f8c1ccc6372e71bbb02fd28d60a01c9b8cd099d67",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

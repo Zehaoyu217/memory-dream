@@ -1,0 +1,129 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-xs-payroll-flag-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-xs-payroll-flag-v2: recurring payroll-like deposit detected in the last 90 days"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.payments_daily`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "xs-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "Used in xs-gbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-xs-balance-proxy",
+   "type": "feature",
+   "label": "replaced feature",
+   "as": [
+    "feat-xs-balance-proxy"
+   ],
+   "lines": [
+    8,
+    9
+   ]
+  },
+  {
+   "id": "ds-app-applications-2024",
+   "type": "dataset",
+   "label": "source dataset",
+   "as": [
+    "eligible offer log table"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "open-rate-payroll",
+   "type": "metric",
+   "label": "open rate",
+   "as": [
+    "Payroll-flagged accounts open at 4.8%, against 1.9% for the rest."
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-xs-payroll-flag-v2",
+   "type": "uses",
+   "label": "detected from",
+   "o": "cards.payments_daily",
+   "quote": "detected from `cards.payments_daily` by pattern matching",
+   "line": 5
+  },
+  {
+   "s": "xs-gbm-v2",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-xs-payroll-flag-v2",
+   "quote": "Used in xs-gbm-v2.",
+   "line": 7
+  },
+  {
+   "s": "feat-xs-payroll-flag-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "feat-xs-balance-proxy",
+   "quote": "Replaces feat-xs-balance-proxy.",
+   "line": 9
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-xs-offer-log",
+   "quote": "the eligible offer log table",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-xs-balance-proxy",
+   "quote": "feat-xs-balance-proxy",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-xs-balance-proxy",
+   "quote": "feat-xs-balance-proxy",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-xs-payroll-flag-v2.md",
+ "sha": "1b89ba2e428c6daedd123992432735f5ff86c3b2248763e3ae927746a6ba279d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

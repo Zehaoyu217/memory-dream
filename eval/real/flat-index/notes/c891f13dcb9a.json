@@ -1,0 +1,95 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "pbs-kmeans-v1",
+   "type": "model",
+   "label": "kmeans clustering",
+   "as": [
+    "Six kmeans segments"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-401-payment-behavior-segments",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-401-payment-behavior-segments"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "minimum-payer-group",
+   "type": "segment",
+   "label": "customer group",
+   "as": [
+    "minimum-payer group"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "silhouette",
+   "type": "metric",
+   "label": "silhouette score",
+   "as": [
+    "Silhouette is 0.36 at k=6 against 0.41 at k=4"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "pbs-kmeans-v1",
+   "type": "other",
+   "label": "splits",
+   "o": "minimum-payer-group",
+   "quote": "split the minimum-payer group in two",
+   "line": 4
+  },
+  {
+   "s": "pbs-kmeans-v1",
+   "type": "measured-by",
+   "label": "silhouette is",
+   "o": "silhouette",
+   "quote": "Silhouette is 0.36 at k=6",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-401-payment-behavior-segments",
+  "pbs-kmeans-v1",
+  "fnd-pbs-five-segments"
+ ],
+ "built_on": [
+  {
+   "what": "exp-401-payment-behavior-segments",
+   "quote": "exp-401-payment-behavior-segments",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "pbs-kmeans-v1",
+   "quote": "pbs-kmeans-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-pbs-six-segments.md",
+ "sha": "c891f13dcb9a4885457d3a013a55f0d800076c1dd2479841abde111e7afb3c9d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

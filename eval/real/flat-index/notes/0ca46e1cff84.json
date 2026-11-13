@@ -1,0 +1,153 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "attrition-model",
+   "type": "model",
+   "label": "attrition model",
+   "as": [
+    "Attrition model"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.66",
+    "AUC 0.58"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ds-pbs-oot-2025h2",
+   "type": "dataset",
+   "label": "out-of-time outcomes",
+   "as": [
+    "ds-pbs-oot-2025h2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.churn_labels",
+   "type": "dataset",
+   "label": "labels",
+   "as": [
+    "cards.churn_labels"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "pbs-gmm-v2",
+   "type": "model",
+   "label": "segment model",
+   "as": [
+    "pbs-gmm-v2"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "spend-features",
+   "type": "feature",
+   "label": "spend features",
+   "as": [
+    "spend features only"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "payment-behavior-segment",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "the segment label"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "attrition-model",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "ds-pbs-oot-2025h2",
+   "quote": "Attrition model on ds-pbs-oot-2025h2 with spend features only",
+   "line": 5
+  },
+  {
+   "s": "attrition-model",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.58 with spend alone, 0.66 with the segment label.",
+   "line": 6
+  },
+  {
+   "s": "attrition-model",
+   "type": "uses",
+   "label": "uses spend features",
+   "o": "spend-features",
+   "quote": "with spend features only",
+   "line": 5
+  },
+  {
+   "s": "attrition-model",
+   "type": "uses",
+   "label": "adds segment",
+   "o": "payment-behavior-segment",
+   "quote": "0.66 with the segment label",
+   "line": 6
+  },
+  {
+   "s": "attrition-model",
+   "type": "uses",
+   "label": "labels from",
+   "o": "cards.churn_labels",
+   "quote": "Labels from cards.churn_labels",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "pbs-gmm-v2",
+  "ds-pbs-oot-2025h2"
+ ],
+ "built_on": [
+  {
+   "what": "ds-pbs-oot-2025h2",
+   "quote": "the out-of-time outcomes for h2 2025",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "pbs-gmm-v2",
+   "quote": "pbs-gmm-v2",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-406-payment-behavior-segments.md",
+ "sha": "0ca46e1cff845e0075069684003ea4a8970ed06e3b2484a2143184e8af8d3760",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

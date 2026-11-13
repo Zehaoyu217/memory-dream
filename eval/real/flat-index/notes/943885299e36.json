@@ -1,0 +1,187 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-203-spend-forecasting",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-203-spend-forecasting"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-sfc-season-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-sfc-season-v2",
+    "Fourier and calendar terms"
+   ],
+   "lines": [
+    4,
+    5,
+    9
+   ]
+  },
+  {
+   "id": "exp-202-spend-forecasting",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-202-spend-forecasting"
+   ],
+   "lines": [
+    5,
+    9
+   ]
+  },
+  {
+   "id": "sfc-bt-2024",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "sfc-bt-2024"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "1-month MAPE",
+    "3-month MAPE"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "premier",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "Premier"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "small-business",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "Small business"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "student",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "Student"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-204-spend-forecasting",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-204-spend-forecasting"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "sfc-bt-2024",
+   "type": "uses",
+   "label": "adds",
+   "o": "feat-sfc-season-v2",
+   "quote": "Adds feat-sfc-season-v2 to the exp-202-spend-forecasting model, sfc-bt-2024.",
+   "line": 5
+  },
+  {
+   "s": "exp-203-spend-forecasting",
+   "type": "measured-by",
+   "label": "lowers",
+   "o": "mape",
+   "quote": "adding Fourier and calendar terms lowers 1-month MAPE to 5.2%",
+   "line": 4
+  },
+  {
+   "s": "sfc-bt-2024",
+   "type": "measured-by",
+   "label": "1-month MAPE",
+   "o": "mape",
+   "quote": "1-month MAPE 5.2% (from 5.6%), 3-month MAPE 6.8%.",
+   "line": 6
+  },
+  {
+   "s": "student",
+   "type": "measured-by",
+   "label": "still",
+   "o": "mape",
+   "quote": "Student still 9.7%",
+   "line": 7
+  },
+  {
+   "s": "feat-sfc-season-v2",
+   "type": "other",
+   "label": "gain in",
+   "o": "premier",
+   "quote": "Most of the gain is in Premier and Small business; Student still 9.7%.",
+   "line": 7
+  },
+  {
+   "s": "feat-sfc-season-v2",
+   "type": "other",
+   "label": "gain in",
+   "o": "small-business",
+   "quote": "Most of the gain is in Premier and Small business; Student still 9.7%.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-204-spend-forecasting",
+  "exp-202-spend-forecasting",
+  "feat-sfc-season-v2"
+ ],
+ "built_on": [
+  {
+   "what": "exp-202-spend-forecasting",
+   "quote": "exp-202-spend-forecasting",
+   "line": 9,
+   "asked": true
+  },
+  {
+   "what": "feat-sfc-season-v2",
+   "quote": "feat-sfc-season-v2",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-203-spend-forecasting.md",
+ "sha": "943885299e36f75dbdd8bbd9f4fe5dfcffce5b7c7cf9b3770dfbf85af8fe3fda",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

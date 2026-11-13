@@ -1,0 +1,85 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "cnp",
+   "type": "segment",
+   "label": "card-not-present",
+   "as": [
+    "CNP transactions"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "data-eng-cards",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "data-eng-cards"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fraud-rate",
+   "type": "metric",
+   "label": "fraud rate",
+   "as": [
+    "fraud rate 0.23%"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cnp",
+   "type": "part-of",
+   "label": "filtered from",
+   "o": "cards.txn_daily",
+   "quote": "Source: `cards.txn_daily` filtered to card-not-present, 2025-07-01 to 2026-09-30.",
+   "line": 5
+  },
+  {
+   "s": "cards.txn_daily",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "data-eng-cards",
+   "quote": "data-eng-cards owns the table.",
+   "line": 6
+  },
+  {
+   "s": "cnp",
+   "type": "measured-by",
+   "label": "has fraud rate",
+   "o": "fraud-rate",
+   "quote": "14.2M transactions, fraud rate 0.23% on matured labels",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-f26-cnp-txn.md",
+ "sha": "92e5702cdd333344fa2ceb72f7372db23bd7e70b00fca6af02b28ae78a09c2e6",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

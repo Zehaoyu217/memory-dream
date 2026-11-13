@@ -1,0 +1,74 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-504-customer-lifetime-value",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-504-customer-lifetime-value"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "marketing.campaign_responses",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "marketing.campaign_responses"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "offered-accounts",
+   "type": "segment",
+   "label": "offered accounts",
+   "as": [
+    "offered accounts"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-504-customer-lifetime-value",
+   "type": "uses",
+   "label": "takes from",
+   "o": "marketing.campaign_responses",
+   "quote": "Offer credits from marketing.campaign_responses subtracted from account-month revenue.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "fnd-clv-offer-cost"
+ ],
+ "built_on": [
+  {
+   "what": "dec-clv-ship-ml-v1",
+   "quote": "dec-clv-ship-ml-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-clv-revenue-monthly",
+   "quote": "ds-clv-revenue-monthly",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-504-customer-lifetime-value.md",
+ "sha": "4d67aaac72adfbd6bcf31fd718a5a8d97b0dab2f9cddace2838c67a79fbe4196",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

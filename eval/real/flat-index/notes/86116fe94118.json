@@ -1,0 +1,126 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-hist90-eod",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "Caller history v1",
+    "feat_hist90_eod"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "macro F1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "tool",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fnd-cr-leak-v1",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-cr-leak-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "callcenter-calls",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-cr-calls"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-hist90-eod",
+   "type": "measured-by",
+   "label": "lifts",
+   "o": "macro-f1",
+   "quote": "Lifts holdout-2025q4 macro F1 by +0.05",
+   "line": 6
+  },
+  {
+   "s": "feat-hist90-eod",
+   "type": "evaluated-on",
+   "label": "lifts on",
+   "o": "holdout-2025q4",
+   "quote": "Lifts holdout-2025q4 macro F1 by +0.05",
+   "line": 6
+  },
+  {
+   "s": "feat-hist90-eod",
+   "type": "uses",
+   "label": "added to",
+   "o": "lightgbm",
+   "quote": "when added to the LightGBM set (fnd-cr-leak-v1)",
+   "line": 6
+  },
+  {
+   "s": "feat-hist90-eod",
+   "type": "uses",
+   "label": "builds on",
+   "o": "callcenter-calls",
+   "quote": "Builds on ds-cr-calls.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "fnd-cr-leak-v1"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cr-calls",
+   "quote": "ds-cr-calls",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-cr-caller-history-v1.md",
+ "sha": "86116fe941186d928076ace9db0409fbabd53a324e93692954c717adddf41061",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

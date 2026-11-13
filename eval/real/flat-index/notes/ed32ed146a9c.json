@@ -1,0 +1,105 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "accounts_monthly"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "duplicate-closure-rows",
+   "type": "other",
+   "label": "duplicate rows",
+   "as": [
+    "Duplicate closure reissue rows"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "load_ts",
+   "type": "feature",
+   "label": "column",
+   "as": [
+    "load_ts"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Tomás Rivera"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "joined-row-count",
+   "type": "metric",
+   "label": "row count",
+   "as": [
+    "joined row count"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "duplicate-closure-rows",
+   "type": "part-of",
+   "label": "in",
+   "o": "cards.accounts_monthly",
+   "quote": "Duplicate closure reissue rows in accounts_monthly for 2024-11.",
+   "line": 4
+  },
+  {
+   "s": "duplicate-closure-rows",
+   "type": "owned-by",
+   "label": "fixed by",
+   "o": "tomas-rivera",
+   "quote": "Tomás Rivera's team fixed the duplicate upstream",
+   "line": 6
+  },
+  {
+   "s": "load_ts",
+   "type": "other",
+   "label": "restored",
+   "o": "joined-row-count",
+   "quote": "Keeping the max `load_ts` brought the joined row count back",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "howto/join-txn-to-accounts"
+ ],
+ "built_on": [
+  {
+   "what": "howto/join-txn-to-accounts",
+   "quote": "howto/join-txn-to-accounts",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/txn-join-duplicate-rows.md",
+ "sha": "ed32ed146a9c8c6561a93b966ad2aeca2754f3e83c603dedc8cbf4fe15a49798",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

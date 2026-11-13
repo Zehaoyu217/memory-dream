@@ -1,0 +1,128 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ror-churn-score",
+   "type": "feature",
+   "label": "churn score",
+   "as": [
+    "feat-ror-churn-score"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "churn-gbm-2025-v2",
+   "type": "model",
+   "label": "churn model",
+   "as": [
+    "churn-gbm-2025-v2"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "churn-2025",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "churn-2025"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "oct-2025-snapshot",
+   "type": "dataset",
+   "label": "october 2025 snapshot",
+   "as": [
+    "October 2025 snapshot"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ror-uplift-v1",
+   "type": "model",
+   "label": "uplift model",
+   "as": [
+    "ror-uplift-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-ror-tier-matrix",
+   "type": "dataset",
+   "label": "tier matrix",
+   "as": [
+    "the tier matrix"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ror-churn-score",
+   "type": "uses",
+   "label": "scores from",
+   "o": "churn-gbm-2025-v2",
+   "quote": "Scores from the churn-2025 project's churn-gbm-2025-v2",
+   "line": 5
+  },
+  {
+   "s": "churn-gbm-2025-v2",
+   "type": "part-of",
+   "label": "project",
+   "o": "churn-2025",
+   "quote": "churn-2025 project's churn-gbm-2025-v2",
+   "line": 5
+  },
+  {
+   "s": "ror-uplift-v1",
+   "type": "uses",
+   "label": "main input",
+   "o": "feat-ror-churn-score",
+   "quote": "Used as the main input to ror-uplift-v1.",
+   "line": 7
+  },
+  {
+   "s": "feat-ror-churn-score",
+   "type": "other",
+   "label": "gives rows of",
+   "o": "ds-ror-tier-matrix",
+   "quote": "Deciles give the rows of the tier matrix.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "churn-gbm-2025-v2",
+  "ror-uplift-v1"
+ ],
+ "built_on": [
+  {
+   "what": "churn-gbm-2025-v2",
+   "quote": "churn-gbm-2025-v2",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-ror-churn-score.md",
+ "sha": "61c94ecf01366499aea17c32ed2e8efa49f554ba670c778287400b5bede62fac",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

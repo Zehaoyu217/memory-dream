@@ -1,0 +1,116 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "cash-like-subset",
+   "type": "segment",
+   "label": "subset",
+   "as": [
+    "cash-like subset"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "mcc-6011",
+   "type": "term",
+   "label": "merchant code",
+   "as": [
+    "MCC 6011"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "cash-advance",
+   "type": "term",
+   "label": "transaction type",
+   "as": [
+    "cash advances"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "alert-card-ids",
+   "type": "feature",
+   "label": "key",
+   "as": [
+    "alert card ids"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feature-jobs",
+   "type": "pipeline",
+   "label": "job",
+   "as": [
+    "Feature jobs"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cash-like-subset",
+   "type": "part-of",
+   "label": "filtered from",
+   "o": "cards.txn_daily",
+   "quote": "Source: `cards.txn_daily` filtered to MCC 6011 and cash-advance transaction types.",
+   "line": 5
+  },
+  {
+   "s": "cash-like-subset",
+   "type": "uses",
+   "label": "filtered to",
+   "o": "mcc-6011",
+   "quote": "filtered to MCC 6011 and cash-advance transaction types",
+   "line": 5
+  },
+  {
+   "s": "cash-like-subset",
+   "type": "uses",
+   "label": "filtered to",
+   "o": "cash-advance",
+   "quote": "filtered to MCC 6011 and cash-advance transaction types",
+   "line": 5
+  },
+  {
+   "s": "cash-like-subset",
+   "type": "other",
+   "label": "linked to",
+   "o": "alert-card-ids",
+   "quote": "cards linked to alert card ids",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-aml-cash-txn.md",
+ "sha": "56e1424a1e057cc961ffe08292d935f4464832bca7fbe42d054cfb0e3d491d64",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

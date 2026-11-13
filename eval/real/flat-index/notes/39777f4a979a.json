@@ -1,0 +1,138 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "lbl-churn-xgb-v2",
+   "type": "model",
+   "label": "churn model",
+   "as": [
+    "churn model on rebuilt labels"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "lbl-oot-2025h2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "lbl-oot-2025h2"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "rebuilt-labels",
+   "type": "dataset",
+   "label": "labels",
+   "as": [
+    "Rebuilt labels"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "legacy-labels",
+   "type": "dataset",
+   "label": "labels",
+   "as": [
+    "Legacy labels"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "cards.churn_labels",
+   "type": "dataset",
+   "label": "churn labels table",
+   "as": [
+    "the churn labels table"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-lbl-churn-flag-closure",
+   "type": "feature",
+   "label": "churn flag",
+   "as": [
+    "feat-lbl-churn-flag-closure"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.768",
+    "AUC 0.751"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "lbl-churn-xgb-v2",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "lbl-oot-2025h2",
+   "quote": "Holdout lbl-oot-2025h2 (n=680,000 account-snapshots).",
+   "line": 5
+  },
+  {
+   "s": "lbl-churn-xgb-v2",
+   "type": "measured-by",
+   "label": "reaches",
+   "o": "auc",
+   "quote": "Rebuilt labels: AUC 0.768.",
+   "line": 6
+  },
+  {
+   "s": "lbl-churn-xgb-v2",
+   "type": "measured-by",
+   "label": "legacy AUC",
+   "o": "auc",
+   "quote": "Legacy labels: AUC 0.751.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "feat-lbl-churn-flag-closure"
+ ],
+ "built_on": [
+  {
+   "what": "ds-lbl-churn-labels",
+   "quote": "the churn labels table",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "feat-lbl-churn-flag-closure",
+   "quote": "feat-lbl-churn-flag-closure",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-407-label-pipeline-rebuild.md",
+ "sha": "39777f4a979aaa6e57aa0d2a2fff2dcfe286ad53578ef24a7f7caa607f8fca33",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,138 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "aml-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "aml-xgb-v2"
+   ],
+   "lines": [
+    4,
+    8
+   ]
+  },
+  {
+   "id": "oct-2025-jan-2026-dispositions",
+   "type": "dataset",
+   "label": "dispositions",
+   "as": [
+    "Oct 2025-Jan 2026 dispositions"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sar-referred-alerts",
+   "type": "segment",
+   "label": "alerts",
+   "as": [
+    "SAR-referred alerts"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "top-40-capture",
+   "type": "metric",
+   "label": "capture",
+   "as": [
+    "98.2% of SAR-referred alerts in the top 40%"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "aml-find-ranker-top40-revised",
+   "type": "other",
+   "label": "revised result",
+   "as": [
+    "aml-find-ranker-top40-revised"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "aml-find-ranker-top40",
+   "type": "other",
+   "label": "result",
+   "as": [
+    "in the top 40% of the queue"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-404-aml-alerts",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-404-aml-alerts"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "aml-xgb-v2",
+   "type": "evaluated-on",
+   "label": "result on",
+   "o": "oct-2025-jan-2026-dispositions",
+   "quote": "Result on Oct 2025-Jan 2026 dispositions (n=5,300)",
+   "line": 5
+  },
+  {
+   "s": "aml-xgb-v2",
+   "type": "measured-by",
+   "label": "capture",
+   "o": "top-40-capture",
+   "quote": "98.2% of SAR-referred alerts in the top 40%",
+   "line": 4
+  },
+  {
+   "s": "aml-find-ranker-top40-revised",
+   "type": "replaces",
+   "label": "overturns",
+   "o": "aml-find-ranker-top40",
+   "quote": "Overturned by aml-find-ranker-top40-revised on fresh Jan-Mar 2026 labels.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "aml-find-ranker-top40-revised",
+  "aml-xgb-v2",
+  "exp-404-aml-alerts"
+ ],
+ "built_on": [
+  {
+   "what": "aml-xgb-v2",
+   "quote": "aml-xgb-v2",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-404-aml-alerts",
+   "quote": "exp-404-aml-alerts",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/aml-find-ranker-top40.md",
+ "sha": "760e2c8985d3b723f1c2f798daea73db8915baab9bb4900cba2c8013d2261098",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

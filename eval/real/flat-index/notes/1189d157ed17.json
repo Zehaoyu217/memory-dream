@@ -1,0 +1,47 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "drift metric",
+   "as": [
+    "PSI"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  },
+  {
+   "id": "psi-bin-convention",
+   "type": "term",
+   "label": "binning convention",
+   "as": [
+    "10 quantile bins from the training set"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "psi",
+   "type": "uses",
+   "label": "binned by",
+   "o": "psi-bin-convention",
+   "quote": "PSI uses 10 quantile bins from the training set",
+   "line": 4
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/psi-bin-convention.md",
+ "sha": "1189d157ed17a90280c6b37d625b92a13cd257b0d6b3b9b75bff9a1f7128dc0d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

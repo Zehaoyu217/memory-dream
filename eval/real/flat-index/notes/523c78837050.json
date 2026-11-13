@@ -1,0 +1,60 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "app-sessions-daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "app.sessions_daily"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "accounts",
+   "type": "dataset",
+   "label": "accounts",
+   "as": [
+    "accounts"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "app-engagement",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "App engagement"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "app-engagement",
+   "type": "uses",
+   "label": "from",
+   "o": "app-sessions-daily",
+   "quote": "Joined to accounts on `account_id` from `app.sessions_daily`",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-c25-app-engagement.md",
+ "sha": "523c78837050ed3e94607aae70fe7b51c4599b33192ade2a1af7445e7e491441",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

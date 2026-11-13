@@ -1,0 +1,105 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-bt-limit-headroom",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-bt-limit-headroom"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.limits_history",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "cards.limits_history"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "find-bt-limit-leak",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-bt-limit-leak"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "dec-bt-drop-post-offer-features",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-bt-drop-post-offer-features"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bt-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bt-xgb-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-bt-limit-headroom",
+   "type": "uses",
+   "label": "read from",
+   "o": "cards.limits_history",
+   "quote": "read from `cards.limits_history` for rows dated before the offer open date only",
+   "line": 5
+  },
+  {
+   "s": "bt-xgb-v2",
+   "type": "uses",
+   "label": "top feature",
+   "o": "feat-bt-limit-headroom",
+   "quote": "Top feature by gain in bt-xgb-v2",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "find-bt-limit-leak",
+  "dec-bt-drop-post-offer-features"
+ ],
+ "built_on": [
+  {
+   "what": "exp-104-limit-headroom-full",
+   "quote": "the full limit history experiment",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "find-bt-limit-leak",
+   "quote": "find-bt-limit-leak",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-bt-limit-headroom.md",
+ "sha": "1849cfb4a56d42edd8b6eeee833e34f57520534c2a93372db51e42e84431b19e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

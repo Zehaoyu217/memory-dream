@@ -1,0 +1,153 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-c25-ship-gbm-v2",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: churn-gbm-2025-v2 scores the November 2025 cycle and replaces the April pilot"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "churn-gbm-2025-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "churn-gbm-2025-v2"
+   ],
+   "lines": [
+    4,
+    8
+   ]
+  },
+  {
+   "id": "dec-c25-ship-gbm-v1",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-c25-ship-gbm-v1",
+    "the April pilot"
+   ],
+   "lines": [
+    4,
+    5,
+    8,
+    9
+   ]
+  },
+  {
+   "id": "exp-107-churn-2025",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-107-churn-2025"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-106-churn-2025",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-106-churn-2025 holdout gains"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "util-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "util-v2 time-matched limit join"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "data engineering",
+   "as": [
+    "Tomas Rivera, data engineering"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "churn-lr-base-2025",
+   "type": "model",
+   "label": "monitoring challenger",
+   "as": [
+    "churn-lr-base-2025 is kept as the monitoring challenger"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-gbm-2025-v2",
+   "type": "uses",
+   "label": "with",
+   "o": "util-v2",
+   "quote": "Needs the util-v2 time-matched limit join in the scoring job",
+   "line": 6
+  },
+  {
+   "s": "dec-c25-ship-gbm-v2",
+   "type": "owned-by",
+   "label": "needs join from",
+   "o": "tomas-rivera",
+   "quote": "Needs the util-v2 time-matched limit join in the scoring job (Tomas Rivera, data engineering).",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "churn-gbm-2025-v2",
+   "quote": "churn-gbm-2025-v2",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "dec-c25-ship-gbm-v1",
+   "quote": "dec-c25-ship-gbm-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-107-churn-2025",
+   "quote": "exp-107-churn-2025",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "dec-c25-ship-gbm-v1",
+   "quote": "the April pilot",
+   "line": 4,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-c25-ship-gbm-v2.md",
+ "sha": "87257801f38105f001f907fe976c36dbdb890119b4349714186225a5a9403c24",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

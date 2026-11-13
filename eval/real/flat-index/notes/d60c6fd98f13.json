@@ -1,0 +1,179 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "approval-cutoff-v3",
+   "type": "policy",
+   "label": "approval cutoff",
+   "as": [
+    "approval cutoff score 585"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "decision maker",
+   "as": [
+    "Set by Lena Fischer"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "app-scorecard-v3",
+   "type": "model",
+   "label": "scorecard",
+   "as": [
+    "app-scorecard-v3"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "ds-app-applications-2024",
+   "type": "dataset",
+   "label": "2024 base",
+   "as": [
+    "in the 2024 base"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "approval-rate",
+   "type": "metric",
+   "label": "approval rate",
+   "as": [
+    "giving 61% approvals"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bad-rate",
+   "type": "metric",
+   "label": "bad rate",
+   "as": [
+    "a 4.6% bad rate in the 2024 base"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "manual-override-cap",
+   "type": "policy",
+   "label": "override cap",
+   "as": [
+    "Manual overrides above the cutoff are capped at 2% of approvals"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-app-cutoff-v4",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-app-cutoff-v4"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "approval-cutoff-v3",
+   "type": "uses",
+   "label": "set with",
+   "o": "app-scorecard-v3",
+   "quote": "Set by Lena Fischer on 2025-08-14 with app-scorecard-v3",
+   "line": 5
+  },
+  {
+   "s": "approval-cutoff-v3",
+   "type": "uses",
+   "label": "measured in",
+   "o": "ds-app-applications-2024",
+   "quote": "in the 2024 base",
+   "line": 5
+  },
+  {
+   "s": "approval-cutoff-v3",
+   "type": "measured-by",
+   "label": "giving",
+   "o": "approval-rate",
+   "quote": "giving 61% approvals",
+   "line": 5
+  },
+  {
+   "s": "approval-cutoff-v3",
+   "type": "measured-by",
+   "label": "giving",
+   "o": "bad-rate",
+   "quote": "a 4.6% bad rate in the 2024 base",
+   "line": 5
+  },
+  {
+   "s": "approval-cutoff-v3",
+   "type": "owned-by",
+   "label": "set by",
+   "o": "lena-fischer",
+   "quote": "Set by Lena Fischer on 2025-08-14",
+   "line": 5
+  },
+  {
+   "s": "manual-override-cap",
+   "type": "other",
+   "label": "caps overrides above",
+   "o": "approval-cutoff-v3",
+   "quote": "Manual overrides above the cutoff are capped at 2% of approvals.",
+   "line": 6
+  },
+  {
+   "s": "dec-app-cutoff-v4",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "approval-cutoff-v3",
+   "quote": "Superseded by dec-app-cutoff-v4 (2026-10-27).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-app-cutoff-v4",
+  "app-scorecard-v3",
+  "ds-app-applications-2024"
+ ],
+ "built_on": [
+  {
+   "what": "app-scorecard-v3",
+   "quote": "app-scorecard-v3",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-app-applications-2024",
+   "quote": "ds-app-applications-2024",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-app-cutoff-v3.md",
+ "sha": "d60c6fd98f137fcc9192df5baf193c4e3ad88fd051bc14e2ea1a6d0bcbd190af",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

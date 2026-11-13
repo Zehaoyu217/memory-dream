@@ -1,0 +1,111 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-clv-cohort-panel",
+   "type": "dataset",
+   "label": "cohort panel",
+   "as": [
+    "Cohort panel"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "tenure-feature",
+   "type": "feature",
+   "label": "tenure feature",
+   "as": [
+    "the tenure feature"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "retention-hazard",
+   "type": "term",
+   "label": "retention hazard",
+   "as": [
+    "the retention hazard"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "clv-model",
+   "type": "model",
+   "label": "clv model",
+   "as": [
+    "every CLV model"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-clv-cohort-panel",
+   "type": "uses",
+   "label": "from",
+   "o": "cards.accounts_monthly",
+   "quote": "from cards.accounts_monthly",
+   "line": 4
+  },
+  {
+   "s": "tenure-feature",
+   "type": "uses",
+   "label": "base table for",
+   "o": "ds-clv-cohort-panel",
+   "quote": "Base table for the tenure feature, the retention hazard and every CLV model.",
+   "line": 7
+  },
+  {
+   "s": "retention-hazard",
+   "type": "uses",
+   "label": "base table for",
+   "o": "ds-clv-cohort-panel",
+   "quote": "Base table for the tenure feature, the retention hazard and every CLV model.",
+   "line": 7
+  },
+  {
+   "s": "clv-model",
+   "type": "uses",
+   "label": "base table for",
+   "o": "ds-clv-cohort-panel",
+   "quote": "Base table for the tenure feature, the retention hazard and every CLV model.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "cards.accounts_monthly",
+   "quote": "from cards.accounts_monthly",
+   "line": 4,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-clv-cohort-panel.md",
+ "sha": "f59a3234531f4d3747ce78773cf947ffd98c6ef7c9d61e6edd6c464415e11e38",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

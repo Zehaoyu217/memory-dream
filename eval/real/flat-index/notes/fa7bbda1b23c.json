@@ -1,0 +1,155 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "clv-ml-v2",
+   "type": "model",
+   "label": "clv model",
+   "as": [
+    "clv-ml-v2",
+    "LightGBM for net 36-month margin with offer-netted ARPU and hazard, MAPE 15.2%"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "clv-oot-2021h1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "clv-oot-2021h1 (n=318,400)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "MAPE 15.2%"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "clv-ml-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "clv-ml-v1"
+   ],
+   "lines": [
+    8,
+    9
+   ]
+  },
+  {
+   "id": "dec-clv-ship-ml-v2",
+   "type": "document",
+   "label": "decision",
+   "as": [
+    "dec-clv-ship-ml-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-clv-hazard",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-clv-hazard",
+    "retention hazard"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "clv-ml-v2",
+   "type": "evaluated-on",
+   "label": "holdout on",
+   "o": "clv-oot-2021h1",
+   "quote": "Holdout clv-oot-2021h1 (n=318,400): MAPE 15.2%.",
+   "line": 6
+  },
+  {
+   "s": "clv-ml-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "mape",
+   "quote": "MAPE 15.2%",
+   "line": 4
+  },
+  {
+   "s": "clv-ml-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "clv-ml-v1",
+   "quote": "Replaces clv-ml-v1.",
+   "line": 9
+  },
+  {
+   "s": "clv-ml-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-clv-hazard",
+   "quote": "feat-clv-hazard",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "dec-clv-ship-ml-v2"
+ ],
+ "built_on": [
+  {
+   "what": "clv-ml-v1",
+   "quote": "clv-ml-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-505-customer-lifetime-value",
+   "quote": "the net arpu and hazard experiment",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-clv-arpu-v2",
+   "quote": "the offer-netted seasonal revenue feature",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-clv-hazard",
+   "quote": "feat-clv-hazard",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "clv-ml-v1",
+   "quote": "clv-ml-v1",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/clv-ml-v2.md",
+ "sha": "fa7bbda1b23c13215da9cca915eefc1bb91bf6456586c381012c291d943dd82e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

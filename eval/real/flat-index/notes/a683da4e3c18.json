@@ -1,0 +1,82 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-dq-rowcount-z-v2",
+   "type": "feature",
+   "label": "z-score feature",
+   "as": [
+    "feat-dq-rowcount-z-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-dq-rowcount-z-v1",
+   "type": "feature",
+   "label": "v1 z-score",
+   "as": [
+    "feat-dq-rowcount-z-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dq-volume-iforest-v1",
+   "type": "model",
+   "label": "isolation forest",
+   "as": [
+    "dq-volume-iforest-v1"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dq-volume-iforest-v1",
+   "type": "uses",
+   "label": "uses as input",
+   "o": "feat-dq-rowcount-z-v2",
+   "quote": "Used by dq-volume-iforest-v1 as one of its 12 inputs.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "dec-dq-same-weekday-baseline",
+  "fnd-volume-false-alarms"
+ ],
+ "built_on": [
+  {
+   "what": "feat-dq-rowcount-z-v1",
+   "quote": "feat-dq-rowcount-z-v1",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "fnd-volume-false-alarms",
+   "quote": "fnd-volume-false-alarms",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-dq-rowcount-z-v1",
+   "quote": "the all-weekday row count z-score",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-dq-rowcount-z-v2.md",
+ "sha": "a683da4e3c187c1b1600cdcb58deac985cd3fc40a5dc6525780a8535de43a73d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

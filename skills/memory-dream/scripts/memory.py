@@ -409,7 +409,8 @@ after, itself replaces or retires ("Replaces X."); that one thing replaced anoth
 is neither) is a relation and not this, and what replaced this note ("Superseded by X", "Replaced by X") is the
 opposite of it: leave that out. `what` is the file name of the note meant, without .md, whenever FOLDER
 lists it, however the text words it ("the dispositions dataset" is the note about that dataset); else its id in
-KNOWN, or the id you gave it under entities.
+KNOWN, or the id you gave it under entities; and when none of these names it, the words the note uses for it. An
+item is never left out because the note it means cannot be named: a later reading places it.
 KINDS: {kinds}
 TYPES:
 {types}
@@ -490,7 +491,26 @@ LINES (number · the note it stands in · asked · the line):
 {items}
 Reply with JSON only, one key per line: {"1": [{"words": "<copied from the line>", "note": "<file name>"}, {"words": "...", "note": null}], "2": []}
 """
-PLACE_LINES, PLACE_TEXT, PLACE_MAX = 45, 500, 200  # lines a call · characters of a line · calls a dream, the rest wait
+PLACE_LINES, PLACE_TEXT, PLACE_MAX = 45, 500, 400  # lines a call · characters of a line · calls a dream, the rest wait
+# A folder with more notes than a prompt can list (the flat bank of RESULTS phase S: 1,224 in one). The keeper is then
+# shown the notes near the lines it reads: those within four steps of a line's note by a name written in a note,
+# either way, and beside them the eight notes whose first line and name share the rarest words with the line.
+# Measured with no model on that bank: the note a phrase means is among them for 99.5% of 750 phrases, 33 notes at
+# the median, where the steps alone hold 95.5% and the words alone under 90%. The two are shown apart and the keeper
+# is told which is which: shown as one list, a look-alike from another project ("the logistic regression baseline"
+# has one in every project) made it answer that two notes could be meant, for 30 phrases whose note was near. The
+# script chooses what is shown and says how near it is; the keeper still decides.
+FOLDER_SHOWN, NEAR_SHOWN, NEAR_STEPS, NEAR_WORDS = 200, 120, 4, 8
+PLACE_NEAR = PLACE.replace("""FOLDER {area} (file name: first line):
+{folder}
+""", """FOLDER {area} has {count} notes, too many to list. NEAR are the notes that the notes of these lines name, or that
+name them, within a few steps (file name: first line). A phrase nearly always means one of them:
+{folder}
+ELSEWHERE in the folder, notes whose first line shares rare words with a line. One of these is meant only when
+nothing NEAR fits. When a NEAR note and one of these both fit, that is not "two could be": the NEAR one is meant.
+{also}
+""")
+assert PLACE_NEAR != PLACE
 
 # A packet (PLAN §4): the same reading asked for many notes in one call. The rules are EXTRACT's own, cut from it, so
 # the two prompts cannot drift apart; a note is named by the first twelve characters of the hash of its text.
@@ -2433,18 +2453,29 @@ class Dream:
         if len(text) > NOTE_CAP:
             text = text[:NOTE_CAP] + f"\n… [{len(text) - NOTE_CAP} more characters cut: the note is far over the 40-line rule]"
         pr = fill(EXTRACT, kinds=self.kind_names, types="\n".join(self.ty_lines), edges="\n".join(self.tlines),
-                  known=known_lines(ents, area_of(rel)), folder=self.folder_lines([area_of(rel)]), path=rel, text=text)
+                  known=known_lines(ents, area_of(rel)), folder=self.folder_lines([area_of(rel)], text=text), path=rel, text=text)
         return pr, pr.index("\nNOTE ") + 1
 
-    def folder_lines(self, areas, cap=80):
+    def folder_lines(self, areas, cap=80, text=""):
         """The notes of these folders as `file name: first line`: what lets a keeper name the note a phrase means
-        ("the dispositions dataset") when the text does not give its id. At most `cap` a folder."""
+        ("the dispositions dataset") when the text does not give its id. At most `cap` a folder. A folder with more
+        notes than that cannot be listed, and its first notes by name are no help: of such a folder only the notes
+        that `text`, the notes about to be read, names by their file name are given."""
         if not hasattr(self, "by_area"):
-            self.by_area = defaultdict(list)
+            self.by_area, self.line_of = defaultdict(list), {}
             for q in sorted(self.cur):
                 if self.facts[q]["title"] and area_of(q) != "log":
-                    self.by_area[area_of(q)].append(f"{posixpath.basename(q)[:-3]}: {self.facts[q]['title'][:80]}")
-        return "\n".join(ln for a in areas for ln in self.by_area.get(a, [])[:cap]) or "(none)"
+                    self.line_of[q] = f"{posixpath.basename(q)[:-3]}: {self.facts[q]['title'][:80]}"
+                    self.by_area[area_of(q)].append(self.line_of[q])
+        named = None
+        out = []
+        for a in areas:
+            lines = self.by_area.get(a, [])
+            if len(lines) > cap:
+                named = named if named is not None else set(re.findall(r"[a-z0-9][\w.-]*[a-z0-9]", text.lower()))
+                lines = [ln for ln in lines if ln.split(": ", 1)[0].lower() in named]
+            out += lines[:cap]
+        return "\n".join(out) or "(none)"
 
     def ingest(self, h, ans):
         rel = self.by_sha[h]
@@ -2512,16 +2543,16 @@ class Dream:
         first; each note follows under `NOTE <id> <path>:`."""
         areas = list(dict.fromkeys(area_of(self.by_sha[h]) for h in hs))
         known = list(dict.fromkeys(ln for a in areas for ln in known_lines(ents, a).split("\n")))[:120]
-        pr = fill(PACKET, kinds=self.kind_names, types="\n".join(self.ty_lines), edges="\n".join(self.tlines), known="\n".join(known),
-                  folder=self.folder_lines(areas))
-        static = len(pr)
+        body = ""
         for h in hs:
             rel = self.by_sha[h]
             text = read(self.root / rel)
             if len(text) > NOTE_CAP:
                 text = text[:NOTE_CAP] + f"\n… [{len(text) - NOTE_CAP} more characters cut: the note is far over the 40-line rule]"
-            pr += f"NOTE {h} {rel}:\n{text.rstrip()}\n"
-        return pr, static
+            body += f"NOTE {h} {rel}:\n{text.rstrip()}\n"
+        pr = fill(PACKET, kinds=self.kind_names, types="\n".join(self.ty_lines), edges="\n".join(self.tlines), known="\n".join(known),
+                  folder=self.folder_lines(areas, text=body))
+        return pr + body, len(pr)
 
     def index(self):
         """Answers left on file are taken first. Then, command mode: waves of -j parallel calls, a note each or with
@@ -2671,7 +2702,88 @@ class Dream:
             if at:
                 ls = read(self.root / rel).split("\n")
                 todo[area_of(rel)] += [(rel, f, n, " ".join(ls[n - 1].split())[:PLACE_TEXT]) for f, n in at if n <= len(ls)]
-        parts = [(a, todo[a][k:k + PLACE_LINES]) for a in sorted(todo) for k in range(0, len(todo[a]), PLACE_LINES)]
+        shown = int(env_numbers("MEMORY_FOLDER", (FOLDER_SHOWN,))[0])
+        few = min(NEAR_SHOWN, shown)  # the notes one call shows of a folder too large to list
+        self.folder_lines([])  # the lines by note, built once
+        sizes = Counter(area_of(q) for q in self.line_of)
+        adj, words, near = defaultdict(set), {}, {}
+        for e in g["edges"] if any(sizes[a] > shown for a in todo) else []:
+            if e["rel"] in ("refs", "from", "supersedes") and area_of(e["src"]) == area_of(e["dst"]):
+                adj[e["src"]].add(e["dst"])
+                adj[e["dst"]].add(e["src"])
+        wrx = re.compile(r"[a-z][a-z0-9]{3,}")
+
+        def steps(rel):  # {note of the folder: steps away, up to NEAR_STEPS} by a name written in a note, either way
+            if rel not in near:
+                seen, queue = {rel: 0}, [rel]
+                while queue:
+                    q = queue.pop(0)
+                    if seen[q] < NEAR_STEPS:
+                        for r in sorted(adj[q]):
+                            if r not in seen:
+                                seen[r] = seen[q] + 1
+                                queue.append(r)
+                near[rel] = seen
+            return near[rel]
+
+        def by_words(a, rel, text):  # the notes of the folder whose first line and name share the rarest words with the line
+            if (rel, text) in words:
+                return words[(rel, text)]
+            if a not in words:
+                ws = {q: set(wrx.findall((posixpath.basename(q)[:-3].replace("-", " ") + " " + self.facts[q]["title"]).lower()))
+                      for q in self.line_of if area_of(q) == a}
+                df, by = Counter(w for v in ws.values() for w in v), defaultdict(set)
+                for q, v in ws.items():
+                    for w in v:
+                        by[w].add(q)
+                words[a] = (len(ws), df, by)
+            n, df, by = words[a]
+            score = Counter()
+            for w in set(wrx.findall(text.lower())):
+                if w in by and df[w] <= n // 4:
+                    for q in by[w]:
+                        score[q] += math.log(n / df[w])
+            score.pop(rel, None)
+            words[(rel, text)] = [q for q, _ in sorted(score.items(), key=lambda kv: (-kv[1], kv[0]))[:NEAR_WORDS]]
+            return words[(rel, text)]
+
+        def nearby(a, part):  # {note of a large folder: how near} for the lines of one call; a note is not shown for its own line
+            rank = {}
+            for rel, f, n, text in part:
+                for q, d in steps(rel).items():
+                    if q != rel and q in self.line_of:
+                        rank[q] = min(rank.get(q, 9), d)
+                for q in by_words(a, rel, text):
+                    rank.setdefault(q, 9)  # 9: not near, shown for its words
+            return rank
+
+        for a in [a for a in todo if sizes[a] > shown]:  # in a large folder, the lines of notes that name each other side by side
+            have, order, seen = defaultdict(list), [], set()
+            for e in todo[a]:
+                have[e[0]].append(e)
+            for start in sorted(have):
+                queue = [] if start in seen else [start]
+                seen.add(start)
+                while queue:
+                    q = queue.pop(0)
+                    order += have.get(q, [])
+                    for r in sorted(adj[q]):
+                        if r not in seen:
+                            seen.add(r)
+                            queue.append(r)
+            todo[a] = order
+        parts = []
+        for a in sorted(todo):
+            if sizes[a] <= shown:
+                parts += [(a, todo[a][k:k + PLACE_LINES]) for k in range(0, len(todo[a]), PLACE_LINES)]
+                continue
+            part = []
+            for e in todo[a]:  # a call takes lines while the notes to show for them fit: none is cut for coming late in the alphabet
+                if part and (len(part) == PLACE_LINES or len(nearby(a, part + [e])) > few):
+                    parts.append((a, part))
+                    part = []
+                part.append(e)
+            parts += [(a, part)] if part else []
         self.placing["left"] = sum(len(part) for _, part in parts[PLACE_MAX:])
         parts = parts[:PLACE_MAX]
         if not parts:
@@ -2680,7 +2792,13 @@ class Dream:
         def prompt(a, part):
             items = "\n".join(f"{k} · {posixpath.basename(rel)[:-3]} · {'builds on' if f == 'built_on' else 'replaces'} · {text}"
                               for k, (rel, f, n, text) in enumerate(part, 1))
-            return fill(PLACE, area=a, folder=self.folder_lines([a], cap=200), items=items)
+            if sizes[a] <= shown:
+                return fill(PLACE, area=a, folder=self.folder_lines([a], cap=shown), items=items)
+            rank = nearby(a, part)
+            pick = sorted(sorted(rank), key=lambda q: rank[q])[:few]
+            return fill(PLACE_NEAR, area=a, count=sizes[a], items=items,
+                        folder="\n".join(self.line_of[q] for q in sorted(pick) if rank[q] < 9) or "(none)",
+                        also="\n".join(self.line_of[q] for q in sorted(pick) if rank[q] == 9) or "(none)")
         with ThreadPoolExecutor(max(1, self.args.j)) as ex:
             answers = list(ex.map(lambda part: call_model(self.cmd, prompt(*part)), parts))
         before = sum(e.get("by") == "reading" for e in g["edges"])

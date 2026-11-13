@@ -1,0 +1,95 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-503-app-engagement",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "Randomised push holdout: pushes add +0.2 percent sessions over 28 days (n = 214,000 accounts)"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "app-sessions",
+   "type": "feature",
+   "label": "sessions",
+   "as": [
+    "+0.2 percent sessions"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "push-open-rate",
+   "type": "metric",
+   "label": "correlation",
+   "as": [
+    "The open-rate correlation of 0.31"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout",
+   "type": "term",
+   "label": "holdout",
+   "as": [
+    "10 percent randomised holdout"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-503-app-engagement",
+   "type": "measured-by",
+   "label": "states",
+   "o": "app-sessions",
+   "quote": "Treated accounts averaged +0.2 percent sessions over 28 days against the holdout.",
+   "line": 6
+  },
+  {
+   "s": "push-open-rate",
+   "type": "other",
+   "label": "reverse causation",
+   "o": "app-sessions",
+   "quote": "The open-rate correlation of 0.31 is therefore mostly reverse causation.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fnd-ae-push-null",
+  "ds-ae-push-log",
+  "feat-ae-push-open-v1"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ae-push-log",
+   "quote": "ds-ae-push-log",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-ae-push-open-v1",
+   "quote": "feat-ae-push-open-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-503-app-engagement.md",
+ "sha": "8b66121a1a0afa48ff8f66bba8f1b3c464580f6ad371b65f449227925638d48d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

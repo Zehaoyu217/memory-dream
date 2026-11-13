@@ -1,0 +1,66 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "daily transactions table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "tomas-rivera",
+   "type": "team",
+   "label": "data-eng team",
+   "as": [
+    "Tomás Rivera's team"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "weekly-data-quality-gate",
+   "type": "policy",
+   "label": "row count gate",
+   "as": [
+    "The weekly deck does not publish"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "weekly-data-quality-gate",
+   "type": "uses",
+   "label": "checks row count of",
+   "o": "cards.txn_daily",
+   "quote": "if `cards.txn_daily` row count is more than 5% off",
+   "line": 4
+  },
+  {
+   "s": "tomas-rivera",
+   "type": "owned-by",
+   "label": "clears gate",
+   "o": "weekly-data-quality-gate",
+   "quote": "Tomás Rivera's team clears it",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/data-quality-gate.md",
+ "sha": "064281c5ebedd19e152a8df84ebf34e2b9f9e10eebbd5f49b517d178b56fae1f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

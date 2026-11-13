@@ -1,0 +1,117 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cu-dpd-roll-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-dpd-roll-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cu-resp-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cu-resp-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "collections.cases",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "collections.cases"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-cu-cases-dpd",
+   "type": "dataset",
+   "label": "snapshot",
+   "as": [
+    "ds-cu-cases-dpd"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "dpd",
+   "type": "term",
+   "label": "delinquency measure",
+   "as": [
+    "days-past-due"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cu-dpd-roll-v1",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards.accounts_monthly",
+   "quote": "Built from `cards.accounts_monthly` with `collections.cases` history.",
+   "line": 6
+  },
+  {
+   "s": "feat-cu-dpd-roll-v1",
+   "type": "uses",
+   "label": "built from",
+   "o": "collections.cases",
+   "quote": "Built from `cards.accounts_monthly` with `collections.cases` history.",
+   "line": 6
+  },
+  {
+   "s": "feat-cu-dpd-roll-v1",
+   "type": "part-of",
+   "label": "largest feature in",
+   "o": "cu-resp-v1",
+   "quote": "Largest feature in cu-resp-v1 by gain (0.31 of total gain).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "cu-resp-v1",
+  "ds-cu-cases-dpd"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cu-cases-dpd",
+   "quote": "ds-cu-cases-dpd",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-cu-dpd-roll-v1.md",
+ "sha": "1bd122ba862ccc7c0d98035da8960bd24cdbe88e36803a7b33a8dd0bf6430443",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

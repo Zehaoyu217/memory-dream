@@ -1,0 +1,222 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-102-churn-2025",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-102-churn-2025"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "algorithm",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "c25-oot-2024h1",
+   "type": "dataset",
+   "label": "holdout set",
+   "as": [
+    "Holdout c25-oot-2024h1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.741"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.36"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "recall-at-10",
+   "type": "metric",
+   "label": "recall",
+   "as": [
+    "recall@10% 0.29"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "churn-lr-base-2025",
+   "type": "model",
+   "label": "baseline model",
+   "as": [
+    "the logistic churn baseline"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-c25-util-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-c25-util-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-c25-recency",
+   "type": "feature",
+   "label": "recency feature",
+   "as": [
+    "the card transaction recency feature"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-c25-app-session-30d",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "the trailing 30-day app session feature"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-c25-payment-ratio",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "the payment ratio"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-c25-late-count",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "late count features"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-102-churn-2025",
+   "type": "uses",
+   "label": "uses algorithm",
+   "o": "lightgbm",
+   "quote": "LightGBM, num_leaves 31",
+   "line": 5
+  },
+  {
+   "s": "exp-102-churn-2025",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "c25-oot-2024h1",
+   "quote": "Holdout c25-oot-2024h1: AUC 0.741",
+   "line": 6
+  },
+  {
+   "s": "exp-102-churn-2025",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.741, KS 0.36, recall@10% 0.29",
+   "line": 6
+  },
+  {
+   "s": "exp-102-churn-2025",
+   "type": "measured-by",
+   "label": "KS",
+   "o": "ks",
+   "quote": "KS 0.36",
+   "line": 6
+  },
+  {
+   "s": "exp-102-churn-2025",
+   "type": "measured-by",
+   "label": "recall",
+   "o": "recall-at-10",
+   "quote": "recall@10% 0.29",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "churn-lr-base-2025",
+   "quote": "the logistic churn baseline",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-c25-app-sessions",
+   "quote": "the trailing 30-day app session feature",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-c25-payment-behaviour",
+   "quote": "the payment ratio and late count features",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-c25-txn-recency",
+   "quote": "the card transaction recency feature",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-c25-util-v1",
+   "quote": "feat-c25-util-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-102-churn-2025.md",
+ "sha": "322f222a2ca077c484f6b330a0944038fd829291cbcc6ca0624e09c21b785106",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

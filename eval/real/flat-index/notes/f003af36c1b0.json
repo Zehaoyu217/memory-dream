@@ -1,0 +1,217 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "pbs-gmm-v3",
+   "type": "model",
+   "label": "segment model",
+   "as": [
+    "pbs-gmm-v3"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "pbs-kmeans-v1",
+   "type": "model",
+   "label": "segment model",
+   "as": [
+    "kmeans"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "gmm-v2",
+   "type": "model",
+   "label": "segment table",
+   "as": [
+    "gmm-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "maya-ortiz",
+   "type": "person",
+   "label": "retention owner",
+   "as": [
+    "Maya Ortiz"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "raj-patel",
+   "type": "person",
+   "label": "collections owner",
+   "as": [
+    "Raj Patel"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "transactor",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "transactor"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "revolver",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "revolver"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "minimum-payer",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "minimum-payer"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cash-heavy",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "cash-heavy"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dormant",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "dormant"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "maya-ortiz",
+   "type": "uses",
+   "label": "takes the table",
+   "o": "pbs-gmm-v3",
+   "quote": "Retention (Maya Ortiz) and collections (Raj Patel) take the table from the next monthly run.",
+   "line": 7
+  },
+  {
+   "s": "raj-patel",
+   "type": "uses",
+   "label": "takes the table",
+   "o": "pbs-gmm-v3",
+   "quote": "Retention (Maya Ortiz) and collections (Raj Patel) take the table from the next monthly run.",
+   "line": 7
+  },
+  {
+   "s": "transactor",
+   "type": "part-of",
+   "label": "segment",
+   "o": "pbs-gmm-v3",
+   "quote": "The five segments are named transactor, revolver, minimum-payer, cash-heavy and dormant.",
+   "line": 6
+  },
+  {
+   "s": "revolver",
+   "type": "part-of",
+   "label": "segment",
+   "o": "pbs-gmm-v3",
+   "quote": "The five segments are named transactor, revolver, minimum-payer, cash-heavy and dormant.",
+   "line": 6
+  },
+  {
+   "s": "minimum-payer",
+   "type": "part-of",
+   "label": "segment",
+   "o": "pbs-gmm-v3",
+   "quote": "The five segments are named transactor, revolver, minimum-payer, cash-heavy and dormant.",
+   "line": 6
+  },
+  {
+   "s": "cash-heavy",
+   "type": "part-of",
+   "label": "segment",
+   "o": "pbs-gmm-v3",
+   "quote": "The five segments are named transactor, revolver, minimum-payer, cash-heavy and dormant.",
+   "line": 6
+  },
+  {
+   "s": "dormant",
+   "type": "part-of",
+   "label": "segment",
+   "o": "pbs-gmm-v3",
+   "quote": "The five segments are named transactor, revolver, minimum-payer, cash-heavy and dormant.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "fnd-pbs-five-segments",
+   "quote": "the five stable segments finding",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "pbs-gmm-v3",
+   "quote": "the current gmm segment model",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "pbs-kmeans-v1",
+   "quote": "the kmeans",
+   "line": 5,
+   "asked": true
+  },
+  {
+   "what": "pbs-gmm-v2",
+   "quote": "gmm-v2",
+   "line": 5,
+   "asked": true
+  },
+  {
+   "what": "gmm-v2",
+   "quote": "pbs-gmm-v3 replaces the kmeans and gmm-v2 tables",
+   "line": 5,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-pbs-gmm-v3-current.md",
+ "sha": "f003af36c1b02ced1da148287202ba026225a564b6880482da61305dcf06fbb9",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

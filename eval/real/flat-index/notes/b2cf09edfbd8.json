@@ -1,0 +1,91 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-fsm-payment-lag-v1",
+   "type": "feature",
+   "label": "payment lag feature",
+   "as": [
+    "feat-fsm-payment-lag-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-fsm-payment-lag-v2",
+   "type": "feature",
+   "label": "payment lag feature",
+   "as": [
+    "feat-fsm-payment-lag-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "payments table",
+   "as": [
+    "cards.payments_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-101-feature-store-migration",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-101-feature-store-migration"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-102-feature-store-migration",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-102-feature-store-migration"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-fsm-payment-lag-v1",
+   "type": "uses",
+   "label": "source",
+   "o": "cards.payments_daily",
+   "quote": "Source `cards.payments_daily`",
+   "line": 5
+  },
+  {
+   "s": "feat-fsm-payment-lag-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "feat-fsm-payment-lag-v1",
+   "quote": "Superseded by feat-fsm-payment-lag-v2",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-fsm-payment-lag-v2",
+  "exp-101-feature-store-migration",
+  "exp-102-feature-store-migration"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-fsm-payment-lag-v1.md",
+ "sha": "b2cf09edfbd8f3b64cdb26a27ffa6d3c13f2d44e35d60d31f5c09532367ef0da",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

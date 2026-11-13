@@ -1,0 +1,109 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "cards.churn_labels",
+   "type": "dataset",
+   "label": "churn labels",
+   "as": [
+    "cards.churn_labels: 90-day churn flag per account and observation month"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "data-eng-cards",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "data-eng-cards"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "churn-rate",
+   "type": "metric",
+   "label": "rate",
+   "as": [
+    "Churn rate 6.8%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "label-window",
+   "type": "term",
+   "label": "label window",
+   "as": [
+    "label window"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cards.churn_labels",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards.txn_daily",
+   "quote": "Built by the retention-labels job from `cards.txn_daily`",
+   "line": 5
+  },
+  {
+   "s": "cards.churn_labels",
+   "type": "owned-by",
+   "label": "maintained by",
+   "o": "data-eng-cards",
+   "quote": "maintained by data-eng-cards",
+   "line": 5
+  },
+  {
+   "s": "cards.churn_labels",
+   "type": "measured-by",
+   "label": "churn rate",
+   "o": "churn-rate",
+   "quote": "Churn rate 6.8% on the 2025 book",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "the retention-labels job",
+   "quote": "the retention-labels job",
+   "line": 5,
+   "asked": true
+  },
+  {
+   "what": "cards.txn_daily",
+   "quote": "cards.txn_daily",
+   "line": 5,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-churn-labels.md",
+ "sha": "95b10433e17ab5df8e388316329a020db49e6e6fb98123aeda89db01b80fbfc5",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

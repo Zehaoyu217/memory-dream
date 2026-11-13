@@ -1,0 +1,243 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "ror-uplift-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ror-uplift-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "t-learner",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "T-learner retention uplift"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "july-2025-wave",
+   "type": "other",
+   "label": "wave",
+   "as": [
+    "July 2025 wave"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-ror-churn-score",
+   "type": "feature",
+   "label": "churn score",
+   "as": [
+    "churn score"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "churn-gbm-2025-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "churn-gbm-2025-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-ror-offer-fatigue",
+   "type": "feature",
+   "label": "offer fatigue",
+   "as": [
+    "offer fatigue"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "feat-ror-value-band-v1",
+   "type": "feature",
+   "label": "value band",
+   "as": [
+    "value band v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "random-targeting",
+   "type": "other",
+   "label": "random targeting",
+   "as": [
+    "1.0pp random"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-403-retention-offers-roi",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-403-retention-offers-roi"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "ror-roi-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ror-roi-v1"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ror-uplift-v1",
+   "type": "trained-on",
+   "label": "trained on",
+   "o": "july-2025-wave",
+   "quote": "Trained on the July 2025 wave",
+   "line": 5
+  },
+  {
+   "s": "ror-uplift-v1",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-ror-churn-score",
+   "quote": "features churn score (churn-2025 churn-gbm-2025-v2), offer fatigue and value band v1.",
+   "line": 5
+  },
+  {
+   "s": "ror-uplift-v1",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-ror-offer-fatigue",
+   "quote": "features churn score (churn-2025 churn-gbm-2025-v2), offer fatigue and value band v1.",
+   "line": 5
+  },
+  {
+   "s": "ror-uplift-v1",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-ror-value-band-v1",
+   "quote": "features churn score (churn-2025 churn-gbm-2025-v2), offer fatigue and value band v1.",
+   "line": 5
+  },
+  {
+   "s": "feat-ror-churn-score",
+   "type": "uses",
+   "label": "from",
+   "o": "churn-gbm-2025-v2",
+   "quote": "churn-2025 churn-gbm-2025-v2",
+   "line": 5
+  },
+  {
+   "s": "ror-uplift-v1",
+   "type": "uses",
+   "label": "method",
+   "o": "t-learner",
+   "quote": "T-learner retention uplift on churn score, offer fatigue and value band",
+   "line": 4
+  },
+  {
+   "s": "ror-uplift-v1",
+   "type": "measured-by",
+   "label": "holdout uplift",
+   "o": "uplift-at-20",
+   "quote": "Holdout uplift@20% 2.4pp against 1.0pp random",
+   "line": 6
+  },
+  {
+   "s": "exp-403-retention-offers-roi",
+   "type": "measured-by",
+   "label": "holdout uplift",
+   "o": "uplift-at-20",
+   "quote": "Holdout uplift@20% 2.4pp against 1.0pp random (exp-403-retention-offers-roi).",
+   "line": 6
+  },
+  {
+   "s": "ror-roi-v1",
+   "type": "uses",
+   "label": "input",
+   "o": "ror-uplift-v1",
+   "quote": "Input to ror-roi-v1.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-403-retention-offers-roi",
+  "feat-ror-churn-score",
+  "churn-gbm-2025-v2",
+  "ror-roi-v1"
+ ],
+ "built_on": [
+  {
+   "what": "exp-403-retention-offers-roi",
+   "quote": "exp-403-retention-offers-roi",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-ror-churn-score",
+   "quote": "feat-ror-churn-score",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-ror-offer-fatigue",
+   "quote": "the trailing-12-month offer count feature",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-ror-value-band-v1",
+   "quote": "the first value band feature from deciles",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ror-uplift-v1.md",
+ "sha": "05135d494bfb8aee5b5286b18c73fe8c0011cca6fd93d4947eecdd94d68f2128",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

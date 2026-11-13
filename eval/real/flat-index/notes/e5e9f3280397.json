@@ -1,0 +1,123 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fraud25_alerts_log",
+   "type": "dataset",
+   "label": "alert log",
+   "as": [
+    "fraud25_alerts_log"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "travel-mcc-alerts",
+   "type": "segment",
+   "label": "travel alerts",
+   "as": [
+    "Travel-MCC alerts",
+    "travel alerts"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "non-travel-alerts",
+   "type": "segment",
+   "label": "non-travel alerts",
+   "as": [
+    "non-travel"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "precision-at-k",
+   "type": "metric",
+   "label": "precision",
+   "as": [
+    "precision"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "fraud25-alert-threshold",
+   "type": "flag",
+   "label": "alert threshold",
+   "as": [
+    "0.62 threshold"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "travel-mcc-alerts",
+   "type": "measured-by",
+   "label": "precision",
+   "o": "precision-at-k",
+   "quote": "travel alerts precision 3.1%",
+   "line": 5
+  },
+  {
+   "s": "non-travel-alerts",
+   "type": "measured-by",
+   "label": "precision",
+   "o": "precision-at-k",
+   "quote": "non-travel 11.4%",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "dec-f25-threshold-070",
+  "exp-108",
+  "fraud25-find-threshold-fine"
+ ],
+ "built_on": [
+  {
+   "what": "exp-106-fraud-2025",
+   "quote": "the travel share of alerts",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-108",
+   "quote": "exp-108",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fraud25-find-threshold-fine",
+   "quote": "the threshold precision finding",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "fraud25-find-threshold-fine",
+   "quote": "fraud25-find-threshold-fine",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fraud25-find-travel-overflag.md",
+ "sha": "e5e9f328039727b56db1e56dd1cf36f17f4f36bd8cad7556a55fc01bd0aea6d5",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

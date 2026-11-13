@@ -1,0 +1,136 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "travel-active-cohort-2024q4",
+   "type": "segment",
+   "label": "cohort",
+   "as": [
+    "2024-Q4 travel-active cohort"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "crm",
+   "type": "tool",
+   "label": "crm",
+   "as": [
+    "CRM contact date"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-trv-tenure",
+   "type": "feature",
+   "label": "tenure band",
+   "as": [
+    "feat-trv-tenure"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-507-travel-spend-recovery",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-507-travel-spend-recovery"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "monthly-travel-spend",
+   "type": "dataset",
+   "label": "spend data",
+   "as": [
+    "monthly travel spend by category"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "return-rate",
+   "type": "metric",
+   "label": "return rate",
+   "as": [
+    "return-rate test"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "travel-active-cohort-2024q4",
+   "type": "uses",
+   "label": "from",
+   "o": "cards.txn_daily",
+   "quote": "from `cards.txn_daily`",
+   "line": 5
+  },
+  {
+   "s": "exp-507-travel-spend-recovery",
+   "type": "uses",
+   "label": "used for",
+   "o": "travel-active-cohort-2024q4",
+   "quote": "Used for the return-rate test in exp-507-travel-spend-recovery",
+   "line": 7
+  },
+  {
+   "s": "feat-trv-tenure",
+   "type": "uses",
+   "label": "from CRM date",
+   "o": "crm",
+   "quote": "Tracked quarter by quarter to 2026-Q2; tenure band from the CRM contact date.",
+   "line": 6
+  },
+  {
+   "s": "feat-trv-tenure",
+   "type": "uses",
+   "label": "used for",
+   "o": "travel-active-cohort-2024q4",
+   "quote": "Used for the return-rate test in exp-507-travel-spend-recovery and for feat-trv-tenure.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-507-travel-spend-recovery",
+  "feat-trv-tenure"
+ ],
+ "built_on": [
+  {
+   "what": "ds-trv-travel-mcc-monthly",
+   "quote": "the monthly travel spend by category",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-trv-cohort-panel.md",
+ "sha": "cd666850b4aaacb6f046332022be3b0f0f85b96da3b2b8563e04d1ddd0120497",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

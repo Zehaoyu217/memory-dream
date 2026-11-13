@@ -1,0 +1,168 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-503-customer-lifetime-value",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-503-customer-lifetime-value"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "model",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "clv-oot-2021h1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "clv-oot-2021h1"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE 18.4%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bg-nbd-baseline",
+   "type": "model",
+   "label": "baseline",
+   "as": [
+    "BG/NBD baseline"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-clv-loss-rate",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "loss rate"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "arpu-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "arpu v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "tenure",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "tenure"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-503-customer-lifetime-value",
+   "type": "uses",
+   "label": "built on",
+   "o": "lightgbm",
+   "quote": "LightGBM on net 36-month margin",
+   "line": 4
+  },
+  {
+   "s": "exp-503-customer-lifetime-value",
+   "type": "uses",
+   "label": "features",
+   "o": "arpu-v1",
+   "quote": "Features: arpu v1, tenure, loss rate.",
+   "line": 5
+  },
+  {
+   "s": "exp-503-customer-lifetime-value",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-clv-loss-rate",
+   "quote": "Features: arpu v1, tenure, loss rate.",
+   "line": 5
+  },
+  {
+   "s": "exp-503-customer-lifetime-value",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "clv-oot-2021h1",
+   "quote": "Holdout clv-oot-2021h1",
+   "line": 6
+  },
+  {
+   "s": "exp-503-customer-lifetime-value",
+   "type": "measured-by",
+   "label": "MAPE",
+   "o": "mape",
+   "quote": "MAPE 18.4%",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "dec-clv-include-losses",
+  "feat-clv-loss-rate"
+ ],
+ "built_on": [
+  {
+   "what": "dec-clv-include-losses",
+   "quote": "dec-clv-include-losses",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "the bg/nbd versus gbm accuracy test",
+   "quote": "the bg/nbd versus gbm accuracy test",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-clv-loss-rate",
+   "quote": "feat-clv-loss-rate",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-503-customer-lifetime-value.md",
+ "sha": "73bb3950a88fbaa34cd74a51e3280db2d9c52ce7c05907c7ccd1ac3bc269b714",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

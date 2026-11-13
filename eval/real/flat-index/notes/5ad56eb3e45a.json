@@ -1,0 +1,93 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "xs-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "xs-gbm-v2"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  },
+  {
+   "id": "xs-holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "xs-holdout-2025q1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "open-rate",
+   "type": "metric",
+   "label": "open rate",
+   "as": [
+    "open rate"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "lift",
+   "type": "metric",
+   "label": "lift",
+   "as": [
+    "Lift 2.7x"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "xs-gbm-v2",
+   "type": "evaluated-on",
+   "label": "scored",
+   "o": "xs-holdout-2025q1",
+   "quote": "Scored the holdout (n=52,000, so 5,200 per decile)",
+   "line": 5
+  },
+  {
+   "s": "xs-gbm-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "open-rate",
+   "quote": "Top decile open rate 7.8% against 2.9% overall.",
+   "line": 5
+  },
+  {
+   "s": "xs-gbm-v2",
+   "type": "measured-by",
+   "label": "reports lift",
+   "o": "lift",
+   "quote": "Lift 2.7x.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "xs-gbm-v2",
+   "quote": "xs-gbm-v2",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-405-top-decile.md",
+ "sha": "5ad56eb3e45a46394487806d041417cf5a1390fda2aad145060b10504d0322cc",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

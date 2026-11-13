@@ -1,0 +1,195 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-405-retention-offers-roi",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-405-retention-offers-roi"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "bureau table",
+   "as": [
+    "bureau.scores_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bureau-pd-bands",
+   "type": "segment",
+   "label": "pd bands",
+   "as": [
+    "bureau PD bands"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "expected-credit-loss",
+   "type": "term",
+   "label": "concept",
+   "as": [
+    "expected credit loss"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "value-band",
+   "type": "term",
+   "label": "draft band",
+   "as": [
+    "Draft value band"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "roi",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "ROI by tier"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "t2-cashback",
+   "type": "other",
+   "label": "offer tier",
+   "as": [
+    "T2 cashback"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "t1-fee-waiver",
+   "type": "other",
+   "label": "offer tier",
+   "as": [
+    "T1 fee waiver"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "t3-apr-cut",
+   "type": "other",
+   "label": "offer tier",
+   "as": [
+    "T3 APR cut"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "t4-statement-credit",
+   "type": "other",
+   "label": "offer tier",
+   "as": [
+    "T4 statement credit"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-405-retention-offers-roi",
+   "type": "uses",
+   "label": "nets loss from",
+   "o": "bureau.scores_monthly",
+   "quote": "Draft value band nets expected credit loss from the bureau PD bands in bureau.scores_monthly.",
+   "line": 5
+  },
+  {
+   "s": "exp-405-retention-offers-roi",
+   "type": "measured-by",
+   "label": "ROI by tier",
+   "o": "roi",
+   "quote": "ROI by tier",
+   "line": 6
+  },
+  {
+   "s": "t2-cashback",
+   "type": "measured-by",
+   "label": "ROI",
+   "o": "roi",
+   "quote": "T2 cashback 1.09x",
+   "line": 6
+  },
+  {
+   "s": "t1-fee-waiver",
+   "type": "measured-by",
+   "label": "ROI",
+   "o": "roi",
+   "quote": "T1 fee waiver 1.02x",
+   "line": 6
+  },
+  {
+   "s": "t3-apr-cut",
+   "type": "measured-by",
+   "label": "ROI",
+   "o": "roi",
+   "quote": "T3 APR cut 0.74x",
+   "line": 6
+  },
+  {
+   "s": "t4-statement-credit",
+   "type": "measured-by",
+   "label": "ROI",
+   "o": "roi",
+   "quote": "T4 statement credit 0.96x",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "feat-ror-value-band-v1",
+   "quote": "the first value band feature from deciles",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fnd-ror-cashback-roi",
+   "quote": "the finding that t2 cashback returns best",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "the finding that t2 cashback returns best",
+   "quote": "Builds on the first value band feature from deciles and the finding that t2 cashback returns best.",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-405-retention-offers-roi.md",
+ "sha": "b90c6d3c3a778a27b75248c386e147cddf3ee176f69375e9e0c43b765350d260",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

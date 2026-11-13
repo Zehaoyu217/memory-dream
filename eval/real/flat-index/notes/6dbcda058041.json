@@ -1,0 +1,87 @@
+{
+ "kind": "design",
+ "entities": [
+  {
+   "id": "campaign",
+   "type": "other",
+   "label": "campaign",
+   "as": [
+    "200,000 account campaign"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "control-group",
+   "type": "segment",
+   "label": "control group",
+   "as": [
+    "control group"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "marketing.campaign_responses",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "marketing.campaign_responses"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout",
+   "type": "term",
+   "label": "holdout",
+   "as": [
+    "holdout"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "control-group",
+   "type": "part-of",
+   "label": "stored in",
+   "o": "marketing.campaign_responses",
+   "quote": "stored in `marketing.campaign_responses`",
+   "line": 5
+  },
+  {
+   "s": "holdout",
+   "type": "other",
+   "label": "kept for",
+   "o": "campaign",
+   "quote": "The holdout is kept for the full campaign",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "howto/campaign-holdout-design"
+ ],
+ "built_on": [
+  {
+   "what": "howto/campaign-holdout-design",
+   "quote": "howto/campaign-holdout-design",
+   "line": 6,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/campaign-control-size.md",
+ "sha": "6dbcda0580410f392b2d9bed56b50d9deeff81e04fe5acd7a614a105f347d535",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

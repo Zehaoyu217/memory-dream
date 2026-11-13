@@ -1,0 +1,80 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "bt-xgb-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bt-xgb-v3"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "q-bt-margin-threshold",
+   "type": "other",
+   "label": "open question",
+   "as": [
+    "q-bt-margin-threshold"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "margin-share",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "margin captured in the top 30%"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bt-xgb-v3",
+   "type": "uses",
+   "label": "scores",
+   "o": "margin-share",
+   "quote": "Mail the top 30% of the book by bt-xgb-v3 score",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "q-bt-margin-threshold"
+ ],
+ "built_on": [
+  {
+   "what": "bt-xgb-v3",
+   "quote": "the margin-trained xgboost bt model",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "dec-bt-margin-label",
+   "quote": "the decision to train on twelve-month margin",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "q-bt-margin-threshold",
+   "quote": "the question of which margin to target",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-bt-cut-mailer-top30.md",
+ "sha": "bbb9547ee5af4cd3f47099534943493720845154e3b9ec716c18660bf401b1d4",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

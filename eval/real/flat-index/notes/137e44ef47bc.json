@@ -1,0 +1,141 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "segment-label",
+   "type": "feature",
+   "label": "segment label",
+   "as": [
+    "The segment"
+   ],
+   "lines": [
+    4,
+    5,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "attrition-model",
+   "type": "model",
+   "label": "attrition model",
+   "as": [
+    "attrition model"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "Attrition AUC"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks statistic",
+   "as": [
+    "KS 0.31"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "dpd",
+   "type": "term",
+   "label": "delinquency band",
+   "as": [
+    "90+ DPD"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ds-pbs-oot-2025h2",
+   "type": "dataset",
+   "label": "out-of-time outcomes",
+   "as": [
+    "ds-pbs-oot-2025h2"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "attrition-model",
+   "type": "uses",
+   "label": "adds feature",
+   "o": "segment-label",
+   "quote": "when the segment label is added",
+   "line": 5
+  },
+  {
+   "s": "attrition-model",
+   "type": "measured-by",
+   "label": "AUC rises",
+   "o": "auc",
+   "quote": "Attrition AUC rises from 0.58 to 0.66",
+   "line": 5
+  },
+  {
+   "s": "segment-label",
+   "type": "measured-by",
+   "label": "gives",
+   "o": "ks",
+   "quote": "the segment alone gives KS 0.31 on ds-pbs-oot-2025h2",
+   "line": 6
+  },
+  {
+   "s": "segment-label",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "ds-pbs-oot-2025h2",
+   "quote": "the segment alone gives KS 0.31 on ds-pbs-oot-2025h2",
+   "line": 6
+  },
+  {
+   "s": "segment-label",
+   "type": "other",
+   "label": "scores for",
+   "o": "dpd",
+   "quote": "For 90+ DPD the segment alone gives KS 0.31",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "exp-406-payment-behavior-segments",
+   "quote": "exp-406-payment-behavior-segments",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-407-payment-behavior-segments",
+   "quote": "the segment's 90-day delinquency test",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-pbs-churn-signal.md",
+ "sha": "137e44ef47bc197309d070c5f10cb2aea9e496e5598d1dc2592580492dd48944",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

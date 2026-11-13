@@ -1,0 +1,144 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-f26-maturity-60d",
+   "type": "policy",
+   "label": "decision",
+   "as": [
+    "Decision: drop labels younger than 60 days from training and evaluation"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fraud26-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fraud26-gbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fraud26-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-201-fraud-2026",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-201-fraud-2026"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-202-fraud-2026",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-202-fraud-2026"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "maturity-cut",
+   "type": "term",
+   "label": "maturity cut",
+   "as": [
+    "labels younger than 60 days"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-f26-maturity-60d",
+   "type": "other",
+   "label": "applies to",
+   "o": "fraud26-gbm-v2",
+   "quote": "Applies to fraud26-gbm-v2 onward",
+   "line": 7
+  },
+  {
+   "s": "dec-f26-maturity-60d",
+   "type": "other",
+   "label": "notes as biased",
+   "o": "fraud26-gbm-v1",
+   "quote": "v1 is noted as biased",
+   "line": 7
+  },
+  {
+   "s": "dec-f26-maturity-60d",
+   "type": "other",
+   "label": "drops",
+   "o": "maturity-cut",
+   "quote": "drop labels younger than 60 days from training and evaluation",
+   "line": 5
+  },
+  {
+   "s": "exp-201-fraud-2026",
+   "type": "other",
+   "label": "vs",
+   "o": "exp-202-fraud-2026",
+   "quote": "exp-201-fraud-2026 vs exp-202-fraud-2026 showed a 0.023 AUC understatement from immature labels",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-201-fraud-2026",
+  "exp-202-fraud-2026",
+  "fraud26-gbm-v2"
+ ],
+ "built_on": [
+  {
+   "what": "exp-202-fraud-2026",
+   "quote": "the sixty-day maturity cut experiment",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fraud26-find-label-bias",
+   "quote": "the immature-label auc bias finding",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "q-f26-label-lag",
+   "quote": "the question of 2026 label maturity",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "the immature-label auc bias finding",
+   "quote": "Builds on the sixty-day maturity cut experiment, the immature-label auc bias finding and the question of 2026 label maturity.",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-f26-maturity-60d.md",
+ "sha": "0b2843154221bbcc9236642d59279efa80d312e932f7b76977ae364baec3539b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

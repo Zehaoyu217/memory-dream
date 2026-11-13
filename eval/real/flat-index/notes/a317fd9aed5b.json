@@ -1,0 +1,137 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "cli-logreg-baseline",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cli-logreg-baseline"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "exp-104-credit-line-increase",
+   "type": "other",
+   "label": "sweep",
+   "as": [
+    "exp-104-credit-line-increase"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "logistic-score-cutoff",
+   "type": "other",
+   "label": "score cutoff",
+   "as": [
+    "logistic score cutoff 0.031"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "dec-cli-loss-cap",
+   "type": "policy",
+   "label": "loss cap",
+   "as": [
+    "loss cap"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "revolver-exclusion",
+   "type": "policy",
+   "label": "revolver exclusion",
+   "as": [
+    "revolver exclusion"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "proactive-cli-waves",
+   "type": "other",
+   "label": "campaign waves",
+   "as": [
+    "2025 proactive CLI waves",
+    "2025 H2 waves"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "logistic-score-cutoff",
+   "type": "other",
+   "label": "applies to",
+   "o": "cli-logreg-baseline",
+   "quote": "Applies to cli-logreg-baseline only",
+   "line": 6
+  },
+  {
+   "s": "logistic-score-cutoff",
+   "type": "uses",
+   "label": "set from",
+   "o": "exp-104-credit-line-increase",
+   "quote": "Set on 2025-04-08 from the exp-104-credit-line-increase sweep",
+   "line": 5
+  },
+  {
+   "s": "logistic-score-cutoff",
+   "type": "uses",
+   "label": "set from",
+   "o": "dec-cli-loss-cap",
+   "quote": "and the loss cap in dec-cli-loss-cap",
+   "line": 5
+  },
+  {
+   "s": "proactive-cli-waves",
+   "type": "uses",
+   "label": "used with",
+   "o": "revolver-exclusion",
+   "quote": "the 2025 H2 waves used the same cutoff with the revolver exclusion",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "dec-cli-loss-cap",
+  "dec-cli-uplift-targeting",
+  "exp-104-credit-line-increase",
+  "cli-logreg-baseline"
+ ],
+ "built_on": [
+  {
+   "what": "cli-logreg-baseline",
+   "quote": "cli-logreg-baseline",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-104-credit-line-increase",
+   "quote": "exp-104-credit-line-increase",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-cli-cutoff-2025.md",
+ "sha": "a317fd9aed5b1aee6642acb93dd2f799a4abf823073796a0ee249b1ef8389bf2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

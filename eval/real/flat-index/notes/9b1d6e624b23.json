@@ -1,0 +1,162 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "trv-stl-v1",
+   "type": "model",
+   "label": "baseline model",
+   "as": [
+    "trv-stl-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "stl-decomposition",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "STL decomposition"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "arima",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "ARIMA model"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "total-travel-spend",
+   "type": "metric",
+   "label": "spend series",
+   "as": [
+    "total travel spend"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "stl-trend-growth",
+   "type": "metric",
+   "label": "trend growth",
+   "as": [
+    "Trend growth is 1.8% a quarter"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-501-travel-spend-recovery",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-501-travel-spend-recovery"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "monthly-travel-spend-by-category",
+   "type": "dataset",
+   "label": "source dataset",
+   "as": [
+    "the monthly travel spend by category"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-trv-seasonality-adj",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-trv-seasonality-adj"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "trv-stl-v1",
+   "type": "uses",
+   "label": "decomposes",
+   "o": "stl-decomposition",
+   "quote": "STL decomposition with an ARIMA model",
+   "line": 5
+  },
+  {
+   "s": "trv-stl-v1",
+   "type": "uses",
+   "label": "fits",
+   "o": "arima",
+   "quote": "STL decomposition with an ARIMA model on the trend and remainder of total travel spend.",
+   "line": 5
+  },
+  {
+   "s": "trv-stl-v1",
+   "type": "measured-by",
+   "label": "trend growth",
+   "o": "stl-trend-growth",
+   "quote": "Trend growth is 1.8% a quarter over 2023-01 to 2025-02",
+   "line": 6
+  },
+  {
+   "s": "trv-stl-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "exp-501-travel-spend-recovery",
+   "quote": "exp-501-travel-spend-recovery",
+   "line": 6
+  },
+  {
+   "s": "trv-stl-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-trv-seasonality-adj",
+   "quote": "feat-trv-seasonality-adj",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-501-travel-spend-recovery",
+  "feat-trv-seasonality-adj"
+ ],
+ "built_on": [
+  {
+   "what": "ds-trv-travel-mcc-monthly",
+   "quote": "the monthly travel spend by category",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-trv-seasonality-adj",
+   "quote": "feat-trv-seasonality-adj",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/trv-stl-v1.md",
+ "sha": "9b1d6e624b23849f39edfdab027702978d6df0fc888b4ffa420b30770e8923ee",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,94 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "transaction-frequency",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "Transaction frequency"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "nps_txn90",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "nps_txn90"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "nps_txn_chg60",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "nps_txn_chg60"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "transaction-frequency",
+   "type": "uses",
+   "label": "counts from",
+   "o": "cards.txn_daily",
+   "quote": "Counts from `cards.txn_daily` up to send_date.",
+   "line": 5
+  },
+  {
+   "s": "transaction-frequency",
+   "type": "other",
+   "label": "named in repo as",
+   "o": "nps_txn90",
+   "quote": "Feature names in the repo: nps_txn90, nps_txn_chg60.",
+   "line": 6
+  },
+  {
+   "s": "transaction-frequency",
+   "type": "other",
+   "label": "named in repo as",
+   "o": "nps_txn_chg60",
+   "quote": "Feature names in the repo: nps_txn90, nps_txn_chg60.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-nps-behaviour-join"
+ ],
+ "built_on": [
+  {
+   "what": "ds-nps-behaviour-join",
+   "quote": "ds-nps-behaviour-join",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-nps-txn-freq-v1.md",
+ "sha": "c761082dbb46b759f395300326e4a73de243562495183afc186abe7196908af2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

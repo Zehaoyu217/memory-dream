@@ -1,0 +1,99 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-csb-churn-labels",
+   "type": "dataset",
+   "label": "smb churn labels",
+   "as": [
+    "SMB churn labels from cards.churn_labels: 7.4% at 90 days, 4.1% at 60 days"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.churn_labels",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.churn_labels"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "build_churn_labels",
+   "type": "tool",
+   "label": "function",
+   "as": [
+    "build_churn_labels(window=N)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dec-csb-90d-window",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-csb-90d-window"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-csb-biz-accounts",
+   "type": "dataset",
+   "label": "base population",
+   "as": [
+    "ds-csb-biz-accounts"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-csb-churn-labels",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards.churn_labels",
+   "quote": "Built with `build_churn_labels(window=N)` on `cards.churn_labels`",
+   "line": 5
+  },
+  {
+   "s": "ds-csb-churn-labels",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-csb-biz-accounts",
+   "quote": "Builds on ds-csb-biz-accounts.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "dec-csb-90d-window",
+  "ds-csb-biz-accounts"
+ ],
+ "built_on": [
+  {
+   "what": "ds-csb-biz-accounts",
+   "quote": "ds-csb-biz-accounts",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-csb-churn-labels.md",
+ "sha": "be21a566c383a0e4ff58bc13b14bba060c83b79e09ef57b64c10b2bbd3a9fd8d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

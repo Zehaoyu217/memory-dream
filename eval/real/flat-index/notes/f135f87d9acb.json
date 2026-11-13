@@ -1,0 +1,119 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-txc-mcc-crosswalk",
+   "type": "dataset",
+   "label": "crosswalk",
+   "as": [
+    "MCC-to-category crosswalk"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "mcc",
+   "type": "term",
+   "label": "code",
+   "as": [
+    "MCC"
+   ],
+   "lines": [
+    4,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "merchant-category",
+   "type": "term",
+   "label": "category",
+   "as": [
+    "23 categories"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "cards.merchants",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "cards.merchants"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "data-eng-cards",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "data-eng-cards"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-txc-mcc-prior",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-txc-mcc-prior"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-txc-mcc-crosswalk",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "data-eng-cards",
+   "quote": "Owner is data-eng-cards (Tomás Rivera).",
+   "line": 5
+  },
+  {
+   "s": "mcc",
+   "type": "part-of",
+   "label": "source column",
+   "o": "cards.merchants",
+   "quote": "Source column is the MCC in `cards.merchants`",
+   "line": 7
+  },
+  {
+   "s": "ds-txc-mcc-crosswalk",
+   "type": "other",
+   "label": "maps codes to",
+   "o": "merchant-category",
+   "quote": "The crosswalk maps 412 merchant category codes to the same 23 categories used by the labels.",
+   "line": 5
+  },
+  {
+   "s": "feat-txc-mcc-prior",
+   "type": "uses",
+   "label": "source",
+   "o": "ds-txc-mcc-crosswalk",
+   "quote": "Source for feat-txc-mcc-prior.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-txc-mcc-prior"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-txc-mcc-crosswalk.md",
+ "sha": "f135f87d9acbfb2f749873d3efe715669520443c1e4cf97375d444ec5553bb7b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

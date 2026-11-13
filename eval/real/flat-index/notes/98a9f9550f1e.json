@@ -1,0 +1,84 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "chart-style-colour",
+   "type": "term",
+   "label": "chart colour rules",
+   "as": [
+    "Chart colour: brand blue for the primary series, grey for context, one orange highlight per chart"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "brand-blue",
+   "type": "term",
+   "label": "primary series colour",
+   "as": [
+    "brand blue `#1F4E9A`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "grey",
+   "type": "term",
+   "label": "context series colour",
+   "as": [
+    "grey `#B8BEC7`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "orange",
+   "type": "term",
+   "label": "highlight colour",
+   "as": [
+    "Orange `#E07B24`"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "chart-style-colour",
+   "type": "uses",
+   "label": "sets",
+   "o": "brand-blue",
+   "quote": "Primary series are brand blue `#1F4E9A`",
+   "line": 5
+  },
+  {
+   "s": "chart-style-colour",
+   "type": "uses",
+   "label": "sets",
+   "o": "grey",
+   "quote": "context series are grey `#B8BEC7`",
+   "line": 5
+  },
+  {
+   "s": "chart-style-colour",
+   "type": "uses",
+   "label": "sets",
+   "o": "orange",
+   "quote": "Orange `#E07B24` is used for exactly one highlighted series per chart",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/chart-style-colour.md",
+ "sha": "98a9f9550f1e6aa7aefb41c082bf2c85884514b65099581b9270cf00ffa07e51",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

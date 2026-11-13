@@ -1,0 +1,159 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "collections.pilot_assignments",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "collections.pilot_assignments"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "callcenter.calls"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.payments_daily"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "raj-patel",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Raj Patel"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "dpd-1-29-accounts",
+   "type": "segment",
+   "label": "eligible accounts",
+   "as": [
+    "eligible 1-29 DPD accounts"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "treatment-arm",
+   "type": "segment",
+   "label": "treatment arm",
+   "as": [
+    "treatment (90%, eligible for outbound contact by uplift rank)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "control-arm",
+   "type": "segment",
+   "label": "control arm",
+   "as": [
+    "control (10%, no outbound call)",
+    "control arm"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift@20%",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "randomised-pilot",
+   "type": "other",
+   "label": "pilot",
+   "as": [
+    "The pilot (Apr-Jun 2025)"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "collections.pilot_assignments",
+   "type": "uses",
+   "label": "joined to",
+   "o": "callcenter.calls",
+   "quote": "joined to `callcenter.calls` and `cards.payments_daily`",
+   "line": 6
+  },
+  {
+   "s": "collections.pilot_assignments",
+   "type": "uses",
+   "label": "joined to",
+   "o": "cards.payments_daily",
+   "quote": "joined to `callcenter.calls` and `cards.payments_daily`",
+   "line": 6
+  },
+  {
+   "s": "control-arm",
+   "type": "other",
+   "label": "makes estimable",
+   "o": "uplift-at-20",
+   "quote": "The control arm is the holdout that makes uplift estimable.",
+   "line": 5
+  },
+  {
+   "s": "collections.pilot_assignments",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "raj-patel",
+   "quote": "Owner of the assignment table: Raj Patel (collections)",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-cu-cases-dpd"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cu-cases-dpd",
+   "quote": "ds-cu-cases-dpd",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-cu-treat-log.md",
+ "sha": "ce42df45652d86dea4dc4874845a7c184522bc37d6e92b304f589cfb1dec0d21",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

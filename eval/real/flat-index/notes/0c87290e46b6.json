@@ -1,0 +1,75 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "cli-offer",
+   "type": "term",
+   "label": "cli offer",
+   "as": [
+    "the CLI amount is new total minus current limit"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "offers-tier-matrix",
+   "type": "dataset",
+   "label": "offers table",
+   "as": [
+    "`offers.tier_matrix` stores new_total_limit"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "2025-offer-extracts",
+   "type": "dataset",
+   "label": "offer extracts",
+   "as": [
+    "2025 offer extracts stored increments"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "offers-tier-matrix",
+   "type": "other",
+   "label": "stores new total limit",
+   "o": "cli-offer",
+   "quote": "From 2026-02 `offers.tier_matrix` stores new_total_limit",
+   "line": 5
+  },
+  {
+   "s": "2025-offer-extracts",
+   "type": "other",
+   "label": "stored increments",
+   "o": "cli-offer",
+   "quote": "2025 offer extracts stored increments",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "glossary/cli"
+ ],
+ "replaces": [
+  {
+   "what": "glossary/cli",
+   "quote": "glossary/cli",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "corrections/cli-new-total-limit.md",
+ "sha": "0c87290e46b639af5fa4d5c1cdd74f819309dcfb7fed2bd8dae41823af341de1",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

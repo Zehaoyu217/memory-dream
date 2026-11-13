@@ -1,0 +1,127 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fraud-label-maturity",
+   "type": "term",
+   "label": "maturity period",
+   "as": [
+    "120 days of maturity"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-402-label-pipeline-rebuild",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-402-label-pipeline-rebuild"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "label-lag",
+   "type": "metric",
+   "label": "label lag",
+   "as": [
+    "median label lag 71 days"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "label-lag-p95",
+   "type": "metric",
+   "label": "95th percentile label lag",
+   "as": [
+    "95th percentile 128 days"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout",
+   "type": "term",
+   "label": "holdout",
+   "as": [
+    "fraud holdout"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fraud-labels",
+   "type": "dataset",
+   "label": "labels",
+   "as": [
+    "Fraud labels"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fraud-label-arrival-delay",
+   "type": "term",
+   "label": "arrival delay",
+   "as": [
+    "fraud label arrival delay"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-402-label-pipeline-rebuild",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "label-lag",
+   "quote": "median label lag 71 days",
+   "line": 5
+  },
+  {
+   "s": "exp-402-label-pipeline-rebuild",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "label-lag-p95",
+   "quote": "95th percentile 128 days",
+   "line": 5
+  },
+  {
+   "s": "holdout",
+   "type": "uses",
+   "label": "must use",
+   "o": "fraud-label-maturity",
+   "quote": "Any fraud holdout must use transactions at least 120 days old.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-402-label-pipeline-rebuild"
+ ],
+ "built_on": [
+  {
+   "what": "exp-402-label-pipeline-rebuild",
+   "quote": "the fraud label arrival delay",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-fraud-maturity.md",
+ "sha": "9d14ec13e8caa0fa974ccedcd4cd04a09bd9205f4a7e04a9b4b73c64e1bb141c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

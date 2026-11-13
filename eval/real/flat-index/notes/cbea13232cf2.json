@@ -1,0 +1,122 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "cr-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cr-lgbm-v2"
+   ],
+   "lines": [
+    5,
+    9
+   ]
+  },
+  {
+   "id": "cr-lgbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cr-lgbm-v3"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-cr-intent-labels",
+   "type": "dataset",
+   "label": "labels",
+   "as": [
+    "ds-cr-intent-labels"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "cr-oot-2026h1",
+   "type": "dataset",
+   "label": "out-of-time set",
+   "as": [
+    "cr-oot-2026h1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "macro F1 0.73",
+    "macro F1 0.73 to 0.74"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "top-1-accuracy",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "top-1 accuracy 0.79 to 0.81"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cr-lgbm-v2",
+   "type": "measured-by",
+   "label": "arm A macro F1",
+   "o": "macro-f1",
+   "quote": "macro F1 0.73 unchanged",
+   "line": 7
+  },
+  {
+   "s": "cr-lgbm-v3",
+   "type": "measured-by",
+   "label": "arm B macro F1",
+   "o": "macro-f1",
+   "quote": "macro F1 0.73 to 0.74",
+   "line": 7
+  },
+  {
+   "s": "cr-lgbm-v3",
+   "type": "measured-by",
+   "label": "arm B top-1",
+   "o": "top-1-accuracy",
+   "quote": "top-1 accuracy 0.79 to 0.81",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "cr-lgbm-v2",
+   "quote": "cr-lgbm-v2",
+   "line": 9,
+   "asked": true
+  },
+  {
+   "what": "ds-cr-intent-labels",
+   "quote": "ds-cr-intent-labels",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "work/exp-106-call-center-routing.md",
+ "sha": "cbea13232cf2c099bd8a13549be8bd3fc60f9be1e7e30adcab98a9774eaa8867",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

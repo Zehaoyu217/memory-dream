@@ -1,0 +1,103 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.31"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini 0.52"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC of about 0.76"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "retention-propensity-model",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "the retention model"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "oot-set",
+   "type": "dataset",
+   "label": "oot accounts",
+   "as": [
+    "OOT accounts"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "gini",
+   "type": "uses",
+   "label": "derived from",
+   "o": "auc",
+   "quote": "Gini is derived as 2 times AUC minus 1",
+   "line": 5
+  },
+  {
+   "s": "retention-propensity-model",
+   "type": "measured-by",
+   "label": "shows KS and Gini",
+   "o": "ks",
+   "quote": "KS 0.31 and Gini 0.52 on n = 48,200 OOT accounts",
+   "line": 4
+  },
+  {
+   "s": "retention-propensity-model",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "oot-set",
+   "quote": "on n = 48,200 OOT accounts",
+   "line": 4
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "howto/ks-vs-gini-reporting",
+   "quote": "howto/ks-vs-gini-reporting",
+   "line": 6,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/ks-gini-retention-q1.md",
+ "sha": "b4ff4d2187b885b2b42eee9e350de3e677800bc63b2f4762ea7820502e6a8a43",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

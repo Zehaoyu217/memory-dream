@@ -1,0 +1,76 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "oot-split-by-observation-date",
+   "type": "term",
+   "label": "split rule",
+   "as": [
+    "Split on observation date, with a six-month gap and a three-month OOT tail"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "oot-set",
+   "type": "segment",
+   "label": "oot set",
+   "as": [
+    "The OOT set is the last three observation months"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "alex-chen",
+   "type": "person",
+   "label": "reviewer",
+   "as": [
+    "Alex Chen made the random split not allowed in review on 2025-06-03"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "split-random-holdout",
+   "type": "term",
+   "label": "replaced default",
+   "as": [
+    "Replaces the random account split default."
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "alex-chen",
+   "type": "other",
+   "label": "disallowed",
+   "o": "split-random-holdout",
+   "quote": "Alex Chen made the random split not allowed in review",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "replaces": [
+  {
+   "what": "split-random-holdout",
+   "quote": "the random account split default",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/oot-split-by-observation-date.md",
+ "sha": "10bb26786bc8a02399f9e2f53dd6b5a299ec712baefe9287a83d8391188ca9e2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

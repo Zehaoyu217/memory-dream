@@ -1,0 +1,165 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "model type",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "logistic-regression",
+   "type": "tool",
+   "label": "model type",
+   "as": [
+    "logistic regression"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "macro F1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-101-call-center-routing",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-101-call-center-routing"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "cr-lgbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cr-lgbm-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cr-logreg-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cr-logreg-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "reviewer",
+   "as": [
+    "Sam Lee"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "maya-ortiz",
+   "type": "person",
+   "label": "reviewer",
+   "as": [
+    "Maya Ortiz (retention)"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "lightgbm",
+   "type": "measured-by",
+   "label": "beats by macro F1",
+   "o": "macro-f1",
+   "quote": "LightGBM beats logistic regression by 0.13 macro F1 on holdout-2025q4",
+   "line": 5
+  },
+  {
+   "s": "lightgbm",
+   "type": "evaluated-on",
+   "label": "beats on",
+   "o": "holdout-2025q4",
+   "quote": "LightGBM beats logistic regression by 0.13 macro F1 on holdout-2025q4",
+   "line": 5
+  },
+  {
+   "s": "logistic-regression",
+   "type": "other",
+   "label": "stays as sanity baseline",
+   "o": "logistic-regression",
+   "quote": "Logistic regression stays in the repo as the sanity baseline.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-101-call-center-routing"
+ ],
+ "built_on": [
+  {
+   "what": "cr-lgbm-v1",
+   "quote": "cr-lgbm-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "cr-logreg-v1",
+   "quote": "cr-logreg-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-101-call-center-routing",
+   "quote": "exp-101-call-center-routing",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-cr-lgbm.md",
+ "sha": "3abe7367ba474deb93168c15ad403cd22f761ce5570758d4301827a6dc745d74",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

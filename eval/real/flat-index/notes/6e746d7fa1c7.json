@@ -1,0 +1,97 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "restaurant-merchants",
+   "type": "segment",
+   "label": "merchant group",
+   "as": [
+    "restaurant merchants"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "mcc",
+   "type": "term",
+   "label": "category code",
+   "as": [
+    "MCC 5812 and 5814"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "spend-model",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "the spend model"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.merchants",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.merchants"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "name-grouping",
+   "type": "term",
+   "label": "grouping method",
+   "as": [
+    "Name grouping"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "spend-model",
+   "type": "uses",
+   "label": "groups by",
+   "o": "mcc",
+   "quote": "By MCC 5812 and 5814, not by merchant name.",
+   "line": 4
+  },
+  {
+   "s": "mcc",
+   "type": "part-of",
+   "label": "comes from",
+   "o": "cards.merchants",
+   "quote": "The category comes from the MCC table on `cards.merchants`.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "howto/merchant-mcc-mapping"
+ ],
+ "built_on": [
+  {
+   "what": "howto/merchant-mcc-mapping",
+   "quote": "howto/merchant-mcc-mapping",
+   "line": 6,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/mcc-restaurant-grouping.md",
+ "sha": "6e746d7fa1c7551193151b4ddc4b9d001e4a40d82a96a47b7347334c1d5161b8",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,91 @@
+{
+ "kind": "term",
+ "entities": [
+  {
+   "id": "champion-challenger",
+   "type": "term",
+   "label": "test",
+   "as": [
+    "champion-challenger"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "champion",
+   "type": "model",
+   "label": "live model",
+   "as": [
+    "champion"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "challenger",
+   "type": "model",
+   "label": "candidate",
+   "as": [
+    "challenger"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "score-gbm-v5",
+   "type": "model",
+   "label": "challenger",
+   "as": [
+    "score-gbm-v5"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "champion-challenger",
+   "type": "other",
+   "label": "runs",
+   "o": "champion",
+   "quote": "runs the live model (champion) against a candidate (challenger)",
+   "line": 5
+  },
+  {
+   "s": "challenger",
+   "type": "measured-by",
+   "label": "promoted if higher",
+   "o": "auc",
+   "quote": "if its AUC is higher",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "glossary/champion-challenger.md",
+ "sha": "1d481a1b19735f93e2e4faae1b790ff90d5de25cf9d5336ae87e5d024bad3270",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

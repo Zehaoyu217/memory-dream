@@ -1,0 +1,223 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-105-churn-2025",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-105-churn-2025"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-104-churn-2025",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-104-churn-2025"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-c25-app-sessions",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-c25-app-sessions"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.757"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "c25-oot-2024h1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "c25-oot-2024h1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.38"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "app-session-lift",
+   "type": "metric",
+   "label": "lift",
+   "as": [
+    "App-session lift"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-103-churn-2025",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-103-churn-2025"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fnd-c25-app-lift-v2",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-c25-app-lift-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fnd-c25-app-lift",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-c25-app-lift"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "util-v2-model",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "the util-v2 model"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-105-churn-2025",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.757 on c25-oot-2024h1",
+   "line": 5
+  },
+  {
+   "s": "exp-105-churn-2025",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "ks",
+   "quote": "KS 0.38",
+   "line": 5
+  },
+  {
+   "s": "exp-105-churn-2025",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "c25-oot-2024h1",
+   "quote": "AUC 0.757 on c25-oot-2024h1",
+   "line": 5
+  },
+  {
+   "s": "exp-105-churn-2025",
+   "type": "other",
+   "label": "minus",
+   "o": "feat-c25-app-sessions",
+   "quote": "exp-104-churn-2025 minus feat-c25-app-sessions",
+   "line": 5
+  },
+  {
+   "s": "exp-105-churn-2025",
+   "type": "other",
+   "label": "removed from",
+   "o": "util-v2-model",
+   "quote": "app sessions removed from the util-v2 model",
+   "line": 4
+  },
+  {
+   "s": "app-session-lift",
+   "type": "measured-by",
+   "label": "measured in",
+   "o": "auc",
+   "quote": "App-session lift is now 0.001 AUC",
+   "line": 6
+  },
+  {
+   "s": "exp-103-churn-2025",
+   "type": "measured-by",
+   "label": "reports lift",
+   "o": "app-session-lift",
+   "quote": "down from 0.006 in exp-103-churn-2025",
+   "line": 6
+  },
+  {
+   "s": "exp-105-churn-2025",
+   "type": "other",
+   "label": "basis for",
+   "o": "fnd-c25-app-lift-v2",
+   "quote": "Basis for fnd-c25-app-lift-v2.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-104-churn-2025",
+  "fnd-c25-app-lift",
+  "fnd-c25-app-lift-v2",
+  "exp-103-churn-2025"
+ ],
+ "built_on": [
+  {
+   "what": "exp-104-churn-2025",
+   "quote": "exp-104-churn-2025",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fnd-c25-app-lift",
+   "quote": "fnd-c25-app-lift",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-105-churn-2025.md",
+ "sha": "0d750fb877c71bf5df480842761fc16637d497c9087eaaf56025d2a6d329ef3f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

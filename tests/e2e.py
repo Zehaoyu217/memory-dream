@@ -306,6 +306,20 @@ def placing(w):
     out = w.run("dream") + w.run("ask", "--list", "-p", "lib")
     w.ok("an item named by something no note answers to, whose own words give one note's path: that note, with no call",
          "supersedes paper-d" in w.head(out, "lib/paper-e.md") and "C18×1" in out, out)
+    w.write("lib/paper-f.md", "", "paper-f: drift on card data, a second look")
+    with open(w.root / "lib/paper-f.md", "a") as f:
+        f.write("Builds on the first drift test and paper-a.\n")
+    sha = hashlib.sha256((w.root / "lib/paper-f.md").read_bytes()).hexdigest()[:12]
+    (w.root / "_dream/pending" / f"{sha}.json").write_text(json.dumps({
+        "kind": "note", "entities": [], "relations": [], "refs": [], "built_on": [{"what": "paper-a", "quote": "Builds on the first drift test and paper-a"}]}))
+    save = w.dir / "placing-prompts"
+    out = w.run("dream", "--review", env={"MEMORY_LLM": FAKE, "FAKE_LOG": str(log), "FAKE_SAVE": str(save), "MEMORY_FOLDER": "3"})
+    asked = "".join(f.read_text() for f in sorted(save.glob("*-place.txt")))
+    head = w.head(w.run("ask", "--list", "-p", "lib"), "lib/paper-f.md")
+    w.ok("a folder with more notes than a prompt can list: the keeper is shown the notes near the line (those it names, and "
+         "those whose first line shares its rarest words), and the phrase the first reading left out is placed",
+         "too many to list. NEAR" in asked and "\npaper-b: " in asked and "paper-a" in head and "paper-b" in head,
+         out + asked[asked.find("FOLDER"):] + head)
 
 
 def proving(w):

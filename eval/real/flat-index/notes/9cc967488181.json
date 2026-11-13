@@ -1,0 +1,80 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-cld-decrease-cohort",
+   "type": "dataset",
+   "label": "cohort",
+   "as": [
+    "ds-cld-decrease-cohort",
+    "312,480 credit-line decreases"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.limits_history",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.limits_history"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-cld-decrease-cohort",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards.limits_history",
+   "quote": "Built from `cards.limits_history`",
+   "line": 5
+  },
+  {
+   "s": "ds-cld-decrease-cohort",
+   "type": "uses",
+   "label": "joined to",
+   "o": "cards.accounts_monthly",
+   "quote": "joined to `cards.accounts_monthly` for balances and delinquency",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "cards.limits_history",
+   "quote": "cards.limits_history",
+   "line": 5,
+   "asked": true
+  },
+  {
+   "what": "cards.accounts_monthly",
+   "quote": "cards.accounts_monthly",
+   "line": 5,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-cld-decrease-cohort.md",
+ "sha": "9cc967488181db71a10595dd21543b4f6ccf21d46f9a8c3a3bbfccce5bea432d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

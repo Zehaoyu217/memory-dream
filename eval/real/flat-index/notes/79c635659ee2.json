@@ -1,0 +1,86 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "omar-haddad",
+   "type": "person",
+   "label": "compliance approver",
+   "as": [
+    "Omar Haddad"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "aml-alerts",
+   "type": "other",
+   "label": "alert process",
+   "as": [
+    "AML alerts"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dec-aml-queue-only",
+   "type": "decision",
+   "label": "decision",
+   "as": [
+    "dec-aml-queue-only"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "aml-analyst-dispositions",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "aml analyst dispositions dataset"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "omar-haddad",
+   "type": "owned-by",
+   "label": "must approve",
+   "o": "omar-haddad",
+   "quote": "Compliance (Omar Haddad) must approve any model that changes how AML alerts reach analysts.",
+   "line": 5
+  },
+  {
+   "s": "dec-aml-queue-only",
+   "type": "other",
+   "label": "records",
+   "o": "dec-aml-queue-only",
+   "quote": "Decision recorded in dec-aml-queue-only (2026-02-04)",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-aml-queue-only"
+ ],
+ "built_on": [
+  {
+   "what": "ds-aml-dispositions",
+   "quote": "the aml analyst dispositions dataset",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/q-aml-signoff.md",
+ "sha": "79c635659ee2dffcc99fbbd024c232822518316488e81df254c790008517b25b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,95 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-301-bureau-score-migration",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-301-bureau-score-migration: linear map cuts v10 versus v8 PSI from 0.31 unmapped to 0.12 on the dual-pull test half"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "term",
+   "label": "psi",
+   "as": [
+    "PSI"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "ds-bsm-dual-pull-sample",
+   "type": "dataset",
+   "label": "test half",
+   "as": [
+    "Test half of ds-bsm-dual-pull-sample"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dec-bsm-linear-map",
+   "type": "decision",
+   "label": "decision",
+   "as": [
+    "dec-bsm-linear-map"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-301-bureau-score-migration",
+   "type": "evaluated-on",
+   "label": "tested on",
+   "o": "ds-bsm-dual-pull-sample",
+   "quote": "Test half of ds-bsm-dual-pull-sample, n=26,000 accounts",
+   "line": 5
+  },
+  {
+   "s": "exp-301-bureau-score-migration",
+   "type": "measured-by",
+   "label": "measures",
+   "o": "psi",
+   "quote": "PSI between mapped v10 and v8.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-303-bureau-score-migration",
+  "dec-bsm-linear-map"
+ ],
+ "built_on": [
+  {
+   "what": "ds-bsm-dual-pull-sample",
+   "quote": "the december 2025 dual-pull account sample",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-bsm-score-map-v1",
+   "quote": "feat-bsm-score-map-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-301-bureau-score-migration.md",
+ "sha": "a7683564c41d9a7efe6b54c4902da4f25243eca72aef8c50912ff31e03f5b078",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

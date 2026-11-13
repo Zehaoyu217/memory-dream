@@ -1,0 +1,94 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-104-collections-uplift",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-104-collections-uplift"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "cu-uplift-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cu-uplift-v1"
+   ],
+   "lines": [
+    8,
+    9
+   ]
+  },
+  {
+   "id": "exp-102-collections-uplift",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-102-collections-uplift"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-104-collections-uplift",
+   "type": "measured-by",
+   "label": "reaches",
+   "o": "uplift-at-20",
+   "quote": "uplift@20% of 0.009",
+   "line": 4
+  },
+  {
+   "s": "exp-104-collections-uplift",
+   "type": "uses",
+   "label": "same split as",
+   "o": "exp-102-collections-uplift",
+   "quote": "same pilot holdout split as exp-102-collections-uplift",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "collections_uplift/exp104_slearner.ipynb"
+ ],
+ "built_on": [
+  {
+   "what": "cu-uplift-v1",
+   "quote": "cu-uplift-v1",
+   "line": 9,
+   "asked": true
+  },
+  {
+   "what": "ds-cu-treat-log",
+   "quote": "the randomised pilot contact log",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-104-collections-uplift.md",
+ "sha": "1aae2a8025be01656a1f1dfc43e6c46cddd45db8bd18d84788e3eba9b6bb20c2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

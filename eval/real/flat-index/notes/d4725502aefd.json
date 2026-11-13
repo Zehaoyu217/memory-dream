@@ -1,0 +1,109 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-parity-pre-fix",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Before fixes, 13 of 214 features disagree between store and legacy, and local-time windows are the main cause"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-101-feature-store-migration",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-101-feature-store-migration"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "exp-102-feature-store-migration",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-102-feature-store-migration"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fnd-parity-post-fix",
+   "type": "finding",
+   "label": "finding",
+   "as": [
+    "fnd-parity-post-fix"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "local-time-windows",
+   "type": "term",
+   "label": "cause",
+   "as": [
+    "local-time windows"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fnd-parity-pre-fix",
+   "type": "uses",
+   "label": "built on",
+   "o": "exp-101-feature-store-migration",
+   "quote": "Builds on exp-101-feature-store-migration.",
+   "line": 8
+  },
+  {
+   "s": "exp-102-feature-store-migration",
+   "type": "other",
+   "label": "confirmed in",
+   "o": "fnd-parity-pre-fix",
+   "quote": "Confirmed in exp-102-feature-store-migration.",
+   "line": 6
+  },
+  {
+   "s": "fnd-parity-pre-fix",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "fnd-parity-post-fix",
+   "quote": "Superseded by fnd-parity-post-fix (2026-01-14)",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-101-feature-store-migration",
+  "exp-102-feature-store-migration",
+  "fnd-parity-post-fix"
+ ],
+ "built_on": [
+  {
+   "what": "exp-101-feature-store-migration",
+   "quote": "exp-101-feature-store-migration",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-parity-pre-fix.md",
+ "sha": "d4725502aefdfad0f1399bbfd746c773a0bf842cce19e6e81854115f619a8434",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

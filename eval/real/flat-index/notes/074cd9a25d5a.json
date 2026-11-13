@@ -1,0 +1,124 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-405-payment-behavior-segments",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-405-payment-behavior-segments"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-pbs-frame-h1-2025",
+   "type": "dataset",
+   "label": "frame",
+   "as": [
+    "full frame"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "roll-rate",
+   "type": "metric",
+   "label": "roll rate",
+   "as": [
+    "Twelve-month roll rates"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "revolver-segment",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "revolvers"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "transactor-segment",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "transactor"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "minimum-payer-segment",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "minimum-payer"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-405-payment-behavior-segments",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "ds-pbs-frame-h1-2025",
+   "quote": "Twelve-month roll rates per segment on the full frame tracked to Jan 2026.",
+   "line": 5
+  },
+  {
+   "s": "revolver-segment",
+   "type": "measured-by",
+   "label": "to transactor 14%",
+   "o": "roll-rate",
+   "quote": "Revolver to transactor: 14% of accounts in 12 months",
+   "line": 6
+  },
+  {
+   "s": "revolver-segment",
+   "type": "measured-by",
+   "label": "to minimum-payer 9%",
+   "o": "roll-rate",
+   "quote": "revolver to minimum-payer: 9%",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "q-pbs-revolver-migration",
+  "ds-pbs-frame-h1-2025"
+ ],
+ "built_on": [
+  {
+   "what": "ds-pbs-frame-h1-2025",
+   "quote": "ds-pbs-frame-h1-2025",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "q-pbs-revolver-migration",
+   "quote": "q-pbs-revolver-migration",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-405-payment-behavior-segments.md",
+ "sha": "074cd9a25d5a673fc2f2b5d2fa819f8183033b7bec57955f9f27ab47076d388d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

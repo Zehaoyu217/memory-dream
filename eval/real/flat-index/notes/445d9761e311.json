@@ -1,0 +1,78 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "random-70-30-split",
+   "type": "term",
+   "label": "retired split",
+   "as": [
+    "Random 70/30 account split"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds_split_utils.random_split",
+   "type": "module",
+   "label": "split function",
+   "as": [
+    "`ds_split_utils.random_split`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "reviewer",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "oot-split-by-observation-date",
+   "type": "term",
+   "label": "replacement method",
+   "as": [
+    "`howto/oot-split-by-observation-date`"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "random-70-30-split",
+   "type": "other",
+   "label": "showed",
+   "o": "lena-fischer",
+   "quote": "Lena Fischer showed that this let the model train on accounts whose later months sat in the holdout",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "oot-split-by-observation-date"
+ ],
+ "replaces": [
+  {
+   "what": "oot-split-by-observation-date",
+   "quote": "This split is retired. Use `howto/oot-split-by-observation-date`.",
+   "line": 6,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/split-random-holdout.md",
+ "sha": "445d9761e3114f85376ae6ba3ddc420d3f6b6ee603421d970f0134d769c1494d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

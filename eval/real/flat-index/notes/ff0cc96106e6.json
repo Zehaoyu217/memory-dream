@@ -1,0 +1,128 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "cards.fraud_labels",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "cards.fraud_labels"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "friendly-fraud-category-b",
+   "type": "term",
+   "label": "category",
+   "as": [
+    "friendly-fraud category B"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "daniel-okafor",
+   "type": "person",
+   "label": "decision maker",
+   "as": [
+    "Daniel Okafor"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "decision maker",
+   "as": [
+    "Tomas Rivera"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-lbl-fraud-flag-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-lbl-fraud-flag-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fraud-ops",
+   "type": "team",
+   "label": "owner",
+   "as": [
+    "fraud-ops"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cards.fraud_labels",
+   "type": "uses",
+   "label": "includes",
+   "o": "friendly-fraud-category-b",
+   "quote": "cards.fraud_labels includes friendly-fraud category B",
+   "line": 4
+  },
+  {
+   "s": "friendly-fraud-category-b",
+   "type": "other",
+   "label": "booked as loss by",
+   "o": "fraud-ops",
+   "quote": "Category B is booked as loss by fraud-ops",
+   "line": 5
+  },
+  {
+   "s": "feat-lbl-fraud-flag-v2",
+   "type": "other",
+   "label": "implements",
+   "o": "cards.fraud_labels",
+   "quote": "Implemented as feat-lbl-fraud-flag-v2.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "feat-lbl-fraud-flag-v2"
+ ],
+ "built_on": [
+  {
+   "what": "exp-403-label-pipeline-rebuild",
+   "quote": "the friendly-fraud label rate lift",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "fnd-friendly-fraud",
+   "quote": "the friendly-fraud label contribution",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "q-lbl-fraud-coverage",
+   "quote": "the open question on disputes coverage",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-lbl-friendly-fraud.md",
+ "sha": "ff0cc96106e651f38382ad7be0132d319338ddb1a1022da0e5633e46ed4c8d21",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

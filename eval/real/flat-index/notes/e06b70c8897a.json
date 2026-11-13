@@ -1,0 +1,171 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "merchant-month-panel",
+   "type": "dataset",
+   "label": "panel",
+   "as": [
+    "Merchant-month panel"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "merchant-volume",
+   "type": "feature",
+   "label": "column",
+   "as": [
+    "volume"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "merchant-count",
+   "type": "feature",
+   "label": "column",
+   "as": [
+    "count"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "distinct-cards",
+   "type": "feature",
+   "label": "column",
+   "as": [
+    "distinct cards"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "mrisk-oot-2025h2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "mrisk-oot-2025h2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "mrisk-oot-2026h1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "mrisk-oot-2026h1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-mrisk-merchants",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-mrisk-merchants"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "merchant-month-panel",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards.txn_daily",
+   "quote": "Built from `cards.txn_daily` aggregated per merchant per month",
+   "line": 5
+  },
+  {
+   "s": "merchant-volume",
+   "type": "part-of",
+   "label": "aggregated into",
+   "o": "merchant-month-panel",
+   "quote": "aggregated per merchant per month: volume, count, distinct cards.",
+   "line": 5
+  },
+  {
+   "s": "merchant-count",
+   "type": "part-of",
+   "label": "aggregated into",
+   "o": "merchant-month-panel",
+   "quote": "aggregated per merchant per month: volume, count, distinct cards.",
+   "line": 5
+  },
+  {
+   "s": "distinct-cards",
+   "type": "part-of",
+   "label": "aggregated into",
+   "o": "merchant-month-panel",
+   "quote": "aggregated per merchant per month: volume, count, distinct cards.",
+   "line": 5
+  },
+  {
+   "s": "mrisk-oot-2025h2",
+   "type": "other",
+   "label": "holdout of",
+   "o": "merchant-month-panel",
+   "quote": "Holdouts: mrisk-oot-2025h2 (labels as of 2026-03-01) and mrisk-oot-2026h1 (labels as of 2026-06-30).",
+   "line": 7
+  },
+  {
+   "s": "mrisk-oot-2026h1",
+   "type": "other",
+   "label": "holdout of",
+   "o": "merchant-month-panel",
+   "quote": "Holdouts: mrisk-oot-2025h2 (labels as of 2026-03-01) and mrisk-oot-2026h1 (labels as of 2026-06-30).",
+   "line": 7
+  },
+  {
+   "s": "merchant-month-panel",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-mrisk-merchants",
+   "quote": "Builds on ds-mrisk-merchants.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-mrisk-merchants"
+ ],
+ "built_on": [
+  {
+   "what": "ds-mrisk-merchants",
+   "quote": "ds-mrisk-merchants",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-mrisk-merchant-month.md",
+ "sha": "e06b70c8897a5fdfdf2ea9473a085b6510b766a31921f72772f331c7b58198ee",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

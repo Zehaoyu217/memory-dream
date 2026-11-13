@@ -1,0 +1,123 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "mrisk-oot-2025h2",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "mrisk-oot-2025h2"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "feat-mrisk-cb-ratio-90d",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mrisk-cb-ratio-90d"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.78"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "precision-at-100",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "precision@100 0.27"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-mrisk-merchant-month",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-mrisk-merchant-month"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-502-merchant-risk",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-502-merchant-risk"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-mrisk-cb-ratio-90d",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "mrisk-oot-2025h2",
+   "quote": "Eval set: mrisk-oot-2025h2 (Jul-Dec 2025 merchant-months, 212,900 rows, 1,184 high-risk merchant-months).",
+   "line": 5
+  },
+  {
+   "s": "feat-mrisk-cb-ratio-90d",
+   "type": "measured-by",
+   "label": "gave",
+   "o": "auc",
+   "quote": "Logistic regression on feat-mrisk-cb-ratio-90d only: AUC 0.78, precision@100 0.27.",
+   "line": 6
+  },
+  {
+   "s": "feat-mrisk-cb-ratio-90d",
+   "type": "measured-by",
+   "label": "gave",
+   "o": "precision-at-100",
+   "quote": "Logistic regression on feat-mrisk-cb-ratio-90d only: AUC 0.78, precision@100 0.27.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-mrisk-merchant-month",
+   "quote": "ds-mrisk-merchant-month",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-mrisk-cb-ratio-90d",
+   "quote": "feat-mrisk-cb-ratio-90d",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-501-merchant-risk.md",
+ "sha": "2b771ae806f478d40efd2133f709a03ac477f1be45f1272cb5928ad1c7185f6e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

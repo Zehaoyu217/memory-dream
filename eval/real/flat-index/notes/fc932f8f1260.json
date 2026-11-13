@@ -1,0 +1,250 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "rdm-uplift-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rdm-uplift-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "tool",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "waves-1-and-2",
+   "type": "dataset",
+   "label": "waves",
+   "as": [
+    "waves 1 and 2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "rdm-oot-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "rdm-oot-2025q1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "qini",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Qini"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-rdm-last-activity-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "last activity v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "prior-response",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "prior response"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "balance-band",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "balance band"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-rdm-app-installed",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "app installed"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "rdm-uplift-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rdm-uplift-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rdm-uplift-v1",
+   "type": "uses",
+   "label": "built with",
+   "o": "lightgbm",
+   "quote": "LightGBM T-learner",
+   "line": 5
+  },
+  {
+   "s": "rdm-uplift-v1",
+   "type": "trained-on",
+   "label": "trained on",
+   "o": "waves-1-and-2",
+   "quote": "LightGBM T-learner trained on waves 1 and 2",
+   "line": 5
+  },
+  {
+   "s": "rdm-uplift-v1",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-rdm-last-activity-v1",
+   "quote": "features last activity v1, prior response, balance band and app installed.",
+   "line": 5
+  },
+  {
+   "s": "rdm-uplift-v1",
+   "type": "uses",
+   "label": "features",
+   "o": "prior-response",
+   "quote": "features last activity v1, prior response, balance band and app installed.",
+   "line": 5
+  },
+  {
+   "s": "rdm-uplift-v1",
+   "type": "uses",
+   "label": "features",
+   "o": "balance-band",
+   "quote": "features last activity v1, prior response, balance band and app installed.",
+   "line": 5
+  },
+  {
+   "s": "rdm-uplift-v1",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-rdm-app-installed",
+   "quote": "features last activity v1, prior response, balance band and app installed.",
+   "line": 5
+  },
+  {
+   "s": "rdm-uplift-v1",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "rdm-oot-2025q1",
+   "quote": "Holdout rdm-oot-2025q1: uplift@20% 2.8pp",
+   "line": 6
+  },
+  {
+   "s": "rdm-uplift-v1",
+   "type": "measured-by",
+   "label": "reports uplift",
+   "o": "uplift-at-20",
+   "quote": "uplift@20% 2.8pp",
+   "line": 4
+  },
+  {
+   "s": "rdm-uplift-v1",
+   "type": "measured-by",
+   "label": "reports Qini",
+   "o": "qini",
+   "quote": "Qini 0.41",
+   "line": 6
+  },
+  {
+   "s": "rdm-uplift-v1",
+   "type": "other",
+   "label": "in production until",
+   "o": "rdm-uplift-v2",
+   "quote": "Production targeting model until rdm-uplift-v2 in February 2026.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-303-reactivation-dormant",
+  "feat-rdm-app-installed",
+  "feat-rdm-last-activity-v1",
+  "rdm-propensity-lr",
+  "rdm-uplift-v2"
+ ],
+ "built_on": [
+  {
+   "what": "exp-303-reactivation-dormant",
+   "quote": "exp-303-reactivation-dormant",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-rdm-app-installed",
+   "quote": "feat-rdm-app-installed",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-rdm-last-activity-v1",
+   "quote": "feat-rdm-last-activity-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "rdm-propensity-lr",
+   "quote": "rdm-propensity-lr",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/rdm-uplift-v1.md",
+ "sha": "fc932f8f1260eac61f9f9c410110de536b7683043647385a46791dbf8d1097fb",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

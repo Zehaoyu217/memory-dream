@@ -1,0 +1,108 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "in-app-channel",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "in-app"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "find-mq3-inapp-best",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-mq3-inapp-best"
+   ],
+   "lines": [
+    8,
+    9
+   ]
+  },
+  {
+   "id": "exp-304-channel-split",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-304-channel-split"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "dec-mq3-cap-inapp",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-mq3-cap-inapp"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "return-per-dollar",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "14.2 per dollar",
+    "4.8 per dollar"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "in-app-channel",
+   "type": "measured-by",
+   "label": "returns",
+   "o": "return-per-dollar",
+   "quote": "one or two touches return 14.2 per dollar; three or more return 4.8 per dollar",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "dec-mq3-cap-inapp"
+ ],
+ "built_on": [
+  {
+   "what": "exp-304-channel-split",
+   "quote": "exp-304-channel-split",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "find-mq3-inapp-best",
+   "quote": "find-mq3-inapp-best",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "find-mq3-inapp-best",
+   "quote": "find-mq3-inapp-best",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "work/find-mq3-inapp-saturates.md",
+ "sha": "f5959a87a51911f9b58d2c041803d87e4609a169ceeed5891d75fba423264eeb",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,82 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "12-month-promo",
+   "type": "other",
+   "label": "promo",
+   "as": [
+    "12-month 0% promo"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "score-under-640",
+   "type": "segment",
+   "label": "score band",
+   "as": [
+    "score under 640"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "standard-offer",
+   "type": "other",
+   "label": "offer",
+   "as": [
+    "standard offer"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "12-month-promo",
+   "type": "other",
+   "label": "loses money in",
+   "o": "score-under-640",
+   "quote": "Under 640 the 12-month promo loses money once churn and loss are counted",
+   "line": 5
+  },
+  {
+   "s": "score-under-640",
+   "type": "other",
+   "label": "can still get",
+   "o": "standard-offer",
+   "quote": "Accounts under 640 can still get the standard offer.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "find-pa-band-het",
+  "find-pa-margin-corrected"
+ ],
+ "built_on": [
+  {
+   "what": "find-pa-band-het",
+   "quote": "find-pa-band-het",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "find-pa-margin-corrected",
+   "quote": "find-pa-margin-corrected",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-pa-no-12m-subprime.md",
+ "sha": "78be9859d944de82125e4389b9d0ca0a2aef100d61904a3f9dc4c13a6529c3d1",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

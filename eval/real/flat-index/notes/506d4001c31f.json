@@ -1,0 +1,159 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "depth-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "Depth v1"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "depth-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "depth v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "tenure-under-90-subset",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "tenure under 90 days subset"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4 (n = 38,500)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-ae-holdout",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-ae-holdout"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fnd-ae-new-user-inflation",
+   "type": "document",
+   "label": "finding",
+   "as": [
+    "fnd-ae-new-user-inflation"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "mean-score",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "mean score 62"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "depth-v1",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "tenure-under-90-subset",
+   "quote": "score on the tenure under 90 days subset of holdout-2025q4",
+   "line": 5
+  },
+  {
+   "s": "depth-v2",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "tenure-under-90-subset",
+   "quote": "score on the tenure under 90 days subset of holdout-2025q4",
+   "line": 5
+  },
+  {
+   "s": "tenure-under-90-subset",
+   "type": "part-of",
+   "label": "subset of",
+   "o": "holdout-2025q4",
+   "quote": "score on the tenure under 90 days subset of holdout-2025q4",
+   "line": 5
+  },
+  {
+   "s": "depth-v1",
+   "type": "measured-by",
+   "label": "mean score",
+   "o": "mean-score",
+   "quote": "Mean score 62 under v1, 48 under v2.",
+   "line": 6
+  },
+  {
+   "s": "depth-v2",
+   "type": "measured-by",
+   "label": "mean score",
+   "o": "mean-score",
+   "quote": "Mean score 62 under v1, 48 under v2.",
+   "line": 6
+  },
+  {
+   "s": "fnd-ae-new-user-inflation",
+   "type": "other",
+   "label": "result in",
+   "o": "depth-v1",
+   "quote": "Result in fnd-ae-new-user-inflation.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-ae-new-user-inflation"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ae-holdout",
+   "quote": "ds-ae-holdout",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-ae-depth-v1",
+   "quote": "the original depth feature",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-504-app-engagement.md",
+ "sha": "506d4001c31fdbf0a383e3060be678cc5dce45f50dfd470cb7c8ede5df8a47c7",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

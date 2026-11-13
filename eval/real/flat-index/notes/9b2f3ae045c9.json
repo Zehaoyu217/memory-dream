@@ -1,0 +1,79 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-205-limit-decrease-policy",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-205-limit-decrease-policy"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cld-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cld-gbm-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "dec-cld-cap-25pct",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-cld-cap-25pct"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-205-limit-decrease-policy",
+   "type": "uses",
+   "label": "builds on",
+   "o": "cld-gbm-v1",
+   "quote": "Builds on cld-gbm-v1",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "dec-cld-cap-25pct"
+ ],
+ "built_on": [
+  {
+   "what": "cld-gbm-v1",
+   "quote": "cld-gbm-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-cld-control-2025h2",
+   "quote": "the 2025 second-half randomised holdout",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "2025 second-half randomised holdout",
+   "quote": "Builds on cld-gbm-v1 and the 2025 second-half randomised holdout.",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-205-limit-decrease-policy.md",
+ "sha": "9b2f3ae045c9e27d1985ecde400a129126f2caff4bb2e7ce3be25b5055b6589d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

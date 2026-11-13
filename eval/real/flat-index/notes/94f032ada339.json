@@ -1,0 +1,87 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "contact-rate",
+   "type": "metric",
+   "label": "contact rate",
+   "as": [
+    "contact rate"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "callcenter-calls",
+   "type": "dataset",
+   "label": "call records",
+   "as": [
+    "callcenter.calls"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "yuki-tanaka",
+   "type": "person",
+   "label": "cx dashboard owner",
+   "as": [
+    "Yuki Tanaka's CX dashboard"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cx-dashboard",
+   "type": "dashboard",
+   "label": "cx dashboard",
+   "as": [
+    "CX dashboard"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "contact-rate",
+   "type": "uses",
+   "label": "from",
+   "o": "callcenter-calls",
+   "quote": "from `callcenter.calls`",
+   "line": 5
+  },
+  {
+   "s": "cx-dashboard",
+   "type": "owned-by",
+   "label": "relabelled by",
+   "o": "yuki-tanaka",
+   "quote": "Yuki Tanaka's CX dashboard was relabelled to match",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "glossary/contact-rate"
+ ],
+ "replaces": [
+  {
+   "what": "glossary/contact-rate",
+   "quote": "glossary/contact-rate",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "corrections/contact-rate-per-100.md",
+ "sha": "94f032ada339732f86ca2aaf278c3308d9c6e7ea91da257189212e8fa479123b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

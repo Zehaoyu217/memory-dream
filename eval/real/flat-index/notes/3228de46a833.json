@@ -1,0 +1,48 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "cards.disputes",
+   "type": "dataset",
+   "label": "dispute table",
+   "as": [
+    "cards.disputes"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "dispute_case_id",
+   "type": "feature",
+   "label": "count key",
+   "as": [
+    "dispute_case_id"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cards.disputes",
+   "type": "other",
+   "label": "writes one row per",
+   "o": "dispute_case_id",
+   "quote": "`cards.disputes` writes one row per status change",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/dedupe-disputes-by-case.md",
+ "sha": "3228de46a833ea9799b30cee53fda3a3dca35afae6ed8543944c06a9512f618c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

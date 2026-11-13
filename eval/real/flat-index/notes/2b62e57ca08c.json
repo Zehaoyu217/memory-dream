@@ -1,0 +1,67 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "psi",
+   "type": "term",
+   "label": "drift measure",
+   "as": [
+    "PSI"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "retrain companion metric",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "psi",
+   "type": "other",
+   "label": "retrain requires",
+   "o": "ks",
+   "quote": "A retrain is requested only if PSI is above 0.25 and KS also drops by 0.02 or more",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "psi-thresholds-v1"
+ ],
+ "built_on": [
+  {
+   "what": "psi-thresholds-v1",
+   "quote": "Replaces psi-thresholds-v1.",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "psi-thresholds-v1",
+   "quote": "psi-thresholds-v1",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/psi-thresholds.md",
+ "sha": "2b62e57ca08ce0b72ec4f12f7d65715f08bf88b2f0318a0ab5fd1971f1435e1b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,180 @@
+{
+ "kind": "report",
+ "entities": [
+  {
+   "id": "rev26-combined-v1",
+   "type": "other",
+   "label": "revenue line",
+   "as": [
+    "rev26-combined-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "rev26-interchange-v1",
+   "type": "other",
+   "label": "revenue line",
+   "as": [
+    "rev26-interchange-v1"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "rev26-interest-v2",
+   "type": "other",
+   "label": "revenue line",
+   "as": [
+    "rev26-interest-v2"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "fee-income",
+   "type": "other",
+   "label": "revenue line",
+   "as": [
+    "fee income"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sfc-hier-v3",
+   "type": "model",
+   "label": "forecast",
+   "as": [
+    "sfc-hier-v3"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "scenario-runs",
+   "type": "scenario",
+   "label": "scenario",
+   "as": [
+    "scenario runs"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "board-pack",
+   "type": "document",
+   "label": "pack",
+   "as": [
+    "board pack"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dec-rev26-cap-scenario-separate",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "cap scenarios"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rev26-combined-v1",
+   "type": "uses",
+   "label": "sums",
+   "o": "rev26-interchange-v1",
+   "quote": "Sums rev26-interchange-v1, rev26-interest-v2 and fee income into one FY26 revenue line.",
+   "line": 5
+  },
+  {
+   "s": "rev26-combined-v1",
+   "type": "uses",
+   "label": "sums",
+   "o": "rev26-interest-v2",
+   "quote": "Sums rev26-interchange-v1, rev26-interest-v2 and fee income into one FY26 revenue line.",
+   "line": 5
+  },
+  {
+   "s": "rev26-combined-v1",
+   "type": "uses",
+   "label": "sums",
+   "o": "fee-income",
+   "quote": "Sums rev26-interchange-v1, rev26-interest-v2 and fee income into one FY26 revenue line.",
+   "line": 5
+  },
+  {
+   "s": "rev26-combined-v1",
+   "type": "uses",
+   "label": "volume error",
+   "o": "sfc-hier-v3",
+   "quote": "P10 and P90 bands come from scenario runs over volume (sfc-hier-v3 error)",
+   "line": 6
+  },
+  {
+   "s": "rev26-combined-v1",
+   "type": "uses",
+   "label": "bands from",
+   "o": "scenario-runs",
+   "quote": "P10 and P90 bands come from scenario runs over volume (sfc-hier-v3 error)",
+   "line": 6
+  },
+  {
+   "s": "rev26-combined-v1",
+   "type": "other",
+   "label": "excludes",
+   "o": "dec-rev26-cap-scenario-separate",
+   "quote": "cap scenarios are not included (dec-rev26-cap-scenario-separate)",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-rev26-cap-scenario-separate",
+  "rev26-interchange-v1",
+  "rev26-interest-v2",
+  "sfc-hier-v3"
+ ],
+ "built_on": [
+  {
+   "what": "rev26-interchange-v1",
+   "quote": "rev26-interchange-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "rev26-interest-v2",
+   "quote": "rev26-interest-v2",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "sfc-hier-v3",
+   "quote": "sfc-hier-v3",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/rev26-combined-v1.md",
+ "sha": "071186d79ab2a671eb857ba11f30113a1fae78b0ebe9e9b50f65aaa50f51877e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

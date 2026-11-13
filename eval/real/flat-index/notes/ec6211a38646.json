@@ -1,0 +1,120 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cb-grocery-share",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cb-grocery-share"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cb.spend_panel",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cb.spend_panel"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cb-elasticity-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cb-elasticity-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "merchant-category-grouping",
+   "type": "term",
+   "label": "grouping",
+   "as": [
+    "merchant category grouping into nine groups"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-cb-spend-panel",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-cb-spend-panel"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cb-grocery-share",
+   "type": "uses",
+   "label": "from",
+   "o": "cb.spend_panel",
+   "quote": "from `cb.spend_panel` by merchant group",
+   "line": 5
+  },
+  {
+   "s": "feat-cb-grocery-share",
+   "type": "uses",
+   "label": "used in",
+   "o": "cb-elasticity-v2",
+   "quote": "Used in cb-elasticity-v2",
+   "line": 6
+  },
+  {
+   "s": "feat-cb-grocery-share",
+   "type": "uses",
+   "label": "built on",
+   "o": "merchant-category-grouping",
+   "quote": "Builds on the merchant category grouping into nine groups",
+   "line": 7
+  },
+  {
+   "s": "feat-cb-grocery-share",
+   "type": "uses",
+   "label": "built on",
+   "o": "ds-cb-spend-panel",
+   "quote": "Builds on the merchant category grouping into nine groups and ds-cb-spend-panel.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "cb-elasticity-v2",
+  "ds-cb-spend-panel"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cb-merchant-cat",
+   "quote": "the merchant category grouping into nine groups",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "ds-cb-spend-panel",
+   "quote": "ds-cb-spend-panel",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-cb-grocery-share.md",
+ "sha": "ec6211a3864630dd737fa32e9734202c06668d75dc46c802e0405581caf0359f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

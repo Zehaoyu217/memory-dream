@@ -1,0 +1,95 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ae-session-trend-v1",
+   "type": "feature",
+   "label": "session trend feature",
+   "as": [
+    "Session trend: slope of daily session counts over the last 28 days"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-ae-sessions-daily",
+   "type": "dataset",
+   "label": "sessions table",
+   "as": [
+    "ds-ae-sessions-daily"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "app.sessions_daily",
+   "type": "dataset",
+   "label": "sessions table",
+   "as": [
+    "`app.sessions_daily`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-507-app-engagement",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-507-app-engagement"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ae-session-trend-v1",
+   "type": "uses",
+   "label": "built on",
+   "o": "ds-ae-sessions-daily",
+   "quote": "Builds on ds-ae-sessions-daily.",
+   "line": 7
+  },
+  {
+   "s": "feat-ae-session-trend-v1",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "app.sessions_daily",
+   "quote": "slope of sessions per day from `app.sessions_daily`",
+   "line": 5
+  },
+  {
+   "s": "feat-ae-session-trend-v1",
+   "type": "evaluated-on",
+   "label": "tested in",
+   "o": "exp-507-app-engagement",
+   "quote": "Tested as an add-on to the attrition model in exp-507-app-engagement",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-ae-sessions-daily",
+  "exp-507-app-engagement"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ae-sessions-daily",
+   "quote": "ds-ae-sessions-daily",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-ae-session-trend-v1.md",
+ "sha": "affd75acbd85d599642e7dbbb7042fbab217424c36e6a6e9f2dd3af64286aaec",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

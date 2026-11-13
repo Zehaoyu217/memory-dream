@@ -1,0 +1,111 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "pbs-hdbscan-v1",
+   "type": "model",
+   "label": "clustering method",
+   "as": [
+    "pbs-hdbscan-v1: density clustering, 31% of accounts labelled noise, rejected"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "pbs-gmm-v2",
+   "type": "model",
+   "label": "inputs reference",
+   "as": [
+    "pbs-gmm-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-pbs-interest-paid",
+   "type": "feature",
+   "label": "input feature",
+   "as": [
+    "feat-pbs-interest-paid"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-pbs-pay-ratio-v1",
+   "type": "feature",
+   "label": "input feature",
+   "as": [
+    "feat-pbs-pay-ratio-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "dec-pbs-no-hdbscan",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-pbs-no-hdbscan"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "pbs-hdbscan-v1",
+   "type": "uses",
+   "label": "built on",
+   "o": "feat-pbs-interest-paid",
+   "quote": "Builds on feat-pbs-interest-paid and feat-pbs-pay-ratio-v1.",
+   "line": 8
+  },
+  {
+   "s": "pbs-hdbscan-v1",
+   "type": "uses",
+   "label": "built on",
+   "o": "feat-pbs-pay-ratio-v1",
+   "quote": "Builds on feat-pbs-interest-paid and feat-pbs-pay-ratio-v1.",
+   "line": 8
+  },
+  {
+   "s": "pbs-hdbscan-v1",
+   "type": "uses",
+   "label": "same inputs as",
+   "o": "pbs-gmm-v2",
+   "quote": "on the same inputs as pbs-gmm-v2",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "dec-pbs-no-hdbscan"
+ ],
+ "built_on": [
+  {
+   "what": "feat-pbs-interest-paid",
+   "quote": "feat-pbs-interest-paid",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-pbs-pay-ratio-v1",
+   "quote": "feat-pbs-pay-ratio-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/pbs-hdbscan-v1.md",
+ "sha": "7820815e04331faa88ff4d42fb0ab2455d0b22eb60d5057163acee8985d51109",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

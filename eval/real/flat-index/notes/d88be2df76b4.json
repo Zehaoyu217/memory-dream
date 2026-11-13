@@ -1,0 +1,154 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "revolver",
+   "type": "term",
+   "label": "segment",
+   "as": [
+    "revolvers"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "acceptance-rate",
+   "type": "metric",
+   "label": "acceptance rate",
+   "as": [
+    "accept at 6.8%"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bt-holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "bt-holdout-2025q1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bt.offer_log",
+   "type": "dataset",
+   "label": "offer log",
+   "as": [
+    "bt.offer_log"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-bt-revolve-share",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-bt-revolve-share"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "depth-5-xgboost-bt-model",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "depth-5 xgboost bt model"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "mailer-rules",
+   "type": "policy",
+   "label": "rules",
+   "as": [
+    "mailer rules"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "transactors",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "transactors"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "revolver",
+   "type": "measured-by",
+   "label": "accept at",
+   "o": "acceptance-rate",
+   "quote": "revolvers accept balance transfers at 6.8%",
+   "line": 4
+  },
+  {
+   "s": "acceptance-rate",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "bt-holdout-2025q1",
+   "quote": "On bt-holdout-2025q1 (n=41,800)",
+   "line": 5
+  },
+  {
+   "s": "bt.offer_log",
+   "type": "uses",
+   "label": "joined to",
+   "o": "feat-bt-revolve-share",
+   "quote": "joined to feat-bt-revolve-share",
+   "line": 7
+  },
+  {
+   "s": "mailer-rules",
+   "type": "other",
+   "label": "skip",
+   "o": "transactors",
+   "quote": "The mailer rules already skip most transactors",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "feat-bt-revolve-share"
+ ],
+ "built_on": [
+  {
+   "what": "bt-xgb-v2",
+   "quote": "the depth-5 xgboost bt model",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-bt-revolve-share",
+   "quote": "feat-bt-revolve-share",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/find-bt-revolvers-decline.md",
+ "sha": "d88be2df76b4647f123f6c80f16640f0c1e9a9d8f09880e9733e90597c28e0db",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

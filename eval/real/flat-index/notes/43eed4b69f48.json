@@ -1,0 +1,163 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-201-churn-small-business",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-201-churn-small-business"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "csb-lr-base",
+   "type": "model",
+   "label": "lr baseline",
+   "as": [
+    "csb-lr-base"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-csb-oot-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "csb-oot-2025q1"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "ds-csb-churn-labels",
+   "type": "dataset",
+   "label": "labels",
+   "as": [
+    "ds-csb-churn-labels"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "label-window",
+   "type": "term",
+   "label": "label window",
+   "as": [
+    "labels at 60 and at 90 days"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.684 vs 0.671"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "churn-rate",
+   "type": "metric",
+   "label": "churn",
+   "as": [
+    "churn 4.0%",
+    "churn 7.1%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-csb-90d-window",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-csb-90d-window"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-201-churn-small-business",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "ds-csb-oot-2025q1",
+   "quote": "scored on csb-oot-2025q1 (all tenures)",
+   "line": 5
+  },
+  {
+   "s": "exp-201-churn-small-business",
+   "type": "uses",
+   "label": "same baseline",
+   "o": "csb-lr-base",
+   "quote": "Same LR baseline with labels at 60 and at 90 days",
+   "line": 5
+  },
+  {
+   "s": "exp-201-churn-small-business",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "90-day: AUC 0.684",
+   "line": 6
+  },
+  {
+   "s": "exp-201-churn-small-business",
+   "type": "measured-by",
+   "label": "churn",
+   "o": "churn-rate",
+   "quote": "60-day: AUC 0.671, churn 4.0%",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "csb-lr-base",
+  "ds-csb-churn-labels",
+  "ds-csb-oot-2025q1",
+  "dec-csb-90d-window"
+ ],
+ "built_on": [
+  {
+   "what": "csb-lr-base",
+   "quote": "csb-lr-base",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-csb-churn-labels",
+   "quote": "ds-csb-churn-labels",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-csb-oot-2025q1",
+   "quote": "ds-csb-oot-2025q1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-201-churn-small-business.md",
+ "sha": "43eed4b69f48ec4d538e7c3c21978169200374b2eff2a88d1c29414c494bf977",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

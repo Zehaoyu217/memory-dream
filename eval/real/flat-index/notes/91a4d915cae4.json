@@ -1,0 +1,115 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "churn-gbm-2025-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "churn-gbm-2025-v2 scored on 90-day labels"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.789"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "base-rate",
+   "type": "metric",
+   "label": "base rate",
+   "as": [
+    "base rate 6.8%"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "recall-at-10",
+   "type": "metric",
+   "label": "recall@10%",
+   "as": [
+    "recall@10% 0.36"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dec-c25-label-60d",
+   "type": "document",
+   "label": "decision",
+   "as": [
+    "dec-c25-label-60d still holds"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "label-window",
+   "type": "term",
+   "label": "label window",
+   "as": [
+    "next label-window review"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-gbm-2025-v2",
+   "type": "measured-by",
+   "label": "scored AUC",
+   "o": "auc",
+   "quote": "AUC 0.789 on the 90-day holdout",
+   "line": 5
+  },
+  {
+   "s": "churn-gbm-2025-v2",
+   "type": "measured-by",
+   "label": "recall at 10%",
+   "o": "recall-at-10",
+   "quote": "recall@10% 0.36",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "dec-c25-label-60d"
+ ],
+ "built_on": [
+  {
+   "what": "churn-gbm-2025-v2",
+   "quote": "churn-gbm-2025-v2",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "dec-c25-label-60d",
+   "quote": "dec-c25-label-60d",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-107-churn-2025.md",
+ "sha": "91a4d915cae43c8e3dc33d2b5a7efebb8737626a8454f4889b696c8564893b7a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

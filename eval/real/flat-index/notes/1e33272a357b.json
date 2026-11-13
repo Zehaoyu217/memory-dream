@@ -1,0 +1,184 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-c25-app-lift",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "App sessions add +0.006 AUC to the churn-gbm model (v1)"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "app-sessions",
+   "type": "feature",
+   "label": "app sessions",
+   "as": [
+    "app sessions"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "churn-gbm",
+   "type": "model",
+   "label": "churn-gbm model",
+   "as": [
+    "churn-gbm model (v1)"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "Holdout AUC 0.741"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout",
+   "type": "term",
+   "label": "holdout",
+   "as": [
+    "Holdout AUC"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "app-coverage",
+   "type": "metric",
+   "label": "coverage",
+   "as": [
+    "App coverage is 71% of accounts"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-102-churn-2025",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-102-churn-2025"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-103-churn-2025",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-103-churn-2025"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "fnd-c25-app-lift-v2",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-c25-app-lift-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "app-sessions",
+   "type": "measured-by",
+   "label": "coverage",
+   "o": "app-coverage",
+   "quote": "App coverage is 71% of accounts",
+   "line": 6
+  },
+  {
+   "s": "churn-gbm",
+   "type": "measured-by",
+   "label": "holdout AUC",
+   "o": "auc",
+   "quote": "Holdout AUC 0.741 with app sessions against 0.735 without",
+   "line": 5
+  },
+  {
+   "s": "churn-gbm",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "holdout",
+   "quote": "Holdout AUC 0.741 with app sessions against 0.735 without",
+   "line": 5
+  },
+  {
+   "s": "exp-102-churn-2025",
+   "type": "other",
+   "label": "compared with",
+   "o": "exp-103-churn-2025",
+   "quote": "exp-102-churn-2025 vs exp-103-churn-2025",
+   "line": 5
+  },
+  {
+   "s": "fnd-c25-app-lift-v2",
+   "type": "replaces",
+   "label": "overturns",
+   "o": "fnd-c25-app-lift",
+   "quote": "Overturned by fnd-c25-app-lift-v2 once util-v2 was in.",
+   "line": 7
+  },
+  {
+   "s": "app-sessions",
+   "type": "other",
+   "label": "adds AUC to",
+   "o": "churn-gbm",
+   "quote": "App sessions add +0.006 AUC to the churn-gbm model (v1)",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "exp-102-churn-2025",
+  "exp-103-churn-2025",
+  "fnd-c25-app-lift-v2"
+ ],
+ "built_on": [
+  {
+   "what": "exp-103-churn-2025",
+   "quote": "exp-103-churn-2025",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "q-c25-app-lift",
+   "quote": "the question of app session lift",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-c25-app-lift.md",
+ "sha": "1e33272a357bab659e1384578b256b2d32f7eb9c90e1fd2d7fdc4c7954f94b0e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,134 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "chat-messages",
+   "type": "dataset",
+   "label": "labelled messages",
+   "as": [
+    "3,500 chat messages"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-2025q3",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q3"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "intents",
+   "type": "term",
+   "label": "intents",
+   "as": [
+    "22 intents"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "yuki-tanaka",
+   "type": "person",
+   "label": "team lead",
+   "as": [
+    "Yuki Tanaka"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "inter-annotator-kappa",
+   "type": "metric",
+   "label": "kappa",
+   "as": [
+    "Inter-annotator kappa"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "intent-models",
+   "type": "model",
+   "label": "models",
+   "as": [
+    "intent models"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "training-split",
+   "type": "dataset",
+   "label": "training",
+   "as": [
+    "The other 2,400"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "chat-messages",
+   "type": "other",
+   "label": "labelled by",
+   "o": "yuki-tanaka",
+   "quote": "Labelled by Yuki Tanaka's team",
+   "line": 5
+  },
+  {
+   "s": "chat-messages",
+   "type": "other",
+   "label": "labelled into",
+   "o": "intents",
+   "quote": "3,500 chat messages labelled into 22 intents",
+   "line": 4
+  },
+  {
+   "s": "holdout-2025q3",
+   "type": "part-of",
+   "label": "held out as",
+   "o": "chat-messages",
+   "quote": "1,100 held out as holdout-2025q3",
+   "line": 4
+  },
+  {
+   "s": "intent-models",
+   "type": "trained-on",
+   "label": "trained on",
+   "o": "training-split",
+   "quote": "The other 2,400 train the intent models.",
+   "line": 6
+  },
+  {
+   "s": "chat-messages",
+   "type": "measured-by",
+   "label": "kappa",
+   "o": "inter-annotator-kappa",
+   "quote": "Inter-annotator kappa 0.79",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-cb-intent-eval.md",
+ "sha": "689d59f5eff20c09a7bfae0701b42fe2cf790b9206fe5ef23eaa7fcd6f0718e5",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

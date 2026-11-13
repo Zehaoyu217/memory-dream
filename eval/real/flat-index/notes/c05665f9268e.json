@@ -1,0 +1,86 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "month-end-account-snapshot",
+   "type": "dataset",
+   "label": "snapshot",
+   "as": [
+    "month-end account snapshot"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "same-month-snapshot",
+   "type": "dataset",
+   "label": "snapshot",
+   "as": [
+    "same-month snapshot"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "snapshot_month",
+   "type": "feature",
+   "label": "column",
+   "as": [
+    "snapshot_month"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Tomás Rivera"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "snapshot_month",
+   "type": "other",
+   "label": "added for join",
+   "o": "month-end-account-snapshot",
+   "quote": "added the `snapshot_month` column for the join",
+   "line": 6
+  },
+  {
+   "s": "snapshot_month",
+   "type": "owned-by",
+   "label": "added by",
+   "o": "tomas-rivera",
+   "quote": "Tomás Rivera's team added the `snapshot_month` column for the join.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "howto/join-txn-to-accounts"
+ ],
+ "built_on": [
+  {
+   "what": "howto/join-txn-to-accounts",
+   "quote": "howto/join-txn-to-accounts",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/prior-month-snapshot-why.md",
+ "sha": "c05665f9268e3d9a28dd5db400e60269dba21fd2d4014e772657e4642ef6d66a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

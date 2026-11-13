@@ -1,0 +1,69 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "feat-txc-descriptor-tokens-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-txc-descriptor-tokens-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-txc-normalise-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-txc-normalise-v2"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-txc-descriptor-tokens-v1",
+   "type": "uses",
+   "label": "source",
+   "o": "cards.txn_daily",
+   "quote": "Source for feat-txc-descriptor-tokens-v1 and feat-txc-normalise-v2.",
+   "line": 8
+  },
+  {
+   "s": "feat-txc-normalise-v2",
+   "type": "uses",
+   "label": "source",
+   "o": "cards.txn_daily",
+   "quote": "Source for feat-txc-descriptor-tokens-v1 and feat-txc-normalise-v2.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-txc-descriptor-tokens-v1",
+  "feat-txc-normalise-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-txc-descriptor-sample.md",
+ "sha": "53bef79c378d5b7473b3b399a981c53c4cce9b2345c055246e68880edc6674c3",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

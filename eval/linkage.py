@@ -248,8 +248,8 @@ def from_lineage(root, qs):
                        "stale-input": r"In project (?P<a>\S+?), which model notes that are still current",
                        "reach": r"Which notes outside project (?P<a>\S+) rest on a note of",
                        "replaced-twice": r"which (?P<n>decision|model) notes were replaced"}.get(t, r"^"), s)
-        d = m.groupdict()
-        p = f"{d['a']}/{d['n']}.md" if d.get("a") and d.get("n") else None
+        d, key = (m.groupdict() if m else {}), q.get("key") or []  # a question of the flat bank names no project: it carries its notes
+        p = key[0] if key else f"{d['a']}/{d['n']}.md" if d.get("a") and d.get("n") else None
         if t in ("rests-on", "downstream", "in-force", "other-projects") and p not in notes:
             got = None
         elif t == "rests-on":
@@ -261,7 +261,7 @@ def from_lineage(root, qs):
         elif t == "other-projects":
             got = [x for x in down[p] if area(x) != area(p) and area(x) not in GENERAL]
         elif t == "shared":
-            got = [x for x in up[p] & up[f"{d['a']}/{d['n2']}.md"] if kind(x) == "feature"]
+            got = [x for x in up[p] & up[key[1] if key else f"{d['a']}/{d['n2']}.md"] if kind(x) == "feature"]
         elif t == "stale-input":
             got = stale([x for x in proj if area(x) == d["a"] and kind(x) == "model"])
         elif t == "stale-input-all":

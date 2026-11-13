@@ -1,0 +1,187 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "bureau-score-v10",
+   "type": "feature",
+   "label": "score version",
+   "as": [
+    "isotonic-mapped v10",
+    "v10"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "bureau-score-v8",
+   "type": "feature",
+   "label": "score version",
+   "as": [
+    "v8"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "isotonic-map",
+   "type": "term",
+   "label": "map",
+   "as": [
+    "isotonic map"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "linear-map",
+   "type": "term",
+   "label": "linear map",
+   "as": [
+    "linear map"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "tail-problem",
+   "type": "term",
+   "label": "tail problem",
+   "as": [
+    "tail problem"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "term",
+   "label": "psi",
+   "as": [
+    "PSI"
+   ],
+   "lines": [
+    4,
+    5,
+    8,
+    9
+   ]
+  },
+  {
+   "id": "ds-bsm-v10-cohorts-2026",
+   "type": "dataset",
+   "label": "cohorts",
+   "as": [
+    "ds-bsm-v10-cohorts-2026",
+    "2026 cohorts"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "exp-303-bureau-score-migration",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-303-bureau-score-migration"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "find-bsm-psi-large",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-bsm-psi-large"
+   ],
+   "lines": [
+    5,
+    8,
+    9
+   ]
+  },
+  {
+   "id": "cutoff-recalibration",
+   "type": "term",
+   "label": "recalibration",
+   "as": [
+    "cutoff recalibration"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bureau-score-v10",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "ds-bsm-v10-cohorts-2026",
+   "quote": "From exp-303-bureau-score-migration on ds-bsm-v10-cohorts-2026",
+   "line": 5
+  },
+  {
+   "s": "bureau-score-v10",
+   "type": "measured-by",
+   "label": "within",
+   "o": "psi",
+   "quote": "isotonic-mapped v10 is within PSI 0.06 of v8 on the 2026 cohorts",
+   "line": 4
+  },
+  {
+   "s": "isotonic-map",
+   "type": "other",
+   "label": "fixes tail problem",
+   "o": "tail-problem",
+   "quote": "The shift was a tail problem that the linear map did not fix; the isotonic map does.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-303-bureau-score-migration",
+  "ds-bsm-v10-cohorts-2026",
+  "find-bsm-psi-large"
+ ],
+ "built_on": [
+  {
+   "what": "exp-303-bureau-score-migration",
+   "quote": "the isotonic map psi experiment",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "find-bsm-psi-large",
+   "quote": "find-bsm-psi-large",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "find-bsm-psi-large",
+   "quote": "find-bsm-psi-large",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/find-bsm-psi-after-map.md",
+ "sha": "1c2c910d0aec0613402a1744ecc57dcf623209860dde0937383a09c3a652ae8e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

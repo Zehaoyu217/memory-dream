@@ -1,0 +1,76 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "churn-gbm-2025",
+   "type": "model",
+   "label": "pilot model",
+   "as": [
+    "churn-gbm-2025"
+   ],
+   "lines": [
+    4,
+    8
+   ]
+  },
+  {
+   "id": "churn-lr-base-2025",
+   "type": "model",
+   "label": "champion baseline",
+   "as": [
+    "churn-lr-base-2025"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "dec-c25-ship-gbm-v2",
+   "type": "other",
+   "label": "superseding decision",
+   "as": [
+    "dec-c25-ship-gbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-gbm-2025",
+   "type": "other",
+   "label": "challenged by",
+   "o": "churn-lr-base-2025",
+   "quote": "churn-lr-base-2025 keeps the other 90% as the floor the pilot must beat.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "dec-c25-label-60d",
+  "dec-c25-ship-gbm-v2"
+ ],
+ "built_on": [
+  {
+   "what": "churn-gbm-2025",
+   "quote": "churn-gbm-2025",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "churn-lr-base-2025",
+   "quote": "churn-lr-base-2025",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-c25-ship-gbm-v1.md",
+ "sha": "5385f886621cadac2db3f9e2e4321b505adbf84b0fc2ac57f4cef053283bc7dd",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

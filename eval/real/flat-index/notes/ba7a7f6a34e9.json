@@ -1,0 +1,87 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-202-limit-decrease-policy",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-202-limit-decrease-policy"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-201-limit-decrease-policy",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-201-limit-decrease-policy"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "find-cld-complaints-2x",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-cld-complaints-2x"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "complaints",
+   "type": "metric",
+   "label": "complaints per 1,000",
+   "as": [
+    "complaints"
+   ],
+   "lines": [
+    4,
+    6,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-202-limit-decrease-policy",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "complaints",
+   "quote": "Complaints in 30 days: 3.1 per 1,000 for the notice arm, 4.6 for same-day.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-201-limit-decrease-policy",
+  "find-cld-complaints-2x"
+ ],
+ "built_on": [
+  {
+   "what": "exp-201-limit-decrease-policy",
+   "quote": "exp-201-limit-decrease-policy",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "find-cld-complaints-2x",
+   "quote": "find-cld-complaints-2x",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-202-limit-decrease-policy.md",
+ "sha": "ba7a7f6a34e9051e51d22f73ca7169823ef4baad7c064dc8f954b91c12342b44",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

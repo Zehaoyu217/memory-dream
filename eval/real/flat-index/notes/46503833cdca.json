@@ -1,0 +1,75 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "churn",
+   "type": "metric",
+   "label": "churn label",
+   "as": [
+    "The churn label is now closure OR no purchase and no payment for 6 months"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards-churn-labels",
+   "type": "dataset",
+   "label": "churn labels table",
+   "as": [
+    "`cards.churn_labels` was rebuilt on 2026-03-16"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sept-2024-churn",
+   "type": "metric",
+   "label": "sept 2024 churn",
+   "as": [
+    "Sept 2024 monthly churn restated from 1.1% to 3.4%"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn",
+   "type": "uses",
+   "label": "built on",
+   "o": "cards-churn-labels",
+   "quote": "`cards.churn_labels` was rebuilt on 2026-03-16 on this basis",
+   "line": 5
+  },
+  {
+   "s": "sept-2024-churn",
+   "type": "other",
+   "label": "restated to",
+   "o": "churn",
+   "quote": "Sept 2024 monthly churn restated from 1.1% to 3.4%",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "glossary/churn"
+ ],
+ "replaces": [
+  {
+   "what": "glossary/churn",
+   "quote": "glossary/churn",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "corrections/churn-includes-dormant.md",
+ "sha": "46503833cdcac726a158943fb9ca63fa7a9488cac5ae8610ab5b99d7d8bb156d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

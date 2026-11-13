@@ -1,0 +1,113 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-207-churn-small-business",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-207-churn-small-business"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "csb-oot-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "csb-oot-2025q1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "csb-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "csb-xgb-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "data engineering owner",
+   "as": [
+    "Tomas Rivera"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fnd-csb-calls-lift",
+   "type": "finding",
+   "label": "earlier finding",
+   "as": [
+    "fnd-csb-calls-lift"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "csb-xgb-v2",
+   "type": "uses",
+   "label": "kept as signal in",
+   "o": "fnd-csb-calls-lift",
+   "quote": "Kept as a small signal in csb-xgb-v2",
+   "line": 6
+  },
+  {
+   "s": "tomas-rivera",
+   "type": "owned-by",
+   "label": "owns dedupe in production feed",
+   "o": "tomas-rivera",
+   "quote": "The dedupe must run in the production calls feed (Tomas Rivera, data engineering).",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-207-churn-small-business",
+  "fnd-csb-calls-lift",
+  "csb-xgb-v2"
+ ],
+ "built_on": [
+  {
+   "what": "exp-207-churn-small-business",
+   "quote": "the calls rebuild without duplicate call ids",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "fnd-csb-calls-lift",
+   "quote": "fnd-csb-calls-lift",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "fnd-csb-calls-lift",
+   "quote": "the finding on unresolved calls lift",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-csb-calls-lift-v2.md",
+ "sha": "5b315815b206ce8487a1364b4eebbebc1cf12c31fd1f1b0ed6b52555b52798ab",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

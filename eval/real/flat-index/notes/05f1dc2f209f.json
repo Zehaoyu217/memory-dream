@@ -1,0 +1,137 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "v10b-model",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "v10b",
+    "bsm-app-gbm-v10b"
+   ],
+   "lines": [
+    4,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "bsm-app-gbm-v8",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bsm-app-gbm-v8"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bureau-score-migration-oot-2026h1",
+   "type": "dataset",
+   "label": "out-of-time set",
+   "as": [
+    "bureau-score-migration-oot-2026h1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-bsm-v10-cohorts-2026",
+   "type": "dataset",
+   "label": "cohorts",
+   "as": [
+    "ds-bsm-v10-cohorts-2026"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "find-bsm-ks-parity",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-bsm-ks-parity"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.80"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "KS 0.37"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "v10b-model",
+   "type": "measured-by",
+   "label": "out-of-time AUC",
+   "o": "auc",
+   "quote": "v10b AUC 0.80 against 0.78 for bsm-app-gbm-v8",
+   "line": 6
+  },
+  {
+   "s": "v10b-model",
+   "type": "measured-by",
+   "label": "out-of-time KS",
+   "o": "ks",
+   "quote": "v10b out-of-time AUC 0.80 and KS 0.37",
+   "line": 4
+  },
+  {
+   "s": "v10b-model",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "bureau-score-migration-oot-2026h1",
+   "quote": "both models scored on the same 44,800 rows",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "find-bsm-ks-parity"
+ ],
+ "built_on": [
+  {
+   "what": "bsm-app-gbm-v10b",
+   "quote": "bsm-app-gbm-v10b",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-bsm-v10-cohorts-2026",
+   "quote": "ds-bsm-v10-cohorts-2026",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "work/exp-306-bureau-score-migration.md",
+ "sha": "05f1dc2f209f548d425324273019b9e7505ec200b44127a312c689a683068c07",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

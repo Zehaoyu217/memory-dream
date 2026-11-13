@@ -1,0 +1,117 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-cli-eligible-pop",
+   "type": "dataset",
+   "label": "eligible population",
+   "as": [
+    "ds-cli-eligible-pop"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "accounts table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.limits_history",
+   "type": "dataset",
+   "label": "limits table",
+   "as": [
+    "cards.limits_history"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "collections.cases",
+   "type": "dataset",
+   "label": "cases table",
+   "as": [
+    "collections.cases"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Tomás Rivera"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-cli-eligible-pop",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards.accounts_monthly",
+   "quote": "Built from `cards.accounts_monthly` joined to `cards.limits_history` for the current limit.",
+   "line": 5
+  },
+  {
+   "s": "ds-cli-eligible-pop",
+   "type": "uses",
+   "label": "joined to",
+   "o": "cards.limits_history",
+   "quote": "Built from `cards.accounts_monthly` joined to `cards.limits_history` for the current limit.",
+   "line": 5
+  },
+  {
+   "s": "ds-cli-eligible-pop",
+   "type": "other",
+   "label": "excludes open cases in",
+   "o": "collections.cases",
+   "quote": "no open case in `collections.cases`",
+   "line": 6
+  },
+  {
+   "s": "ds-cli-eligible-pop",
+   "type": "owned-by",
+   "label": "refreshed by",
+   "o": "tomas-rivera",
+   "quote": "Refreshed monthly by Tomás Rivera's pipeline.",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "cards.accounts_monthly",
+   "quote": "cards.accounts_monthly",
+   "line": 5,
+   "asked": true
+  },
+  {
+   "what": "cards.limits_history",
+   "quote": "cards.limits_history",
+   "line": 5,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-cli-eligible-pop.md",
+ "sha": "b5c27e88501e1831e3effb2379f28c92c922b55499a016903478cfeb35697c09",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

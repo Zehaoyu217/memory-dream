@@ -1,0 +1,151 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "lbl-churn-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "lbl-churn-xgb-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "lbl-oot-2025h2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "lbl-oot-2025h2"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "feat-lbl-churn-flag-closure",
+   "type": "feature",
+   "label": "churn flag",
+   "as": [
+    "feat-lbl-churn-flag-closure"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-407-label-pipeline-rebuild",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-407-label-pipeline-rebuild"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "legacy-labels",
+   "type": "dataset",
+   "label": "labels",
+   "as": [
+    "legacy labels"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "rebuilt-labels",
+   "type": "dataset",
+   "label": "labels",
+   "as": [
+    "rebuilt churn labels"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "rebuilt-labels-job",
+   "type": "pipeline",
+   "label": "job",
+   "as": [
+    "idempotent rebuilt job"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.768",
+    "0.751"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "lbl-churn-xgb-v2",
+   "type": "evaluated-on",
+   "label": "AUC on",
+   "o": "lbl-oot-2025h2",
+   "quote": "AUC 0.768 on lbl-oot-2025h2 (n=680,000 account-snapshots)",
+   "line": 6
+  },
+  {
+   "s": "lbl-churn-xgb-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.768 on lbl-oot-2025h2 (n=680,000 account-snapshots)",
+   "line": 6
+  },
+  {
+   "s": "lbl-churn-xgb-v2",
+   "type": "uses",
+   "label": "retrained on",
+   "o": "feat-lbl-churn-flag-closure",
+   "quote": "retrained on feat-lbl-churn-flag-closure",
+   "line": 5
+  },
+  {
+   "s": "rebuilt-labels-job",
+   "type": "produces",
+   "label": "builds",
+   "o": "rebuilt-labels",
+   "quote": "Labels are built with the idempotent rebuilt job",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-407-label-pipeline-rebuild",
+  "feat-lbl-churn-flag-closure"
+ ],
+ "built_on": [
+  {
+   "what": "exp-407-label-pipeline-rebuild",
+   "quote": "exp-407-label-pipeline-rebuild",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/lbl-churn-xgb-v2.md",
+ "sha": "40ac44a893d3081e0a666ad5371b9aa8ea1414f1d7be6ba101c50030b6d7356c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

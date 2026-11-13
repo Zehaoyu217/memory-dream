@@ -1,0 +1,105 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-402-hardship-programs",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-402-hardship-programs"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "hp-psm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "hp-psm-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-hp-matched-controls",
+   "type": "dataset",
+   "label": "matched sample",
+   "as": [
+    "Matched sample"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-hp-match-covars-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-hp-match-covars-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "enrolled-roll-rate",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Enrolled 21.0%"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-402-hardship-programs",
+   "type": "uses",
+   "label": "matched with",
+   "o": "hp-psm-v1",
+   "quote": "Matched sample: 14,020 enrolled and 56,080 controls (4:1, hp-psm-v1 on six covariates).",
+   "line": 5
+  },
+  {
+   "s": "exp-402-hardship-programs",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "enrolled-roll-rate",
+   "quote": "Enrolled 21.0%, matched controls 27.1%.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "hp-psm-v1",
+  "ds-hp-matched-controls",
+  "feat-hp-match-covars-v1"
+ ],
+ "built_on": [
+  {
+   "what": "ds-hp-matched-controls",
+   "quote": "ds-hp-matched-controls",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-hp-match-covars-v1",
+   "quote": "feat-hp-match-covars-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-402-hardship-programs.md",
+ "sha": "3445150d6c4e58fae1a8bc40ebc146bf0e30f5e676739a6df30bdb3d28c7c57a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

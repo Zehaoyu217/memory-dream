@@ -1,0 +1,111 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-rs-region-rate",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rs-region-rate"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-rs-recovery-labels",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-rs-recovery-labels"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "omar-haddad",
+   "type": "person",
+   "label": "compliance reviewer",
+   "as": [
+    "Omar Haddad"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "find-rs-region-proxy",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-rs-region-proxy"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-rs-region-rate",
+   "type": "uses",
+   "label": "source",
+   "o": "cards.accounts_monthly",
+   "quote": "Source: `cards.accounts_monthly` postcode",
+   "line": 6
+  },
+  {
+   "s": "feat-rs-region-rate",
+   "type": "uses",
+   "label": "joined to",
+   "o": "ds-rs-recovery-labels",
+   "quote": "joined to ds-rs-recovery-labels",
+   "line": 6
+  },
+  {
+   "s": "omar-haddad",
+   "type": "other",
+   "label": "flagged",
+   "o": "feat-rs-region-rate",
+   "quote": "Flagged by Omar Haddad (compliance) as a possible proxy for protected characteristics",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "find-rs-region-proxy"
+ ],
+ "built_on": [
+  {
+   "what": "ds-rs-chargeoff-base",
+   "quote": "the 2023-2024 charge-off base",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "the 2023-2024 charge-off base",
+   "quote": "Builds on the 2023-2024 charge-off base.",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-rs-region-rate.md",
+ "sha": "e763f4dd34fce4e1e74ce4ed188e6c07bbac405993c546bc6690faf6a1a65fab",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

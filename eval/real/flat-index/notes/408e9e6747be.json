@@ -1,0 +1,98 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "priya-nair",
+   "type": "person",
+   "label": "asker",
+   "as": [
+    "Priya"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "call-centre-outreach",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "call-centre outreach"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "savings-open-rate",
+   "type": "metric",
+   "label": "savings-open rate",
+   "as": [
+    "savings-open rate"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "xs-call-uplift-v1",
+   "type": "model",
+   "label": "causal forest",
+   "as": [
+    "xs-call-uplift-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-403",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-403"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "call-centre-outreach",
+   "type": "other",
+   "label": "may raise",
+   "o": "savings-open-rate",
+   "quote": "If calls raise opens",
+   "line": 5
+  },
+  {
+   "s": "priya-nair",
+   "type": "other",
+   "label": "wants",
+   "o": "savings-open-rate",
+   "quote": "Priya wants a number that survives selection",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "q-xs-propensity",
+  "xs-call-uplift-v1"
+ ],
+ "built_on": [
+  {
+   "what": "q-xs-propensity",
+   "quote": "q-xs-propensity",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/q-xs-call-effect.md",
+ "sha": "408e9e6747bede786715c28962b6dfdee65cbe7717d6bb8a2e3b080ecbc0943f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

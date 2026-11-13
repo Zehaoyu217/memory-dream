@@ -1,0 +1,88 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "handoff-rule-v1",
+   "type": "rule",
+   "label": "handoff rule",
+   "as": [
+    "Handoff rule v1: hand off to an agent after 2 failed intent matches in one session"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-301-chatbot-deflection",
+   "type": "document",
+   "label": "experiment",
+   "as": [
+    "exp-301-chatbot-deflection"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-302-chatbot-deflection",
+   "type": "document",
+   "label": "experiment",
+   "as": [
+    "exp-302-chatbot-deflection"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-cb-handoff-rule-v2",
+   "type": "feature",
+   "label": "handoff rule",
+   "as": [
+    "feat-cb-handoff-rule-v2"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "handoff-rule-v1",
+   "type": "evaluated-on",
+   "label": "used in",
+   "o": "exp-301-chatbot-deflection",
+   "quote": "Used in exp-301-chatbot-deflection and exp-302-chatbot-deflection.",
+   "line": 6
+  },
+  {
+   "s": "handoff-rule-v1",
+   "type": "evaluated-on",
+   "label": "used in",
+   "o": "exp-302-chatbot-deflection",
+   "quote": "Used in exp-301-chatbot-deflection and exp-302-chatbot-deflection.",
+   "line": 6
+  },
+  {
+   "s": "feat-cb-handoff-rule-v2",
+   "type": "replaces",
+   "label": "superseded",
+   "o": "handoff-rule-v1",
+   "quote": "Superseded by feat-cb-handoff-rule-v2 after the April 2026 replay.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-301-chatbot-deflection",
+  "exp-302-chatbot-deflection",
+  "feat-cb-handoff-rule-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-cb-handoff-rule-v1.md",
+ "sha": "ae89e1773ce40cee4af45e4bc511d49ec0872603d3e9332ff596e0ace44832ed",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

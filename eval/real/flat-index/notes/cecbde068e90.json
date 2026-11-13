@@ -1,0 +1,145 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "fraud25-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fraud25-gbm-v2"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "fraud25-alert-threshold",
+   "type": "flag",
+   "label": "alert threshold",
+   "as": [
+    "alert threshold"
+   ],
+   "lines": [
+    4,
+    8
+   ]
+  },
+  {
+   "id": "fraud25-find-travel-overflag",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "travel over-flagging"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-108",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-108"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "travel-rule",
+   "type": "policy",
+   "label": "rule",
+   "as": [
+    "travel rule"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dec-f25-threshold-062",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "0.62 live alert threshold decision"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "precision-at-k",
+   "type": "metric",
+   "label": "alert precision",
+   "as": [
+    "alert precision 9.2%"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud25-alert-threshold",
+   "type": "other",
+   "label": "applies to",
+   "o": "fraud25-gbm-v2",
+   "quote": "live alerts from fraud25-gbm-v2 use score >= 0.70",
+   "line": 5
+  },
+  {
+   "s": "exp-108",
+   "type": "measured-by",
+   "label": "alert precision",
+   "o": "precision-at-k",
+   "quote": "exp-108 (alert precision 9.2% at 0.70)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fraud25-find-travel-overflag",
+  "exp-108",
+  "dec-f25-threshold-062",
+  "fraud25-gbm-v2"
+ ],
+ "built_on": [
+  {
+   "what": "dec-f25-threshold-062",
+   "quote": "the 0.62 live alert threshold decision",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-108",
+   "quote": "exp-108",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fraud25-find-travel-overflag",
+   "quote": "the travel alert over-flagging finding",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "dec-f25-threshold-062",
+   "quote": "dec-f25-threshold-062",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-f25-threshold-070.md",
+ "sha": "cecbde068e901352c2db1b128cf295f9883ffc394656ee2825b75c103386a61e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

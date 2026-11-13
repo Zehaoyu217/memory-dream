@@ -1,0 +1,126 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-f26-device-age",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-f26-device-age"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-f25-device-age",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-f25-device-age"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "ds-f26-cnp-txn",
+   "type": "dataset",
+   "label": "cnp table",
+   "as": [
+    "2026 CNP table"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fraud26-gbm-v1",
+   "type": "model",
+   "label": "fraud model",
+   "as": [
+    "fraud26-gbm-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "term",
+   "label": "psi",
+   "as": [
+    "PSI"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-208",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-208"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud26-gbm-v1",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-f26-device-age",
+   "quote": "Used in fraud26-gbm-v1, v2 and v3",
+   "line": 6
+  },
+  {
+   "s": "feat-f26-device-age",
+   "type": "uses",
+   "label": "recomputed on",
+   "o": "ds-f26-cnp-txn",
+   "quote": "recomputed on the 2026 CNP table",
+   "line": 5
+  },
+  {
+   "s": "feat-f26-device-age",
+   "type": "measured-by",
+   "label": "PSI stable",
+   "o": "psi",
+   "quote": "PSI stable at 0.08 for Jan-Jul 2026",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "feat-f25-device-age",
+  "ds-f26-cnp-txn",
+  "fraud25-find-device-drift",
+  "exp-208"
+ ],
+ "built_on": [
+  {
+   "what": "feat-f25-device-age",
+   "quote": "feat-f25-device-age",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-f26-cnp-txn",
+   "quote": "ds-f26-cnp-txn",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-f26-device-age.md",
+ "sha": "dac299345883d88ed32cbdeb89615d6700d576bca946e6194c349113dfa684d6",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

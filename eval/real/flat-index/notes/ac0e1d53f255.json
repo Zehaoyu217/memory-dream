@@ -1,0 +1,105 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "csb-xgb-v1",
+   "type": "model",
+   "label": "xgboost model",
+   "as": [
+    "csb-xgb-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "csb-lr-base",
+   "type": "model",
+   "label": "logistic baseline",
+   "as": [
+    "csb-lr-base"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "smb-cohort",
+   "type": "segment",
+   "label": "smb cohort",
+   "as": [
+    "SMB cohort"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "raw-spend",
+   "type": "feature",
+   "label": "raw spend",
+   "as": [
+    "raw spend"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "dec-csb-ship-xgb-v2",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-csb-ship-xgb-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "csb-xgb-v1",
+   "type": "other",
+   "label": "challenger against",
+   "o": "csb-lr-base",
+   "quote": "Champion/challenger against csb-lr-base for two cycles.",
+   "line": 5
+  },
+  {
+   "s": "csb-xgb-v1",
+   "type": "uses",
+   "label": "pilot on",
+   "o": "raw-spend",
+   "quote": "Pilot is on raw spend",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "dec-csb-ship-xgb-v2",
+  "fnd-csb-volatility-lift"
+ ],
+ "built_on": [
+  {
+   "what": "csb-xgb-v1",
+   "quote": "the first xgboost on raw spend",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fnd-csb-volatility-lift",
+   "quote": "fnd-csb-volatility-lift",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "work/dec-csb-ship-xgb-v1.md",
+ "sha": "ac0e1d53f2555a22497bb19d5f01d033b8a77dda475b6fe59dab5139d0922f92",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

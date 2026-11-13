@@ -1,0 +1,132 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-rev26-interchange-bps",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rev26-interchange-bps"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-rev26-interchange-ledger",
+   "type": "dataset",
+   "label": "ledger",
+   "as": [
+    "ds-rev26-interchange-ledger",
+    "the ledger"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "rev26-interchange-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rev26-interchange-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-301-revenue-forecast-2026",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-301-revenue-forecast-2026"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "flat-bps-baseline",
+   "type": "other",
+   "label": "baseline",
+   "as": [
+    "Flat-bps baseline"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mcc-group",
+   "type": "term",
+   "label": "grouping",
+   "as": [
+    "MCC group"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-rev26-interchange-bps",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-rev26-interchange-ledger",
+   "quote": "Builds on ds-rev26-interchange-ledger.",
+   "line": 8
+  },
+  {
+   "s": "feat-rev26-interchange-bps",
+   "type": "~used-by",
+   "label": "used by",
+   "o": "rev26-interchange-v1",
+   "quote": "Used by rev26-interchange-v1.",
+   "line": 7
+  },
+  {
+   "s": "flat-bps-baseline",
+   "type": "measured-by",
+   "label": "reports MAPE",
+   "o": "mape",
+   "quote": "Flat-bps baseline has 4.8% MAPE on 2024-H2",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-301-revenue-forecast-2026",
+  "rev26-interchange-v1",
+  "ds-rev26-interchange-ledger"
+ ],
+ "built_on": [
+  {
+   "what": "ds-rev26-interchange-ledger",
+   "quote": "ds-rev26-interchange-ledger",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-rev26-interchange-bps.md",
+ "sha": "f6e3b9f6691cae627e8323f5b77539cb08a28b1ba24f8d82372e825c54184dcd",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,154 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-404-income-estimation",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-404-income-estimation"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-inc-merchant-mix",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-inc-merchant-mix"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "inc-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "inc-gbm-v1"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "inc-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "inc-gbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "luxury-share",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "luxury share"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-404-income-estimation",
+   "type": "uses",
+   "label": "added to",
+   "o": "inc-gbm-v1",
+   "quote": "Added the four merchant-mix shares to inc-gbm-v1 and re-scored holdout-2025q1.",
+   "line": 5
+  },
+  {
+   "s": "exp-404-income-estimation",
+   "type": "evaluated-on",
+   "label": "re-scored",
+   "o": "holdout-2025q1",
+   "quote": "re-scored holdout-2025q1",
+   "line": 5
+  },
+  {
+   "s": "exp-404-income-estimation",
+   "type": "measured-by",
+   "label": "MAPE",
+   "o": "mape",
+   "quote": "MAPE 27.0% without, 25.8% with",
+   "line": 6
+  },
+  {
+   "s": "luxury-share",
+   "type": "part-of",
+   "label": "share of",
+   "o": "feat-inc-merchant-mix",
+   "quote": "luxury share carries most of the gain",
+   "line": 6
+  },
+  {
+   "s": "inc-gbm-v2",
+   "type": "uses",
+   "label": "kept in feature set",
+   "o": "feat-inc-merchant-mix",
+   "quote": "Kept in the feature set for inc-gbm-v2.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-inc-merchant-mix",
+  "inc-gbm-v1",
+  "inc-gbm-v2"
+ ],
+ "built_on": [
+  {
+   "what": "feat-inc-merchant-mix",
+   "quote": "feat-inc-merchant-mix",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "inc-gbm-v1",
+   "quote": "inc-gbm-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-404-income-estimation.md",
+ "sha": "313e7d213c002138eae8f409e5dc76b391dd62156a557ded83ca1907cf29584b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

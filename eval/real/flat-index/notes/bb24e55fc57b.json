@@ -1,0 +1,119 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cb-spend-band-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cb-spend-band-v2",
+    "spend band plus signed distance to each tier threshold"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cb-elasticity-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cb-elasticity-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-cb-tier-eligibility",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cb-tier-eligibility"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-cb-spend-base",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cb-spend-base"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "pooled-spend-elasticity-experiment",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "pooled spend elasticity experiment"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cb-spend-band-v2",
+   "type": "uses",
+   "label": "feeds",
+   "o": "cb-elasticity-v2",
+   "quote": "Band and distance both enter cb-elasticity-v2.",
+   "line": 6
+  },
+  {
+   "s": "feat-cb-tier-eligibility",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-cb-spend-band-v2",
+   "quote": "Used in feat-cb-tier-eligibility.",
+   "line": 6
+  },
+  {
+   "s": "feat-cb-spend-band-v2",
+   "type": "other",
+   "label": "replaces",
+   "o": "feat-cb-spend-base",
+   "quote": "Replaces feat-cb-spend-base.",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "exp-203-pooled-elasticity",
+   "quote": "the pooled spend elasticity experiment",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "feat-cb-spend-base",
+   "quote": "feat-cb-spend-base",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-cb-spend-base",
+   "quote": "feat-cb-spend-base",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-cb-spend-band-v2.md",
+ "sha": "bb24e55fc57b44258584d2ab56d5f868cc785de96d82b86d9fc71cafe17335bd",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

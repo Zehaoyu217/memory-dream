@@ -1,0 +1,68 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fiscal-month",
+   "type": "feature",
+   "label": "field",
+   "as": [
+    "fiscal_month"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "team-calendar",
+   "type": "other",
+   "label": "team calendar",
+   "as": [
+    "team calendar"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "spend-kpi",
+   "type": "metric",
+   "label": "kpi",
+   "as": [
+    "spend and payment KPIs"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fiscal-month",
+   "type": "other",
+   "label": "from",
+   "o": "team-calendar",
+   "quote": "with `fiscal_month` from the team calendar",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/yoy-seasonality-adjust.md",
+ "sha": "12a7c77f9712dd834d5cfffded07555f95926657271d122967d38f5aee79b242",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

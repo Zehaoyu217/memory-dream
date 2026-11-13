@@ -1,0 +1,88 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "inc-gbm-v1",
+   "type": "model",
+   "label": "gbm income estimate",
+   "as": [
+    "GBM income estimate"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-402-income-estimation",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-402-income-estimation"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "inc-gbm-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "mape",
+   "quote": "the GBM income estimate has MAPE 27% overall",
+   "line": 4
+  },
+  {
+   "s": "inc-gbm-v1",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q1",
+   "quote": "on holdout-2025q1 (n=12,400)",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "find-inc-log-target-gain",
+  "exp-402-income-estimation"
+ ],
+ "built_on": [
+  {
+   "what": "exp-402-income-estimation",
+   "quote": "exp-402-income-estimation",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/find-inc-mape-initial.md",
+ "sha": "230089285efb4ff4136fdbddc5f52521a19a33fec3da9cb69cebcf76c02089bc",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

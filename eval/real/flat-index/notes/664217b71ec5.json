@@ -1,0 +1,145 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-pa-bt-inflow-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-pa-bt-inflow-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-pa-bt-inflow-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-pa-bt-inflow-v1"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "intra-bank-transfer",
+   "type": "term",
+   "label": "intra-bank transfers",
+   "as": [
+    "intra-bank"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "pa-bal-forecast-v1",
+   "type": "model",
+   "label": "forecast",
+   "as": [
+    "pa-bal-forecast-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "pa-margin-v2",
+   "type": "model",
+   "label": "margin model",
+   "as": [
+    "pa-margin-v2"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "pa-bal-forecast-v1",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-pa-bt-inflow-v2",
+   "quote": "Used in pa-bal-forecast-v1 and pa-margin-v2.",
+   "line": 6
+  },
+  {
+   "s": "pa-margin-v2",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-pa-bt-inflow-v2",
+   "quote": "Used in pa-bal-forecast-v1 and pa-margin-v2.",
+   "line": 6
+  },
+  {
+   "s": "feat-pa-bt-inflow-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "feat-pa-bt-inflow-v1",
+   "quote": "Replaces feat-pa-bt-inflow-v1.",
+   "line": 8
+  },
+  {
+   "s": "feat-pa-bt-inflow-v2",
+   "type": "other",
+   "label": "excludes",
+   "o": "intra-bank-transfer",
+   "quote": "excluding transfers from our own deposit and card products",
+   "line": 5
+  },
+  {
+   "s": "feat-pa-bt-inflow-v1",
+   "type": "other",
+   "label": "intra-bank share",
+   "o": "intra-bank-transfer",
+   "quote": "About 14% of v1 inflow was intra-bank.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "pa-bal-forecast-v1",
+  "pa-margin-v2",
+  "feat-pa-bt-inflow-v1"
+ ],
+ "built_on": [
+  {
+   "what": "exp-503-intrabank-fix",
+   "quote": "the intra-bank transfer correction experiment",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "feat-pa-bt-inflow-v1",
+   "quote": "feat-pa-bt-inflow-v1",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "the intra-bank transfer correction experiment",
+   "quote": "Builds on the intra-bank transfer correction experiment and feat-pa-bt-inflow-v1.",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-pa-bt-inflow-v1",
+   "quote": "feat-pa-bt-inflow-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-pa-bt-inflow-v2.md",
+ "sha": "664217b71ec5f4fedd9a35c520410298c05d99ceb31ca96ee24d2de1598fbb09",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

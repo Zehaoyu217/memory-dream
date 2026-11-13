@@ -1,0 +1,100 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "charge-off",
+   "type": "term",
+   "label": "charge-off",
+   "as": [
+    "charge-off events",
+    "Charge-off date"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "recovery-base",
+   "type": "segment",
+   "label": "recovery base",
+   "as": [
+    "recovery base"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "data-eng-cards",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "data-eng-cards"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "person",
+   "as": [
+    "Tomas Rivera"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "recovery-window",
+   "type": "term",
+   "label": "recovery window",
+   "as": [
+    "12-month recovery window"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "recovery-base",
+   "type": "uses",
+   "label": "source",
+   "o": "cards.accounts_monthly",
+   "quote": "Source: `cards.accounts_monthly` charge-off events",
+   "line": 5
+  },
+  {
+   "s": "recovery-base",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "data-eng-cards",
+   "quote": "Owner: data-eng-cards (Tomas Rivera).",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-rs-chargeoff-base.md",
+ "sha": "14354c286988024a718f6f94a67afd3e3af5a2e69a6324b1387d335ee5fb6325",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

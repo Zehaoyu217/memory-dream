@@ -1,0 +1,145 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "nps-gbm-v1",
+   "type": "model",
+   "label": "driver model",
+   "as": [
+    "nps-gbm-v1"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-nps-fee-shock-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "fee shock v1"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "ds-nps-holdout",
+   "type": "dataset",
+   "label": "holdout wave",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "2026q1-wave",
+   "type": "dataset",
+   "label": "wave",
+   "as": [
+    "2026Q1 wave"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "spearman",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Spearman"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fnd-nps-fee-top",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-nps-fee-top"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "nps-gbm-v1",
+   "type": "evaluated-on",
+   "label": "scores on",
+   "o": "ds-nps-holdout",
+   "quote": "nps-gbm-v1 alone scores 0.46 on holdout-2025q4 (n = 48,210).",
+   "line": 5
+  },
+  {
+   "s": "nps-gbm-v1",
+   "type": "measured-by",
+   "label": "scores",
+   "o": "spearman",
+   "quote": "nps-gbm-v1 alone scores 0.46 on holdout-2025q4 (n = 48,210).",
+   "line": 5
+  },
+  {
+   "s": "feat-nps-fee-shock-v1",
+   "type": "measured-by",
+   "label": "scores",
+   "o": "spearman",
+   "quote": "With fee shock v1: 0.52 on holdout-2025q4, 0.44 on the 2026Q1 wave (n = 44,870).",
+   "line": 6
+  },
+  {
+   "s": "feat-nps-fee-shock-v1",
+   "type": "evaluated-on",
+   "label": "scores on",
+   "o": "2026q1-wave",
+   "quote": "With fee shock v1: 0.52 on holdout-2025q4, 0.44 on the 2026Q1 wave (n = 44,870).",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fnd-nps-fee-top",
+  "ds-nps-holdout",
+  "feat-nps-fee-shock-v1",
+  "nps-gbm-v1"
+ ],
+ "built_on": [
+  {
+   "what": "ds-nps-holdout",
+   "quote": "ds-nps-holdout",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-nps-fee-shock-v1",
+   "quote": "feat-nps-fee-shock-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "nps-gbm-v1",
+   "quote": "nps-gbm-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-404-nps-drivers.md",
+ "sha": "b959074f60fed0aff856cd85b6ab78ce6f88a14068d4dd14f5ba24489631c4db",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,121 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ep.exposures",
+   "type": "dataset",
+   "label": "exposure events",
+   "as": [
+    "ep.exposures",
+    "exposure event"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "ds-ep-assignments",
+   "type": "dataset",
+   "label": "assignments",
+   "as": [
+    "ds-ep-assignments"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exposure-rate",
+   "type": "metric",
+   "label": "exposure rate",
+   "as": [
+    "Exposure rate in onboarding tests is 61 percent"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "onboarding-tests",
+   "type": "test",
+   "label": "onboarding tests",
+   "as": [
+    "onboarding tests"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "marketing-tests",
+   "type": "test",
+   "label": "marketing tests",
+   "as": [
+    "Marketing tests"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "intent-to-treat",
+   "type": "term",
+   "label": "intent-to-treat result",
+   "as": [
+    "assigned-unit intent-to-treat result"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exposed-units",
+   "type": "segment",
+   "label": "exposed units",
+   "as": [
+    "exposed units"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "onboarding-tests",
+   "type": "measured-by",
+   "label": "exposure rate in",
+   "o": "exposure-rate",
+   "quote": "Exposure rate in onboarding tests is 61 percent of assigned units",
+   "line": 5
+  },
+  {
+   "s": "marketing-tests",
+   "type": "measured-by",
+   "label": "lower exposure rate",
+   "o": "exposure-rate",
+   "quote": "Marketing tests have lower exposure rates because campaigns reach only part of the base.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-ep-assignments"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ep-assignments",
+   "quote": "ds-ep-assignments",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-ep-exposures.md",
+ "sha": "c4dbf2aa852d9eefb270cc1772312ee8529251c28b64d5a48b04760caa68d1d2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

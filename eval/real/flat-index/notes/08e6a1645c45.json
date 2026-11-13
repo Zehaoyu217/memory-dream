@@ -1,0 +1,118 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-401-income-estimation",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-401-income-estimation"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "booked-accounts",
+   "type": "segment",
+   "label": "accounts",
+   "as": [
+    "booked accounts"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE under 25%"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "default-band",
+   "type": "term",
+   "label": "default band",
+   "as": [
+    "a default band"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-inc-band-floor-2025",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-inc-band-floor-2025"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-401-income-estimation",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q1",
+   "quote": "From exp-401-income-estimation on holdout-2025q1 (n=12,400)",
+   "line": 5
+  },
+  {
+   "s": "exp-401-income-estimation",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "mape",
+   "quote": "71% of those reach MAPE under 25%",
+   "line": 5
+  },
+  {
+   "s": "default-band",
+   "type": "other",
+   "label": "drives",
+   "o": "dec-inc-band-floor-2025",
+   "quote": "which drives the 2025 floor rule",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-401-income-estimation",
+  "dec-inc-band-floor-2025"
+ ],
+ "built_on": [
+  {
+   "what": "exp-401-income-estimation",
+   "quote": "exp-401-income-estimation",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/find-inc-coverage-gap.md",
+ "sha": "08e6a1645c45ded99f39faad57bc20c5bbab675c3378a28747858b984c37d547",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,184 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "ed-gbm-v1",
+   "type": "model",
+   "label": "early-delinquency model",
+   "as": [
+    "ed-gbm-v1"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-ed-limit-change-v1",
+   "type": "feature",
+   "label": "limit change feature",
+   "as": [
+    "feat-ed-limit-change-v1",
+    "90-day credit-limit change feature"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "early-delinquency-holdout-2024q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "early-delinquency-holdout-2024q4"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "brier-score",
+   "type": "metric",
+   "label": "brier score",
+   "as": [
+    "Brier"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-204-early-delinquency",
+   "type": "other",
+   "label": "leakage check",
+   "as": [
+    "exp-204-early-delinquency"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ed-gbm-v1",
+   "type": "uses",
+   "label": "plus",
+   "o": "feat-ed-limit-change-v1",
+   "quote": "ed-gbm-v1 plus feat-ed-limit-change-v1",
+   "line": 5
+  },
+  {
+   "s": "ed-gbm-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.812",
+   "line": 5
+  },
+  {
+   "s": "ed-gbm-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "gini",
+   "quote": "Gini 0.624",
+   "line": 5
+  },
+  {
+   "s": "ed-gbm-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "ks",
+   "quote": "KS 0.45",
+   "line": 5
+  },
+  {
+   "s": "ed-gbm-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "brier-score",
+   "quote": "Brier 0.041",
+   "line": 5
+  },
+  {
+   "s": "ed-gbm-v1",
+   "type": "evaluated-on",
+   "label": "same holdout",
+   "o": "early-delinquency-holdout-2024q4",
+   "quote": "Same holdout (n=402,000)",
+   "line": 5
+  },
+  {
+   "s": "exp-204-early-delinquency",
+   "type": "other",
+   "label": "checks for leakage in",
+   "o": "feat-ed-limit-change-v1",
+   "quote": "leakage check opened the next week (exp-204-early-delinquency)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ed-gbm-v1",
+  "feat-ed-limit-change-v1",
+  "exp-204-early-delinquency"
+ ],
+ "built_on": [
+  {
+   "what": "ed-gbm-v1",
+   "quote": "ed-gbm-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-ed-limit-change-v1",
+   "quote": "the 90-day credit-limit change feature",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-203-early-delinquency.md",
+ "sha": "ca491545a285f8ff25749a13d9fb7bb692fd88d5c740fb9da28525190ee8ac51",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

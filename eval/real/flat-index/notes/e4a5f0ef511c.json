@@ -1,0 +1,211 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "approval-cutoff",
+   "type": "policy",
+   "label": "approval cutoff",
+   "as": [
+    "approval cutoff 592"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "dec-app-cutoff-v3",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-app-cutoff-v3"
+   ],
+   "lines": [
+    5,
+    9
+   ]
+  },
+  {
+   "id": "app-scorecard-v4",
+   "type": "model",
+   "label": "points scorecard",
+   "as": [
+    "app-scorecard-v4"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-507-application-scorecard",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-507-application-scorecard"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "find-app-income-lift",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-app-income-lift"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-app-oot-2026h1",
+   "type": "dataset",
+   "label": "oot set",
+   "as": [
+    "OOT set"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "approval-rate",
+   "type": "metric",
+   "label": "approval rate",
+   "as": [
+    "58% approval rate"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bad-rate",
+   "type": "metric",
+   "label": "bad rate",
+   "as": [
+    "4.1% bad rate"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "thin-file-applicants",
+   "type": "segment",
+   "label": "thin-file applicants",
+   "as": [
+    "Thin-file applicants"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-app-income-est",
+   "type": "feature",
+   "label": "income band",
+   "as": [
+    "the income band"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "approval-cutoff",
+   "type": "evaluated-on",
+   "label": "on",
+   "o": "ds-app-oot-2026h1",
+   "quote": "on the OOT set 592 gives a 58% approval rate",
+   "line": 5
+  },
+  {
+   "s": "approval-cutoff",
+   "type": "measured-by",
+   "label": "gives",
+   "o": "approval-rate",
+   "quote": "592 gives a 58% approval rate",
+   "line": 5
+  },
+  {
+   "s": "approval-cutoff",
+   "type": "measured-by",
+   "label": "gives",
+   "o": "bad-rate",
+   "quote": "4.1% bad rate",
+   "line": 5
+  },
+  {
+   "s": "thin-file-applicants",
+   "type": "uses",
+   "label": "keep",
+   "o": "feat-app-income-est",
+   "quote": "Thin-file applicants keep the income band in the score",
+   "line": 6
+  },
+  {
+   "s": "approval-cutoff",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "lena-fischer",
+   "quote": "Owner: Lena Fischer",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-app-cutoff-v3",
+  "exp-507-application-scorecard",
+  "find-app-income-lift",
+  "app-scorecard-v4"
+ ],
+ "built_on": [
+  {
+   "what": "app-scorecard-v4",
+   "quote": "app-scorecard-v4",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-507-application-scorecard",
+   "quote": "exp-507-application-scorecard",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "find-app-income-lift",
+   "quote": "find-app-income-lift",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "dec-app-cutoff-v3",
+   "quote": "the v3 cutoff of 585 in dec-app-cutoff-v3",
+   "line": 5,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-app-cutoff-v4.md",
+ "sha": "e4a5f0ef511c738e5ce4b92d83c98475761773c4a4179de83ab0898071fe2c83",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

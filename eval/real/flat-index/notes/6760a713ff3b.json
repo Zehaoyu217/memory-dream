@@ -1,0 +1,127 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "nps-gbm-v2",
+   "type": "model",
+   "label": "driver model",
+   "as": [
+    "nps-gbm-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "rewards-value",
+   "type": "other",
+   "label": "survey theme",
+   "as": [
+    "rewards value"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "fee-shock-v2",
+   "type": "feature",
+   "label": "behaviour feature",
+   "as": [
+    "fee shock v2"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "transaction-frequency-change",
+   "type": "feature",
+   "label": "behaviour feature",
+   "as": [
+    "transaction frequency change"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mean-abs-shap",
+   "type": "metric",
+   "label": "mean absolute shap",
+   "as": [
+    "mean absolute SHAP"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "nps-gbm-v2",
+   "type": "evaluated-on",
+   "label": "set up on",
+   "o": "holdout-2025q4",
+   "quote": "nps-gbm-v2 on holdout-2025q4",
+   "line": 5
+  },
+  {
+   "s": "rewards-value",
+   "type": "measured-by",
+   "label": "has mean |SHAP|",
+   "o": "mean-abs-shap",
+   "quote": "mean |SHAP| 0.18",
+   "line": 6
+  },
+  {
+   "s": "fee-shock-v2",
+   "type": "measured-by",
+   "label": "has mean |SHAP|",
+   "o": "mean-abs-shap",
+   "quote": "Top behaviour feature: fee shock v2, 0.11.",
+   "line": 6
+  },
+  {
+   "s": "transaction-frequency-change",
+   "type": "measured-by",
+   "label": "has mean |SHAP|",
+   "o": "mean-abs-shap",
+   "quote": "Next: transaction frequency change, 0.09.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fnd-nps-themes"
+ ],
+ "built_on": [
+  {
+   "what": "nps-gbm-v2",
+   "quote": "the second gradient boosted driver model",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-407-nps-drivers.md",
+ "sha": "6760a713ff3b888b10d1b15ff914d1d27b1fe61edd984ff1bf7c948ee905473f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,105 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "fraud26-oot-2026h1",
+   "type": "dataset",
+   "label": "out-of-time holdout",
+   "as": [
+    "fraud26-oot-2026h1",
+    "Out-of-time holdout for the 2026 models"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "cnp-transactions",
+   "type": "dataset",
+   "label": "transactions dataset",
+   "as": [
+    "cnp transactions dataset",
+    "Jan-Mar 2026 CNP transactions"
+   ],
+   "lines": [
+    4,
+    8
+   ]
+  },
+  {
+   "id": "ds-f26-labels-2026",
+   "type": "dataset",
+   "label": "labels dataset",
+   "as": [
+    "ds-f26-labels-2026"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-207-fraud-2026",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-207-fraud-2026"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud26-oot-2026h1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "cnp-transactions",
+   "quote": "Builds on the cnp transactions dataset and ds-f26-labels-2026.",
+   "line": 8
+  },
+  {
+   "s": "fraud26-oot-2026h1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-f26-labels-2026",
+   "quote": "Builds on the cnp transactions dataset and ds-f26-labels-2026.",
+   "line": 8
+  },
+  {
+   "s": "exp-207-fraud-2026",
+   "type": "evaluated-on",
+   "label": "used from",
+   "o": "fraud26-oot-2026h1",
+   "quote": "Out-of-time holdout for the 2026 models, used from exp-207-fraud-2026 onward.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "ds-f26-labels-2026",
+  "exp-207-fraud-2026"
+ ],
+ "built_on": [
+  {
+   "what": "ds-f26-cnp-txn",
+   "quote": "the cnp transactions dataset",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-f26-labels-2026",
+   "quote": "ds-f26-labels-2026",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-f26-oot-2026h1.md",
+ "sha": "61804baf5aeaf2f57bd61e33ff0991e7c3b7092a171822e41bb3a46bb7118b0d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,171 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-403-callcentre-naive",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-403"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "offer-log",
+   "type": "dataset",
+   "label": "offer log",
+   "as": [
+    "offer log"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "open-rate",
+   "type": "metric",
+   "label": "open rate",
+   "as": [
+    "open rate"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "call",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "call"
+   ],
+   "lines": [
+    4,
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "contact dataset",
+   "as": [
+    "call-centre contact dataset"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "recent-call",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "recent-call feature"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "propensity-score",
+   "type": "feature",
+   "label": "propensity score",
+   "as": [
+    "propensity score"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "tenure",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "tenure"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "matching",
+   "type": "term",
+   "label": "matching",
+   "as": [
+    "Matched"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-403-callcentre-naive",
+   "type": "uses",
+   "label": "compared on",
+   "o": "offer-log",
+   "quote": "Naive comparison on the offer log",
+   "line": 5
+  },
+  {
+   "s": "call",
+   "type": "measured-by",
+   "label": "looks like",
+   "o": "open-rate",
+   "quote": "a call in the prior 90 days looks like +1.8 points of open rate",
+   "line": 4
+  },
+  {
+   "s": "matching",
+   "type": "uses",
+   "label": "matched on",
+   "o": "propensity-score",
+   "quote": "Matched on propensity score and tenure",
+   "line": 6
+  },
+  {
+   "s": "matching",
+   "type": "uses",
+   "label": "matched on",
+   "o": "tenure",
+   "quote": "Matched on propensity score and tenure",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-xs-callcentre",
+   "quote": "the call-centre contact dataset",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "feat-xs-call-recent",
+   "quote": "the recent-call feature",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "recent-call",
+   "quote": "Builds on the call-centre contact dataset and the recent-call feature.",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-403-callcentre-naive.md",
+ "sha": "fdeaa33af637c48ef6f89539640d92befec34a1f14685c0a6c5759a088be3ee3",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

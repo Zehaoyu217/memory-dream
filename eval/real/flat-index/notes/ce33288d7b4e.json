@@ -1,0 +1,114 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-bt-bureau-delta",
+   "type": "feature",
+   "label": "bureau score change",
+   "as": [
+    "feat-bt-bureau-delta: six-month change in bureau score"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "bureau scores table",
+   "as": [
+    "`bureau.scores_monthly`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bt-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bt-xgb-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "bt-xgb-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bt-xgb-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "bureau-score",
+   "type": "feature",
+   "label": "bureau score",
+   "as": [
+    "bureau score join for bt exposures"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-bt-bureau-delta",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "bureau.scores_monthly",
+   "quote": "from `bureau.scores_monthly`",
+   "line": 5
+  },
+  {
+   "s": "bt-xgb-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-bt-bureau-delta",
+   "quote": "Used in bt-xgb-v2 and bt-xgb-v3.",
+   "line": 7
+  },
+  {
+   "s": "bt-xgb-v3",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-bt-bureau-delta",
+   "quote": "Used in bt-xgb-v2 and bt-xgb-v3.",
+   "line": 7
+  },
+  {
+   "s": "feat-bt-bureau-delta",
+   "type": "uses",
+   "label": "built on",
+   "o": "bureau-score",
+   "quote": "Builds on the bureau score join for bt exposures.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "bt-xgb-v2",
+  "bt-xgb-v3"
+ ],
+ "built_on": [
+  {
+   "what": "ds-bt-bureau-join",
+   "quote": "the bureau score join for bt exposures",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-bt-bureau-delta.md",
+ "sha": "ce33288d7b4e02a4322bd1884de0151567c425fb36a6a989beff27c2809cbfb0",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,169 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "clv-ml-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "clv-ml-v2"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "error metric",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cohorts-2022-2023",
+   "type": "segment",
+   "label": "cohorts",
+   "as": [
+    "2022 and 2023 cohorts"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "clv-oot-2021h1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "2021 H1 holdout"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "changed-offer-mix",
+   "type": "other",
+   "label": "cause",
+   "as": [
+    "changed offer mix"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "lower-limits",
+   "type": "other",
+   "label": "cause",
+   "as": [
+    "lower limits"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-507-customer-lifetime-value",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-507-customer-lifetime-value"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "origination-cohort-panel",
+   "type": "dataset",
+   "label": "panel",
+   "as": [
+    "origination cohort panel dataset"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "clv-ml-v2",
+   "type": "measured-by",
+   "label": "MAPE rises",
+   "o": "mape",
+   "quote": "clv-ml-v2 MAPE rises to 19.8% on the 2022 and 2023 cohorts",
+   "line": 4
+  },
+  {
+   "s": "clv-ml-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "cohorts-2022-2023",
+   "quote": "on the 2022 and 2023 cohorts",
+   "line": 4
+  },
+  {
+   "s": "clv-ml-v2",
+   "type": "evaluated-on",
+   "label": "less accurate than",
+   "o": "clv-oot-2021h1",
+   "quote": "less accurate than on the 2021 H1 holdout (15.2%)",
+   "line": 5
+  },
+  {
+   "s": "clv-ml-v2",
+   "type": "other",
+   "label": "has not seen",
+   "o": "changed-offer-mix",
+   "quote": "which the model has not seen",
+   "line": 6
+  },
+  {
+   "s": "clv-ml-v2",
+   "type": "other",
+   "label": "has not seen",
+   "o": "lower-limits",
+   "quote": "which the model has not seen",
+   "line": 6
+  },
+  {
+   "s": "clv-ml-v2",
+   "type": "other",
+   "label": "triggers retrain",
+   "o": "exp-507-customer-lifetime-value",
+   "quote": "triggers the retrain in exp-507-customer-lifetime-value",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-507-customer-lifetime-value"
+ ],
+ "built_on": [
+  {
+   "what": "clv-ml-v2",
+   "quote": "the offer-netted lightgbm margin model",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-clv-cohort-panel",
+   "quote": "the origination cohort panel dataset",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-clv-cohort-drift.md",
+ "sha": "595b18b467dc5928314261db24c5cc307c17f89202a0012f47a5755f185330b8",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

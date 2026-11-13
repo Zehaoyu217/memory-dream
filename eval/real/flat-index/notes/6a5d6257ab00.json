@@ -1,0 +1,128 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "psi",
+   "as": [
+    "PSI"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-mm-payment-ratio-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mm-payment-ratio-v1"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-mm-payment-ratio-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mm-payment-ratio-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-201-model-monitoring",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-201-model-monitoring"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "minimum-due-formula",
+   "type": "term",
+   "label": "formula",
+   "as": [
+    "minimum-due formula"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-201-model-monitoring",
+   "type": "measured-by",
+   "label": "showed PSI",
+   "o": "psi",
+   "quote": "exp-201-model-monitoring showed feat-mm-payment-ratio-v1 at PSI 0.31",
+   "line": 5
+  },
+  {
+   "s": "feat-mm-payment-ratio-v2",
+   "type": "other",
+   "label": "fixes",
+   "o": "feat-mm-payment-ratio-v1",
+   "quote": "Fixed by feat-mm-payment-ratio-v2, which applies the new formula.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-201-model-monitoring",
+  "feat-mm-payment-ratio-v1",
+  "feat-mm-payment-ratio-v2"
+ ],
+ "built_on": [
+  {
+   "what": "exp-201-model-monitoring",
+   "quote": "exp-201-model-monitoring",
+   "line": 5,
+   "asked": true
+  },
+  {
+   "what": "feat-mm-payment-ratio-v1",
+   "quote": "feat-mm-payment-ratio-v1",
+   "line": 5,
+   "asked": true
+  },
+  {
+   "what": "exp-201-model-monitoring",
+   "quote": "the 38-feature psi experiment over 90 days",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-mm-payment-ratio-v1",
+   "quote": "feat-mm-payment-ratio-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-mm-payment-ratio-v1",
+   "quote": "Fixed by feat-mm-payment-ratio-v2, which applies the new formula.",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-payment-ratio-bug.md",
+ "sha": "6a5d6257ab004d3df3e0dc814b756c0f2965d1a78b2b9f13345b0d69e449f9c5",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

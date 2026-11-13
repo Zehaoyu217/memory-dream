@@ -1,0 +1,120 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-301-revenue-forecast-2026",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-301-revenue-forecast-2026"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    4,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "mcc-group-bps",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "MCC-group bps"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "flat-blended-bps",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "flat blended bps"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-rev26-spend-volume",
+   "type": "dataset",
+   "label": "volume",
+   "as": [
+    "Volume"
+   ],
+   "lines": [
+    5,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "rev26-interchange-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rev26-interchange-v1"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-301-revenue-forecast-2026",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "mape",
+   "quote": "give 2.1% interchange MAPE on 2024-H2 against 4.8% for flat bps",
+   "line": 4
+  },
+  {
+   "s": "exp-301-revenue-forecast-2026",
+   "type": "other",
+   "label": "tests",
+   "o": "mcc-group-bps",
+   "quote": "MCC-group bps give 2.1% interchange MAPE",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "ds-rev26-spend-volume",
+  "rev26-interchange-v1"
+ ],
+ "built_on": [
+  {
+   "what": "ds-rev26-spend-volume",
+   "quote": "ds-rev26-spend-volume",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "rev26-interchange-v1",
+   "quote": "rev26-interchange-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-301-revenue-forecast-2026.md",
+ "sha": "928aa0f2227e0b2713c324fb8c2f524fa28998e0fc0002a8927447fc110cd771",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

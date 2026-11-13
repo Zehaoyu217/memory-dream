@@ -1,0 +1,85 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-rs-bureau-postco-v1",
+   "type": "feature",
+   "label": "features",
+   "as": [
+    "feat-rs-bureau-postco-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "bureau.scores_monthly"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-rs-bureau-postco",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-rs-bureau-postco"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bureau-score",
+   "type": "feature",
+   "label": "score",
+   "as": [
+    "bureau score at charge-off"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-rs-bureau-postco-v1",
+   "type": "uses",
+   "label": "source",
+   "o": "bureau.scores_monthly",
+   "quote": "Source: `bureau.scores_monthly` via ds-rs-bureau-postco.",
+   "line": 6
+  },
+  {
+   "s": "feat-rs-bureau-postco-v1",
+   "type": "uses",
+   "label": "via",
+   "o": "ds-rs-bureau-postco",
+   "quote": "Source: `bureau.scores_monthly` via ds-rs-bureau-postco.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-rs-bureau-postco",
+   "quote": "the post-charge-off bureau scores dataset",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-rs-bureau-postco-v1.md",
+ "sha": "bb14c94fdb98094f507d21303f71cbaec8df5cdd954fc14d8b244af3ab70370a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

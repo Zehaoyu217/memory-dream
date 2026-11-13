@@ -1,0 +1,117 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "band-floors",
+   "type": "policy",
+   "label": "floor",
+   "as": [
+    "band floors"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "default-40k",
+   "type": "policy",
+   "label": "default",
+   "as": [
+    "default $40k"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "merchant-join",
+   "type": "pipeline",
+   "label": "join",
+   "as": [
+    "merchant join"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cb-rate",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "cb-rate"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "precision",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "CV precision"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "chatbot-ab-test",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "A/B"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "calls-per-1000-eligible-sessions",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "calls per 1,000 eligible sessions"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "band-floors",
+   "type": "other",
+   "label": "default",
+   "o": "default-40k",
+   "quote": "default $40k from April review",
+   "line": 3
+  },
+  {
+   "s": "cb-rate",
+   "type": "other",
+   "label": "lifted",
+   "o": "precision",
+   "quote": "cb-rate lifted CV precision to 91.2%",
+   "line": 4
+  },
+  {
+   "s": "chatbot-ab-test",
+   "type": "measured-by",
+   "label": "down 6.1 percent",
+   "o": "calls-per-1000-eligible-sessions",
+   "quote": "calls per 1,000 eligible sessions down only 6.1 percent",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2026-03-16.md",
+ "sha": "0f0913c7d483f4b81c07bc3ae275984bbc1962ac4581bb87c921d256d86485c6",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

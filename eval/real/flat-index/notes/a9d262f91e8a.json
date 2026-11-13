@@ -1,0 +1,160 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "cld-gbm-v3",
+   "type": "model",
+   "label": "score model",
+   "as": [
+    "cld-gbm-v3"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-cld-risk-band-v2",
+   "type": "feature",
+   "label": "band rules",
+   "as": [
+    "feat-cld-risk-band-v2"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "find-cld-cut-640",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-cld-cut-640"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "find-cld-roll-rates",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-cld-roll-rates"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "dec-cld-cap-25pct",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-cld-cap-25pct"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-cld-band-policy-2025",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-cld-band-policy-2025"
+   ],
+   "lines": [
+    5,
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cld-gbm-v3",
+   "type": "uses",
+   "label": "scores",
+   "o": "feat-cld-risk-band-v2",
+   "quote": "Band rules come from feat-cld-risk-band-v2 and the cld-gbm-v3 score.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "cld-gbm-v3",
+  "feat-cld-risk-band-v2",
+  "find-cld-cut-640",
+  "find-cld-roll-rates",
+  "dec-cld-cap-25pct",
+  "dec-cld-band-policy-2025"
+ ],
+ "built_on": [
+  {
+   "what": "feat-cld-risk-band-v2",
+   "quote": "feat-cld-risk-band-v2",
+   "line": 5,
+   "asked": true
+  },
+  {
+   "what": "cld-gbm-v3",
+   "quote": "the cld-gbm-v3 score",
+   "line": 5,
+   "asked": true
+  },
+  {
+   "what": "find-cld-cut-640",
+   "quote": "find-cld-cut-640",
+   "line": 6,
+   "asked": true
+  },
+  {
+   "what": "dec-cld-cap-25pct",
+   "quote": "the 25% per-cycle cap",
+   "line": 6,
+   "asked": true
+  },
+  {
+   "what": "cld-gbm-v3",
+   "quote": "cld-gbm-v3",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-cld-risk-band-v2",
+   "quote": "feat-cld-risk-band-v2",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "find-cld-cut-640",
+   "quote": "find-cld-cut-640",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "find-cld-roll-rates",
+   "quote": "find-cld-roll-rates",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "dec-cld-band-policy-2025",
+   "quote": "dec-cld-band-policy-2025",
+   "line": 5,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-cld-band-policy-2026.md",
+ "sha": "a9d262f91e8a63b5ef2eb353731b39bd6a08b30d198138e229b0baa0a4af0806",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

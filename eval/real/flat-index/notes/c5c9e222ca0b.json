@@ -1,0 +1,136 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "fraud26-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fraud26-gbm-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-f25-velocity-v1",
+   "type": "feature",
+   "label": "velocity feature",
+   "as": [
+    "2025 velocity feature"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-f26-device-age",
+   "type": "feature",
+   "label": "device age",
+   "as": [
+    "device age"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fraud25-gbm-v2",
+   "type": "model",
+   "label": "champion",
+   "as": [
+    "fraud-2025 champion"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-f26-labels-2026",
+   "type": "dataset",
+   "label": "fraud labels",
+   "as": [
+    "ds-f26-labels-2026"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud26-gbm-v1",
+   "type": "uses",
+   "label": "uses velocity feature",
+   "o": "feat-f25-velocity-v1",
+   "quote": "LightGBM on the 2025 velocity feature plus device age",
+   "line": 5
+  },
+  {
+   "s": "fraud26-gbm-v1",
+   "type": "uses",
+   "label": "uses device age",
+   "o": "feat-f26-device-age",
+   "quote": "LightGBM on the 2025 velocity feature plus device age",
+   "line": 5
+  },
+  {
+   "s": "fraud26-gbm-v1",
+   "type": "replaces",
+   "label": "replaces champion",
+   "o": "fraud25-gbm-v2",
+   "quote": "fraud26-gbm-v1 replaces the fraud-2025 champion",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "fraud26-find-label-bias",
+  "fraud26-gbm-v2",
+  "feat-f25-velocity-v1",
+  "fraud25-gbm-v2",
+  "ds-f26-labels-2026",
+  "feat-f26-device-age"
+ ],
+ "built_on": [
+  {
+   "what": "feat-f25-velocity-v1",
+   "quote": "feat-f25-velocity-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fraud25-gbm-v2",
+   "quote": "fraud25-gbm-v2",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-f26-labels-2026",
+   "quote": "ds-f26-labels-2026",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-f26-device-age",
+   "quote": "feat-f26-device-age",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "fraud25-gbm-v2",
+   "quote": "fraud25-gbm-v2",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fraud26-gbm-v1.md",
+ "sha": "c5c9e222ca0ba48e9c5e9d1903625c9b1ce255579b339cc1a03cc67ece828388",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

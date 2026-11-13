@@ -1,0 +1,167 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "fsm-spend-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fsm-spend-lgbm-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fsm-spend-lgbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fsm-spend-lgbm-v1"
+   ],
+   "lines": [
+    8,
+    9
+   ]
+  },
+  {
+   "id": "fsm-oot-2025q2",
+   "type": "dataset",
+   "label": "evaluation dataset",
+   "as": [
+    "fsm-oot-2025q2 (n=96,000 accounts)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "MAPE 14.9 percent"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "feat-fsm-payment-lag-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-fsm-payment-lag-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-fsm-spend-cv-30d",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-fsm-spend-cv-30d"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "exp-106-feature-store-migration",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-106-feature-store-migration"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fsm-spend-lgbm-v2",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "mape",
+   "quote": "MAPE 14.9 percent on fsm-oot-2025q2 (n=96,000 accounts)",
+   "line": 6
+  },
+  {
+   "s": "fsm-spend-lgbm-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "fsm-oot-2025q2",
+   "quote": "MAPE 14.9 percent on fsm-oot-2025q2 (n=96,000 accounts)",
+   "line": 6
+  },
+  {
+   "s": "fsm-spend-lgbm-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-fsm-payment-lag-v2",
+   "quote": "with payment lag v2 and util ratio from the store, plus feat-fsm-spend-cv-30d",
+   "line": 5
+  },
+  {
+   "s": "fsm-spend-lgbm-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-fsm-spend-cv-30d",
+   "quote": "plus feat-fsm-spend-cv-30d (23 features in total)",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "feat-fsm-payment-lag-v2",
+  "feat-fsm-spend-cv-30d",
+  "fsm-spend-lgbm-v1",
+  "exp-106-feature-store-migration"
+ ],
+ "built_on": [
+  {
+   "what": "exp-106-feature-store-migration",
+   "quote": "the spend regression with store features",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-fsm-payment-lag-v2",
+   "quote": "feat-fsm-payment-lag-v2",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-fsm-spend-cv-30d",
+   "quote": "feat-fsm-spend-cv-30d",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fsm-spend-lgbm-v1",
+   "quote": "fsm-spend-lgbm-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "fsm-spend-lgbm-v1",
+   "quote": "fsm-spend-lgbm-v1",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fsm-spend-lgbm-v2.md",
+ "sha": "a8273aac144ca50cd377296e0a4937f5ce0328a488163e6759333350cf087bbb",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

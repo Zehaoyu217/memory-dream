@@ -1,0 +1,152 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-103-credit-line-increase",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-103-credit-line-increase"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cli-xgb-v1",
+   "type": "model",
+   "label": "xgboost loss model",
+   "as": [
+    "cli-xgb-v1"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "holdout",
+   "type": "term",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-cli-util-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cli-util-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-cli-util-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cli-util-v1"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cli-xgb-v1",
+   "type": "uses",
+   "label": "retrained with",
+   "o": "feat-cli-util-v2",
+   "quote": "Retrained cli-xgb-v1 with a 6-month utilisation slope and over-limit flag added.",
+   "line": 5
+  },
+  {
+   "s": "cli-xgb-v1",
+   "type": "evaluated-on",
+   "label": "eval",
+   "o": "holdout",
+   "quote": "Eval: holdout-2025q4, n=118,400",
+   "line": 6
+  },
+  {
+   "s": "cli-xgb-v1",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.698 to 0.710",
+   "line": 6
+  },
+  {
+   "s": "cli-xgb-v1",
+   "type": "measured-by",
+   "label": "KS",
+   "o": "ks",
+   "quote": "KS unchanged at 0.31",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "cli-xgb-v1",
+  "feat-cli-util-v1",
+  "feat-cli-util-v2"
+ ],
+ "built_on": [
+  {
+   "what": "cli-xgb-v1",
+   "quote": "the first xgboost loss model",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-cli-holdout-2025q4",
+   "quote": "the 2025 q4 unexposed holdout set",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-cli-util-v1",
+   "quote": "feat-cli-util-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-103-credit-line-increase.md",
+ "sha": "1c90d4af2c1aca670a802ae406c4e24eb59b5fe075d4017dfc6099bb675acd3e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,117 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "bt-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bt-xgb-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "bt-holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "bt-holdout-2025q1 (n=41,800)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "depth 5 AUC 0.68"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-bt-limit-headroom",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-bt-limit-headroom"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-bt-util-trend-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-bt-util-trend-v2"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bt-xgb-v2",
+   "type": "evaluated-on",
+   "label": "on",
+   "o": "bt-holdout-2025q1",
+   "quote": "On bt-holdout-2025q1 (n=41,800)",
+   "line": 6
+  },
+  {
+   "s": "bt-xgb-v2",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "depth 5 AUC 0.68",
+   "line": 6
+  },
+  {
+   "s": "bt-xgb-v2",
+   "type": "uses",
+   "label": "built on",
+   "o": "feat-bt-limit-headroom",
+   "quote": "Builds on feat-bt-limit-headroom and feat-bt-util-trend-v2.",
+   "line": 8
+  },
+  {
+   "s": "bt-xgb-v2",
+   "type": "uses",
+   "label": "built on",
+   "o": "feat-bt-util-trend-v2",
+   "quote": "Builds on feat-bt-limit-headroom and feat-bt-util-trend-v2.",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "feat-bt-limit-headroom",
+   "quote": "feat-bt-limit-headroom",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-bt-util-trend-v2",
+   "quote": "feat-bt-util-trend-v2",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-105-depth-sweep.md",
+ "sha": "1c39008b5b939be3d2ee42b0f12ac990cf03c823a7ba275589dc176e26ce4d8c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

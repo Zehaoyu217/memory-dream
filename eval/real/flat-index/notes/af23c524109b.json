@@ -1,0 +1,136 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "credit-line-increase",
+   "type": "other",
+   "label": "workstream",
+   "as": [
+    "credit-line-increase"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "trigger-rule",
+   "type": "term",
+   "label": "rule",
+   "as": [
+    "trigger rule"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "incremental-spend",
+   "type": "metric",
+   "label": "capture",
+   "as": [
+    "incremental spend"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "logreg",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "logreg"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "travel-spend-recovery",
+   "type": "other",
+   "label": "workstream",
+   "as": [
+    "travel-spend-recovery"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "monthly-travel-mcc-pull",
+   "type": "dataset",
+   "label": "pull",
+   "as": [
+    "monthly travel MCC pull"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "stl-decomposition",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "STL"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "travel-trend",
+   "type": "metric",
+   "label": "trend",
+   "as": [
+    "+1.8% a quarter trend"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "trigger-rule",
+   "type": "measured-by",
+   "label": "captures",
+   "o": "incremental-spend",
+   "quote": "trigger rule captures 0.58 of incremental spend",
+   "line": 3
+  },
+  {
+   "s": "logreg",
+   "type": "measured-by",
+   "label": "captures",
+   "o": "incremental-spend",
+   "quote": "vs logreg 0.71",
+   "line": 3
+  },
+  {
+   "s": "stl-decomposition",
+   "type": "measured-by",
+   "label": "shows",
+   "o": "travel-trend",
+   "quote": "STL shows +1.8% a quarter trend",
+   "line": 4
+  },
+  {
+   "s": "travel-spend-recovery",
+   "type": "uses",
+   "label": "pulled",
+   "o": "monthly-travel-mcc-pull",
+   "quote": "monthly travel MCC pull done",
+   "line": 4
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2025-03-14.md",
+ "sha": "af23c524109baea13fa440540e18ee790a94db06fb78b19b4ebe5a317e8e6e66",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

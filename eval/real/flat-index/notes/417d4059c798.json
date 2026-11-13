@@ -1,0 +1,114 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "bt-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bt-xgb-v2 loses 0.02 AUC out of time"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "bt-oot-2026h1",
+   "type": "dataset",
+   "label": "oot dataset",
+   "as": [
+    "on bt-oot-2026h1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "Out-of-time AUC for bt-xgb-v2 on bt-oot-2026h1 is 0.66."
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "term",
+   "label": "psi",
+   "as": [
+    "PSI 0.27 on the utilization trend."
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "january-2026-limit-policy-change",
+   "type": "other",
+   "label": "policy change",
+   "as": [
+    "The January 2026 limit-policy change"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bt-xgb-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bt-xgb-v3 picks up 2026 H1 data at the next retrain."
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bt-xgb-v2",
+   "type": "evaluated-on",
+   "label": "out of time on",
+   "o": "bt-oot-2026h1",
+   "quote": "Out-of-time AUC for bt-xgb-v2 on bt-oot-2026h1 is 0.66.",
+   "line": 5
+  },
+  {
+   "s": "bt-xgb-v2",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "Out-of-time AUC for bt-xgb-v2 on bt-oot-2026h1 is 0.66.",
+   "line": 5
+  },
+  {
+   "s": "january-2026-limit-policy-change",
+   "type": "other",
+   "label": "moved utilization",
+   "o": "psi",
+   "quote": "The January 2026 limit-policy change raised average limits, so utilization levels moved",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "exp-106-oot-2026h1",
+   "quote": "exp-106-oot-2026h1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/find-bt-oot-drop.md",
+ "sha": "417d4059c79849faf73184aa764343a03f48963a8c879e0499f8aecc32021b22",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

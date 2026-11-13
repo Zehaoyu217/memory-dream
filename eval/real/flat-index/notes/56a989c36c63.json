@@ -1,0 +1,207 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "pbs-gmm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "pbs-gmm-v3"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "pbs-gmm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "pbs-gmm-v2 inputs",
+    "the second gmm segment model"
+   ],
+   "lines": [
+    5,
+    8,
+    9
+   ]
+  },
+  {
+   "id": "feat-pbs-timing-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-pbs-timing-v2"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "seed-ari",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Seed-to-seed ARI 0.81"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "silhouette",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "silhouette 0.42"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-pbs-frame-h1-2025",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-pbs-frame-h1-2025"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-pbs-monthly-refresh",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-pbs-monthly-refresh"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-403-payment-behavior-segments",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-403-payment-behavior-segments"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "payment-behavior-segments",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "Segments"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "pbs-gmm-v3",
+   "type": "uses",
+   "label": "takes input",
+   "o": "feat-pbs-timing-v2",
+   "quote": "on the pbs-gmm-v2 inputs plus feat-pbs-timing-v2",
+   "line": 5
+  },
+  {
+   "s": "pbs-gmm-v3",
+   "type": "uses",
+   "label": "takes input",
+   "o": "pbs-gmm-v2",
+   "quote": "on the pbs-gmm-v2 inputs plus feat-pbs-timing-v2",
+   "line": 5
+  },
+  {
+   "s": "pbs-gmm-v3",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "seed-ari",
+   "quote": "Seed-to-seed ARI 0.81",
+   "line": 6
+  },
+  {
+   "s": "pbs-gmm-v3",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "silhouette",
+   "quote": "silhouette 0.42",
+   "line": 6
+  },
+  {
+   "s": "pbs-gmm-v3",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "ds-pbs-frame-h1-2025",
+   "quote": "on the 200k sample of ds-pbs-frame-h1-2025",
+   "line": 6
+  },
+  {
+   "s": "pbs-gmm-v3",
+   "type": "other",
+   "label": "refreshed under",
+   "o": "dec-pbs-monthly-refresh",
+   "quote": "Refreshed monthly (dec-pbs-monthly-refresh)",
+   "line": 7
+  },
+  {
+   "s": "pbs-gmm-v3",
+   "type": "other",
+   "label": "builds on",
+   "o": "exp-403-payment-behavior-segments",
+   "quote": "Builds on exp-403-payment-behavior-segments",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "dec-pbs-monthly-refresh",
+  "exp-403-payment-behavior-segments"
+ ],
+ "built_on": [
+  {
+   "what": "exp-403-payment-behavior-segments",
+   "quote": "exp-403-payment-behavior-segments",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-pbs-timing-v2",
+   "quote": "feat-pbs-timing-v2",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "pbs-gmm-v2",
+   "quote": "the second gmm segment model",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "pbs-gmm-v2",
+   "quote": "the second gmm segment model",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/pbs-gmm-v3.md",
+ "sha": "56a989c36c637a9a938f2ba6b615459c668a351d19f5b608959c7b85e3db3aad",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

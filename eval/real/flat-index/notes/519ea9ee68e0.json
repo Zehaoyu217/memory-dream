@@ -1,0 +1,98 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "2023-vintages",
+   "type": "segment",
+   "label": "vintage",
+   "as": [
+    "2023 vintages"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "ds-rs-recovery-labels",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-rs-recovery-labels"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "charge-off",
+   "type": "term",
+   "label": "term",
+   "as": [
+    "charge-offs"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "balance-recovery-rate",
+   "type": "metric",
+   "label": "rate",
+   "as": [
+    "9.8% of balance recovered within 12 months"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "placement-value",
+   "type": "term",
+   "label": "value",
+   "as": [
+    "placement value per account"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "2023-vintages",
+   "type": "measured-by",
+   "label": "recover",
+   "o": "balance-recovery-rate",
+   "quote": "each recover about 9.8% of balance in 12 months",
+   "line": 5
+  },
+  {
+   "s": "balance-recovery-rate",
+   "type": "uses",
+   "label": "read from",
+   "o": "ds-rs-recovery-labels",
+   "quote": "Initial reading from ds-rs-recovery-labels",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "ds-rs-recovery-labels"
+ ],
+ "built_on": [
+  {
+   "what": "ds-rs-recovery-labels",
+   "quote": "the recovery label definition",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/find-rs-recovery-flat.md",
+ "sha": "519ea9ee68e010c422775ab66aeef7a2ee880ea4ebc05b9de59d74da5c64b691",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,129 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "dq-volume-iforest-v1",
+   "type": "model",
+   "label": "isolation forest",
+   "as": [
+    "Isolation forest over 12 partition statistics"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "partition-statistics",
+   "type": "feature",
+   "label": "statistics",
+   "as": [
+    "12 partition statistics"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "same-weekday-zscore",
+   "type": "feature",
+   "label": "z-score",
+   "as": [
+    "same-weekday z-score"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "data-quality-dashboard",
+   "type": "dashboard",
+   "label": "dashboard",
+   "as": [
+    "data-quality dashboard"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "row-count-anomalies",
+   "type": "term",
+   "label": "anomaly",
+   "as": [
+    "row-count anomalies"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "same-weekday-volume-baseline",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "same-weekday volume baseline decision"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dq-volume-iforest-v1",
+   "type": "uses",
+   "label": "over",
+   "o": "partition-statistics",
+   "quote": "Isolation forest over 12 partition statistics",
+   "line": 5
+  },
+  {
+   "s": "dq-volume-iforest-v1",
+   "type": "uses",
+   "label": "including",
+   "o": "same-weekday-zscore",
+   "quote": "including the same-weekday z-score",
+   "line": 5
+  },
+  {
+   "s": "dq-volume-iforest-v1",
+   "type": "produces",
+   "label": "results go to",
+   "o": "data-quality-dashboard",
+   "quote": "Results go to the data-quality dashboard only.",
+   "line": 7
+  },
+  {
+   "s": "dq-volume-iforest-v1",
+   "type": "other",
+   "label": "second opinion on",
+   "o": "row-count-anomalies",
+   "quote": "second opinion on row-count anomalies",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "dec-dq-same-weekday-baseline",
+   "quote": "the same-weekday volume baseline decision",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-dq-rowcount-z-v2",
+   "quote": "the same-weekday row count z-score",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dq-volume-iforest-v1.md",
+ "sha": "f52e52ab0a483d1d7cac2f0407eeeb8f4b7037e3668449767479364277dd038f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,140 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ch-optout-flag-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ch-optout-flag-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "crm.contacts",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "crm.contacts"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "crm-platform",
+   "type": "service",
+   "label": "platform",
+   "as": [
+    "crm-platform"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "omar-haddad",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Omar Haddad (compliance)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-ch-contact-costs",
+   "type": "dataset",
+   "label": "costs",
+   "as": [
+    "ds-ch-contact-costs"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "sms",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "SMS"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "outbound-calls",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "outbound calls"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "hard-exclusion",
+   "type": "policy",
+   "label": "rule",
+   "as": [
+    "hard exclusion"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ch-optout-flag-v1",
+   "type": "uses",
+   "label": "source",
+   "o": "crm.contacts",
+   "quote": "Source: `crm.contacts` (crm-platform)",
+   "line": 5
+  },
+  {
+   "s": "crm.contacts",
+   "type": "other",
+   "label": "source",
+   "o": "crm-platform",
+   "quote": "Source: `crm.contacts` (crm-platform)",
+   "line": 5
+  },
+  {
+   "s": "feat-ch-optout-flag-v1",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "omar-haddad",
+   "quote": "Rule owned by Omar Haddad (compliance).",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-ch-contact-costs"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ch-contact-costs",
+   "quote": "ds-ch-contact-costs",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-ch-optout-flag-v1.md",
+ "sha": "0fe7c54495d01de90c2c1473f8bff2d72127b28382ba616628ac956a3e251a66",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

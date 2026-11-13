@@ -1,0 +1,103 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "feat-f25-velocity-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-f25-velocity-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "term",
+   "label": "metric",
+   "as": [
+    "PSI"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-f25-velocity-v1",
+   "type": "measured-by",
+   "label": "drop effect",
+   "o": "auc",
+   "quote": "removing feat-f25-velocity-v1 drops AUC by 0.021",
+   "line": 5
+  },
+  {
+   "s": "feat-f25-velocity-v1",
+   "type": "measured-by",
+   "label": "PSI",
+   "o": "psi",
+   "quote": "PSI of the velocity score Jan to Mar 2025 is 0.04",
+   "line": 6
+  },
+  {
+   "s": "feat-f25-velocity-v1",
+   "type": "evaluated-on",
+   "label": "tested on",
+   "o": "holdout-2025q1",
+   "quote": "on holdout-2025q1 (1,104,800 transactions)",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "ds-f25-holdout-2025q1"
+ ],
+ "built_on": [
+  {
+   "what": "ds-f25-holdout-2025q1",
+   "quote": "ds-f25-holdout-2025q1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-f25-velocity-v1",
+   "quote": "the card velocity counts feature",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fraud25-find-velocity-stable.md",
+ "sha": "b58914724f95498da019c01a6c6b3e337677b49953a9b6501afa3e1ef0deac93",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

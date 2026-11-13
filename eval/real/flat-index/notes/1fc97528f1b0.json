@@ -1,0 +1,139 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "bt-xgb-v2",
+   "type": "model",
+   "label": "frozen model",
+   "as": [
+    "bt-xgb-v2"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "bt-oot-2026h1",
+   "type": "dataset",
+   "label": "out-of-time set",
+   "as": [
+    "bt-oot-2026h1"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.66"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "top-30-lift",
+   "type": "metric",
+   "label": "top-30% lift",
+   "as": [
+    "top-30% lift 1.7x"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-bt-util-trend-v2",
+   "type": "feature",
+   "label": "utilization trend",
+   "as": [
+    "feat-bt-util-trend-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "term",
+   "label": "psi",
+   "as": [
+    "PSI"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "limit-policy-change",
+   "type": "policy",
+   "label": "limit policy change",
+   "as": [
+    "2026 limit policy change"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bt-xgb-v2",
+   "type": "evaluated-on",
+   "label": "replayed on",
+   "o": "bt-oot-2026h1",
+   "quote": "Replayed the frozen bt-xgb-v2 on bt-oot-2026h1",
+   "line": 5
+  },
+  {
+   "s": "bt-xgb-v2",
+   "type": "measured-by",
+   "label": "AUC drops to",
+   "o": "auc",
+   "quote": "AUC 0.66, down from 0.68",
+   "line": 5
+  },
+  {
+   "s": "feat-bt-util-trend-v2",
+   "type": "measured-by",
+   "label": "PSI is",
+   "o": "psi",
+   "quote": "PSI on feat-bt-util-trend-v2 is 0.27",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "bt-xgb-v2",
+  "ds-bt-oot-2026h1"
+ ],
+ "built_on": [
+  {
+   "what": "bt-xgb-v2",
+   "quote": "bt-xgb-v2",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "ds-bt-oot-2026h1",
+   "quote": "ds-bt-oot-2026h1",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-106-oot-2026h1.md",
+ "sha": "1fc97528f1b09651db1466f61083710194ae5779c55edd3903d8ed995e431308",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

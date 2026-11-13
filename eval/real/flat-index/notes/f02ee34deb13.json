@@ -1,0 +1,76 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "application-scorecard",
+   "type": "model",
+   "label": "scorecard",
+   "as": [
+    "[application-scorecard]"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "v4-candidate",
+   "type": "model",
+   "label": "candidate",
+   "as": [
+    "v4 candidate"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "oot-set",
+   "type": "dataset",
+   "label": "oot set",
+   "as": [
+    "OOT set"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Gini"
+   ],
+   "lines": [
+    3
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "v4-candidate",
+   "type": "measured-by",
+   "label": "Gini on",
+   "o": "gini",
+   "quote": "v4 candidate Gini 0.42",
+   "line": 3
+  },
+  {
+   "s": "v4-candidate",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "oot-set",
+   "quote": "on OOT set",
+   "line": 3
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2026-10-21.md",
+ "sha": "f02ee34deb13829b6cb97ccd89754b845b95ac19a571cc5fc23d7e7e18e9c801",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

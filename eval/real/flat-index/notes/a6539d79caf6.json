@@ -1,0 +1,122 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-sfc-util-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-sfc-util-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "rewards-segment",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "Rewards segment"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "sfc-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "sfc-lgbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "sfc-hier-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "sfc-hier-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "credit-limit-utilisation-dataset",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "credit-limit utilisation dataset"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-205-spend-forecasting",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-205-spend-forecasting"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "1-month MAPE"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-sfc-util-v1",
+   "type": "measured-by",
+   "label": "cuts",
+   "o": "mape",
+   "quote": "Cuts Rewards 1-month MAPE from 8.2% to 6.9%",
+   "line": 6
+  },
+  {
+   "s": "feat-sfc-util-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "credit-limit-utilisation-dataset",
+   "quote": "Builds on the credit-limit utilisation dataset.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-205-spend-forecasting",
+  "sfc-lgbm-v2",
+  "sfc-hier-v3"
+ ],
+ "built_on": [
+  {
+   "what": "ds-sfc-limits-util",
+   "quote": "the credit-limit utilisation dataset",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-sfc-util-v1.md",
+ "sha": "a6539d79caf6259981fb0205b93640b52473caeed5152e40c0156eadd672681f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

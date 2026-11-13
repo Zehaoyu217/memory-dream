@@ -1,0 +1,114 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "cb-uplift-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cb-uplift-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "qini-auc",
+   "type": "metric",
+   "label": "qini auc",
+   "as": [
+    "Qini AUC 0.58"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cb-sim-v1",
+   "type": "tool",
+   "label": "simulator",
+   "as": [
+    "cb-sim-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-cb-pilot-2025q4",
+   "type": "dataset",
+   "label": "pilot",
+   "as": [
+    "30% pilot split"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cb-uplift-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "uplift-at-20",
+   "quote": "The top 20% by predicted uplift gain 1.9x the average incremental spend.",
+   "line": 5
+  },
+  {
+   "s": "cb-uplift-v1",
+   "type": "measured-by",
+   "label": "scored by",
+   "o": "qini-auc",
+   "quote": "Qini AUC 0.58 against random ordering.",
+   "line": 6
+  },
+  {
+   "s": "cb-uplift-v1",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "ds-cb-pilot-2025q4",
+   "quote": "cb-uplift-v1 on a 30% pilot split, n=16,200 accounts.",
+   "line": 5
+  },
+  {
+   "s": "cb-sim-v1",
+   "type": "uses",
+   "label": "fed by",
+   "o": "cb-uplift-v1",
+   "quote": "Feeds the cb-sim-v1 ranking.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "cb-sim-v1",
+  "cb-uplift-v1"
+ ],
+ "built_on": [
+  {
+   "what": "cb-uplift-v1",
+   "quote": "the tier pilot uplift model",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-205-uplift-qini.md",
+ "sha": "16729267cad088ca36434a31729d929ff604823ab71b2edef8f0fdeaa6c4e515",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

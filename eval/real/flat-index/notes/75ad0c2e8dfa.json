@@ -1,0 +1,74 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "bureau.scores_monthly"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "bt-offer-log",
+   "type": "dataset",
+   "label": "source dataset",
+   "as": [
+    "bt offer log dataset"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "thin-file-accounts",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "Thin-file accounts (no score)"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bureau.scores_monthly",
+   "type": "other",
+   "label": "pulled using month-end join",
+   "o": "thin-file-accounts",
+   "quote": "Pulled from `bureau.scores_monthly` (credit-data)",
+   "line": 5
+  },
+  {
+   "s": "thin-file-accounts",
+   "type": "measured-by",
+   "label": "accept rate",
+   "o": "bt-offer-log",
+   "quote": "accept at 2.4%",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-bt-offer-log",
+   "quote": "the bt offer log dataset",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-bt-bureau-join.md",
+ "sha": "75ad0c2e8dfac62c3289a6f42cba00f2a5bad35cdcecd6df17efdb560db03fbb",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

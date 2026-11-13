@@ -1,0 +1,69 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ed-bureau-slope-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ed-bureau-slope-v1 is the slope of the bureau score over 6 months from bureau.scores_monthly"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "`bureau.scores_monthly`"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "bureau-score",
+   "type": "feature",
+   "label": "bureau score",
+   "as": [
+    "bureau score"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ed-bureau-slope-v1",
+   "type": "uses",
+   "label": "source",
+   "o": "bureau.scores_monthly",
+   "quote": "Source: `bureau.scores_monthly`.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-ed-bureau-join"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ed-bureau-join",
+   "quote": "ds-ed-bureau-join",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-ed-bureau-slope-v1.md",
+ "sha": "ebae553ff46e5a4b4c618ddc9b2c5e3fe342d46f00a4f2b633489be6dc305410",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

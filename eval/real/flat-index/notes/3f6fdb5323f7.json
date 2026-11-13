@@ -1,0 +1,101 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "payroll-detection-rate",
+   "type": "metric",
+   "label": "detection rate",
+   "as": [
+    "payroll detection fell from 61% to 44%"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "payroll-descriptor-change-2026-02",
+   "type": "other",
+   "label": "descriptor change",
+   "as": [
+    "The descriptor change in February 2026"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "payroll-pattern-match",
+   "type": "feature",
+   "label": "pattern match",
+   "as": [
+    "broke the payroll pattern match"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "xs-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "xs-gbm-v2 lost 0.03 AUC out of time"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "payroll-flag",
+   "type": "feature",
+   "label": "flag",
+   "as": [
+    "The flag lost signal"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "payroll-descriptor-change-2026-02",
+   "type": "other",
+   "label": "broke",
+   "o": "payroll-pattern-match",
+   "quote": "broke the payroll pattern match for a large share of employers",
+   "line": 5
+  },
+  {
+   "s": "xs-gbm-v2",
+   "type": "measured-by",
+   "label": "lost AUC",
+   "o": "payroll-detection-rate",
+   "quote": "xs-gbm-v2 lost 0.03 AUC out of time",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "exp-407-oot-2026h1",
+   "quote": "the out-of-time 2026 check",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "the out-of-time 2026 check",
+   "quote": "Builds on the out-of-time 2026 check.",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/find-xs-drift-2026.md",
+ "sha": "3f6fdb5323f7cc4942e8f229e97e8f4740fe4d49d541dc0226bd3686a2bc4327",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

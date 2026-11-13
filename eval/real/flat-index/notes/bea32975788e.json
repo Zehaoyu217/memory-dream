@@ -1,0 +1,138 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-rev26-spend-volume",
+   "type": "dataset",
+   "label": "series",
+   "as": [
+    "Monthly spend volume"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "sfc-hier-v3",
+   "type": "model",
+   "label": "forecast model",
+   "as": [
+    "sfc-hier-v3"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "sfc-oot-2025h2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "sfc-oot-2025h2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "rev26-interchange-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rev26-interchange-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-rev26-volume-lag",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rev26-volume-lag"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-rev26-spend-volume",
+   "type": "uses",
+   "label": "actuals from",
+   "o": "cards.txn_daily",
+   "quote": "actuals from `cards.txn_daily` for closed months",
+   "line": 5
+  },
+  {
+   "s": "ds-rev26-spend-volume",
+   "type": "uses",
+   "label": "forecasts from",
+   "o": "sfc-hier-v3",
+   "quote": "sfc-hier-v3 forecasts for open months",
+   "line": 5
+  },
+  {
+   "s": "sfc-hier-v3",
+   "type": "evaluated-on",
+   "label": "MAPE on",
+   "o": "sfc-oot-2025h2",
+   "quote": "MAPE 2.3% on sfc-oot-2025h2",
+   "line": 6
+  },
+  {
+   "s": "rev26-interchange-v1",
+   "type": "uses",
+   "label": "used by",
+   "o": "ds-rev26-spend-volume",
+   "quote": "Used by rev26-interchange-v1 through feat-rev26-volume-lag.",
+   "line": 7
+  },
+  {
+   "s": "rev26-interchange-v1",
+   "type": "uses",
+   "label": "through",
+   "o": "feat-rev26-volume-lag",
+   "quote": "Used by rev26-interchange-v1 through feat-rev26-volume-lag.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "cards.txn_daily",
+  "sfc-hier-v3",
+  "rev26-interchange-v1",
+  "feat-rev26-volume-lag"
+ ],
+ "built_on": [
+  {
+   "what": "sfc-hier-v3",
+   "quote": "sfc-hier-v3",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-rev26-spend-volume.md",
+ "sha": "bea32975788e59b704b19ddee18d10427e83042c0a8cfefc1ecbe2abccf26788",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

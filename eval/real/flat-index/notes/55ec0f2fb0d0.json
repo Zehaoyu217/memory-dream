@@ -1,0 +1,112 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-402-aml-alerts",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-402-aml-alerts: ranker v1 with two features gives AUC 0.84 on Jul-Sep 2025 dispositions"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "aml-xgb-v1",
+   "type": "model",
+   "label": "ranker",
+   "as": [
+    "aml-xgb-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.84"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "feat-aml-structuring-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "structuring-v1"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "exp-403-aml-alerts",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-403-aml-alerts"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-402-aml-alerts",
+   "type": "uses",
+   "label": "with",
+   "o": "feat-aml-structuring-v1",
+   "quote": "aml-xgb-v1 with structuring-v1 and new-counterparty: AUC 0.84.",
+   "line": 6
+  },
+  {
+   "s": "exp-402-aml-alerts",
+   "type": "measured-by",
+   "label": "gives",
+   "o": "auc",
+   "quote": "ranker v1 with two features gives AUC 0.84",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "exp-403-aml-alerts",
+  "exp-401-aml-alerts"
+ ],
+ "built_on": [
+  {
+   "what": "exp-401-aml-alerts",
+   "quote": "exp-401-aml-alerts",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-aml-new-counterparty",
+   "quote": "the new counterparty share feature",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-aml-structuring-v1",
+   "quote": "feat-aml-structuring-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-402-aml-alerts.md",
+ "sha": "55ec0f2fb0d0f5e141a5c5f17622bb21c64d06ca1eb69b2d1d595bb8b3bba021",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,135 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "legacy-notebooks",
+   "type": "other",
+   "label": "legacy notebooks",
+   "as": [
+    "Legacy notebooks"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feature-store",
+   "type": "tool",
+   "label": "feature store",
+   "as": [
+    "feature store"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "214-features",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "same 214 features"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-fsm-parity-sample",
+   "type": "dataset",
+   "label": "parity sample",
+   "as": [
+    "ds-fsm-parity-sample"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "relative-difference",
+   "type": "metric",
+   "label": "bar",
+   "as": [
+    "relative difference at most 0.5 percent"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "aisha-khan",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Aisha Khan"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "sign-off",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feature-store",
+   "type": "produces",
+   "label": "computes",
+   "o": "214-features",
+   "quote": "compute the same 214 features from the same sources",
+   "line": 5
+  },
+  {
+   "s": "legacy-notebooks",
+   "type": "produces",
+   "label": "computes",
+   "o": "214-features",
+   "quote": "Legacy notebooks and the feature store compute the same 214 features",
+   "line": 5
+  },
+  {
+   "s": "relative-difference",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "ds-fsm-parity-sample",
+   "quote": "measured on the stratified parity sample (ds-fsm-parity-sample)",
+   "line": 6
+  },
+  {
+   "s": "relative-difference",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "aisha-khan",
+   "quote": "Owner: Aisha Khan.",
+   "line": 7
+  },
+  {
+   "s": "relative-difference",
+   "type": "other",
+   "label": "sign-off requested from",
+   "o": "lena-fischer",
+   "quote": "Credit-risk sign-off requested from Lena Fischer.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-fsm-parity-sample"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/q-fsm-parity-threshold.md",
+ "sha": "976f872c458be31399dada755b5cb173c7f9d8217ce72f1e15b5c300f5ef5f51",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,129 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cli-util-v1",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "feat-cli-util-v1",
+    "3-month average and peak utilisation"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cli-logreg-baseline",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cli-logreg-baseline"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cli-xgb-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cli-xgb-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-cli-util-v2",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "feat-cli-util-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cli-util-v1",
+   "type": "uses",
+   "label": "computed from",
+   "o": "cards.accounts_monthly",
+   "quote": "Computed from `cards.accounts_monthly`",
+   "line": 5
+  },
+  {
+   "s": "cli-logreg-baseline",
+   "type": "uses",
+   "label": "used by",
+   "o": "feat-cli-util-v1",
+   "quote": "Used by cli-logreg-baseline and cli-xgb-v1.",
+   "line": 7
+  },
+  {
+   "s": "cli-xgb-v1",
+   "type": "uses",
+   "label": "used by",
+   "o": "feat-cli-util-v1",
+   "quote": "Used by cli-logreg-baseline and cli-xgb-v1.",
+   "line": 7
+  },
+  {
+   "s": "feat-cli-util-v2",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "feat-cli-util-v1",
+   "quote": "Superseded by feat-cli-util-v2 (2025-10-14).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "cli-logreg-baseline",
+  "cli-xgb-v1",
+  "feat-cli-util-v2",
+  "q-cli-utilization-trigger"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cli-eligible-pop",
+   "quote": "the cli-eligible population counts",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "q-cli-utilization-trigger",
+   "quote": "q-cli-utilization-trigger",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "the cli-eligible population counts",
+   "quote": "Builds on the cli-eligible population counts and q-cli-utilization-trigger.",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-cli-util-v1.md",
+ "sha": "b3634f154e58885e1e5a09e4ed50d29051c339e1b353cc7b8faf54fcd7a682c2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,88 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-hp-pre-dpd-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-hp-pre-dpd-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "dpd",
+   "type": "term",
+   "label": "dpd bucket",
+   "as": [
+    "DPD"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-hp-roll-matrix",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-hp-roll-matrix"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-hp-pre-dpd-v1",
+   "type": "uses",
+   "label": "source",
+   "o": "cards.accounts_monthly",
+   "quote": "Source: `cards.accounts_monthly`, aligned to the index month.",
+   "line": 6
+  },
+  {
+   "s": "feat-hp-pre-dpd-v1",
+   "type": "uses",
+   "label": "bucket of",
+   "o": "dpd",
+   "quote": "DPD bucket at enrolment",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "ds-hp-roll-matrix"
+ ],
+ "built_on": [
+  {
+   "what": "ds-hp-roll-matrix",
+   "quote": "ds-hp-roll-matrix",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-hp-pre-dpd-v1.md",
+ "sha": "806df43677c9b96545d9a06394b427b4e836307a718d35fa0dbe56b64c33cc04",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

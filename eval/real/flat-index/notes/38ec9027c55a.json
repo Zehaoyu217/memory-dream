@@ -1,0 +1,65 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "data-quality-txn",
+   "type": "other",
+   "label": "workstream",
+   "as": [
+    "data-quality-txn"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "late-census",
+   "type": "metric",
+   "label": "census",
+   "as": [
+    "late census 2025-Q1"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "partitions",
+   "type": "dataset",
+   "label": "partitions",
+   "as": [
+    "partitions"
+   ],
+   "lines": [
+    3
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "data-quality-txn",
+   "type": "measured-by",
+   "label": "census",
+   "o": "late-census",
+   "quote": "late census 2025-Q1",
+   "line": 3
+  },
+  {
+   "s": "late-census",
+   "type": "other",
+   "label": "counts",
+   "o": "partitions",
+   "quote": "4 of 98 partitions after 10:00",
+   "line": 3
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2025-04-07.md",
+ "sha": "38ec9027c55a8cc2b29c5a78c155d61f753da0b020f3b9af13a4b099ba5167ed",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,128 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-c25-txn-recency",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-c25-txn-recency"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "churn-2025",
+   "type": "other",
+   "label": "churn project",
+   "as": [
+    "churn-2025"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "univariate-auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Univariate AUC on the training set: 0.68"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "churn-gbm-2025-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "churn-gbm-2025-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "monotone-decreasing-constraint",
+   "type": "term",
+   "label": "constraint",
+   "as": [
+    "monotone decreasing constraint"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-c25-accounts-snapshot",
+   "type": "dataset",
+   "label": "population",
+   "as": [
+    "churn-2025 account-month population"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-c25-txn-recency",
+   "type": "uses",
+   "label": "from",
+   "o": "cards.txn_daily",
+   "quote": "Source: `cards.txn_daily`",
+   "line": 5
+  },
+  {
+   "s": "feat-c25-txn-recency",
+   "type": "measured-by",
+   "label": "univariate AUC",
+   "o": "univariate-auc",
+   "quote": "Univariate AUC on the training set: 0.68",
+   "line": 6
+  },
+  {
+   "s": "churn-gbm-2025-v2",
+   "type": "uses",
+   "label": "adds constraint on",
+   "o": "feat-c25-txn-recency",
+   "quote": "churn-gbm-2025-v2 adds a monotone decreasing constraint on it.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "churn-gbm-2025-v2"
+ ],
+ "built_on": [
+  {
+   "what": "ds-c25-accounts-snapshot",
+   "quote": "the churn-2025 account-month population",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-c25-txn-recency.md",
+ "sha": "09190508dc4b00b6dd6f2468ddc2f754af5d721cd6dbfc0862f546a8936181c3",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,217 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-102-txn-features",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-102"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "xgboost",
+   "type": "tool",
+   "label": "model",
+   "as": [
+    "XGBoost"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-bt-revolve-share",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-bt-revolve-share"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "spend-mix",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "spend mix by category group"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.merchants",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "cards.merchants"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bt-holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "bt-holdout-2025q1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "logistic-baseline",
+   "type": "model",
+   "label": "baseline",
+   "as": [
+    "the logistic baseline"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "limit-headroom",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "Limit headroom"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-104-credit-line-increase",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-104"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-102-txn-features",
+   "type": "uses",
+   "label": "with",
+   "o": "feat-bt-revolve-share",
+   "quote": "First XGBoost (depth 5) with feat-bt-revolve-share",
+   "line": 5
+  },
+  {
+   "s": "exp-102-txn-features",
+   "type": "uses",
+   "label": "first model",
+   "o": "xgboost",
+   "quote": "First XGBoost (depth 5)",
+   "line": 5
+  },
+  {
+   "s": "spend-mix",
+   "type": "uses",
+   "label": "from",
+   "o": "cards.txn_daily",
+   "quote": "spend mix by category group from `cards.txn_daily` joined to `cards.merchants`",
+   "line": 5
+  },
+  {
+   "s": "spend-mix",
+   "type": "uses",
+   "label": "joined to",
+   "o": "cards.merchants",
+   "quote": "spend mix by category group from `cards.txn_daily` joined to `cards.merchants`",
+   "line": 5
+  },
+  {
+   "s": "exp-102-txn-features",
+   "type": "evaluated-on",
+   "label": "eval on",
+   "o": "bt-holdout-2025q1",
+   "quote": "Eval: bt-holdout-2025q1",
+   "line": 6
+  },
+  {
+   "s": "exp-102-txn-features",
+   "type": "measured-by",
+   "label": "reports AUC",
+   "o": "auc",
+   "quote": "AUC 0.66 vs 0.63 for the logistic baseline",
+   "line": 6
+  },
+  {
+   "s": "exp-102-txn-features",
+   "type": "other",
+   "label": "excludes",
+   "o": "limit-headroom",
+   "quote": "Limit headroom not yet included",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-104-credit-line-increase",
+  "feat-bt-revolve-share"
+ ],
+ "built_on": [
+  {
+   "what": "exp-101-bureau-logit",
+   "quote": "the bureau-only logistic experiment",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-bt-revolve-share",
+   "quote": "the revolve share feature",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "bureau-only logistic experiment",
+   "quote": "Builds on the bureau-only logistic experiment and the revolve share feature.",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-102-txn-features.md",
+ "sha": "97fbb0fc942e8ab780d55ff8651b316e62808413a6e0d6c5ced702123161cba8",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

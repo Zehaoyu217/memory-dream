@@ -1,0 +1,106 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-inc-stated-income-2025",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-inc-stated-income-2025"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "crm.contacts",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "crm.contacts"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "inc-linear-baseline",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "inc-linear-baseline"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "inc-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "inc-gbm-v1"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-inc-stated-income-2025",
+   "type": "uses",
+   "label": "stored in",
+   "o": "crm.contacts",
+   "quote": "stored in `crm.contacts`",
+   "line": 5
+  },
+  {
+   "s": "ds-inc-stated-income-2025",
+   "type": "uses",
+   "label": "joined to",
+   "o": "cards.accounts_monthly",
+   "quote": "joined to `cards.accounts_monthly`",
+   "line": 5
+  },
+  {
+   "s": "inc-linear-baseline",
+   "type": "uses",
+   "label": "training target",
+   "o": "ds-inc-stated-income-2025",
+   "quote": "Stated income is the training target for inc-linear-baseline and inc-gbm-v1",
+   "line": 7
+  },
+  {
+   "s": "inc-gbm-v1",
+   "type": "uses",
+   "label": "training target",
+   "o": "ds-inc-stated-income-2025",
+   "quote": "Stated income is the training target for inc-linear-baseline and inc-gbm-v1",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "inc-linear-baseline",
+  "inc-gbm-v1"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-inc-stated-income-2025.md",
+ "sha": "50ffbf281bc9b9fda109b75f0df6c1180f64b914a14d8fb3c12194d4722c6a8c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

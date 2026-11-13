@@ -1,0 +1,107 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "q-mm-psi-threshold",
+   "type": "other",
+   "label": "open question",
+   "as": [
+    "Open: which PSI bar should page on-call"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "term",
+   "label": "stability index",
+   "as": [
+    "PSI"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Sam Lee"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "raj-patel",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Raj Patel"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-mm-incident-log",
+   "type": "dataset",
+   "label": "incidents",
+   "as": [
+    "ds-mm-incident-log"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "q-mm-psi-threshold",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "sam-lee",
+   "quote": "Owners: Sam Lee (monitoring), Raj Patel (collections on-call).",
+   "line": 7
+  },
+  {
+   "s": "q-mm-psi-threshold",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "raj-patel",
+   "quote": "Owners: Sam Lee (monitoring), Raj Patel (collections on-call).",
+   "line": 7
+  },
+  {
+   "s": "q-mm-psi-threshold",
+   "type": "uses",
+   "label": "test set",
+   "o": "ds-mm-incident-log",
+   "quote": "Labelled incidents for the test: 19 from 2024-07 to 2025-02 (ds-mm-incident-log).",
+   "line": 7
+  },
+  {
+   "s": "q-mm-psi-threshold",
+   "type": "measured-by",
+   "label": "bar on",
+   "o": "psi",
+   "quote": "PSI on features and on model scores both move before label rates do",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "ds-mm-incident-log"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/q-mm-psi-threshold.md",
+ "sha": "44b2fb5de90ec000acad75d5c4d3de0366d3905a45979c6a7b1f95b56d493e2a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

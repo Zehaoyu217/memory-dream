@@ -1,0 +1,219 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "rdm-uplift-v2",
+   "type": "model",
+   "label": "targeting model",
+   "as": [
+    "rdm-uplift-v2: X-learner targeting model, holdout uplift@20% 3.6pp",
+    "X-learner on five features",
+    "Current reactivation-dormant targeting model."
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "rdm-oot-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Holdout rdm-oot-2025q1 (n=11,260)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift@20%",
+   "as": [
+    "uplift@20% 3.6pp"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "qini",
+   "type": "metric",
+   "label": "qini",
+   "as": [
+    "Qini 0.47"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-307-reactivation-dormant",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-307-reactivation-dormant"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-rdm-app-installed",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rdm-app-installed"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-rdm-last-activity-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rdm-last-activity-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-rdm-prior-response",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rdm-prior-response"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "t-learner-targeting-model",
+   "type": "model",
+   "label": "targeting model",
+   "as": [
+    "the t-learner targeting model"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rdm-uplift-v2",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "rdm-oot-2025q1",
+   "quote": "Holdout rdm-oot-2025q1 (n=11,260)",
+   "line": 6
+  },
+  {
+   "s": "rdm-uplift-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "uplift-at-20",
+   "quote": "uplift@20% 3.6pp, Qini 0.47",
+   "line": 6
+  },
+  {
+   "s": "rdm-uplift-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "qini",
+   "quote": "Qini 0.47",
+   "line": 6
+  },
+  {
+   "s": "rdm-uplift-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-rdm-last-activity-v2",
+   "quote": "last activity v2",
+   "line": 5
+  },
+  {
+   "s": "rdm-uplift-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-rdm-prior-response",
+   "quote": "prior response",
+   "line": 5
+  },
+  {
+   "s": "rdm-uplift-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-rdm-app-installed",
+   "quote": "app installed",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-307-reactivation-dormant",
+  "feat-rdm-app-installed",
+  "feat-rdm-last-activity-v2",
+  "feat-rdm-prior-response"
+ ],
+ "built_on": [
+  {
+   "what": "exp-307-reactivation-dormant",
+   "quote": "exp-307-reactivation-dormant",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-rdm-app-installed",
+   "quote": "feat-rdm-app-installed",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-rdm-balance-band",
+   "quote": "the residual balance bands feature",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-rdm-last-activity-v2",
+   "quote": "feat-rdm-last-activity-v2",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-rdm-prior-response",
+   "quote": "feat-rdm-prior-response",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fnd-rdm-sms-uplift-v2",
+   "quote": "the corrected sms uplift gap finding",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "rdm-uplift-v1",
+   "quote": "the t-learner targeting model",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/rdm-uplift-v2.md",
+ "sha": "29b9154df4c8c887fdfe6208e130b07957e266d23beee918a4944f8c3ce7c059",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

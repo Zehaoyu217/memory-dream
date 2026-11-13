@@ -1,0 +1,162 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-106-credit-line-increase",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-106-credit-line-increase: cli-xgb-v2 out-of-time AUC 0.72"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cli-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cli-xgb-v2 out-of-time AUC 0.72"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cli-oot-2026h1",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "Scored on cli-oot-2026h1, outcomes to 2026-09-30"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "AUC 0.72 against 0.74 on holdout-2025q4"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.72 against 0.74 on holdout-2025q4"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "term",
+   "label": "metric",
+   "as": [
+    "PSI 0.14 on the utilisation slope"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-cli-util-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cli-util-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-107-credit-line-increase",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "Triggered the uplift work in exp-107-credit-line-increase"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dec-cli-uplift-targeting",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "the decision in dec-cli-uplift-targeting"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cli-xgb-v2",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "cli-oot-2026h1",
+   "quote": "Scored on cli-oot-2026h1, outcomes to 2026-09-30",
+   "line": 5
+  },
+  {
+   "s": "cli-xgb-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.72 against 0.74 on holdout-2025q4",
+   "line": 5
+  },
+  {
+   "s": "psi",
+   "type": "part-of",
+   "label": "drift check on",
+   "o": "feat-cli-util-v2",
+   "quote": "PSI 0.14 on the utilisation slope",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-107-credit-line-increase",
+  "dec-cli-uplift-targeting"
+ ],
+ "built_on": [
+  {
+   "what": "cli-xgb-v2",
+   "quote": "cli-xgb-v2",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-cli-oot-2026h1",
+   "quote": "the 2026 h1 out-of-time dataset",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-cli-util-v2",
+   "quote": "feat-cli-util-v2",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-106-credit-line-increase.md",
+ "sha": "ae62163258340edf9fb81e96444b0c12e21ca19502a113c57439d4290c7e1a7b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

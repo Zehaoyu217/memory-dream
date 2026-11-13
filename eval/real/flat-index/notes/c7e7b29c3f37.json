@@ -1,0 +1,75 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-disp-reason-text",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-disp-reason-text"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "disp-lgbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "disp-lgbm-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-disp-disputes",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-disp-disputes"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "disp-lgbm-v1",
+   "type": "uses",
+   "label": "only input",
+   "o": "feat-disp-reason-text",
+   "quote": "Only input of disp-lgbm-v1",
+   "line": 7
+  },
+  {
+   "s": "feat-disp-reason-text",
+   "type": "uses",
+   "label": "built on",
+   "o": "ds-disp-disputes",
+   "quote": "Builds on ds-disp-disputes.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "disp-lgbm-v1"
+ ],
+ "built_on": [
+  {
+   "what": "ds-disp-disputes",
+   "quote": "ds-disp-disputes",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-disp-reason-text.md",
+ "sha": "c7e7b29c3f37ba759ac7262a84951e98907c9eb3ab5568d87e790494ab48c2ee",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

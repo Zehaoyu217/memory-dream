@@ -1,0 +1,182 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-402-hardship-programs",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-402-hardship-programs"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "hardship-programs",
+   "type": "other",
+   "label": "hardship enrolment",
+   "as": [
+    "hardship enrolment"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "enrolled-roll-rate",
+   "type": "metric",
+   "label": "enrolled roll",
+   "as": [
+    "enrolled 21.0%"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "matched-control-roll",
+   "type": "metric",
+   "label": "matched control roll",
+   "as": [
+    "matched controls 27.1%"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "hardship-roll-effect",
+   "type": "metric",
+   "label": "effect",
+   "as": [
+    "effect -6.1pp"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "find-hp-effect-v2",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-hp-effect-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "find-hp-adjusted-effect",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "After matching, hardship enrolment reduces the 30-to-60 roll by 6.1pp (superseded)"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "naive-hardship-roll-finding",
+   "type": "other",
+   "label": "superseded finding",
+   "as": [
+    "the superseded naive hardship roll finding"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "caliper-transaction-drop-covariate",
+   "type": "feature",
+   "label": "covariate",
+   "as": [
+    "the caliper and transaction-drop covariate"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-402-hardship-programs",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "enrolled-roll-rate",
+   "quote": "enrolled 21.0% against matched controls 27.1%",
+   "line": 5
+  },
+  {
+   "s": "exp-402-hardship-programs",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "matched-control-roll",
+   "quote": "enrolled 21.0% against matched controls 27.1%",
+   "line": 5
+  },
+  {
+   "s": "exp-402-hardship-programs",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "hardship-roll-effect",
+   "quote": "effect -6.1pp",
+   "line": 5
+  },
+  {
+   "s": "find-hp-effect-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "find-hp-adjusted-effect",
+   "quote": "Superseded by find-hp-effect-v2 after the caliper and transaction-drop covariate were added.",
+   "line": 6
+  },
+  {
+   "s": "find-hp-adjusted-effect",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "naive-hardship-roll-finding",
+   "quote": "This replaces the +11.6pp naive reading.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "find-hp-effect-v2",
+  "exp-402-hardship-programs"
+ ],
+ "built_on": [
+  {
+   "what": "exp-402-hardship-programs",
+   "quote": "exp-402-hardship-programs",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "find-hp-naive-effect",
+   "quote": "the superseded naive hardship roll finding",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "find-hp-naive-effect",
+   "quote": "the superseded naive hardship roll finding",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/find-hp-adjusted-effect.md",
+ "sha": "df30c5332f2b38ae2f756647e2eb30433f7a197bbde66822ed39adaa7361b5de",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

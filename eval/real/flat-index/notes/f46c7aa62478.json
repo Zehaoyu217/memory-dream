@@ -1,0 +1,145 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "intent-routing",
+   "type": "term",
+   "label": "intent routing",
+   "as": [
+    "intent routing"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ivr-menu",
+   "type": "other",
+   "label": "ivr menu",
+   "as": [
+    "IVR menu"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  },
+  {
+   "id": "asr-transcript",
+   "type": "term",
+   "label": "asr transcript",
+   "as": [
+    "ASR transcript"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "first-contact-resolution",
+   "type": "metric",
+   "label": "fcr",
+   "as": [
+    "first-contact resolution (FCR)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "callcenter.calls"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-101-call-center-routing",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-101-call-center-routing"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-106-call-center-routing",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-106-call-center-routing"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "dec-cr-lgbm",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-cr-lgbm"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "dec-cr-pilot",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-cr-pilot"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "intent-routing",
+   "type": "uses",
+   "label": "candidate input",
+   "o": "asr-transcript",
+   "quote": "Candidate inputs: first 30 seconds of the ASR transcript and the IVR menu path.",
+   "line": 7
+  },
+  {
+   "s": "intent-routing",
+   "type": "uses",
+   "label": "candidate input",
+   "o": "ivr-menu",
+   "quote": "Candidate inputs: first 30 seconds of the ASR transcript and the IVR menu path.",
+   "line": 7
+  },
+  {
+   "s": "callcenter.calls",
+   "type": "measured-by",
+   "label": "baseline",
+   "o": "first-contact-resolution",
+   "quote": "Baseline first-contact resolution (FCR) from the 2024 Q4 extract in `callcenter.calls` is 71.4 percent.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-101-call-center-routing",
+  "exp-106-call-center-routing",
+  "dec-cr-lgbm",
+  "dec-cr-pilot"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/q-cr-intent-routing.md",
+ "sha": "f46c7aa624781c7eefcb1bbf758b399aa3147f6609535214474075c8a1d36337",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

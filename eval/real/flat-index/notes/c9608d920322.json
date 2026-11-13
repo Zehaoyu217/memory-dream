@@ -1,0 +1,116 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "fixed-cutoff",
+   "type": "term",
+   "label": "cutoff",
+   "as": [
+    "fixed 0.5 cutoff"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cost-matrix-cutoff",
+   "type": "term",
+   "label": "cutoff",
+   "as": [
+    "cost-matrix cutoff"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "scoring-service",
+   "type": "service",
+   "label": "service",
+   "as": [
+    "scoring service"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "validation-slice-cost-minimum",
+   "type": "term",
+   "label": "cutoff source",
+   "as": [
+    "validation-slice cost minimum"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ben-carter",
+   "type": "person",
+   "label": "team lead",
+   "as": [
+    "Ben Carter"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cost-matrix",
+   "type": "term",
+   "label": "costs",
+   "as": [
+    "the costs"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "scoring-service",
+   "type": "uses",
+   "label": "reads cutoff from",
+   "o": "validation-slice-cost-minimum",
+   "quote": "The scoring service now reads each model's cutoff from the validation-slice cost minimum.",
+   "line": 5
+  },
+  {
+   "s": "ben-carter",
+   "type": "owned-by",
+   "label": "refreshes",
+   "o": "cost-matrix",
+   "quote": "Ben Carter's finance team refreshes the costs each January.",
+   "line": 5
+  },
+  {
+   "s": "cost-matrix-cutoff",
+   "type": "replaces",
+   "label": "retired in favour of",
+   "o": "fixed-cutoff",
+   "quote": "it was retired in December 2025 in favour of the cost-matrix cutoff.",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "howto/threshold-selection-cost-matrix"
+ ],
+ "built_on": [
+  {
+   "what": "howto/threshold-selection-cost-matrix",
+   "quote": "howto/threshold-selection-cost-matrix",
+   "line": 6,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/fixed-cutoff-retired.md",
+ "sha": "c9608d920322f5359e5c2f0619ac4b132c716abba4d2fd3ad0b0723f8a13c910",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,140 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-f26-replace-f25",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision:"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fraud26-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fraud26-gbm-v1"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "fraud25-gbm-v2",
+   "type": "model",
+   "label": "champion",
+   "as": [
+    "fraud25-gbm-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fraud-2025",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "fraud-2025"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "card-not-present-model",
+   "type": "other",
+   "label": "live model",
+   "as": [
+    "live card-not-present model"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "travel-flag",
+   "type": "feature",
+   "label": "flag",
+   "as": [
+    "travel flag"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-f25-champion-v2",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-f25-champion-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "dec-f26-maturity-60d",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-f26-maturity-60d"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud26-gbm-v1",
+   "type": "replaces",
+   "label": "replacing",
+   "o": "fraud25-gbm-v2",
+   "quote": "replacing fraud25-gbm-v2 (fraud-2025)",
+   "line": 5
+  },
+  {
+   "s": "fraud26-gbm-v1",
+   "type": "other",
+   "label": "becomes",
+   "o": "card-not-present-model",
+   "quote": "becomes the live card-not-present model",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "dec-f26-maturity-60d",
+  "dec-f25-champion-v2"
+ ],
+ "built_on": [
+  {
+   "what": "dec-f25-champion-v2",
+   "quote": "dec-f25-champion-v2",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fraud26-gbm-v1",
+   "quote": "fraud26-gbm-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-f26-replace-f25.md",
+ "sha": "d19fbb16f5209a284e7a22520bc58bf50b761ccf142ac6204ac7513e249a043b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

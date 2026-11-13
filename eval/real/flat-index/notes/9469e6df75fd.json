@@ -1,0 +1,65 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "fair-lending-check",
+   "type": "policy",
+   "label": "check",
+   "as": [
+    "The fair-lending check"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "approval-rate-ratio",
+   "type": "metric",
+   "label": "ratio",
+   "as": [
+    "approval-rate ratio"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "omar-haddad",
+   "type": "person",
+   "label": "reviewer",
+   "as": [
+    "Omar Haddad"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fair-lending-check",
+   "type": "measured-by",
+   "label": "computes",
+   "o": "approval-rate-ratio",
+   "quote": "computes the approval-rate ratio per group",
+   "line": 4
+  },
+  {
+   "s": "omar-haddad",
+   "type": "other",
+   "label": "reviews the flag",
+   "o": "fair-lending-check",
+   "quote": "Omar Haddad reviews the flag before publication",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/compliance-disparity-check.md",
+ "sha": "9469e6df75fd50d815387c30160fdef88c45ce3c0ec2c292267b8192772e9f41",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

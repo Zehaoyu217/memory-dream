@@ -1,0 +1,108 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-rdm-balance-band",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rdm-balance-band"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "rdm-propensity-lr",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rdm-propensity-lr"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "rdm-uplift-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rdm-uplift-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "rdm-uplift-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rdm-uplift-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-rdm-dormant-pool",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-rdm-dormant-pool"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rdm-propensity-lr",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-rdm-balance-band",
+   "quote": "Used in rdm-propensity-lr, rdm-uplift-v1 and rdm-uplift-v2.",
+   "line": 7
+  },
+  {
+   "s": "rdm-uplift-v1",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-rdm-balance-band",
+   "quote": "Used in rdm-propensity-lr, rdm-uplift-v1 and rdm-uplift-v2.",
+   "line": 7
+  },
+  {
+   "s": "rdm-uplift-v2",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-rdm-balance-band",
+   "quote": "Used in rdm-propensity-lr, rdm-uplift-v1 and rdm-uplift-v2.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-rdm-dormant-pool",
+  "rdm-propensity-lr",
+  "rdm-uplift-v1",
+  "rdm-uplift-v2"
+ ],
+ "built_on": [
+  {
+   "what": "ds-rdm-dormant-pool",
+   "quote": "ds-rdm-dormant-pool",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-rdm-balance-band.md",
+ "sha": "99250c86ddd94faa29deeb5cfbce3190017ff03ad02179f32157a2a214833066",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

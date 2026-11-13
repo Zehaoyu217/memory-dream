@@ -1,0 +1,123 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-txc-history-helps",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-txc-history-helps"
+   ],
+   "lines": [
+    5,
+    8,
+    9
+   ]
+  },
+  {
+   "id": "exp-106-txn-categorization",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-106-txn-categorization"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "feat-txc-merchant-history-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-txc-merchant-history-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "txc-gbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "txc-gbm-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro-f1",
+   "as": [
+    "+0.01 macro-F1 (0.78 vs 0.77)"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-106-txn-categorization",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "macro-f1",
+   "quote": "history features add +0.01 macro-F1 (0.78 vs 0.77)",
+   "line": 6
+  },
+  {
+   "s": "txc-gbm-v3",
+   "type": "uses",
+   "label": "excludes",
+   "o": "feat-txc-merchant-history-v1",
+   "quote": "feat-txc-merchant-history-v1 is excluded from txc-gbm-v3",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-106-txn-categorization",
+  "fnd-txc-history-helps",
+  "feat-txc-merchant-history-v1",
+  "txc-gbm-v3"
+ ],
+ "built_on": [
+  {
+   "what": "fnd-txc-history-helps",
+   "quote": "fnd-txc-history-helps",
+   "line": 5,
+   "asked": true
+  },
+  {
+   "what": "exp-106-txn-categorization",
+   "quote": "exp-106-txn-categorization",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fnd-txc-history-helps",
+   "quote": "fnd-txc-history-helps",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "fnd-txc-history-helps",
+   "quote": "fnd-txc-history-helps",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-txc-history-leaks.md",
+ "sha": "d0dfb299fa77c1abd206c22bce881e778cecdbf007bedc8e59d9211db94c25cb",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

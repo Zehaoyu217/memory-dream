@@ -1,0 +1,118 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "bureau.scores_monthly"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "ds-ed-current-base",
+   "type": "segment",
+   "label": "population",
+   "as": [
+    "current-account base"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "credit-data",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "credit-data"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "thin-file-accounts",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "thin-file accounts"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "find-ed-gbm-vs-logit",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-ed-gbm-vs-logit"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "coverage",
+   "type": "metric",
+   "label": "coverage",
+   "as": [
+    "Coverage 91%"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bureau.scores_monthly",
+   "type": "joined-to",
+   "label": "joins to",
+   "o": "ds-ed-current-base",
+   "quote": "bureau.scores_monthly joins to the current-account base at snapshot date",
+   "line": 4
+  },
+  {
+   "s": "bureau.scores_monthly",
+   "type": "measured-by",
+   "label": "coverage",
+   "o": "coverage",
+   "quote": "with 91% coverage",
+   "line": 4
+  },
+  {
+   "s": "thin-file-accounts",
+   "type": "other",
+   "label": "see",
+   "o": "find-ed-gbm-vs-logit",
+   "quote": "Thin-file accounts behave differently; see find-ed-gbm-vs-logit.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "find-ed-gbm-vs-logit"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ed-current-base",
+   "quote": "the current-account scoring population",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-ed-bureau-join.md",
+ "sha": "fdb879b4dc0b1a53f42f0598b1941a68d2fd304eca1eb85409c28c292ea94c92",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

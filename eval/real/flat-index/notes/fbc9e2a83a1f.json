@@ -1,0 +1,142 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "churn-2025-base-population",
+   "type": "segment",
+   "label": "base population",
+   "as": [
+    "Churn-2025 base population"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.limits_history",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.limits_history"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "statement-balance",
+   "type": "feature",
+   "label": "field",
+   "as": [
+    "statement balance"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "credit-limit",
+   "type": "feature",
+   "label": "field",
+   "as": [
+    "credit limit"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "months-on-book",
+   "type": "feature",
+   "label": "field",
+   "as": [
+    "months on book"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "segment-code",
+   "type": "feature",
+   "label": "field",
+   "as": [
+    "segment code"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-2025-base-population",
+   "type": "uses",
+   "label": "snapshots from",
+   "o": "cards.accounts_monthly",
+   "quote": "Month-end snapshots of open consumer accounts from `cards.accounts_monthly`",
+   "line": 5
+  },
+  {
+   "s": "churn-2025-base-population",
+   "type": "uses",
+   "label": "limit changes from",
+   "o": "cards.limits_history",
+   "quote": "Limit changes come from `cards.limits_history`",
+   "line": 8
+  },
+  {
+   "s": "churn-2025-base-population",
+   "type": "uses",
+   "label": "field used",
+   "o": "statement-balance",
+   "quote": "Fields used: statement balance, credit limit, months on book, segment code.",
+   "line": 7
+  },
+  {
+   "s": "churn-2025-base-population",
+   "type": "uses",
+   "label": "field used",
+   "o": "credit-limit",
+   "quote": "Fields used: statement balance, credit limit, months on book, segment code.",
+   "line": 7
+  },
+  {
+   "s": "churn-2025-base-population",
+   "type": "uses",
+   "label": "field used",
+   "o": "months-on-book",
+   "quote": "Fields used: statement balance, credit limit, months on book, segment code.",
+   "line": 7
+  },
+  {
+   "s": "churn-2025-base-population",
+   "type": "uses",
+   "label": "field used",
+   "o": "segment-code",
+   "quote": "Fields used: statement balance, credit limit, months on book, segment code.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-c25-accounts-snapshot.md",
+ "sha": "fbc9e2a83a1f53df34e068246abc141f834c659bc82dcd98a75d1e7b1629b25b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

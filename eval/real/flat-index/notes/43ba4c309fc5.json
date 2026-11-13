@@ -1,0 +1,87 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-rdm-prior-response",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rdm-prior-response",
+    "responded to an earlier reactivation wave"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fnd-rdm-prior-responder-trap",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-rdm-prior-responder-trap"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "acceptance-rate",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Raw response"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "uplift",
+   "type": "term",
+   "label": "term",
+   "as": [
+    "uplift"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-rdm-prior-response",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "acceptance-rate",
+   "quote": "Raw response of prior responders is 9.8%, against 2.7% for everyone else.",
+   "line": 6
+  },
+  {
+   "s": "feat-rdm-prior-response",
+   "type": "other",
+   "label": "uplift near zero",
+   "o": "uplift",
+   "quote": "its uplift is close to zero",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-rdm-prior-responder-trap"
+ ],
+ "built_on": [
+  {
+   "what": "ds-rdm-campaign-history",
+   "quote": "the reactivation waves campaign history",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-rdm-prior-response.md",
+ "sha": "43ba4c309fc57a7d0a52c8ca22f73a34225eabbecbb59b86b9e4a6e0c9b2fd92",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

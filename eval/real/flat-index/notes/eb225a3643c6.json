@@ -1,0 +1,91 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "fraud25-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fraud25-gbm-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-103-fraud-2025",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-103-fraud-2025"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-f25-threshold-070",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-f25-threshold-070"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "precision-at-k",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "precision"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "uses",
+   "label": "threshold 0.62 for",
+   "o": "fraud25-gbm-v2",
+   "quote": "fraud25-gbm-v2 alerts at score >= 0.62 go live",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "dec-f25-threshold-070",
+  "fraud25-find-threshold-fine"
+ ],
+ "built_on": [
+  {
+   "what": "exp-103-fraud-2025",
+   "quote": "exp-103-fraud-2025",
+   "line": 6,
+   "asked": true
+  },
+  {
+   "what": "exp-103-fraud-2025",
+   "quote": "the candidate's alert threshold sweep",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fraud25-find-threshold-fine",
+   "quote": "fraud25-find-threshold-fine",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "work/dec-f25-threshold-062.md",
+ "sha": "eb225a3643c6dbaecf4100728cd391fe2e3716b7ec1ec6042aa35f799b4d9216",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

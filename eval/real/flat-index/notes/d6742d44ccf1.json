@@ -1,0 +1,68 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cc-embed-v1",
+   "type": "feature",
+   "label": "embedding feature",
+   "as": [
+    "Sentence embedding of ticket text, 384 dimensions from a small multilingual encoder"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-cc-tickets-raw",
+   "type": "dataset",
+   "label": "ticket dataset",
+   "as": [
+    "Builds on ds-cc-tickets-raw."
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cc-ft-v1",
+   "type": "model",
+   "label": "fine-tuning ablation",
+   "as": [
+    "fine-tuning ablation in cc-ft-v1"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cc-embed-v1",
+   "type": "uses",
+   "label": "input to",
+   "o": "cc-ft-v1",
+   "quote": "as the input to the fine-tuning ablation in cc-ft-v1",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-cc-tickets-raw",
+  "cc-ft-v1"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cc-tickets-raw",
+   "quote": "ds-cc-tickets-raw",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-cc-embed-v1.md",
+ "sha": "d6742d44ccf102685469a213caa3f416fa41a5c80428b45e839c554aa964e0af",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,117 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "cli-xgb-v3",
+   "type": "model",
+   "label": "cli model",
+   "as": [
+    "cli-xgb-v3"
+   ],
+   "lines": [
+    4,
+    8
+   ]
+  },
+  {
+   "id": "dec-cli-cutoff-2025",
+   "type": "other",
+   "label": "2025 cutoff decision",
+   "as": [
+    "dec-cli-cutoff-2025"
+   ],
+   "lines": [
+    5,
+    9
+   ]
+  },
+  {
+   "id": "dec-cli-loss-cap",
+   "type": "other",
+   "label": "loss cap decision",
+   "as": [
+    "dec-cli-loss-cap"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-106-credit-line-increase",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-106-credit-line-increase"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cli-xgb-v2",
+   "type": "model",
+   "label": "cli model",
+   "as": [
+    "cli-xgb-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "find-cli-uplift-wins",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-cli-uplift-wins"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [],
+ "refs": [
+  "dec-cli-cutoff-2025",
+  "dec-cli-loss-cap",
+  "exp-106-credit-line-increase",
+  "find-cli-uplift-wins",
+  "cli-xgb-v3"
+ ],
+ "built_on": [
+  {
+   "what": "cli-xgb-v3",
+   "quote": "cli-xgb-v3",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-106-credit-line-increase",
+   "quote": "the out-of-time auc check for v2",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "find-cli-uplift-wins",
+   "quote": "the finding that uplift beats propensity",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "dec-cli-cutoff-2025",
+   "quote": "the 2025 logistic cutoff of 0.031 (dec-cli-cutoff-2025)",
+   "line": 5,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 2
+ },
+ "path": "work/dec-cli-uplift-targeting.md",
+ "sha": "6dd363748b9b687309e490ba79e3875fdfbb7544081d4490dd0bab15634eb7d9",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,192 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "survey.nps_wave",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "survey.nps_wave"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "chloe-martin",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Chloe Martin"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "marketing",
+   "type": "team",
+   "label": "marketing",
+   "as": [
+    "marketing"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "active-accounts",
+   "type": "segment",
+   "label": "active accounts",
+   "as": [
+    "active accounts"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "respondent-key",
+   "type": "feature",
+   "label": "field",
+   "as": [
+    "respondent_key"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "wave",
+   "type": "feature",
+   "label": "field",
+   "as": [
+    "wave"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "send-date",
+   "type": "feature",
+   "label": "field",
+   "as": [
+    "send_date"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "nps-score",
+   "type": "feature",
+   "label": "field",
+   "as": [
+    "nps_score"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "open-text",
+   "type": "feature",
+   "label": "field",
+   "as": [
+    "open_text"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "response-ts",
+   "type": "feature",
+   "label": "field",
+   "as": [
+    "response_ts"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "survey.nps_wave",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "chloe-martin",
+   "quote": "Owner Chloe Martin (marketing).",
+   "line": 5
+  },
+  {
+   "s": "survey.nps_wave",
+   "type": "uses",
+   "label": "sampled from",
+   "o": "active-accounts",
+   "quote": "Respondents are sampled from active accounts",
+   "line": 7
+  },
+  {
+   "s": "respondent-key",
+   "type": "part-of",
+   "label": "field",
+   "o": "survey.nps_wave",
+   "quote": "Fields: respondent_key, wave, send_date, nps_score (0 to 10), open_text, response_ts.",
+   "line": 6
+  },
+  {
+   "s": "wave",
+   "type": "part-of",
+   "label": "field",
+   "o": "survey.nps_wave",
+   "quote": "Fields: respondent_key, wave, send_date, nps_score (0 to 10), open_text, response_ts.",
+   "line": 6
+  },
+  {
+   "s": "send-date",
+   "type": "part-of",
+   "label": "field",
+   "o": "survey.nps_wave",
+   "quote": "Fields: respondent_key, wave, send_date, nps_score (0 to 10), open_text, response_ts.",
+   "line": 6
+  },
+  {
+   "s": "nps-score",
+   "type": "part-of",
+   "label": "field",
+   "o": "survey.nps_wave",
+   "quote": "Fields: respondent_key, wave, send_date, nps_score (0 to 10), open_text, response_ts.",
+   "line": 6
+  },
+  {
+   "s": "open-text",
+   "type": "part-of",
+   "label": "field",
+   "o": "survey.nps_wave",
+   "quote": "Fields: respondent_key, wave, send_date, nps_score (0 to 10), open_text, response_ts.",
+   "line": 6
+  },
+  {
+   "s": "response-ts",
+   "type": "part-of",
+   "label": "field",
+   "o": "survey.nps_wave",
+   "quote": "Fields: respondent_key, wave, send_date, nps_score (0 to 10), open_text, response_ts.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-nps-waves.md",
+ "sha": "fad63bb47fb885288acb87f397da2af8bf34f24a2d18e5808f0305a09820db8a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

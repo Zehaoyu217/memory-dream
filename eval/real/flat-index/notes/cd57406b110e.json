@@ -1,0 +1,98 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-app-oot-2026h1",
+   "type": "dataset",
+   "label": "out-of-time set",
+   "as": [
+    "Out-of-time set"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-app-applications-2024",
+   "type": "dataset",
+   "label": "base",
+   "as": [
+    "the 2024 base"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "2026-q1-holdout",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "2026-Q1 holdout"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-507-application-scorecard",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-507-application-scorecard"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "bad-rate",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "bad rate 4.9%"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-app-oot-2026h1",
+   "type": "measured-by",
+   "label": "bad rate",
+   "o": "bad-rate",
+   "quote": "bad rate 4.9%",
+   "line": 6
+  },
+  {
+   "s": "exp-507-application-scorecard",
+   "type": "uses",
+   "label": "final test",
+   "o": "ds-app-oot-2026h1",
+   "quote": "Used only for the final candidate test in exp-507-application-scorecard.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-app-applications-2024",
+  "exp-507-application-scorecard"
+ ],
+ "built_on": [
+  {
+   "what": "ds-app-applications-2024",
+   "quote": "ds-app-applications-2024",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-app-oot-2026h1.md",
+ "sha": "cd57406b110ebc959b79979acba8409df6063d60df1edc036ecebae9d5227958",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

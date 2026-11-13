@@ -1,0 +1,165 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-107-margin-label",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-107: margin-weighted label puts 61% of 12-month margin in the top 30%, up from 48%"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "bt-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bt-xgb-v2 features",
+    "the depth-5 xgboost bt model"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "bt-xgb-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "Result model is bt-xgb-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "bt-holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Eval bt-holdout-2025q1 (n=41,800)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bt-acceptance-label",
+   "type": "term",
+   "label": "label",
+   "as": [
+    "acceptance label"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "margin-capture-top30",
+   "type": "metric",
+   "label": "margin share",
+   "as": [
+    "top 30% of scores capture 61% of 12-month margin"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC against acceptance rises slightly, from 0.68 to 0.69"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "bt-offer-log",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "bt.offer_log"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards-accounts-monthly",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bt-xgb-v3",
+   "type": "trained-on",
+   "label": "trained on",
+   "o": "bt-offer-log",
+   "quote": "from `bt.offer_log` joined to `cards.accounts_monthly`",
+   "line": 5
+  },
+  {
+   "s": "exp-107-margin-label",
+   "type": "evaluated-on",
+   "label": "eval",
+   "o": "bt-holdout-2025q1",
+   "quote": "Eval bt-holdout-2025q1 (n=41,800)",
+   "line": 6
+  },
+  {
+   "s": "exp-107-margin-label",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "margin-capture-top30",
+   "quote": "top 30% of scores capture 61% of 12-month margin",
+   "line": 6
+  },
+  {
+   "s": "exp-107-margin-label",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC against acceptance rises slightly, from 0.68 to 0.69",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "bt-xgb-v3"
+ ],
+ "built_on": [
+  {
+   "what": "bt-xgb-v2",
+   "quote": "the depth-5 xgboost bt model",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "q-bt-margin-threshold",
+   "quote": "the question of which margin to target",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-107-margin-label.md",
+ "sha": "82f0734ddb41e07ed458028266c4aa08c1dc62cc41665fde17728567bb7c2835",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

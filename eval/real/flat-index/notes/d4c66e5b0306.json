@@ -1,0 +1,78 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "leakage-check-post-period",
+   "type": "term",
+   "label": "rule",
+   "as": [
+    "A feature that reads days after the observation date is a leak until proven otherwise"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "scripts/leak_scan.py",
+   "type": "module",
+   "label": "check script",
+   "as": [
+    "`scripts/leak_scan.py`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat_disp_cnt_90d_v1",
+   "type": "feature",
+   "label": "leaking feature",
+   "as": [
+    "`feat_disp_cnt_90d_v1`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "holdout AUC"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat_disp_cnt_90d_v1",
+   "type": "measured-by",
+   "label": "fell from 0.79 to 0.72",
+   "o": "holdout-auc",
+   "quote": "holdout AUC fell from 0.79 to 0.72",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "scripts/leak_scan.py"
+ ],
+ "replaces": [
+  {
+   "what": "feat_disp_cnt_90d_v1",
+   "quote": "so it was rebuilt as v2 and v1 was removed from training",
+   "line": 6,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/leakage-check-post-period.md",
+ "sha": "d4c66e5b0306b3837cf955f538935e80abbb0c691dbc79295e0e84e7ba614663",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,108 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-rdm-last-activity-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rdm-last-activity-v1",
+    "months since the last card transaction, capped at 24"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "rdm-propensity-lr",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rdm-propensity-lr"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-rdm-last-activity-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rdm-last-activity-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-rdm-dormant-pool",
+   "type": "dataset",
+   "label": "pool",
+   "as": [
+    "ds-rdm-dormant-pool"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-rdm-last-activity-v1",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cards.txn_daily",
+   "quote": "Source `cards.txn_daily`.",
+   "line": 5
+  },
+  {
+   "s": "rdm-propensity-lr",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-rdm-last-activity-v1",
+   "quote": "Used in rdm-propensity-lr",
+   "line": 5
+  },
+  {
+   "s": "feat-rdm-last-activity-v2",
+   "type": "replaces",
+   "label": "replaced by",
+   "o": "feat-rdm-last-activity-v1",
+   "quote": "Replaced by feat-rdm-last-activity-v2 in June 2025",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "rdm-propensity-lr",
+  "feat-rdm-last-activity-v2",
+  "ds-rdm-dormant-pool"
+ ],
+ "built_on": [
+  {
+   "what": "ds-rdm-dormant-pool",
+   "quote": "ds-rdm-dormant-pool",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-rdm-last-activity-v1.md",
+ "sha": "043c8d57bc56e7e4aeecb7ee2d481f72772b1f6aa3e3de9a5f976d45c73cd97a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,123 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "disp-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "disp-lgbm-v2 auto-resolves"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "analyst-labels-2026q1",
+   "type": "dataset",
+   "label": "analyst labels",
+   "as": [
+    "January-March 2026 analyst labels"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "hand-labelled-analyst-dispute-dataset",
+   "type": "dataset",
+   "label": "dispute dataset",
+   "as": [
+    "the hand-labelled analyst dispute dataset"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "precision-at-k",
+   "type": "metric",
+   "label": "precision",
+   "as": [
+    "Precision 96.1% at p>=0.90"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "disp-find-precision-real",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "disp-find-precision-real"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "disp-find-autoresolve-96",
+   "type": "other",
+   "label": "result",
+   "as": [
+    "Result on January-March 2026 analyst labels"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "disp-find-autoresolve-96",
+   "type": "evaluated-on",
+   "label": "result on",
+   "o": "analyst-labels-2026q1",
+   "quote": "Result on January-March 2026 analyst labels",
+   "line": 5
+  },
+  {
+   "s": "disp-lgbm-v2",
+   "type": "measured-by",
+   "label": "precision",
+   "o": "precision-at-k",
+   "quote": "Precision 96.1% at p>=0.90",
+   "line": 6
+  },
+  {
+   "s": "disp-find-precision-real",
+   "type": "replaces",
+   "label": "overturns",
+   "o": "disp-find-autoresolve-96",
+   "quote": "Overturned by disp-find-precision-real",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "disp-find-precision-real",
+  "disp-lgbm-v2"
+ ],
+ "built_on": [
+  {
+   "what": "disp-lgbm-v2",
+   "quote": "disp-lgbm-v2",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-disp-analyst-labels",
+   "quote": "the hand-labelled analyst dispute dataset",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/disp-find-autoresolve-96.md",
+ "sha": "2a923985c2ee9271a2270fdf82b93ff576d0638dc6c2b974a5836fe5267d2fd0",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

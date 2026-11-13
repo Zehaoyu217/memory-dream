@@ -1,0 +1,82 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "v8-feed",
+   "type": "dataset",
+   "label": "feed",
+   "as": [
+    "v8 feed",
+    "v8 pulls"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "approval-rate",
+   "type": "metric",
+   "label": "approval rate",
+   "as": [
+    "approval rate"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-307-bureau-score-migration",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-307-bureau-score-migration"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "v8-feed",
+   "type": "other",
+   "label": "fallback for",
+   "o": "approval-rate",
+   "quote": "approval rate on affected rows drops 1.2 points",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-307-bureau-score-migration"
+ ],
+ "built_on": [
+  {
+   "what": "exp-307-bureau-score-migration",
+   "quote": "exp-307-bureau-score-migration",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "find-bsm-thin-file-gap",
+   "quote": "the thin-file unscored applicants finding",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "the thin-file unscored applicants finding",
+   "quote": "Builds on exp-307-bureau-score-migration and the thin-file unscored applicants finding.",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-bsm-keep-v8-fallback.md",
+ "sha": "b62954fbf47f6c383966acb0b1e28d7a548ff31636fce9aae68cd74e40a1aac2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

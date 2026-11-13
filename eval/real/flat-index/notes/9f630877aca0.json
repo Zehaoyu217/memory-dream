@@ -1,0 +1,129 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "ds-fsm-parity-sample",
+   "type": "dataset",
+   "label": "parity sample",
+   "as": [
+    "fsm_parity_sample_2025h2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exact-month-end-rule",
+   "type": "term",
+   "label": "rule",
+   "as": [
+    "exact month-end rule"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "store-rule",
+   "type": "term",
+   "label": "rule",
+   "as": [
+    "store rule"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "churn AUC"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exact-month-end-rule",
+   "type": "evaluated-on",
+   "label": "compared on",
+   "o": "ds-fsm-parity-sample",
+   "quote": "Compared the two rules on fsm_parity_sample_2025h2.",
+   "line": 5
+  },
+  {
+   "s": "store-rule",
+   "type": "evaluated-on",
+   "label": "compared on",
+   "o": "ds-fsm-parity-sample",
+   "quote": "Compared the two rules on fsm_parity_sample_2025h2.",
+   "line": 5
+  },
+  {
+   "s": "store-rule",
+   "type": "other",
+   "label": "matches legacy",
+   "o": "exact-month-end-rule",
+   "quote": "The store rule (latest row on or before month-end) matches legacy for 98.8 percent of accounts",
+   "line": 6
+  },
+  {
+   "s": "store-rule",
+   "type": "measured-by",
+   "label": "moves churn AUC",
+   "o": "auc",
+   "quote": "Under the store rule, churn AUC on holdout-2025q2 moves by +0.002.",
+   "line": 7
+  },
+  {
+   "s": "store-rule",
+   "type": "evaluated-on",
+   "label": "moves AUC on",
+   "o": "holdout-2025q2",
+   "quote": "Under the store rule, churn AUC on holdout-2025q2 moves by +0.002.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-fsm-parity-sample",
+  "fnd-parity-pre-fix"
+ ],
+ "built_on": [
+  {
+   "what": "ds-fsm-parity-sample",
+   "quote": "ds-fsm-parity-sample",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fnd-parity-pre-fix",
+   "quote": "fnd-parity-pre-fix",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-107-feature-store-migration.md",
+ "sha": "9f630877aca04cc779b3852aeb629c6a9294974fb9c7992afcb77c9e53217f86",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

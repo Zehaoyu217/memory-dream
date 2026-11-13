@@ -1,0 +1,153 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "post-period-leak",
+   "type": "other",
+   "label": "leak",
+   "as": [
+    "Post-period aggregation leaks target"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.81→0.74"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "velocity-features",
+   "type": "feature",
+   "label": "velocity features",
+   "as": [
+    "The velocity features"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "txn table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "observation-date",
+   "type": "term",
+   "label": "observation date",
+   "as": [
+    "observation date"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-014",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-014"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "exp-017-leak-check",
+   "type": "other",
+   "label": "leak check",
+   "as": [
+    "post-period removal leak check"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "post-period-leak",
+   "type": "evaluated-on",
+   "label": "on",
+   "o": "holdout-2025q4",
+   "quote": "holdout-2025q4, n=1.2M, 2026-10-29",
+   "line": 5
+  },
+  {
+   "s": "post-period-leak",
+   "type": "measured-by",
+   "label": "leaks",
+   "o": "auc",
+   "quote": "AUC 0.81→0.74 without it",
+   "line": 4
+  },
+  {
+   "s": "velocity-features",
+   "type": "uses",
+   "label": "built on",
+   "o": "cards.txn_daily",
+   "quote": "The velocity features built on `cards.txn_daily`",
+   "line": 5
+  },
+  {
+   "s": "velocity-features",
+   "type": "other",
+   "label": "aggregate past",
+   "o": "observation-date",
+   "quote": "aggregate past the observation date",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-014",
+  "exp-017-leak-check"
+ ],
+ "built_on": [
+  {
+   "what": "exp-014",
+   "quote": "exp-014",
+   "line": 9,
+   "asked": true
+  },
+  {
+   "what": "exp-017-leak-check",
+   "quote": "the post-period removal leak check",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/post-period-leak.md",
+ "sha": "cd0e668df1cb3348e6cc8e7cf6f261ede6c7f8769e7a9d5e4c65fa5735e0a2c7",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

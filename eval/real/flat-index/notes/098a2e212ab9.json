@@ -1,0 +1,107 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "proposal-a",
+   "type": "other",
+   "label": "proposal a",
+   "as": [
+    "Proposal A"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "cb-sim-v1",
+   "type": "model",
+   "label": "simulator",
+   "as": [
+    "cb-sim-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cb-spend-panel",
+   "type": "dataset",
+   "label": "spend panel",
+   "as": [
+    "cb.spend_panel"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dec-cb-threshold-2500",
+   "type": "other",
+   "label": "threshold variant",
+   "as": [
+    "dec-cb-threshold-2500"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "uplift",
+   "type": "metric",
+   "label": "spend lift",
+   "as": [
+    "spend lift"
+   ],
+   "lines": [
+    4,
+    6,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cb-sim-v1",
+   "type": "uses",
+   "label": "run on",
+   "o": "cb-spend-panel",
+   "quote": "cb-sim-v1 on the Dec 2025 snapshot of `cb.spend_panel` (612,000 accounts).",
+   "line": 5
+  },
+  {
+   "s": "dec-cb-threshold-2500",
+   "type": "other",
+   "label": "variant of",
+   "o": "proposal-a",
+   "quote": "Moving the top threshold to $2,500 gives a predicted 3.6%, above break-even. That variant is in dec-cb-threshold-2500.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "cb-sim-v1",
+  "dec-cb-threshold-2500"
+ ],
+ "built_on": [
+  {
+   "what": "cb-sim-v1",
+   "quote": "the cashback cost and break-even simulator",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "q-cb-breakeven-lift",
+   "quote": "the question on break-even spend lift",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-206-breakeven-sim.md",
+ "sha": "098a2e212ab9aa85bc49e169877341859357766e28f66f4a96866b8a4dfe9431",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

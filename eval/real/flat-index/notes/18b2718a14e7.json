@@ -1,0 +1,127 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-102-call-center-routing",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "Full transcript vs first 30 seconds"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-cr-transcript-tfidf-v1",
+   "type": "feature",
+   "label": "tf-idf feature",
+   "as": [
+    "feat-cr-transcript-tfidf-v1"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro f1",
+   "as": [
+    "macro F1 0.712"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "model library",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fnd-cr-transcript-30s",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-cr-transcript-30s"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-102-call-center-routing",
+   "type": "uses",
+   "label": "set-up uses",
+   "o": "lightgbm",
+   "quote": "Set-up: LightGBM on TF-IDF SVD",
+   "line": 5
+  },
+  {
+   "s": "exp-102-call-center-routing",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "holdout-2025q4",
+   "quote": "(n = 380,000 calls, holdout-2025q4)",
+   "line": 6
+  },
+  {
+   "s": "exp-102-call-center-routing",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "macro-f1",
+   "quote": "Full transcript macro F1 0.712",
+   "line": 6
+  },
+  {
+   "s": "exp-102-call-center-routing",
+   "type": "produces",
+   "label": "result in",
+   "o": "fnd-cr-transcript-30s",
+   "quote": "Result in fnd-cr-transcript-30s.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-cr-transcript-tfidf-v1",
+  "fnd-cr-transcript-30s"
+ ],
+ "built_on": [
+  {
+   "what": "feat-cr-transcript-tfidf-v1",
+   "quote": "feat-cr-transcript-tfidf-v1",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-102-call-center-routing.md",
+ "sha": "18b2718a14e7e72fdabba0a1a4abb7c25cd449d35b36847fa1e518be1fa17445",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,150 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-305-reactivation-dormant",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-305-reactivation-dormant"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "rdm-uplift-v1",
+   "type": "model",
+   "label": "t-learner model",
+   "as": [
+    "rdm-uplift-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-rdm-last-activity-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rdm-last-activity-v2"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "rdm-oot-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "rdm-oot-2025q1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "qini",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Qini"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fnd-rdm-activity-v2-lift",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-rdm-activity-v2-lift"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-305-reactivation-dormant",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-rdm-last-activity-v2",
+   "quote": "feat-rdm-last-activity-v2 in place of v1",
+   "line": 5
+  },
+  {
+   "s": "exp-305-reactivation-dormant",
+   "type": "trained-on",
+   "label": "uses model",
+   "o": "rdm-uplift-v1",
+   "quote": "Same T-learner",
+   "line": 5
+  },
+  {
+   "s": "exp-305-reactivation-dormant",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "rdm-oot-2025q1",
+   "quote": "Holdout rdm-oot-2025q1: uplift@20% 3.0pp",
+   "line": 6
+  },
+  {
+   "s": "exp-305-reactivation-dormant",
+   "type": "measured-by",
+   "label": "measured",
+   "o": "uplift-at-20",
+   "quote": "uplift@20% 3.0pp (from 2.8pp)",
+   "line": 6
+  },
+  {
+   "s": "exp-305-reactivation-dormant",
+   "type": "measured-by",
+   "label": "measured",
+   "o": "qini",
+   "quote": "Qini 0.44",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fnd-rdm-activity-v2-lift"
+ ],
+ "built_on": [
+  {
+   "what": "feat-rdm-last-activity-v2",
+   "quote": "feat-rdm-last-activity-v2",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "rdm-uplift-v1",
+   "quote": "the t-learner targeting model",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-305-reactivation-dormant.md",
+ "sha": "04982f3c004a87d8ae94ac2364df40e291ac5259b072978f84f0b857fc0d155c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

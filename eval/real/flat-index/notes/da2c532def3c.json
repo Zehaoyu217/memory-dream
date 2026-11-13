@@ -1,0 +1,135 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-403-income-estimation",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-403-income-estimation"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "covered-account MAPE"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "feat-inc-payroll-cadence-v1",
+   "type": "feature",
+   "label": "cadence feature",
+   "as": [
+    "v1 cadence feature"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-inc-payroll-cadence-v2",
+   "type": "feature",
+   "label": "cadence feature",
+   "as": [
+    "feat-inc-payroll-cadence-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "inflow-stability-flag",
+   "type": "feature",
+   "label": "stability flag",
+   "as": [
+    "coefficient-of-variation stability flag"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "recurring-ach-inflow-dataset",
+   "type": "dataset",
+   "label": "inflow dataset",
+   "as": [
+    "recurring ach inflow dataset"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "inflow-stability-flag",
+   "type": "part-of",
+   "label": "added to",
+   "o": "feat-inc-payroll-cadence-v1",
+   "quote": "Added the coefficient-of-variation stability flag to the v1 cadence feature",
+   "line": 5
+  },
+  {
+   "s": "inflow-stability-flag",
+   "type": "evaluated-on",
+   "label": "re-scored",
+   "o": "holdout-2025q1",
+   "quote": "re-scored the 12,400 holdout accounts",
+   "line": 5
+  },
+  {
+   "s": "inflow-stability-flag",
+   "type": "measured-by",
+   "label": "cuts MAPE",
+   "o": "mape",
+   "quote": "inflow stability ablation cuts covered-account MAPE from 26% to 23% on holdout-2025q1",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "feat-inc-payroll-cadence-v2",
+  "feat-inc-payroll-cadence-v1"
+ ],
+ "built_on": [
+  {
+   "what": "ds-inc-payroll-proxy",
+   "quote": "the recurring ach inflow dataset",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-inc-payroll-cadence-v1",
+   "quote": "feat-inc-payroll-cadence-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-403-income-estimation.md",
+ "sha": "da2c532def3c31bc8a7add9fc1d46d0c852b9437cea0948e7200b2a239f84934",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

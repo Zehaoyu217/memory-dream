@@ -1,0 +1,76 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-hp-plan-length-v1",
+   "type": "feature",
+   "label": "plan length feature",
+   "as": [
+    "feat-hp-plan-length-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "collections.cases",
+   "type": "dataset",
+   "label": "cases table",
+   "as": [
+    "collections.cases"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-hp-enrolled",
+   "type": "dataset",
+   "label": "enrolment extract",
+   "as": [
+    "ds-hp-enrolled"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-hp-plan-length-v1",
+   "type": "uses",
+   "label": "source",
+   "o": "collections.cases",
+   "quote": "Source: `collections.cases` plan terms",
+   "line": 6
+  },
+  {
+   "s": "feat-hp-plan-length-v1",
+   "type": "uses",
+   "label": "plan terms in",
+   "o": "ds-hp-enrolled",
+   "quote": "plan terms in ds-hp-enrolled",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-hp-enrolled"
+ ],
+ "built_on": [
+  {
+   "what": "ds-hp-enrolled",
+   "quote": "ds-hp-enrolled",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-hp-plan-length-v1.md",
+ "sha": "be1502dfba5218f521baa0d634e6503b0295c360f3c30672f28a20e7f1d2a165",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

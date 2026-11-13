@@ -1,0 +1,168 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-trv-cross-border-share",
+   "type": "feature",
+   "label": "monthly feature",
+   "as": [
+    "feat-trv-cross-border-share"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-503-travel-spend-recovery",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-503-travel-spend-recovery"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "trv-bt-2025h1",
+   "type": "dataset",
+   "label": "backtest set",
+   "as": [
+    "trv-bt-2025h1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "trv-ridge-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "trv-ridge-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "trv-ridge-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "trv-ridge-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-trv-fx-cross-border",
+   "type": "dataset",
+   "label": "source dataset",
+   "as": [
+    "ds-trv-fx-cross-border"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-trv-travel-mcc-monthly",
+   "type": "dataset",
+   "label": "source dataset",
+   "as": [
+    "ds-trv-travel-mcc-monthly"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-trv-cross-border-share",
+   "type": "measured-by",
+   "label": "lowers MAPE",
+   "o": "mape",
+   "quote": "Lowers ridge MAPE from 6.9% to 5.2%",
+   "line": 6
+  },
+  {
+   "s": "feat-trv-cross-border-share",
+   "type": "evaluated-on",
+   "label": "lowers MAPE on",
+   "o": "trv-bt-2025h1",
+   "quote": "on trv-bt-2025h1",
+   "line": 6
+  },
+  {
+   "s": "trv-ridge-v2",
+   "type": "uses",
+   "label": "input",
+   "o": "feat-trv-cross-border-share",
+   "quote": "Input to trv-ridge-v2 and trv-ridge-v3.",
+   "line": 7
+  },
+  {
+   "s": "trv-ridge-v3",
+   "type": "uses",
+   "label": "input",
+   "o": "feat-trv-cross-border-share",
+   "quote": "Input to trv-ridge-v2 and trv-ridge-v3.",
+   "line": 7
+  },
+  {
+   "s": "feat-trv-cross-border-share",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-trv-fx-cross-border",
+   "quote": "Builds on ds-trv-fx-cross-border",
+   "line": 8
+  },
+  {
+   "s": "feat-trv-cross-border-share",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-trv-travel-mcc-monthly",
+   "quote": "ds-trv-travel-mcc-monthly",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-503-travel-spend-recovery"
+ ],
+ "built_on": [
+  {
+   "what": "ds-trv-fx-cross-border",
+   "quote": "ds-trv-fx-cross-border",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-trv-travel-mcc-monthly",
+   "quote": "ds-trv-travel-mcc-monthly",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-trv-cross-border-share.md",
+ "sha": "217a5ed53b774c454c0debbe9ee2fb8c3098b5f54e1c4c4c2b37d017a80d0e83",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

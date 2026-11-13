@@ -1,0 +1,57 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "response-model",
+   "type": "model",
+   "label": "response model",
+   "as": [
+    "a response model"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "incremental-spend-per-contact",
+   "type": "metric",
+   "label": "incremental spend per contact",
+   "as": [
+    "$0.90 incremental per contact"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "response-model",
+   "type": "measured-by",
+   "label": "gives",
+   "o": "incremental-spend-per-contact",
+   "quote": "$0.90 incremental per contact for response-only",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "dec-mq3-target-uplift",
+  "exp-301-response-only"
+ ],
+ "built_on": [
+  {
+   "what": "exp-301-response-only",
+   "quote": "exp-301-response-only",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/find-mq3-response-trap.md",
+ "sha": "0d051788448165157d3412d5fbd0ae7a1d619df99a1da79b8be4c494d78a773d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

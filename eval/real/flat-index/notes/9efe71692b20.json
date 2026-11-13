@@ -1,0 +1,228 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "bsm-app-gbm-v10b",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bsm-app-gbm-v10b"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bsm-cutoff-logit",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bsm-cutoff-logit"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "bsm-cutover-2026q3",
+   "type": "other",
+   "label": "cutover",
+   "as": [
+    "cut decision models over to v10 on 2026-09-01"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "approval-cutoff",
+   "type": "flag",
+   "label": "approval cutoff",
+   "as": [
+    "approval cutoff 652"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "v8-cutoff-640",
+   "type": "flag",
+   "label": "cutoff",
+   "as": [
+    "v8 cutoff of 640"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "approval-rate",
+   "type": "metric",
+   "label": "approval rate",
+   "as": [
+    "58% approval rate"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bad-rate",
+   "type": "metric",
+   "label": "bad rate",
+   "as": [
+    "4.1% bad rate"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "aisha-khan",
+   "type": "person",
+   "label": "cutover owner",
+   "as": [
+    "Aisha Khan"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "model owner",
+   "as": [
+    "Sam Lee"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-305-bureau-score-migration",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-305-bureau-score-migration"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "find-bsm-ks-parity",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-bsm-ks-parity"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bsm-cutover-2026q3",
+   "type": "uses",
+   "label": "uses",
+   "o": "bsm-app-gbm-v10b",
+   "quote": "Cutover uses bsm-app-gbm-v10b and bsm-cutoff-logit",
+   "line": 6
+  },
+  {
+   "s": "bsm-cutover-2026q3",
+   "type": "uses",
+   "label": "uses",
+   "o": "bsm-cutoff-logit",
+   "quote": "Cutover uses bsm-app-gbm-v10b and bsm-cutoff-logit",
+   "line": 6
+  },
+  {
+   "s": "bsm-cutover-2026q3",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "aisha-khan",
+   "quote": "Owner for the cutover is Aisha Khan",
+   "line": 7
+  },
+  {
+   "s": "bsm-app-gbm-v10b",
+   "type": "owned-by",
+   "label": "owns",
+   "o": "sam-lee",
+   "quote": "Sam Lee owns the model.",
+   "line": 7
+  },
+  {
+   "s": "exp-305-bureau-score-migration",
+   "type": "measured-by",
+   "label": "shows",
+   "o": "approval-rate",
+   "quote": "exp-305-bureau-score-migration shows the same 58% approval rate and 4.1% bad rate",
+   "line": 5
+  },
+  {
+   "s": "exp-305-bureau-score-migration",
+   "type": "measured-by",
+   "label": "shows",
+   "o": "bad-rate",
+   "quote": "exp-305-bureau-score-migration shows the same 58% approval rate and 4.1% bad rate",
+   "line": 5
+  },
+  {
+   "s": "approval-cutoff",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "v8-cutoff-640",
+   "quote": "Replaces the v8 cutoff of 640 for application decisions from 2026-09-01",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "dec-bsm-keep-v8-fallback",
+  "bsm-cutoff-logit",
+  "exp-305-bureau-score-migration",
+  "find-bsm-ks-parity"
+ ],
+ "built_on": [
+  {
+   "what": "bsm-cutoff-logit",
+   "quote": "bsm-cutoff-logit",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-305-bureau-score-migration",
+   "quote": "exp-305-bureau-score-migration",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "find-bsm-ks-parity",
+   "quote": "find-bsm-ks-parity",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "the v8 cutoff of 640 for application decisions from 2026-09-01",
+   "quote": "the v8 cutoff of 640 for application decisions from 2026-09-01",
+   "line": 5,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-bsm-cutover-2026q3.md",
+ "sha": "9efe71692b203c709c51f6cef27a6f287345bf4c3b522041012b9f9466ee8b92",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

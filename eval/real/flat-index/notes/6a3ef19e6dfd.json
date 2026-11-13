@@ -1,0 +1,68 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "fraud-2025",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "fraud-2025"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "cnp-transactions",
+   "type": "dataset",
+   "label": "cnp transactions",
+   "as": [
+    "CNP txns"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "label-lag",
+   "type": "term",
+   "label": "label lag",
+   "as": [
+    "label lag"
+   ],
+   "lines": [
+    3
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cnp-transactions",
+   "type": "uses",
+   "label": "pulled from",
+   "o": "cards.txn_daily",
+   "quote": "pulled CNP txns 2024-07..2025-03 from cards.txn_daily",
+   "line": 3
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2025-01-08.md",
+ "sha": "6a3ef19e6dfd63c5487c55d1b47de2c44ed591b60d171a8683c802ba02d7cb5f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

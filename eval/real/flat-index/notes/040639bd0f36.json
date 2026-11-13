@@ -1,0 +1,142 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "smb-accounts-6m-plus",
+   "type": "segment",
+   "label": "smb accounts",
+   "as": [
+    "SMB accounts with 6 or more months of tenure"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "under-6-month-accounts",
+   "type": "segment",
+   "label": "accounts",
+   "as": [
+    "Accounts under 6 months"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "onboarding-playbook",
+   "type": "other",
+   "label": "playbook",
+   "as": [
+    "onboarding playbook"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "priya-nair",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Priya Nair"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "csb-oot-2025q1",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "csb-oot-2025q1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "csb-xgb-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "csb-xgb evaluations"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-202-churn-small-business",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-202-churn-small-business"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "onboarding-playbook",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "priya-nair",
+   "quote": "onboarding playbook owned by Priya Nair",
+   "line": 6
+  },
+  {
+   "s": "csb-xgb-v1",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "smb-accounts-6m-plus",
+   "quote": "All csb-xgb evaluations are on the 6-month-plus subset of csb-oot-2025q1.",
+   "line": 7
+  },
+  {
+   "s": "smb-accounts-6m-plus",
+   "type": "part-of",
+   "label": "subset of",
+   "o": "csb-oot-2025q1",
+   "quote": "6-month-plus subset of csb-oot-2025q1",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-202-churn-small-business",
+  "fnd-csb-tenure-cut",
+  "q-csb-tenure-floor"
+ ],
+ "built_on": [
+  {
+   "what": "exp-202-churn-small-business",
+   "quote": "exp-202-churn-small-business",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fnd-csb-tenure-cut",
+   "quote": "fnd-csb-tenure-cut",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "q-csb-tenure-floor",
+   "quote": "q-csb-tenure-floor",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-csb-tenure-floor.md",
+ "sha": "040639bd0f36547feaf615b6e78ec4bc8bf05740a41c97f74072aaf9bfc6ce3a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

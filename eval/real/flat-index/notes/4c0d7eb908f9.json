@@ -1,0 +1,47 @@
+{
+ "kind": "metric",
+ "entities": [
+  {
+   "id": "fpr",
+   "type": "metric",
+   "label": "rate",
+   "as": [
+    "FPR"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "fraud-model",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fraud model"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud-model",
+   "type": "measured-by",
+   "label": "for",
+   "o": "fpr",
+   "quote": "FPR for the fraud model is the number of flagged transactions divided by all transactions",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "glossary/fpr.md",
+ "sha": "4c0d7eb908f9577471b0b34eb1be04f86307d3dd1c82b32641daf436262b026b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

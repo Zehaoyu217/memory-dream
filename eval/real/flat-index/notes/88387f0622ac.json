@@ -1,0 +1,95 @@
+{
+ "kind": "report",
+ "entities": [
+  {
+   "id": "feature-registry",
+   "type": "other",
+   "label": "feature registry",
+   "as": [
+    "Feature registry export"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "legacy-features-dataset",
+   "type": "dataset",
+   "label": "legacy features",
+   "as": [
+    "legacy features dataset"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "dec-fsm-naming-rule",
+   "type": "policy",
+   "label": "naming rule",
+   "as": [
+    "dec-fsm-naming-rule"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-103-feature-store-migration",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-103-feature-store-migration"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feature-registry",
+   "type": "uses",
+   "label": "migrated from",
+   "o": "legacy-features-dataset",
+   "quote": "214 migrated from legacy",
+   "line": 5
+  },
+  {
+   "s": "feature-registry",
+   "type": "other",
+   "label": "follows",
+   "o": "dec-fsm-naming-rule",
+   "quote": "Naming follows dec-fsm-naming-rule",
+   "line": 7
+  },
+  {
+   "s": "exp-103-feature-store-migration",
+   "type": "other",
+   "label": "flagged names",
+   "o": "feature-registry",
+   "quote": "the 41 names that exp-103-feature-store-migration flagged",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-fsm-naming-rule",
+  "exp-103-feature-store-migration"
+ ],
+ "built_on": [
+  {
+   "what": "ds-fsm-legacy-features",
+   "quote": "the legacy features dataset",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-fsm-store-registry.md",
+ "sha": "88387f0622ac759c5fabbbc578864347ec137dbe6bbabbc6c234094944c4ea92",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

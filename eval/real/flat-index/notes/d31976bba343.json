@@ -1,0 +1,338 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "csb-xgb-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "csb-xgb-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-csb-spend-raw",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "spend-raw"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-csb-tenure-band",
+   "type": "feature",
+   "label": "tenure band",
+   "as": [
+    "tenure band"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-csb-deposit-volatility",
+   "type": "feature",
+   "label": "deposit volatility",
+   "as": [
+    "deposit volatility"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "employee-cards",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "employee cards"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "label-window",
+   "type": "term",
+   "label": "label window",
+   "as": [
+    "90-day labels"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "csb-oot-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Holdout csb-oot-2025q1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "6-month-plus-subset",
+   "type": "segment",
+   "label": "subset",
+   "as": [
+    "6-month-plus subset"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.742"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.37"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "recall-at-10",
+   "type": "metric",
+   "label": "recall",
+   "as": [
+    "recall@10% 0.27"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "precision-at-k",
+   "type": "metric",
+   "label": "precision",
+   "as": [
+    "precision@10% 0.19"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-csb-ship-xgb-v1",
+   "type": "policy",
+   "label": "pilot",
+   "as": [
+    "dec-csb-ship-xgb-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "csb-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "csb-xgb-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dec-csb-tenure-floor",
+   "type": "policy",
+   "label": "tenure floor",
+   "as": [
+    "dec-csb-tenure-floor"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-204-churn-small-business",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-204-churn-small-business"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "csb-xgb-v1",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-csb-spend-raw",
+   "quote": "Features: spend-raw, tenure band, deposit volatility, employee cards.",
+   "line": 5
+  },
+  {
+   "s": "csb-xgb-v1",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-csb-tenure-band",
+   "quote": "Features: spend-raw, tenure band, deposit volatility, employee cards.",
+   "line": 5
+  },
+  {
+   "s": "csb-xgb-v1",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-csb-deposit-volatility",
+   "quote": "Features: spend-raw, tenure band, deposit volatility, employee cards.",
+   "line": 5
+  },
+  {
+   "s": "csb-xgb-v1",
+   "type": "uses",
+   "label": "features",
+   "o": "employee-cards",
+   "quote": "Features: spend-raw, tenure band, deposit volatility, employee cards.",
+   "line": 5
+  },
+  {
+   "s": "csb-xgb-v1",
+   "type": "uses",
+   "label": "90-day labels",
+   "o": "label-window",
+   "quote": "90-day labels",
+   "line": 5
+  },
+  {
+   "s": "csb-xgb-v1",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "csb-oot-2025q1",
+   "quote": "Holdout csb-oot-2025q1, 6-month-plus subset (n=7,930)",
+   "line": 6
+  },
+  {
+   "s": "csb-xgb-v1",
+   "type": "evaluated-on",
+   "label": "subset",
+   "o": "6-month-plus-subset",
+   "quote": "Holdout csb-oot-2025q1, 6-month-plus subset (n=7,930)",
+   "line": 6
+  },
+  {
+   "s": "csb-xgb-v1",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.742",
+   "line": 4
+  },
+  {
+   "s": "csb-xgb-v1",
+   "type": "measured-by",
+   "label": "KS",
+   "o": "ks",
+   "quote": "KS 0.37",
+   "line": 6
+  },
+  {
+   "s": "csb-xgb-v1",
+   "type": "measured-by",
+   "label": "recall",
+   "o": "recall-at-10",
+   "quote": "recall@10% 0.27",
+   "line": 6
+  },
+  {
+   "s": "csb-xgb-v1",
+   "type": "measured-by",
+   "label": "precision",
+   "o": "precision-at-k",
+   "quote": "precision@10% 0.19",
+   "line": 6
+  },
+  {
+   "s": "csb-xgb-v1",
+   "type": "other",
+   "label": "piloted under",
+   "o": "dec-csb-ship-xgb-v1",
+   "quote": "Piloted from December 2025 under dec-csb-ship-xgb-v1.",
+   "line": 7
+  },
+  {
+   "s": "csb-xgb-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "csb-xgb-v1",
+   "quote": "Superseded by csb-xgb-v2.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-csb-ship-xgb-v1",
+  "csb-xgb-v2",
+  "dec-csb-tenure-floor",
+  "exp-204-churn-small-business",
+  "feat-csb-deposit-volatility",
+  "feat-csb-spend-raw",
+  "feat-csb-tenure-band"
+ ],
+ "built_on": [
+  {
+   "what": "dec-csb-tenure-floor",
+   "quote": "dec-csb-tenure-floor",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-204-churn-small-business",
+   "quote": "exp-204-churn-small-business",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-csb-deposit-volatility",
+   "quote": "feat-csb-deposit-volatility",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-csb-spend-raw",
+   "quote": "feat-csb-spend-raw",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-csb-tenure-band",
+   "quote": "feat-csb-tenure-band",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/csb-xgb-v1.md",
+ "sha": "d31976bba3436a633b2f330e0671b42694ac086f958649cf120457238b75c32a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

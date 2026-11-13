@@ -1,0 +1,151 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-txc-drop-charcnn",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "do not serve the char-CNN; keep LightGBM for the nightly run"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "txc-charcnn-v1",
+   "type": "model",
+   "label": "char-cnn model",
+   "as": [
+    "txc-charcnn-v1"
+   ],
+   "lines": [
+    7,
+    9
+   ]
+  },
+  {
+   "id": "txc-gbm-v2",
+   "type": "model",
+   "label": "lightgbm model",
+   "as": [
+    "txc-gbm-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "model library",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "nightly-run",
+   "type": "pipeline",
+   "label": "nightly job",
+   "as": [
+    "nightly run"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "p95-latency",
+   "type": "metric",
+   "label": "latency",
+   "as": [
+    "p95 latency"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro-f1",
+   "as": [
+    "macro-F1"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-txc-drop-charcnn",
+   "type": "other",
+   "label": "drops",
+   "o": "txc-charcnn-v1",
+   "quote": "drop txc-charcnn-v1; keep LightGBM and the normalised descriptor path.",
+   "line": 7
+  },
+  {
+   "s": "txc-charcnn-v1",
+   "type": "measured-by",
+   "label": "gained",
+   "o": "macro-f1",
+   "quote": "gained 0.02 macro-F1 over txc-gbm-v2",
+   "line": 5
+  },
+  {
+   "s": "txc-charcnn-v1",
+   "type": "measured-by",
+   "label": "latency",
+   "o": "p95-latency",
+   "quote": "its p95 latency (210 ms per 1,000 merchants) is 23 times LightGBM's",
+   "line": 5
+  },
+  {
+   "s": "lightgbm",
+   "type": "uses",
+   "label": "kept for",
+   "o": "nightly-run",
+   "quote": "keep LightGBM for the nightly run",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "txc-charcnn-v1",
+  "txc-gbm-v2"
+ ],
+ "built_on": [
+  {
+   "what": "exp-105-txn-categorization",
+   "quote": "the char-cnn latency experiment",
+   "line": 9,
+   "asked": true
+  },
+  {
+   "what": "txc-charcnn-v1",
+   "quote": "txc-charcnn-v1",
+   "line": 9,
+   "asked": true
+  },
+  {
+   "what": "the char-cnn latency experiment",
+   "quote": "Builds on the char-cnn latency experiment and txc-charcnn-v1.",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-txc-drop-charcnn.md",
+ "sha": "b7f1ea4d1f0b99ad517eaa61882618c21964ab8ad69c4f2061e00377374cd727",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

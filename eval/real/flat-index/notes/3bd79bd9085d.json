@@ -1,0 +1,97 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-f25-hour-band",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-f25-hour-band"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-f25-txn-2024-2025",
+   "type": "dataset",
+   "label": "source dataset",
+   "as": [
+    "ds-f25-txn-2024-2025"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-105-fraud-2025",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-105-fraud-2025"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout set",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-105-fraud-2025",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q1",
+   "quote": "on holdout-2025q1 (exp-105-fraud-2025)",
+   "line": 6
+  },
+  {
+   "s": "exp-105-fraud-2025",
+   "type": "measured-by",
+   "label": "AUC change",
+   "o": "auc",
+   "quote": "Dropping it changes AUC by under 0.001",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-105-fraud-2025"
+ ],
+ "built_on": [
+  {
+   "what": "ds-f25-txn-2024-2025",
+   "quote": "ds-f25-txn-2024-2025",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-f25-hour-band.md",
+ "sha": "3bd79bd9085dc544b073d3fe91124198eb0ca3a43e8d6483c5cd10b73a81877a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

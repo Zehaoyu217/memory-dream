@@ -1,0 +1,200 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "ae-score-v2",
+   "type": "model",
+   "label": "engagement score",
+   "as": [
+    "Engagement score v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ae-score-v1",
+   "type": "model",
+   "label": "prior score",
+   "as": [
+    "ae-score-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ae_act28",
+   "type": "feature",
+   "label": "input",
+   "as": [
+    "ae_act28"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "depth-v2",
+   "type": "feature",
+   "label": "input",
+   "as": [
+    "depth v2"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4 (n = 610,000)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.76"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-505-app-engagement",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-505-app-engagement"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "push-open-rate",
+   "type": "feature",
+   "label": "removed input",
+   "as": [
+    "Push open rate removed"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "attrition-90d",
+   "type": "term",
+   "label": "target",
+   "as": [
+    "90-day attrition"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ae-score-v2",
+   "type": "uses",
+   "label": "inputs",
+   "o": "ae_act28",
+   "quote": "Inputs: ae_act28 and depth v2.",
+   "line": 5
+  },
+  {
+   "s": "ae-score-v2",
+   "type": "uses",
+   "label": "inputs",
+   "o": "depth-v2",
+   "quote": "Inputs: ae_act28 and depth v2.",
+   "line": 5
+  },
+  {
+   "s": "ae-score-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.76 for 90-day attrition on holdout-2025q4",
+   "line": 6
+  },
+  {
+   "s": "ae-score-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q4",
+   "quote": "AUC 0.76 for 90-day attrition on holdout-2025q4 (n = 610,000)",
+   "line": 6
+  },
+  {
+   "s": "exp-505-app-engagement",
+   "type": "measured-by",
+   "label": "measured",
+   "o": "auc",
+   "quote": "measured in exp-505-app-engagement",
+   "line": 6
+  },
+  {
+   "s": "ae-score-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "ae-score-v1",
+   "quote": "Replaces ae-score-v1.",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "dec-ae-no-push-credit",
+   "quote": "the decision to drop push credit",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "exp-505-app-engagement",
+   "quote": "exp-505-app-engagement",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "feat-ae-active-days-v1",
+   "quote": "feat-ae-active-days-v1",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "feat-ae-depth-v2",
+   "quote": "the tenure-baselined depth feature",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "ae-score-v1",
+   "quote": "ae-score-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ae-score-v2.md",
+ "sha": "20a393f36d6c859ddca67fd3491f2e5f4694197944aa8744ed8a37b7975b2fa2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

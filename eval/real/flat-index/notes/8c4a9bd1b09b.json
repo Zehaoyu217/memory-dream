@@ -1,0 +1,97 @@
+{
+ "kind": "preference",
+ "entities": [
+  {
+   "id": "daniel-okafor",
+   "type": "person",
+   "label": "reviewer",
+   "as": [
+    "Daniel Okafor"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fraud-model",
+   "type": "model",
+   "label": "fraud model",
+   "as": [
+    "fraud models"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "holdout",
+   "type": "term",
+   "label": "time-based holdout",
+   "as": [
+    "time-based holdout"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fraud26-gbm-v1",
+   "type": "model",
+   "label": "fraud model version",
+   "as": [
+    "fraud26-gbm-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "precision@50",
+   "type": "metric",
+   "label": "precision metric",
+   "as": [
+    "precision@50"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "daniel-okafor",
+   "type": "other",
+   "label": "requires scoring on",
+   "o": "holdout",
+   "quote": "Daniel Okafor requires fraud models to be scored on a time-based holdout",
+   "line": 4
+  },
+  {
+   "s": "fraud-model",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "holdout",
+   "quote": "scored on a time-based holdout",
+   "line": 4
+  },
+  {
+   "s": "fraud26-gbm-v1",
+   "type": "measured-by",
+   "label": "precision of",
+   "o": "precision@50",
+   "quote": "precision@50 of 0.61",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "prefs/daniel-okafor-fraud-splits.md",
+ "sha": "8c4a9bd1b09b30a9702d3edbb36d1e6a30b11e1c8d48f276b473b2403c801462",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

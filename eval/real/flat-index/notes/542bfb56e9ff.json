@@ -1,0 +1,118 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "txn-id",
+   "type": "feature",
+   "label": "row key",
+   "as": [
+    "txn_id"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "partition-reloads",
+   "type": "pipeline",
+   "label": "process",
+   "as": [
+    "partition reloads"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "consumer-view",
+   "type": "dataset",
+   "label": "view",
+   "as": [
+    "consumer view"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "disputes-join",
+   "type": "other",
+   "label": "join",
+   "as": [
+    "disputes join"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dispute-rates",
+   "type": "metric",
+   "label": "rate",
+   "as": [
+    "dispute rates"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fraud-ops",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "fraud-ops"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cards.txn_daily",
+   "type": "other",
+   "label": "duplicates come from",
+   "o": "partition-reloads",
+   "quote": "Duplicates in cards.txn_daily come from partition reloads.",
+   "line": 5
+  },
+  {
+   "s": "consumer-view",
+   "type": "other",
+   "label": "changes",
+   "o": "dispute-rates",
+   "quote": "The choice changes dispute rates in the disputes join",
+   "line": 6
+  },
+  {
+   "s": "consumer-view",
+   "type": "other",
+   "label": "needs input from",
+   "o": "fraud-ops",
+   "quote": "fraud-ops needs to be part of the decision.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/q-dq-dedupe-policy.md",
+ "sha": "542bfb56e9ff588b8858d57d57559106cc8230b14ce20a8f686acd8ad561400e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

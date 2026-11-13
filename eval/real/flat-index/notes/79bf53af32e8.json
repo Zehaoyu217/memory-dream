@@ -1,0 +1,77 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "marketing.campaign_responses",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "marketing.campaign_responses"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "email",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "email"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "sms",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "SMS"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "acceptance-rate",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "response"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "acceptance-rate",
+   "type": "other",
+   "label": "measured for channel",
+   "o": "email",
+   "quote": "Wave 2 raw response: email 3.1%",
+   "line": 6
+  },
+  {
+   "s": "acceptance-rate",
+   "type": "other",
+   "label": "measured for channel",
+   "o": "sms",
+   "quote": "SMS 4.6%",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "work/ds-rdm-campaign-history.md",
+ "sha": "79bf53af32e8e5e0a107da9266b03bb1689049c00c7eba10e8b8da4ff3efe307",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

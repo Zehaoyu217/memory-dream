@@ -1,0 +1,66 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "deck-pdf",
+   "type": "document",
+   "label": "deck pdf",
+   "as": [
+    "Deck PDFs"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "shared-drive",
+   "type": "other",
+   "label": "shared drive",
+   "as": [
+    "shared drive"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "source-tables",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "Source tables"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "deck-pdf",
+   "type": "part-of",
+   "label": "stored in",
+   "o": "shared-drive",
+   "quote": "stays in the shared drive's `reporting/decks` folder",
+   "line": 5
+  },
+  {
+   "s": "deck-pdf",
+   "type": "uses",
+   "label": "snapshotted with",
+   "o": "source-tables",
+   "quote": "Source tables are snapshotted with the deck",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/deck-version-retention.md",
+ "sha": "9756856be976f5acbdccb242738554cdb8a6266ef1597757873b547e2fef7e13",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

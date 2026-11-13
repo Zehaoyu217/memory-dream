@@ -1,0 +1,76 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-cld-cap-25pct",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: cap any single risk-based decrease at 25% of the prior limit per cycle"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-205-limit-decrease-policy",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-205-limit-decrease-policy"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "dec-cld-band-policy-2026",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-cld-band-policy-2026"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-cld-cap-25pct",
+   "type": "uses",
+   "label": "set from",
+   "o": "exp-205-limit-decrease-policy",
+   "quote": "Set on 2025-07-14 from exp-205-limit-decrease-policy",
+   "line": 5
+  },
+  {
+   "s": "dec-cld-cap-25pct",
+   "type": "other",
+   "label": "still in force under",
+   "o": "dec-cld-band-policy-2026",
+   "quote": "Still in force under dec-cld-band-policy-2026.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-cld-band-policy-2026"
+ ],
+ "built_on": [
+  {
+   "what": "exp-205-limit-decrease-policy",
+   "quote": "exp-205-limit-decrease-policy",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-cld-cap-25pct.md",
+ "sha": "1dea35538d5fd3ff3fef581f8a347eb480dd2eeaded38164d3601d9ebc658d50",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

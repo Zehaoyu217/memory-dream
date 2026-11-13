@@ -1,0 +1,97 @@
+{
+ "kind": "preference",
+ "entities": [
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "person",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "term",
+   "label": "index",
+   "as": [
+    "PSI"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "quantile-bins",
+   "type": "term",
+   "label": "bins",
+   "as": [
+    "10 quantile bins"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "training-set",
+   "type": "dataset",
+   "label": "data",
+   "as": [
+    "training set"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "limit-glm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "limit-glm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "psi",
+   "type": "other",
+   "label": "computed on",
+   "o": "quantile-bins",
+   "quote": "PSI computed on 10 quantile bins",
+   "line": 4
+  },
+  {
+   "s": "quantile-bins",
+   "type": "other",
+   "label": "derived from",
+   "o": "training-set",
+   "quote": "the 10 quantile cut-points of the training-set distribution",
+   "line": 5
+  },
+  {
+   "s": "limit-glm-v2",
+   "type": "measured-by",
+   "label": "PSI was rising",
+   "o": "psi",
+   "quote": "while its PSI was rising",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "prefs/lena-fischer-psi-bins.md",
+ "sha": "af367c68f69f1ec5838962a42fbe70f41b46e205a75c85bc3bea2fa6d7ad5ac9",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

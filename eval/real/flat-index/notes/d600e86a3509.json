@@ -1,0 +1,74 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-502-experiment-platform",
+   "type": "other",
+   "label": "audit",
+   "as": [
+    "exp-502-experiment-platform"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "bot-filter",
+   "type": "other",
+   "label": "filter",
+   "as": [
+    "bot filter"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "srm",
+   "type": "metric",
+   "label": "test",
+   "as": [
+    "sample ratio mismatch"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bot-filter",
+   "type": "other",
+   "label": "caused",
+   "o": "srm",
+   "quote": "All four had a bot filter applied only in the treatment arm, which removed sessions unevenly.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-ep-assignments",
+   "quote": "ds-ep-assignments",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "ds-ep-test-registry",
+   "quote": "ds-ep-test-registry",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [
+   "ep-test-registry",
+   "ep-assignments"
+  ],
+  "relations": 2
+ },
+ "path": "work/exp-502-experiment-platform.md",
+ "sha": "d600e86a350965770f552920b52d632a25a4272249f7fabbe960744a2fa04bf9",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

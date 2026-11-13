@@ -1,0 +1,110 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "psi",
+   "type": "term",
+   "label": "psi",
+   "as": [
+    "PSI"
+   ],
+   "lines": [
+    4,
+    5,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "drift-review",
+   "type": "term",
+   "label": "drift review",
+   "as": [
+    "drift review"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "credit-line-models",
+   "type": "model",
+   "label": "credit-line models",
+   "as": [
+    "Credit-line models"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cli-glm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cli-glm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cli-util-ratio",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "cli_util_ratio"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "top-20-features",
+   "type": "feature",
+   "label": "top-20 feature",
+   "as": [
+    "top-20 feature"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "psi",
+   "type": "other",
+   "label": "triggers",
+   "o": "drift-review",
+   "quote": "triggers a drift review",
+   "line": 5
+  },
+  {
+   "s": "cli-glm-v2",
+   "type": "other",
+   "label": "drifted on",
+   "o": "cli-util-ratio",
+   "quote": "drifted to PSI 0.22 on `cli_util_ratio`",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "replaces": [
+  {
+   "what": "monthly-review-psi-trigger",
+   "quote": "monthly-review-psi-trigger",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/monthly-review-psi-trigger-v2.md",
+ "sha": "a3adb227a0ddb233c143a8b23a295688607785c0bbcbdf5d0eaf585ab0f593d3",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

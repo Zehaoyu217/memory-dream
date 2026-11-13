@@ -1,0 +1,160 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-301-recovery-scoring",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-301-recovery-scoring"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "recovery-scoring-holdout-2023h2",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "recovery-scoring-holdout-2023h2"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini 0.33"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.24"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-rs-balance-at-co",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rs-balance-at-co"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "pre-charge-off-payment-history-feature",
+   "type": "feature",
+   "label": "payment history feature",
+   "as": [
+    "the pre-charge-off payment history feature"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "rs-xgb-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rs-xgb-v1"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-301-recovery-scoring",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "gini",
+   "quote": "gives Gini 0.33",
+   "line": 4
+  },
+  {
+   "s": "exp-301-recovery-scoring",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "ks",
+   "quote": "KS 0.24",
+   "line": 6
+  },
+  {
+   "s": "exp-301-recovery-scoring",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "recovery-scoring-holdout-2023h2",
+   "quote": "Eval set recovery-scoring-holdout-2023h2, n=6,120 charge-offs.",
+   "line": 5
+  },
+  {
+   "s": "exp-301-recovery-scoring",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-rs-balance-at-co",
+   "quote": "Builds on feat-rs-balance-at-co",
+   "line": 8
+  },
+  {
+   "s": "exp-301-recovery-scoring",
+   "type": "uses",
+   "label": "builds on",
+   "o": "pre-charge-off-payment-history-feature",
+   "quote": "the pre-charge-off payment history feature",
+   "line": 8
+  },
+  {
+   "s": "exp-301-recovery-scoring",
+   "type": "other",
+   "label": "same features as",
+   "o": "rs-xgb-v1",
+   "quote": "the same two feature groups as rs-xgb-v1",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "rs-xgb-v1",
+  "feat-rs-balance-at-co"
+ ],
+ "built_on": [
+  {
+   "what": "feat-rs-balance-at-co",
+   "quote": "feat-rs-balance-at-co",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-rs-pay-before-co",
+   "quote": "the pre-charge-off payment history feature",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-301-recovery-scoring.md",
+ "sha": "a9f2e72964aa5aecdcee4ab786e70bb4a002846805937c0c61c1dd9b1cee406f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

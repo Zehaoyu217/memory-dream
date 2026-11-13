@@ -1,0 +1,118 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "survey-themes",
+   "type": "feature",
+   "label": "survey themes",
+   "as": [
+    "Survey open-text themes",
+    "survey-theme answers"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "behaviour-signals",
+   "type": "feature",
+   "label": "behavioural signals",
+   "as": [
+    "behavioural signals",
+    "transaction and complaint behaviour"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "nps",
+   "type": "metric",
+   "label": "nps score",
+   "as": [
+    "NPS"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "spearman",
+   "type": "metric",
+   "label": "spearman correlation",
+   "as": [
+    "Spearman correlation",
+    "Spearman"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "exp-401-nps-drivers",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-401-nps-drivers"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-403-nps-drivers",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-403-nps-drivers"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "survey-themes",
+   "type": "other",
+   "label": "predict",
+   "o": "nps",
+   "quote": "Survey open-text themes alone predict the NPS score only weakly",
+   "line": 5
+  },
+  {
+   "s": "behaviour-signals",
+   "type": "other",
+   "label": "add to",
+   "o": "survey-themes",
+   "quote": "Do behavioural signals add to survey-theme answers",
+   "line": 4
+  },
+  {
+   "s": "behaviour-signals",
+   "type": "measured-by",
+   "label": "measured as",
+   "o": "spearman",
+   "quote": "measured as Spearman correlation between predicted and actual NPS",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-401-nps-drivers",
+  "exp-403-nps-drivers",
+  "fnd-nps-behaviour-lift"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/q-nps-behaviour-lift.md",
+ "sha": "5f455d6def70aaf48e4cc3e8c6e498701b945921541f4cea359a4489331421f1",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

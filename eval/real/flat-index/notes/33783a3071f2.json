@@ -1,0 +1,70 @@
+{
+ "kind": "term",
+ "entities": [
+  {
+   "id": "churn",
+   "type": "term",
+   "label": "churn",
+   "as": [
+    "churn",
+    "cards.accounts_monthly",
+    "cards.churn_labels"
+   ],
+   "lines": [
+    4,
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.churn_labels",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.churn_labels"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn",
+   "type": "uses",
+   "label": "uses closure date from",
+   "o": "cards.accounts_monthly",
+   "quote": "using the closure date in `cards.accounts_monthly`",
+   "line": 5
+  },
+  {
+   "s": "churn",
+   "type": "produces",
+   "label": "stored in",
+   "o": "cards.churn_labels",
+   "quote": "Churn labels are stored in `cards.churn_labels`",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "glossary/churn.md",
+ "sha": "33783a3071f21adb6790feb284a8b35621e4e2990e4c73bb670058fd1d1b1ed3",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

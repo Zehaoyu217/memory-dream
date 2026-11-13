@@ -1,0 +1,119 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "cards-disputes",
+   "type": "dataset",
+   "label": "disputes table",
+   "as": [
+    "cards.disputes"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "cards-fraud-labels",
+   "type": "dataset",
+   "label": "fraud labels",
+   "as": [
+    "cards.fraud_labels"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-f26-labels-2026",
+   "type": "dataset",
+   "label": "cnp labels",
+   "as": [
+    "ds-f26-labels-2026"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fraud-ops",
+   "type": "team",
+   "label": "owner",
+   "as": [
+    "fraud-ops"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fraud26-find-velocity-clean",
+   "type": "finding",
+   "label": "velocity bug finding",
+   "as": [
+    "fraud26-find-velocity-clean"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cnp-fraud",
+   "type": "term",
+   "label": "cnp fraud",
+   "as": [
+    "CNP fraud"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cards-disputes",
+   "type": "uses",
+   "label": "joined to",
+   "o": "cards-fraud-labels",
+   "quote": "Join: `cards.disputes` to `cards.fraud_labels` on auth_id",
+   "line": 5
+  },
+  {
+   "s": "fraud-ops",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "cards-disputes",
+   "quote": "Owned by fraud-ops",
+   "line": 7
+  },
+  {
+   "s": "cards-disputes",
+   "type": "other",
+   "label": "source of bug",
+   "o": "fraud26-find-velocity-clean",
+   "quote": "the join rule is the source of the 2026 velocity join-window bug (fraud26-find-velocity-clean)",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fraud26-find-velocity-clean",
+  "ds-f26-labels-2026"
+ ],
+ "built_on": [
+  {
+   "what": "ds-f26-labels-2026",
+   "quote": "ds-f26-labels-2026",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-f26-dispute-join.md",
+ "sha": "6c430f67154ddd4e4b1c85e5372716788c23f9593ec8cf0e6d156c0274f71843",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

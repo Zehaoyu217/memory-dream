@@ -1,0 +1,133 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-nps-complaint-flag-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "Complaint flag"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "callcenter.calls"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cx-analytics",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "cx-analytics"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "nps-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "nps-gbm-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "nps-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "nps-gbm-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "90-day-behaviour-data-join",
+   "type": "pipeline",
+   "label": "data join",
+   "as": [
+    "the 90-day behaviour data join"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-nps-complaint-flag-v1",
+   "type": "uses",
+   "label": "reads from",
+   "o": "callcenter.calls",
+   "quote": "from `callcenter.calls`",
+   "line": 4
+  },
+  {
+   "s": "callcenter.calls",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "cx-analytics",
+   "quote": "Source table owned by cx-analytics",
+   "line": 5
+  },
+  {
+   "s": "nps-gbm-v1",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-nps-complaint-flag-v1",
+   "quote": "Used in nps-gbm-v1 and nps-gbm-v2",
+   "line": 6
+  },
+  {
+   "s": "nps-gbm-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-nps-complaint-flag-v1",
+   "quote": "Used in nps-gbm-v1 and nps-gbm-v2",
+   "line": 6
+  },
+  {
+   "s": "feat-nps-complaint-flag-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "90-day-behaviour-data-join",
+   "quote": "Builds on the 90-day behaviour data join.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "nps-gbm-v1",
+  "nps-gbm-v2"
+ ],
+ "built_on": [
+  {
+   "what": "ds-nps-behaviour-join",
+   "quote": "the 90-day behaviour data join",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-nps-complaint-flag-v1.md",
+ "sha": "be53c090728cf41b2e3120ebe2596c863956eb718ec79cfbfe516207df180acf",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

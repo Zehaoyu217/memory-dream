@@ -1,0 +1,148 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cli-xgb-v3",
+   "type": "model",
+   "label": "t-learner uplift model",
+   "as": [
+    "cli-xgb-v3"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cli-xgb-v2",
+   "type": "model",
+   "label": "v2 targeting score",
+   "as": [
+    "cli-xgb-v2"
+   ],
+   "lines": [
+    7,
+    9
+   ]
+  },
+  {
+   "id": "cli-rct-2025q3",
+   "type": "dataset",
+   "label": "randomised exposures",
+   "as": [
+    "cli-rct-2025q3"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift@20%",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "qini",
+   "type": "metric",
+   "label": "qini",
+   "as": [
+    "Qini"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-cli-loss-cap",
+   "type": "other",
+   "label": "loss guard",
+   "as": [
+    "dec-cli-loss-cap"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cli-xgb-v3",
+   "type": "evaluated-on",
+   "label": "eval on",
+   "o": "cli-rct-2025q3",
+   "quote": "Eval: cli-rct-2025q3",
+   "line": 6
+  },
+  {
+   "s": "cli-xgb-v3",
+   "type": "other",
+   "label": "loss guard",
+   "o": "dec-cli-loss-cap",
+   "quote": "loss guard remains the 1.5% cap (dec-cli-loss-cap)",
+   "line": 7
+  },
+  {
+   "s": "cli-xgb-v3",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "cli-xgb-v2",
+   "quote": "Replaces cli-xgb-v2 as the targeting score",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "cli-xgb-v2",
+  "dec-cli-loss-cap",
+  "exp-107-credit-line-increase",
+  "find-cli-uplift-wins"
+ ],
+ "built_on": [
+  {
+   "what": "exp-106-credit-line-increase",
+   "quote": "the out-of-time auc check for v2",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-107-credit-line-increase",
+   "quote": "exp-107-credit-line-increase",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "find-cli-uplift-wins",
+   "quote": "find-cli-uplift-wins",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "the out-of-time auc check for v2",
+   "quote": "Builds on the out-of-time auc check for v2, exp-107-credit-line-increase and find-cli-uplift-wins.",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "cli-xgb-v2",
+   "quote": "cli-xgb-v2",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 2
+ },
+ "path": "work/cli-xgb-v3.md",
+ "sha": "42a9ce8850ebd43cf3006489f8c3a7a668f9e78a053ee5d81727368021cc7bc5",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

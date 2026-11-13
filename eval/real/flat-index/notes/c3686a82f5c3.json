@@ -1,0 +1,65 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ep-assignments",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "ep.assignments"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "experiment-platform-group",
+   "type": "team",
+   "label": "owner",
+   "as": [
+    "experiment-platform group"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "hash-based-assignment",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "hash-based"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ep-assignments",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "experiment-platform-group",
+   "quote": "Owner: experiment-platform group.",
+   "line": 7
+  },
+  {
+   "s": "ep-assignments",
+   "type": "uses",
+   "label": "assignment is",
+   "o": "hash-based-assignment",
+   "quote": "Assignment is a hash of the unit id with a per-test salt",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-ep-assignments.md",
+ "sha": "c3686a82f5c3f4ea1ad10b5e37657592ce0c5ff1971bdf8f03657c10ac70bba4",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

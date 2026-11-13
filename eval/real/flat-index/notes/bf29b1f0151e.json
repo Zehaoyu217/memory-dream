@@ -1,0 +1,89 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ror-offer-fatigue",
+   "type": "feature",
+   "label": "offer fatigue",
+   "as": [
+    "feat-ror-offer-fatigue"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-ror-redemptions",
+   "type": "dataset",
+   "label": "offer outcomes",
+   "as": [
+    "ds-ror-redemptions",
+    "retention offer outcomes dataset"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "exp-402-retention-offers-roi",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-402-retention-offers-roi"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "uplift",
+   "type": "term",
+   "label": "uplift",
+   "as": [
+    "uplift"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ror-offer-fatigue",
+   "type": "uses",
+   "label": "built from",
+   "o": "ds-ror-redemptions",
+   "quote": "Built from the offer history in ds-ror-redemptions.",
+   "line": 6
+  },
+  {
+   "s": "feat-ror-offer-fatigue",
+   "type": "other",
+   "label": "tied to",
+   "o": "uplift",
+   "quote": "Strongly tied to uplift",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-402-retention-offers-roi",
+  "ds-ror-redemptions"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ror-redemptions",
+   "quote": "the retention offer outcomes dataset",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-ror-offer-fatigue.md",
+ "sha": "bf29b1f0151eefa6e4ace8fbe29f1406aae892adb7318497df11eaf1229af8f8",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

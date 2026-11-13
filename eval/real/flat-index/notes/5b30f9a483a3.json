@@ -1,0 +1,107 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cld-complaint-flag",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cld-complaint-flag"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "callcenter.calls"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-cld-complaint-calls",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-cld-complaint-calls"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cld-complaint-logit",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cld-complaint-logit"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-203-limit-decrease-policy",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-203-limit-decrease-policy"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cld-complaint-flag",
+   "type": "uses",
+   "label": "reads from",
+   "o": "callcenter.calls",
+   "quote": "call-level flag for limit-related complaints in callcenter.calls",
+   "line": 4
+  },
+  {
+   "s": "feat-cld-complaint-flag",
+   "type": "other",
+   "label": "label for",
+   "o": "cld-complaint-logit",
+   "quote": "Used as the label in cld-complaint-logit",
+   "line": 7
+  },
+  {
+   "s": "feat-cld-complaint-flag",
+   "type": "other",
+   "label": "control in",
+   "o": "exp-203-limit-decrease-policy",
+   "quote": "the control comparison in exp-203-limit-decrease-policy",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-cld-complaint-calls",
+  "cld-complaint-logit",
+  "exp-203-limit-decrease-policy"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cld-complaint-calls",
+   "quote": "ds-cld-complaint-calls",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-cld-complaint-flag.md",
+ "sha": "5b30f9a483a3a969757d49483ce6771859a19778ca67fb32db7a133dc7d0686f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

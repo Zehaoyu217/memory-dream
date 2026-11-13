@@ -1,0 +1,151 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "hardship-programs",
+   "type": "other",
+   "label": "hardship enrolment",
+   "as": [
+    "hardship enrolment"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "30-to-60-roll",
+   "type": "metric",
+   "label": "roll",
+   "as": [
+    "30-to-60 roll"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "hp-psm-v2",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "hp-psm-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-408-hardship-programs",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-408-hardship-programs"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-404-hardship-programs",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-404-hardship-programs"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "difference-in-differences",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "difference-in-differences"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "max-standardised-mean-difference",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "max standardised mean difference"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "hardship-programs",
+   "type": "measured-by",
+   "label": "reduces",
+   "o": "30-to-60-roll",
+   "quote": "hardship enrolment reduces the 30-to-60 roll by 4.7pp",
+   "line": 4
+  },
+  {
+   "s": "exp-408-hardship-programs",
+   "type": "measured-by",
+   "label": "gives -4.7pp",
+   "o": "30-to-60-roll",
+   "quote": "exp-408-hardship-programs gives -4.7pp",
+   "line": 5
+  },
+  {
+   "s": "exp-404-hardship-programs",
+   "type": "measured-by",
+   "label": "gives -3.9pp",
+   "o": "30-to-60-roll",
+   "quote": "exp-404-hardship-programs difference-in-differences gives -3.9pp",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "find-hp-adjusted-effect",
+  "hp-psm-v2",
+  "exp-404-hardship-programs",
+  "exp-408-hardship-programs"
+ ],
+ "built_on": [
+  {
+   "what": "exp-404-hardship-programs",
+   "quote": "the difference-in-differences hardship experiment",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "the propensity matching holdout experiment",
+   "quote": "the propensity matching holdout experiment",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "find-hp-adjusted-effect",
+   "quote": "find-hp-adjusted-effect",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "find-hp-adjusted-effect",
+   "quote": "the superseded 6.1pp matched effect",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/find-hp-effect-v2.md",
+ "sha": "7a325d065d8835d177c6418f75289065cc7fe3f104c13fce1bd2b0edddc12101",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

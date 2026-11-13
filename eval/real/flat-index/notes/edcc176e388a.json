@@ -1,0 +1,122 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "churn-2025",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "churn-2025 production model"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-c25-app-sessions",
+   "type": "feature",
+   "label": "app-session features",
+   "as": [
+    "app-session features",
+    "feat-c25-app-sessions"
+   ],
+   "lines": [
+    4,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "ml engineering",
+   "as": [
+    "Sam Lee"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "app-coverage",
+   "type": "metric",
+   "label": "app coverage",
+   "as": [
+    "app coverage"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "+0.001 AUC lift"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-c25-app-sessions",
+   "type": "other",
+   "label": "not scored",
+   "o": "churn-2025",
+   "quote": "feat-c25-app-sessions stays documented but is not scored",
+   "line": 6
+  },
+  {
+   "s": "sam-lee",
+   "type": "other",
+   "label": "implements",
+   "o": "churn-2025",
+   "quote": "Sam Lee (ML engineering) implements.",
+   "line": 7
+  },
+  {
+   "s": "feat-c25-app-sessions",
+   "type": "measured-by",
+   "label": "lift",
+   "o": "auc",
+   "quote": "Reason: +0.001 AUC lift",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "fnd-c25-app-lift-v2",
+  "feat-c25-app-sessions",
+  "exp-105-churn-2025"
+ ],
+ "built_on": [
+  {
+   "what": "exp-105-churn-2025",
+   "quote": "exp-105-churn-2025",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-c25-app-sessions",
+   "quote": "feat-c25-app-sessions",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fnd-c25-app-lift-v2",
+   "quote": "fnd-c25-app-lift-v2",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-c25-drop-app-sessions.md",
+ "sha": "edcc176e388ac76bbf4788c703a229a191b985e68ebda5016c0ae67d5113e613",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

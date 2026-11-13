@@ -1,0 +1,147 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cb-intent-v2",
+   "type": "model",
+   "label": "intent model",
+   "as": [
+    "Intent model v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "message-embedding",
+   "type": "feature",
+   "label": "embedding",
+   "as": [
+    "message embedding"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-cb-account-state-v1",
+   "type": "feature",
+   "label": "account-state features",
+   "as": [
+    "account-state features"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro f1",
+   "as": [
+    "macro F1 0.88"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q3",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q3 (n = 1,100 messages)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cb-intent-v1",
+   "type": "model",
+   "label": "first intent classifier",
+   "as": [
+    "cb-intent-v1"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cb-intent-v2",
+   "type": "uses",
+   "label": "over",
+   "o": "message-embedding",
+   "quote": "Gradient boosted trees over the message embedding and the account-state features.",
+   "line": 5
+  },
+  {
+   "s": "cb-intent-v2",
+   "type": "uses",
+   "label": "over",
+   "o": "feat-cb-account-state-v1",
+   "quote": "Gradient boosted trees over the message embedding and the account-state features.",
+   "line": 5
+  },
+  {
+   "s": "cb-intent-v2",
+   "type": "measured-by",
+   "label": "macro F1",
+   "o": "macro-f1",
+   "quote": "Macro F1 0.88 on holdout-2025q3 (n = 1,100 messages), against 0.83 for cb-intent-v1",
+   "line": 6
+  },
+  {
+   "s": "cb-intent-v2",
+   "type": "evaluated-on",
+   "label": "on",
+   "o": "holdout-2025q3",
+   "quote": "Macro F1 0.88 on holdout-2025q3 (n = 1,100 messages), against 0.83 for cb-intent-v1",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "cb-intent-v1",
+  "exp-303-chatbot-deflection",
+  "feat-cb-account-state-v1"
+ ],
+ "built_on": [
+  {
+   "what": "cb-intent-v1",
+   "quote": "the first intent classifier",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "exp-303-chatbot-deflection",
+   "quote": "exp-303-chatbot-deflection",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "feat-cb-account-state-v1",
+   "quote": "feat-cb-account-state-v1",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "cb-intent-v1",
+   "quote": "the first intent classifier",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/cb-intent-v2.md",
+ "sha": "ab1d358375f7c7164f81f41d7bdbd5d0ecf8ef70164cc5f6f37737bb28866033",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

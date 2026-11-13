@@ -1,0 +1,141 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-cld-complaint-calls",
+   "type": "dataset",
+   "label": "complaint calls",
+   "as": [
+    "ds-cld-complaint-calls"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "callcenter.calls"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.limits_history",
+   "type": "dataset",
+   "label": "filter source",
+   "as": [
+    "cards.limits_history"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "2024-25-decrease-cohort-dataset",
+   "type": "dataset",
+   "label": "cohort",
+   "as": [
+    "2024-25 decrease cohort dataset"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "call-reason-model",
+   "type": "model",
+   "label": "tagger",
+   "as": [
+    "call-reason model"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cx-analytics-team",
+   "type": "team",
+   "label": "refresh owner",
+   "as": [
+    "CX analytics team"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "baseline-complaint-rate",
+   "type": "metric",
+   "label": "baseline rate",
+   "as": [
+    "baseline rate"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-cld-complaint-calls",
+   "type": "uses",
+   "label": "source",
+   "o": "callcenter.calls",
+   "quote": "Source `callcenter.calls`",
+   "line": 5
+  },
+  {
+   "s": "ds-cld-complaint-calls",
+   "type": "uses",
+   "label": "filtered within 30 days of",
+   "o": "cards.limits_history",
+   "quote": "in `cards.limits_history`",
+   "line": 5
+  },
+  {
+   "s": "ds-cld-complaint-calls",
+   "type": "uses",
+   "label": "tagged by",
+   "o": "call-reason-model",
+   "quote": "Tagged complaint or limit-related by the call-reason model",
+   "line": 6
+  },
+  {
+   "s": "ds-cld-complaint-calls",
+   "type": "owned-by",
+   "label": "refreshed by",
+   "o": "cx-analytics-team",
+   "quote": "Refreshed weekly by the CX analytics team.",
+   "line": 7
+  },
+  {
+   "s": "ds-cld-complaint-calls",
+   "type": "measured-by",
+   "label": "baseline rate",
+   "o": "baseline-complaint-rate",
+   "quote": "baseline rate 1.9 complaints per 1,000 account-months",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-cld-decrease-cohort",
+   "quote": "the 2024-25 decrease cohort dataset",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-cld-complaint-calls.md",
+ "sha": "e27b844448eb7d092883ae23f163b6c2d618fd239de77d0fe936a78fd1966d69",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

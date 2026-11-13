@@ -1,0 +1,193 @@
+{
+ "kind": "component",
+ "entities": [
+  {
+   "id": "cb-sim-v1",
+   "type": "tool",
+   "label": "simulator",
+   "as": [
+    "cb-sim-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cb-elasticity-v2",
+   "type": "model",
+   "label": "estimate",
+   "as": [
+    "banded elasticity estimate by spend"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cb-uplift-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cb-uplift-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-cb-rewards-ledger",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-cb-rewards-ledger"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-cb-redemption-rate",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cb-redemption-rate"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-cb-tier-eligibility",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cb-tier-eligibility"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-207-oot-replay",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-207-oot-replay"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cb-sim-v1",
+   "type": "uses",
+   "label": "applies",
+   "o": "cb-elasticity-v2",
+   "quote": "applies cb-elasticity-v2 to each spend band",
+   "line": 5
+  },
+  {
+   "s": "cb-sim-v1",
+   "type": "uses",
+   "label": "applies rewards cost from",
+   "o": "ds-cb-rewards-ledger",
+   "quote": "applies rewards cost from ds-cb-rewards-ledger",
+   "line": 5
+  },
+  {
+   "s": "cb-sim-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "cb-uplift-v1",
+   "quote": "Builds on the banded elasticity estimate by spend, cb-uplift-v1, ds-cb-rewards-ledger",
+   "line": 8
+  },
+  {
+   "s": "cb-sim-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-cb-redemption-rate",
+   "quote": "feat-cb-redemption-rate and feat-cb-tier-eligibility",
+   "line": 8
+  },
+  {
+   "s": "cb-sim-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-cb-tier-eligibility",
+   "quote": "feat-cb-tier-eligibility",
+   "line": 8
+  },
+  {
+   "s": "cb-sim-v1",
+   "type": "evaluated-on",
+   "label": "replay on",
+   "o": "exp-207-oot-replay",
+   "quote": "Replay on 2026 spend: exp-207-oot-replay",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-207-oot-replay",
+  "cb-elasticity-v2",
+  "cb-uplift-v1",
+  "ds-cb-rewards-ledger",
+  "feat-cb-redemption-rate",
+  "feat-cb-tier-eligibility"
+ ],
+ "built_on": [
+  {
+   "what": "cb-elasticity-v2",
+   "quote": "cb-elasticity-v2",
+   "line": 5,
+   "asked": true
+  },
+  {
+   "what": "ds-cb-rewards-ledger",
+   "quote": "ds-cb-rewards-ledger",
+   "line": 5,
+   "asked": true
+  },
+  {
+   "what": "cb-elasticity-v2",
+   "quote": "the banded elasticity estimate by spend",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "cb-uplift-v1",
+   "quote": "cb-uplift-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-cb-rewards-ledger",
+   "quote": "ds-cb-rewards-ledger",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-cb-redemption-rate",
+   "quote": "feat-cb-redemption-rate",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-cb-tier-eligibility",
+   "quote": "feat-cb-tier-eligibility",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/cb-sim-v1.md",
+ "sha": "96fa044c599dba6f92a8bd64ee740ec2a624c91980a23d6be9715340fd6488bf",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

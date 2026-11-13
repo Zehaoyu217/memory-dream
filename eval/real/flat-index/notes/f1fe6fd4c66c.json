@@ -1,0 +1,140 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "revolver-segment",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "revolvers"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "transactor-segment",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "transactor"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "minimum-payer-segment",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "minimum-payer behaviour"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "retention-offers",
+   "type": "other",
+   "label": "offers",
+   "as": [
+    "retention offers"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "segment-table",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "segment table"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "roll-rate",
+   "type": "metric",
+   "label": "roll rate",
+   "as": [
+    "12-month roll rates"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-pbs-frame-h1-2025",
+   "type": "dataset",
+   "label": "frame",
+   "as": [
+    "frame tracked to Jan 2026"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-405-payment-behavior-segments",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-405-payment-behavior-segments"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-405-payment-behavior-segments",
+   "type": "evaluated-on",
+   "label": "tested on frame",
+   "o": "ds-pbs-frame-h1-2025",
+   "quote": "Tested with 12-month roll rates per segment on the frame tracked to Jan 2026",
+   "line": 6
+  },
+  {
+   "s": "revolver-segment",
+   "type": "measured-by",
+   "label": "tested with",
+   "o": "roll-rate",
+   "quote": "Tested with 12-month roll rates per segment",
+   "line": 6
+  },
+  {
+   "s": "revolver-segment",
+   "type": "other",
+   "label": "matters for",
+   "o": "retention-offers",
+   "quote": "Matters for the retention offers",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "fnd-pbs-revolver-migration",
+  "exp-405-payment-behavior-segments",
+  "q-pbs-segment-count"
+ ],
+ "built_on": [
+  {
+   "what": "q-pbs-segment-count",
+   "quote": "q-pbs-segment-count",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/q-pbs-revolver-migration.md",
+ "sha": "f1fe6fd4c66c3e7e824c9ac9f46da7c9106d36befa4c558c737c56e80af4cefa",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

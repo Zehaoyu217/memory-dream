@@ -1,0 +1,85 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-cld-collections-roll",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-cld-collections-roll"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "collections.cases",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "collections.cases"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "ds-cld-decrease-cohort",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-cld-decrease-cohort"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cld-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cld-gbm-v1"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-cld-collections-roll",
+   "type": "uses",
+   "label": "joins",
+   "o": "collections.cases",
+   "quote": "Joins the decrease cohort to `collections.cases`",
+   "line": 5
+  },
+  {
+   "s": "cld-gbm-v1",
+   "type": "evaluated-on",
+   "label": "roll-rate evaluation",
+   "o": "ds-cld-collections-roll",
+   "quote": "roll-rate evaluation in cld-gbm-v1",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-cld-decrease-cohort",
+   "quote": "ds-cld-decrease-cohort",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-cld-collections-roll.md",
+ "sha": "c880ac8d3cdd480cd58127d8a1d261bef496a34f67e866eb5e3c2ecb941cd9bb",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

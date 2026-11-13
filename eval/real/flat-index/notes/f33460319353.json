@@ -1,0 +1,134 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-207-spend-forecasting",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-207-spend-forecasting"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "sfc-oot-2025h2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "sfc-oot-2025h2"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "sfc-hier-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "sfc-hier-v3"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "total-mape",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Total MAPE 2.9% to 2.3%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "segment-mape",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "segment MAPE 5.1% to 4.9%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "tool",
+   "as": [
+    "per-segment lightgbm model"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-207-spend-forecasting",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "total-mape",
+   "quote": "Total MAPE 2.9% to 2.3%",
+   "line": 6
+  },
+  {
+   "s": "sfc-hier-v3",
+   "type": "built-on",
+   "label": "based on",
+   "o": "exp-207-spend-forecasting",
+   "quote": "Basis for sfc-hier-v3.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "sfc-hier-v3",
+  "sfc-oot-2025h2"
+ ],
+ "built_on": [
+  {
+   "what": "feat-sfc-active-accounts",
+   "quote": "the active accounts denominator feature",
+   "line": 9,
+   "asked": true
+  },
+  {
+   "what": "fnd-sfc-q4-low-bias",
+   "quote": "the q4 under-forecast finding",
+   "line": 9,
+   "asked": true
+  },
+  {
+   "what": "sfc-lgbm-v2",
+   "quote": "the per-segment lightgbm model",
+   "line": 9,
+   "asked": true
+  },
+  {
+   "what": "q4 under-forecast finding",
+   "quote": "Builds on the active accounts denominator feature, the q4 under-forecast finding and the per-segment lightgbm model.",
+   "line": 9,
+   "asked": true
+  },
+  {
+   "what": "per-segment lightgbm model",
+   "quote": "Builds on the active accounts denominator feature, the q4 under-forecast finding and the per-segment lightgbm model.",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-207-spend-forecasting.md",
+ "sha": "f3346031935348970ff40314aa00ca91bfc508c2b94a523d0c637eebeaba9950",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

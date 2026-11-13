@@ -1,0 +1,162 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "txc-logreg-v1",
+   "type": "model",
+   "label": "baseline",
+   "as": [
+    "txc-logreg-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "macro-F1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-2025q2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q2"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "exp-101-txn-categorization",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-101-txn-categorization"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-102-txn-categorization",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-102-txn-categorization"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "txc-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "txc-gbm-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-txc-descriptor-tokens-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-txc-descriptor-tokens-v1"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "feat-txc-mcc-prior",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-txc-mcc-prior"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "txc-logreg-v1",
+   "type": "measured-by",
+   "label": "scores",
+   "o": "macro-f1",
+   "quote": "Scores 0.71 with the MCC prior off",
+   "line": 5
+  },
+  {
+   "s": "txc-logreg-v1",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "holdout-2025q2",
+   "quote": "scored on holdout-2025q2 (n=2,000)",
+   "line": 6
+  },
+  {
+   "s": "txc-logreg-v1",
+   "type": "uses",
+   "label": "built on",
+   "o": "feat-txc-descriptor-tokens-v1",
+   "quote": "Builds on feat-txc-descriptor-tokens-v1 and feat-txc-mcc-prior.",
+   "line": 9
+  },
+  {
+   "s": "txc-logreg-v1",
+   "type": "uses",
+   "label": "built on",
+   "o": "feat-txc-mcc-prior",
+   "quote": "Builds on feat-txc-descriptor-tokens-v1 and feat-txc-mcc-prior.",
+   "line": 9
+  },
+  {
+   "s": "txc-gbm-v2",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "txc-logreg-v1",
+   "quote": "Superseded by txc-gbm-v2 in August 2025.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-101-txn-categorization",
+  "exp-102-txn-categorization"
+ ],
+ "built_on": [
+  {
+   "what": "feat-txc-descriptor-tokens-v1",
+   "quote": "feat-txc-descriptor-tokens-v1",
+   "line": 9,
+   "asked": true
+  },
+  {
+   "what": "feat-txc-mcc-prior",
+   "quote": "feat-txc-mcc-prior",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/txc-logreg-v1.md",
+ "sha": "26625889da830d8b0e33742bf33658c4c6161493524149cf9a17c5a28fee2a2f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

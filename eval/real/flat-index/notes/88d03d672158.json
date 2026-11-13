@@ -1,0 +1,115 @@
+{
+ "kind": "preference",
+ "entities": [
+  {
+   "id": "yuki-tanaka",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Yuki Tanaka"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "yuki-tanaka-volume-normalisation",
+   "type": "metric",
+   "label": "volume metric",
+   "as": [
+    "calls per 1,000 active accounts"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "raw-call-counts",
+   "type": "metric",
+   "label": "raw counts",
+   "as": [
+    "Raw call counts"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "callcenter.calls"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "appendix",
+   "type": "document",
+   "label": "appendix",
+   "as": [
+    "appendix"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "yuki-tanaka-volume-normalisation",
+   "type": "uses",
+   "label": "from",
+   "o": "callcenter.calls",
+   "quote": "from `callcenter.calls` and `cards.accounts_monthly`",
+   "line": 5
+  },
+  {
+   "s": "yuki-tanaka-volume-normalisation",
+   "type": "uses",
+   "label": "from",
+   "o": "cards.accounts_monthly",
+   "quote": "from `callcenter.calls` and `cards.accounts_monthly`",
+   "line": 5
+  },
+  {
+   "s": "yuki-tanaka-volume-normalisation",
+   "type": "owned-by",
+   "label": "normalised by",
+   "o": "yuki-tanaka",
+   "quote": "Yuki Tanaka normalises call volumes per 1,000 active accounts",
+   "line": 4
+  },
+  {
+   "s": "raw-call-counts",
+   "type": "other",
+   "label": "shown in",
+   "o": "appendix",
+   "quote": "Raw call counts are shown only in the appendix",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "prefs/yuki-tanaka-volume-normalisation.md",
+ "sha": "88d03d6721585ab3e90ec4f1b247a97240210a2378e5c275a197e1ec265ef0fc",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

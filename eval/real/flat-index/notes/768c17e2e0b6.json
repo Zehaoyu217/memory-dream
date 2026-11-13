@@ -1,0 +1,143 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-rs-promote-v3",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: promote rs-xgb-v3 to agency placement, replacing rs-xgb-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "agreer",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ben-carter",
+   "type": "person",
+   "label": "agreer",
+   "as": [
+    "Ben Carter"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "aisha-khan",
+   "type": "person",
+   "label": "mlops",
+   "as": [
+    "Aisha Khan"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "rs-xgb-v3",
+   "type": "model",
+   "label": "placement model",
+   "as": [
+    "rs-xgb-v3"
+   ],
+   "lines": [
+    4,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "rs-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rs-xgb-v2"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-rs-promote-v3",
+   "type": "owned-by",
+   "label": "agreed by",
+   "o": "lena-fischer",
+   "quote": "Agreed 2026-02-12 by Lena Fischer and Ben Carter",
+   "line": 5
+  },
+  {
+   "s": "dec-rs-promote-v3",
+   "type": "owned-by",
+   "label": "agreed by",
+   "o": "ben-carter",
+   "quote": "Agreed 2026-02-12 by Lena Fischer and Ben Carter",
+   "line": 5
+  },
+  {
+   "s": "dec-rs-promote-v3",
+   "type": "uses",
+   "label": "promotes",
+   "o": "rs-xgb-v3",
+   "quote": "rs-xgb-v3 is the placement model from the February 2026 batch",
+   "line": 6
+  },
+  {
+   "s": "aisha-khan",
+   "type": "other",
+   "label": "confirmed",
+   "o": "dec-rs-promote-v3",
+   "quote": "Aisha Khan (MLOps) confirming the scoring job",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-308-recovery-scoring",
+  "rs-xgb-v3",
+  "rs-xgb-v2"
+ ],
+ "built_on": [
+  {
+   "what": "exp-308-recovery-scoring",
+   "quote": "exp-308-recovery-scoring",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "rs-xgb-v3",
+   "quote": "rs-xgb-v3",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "dec-rs-placement-cutoff",
+   "quote": "the agency placement cutoff decision",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-rs-promote-v3.md",
+ "sha": "768c17e2e0b698e670a75fa5b502b0e77b4fee6f8f6e703a267b38a96e2016d3",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

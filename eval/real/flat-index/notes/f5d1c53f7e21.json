@@ -1,0 +1,86 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-304-bureau-score-migration",
+   "type": "document",
+   "label": "experiment",
+   "as": [
+    "exp-304-bureau-score-migration"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "thin-file-applicants",
+   "type": "segment",
+   "label": "applicants",
+   "as": [
+    "thin-file applicants"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "dec-bsm-keep-v8-fallback",
+   "type": "policy",
+   "label": "fallback",
+   "as": [
+    "the fallback"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-bsm-thin-file-flag",
+   "type": "feature",
+   "label": "thin-file flag",
+   "as": [
+    "feat-bsm-thin-file-flag"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "thin-file-applicants",
+   "type": "uses",
+   "label": "depend on",
+   "o": "dec-bsm-keep-v8-fallback",
+   "quote": "Those applicants depend on the v8 fallback",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-304-bureau-score-migration",
+  "dec-bsm-keep-v8-fallback"
+ ],
+ "built_on": [
+  {
+   "what": "exp-304-bureau-score-migration",
+   "quote": "exp-304-bureau-score-migration",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "feat-bsm-thin-file-flag",
+   "quote": "feat-bsm-thin-file-flag",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/find-bsm-thin-file-gap.md",
+ "sha": "f5d1c53f7e213c75a2ad76e854b2d4a5a92ef7ba501d1b61c3a14298dcd6da40",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

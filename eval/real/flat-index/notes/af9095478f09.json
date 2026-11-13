@@ -1,0 +1,128 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "find-pa-6m-arm",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "the 6-month arm captures 69% of the 12-month arm's BT inflow"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "arm-c-0pct-6m",
+   "type": "segment",
+   "label": "promo arm",
+   "as": [
+    "6-month arm"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "arm-b-12m",
+   "type": "segment",
+   "label": "promo arm",
+   "as": [
+    "12-month arm"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "bt-inflow",
+   "type": "metric",
+   "label": "bt inflow",
+   "as": [
+    "BT inflow"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "exp-502-arm-6m",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-502"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "dec-pa-6m-default",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-pa-6m-default"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "find-pa-6m-arm",
+   "type": "measured-by",
+   "label": "captures",
+   "o": "bt-inflow",
+   "quote": "captures 69% of the 12-month arm's BT inflow",
+   "line": 4
+  },
+  {
+   "s": "arm-c-0pct-6m",
+   "type": "other",
+   "label": "captures 69%",
+   "o": "arm-b-12m",
+   "quote": "captures 69% of the 12-month arm's BT inflow",
+   "line": 4
+  },
+  {
+   "s": "exp-502-arm-6m",
+   "type": "other",
+   "label": "shows",
+   "o": "arm-c-0pct-6m",
+   "quote": "exp-502 shows the 6-month promo keeps most of the balance-transfer lift",
+   "line": 5
+  },
+  {
+   "s": "find-pa-6m-arm",
+   "type": "other",
+   "label": "feeds",
+   "o": "dec-pa-6m-default",
+   "quote": "Feeds dec-pa-6m-default.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-502-arm-6m",
+  "dec-pa-6m-default"
+ ],
+ "built_on": [
+  {
+   "what": "exp-502-arm-6m",
+   "quote": "exp-502-arm-6m",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/find-pa-6m-arm.md",
+ "sha": "af9095478f096ce7aef892c265a34cd33ef3940166080b12c5ccade8b28ac87c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

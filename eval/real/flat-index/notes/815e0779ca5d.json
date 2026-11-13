@@ -1,0 +1,95 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-app-reject-sample",
+   "type": "dataset",
+   "label": "sample",
+   "as": [
+    "8,400 manually approved rejects"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-501-application-scorecard",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-501-application-scorecard"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-app-applications-2024",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-app-applications-2024"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "bad-rate",
+   "type": "metric",
+   "label": "bad rate",
+   "as": [
+    "bad rate among these 8,400 is 7.9%"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-app-reject-sample",
+   "type": "uses",
+   "label": "used to estimate",
+   "o": "exp-501-application-scorecard",
+   "quote": "Used to estimate reject behaviour in exp-501-application-scorecard",
+   "line": 7
+  },
+  {
+   "s": "ds-app-reject-sample",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-app-applications-2024",
+   "quote": "Builds on ds-app-applications-2024.",
+   "line": 8
+  },
+  {
+   "s": "ds-app-reject-sample",
+   "type": "measured-by",
+   "label": "has bad rate",
+   "o": "bad-rate",
+   "quote": "bad rate among these 8,400 is 7.9%",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-app-applications-2024",
+  "exp-501-application-scorecard"
+ ],
+ "built_on": [
+  {
+   "what": "ds-app-applications-2024",
+   "quote": "ds-app-applications-2024",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-app-reject-sample.md",
+ "sha": "815e0779ca5debe150dbebcd0edfb29aea525046609f5cab0c832ebdf1716983",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

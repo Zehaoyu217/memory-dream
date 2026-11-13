@@ -1,0 +1,97 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-ed-current-base",
+   "type": "segment",
+   "label": "current-account base",
+   "as": [
+    "Current-account base"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "snapshot source",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "dpd",
+   "type": "term",
+   "label": "dpd",
+   "as": [
+    "0 DPD"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "data-eng-cards",
+   "type": "team",
+   "label": "owner team",
+   "as": [
+    "data-eng-cards"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Tomas Rivera"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-ed-current-base",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards.accounts_monthly",
+   "quote": "Monthly snapshot of accounts at 0 DPD from `cards.accounts_monthly`",
+   "line": 5
+  },
+  {
+   "s": "ds-ed-current-base",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "data-eng-cards",
+   "quote": "Owner: data-eng-cards (Tomas Rivera)",
+   "line": 8
+  },
+  {
+   "s": "ds-ed-current-base",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "tomas-rivera",
+   "quote": "Owner: data-eng-cards (Tomas Rivera)",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-ed-current-base.md",
+ "sha": "059ec6c305f3efaa5720f2ba1662d3ed264e04f234d2a9911f5fd7ddbd794391",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

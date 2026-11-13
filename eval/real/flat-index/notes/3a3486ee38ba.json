@@ -1,0 +1,268 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cu-uplift-v2",
+   "type": "model",
+   "label": "uplift model",
+   "as": [
+    "cu-uplift-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cu-uplift-v1",
+   "type": "model",
+   "label": "uplift model",
+   "as": [
+    "cu-uplift-v1"
+   ],
+   "lines": [
+    5,
+    10
+   ]
+  },
+  {
+   "id": "cu-uplift-v3",
+   "type": "model",
+   "label": "uplift model",
+   "as": [
+    "cu-uplift-v3"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "t-learner",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "T-learner"
+   ],
+   "lines": [
+    4,
+    9
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout split",
+   "as": [
+    "holdout-2025q4 split"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "brier-score",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Brier 0.181"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-cu-dpd-roll-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-dpd-roll-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-cu-pay-behaviour",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-pay-behaviour"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-cu-contact-hist-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-contact-hist-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-cu-call-tod-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-call-tod-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-105-collections-uplift",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "the isotonic calibration uplift experiment"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cu-uplift-v2",
+   "type": "other",
+   "label": "is a",
+   "o": "t-learner",
+   "quote": "cu-uplift-v2 is the T-learner with isotonic calibration",
+   "line": 4
+  },
+  {
+   "s": "cu-uplift-v2",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-cu-dpd-roll-v1",
+   "quote": "Features: feat-cu-dpd-roll-v1, feat-cu-pay-behaviour, feat-cu-contact-hist-v2.",
+   "line": 6
+  },
+  {
+   "s": "cu-uplift-v2",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-cu-pay-behaviour",
+   "quote": "Features: feat-cu-dpd-roll-v1, feat-cu-pay-behaviour, feat-cu-contact-hist-v2.",
+   "line": 6
+  },
+  {
+   "s": "cu-uplift-v2",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-cu-contact-hist-v2",
+   "quote": "Features: feat-cu-dpd-roll-v1, feat-cu-pay-behaviour, feat-cu-contact-hist-v2.",
+   "line": 6
+  },
+  {
+   "s": "cu-uplift-v2",
+   "type": "other",
+   "label": "excludes",
+   "o": "feat-cu-call-tod-v1",
+   "quote": "feat-cu-call-tod-v1 is excluded.",
+   "line": 6
+  },
+  {
+   "s": "cu-uplift-v2",
+   "type": "trained-on",
+   "label": "calibration fitted on",
+   "o": "holdout-2025q4",
+   "quote": "isotonic calibration on each arm fitted on the holdout-2025q4 split",
+   "line": 5
+  },
+  {
+   "s": "cu-uplift-v2",
+   "type": "evaluated-on",
+   "label": "metrics on",
+   "o": "holdout-2025q4",
+   "quote": "Metrics on holdout-2025q4 (n=31,200)",
+   "line": 7
+  },
+  {
+   "s": "cu-uplift-v2",
+   "type": "measured-by",
+   "label": "uplift at 20%",
+   "o": "uplift-at-20",
+   "quote": "uplift@20% 0.034",
+   "line": 7
+  },
+  {
+   "s": "cu-uplift-v2",
+   "type": "measured-by",
+   "label": "Brier",
+   "o": "brier-score",
+   "quote": "Brier 0.181",
+   "line": 7
+  },
+  {
+   "s": "cu-uplift-v3",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "cu-uplift-v2",
+   "quote": "Superseded by cu-uplift-v3 (2026-03-06).",
+   "line": 8
+  },
+  {
+   "s": "cu-uplift-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "cu-uplift-v1",
+   "quote": "Replaces cu-uplift-v1.",
+   "line": 10
+  }
+ ],
+ "refs": [
+  "cu-uplift-v1",
+  "cu-uplift-v3",
+  "feat-cu-dpd-roll-v1",
+  "feat-cu-pay-behaviour",
+  "feat-cu-contact-hist-v2",
+  "feat-cu-call-tod-v1",
+  "exp-105-collections-uplift"
+ ],
+ "built_on": [
+  {
+   "what": "cu-uplift-v1",
+   "quote": "the first two-model uplift t-learner",
+   "line": 9,
+   "asked": true
+  },
+  {
+   "what": "exp-105-collections-uplift",
+   "quote": "the isotonic calibration uplift experiment",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "cu-uplift-v1",
+   "quote": "cu-uplift-v1",
+   "line": 10,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/cu-uplift-v2.md",
+ "sha": "3a3486ee38ba7132497897967f664e588ec202209d0f54a4fe42b7d101ec7c42",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

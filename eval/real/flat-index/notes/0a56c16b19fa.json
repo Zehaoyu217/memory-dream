@@ -1,0 +1,136 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "callcenter-calls",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "callcenter.calls",
+    "`callcenter.calls`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "wrap-intent",
+   "type": "feature",
+   "label": "field",
+   "as": [
+    "callcenter.calls.wrap_intent"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "intent-labels",
+   "type": "term",
+   "label": "label set",
+   "as": [
+    "Intent labels"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "qa-double-code",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "callcenter.qa_double_code"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cx-analytics",
+   "type": "team",
+   "label": "owner",
+   "as": [
+    "cx-analytics"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cr-lgbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cr-lgbm-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-106-call-center-routing",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-106-call-center-routing"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "intent-labels",
+   "type": "uses",
+   "label": "comes from",
+   "o": "wrap-intent",
+   "quote": "Labels come from the agent wrap-up code in `callcenter.calls.wrap_intent`",
+   "line": 5
+  },
+  {
+   "s": "wrap-intent",
+   "type": "part-of",
+   "label": "column of",
+   "o": "callcenter-calls",
+   "quote": "`callcenter.calls.wrap_intent`",
+   "line": 5
+  },
+  {
+   "s": "qa-double-code",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "cx-analytics",
+   "quote": "owner cx-analytics",
+   "line": 8
+  },
+  {
+   "s": "cr-lgbm-v3",
+   "type": "uses",
+   "label": "uses adjudicated labels",
+   "o": "intent-labels",
+   "quote": "Adjudicated labels for those 1,200 calls replace the wrap-up code in training from cr-lgbm-v3 onward",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-106-call-center-routing"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cr-calls",
+   "quote": "the inbound calls table",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-cr-intent-labels.md",
+ "sha": "0a56c16b19fac6ce3602165aac1e75a96bb9ffd5bfca08ca648e1bc53fce3dec",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

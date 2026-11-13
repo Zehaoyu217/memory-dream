@@ -1,0 +1,117 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-csb-spend-sa-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-csb-spend-sa-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-csb-spend-raw",
+   "type": "feature",
+   "label": "raw spend feature",
+   "as": [
+    "feat-csb-spend-raw",
+    "the raw three-month card spend feature"
+   ],
+   "lines": [
+    7,
+    8,
+    9
+   ]
+  },
+  {
+   "id": "csb-xgb-v2",
+   "type": "model",
+   "label": "xgboost model",
+   "as": [
+    "csb-xgb-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-csb-merchant-mix",
+   "type": "dataset",
+   "label": "merchant-mix dataset",
+   "as": [
+    "ds-csb-merchant-mix",
+    "the merchant-mix build"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "exp-206-churn-small-business",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-206-churn-small-business"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-csb-spend-sa-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "feat-csb-spend-raw",
+   "quote": "Replaces feat-csb-spend-raw in csb-xgb-v2.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-csb-merchant-mix",
+  "csb-xgb-v2",
+  "feat-csb-spend-raw",
+  "exp-206-churn-small-business"
+ ],
+ "built_on": [
+  {
+   "what": "ds-csb-merchant-mix",
+   "quote": "ds-csb-merchant-mix",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-csb-spend-raw",
+   "quote": "the raw three-month card spend feature",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fnd-csb-seasonal-trap",
+   "quote": "the finding on december merchants scored safe",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-csb-spend-raw",
+   "quote": "feat-csb-spend-raw",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-csb-spend-sa-v2.md",
+ "sha": "725b8eaa06915204ad11ba7a91df4a1d205ab7c1ba859928894d3ca5d998dacc",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

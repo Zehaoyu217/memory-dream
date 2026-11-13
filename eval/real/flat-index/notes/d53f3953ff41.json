@@ -1,0 +1,125 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "application-scorecard-v3",
+   "type": "model",
+   "label": "scorecard",
+   "as": [
+    "v3"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Gini"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "holdout-2026q1",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "holdout-2026q1"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "bureau-score",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "bureau score"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "dispositions",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "fresh dispositions"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "top-40-percent",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "top-40%"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "capture-rate",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "capture"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "application-scorecard-v3",
+   "type": "measured-by",
+   "label": "Gini 0.33",
+   "o": "gini",
+   "quote": "v3 Gini 0.33 on holdout-2026q1",
+   "line": 3
+  },
+  {
+   "s": "application-scorecard-v3",
+   "type": "evaluated-on",
+   "label": "on",
+   "o": "holdout-2026q1",
+   "quote": "v3 Gini 0.33 on holdout-2026q1",
+   "line": 3
+  },
+  {
+   "s": "application-scorecard-v3",
+   "type": "other",
+   "label": "drift in",
+   "o": "bureau-score",
+   "quote": "drift in bureau score",
+   "line": 3
+  },
+  {
+   "s": "top-40-percent",
+   "type": "measured-by",
+   "label": "capture 93.5%",
+   "o": "capture-rate",
+   "quote": "top-40% capture 93.5%",
+   "line": 4
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2026-05-14.md",
+ "sha": "d53f3953ff4163d42f689112d2afc976827cb1ee39f9550474d9dd9271d683d2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

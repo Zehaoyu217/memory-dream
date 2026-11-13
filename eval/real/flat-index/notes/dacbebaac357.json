@@ -1,0 +1,138 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-207-limit-decrease-policy",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-207-limit-decrease-policy"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "30-day-notice",
+   "type": "policy",
+   "label": "notice",
+   "as": [
+    "30-day notice"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "top-10-pct-decreases",
+   "type": "segment",
+   "label": "top 10% of decreases",
+   "as": [
+    "top 10% of decreases"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cld-complaint-logit",
+   "type": "model",
+   "label": "complaint score",
+   "as": [
+    "cld-complaint-logit"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "complaints-30d",
+   "type": "metric",
+   "label": "complaints",
+   "as": [
+    "Complaints in 30 days down 22%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "loss-90d",
+   "type": "metric",
+   "label": "90-day loss",
+   "as": [
+    "90-day loss unchanged within 0.1 points"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "top-10-pct-decreases",
+   "type": "uses",
+   "label": "scored by",
+   "o": "cld-complaint-logit",
+   "quote": "top 10% of decreases by cld-complaint-logit score",
+   "line": 5
+  },
+  {
+   "s": "30-day-notice",
+   "type": "other",
+   "label": "applied to",
+   "o": "top-10-pct-decreases",
+   "quote": "Applied the 30-day notice to the top 10% of decreases",
+   "line": 5
+  },
+  {
+   "s": "exp-207-limit-decrease-policy",
+   "type": "measured-by",
+   "label": "down",
+   "o": "complaints-30d",
+   "quote": "Complaints in 30 days down 22%",
+   "line": 6
+  },
+  {
+   "s": "exp-207-limit-decrease-policy",
+   "type": "measured-by",
+   "label": "unchanged",
+   "o": "loss-90d",
+   "quote": "90-day loss unchanged within 0.1 points",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "cld-complaint-logit"
+ ],
+ "built_on": [
+  {
+   "what": "cld-complaint-logit",
+   "quote": "cld-complaint-logit",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "dec-cld-notice-first",
+   "quote": "the 30-day notice decision before cuts",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "the 30-day notice decision before cuts",
+   "quote": "Builds on cld-complaint-logit and the 30-day notice decision before cuts.",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-207-limit-decrease-policy.md",
+ "sha": "dacbebaac357d4c59ef80265d38faf11629d5b8c6a85eded7116b6d45aea56f2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

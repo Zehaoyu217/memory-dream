@@ -1,0 +1,121 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "mq3-response-gbm-v1",
+   "type": "model",
+   "label": "response model",
+   "as": [
+    "mq3-response-gbm-v1: gradient boosting for 14-day response, AUC 0.74 on the Q2 split"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-mq3-app-sessions-30d",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mq3-app-sessions-30d"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-mq3-prior-treat",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mq3-prior-treat"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-mq3-recency-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mq3-recency-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-301",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-301"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mq3-response-gbm-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-mq3-app-sessions-30d",
+   "quote": "Builds on feat-mq3-app-sessions-30d",
+   "line": 8
+  },
+  {
+   "s": "mq3-response-gbm-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-mq3-prior-treat",
+   "quote": "feat-mq3-prior-treat",
+   "line": 8
+  },
+  {
+   "s": "mq3-response-gbm-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-mq3-recency-v1",
+   "quote": "feat-mq3-recency-v1",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "feat-mq3-app-sessions-30d",
+   "quote": "feat-mq3-app-sessions-30d",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-mq3-email-open-90d",
+   "quote": "the 90-day email opens feature",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-mq3-prior-treat",
+   "quote": "feat-mq3-prior-treat",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-mq3-recency-v1",
+   "quote": "feat-mq3-recency-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/mq3-response-gbm-v1.md",
+ "sha": "7cf6aef914630cb6e7e78601732e90cd2f83fd587135e0d8925bc9b070aa474a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

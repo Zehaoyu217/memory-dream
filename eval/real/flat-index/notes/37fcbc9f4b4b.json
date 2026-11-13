@@ -1,0 +1,102 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-bsm-v10-band",
+   "type": "feature",
+   "label": "v10 bands",
+   "as": [
+    "feat-bsm-v10-band"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-bsm-score-map-v2",
+   "type": "feature",
+   "label": "score map",
+   "as": [
+    "feat-bsm-score-map-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "bsm-cutoff-logit",
+   "type": "other",
+   "label": "cutoff recalibration",
+   "as": [
+    "bsm-cutoff-logit"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "v8-cutoff-bands",
+   "type": "term",
+   "label": "cutoff bands",
+   "as": [
+    "v8 cutoff bands 1-9"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-bsm-v10-band",
+   "type": "uses",
+   "label": "used in",
+   "o": "bsm-cutoff-logit",
+   "quote": "Used in bsm-cutoff-logit and the 2026 cutover.",
+   "line": 7
+  },
+  {
+   "s": "feat-bsm-v10-band",
+   "type": "uses",
+   "label": "cut from",
+   "o": "feat-bsm-score-map-v2",
+   "quote": "Bands are the isotonic-mapped v10 score cut",
+   "line": 5
+  },
+  {
+   "s": "feat-bsm-v10-band",
+   "type": "other",
+   "label": "aligned to",
+   "o": "v8-cutoff-bands",
+   "quote": "aligned to the v8 cutoff bands 1-9",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "exp-303-bureau-score-migration",
+  "feat-bsm-score-map-v2",
+  "bsm-cutoff-logit"
+ ],
+ "built_on": [
+  {
+   "what": "exp-303-bureau-score-migration",
+   "quote": "exp-303-bureau-score-migration",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-bsm-score-map-v2",
+   "quote": "feat-bsm-score-map-v2",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-bsm-v10-band.md",
+ "sha": "37fcbc9f4b4bfa2d3cf77528e8a449c9b50213ea18472170630df507daa9c6ce",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

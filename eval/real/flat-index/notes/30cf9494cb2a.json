@@ -1,0 +1,105 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "dq-late-logit-v1",
+   "type": "model",
+   "label": "late model v1",
+   "as": [
+    "late model v1 on dq-oot-2025q2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "dq-oot-2025q2",
+   "type": "dataset",
+   "label": "evaluation set",
+   "as": [
+    "scored dq-oot-2025q2 at three checkpoints per day (n=273)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.71"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ds-dq-partition-arrivals",
+   "type": "dataset",
+   "label": "source dataset",
+   "as": [
+    "Builds on ds-dq-partition-arrivals"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-dq-late-rate-7d",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-dq-late-rate-7d"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dq-late-logit-v1",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "dq-oot-2025q2",
+   "quote": "scored dq-oot-2025q2 at three checkpoints per day (n=273)",
+   "line": 5
+  },
+  {
+   "s": "dq-late-logit-v1",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.71.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "feat-dq-late-rate-7d",
+  "ds-dq-partition-arrivals"
+ ],
+ "built_on": [
+  {
+   "what": "ds-dq-partition-arrivals",
+   "quote": "ds-dq-partition-arrivals",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "feat-dq-late-rate-7d",
+   "quote": "feat-dq-late-rate-7d",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-303-data-quality-txn.md",
+ "sha": "30cf9494cb2abc5d2b759c7bd636d9fedfbb0a17c7c5783aafd62e2d22b7f7d9",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

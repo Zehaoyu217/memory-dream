@@ -1,0 +1,256 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "ed-gbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ed-gbm-v3"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ed-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ed-gbm-v2"
+   ],
+   "lines": [
+    4,
+    6,
+    8,
+    9
+   ]
+  },
+  {
+   "id": "feat-ed-util-trend-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ed-util-trend-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-ed-cashadv-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ed-cashadv-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-ed-minpay-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ed-minpay-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-ed-bureau-slope-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ed-bureau-slope-v1"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "early-delinquency-oot-2026h1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "early-delinquency-oot-2026h1"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "term",
+   "label": "score psi",
+   "as": [
+    "score PSI"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "watchlist",
+   "type": "other",
+   "label": "watchlist",
+   "as": [
+    "the watchlist"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ed-gbm-v3",
+   "type": "uses",
+   "label": "built on",
+   "o": "ed-gbm-v2",
+   "quote": "ed-gbm-v3 is ed-gbm-v2 plus the bureau 6-month slope",
+   "line": 4
+  },
+  {
+   "s": "ed-gbm-v3",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-ed-util-trend-v1",
+   "quote": "Features: feat-ed-util-trend-v1, feat-ed-cashadv-v1, feat-ed-minpay-v2, feat-ed-bureau-slope-v1",
+   "line": 5
+  },
+  {
+   "s": "ed-gbm-v3",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-ed-cashadv-v1",
+   "quote": "Features: feat-ed-util-trend-v1, feat-ed-cashadv-v1, feat-ed-minpay-v2, feat-ed-bureau-slope-v1",
+   "line": 5
+  },
+  {
+   "s": "ed-gbm-v3",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-ed-minpay-v2",
+   "quote": "Features: feat-ed-util-trend-v1, feat-ed-cashadv-v1, feat-ed-minpay-v2, feat-ed-bureau-slope-v1",
+   "line": 5
+  },
+  {
+   "s": "ed-gbm-v3",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-ed-bureau-slope-v1",
+   "quote": "Features: feat-ed-util-trend-v1, feat-ed-cashadv-v1, feat-ed-minpay-v2, feat-ed-bureau-slope-v1",
+   "line": 5
+  },
+  {
+   "s": "ed-gbm-v3",
+   "type": "evaluated-on",
+   "label": "metrics on",
+   "o": "early-delinquency-oot-2026h1",
+   "quote": "AUC 0.809 and score PSI 0.07 on early-delinquency-oot-2026h1",
+   "line": 4
+  },
+  {
+   "s": "ed-gbm-v3",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.809 against 0.796 for ed-gbm-v2",
+   "line": 6
+  },
+  {
+   "s": "ed-gbm-v3",
+   "type": "measured-by",
+   "label": "score PSI",
+   "o": "psi",
+   "quote": "score PSI 0.07",
+   "line": 4
+  },
+  {
+   "s": "ed-gbm-v2",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "0.796 for ed-gbm-v2",
+   "line": 6
+  },
+  {
+   "s": "ed-gbm-v3",
+   "type": "other",
+   "label": "promoted to",
+   "o": "watchlist",
+   "quote": "Promoted to the watchlist on 2026-06-18",
+   "line": 7
+  },
+  {
+   "s": "ed-gbm-v3",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "ed-gbm-v2",
+   "quote": "Replaces ed-gbm-v2.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "dec-ed-promote-v3",
+  "feat-ed-util-trend-v1",
+  "feat-ed-cashadv-v1",
+  "feat-ed-minpay-v2",
+  "feat-ed-bureau-slope-v1",
+  "ed-gbm-v2"
+ ],
+ "built_on": [
+  {
+   "what": "ed-gbm-v2",
+   "quote": "ed-gbm-v2",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-207-early-delinquency",
+   "quote": "the bureau slope lift experiment",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-ed-bureau-slope-v1",
+   "quote": "feat-ed-bureau-slope-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "ed-gbm-v2",
+   "quote": "ed-gbm-v2",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ed-gbm-v3.md",
+ "sha": "3ae665deaf8cae68388aedd031a4ee678f9935af23157a1ea6feef5b18979672",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

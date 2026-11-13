@@ -1,0 +1,126 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-403-hardship-programs",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-403-hardship-programs"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-402-hardship-programs",
+   "type": "other",
+   "label": "prior experiment",
+   "as": [
+    "exp-402-hardship-programs"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-hp-txn-drop-v1",
+   "type": "feature",
+   "label": "covariate",
+   "as": [
+    "feat-hp-txn-drop-v1"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "ds-hp-matched-controls",
+   "type": "dataset",
+   "label": "matched sample",
+   "as": [
+    "n=14,020 enrolled, 56,080 controls"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "roll-30-to-60",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "the 30-to-60 roll"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "hardship_programs/exp403_txn.ipynb"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "hardship-propensity-matching-model",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "the first hardship propensity matching model"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-403-hardship-programs",
+   "type": "uses",
+   "label": "adds covariate",
+   "o": "feat-hp-txn-drop-v1",
+   "quote": "with feat-hp-txn-drop-v1 added to the propensity model",
+   "line": 5
+  },
+  {
+   "s": "exp-403-hardship-programs",
+   "type": "evaluated-on",
+   "label": "same match as",
+   "o": "ds-hp-matched-controls",
+   "quote": "Same 4:1 match as exp-402-hardship-programs (n=14,020 enrolled, 56,080 controls)",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-402-hardship-programs"
+ ],
+ "built_on": [
+  {
+   "what": "feat-hp-txn-drop-v1",
+   "quote": "feat-hp-txn-drop-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "hp-psm-v1",
+   "quote": "the first hardship propensity matching model",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "work/exp-403-hardship-programs.md",
+ "sha": "68f487d6ac9589c4de45396e04db8b61687c51a8cfc08723cda0635535660af4",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

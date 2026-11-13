@@ -1,0 +1,76 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-nps-theme-share-v1",
+   "type": "feature",
+   "label": "feature family",
+   "as": [
+    "Theme shares: fraction of each respondent's open-text answer in each of the 12 themes"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-nps-open-text",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "ds-nps-open-text"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "nps-ridge-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "nps-ridge-v1"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-nps-theme-share-v1",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "ds-nps-open-text",
+   "quote": "Source: the coded output in ds-nps-open-text.",
+   "line": 6
+  },
+  {
+   "s": "nps-ridge-v1",
+   "type": "uses",
+   "label": "only feature family",
+   "o": "feat-nps-theme-share-v1",
+   "quote": "Only feature family in nps-ridge-v1.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-nps-open-text"
+ ],
+ "built_on": [
+  {
+   "what": "ds-nps-open-text",
+   "quote": "ds-nps-open-text",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-nps-theme-share-v1.md",
+ "sha": "69cc2d4ccf7e80bf0689f2698c9faad65a47cca4aad6a85094fcf6d11c1a0a2f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

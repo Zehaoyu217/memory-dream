@@ -1,0 +1,125 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "mrisk-oot-2026h1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "mrisk-oot-2026h1"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "mrisk-gbm-v3",
+   "type": "model",
+   "label": "merchant model",
+   "as": [
+    "mrisk-gbm-v3"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-mrisk-dispute-ratio",
+   "type": "feature",
+   "label": "dispute ratio",
+   "as": [
+    "v2 plus feat-mrisk-dispute-ratio"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    4,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "precision-at-100",
+   "type": "metric",
+   "label": "precision@100",
+   "as": [
+    "precision@100"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "exp-506-merchant-risk",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-506-merchant-risk"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mrisk-gbm-v3",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.91, precision@100 0.58",
+   "line": 6
+  },
+  {
+   "s": "mrisk-gbm-v3",
+   "type": "measured-by",
+   "label": "precision@100",
+   "o": "precision-at-100",
+   "quote": "precision@100 0.58",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-506-merchant-risk",
+  "feat-mrisk-dispute-ratio"
+ ],
+ "built_on": [
+  {
+   "what": "exp-506-merchant-risk",
+   "quote": "exp-506-merchant-risk",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-mrisk-dispute-ratio",
+   "quote": "feat-mrisk-dispute-ratio",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "mrisk-gbm-v2",
+   "quote": "the model adding mcc base rate",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "work/exp-507-merchant-risk.md",
+ "sha": "3785247946a141cb0b961967ed7af5385b2f4ab6324005f5ce755f92994ec5b1",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

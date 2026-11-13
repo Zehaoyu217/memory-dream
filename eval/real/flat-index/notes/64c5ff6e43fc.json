@@ -1,0 +1,93 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "cb-rewards-ledger",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "`cb.rewards_ledger`"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-cb-spend-panel",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-cb-spend-panel"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cb-rewards-ledger",
+   "type": "uses",
+   "label": "built on",
+   "o": "cards.accounts_monthly",
+   "quote": "Built on `cards.accounts_monthly`",
+   "line": 5
+  },
+  {
+   "s": "cb-rewards-ledger",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-cb-spend-panel",
+   "quote": "Builds on ds-cb-spend-panel.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-cb-spend-panel"
+ ],
+ "built_on": [
+  {
+   "what": "`cards.accounts_monthly`",
+   "quote": "`cards.accounts_monthly`",
+   "line": 5,
+   "asked": true
+  },
+  {
+   "what": "the rewards engine export",
+   "quote": "the rewards engine export",
+   "line": 5,
+   "asked": true
+  },
+  {
+   "what": "cards.accounts_monthly",
+   "quote": "Built on `cards.accounts_monthly`",
+   "line": 5,
+   "asked": true
+  },
+  {
+   "what": "ds-cb-spend-panel",
+   "quote": "ds-cb-spend-panel",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-cb-rewards-ledger.md",
+ "sha": "64c5ff6e43fcb1ca92ca5d972f8763ba0e7d39bd88aa922bbbfb829a145d464b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

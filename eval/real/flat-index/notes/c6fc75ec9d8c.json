@@ -1,0 +1,75 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "psi rule",
+   "as": [
+    "a PSI above 0.25 starts an investigation"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "aisha-khan",
+   "type": "person",
+   "label": "mlops runbook author",
+   "as": [
+    "This follows Aisha Khan's MLOps runbook."
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "march-2026-fraud-retrain",
+   "type": "model",
+   "label": "fraud retrain",
+   "as": [
+    "the March 2026 fraud retrain triggered by PSI 0.31"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "psi",
+   "type": "owned-by",
+   "label": "follows runbook of",
+   "o": "aisha-khan",
+   "quote": "This follows Aisha Khan's MLOps runbook.",
+   "line": 5
+  },
+  {
+   "s": "march-2026-fraud-retrain",
+   "type": "measured-by",
+   "label": "OOT AUC dropped",
+   "o": "psi",
+   "quote": "The retrain stood because OOT AUC had dropped 0.06.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "glossary/psi"
+ ],
+ "replaces": [
+  {
+   "what": "glossary/psi",
+   "quote": "glossary/psi",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "corrections/psi-investigate-not-retrain.md",
+ "sha": "c6fc75ec9d8cb5144ad649d17c7e50b0eca34b47169ab0a31419985fa2aaa173",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,142 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-trv-seasonality-adj",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-trv-seasonality-adj"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "stl-seasonal-component",
+   "type": "term",
+   "label": "seasonal component",
+   "as": [
+    "The STL seasonal component"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "travel-spend-monthly",
+   "type": "metric",
+   "label": "spend series",
+   "as": [
+    "monthly travel spend"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-trv-travel-mcc-monthly",
+   "type": "dataset",
+   "label": "source dataset",
+   "as": [
+    "ds-trv-travel-mcc-monthly"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-501-travel-spend-recovery",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-501-travel-spend-recovery"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "trv-ridge-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "trv-ridge-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "trv-ridge-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "trv-ridge-v3"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-trv-seasonality-adj",
+   "type": "part-of",
+   "label": "removes",
+   "o": "travel-spend-monthly",
+   "quote": "The STL seasonal component removed from monthly travel spend",
+   "line": 5
+  },
+  {
+   "s": "feat-trv-seasonality-adj",
+   "type": "uses",
+   "label": "fitted on",
+   "o": "exp-501-travel-spend-recovery",
+   "quote": "Fitted on 2023-01 to 2025-02 (exp-501-travel-spend-recovery)",
+   "line": 6
+  },
+  {
+   "s": "feat-trv-seasonality-adj",
+   "type": "uses",
+   "label": "input to",
+   "o": "trv-ridge-v2",
+   "quote": "Input to trv-ridge-v2 and trv-ridge-v3.",
+   "line": 7
+  },
+  {
+   "s": "feat-trv-seasonality-adj",
+   "type": "uses",
+   "label": "input to",
+   "o": "trv-ridge-v3",
+   "quote": "Input to trv-ridge-v2 and trv-ridge-v3.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-501-travel-spend-recovery"
+ ],
+ "built_on": [
+  {
+   "what": "ds-trv-travel-mcc-monthly",
+   "quote": "ds-trv-travel-mcc-monthly",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-501-travel-spend-recovery",
+   "quote": "exp-501-travel-spend-recovery",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-trv-seasonality-adj.md",
+ "sha": "349204b54ea9ff28177b1143f61588992c69839fbaec572ae6271edf5633d551",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

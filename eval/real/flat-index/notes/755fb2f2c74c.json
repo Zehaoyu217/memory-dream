@@ -1,0 +1,109 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "churn-lr-base-2025",
+   "type": "model",
+   "label": "baseline model",
+   "as": [
+    "the logistic churn baseline"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "joined dataset",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-c25-churn-labels",
+   "type": "dataset",
+   "label": "labels dataset",
+   "as": [
+    "ds-c25-churn-labels"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-c25-recency",
+   "type": "feature",
+   "label": "recency feature",
+   "as": [
+    "card transaction recency feature"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "churn-recency",
+   "type": "metric",
+   "label": "recency signal",
+   "as": [
+    "Card recency is the strongest churn signal"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-lr-base-2025",
+   "type": "measured-by",
+   "label": "has largest coefficient",
+   "o": "churn-recency",
+   "quote": "Recency has the largest standardised coefficient in churn-lr-base-2025",
+   "line": 7
+  },
+  {
+   "s": "churn-recency",
+   "type": "uses",
+   "label": "basis",
+   "o": "cards.txn_daily",
+   "quote": "Basis: cards.txn_daily joined to ds-c25-churn-labels",
+   "line": 7
+  },
+  {
+   "s": "churn-recency",
+   "type": "uses",
+   "label": "basis",
+   "o": "ds-c25-churn-labels",
+   "quote": "Basis: cards.txn_daily joined to ds-c25-churn-labels",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "churn-lr-base-2025",
+   "quote": "the logistic churn baseline",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-c25-txn-recency",
+   "quote": "the card transaction recency feature",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-c25-recency-dominates.md",
+ "sha": "755fb2f2c74c87841e7bec7888683fe3ec76afb3e9bd30e7a2650a080fb8c754",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

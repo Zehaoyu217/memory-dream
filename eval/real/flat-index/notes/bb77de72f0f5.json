@@ -1,0 +1,106 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ep-prior-logins-14d",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ep-prior-logins-14d"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "app-sessions-daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "app.sessions_daily"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "digital-analytics",
+   "type": "team",
+   "label": "owner",
+   "as": [
+    "digital-analytics"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ep-cuped-v2",
+   "type": "model",
+   "label": "covariate model",
+   "as": [
+    "ep-cuped-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-ep-assignments",
+   "type": "dataset",
+   "label": "assignments table",
+   "as": [
+    "ds-ep-assignments"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ep-prior-logins-14d",
+   "type": "uses",
+   "label": "counts from",
+   "o": "app-sessions-daily",
+   "quote": "from `app.sessions_daily`",
+   "line": 4
+  },
+  {
+   "s": "feat-ep-prior-logins-14d",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "digital-analytics",
+   "quote": "(owner digital-analytics)",
+   "line": 5
+  },
+  {
+   "s": "feat-ep-prior-logins-14d",
+   "type": "uses",
+   "label": "second covariate in",
+   "o": "ep-cuped-v2",
+   "quote": "Second CUPED covariate in ep-cuped-v2",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-ep-assignments"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ep-assignments",
+   "quote": "ds-ep-assignments",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-ep-prior-logins-14d.md",
+ "sha": "bb77de72f0f5b3286ed2f18ed1c42577bbd2105abd8a7bfa75153949bbf5e6a2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

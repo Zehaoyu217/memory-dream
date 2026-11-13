@@ -1,0 +1,181 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "cli-test-2025q1",
+   "type": "dataset",
+   "label": "test set",
+   "as": [
+    "cli-test-2025q1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout",
+   "type": "term",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "cli-xgb-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cli-xgb-v1"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "payment-behaviour",
+   "type": "feature",
+   "label": "payment behaviour",
+   "as": [
+    "payment behaviour"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "utilisation",
+   "type": "feature",
+   "label": "utilisation",
+   "as": [
+    "utilisation"
+   ],
+   "lines": [
+    4,
+    5,
+    6,
+    8,
+    9
+   ]
+  },
+  {
+   "id": "spend-velocity",
+   "type": "feature",
+   "label": "spend velocity",
+   "as": [
+    "spend velocity"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cli-xgb-v1",
+   "type": "uses",
+   "label": "combines",
+   "o": "payment-behaviour",
+   "quote": "cli-xgb-v1 with payment behaviour and spend velocity reaches 0.71 on holdout-2025q4 (n=118,400)",
+   "line": 5
+  },
+  {
+   "s": "cli-xgb-v1",
+   "type": "uses",
+   "label": "combines",
+   "o": "spend-velocity",
+   "quote": "cli-xgb-v1 with payment behaviour and spend velocity reaches 0.71 on holdout-2025q4 (n=118,400)",
+   "line": 5
+  },
+  {
+   "s": "cli-xgb-v1",
+   "type": "evaluated-on",
+   "label": "reaches on",
+   "o": "holdout",
+   "quote": "on holdout-2025q4 (n=118,400)",
+   "line": 5
+  },
+  {
+   "s": "cli-xgb-v1",
+   "type": "measured-by",
+   "label": "reaches",
+   "o": "auc",
+   "quote": "reaches 0.71",
+   "line": 5
+  },
+  {
+   "s": "utilisation",
+   "type": "measured-by",
+   "label": "gives",
+   "o": "auc",
+   "quote": "Utilisation alone gives AUC 0.64",
+   "line": 5
+  },
+  {
+   "s": "utilisation",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "cli-test-2025q1",
+   "quote": "Utilisation alone gives AUC 0.64 on cli-test-2025q1",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "cli-xgb-v1",
+  "find-cli-util-best"
+ ],
+ "built_on": [
+  {
+   "what": "cli-xgb-v1",
+   "quote": "cli-xgb-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-103-credit-line-increase",
+   "quote": "the utilisation slope auc experiment",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "find-cli-util-best",
+   "quote": "find-cli-util-best",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "find-cli-util-best",
+   "quote": "the overturned utilisation-as-best-predictor finding",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/find-cli-util-not-enough.md",
+ "sha": "d43dfed89b451a18c2944c36012578fa293995c71f8dca8407602b54d9a4fe84",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

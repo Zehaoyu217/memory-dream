@@ -1,0 +1,58 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "dpd-buckets",
+   "type": "term",
+   "label": "bucketing rule",
+   "as": [
+    "DPD buckets"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.payments_daily`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dpd",
+   "type": "term",
+   "label": "measure",
+   "as": [
+    "DPD"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dpd-buckets",
+   "type": "uses",
+   "label": "read from",
+   "o": "cards.payments_daily",
+   "quote": "Days past due are read from `cards.payments_daily` at the label date",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/dpd-bucket-labelling.md",
+ "sha": "ee1417b80bfa9bf0d91417a838bb5647346d61103e7ee5f7f5a3ecef26d13794",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

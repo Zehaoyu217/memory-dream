@@ -1,0 +1,141 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cld-gbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cld-gbm-v3"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cld-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cld-gbm-v2"
+   ],
+   "lines": [
+    7,
+    8,
+    9
+   ]
+  },
+  {
+   "id": "feat-cld-payment-shock",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cld-payment-shock"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "cld-test-2026q1",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "cld-test-2026q1"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.81",
+    "0.78"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Gini 0.62"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cld-gbm-v3",
+   "type": "uses",
+   "label": "adds",
+   "o": "feat-cld-payment-shock",
+   "quote": "Adds feat-cld-payment-shock to the v2 inputs.",
+   "line": 5
+  },
+  {
+   "s": "cld-gbm-v3",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "cld-test-2026q1",
+   "quote": "Eval: cld-test-2026q1, n=21,700 decreases from Jan-Mar 2026",
+   "line": 6
+  },
+  {
+   "s": "cld-gbm-v3",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.81 on cld-test-2026q1",
+   "line": 4
+  },
+  {
+   "s": "cld-gbm-v3",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "gini",
+   "quote": "Gini 0.62 against 0.56 for cld-gbm-v2",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "cld-gbm-v2",
+   "quote": "cld-gbm-v2",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-cld-payment-shock",
+   "quote": "feat-cld-payment-shock",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "cld-gbm-v2",
+   "quote": "cld-gbm-v2",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/cld-gbm-v3.md",
+ "sha": "16c8bcc3e5716be8a1faa004109faf6fd91d3cebf7cd5e8afe6e8220f79d681a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

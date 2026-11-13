@@ -1,0 +1,135 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cu-pay-behaviour",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-pay-behaviour"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.payments_daily"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cu-resp-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cu-resp-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-cu-dpd-roll-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-dpd-roll-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-cu-cases-dpd",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-cu-cases-dpd"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cu-pay-behaviour",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cards.payments_daily",
+   "quote": "Source: `cards.payments_daily`",
+   "line": 6
+  },
+  {
+   "s": "feat-cu-pay-behaviour",
+   "type": "measured-by",
+   "label": "adds AUC",
+   "o": "auc",
+   "quote": "Adds +0.018 AUC to cu-resp-v1 on holdout-2025q1",
+   "line": 7
+  },
+  {
+   "s": "cu-resp-v1",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q1",
+   "quote": "Adds +0.018 AUC to cu-resp-v1 on holdout-2025q1",
+   "line": 7
+  },
+  {
+   "s": "feat-cu-pay-behaviour",
+   "type": "other",
+   "label": "co-linear with",
+   "o": "feat-cu-dpd-roll-v1",
+   "quote": "Co-linearity with feat-cu-dpd-roll-v1 on partial-payment share is 0.61",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-cu-dpd-roll-v1"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cu-cases-dpd",
+   "quote": "ds-cu-cases-dpd",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-cu-pay-behaviour.md",
+ "sha": "86000cca99a69a9220cefb98ed604ed4eadf2e2506c963281d6d85ad0d8fa861",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

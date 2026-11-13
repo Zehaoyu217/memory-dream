@@ -1,0 +1,141 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-107-collections-uplift",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-107-collections-uplift: per-contact economics put SMS at 9% of call cost while capturing 83% of call uplift in the top 20%"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cu-uplift-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cu-uplift-v3"
+   ],
+   "lines": [
+    5,
+    10
+   ]
+  },
+  {
+   "id": "ds-cu-cases-dpd",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-cu-cases-dpd"
+   ],
+   "lines": [
+    10
+   ]
+  },
+  {
+   "id": "collections-uplift-oot-2026h1",
+   "type": "dataset",
+   "label": "scoring population",
+   "as": [
+    "collections-uplift-oot-2026h1 scoring population (n=5,690 accounts, 1-29 DPD)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Call uplift 0.036",
+    "uplift ratio 0.83"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "sms",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "SMS uplift 0.030"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "call",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "call"
+   ],
+   "lines": [
+    4,
+    6,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "collections-channel-mix",
+   "type": "other",
+   "label": "randomised test",
+   "as": [
+    "collections-channel-mix"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-107-collections-uplift",
+   "type": "evaluated-on",
+   "label": "run on",
+   "o": "collections-uplift-oot-2026h1",
+   "quote": "Economics run on the top 20% by cu-uplift-v3 in the collections-uplift-oot-2026h1 scoring population",
+   "line": 5
+  },
+  {
+   "s": "exp-107-collections-uplift",
+   "type": "uses",
+   "label": "scores with",
+   "o": "cu-uplift-v3",
+   "quote": "Economics run on the top 20% by cu-uplift-v3",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "collections-channel-mix"
+ ],
+ "built_on": [
+  {
+   "what": "cu-uplift-v3",
+   "quote": "cu-uplift-v3",
+   "line": 10,
+   "asked": true
+  },
+  {
+   "what": "ds-cu-cases-dpd",
+   "quote": "ds-cu-cases-dpd",
+   "line": 10,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-107-collections-uplift.md",
+ "sha": "0294a175070973c3fdf428d54564cdeced1c3ed3a14abdd2345ef3ad2d30798a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

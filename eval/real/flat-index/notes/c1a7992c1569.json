@@ -1,0 +1,103 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-307-bureau-score-migration",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-307-bureau-score-migration: 8% of v8 pulls go missing"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "bureau.scores_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "v10b",
+   "type": "model",
+   "label": "fallback score",
+   "as": [
+    "the v10b score for those accounts"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-bsm-keep-v8-fallback",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Drives dec-bsm-keep-v8-fallback"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "bsm-app-gbm-v8",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "Builds on the isotonic-mapped v10 application model and bsm-app-gbm-v8."
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-307-bureau-score-migration",
+   "type": "uses",
+   "label": "checked in",
+   "o": "bureau.scores_monthly",
+   "quote": "Checked the v8 feed for July-August 2026 in bureau.scores_monthly",
+   "line": 5
+  },
+  {
+   "s": "v10b",
+   "type": "other",
+   "label": "fallback for",
+   "o": "exp-307-bureau-score-migration",
+   "quote": "Fallback is the v10b score for those accounts",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "dec-bsm-keep-v8-fallback"
+ ],
+ "built_on": [
+  {
+   "what": "bsm-app-gbm-v10b",
+   "quote": "the isotonic-mapped v10 application model",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "bsm-app-gbm-v8",
+   "quote": "bsm-app-gbm-v8",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-307-bureau-score-migration.md",
+ "sha": "c1a7992c1569ae155d902b16322aaec53c233b8d91cbee0ad95b21baea5c1627",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,132 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-101-fraud-2025",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-101-fraud-2025"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fraud25-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fraud25-gbm-v1"
+   ],
+   "lines": [
+    4,
+    8
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.902"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "KS 0.61"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "recall-at-1",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "recall@1% 0.46"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud25-gbm-v1",
+   "type": "evaluated-on",
+   "label": "baseline on",
+   "o": "holdout-2025q1",
+   "quote": "Eval set: holdout-2025q1, 1,104,800 transactions",
+   "line": 5
+  },
+  {
+   "s": "fraud25-gbm-v1",
+   "type": "measured-by",
+   "label": "result",
+   "o": "auc",
+   "quote": "Results: AUC 0.902, KS 0.61, recall@1% 0.46.",
+   "line": 6
+  },
+  {
+   "s": "fraud25-gbm-v1",
+   "type": "measured-by",
+   "label": "result",
+   "o": "ks",
+   "quote": "Results: AUC 0.902, KS 0.61, recall@1% 0.46.",
+   "line": 6
+  },
+  {
+   "s": "fraud25-gbm-v1",
+   "type": "measured-by",
+   "label": "result",
+   "o": "recall-at-1",
+   "quote": "Results: AUC 0.902, KS 0.61, recall@1% 0.46.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-f25-holdout-2025q1",
+   "quote": "ds-f25-holdout-2025q1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fraud25-gbm-v1",
+   "quote": "fraud25-gbm-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-101-fraud-2025.md",
+ "sha": "3a09841c161db50c5b93d9c80e0fce0aefc7ba238bad46d81ddb3676d849cff7",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

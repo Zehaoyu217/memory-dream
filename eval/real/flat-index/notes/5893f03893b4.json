@@ -1,0 +1,103 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "raj-patel",
+   "type": "person",
+   "label": "reviewer",
+   "as": [
+    "Raj Patel"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "q-cu-who-to-call",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "Which 1-29 DPD accounts should get an outbound call rather than an SMS?"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cu-resp-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cu-resp-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "q-cu-uplift-vs-response",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "q-cu-uplift-vs-response"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "sms",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "SMS"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "dpd",
+   "type": "term",
+   "label": "delinquency measure",
+   "as": [
+    "DPD"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "q-cu-who-to-call",
+   "type": "other",
+   "label": "depends on",
+   "o": "q-cu-uplift-vs-response",
+   "quote": "The answer depends on q-cu-uplift-vs-response",
+   "line": 7
+  },
+  {
+   "s": "q-cu-who-to-call",
+   "type": "other",
+   "label": "ranks by",
+   "o": "cu-resp-v1",
+   "quote": "rank by response likelihood (cu-resp-v1)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "cu-resp-v1",
+  "q-cu-uplift-vs-response"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/q-cu-who-to-call.md",
+ "sha": "5893f03893b4bc73a10d314c5696c3f8528374e0b8cd2a8b87e2da8156871669",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

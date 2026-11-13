@@ -1,0 +1,124 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-clv-tenure",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-clv-tenure"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "clv-bgnbd-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "clv-bgnbd-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "clv-ml-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "clv-ml-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "clv-ml-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "clv-ml-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-clv-hazard",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-clv-hazard"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-clv-cohort-panel",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-clv-cohort-panel"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-clv-tenure",
+   "type": "uses",
+   "label": "used in",
+   "o": "clv-bgnbd-v1",
+   "quote": "Used in clv-bgnbd-v1, clv-ml-v1 and clv-ml-v2.",
+   "line": 6
+  },
+  {
+   "s": "feat-clv-tenure",
+   "type": "uses",
+   "label": "used in",
+   "o": "clv-ml-v1",
+   "quote": "Used in clv-bgnbd-v1, clv-ml-v1 and clv-ml-v2.",
+   "line": 6
+  },
+  {
+   "s": "feat-clv-tenure",
+   "type": "uses",
+   "label": "used in",
+   "o": "clv-ml-v2",
+   "quote": "Used in clv-bgnbd-v1, clv-ml-v1 and clv-ml-v2.",
+   "line": 6
+  },
+  {
+   "s": "feat-clv-hazard",
+   "type": "uses",
+   "label": "drives",
+   "o": "feat-clv-tenure",
+   "quote": "Tenure drives the retention hazard (feat-clv-hazard).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-clv-hazard"
+ ],
+ "built_on": [
+  {
+   "what": "ds-clv-cohort-panel",
+   "quote": "ds-clv-cohort-panel",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-clv-tenure.md",
+ "sha": "8235b74010cdfa19a1c352bbf44ccce1a76beedb0d3300dbd5fc98f662cdfcc4",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

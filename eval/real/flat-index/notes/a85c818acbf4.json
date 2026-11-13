@@ -1,0 +1,170 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "csb-xgb-v2",
+   "type": "model",
+   "label": "scoring model",
+   "as": [
+    "csb-xgb-v2"
+   ],
+   "lines": [
+    4,
+    8
+   ]
+  },
+  {
+   "id": "dec-csb-ship-xgb-v1",
+   "type": "other",
+   "label": "december pilot",
+   "as": [
+    "dec-csb-ship-xgb-v1",
+    "the December pilot"
+   ],
+   "lines": [
+    4,
+    8,
+    9
+   ]
+  },
+  {
+   "id": "exp-206-churn-small-business",
+   "type": "other",
+   "label": "churn experiment",
+   "as": [
+    "exp-206-churn-small-business"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-207-churn-small-business",
+   "type": "other",
+   "label": "churn experiment",
+   "as": [
+    "exp-207-churn-small-business"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "csb-lr-base",
+   "type": "model",
+   "label": "monitoring challenger",
+   "as": [
+    "csb-lr-base"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "data engineering owner",
+   "as": [
+    "Tomas Rivera"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "call-dedupe-job",
+   "type": "pipeline",
+   "label": "call-dedupe job",
+   "as": [
+    "call-dedupe job"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "csb-xgb-v2",
+   "type": "uses",
+   "label": "basis",
+   "o": "exp-206-churn-small-business",
+   "quote": "Basis: exp-206-churn-small-business and exp-207-churn-small-business",
+   "line": 5
+  },
+  {
+   "s": "csb-xgb-v2",
+   "type": "uses",
+   "label": "basis",
+   "o": "exp-207-churn-small-business",
+   "quote": "Basis: exp-206-churn-small-business and exp-207-churn-small-business",
+   "line": 5
+  },
+  {
+   "s": "call-dedupe-job",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "tomas-rivera",
+   "quote": "Needs the call-dedupe job in the production calls feed (Tomas Rivera, data engineering).",
+   "line": 6
+  },
+  {
+   "s": "csb-lr-base",
+   "type": "uses",
+   "label": "stays as challenger",
+   "o": "csb-xgb-v2",
+   "quote": "csb-lr-base stays on as the monitoring challenger.",
+   "line": 7
+  },
+  {
+   "s": "csb-xgb-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "dec-csb-ship-xgb-v1",
+   "quote": "replaces the December pilot",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "exp-206-churn-small-business",
+  "exp-207-churn-small-business",
+  "dec-csb-ship-xgb-v1",
+  "csb-lr-base"
+ ],
+ "built_on": [
+  {
+   "what": "csb-xgb-v2",
+   "quote": "csb-xgb-v2",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "dec-csb-ship-xgb-v1",
+   "quote": "dec-csb-ship-xgb-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-206-churn-small-business",
+   "quote": "the seasonally adjusted spend experiment",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "dec-csb-ship-xgb-v1",
+   "quote": "the December pilot",
+   "line": 4,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-csb-ship-xgb-v2.md",
+ "sha": "a85c818acbf44b2def24a0533746d09ca85bb5fddd2c8a9dbcfb80fb94b61d7e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

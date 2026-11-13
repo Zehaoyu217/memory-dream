@@ -1,0 +1,153 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-503-travel-spend-recovery",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-503-travel-spend-recovery"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-502-travel-spend-recovery",
+   "type": "other",
+   "label": "prior experiment",
+   "as": [
+    "exp-502-travel-spend-recovery"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-trv-cross-border-share",
+   "type": "feature",
+   "label": "regressor",
+   "as": [
+    "feat-trv-cross-border-share"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "trv-bt-2025h1",
+   "type": "dataset",
+   "label": "backtest set",
+   "as": [
+    "trv-bt-2025h1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ridge",
+   "type": "model",
+   "label": "ridge model",
+   "as": [
+    "ridge"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "MAPE 5.2%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "trv-ridge-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "trv-ridge-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-503-travel-spend-recovery",
+   "type": "uses",
+   "label": "adds",
+   "o": "feat-trv-cross-border-share",
+   "quote": "Adds feat-trv-cross-border-share to the exp-502-travel-spend-recovery ridge",
+   "line": 5
+  },
+  {
+   "s": "exp-503-travel-spend-recovery",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "trv-bt-2025h1",
+   "quote": "ridge, trv-bt-2025h1",
+   "line": 5
+  },
+  {
+   "s": "exp-503-travel-spend-recovery",
+   "type": "measured-by",
+   "label": "MAPE",
+   "o": "mape",
+   "quote": "MAPE 5.2%",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "exp-502-travel-spend-recovery",
+   "quote": "the exp-502-travel-spend-recovery ridge",
+   "line": 5,
+   "asked": true
+  },
+  {
+   "what": "feat-trv-cross-border-share",
+   "quote": "feat-trv-cross-border-share",
+   "line": 5,
+   "asked": true
+  },
+  {
+   "what": "trv-bt-2025h1",
+   "quote": "trv-bt-2025h1",
+   "line": 5,
+   "asked": true
+  },
+  {
+   "what": "exp-502-travel-spend-recovery",
+   "quote": "exp-502-travel-spend-recovery",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-trv-cross-border-share",
+   "quote": "feat-trv-cross-border-share",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-503-travel-spend-recovery.md",
+ "sha": "ab2ad8ac67e248b3279c7e059aa7912fec91196e6816d6cce359084cb49b079b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

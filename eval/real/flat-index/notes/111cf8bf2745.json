@@ -1,0 +1,144 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "ror-roi-v2",
+   "type": "model",
+   "label": "candidate model",
+   "as": [
+    "Candidate ror-roi-v2",
+    "ROI model v2 candidate"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "ror-roi-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ror-roi-v1"
+   ],
+   "lines": [
+    4,
+    8
+   ]
+  },
+  {
+   "id": "ror-uplift-v1",
+   "type": "model",
+   "label": "uplift model",
+   "as": [
+    "ror-uplift-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-ror-value-band-v2",
+   "type": "feature",
+   "label": "value band",
+   "as": [
+    "value band v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-406-retention-offers-roi",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-406-retention-offers-roi"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "realised-roi",
+   "type": "metric",
+   "label": "roi",
+   "as": [
+    "Realised ROI"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ror-roi-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-ror-value-band-v2",
+   "quote": "Candidate ror-roi-v2 uses value band v2 and ror-uplift-v1.",
+   "line": 5
+  },
+  {
+   "s": "ror-roi-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "ror-uplift-v1",
+   "quote": "Candidate ror-roi-v2 uses value band v2 and ror-uplift-v1.",
+   "line": 5
+  },
+  {
+   "s": "ror-roi-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "realised-roi",
+   "quote": "Realised ROI on the Q1 2026 wave with a 10% control: v2 1.63x, v1 1.52x.",
+   "line": 6
+  },
+  {
+   "s": "ror-roi-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "realised-roi",
+   "quote": "Realised ROI on the Q1 2026 wave with a 10% control: v2 1.63x, v1 1.52x.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ror-roi-v2",
+  "ror-roi-v1",
+  "ror-uplift-v1",
+  "feat-ror-value-band-v2",
+  "exp-406-retention-offers-roi"
+ ],
+ "built_on": [
+  {
+   "what": "exp-406-retention-offers-roi",
+   "quote": "exp-406-retention-offers-roi",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-ror-value-band-v2",
+   "quote": "feat-ror-value-band-v2",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ror-roi-v1",
+   "quote": "ror-roi-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-407-retention-offers-roi.md",
+ "sha": "111cf8bf274583fcd137e375661edefba045973bb9bd8361cbb326dfa353a34b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

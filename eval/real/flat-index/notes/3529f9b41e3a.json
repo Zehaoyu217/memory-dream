@@ -1,0 +1,94 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "cards.fraud_labels",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "cards.fraud_labels"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "fraud-2025-pipeline",
+   "type": "pipeline",
+   "label": "pipeline",
+   "as": [
+    "the 2025 pipeline"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "maturity-cut",
+   "type": "term",
+   "label": "maturity cut",
+   "as": [
+    "45-day maturity cut"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "label-lag",
+   "type": "metric",
+   "label": "median lag",
+   "as": [
+    "Median label lag 21 days"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud-2025-pipeline",
+   "type": "uses",
+   "label": "uses",
+   "o": "maturity-cut",
+   "quote": "the 2025 pipeline uses a 45-day maturity cut",
+   "line": 6
+  },
+  {
+   "s": "cards.fraud_labels",
+   "type": "measured-by",
+   "label": "lag",
+   "o": "label-lag",
+   "quote": "Median label lag 21 days, 95% of fraud labels within 45 days",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-f25-txn-2024-2025",
+  "fraud-2026"
+ ],
+ "built_on": [
+  {
+   "what": "ds-lbl-fraud-labels",
+   "quote": "cards.fraud_labels",
+   "line": 5,
+   "asked": true
+  },
+  {
+   "what": "ds-f25-txn-2024-2025",
+   "quote": "ds-f25-txn-2024-2025",
+   "line": 5,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-f25-labels.md",
+ "sha": "3529f9b41e3ac948d0d7f9ccc12a428e9081abb515346306e4609e2b954ec20c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

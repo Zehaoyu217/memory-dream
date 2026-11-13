@@ -1,0 +1,86 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-rs-agency-placements",
+   "type": "dataset",
+   "label": "placements table",
+   "as": [
+    "Agency placements in 2025H1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "data-eng-cards",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "data-eng-cards"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-rs-chargeoff-base",
+   "type": "dataset",
+   "label": "base",
+   "as": [
+    "ds-rs-chargeoff-base"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-rs-agency-placements",
+   "type": "owned-by",
+   "label": "join owner",
+   "o": "data-eng-cards",
+   "quote": "Owner: data-eng-cards for the join",
+   "line": 7
+  },
+  {
+   "s": "ds-rs-agency-placements",
+   "type": "owned-by",
+   "label": "placement policy owner",
+   "o": "lena-fischer",
+   "quote": "Lena Fischer for placement policy",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-rs-chargeoff-base"
+ ],
+ "built_on": [
+  {
+   "what": "ds-rs-chargeoff-base",
+   "quote": "ds-rs-chargeoff-base",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-rs-agency-placements.md",
+ "sha": "4c6ca2848ea48c49062e2bddafea49b9ebe44c9f8f8186daa4a2a1fd6041c18d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,97 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-405-nps-drivers",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-405-nps-drivers"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "spearman",
+   "type": "metric",
+   "label": "spearman correlation",
+   "as": [
+    "+0.03 Spearman"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-nps-fee-shock-v2",
+   "type": "feature",
+   "label": "fee shock",
+   "as": [
+    "Fee shock"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-nps-fee-shock-v2",
+   "type": "evaluated-on",
+   "label": "gives 0.49 on",
+   "o": "holdout-2025q4",
+   "quote": "fee shock v2 gives 0.49 on holdout-2025q4 against 0.46 base",
+   "line": 5
+  },
+  {
+   "s": "feat-nps-fee-shock-v2",
+   "type": "measured-by",
+   "label": "Spearman effect",
+   "o": "spearman",
+   "quote": "+0.03 Spearman with the send-date cut",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "exp-405-nps-drivers",
+  "fnd-nps-fee-top"
+ ],
+ "built_on": [
+  {
+   "what": "exp-405-nps-drivers",
+   "quote": "exp-405-nps-drivers",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "fnd-nps-fee-top",
+   "quote": "fnd-nps-fee-top",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-nps-fee-corrected.md",
+ "sha": "1cd27b3c188ff72e7da2a353cbed3555816941d58e9111ea2e4aceda844f58bb",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

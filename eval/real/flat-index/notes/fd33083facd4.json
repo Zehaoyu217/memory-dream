@@ -1,0 +1,181 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "ep-cuped-v2",
+   "type": "model",
+   "label": "variance reduction method",
+   "as": [
+    "ep-cuped-v2: CUPED on pre-spend v2 plus prior logins, median variance reduction 27 percent"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-ep-pre-spend-cov-v2",
+   "type": "feature",
+   "label": "covariate",
+   "as": [
+    "feat-ep-pre-spend-cov-v2"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-ep-prior-logins-14d",
+   "type": "feature",
+   "label": "covariate",
+   "as": [
+    "feat-ep-prior-logins-14d"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "control-units",
+   "type": "segment",
+   "label": "control group",
+   "as": [
+    "control units"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-505-experiment-platform",
+   "type": "document",
+   "label": "experiment",
+   "as": [
+    "exp-505-experiment-platform"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "ep-cuped-v1",
+   "type": "model",
+   "label": "variance reduction method",
+   "as": [
+    "ep-cuped-v1",
+    "v1"
+   ],
+   "lines": [
+    6,
+    8,
+    9
+   ]
+  },
+  {
+   "id": "dec-ep-cuped-v2",
+   "type": "document",
+   "label": "decision",
+   "as": [
+    "dec-ep-cuped-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "variance reduction",
+   "as": [
+    "Median variance reduction 27 percent"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ep-cuped-v2",
+   "type": "uses",
+   "label": "two covariates",
+   "o": "feat-ep-pre-spend-cov-v2",
+   "quote": "Two covariates: feat-ep-pre-spend-cov-v2 and feat-ep-prior-logins-14d",
+   "line": 5
+  },
+  {
+   "s": "ep-cuped-v2",
+   "type": "uses",
+   "label": "two covariates",
+   "o": "feat-ep-prior-logins-14d",
+   "quote": "Two covariates: feat-ep-pre-spend-cov-v2 and feat-ep-prior-logins-14d",
+   "line": 5
+  },
+  {
+   "s": "ep-cuped-v2",
+   "type": "measured-by",
+   "label": "median variance reduction",
+   "o": "mape",
+   "quote": "Median variance reduction 27 percent across 12 finished tests",
+   "line": 6
+  },
+  {
+   "s": "ep-cuped-v2",
+   "type": "evaluated-on",
+   "label": "compared on",
+   "o": "exp-505-experiment-platform",
+   "quote": "against 18 percent for v1 on the same tests (exp-505-experiment-platform)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-505-experiment-platform",
+  "dec-ep-cuped-v2",
+  "ep-cuped-v1"
+ ],
+ "built_on": [
+  {
+   "what": "ep-cuped-v1",
+   "quote": "ep-cuped-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-505-experiment-platform",
+   "quote": "exp-505-experiment-platform",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-ep-pre-spend-cov-v2",
+   "quote": "feat-ep-pre-spend-cov-v2",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-ep-prior-logins-14d",
+   "quote": "feat-ep-prior-logins-14d",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "ep-cuped-v1",
+   "quote": "ep-cuped-v1",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ep-cuped-v2.md",
+ "sha": "fd33083facd424484e67c7b70d3a77ca6814ada7bb6b026ae1ee28aa94a0ef0f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

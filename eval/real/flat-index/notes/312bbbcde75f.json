@@ -1,0 +1,117 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cld-util-after-decrease",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cld-util-after-decrease"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cld-complaint-logit",
+   "type": "model",
+   "label": "logit model",
+   "as": [
+    "cld-complaint-logit"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-cld-payment-shock",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cld-payment-shock"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-cld-complaint-calls",
+   "type": "dataset",
+   "label": "calls dataset",
+   "as": [
+    "ds-cld-complaint-calls"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-cld-risk-band-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cld-risk-band-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "dpd",
+   "type": "term",
+   "label": "delinquency measure",
+   "as": [
+    "30+ DPD"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cld-complaint-logit",
+   "type": "uses",
+   "label": "feeds",
+   "o": "feat-cld-util-after-decrease",
+   "quote": "Feeds cld-complaint-logit and feat-cld-payment-shock.",
+   "line": 7
+  },
+  {
+   "s": "feat-cld-payment-shock",
+   "type": "uses",
+   "label": "feeds",
+   "o": "feat-cld-util-after-decrease",
+   "quote": "Feeds cld-complaint-logit and feat-cld-payment-shock.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-cld-complaint-calls",
+  "feat-cld-risk-band-v2",
+  "cld-complaint-logit",
+  "feat-cld-payment-shock"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cld-complaint-calls",
+   "quote": "ds-cld-complaint-calls",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-cld-risk-band-v2",
+   "quote": "feat-cld-risk-band-v2",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-cld-util-after-decrease.md",
+ "sha": "312bbbcde75fab761dd78cc4a1499ae94dcdf2c585074499a9e3475af30f3c81",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

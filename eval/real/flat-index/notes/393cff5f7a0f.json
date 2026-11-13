@@ -1,0 +1,166 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "outcomes",
+   "as": [
+    "callcenter.calls"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "join",
+   "as": [
+    "cards.payments_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ptp-label",
+   "type": "term",
+   "label": "label",
+   "as": [
+    "promise-to-pay label",
+    "PTP (promise to pay)"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "early-collections-contacts",
+   "type": "segment",
+   "label": "contacts",
+   "as": [
+    "early-collections contacts"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "base-rate",
+   "type": "metric",
+   "label": "base rate",
+   "as": [
+    "Base rate on 2025 Jan-Feb contacts: 18.6% positive"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "sms",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "SMS"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "calls",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "Calls"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "email",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "Email"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ptp-label",
+   "type": "uses",
+   "label": "built by joining",
+   "o": "callcenter.calls",
+   "quote": "Built by joining `callcenter.calls` to `cards.payments_daily`.",
+   "line": 5
+  },
+  {
+   "s": "ptp-label",
+   "type": "uses",
+   "label": "built by joining",
+   "o": "cards.payments_daily",
+   "quote": "Built by joining `callcenter.calls` to `cards.payments_daily`.",
+   "line": 5
+  },
+  {
+   "s": "ptp-label",
+   "type": "measured-by",
+   "label": "base rate",
+   "o": "base-rate",
+   "quote": "Base rate on 2025 Jan-Feb contacts: 18.6% positive",
+   "line": 6
+  },
+  {
+   "s": "ptp-label",
+   "type": "uses",
+   "label": "fed by",
+   "o": "sms",
+   "quote": "Calls and SMS both feed the label.",
+   "line": 7
+  },
+  {
+   "s": "ptp-label",
+   "type": "uses",
+   "label": "fed by",
+   "o": "calls",
+   "quote": "Calls and SMS both feed the label.",
+   "line": 7
+  },
+  {
+   "s": "email",
+   "type": "other",
+   "label": "excluded",
+   "o": "ptp-label",
+   "quote": "Email is excluded",
+   "line": 7
+  },
+  {
+   "s": "ptp-label",
+   "type": "other",
+   "label": "per",
+   "o": "early-collections-contacts",
+   "quote": "The label is per contact, not per account",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-cu-call-outcomes.md",
+ "sha": "393cff5f7a0f2f2ec324ae0aba75d04c74dcdb19ebc62fe6c0371f8b29883361",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

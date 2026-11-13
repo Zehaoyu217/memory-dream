@@ -1,0 +1,166 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-105-credit-line-increase",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-105-credit-line-increase"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cli-test-2025q1",
+   "type": "segment",
+   "label": "test cohort",
+   "as": [
+    "cli-test-2025q1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "revolvers",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "revolvers"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "full-payers",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "full-payers"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "90-day-loss",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "90-day loss"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "find-cli-revolver-loss",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-cli-revolver-loss"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-cli-outcome-90d",
+   "type": "dataset",
+   "label": "source dataset",
+   "as": [
+    "ds-cli-outcome-90d"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-cli-pay-behaviour",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cli-pay-behaviour"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "minimum-pay-share",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "minimum-pay share"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-105-credit-line-increase",
+   "type": "uses",
+   "label": "split by",
+   "o": "minimum-pay-share",
+   "quote": "Split of cli-test-2025q1 (n=60,000) by minimum-pay share",
+   "line": 5
+  },
+  {
+   "s": "exp-105-credit-line-increase",
+   "type": "evaluated-on",
+   "label": "split of",
+   "o": "cli-test-2025q1",
+   "quote": "Split of cli-test-2025q1 (n=60,000)",
+   "line": 5
+  },
+  {
+   "s": "exp-105-credit-line-increase",
+   "type": "measured-by",
+   "label": "90-day loss",
+   "o": "90-day-loss",
+   "quote": "90-day loss: revolvers 2.1%, full-payers 1.1%.",
+   "line": 6
+  },
+  {
+   "s": "exp-105-credit-line-increase",
+   "type": "other",
+   "label": "gives lowest spend per loss",
+   "o": "find-cli-revolver-loss",
+   "quote": "see find-cli-revolver-loss",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "find-cli-revolver-loss"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cli-outcome-90d",
+   "quote": "ds-cli-outcome-90d",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-cli-pay-behaviour",
+   "quote": "feat-cli-pay-behaviour",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-105-credit-line-increase.md",
+ "sha": "68a1b188b1d08546c587dcd8f428ad399326f2d4704cc5645d1c348a378bdc24",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

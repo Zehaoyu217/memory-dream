@@ -1,0 +1,128 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-cb-rollout-60",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Expand the bot to 60 percent of account-servicing traffic from 2026-07-01"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cb-intent-v2",
+   "type": "model",
+   "label": "intent model",
+   "as": [
+    "cb-intent-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dec-cb-handoff-v2",
+   "type": "policy",
+   "label": "handoff rule",
+   "as": [
+    "the v2 handoff rule"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "containment-48h-definition",
+   "type": "term",
+   "label": "definition",
+   "as": [
+    "48-hour containment definition"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "containment",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "containment"
+   ],
+   "lines": [
+    5,
+    6,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-cb-rollout-60",
+   "type": "uses",
+   "label": "uses",
+   "o": "cb-intent-v2",
+   "quote": "Uses cb-intent-v2",
+   "line": 5
+  },
+  {
+   "s": "dec-cb-rollout-60",
+   "type": "uses",
+   "label": "uses",
+   "o": "dec-cb-handoff-v2",
+   "quote": "Uses cb-intent-v2 and the v2 handoff rule",
+   "line": 5
+  },
+  {
+   "s": "dec-cb-rollout-60",
+   "type": "uses",
+   "label": "uses",
+   "o": "containment-48h-definition",
+   "quote": "under the 48-hour containment definition",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "fnd-cb-volume-shift",
+  "dec-cb-handoff-v2",
+  "cb-intent-v2"
+ ],
+ "built_on": [
+  {
+   "what": "cb-intent-v2",
+   "quote": "the intent model with account state",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "dec-cb-handoff-v2",
+   "quote": "dec-cb-handoff-v2",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "dec-cb-metric-48h",
+   "quote": "the 48-hour containment definition",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "fnd-cb-volume-shift",
+   "quote": "fnd-cb-volume-shift",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-cb-rollout-60.md",
+ "sha": "6f588f9f23f51226b21960d7a3781579b76fc007439dfbd5a19e786a16c30990",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,97 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "imputation-statistics",
+   "type": "term",
+   "label": "imputer, scaler or capping statistic",
+   "as": [
+    "imputer, scaler or capping statistic"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "training-split",
+   "type": "dataset",
+   "label": "training split",
+   "as": [
+    "training split"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "oot-set",
+   "type": "dataset",
+   "label": "oot",
+   "as": [
+    "OOT"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "limit-model-2025",
+   "type": "model",
+   "label": "limit model",
+   "as": [
+    "2025 limit model"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "oot auc",
+   "as": [
+    "OOT AUC"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "imputation-statistics",
+   "type": "other",
+   "label": "fitted on",
+   "o": "training-split",
+   "quote": "is fitted on the training split",
+   "line": 5
+  },
+  {
+   "s": "imputation-statistics",
+   "type": "other",
+   "label": "applied unchanged to",
+   "o": "oot-set",
+   "quote": "applied unchanged to validation and OOT",
+   "line": 5
+  },
+  {
+   "s": "limit-model-2025",
+   "type": "measured-by",
+   "label": "inflated OOT AUC",
+   "o": "auc",
+   "quote": "inflated its OOT AUC by 0.011",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/imputation-fit-on-train-only.md",
+ "sha": "273e69747cfb8b2d6b853beddf3a8f9fee190f1968c4589170794ad844aaf56a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

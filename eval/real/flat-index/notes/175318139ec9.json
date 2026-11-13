@@ -1,0 +1,123 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "aml-structuring-rule",
+   "type": "policy",
+   "label": "rule",
+   "as": [
+    "AML structuring rule"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "structuring-alerts",
+   "type": "other",
+   "label": "alerts",
+   "as": [
+    "structuring alerts"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "false-positive-rate",
+   "type": "metric",
+   "label": "rate",
+   "as": [
+    "false-positive rate"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-aml-alerts",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-aml-alerts"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "ds-aml-dispositions",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-aml-dispositions"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "sar-referral",
+   "type": "other",
+   "label": "outcome",
+   "as": [
+    "SAR referral"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "aml-find-fp-baseline",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "aml-find-fp-baseline"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "structuring-alerts",
+   "type": "measured-by",
+   "label": "false-positive rate",
+   "o": "false-positive-rate",
+   "quote": "Question: how many structuring alerts analysts close as false positives, and how many lead to a SAR referral.",
+   "line": 5
+  },
+  {
+   "s": "aml-structuring-rule",
+   "type": "measured-by",
+   "label": "false-positive rate",
+   "o": "false-positive-rate",
+   "quote": "What is the false-positive rate of the AML structuring rule?",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "aml-find-fp-baseline",
+  "ds-aml-alerts",
+  "ds-aml-dispositions"
+ ],
+ "built_on": [
+  {
+   "what": "ds-aml-alerts",
+   "quote": "ds-aml-alerts",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/q-aml-fp-rate.md",
+ "sha": "175318139ec9be55557b896a89248b566e0b49516d036dac10dfbe1a84e81047",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

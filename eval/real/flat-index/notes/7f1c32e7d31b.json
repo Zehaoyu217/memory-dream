@@ -1,0 +1,95 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "cross-sell-savings",
+   "type": "other",
+   "label": "workstream",
+   "as": [
+    "cross-sell-savings"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "offer-log",
+   "type": "dataset",
+   "label": "log",
+   "as": [
+    "Offer log"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "open-rate",
+   "type": "metric",
+   "label": "rate",
+   "as": [
+    "open 2.9%"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "call-history",
+   "type": "dataset",
+   "label": "history",
+   "as": [
+    "Call history"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "confounder",
+   "type": "term",
+   "label": "confounder",
+   "as": [
+    "confounder"
+   ],
+   "lines": [
+    3
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "offer-log",
+   "type": "measured-by",
+   "label": "open",
+   "o": "open-rate",
+   "quote": "open 2.9%",
+   "line": 3
+  },
+  {
+   "s": "cross-sell-savings",
+   "type": "uses",
+   "label": "offer log in",
+   "o": "offer-log",
+   "quote": "Offer log in: 1.42M rows",
+   "line": 3
+  },
+  {
+   "s": "call-history",
+   "type": "other",
+   "label": "is a",
+   "o": "confounder",
+   "quote": "Call history is a confounder",
+   "line": 3
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2025-04-08.md",
+ "sha": "7f1c32e7d31ba496ea76ffef17b4749482c2e9f320768bf82aa63f454ef510d1",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

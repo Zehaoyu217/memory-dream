@@ -1,0 +1,95 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-app-applications-2024",
+   "type": "dataset",
+   "label": "application dataset",
+   "as": [
+    "214,600 new-account applications"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "outcome source",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bad-rate",
+   "type": "metric",
+   "label": "bad rate",
+   "as": [
+    "Bad rate among booked accounts 4.6%"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "booked-accounts",
+   "type": "segment",
+   "label": "booked accounts",
+   "as": [
+    "Booked accounts 58,300"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "reject-inference",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "reject inference"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-app-applications-2024",
+   "type": "uses",
+   "label": "outcome from",
+   "o": "cards.accounts_monthly",
+   "quote": "outcome from `cards.accounts_monthly` for booked accounts",
+   "line": 5
+  },
+  {
+   "s": "bad-rate",
+   "type": "measured-by",
+   "label": "measured on",
+   "o": "booked-accounts",
+   "quote": "Bad rate among booked accounts 4.6%",
+   "line": 7
+  },
+  {
+   "s": "ds-app-applications-2024",
+   "type": "uses",
+   "label": "handled by",
+   "o": "reject-inference",
+   "quote": "handled by reject inference",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-app-applications-2024.md",
+ "sha": "dc12a01eafb7d39a5f7df1b04f4bb3f1703a6d5634da56e8547b8276da39efcf",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,94 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ep-tenure-months",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ep-tenure-months"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ep-uplift-forest-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ep-uplift-forest-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-ep-prior-logins-14d",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ep-prior-logins-14d"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ep-tenure-months",
+   "type": "uses",
+   "label": "from",
+   "o": "cards.accounts_monthly",
+   "quote": "from cards.accounts_monthly",
+   "line": 4
+  },
+  {
+   "s": "feat-ep-tenure-months",
+   "type": "uses",
+   "label": "input to",
+   "o": "ep-uplift-forest-v1",
+   "quote": "Input to ep-uplift-forest-v1 together with the product tier and feat-ep-prior-logins-14d.",
+   "line": 6
+  },
+  {
+   "s": "ep-uplift-forest-v1",
+   "type": "uses",
+   "label": "input with",
+   "o": "feat-ep-prior-logins-14d",
+   "quote": "together with the product tier and feat-ep-prior-logins-14d",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "feat-ep-prior-logins-14d"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ep-assignments",
+   "quote": "the assignments table",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-ep-tenure-months.md",
+ "sha": "160d69f902665967f2170bd0b4f143bf1fc932d730ece3ce96812d62fbac4353",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

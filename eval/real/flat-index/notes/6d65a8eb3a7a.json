@@ -1,0 +1,113 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "trv-bt-2025h2",
+   "type": "dataset",
+   "label": "set",
+   "as": [
+    "trv-bt-2025h2"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "trv-ridge-v2",
+   "type": "model",
+   "label": "ridge",
+   "as": [
+    "trv-ridge-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "feat-trv-funnel-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-trv-funnel-v2"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "trv-ridge-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "trv-ridge-v3"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "trv-ridge-v2",
+   "type": "measured-by",
+   "label": "MAPE",
+   "o": "mape",
+   "quote": "against 5.2% for trv-ridge-v2 on the same set",
+   "line": 6
+  },
+  {
+   "s": "trv-ridge-v2",
+   "type": "evaluated-on",
+   "label": "on",
+   "o": "trv-bt-2025h2",
+   "quote": "funnel features take ridge MAPE to 4.3% on trv-bt-2025h2",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "trv-ridge-v3",
+  "fnd-trv-funnel-driver"
+ ],
+ "built_on": [
+  {
+   "what": "exp-503-travel-spend-recovery",
+   "quote": "the cross-border share ridge experiment",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-trv-funnel-v2",
+   "quote": "feat-trv-funnel-v2",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "cross-border share ridge experiment",
+   "quote": "Builds on the cross-border share ridge experiment and feat-trv-funnel-v2.",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-505-travel-spend-recovery.md",
+ "sha": "6d65a8eb3a7a0b12ed939f84464d28d9e1f2891f4a3e1949a08f01aed9a969b3",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

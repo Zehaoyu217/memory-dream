@@ -159,7 +159,8 @@ relation is "current" when one of its evidence notes is live).
 - `notes/<sha12>.json` — one extraction per note content: `{kind, entities: [{id, type, label, as, lines}], relations:
   [{s, type, label, o, quote, line}], refs, built_on: [{what, quote, line[, asked]}], replaces: [the same], dropped:
   {entities, relations}, path, sha, model, indexed_at}`. `built_on` and `replaces` are what the note says of itself,
-  the document, kept only with words found in the note; a reading made before they existed has neither. `asked`: the
+  the document, kept only with words found in the note; a reading made before they existed has neither. `what` is
+  a note's file name, a thing's id, or, when a keeper could name neither, the note's own words for it. `asked`: the
   line the item stands on has been read a second time, alone and beside the folder's notes, and this item is one
   member of what that reading found there: `quote` is the member's own words in the line, `what` the file name of
   the note the keeper named for it (`folder/name` for a note of another folder), or the words again when it named

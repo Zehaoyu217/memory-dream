@@ -1,0 +1,177 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "monthly-revenue",
+   "type": "metric",
+   "label": "monthly revenue",
+   "as": [
+    "Monthly revenue per account"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.payments_daily"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "interchange",
+   "type": "metric",
+   "label": "revenue component",
+   "as": [
+    "interchange"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "interest",
+   "type": "metric",
+   "label": "revenue component",
+   "as": [
+    "interest"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "fees",
+   "type": "metric",
+   "label": "revenue component",
+   "as": [
+    "fees"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "offer-credits",
+   "type": "term",
+   "label": "offer credits",
+   "as": [
+    "Offer credits"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-clv-arpu-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-clv-arpu-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-clv-cohort-panel",
+   "type": "dataset",
+   "label": "cohort panel",
+   "as": [
+    "ds-clv-cohort-panel"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "monthly-revenue",
+   "type": "uses",
+   "label": "from",
+   "o": "cards.txn_daily",
+   "quote": "from cards.txn_daily and cards.payments_daily",
+   "line": 4
+  },
+  {
+   "s": "monthly-revenue",
+   "type": "uses",
+   "label": "from",
+   "o": "cards.payments_daily",
+   "quote": "from cards.txn_daily and cards.payments_daily",
+   "line": 4
+  },
+  {
+   "s": "interchange",
+   "type": "part-of",
+   "label": "plus",
+   "o": "monthly-revenue",
+   "quote": "Revenue = interchange plus interest plus fees",
+   "line": 5
+  },
+  {
+   "s": "interest",
+   "type": "part-of",
+   "label": "plus",
+   "o": "monthly-revenue",
+   "quote": "Revenue = interchange plus interest plus fees",
+   "line": 5
+  },
+  {
+   "s": "fees",
+   "type": "part-of",
+   "label": "plus",
+   "o": "monthly-revenue",
+   "quote": "Revenue = interchange plus interest plus fees",
+   "line": 5
+  },
+  {
+   "s": "feat-clv-arpu-v2",
+   "type": "other",
+   "label": "nets",
+   "o": "offer-credits",
+   "quote": "Offer credits are not netted here; that is done in feat-clv-arpu-v2.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-clv-arpu-v2",
+  "ds-clv-cohort-panel"
+ ],
+ "built_on": [
+  {
+   "what": "ds-clv-cohort-panel",
+   "quote": "ds-clv-cohort-panel",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-clv-revenue-monthly.md",
+ "sha": "fa35e429f47f71b86a59c22dcf8f5e060bf6def80781c96eb5cfbf5b0cadf873",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

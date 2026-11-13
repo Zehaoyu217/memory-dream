@@ -1,0 +1,87 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-disp-analyst-labels",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "Analyst labels"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fraud-ops",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "fraud-ops analysts"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "kappa",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Kappa 0.71"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-disp-disputes",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-disp-disputes"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-disp-analyst-labels",
+   "type": "measured-by",
+   "label": "agreement measured by",
+   "o": "kappa",
+   "quote": "Kappa 0.71 on the 400 double-labelled disputes",
+   "line": 7
+  },
+  {
+   "s": "fraud-ops",
+   "type": "produces",
+   "label": "labels",
+   "o": "ds-disp-analyst-labels",
+   "quote": "Labels by fraud-ops analysts",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "disp-find-label-noise",
+  "ds-disp-disputes"
+ ],
+ "built_on": [
+  {
+   "what": "ds-disp-disputes",
+   "quote": "ds-disp-disputes",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-disp-analyst-labels.md",
+ "sha": "c2589a5192962705480a1430358a3c7a6d6b2273ff67af481c11a6bdd1da6ec2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

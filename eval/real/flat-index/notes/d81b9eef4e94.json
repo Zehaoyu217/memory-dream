@@ -1,0 +1,46 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`callcenter.calls`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "yuki-tanaka",
+   "type": "person",
+   "label": "team lead",
+   "as": [
+    "Yuki Tanaka's team excludes calls"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "yuki-tanaka",
+   "type": "other",
+   "label": "excludes calls",
+   "o": "callcenter.calls",
+   "quote": "Yuki Tanaka's team excludes calls that are complaints about fees from the attribution count",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/callcenter-attribution-window.md",
+ "sha": "d81b9eef4e949950f8a04e74d3745b277efdd51e19dc87f7565ed7114d17b7cb",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

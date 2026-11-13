@@ -1,0 +1,199 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-trv-ridge-v3-pack",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: use trv-ridge-v3 in the quarterly travel pack from June 2026"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "trv-ridge-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "trv-ridge-v3"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "trv-ridge-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "trv-ridge-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "quarterly-travel-pack",
+   "type": "document",
+   "label": "pack",
+   "as": [
+    "quarterly travel pack"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "trv-bt-2025h2",
+   "type": "dataset",
+   "label": "backtest",
+   "as": [
+    "trv-bt-2025h2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "funnel-features",
+   "type": "feature",
+   "label": "features",
+   "as": [
+    "funnel features"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fx-volatility",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "FX volatility"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE 4.3%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "domestic-cross-border-split",
+   "type": "other",
+   "label": "split",
+   "as": [
+    "domestic and cross-border split"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-trv-ridge-v3-pack",
+   "type": "uses",
+   "label": "use",
+   "o": "trv-ridge-v3",
+   "quote": "use trv-ridge-v3 in the quarterly travel pack",
+   "line": 4
+  },
+  {
+   "s": "trv-ridge-v3",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "trv-ridge-v2",
+   "quote": "trv-ridge-v3 replaces trv-ridge-v2 in the quarterly pack",
+   "line": 5
+  },
+  {
+   "s": "trv-ridge-v3",
+   "type": "evaluated-on",
+   "label": "MAPE on",
+   "o": "trv-bt-2025h2",
+   "quote": "MAPE 4.3% on trv-bt-2025h2",
+   "line": 6
+  },
+  {
+   "s": "trv-ridge-v3",
+   "type": "measured-by",
+   "label": "MAPE",
+   "o": "mape",
+   "quote": "MAPE 4.3% on trv-bt-2025h2",
+   "line": 6
+  },
+  {
+   "s": "trv-ridge-v3",
+   "type": "uses",
+   "label": "with",
+   "o": "funnel-features",
+   "quote": "with funnel features",
+   "line": 6
+  },
+  {
+   "s": "trv-ridge-v3",
+   "type": "other",
+   "label": "excludes",
+   "o": "fx-volatility",
+   "quote": "FX volatility excluded",
+   "line": 6
+  },
+  {
+   "s": "quarterly-travel-pack",
+   "type": "other",
+   "label": "shown next to",
+   "o": "domestic-cross-border-split",
+   "quote": "Forecast is shown next to the domestic and cross-border split",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-505-travel-spend-recovery",
+  "exp-506-travel-spend-recovery",
+  "dec-trv-report-split",
+  "trv-ridge-v2",
+  "trv-ridge-v3"
+ ],
+ "built_on": [
+  {
+   "what": "exp-505-travel-spend-recovery",
+   "quote": "exp-505-travel-spend-recovery",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-506-travel-spend-recovery",
+   "quote": "exp-506-travel-spend-recovery",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "trv-ridge-v3",
+   "quote": "trv-ridge-v3",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-trv-ridge-v3-pack.md",
+ "sha": "f86c77263fe06a8d8daf1e8ceeeba9e9f89aad8721166ba4a0ff60bf05a6c964",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

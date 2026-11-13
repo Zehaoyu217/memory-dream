@@ -1,0 +1,115 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "omar-haddad",
+   "type": "person",
+   "label": "compliance approver",
+   "as": [
+    "Omar Haddad"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "aml-ranker",
+   "type": "model",
+   "label": "ranker",
+   "as": [
+    "the AML ranker",
+    "the first alert-priority ranker model"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "aml-find-fp-baseline",
+   "type": "finding",
+   "label": "finding",
+   "as": [
+    "aml-find-fp-baseline"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "dec-aml-suppress-018",
+   "type": "decision",
+   "label": "decision",
+   "as": [
+    "dec-aml-suppress-018"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "q-aml-signoff",
+   "type": "question",
+   "label": "question",
+   "as": [
+    "q-aml-signoff"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "omar-haddad",
+   "type": "owned-by",
+   "label": "approves",
+   "o": "omar-haddad",
+   "quote": "Decision (compliance, Omar Haddad)",
+   "line": 5
+  },
+  {
+   "s": "aml-ranker",
+   "type": "other",
+   "label": "orders queue",
+   "o": "aml-find-fp-baseline",
+   "quote": "the AML ranker orders the analyst queue and never closes an alert",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "aml-find-fp-baseline",
+  "dec-aml-suppress-018",
+  "q-aml-signoff"
+ ],
+ "built_on": [
+  {
+   "what": "aml-find-fp-baseline",
+   "quote": "aml-find-fp-baseline",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "aml-xgb-v1",
+   "quote": "the first alert-priority ranker model",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "q-aml-signoff",
+   "quote": "q-aml-signoff",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-aml-queue-only.md",
+ "sha": "06f388446e2cf07c2c172714eda52fd8e606363f1f7d77159b7fb11d6f6d2d03",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

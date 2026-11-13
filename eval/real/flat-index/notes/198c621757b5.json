@@ -1,0 +1,127 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-app-bureau-v10-band",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-app-bureau-v10-band: ten bands on the mapped v10 bureau score"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-app-bureau-v10-pull",
+   "type": "dataset",
+   "label": "pull",
+   "as": [
+    "Ten bands cut from the isotonic-mapped v10 score on ds-app-bureau-v10-pull"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bureau-score-migration",
+   "type": "other",
+   "label": "band cut points",
+   "as": [
+    "aligned with the bureau-score-migration band cut points"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini gain on holdout-2025q1 is 0.03"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-505-application-scorecard",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-505-application-scorecard"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "app-scorecard-v4",
+   "type": "model",
+   "label": "scorecard",
+   "as": [
+    "Used in app-scorecard-v4."
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-app-bureau-v10-band",
+   "type": "uses",
+   "label": "cut from",
+   "o": "ds-app-bureau-v10-pull",
+   "quote": "Ten bands cut from the isotonic-mapped v10 score on ds-app-bureau-v10-pull",
+   "line": 5
+  },
+  {
+   "s": "feat-app-bureau-v10-band",
+   "type": "measured-by",
+   "label": "gini gain",
+   "o": "gini",
+   "quote": "Gini gain on holdout-2025q1 is 0.03 over the v8 band",
+   "line": 6
+  },
+  {
+   "s": "app-scorecard-v4",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-app-bureau-v10-band",
+   "quote": "Used in app-scorecard-v4.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-505-application-scorecard"
+ ],
+ "built_on": [
+  {
+   "what": "ds-app-bureau-v10-pull",
+   "quote": "ds-app-bureau-v10-pull",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-app-bureau-v10-band.md",
+ "sha": "198c621757b5e76232e0cff103ac6a80d6795a923e1b4e17bed350b89a2e78a0",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

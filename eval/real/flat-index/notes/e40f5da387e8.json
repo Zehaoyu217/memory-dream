@@ -1,0 +1,105 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "disp-oot-2026h1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "disp-oot-2026h1",
+    "out-of-time h1 2026 dispute dataset"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "disp-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "disp-lgbm-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "precision-at-k",
+   "type": "metric",
+   "label": "precision",
+   "as": [
+    "precision"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "coverage",
+   "type": "metric",
+   "label": "coverage",
+   "as": [
+    "coverage"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "disp-lgbm-v2",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "disp-oot-2026h1",
+   "quote": "Eval set: disp-oot-2026h1",
+   "line": 5
+  },
+  {
+   "s": "disp-lgbm-v2",
+   "type": "measured-by",
+   "label": "precision",
+   "o": "precision-at-k",
+   "quote": "precision 93.4%",
+   "line": 6
+  },
+  {
+   "s": "disp-lgbm-v2",
+   "type": "measured-by",
+   "label": "coverage",
+   "o": "coverage",
+   "quote": "coverage 31%",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "disp-find-autoresolve-96"
+ ],
+ "built_on": [
+  {
+   "what": "ds-disp-oot",
+   "quote": "the out-of-time h1 2026 dispute dataset",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-303-dispute-triage",
+   "quote": "exp-303-dispute-triage",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-304-dispute-triage.md",
+ "sha": "e40f5da387e876e53abdc43b4ebac288285b6d2f8878e1fe4e5b8384050bd7eb",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

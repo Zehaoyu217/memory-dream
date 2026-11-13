@@ -1,0 +1,123 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-403-aml-alerts",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-403-aml-alerts"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-402-aml-alerts",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-402-aml-alerts"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-aml-round-amount",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-aml-round-amount"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-aml-cash-velocity",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-aml-cash-velocity",
+    "the cash velocity feature over 30 days"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-403-aml-alerts",
+   "type": "uses",
+   "label": "adds",
+   "o": "feat-aml-round-amount",
+   "quote": "Adding feat-aml-round-amount and feat-aml-cash-velocity",
+   "line": 6
+  },
+  {
+   "s": "exp-403-aml-alerts",
+   "type": "uses",
+   "label": "adds",
+   "o": "feat-aml-cash-velocity",
+   "quote": "Adding feat-aml-round-amount and feat-aml-cash-velocity",
+   "line": 6
+  },
+  {
+   "s": "exp-403-aml-alerts",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.86 (from 0.84)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-402-aml-alerts",
+  "feat-aml-round-amount",
+  "feat-aml-cash-velocity"
+ ],
+ "built_on": [
+  {
+   "what": "exp-402-aml-alerts",
+   "quote": "exp-402-aml-alerts",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-aml-cash-velocity",
+   "quote": "the cash velocity feature over 30 days",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-aml-round-amount",
+   "quote": "the round-amount cash feature",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-403-aml-alerts.md",
+ "sha": "f9c87fe571ac58becbfa8da0db6b07a9bad4bebf86fd6ca9dea9d95175f3dee0",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

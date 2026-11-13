@@ -1,0 +1,157 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-mq3-q2-rct",
+   "type": "dataset",
+   "label": "contacts",
+   "as": [
+    "mkt.q2_2026_rct"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "q2-26-spend",
+   "type": "other",
+   "label": "campaign",
+   "as": [
+    "Campaign Q2-26-SPEND"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "marketing.campaign_responses",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "marketing.campaign_responses"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "response-base-rate-14d",
+   "type": "metric",
+   "label": "base rate",
+   "as": [
+    "14-day response base rate"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "email",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "email"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "push",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "push"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "in-app",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "in-app"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "direct-mail",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "direct mail"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-mq3-q2-rct",
+   "type": "uses",
+   "label": "outcomes from",
+   "o": "marketing.campaign_responses",
+   "quote": "Outcomes from `marketing.campaign_responses`",
+   "line": 5
+  },
+  {
+   "s": "ds-mq3-q2-rct",
+   "type": "uses",
+   "label": "spend from",
+   "o": "cards.txn_daily",
+   "quote": "monthly spend from `cards.txn_daily`",
+   "line": 5
+  },
+  {
+   "s": "ds-mq3-q2-rct",
+   "type": "measured-by",
+   "label": "base rate",
+   "o": "response-base-rate-14d",
+   "quote": "14-day response base rate 2.1% in control, 3.0% in treated",
+   "line": 6
+  },
+  {
+   "s": "q2-26-spend",
+   "type": "other",
+   "label": "randomized",
+   "o": "ds-mq3-q2-rct",
+   "quote": "Campaign Q2-26-SPEND, randomized at account level",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "q-mq3-uplift-vs-response"
+ ],
+ "built_on": [
+  {
+   "what": "q-mq3-uplift-vs-response",
+   "quote": "q-mq3-uplift-vs-response",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-mq3-q2-rct.md",
+ "sha": "b9f73339b32bc333d5b6544727a94b3a63466a36c4a37e03ac8701f468a62289",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

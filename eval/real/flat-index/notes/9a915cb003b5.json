@@ -1,0 +1,180 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "app-scorecard-v4",
+   "type": "model",
+   "label": "candidate",
+   "as": [
+    "Candidate v4"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "app-scorecard-v3",
+   "type": "model",
+   "label": "deployed model",
+   "as": [
+    "the deployed v3"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-app-oot-2026h1",
+   "type": "dataset",
+   "label": "oot set",
+   "as": [
+    "out-of-time set of Jan-Apr 2026 applications"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini 0.42"
+   ],
+   "lines": [
+    4,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.38"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "q-app-gini-target",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "q-app-gini-target"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "app-gbm-v2",
+   "type": "model",
+   "label": "gbm",
+   "as": [
+    "the monotone-constrained gbm with reject weights"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-app-bureau-v10-band",
+   "type": "feature",
+   "label": "bureau band",
+   "as": [
+    "feat-app-bureau-v10-band"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-app-income-est",
+   "type": "feature",
+   "label": "income estimate",
+   "as": [
+    "feat-app-income-est"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "app-scorecard-v4",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "ds-app-oot-2026h1",
+   "quote": "scored on the out-of-time set of Jan-Apr 2026 applications",
+   "line": 5
+  },
+  {
+   "s": "app-scorecard-v4",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "gini",
+   "quote": "Gini 0.42 for v4 against 0.35 for v3",
+   "line": 6
+  },
+  {
+   "s": "app-scorecard-v4",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "ks",
+   "quote": "KS 0.38 against 0.33",
+   "line": 6
+  },
+  {
+   "s": "app-scorecard-v4",
+   "type": "other",
+   "label": "meets",
+   "o": "q-app-gini-target",
+   "quote": "Meets the Gini 0.42 target in q-app-gini-target.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "q-app-gini-target",
+  "ds-app-oot-2026h1",
+  "feat-app-bureau-v10-band",
+  "feat-app-income-est"
+ ],
+ "built_on": [
+  {
+   "what": "app-gbm-v2",
+   "quote": "the monotone-constrained gbm with reject weights",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-app-oot-2026h1",
+   "quote": "ds-app-oot-2026h1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-app-bureau-v10-band",
+   "quote": "feat-app-bureau-v10-band",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-app-income-est",
+   "quote": "feat-app-income-est",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-507-application-scorecard.md",
+ "sha": "9a915cb003b5c89d57ab4236d6fff2fca309a6ebdc2f088021aec14b3fdf06b6",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

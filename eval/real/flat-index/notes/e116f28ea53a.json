@@ -1,0 +1,142 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-503-application-scorecard",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-503-application-scorecard"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "app-gbm-v1",
+   "type": "model",
+   "label": "challenger",
+   "as": [
+    "app-gbm-v1",
+    "gradient-boosted challenger"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "app-scorecard-v3",
+   "type": "model",
+   "label": "scorecard",
+   "as": [
+    "app-scorecard-v3"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Gini 0.46"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "dec-app-no-gbm",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-app-no-gbm"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-503-application-scorecard",
+   "type": "evaluated-on",
+   "label": "compared on",
+   "o": "holdout-2025q1",
+   "quote": "Compared app-gbm-v1 with app-scorecard-v3 on holdout-2025q1 (n=21,300).",
+   "line": 5
+  },
+  {
+   "s": "exp-503-application-scorecard",
+   "type": "measured-by",
+   "label": "compared on Gini",
+   "o": "gini",
+   "quote": "Gini 0.46 against 0.41",
+   "line": 6
+  },
+  {
+   "s": "exp-503-application-scorecard",
+   "type": "uses",
+   "label": "builds on",
+   "o": "app-gbm-v1",
+   "quote": "Builds on the gradient-boosted challenger that is not explainable",
+   "line": 8
+  },
+  {
+   "s": "exp-503-application-scorecard",
+   "type": "uses",
+   "label": "builds on",
+   "o": "app-scorecard-v3",
+   "quote": "app-scorecard-v3.",
+   "line": 8
+  },
+  {
+   "s": "exp-503-application-scorecard",
+   "type": "other",
+   "label": "led to",
+   "o": "dec-app-no-gbm",
+   "quote": "Led to dec-app-no-gbm.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-app-no-gbm"
+ ],
+ "built_on": [
+  {
+   "what": "app-gbm-v1",
+   "quote": "the gradient-boosted challenger that is not explainable",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "app-scorecard-v3",
+   "quote": "app-scorecard-v3",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-503-application-scorecard.md",
+ "sha": "e116f28ea53a0cd1da5be94fec262c162650468c119e6a502e8958f146c8370b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

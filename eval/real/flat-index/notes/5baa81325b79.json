@@ -1,0 +1,142 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-303-recovery-scoring",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-303-recovery-scoring"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "recovery-scoring-holdout-2023h2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "recovery-scoring-holdout-2023h2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "rs-xgb-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rs-xgb-v1"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-rs-region-rate",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rs-region-rate"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Gini"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-303-recovery-scoring",
+   "type": "uses",
+   "label": "plus",
+   "o": "rs-xgb-v1",
+   "quote": "rs-xgb-v1 plus feat-rs-region-rate",
+   "line": 5
+  },
+  {
+   "s": "exp-303-recovery-scoring",
+   "type": "uses",
+   "label": "adds",
+   "o": "feat-rs-region-rate",
+   "quote": "rs-xgb-v1 plus feat-rs-region-rate",
+   "line": 5
+  },
+  {
+   "s": "exp-303-recovery-scoring",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "recovery-scoring-holdout-2023h2",
+   "quote": "on recovery-scoring-holdout-2023h2",
+   "line": 4
+  },
+  {
+   "s": "exp-303-recovery-scoring",
+   "type": "measured-by",
+   "label": "lifts Gini",
+   "o": "gini",
+   "quote": "lifts Gini from 0.41 to 0.44 on recovery-scoring-holdout-2023h2",
+   "line": 4
+  },
+  {
+   "s": "exp-303-recovery-scoring",
+   "type": "measured-by",
+   "label": "reports KS",
+   "o": "ks",
+   "quote": "Gini 0.44, KS 0.32",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "rs-xgb-v1",
+  "feat-rs-region-rate",
+  "recovery_scoring/exp303_region.ipynb"
+ ],
+ "built_on": [
+  {
+   "what": "feat-rs-region-rate",
+   "quote": "the region recovery rate feature",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "rs-xgb-v1",
+   "quote": "rs-xgb-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-303-recovery-scoring.md",
+ "sha": "5baa81325b79ee369d8b491b3b78aa82b0f613acda5698fdf815ac3a50f415ad",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

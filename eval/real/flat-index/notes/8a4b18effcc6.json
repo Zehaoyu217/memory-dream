@@ -1,0 +1,106 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-204-spend-forecasting",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-204-spend-forecasting"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-sfc-cpi-lag6",
+   "type": "feature",
+   "label": "cpi lag",
+   "as": [
+    "feat-sfc-cpi-lag6"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "sfc-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "sfc-lgbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "sfc-bt-2024",
+   "type": "dataset",
+   "label": "model input",
+   "as": [
+    "sfc-bt-2024"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-204-spend-forecasting",
+   "type": "uses",
+   "label": "adds",
+   "o": "feat-sfc-cpi-lag6",
+   "quote": "Adds feat-sfc-cpi-lag6",
+   "line": 5
+  },
+  {
+   "s": "exp-204-spend-forecasting",
+   "type": "measured-by",
+   "label": "MAPE",
+   "o": "mape",
+   "quote": "3-month MAPE 6.8% to 6.4%",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-203-spend-forecasting",
+  "fnd-sfc-macro-weak",
+  "sfc-lgbm-v2"
+ ],
+ "built_on": [
+  {
+   "what": "exp-203-spend-forecasting",
+   "quote": "exp-203-spend-forecasting",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-sfc-cpi-lag6",
+   "quote": "feat-sfc-cpi-lag6",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-204-spend-forecasting.md",
+ "sha": "8a4b18effcc63473b2ee8ba6e95a8f33d9689d9e7db3972171c37601e8cbd4a8",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

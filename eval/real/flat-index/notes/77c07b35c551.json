@@ -1,0 +1,222 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "fraud26-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fraud26-gbm-v2"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "fraud26-gbm-v1",
+   "type": "model",
+   "label": "live model",
+   "as": [
+    "v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "alert-threshold",
+   "type": "flag",
+   "label": "alert threshold",
+   "as": [
+    "alert threshold 0.62"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "dec-f26-maturity-60d",
+   "type": "policy",
+   "label": "maturity rule",
+   "as": [
+    "dec-f26-maturity-60d"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-206-fraud-2026",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-206-fraud-2026"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.927"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "recall-at-10",
+   "type": "metric",
+   "label": "recall",
+   "as": [
+    "recall@1% 0.58"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fraud26-oot-2025q4",
+   "type": "dataset",
+   "label": "oot set",
+   "as": [
+    "fraud26-oot-2025q4"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-f26-velocity-v2",
+   "type": "feature",
+   "label": "velocity feature",
+   "as": [
+    "the clean velocity-v2 fix"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-f26-promote-v3",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-f26-promote-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dec-f26-promote-v2",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Promote fraud26-gbm-v2 with alert threshold 0.62"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud26-gbm-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "fraud26-gbm-v1",
+   "quote": "fraud26-gbm-v2 replaces v1 as the live model from 2026-06-01",
+   "line": 5
+  },
+  {
+   "s": "fraud26-gbm-v2",
+   "type": "other",
+   "label": "alert threshold",
+   "o": "alert-threshold",
+   "quote": "alert threshold 0.62",
+   "line": 4
+  },
+  {
+   "s": "fraud26-gbm-v2",
+   "type": "measured-by",
+   "label": "basis",
+   "o": "auc",
+   "quote": "Basis: exp-206-fraud-2026 (AUC 0.927, recall@1% 0.58 on fraud26-oot-2025q4)",
+   "line": 6
+  },
+  {
+   "s": "fraud26-gbm-v2",
+   "type": "measured-by",
+   "label": "basis",
+   "o": "recall-at-10",
+   "quote": "Basis: exp-206-fraud-2026 (AUC 0.927, recall@1% 0.58 on fraud26-oot-2025q4)",
+   "line": 6
+  },
+  {
+   "s": "fraud26-gbm-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "fraud26-oot-2025q4",
+   "quote": "recall@1% 0.58 on fraud26-oot-2025q4",
+   "line": 6
+  },
+  {
+   "s": "dec-f26-promote-v3",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "dec-f26-promote-v2",
+   "quote": "Superseded by dec-f26-promote-v3 in August 2026.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-f26-maturity-60d",
+  "exp-206-fraud-2026",
+  "fraud26-gbm-v2",
+  "dec-f26-promote-v3"
+ ],
+ "built_on": [
+  {
+   "what": "dec-f26-maturity-60d",
+   "quote": "dec-f26-maturity-60d",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-206-fraud-2026",
+   "quote": "exp-206-fraud-2026",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fraud26-gbm-v2",
+   "quote": "fraud26-gbm-v2",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "fraud26-gbm-v1",
+   "quote": "v1",
+   "line": 5,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-f26-promote-v2.md",
+ "sha": "77c07b35c55138a84c57990edb4c4363d45a1b2cb93786a28694ae9a920e5fa0",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

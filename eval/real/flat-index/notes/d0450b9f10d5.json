@@ -1,0 +1,210 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "ae-score-question",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "Does an app engagement score predict 90-day attrition better than active days alone?"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "digital-analytics",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "Digital analytics"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "retention-team",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "retention team"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "maya-ortiz",
+   "type": "person",
+   "label": "person",
+   "as": [
+    "Maya Ortiz"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ae-score-v1",
+   "type": "other",
+   "label": "score",
+   "as": [
+    "ae-score-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ae-score-v2",
+   "type": "other",
+   "label": "score",
+   "as": [
+    "ae-score-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-501-app-engagement",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-501-app-engagement"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-506-app-engagement",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-506-app-engagement"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "90-day-attrition",
+   "type": "term",
+   "label": "attrition",
+   "as": [
+    "90-day attrition"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC for 90-day attrition"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "active-days",
+   "type": "feature",
+   "label": "active days",
+   "as": [
+    "plain count of active days"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.churn_labels",
+   "type": "dataset",
+   "label": "churn flag",
+   "as": [
+    "cards.churn_labels"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "digital-analytics",
+   "type": "other",
+   "label": "wants",
+   "o": "ae-score-question",
+   "quote": "Digital analytics wants one engagement number",
+   "line": 5
+  },
+  {
+   "s": "ae-score-question",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC for 90-day attrition",
+   "line": 5
+  },
+  {
+   "s": "ae-score-question",
+   "type": "other",
+   "label": "answered through",
+   "o": "exp-501-app-engagement",
+   "quote": "Answered through exp-501-app-engagement to exp-506-app-engagement",
+   "line": 7
+  },
+  {
+   "s": "ae-score-question",
+   "type": "other",
+   "label": "answered through",
+   "o": "exp-506-app-engagement",
+   "quote": "Answered through exp-501-app-engagement to exp-506-app-engagement",
+   "line": 7
+  },
+  {
+   "s": "ae-score-question",
+   "type": "other",
+   "label": "answered through",
+   "o": "ae-score-v1",
+   "quote": "the score notes ae-score-v1 and ae-score-v2",
+   "line": 7
+  },
+  {
+   "s": "ae-score-question",
+   "type": "other",
+   "label": "answered through",
+   "o": "ae-score-v2",
+   "quote": "the score notes ae-score-v1 and ae-score-v2",
+   "line": 7
+  },
+  {
+   "s": "90-day-attrition",
+   "type": "uses",
+   "label": "churn flag in",
+   "o": "cards.churn_labels",
+   "quote": "a churn flag in `cards.churn_labels`",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-501-app-engagement",
+  "exp-506-app-engagement",
+  "ae-score-v1",
+  "ae-score-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/q-ae-score-validity.md",
+ "sha": "d0450b9f10d58168871b5ee12dbc56137dff0ca3eb185fc1b89acdbd7377f69e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

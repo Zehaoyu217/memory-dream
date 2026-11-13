@@ -1,0 +1,103 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "sfc-hier-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "sfc-hier-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-207-spend-forecasting",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-207-spend-forecasting"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sfc-oot-2025h2",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "sfc-oot-2025h2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fnd-sfc-q4-low-bias",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-sfc-q4-low-bias"
+   ],
+   "lines": [
+    8,
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-207-spend-forecasting",
+   "type": "evaluated-on",
+   "label": "reconciliation on",
+   "o": "sfc-oot-2025h2",
+   "quote": "Reconciling the six segments with the total brings Nov-Dec bias to -0.4% on sfc-oot-2025h2",
+   "line": 5
+  },
+  {
+   "s": "sfc-hier-v3",
+   "type": "other",
+   "label": "production model on",
+   "o": "exp-207-spend-forecasting",
+   "quote": "sfc-hier-v3 is the production model on this basis.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-207-spend-forecasting",
+  "sfc-hier-v3",
+  "fnd-sfc-q4-low-bias"
+ ],
+ "built_on": [
+  {
+   "what": "exp-207-spend-forecasting",
+   "quote": "the mint reconciliation experiment",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fnd-sfc-q4-low-bias",
+   "quote": "fnd-sfc-q4-low-bias",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "fnd-sfc-q4-low-bias",
+   "quote": "fnd-sfc-q4-low-bias",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-sfc-q4-reconciled.md",
+ "sha": "d209f4fdf280d59150604a2242a92c27d4ebde0edc11cfba47643d2ab4ab6ae2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

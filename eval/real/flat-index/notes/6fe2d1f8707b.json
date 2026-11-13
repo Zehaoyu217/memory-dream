@@ -1,0 +1,192 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "inc-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "inc-gbm-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-inc-payroll-cadence-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-inc-payroll-cadence-v2"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "inc-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "inc-gbm-v1"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "holdout",
+   "type": "term",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "booked-accounts",
+   "type": "segment",
+   "label": "booked accounts",
+   "as": [
+    "booked accounts"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE 24%"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "median-absolute-error",
+   "type": "metric",
+   "label": "median absolute error",
+   "as": [
+    "median absolute error $7,600"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-inc-verified-2026",
+   "type": "dataset",
+   "label": "verified sample",
+   "as": [
+    "ds-inc-verified-2026"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-406-income-estimation",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-406-income-estimation"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "inc-gbm-v2",
+   "type": "uses",
+   "label": "with",
+   "o": "feat-inc-payroll-cadence-v2",
+   "quote": "with feat-inc-payroll-cadence-v2 in place of v1",
+   "line": 5
+  },
+  {
+   "s": "inc-gbm-v2",
+   "type": "evaluated-on",
+   "label": "eval",
+   "o": "holdout",
+   "quote": "Eval: holdout-2025q4 (n=15,800 booked accounts)",
+   "line": 6
+  },
+  {
+   "s": "booked-accounts",
+   "type": "part-of",
+   "label": "in holdout",
+   "o": "holdout",
+   "quote": "holdout-2025q4 (n=15,800 booked accounts)",
+   "line": 6
+  },
+  {
+   "s": "inc-gbm-v2",
+   "type": "measured-by",
+   "label": "MAPE",
+   "o": "mape",
+   "quote": "MAPE 24%",
+   "line": 4
+  },
+  {
+   "s": "inc-gbm-v2",
+   "type": "measured-by",
+   "label": "median error",
+   "o": "median-absolute-error",
+   "quote": "median absolute error $7,600",
+   "line": 6
+  },
+  {
+   "s": "inc-gbm-v2",
+   "type": "evaluated-on",
+   "label": "verified sample",
+   "o": "ds-inc-verified-2026",
+   "quote": "On the verified sample (ds-inc-verified-2026) MAPE is 31%",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-inc-payroll-cadence-v2",
+  "ds-inc-verified-2026",
+  "exp-406-income-estimation"
+ ],
+ "built_on": [
+  {
+   "what": "feat-inc-payroll-cadence-v2",
+   "quote": "feat-inc-payroll-cadence-v2",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "inc-gbm-v1",
+   "quote": "the first gradient-boosted model",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "inc-gbm-v1",
+   "quote": "inc-gbm-v1",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/inc-gbm-v2.md",
+ "sha": "6fe2d1f8707b3e26c14dbeaab6aa0594d4fe6db0111802274a1567e9ed8ff889",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

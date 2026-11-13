@@ -1,0 +1,99 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "q-lbl-fraud-coverage",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "should friendly-fraud disputes count as fraud in cards.fraud_labels?"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.fraud_labels",
+   "type": "dataset",
+   "label": "fraud label table",
+   "as": [
+    "cards.fraud_labels"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "daniel-okafor",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Daniel Okafor"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fraud-ops",
+   "type": "team",
+   "label": "fraud operations",
+   "as": [
+    "fraud-ops"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "category-b",
+   "type": "term",
+   "label": "dispute category",
+   "as": [
+    "category B"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "reason-code-set-a",
+   "type": "term",
+   "label": "reason-code set",
+   "as": [
+    "reason-code set A"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "q-lbl-fraud-coverage",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "daniel-okafor",
+   "quote": "Owner: Daniel Okafor (fraud).",
+   "line": 7
+  },
+  {
+   "s": "fraud-ops",
+   "type": "other",
+   "label": "treats as losses",
+   "o": "category-b",
+   "quote": "Category B covers first-party disputes that fraud-ops treats as losses",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/q-lbl-fraud-coverage.md",
+ "sha": "1e964ef3d0244677f141fcfb29059713de2334d5e80069a8d82481a5e288b8ed",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,140 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "bt-xgb-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bt-xgb-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "bt-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bt-xgb-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cards.limits_history",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "cards.limits_history"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "find-bt-limit-leak",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-bt-limit-leak"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-bt-util-3m",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-bt-util-3m"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bt-xgb-v1",
+   "type": "trained-on",
+   "label": "built from",
+   "o": "cards.limits_history",
+   "quote": "built from all of `cards.limits_history`",
+   "line": 5
+  },
+  {
+   "s": "bt-xgb-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.81 on a random 80/20 split",
+   "line": 6
+  },
+  {
+   "s": "bt-xgb-v1",
+   "type": "other",
+   "label": "inflated by",
+   "o": "find-bt-limit-leak",
+   "quote": "That number is inflated by post-offer limit rows (see find-bt-limit-leak).",
+   "line": 6
+  },
+  {
+   "s": "bt-xgb-v1",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "bt-xgb-v2",
+   "quote": "Superseded by bt-xgb-v2.",
+   "line": 7
+  },
+  {
+   "s": "bt-xgb-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-bt-util-3m",
+   "quote": "Builds on the transaction features experiment for bt and feat-bt-util-3m.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "find-bt-limit-leak",
+  "bt-xgb-v2"
+ ],
+ "built_on": [
+  {
+   "what": "exp-102-txn-features",
+   "quote": "the transaction features experiment for bt",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-bt-util-3m",
+   "quote": "feat-bt-util-3m",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/bt-xgb-v1.md",
+ "sha": "d055e6a5f31d7e19b0a9301b7db75dc0761f95aa9788ff4b0160a14ef6ca4079",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

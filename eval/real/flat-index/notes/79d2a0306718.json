@@ -1,0 +1,232 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "bt-xgb-v2",
+   "type": "model",
+   "label": "xgboost model",
+   "as": [
+    "bt-xgb-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-bt-util-trend-v2",
+   "type": "feature",
+   "label": "input",
+   "as": [
+    "feat-bt-util-trend-v2"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-bt-revolve-share",
+   "type": "feature",
+   "label": "input",
+   "as": [
+    "feat-bt-revolve-share"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-bt-bureau-delta",
+   "type": "feature",
+   "label": "input",
+   "as": [
+    "feat-bt-bureau-delta"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-bt-limit-headroom",
+   "type": "feature",
+   "label": "input",
+   "as": [
+    "feat-bt-limit-headroom"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "bt-holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "bt-holdout-2025q1"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.68"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.27"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bt-xgb-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bt-xgb-v1"
+   ],
+   "lines": [
+    8,
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bt-xgb-v2",
+   "type": "uses",
+   "label": "inputs",
+   "o": "feat-bt-util-trend-v2",
+   "quote": "Inputs: feat-bt-util-trend-v2",
+   "line": 5
+  },
+  {
+   "s": "bt-xgb-v2",
+   "type": "uses",
+   "label": "inputs",
+   "o": "feat-bt-revolve-share",
+   "quote": "feat-bt-revolve-share",
+   "line": 5
+  },
+  {
+   "s": "bt-xgb-v2",
+   "type": "uses",
+   "label": "inputs",
+   "o": "feat-bt-bureau-delta",
+   "quote": "feat-bt-bureau-delta",
+   "line": 5
+  },
+  {
+   "s": "bt-xgb-v2",
+   "type": "uses",
+   "label": "inputs",
+   "o": "feat-bt-limit-headroom",
+   "quote": "feat-bt-limit-headroom",
+   "line": 5
+  },
+  {
+   "s": "bt-xgb-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "bt-holdout-2025q1",
+   "quote": "On bt-holdout-2025q1",
+   "line": 4
+  },
+  {
+   "s": "bt-xgb-v2",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.68",
+   "line": 4
+  },
+  {
+   "s": "bt-xgb-v2",
+   "type": "measured-by",
+   "label": "KS",
+   "o": "ks",
+   "quote": "KS 0.27",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "bt-xgb-v3",
+  "bt-xgb-v1",
+  "dec-bt-drop-post-offer-features",
+  "feat-bt-bureau-delta",
+  "feat-bt-limit-headroom",
+  "feat-bt-revolve-share",
+  "feat-bt-util-trend-v2"
+ ],
+ "built_on": [
+  {
+   "what": "bt-xgb-v1",
+   "quote": "bt-xgb-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "dec-bt-drop-post-offer-features",
+   "quote": "dec-bt-drop-post-offer-features",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-bt-bureau-delta",
+   "quote": "feat-bt-bureau-delta",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-bt-limit-headroom",
+   "quote": "feat-bt-limit-headroom",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-bt-revolve-share",
+   "quote": "feat-bt-revolve-share",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-bt-util-trend-v2",
+   "quote": "feat-bt-util-trend-v2",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "bt-xgb-v1",
+   "quote": "bt-xgb-v1",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/bt-xgb-v2.md",
+ "sha": "79d2a03067182bae97438cec18f15e5af58ab142d41e5f9e6b3b60edf3300c0d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

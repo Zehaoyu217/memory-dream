@@ -1,0 +1,125 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-c25-util-v1",
+   "type": "feature",
+   "label": "utilisation feature",
+   "as": [
+    "feat-c25-util-v1",
+    "month-end balance over limit"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-c25-accounts-snapshot",
+   "type": "dataset",
+   "label": "base dataset",
+   "as": [
+    "ds-c25-accounts-snapshot"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "churn-lr-base-2025",
+   "type": "model",
+   "label": "baseline model",
+   "as": [
+    "churn-lr-base-2025"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "churn-gbm-2025",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "first churn-gbm-2025 model"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fnd-c25-limit-cut-spike",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-c25-limit-cut-spike"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "util-v2",
+   "type": "feature",
+   "label": "replacement feature",
+   "as": [
+    "util-v2"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-c25-util-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-c25-accounts-snapshot",
+   "quote": "Builds on ds-c25-accounts-snapshot.",
+   "line": 8
+  },
+  {
+   "s": "churn-lr-base-2025",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-c25-util-v1",
+   "quote": "Used in churn-lr-base-2025 and the first churn-gbm-2025 model.",
+   "line": 6
+  },
+  {
+   "s": "churn-gbm-2025",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-c25-util-v1",
+   "quote": "Used in churn-lr-base-2025 and the first churn-gbm-2025 model.",
+   "line": 6
+  },
+  {
+   "s": "util-v2",
+   "type": "replaces",
+   "label": "replaced by",
+   "o": "feat-c25-util-v1",
+   "quote": "replaced by util-v2 in March 2025",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "fnd-c25-limit-cut-spike"
+ ],
+ "built_on": [
+  {
+   "what": "ds-c25-accounts-snapshot",
+   "quote": "ds-c25-accounts-snapshot",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-c25-util-v1.md",
+ "sha": "8a93fc9cac44a5573e7ff58331e88af894baf5d7ff48e8fbc705edfd07ee534d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

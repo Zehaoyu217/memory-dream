@@ -1,0 +1,119 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "uplift",
+   "type": "term",
+   "label": "uplift score",
+   "as": [
+    "uplift scores"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "response-model",
+   "type": "model",
+   "label": "response model",
+   "as": [
+    "The response model"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "incremental-spend-per-contact",
+   "type": "metric",
+   "label": "incremental spend per contact",
+   "as": [
+    "incremental per contact"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "chloe-martin",
+   "type": "person",
+   "label": "sign-off",
+   "as": [
+    "Chloe Martin"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "q3-targeting",
+   "type": "other",
+   "label": "targeting decision",
+   "as": [
+    "Q3 2026 targeting"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "response-model",
+   "type": "measured-by",
+   "label": "gives",
+   "o": "incremental-spend-per-contact",
+   "quote": "Response-only top 20% gives $0.90 incremental per contact",
+   "line": 5
+  },
+  {
+   "s": "uplift",
+   "type": "measured-by",
+   "label": "gives",
+   "o": "incremental-spend-per-contact",
+   "quote": "uplift top 20% gives $2.40",
+   "line": 5
+  },
+  {
+   "s": "q3-targeting",
+   "type": "owned-by",
+   "label": "signed off",
+   "o": "chloe-martin",
+   "quote": "Chloe Martin signed off",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-301-response-only",
+  "exp-302-tlearner",
+  "dec-mq3-ship-xl"
+ ],
+ "built_on": [
+  {
+   "what": "exp-301-response-only",
+   "quote": "exp-301-response-only",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "exp-302-tlearner",
+   "quote": "exp-302-tlearner",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "find-mq3-response-trap",
+   "quote": "the finding on response model traps",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-mq3-target-uplift.md",
+ "sha": "fa8a45ffa6cdcef98c001e6e1e5803ef893f7a74f721c02396c6ee4746014d62",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

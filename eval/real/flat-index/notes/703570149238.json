@@ -1,0 +1,142 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "offers.tier_matrix",
+   "type": "dataset",
+   "label": "tier matrix",
+   "as": [
+    "offers.tier_matrix v3"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "maya-ortiz",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Maya Ortiz"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "retention",
+   "type": "team",
+   "label": "owner team",
+   "as": [
+    "retention"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-ror-value-band-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ror-value-band-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cost-per-treated-account",
+   "type": "metric",
+   "label": "cost",
+   "as": [
+    "Costs per treated account"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dec-ror-matrix-v4",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-ror-matrix-v4"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "tier-t2",
+   "type": "term",
+   "label": "tier",
+   "as": [
+    "T2 cashback boost 2.0%"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "tier-t3",
+   "type": "term",
+   "label": "tier",
+   "as": [
+    "T3 APR cut 2.0pp"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "tier-t4",
+   "type": "term",
+   "label": "tier",
+   "as": [
+    "T4 $40 statement credit"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "offers.tier_matrix",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "retention",
+   "quote": "Owned by retention (Maya Ortiz).",
+   "line": 5
+  },
+  {
+   "s": "offers.tier_matrix",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "maya-ortiz",
+   "quote": "Owned by retention (Maya Ortiz).",
+   "line": 5
+  },
+  {
+   "s": "offers.tier_matrix",
+   "type": "uses",
+   "label": "grid by value band",
+   "o": "feat-ror-value-band-v1",
+   "quote": "Grid is 10 churn deciles by 3 value bands (feat-ror-value-band-v1).",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "feat-ror-value-band-v1",
+  "dec-ror-matrix-v4"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-ror-tier-matrix.md",
+ "sha": "70357014923806593b2c89c48838af19003be8b4d8fb20c04bc9ed6be9316068",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

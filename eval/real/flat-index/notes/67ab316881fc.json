@@ -1,0 +1,121 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-401-hardship-programs",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-401-hardship-programs"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "hardship-enrolment-dataset",
+   "type": "dataset",
+   "label": "enrolment dataset",
+   "as": [
+    "2024 hardship enrolment dataset"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-hp-roll-matrix",
+   "type": "dataset",
+   "label": "roll matrix",
+   "as": [
+    "ds-hp-roll-matrix"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "enrolled-roll-rate",
+   "type": "metric",
+   "label": "roll rate",
+   "as": [
+    "21.0%"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "non-enrolled-roll-rate",
+   "type": "metric",
+   "label": "roll rate",
+   "as": [
+    "9.4%"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-401-hardship-programs",
+   "type": "measured-by",
+   "label": "compares",
+   "o": "enrolled-roll-rate",
+   "quote": "enrolled 21.0% (n=14,820)",
+   "line": 5
+  },
+  {
+   "s": "exp-401-hardship-programs",
+   "type": "measured-by",
+   "label": "compares",
+   "o": "non-enrolled-roll-rate",
+   "quote": "non-enrolled 9.4% (n=402,500)",
+   "line": 5
+  },
+  {
+   "s": "exp-401-hardship-programs",
+   "type": "uses",
+   "label": "builds on",
+   "o": "hardship-enrolment-dataset",
+   "quote": "Builds on the 2024 hardship enrolment dataset",
+   "line": 8
+  },
+  {
+   "s": "exp-401-hardship-programs",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-hp-roll-matrix",
+   "quote": "Builds on the 2024 hardship enrolment dataset and ds-hp-roll-matrix.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-hp-roll-matrix"
+ ],
+ "built_on": [
+  {
+   "what": "ds-hp-enrolled",
+   "quote": "the 2024 hardship enrolment dataset",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-hp-roll-matrix",
+   "quote": "ds-hp-roll-matrix",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-401-hardship-programs.md",
+ "sha": "67ab316881fc78b2e678b7c645d00df4fccbb01e4df5a7c5ff0da9d55b30701f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

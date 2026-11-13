@@ -1,0 +1,145 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "bsm-app-gbm-v8",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bsm-app-gbm-v8"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "v8-score",
+   "type": "model",
+   "label": "score",
+   "as": [
+    "v8 score"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4 (n=46,200)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.79"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "KS 0.36"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ds-bsm-app-dev-2024",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-bsm-app-dev-2024"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "dec-bsm-cutover-2026q3",
+   "type": "document",
+   "label": "decision",
+   "as": [
+    "dec-bsm-cutover-2026q3"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bsm-app-gbm-v8",
+   "type": "uses",
+   "label": "built on",
+   "o": "v8-score",
+   "quote": "Gradient-boosted trees on v8 score",
+   "line": 5
+  },
+  {
+   "s": "bsm-app-gbm-v8",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q4",
+   "quote": "Eval: holdout-2025q4 (n=46,200)",
+   "line": 6
+  },
+  {
+   "s": "bsm-app-gbm-v8",
+   "type": "measured-by",
+   "label": "has AUC",
+   "o": "auc",
+   "quote": "AUC 0.79",
+   "line": 4
+  },
+  {
+   "s": "bsm-app-gbm-v8",
+   "type": "measured-by",
+   "label": "has KS",
+   "o": "ks",
+   "quote": "KS 0.36",
+   "line": 4
+  },
+  {
+   "s": "bsm-app-gbm-v8",
+   "type": "trained-on",
+   "label": "built on",
+   "o": "ds-bsm-app-dev-2024",
+   "quote": "Builds on ds-bsm-app-dev-2024.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "dec-bsm-cutover-2026q3"
+ ],
+ "built_on": [
+  {
+   "what": "ds-bsm-app-dev-2024",
+   "quote": "ds-bsm-app-dev-2024",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/bsm-app-gbm-v8.md",
+ "sha": "98139c706199832ffc43b8471e53d2d634d72cb0900c68e995e2c49e068623ec",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,116 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-ep-srm-gate",
+   "type": "policy",
+   "label": "decision",
+   "as": [
+    "readouts are blocked when the SRM check fails at p below 0.001"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "srm-check",
+   "type": "term",
+   "label": "check",
+   "as": [
+    "SRM check"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "exp-502-experiment-platform",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-502-experiment-platform"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "experiment-platform",
+   "type": "tool",
+   "label": "platform",
+   "as": [
+    "The platform"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bot-filter",
+   "type": "other",
+   "label": "filter",
+   "as": [
+    "Bot filters"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fnd-srm-bots",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-srm-bots"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-ep-srm-gate",
+   "type": "other",
+   "label": "adopted after",
+   "o": "exp-502-experiment-platform",
+   "quote": "Adopted after exp-502-experiment-platform.",
+   "line": 5
+  },
+  {
+   "s": "experiment-platform",
+   "type": "uses",
+   "label": "checks",
+   "o": "srm-check",
+   "quote": "The platform refuses to produce a readout for a test whose arm counts fail the SRM check",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "fnd-srm-bots",
+  "exp-502-experiment-platform"
+ ],
+ "built_on": [
+  {
+   "what": "exp-502-experiment-platform",
+   "quote": "exp-502-experiment-platform",
+   "line": 5,
+   "asked": true
+  },
+  {
+   "what": "fnd-srm-bots",
+   "quote": "fnd-srm-bots",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-ep-srm-gate.md",
+ "sha": "f3b739734da28fedfeb2b71d42e7736c75393d547dcdb065d64dfb39d3227f47",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

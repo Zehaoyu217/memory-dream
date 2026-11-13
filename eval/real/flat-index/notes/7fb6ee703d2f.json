@@ -1,0 +1,97 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "month-1-retention",
+   "type": "metric",
+   "label": "retention metric",
+   "as": [
+    "month-1 retention"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "2024-cohorts",
+   "type": "segment",
+   "label": "cohort",
+   "as": [
+    "2024 cohorts"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "opening-month",
+   "type": "term",
+   "label": "cohort basis",
+   "as": [
+    "Opening month"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "reactivated-accounts",
+   "type": "segment",
+   "label": "account group",
+   "as": [
+    "reactivated accounts"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "first-closed-statement-month",
+   "type": "term",
+   "label": "cohort basis",
+   "as": [
+    "first closed statement month"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "2024-cohorts",
+   "type": "uses",
+   "label": "grouped by",
+   "o": "opening-month",
+   "quote": "Opening month was used",
+   "line": 4
+  },
+  {
+   "s": "reactivated-accounts",
+   "type": "other",
+   "label": "landed in",
+   "o": "2024-cohorts",
+   "quote": "reactivated accounts with old open dates landed in cohorts with no early life.",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "howto/cohort-by-account-open"
+ ],
+ "built_on": [
+  {
+   "what": "howto/cohort-by-account-open",
+   "quote": "howto/cohort-by-account-open",
+   "line": 6,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/cohort-open-month-mistake.md",
+ "sha": "7fb6ee703d2f023defda770f7d0d5e804c5a6573eaba8ac0e57fc75e3c0986a8",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

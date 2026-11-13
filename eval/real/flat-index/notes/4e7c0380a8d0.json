@@ -1,0 +1,97 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "limit-decrease-policy",
+   "type": "policy",
+   "label": "policy",
+   "as": [
+    "limit-decrease-policy"
+   ],
+   "lines": [
+    3,
+    4
+   ]
+  },
+  {
+   "id": "limit-decrease-pilot",
+   "type": "other",
+   "label": "pilot",
+   "as": [
+    "pilot"
+   ],
+   "lines": [
+    3,
+    4
+   ]
+  },
+  {
+   "id": "band-c-d",
+   "type": "segment",
+   "label": "bands",
+   "as": [
+    "band C and D"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "complaints-per-1000",
+   "type": "metric",
+   "label": "complaints",
+   "as": [
+    "complaints 4.6 per 1,000"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "hardship-accounts",
+   "type": "segment",
+   "label": "accounts",
+   "as": [
+    "hardship accounts"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "limit-decrease-pilot",
+   "type": "uses",
+   "label": "applies to",
+   "o": "band-c-d",
+   "quote": "pilot band C and D 25% cut",
+   "line": 3
+  },
+  {
+   "s": "limit-decrease-pilot",
+   "type": "measured-by",
+   "label": "complaints",
+   "o": "complaints-per-1000",
+   "quote": "complaints 4.6 per 1,000 vs 1.9 baseline",
+   "line": 3
+  },
+  {
+   "s": "limit-decrease-pilot",
+   "type": "other",
+   "label": "excludes",
+   "o": "hardship-accounts",
+   "quote": "pilot excludes hardship accounts from the wave",
+   "line": 4
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2025-03-11.md",
+ "sha": "4e7c0380a8d03c39d6d36d124c1e107f5f04abc65dd52dc37a6e7a892e4ef2dd",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

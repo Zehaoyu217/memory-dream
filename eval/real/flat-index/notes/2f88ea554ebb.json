@@ -1,0 +1,176 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-105-collections-uplift",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-105-collections-uplift"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cu-uplift-v2",
+   "type": "model",
+   "label": "uplift model",
+   "as": [
+    "cu-uplift-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cu-uplift-v1",
+   "type": "model",
+   "label": "uplift model",
+   "as": [
+    "cu-uplift-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout split",
+   "as": [
+    "Holdout-2025q4, n=31,200 accounts"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "brier-score",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Brier 0.181"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-cu-treat-log",
+   "type": "dataset",
+   "label": "pilot log",
+   "as": [
+    "ds-cu-treat-log"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "find-cu-response-misranks",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-cu-response-misranks"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cu-uplift-v2",
+   "type": "measured-by",
+   "label": "uplift at 20%",
+   "o": "uplift-at-20",
+   "quote": "uplift@20% 0.034, Brier 0.181",
+   "line": 5
+  },
+  {
+   "s": "cu-uplift-v2",
+   "type": "measured-by",
+   "label": "Brier",
+   "o": "brier-score",
+   "quote": "Brier 0.181",
+   "line": 5
+  },
+  {
+   "s": "cu-uplift-v1",
+   "type": "measured-by",
+   "label": "uplift at 20%",
+   "o": "uplift-at-20",
+   "quote": "cu-uplift-v1 on the same split: uplift@20% 0.031, Brier 0.196.",
+   "line": 5
+  },
+  {
+   "s": "cu-uplift-v1",
+   "type": "measured-by",
+   "label": "Brier",
+   "o": "brier-score",
+   "quote": "Brier 0.196",
+   "line": 5
+  },
+  {
+   "s": "exp-105-collections-uplift",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q4",
+   "quote": "Holdout-2025q4, n=31,200 accounts.",
+   "line": 5
+  },
+  {
+   "s": "exp-105-collections-uplift",
+   "type": "other",
+   "label": "calibration matters",
+   "o": "cu-uplift-v2",
+   "quote": "Calibration matters for the call-budget rule: uncalibrated arms overstate the top decile.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-cu-treat-log",
+  "find-cu-response-misranks"
+ ],
+ "built_on": [
+  {
+   "what": "cu-uplift-v1",
+   "quote": "the first two-model uplift t-learner",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-cu-treat-log",
+   "quote": "ds-cu-treat-log",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "find-cu-response-misranks",
+   "quote": "find-cu-response-misranks",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-105-collections-uplift.md",
+ "sha": "2f88ea554ebb768548366bc0d5c8306e61d23ab1886be922daba5321ff3d6fd3",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

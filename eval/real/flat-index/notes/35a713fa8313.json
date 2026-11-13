@@ -1,0 +1,131 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-105-fraud-2025",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-105-fraud-2025: removing the hour band leaves v2 AUC unchanged at 0.911"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "holdout-2025q1 (1,104,800 transactions, 2,310 fraud)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.911"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.66"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-104-fraud-2025",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-104-fraud-2025"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-f25-hour-band",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-f25-hour-band"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-105-fraud-2025",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "holdout-2025q1",
+   "quote": "Eval set: holdout-2025q1",
+   "line": 5
+  },
+  {
+   "s": "exp-105-fraud-2025",
+   "type": "measured-by",
+   "label": "measured AUC",
+   "o": "auc",
+   "quote": "removing the hour band leaves v2 AUC unchanged at 0.911",
+   "line": 4
+  },
+  {
+   "s": "exp-105-fraud-2025",
+   "type": "measured-by",
+   "label": "measured KS",
+   "o": "ks",
+   "quote": "Hour band removed: AUC 0.911 (delta under 0.001), KS 0.66.",
+   "line": 6
+  },
+  {
+   "s": "exp-105-fraud-2025",
+   "type": "uses",
+   "label": "removes hour band",
+   "o": "feat-f25-hour-band",
+   "quote": "Hour band removed",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-104-fraud-2025",
+  "feat-f25-hour-band"
+ ],
+ "built_on": [
+  {
+   "what": "exp-104-fraud-2025",
+   "quote": "exp-104-fraud-2025",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-f25-hour-band",
+   "quote": "feat-f25-hour-band",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-105-fraud-2025.md",
+ "sha": "35a713fa83137f5d99a5c592ed64e30e953a75fa312362ef05432cc7cdc6a410",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

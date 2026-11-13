@@ -1,0 +1,212 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "ed-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ed-gbm-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ed-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ed-gbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "tool",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "feat-ed-util-trend-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ed-util-trend-v1"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-ed-cashadv-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ed-cashadv-v1"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "early-delinquency-holdout-2024q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "early-delinquency-holdout-2024q4"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.781"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Gini 0.562"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "KS 0.42"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-202-early-delinquency",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-202-early-delinquency"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ed-gbm-v1",
+   "type": "other",
+   "label": "is a",
+   "o": "lightgbm",
+   "quote": "a LightGBM model on utilisation trend and cash advances",
+   "line": 4
+  },
+  {
+   "s": "ed-gbm-v1",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-ed-util-trend-v1",
+   "quote": "Features: feat-ed-util-trend-v1 and feat-ed-cashadv-v1.",
+   "line": 5
+  },
+  {
+   "s": "ed-gbm-v1",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-ed-cashadv-v1",
+   "quote": "Features: feat-ed-util-trend-v1 and feat-ed-cashadv-v1.",
+   "line": 5
+  },
+  {
+   "s": "ed-gbm-v1",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "early-delinquency-holdout-2024q4",
+   "quote": "On early-delinquency-holdout-2024q4 (exp-202-early-delinquency): AUC 0.781, Gini 0.562, KS 0.42.",
+   "line": 6
+  },
+  {
+   "s": "ed-gbm-v1",
+   "type": "measured-by",
+   "label": "scored by",
+   "o": "auc",
+   "quote": "On early-delinquency-holdout-2024q4 (exp-202-early-delinquency): AUC 0.781, Gini 0.562, KS 0.42.",
+   "line": 6
+  },
+  {
+   "s": "ed-gbm-v1",
+   "type": "measured-by",
+   "label": "scored by",
+   "o": "gini",
+   "quote": "On early-delinquency-holdout-2024q4 (exp-202-early-delinquency): AUC 0.781, Gini 0.562, KS 0.42.",
+   "line": 6
+  },
+  {
+   "s": "ed-gbm-v1",
+   "type": "measured-by",
+   "label": "scored by",
+   "o": "ks",
+   "quote": "On early-delinquency-holdout-2024q4 (exp-202-early-delinquency): AUC 0.781, Gini 0.562, KS 0.42.",
+   "line": 6
+  },
+  {
+   "s": "ed-gbm-v1",
+   "type": "superseded-by",
+   "label": "superseded by",
+   "o": "ed-gbm-v2",
+   "quote": "Superseded by ed-gbm-v2 (2025-09-10).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-ed-util-trend-v1",
+  "feat-ed-cashadv-v1",
+  "ed-gbm-v2",
+  "exp-202-early-delinquency"
+ ],
+ "built_on": [
+  {
+   "what": "feat-ed-cashadv-v1",
+   "quote": "feat-ed-cashadv-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-ed-util-trend-v1",
+   "quote": "feat-ed-util-trend-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ed-gbm-v1.md",
+ "sha": "ee3cce1d5829d37300bcad936aec247aed142f230666f5797342d2e27b741a4c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

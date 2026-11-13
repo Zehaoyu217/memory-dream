@@ -1,0 +1,92 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "omar-haddad",
+   "type": "person",
+   "label": "compliance",
+   "as": [
+    "Omar Haddad"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "structuring-alerts",
+   "type": "other",
+   "label": "alert type",
+   "as": [
+    "Structuring alerts"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "review-queue",
+   "type": "other",
+   "label": "review queue",
+   "as": [
+    "10% sampled review queue"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "structuring-alerts",
+   "type": "owned-by",
+   "label": "approved by",
+   "o": "omar-haddad",
+   "quote": "approved by Omar Haddad",
+   "line": 4
+  },
+  {
+   "s": "structuring-alerts",
+   "type": "other",
+   "label": "go to",
+   "o": "review-queue",
+   "quote": "go to a 10% sampled review queue",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "dec-aml-sample-10",
+  "exp-406-aml-alerts",
+  "aml-find-ranker-top40-revised",
+  "dec-aml-queue-only"
+ ],
+ "built_on": [
+  {
+   "what": "aml-find-ranker-top40-revised",
+   "quote": "aml-find-ranker-top40-revised",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "dec-aml-queue-only",
+   "quote": "dec-aml-queue-only",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-406-aml-alerts",
+   "quote": "exp-406-aml-alerts",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-aml-suppress-018.md",
+ "sha": "447beb61dc21a32bfe60b9f57fe2eba5f9ea00e7d2283c7aacee00be81c33910",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

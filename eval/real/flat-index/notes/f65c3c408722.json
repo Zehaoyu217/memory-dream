@@ -1,0 +1,87 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-backfill-window",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "A full 18-month backfill fits in one weekend window"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-104-feature-store-migration",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-104-feature-store-migration"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feature-store",
+   "type": "tool",
+   "label": "feature store",
+   "as": [
+    "the store"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "saturday-maintenance-window",
+   "type": "other",
+   "label": "window",
+   "as": [
+    "Saturday maintenance window"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-104-feature-store-migration",
+   "type": "produces",
+   "label": "backfilled",
+   "o": "feature-store",
+   "quote": "backfilled 214 features over 18 months",
+   "line": 5
+  },
+  {
+   "s": "fnd-backfill-window",
+   "type": "other",
+   "label": "fits inside",
+   "o": "saturday-maintenance-window",
+   "quote": "That fits inside the Saturday maintenance window",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-104-feature-store-migration"
+ ],
+ "built_on": [
+  {
+   "what": "exp-104-feature-store-migration",
+   "quote": "exp-104-feature-store-migration",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-backfill-window.md",
+ "sha": "f65c3c40872239d3f5d77f672548dbdb5b36258f8b29ac457128bd735ba3f0bc",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

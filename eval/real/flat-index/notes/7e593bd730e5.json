@@ -1,0 +1,134 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "glide-path-exit",
+   "type": "other",
+   "label": "exit",
+   "as": [
+    "a glide-path exit"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "promo-expiry-cliff",
+   "type": "term",
+   "label": "churn cliff",
+   "as": [
+    "The cliff"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "churn-cost",
+   "type": "metric",
+   "label": "churn cost",
+   "as": [
+    "churn cost of about 4.3 points over arm C control"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "arm-c-control",
+   "type": "segment",
+   "label": "control",
+   "as": [
+    "arm C control"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "december-expiry-cohorts",
+   "type": "segment",
+   "label": "cohorts",
+   "as": [
+    "cohorts expiring in December"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "find-pa-cliff-churn",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-pa-cliff-churn"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "pa-churn-hazard-v1",
+   "type": "model",
+   "label": "hazard model",
+   "as": [
+    "pa-churn-hazard-v1"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "glide-path-exit",
+   "type": "evaluated-on",
+   "label": "test on",
+   "o": "december-expiry-cohorts",
+   "quote": "Test cell in November 2026 on cohorts expiring in December",
+   "line": 6
+  },
+  {
+   "s": "glide-path-exit",
+   "type": "other",
+   "label": "should reduce",
+   "o": "promo-expiry-cliff",
+   "quote": "A stepped exit should reduce the jump at expiry.",
+   "line": 5
+  },
+  {
+   "s": "promo-expiry-cliff",
+   "type": "measured-by",
+   "label": "is a churn cost",
+   "o": "churn-cost",
+   "quote": "The cliff is a churn cost of about 4.3 points over arm C control.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "find-pa-cliff-churn",
+  "pa-churn-hazard-v1"
+ ],
+ "built_on": [
+  {
+   "what": "find-pa-cliff-churn",
+   "quote": "find-pa-cliff-churn",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "pa-churn-hazard-v1",
+   "quote": "pa-churn-hazard-v1",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-pa-glide-exit.md",
+ "sha": "7e593bd730e5736a1f21d793d600cba82fb29676bd93f615101b7dfe11baea86",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

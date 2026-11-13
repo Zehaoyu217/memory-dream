@@ -1,0 +1,122 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-rev26-apr-mix",
+   "type": "feature",
+   "label": "blended apr feature",
+   "as": [
+    "feat-rev26-apr-mix"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-rev26-rate-schedule",
+   "type": "dataset",
+   "label": "rate schedule",
+   "as": [
+    "ds-rev26-rate-schedule"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-rev26-revolve-balance",
+   "type": "feature",
+   "label": "revolving balance feature",
+   "as": [
+    "feat-rev26-revolve-balance"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "rev26-interest-v1",
+   "type": "model",
+   "label": "interest model",
+   "as": [
+    "rev26-interest-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "rev26-interest-v2",
+   "type": "model",
+   "label": "interest model",
+   "as": [
+    "rev26-interest-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-rev26-apr-mix",
+   "type": "uses",
+   "label": "built from",
+   "o": "ds-rev26-rate-schedule",
+   "quote": "Built from ds-rev26-rate-schedule",
+   "line": 6
+  },
+  {
+   "s": "feat-rev26-apr-mix",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-rev26-revolve-balance",
+   "quote": "Builds on the apr and promo rate schedule and feat-rev26-revolve-balance.",
+   "line": 8
+  },
+  {
+   "s": "feat-rev26-apr-mix",
+   "type": "~used-by",
+   "label": "used by",
+   "o": "rev26-interest-v1",
+   "quote": "Used by rev26-interest-v1 and rev26-interest-v2.",
+   "line": 7
+  },
+  {
+   "s": "feat-rev26-apr-mix",
+   "type": "~used-by",
+   "label": "used by",
+   "o": "rev26-interest-v2",
+   "quote": "Used by rev26-interest-v1 and rev26-interest-v2.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-rev26-rate-schedule",
+  "feat-rev26-revolve-balance",
+  "rev26-interest-v1",
+  "rev26-interest-v2"
+ ],
+ "built_on": [
+  {
+   "what": "ds-rev26-rate-schedule",
+   "quote": "the apr and promo rate schedule",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-rev26-revolve-balance",
+   "quote": "feat-rev26-revolve-balance",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-rev26-apr-mix.md",
+ "sha": "ace72369e3bf58b4280f2ee2e2cf276a636a5bc33544ef410e53bead730fc7c4",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,128 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "regulator-reports",
+   "type": "document",
+   "label": "regulator reports",
+   "as": [
+    "Regulator reports"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "split-billing-codes",
+   "type": "term",
+   "label": "split billing codes",
+   "as": [
+    "split billing codes"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "complaints.code_map",
+   "type": "dataset",
+   "label": "code map",
+   "as": [
+    "complaints.code_map"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "omar-haddad",
+   "type": "person",
+   "label": "compliance",
+   "as": [
+    "Omar Haddad (compliance)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-205-complaint-classification",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-205-complaint-classification"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-cc-taxonomy-v3",
+   "type": "dataset",
+   "label": "taxonomy",
+   "as": [
+    "ds-cc-taxonomy-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fnd-cc-taxonomy-drift",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-cc-taxonomy-drift"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "split-billing-codes",
+   "type": "uses",
+   "label": "re-coded using",
+   "o": "exp-205-complaint-classification",
+   "quote": "re-coded to the split codes using the relabelled set from exp-205-complaint-classification",
+   "line": 5
+  },
+  {
+   "s": "split-billing-codes",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "omar-haddad",
+   "quote": "Owner Omar Haddad (compliance).",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-cc-taxonomy-v3",
+  "fnd-cc-taxonomy-drift",
+  "exp-205-complaint-classification"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cc-taxonomy-v3",
+   "quote": "ds-cc-taxonomy-v3",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "fnd-cc-taxonomy-drift",
+   "quote": "fnd-cc-taxonomy-drift",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "work/dec-cc-taxonomy-split.md",
+ "sha": "a86116b9f277a13fd550f835b3bb1e826958de4fc7fb5aa59b82cb0d4d844e8e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

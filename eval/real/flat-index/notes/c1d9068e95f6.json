@@ -1,0 +1,130 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "inc-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "inc-gbm-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "inc-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "inc-gbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "inc-linear-baseline",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "inc-linear-baseline"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-inc-spend-to-income",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-inc-spend-to-income"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "inc-gbm-v1",
+   "type": "evaluated-on",
+   "label": "eval",
+   "o": "holdout-2025q1",
+   "quote": "Eval: holdout-2025q1 (n=12,400), MAPE 27% overall",
+   "line": 6
+  },
+  {
+   "s": "inc-gbm-v2",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "inc-gbm-v1",
+   "quote": "Superseded by inc-gbm-v2 (2025-12-18).",
+   "line": 7
+  },
+  {
+   "s": "inc-gbm-v1",
+   "type": "uses",
+   "label": "built on",
+   "o": "feat-inc-spend-to-income",
+   "quote": "Builds on the basic payroll cadence feature, the recurring rent outflow flag, feat-inc-spend-to-income and inc-linear-baseline.",
+   "line": 8
+  },
+  {
+   "s": "inc-gbm-v1",
+   "type": "uses",
+   "label": "built on",
+   "o": "inc-linear-baseline",
+   "quote": "Builds on the basic payroll cadence feature, the recurring rent outflow flag, feat-inc-spend-to-income and inc-linear-baseline.",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "feat-inc-payroll-cadence-v1",
+   "quote": "the basic payroll cadence feature",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-inc-rent-flag",
+   "quote": "the recurring rent outflow flag",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-inc-spend-to-income",
+   "quote": "feat-inc-spend-to-income",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "inc-linear-baseline",
+   "quote": "inc-linear-baseline",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/inc-gbm-v1.md",
+ "sha": "c1d9068e95f6f88de3a80d2977605d4637a586167ee252d2281347fdd43c5138",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

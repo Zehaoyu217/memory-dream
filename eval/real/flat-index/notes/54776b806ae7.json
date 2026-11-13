@@ -1,0 +1,64 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "ds-rev26-rate-schedule",
+   "type": "dataset",
+   "label": "rate schedule",
+   "as": [
+    "ds-rev26-rate-schedule"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "apr-cap-scenario",
+   "type": "scenario",
+   "label": "apr cap scenario",
+   "as": [
+    "29.99% APR cap"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "apr-cap-scenario",
+   "type": "uses",
+   "label": "applies to",
+   "o": "ds-rev26-rate-schedule",
+   "quote": "Applies a 29.99% ceiling to the 2026 revolving balance base in ds-rev26-rate-schedule.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "q-rev26-apr-cap-scenario",
+  "fnd-rev26-apr-sensitivity",
+  "dec-rev26-cap-scenario-separate"
+ ],
+ "built_on": [
+  {
+   "what": "feat-rev26-apr-mix",
+   "quote": "the blended apr mix feature",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "q-rev26-apr-cap-scenario",
+   "quote": "the question on the apr cap scenario",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-304-revenue-forecast-2026.md",
+ "sha": "54776b806ae7ed2d02e739dc86c3de58b48164baf9a6e947a2f1808a55231eef",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

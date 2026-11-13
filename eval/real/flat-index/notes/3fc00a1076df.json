@@ -1,0 +1,178 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-203-churn-small-business",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-203-churn-small-business"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "csb-lr-base",
+   "type": "model",
+   "label": "logistic baseline",
+   "as": [
+    "csb-lr-base"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-csb-deposit-volatility",
+   "type": "feature",
+   "label": "deposit volatility feature",
+   "as": [
+    "feat-csb-deposit-volatility"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "csb-oot-2025q1",
+   "type": "dataset",
+   "label": "out-of-time set",
+   "as": [
+    "csb-oot-2025q1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.705"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.29"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "brier-score",
+   "type": "metric",
+   "label": "brier score",
+   "as": [
+    "Brier 0.0598"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "label-window",
+   "type": "term",
+   "label": "label window",
+   "as": [
+    "90-day labels"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-203-churn-small-business",
+   "type": "uses",
+   "label": "base model",
+   "o": "csb-lr-base",
+   "quote": "csb-lr-base plus feat-csb-deposit-volatility",
+   "line": 5
+  },
+  {
+   "s": "exp-203-churn-small-business",
+   "type": "uses",
+   "label": "adds",
+   "o": "feat-csb-deposit-volatility",
+   "quote": "csb-lr-base plus feat-csb-deposit-volatility",
+   "line": 5
+  },
+  {
+   "s": "exp-203-churn-small-business",
+   "type": "uses",
+   "label": "same labels",
+   "o": "label-window",
+   "quote": "same 90-day labels",
+   "line": 5
+  },
+  {
+   "s": "exp-203-churn-small-business",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "csb-oot-2025q1",
+   "quote": "scored on csb-oot-2025q1",
+   "line": 5
+  },
+  {
+   "s": "exp-203-churn-small-business",
+   "type": "measured-by",
+   "label": "AUC 0.705",
+   "o": "auc",
+   "quote": "AUC 0.705, KS 0.29, Brier 0.0598.",
+   "line": 6
+  },
+  {
+   "s": "exp-203-churn-small-business",
+   "type": "measured-by",
+   "label": "KS 0.29",
+   "o": "ks",
+   "quote": "AUC 0.705, KS 0.29, Brier 0.0598.",
+   "line": 6
+  },
+  {
+   "s": "exp-203-churn-small-business",
+   "type": "measured-by",
+   "label": "Brier 0.0598",
+   "o": "brier-score",
+   "quote": "AUC 0.705, KS 0.29, Brier 0.0598.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "csb-lr-base",
+  "feat-csb-deposit-volatility"
+ ],
+ "built_on": [
+  {
+   "what": "csb-lr-base",
+   "quote": "csb-lr-base",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-csb-deposit-volatility",
+   "quote": "the deposit volatility feature",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-203-churn-small-business.md",
+ "sha": "3fc00a1076df34ce1a58433f9c426e95057d25275d5416ff202db2ecbf8f81ea",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,133 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-406-retention-offers-roi",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-406-retention-offers-roi: matrix v4 candidate lifts holdout ROI to 1.56x, against 1.31x for matrix v3"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ror-oot-2025q3",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "ror-oot-2025q3"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "roi",
+   "type": "metric",
+   "label": "roi",
+   "as": [
+    "ROI to 1.56x",
+    "Realised ROI on ror-oot-2025q3: 1.56x",
+    "1.49x for the reallocation",
+    "1.31x for matrix v3"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "dec-ror-matrix-v4",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-ror-matrix-v4"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-ror-value-band-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "value band v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-ror-holdout-2025q3",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-ror-holdout-2025q3"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-406-retention-offers-roi",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "ror-oot-2025q3",
+   "quote": "Realised ROI on ror-oot-2025q3: 1.56x",
+   "line": 6
+  },
+  {
+   "s": "exp-406-retention-offers-roi",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "roi",
+   "quote": "Realised ROI on ror-oot-2025q3: 1.56x",
+   "line": 6
+  },
+  {
+   "s": "exp-406-retention-offers-roi",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-ror-value-band-v2",
+   "quote": "value band v2",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "ds-ror-holdout-2025q3",
+  "feat-ror-value-band-v2"
+ ],
+ "built_on": [
+  {
+   "what": "dec-ror-reallocate-t3",
+   "quote": "the decision to move t3 budget",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-ror-holdout-2025q3",
+   "quote": "ds-ror-holdout-2025q3",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-ror-value-band-v2",
+   "quote": "feat-ror-value-band-v2",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-406-retention-offers-roi.md",
+ "sha": "3826428db4230600c3afbbd00c7ee90675fa97f19bea2e1fd8bffb7622604fc9",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

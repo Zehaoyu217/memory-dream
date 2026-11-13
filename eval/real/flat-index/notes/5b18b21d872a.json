@@ -1,0 +1,140 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cc-dispute-link-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "Dispute link v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-cc-dispute-link-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cc-dispute-link-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cc-ft-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cc-ft-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-204-complaint-classification",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-204-complaint-classification"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "macro F1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fnd-cc-dispute-link-leak",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-cc-dispute-link-leak"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cc-dispute-link-v2",
+   "type": "uses",
+   "label": "used by",
+   "o": "cc-ft-v2",
+   "quote": "Used by cc-ft-v2 at the classifier head.",
+   "line": 6
+  },
+  {
+   "s": "exp-204-complaint-classification",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "holdout-2025q4",
+   "quote": "On holdout-2025q4 the gain is +0.03 macro F1 over the base (exp-204-complaint-classification).",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-204-complaint-classification",
+  "fnd-cc-dispute-link-leak"
+ ],
+ "built_on": [
+  {
+   "what": "feat-cc-dispute-link-v1",
+   "quote": "the trailing 60-day dispute count",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "fnd-cc-dispute-link-leak",
+   "quote": "fnd-cc-dispute-link-leak",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "trailing 60-day dispute count",
+   "quote": "Builds on the trailing 60-day dispute count and fnd-cc-dispute-link-leak.",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-cc-dispute-link-v1",
+   "quote": "feat-cc-dispute-link-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-cc-dispute-link-v2.md",
+ "sha": "5b18b21d872a362ef527a546ea9ec938ad3c952fde0ffe6d2c609c0c2caf24a2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

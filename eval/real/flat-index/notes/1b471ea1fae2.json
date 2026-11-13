@@ -1,0 +1,106 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "c25-oot-2024h1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Holdout c25-oot-2024h1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "churn-2025",
+   "type": "other",
+   "label": "churn project",
+   "as": [
+    "churn-2025"
+   ],
+   "lines": [
+    5,
+    7,
+    9
+   ]
+  },
+  {
+   "id": "churn-2025-account-month-population",
+   "type": "dataset",
+   "label": "population",
+   "as": [
+    "churn-2025 account-month population"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "ds-c25-churn-labels",
+   "type": "dataset",
+   "label": "labels",
+   "as": [
+    "ds-c25-churn-labels"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "churn-60-day-label",
+   "type": "term",
+   "label": "label window",
+   "as": [
+    "60-day churn"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "c25-oot-2024h1",
+   "type": "part-of",
+   "label": "account-months",
+   "o": "churn-2025",
+   "quote": "Out-of-time holdout for churn-2025.",
+   "line": 5
+  },
+  {
+   "s": "c25-oot-2024h1",
+   "type": "evaluated-on",
+   "label": "test set for",
+   "o": "churn-2025",
+   "quote": "it is the test set for every churn-2025 model.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-101-churn-2025",
+  "ds-c25-churn-labels"
+ ],
+ "built_on": [
+  {
+   "what": "ds-c25-accounts-snapshot",
+   "quote": "the churn-2025 account-month population",
+   "line": 9,
+   "asked": true
+  },
+  {
+   "what": "ds-c25-churn-labels",
+   "quote": "ds-c25-churn-labels",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-c25-oot-2024h1.md",
+ "sha": "1b471ea1fae2ecb7caad3e59063c7a45e225ba59e8a28267f833704171f403a3",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

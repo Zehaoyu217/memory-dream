@@ -1,0 +1,124 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "limit-model",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "the limit model"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exposure-weighted-auc",
+   "type": "metric",
+   "label": "auc variant",
+   "as": [
+    "exposure-weighted AUC"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "unweighted-auc",
+   "type": "metric",
+   "label": "auc variant",
+   "as": [
+    "unweighted 0.781"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout",
+   "type": "term",
+   "label": "holdout",
+   "as": [
+    "Q3 2025 holdout"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "sign-off owner",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sign-off-rule",
+   "type": "policy",
+   "label": "sign-off rule",
+   "as": [
+    "sign-off rule"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "limit-model",
+   "type": "measured-by",
+   "label": "headline AUC",
+   "o": "exposure-weighted-auc",
+   "quote": "The exposure-weighted AUC of 0.744",
+   "line": 4
+  },
+  {
+   "s": "limit-model",
+   "type": "measured-by",
+   "label": "shown beside",
+   "o": "unweighted-auc",
+   "quote": "with unweighted 0.781 beside it.",
+   "line": 4
+  },
+  {
+   "s": "limit-model",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "holdout",
+   "quote": "Both figures are on the Q3 2025 holdout.",
+   "line": 5
+  },
+  {
+   "s": "sign-off-rule",
+   "type": "owned-by",
+   "label": "sign-off rule of",
+   "o": "lena-fischer",
+   "quote": "Lena Fischer's sign-off rule is that neither is shown without the other.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "howto/weighted-auc-by-book"
+ ],
+ "built_on": [
+  {
+   "what": "howto/weighted-auc-by-book",
+   "quote": "howto/weighted-auc-by-book",
+   "line": 6,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/limit-model-auc-headline.md",
+ "sha": "5b725450aabd960a857f566a33630b285e4a7747542d3f4cd384cb4bfbeee7ca",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,56 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "compliance.aml_dispositions",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "Table: `compliance.aml_dispositions`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "compliance.aml_alerts",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "Builds on ds-aml-alerts."
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "compliance.aml_dispositions",
+   "type": "uses",
+   "label": "one row per alert",
+   "o": "compliance.aml_alerts",
+   "quote": "one row per alert with closed-false-positive or SAR-referred outcome",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "aml-find-fp-baseline"
+ ],
+ "built_on": [
+  {
+   "what": "ds-aml-alerts",
+   "quote": "ds-aml-alerts",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-aml-dispositions.md",
+ "sha": "83c2051a5971b5898ef8e9bcd81d873bc09fe8876da906d91cddd0a55d05fad7",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

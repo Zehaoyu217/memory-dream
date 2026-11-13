@@ -1,0 +1,116 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "recovery-scoring",
+   "type": "other",
+   "label": "workstream",
+   "as": [
+    "recovery-scoring"
+   ],
+   "lines": [
+    3,
+    4
+   ]
+  },
+  {
+   "id": "region-rate",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "region rate"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini"
+   ],
+   "lines": [
+    3,
+    4
+   ]
+  },
+  {
+   "id": "postcode-spread",
+   "type": "feature",
+   "label": "spread",
+   "as": [
+    "postcode spread"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "compliance",
+   "type": "team",
+   "label": "compliance",
+   "as": [
+    "compliance"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "fairness-check",
+   "type": "term",
+   "label": "check",
+   "as": [
+    "fairness check"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "region-rate",
+   "type": "measured-by",
+   "label": "adds",
+   "o": "gini",
+   "quote": "region rate adds Gini",
+   "line": 3
+  },
+  {
+   "s": "postcode-spread",
+   "type": "other",
+   "label": "looks like a proxy",
+   "o": "region-rate",
+   "quote": "postcode spread looks like a proxy",
+   "line": 3
+  },
+  {
+   "s": "region-rate",
+   "type": "owned-by",
+   "label": "to look",
+   "o": "compliance",
+   "quote": "compliance to look",
+   "line": 3
+  },
+  {
+   "s": "fairness-check",
+   "type": "other",
+   "label": "says drop",
+   "o": "region-rate",
+   "quote": "fairness check says drop",
+   "line": 4
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2025-05-06.md",
+ "sha": "d9dbdb7796bcd036cda57ffeb00908917ffb0395c8995b2cb75610b6e9e8f85a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

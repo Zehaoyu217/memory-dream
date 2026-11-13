@@ -1,0 +1,141 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-cld-control-2025h2",
+   "type": "segment",
+   "label": "control group",
+   "as": [
+    "ds-cld-control-2025h2: 41,380 band C and D accounts randomly held out from decreases in Jul-Sep 2025"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-cld-decrease-cohort",
+   "type": "dataset",
+   "label": "source cohort",
+   "as": [
+    "Builds on ds-cld-decrease-cohort."
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cards.limits_history",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.limits_history`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.accounts_monthly` for roll"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`callcenter.calls` for complaints"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-203-limit-decrease-policy",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-203-limit-decrease-policy"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-205-limit-decrease-policy",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-205-limit-decrease-policy"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "find-cld-roll-rates",
+   "type": "document",
+   "label": "finding",
+   "as": [
+    "find-cld-roll-rates"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-cld-control-2025h2",
+   "type": "uses",
+   "label": "source",
+   "o": "cards.limits_history",
+   "quote": "Source `cards.limits_history` (no change events for the control)",
+   "line": 6
+  },
+  {
+   "s": "ds-cld-control-2025h2",
+   "type": "uses",
+   "label": "source",
+   "o": "cards.accounts_monthly",
+   "quote": "`cards.accounts_monthly` for roll",
+   "line": 6
+  },
+  {
+   "s": "ds-cld-control-2025h2",
+   "type": "uses",
+   "label": "source",
+   "o": "callcenter.calls",
+   "quote": "`callcenter.calls` for complaints",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-cld-decrease-cohort",
+  "exp-203-limit-decrease-policy",
+  "exp-205-limit-decrease-policy",
+  "find-cld-roll-rates"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cld-decrease-cohort",
+   "quote": "ds-cld-decrease-cohort",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-cld-control-2025h2.md",
+ "sha": "974cfe7f13ea0c3c4d5f947e9cdb412725c3b0d1b9996f53a2a8c89da906b857",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

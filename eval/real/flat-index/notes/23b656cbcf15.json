@@ -1,0 +1,167 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "under-6-month-accounts",
+   "type": "segment",
+   "label": "under-6-month accounts",
+   "as": [
+    "Accounts under 6 months",
+    "Under 6 months"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "six-plus-month-accounts",
+   "type": "segment",
+   "label": "6-plus-month accounts",
+   "as": [
+    "6 months and over"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-csb-biz-accounts",
+   "type": "dataset",
+   "label": "smb accounts",
+   "as": [
+    "SMB accounts",
+    "ds-csb-biz-accounts"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "ds-csb-churn-labels",
+   "type": "dataset",
+   "label": "churn labels",
+   "as": [
+    "ds-csb-churn-labels"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "label-window",
+   "type": "term",
+   "label": "label window",
+   "as": [
+    "90-day window"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-csb-tenure-band",
+   "type": "feature",
+   "label": "tenure band",
+   "as": [
+    "feat-csb-tenure-band"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "onboarding-playbook",
+   "type": "other",
+   "label": "onboarding playbook",
+   "as": [
+    "onboarding playbook"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "churn-rate",
+   "type": "metric",
+   "label": "churn rate",
+   "as": [
+    "churn at 11.2%",
+    "churn 5.6%"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "under-6-month-accounts",
+   "type": "measured-by",
+   "label": "churn",
+   "o": "churn-rate",
+   "quote": "Accounts under 6 months churn at 11.2%",
+   "line": 4
+  },
+  {
+   "s": "six-plus-month-accounts",
+   "type": "measured-by",
+   "label": "churn",
+   "o": "churn-rate",
+   "quote": "churn 5.6%",
+   "line": 6
+  },
+  {
+   "s": "under-6-month-accounts",
+   "type": "part-of",
+   "label": "share of",
+   "o": "ds-csb-biz-accounts",
+   "quote": "Under 6 months: 14% of SMB accounts",
+   "line": 5
+  },
+  {
+   "s": "onboarding-playbook",
+   "type": "other",
+   "label": "covers",
+   "o": "under-6-month-accounts",
+   "quote": "the onboarding playbook already covers that group",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-csb-tenure-floor",
+  "ds-csb-biz-accounts",
+  "feat-csb-tenure-band",
+  "ds-csb-churn-labels"
+ ],
+ "built_on": [
+  {
+   "what": "ds-csb-churn-labels",
+   "quote": "ds-csb-churn-labels",
+   "line": 6,
+   "asked": true
+  },
+  {
+   "what": "ds-csb-biz-accounts",
+   "quote": "ds-csb-biz-accounts",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-csb-tenure-band",
+   "quote": "feat-csb-tenure-band",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-csb-tenure-cut.md",
+ "sha": "23b656cbcf156c725170b9be099a9aa0cd35559bb05bc1254ac9747a5786e715",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

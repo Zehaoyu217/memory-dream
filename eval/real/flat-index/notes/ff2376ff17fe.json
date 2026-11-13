@@ -1,0 +1,93 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "income-estimate",
+   "type": "feature",
+   "label": "income estimate",
+   "as": [
+    "the estimate"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "default-income-band",
+   "type": "other",
+   "label": "default band",
+   "as": [
+    "a $35k default band"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-402-income-estimation",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-402-income-estimation"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "27% MAPE"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-402-income-estimation",
+   "type": "measured-by",
+   "label": "reports MAPE",
+   "o": "mape",
+   "quote": "the 27% MAPE in exp-402-income-estimation",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "find-inc-coverage-gap",
+  "exp-402-income-estimation",
+  "find-inc-mape-initial",
+  "dec-inc-band-floor-2026"
+ ],
+ "built_on": [
+  {
+   "what": "exp-402-income-estimation",
+   "quote": "the raw-income gradient boosting test",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "find-inc-coverage-gap",
+   "quote": "the finding on thin estimate coverage",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "find-inc-mape-initial",
+   "quote": "find-inc-mape-initial",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-inc-band-floor-2025.md",
+ "sha": "ff2376ff17fed6c3d256e14f95e0578a3451a58477190a90e44ba1a2df678e4a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

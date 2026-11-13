@@ -1,0 +1,84 @@
+{
+ "kind": "incident",
+ "entities": [
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "txn table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "data-eng-cards",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "data-eng-cards"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "velocity-features",
+   "type": "feature",
+   "label": "velocity features",
+   "as": [
+    "velocity features"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "de-4411",
+   "type": "issue",
+   "label": "ticket",
+   "as": [
+    "DE-4411"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "velocity-features",
+   "type": "uses",
+   "label": "fed by",
+   "o": "cards.txn_daily",
+   "quote": "The txn table feeds the velocity features",
+   "line": 6
+  },
+  {
+   "s": "de-4411",
+   "type": "owned-by",
+   "label": "ticket",
+   "o": "data-eng-cards",
+   "quote": "data-eng-cards ticket DE-4411",
+   "line": 5
+  },
+  {
+   "s": "de-4411",
+   "type": "other",
+   "label": "backfill of",
+   "o": "cards.txn_daily",
+   "quote": "The Sept-2025 backfill of `cards.txn_daily` finished 2026-10-27",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/txn-backfill.md",
+ "sha": "522ea5d43f001eceb5cf160dafc615ed04f38c3c67c54363281f184e3b1a695a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

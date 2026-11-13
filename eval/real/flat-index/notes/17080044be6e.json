@@ -1,0 +1,147 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "ds-ch-ab-wave1",
+   "type": "other",
+   "label": "randomised test",
+   "as": [
+    "Wave-1 randomised channel test"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "sms",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "SMS"
+   ],
+   "lines": [
+    4,
+    5,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "call-channel",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "call"
+   ],
+   "lines": [
+    4,
+    5,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "email",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "email"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "dpd",
+   "type": "term",
+   "label": "dpd bucket",
+   "as": [
+    "1-29 DPD"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "collections.cases",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "`collections.cases`"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "callcenter.calls"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-ch-ab-wave1",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "collections.cases",
+   "quote": "Source: `collections.cases`",
+   "line": 7
+  },
+  {
+   "s": "ds-ch-ab-wave1",
+   "type": "uses",
+   "label": "joined to",
+   "o": "callcenter.calls",
+   "quote": "joined to `callcenter.calls`",
+   "line": 7
+  },
+  {
+   "s": "ds-ch-ab-wave1",
+   "type": "uses",
+   "label": "arm",
+   "o": "sms",
+   "quote": "SMS 28,400",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "q-ch-sms-vs-call"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ch-contact-costs",
+   "quote": "the per-contact cost by channel",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "q-ch-sms-vs-call",
+   "quote": "q-ch-sms-vs-call",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "the per-contact cost by channel",
+   "quote": "Builds on the per-contact cost by channel and q-ch-sms-vs-call.",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-ch-ab-wave1.md",
+ "sha": "17080044be6e1f87b36d6359b0e999034fa6a0517be248968d423fe2045d59ff",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,135 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "640-score-floor",
+   "type": "term",
+   "label": "score floor",
+   "as": [
+    "640 score floor"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "v8-score",
+   "type": "model",
+   "label": "score",
+   "as": [
+    "v8 score"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dec-cld-band-policy-2025",
+   "type": "document",
+   "label": "decision",
+   "as": [
+    "dec-cld-band-policy-2025"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dec-cld-band-policy-2026",
+   "type": "document",
+   "label": "decision",
+   "as": [
+    "dec-cld-band-policy-2026"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "PSI"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ds-cld-decrease-cohort",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-cld-decrease-cohort"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-cld-risk-band-v2",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "feat-cld-risk-band-v2"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "640-score-floor",
+   "type": "measured-by",
+   "label": "has PSI",
+   "o": "psi",
+   "quote": "PSI 0.22 between the 2025-Q4 and 2026-Q1 score pulls",
+   "line": 6
+  },
+  {
+   "s": "640-score-floor",
+   "type": "uses",
+   "label": "set in",
+   "o": "dec-cld-band-policy-2025",
+   "quote": "Floor of 640 on the v8 score was set in dec-cld-band-policy-2025 on the 2024 cohort.",
+   "line": 5
+  },
+  {
+   "s": "640-score-floor",
+   "type": "uses",
+   "label": "basis for dropping",
+   "o": "dec-cld-band-policy-2026",
+   "quote": "Basis for dropping the floor in dec-cld-band-policy-2026.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-cld-band-policy-2025",
+  "dec-cld-band-policy-2026"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cld-decrease-cohort",
+   "quote": "ds-cld-decrease-cohort",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-cld-risk-band-v2",
+   "quote": "feat-cld-risk-band-v2",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/find-cld-cut-640.md",
+ "sha": "7d7d562b39a09ed2aca906d7048369952f3fdb6001d40e0ca03820e1523b44ba",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

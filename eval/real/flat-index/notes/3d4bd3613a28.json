@@ -1,0 +1,99 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "cross-border-travel-spend",
+   "type": "metric",
+   "label": "spend",
+   "as": [
+    "cross-border travel spend"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "domestic-travel-spend",
+   "type": "metric",
+   "label": "spend",
+   "as": [
+    "Domestic travel spend"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fnd-trv-plateau",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-trv-plateau"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-trv-fx-cross-border",
+   "type": "dataset",
+   "label": "split series",
+   "as": [
+    "ds-trv-fx-cross-border"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fnd-trv-cross-border-recovery",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-trv-cross-border-recovery"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fnd-trv-plateau",
+   "type": "other",
+   "label": "driven by",
+   "o": "cross-border-travel-spend",
+   "quote": "was driven by cross-border spend",
+   "line": 6
+  },
+  {
+   "s": "cross-border-travel-spend",
+   "type": "uses",
+   "label": "needs split series",
+   "o": "ds-trv-fx-cross-border",
+   "quote": "The answer needs the split series from ds-trv-fx-cross-border",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-trv-plateau",
+  "ds-trv-fx-cross-border",
+  "fnd-trv-cross-border-recovery"
+ ],
+ "built_on": [
+  {
+   "what": "ds-trv-fx-cross-border",
+   "quote": "the split series from ds-trv-fx-cross-border",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/q-trv-cross-border-recovery.md",
+ "sha": "3d4bd3613a2853d103e8c794a79a75790bf3fe206b93fab8784ae023b88b6748",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

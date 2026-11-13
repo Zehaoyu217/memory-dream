@@ -1,0 +1,212 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "churn-lr-base-2025",
+   "type": "model",
+   "label": "baseline model",
+   "as": [
+    "churn-lr-base-2025"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "c25-oot-2024h1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "c25-oot-2024h1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "2024-holdout-dataset",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "the 2024 holdout dataset"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-c25-payment-behaviour",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-c25-payment-behaviour"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-c25-txn-recency",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-c25-txn-recency"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-c25-util-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "the month-end over-limit utilisation feature"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-c25-app-sessions",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "the trailing 30-day app session feature"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-lr-base-2025",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "c25-oot-2024h1",
+   "quote": "Holdout c25-oot-2024h1 (n=312,470): AUC 0.693",
+   "line": 6
+  },
+  {
+   "s": "churn-lr-base-2025",
+   "type": "measured-by",
+   "label": "scored",
+   "o": "auc",
+   "quote": "AUC 0.693, KS 0.27, Brier 0.0371",
+   "line": 6
+  },
+  {
+   "s": "churn-lr-base-2025",
+   "type": "measured-by",
+   "label": "scored",
+   "o": "ks",
+   "quote": "AUC 0.693, KS 0.27, Brier 0.0371",
+   "line": 6
+  },
+  {
+   "s": "churn-lr-base-2025",
+   "type": "uses",
+   "label": "builds on",
+   "o": "2024-holdout-dataset",
+   "quote": "Builds on the 2024 holdout dataset",
+   "line": 8
+  },
+  {
+   "s": "churn-lr-base-2025",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-c25-app-sessions",
+   "quote": "the trailing 30-day app session feature",
+   "line": 8
+  },
+  {
+   "s": "churn-lr-base-2025",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-c25-payment-behaviour",
+   "quote": "feat-c25-payment-behaviour",
+   "line": 8
+  },
+  {
+   "s": "churn-lr-base-2025",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-c25-txn-recency",
+   "quote": "feat-c25-txn-recency",
+   "line": 8
+  },
+  {
+   "s": "churn-lr-base-2025",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-c25-util-v1",
+   "quote": "the month-end over-limit utilisation feature",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-c25-oot-2024h1",
+   "quote": "the 2024 holdout dataset",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-c25-app-sessions",
+   "quote": "the trailing 30-day app session feature",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-c25-payment-behaviour",
+   "quote": "feat-c25-payment-behaviour",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-c25-txn-recency",
+   "quote": "feat-c25-txn-recency",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-c25-util-v1",
+   "quote": "the month-end over-limit utilisation feature",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/churn-lr-base-2025.md",
+ "sha": "57de609a6d1c1e5a7d86a41db8a873828e55cc8319bb3c664142c01b46308521",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

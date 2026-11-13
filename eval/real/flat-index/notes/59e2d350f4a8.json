@@ -1,0 +1,124 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "precision-at-1800",
+   "type": "metric",
+   "label": "precision metric",
+   "as": [
+    "precision@1800"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "recall-at-1800",
+   "type": "metric",
+   "label": "recall metric",
+   "as": [
+    "recall@1800"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "oot-set",
+   "type": "dataset",
+   "label": "oot set",
+   "as": [
+    "OOT set"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "daniel-okafor",
+   "type": "person",
+   "label": "team lead",
+   "as": [
+    "Daniel Okafor"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "scored-population",
+   "type": "segment",
+   "label": "population",
+   "as": [
+    "scored population"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "review-capacity",
+   "type": "term",
+   "label": "capacity",
+   "as": [
+    "weekly review capacity"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "precision-at-1800",
+   "type": "evaluated-on",
+   "label": "reported on",
+   "o": "oot-set",
+   "quote": "reports precision@1800 beside recall@1800 on the OOT set.",
+   "line": 5
+  },
+  {
+   "s": "recall-at-1800",
+   "type": "evaluated-on",
+   "label": "reported on",
+   "o": "oot-set",
+   "quote": "reports precision@1800 beside recall@1800 on the OOT set.",
+   "line": 5
+  },
+  {
+   "s": "recall-at-1800",
+   "type": "uses",
+   "label": "denominator from",
+   "o": "scored-population",
+   "quote": "Recall uses all positives in the scored population as its denominator.",
+   "line": 5
+  },
+  {
+   "s": "precision-at-1800",
+   "type": "owned-by",
+   "label": "reported by team",
+   "o": "daniel-okafor",
+   "quote": "Daniel Okafor's team reports precision@1800",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "howto/precision-at-k-review-capacity"
+ ],
+ "built_on": [
+  {
+   "what": "howto/precision-at-k-review-capacity",
+   "quote": "howto/precision-at-k-review-capacity",
+   "line": 6,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/precision-capacity-k.md",
+ "sha": "59e2d350f4a892b364fcb4704811e865483b49447477d1b10f9aef25a08b05f5",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

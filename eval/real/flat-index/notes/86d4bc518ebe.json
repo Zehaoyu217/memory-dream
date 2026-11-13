@@ -1,0 +1,113 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cb-elasticity-v1",
+   "type": "model",
+   "label": "elasticity model",
+   "as": [
+    "cb-elasticity-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "pooled-elasticity",
+   "type": "metric",
+   "label": "elasticity",
+   "as": [
+    "Pooled elasticity 0.21"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "find-cb-flat-wins",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-cb-flat-wins"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-cb-pilot-2025q4",
+   "type": "dataset",
+   "label": "pilot dataset",
+   "as": [
+    "the 2025 q4 cashback pilot dataset"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-cb-spend-base",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cb-spend-base"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cb-elasticity-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "pooled-elasticity",
+   "quote": "Pooled elasticity 0.21: spend rises 0.21% per 1% rate increase.",
+   "line": 6
+  },
+  {
+   "s": "find-cb-flat-wins",
+   "type": "uses",
+   "label": "used in",
+   "o": "cb-elasticity-v1",
+   "quote": "Used in find-cb-flat-wins for the first profit comparison.",
+   "line": 6
+  },
+  {
+   "s": "cb-elasticity-v1",
+   "type": "trained-on",
+   "label": "fit on",
+   "o": "ds-cb-pilot-2025q4",
+   "quote": "Regression of log monthly spend on log effective rewards rate across all three pilot cells",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "find-cb-flat-wins",
+  "cb-elasticity-v2",
+  "feat-cb-spend-base"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cb-pilot-2025q4",
+   "quote": "the 2025 q4 cashback pilot dataset",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-cb-spend-base",
+   "quote": "feat-cb-spend-base",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/cb-elasticity-v1.md",
+ "sha": "86d4bc518ebe470b3b759fd39758693a3ce8692cde108527c08270cff7802288",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

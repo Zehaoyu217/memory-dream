@@ -1,0 +1,105 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-305-bureau-score-migration",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-305-bureau-score-migration"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-bsm-v10-cohorts-2026",
+   "type": "dataset",
+   "label": "evaluation dataset",
+   "as": [
+    "ds-bsm-v10-cohorts-2026"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dec-bsm-cutover-2026q3",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-bsm-cutover-2026q3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "bsm-cutoff-logit",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bsm-cutoff-logit"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-bsm-v10-band",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-bsm-v10-band"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-305-bureau-score-migration",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "ds-bsm-v10-cohorts-2026",
+   "quote": "Evaluated on ds-bsm-v10-cohorts-2026 (n=71,300)",
+   "line": 5
+  },
+  {
+   "s": "exp-305-bureau-score-migration",
+   "type": "uses",
+   "label": "basis for",
+   "o": "dec-bsm-cutover-2026q3",
+   "quote": "Basis for the cutover in dec-bsm-cutover-2026q3.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "bsm-cutoff-logit",
+  "feat-bsm-v10-band",
+  "dec-bsm-cutover-2026q3"
+ ],
+ "built_on": [
+  {
+   "what": "bsm-cutoff-logit",
+   "quote": "bsm-cutoff-logit",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-bsm-v10-band",
+   "quote": "feat-bsm-v10-band",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-305-bureau-score-migration.md",
+ "sha": "9ec306d791426e3dbf7b14a8b4991e20ce3718847befed11bc22ad868245cd92",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

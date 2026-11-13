@@ -1,0 +1,182 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-clv-hazard",
+   "type": "feature",
+   "label": "hazard feature",
+   "as": [
+    "feat-clv-hazard"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-clv-cohort-panel",
+   "type": "dataset",
+   "label": "cohort panel",
+   "as": [
+    "ds-clv-cohort-panel"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "kaplan-meier",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "Kaplan-Meier hazard"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "tenure-band",
+   "type": "feature",
+   "label": "tenure band",
+   "as": [
+    "tenure band"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "bureau-score",
+   "type": "feature",
+   "label": "bureau band",
+   "as": [
+    "bureau band"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "clv-ml-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "clv-ml-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-503-customer-lifetime-value",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-503-customer-lifetime-value"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "segment-loss-rate",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "the segment loss rate feature"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-clv-tenure",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-clv-tenure"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-clv-hazard",
+   "type": "uses",
+   "label": "method",
+   "o": "kaplan-meier",
+   "quote": "Kaplan-Meier hazard by tenure band and bureau band",
+   "line": 5
+  },
+  {
+   "s": "feat-clv-hazard",
+   "type": "uses",
+   "label": "by tenure band",
+   "o": "tenure-band",
+   "quote": "Kaplan-Meier hazard by tenure band and bureau band",
+   "line": 5
+  },
+  {
+   "s": "feat-clv-hazard",
+   "type": "uses",
+   "label": "by bureau band",
+   "o": "bureau-score",
+   "quote": "Kaplan-Meier hazard by tenure band and bureau band",
+   "line": 5
+  },
+  {
+   "s": "feat-clv-hazard",
+   "type": "uses",
+   "label": "from cohort panel",
+   "o": "ds-clv-cohort-panel",
+   "quote": "from ds-clv-cohort-panel",
+   "line": 5
+  },
+  {
+   "s": "clv-ml-v2",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-clv-hazard",
+   "quote": "Used in clv-ml-v2 only.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-clv-cohort-panel",
+  "clv-ml-v2",
+  "exp-503-customer-lifetime-value",
+  "feat-clv-tenure"
+ ],
+ "built_on": [
+  {
+   "what": "exp-503-customer-lifetime-value",
+   "quote": "exp-503-customer-lifetime-value",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-clv-loss-rate",
+   "quote": "the segment loss rate feature",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-clv-tenure",
+   "quote": "feat-clv-tenure",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-clv-hazard.md",
+ "sha": "4b7313cb046a4748eb9660d07d8881644195a48d209ddb95f93617aad296fc98",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

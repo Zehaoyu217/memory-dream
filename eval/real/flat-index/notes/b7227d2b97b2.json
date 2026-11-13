@@ -1,0 +1,152 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "ae-attr-gbm-v1",
+   "type": "model",
+   "label": "gradient boosted model",
+   "as": [
+    "ae-attr-gbm-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ae-score-v2",
+   "type": "feature",
+   "label": "score",
+   "as": [
+    "score-v2 inputs"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ae_act28",
+   "type": "feature",
+   "label": "activity input",
+   "as": [
+    "ae_act28"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "tenure",
+   "type": "feature",
+   "label": "input",
+   "as": [
+    "tenure"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-ae-attrition-labels",
+   "type": "dataset",
+   "label": "attrition label",
+   "as": [
+    "90-day attrition label"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.81"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ae-attr-gbm-v1",
+   "type": "uses",
+   "label": "trees on",
+   "o": "ae_act28",
+   "quote": "gradient boosted trees on ae_act28, depth v2 and tenure",
+   "line": 5
+  },
+  {
+   "s": "ae-attr-gbm-v1",
+   "type": "uses",
+   "label": "trees on",
+   "o": "tenure",
+   "quote": "gradient boosted trees on ae_act28, depth v2 and tenure",
+   "line": 5
+  },
+  {
+   "s": "ae-attr-gbm-v1",
+   "type": "uses",
+   "label": "score inputs",
+   "o": "ae-score-v2",
+   "quote": "Gradient boosted attrition model on the score-v2 inputs",
+   "line": 4
+  },
+  {
+   "s": "ae-attr-gbm-v1",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "holdout-2025q4",
+   "quote": "scored on holdout-2025q4 (n = 610,000)",
+   "line": 5
+  },
+  {
+   "s": "ae-attr-gbm-v1",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.81, up from 0.76 for the linear score alone.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ae-score-v2",
+  "ds-ae-attrition-labels"
+ ],
+ "built_on": [
+  {
+   "what": "ae-score-v2",
+   "quote": "ae-score-v2",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-ae-attrition-labels",
+   "quote": "ds-ae-attrition-labels",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-506-app-engagement.md",
+ "sha": "b7227d2b97b20b6bcd4a3f00fa61043b18a0b27b75cda30f9f0dce13e3dc620b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,149 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cu-contact-hist-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-contact-hist-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`callcenter.calls`"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "sms-delivery-log",
+   "type": "dataset",
+   "label": "source log",
+   "as": [
+    "the SMS delivery log"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cu-resp-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cu-resp-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc gain",
+   "as": [
+    "+0.012 AUC"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "promise-to-pay-label",
+   "type": "term",
+   "label": "label source",
+   "as": [
+    "promise-to-pay label source"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cu-contact-hist-v2",
+   "type": "uses",
+   "label": "source",
+   "o": "callcenter.calls",
+   "quote": "Source: `callcenter.calls` plus the SMS delivery log.",
+   "line": 7
+  },
+  {
+   "s": "feat-cu-contact-hist-v2",
+   "type": "uses",
+   "label": "source",
+   "o": "sms-delivery-log",
+   "quote": "plus the SMS delivery log",
+   "line": 7
+  },
+  {
+   "s": "feat-cu-contact-hist-v2",
+   "type": "part-of",
+   "label": "input to",
+   "o": "cu-resp-v1",
+   "quote": "Adds +0.012 AUC to cu-resp-v1 on holdout-2025q1 (n=24,860).",
+   "line": 8
+  },
+  {
+   "s": "feat-cu-contact-hist-v2",
+   "type": "evaluated-on",
+   "label": "adds AUC on",
+   "o": "holdout-2025q1",
+   "quote": "Adds +0.012 AUC to cu-resp-v1 on holdout-2025q1 (n=24,860).",
+   "line": 8
+  },
+  {
+   "s": "feat-cu-contact-hist-v2",
+   "type": "measured-by",
+   "label": "adds",
+   "o": "auc",
+   "quote": "Adds +0.012 AUC",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-cu-call-outcomes",
+   "quote": "the call outcomes promise-to-pay label source",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "Version 1",
+   "quote": "Version 1",
+   "line": 5,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-cu-contact-hist-v2.md",
+ "sha": "d2c28033bc7df06f2d31cbf8f88c61f2271d6118599a728a96d1847c06c0f205",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

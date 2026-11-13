@@ -1,0 +1,129 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-406-call-uplift",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-406"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "xs-call-uplift-v1",
+   "type": "model",
+   "label": "causal forest model",
+   "as": [
+    "xs-call-uplift-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "xs-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "xs-gbm-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "open-rate",
+   "type": "metric",
+   "label": "open rate",
+   "as": [
+    "open rate"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "deciles-1-2",
+   "type": "segment",
+   "label": "deciles",
+   "as": [
+    "deciles 1-2"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "top-deciles",
+   "type": "segment",
+   "label": "deciles",
+   "as": [
+    "top two deciles"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "offer-log-2025-waves",
+   "type": "dataset",
+   "label": "offer log",
+   "as": [
+    "offer log for the 2025 waves"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "xs-call-uplift-v1",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "offer-log-2025-waves",
+   "quote": "xs-call-uplift-v1 scored on the offer log for the 2025 waves",
+   "line": 5
+  },
+  {
+   "s": "exp-406-call-uplift",
+   "type": "measured-by",
+   "label": "open rate effect",
+   "o": "open-rate",
+   "quote": "a call adds 1.2 points of open rate in deciles 1-2 of xs-gbm-v2",
+   "line": 4
+  },
+  {
+   "s": "deciles-1-2",
+   "type": "other",
+   "label": "deciles of",
+   "o": "xs-gbm-v2",
+   "quote": "a call adds 1.2 points of open rate in deciles 1-2 of xs-gbm-v2",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "xs-call-uplift-v1",
+  "xs-gbm-v2"
+ ],
+ "built_on": [
+  {
+   "what": "xs-call-uplift-v1",
+   "quote": "the causal forest call model",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-406-call-uplift.md",
+ "sha": "dc839fe3065346b7c4ae6ae67d00f84052b20add03b4366bf1eb03c38d6de5bf",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,144 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "ds-inc-payroll-proxy",
+   "type": "feature",
+   "label": "proxy",
+   "as": [
+    "ds-inc-payroll-proxy"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "payroll-candidate",
+   "type": "segment",
+   "label": "payroll candidate",
+   "as": [
+    "payroll candidate"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.payments_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ach-payment-sources",
+   "type": "feature",
+   "label": "sources",
+   "as": [
+    "ACH payment sources"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cadence",
+   "type": "term",
+   "label": "cadence",
+   "as": [
+    "14-16 day or monthly cadence"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "booked-accounts",
+   "type": "segment",
+   "label": "accounts",
+   "as": [
+    "booked accounts"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "coverage",
+   "type": "metric",
+   "label": "coverage",
+   "as": [
+    "Coverage is 38% of booked accounts"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "stated-income-applications",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "stated-income applications dataset"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "payroll-candidate",
+   "type": "uses",
+   "label": "inflows from",
+   "o": "cards.payments_daily",
+   "quote": "Inflows from ACH payment sources in `cards.payments_daily`",
+   "line": 5
+  },
+  {
+   "s": "ds-inc-payroll-proxy",
+   "type": "measured-by",
+   "label": "coverage",
+   "o": "coverage",
+   "quote": "Coverage is 38% of booked accounts",
+   "line": 7
+  },
+  {
+   "s": "booked-accounts",
+   "type": "other",
+   "label": "lack cadence",
+   "o": "cadence",
+   "quote": "62% have no detectable cadence",
+   "line": 7
+  },
+  {
+   "s": "payroll-candidate",
+   "type": "other",
+   "label": "requires cadence",
+   "o": "cadence",
+   "quote": "on a 14-16 day or monthly cadence in 3 months",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-inc-stated-income-2025",
+   "quote": "the stated-income applications dataset",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-inc-payroll-proxy.md",
+ "sha": "608423bcde76dc75573ac0d8041eb1206c320fd3b57c44c88eb7c3f6d4383e69",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

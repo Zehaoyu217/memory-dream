@@ -1,0 +1,130 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-mrisk-dispute-ratio",
+   "type": "feature",
+   "label": "dispute ratio feature",
+   "as": [
+    "dispute ratio"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "ds-disp-merchant-link",
+   "type": "dataset",
+   "label": "merchant link dataset",
+   "as": [
+    "ds-disp-merchant-link"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "mrisk-oot-2026h1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "mrisk-oot-2026h1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mrisk-gbm-v3",
+   "type": "model",
+   "label": "merchant model",
+   "as": [
+    "mrisk-gbm-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-507-merchant-risk",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-507-merchant-risk"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-mrisk-dispute-feature",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-mrisk-dispute-feature"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-mrisk-dispute-ratio",
+   "type": "uses",
+   "label": "borrowed from",
+   "o": "ds-disp-merchant-link",
+   "quote": "Dispute ratio per merchant from ds-disp-merchant-link",
+   "line": 5
+  },
+  {
+   "s": "feat-mrisk-dispute-ratio",
+   "type": "measured-by",
+   "label": "lifts",
+   "o": "auc",
+   "quote": "Lifts mrisk-oot-2026h1 AUC from 0.86 to 0.91",
+   "line": 6
+  },
+  {
+   "s": "mrisk-gbm-v3",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-mrisk-dispute-ratio",
+   "quote": "Used in mrisk-gbm-v3 only after dec-mrisk-dispute-feature.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-mrisk-dispute-feature",
+  "exp-507-merchant-risk"
+ ],
+ "built_on": [
+  {
+   "what": "ds-disp-merchant-link",
+   "quote": "ds-disp-merchant-link",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-mrisk-dispute-ratio.md",
+ "sha": "77d151f822438f4be655b08e91188c1a2289b6498592ef5009789f046d0bb16d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

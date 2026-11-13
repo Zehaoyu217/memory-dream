@@ -1,0 +1,46 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "weekly-kpi-deck",
+   "type": "document",
+   "label": "weekly kpi deck",
+   "as": [
+    "Weekly KPI deck data cutoff"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards-txn-daily",
+   "type": "dataset",
+   "label": "sla dataset",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "weekly-kpi-deck",
+   "type": "uses",
+   "label": "built from complete week",
+   "o": "cards-txn-daily",
+   "quote": "after the `cards.txn_daily` SLA, so the deck is built from a complete week",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/weekly-kpi-deck-cutoff.md",
+ "sha": "90beda7dd2e6341f0cbec5cd039455fe390c61a8b5b48254e53b34ad6734ffe2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

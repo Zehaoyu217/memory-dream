@@ -1,0 +1,144 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cb-spend-base",
+   "type": "feature",
+   "label": "spend level",
+   "as": [
+    "feat-cb-spend-base: trailing six-month average monthly spend"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cb.spend_panel",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cb.spend_panel"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cb-elasticity-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cb-elasticity-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cb-uplift-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cb-uplift-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-cb-spend-band-v2",
+   "type": "feature",
+   "label": "replacement feature",
+   "as": [
+    "feat-cb-spend-band-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cb-elasticity-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cb-elasticity-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "monthly-account-spend-panel",
+   "type": "dataset",
+   "label": "input dataset",
+   "as": [
+    "the monthly account spend panel"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cb-spend-base",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cb.spend_panel",
+   "quote": "from `cb.spend_panel`",
+   "line": 5
+  },
+  {
+   "s": "cb-elasticity-v1",
+   "type": "uses",
+   "label": "uses spend level",
+   "o": "feat-cb-spend-base",
+   "quote": "Used as the spend level in cb-elasticity-v1",
+   "line": 5
+  },
+  {
+   "s": "cb-uplift-v1",
+   "type": "uses",
+   "label": "uses spend level",
+   "o": "feat-cb-spend-base",
+   "quote": "and cb-uplift-v1",
+   "line": 5
+  },
+  {
+   "s": "feat-cb-spend-base",
+   "type": "uses",
+   "label": "built on",
+   "o": "monthly-account-spend-panel",
+   "quote": "Builds on the monthly account spend panel.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-cb-spend-band-v2",
+  "cb-elasticity-v2"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cb-spend-panel",
+   "quote": "the monthly account spend panel",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-cb-spend-band-v2",
+   "quote": "Replaced by feat-cb-spend-band-v2 in cb-elasticity-v2.",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-cb-spend-base.md",
+ "sha": "812a1ac066bad27ac5cf90af919b3cf902438baefb1862f7f07191db7cf54e8e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,222 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-ed-promote-v3",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: promote ed-gbm-v3 to the watchlist, replacing ed-gbm-v2 for full-file accounts"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ed-gbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ed-gbm-v3"
+   ],
+   "lines": [
+    4,
+    8
+   ]
+  },
+  {
+   "id": "ed-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ed-gbm-v2"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  },
+  {
+   "id": "ed-logit-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ed-logit-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "credit risk",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "aisha-khan",
+   "type": "person",
+   "label": "mlops",
+   "as": [
+    "Aisha Khan"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "psi-gate",
+   "type": "policy",
+   "label": "gate",
+   "as": [
+    "PSI gate"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "early-delinquency-oot-2026h1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "early-delinquency-oot-2026h1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "watchlist",
+   "type": "other",
+   "label": "watchlist",
+   "as": [
+    "the watchlist"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "full-file-accounts",
+   "type": "segment",
+   "label": "accounts",
+   "as": [
+    "full-file accounts"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "thin-file-accounts",
+   "type": "segment",
+   "label": "accounts",
+   "as": [
+    "Thin-file accounts"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ed-gbm-v3",
+   "type": "other",
+   "label": "promoted to",
+   "o": "watchlist",
+   "quote": "promote ed-gbm-v3 to the watchlist",
+   "line": 4
+  },
+  {
+   "s": "ed-gbm-v3",
+   "type": "replaces",
+   "label": "replacing",
+   "o": "ed-gbm-v2",
+   "quote": "replacing ed-gbm-v2 for full-file accounts",
+   "line": 4
+  },
+  {
+   "s": "ed-gbm-v3",
+   "type": "evaluated-on",
+   "label": "gate on",
+   "o": "early-delinquency-oot-2026h1",
+   "quote": "Gate: score PSI below 0.10 on early-delinquency-oot-2026h1",
+   "line": 6
+  },
+  {
+   "s": "dec-ed-promote-v3",
+   "type": "owned-by",
+   "label": "agreed by",
+   "o": "lena-fischer",
+   "quote": "Agreed 2026-06-18 by Lena Fischer (credit risk)",
+   "line": 5
+  },
+  {
+   "s": "psi-gate",
+   "type": "owned-by",
+   "label": "confirmed by",
+   "o": "aisha-khan",
+   "quote": "with Aisha Khan (MLOps) confirming the PSI gate",
+   "line": 5
+  },
+  {
+   "s": "thin-file-accounts",
+   "type": "other",
+   "label": "remain on",
+   "o": "ed-logit-v1",
+   "quote": "Thin-file accounts remain on ed-logit-v1.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ed-gbm-v3",
+  "ed-gbm-v2",
+  "ed-logit-v1",
+  "exp-207-early-delinquency",
+  "find-ed-bureau-slope",
+  "dec-ed-gbm-for-watchlist"
+ ],
+ "built_on": [
+  {
+   "what": "ed-gbm-v3",
+   "quote": "ed-gbm-v3",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-207-early-delinquency",
+   "quote": "exp-207-early-delinquency",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "find-ed-bureau-slope",
+   "quote": "find-ed-bureau-slope",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "dec-ed-gbm-for-watchlist",
+   "quote": "dec-ed-gbm-for-watchlist",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-ed-promote-v3.md",
+ "sha": "d1c12a11e58fba3e74cfa5253a95bf1ce89827b05cf2de99b14ddfd4f6e4192b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

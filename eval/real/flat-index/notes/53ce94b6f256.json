@@ -1,0 +1,136 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "churn-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "churn-xgb-v2"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "new-accounts",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "new accounts"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "tenure-6m-plus",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "tenure ≥ 6 months"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.69"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "recall-at-10",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "recall@10"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-xgb-v2",
+   "type": "evaluated-on",
+   "label": "split at 6 months",
+   "o": "holdout-2025q4",
+   "quote": "holdout-2025q4 split at 6 months tenure",
+   "line": 5
+  },
+  {
+   "s": "new-accounts",
+   "type": "part-of",
+   "label": "split of",
+   "o": "holdout-2025q4",
+   "quote": "holdout-2025q4 split at 6 months tenure: new accounts n=168k (14%)",
+   "line": 5
+  },
+  {
+   "s": "new-accounts",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "new accounts n=168k (14%), AUC 0.69",
+   "line": 5
+  },
+  {
+   "s": "tenure-6m-plus",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "tenure ≥ 6 months n=1.03M, AUC 0.83",
+   "line": 6
+  },
+  {
+   "s": "new-accounts",
+   "type": "measured-by",
+   "label": "recall",
+   "o": "recall-at-10",
+   "quote": "recall@10 0.31",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "nb/exp015_tenure.ipynb",
+  "churn-xgb-v2"
+ ],
+ "built_on": [
+  {
+   "what": "churn-xgb-v2",
+   "quote": "churn-xgb-v2",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-015-tenure.md",
+ "sha": "53ce94b6f25657ed434cc1fec2b12dbdf69557306e2160777257a49199ff2d7d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

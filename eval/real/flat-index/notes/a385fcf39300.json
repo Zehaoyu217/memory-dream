@@ -1,0 +1,108 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "crm.contacts",
+   "type": "dataset",
+   "label": "crm contacts table",
+   "as": [
+    "crm.contacts",
+    "`crm.contacts`"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "email-consent",
+   "type": "metric",
+   "label": "consent rate",
+   "as": [
+    "email consent 61%"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "sms-consent",
+   "type": "metric",
+   "label": "consent rate",
+   "as": [
+    "SMS consent 44%"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "dormant-pool",
+   "type": "segment",
+   "label": "dormant pool",
+   "as": [
+    "the dormant pool"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "push-capable",
+   "type": "metric",
+   "label": "push-capable share",
+   "as": [
+    "Push-capable means app installed with notifications on; 47% of the pool."
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "channel-split",
+   "type": "term",
+   "label": "channel split",
+   "as": [
+    "channel split in the waves"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "crm.contacts",
+   "type": "part-of",
+   "label": "consent flag",
+   "o": "email-consent",
+   "quote": "Consent flags: email_opt_in and sms_opt_in in `crm.contacts`",
+   "line": 5
+  },
+  {
+   "s": "dormant-pool",
+   "type": "measured-by",
+   "label": "consent rate",
+   "o": "email-consent",
+   "quote": "email consent 61%, SMS consent 44% of the dormant pool",
+   "line": 4
+  },
+  {
+   "s": "channel-split",
+   "type": "uses",
+   "label": "input",
+   "o": "push-capable",
+   "quote": "Channel availability is the input to the channel split in the waves.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-rdm-contact-channels.md",
+ "sha": "a385fcf39300a7ea1e28cbb63d423b5bb7fad9f0af7ddefb40c4759d39985204",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

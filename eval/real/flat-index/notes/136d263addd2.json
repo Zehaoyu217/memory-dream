@@ -1,0 +1,172 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-107-collections-uplift",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-107-collections-uplift"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cu-uplift-v3",
+   "type": "model",
+   "label": "uplift model",
+   "as": [
+    "cu-uplift-v3"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "uplift",
+   "type": "term",
+   "label": "call uplift",
+   "as": [
+    "call uplift"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "sms",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "SMS"
+   ],
+   "lines": [
+    4,
+    5,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "call",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "calling"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cost-per-contact",
+   "type": "metric",
+   "label": "cost per contact",
+   "as": [
+    "cost per contact"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "cost-per-promise-to-pay",
+   "type": "metric",
+   "label": "cost per promise-to-pay",
+   "as": [
+    "Per incremental promise-to-pay"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dpd",
+   "type": "term",
+   "label": "delinquency band",
+   "as": [
+    "1-29 DPD"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "call",
+   "type": "measured-by",
+   "label": "yields",
+   "o": "uplift",
+   "quote": "calling the top 20% by cu-uplift-v3 yields uplift 0.036",
+   "line": 5
+  },
+  {
+   "s": "sms",
+   "type": "measured-by",
+   "label": "yields",
+   "o": "uplift",
+   "quote": "SMS to the same accounts yields 0.030",
+   "line": 5
+  },
+  {
+   "s": "call",
+   "type": "measured-by",
+   "label": "costs",
+   "o": "cost-per-contact",
+   "quote": "Cost per contact is $4.10 for a call",
+   "line": 5
+  },
+  {
+   "s": "sms",
+   "type": "measured-by",
+   "label": "costs",
+   "o": "cost-per-contact",
+   "quote": "$0.37 for SMS",
+   "line": 5
+  },
+  {
+   "s": "sms",
+   "type": "measured-by",
+   "label": "costs",
+   "o": "cost-per-promise-to-pay",
+   "quote": "Per incremental promise-to-pay, SMS costs about $12 and a call about $114.",
+   "line": 6
+  },
+  {
+   "s": "call",
+   "type": "measured-by",
+   "label": "costs",
+   "o": "cost-per-promise-to-pay",
+   "quote": "Per incremental promise-to-pay, SMS costs about $12 and a call about $114.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-504-collections-channel-mix"
+ ],
+ "built_on": [
+  {
+   "what": "cu-uplift-v3",
+   "quote": "the uplift model with bureau delta",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-107-collections-uplift",
+   "quote": "the sms versus call economics experiment",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/find-cu-sms-cost.md",
+ "sha": "136d263addd27230165f5c7b25faff63462f9d7675de9126616f53b284453fc4",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

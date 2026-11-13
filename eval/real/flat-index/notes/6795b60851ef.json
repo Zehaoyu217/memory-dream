@@ -1,0 +1,127 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-404-aml-alerts",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-404-aml-alerts"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "aml-xgb-v2",
+   "type": "model",
+   "label": "candidate model",
+   "as": [
+    "aml-xgb-v2 candidate"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-aml-kyc-band",
+   "type": "feature",
+   "label": "kyc band",
+   "as": [
+    "feat-aml-kyc-band"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "oct-2025-jan-2026-dispositions",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "Oct 2025-Jan 2026 dispositions (n=5,300)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.88"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "aml-xgb-v2",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "oct-2025-jan-2026-dispositions",
+   "quote": "Eval set: Oct 2025-Jan 2026 dispositions (n=5,300), scored by aml-xgb-v2 candidate.",
+   "line": 5
+  },
+  {
+   "s": "aml-xgb-v2",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.88 with the KYC band, up from 0.86 without it.",
+   "line": 6
+  },
+  {
+   "s": "exp-404-aml-alerts",
+   "type": "uses",
+   "label": "adds",
+   "o": "feat-aml-kyc-band",
+   "quote": "adding KYC band gives AUC 0.88",
+   "line": 4
+  },
+  {
+   "s": "exp-404-aml-alerts",
+   "type": "other",
+   "label": "basis for promoting",
+   "o": "aml-xgb-v2",
+   "quote": "Basis for promoting v2 on 2026-03-30.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-aml-kyc-band",
+  "aml-xgb-v2"
+ ],
+ "built_on": [
+  {
+   "what": "exp-403-aml-alerts",
+   "quote": "the experiment adding round-amount and cash-velocity features",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-aml-kyc-band",
+   "quote": "feat-aml-kyc-band",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "the experiment adding round-amount and cash-velocity features",
+   "quote": "Builds on the experiment adding round-amount and cash-velocity features and feat-aml-kyc-band.",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-404-aml-alerts.md",
+ "sha": "6795b60851ef4e60549e6a340c1a84f6f9e922ba73ec58017821216d3fe1e52c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

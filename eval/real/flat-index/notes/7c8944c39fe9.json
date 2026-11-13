@@ -1,0 +1,65 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-rev26-interchange-ledger",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "Monthly interchange revenue from the finance ledger"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "finance-gl-extract",
+   "type": "dataset",
+   "label": "extract",
+   "as": [
+    "finance GL extract"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ben-carter",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Ben Carter's team"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-rev26-interchange-ledger",
+   "type": "uses",
+   "label": "from",
+   "o": "finance-gl-extract",
+   "quote": "Monthly interchange revenue by product from the finance GL extract",
+   "line": 5
+  },
+  {
+   "s": "ds-rev26-interchange-ledger",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "ben-carter",
+   "quote": "owner Ben Carter's team",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-rev26-interchange-ledger.md",
+ "sha": "7c8944c39fe9dc5437d7c5f1691ebd34f109812ad338c9e7761fb167f501cbc2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

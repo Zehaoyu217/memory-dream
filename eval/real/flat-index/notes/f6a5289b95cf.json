@@ -1,0 +1,126 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-f25-no-v3",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Do not promote fraud25-gbm-v3"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fraud25-gbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fraud25-gbm-v3"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fraud25-gbm-v2",
+   "type": "model",
+   "label": "champion model",
+   "as": [
+    "v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "recall",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "recall at 0.62"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-107-fraud-2025",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-107-fraud-2025"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "fraud-2026",
+   "type": "other",
+   "label": "rebuild",
+   "as": [
+    "fraud-2026"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "travel-flag",
+   "type": "feature",
+   "label": "travel flag",
+   "as": [
+    "travel problem"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud25-gbm-v3",
+   "type": "measured-by",
+   "label": "recall",
+   "o": "recall",
+   "quote": "recall at 0.62 drops from 0.58 to 0.57",
+   "line": 5
+  },
+  {
+   "s": "dec-f25-no-v3",
+   "type": "other",
+   "label": "keeps live",
+   "o": "fraud25-gbm-v2",
+   "quote": "the decision is to keep v2 live",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-107-fraud-2025"
+ ],
+ "built_on": [
+  {
+   "what": "exp-107-fraud-2025",
+   "quote": "exp-107-fraud-2025",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fraud25-gbm-v3",
+   "quote": "the travel flag halved model",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-f25-no-v3.md",
+ "sha": "f6a5289b95cfc0b4e004502929fdb2a4a7d6cd9827fa4ad49071103dafa8757a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

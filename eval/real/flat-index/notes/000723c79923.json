@@ -1,0 +1,143 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-sfc-season-v2",
+   "type": "feature",
+   "label": "seasonality feature",
+   "as": [
+    "feat-sfc-season-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-sfc-holiday-calendar",
+   "type": "dataset",
+   "label": "retail calendar",
+   "as": [
+    "retail-calendar-v3"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sfc-lgbm-v2",
+   "type": "model",
+   "label": "spend forecast model",
+   "as": [
+    "sfc-lgbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-203-spend-forecasting",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-203-spend-forecasting"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fnd-sfc-bfcm-shift",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-sfc-bfcm-shift",
+    "black friday peak shift finding"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-sfc-season-v2",
+   "type": "uses",
+   "label": "indicators for each event in",
+   "o": "ds-sfc-holiday-calendar",
+   "quote": "indicators for each event in retail-calendar-v3",
+   "line": 5
+  },
+  {
+   "s": "feat-sfc-season-v2",
+   "type": "uses",
+   "label": "uses shifted date set",
+   "o": "fnd-sfc-bfcm-shift",
+   "quote": "Black Friday and Cyber week use the shifted date set (fnd-sfc-bfcm-shift).",
+   "line": 6
+  },
+  {
+   "s": "feat-sfc-season-v2",
+   "type": "other",
+   "label": "lowers",
+   "o": "sfc-lgbm-v2",
+   "quote": "Lowers sfc-lgbm-v2 1-month MAPE from 5.6% to 5.2%",
+   "line": 7
+  },
+  {
+   "s": "sfc-lgbm-v2",
+   "type": "measured-by",
+   "label": "1-month MAPE",
+   "o": "mape",
+   "quote": "1-month MAPE from 5.6% to 5.2%",
+   "line": 7
+  },
+  {
+   "s": "feat-sfc-season-v2",
+   "type": "other",
+   "label": "tested in",
+   "o": "exp-203-spend-forecasting",
+   "quote": "(exp-203-spend-forecasting)",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-sfc-holiday-calendar",
+  "fnd-sfc-bfcm-shift",
+  "sfc-lgbm-v2",
+  "exp-203-spend-forecasting"
+ ],
+ "built_on": [
+  {
+   "what": "ds-sfc-holiday-calendar",
+   "quote": "ds-sfc-holiday-calendar",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fnd-sfc-bfcm-shift",
+   "quote": "the black friday peak shift finding",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-sfc-season-v2.md",
+ "sha": "000723c799232f9349e196d4849ce45467a052a3e2fc91d39c4c1c943446979a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

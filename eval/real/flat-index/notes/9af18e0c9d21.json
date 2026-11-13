@@ -1,0 +1,87 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "pd",
+   "type": "term",
+   "label": "pd",
+   "as": [
+    "PD"
+   ],
+   "lines": [
+    2,
+    4,
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "isotonic-calibration",
+   "type": "method",
+   "label": "calibration method",
+   "as": [
+    "isotonic calibration"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "pd-gbm-v2",
+   "type": "model",
+   "label": "pd model",
+   "as": [
+    "pd-gbm-v2"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "pd",
+   "type": "uses",
+   "label": "mapped through",
+   "o": "isotonic-calibration",
+   "quote": "the score mapped through isotonic calibration fitted on OOT",
+   "line": 5
+  },
+  {
+   "s": "pd-gbm-v2",
+   "type": "measured-by",
+   "label": "maps raw score to",
+   "o": "pd",
+   "quote": "a raw score of 0.042 maps to a calibrated PD of 3.1%",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "glossary/pd"
+ ],
+ "built_on": [
+  {
+   "what": "isotonic-calibration",
+   "quote": "the score mapped through isotonic calibration fitted on OOT",
+   "line": 5,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "glossary/pd",
+   "quote": "glossary/pd",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "corrections/pd-calibrated-probability.md",
+ "sha": "9af18e0c9d21646e965b7e20bb01bbd0350f78ec61786cb4d9bf0909b58e5113",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,274 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "fraud25-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fraud25-gbm-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-f25-mcc-travel",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-f25-mcc-travel"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "exp-104-fraud-2025",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-104-fraud-2025"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.911"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "KS 0.66"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "recall-at-1",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "recall@1% 0.52"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-f25-velocity-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-f25-velocity-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fraud25-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fraud25-gbm-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "dec-f25-champion-v2",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-f25-champion-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "tool",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    5,
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "uses",
+   "label": "adds",
+   "o": "feat-f25-mcc-travel",
+   "quote": "adds the travel flag",
+   "line": 4
+  },
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "measured-by",
+   "label": "scores",
+   "o": "auc",
+   "quote": "AUC 0.911",
+   "line": 4
+  },
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "measured-by",
+   "label": "scores",
+   "o": "ks",
+   "quote": "KS 0.66",
+   "line": 4
+  },
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "measured-by",
+   "label": "scores",
+   "o": "recall-at-1",
+   "quote": "recall@1% 0.52",
+   "line": 6
+  },
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "holdout-2025q1",
+   "quote": "Holdout-2025q1: AUC 0.911",
+   "line": 6
+  },
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-f25-velocity-v1",
+   "quote": "feat-f25-velocity-v1",
+   "line": 8
+  },
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "uses",
+   "label": "same setup",
+   "o": "lightgbm",
+   "quote": "Same LightGBM setup",
+   "line": 5
+  },
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "owned-by",
+   "label": "promoted by",
+   "o": "dec-f25-champion-v2",
+   "quote": "Promoted 2025-06-30 (dec-f25-champion-v2)",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-f25-champion-v2",
+  "fraud25-gbm-v1",
+  "feat-f25-velocity-v1",
+  "feat-f25-mcc-travel"
+ ],
+ "built_on": [
+  {
+   "what": "fraud25-gbm-v1",
+   "quote": "Same LightGBM setup",
+   "line": 5,
+   "asked": true
+  },
+  {
+   "what": "feat-f25-mcc-travel",
+   "quote": "feat-f25-mcc-travel",
+   "line": 5,
+   "asked": true
+  },
+  {
+   "what": "ds-f25-labels",
+   "quote": "the fraud label arrival lag",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-f25-amt-ratio",
+   "quote": "the amount-to-median ratio feature",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-f25-device-age",
+   "quote": "the device age feature",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-f25-hour-band",
+   "quote": "the authorisation hour band feature",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-f25-mcc-travel",
+   "quote": "feat-f25-mcc-travel",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-f25-velocity-v1",
+   "quote": "feat-f25-velocity-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fraud25-gbm-v1",
+   "quote": "fraud25-gbm-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "fraud25-gbm-v1",
+   "quote": "the first 2025 lightgbm model",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fraud25-gbm-v2.md",
+ "sha": "978b2445356685cee2bee7e2e1e0e1fed614dd9ea459490e0f79a864dabb68c9",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

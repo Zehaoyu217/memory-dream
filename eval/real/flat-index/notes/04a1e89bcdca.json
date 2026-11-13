@@ -1,0 +1,238 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "sfc-hier-v3",
+   "type": "model",
+   "label": "forecast model",
+   "as": [
+    "sfc-hier-v3"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "sfc-lgbm-v2",
+   "type": "model",
+   "label": "forecast model",
+   "as": [
+    "sfc-lgbm-v2"
+   ],
+   "lines": [
+    6,
+    10
+   ]
+  },
+  {
+   "id": "sfc-oot-2025h2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "sfc-oot-2025h2"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "error metric",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "q4-bias",
+   "type": "metric",
+   "label": "bias",
+   "as": [
+    "Q4 bias"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "library",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    5,
+    9
+   ]
+  },
+  {
+   "id": "mint",
+   "type": "term",
+   "label": "reconciliation method",
+   "as": [
+    "MinT"
+   ],
+   "lines": [
+    5,
+    9
+   ]
+  },
+  {
+   "id": "feat-sfc-active-accounts",
+   "type": "feature",
+   "label": "regressor",
+   "as": [
+    "feat-sfc-active-accounts"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-207-spend-forecasting",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-207-spend-forecasting"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fnd-sfc-q4-reconciled",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-sfc-q4-reconciled"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "dec-sfc-ship-hier-v3",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-sfc-ship-hier-v3"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "sfc-hier-v3",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "sfc-oot-2025h2",
+   "quote": "On sfc-oot-2025h2 (Jul-Dec 2025)",
+   "line": 6
+  },
+  {
+   "s": "sfc-hier-v3",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "mape",
+   "quote": "total MAPE 2.3% and segment MAPE 4.9%",
+   "line": 6
+  },
+  {
+   "s": "sfc-hier-v3",
+   "type": "measured-by",
+   "label": "has bias",
+   "o": "q4-bias",
+   "quote": "Q4 bias is -0.4%.",
+   "line": 7
+  },
+  {
+   "s": "sfc-hier-v3",
+   "type": "uses",
+   "label": "uses",
+   "o": "lightgbm",
+   "quote": "LightGBM base forecasts for the six segments",
+   "line": 5
+  },
+  {
+   "s": "sfc-hier-v3",
+   "type": "uses",
+   "label": "reconciled with",
+   "o": "mint",
+   "quote": "reconciled with MinT across segments and the total",
+   "line": 5
+  },
+  {
+   "s": "sfc-hier-v3",
+   "type": "uses",
+   "label": "adds regressor",
+   "o": "feat-sfc-active-accounts",
+   "quote": "Adds feat-sfc-active-accounts as a regressor.",
+   "line": 7
+  },
+  {
+   "s": "sfc-hier-v3",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "sfc-lgbm-v2",
+   "quote": "Replaces sfc-lgbm-v2.",
+   "line": 10
+  }
+ ],
+ "refs": [
+  "dec-sfc-ship-hier-v3",
+  "exp-207-spend-forecasting",
+  "fnd-sfc-q4-reconciled",
+  "feat-sfc-active-accounts",
+  "sfc-lgbm-v2"
+ ],
+ "built_on": [
+  {
+   "what": "exp-207-spend-forecasting",
+   "quote": "the mint reconciliation experiment",
+   "line": 9,
+   "asked": true
+  },
+  {
+   "what": "feat-sfc-active-accounts",
+   "quote": "the active accounts denominator feature",
+   "line": 9,
+   "asked": true
+  },
+  {
+   "what": "fnd-sfc-q4-reconciled",
+   "quote": "fnd-sfc-q4-reconciled",
+   "line": 9,
+   "asked": true
+  },
+  {
+   "what": "sfc-lgbm-v2",
+   "quote": "the per-segment lightgbm model",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "sfc-lgbm-v2",
+   "quote": "sfc-lgbm-v2",
+   "line": 10,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/sfc-hier-v3.md",
+ "sha": "04a1e89bcdca88f11b5d62e066072b19b99d59586fb5c50c350be9e46133a316",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

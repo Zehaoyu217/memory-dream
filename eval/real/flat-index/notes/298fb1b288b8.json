@@ -1,0 +1,103 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "xs-gbm-v1",
+   "type": "model",
+   "label": "balance-proxy model",
+   "as": [
+    "xs-gbm-v1"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  },
+  {
+   "id": "feat-xs-credit-limit-band",
+   "type": "feature",
+   "label": "limit band feature",
+   "as": [
+    "feat-xs-credit-limit-band"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "xs-holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "xs-holdout-2025q1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "xs-gbm-v1",
+   "type": "uses",
+   "label": "added to",
+   "o": "feat-xs-credit-limit-band",
+   "quote": "Added feat-xs-credit-limit-band to the balance-proxy model",
+   "line": 5
+  },
+  {
+   "s": "xs-gbm-v1",
+   "type": "evaluated-on",
+   "label": "on",
+   "o": "xs-holdout-2025q1",
+   "quote": "on xs-holdout-2025q1",
+   "line": 4
+  },
+  {
+   "s": "xs-gbm-v1",
+   "type": "measured-by",
+   "label": "AUC gain",
+   "o": "auc",
+   "quote": "AUC gain +0.002",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "feat-xs-credit-limit-band",
+  "xs-gbm-v1"
+ ],
+ "built_on": [
+  {
+   "what": "feat-xs-credit-limit-band",
+   "quote": "the credit-limit band feature",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "xs-gbm-v1",
+   "quote": "xs-gbm-v1",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-404-limit-band.md",
+ "sha": "298fb1b288b8b99807c2539994026bd2256f07425275e8429f0d747178833090",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

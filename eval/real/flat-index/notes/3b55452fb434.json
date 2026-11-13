@@ -1,0 +1,133 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "v10b",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "v10b keeps KS parity with v8 out of time"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "bsm-app-gbm-v8",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "Builds on bsm-app-gbm-v8"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "KS 0.37 against 0.36"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.80 against 0.78"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-306-bureau-score-migration",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "From exp-306-bureau-score-migration on 44,800 applicants Jan-Apr 2026"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bureau-score-migration-oot-2026h1",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "bureau-score-migration-oot-2026h1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "dec-bsm-cutover-2026q3",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Basis for dec-bsm-cutover-2026q3"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "v10b",
+   "type": "evaluated-on",
+   "label": "measured out of time",
+   "o": "bureau-score-migration-oot-2026h1",
+   "quote": "v10b keeps KS parity with v8 out of time (0.37 against 0.36, bureau-score-migration-oot-2026h1)",
+   "line": 4
+  },
+  {
+   "s": "v10b",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "ks",
+   "quote": "KS 0.37 against 0.36",
+   "line": 5
+  },
+  {
+   "s": "v10b",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.80 against 0.78",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "dec-bsm-cutover-2026q3"
+ ],
+ "built_on": [
+  {
+   "what": "bsm-app-gbm-v8",
+   "quote": "bsm-app-gbm-v8",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-306-bureau-score-migration",
+   "quote": "exp-306-bureau-score-migration",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/find-bsm-ks-parity.md",
+ "sha": "3b55452fb4342f78932d291587d60eec3f464ba46a65684b9f90f113562b84d0",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

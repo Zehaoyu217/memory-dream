@@ -1,0 +1,140 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-rs-placement-cutoff",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: place to agencies when rs-xgb-v2 predicts a recovery probability of 0.18 or above"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "person",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ben-carter",
+   "type": "person",
+   "label": "person",
+   "as": [
+    "Ben Carter"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "recovery-agencies",
+   "type": "organisation",
+   "label": "agency",
+   "as": [
+    "agencies"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "placement-cutoff",
+   "type": "term",
+   "label": "cutoff",
+   "as": [
+    "0.18 or above"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "rs-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rs-xgb-v2"
+   ],
+   "lines": [
+    4,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-rs-placement-cutoff",
+   "type": "owned-by",
+   "label": "agreed by",
+   "o": "lena-fischer",
+   "quote": "Agreed 2025-09-20 by Lena Fischer and Ben Carter (finance).",
+   "line": 5
+  },
+  {
+   "s": "dec-rs-placement-cutoff",
+   "type": "owned-by",
+   "label": "agreed by",
+   "o": "ben-carter",
+   "quote": "Agreed 2025-09-20 by Lena Fischer and Ben Carter (finance).",
+   "line": 5
+  },
+  {
+   "s": "dec-rs-placement-cutoff",
+   "type": "other",
+   "label": "places with",
+   "o": "recovery-agencies",
+   "quote": "Accounts at or above 0.18 are placed with agencies in the monthly batch.",
+   "line": 6
+  },
+  {
+   "s": "dec-rs-placement-cutoff",
+   "type": "uses",
+   "label": "scored by",
+   "o": "rs-xgb-v2",
+   "quote": "rs-xgb-v2 predicts a recovery probability",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "find-rs-placement-net",
+  "q-rs-placement-cutoff",
+  "rs-xgb-v2"
+ ],
+ "built_on": [
+  {
+   "what": "find-rs-placement-net",
+   "quote": "find-rs-placement-net",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "q-rs-placement-cutoff",
+   "quote": "q-rs-placement-cutoff",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "rs-xgb-v2",
+   "quote": "rs-xgb-v2",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-rs-placement-cutoff.md",
+ "sha": "62d418c0a1a9c4ae81efe9018159de9af153c8f1833184bc9ec1b4595015c970",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,77 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "cards-payments-daily",
+   "type": "dataset",
+   "label": "payments table",
+   "as": [
+    "cards.payments_daily"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "feat-pa-payment-rate",
+   "type": "feature",
+   "label": "payment-rate feature",
+   "as": [
+    "feat-pa-payment-rate"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-pa-ab-assignments",
+   "type": "dataset",
+   "label": "a/b assignments",
+   "as": [
+    "ds-pa-ab-assignments"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-pa-payment-rate",
+   "type": "uses",
+   "label": "source",
+   "o": "cards-payments-daily",
+   "quote": "Source `cards.payments_daily`.",
+   "line": 5
+  },
+  {
+   "s": "feat-pa-payment-rate",
+   "type": "uses",
+   "label": "used for",
+   "o": "cards-payments-daily",
+   "quote": "Used for feat-pa-payment-rate.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "feat-pa-payment-rate",
+  "ds-pa-ab-assignments"
+ ],
+ "built_on": [
+  {
+   "what": "ds-pa-ab-assignments",
+   "quote": "ds-pa-ab-assignments",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-pa-payments.md",
+ "sha": "eb3f6f80d734cbfd852fa8ea61534bde0537c0a72de7fa5e13ad35e967f45d16",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

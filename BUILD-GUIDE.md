@@ -323,9 +323,26 @@ constants, each with the measurement that set it.
   member no note is named for stays, with its words, and is listed (C18). Nothing is lost by silence: an answer
   with no member for a line leaves the line as it was, and an item whose name is written in the line stays. On the
   worn bank, 1,462 lines in 50 calls for $0.18: `from` links held 94.3% → 99.5%, replacements 91.2% → 99.5%, the
-  questions its lineage answers exactly 83 → 91 of 98. Do not fold this into the first reading's prompt: the rule
+  questions its lineage answers exactly 83 → 93 of 98. Do not fold this into the first reading's prompt: the rule
   is already there ("a sentence that names three gives three items") and was not kept. What works is the line
   alone, with nothing else to do.
+- **A folder too large to list** (`FOLDER_SHOWN`, 200 notes; `$MEMORY_FOLDER`): a prompt cannot carry its notes by
+  name, and the first 200 by alphabet are no help. The second reading then shows the keeper the notes *near* the
+  lines of a call (`PLACE_NEAR`): those within four steps of a line's note by a name written in a note, either way
+  (`NEAR_STEPS`), and apart from them, under ELSEWHERE, the eight notes of the folder whose first line and file
+  name share the rarest words with the line (`NEAR_WORDS`). Lines of notes that name each other go into the same
+  call, and a call takes lines only while the notes to show for them fit in 120 (`NEAR_SHOWN`), so none is cut
+  for coming late in the alphabet. The script chooses what is shown and says how near it is; the keeper decides,
+  and no note is placed by its words. Three things were measured on the flat bank (`eval/hard/make_flat.py`, 1,224
+  notes in one folder; RESULTS S7) and should not be undone. Without a model, the note a phrase means is among
+  those shown for 99.5% of 750 phrases, 33 notes at the median; four steps alone hold 95.5%, the words alone under
+  90%, and a third rule on shared name tokens added nothing. The two kinds must be shown apart: as one list, a
+  look-alike from another project ("the logistic regression baseline", of which every project has one) made the
+  keeper answer that two notes could be meant, for 30 phrases whose note was near. And a shorter list does not
+  mend that: 70 notes a call in place of 200 left as many phrases unnamed and took five times the calls. The
+  first reading does less in such a folder: its `FOLDER` list holds only the notes its own notes name by file
+  name (`folder_lines(text=…)`), so it places ids, and a thing it cannot name it gives as an item with the note's
+  words, which is what puts the line before the second reading.
 - **What `ask` does with an item that is still not placed** (`loose_ends`): it prints the note's own words under
   the note (`? it builds on «…», in its own words`), says `not the whole chain` on a `⇡` line that runs through such
   a note, and carries the words on the note's line of the map. Do not drop these lines to save characters. `ask` is

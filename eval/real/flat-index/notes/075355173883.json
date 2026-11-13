@@ -1,0 +1,207 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-cu-promote-v3",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "promote cu-uplift-v3 to call routing"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cu-uplift-v3",
+   "type": "model",
+   "label": "uplift model",
+   "as": [
+    "cu-uplift-v3"
+   ],
+   "lines": [
+    4,
+    9
+   ]
+  },
+  {
+   "id": "cu-uplift-v2",
+   "type": "model",
+   "label": "earlier version",
+   "as": [
+    "over v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "approver",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "raj-patel",
+   "type": "person",
+   "label": "approver",
+   "as": [
+    "Raj Patel"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "aisha-khan",
+   "type": "person",
+   "label": "mlops sign-off",
+   "as": [
+    "Aisha Khan (MLOps)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sms",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "SMS"
+   ],
+   "lines": [
+    4,
+    6,
+    9
+   ]
+  },
+  {
+   "id": "call",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "calls"
+   ],
+   "lines": [
+    4,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "dpd",
+   "type": "term",
+   "label": "delinquency band",
+   "as": [
+    "1-7 DPD"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "collections-uplift-oot-2026h1",
+   "type": "dataset",
+   "label": "evaluation set",
+   "as": [
+    "collections-uplift-oot-2026h1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "uplift",
+   "type": "term",
+   "label": "uplift gain",
+   "as": [
+    "uplift +0.005"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-cu-promote-v3",
+   "type": "owned-by",
+   "label": "approved by",
+   "o": "lena-fischer",
+   "quote": "Approved 2026-03-25 by Lena Fischer and Raj Patel",
+   "line": 5
+  },
+  {
+   "s": "dec-cu-promote-v3",
+   "type": "owned-by",
+   "label": "approved by",
+   "o": "raj-patel",
+   "quote": "Approved 2026-03-25 by Lena Fischer and Raj Patel",
+   "line": 5
+  },
+  {
+   "s": "dec-cu-promote-v3",
+   "type": "owned-by",
+   "label": "signed off by",
+   "o": "aisha-khan",
+   "quote": "with Aisha Khan (MLOps) signing off on the scoring job",
+   "line": 5
+  },
+  {
+   "s": "dec-cu-promote-v3",
+   "type": "other",
+   "label": "routes to SMS",
+   "o": "sms",
+   "quote": "1-7 DPD accounts get SMS by default",
+   "line": 6
+  },
+  {
+   "s": "cu-uplift-v3",
+   "type": "evaluated-on",
+   "label": "expected gain on",
+   "o": "collections-uplift-oot-2026h1",
+   "quote": "Expected gain: uplift +0.005 over v2 on collections-uplift-oot-2026h1.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "find-cu-bureau-lift",
+  "find-cu-sms-cost",
+  "cu-uplift-v3"
+ ],
+ "built_on": [
+  {
+   "what": "cu-uplift-v3",
+   "quote": "cu-uplift-v3",
+   "line": 9,
+   "asked": true
+  },
+  {
+   "what": "find-cu-bureau-lift",
+   "quote": "find-cu-bureau-lift",
+   "line": 9,
+   "asked": true
+  },
+  {
+   "what": "find-cu-sms-cost",
+   "quote": "find-cu-sms-cost",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-cu-promote-v3.md",
+ "sha": "075355173883bfe9b9bfd0fa6a9601baa3a9d9ca7cc74cf9d496c90e2ae180ef",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

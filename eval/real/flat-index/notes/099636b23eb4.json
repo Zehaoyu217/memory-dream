@@ -1,0 +1,139 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "same-month-last-year-reference",
+   "type": "term",
+   "label": "same-month-last-year reference",
+   "as": [
+    "same-month-last-year reference"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "limit-model",
+   "type": "model",
+   "label": "limit model",
+   "as": [
+    "the limit model"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "alarm-count",
+   "type": "metric",
+   "label": "alarms",
+   "as": [
+    "seasonal false alarms",
+    "Summer 2025 alarms"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "exp-205-model-monitoring",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-205-model-monitoring"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "exp-206-model-monitoring",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-206-model-monitoring"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "nov-dec-2024-backtest",
+   "type": "other",
+   "label": "backtest",
+   "as": [
+    "Nov-Dec 2024 backtest"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "policy-changes",
+   "type": "policy",
+   "label": "policy changes",
+   "as": [
+    "policy changes"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "same-month-last-year-reference",
+   "type": "other",
+   "label": "removes",
+   "o": "alarm-count",
+   "quote": "removes most seasonal false alarms on the limit model",
+   "line": 4
+  },
+  {
+   "s": "exp-205-model-monitoring",
+   "type": "measured-by",
+   "label": "alarms fell",
+   "o": "alarm-count",
+   "quote": "Summer 2025 alarms fell from 7 to 2",
+   "line": 5
+  },
+  {
+   "s": "exp-206-model-monitoring",
+   "type": "measured-by",
+   "label": "alarms fell",
+   "o": "alarm-count",
+   "quote": "the Nov-Dec 2024 backtest went from 9 to 0",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-205-model-monitoring",
+  "exp-206-model-monitoring",
+  "dec-mm-seasonal-reference"
+ ],
+ "built_on": [
+  {
+   "what": "exp-205-model-monitoring",
+   "quote": "exp-205-model-monitoring",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-206-model-monitoring",
+   "quote": "exp-206-model-monitoring",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-seasonal-baseline.md",
+ "sha": "099636b23eb480defbb720b0343447e9412e8dee33a90aa9305e1e1a16615d26",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

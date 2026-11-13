@@ -1,0 +1,78 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-xs-savings-accounts",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "`sav.accounts` gives the savings-open events used as the label, with a 30-day window"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "sav.accounts",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`sav.accounts`"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "ds-xs-offer-log",
+   "type": "dataset",
+   "label": "offer log",
+   "as": [
+    "the offer log",
+    "ds-xs-offer-log"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-xs-savings-accounts",
+   "type": "uses",
+   "label": "gives label",
+   "o": "sav.accounts",
+   "quote": "`sav.accounts` gives the savings-open events used as the label, with a 30-day window",
+   "line": 4
+  },
+  {
+   "s": "ds-xs-savings-accounts",
+   "type": "uses",
+   "label": "matched to",
+   "o": "ds-xs-offer-log",
+   "quote": "Savings-open timestamps from `sav.accounts` matched to the offer log on account and offer wave.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "ds-xs-offer-log"
+ ],
+ "built_on": [
+  {
+   "what": "ds-xs-offer-log",
+   "quote": "ds-xs-offer-log",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-xs-savings-accounts.md",
+ "sha": "7e1c7d5706cd8f0bc0f300c2e449abe436e3745094e4be4a3316f980b9aa323e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

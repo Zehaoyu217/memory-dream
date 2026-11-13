@@ -1,0 +1,128 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-106-feature-store-migration",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-106-feature-store-migration: spend regression with store features cuts MAPE from 16.2 to 14.9 percent"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-fsm-spend-cv-30d",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-fsm-spend-cv-30d"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "fsm-oot-2025q2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "fsm-oot-2025q2 (n=96,000 accounts)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE from 16.2 to 14.9 percent",
+    "MAPE on fsm-oot-2025q2 (n=96,000 accounts): 14.9 percent",
+    "16.2 percent"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "fsm-spend-lgbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fsm-spend-lgbm-v1"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "fsm-spend-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fsm-spend-lgbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fsm-spend-lgbm-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "mape",
+   "quote": "MAPE on fsm-oot-2025q2 (n=96,000 accounts): 14.9 percent",
+   "line": 6
+  },
+  {
+   "s": "fsm-spend-lgbm-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-fsm-spend-cv-30d",
+   "quote": "including feat-fsm-spend-cv-30d",
+   "line": 5
+  },
+  {
+   "s": "fsm-spend-lgbm-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "fsm-oot-2025q2",
+   "quote": "MAPE on fsm-oot-2025q2 (n=96,000 accounts)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "feat-fsm-spend-cv-30d",
+  "fsm-spend-lgbm-v1"
+ ],
+ "built_on": [
+  {
+   "what": "feat-fsm-spend-cv-30d",
+   "quote": "feat-fsm-spend-cv-30d",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fsm-spend-lgbm-v1",
+   "quote": "fsm-spend-lgbm-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-106-feature-store-migration.md",
+ "sha": "653761980d2b523d5f5f91ca17ac97185052e67ca501559fbd6a19fbf84e5031",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

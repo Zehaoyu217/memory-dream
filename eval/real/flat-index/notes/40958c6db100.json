@@ -1,0 +1,59 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cohort-by-account-open",
+   "type": "term",
+   "label": "cohort method",
+   "as": [
+    "Retention cohorts were grouped by `open_month`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cohort-by-first-statement",
+   "type": "term",
+   "label": "replacement method",
+   "as": [
+    "Superseded by `howto/cohort-by-first-statement`."
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cohort-by-account-open",
+   "type": "uses",
+   "label": "reads from",
+   "o": "cards.accounts_monthly",
+   "quote": "`open_month` from `cards.accounts_monthly`",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "howto/cohort-by-first-statement"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/cohort-by-account-open.md",
+ "sha": "40958c6db100f68b8279159a4e09c4c93fecef4ee0f49eaf656627543a85ac51",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

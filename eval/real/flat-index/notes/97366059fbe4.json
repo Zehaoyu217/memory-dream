@@ -1,0 +1,125 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "ml-legacy-feats-v1",
+   "type": "dataset",
+   "label": "feature table",
+   "as": [
+    "ml.legacy_feats_v1"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "cards-txn-daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cards-payments-daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.payments_daily"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cards-limits-history",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.limits_history"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "bureau-scores-monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "bureau.scores_monthly"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "aisha-khan",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Aisha Khan"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ml-legacy-feats-v1",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cards-txn-daily",
+   "quote": "Sources: `cards.txn_daily`",
+   "line": 7
+  },
+  {
+   "s": "ml-legacy-feats-v1",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cards-payments-daily",
+   "quote": "`cards.payments_daily`",
+   "line": 7
+  },
+  {
+   "s": "ml-legacy-feats-v1",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cards-limits-history",
+   "quote": "`cards.limits_history`",
+   "line": 7
+  },
+  {
+   "s": "ml-legacy-feats-v1",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "bureau-scores-monthly",
+   "quote": "`bureau.scores_monthly`",
+   "line": 7
+  },
+  {
+   "s": "aisha-khan",
+   "type": "owned-by",
+   "label": "owns refresh",
+   "o": "ml-legacy-feats-v1",
+   "quote": "Refresh is manual, on the Monday after month close, owned by Aisha Khan.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "fnd-parity-pre-fix"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-fsm-legacy-features.md",
+ "sha": "97366059fbe438dfed205b4eeb3a7b1abfcfa3c5057acbf2941973e3e603aa77",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

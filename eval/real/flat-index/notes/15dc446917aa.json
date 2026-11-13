@@ -1,0 +1,135 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-clv-loss-events",
+   "type": "dataset",
+   "label": "loss events",
+   "as": [
+    "Charge-off losses per cohort"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "collections.cases",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "collections.cases"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "charge-off",
+   "type": "term",
+   "label": "charge-off",
+   "as": [
+    "Charge-off losses"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "loss-rate",
+   "type": "metric",
+   "label": "loss rate",
+   "as": [
+    "loss rate"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-clv-loss-rate",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-clv-loss-rate"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "net-of-loss-clv-targets",
+   "type": "other",
+   "label": "clv targets",
+   "as": [
+    "net-of-loss CLV targets"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-clv-cohort-panel",
+   "type": "dataset",
+   "label": "cohort panel",
+   "as": [
+    "origination cohort panel dataset"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-clv-loss-events",
+   "type": "uses",
+   "label": "from",
+   "o": "collections.cases",
+   "quote": "Charge-off losses per cohort from collections.cases",
+   "line": 4
+  },
+  {
+   "s": "charge-off",
+   "type": "measured-by",
+   "label": "loss rate",
+   "o": "loss-rate",
+   "quote": "4.8% of originated balance for 2019 to 2021 cohorts",
+   "line": 4
+  },
+  {
+   "s": "feat-clv-loss-rate",
+   "type": "uses",
+   "label": "fed by",
+   "o": "ds-clv-loss-events",
+   "quote": "Feeds feat-clv-loss-rate and the net-of-loss CLV targets.",
+   "line": 7
+  },
+  {
+   "s": "net-of-loss-clv-targets",
+   "type": "uses",
+   "label": "fed by",
+   "o": "ds-clv-loss-events",
+   "quote": "Feeds feat-clv-loss-rate and the net-of-loss CLV targets.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-clv-loss-rate"
+ ],
+ "built_on": [
+  {
+   "what": "ds-clv-cohort-panel",
+   "quote": "the origination cohort panel dataset",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-clv-loss-events.md",
+ "sha": "15dc446917aa5586d175f4f4cf87b3ee9454edfcc1bf73bd37bc2bfe3e542003",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

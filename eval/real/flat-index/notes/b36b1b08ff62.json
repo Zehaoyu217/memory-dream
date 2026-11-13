@@ -1,0 +1,161 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "churn-2025",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "churn-2025"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "maya-ortiz",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Maya Ortiz"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "agreed",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-101-churn-2025",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-101-churn-2025"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc gain",
+   "as": [
+    "0.011 AUC"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "retention",
+   "type": "metric",
+   "label": "retention",
+   "as": [
+    "retention"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fnd-c25-90d-feedback-lag",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-c25-90d-feedback-lag"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "q-c25-label-window",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "q-c25-label-window"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "maya-ortiz",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "churn-2025",
+   "quote": "Owner: Maya Ortiz",
+   "line": 7
+  },
+  {
+   "s": "lena-fischer",
+   "type": "other",
+   "label": "agreed",
+   "o": "churn-2025",
+   "quote": "Lena Fischer agreed",
+   "line": 7
+  },
+  {
+   "s": "exp-101-churn-2025",
+   "type": "measured-by",
+   "label": "gain of",
+   "o": "auc",
+   "quote": "The 90-day gain of 0.011 AUC (exp-101-churn-2025)",
+   "line": 6
+  },
+  {
+   "s": "churn-2025",
+   "type": "other",
+   "label": "revisit if",
+   "o": "retention",
+   "quote": "Revisit only if retention moves to quarterly cohorts",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-101-churn-2025",
+  "fnd-c25-90d-feedback-lag",
+  "q-c25-label-window"
+ ],
+ "built_on": [
+  {
+   "what": "exp-101-churn-2025",
+   "quote": "the label window sweep experiment",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fnd-c25-90d-feedback-lag",
+   "quote": "fnd-c25-90d-feedback-lag",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "q-c25-label-window",
+   "quote": "q-c25-label-window",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-c25-label-60d.md",
+ "sha": "b36b1b08ff626203de29770f8fba500e08f5ef7efc07a9d1c86e6857fd8508ea",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

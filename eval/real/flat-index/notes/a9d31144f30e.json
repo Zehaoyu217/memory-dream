@@ -1,0 +1,91 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "ben-carter",
+   "type": "person",
+   "label": "finance lead",
+   "as": [
+    "Ben Carter (finance)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bt-offer-log",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`bt.offer_log`"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cards-accounts-monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "find-bt-margin-top30",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-bt-margin-top30"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "balance-transfer",
+   "type": "term",
+   "label": "product",
+   "as": [
+    "BT"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ben-carter",
+   "type": "other",
+   "label": "asked for",
+   "o": "balance-transfer",
+   "quote": "Ben Carter (finance) asked for the threshold in $ per account, not in AUC.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "find-bt-margin-top30"
+ ],
+ "built_on": [
+  {
+   "what": "q-bt-who-accepts",
+   "quote": "the question of who accepts balance transfers",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/q-bt-margin-threshold.md",
+ "sha": "a9d31144f30e56b8305a149fdd8fdf860a87d20b7a763e61cb1b527a461a3bee",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,210 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-502-merchant-risk",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-502-merchant-risk"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "mrisk-oot-2025h2",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "mrisk-oot-2025h2"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "mrisk-gbm-v1",
+   "type": "model",
+   "label": "gbm",
+   "as": [
+    "GBM with cb-ratio, concentration and new-merchant"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.85"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "precision-at-k",
+   "type": "metric",
+   "label": "precision@100",
+   "as": [
+    "precision@100 0.41"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "dec-mrisk-monthly-scoring",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-mrisk-monthly-scoring"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-501-merchant-risk",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-501-merchant-risk"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-mrisk-new-merchant",
+   "type": "feature",
+   "label": "new-merchant feature",
+   "as": [
+    "feat-mrisk-new-merchant"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "top-10-card-volume-share",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "the top-10-card volume share feature"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cb-ratio",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "cb-ratio"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-502-merchant-risk",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.85 and precision@100 0.41",
+   "line": 4
+  },
+  {
+   "s": "mrisk-gbm-v1",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "mrisk-oot-2025h2",
+   "quote": "Eval set: mrisk-oot-2025h2",
+   "line": 5
+  },
+  {
+   "s": "mrisk-gbm-v1",
+   "type": "uses",
+   "label": "uses",
+   "o": "cb-ratio",
+   "quote": "GBM with cb-ratio, concentration and new-merchant",
+   "line": 6
+  },
+  {
+   "s": "mrisk-gbm-v1",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-mrisk-new-merchant",
+   "quote": "GBM with cb-ratio, concentration and new-merchant",
+   "line": 6
+  },
+  {
+   "s": "mrisk-gbm-v1",
+   "type": "measured-by",
+   "label": "measures",
+   "o": "auc",
+   "quote": "AUC 0.85",
+   "line": 4
+  },
+  {
+   "s": "mrisk-gbm-v1",
+   "type": "measured-by",
+   "label": "measures",
+   "o": "precision-at-k",
+   "quote": "precision@100 0.41",
+   "line": 4
+  },
+  {
+   "s": "mrisk-gbm-v1",
+   "type": "other",
+   "label": "basis for decision",
+   "o": "dec-mrisk-monthly-scoring",
+   "quote": "Chosen as mrisk-gbm-v1 basis; decision dec-mrisk-monthly-scoring follows.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-501-merchant-risk",
+  "feat-mrisk-new-merchant",
+  "dec-mrisk-monthly-scoring",
+  "mrisk-gbm-v1"
+ ],
+ "built_on": [
+  {
+   "what": "exp-501-merchant-risk",
+   "quote": "exp-501-merchant-risk",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-mrisk-new-merchant",
+   "quote": "feat-mrisk-new-merchant",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-mrisk-txn-concentration",
+   "quote": "the top-10-card volume share feature",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-502-merchant-risk.md",
+ "sha": "b4b0896f1443ab50fc6891c4618db470d27bf42e4dfaf3d3cc96dfab62bf5191",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

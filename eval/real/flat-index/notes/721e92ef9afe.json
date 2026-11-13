@@ -1,0 +1,134 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "ed-gbm-v3",
+   "type": "model",
+   "label": "candidate model",
+   "as": [
+    "ed-gbm-v3 (ed-gbm-v2 plus feat-ed-bureau-slope-v1)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ed-gbm-v2",
+   "type": "model",
+   "label": "baseline model",
+   "as": [
+    "ed-gbm-v2 on the same set: AUC 0.796"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-ed-bureau-slope-v1",
+   "type": "feature",
+   "label": "bureau slope feature",
+   "as": [
+    "feat-ed-bureau-slope-v1"
+   ],
+   "lines": [
+    5,
+    9
+   ]
+  },
+  {
+   "id": "early-delinquency-oot-2026h1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "early-delinquency-oot-2026h1: n=1,930,000 current accounts"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-207-early-delinquency",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-207-early-delinquency"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "early-delinquency",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "early-delinquency-oot-2026h1"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ed-gbm-v3",
+   "type": "uses",
+   "label": "adds feature",
+   "o": "feat-ed-bureau-slope-v1",
+   "quote": "ed-gbm-v3 (ed-gbm-v2 plus feat-ed-bureau-slope-v1): AUC 0.809",
+   "line": 5
+  },
+  {
+   "s": "ed-gbm-v3",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "early-delinquency-oot-2026h1",
+   "quote": "Eval set early-delinquency-oot-2026h1: n=1,930,000 current accounts.",
+   "line": 5
+  },
+  {
+   "s": "ed-gbm-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "early-delinquency-oot-2026h1",
+   "quote": "ed-gbm-v2 on the same set: AUC 0.796.",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-ed-oot-2026h1",
+   "quote": "the 2026 h1 out-of-time eval set",
+   "line": 9,
+   "asked": true
+  },
+  {
+   "what": "ed-gbm-v2",
+   "quote": "ed-gbm-v2",
+   "line": 9,
+   "asked": true
+  },
+  {
+   "what": "feat-ed-bureau-slope-v1",
+   "quote": "feat-ed-bureau-slope-v1",
+   "line": 9,
+   "asked": true
+  },
+  {
+   "what": "2026 h1 out-of-time eval set",
+   "quote": "Builds on the 2026 h1 out-of-time eval set",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-207-early-delinquency.md",
+ "sha": "721e92ef9afefef3c8981597a98505b17b2ceb8005e118a73038beb4b4bcc27c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

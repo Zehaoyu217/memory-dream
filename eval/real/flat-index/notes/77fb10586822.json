@@ -1,0 +1,87 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "ds-cld-control-2025h2",
+   "type": "dataset",
+   "label": "control sample",
+   "as": [
+    "cld-control-2025h2"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "decreased-bands",
+   "type": "segment",
+   "label": "decreased bands",
+   "as": [
+    "decreased bands C and D"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dec-cld-band-policy-2025",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-cld-band-policy-2025"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "roll-rate",
+   "type": "metric",
+   "label": "roll rate",
+   "as": [
+    "90-day 30+ DPD roll"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-cld-band-policy-2025",
+   "type": "measured-by",
+   "label": "cuts roll",
+   "o": "roll-rate",
+   "quote": "cut 90-day 30+ DPD roll by 18% relative to the control",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "ds-cld-control-2025h2",
+  "cld-gbm-v2",
+  "dec-cld-band-policy-2025"
+ ],
+ "built_on": [
+  {
+   "what": "cld-gbm-v2",
+   "quote": "cld-gbm-v2",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-cld-control-2025h2",
+   "quote": "ds-cld-control-2025h2",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/find-cld-roll-rates.md",
+ "sha": "77fb105868226041a101fac44f75815c72b253dbc36fc4effe25f5808c7706d2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

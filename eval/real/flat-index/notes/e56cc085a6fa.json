@@ -1,0 +1,146 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-104-credit-line-increase",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-104-credit-line-increase"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cli-logreg-baseline",
+   "type": "model",
+   "label": "logistic model",
+   "as": [
+    "cli-logreg-baseline"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "cutoff-0-031",
+   "type": "term",
+   "label": "cutoff",
+   "as": [
+    "cutoff 0.031"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "2025-q1-test-cohort",
+   "type": "segment",
+   "label": "test cohort",
+   "as": [
+    "2025-Q1 test cohort (n=60,000)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "90-day-loss",
+   "type": "metric",
+   "label": "90-day loss",
+   "as": [
+    "90-day loss 1.4% of exposed book",
+    "1.4% 90-day loss"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "net-margin",
+   "type": "metric",
+   "label": "net margin",
+   "as": [
+    "+$1.8M a year net margin",
+    "net margin +$1.8M a year"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "cutoff-margin-vs-loss-question",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "the question on cutoff margin versus loss"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-104-credit-line-increase",
+   "type": "uses",
+   "label": "sweeps",
+   "o": "cli-logreg-baseline",
+   "quote": "Sweep of cutoffs 0.020 to 0.050 on cli-logreg-baseline",
+   "line": 5
+  },
+  {
+   "s": "exp-104-credit-line-increase",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "2025-q1-test-cohort",
+   "quote": "over the 2025-Q1 test cohort (n=60,000)",
+   "line": 5
+  },
+  {
+   "s": "exp-104-credit-line-increase",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "90-day-loss",
+   "quote": "90-day loss 1.4% of exposed book",
+   "line": 6
+  },
+  {
+   "s": "exp-104-credit-line-increase",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "net-margin",
+   "quote": "net margin +$1.8M a year on the planned 2025 wave volume",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "cli-logreg-baseline"
+ ],
+ "built_on": [
+  {
+   "what": "cli-logreg-baseline",
+   "quote": "cli-logreg-baseline",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "q-cli-revenue-loss-tradeoff",
+   "quote": "the question on cutoff margin versus loss",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-104-credit-line-increase.md",
+ "sha": "e56cc085a6fa0a08513db1fe6f6a6bb7c8db422630825cdd6a913b31d9e9be9c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

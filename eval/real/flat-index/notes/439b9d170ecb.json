@@ -1,0 +1,154 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-fsm-payment-lag-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-fsm-payment-lag-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-fsm-payment-lag-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-fsm-payment-lag-v1"
+   ],
+   "lines": [
+    8,
+    9
+   ]
+  },
+  {
+   "id": "fsm_parity_sample_2025h2",
+   "type": "dataset",
+   "label": "parity sample",
+   "as": [
+    "fsm_parity_sample_2025h2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-101-feature-store-migration",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-101-feature-store-migration"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-102-feature-store-migration",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-102-feature-store-migration"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fsm-churn-xgb-v2",
+   "type": "model",
+   "label": "churn model",
+   "as": [
+    "fsm-churn-xgb-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fsm-spend-lgbm-v2",
+   "type": "model",
+   "label": "spend model",
+   "as": [
+    "fsm-spend-lgbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-fsm-payment-lag-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "feat-fsm-payment-lag-v1",
+   "quote": "Replaces feat-fsm-payment-lag-v1.",
+   "line": 9
+  },
+  {
+   "s": "fsm-churn-xgb-v2",
+   "type": "uses",
+   "label": "reads",
+   "o": "feat-fsm-payment-lag-v2",
+   "quote": "fsm-churn-xgb-v2 and fsm-spend-lgbm-v2 read v2 only.",
+   "line": 7
+  },
+  {
+   "s": "fsm-spend-lgbm-v2",
+   "type": "uses",
+   "label": "reads",
+   "o": "feat-fsm-payment-lag-v2",
+   "quote": "fsm-churn-xgb-v2 and fsm-spend-lgbm-v2 read v2 only.",
+   "line": 7
+  },
+  {
+   "s": "feat-fsm-payment-lag-v2",
+   "type": "evaluated-on",
+   "label": "mismatch on",
+   "o": "fsm_parity_sample_2025h2",
+   "quote": "Mismatch against legacy on fsm_parity_sample_2025h2",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "feat-fsm-payment-lag-v1",
+  "exp-101-feature-store-migration",
+  "exp-102-feature-store-migration",
+  "fsm-churn-xgb-v2",
+  "fsm-spend-lgbm-v2"
+ ],
+ "built_on": [
+  {
+   "what": "exp-102-feature-store-migration",
+   "quote": "the utc payment lag recompute",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-fsm-payment-lag-v1",
+   "quote": "feat-fsm-payment-lag-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-fsm-payment-lag-v1",
+   "quote": "feat-fsm-payment-lag-v1",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-fsm-payment-lag-v2.md",
+ "sha": "439b9d170ecbd823299e51340b24ce0e8f58d683002120908b9ed8493c7eaf3b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

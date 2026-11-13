@@ -1,0 +1,92 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-507-collections-channel-mix",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-507-collections-channel-mix"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "thompson-sampling",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "Thompson-sampling bandit"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ch-propensity-v2",
+   "type": "model",
+   "label": "scores",
+   "as": [
+    "ch-propensity-v2 scores"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "promise-to-pay",
+   "type": "metric",
+   "label": "outcome",
+   "as": [
+    "promise-to-pay"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-507-collections-channel-mix",
+   "type": "uses",
+   "label": "uses priors",
+   "o": "ch-propensity-v2",
+   "quote": "with ch-propensity-v2 scores as priors",
+   "line": 5
+  },
+  {
+   "s": "exp-507-collections-channel-mix",
+   "type": "measured-by",
+   "label": "reports gain",
+   "o": "promise-to-pay",
+   "quote": "Bandit allocation yields 9% more promise-to-pay",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp507_bandit_sim.ipynb"
+ ],
+ "built_on": [
+  {
+   "what": "ch-propensity-v2",
+   "quote": "ch-propensity-v2",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-ch-ab-wave2",
+   "quote": "the second randomised channel test",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-507-collections-channel-mix.md",
+ "sha": "48871a7cd26a204e5f93c91b705722fb31be5c9a926b420a9bd4fee89fee37fd",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

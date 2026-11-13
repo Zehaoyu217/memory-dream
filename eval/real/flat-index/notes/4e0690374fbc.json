@@ -1,0 +1,87 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "credit-line-increase",
+   "type": "other",
+   "label": "workstream",
+   "as": [
+    "credit-line-increase"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "t-learner",
+   "type": "model",
+   "label": "uplift model",
+   "as": [
+    "T-learner"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "propensity",
+   "type": "model",
+   "label": "baseline model",
+   "as": [
+    "propensity"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift metric",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "cli-rct-2025q3",
+   "type": "dataset",
+   "label": "experiment data",
+   "as": [
+    "cli-rct-2025q3"
+   ],
+   "lines": [
+    3
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "t-learner",
+   "type": "measured-by",
+   "label": "uplift at 20%",
+   "o": "uplift-at-20",
+   "quote": "T-learner uplift@20% 1.9",
+   "line": 3
+  },
+  {
+   "s": "t-learner",
+   "type": "evaluated-on",
+   "label": "run on",
+   "o": "cli-rct-2025q3",
+   "quote": "on cli-rct-2025q3",
+   "line": 3
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2025-11-25.md",
+ "sha": "4e0690374fbc7ff47e69601ad7fa6283137a20065024162f91f66943b5c311bb",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

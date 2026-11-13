@@ -1,0 +1,79 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-bsm-dual-pull-sample",
+   "type": "dataset",
+   "label": "dual-pull sample",
+   "as": [
+    "52,000 accounts pulled on both v8 and v10 in December 2025"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`bureau.scores_monthly`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-bsm-v8-history",
+   "type": "dataset",
+   "label": "history panel",
+   "as": [
+    "Builds on ds-bsm-v8-history."
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "bureau-score",
+   "type": "feature",
+   "label": "score",
+   "as": [
+    "Correlation of v8 with v10 is 0.86"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-bsm-dual-pull-sample",
+   "type": "part-of",
+   "label": "stored in",
+   "o": "bureau.scores_monthly",
+   "quote": "Stored in `bureau.scores_monthly` with score_version set per row",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "bureau.scores_monthly",
+  "ds-bsm-v8-history"
+ ],
+ "built_on": [
+  {
+   "what": "ds-bsm-v8-history",
+   "quote": "ds-bsm-v8-history",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-bsm-dual-pull-sample.md",
+ "sha": "09b7f6875fd977080eda14e44073cf139a7bfcfff71881837d855257a748387f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,201 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "ae-score-v1",
+   "type": "model",
+   "label": "engagement score",
+   "as": [
+    "Engagement score v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ae-score-v2",
+   "type": "model",
+   "label": "engagement score",
+   "as": [
+    "ae-score-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "active-days-feature",
+   "type": "feature",
+   "label": "active days",
+   "as": [
+    "active days"
+   ],
+   "lines": [
+    4,
+    8
+   ]
+  },
+  {
+   "id": "feat-ae-depth-v1",
+   "type": "feature",
+   "label": "depth",
+   "as": [
+    "feat-ae-depth-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-ae-push-open-v1",
+   "type": "feature",
+   "label": "push open rate",
+   "as": [
+    "push open rate"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.73"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-ae-holdout",
+   "type": "dataset",
+   "label": "holdout dataset",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-502-app-engagement",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-502-app-engagement"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "90-day-attrition",
+   "type": "term",
+   "label": "90-day attrition",
+   "as": [
+    "90-day attrition"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ae-score-v1",
+   "type": "uses",
+   "label": "blend of",
+   "o": "active-days-feature",
+   "quote": "equal-weight blend of active days, depth and push open rate",
+   "line": 4
+  },
+  {
+   "s": "ae-score-v1",
+   "type": "uses",
+   "label": "blend of",
+   "o": "feat-ae-depth-v1",
+   "quote": "equal-weight blend of active days, depth and push open rate",
+   "line": 4
+  },
+  {
+   "s": "ae-score-v1",
+   "type": "uses",
+   "label": "blend of",
+   "o": "feat-ae-push-open-v1",
+   "quote": "equal-weight blend of active days, depth and push open rate",
+   "line": 4
+  },
+  {
+   "s": "ae-score-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.73 for 90-day attrition",
+   "line": 6
+  },
+  {
+   "s": "ae-score-v1",
+   "type": "evaluated-on",
+   "label": "on",
+   "o": "ds-ae-holdout",
+   "quote": "on holdout-2025q4 (n = 610,000 accounts)",
+   "line": 6
+  },
+  {
+   "s": "ae-score-v1",
+   "type": "other",
+   "label": "measured in",
+   "o": "exp-502-app-engagement",
+   "quote": "measured in exp-502-app-engagement",
+   "line": 6
+  },
+  {
+   "s": "ae-score-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "ae-score-v1",
+   "quote": "Superseded by ae-score-v2, which drops push credit and refits the weights.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ae-score-v2",
+  "exp-502-app-engagement"
+ ],
+ "built_on": [
+  {
+   "what": "feat-ae-active-days-v1",
+   "quote": "the 28-day active days count",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-ae-depth-v1",
+   "quote": "feat-ae-depth-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-ae-push-open-v1",
+   "quote": "feat-ae-push-open-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "the 28-day active days count",
+   "quote": "Builds on the 28-day active days count, feat-ae-depth-v1 and feat-ae-push-open-v1.",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ae-score-v1.md",
+ "sha": "f7b60c94f4ab6b40775b6ac2af934e2ac3c63847f5d774f633efb495031facef",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

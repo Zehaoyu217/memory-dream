@@ -1,0 +1,115 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "caller-history-v1",
+   "type": "feature",
+   "label": "caller history",
+   "as": [
+    "caller history v1"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "cr-lgbm-v1",
+   "type": "model",
+   "label": "lightgbm model",
+   "as": [
+    "cr-lgbm-v1"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro f1",
+   "as": [
+    "macro F1"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "old-caller-history-feature",
+   "type": "feature",
+   "label": "old caller history",
+   "as": [
+    "the old caller history feature"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cr-lgbm-v1",
+   "type": "uses",
+   "label": "ablation of",
+   "o": "caller-history-v1",
+   "quote": "Feature ablation on cr-lgbm-v1: removing caller history v1",
+   "line": 5
+  },
+  {
+   "s": "cr-lgbm-v1",
+   "type": "evaluated-on",
+   "label": "ablation holdout",
+   "o": "holdout-2025q4",
+   "quote": "gives 0.738 on holdout-2025q4 (n = 380,000)",
+   "line": 5
+  },
+  {
+   "s": "caller-history-v1",
+   "type": "measured-by",
+   "label": "adds",
+   "o": "macro-f1",
+   "quote": "Caller history v1 adds +0.05 macro F1",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "cr-lgbm-v1"
+ ],
+ "built_on": [
+  {
+   "what": "cr-lgbm-v1",
+   "quote": "cr-lgbm-v1",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "feat-cr-caller-history-v1",
+   "quote": "the old caller history feature",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-cr-leak-v1.md",
+ "sha": "2918f1a90fb01e5ec744e187ccaec04992596ec2de359e67418c3f72616ca6f7",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

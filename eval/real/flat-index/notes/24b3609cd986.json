@@ -1,0 +1,171 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-502-application-scorecard",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-502-application-scorecard"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "thin-file-applicants",
+   "type": "segment",
+   "label": "thin-file subgroup",
+   "as": [
+    "thin-file applicants"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-app-thin-file",
+   "type": "feature",
+   "label": "thin-file flag",
+   "as": [
+    "feat-app-thin-file"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "app-scorecard-v3",
+   "type": "model",
+   "label": "scorecard",
+   "as": [
+    "app-scorecard-v3"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "app-sessions",
+   "type": "feature",
+   "label": "velocity feature",
+   "as": [
+    "velocity feature"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-app-applications-2024",
+   "type": "dataset",
+   "label": "applications dataset",
+   "as": [
+    "ds-app-applications-2024"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "find-app-thin-file-gap",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-app-thin-file-gap"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Gini +0.01"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-502-application-scorecard",
+   "type": "uses",
+   "label": "subgroup from",
+   "o": "feat-app-thin-file",
+   "quote": "Thin-file subgroup from feat-app-thin-file",
+   "line": 5
+  },
+  {
+   "s": "app-scorecard-v3",
+   "type": "evaluated-on",
+   "label": "compared on",
+   "o": "holdout-2025q1",
+   "quote": "approval 19% against 33% for the rest on app-scorecard-v3",
+   "line": 5
+  },
+  {
+   "s": "exp-502-application-scorecard",
+   "type": "measured-by",
+   "label": "velocity adds",
+   "o": "gini",
+   "quote": "Velocity feature adds Gini +0.01 on holdout-2025q1",
+   "line": 6
+  },
+  {
+   "s": "exp-502-application-scorecard",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-app-applications-2024",
+   "quote": "Builds on ds-app-applications-2024",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "find-app-thin-file-gap"
+ ],
+ "built_on": [
+  {
+   "what": "ds-app-applications-2024",
+   "quote": "ds-app-applications-2024",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-app-thin-file",
+   "quote": "the thin-file flag under three tradelines",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-app-velocity-apps",
+   "quote": "the application starts per device feature",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-502-application-scorecard.md",
+ "sha": "24b3609cd98624d0c4cdb786238ac3866192d9742c762c42a0a903f17bfe3c93",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

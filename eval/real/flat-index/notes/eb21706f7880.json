@@ -1,0 +1,65 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cc-tfidf-v1",
+   "type": "feature",
+   "label": "tf-idf features",
+   "as": [
+    "TF-IDF over complaint text"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cc-logreg-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cc-logreg-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-cc-tickets-raw",
+   "type": "dataset",
+   "label": "tickets dataset",
+   "as": [
+    "ds-cc-tickets-raw"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cc-tfidf-v1",
+   "type": "uses",
+   "label": "input to",
+   "o": "cc-logreg-v1",
+   "quote": "Input to cc-logreg-v1.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-cc-tickets-raw",
+   "quote": "ds-cc-tickets-raw",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-cc-tfidf-v1.md",
+ "sha": "eb21706f7880d290a06007cc209999607a812f52fec63e723de7aa0c7bf4e522",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

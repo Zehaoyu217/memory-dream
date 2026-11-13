@@ -1,0 +1,169 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "mq3-uplift-xl-v2",
+   "type": "model",
+   "label": "uplift model",
+   "as": [
+    "mq3-uplift-xl-v2"
+   ],
+   "lines": [
+    4,
+    8
+   ]
+  },
+  {
+   "id": "t-learner",
+   "type": "other",
+   "label": "model",
+   "as": [
+    "T-learner"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "x-learner",
+   "type": "other",
+   "label": "model",
+   "as": [
+    "X-learner"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "find-mq3-q1-drift",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-mq3-q1-drift"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "find-mq3-xlearner-gain",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-mq3-xlearner-gain"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "chloe-martin",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Chloe Martin"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "ml engineering",
+   "as": [
+    "Sam Lee"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "2.6 on the Q2 split",
+    "2.2 out of time"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mq3-uplift-xl-v2",
+   "type": "measured-by",
+   "label": "scored",
+   "o": "uplift-at-20",
+   "quote": "The X-learner (2.6 on the Q2 split, 2.2 out of time)",
+   "line": 5
+  },
+  {
+   "s": "mq3-uplift-xl-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "t-learner",
+   "quote": "replaces the T-learner in the Q3 scoring run",
+   "line": 5
+  },
+  {
+   "s": "mq3-uplift-xl-v2",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "chloe-martin",
+   "quote": "Owner: Chloe Martin.",
+   "line": 7
+  },
+  {
+   "s": "mq3-uplift-xl-v2",
+   "type": "owned-by",
+   "label": "ML engineering",
+   "o": "sam-lee",
+   "quote": "ML engineering: Sam Lee.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "find-mq3-q1-drift",
+  "find-mq3-xlearner-gain",
+  "mq3-uplift-xl-v2"
+ ],
+ "built_on": [
+  {
+   "what": "exp-306-oot-q1-2026",
+   "quote": "the out-of-time q1 uplift test",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "find-mq3-q1-drift",
+   "quote": "find-mq3-q1-drift",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "find-mq3-xlearner-gain",
+   "quote": "find-mq3-xlearner-gain",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "mq3-uplift-xl-v2",
+   "quote": "mq3-uplift-xl-v2",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-mq3-ship-xl.md",
+ "sha": "c161bf00c21a28192f7c093bf72470736ab05c7a968cffebd493dcbd1ee83f3c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

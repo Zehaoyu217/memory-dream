@@ -1,0 +1,117 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "txc-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "txc-gbm-v2"
+   ],
+   "lines": [
+    5,
+    9
+   ]
+  },
+  {
+   "id": "feat-txc-merchant-history-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-txc-merchant-history-v1"
+   ],
+   "lines": [
+    5,
+    9
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "score",
+   "as": [
+    "macro-F1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fnd-txc-history-leaks",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-txc-history-leaks"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "random-split",
+   "type": "term",
+   "label": "validation split",
+   "as": [
+    "random 80/20 split"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "time-split",
+   "type": "term",
+   "label": "validation split",
+   "as": [
+    "time split"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "txc-gbm-v2",
+   "type": "uses",
+   "label": "plus",
+   "o": "feat-txc-merchant-history-v1",
+   "quote": "txc-gbm-v2 plus feat-txc-merchant-history-v1",
+   "line": 5
+  },
+  {
+   "s": "txc-gbm-v2",
+   "type": "measured-by",
+   "label": "scores",
+   "o": "macro-f1",
+   "quote": "macro-F1 0.91 on a random 80/20 split of the labelled set.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "fnd-txc-history-leaks"
+ ],
+ "built_on": [
+  {
+   "what": "feat-txc-merchant-history-v1",
+   "quote": "feat-txc-merchant-history-v1",
+   "line": 9,
+   "asked": true
+  },
+  {
+   "what": "txc-gbm-v2",
+   "quote": "txc-gbm-v2",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-106-txn-categorization.md",
+ "sha": "851f08a5980b0eec3323878f47a93bd0f3566c5ec4b237cd82718155c48259a2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

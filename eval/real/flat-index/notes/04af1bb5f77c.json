@@ -1,0 +1,145 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cb-elasticity-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cb-elasticity-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cb-elasticity-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cb-elasticity-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-204-band-split",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-204-band-split"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-cb-spend-band-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cb-spend-band-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "grocery-share",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "grocery share"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "pilot-cells",
+   "type": "dataset",
+   "label": "cells",
+   "as": [
+    "pilot cells"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cb-elasticity-v2",
+   "type": "trained-on",
+   "label": "fit on",
+   "o": "pilot-cells",
+   "quote": "fit on the pilot cells (n=54,000 accounts)",
+   "line": 5
+  },
+  {
+   "s": "cb-elasticity-v2",
+   "type": "uses",
+   "label": "spend-band interactions",
+   "o": "feat-cb-spend-band-v2",
+   "quote": "Log-log with spend-band interactions and grocery share",
+   "line": 5
+  },
+  {
+   "s": "cb-elasticity-v2",
+   "type": "uses",
+   "label": "grocery share",
+   "o": "grocery-share",
+   "quote": "Log-log with spend-band interactions and grocery share",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "cb-elasticity-v1",
+  "exp-204-band-split",
+  "feat-cb-spend-band-v2"
+ ],
+ "built_on": [
+  {
+   "what": "cb-elasticity-v1",
+   "quote": "cb-elasticity-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-204-band-split",
+   "quote": "exp-204-band-split",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-cb-grocery-share",
+   "quote": "the grocery share of spend feature",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-cb-spend-band-v2",
+   "quote": "feat-cb-spend-band-v2",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "the pooled elasticity estimate of 0.21",
+   "quote": "the pooled elasticity estimate of 0.21",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/cb-elasticity-v2.md",
+ "sha": "04af1bb5f77c40948815fd1af90e28a40a9b7902acf62b839c4b3618f99499b7",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -152,6 +152,13 @@ things a note as one call a note, places more of the links between a folder's no
 much; two dozen a call costs 0.4 and reads thinner (0.60 of the things). One call a note is still what
 `dream` does when `--packets` is not given.
 
+After the first reading, with a command, every line of a note that says what it builds on or replaces is
+read once more beside its folder's notes (`second reading: … lines read once more`), 45 lines a call.
+A folder of more than 200 notes (`MEMORY_FOLDER`) cannot be listed in a prompt: the keeper is then shown
+the notes near the lines of a call, and the calls are smaller. A dream that was stopped by hand leaves
+`_dream/lock`; the next one says so and waits until the file is deleted. Nothing read is lost: readings
+are on file as they arrive, and the next dream reads only what is still unread.
+
 No command: `dream` builds everything that needs no model — lineage, kinds, conflicts, digest,
 viewer, index — and says how many notes have no entities yet; `check` says it in one C5 line.
 Answering is unaffected. When you want entities and relations without a model command, run

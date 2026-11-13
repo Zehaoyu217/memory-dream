@@ -1,0 +1,92 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-pbs-cash-share",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-pbs-cash-share: cash-advance share of total spend, 12 months"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "pbs-kmeans-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "pbs-kmeans-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "pbs-gmm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "pbs-gmm-v2 onward"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-pbs-twelve-month-payments",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "the twelve-month payments dataset"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "pbs-kmeans-v1",
+   "type": "uses",
+   "label": "uses feature",
+   "o": "feat-pbs-cash-share",
+   "quote": "Used in pbs-kmeans-v1 and pbs-gmm-v2 onward.",
+   "line": 7
+  },
+  {
+   "s": "pbs-gmm-v2",
+   "type": "uses",
+   "label": "uses feature",
+   "o": "feat-pbs-cash-share",
+   "quote": "Used in pbs-kmeans-v1 and pbs-gmm-v2 onward.",
+   "line": 7
+  },
+  {
+   "s": "feat-pbs-cash-share",
+   "type": "uses",
+   "label": "built on",
+   "o": "ds-pbs-twelve-month-payments",
+   "quote": "Builds on the twelve-month payments dataset.",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-pbs-payments-12m",
+   "quote": "the twelve-month payments dataset",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-pbs-cash-share.md",
+ "sha": "d361117802e50c48111c18010b05cf2112cc27b49d4acc5dbc08365cb078b7f5",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,127 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "cb-escalate-v1",
+   "type": "model",
+   "label": "escalation model",
+   "as": [
+    "Escalation model"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "prior-calls-count",
+   "type": "feature",
+   "label": "prior-calls count",
+   "as": [
+    "prior-calls count"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "callback-prioritisation",
+   "type": "other",
+   "label": "callback prioritisation",
+   "as": [
+    "callback prioritisation"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "handoff-rule",
+   "type": "policy",
+   "label": "handoff rule",
+   "as": [
+    "handoff rule"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cb-escalate-v1",
+   "type": "evaluated-on",
+   "label": "escalation holdout",
+   "o": "holdout-2025q4",
+   "quote": "Escalation holdout: holdout-2025q4 sessions (n = 18,400)",
+   "line": 5
+  },
+  {
+   "s": "cb-escalate-v1",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.77 with prior-calls count, 0.73 without",
+   "line": 5
+  },
+  {
+   "s": "cb-escalate-v1",
+   "type": "uses",
+   "label": "with",
+   "o": "prior-calls-count",
+   "quote": "AUC 0.77 with prior-calls count",
+   "line": 5
+  },
+  {
+   "s": "cb-escalate-v1",
+   "type": "other",
+   "label": "feeds",
+   "o": "callback-prioritisation",
+   "quote": "Result feeds the callback prioritisation",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "cb-escalate-v1"
+ ],
+ "built_on": [
+  {
+   "what": "cb-escalate-v1",
+   "quote": "cb-escalate-v1",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-305-chatbot-deflection.md",
+ "sha": "92d210e4b8ef9dff50405be57aef936fc924971dc0389bf5b2aaabf905cacd07",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

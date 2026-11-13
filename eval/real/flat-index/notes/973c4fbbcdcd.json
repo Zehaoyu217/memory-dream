@@ -1,0 +1,130 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "dpd",
+   "type": "term",
+   "label": "delinquency band",
+   "as": [
+    "8-29 DPD"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "promise-to-pay-lift",
+   "type": "metric",
+   "label": "promise-to-pay lift",
+   "as": [
+    "promise-to-pay lift"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "sms",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "SMS"
+   ],
+   "lines": [
+    4,
+    5,
+    6,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "call",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "call-first"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-504-collections-channel-mix",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-504-collections-channel-mix"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "sms",
+   "type": "measured-by",
+   "label": "captures 53%",
+   "o": "promise-to-pay-lift",
+   "quote": "On 8-29 DPD, SMS captures only 53% of the call's promise-to-pay lift",
+   "line": 4
+  },
+  {
+   "s": "sms",
+   "type": "measured-by",
+   "label": "SMS-only lift 3.1pp",
+   "o": "promise-to-pay-lift",
+   "quote": "SMS-only lift 3.1pp against call-first lift 5.9pp",
+   "line": 5
+  },
+  {
+   "s": "call",
+   "type": "measured-by",
+   "label": "call-first lift 5.9pp",
+   "o": "promise-to-pay-lift",
+   "quote": "call-first lift 5.9pp",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "exp-504-collections-channel-mix",
+   "quote": "exp-504-collections-channel-mix",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "find-ch-sms-matches-call",
+   "quote": "find-ch-sms-matches-call",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "find-cu-sms-cost",
+   "quote": "find-cu-sms-cost",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "find-ch-sms-matches-call",
+   "quote": "find-ch-sms-matches-call",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/find-ch-sms-call-gap.md",
+ "sha": "973c4fbbcdcd27c66b4efdc01c969382335ddc66819a0c88b52aa7e96326e539",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

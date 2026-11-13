@@ -1,0 +1,133 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "cb.spend_panel",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cb.spend_panel"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "finance-analytics",
+   "type": "team",
+   "label": "owner",
+   "as": [
+    "finance analytics"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "data-eng-cards",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "data-eng-cards"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "named contact",
+   "as": [
+    "Tomas Rivera"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "active-accounts",
+   "type": "segment",
+   "label": "active accounts",
+   "as": [
+    "612,000 active accounts"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "monthly-spend",
+   "type": "metric",
+   "label": "monthly spend",
+   "as": [
+    "Average monthly spend"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cb.spend_panel",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards.txn_daily",
+   "quote": "from `cards.txn_daily`, purchases only, with refunds netted in the month",
+   "line": 5
+  },
+  {
+   "s": "cb.spend_panel",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "finance-analytics",
+   "quote": "Owner: finance analytics, with data-eng-cards (Tomas Rivera)",
+   "line": 5
+  },
+  {
+   "s": "cb.spend_panel",
+   "type": "owned-by",
+   "label": "owner with",
+   "o": "data-eng-cards",
+   "quote": "Owner: finance analytics, with data-eng-cards (Tomas Rivera)",
+   "line": 5
+  },
+  {
+   "s": "cb.spend_panel",
+   "type": "other",
+   "label": "covers",
+   "o": "active-accounts",
+   "quote": "monthly spend per account for 612,000 active accounts",
+   "line": 4
+  },
+  {
+   "s": "cb.spend_panel",
+   "type": "measured-by",
+   "label": "average",
+   "o": "monthly-spend",
+   "quote": "Average monthly spend $1,240, median $760",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-cb-spend-panel.md",
+ "sha": "d0253264ebc4d568c434188c95811793a166323e0abe6705aa52e1947a83c1ff",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

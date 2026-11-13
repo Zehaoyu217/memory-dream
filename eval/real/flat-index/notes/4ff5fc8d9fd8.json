@@ -1,0 +1,116 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "fraud-training-set",
+   "type": "dataset",
+   "label": "training set",
+   "as": [
+    "fraud training set"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "maturity-rule",
+   "type": "policy",
+   "label": "maturity rule",
+   "as": [
+    "120-day maturity rule"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "extract-2026-01-15",
+   "type": "dataset",
+   "label": "extract",
+   "as": [
+    "2026-01-15 extract"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "daniel-okafor",
+   "type": "person",
+   "label": "team lead",
+   "as": [
+    "Daniel Okafor"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "training-lookback",
+   "type": "policy",
+   "label": "lookback rule",
+   "as": [
+    "at least four months back"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "late-september-transactions",
+   "type": "segment",
+   "label": "transactions",
+   "as": [
+    "late-September transactions"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud-training-set",
+   "type": "uses",
+   "label": "uses",
+   "o": "training-lookback",
+   "quote": "Training uses observation months at least four months back.",
+   "line": 6
+  },
+  {
+   "s": "late-september-transactions",
+   "type": "other",
+   "label": "not yet mature under",
+   "o": "maturity-rule",
+   "quote": "late-September transactions were not yet 120 days old at the extract",
+   "line": 5
+  },
+  {
+   "s": "daniel-okafor",
+   "type": "other",
+   "label": "dropped",
+   "o": "late-september-transactions",
+   "quote": "Daniel Okafor's team dropped that month.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "howto/fraud-label-maturity"
+ ],
+ "built_on": [
+  {
+   "what": "howto/fraud-label-maturity",
+   "quote": "howto/fraud-label-maturity",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/fraud-train-excludes-sept.md",
+ "sha": "4ff5fc8d9fd8703e6d92d4fece8aee73f51f39a2ffd6b27ed0e8bda6ad9f8310",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,138 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "x-learner",
+   "type": "term",
+   "label": "uplift method",
+   "as": [
+    "the X-learner"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "t-learner-uplift-model",
+   "type": "model",
+   "label": "t-learner",
+   "as": [
+    "T-learner"
+   ],
+   "lines": [
+    4,
+    8
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift metric",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "q2-split",
+   "type": "dataset",
+   "label": "split",
+   "as": [
+    "Q2 split"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "mq3-uplift-xl-v2",
+   "type": "model",
+   "label": "shipped model",
+   "as": [
+    "mq3-uplift-xl-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-303-xlearner",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-303-xlearner"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "x-learner",
+   "type": "measured-by",
+   "label": "adds 0.5 to",
+   "o": "uplift-at-20",
+   "quote": "the X-learner adds 0.5 to uplift@20% over the T-learner (2.6 against 2.1) on the Q2 split",
+   "line": 4
+  },
+  {
+   "s": "x-learner",
+   "type": "other",
+   "label": "adds over",
+   "o": "t-learner-uplift-model",
+   "quote": "the X-learner adds 0.5 to uplift@20% over the T-learner (2.6 against 2.1) on the Q2 split",
+   "line": 4
+  },
+  {
+   "s": "x-learner",
+   "type": "evaluated-on",
+   "label": "on the Q2 split",
+   "o": "q2-split",
+   "quote": "on the Q2 split",
+   "line": 4
+  },
+  {
+   "s": "x-learner",
+   "type": "other",
+   "label": "shipped as",
+   "o": "mq3-uplift-xl-v2",
+   "quote": "Shipped as mq3-uplift-xl-v2.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "mq3-uplift-xl-v2",
+  "exp-303-xlearner"
+ ],
+ "built_on": [
+  {
+   "what": "exp-302-tlearner",
+   "quote": "the t-learner uplift experiment",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-303-xlearner",
+   "quote": "exp-303-xlearner",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "t-learner uplift experiment",
+   "quote": "Builds on the t-learner uplift experiment and exp-303-xlearner.",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/find-mq3-xlearner-gain.md",
+ "sha": "c64b5ebd518dc930a27e2ac1824851aace644dfaaecebc16a4a5d0fe978e8e18",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,85 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "proposal-a",
+   "type": "other",
+   "label": "proposal",
+   "as": [
+    "proposal A"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "cb-sim",
+   "type": "other",
+   "label": "simulation",
+   "as": [
+    "cb-sim"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "break-even-spend-lift",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Break-even is 3.4% spend lift"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dec-cb-threshold-2500",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-cb-threshold-2500"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cb-sim",
+   "type": "measured-by",
+   "label": "predicts",
+   "o": "break-even-spend-lift",
+   "quote": "cb-sim predicts 2.4% at $3,000 and 3.6% at $2,500.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "dec-cb-threshold-2500"
+ ],
+ "built_on": [
+  {
+   "what": "exp-206-breakeven-sim",
+   "quote": "exp-206-breakeven-sim",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "q-cb-breakeven-lift",
+   "quote": "q-cb-breakeven-lift",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "work/find-cb-breakeven-lift.md",
+ "sha": "36df7af2a91f46dcc0e56a2c50b403a6a1b74d2691a847251d07d6f19b21acea",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

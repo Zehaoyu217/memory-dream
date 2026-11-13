@@ -1,0 +1,161 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "immature-labels",
+   "type": "term",
+   "label": "immature labels",
+   "as": [
+    "Immature labels"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "exp-201-fraud-2026",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-201-fraud-2026"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "exp-202-fraud-2026",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-202-fraud-2026"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "fraud26-oot-2025q4",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "fraud26-oot-2025q4"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-f26-maturity-60d",
+   "type": "policy",
+   "label": "decision",
+   "as": [
+    "dec-f26-maturity-60d"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "q-f26-label-lag",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "q-f26-label-lag"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-201-fraud-2026",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "0.889 on partial labels",
+   "line": 5
+  },
+  {
+   "s": "exp-202-fraud-2026",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "0.912 on matured labels",
+   "line": 5
+  },
+  {
+   "s": "immature-labels",
+   "type": "other",
+   "label": "understates",
+   "o": "auc",
+   "quote": "Counting immature frauds as legit understates AUC",
+   "line": 5
+  },
+  {
+   "s": "immature-labels",
+   "type": "other",
+   "label": "effect is on",
+   "o": "fraud26-oot-2025q4",
+   "quote": "Effect is on fraud26-oot-2025q4",
+   "line": 6
+  },
+  {
+   "s": "immature-labels",
+   "type": "other",
+   "label": "leads to",
+   "o": "dec-f26-maturity-60d",
+   "quote": "Consequence: train and evaluate only on labels at least 60 days old (dec-f26-maturity-60d).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-201-fraud-2026",
+  "exp-202-fraud-2026",
+  "dec-f26-maturity-60d",
+  "q-f26-label-lag"
+ ],
+ "built_on": [
+  {
+   "what": "exp-201-fraud-2026",
+   "quote": "exp-201-fraud-2026",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-202-fraud-2026",
+   "quote": "exp-202-fraud-2026",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "q-f26-label-lag",
+   "quote": "q-f26-label-lag",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fraud26-find-label-bias.md",
+ "sha": "63bd8446f7cc4a55b7e15c003e16d39885225874838a212c51eb969cfd64d78c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

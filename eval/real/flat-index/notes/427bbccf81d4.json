@@ -1,0 +1,135 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cr-caller-history-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "Caller history v2 counts contacts in the trailing 90 days strictly before the call's start_ts"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-hist90-pre",
+   "type": "feature",
+   "label": "feature name",
+   "as": [
+    "Feature name in the repo: feat_hist90_pre."
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "0.74 on holdout-2025q4"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cr-oot-2026h1",
+   "type": "dataset",
+   "label": "oot dataset",
+   "as": [
+    "0.73 on cr-oot-2026h1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-105-call-center-routing",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-105-call-center-routing"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-cr-caller-history-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "Builds on feat-cr-caller-history-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fnd-cr-leak-corrected",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-cr-leak-corrected"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cr-caller-history-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "feat-cr-caller-history-v1",
+   "quote": "Replaces feat-cr-caller-history-v1.",
+   "line": 9
+  },
+  {
+   "s": "feat-cr-caller-history-v2",
+   "type": "other",
+   "label": "gap vs v1",
+   "o": "exp-105-call-center-routing",
+   "quote": "a gap of 0.01 against 0.07 for v1 (exp-105-call-center-routing)",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-105-call-center-routing",
+  "fnd-cr-leak-corrected",
+  "feat-cr-caller-history-v1"
+ ],
+ "built_on": [
+  {
+   "what": "feat-cr-caller-history-v1",
+   "quote": "feat-cr-caller-history-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fnd-cr-leak-corrected",
+   "quote": "fnd-cr-leak-corrected",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-cr-caller-history-v1",
+   "quote": "feat-cr-caller-history-v1",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-cr-caller-history-v2.md",
+ "sha": "427bbccf81d48fec36a4e0955bfd79f939286695fa55aaf1335975ff973a4963",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

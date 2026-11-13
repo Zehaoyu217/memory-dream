@@ -1,0 +1,115 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-501-travel-spend-recovery",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-501-travel-spend-recovery"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "travel-spend",
+   "type": "metric",
+   "label": "spend series",
+   "as": [
+    "monthly travel spend"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "stl-trend",
+   "type": "term",
+   "label": "trend",
+   "as": [
+    "Trend +1.8% a quarter"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-trv-seasonality-adj",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-trv-seasonality-adj"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "stl-plus-arima",
+   "type": "model",
+   "label": "method",
+   "as": [
+    "the stl plus arima model"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "monthly-travel-spend-by-category",
+   "type": "dataset",
+   "label": "source dataset",
+   "as": [
+    "the monthly travel spend by category"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-501-travel-spend-recovery",
+   "type": "uses",
+   "label": "decomposes",
+   "o": "travel-spend",
+   "quote": "STL decomposition of monthly travel spend, 2023-01 to 2025-02.",
+   "line": 5
+  },
+  {
+   "s": "exp-501-travel-spend-recovery",
+   "type": "produces",
+   "label": "basis for",
+   "o": "feat-trv-seasonality-adj",
+   "quote": "Basis for feat-trv-seasonality-adj.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-trv-seasonality-adj"
+ ],
+ "built_on": [
+  {
+   "what": "ds-trv-travel-mcc-monthly",
+   "quote": "the monthly travel spend by category",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "trv-stl-v1",
+   "quote": "the stl plus arima model",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-501-travel-spend-recovery.md",
+ "sha": "e3b49bedcbcfcd69c1abfe134fbca0258f16e8f744c0d5f753b206cadc616c07",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

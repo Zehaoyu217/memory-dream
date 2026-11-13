@@ -1,0 +1,97 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "limit-model",
+   "type": "model",
+   "label": "limit model",
+   "as": [
+    "the 2025 limit model's OOT AUC"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "oot auc",
+   "as": [
+    "OOT AUC"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "oot-set",
+   "type": "dataset",
+   "label": "oot set",
+   "as": [
+    "OOT"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "training-split",
+   "type": "dataset",
+   "label": "training split",
+   "as": [
+    "training split"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "team",
+   "as": [
+    "Sam Lee's team"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "limit-model",
+   "type": "measured-by",
+   "label": "inflated by 0.011",
+   "o": "auc",
+   "quote": "Why was the 2025 limit model's OOT AUC inflated by 0.011?",
+   "line": 4
+  },
+  {
+   "s": "limit-model",
+   "type": "trained-on",
+   "label": "fitted on full table",
+   "o": "oot-set",
+   "quote": "Imputation and scaling were fitted on the full table, including OOT.",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "howto/imputation-fit-on-train-only"
+ ],
+ "built_on": [
+  {
+   "what": "howto/imputation-fit-on-train-only",
+   "quote": "howto/imputation-fit-on-train-only",
+   "line": 6,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/imputation-leak-limit.md",
+ "sha": "25401cae5abed6bfaaa2f9c03644e37867e87379ca32156af1fb45c5564835fe",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

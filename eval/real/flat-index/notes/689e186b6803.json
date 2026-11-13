@@ -1,0 +1,171 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cli-util-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cli-util-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "util-trend-slope",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "utilisation trend slope"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "over-limit-flag",
+   "type": "feature",
+   "label": "flag",
+   "as": [
+    "capped over-limit flag"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "first-utilisation-feature-set",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "first utilisation feature set"
+   ],
+   "lines": [
+    9,
+    10
+   ]
+  },
+  {
+   "id": "exp-103-credit-line-increase",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-103-credit-line-increase"
+   ],
+   "lines": [
+    7,
+    9
+   ]
+  },
+  {
+   "id": "cli-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cli-xgb-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "holdout",
+   "type": "term",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cli-util-v2",
+   "type": "measured-by",
+   "label": "slope gain",
+   "o": "auc",
+   "quote": "Slope gain on holdout-2025q4 is +0.012 AUC",
+   "line": 7
+  },
+  {
+   "s": "util-trend-slope",
+   "type": "part-of",
+   "label": "adds",
+   "o": "feat-cli-util-v2",
+   "quote": "Adds a 6-month OLS slope of utilisation and an over-limit flag counted once per month when utilisation exceeds 1.0.",
+   "line": 5
+  },
+  {
+   "s": "over-limit-flag",
+   "type": "part-of",
+   "label": "adds",
+   "o": "feat-cli-util-v2",
+   "quote": "Adds a 6-month OLS slope of utilisation and an over-limit flag counted once per month when utilisation exceeds 1.0.",
+   "line": 5
+  },
+  {
+   "s": "cli-xgb-v2",
+   "type": "uses",
+   "label": "used from",
+   "o": "feat-cli-util-v2",
+   "quote": "Used from cli-xgb-v2 onward.",
+   "line": 8
+  },
+  {
+   "s": "feat-cli-util-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "first-utilisation-feature-set",
+   "quote": "Replaces the first utilisation feature set.",
+   "line": 10
+  }
+ ],
+ "refs": [
+  "exp-103-credit-line-increase",
+  "cli-xgb-v2"
+ ],
+ "built_on": [
+  {
+   "what": "exp-103-credit-line-increase",
+   "quote": "exp-103-credit-line-increase",
+   "line": 9,
+   "asked": true
+  },
+  {
+   "what": "feat-cli-util-v1",
+   "quote": "the first utilisation feature set",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-cli-util-v1",
+   "quote": "the first utilisation feature set",
+   "line": 10,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-cli-util-v2.md",
+ "sha": "689e186b680398c0e123df97b1c7a5bff235b2469d69dc970149295379216aad",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

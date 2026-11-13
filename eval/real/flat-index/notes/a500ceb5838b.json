@@ -1,0 +1,108 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "ben-carter",
+   "type": "person",
+   "label": "finance",
+   "as": [
+    "Ben Carter"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cb.spend_panel",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cb.spend_panel"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "tiered-cashback",
+   "type": "other",
+   "label": "proposed tiers",
+   "as": [
+    "tiered cashback"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "rewards-accrual-rate",
+   "type": "metric",
+   "label": "accrual rate",
+   "as": [
+    "rewards accruing at 1.02% of spend"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "elasticity-models",
+   "type": "model",
+   "label": "models",
+   "as": [
+    "elasticity models"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "active-accounts",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "active accounts"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ben-carter",
+   "type": "other",
+   "label": "asked for",
+   "o": "tiered-cashback",
+   "quote": "Ben Carter (finance) asked for the annual rewards cost of the proposed tiers",
+   "line": 5
+  },
+  {
+   "s": "tiered-cashback",
+   "type": "other",
+   "label": "costed on",
+   "o": "cb.spend_panel",
+   "quote": "`cb.spend_panel`",
+   "line": 5
+  },
+  {
+   "s": "tiered-cashback",
+   "type": "uses",
+   "label": "needs",
+   "o": "elasticity-models",
+   "quote": "so the answer needs the elasticity models",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "find-cb-cost-base"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/q-cb-tier-cost.md",
+ "sha": "a500ceb5838b1a60561c484152d615f72b7914309a662f8f227a44af17e3cd1c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,83 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "rev26-interest-v2",
+   "type": "model",
+   "label": "model of record",
+   "as": [
+    "rev26-interest-v2 is the model of record from this date."
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "rev26-interest-v1",
+   "type": "model",
+   "label": "replaced model",
+   "as": [
+    "Replaces fnd-rev26-no-haircut."
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "feat-rev26-charge-off-haircut",
+   "type": "feature",
+   "label": "haircut feature",
+   "as": [
+    "A charge-off haircut is required"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rev26-interest-v2",
+   "type": "uses",
+   "label": "applies haircut",
+   "o": "feat-rev26-charge-off-haircut",
+   "quote": "A charge-off haircut is required: the interest model overstates by $4.2M a quarter without it",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "fnd-rev26-no-haircut",
+  "exp-302-revenue-forecast-2026",
+  "exp-303-revenue-forecast-2026"
+ ],
+ "built_on": [
+  {
+   "what": "exp-303-revenue-forecast-2026",
+   "quote": "the charge-off haircut backtest experiment",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fnd-rev26-no-haircut",
+   "quote": "the finding that no haircut is needed",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "fnd-rev26-no-haircut",
+   "quote": "fnd-rev26-no-haircut",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-rev26-haircut-required.md",
+ "sha": "0fba8587b3c28a3c77815f6a75ec16e2b8d2f61f8e2ee4aae5d7f6093036d859",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

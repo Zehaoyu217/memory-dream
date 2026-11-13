@@ -1,0 +1,84 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "oot-set",
+   "type": "dataset",
+   "label": "oot set",
+   "as": [
+    "OOT AUC"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "OOT AUC"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "pipeline owner",
+   "as": [
+    "Sam Lee"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "early_stop_split",
+   "type": "flag",
+   "label": "run config setting",
+   "as": [
+    "early_stop_split"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "auc",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "oot-set",
+   "quote": "What OOT AUC did the 2025 retention model show",
+   "line": 4
+  },
+  {
+   "s": "sam-lee",
+   "type": "other",
+   "label": "records in run config",
+   "o": "early_stop_split",
+   "quote": "Sam Lee's pipeline records `early_stop_split` in the run config.",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "howto/gbm-early-stopping-on-oot",
+   "quote": "howto/gbm-early-stopping-on-oot",
+   "line": 6,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/early-stop-oot-number.md",
+ "sha": "ab3100cd30d16fbf48d7efc5242fd641e6d52a458a734165e5b486300a92669d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

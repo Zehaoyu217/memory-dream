@@ -1,0 +1,227 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "app-scorecard-v3",
+   "type": "model",
+   "label": "scorecard",
+   "as": [
+    "app-scorecard-v3"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "app-scorecard-v4",
+   "type": "model",
+   "label": "replacement scorecard",
+   "as": [
+    "app-scorecard-v4"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "evaluation holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "holdout-2026q1",
+   "type": "dataset",
+   "label": "drift holdout",
+   "as": [
+    "holdout-2026q1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini metric",
+   "as": [
+    "Gini 0.41",
+    "Gini drops to 0.33"
+   ],
+   "lines": [
+    4,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks metric",
+   "as": [
+    "KS 0.36"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-app-applications-2024",
+   "type": "dataset",
+   "label": "source dataset",
+   "as": [
+    "ds-app-applications-2024"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-app-velocity-apps",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-app-velocity-apps"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "find-app-gini-v3-drift",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-app-gini-v3-drift"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "external-card-utilisation",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "the external card utilisation feature at application"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "v8-bureau-score",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "the v8 bureau score"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "app-scorecard-v3",
+   "type": "evaluated-on",
+   "label": "eval on",
+   "o": "holdout-2025q1",
+   "quote": "Eval: holdout-2025q1 (n=21,300)",
+   "line": 6
+  },
+  {
+   "s": "app-scorecard-v3",
+   "type": "measured-by",
+   "label": "Gini",
+   "o": "gini",
+   "quote": "Gini 0.41, KS 0.36, bad rate 4.6%.",
+   "line": 6
+  },
+  {
+   "s": "app-scorecard-v3",
+   "type": "measured-by",
+   "label": "KS",
+   "o": "ks",
+   "quote": "Gini 0.41, KS 0.36, bad rate 4.6%.",
+   "line": 6
+  },
+  {
+   "s": "app-scorecard-v3",
+   "type": "uses",
+   "label": "built with utilisation",
+   "o": "external-card-utilisation",
+   "quote": "built with logistic regression on utilisation, velocity and the v8 bureau score",
+   "line": 5
+  },
+  {
+   "s": "app-scorecard-v3",
+   "type": "uses",
+   "label": "built with velocity",
+   "o": "feat-app-velocity-apps",
+   "quote": "built with logistic regression on utilisation, velocity and the v8 bureau score",
+   "line": 5
+  },
+  {
+   "s": "app-scorecard-v3",
+   "type": "uses",
+   "label": "built with bureau score",
+   "o": "v8-bureau-score",
+   "quote": "built with logistic regression on utilisation, velocity and the v8 bureau score",
+   "line": 5
+  },
+  {
+   "s": "app-scorecard-v3",
+   "type": "measured-by",
+   "label": "Gini drops on",
+   "o": "gini",
+   "quote": "Gini drops to 0.33 on holdout-2026q1",
+   "line": 7
+  },
+  {
+   "s": "app-scorecard-v3",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "app-scorecard-v4",
+   "quote": "Superseded by app-scorecard-v4 (2026-10-22).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "find-app-gini-v3-drift"
+ ],
+ "built_on": [
+  {
+   "what": "ds-app-applications-2024",
+   "quote": "ds-app-applications-2024",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-app-util-new",
+   "quote": "the external card utilisation feature at application",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-app-velocity-apps",
+   "quote": "feat-app-velocity-apps",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/app-scorecard-v3.md",
+ "sha": "060b0a9da0703fb6ca5d7d96d90e8ca2cc07f6b8e19c0ae1d06b923c79ded64d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

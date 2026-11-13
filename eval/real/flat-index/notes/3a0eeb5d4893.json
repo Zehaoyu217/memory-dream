@@ -1,0 +1,109 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-aml-kyc-band",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-aml-kyc-band"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "compliance-aml-alerts",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "compliance.aml_alerts"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "aml-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "aml-xgb-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-404-aml-alerts",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-404-aml-alerts"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "aml-find-kyc-lift",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "aml-find-kyc-lift"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-aml-alerts",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-aml-alerts"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-aml-kyc-band",
+   "type": "uses",
+   "label": "taken from",
+   "o": "compliance-aml-alerts",
+   "quote": "Band taken from the KYC tier recorded on each alert in compliance.aml_alerts.",
+   "line": 5
+  },
+  {
+   "s": "aml-xgb-v2",
+   "type": "uses",
+   "label": "added",
+   "o": "feat-aml-kyc-band",
+   "quote": "Added to aml-xgb-v2 on 2026-03-30 after exp-404-aml-alerts.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "aml-find-kyc-lift",
+  "exp-404-aml-alerts"
+ ],
+ "built_on": [
+  {
+   "what": "ds-aml-alerts",
+   "quote": "ds-aml-alerts",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-aml-kyc-band.md",
+ "sha": "3a0eeb5d4893a9ee5746f83a0be8f42f6f2bc01a317b506806b4b37b330e4a0f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

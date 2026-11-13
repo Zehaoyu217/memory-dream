@@ -1,0 +1,118 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "default-promo",
+   "type": "other",
+   "label": "promo",
+   "as": [
+    "default promo"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "12-month-promo",
+   "type": "other",
+   "label": "promo",
+   "as": [
+    "12-month promo"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "6-month-arm",
+   "type": "other",
+   "label": "arm",
+   "as": [
+    "6-month arm"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "score-640-699",
+   "type": "segment",
+   "label": "score band",
+   "as": [
+    "scores 640-699"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "score-700-plus",
+   "type": "segment",
+   "label": "score band",
+   "as": [
+    "Score 700 and over"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "12-month-promo",
+   "type": "other",
+   "label": "kept in",
+   "o": "score-640-699",
+   "quote": "The 12-month promo is kept only in the 640-699 band",
+   "line": 5
+  },
+  {
+   "s": "12-month-promo",
+   "type": "other",
+   "label": "pilot for",
+   "o": "score-640-699",
+   "quote": "The 12-month variant is a pilot for that band only.",
+   "line": 6
+  },
+  {
+   "s": "score-700-plus",
+   "type": "other",
+   "label": "gets",
+   "o": "default-promo",
+   "quote": "Score 700 and over get the 6-month promo.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "find-pa-6m-arm",
+  "find-pa-margin-corrected"
+ ],
+ "built_on": [
+  {
+   "what": "find-pa-6m-arm",
+   "quote": "find-pa-6m-arm",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "find-pa-band-het",
+   "quote": "the finding on the 640-699 band",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "find-pa-margin-corrected",
+   "quote": "find-pa-margin-corrected",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-pa-6m-default.md",
+ "sha": "dff6fb5efb1c55435e22205a53819fb798d0969689c5877e0478ec5b21032450",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

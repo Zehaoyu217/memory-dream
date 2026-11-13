@@ -1,0 +1,173 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "aml-oot-2026h1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "aml-oot-2026h1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "aml-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "aml-xgb-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "structuring-alerts",
+   "type": "segment",
+   "label": "alert type",
+   "as": [
+    "structuring alerts"
+   ],
+   "lines": [
+    4,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "sar",
+   "type": "term",
+   "label": "sar",
+   "as": [
+    "SARs",
+    "SAR-referred"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "review-queue",
+   "type": "other",
+   "label": "queue",
+   "as": [
+    "review queue"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-405-aml-alerts",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-405-aml-alerts"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "top-40-capture",
+   "type": "metric",
+   "label": "capture",
+   "as": [
+    "top-40% capture"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "close-rate",
+   "type": "metric",
+   "label": "close rate",
+   "as": [
+    "Would close 46%"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "miss-rate",
+   "type": "metric",
+   "label": "miss rate",
+   "as": [
+    "2 of 188 SAR referrals (1.1%)"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "aml-xgb-v2",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "aml-oot-2026h1",
+   "quote": "Eval set: aml-oot-2026h1 (9,870 alerts, 188 SAR-referred).",
+   "line": 5
+  },
+  {
+   "s": "structuring-alerts",
+   "type": "uses",
+   "label": "scored by",
+   "o": "aml-xgb-v2",
+   "quote": "structuring alerts with aml-xgb-v2 score below 0.18 are suppressed to a review queue",
+   "line": 6
+  },
+  {
+   "s": "structuring-alerts",
+   "type": "measured-by",
+   "label": "closed share",
+   "o": "close-rate",
+   "quote": "Would close 46% of structuring alerts",
+   "line": 7
+  },
+  {
+   "s": "aml-xgb-v2",
+   "type": "measured-by",
+   "label": "misses",
+   "o": "miss-rate",
+   "quote": "miss 2 of 188 SAR referrals (1.1%)",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-405-aml-alerts"
+ ],
+ "built_on": [
+  {
+   "what": "aml-find-ranker-top40-revised",
+   "quote": "the revised top-40% capture on fresh labels",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-405-aml-alerts",
+   "quote": "exp-405-aml-alerts",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "the revised top-40% capture on fresh labels",
+   "quote": "Builds on the revised top-40% capture on fresh labels and exp-405-aml-alerts.",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-406-aml-alerts.md",
+ "sha": "dc6f9b0537f32e573dedbbcb162d964ed65544996e868c9fdabd78708dbb0c51",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,106 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-507-app-engagement",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "Session trend added to the attrition model"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ae-attr-gbm-v1",
+   "type": "model",
+   "label": "attrition model",
+   "as": [
+    "ae-attr-gbm-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-ae-session-trend-v1",
+   "type": "feature",
+   "label": "session trend",
+   "as": [
+    "28-day session-trend slope"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.82"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ae-attr-gbm-v1",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q4",
+   "quote": "AUC 0.82 with trend against 0.81 without (holdout-2025q4, n = 610,000)",
+   "line": 6
+  },
+  {
+   "s": "ae-attr-gbm-v1",
+   "type": "measured-by",
+   "label": "measures",
+   "o": "auc",
+   "quote": "AUC 0.82 with trend against 0.81 without",
+   "line": 6
+  },
+  {
+   "s": "ae-attr-gbm-v1",
+   "type": "uses",
+   "label": "tests feature",
+   "o": "feat-ae-session-trend-v1",
+   "quote": "with and without the 28-day session-trend slope",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "feat-ae-session-trend-v1"
+ ],
+ "built_on": [
+  {
+   "what": "feat-ae-session-trend-v1",
+   "quote": "feat-ae-session-trend-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-507-app-engagement.md",
+ "sha": "00da6e1d255c5d3de66fa45433825bd205ebd06177ba75805461e21d9671f58a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

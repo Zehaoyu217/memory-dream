@@ -1,0 +1,229 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "utc",
+   "type": "term",
+   "label": "time basis",
+   "as": [
+    "UTC"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "fsm-parity-sample-2025h2",
+   "type": "dataset",
+   "label": "sample",
+   "as": [
+    "fsm_parity_sample_2025h2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "migrated-features",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "migrated features"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "parity-bar",
+   "type": "term",
+   "label": "parity bar",
+   "as": [
+    "parity bar"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "util-ratio-features",
+   "type": "feature",
+   "label": "feature family",
+   "as": [
+    "util-ratio family features"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "month-end-limit-rule",
+   "type": "policy",
+   "label": "rule",
+   "as": [
+    "month-end limit rule"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-107-feature-store-migration",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-107-feature-store-migration"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-102-feature-store-migration",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-102-feature-store-migration"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "dec-fsm-timezone-utc",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-fsm-timezone-utc"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fnd-parity-pre-fix",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-parity-pre-fix"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "churn-feature-set",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "churn feature set"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cutover-gate",
+   "type": "policy",
+   "label": "gate",
+   "as": [
+    "cutover gate"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "migrated-features",
+   "type": "evaluated-on",
+   "label": "rerun on",
+   "o": "fsm-parity-sample-2025h2",
+   "quote": "Rerun on fsm_parity_sample_2025h2 with UTC windows on both sides",
+   "line": 5
+  },
+  {
+   "s": "util-ratio-features",
+   "type": "part-of",
+   "label": "failing family",
+   "o": "migrated-features",
+   "quote": "The 3 still failing are util-ratio family features",
+   "line": 6
+  },
+  {
+   "s": "util-ratio-features",
+   "type": "other",
+   "label": "explained by",
+   "o": "month-end-limit-rule",
+   "quote": "explained by the month-end limit rule (exp-107-feature-store-migration), not by a store bug.",
+   "line": 6
+  },
+  {
+   "s": "util-ratio-features",
+   "type": "other",
+   "label": "accepted under",
+   "o": "month-end-limit-rule",
+   "quote": "with util ratio accepted under the documented rule",
+   "line": 7
+  },
+  {
+   "s": "cutover-gate",
+   "type": "other",
+   "label": "met for",
+   "o": "churn-feature-set",
+   "quote": "The cutover gate is therefore met for the churn feature set",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-107-feature-store-migration",
+  "fnd-parity-pre-fix",
+  "dec-fsm-timezone-utc",
+  "exp-102-feature-store-migration"
+ ],
+ "built_on": [
+  {
+   "what": "dec-fsm-timezone-utc",
+   "quote": "dec-fsm-timezone-utc",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-102-feature-store-migration",
+   "quote": "exp-102-feature-store-migration",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-107-feature-store-migration",
+   "quote": "the month-end utilization rule test",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fnd-parity-pre-fix",
+   "quote": "fnd-parity-pre-fix",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "fnd-parity-pre-fix",
+   "quote": "the parity result before fixes",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-parity-post-fix.md",
+ "sha": "bb8e936020f959491b30b7472d508684504f8cc8874144b1f4297c713b773889",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,124 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-406-income-estimation",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-406-income-estimation"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-inc-verified-2026",
+   "type": "dataset",
+   "label": "verified income dataset",
+   "as": [
+    "Builds on ds-inc-verified-2026"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "inc-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "inc-gbm-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "inc-gbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "inc-gbm-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "find-inc-log-target-gain",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-inc-log-target-gain"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-406-income-estimation",
+   "type": "measured-by",
+   "label": "measures",
+   "o": "mape",
+   "quote": "MAPE on the 1,980-account holdout: 31% for the raw-target v2 and 19% for the log target.",
+   "line": 6
+  },
+  {
+   "s": "exp-406-income-estimation",
+   "type": "trained-on",
+   "label": "retrained on",
+   "o": "ds-inc-verified-2026",
+   "quote": "on the 7,870 non-holdout verified accounts",
+   "line": 5
+  },
+  {
+   "s": "inc-gbm-v3",
+   "type": "uses",
+   "label": "basis for",
+   "o": "exp-406-income-estimation",
+   "quote": "Basis for find-inc-log-target-gain and inc-gbm-v3.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "find-inc-log-target-gain",
+  "inc-gbm-v3"
+ ],
+ "built_on": [
+  {
+   "what": "ds-inc-verified-2026",
+   "quote": "ds-inc-verified-2026",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "inc-gbm-v2",
+   "quote": "inc-gbm-v2",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-406-income-estimation.md",
+ "sha": "d6c65d3bca90534cb30266fbfc92a9927b9358eb79f0e22ea8fa8351cb97d0be",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

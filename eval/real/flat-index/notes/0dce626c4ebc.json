@@ -1,0 +1,105 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "disp-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "disp-lgbm-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-disp-merchant-cb-rate",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-disp-merchant-cb-rate"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-mrisk-dispute-ratio",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mrisk-dispute-ratio"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-303-dispute-triage",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-303-dispute-triage"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "precision-at-0-90",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "precision@0.90"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "disp-lgbm-v2",
+   "type": "uses",
+   "label": "feature gain",
+   "o": "feat-disp-merchant-cb-rate",
+   "quote": "feat-disp-merchant-cb-rate holds 22% of total LightGBM gain",
+   "line": 5
+  },
+  {
+   "s": "feat-disp-merchant-cb-rate",
+   "type": "measured-by",
+   "label": "lifted precision",
+   "o": "precision-at-0-90",
+   "quote": "Adding it lifted precision@0.90 from 88.5% to 91.2%",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "feat-mrisk-dispute-ratio"
+ ],
+ "built_on": [
+  {
+   "what": "exp-303-dispute-triage",
+   "quote": "exp-303-dispute-triage",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-disp-merchant-cb-rate",
+   "quote": "feat-disp-merchant-cb-rate",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/disp-find-merchant-signal.md",
+ "sha": "0dce626c4ebcdb35a7f6580b53bf00d0ddbe712292031c1519585c42ce728ce1",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

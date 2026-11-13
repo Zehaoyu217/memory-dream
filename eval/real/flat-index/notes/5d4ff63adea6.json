@@ -1,0 +1,181 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-cld-notice-first",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: 30-day notice before any risk-based credit-line decrease"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-202-limit-decrease-policy",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-202-limit-decrease-policy"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "complaint-rate",
+   "type": "metric",
+   "label": "complaint rate",
+   "as": [
+    "3.1 versus 4.6 complaints per 1,000 in 30 days"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "roll-difference",
+   "type": "metric",
+   "label": "roll",
+   "as": [
+    "no roll difference at 90 days"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "risk-based-decrease",
+   "type": "policy",
+   "label": "decrease",
+   "as": [
+    "every risk-based decrease"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "emergency-decrease",
+   "type": "policy",
+   "label": "exemption",
+   "as": [
+    "emergency decreases under compliance rules"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "yuki-tanaka",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Yuki Tanaka"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "raj-patel",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Raj Patel"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "collections",
+   "type": "team",
+   "label": "collections",
+   "as": [
+    "collections side"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-cld-notice-first",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "yuki-tanaka",
+   "quote": "Owner: Yuki Tanaka with Raj Patel for the collections side.",
+   "line": 7
+  },
+  {
+   "s": "dec-cld-notice-first",
+   "type": "owned-by",
+   "label": "owner for collections",
+   "o": "raj-patel",
+   "quote": "Owner: Yuki Tanaka with Raj Patel for the collections side.",
+   "line": 7
+  },
+  {
+   "s": "dec-cld-notice-first",
+   "type": "uses",
+   "label": "adopted after",
+   "o": "exp-202-limit-decrease-policy",
+   "quote": "Adopted on 2025-04-02 after exp-202-limit-decrease-policy",
+   "line": 5
+  },
+  {
+   "s": "exp-202-limit-decrease-policy",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "complaint-rate",
+   "quote": "3.1 versus 4.6 complaints per 1,000 in 30 days",
+   "line": 5
+  },
+  {
+   "s": "exp-202-limit-decrease-policy",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "roll-difference",
+   "quote": "with no roll difference at 90 days",
+   "line": 5
+  },
+  {
+   "s": "dec-cld-notice-first",
+   "type": "other",
+   "label": "applies to",
+   "o": "risk-based-decrease",
+   "quote": "Applies to every risk-based decrease",
+   "line": 6
+  },
+  {
+   "s": "emergency-decrease",
+   "type": "other",
+   "label": "exempt from",
+   "o": "dec-cld-notice-first",
+   "quote": "emergency decreases under compliance rules are exempt",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-202-limit-decrease-policy"
+ ],
+ "built_on": [
+  {
+   "what": "exp-202-limit-decrease-policy",
+   "quote": "the notice-before-cut complaint comparison",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-cld-notice-first.md",
+ "sha": "5d4ff63adea6253337e7166273ae5767c9ef63997b565f64e1c86a7fc9fa3b74",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

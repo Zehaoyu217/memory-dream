@@ -1,0 +1,120 @@
+{
+ "kind": "report",
+ "entities": [
+  {
+   "id": "mq3-channel-rct-v1",
+   "type": "document",
+   "label": "report",
+   "as": [
+    "mq3-channel-rct-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "incremental-spend-per-dollar",
+   "type": "metric",
+   "label": "incremental spend",
+   "as": [
+    "incremental dollars per dollar of cost"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-mq3-q2-rct",
+   "type": "dataset",
+   "label": "q2 rct",
+   "as": [
+    "ds-mq3-q2-rct"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "mkt.channel_costs",
+   "type": "dataset",
+   "label": "cost table",
+   "as": [
+    "`mkt.channel_costs`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-304-channel-split",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-304-channel-split"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mq3-channel-rct-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "incremental-spend-per-dollar",
+   "quote": "incremental spend per dollar of contact cost, by channel, from the Q2 RCT",
+   "line": 4
+  },
+  {
+   "s": "mq3-channel-rct-v1",
+   "type": "uses",
+   "label": "divided by",
+   "o": "mkt.channel_costs",
+   "quote": "divided by channel cost from `mkt.channel_costs`",
+   "line": 5
+  },
+  {
+   "s": "mq3-channel-rct-v1",
+   "type": "uses",
+   "label": "built on",
+   "o": "ds-mq3-q2-rct",
+   "quote": "Builds on ds-mq3-q2-rct and exp-304-channel-split.",
+   "line": 8
+  },
+  {
+   "s": "mq3-channel-rct-v1",
+   "type": "uses",
+   "label": "built on",
+   "o": "exp-304-channel-split",
+   "quote": "Builds on ds-mq3-q2-rct and exp-304-channel-split.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-mq3-q2-rct",
+  "exp-304-channel-split"
+ ],
+ "built_on": [
+  {
+   "what": "ds-mq3-q2-rct",
+   "quote": "ds-mq3-q2-rct",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-304-channel-split",
+   "quote": "exp-304-channel-split",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/mq3-channel-rct-v1.md",
+ "sha": "5fc0c41db83d856e9897d576db15d4cbd0c0c4026168b574c53f4ff0c4ae1c1c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,65 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "callcenter.ivr_menu_paths",
+   "type": "dataset",
+   "label": "ivr menu table",
+   "as": [
+    "`callcenter.ivr_menu_paths` has one row per IVR menu selection, from 2025-03-01"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Owner Tomás Rivera (data engineering)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "inbound-calls-table",
+   "type": "dataset",
+   "label": "inbound calls table",
+   "as": [
+    "Builds on the inbound calls table."
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "tomas-rivera",
+   "type": "owned-by",
+   "label": "owner of",
+   "o": "callcenter.ivr_menu_paths",
+   "quote": "Owner Tomás Rivera (data engineering)",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-cr-calls",
+   "quote": "the inbound calls table",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-cr-ivr-paths.md",
+ "sha": "a2f78c115e5bb90b89553cacd93f7b43beddcb9467e041fc312312f37786d5d1",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

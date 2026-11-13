@@ -1,0 +1,187 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "clv-ml-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "clv-ml-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "library",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "clv-oot-2021h1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "clv-oot-2021h1"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "MAPE 18.4%"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "arpu-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "arpu v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "tenure",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "tenure"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "loss-rate",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "loss rate"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "clv-ml-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "clv-ml-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "clv-ml-v1",
+   "type": "uses",
+   "label": "uses",
+   "o": "lightgbm",
+   "quote": "LightGBM for net 36-month margin",
+   "line": 4
+  },
+  {
+   "s": "clv-ml-v1",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "clv-oot-2021h1",
+   "quote": "Holdout clv-oot-2021h1 (n=318,400): MAPE 18.4%",
+   "line": 6
+  },
+  {
+   "s": "clv-ml-v1",
+   "type": "measured-by",
+   "label": "reports MAPE",
+   "o": "mape",
+   "quote": "MAPE 18.4%",
+   "line": 4
+  },
+  {
+   "s": "clv-ml-v1",
+   "type": "uses",
+   "label": "features",
+   "o": "arpu-v1",
+   "quote": "Features: arpu v1, tenure, loss rate.",
+   "line": 5
+  },
+  {
+   "s": "clv-ml-v1",
+   "type": "uses",
+   "label": "features",
+   "o": "tenure",
+   "quote": "Features: arpu v1, tenure, loss rate.",
+   "line": 5
+  },
+  {
+   "s": "clv-ml-v1",
+   "type": "uses",
+   "label": "features",
+   "o": "loss-rate",
+   "quote": "Features: arpu v1, tenure, loss rate.",
+   "line": 5
+  },
+  {
+   "s": "clv-ml-v1",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "clv-ml-v2",
+   "quote": "superseded by clv-ml-v2",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "clv-ml-v2",
+  "clv-bgnbd-v1",
+  "dec-clv-include-losses",
+  "exp-503-customer-lifetime-value"
+ ],
+ "built_on": [
+  {
+   "what": "clv-bgnbd-v1",
+   "quote": "clv-bgnbd-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "dec-clv-include-losses",
+   "quote": "dec-clv-include-losses",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-503-customer-lifetime-value",
+   "quote": "exp-503-customer-lifetime-value",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/clv-ml-v1.md",
+ "sha": "46f730a0f78e0e3a0c7c3c08d975f871872d1d2029b26ea943f77574dc7bb350",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

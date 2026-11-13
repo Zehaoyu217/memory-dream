@@ -1,0 +1,153 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-disp-labels-two-analyst",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: use only labels where two analysts agree"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "two-analyst-labels",
+   "type": "dataset",
+   "label": "labels",
+   "as": [
+    "two-analyst agreement labels"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "single-analyst-labels",
+   "type": "dataset",
+   "label": "labels",
+   "as": [
+    "single-analyst labels"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "disp-lgbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "disp-lgbm-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "hand-labelled-analyst-dispute-dataset",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "hand-labelled analyst dispute dataset"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "q-disp-label-source",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "q-disp-label-source"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "double-labelled-set",
+   "type": "dataset",
+   "label": "labels",
+   "as": [
+    "400 double-labelled set"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "kappa",
+   "type": "metric",
+   "label": "agreement",
+   "as": [
+    "kappa 0.71"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-disp-labels-two-analyst",
+   "type": "uses",
+   "label": "trains on",
+   "o": "two-analyst-labels",
+   "quote": "Train dispute models only on two-analyst agreement labels (7,450 of 8,900)",
+   "line": 4
+  },
+  {
+   "s": "dec-disp-labels-two-analyst",
+   "type": "other",
+   "label": "drops",
+   "o": "single-analyst-labels",
+   "quote": "drop single-labelled disputes from training.",
+   "line": 5
+  },
+  {
+   "s": "dec-disp-labels-two-analyst",
+   "type": "other",
+   "label": "applies to",
+   "o": "disp-lgbm-v1",
+   "quote": "Applies to disp-lgbm-v1 onward.",
+   "line": 7
+  },
+  {
+   "s": "double-labelled-set",
+   "type": "measured-by",
+   "label": "gives",
+   "o": "kappa",
+   "quote": "the 400 double-labelled set gives kappa 0.71",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "disp-lgbm-v1",
+  "q-disp-label-source"
+ ],
+ "built_on": [
+  {
+   "what": "ds-disp-analyst-labels",
+   "quote": "the hand-labelled analyst dispute dataset",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "q-disp-label-source",
+   "quote": "q-disp-label-source",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-disp-labels-two-analyst.md",
+ "sha": "cad4d12b3726ab0705f19824db3a93911f0774fcf4f0b69077d2e31f9c00909e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

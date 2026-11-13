@@ -1,0 +1,131 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-fsm-cutover",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: churn v2 moves to store features on 2026-03-02, behind the parity gate"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fsm_parity_sample_2025h2",
+   "type": "dataset",
+   "label": "sample",
+   "as": [
+    "fsm_parity_sample_2025h2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fnd-parity-post-fix",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-parity-post-fix"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "fsm-churn-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fsm-churn-xgb-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "person",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fsm-spend-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fsm-spend-lgbm-v2"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "lena-fischer",
+   "type": "owned-by",
+   "label": "approved",
+   "o": "dec-fsm-cutover",
+   "quote": "Approved by Lena Fischer for credit risk.",
+   "line": 6
+  },
+  {
+   "s": "fsm-churn-xgb-v2",
+   "type": "evaluated-on",
+   "label": "gated on",
+   "o": "fsm_parity_sample_2025h2",
+   "quote": "Gate: at least 99 percent of rows within 0.5 percent on fsm_parity_sample_2025h2",
+   "line": 5
+  },
+  {
+   "s": "dec-fsm-cutover",
+   "type": "uses",
+   "label": "builds on",
+   "o": "fnd-parity-post-fix",
+   "quote": "Builds on the churn auc gain finding, fnd-parity-post-fix and fsm-churn-xgb-v2.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-parity-post-fix",
+  "fsm-churn-xgb-v2",
+  "fsm-spend-lgbm-v2"
+ ],
+ "built_on": [
+  {
+   "what": "fnd-churn-lift",
+   "quote": "the churn auc gain finding",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "fnd-parity-post-fix",
+   "quote": "fnd-parity-post-fix",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "fsm-churn-xgb-v2",
+   "quote": "fsm-churn-xgb-v2",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-fsm-cutover.md",
+ "sha": "0b442d8fd71086ab935ad2486ca9a7fb31bd4a85a7078695f618c168615e9962",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

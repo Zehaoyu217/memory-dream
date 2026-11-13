@@ -1,0 +1,109 @@
+{
+ "kind": "report",
+ "entities": [
+  {
+   "id": "fraud-alert-volume-report",
+   "type": "document",
+   "label": "weekly fraud alert report",
+   "as": [
+    "The weekly fraud alert report"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "precision-at-50",
+   "type": "metric",
+   "label": "precision@50",
+   "as": [
+    "precision@50",
+    "Precision@50"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "precision-at-200",
+   "type": "metric",
+   "label": "precision@200",
+   "as": [
+    "precision@200",
+    "Precision@50 and precision@200"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "cards-txn-daily",
+   "type": "dataset",
+   "label": "transactions table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fraud-holdout",
+   "type": "term",
+   "label": "latest holdout",
+   "as": [
+    "latest out-of-time fraud holdout"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud-alert-volume-report",
+   "type": "measured-by",
+   "label": "gives",
+   "o": "precision-at-50",
+   "quote": "precision@50, precision@200 and alerts per 1,000 transactions on the latest holdout",
+   "line": 4
+  },
+  {
+   "s": "fraud-alert-volume-report",
+   "type": "measured-by",
+   "label": "gives",
+   "o": "precision-at-200",
+   "quote": "precision@50, precision@200 and alerts per 1,000 transactions on the latest holdout",
+   "line": 4
+  },
+  {
+   "s": "fraud-alert-volume-report",
+   "type": "uses",
+   "label": "uses weekly transactions from",
+   "o": "cards-txn-daily",
+   "quote": "Alerts per 1,000 transactions use the week's transactions from `cards.txn_daily`.",
+   "line": 6
+  },
+  {
+   "s": "precision-at-50",
+   "type": "evaluated-on",
+   "label": "computed on",
+   "o": "fraud-holdout",
+   "quote": "Precision@50 and precision@200 are computed on the latest out-of-time fraud holdout.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "cards.txn_daily"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/fraud-alert-volume-report.md",
+ "sha": "ddd7bf562c56a002f6d301238ab9980d6ac073a803a94d1df6e30dc2a345abe0",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

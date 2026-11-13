@@ -1,0 +1,99 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-103-feature-store-migration",
+   "type": "document",
+   "label": "experiment",
+   "as": [
+    "exp-103-feature-store-migration"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "draft-registry",
+   "type": "dataset",
+   "label": "registry",
+   "as": [
+    "draft registry"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "naming-rule",
+   "type": "term",
+   "label": "naming rule",
+   "as": [
+    "<domain>_<agg>_<window>, lowercase snake case"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "lint-names-script",
+   "type": "module",
+   "label": "lint script",
+   "as": [
+    "fsm/registry/lint_names.py"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "q-fsm-naming-scheme",
+   "type": "document",
+   "label": "open question",
+   "as": [
+    "q-fsm-naming-scheme"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-103-feature-store-migration",
+   "type": "uses",
+   "label": "ran lint on",
+   "o": "draft-registry",
+   "quote": "Ran a regex lint on the draft registry",
+   "line": 5
+  },
+  {
+   "s": "exp-103-feature-store-migration",
+   "type": "uses",
+   "label": "uses",
+   "o": "lint-names-script",
+   "quote": "Lint script: `fsm/registry/lint_names.py`.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fsm/registry/lint_names.py",
+  "q-fsm-naming-scheme"
+ ],
+ "built_on": [
+  {
+   "what": "q-fsm-naming-scheme",
+   "quote": "q-fsm-naming-scheme",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-103-feature-store-migration.md",
+ "sha": "e18838a016922c90a5391b388fb241fa1eb0a22d5d96cab8540670936404763e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

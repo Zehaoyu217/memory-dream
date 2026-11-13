@@ -1,0 +1,128 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-f26-amt-zscore",
+   "type": "feature",
+   "label": "amount z-score",
+   "as": [
+    "amount z-score against the card's 90-day history"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-f25-amt-ratio",
+   "type": "feature",
+   "label": "median ratio",
+   "as": [
+    "2025 median ratio"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fraud26-gbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fraud26-gbm-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-f26-geo-mismatch",
+   "type": "feature",
+   "label": "geo-mismatch",
+   "as": [
+    "geo-mismatch"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-f26-cnp-txn",
+   "type": "dataset",
+   "label": "cnp transactions",
+   "as": [
+    "ds-f26-cnp-txn"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-f26-amt-zscore",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "feat-f25-amt-ratio",
+   "quote": "Replaces the 2025 median ratio (feat-f25-amt-ratio) in v3",
+   "line": 6
+  },
+  {
+   "s": "fraud26-gbm-v3",
+   "type": "uses",
+   "label": "shipped with",
+   "o": "feat-f26-amt-zscore",
+   "quote": "Shipped in fraud26-gbm-v3 with geo-mismatch.",
+   "line": 7
+  },
+  {
+   "s": "fraud26-gbm-v3",
+   "type": "uses",
+   "label": "shipped with",
+   "o": "feat-f26-geo-mismatch",
+   "quote": "Shipped in fraud26-gbm-v3 with geo-mismatch.",
+   "line": 7
+  },
+  {
+   "s": "feat-f26-amt-zscore",
+   "type": "uses",
+   "label": "built on",
+   "o": "ds-f26-cnp-txn",
+   "quote": "Builds on feat-f25-amt-ratio and ds-f26-cnp-txn.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-f25-amt-ratio",
+  "ds-f26-cnp-txn"
+ ],
+ "built_on": [
+  {
+   "what": "feat-f25-amt-ratio",
+   "quote": "feat-f25-amt-ratio",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-f26-cnp-txn",
+   "quote": "ds-f26-cnp-txn",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-f25-amt-ratio",
+   "quote": "the 2025 median ratio (feat-f25-amt-ratio)",
+   "line": 6,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-f26-amt-zscore.md",
+ "sha": "c36ed979f765aca297f8e5f1ddc00df90ec31247c281115500b62b75c31566fc",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

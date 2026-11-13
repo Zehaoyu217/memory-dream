@@ -1,0 +1,112 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-clv-arpu-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-clv-arpu-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-clv-revenue-monthly",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "ds-clv-revenue-monthly"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "clv-bgnbd-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "clv-bgnbd-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "clv-ml-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "clv-ml-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-clv-arpu-v2",
+   "type": "feature",
+   "label": "replacement",
+   "as": [
+    "feat-clv-arpu-v2"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-clv-arpu-v1",
+   "type": "uses",
+   "label": "from",
+   "o": "ds-clv-revenue-monthly",
+   "quote": "from ds-clv-revenue-monthly",
+   "line": 5
+  },
+  {
+   "s": "clv-bgnbd-v1",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-clv-arpu-v1",
+   "quote": "Used in clv-bgnbd-v1 and clv-ml-v1",
+   "line": 6
+  },
+  {
+   "s": "clv-ml-v1",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-clv-arpu-v1",
+   "quote": "Used in clv-bgnbd-v1 and clv-ml-v1",
+   "line": 6
+  },
+  {
+   "s": "feat-clv-arpu-v2",
+   "type": "replaces",
+   "label": "replaced by",
+   "o": "feat-clv-arpu-v1",
+   "quote": "replaced by feat-clv-arpu-v2 in November 2025",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-clv-revenue-monthly",
+   "quote": "ds-clv-revenue-monthly",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-clv-arpu-v1.md",
+ "sha": "aa271d55ac8135989de23676922a6d2395a0d56eb82d65fe19e789cb1c007d77",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

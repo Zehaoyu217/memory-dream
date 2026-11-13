@@ -1,0 +1,79 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-pa-promo-exit-cliff",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "balance at promo expiry relative to the balance at month 1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-pa-balance-panel",
+   "type": "dataset",
+   "label": "balance panel",
+   "as": [
+    "the monthly balance panel by arm"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "pa-churn-hazard-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "pa-churn-hazard-v1"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-pa-promo-exit-cliff",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-pa-balance-panel",
+   "quote": "Builds on the monthly balance panel by arm",
+   "line": 7
+  },
+  {
+   "s": "pa-churn-hazard-v1",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-pa-promo-exit-cliff",
+   "quote": "Used in pa-churn-hazard-v1.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-pa-balance-panel",
+   "quote": "the monthly balance panel by arm",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "ds-pa-churn-labels",
+   "quote": "the churn labels after promo expiry",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-pa-promo-exit-cliff.md",
+ "sha": "5e6be33db5498ddc7195025058a12e4f9bb459e6e8ecd3ae1bbe5e8d32a534f6",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

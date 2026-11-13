@@ -1,0 +1,99 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-inc-band-floor-2026",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: estimates used across the band range with a $40k default for accounts with no estimate"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "dec-inc-band-floor-2025",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-inc-band-floor-2025"
+   ],
+   "lines": [
+    5,
+    8,
+    9
+   ]
+  },
+  {
+   "id": "inc-gbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "inc-gbm-v3"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-inc-band-floor-2026",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "dec-inc-band-floor-2025",
+   "quote": "Replaces dec-inc-band-floor-2025 now that inc-gbm-v3 is at MAPE 19% on the verified sample.",
+   "line": 5
+  },
+  {
+   "s": "dec-inc-band-floor-2026",
+   "type": "built-on",
+   "label": "builds on",
+   "o": "inc-gbm-v3",
+   "quote": "Builds on dec-inc-band-floor-2025, the finding on log-target gains and inc-gbm-v3.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "dec-inc-band-floor-2025",
+  "inc-gbm-v3"
+ ],
+ "built_on": [
+  {
+   "what": "dec-inc-band-floor-2025",
+   "quote": "dec-inc-band-floor-2025",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "find-inc-log-target-gain",
+   "quote": "the finding on log-target gains",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "inc-gbm-v3",
+   "quote": "inc-gbm-v3",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "dec-inc-band-floor-2025",
+   "quote": "dec-inc-band-floor-2025",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-inc-band-floor-2026.md",
+ "sha": "bc3939fef90a7b6e2b88964335e735cebcc774423a226b25798116b1c349c805",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

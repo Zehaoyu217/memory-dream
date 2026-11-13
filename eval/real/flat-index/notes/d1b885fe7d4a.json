@@ -1,0 +1,164 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "ed-logit-v1",
+   "type": "model",
+   "label": "scorecard",
+   "as": [
+    "ed-logit-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "gradient-boosted-model",
+   "type": "model",
+   "label": "gbm",
+   "as": [
+    "gradient-boosted model"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "early-delinquency-holdout-2024q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "early-delinquency-holdout-2024q4"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "thin-file",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "thin-file"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "full-file",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "full-file"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "watchlist",
+   "type": "other",
+   "label": "watchlist",
+   "as": [
+    "watchlist"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "gradient-boosted-model",
+   "type": "evaluated-on",
+   "label": "tested on",
+   "o": "early-delinquency-holdout-2024q4",
+   "quote": "Test: AUC, Gini and KS on early-delinquency-holdout-2024q4",
+   "line": 6
+  },
+  {
+   "s": "gradient-boosted-model",
+   "type": "measured-by",
+   "label": "tested with",
+   "o": "auc",
+   "quote": "Test: AUC, Gini and KS",
+   "line": 6
+  },
+  {
+   "s": "gradient-boosted-model",
+   "type": "measured-by",
+   "label": "tested with",
+   "o": "gini",
+   "quote": "Test: AUC, Gini and KS",
+   "line": 6
+  },
+  {
+   "s": "gradient-boosted-model",
+   "type": "measured-by",
+   "label": "tested with",
+   "o": "ks",
+   "quote": "Test: AUC, Gini and KS",
+   "line": 6
+  },
+  {
+   "s": "watchlist",
+   "type": "uses",
+   "label": "currently uses",
+   "o": "ed-logit-v1",
+   "quote": "The watchlist currently uses ed-logit-v1",
+   "line": 5
+  },
+  {
+   "s": "gradient-boosted-model",
+   "type": "other",
+   "label": "may replace",
+   "o": "ed-logit-v1",
+   "quote": "replace the scorecard",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/q-ed-can-gbm-beat-scorecard.md",
+ "sha": "d1b885fe7d4a98805ff66c7c37073d3a61b96f192baecd48fe8b8584de65579e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

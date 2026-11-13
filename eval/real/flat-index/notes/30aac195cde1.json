@@ -1,0 +1,67 @@
+{
+ "kind": "term",
+ "entities": [
+  {
+   "id": "tier",
+   "type": "term",
+   "label": "band",
+   "as": [
+    "offer tier"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "offers.tier_matrix",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "offers.tier_matrix"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "account",
+   "type": "account",
+   "label": "account",
+   "as": [
+    "account"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "tier",
+   "type": "sourced-from",
+   "label": "assigned from",
+   "o": "offers.tier_matrix",
+   "quote": "assigned to an account from `offers.tier_matrix`",
+   "line": 5
+  },
+  {
+   "s": "tier",
+   "type": "other",
+   "label": "assigned to",
+   "o": "account",
+   "quote": "assigned to an account from `offers.tier_matrix`",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "glossary/tier.md",
+ "sha": "30aac195cde1082a3bad6f9ba90eb48df273fa64743aa7f47f9ecce7673912d7",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

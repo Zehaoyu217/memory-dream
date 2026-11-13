@@ -1,0 +1,148 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-clv-loss-rate",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-clv-loss-rate: segment loss rate by bureau band and vintage"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "from bureau.scores_monthly, credit-data"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "credit-data",
+   "type": "team",
+   "label": "owning team",
+   "as": [
+    "credit-data"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-clv-loss-events",
+   "type": "dataset",
+   "label": "source dataset",
+   "as": [
+    "Built from ds-clv-loss-events"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "clv-ml-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "Used in clv-ml-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "clv-ml-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "clv-ml-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "bureau-score",
+   "type": "feature",
+   "label": "bureau band",
+   "as": [
+    "bureau band"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-clv-loss-rate",
+   "type": "uses",
+   "label": "from",
+   "o": "bureau.scores_monthly",
+   "quote": "from bureau.scores_monthly, credit-data",
+   "line": 5
+  },
+  {
+   "s": "feat-clv-loss-rate",
+   "type": "uses",
+   "label": "built from",
+   "o": "ds-clv-loss-events",
+   "quote": "Built from ds-clv-loss-events",
+   "line": 6
+  },
+  {
+   "s": "clv-ml-v1",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-clv-loss-rate",
+   "quote": "Used in clv-ml-v1 and clv-ml-v2",
+   "line": 7
+  },
+  {
+   "s": "clv-ml-v2",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-clv-loss-rate",
+   "quote": "Used in clv-ml-v1 and clv-ml-v2",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-clv-loss-events"
+ ],
+ "built_on": [
+  {
+   "what": "ds-clv-loss-events",
+   "quote": "ds-clv-loss-events",
+   "line": 6,
+   "asked": true
+  },
+  {
+   "what": "ds-clv-cohort-panel",
+   "quote": "the origination cohort panel dataset",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-clv-loss-events",
+   "quote": "ds-clv-loss-events",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-clv-loss-rate.md",
+ "sha": "d9e093c4010c1935cc7990318a7b0489f8c616de488da60d03225f9adc0f39c6",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

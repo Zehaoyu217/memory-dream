@@ -1,0 +1,122 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "mrisk-gbm-v2",
+   "type": "model",
+   "label": "risk model",
+   "as": [
+    "mrisk-gbm-v2"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "mrisk-find-watchlist-07",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "mrisk-find-watchlist-07"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-506-merchant-risk",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-506-merchant-risk"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-mrisk-threshold-065",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-mrisk-threshold-065"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "precision-at-100",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "precision 0.31"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "acquiring-watchlist",
+   "type": "other",
+   "label": "watchlist",
+   "as": [
+    "acquiring watchlist"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mrisk-gbm-v2",
+   "type": "measured-by",
+   "label": "basis precision",
+   "o": "precision-at-100",
+   "quote": "precision 0.31",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "mrisk-find-watchlist-07",
+  "dec-mrisk-threshold-065"
+ ],
+ "built_on": [
+  {
+   "what": "exp-506-merchant-risk",
+   "quote": "exp-506-merchant-risk",
+   "line": 6,
+   "asked": true
+  },
+  {
+   "what": "mrisk-find-watchlist-07",
+   "quote": "mrisk-find-watchlist-07",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "mrisk-gbm-v2",
+   "quote": "mrisk-gbm-v2",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "q-mrisk-watchlist-cut",
+   "quote": "the open question on watchlist cut",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "work/dec-mrisk-watchlist-07.md",
+ "sha": "abcaaa8da07dd25b19540d31bebd7d6e5a3f67513a9d46f0799d5d0966bb3c03",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

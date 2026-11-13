@@ -1,0 +1,32 @@
+# ALIASES — entity ids that name the same thing; the first id on a line is canonical. Edit freely.
+- weekly-deck = weekly-kpi-deck | why: "The weekly KPI deck" and "the weekly deck" are the same weekly report, written with and without "KPI". | by: curator 2026-11-12
+- 2026q1-wave = wave-2026q1 | by: review 2026-11-12
+- roll-30-to-60 = 30-to-60-roll | by: review 2026-11-12
+not: acceptance-rate / open-rate | by: review 2026-11-12
+- active-days = active-days-feature | by: review 2026-11-12
+not: active-days / ae_act28 | by: review 2026-11-12
+not: active-days-feature / ae_act28 | by: review 2026-11-12
+- apr-cap-29-99 = apr-cap-scenario | by: review 2026-11-12
+not: bsm-cutoff-logit / logistic-model | by: review 2026-11-12
+not: bt-oot-2026h1 / oot-set | by: review 2026-11-12
+- caller-history-v1 = feat-cr-caller-history-v1 | by: review 2026-11-12
+not: cards.accounts_monthly / cards.churn_labels | by: review 2026-11-12
+not: cc-logreg-v1 / logistic-model | by: review 2026-11-12
+- control-group = control-arm | by: review 2026-11-12
+- cu-resp-v1 = response-model | by: review 2026-11-12
+- ds-pa-balance-panel = promo-balance-panel | by: review 2026-11-12
+not: elasticity / ks | by: review 2026-11-12
+not: feat-cr-ivr-path-v1 / ivr-path | by: review 2026-11-12
+- feat-f26-velocity-v2 = velocity-v2 | by: review 2026-11-12
+- hp-psm-v1 = hardship-propensity-matching-model | by: review 2026-11-12
+not: macro-f1 / precision-at-k | by: review 2026-11-12
+not: mq3-uplift-tlearner-v1 / t-learner-uplift-model | by: review 2026-11-12
+not: precision-at-100 / precision-at-k | by: review 2026-11-12
+not: precision-at-k / uplift-at-20 | by: review 2026-11-12
+not: recall / recall-at-10 | by: review 2026-11-12
+not: recall / recall-at-1pct | by: review 2026-11-12
+- recall-at-1pct = recall-at-1 | by: review 2026-11-12
+not: recall-at-10 / recall-at-1pct | by: review 2026-11-12
+- revolver = revolver-segment | by: review 2026-11-12
+- top-40-capture = sar-capture-rate | by: review 2026-11-12
+- uplift-at-20 = uplift-at-20pct | by: review 2026-11-12

@@ -1,0 +1,66 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "cards.merchants",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.merchants"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "data-eng-cards",
+   "type": "team",
+   "label": "owner",
+   "as": [
+    "data-eng-cards"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "merchant-spine",
+   "type": "dataset",
+   "label": "merchant spine",
+   "as": [
+    "merchant spine"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cards.merchants",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "data-eng-cards",
+   "quote": "owned by data-eng-cards",
+   "line": 5
+  },
+  {
+   "s": "cards.merchants",
+   "type": "uses",
+   "label": "used as spine",
+   "o": "merchant-spine",
+   "quote": "Used as the merchant spine for every merchant-risk panel.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-mrisk-merchants.md",
+ "sha": "5dca4f404895d49a30e6370f856661f6ccf27388ede118c8071084e0e51f6b9c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

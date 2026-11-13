@@ -1,0 +1,78 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-ror-retained-revenue",
+   "type": "dataset",
+   "label": "revenue per account",
+   "as": [
+    "180-day revenue per account"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "cards.payments_daily"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-ror-value-band-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ror-value-band-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-ror-retained-revenue",
+   "type": "uses",
+   "label": "from",
+   "o": "cards.txn_daily",
+   "quote": "from cards.txn_daily and cards.payments_daily",
+   "line": 4
+  },
+  {
+   "s": "ds-ror-retained-revenue",
+   "type": "uses",
+   "label": "from",
+   "o": "cards.payments_daily",
+   "quote": "from cards.txn_daily and cards.payments_daily",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "feat-ror-value-band-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-ror-retained-revenue.md",
+ "sha": "e38c27bb142d8b79b6478d93a6f6c5ff803bbb2343ae8f24ebec28af81374823",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

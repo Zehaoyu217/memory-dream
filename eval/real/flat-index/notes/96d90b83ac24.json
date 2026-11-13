@@ -1,0 +1,67 @@
+{
+ "kind": "metric",
+ "entities": [
+  {
+   "id": "mau",
+   "type": "metric",
+   "label": "count",
+   "as": [
+    "MAU"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "app.sessions_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "app.sessions_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "monthly-digital-pack",
+   "type": "document",
+   "label": "pack",
+   "as": [
+    "monthly digital pack"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mau",
+   "type": "uses",
+   "label": "taken from",
+   "o": "app.sessions_daily",
+   "quote": "taken from `app.sessions_daily`",
+   "line": 5
+  },
+  {
+   "s": "mau",
+   "type": "other",
+   "label": "headline number in",
+   "o": "monthly-digital-pack",
+   "quote": "It is the headline app-usage number in the monthly digital pack.",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "glossary/mau.md",
+ "sha": "96d90b83ac2451cfdfc5545b7ec29579e553efb21002c63ab3d75e393f81c153",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

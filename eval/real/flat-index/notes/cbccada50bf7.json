@@ -1,0 +1,159 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "cr-lgbm-v3",
+   "type": "model",
+   "label": "router",
+   "as": [
+    "cr-lgbm-v3"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cost-matrix",
+   "type": "term",
+   "label": "cost matrix",
+   "as": [
+    "cost-matrix thresholds"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "dispute-misroutes",
+   "type": "term",
+   "label": "misroute cost",
+   "as": [
+    "dispute misroutes"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro f1",
+   "as": [
+    "macro F1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cr-oot-2026h1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "cr-oot-2026h1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "maya-ortiz",
+   "type": "person",
+   "label": "approver",
+   "as": [
+    "Maya Ortiz"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Sam Lee"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "threshold-file",
+   "type": "other",
+   "label": "threshold file",
+   "as": [
+    "threshold file"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cr-lgbm-v3",
+   "type": "uses",
+   "label": "routes with",
+   "o": "cost-matrix",
+   "quote": "Route with cost-matrix thresholds",
+   "line": 4
+  },
+  {
+   "s": "cr-lgbm-v3",
+   "type": "evaluated-on",
+   "label": "macro F1 on",
+   "o": "cr-oot-2026h1",
+   "quote": "macro F1 unchanged on cr-oot-2026h1",
+   "line": 6
+  },
+  {
+   "s": "cost-matrix",
+   "type": "other",
+   "label": "weights",
+   "o": "dispute-misroutes",
+   "quote": "Dispute misroutes cost 3 units, all others 1.",
+   "line": 5
+  },
+  {
+   "s": "cost-matrix",
+   "type": "owned-by",
+   "label": "approved by",
+   "o": "maya-ortiz",
+   "quote": "Approved by Maya Ortiz",
+   "line": 7
+  },
+  {
+   "s": "threshold-file",
+   "type": "owned-by",
+   "label": "owns",
+   "o": "sam-lee",
+   "quote": "Sam Lee owns the threshold file.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "cr-lgbm-v3",
+   "quote": "the current lightgbm router",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fnd-cr-threshold",
+   "quote": "the cost matrix misroute finding",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-cr-cost-matrix.md",
+ "sha": "cbccada50bf78d4ea3fd893cb4b385f7de6ed4beb3415af4aa1d50cd88c02032",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

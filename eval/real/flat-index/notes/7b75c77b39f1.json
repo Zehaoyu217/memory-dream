@@ -1,0 +1,104 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "label-window",
+   "type": "term",
+   "label": "label window",
+   "as": [
+    "90-day labels"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.churn_labels",
+   "type": "dataset",
+   "label": "labels dataset",
+   "as": [
+    "churn-2025 labels dataset"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-101-churn-2025",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-101-churn-2025"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "retention-report",
+   "type": "document",
+   "label": "retention reports",
+   "as": [
+    "Retention reports"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "0.011 AUC"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "label-window",
+   "type": "measured-by",
+   "label": "gains",
+   "o": "auc",
+   "quote": "The 90-day ranking gain (0.011 AUC)",
+   "line": 7
+  },
+  {
+   "s": "label-window",
+   "type": "other",
+   "label": "blocks read",
+   "o": "retention-report",
+   "quote": "the slower label blocks that read",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-101-churn-2025"
+ ],
+ "built_on": [
+  {
+   "what": "ds-c25-churn-labels",
+   "quote": "the churn-2025 labels dataset",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-101-churn-2025",
+   "quote": "exp-101-churn-2025",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-c25-90d-feedback-lag.md",
+ "sha": "7b75c77b39f1543f635e2fc806f48187f51f3997295e4bbb2ed682c76e3ec8c5",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

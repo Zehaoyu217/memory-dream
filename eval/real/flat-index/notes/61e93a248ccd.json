@@ -1,0 +1,152 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "sav.offer_log",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "sav.offer_log"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  },
+  {
+   "id": "crm.contacts",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "crm.contacts"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "offer-engine",
+   "type": "service",
+   "label": "offer engine",
+   "as": [
+    "the offer engine"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "onboarding",
+   "type": "team",
+   "label": "owner",
+   "as": [
+    "onboarding"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "priya-nair",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Priya Nair"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "open-rate",
+   "type": "metric",
+   "label": "open rate",
+   "as": [
+    "open rate 2.9%"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "eligible-cardholders",
+   "type": "segment",
+   "label": "eligible cardholder-wave rows",
+   "as": [
+    "eligible cardholder-wave rows"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "sav.offer_log",
+   "type": "uses",
+   "label": "built from",
+   "o": "crm.contacts",
+   "quote": "Built from `crm.contacts` and the offer engine",
+   "line": 5
+  },
+  {
+   "s": "sav.offer_log",
+   "type": "uses",
+   "label": "built from",
+   "o": "offer-engine",
+   "quote": "Built from `crm.contacts` and the offer engine",
+   "line": 5
+  },
+  {
+   "s": "sav.offer_log",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "onboarding",
+   "quote": "Owner: onboarding (Priya Nair)",
+   "line": 7
+  },
+  {
+   "s": "sav.offer_log",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "priya-nair",
+   "quote": "Owner: onboarding (Priya Nair)",
+   "line": 7
+  },
+  {
+   "s": "sav.offer_log",
+   "type": "measured-by",
+   "label": "open rate",
+   "o": "open-rate",
+   "quote": "open rate 2.9%",
+   "line": 4
+  },
+  {
+   "s": "sav.offer_log",
+   "type": "other",
+   "label": "holds",
+   "o": "eligible-cardholders",
+   "quote": "holds 1.42M eligible cardholder-wave rows",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "q-xs-propensity"
+ ],
+ "built_on": [
+  {
+   "what": "q-xs-propensity",
+   "quote": "q-xs-propensity",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-xs-offer-log.md",
+ "sha": "61e93a248ccd0cbbafec01d3ec9886ff52f2adfdc17d7f9411842ad22c1ed5d9",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

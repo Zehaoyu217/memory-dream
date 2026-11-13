@@ -1,0 +1,68 @@
+{
+ "kind": "plan",
+ "entities": [
+  {
+   "id": "monthly-review-runbook",
+   "type": "document",
+   "label": "runbook",
+   "as": [
+    "Monthly review runbook"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "psi-job",
+   "type": "pipeline",
+   "label": "psi job",
+   "as": [
+    "the PSI job"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-scoring",
+   "type": "pipeline",
+   "label": "holdout scoring",
+   "as": [
+    "holdout scoring"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "monthly-review-decision-log",
+   "type": "other",
+   "label": "decision log",
+   "as": [
+    "the decision log"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "monthly-review-runbook",
+   "type": "other",
+   "label": "routes decisions to",
+   "o": "monthly-review-decision-log",
+   "quote": "decisions go into the decision log the same day",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/monthly-review-runbook.md",
+ "sha": "4a746a685480be1a889605f6b5eef6858157b2a1254df6ada3a8416eba9b4a37",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

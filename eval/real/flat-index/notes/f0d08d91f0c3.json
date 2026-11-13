@@ -1,0 +1,133 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "rebuilt-churn-rate",
+   "type": "metric",
+   "label": "churn rate",
+   "as": [
+    "churn is 6.4 percent"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "legacy-60-day-rule",
+   "type": "term",
+   "label": "legacy churn rule",
+   "as": [
+    "legacy 60-day rule"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "account-snapshots-2025h1",
+   "type": "dataset",
+   "label": "snapshots",
+   "as": [
+    "4.6M account-snapshots"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-406-label-pipeline-rebuild",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-406-label-pipeline-rebuild"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "exp-401-label-pipeline-rebuild",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-401-label-pipeline-rebuild"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fnd-churn-rate-legacy",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-churn-rate-legacy"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rebuilt-churn-rate",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "account-snapshots-2025h1",
+   "quote": "Rebuilt definition on the same 4.6M account-snapshots",
+   "line": 5
+  },
+  {
+   "s": "exp-406-label-pipeline-rebuild",
+   "type": "other",
+   "label": "makes idempotent",
+   "o": "rebuilt-churn-rate",
+   "quote": "The rebuilt job is idempotent (exp-406-label-pipeline-rebuild), so these rates are not inflated by reruns",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-406-label-pipeline-rebuild",
+  "exp-401-label-pipeline-rebuild",
+  "fnd-churn-rate-legacy"
+ ],
+ "built_on": [
+  {
+   "what": "exp-401-label-pipeline-rebuild",
+   "quote": "exp-401-label-pipeline-rebuild",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "exp-406-label-pipeline-rebuild",
+   "quote": "exp-406-label-pipeline-rebuild",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "fnd-churn-rate-legacy",
+   "quote": "fnd-churn-rate-legacy",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "fnd-churn-rate-legacy",
+   "quote": "fnd-churn-rate-legacy",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-churn-rate-rebuilt.md",
+ "sha": "f0d08d91f0c3da5271b1e7a6c3b45414476d0d6af9ffc8941c4ec4e54a3a45e0",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

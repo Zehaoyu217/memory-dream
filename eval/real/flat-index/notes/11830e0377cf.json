@@ -1,0 +1,196 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-101-bureau-logit",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-101"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "bt-logit-baseline",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bt-logit-baseline"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "bureau-score",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "bureau score alone"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "feat-bt-util-3m",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "utilization"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "tenure-months",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "tenure"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "ds-bt-holdout-2025q1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "bt-holdout-2025q1"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "acceptance-rate",
+   "type": "metric",
+   "label": "acceptance",
+   "as": [
+    "acceptance 3.9%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.58",
+    "AUC 0.63"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "mailer",
+   "type": "other",
+   "label": "mailer",
+   "as": [
+    "the mailer"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-101-bureau-logit",
+   "type": "uses",
+   "label": "ran",
+   "o": "bt-logit-baseline",
+   "quote": "Ran bt-logit-baseline with bureau score alone",
+   "line": 5
+  },
+  {
+   "s": "exp-101-bureau-logit",
+   "type": "evaluated-on",
+   "label": "eval",
+   "o": "ds-bt-holdout-2025q1",
+   "quote": "Eval: bt-holdout-2025q1, n=41,800, acceptance 3.9%.",
+   "line": 6
+  },
+  {
+   "s": "ds-bt-holdout-2025q1",
+   "type": "measured-by",
+   "label": "acceptance",
+   "o": "acceptance-rate",
+   "quote": "acceptance 3.9%",
+   "line": 6
+  },
+  {
+   "s": "exp-101-bureau-logit",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.58",
+   "line": 4
+  },
+  {
+   "s": "exp-101-bureau-logit",
+   "type": "uses",
+   "label": "added",
+   "o": "feat-bt-util-3m",
+   "quote": "then with utilization and tenure added",
+   "line": 5
+  },
+  {
+   "s": "feat-bt-util-3m",
+   "type": "measured-by",
+   "label": "adds",
+   "o": "auc",
+   "quote": "utilization adds about 0.05 AUC",
+   "line": 7
+  },
+  {
+   "s": "bureau-score",
+   "type": "other",
+   "label": "not enough for",
+   "o": "mailer",
+   "quote": "the bureau score alone is not enough for the mailer",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "bt-logit-baseline",
+  "ds-bt-holdout-2025q1"
+ ],
+ "built_on": [
+  {
+   "what": "bt-logit-baseline",
+   "quote": "bt-logit-baseline",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-bt-holdout-2025q1",
+   "quote": "ds-bt-holdout-2025q1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-101-bureau-logit.md",
+ "sha": "11830e0377cfe205bae594435cbf8118b996c6d8a1fe8dc3c7893339e060b853",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,86 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "rev26-interest-v1",
+   "type": "model",
+   "label": "interest model",
+   "as": [
+    "rev26-interest-v1"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "ds-rev26-interest-accrual",
+   "type": "dataset",
+   "label": "source dataset",
+   "as": [
+    "Builds on ds-rev26-interest-accrual"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fnd-rev26-no-haircut",
+   "type": "document",
+   "label": "finding",
+   "as": [
+    "fnd-rev26-no-haircut"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "finance-interest-ledger",
+   "type": "dataset",
+   "label": "backtest reference",
+   "as": [
+    "finance interest ledger"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rev26-interest-v1",
+   "type": "evaluated-on",
+   "label": "backtested against",
+   "o": "finance-interest-ledger",
+   "quote": "Backtest of rev26-interest-v1 against the finance interest ledger",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "fnd-rev26-no-haircut",
+  "ds-rev26-interest-accrual"
+ ],
+ "built_on": [
+  {
+   "what": "ds-rev26-interest-accrual",
+   "quote": "ds-rev26-interest-accrual",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "rev26-interest-v1",
+   "quote": "rev26-interest-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-302-revenue-forecast-2026.md",
+ "sha": "125f5931ed29a9a3f69fd288cae8d12135f12c273ee1339e1e2ef91e193538d1",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

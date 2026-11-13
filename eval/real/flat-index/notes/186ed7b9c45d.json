@@ -1,0 +1,98 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-mq3-oot-2026h1",
+   "type": "dataset",
+   "label": "rct",
+   "as": [
+    "mq3-oot-2026h1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-mq3-q2-rct",
+   "type": "dataset",
+   "label": "q2",
+   "as": [
+    "Q2"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "control-group",
+   "type": "segment",
+   "label": "control",
+   "as": [
+    "10% control"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "14-day-response-base-rate",
+   "type": "metric",
+   "label": "base rate",
+   "as": [
+    "14-day response base rate"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "app-sessions",
+   "type": "feature",
+   "label": "app sessions",
+   "as": [
+    "app sessions"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "control-group",
+   "type": "part-of",
+   "label": "control of",
+   "o": "ds-mq3-oot-2026h1",
+   "quote": "Control 24,000 accounts",
+   "line": 6
+  },
+  {
+   "s": "control-group",
+   "type": "measured-by",
+   "label": "base rate",
+   "o": "14-day-response-base-rate",
+   "quote": "14-day response base rate 1.9%",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-mq3-q2-rct"
+ ],
+ "built_on": [
+  {
+   "what": "ds-mq3-q2-rct",
+   "quote": "ds-mq3-q2-rct",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-mq3-oot-2026h1.md",
+ "sha": "186ed7b9c45d96287c029572e80f24ef1bf873dd51d53dd6c35e544fa997a926",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

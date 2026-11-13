@@ -1,0 +1,65 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "cpi-consumer-confidence-series",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "CPI and consumer confidence, monthly, 2015-01 to 2025-06"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-sfc-cpi-lag6",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-sfc-cpi-lag6"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "sfc-ets-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "sfc-ets-v1"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-sfc-cpi-lag6",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cpi-consumer-confidence-series",
+   "quote": "Source for feat-sfc-cpi-lag6.",
+   "line": 7
+  },
+  {
+   "s": "sfc-ets-v1",
+   "type": "other",
+   "label": "does not use",
+   "o": "cpi-consumer-confidence-series",
+   "quote": "Not used by sfc-ets-v1.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-sfc-macro-series.md",
+ "sha": "df3fdd7a9886cac58fcf415e9502cc7406b32edd8ba7f4a07e0dff419ae04362",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

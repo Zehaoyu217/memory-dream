@@ -1,0 +1,127 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-301-reactivation-dormant",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-301-reactivation-dormant"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "dormancy-cutoff",
+   "type": "other",
+   "label": "dormancy cutoff",
+   "as": [
+    "dormancy cutoffs"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift at top 20%",
+   "as": [
+    "Uplift at the top 20% by predicted uplift"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-rdm-dormant-pool",
+   "type": "segment",
+   "label": "dormant pool",
+   "as": [
+    "Eligible pools"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "reactivation-waves",
+   "type": "other",
+   "label": "wave",
+   "as": [
+    "waves 1 and 2"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-301-reactivation-dormant",
+   "type": "measured-by",
+   "label": "measures",
+   "o": "uplift-at-20",
+   "quote": "Uplift at the top 20% by predicted uplift",
+   "line": 5
+  },
+  {
+   "s": "exp-301-reactivation-dormant",
+   "type": "uses",
+   "label": "eligible pools",
+   "o": "ds-rdm-dormant-pool",
+   "quote": "Eligible pools: 618,400 at 5 months, 412,006 at 6 months, 187,300 at 9 months.",
+   "line": 6
+  },
+  {
+   "s": "dormancy-cutoff",
+   "type": "other",
+   "label": "gives best uplift",
+   "o": "uplift-at-20",
+   "quote": "6 months gives the best uplift",
+   "line": 4
+  },
+  {
+   "s": "dormancy-cutoff",
+   "type": "other",
+   "label": "applied to",
+   "o": "reactivation-waves",
+   "quote": "dormancy cutoffs of 5, 6 and 9 months on waves 1 and 2",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "ds-rdm-dormant-pool",
+  "feat-rdm-last-activity-v1",
+  "q-rdm-dormancy-cutoff"
+ ],
+ "built_on": [
+  {
+   "what": "ds-rdm-dormant-pool",
+   "quote": "ds-rdm-dormant-pool",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-rdm-last-activity-v1",
+   "quote": "feat-rdm-last-activity-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "q-rdm-dormancy-cutoff",
+   "quote": "q-rdm-dormancy-cutoff",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-301-reactivation-dormant.md",
+ "sha": "1d941ecd582d4e31a5fb921f827482ab81ac32dc43474de7a76c6cb9c95f0479",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

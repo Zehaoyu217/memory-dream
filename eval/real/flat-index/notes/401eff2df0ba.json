@@ -1,0 +1,152 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "marketing.campaign_responses",
+   "type": "dataset",
+   "label": "campaign responses",
+   "as": [
+    "marketing.campaign_responses"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "email",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "collections emails"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "open-rate",
+   "type": "metric",
+   "label": "open rate",
+   "as": [
+    "Reported open rate 61%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "click-rate",
+   "type": "metric",
+   "label": "click rate",
+   "as": [
+    "click rate 2.2%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "image-pre-fetching",
+   "type": "term",
+   "label": "pre-fetching",
+   "as": [
+    "mail-client image pre-fetching"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "chloe-martin",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Chloe Martin"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "raj-patel",
+   "type": "person",
+   "label": "read owner",
+   "as": [
+    "Raj Patel"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "marketing.campaign_responses",
+   "type": "other",
+   "label": "source for",
+   "o": "email",
+   "quote": "Source: `marketing.campaign_responses` for collections emails",
+   "line": 5
+  },
+  {
+   "s": "email",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "open-rate",
+   "quote": "Reported open rate 61%",
+   "line": 6
+  },
+  {
+   "s": "email",
+   "type": "measured-by",
+   "label": "click rate",
+   "o": "click-rate",
+   "quote": "click rate 2.2%",
+   "line": 6
+  },
+  {
+   "s": "open-rate",
+   "type": "other",
+   "label": "inflated by",
+   "o": "image-pre-fetching",
+   "quote": "they are inflated by mail-client image pre-fetching",
+   "line": 6
+  },
+  {
+   "s": "marketing.campaign_responses",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "chloe-martin",
+   "quote": "Owner: Chloe Martin (marketing) for the table",
+   "line": 7
+  },
+  {
+   "s": "email",
+   "type": "owned-by",
+   "label": "read owner",
+   "o": "raj-patel",
+   "quote": "the collections read is Raj Patel's",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "q-ch-email-worth-it"
+ ],
+ "built_on": [
+  {
+   "what": "q-ch-email-worth-it",
+   "quote": "q-ch-email-worth-it",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-ch-email-engagement.md",
+ "sha": "401eff2df0bab6c5ebe49219b4d3b0a30015609c7fc2adbfe5d0798d67e0455e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

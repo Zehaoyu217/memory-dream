@@ -1,0 +1,118 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-trv-tenure",
+   "type": "feature",
+   "label": "tenure band",
+   "as": [
+    "feat-trv-tenure",
+    "cardholder tenure band"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "crm",
+   "type": "tool",
+   "label": "crm",
+   "as": [
+    "CRM contact date"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-trv-cohort-panel",
+   "type": "dataset",
+   "label": "cohort panel",
+   "as": [
+    "travel-active cardholder cohort panel"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-507-travel-spend-recovery",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-507-travel-spend-recovery"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "return-rate",
+   "type": "metric",
+   "label": "return rate",
+   "as": [
+    "return rate"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "june-2026-pack",
+   "type": "document",
+   "label": "pack",
+   "as": [
+    "June 2026 pack"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-507-travel-spend-recovery",
+   "type": "uses",
+   "label": "cohort split",
+   "o": "feat-trv-tenure",
+   "quote": "Used only for the cohort split in exp-507-travel-spend-recovery; not an input to any travel model.",
+   "line": 6
+  },
+  {
+   "s": "feat-trv-tenure",
+   "type": "uses",
+   "label": "from",
+   "o": "crm",
+   "quote": "Tenure band for each cardholder in the cohort, from the CRM contact date.",
+   "line": 5
+  },
+  {
+   "s": "feat-trv-tenure",
+   "type": "other",
+   "label": "splits return rate",
+   "o": "return-rate",
+   "quote": "Splits the return rate by tenure band in the June 2026 pack.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-507-travel-spend-recovery",
+  "ds-trv-cohort-panel"
+ ],
+ "built_on": [
+  {
+   "what": "ds-trv-cohort-panel",
+   "quote": "the travel-active cardholder cohort panel",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-trv-tenure.md",
+ "sha": "e01a6b0f13cd0b34422d6067b8f5f4867d0bd581a31332d3674a234c83904354",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

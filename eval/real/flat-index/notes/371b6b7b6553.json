@@ -1,0 +1,112 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-407-income-estimation",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-407-income-estimation"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dec-inc-estimate-live",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-inc-estimate-live"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "self-employed-accounts",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "self-employed accounts"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "verified-2026-holdout",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "verified-2026 holdout"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-407-income-estimation",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "verified-2026-holdout",
+   "quote": "From exp-407-income-estimation on the verified-2026 holdout",
+   "line": 5
+  },
+  {
+   "s": "self-employed-accounts",
+   "type": "measured-by",
+   "label": "MAPE 33%",
+   "o": "mape",
+   "quote": "MAPE 33% against 17% for salaried",
+   "line": 4
+  },
+  {
+   "s": "dec-inc-estimate-live",
+   "type": "other",
+   "label": "applies 9% uplift to",
+   "o": "self-employed-accounts",
+   "quote": "Corrected by a 9% uplift for self-employed accounts in dec-inc-estimate-live.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-407-income-estimation",
+  "dec-inc-estimate-live"
+ ],
+ "built_on": [
+  {
+   "what": "exp-407-income-estimation",
+   "quote": "the self-employed error comparison",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "the self-employed error comparison",
+   "quote": "Builds on the self-employed error comparison.",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/find-inc-self-employed-bias.md",
+ "sha": "371b6b7b6553e22e74b99f095bb601948fa20e3824f3dd21889bb1c55b39d0a2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

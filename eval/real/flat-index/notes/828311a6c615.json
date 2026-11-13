@@ -1,0 +1,84 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "bureau-scores-monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "bureau.scores_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bureau-v8-score-panel",
+   "type": "dataset",
+   "label": "panel",
+   "as": [
+    "monthly bureau v8 score panel"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cli-bureau-delta",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "CLI bureau-delta feature"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "v8-baseline",
+   "type": "model",
+   "label": "baseline",
+   "as": [
+    "every v8 baseline in this project"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bureau-v8-score-panel",
+   "type": "uses",
+   "label": "from",
+   "o": "bureau-scores-monthly",
+   "quote": "Source `bureau.scores_monthly`",
+   "line": 5
+  },
+  {
+   "s": "v8-baseline",
+   "type": "uses",
+   "label": "based on",
+   "o": "bureau-v8-score-panel",
+   "quote": "Panel is the base for every v8 baseline in this project",
+   "line": 7
+  },
+  {
+   "s": "cli-bureau-delta",
+   "type": "uses",
+   "label": "based on",
+   "o": "bureau-v8-score-panel",
+   "quote": "Panel is the base for every v8 baseline in this project and for the CLI bureau-delta feature.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-bsm-v8-history.md",
+ "sha": "828311a6c615de62134440afbec63dd40cc26aff0e09343595ff8002a822d25a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

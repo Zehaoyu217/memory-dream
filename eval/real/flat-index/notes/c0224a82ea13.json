@@ -1,0 +1,156 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-206-fraud-2026",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-206-fraud-2026"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fraud26-oot-2025q4",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "fraud26-oot-2025q4"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-f26-velocity-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "clean velocity-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-f26-mcc-risk",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "MCC risk"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fraud26-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fraud26-gbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.927"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "exp-205-fraud-2026",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-205-fraud-2026"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.70"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "recall-at-1pct",
+   "type": "metric",
+   "label": "recall@1%",
+   "as": [
+    "recall@1% 0.58"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-206-fraud-2026",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "fraud26-oot-2025q4",
+   "quote": "Eval set: fraud26-oot-2025q4",
+   "line": 5
+  },
+  {
+   "s": "exp-206-fraud-2026",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "v2 candidate: AUC 0.927",
+   "line": 6
+  },
+  {
+   "s": "fraud26-gbm-v2",
+   "type": "uses",
+   "label": "ships feature set",
+   "o": "feat-f26-mcc-risk",
+   "quote": "This is the feature set shipped in fraud26-gbm-v2.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-205-fraud-2026"
+ ],
+ "built_on": [
+  {
+   "what": "exp-205-fraud-2026",
+   "quote": "the velocity-v2 join-window rebuild experiment",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-f26-mcc-risk",
+   "quote": "feat-f26-mcc-risk",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-206-fraud-2026.md",
+ "sha": "c0224a82ea136cced31fa41d3a878696f1c3676c700f9cb7d560cde85186b395",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

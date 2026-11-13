@@ -1,0 +1,170 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-307-reactivation-dormant",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-307-reactivation-dormant"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "rdm-uplift-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rdm-uplift-v2",
+    "X-learner"
+   ],
+   "lines": [
+    4,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "t-learner",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "T-learner",
+    "the t-learner targeting model"
+   ],
+   "lines": [
+    4,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "rdm-oot-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Holdout rdm-oot-2025q1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "uplift@20% 3.6pp"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "qini",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Qini 0.47",
+    "Qini 0.44"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-305-reactivation-dormant",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-305-reactivation-dormant"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-306-reactivation-dormant",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-306-reactivation-dormant"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-307-reactivation-dormant",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "rdm-oot-2025q1",
+   "quote": "Holdout rdm-oot-2025q1: X-learner uplift@20% 3.6pp, Qini 0.47",
+   "line": 6
+  },
+  {
+   "s": "rdm-uplift-v2",
+   "type": "measured-by",
+   "label": "uplift at 20%",
+   "o": "uplift-at-20",
+   "quote": "X-learner uplift@20% 3.6pp, Qini 0.47",
+   "line": 6
+  },
+  {
+   "s": "rdm-uplift-v2",
+   "type": "measured-by",
+   "label": "Qini",
+   "o": "qini",
+   "quote": "X-learner uplift@20% 3.6pp, Qini 0.47",
+   "line": 6
+  },
+  {
+   "s": "t-learner",
+   "type": "measured-by",
+   "label": "uplift at 20%",
+   "o": "uplift-at-20",
+   "quote": "T-learner 3.0pp, Qini 0.44",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "exp-305-reactivation-dormant",
+   "quote": "exp-305-reactivation-dormant",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-306-reactivation-dormant",
+   "quote": "exp-306-reactivation-dormant",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "rdm-uplift-v1",
+   "quote": "the t-learner targeting model",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "t-learner",
+   "quote": "the t-learner targeting model",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-307-reactivation-dormant.md",
+ "sha": "2ef58dc5aca93e241e8194a549f40929a39596b78efea5c45aa35519aa2541ca",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

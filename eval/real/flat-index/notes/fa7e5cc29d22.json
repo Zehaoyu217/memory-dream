@@ -1,0 +1,128 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "pa-churn-hazard-v1",
+   "type": "model",
+   "label": "hazard model",
+   "as": [
+    "pa-churn-hazard-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-pa-promo-exit-cliff",
+   "type": "feature",
+   "label": "promo exit cliff feature",
+   "as": [
+    "feat-pa-promo-exit-cliff"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "feat-pa-payment-rate",
+   "type": "feature",
+   "label": "payment rate feature",
+   "as": [
+    "feat-pa-payment-rate"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "pa-margin-v2",
+   "type": "model",
+   "label": "margin model",
+   "as": [
+    "pa-margin-v2"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "pa-churn-hazard-v1",
+   "type": "uses",
+   "label": "inputs",
+   "o": "feat-pa-promo-exit-cliff",
+   "quote": "inputs feat-pa-promo-exit-cliff and feat-pa-payment-rate",
+   "line": 5
+  },
+  {
+   "s": "pa-churn-hazard-v1",
+   "type": "uses",
+   "label": "inputs",
+   "o": "feat-pa-payment-rate",
+   "quote": "inputs feat-pa-promo-exit-cliff and feat-pa-payment-rate",
+   "line": 5
+  },
+  {
+   "s": "pa-churn-hazard-v1",
+   "type": "measured-by",
+   "label": "scored by",
+   "o": "auc",
+   "quote": "AUC 0.72 on 60-day churn",
+   "line": 4
+  },
+  {
+   "s": "pa-margin-v2",
+   "type": "uses",
+   "label": "used in",
+   "o": "pa-churn-hazard-v1",
+   "quote": "Used in pa-margin-v2.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "pa-margin-v2"
+ ],
+ "built_on": [
+  {
+   "what": "ds-pa-churn-labels",
+   "quote": "the churn labels after promo expiry",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "feat-pa-payment-rate",
+   "quote": "feat-pa-payment-rate",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "feat-pa-promo-exit-cliff",
+   "quote": "feat-pa-promo-exit-cliff",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/pa-churn-hazard-v1.md",
+ "sha": "fa7e5cc29d225c9bf22e5990cc8b2202cc6e7b11d222c684bfee06e5b3d7db3a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

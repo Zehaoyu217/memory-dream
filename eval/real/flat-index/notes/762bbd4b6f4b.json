@@ -1,0 +1,252 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "txc-gbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "txc-gbm-v3"
+   ],
+   "lines": [
+    4,
+    5,
+    9
+   ]
+  },
+  {
+   "id": "txc-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "txc-gbm-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-txc-normalise-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-txc-normalise-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "v2-token-set",
+   "type": "feature",
+   "label": "token set",
+   "as": [
+    "the v2 token set"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro-f1",
+   "as": [
+    "macro-F1 0.83"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "txc-oot-2026h1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "txc-oot-2026h1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "other-share",
+   "type": "metric",
+   "label": "'other' share",
+   "as": [
+    "'other' at 4.1% of spend"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fuzzy-fallback",
+   "type": "other",
+   "label": "fuzzy fallback",
+   "as": [
+    "The fuzzy fallback"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-107-txn-categorization",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-107-txn-categorization"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "long-tail-merchants",
+   "type": "segment",
+   "label": "long-tail merchants",
+   "as": [
+    "long-tail merchants"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "data-eng-cards",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "data-eng-cards"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "insights-tables",
+   "type": "dataset",
+   "label": "insights tables",
+   "as": [
+    "insights tables"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "nightly-insights-run",
+   "type": "pipeline",
+   "label": "nightly run",
+   "as": [
+    "nightly insights run"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "txc-gbm-v3",
+   "type": "replaces",
+   "label": "in place of",
+   "o": "txc-gbm-v2",
+   "quote": "Ship txc-gbm-v3 in place of txc-gbm-v2, with feat-txc-normalise-v2 and the v2 token set.",
+   "line": 5
+  },
+  {
+   "s": "txc-gbm-v3",
+   "type": "uses",
+   "label": "with",
+   "o": "feat-txc-normalise-v2",
+   "quote": "Ship txc-gbm-v3 in place of txc-gbm-v2, with feat-txc-normalise-v2 and the v2 token set.",
+   "line": 5
+  },
+  {
+   "s": "txc-gbm-v3",
+   "type": "uses",
+   "label": "with",
+   "o": "v2-token-set",
+   "quote": "Ship txc-gbm-v3 in place of txc-gbm-v2, with feat-txc-normalise-v2 and the v2 token set.",
+   "line": 5
+  },
+  {
+   "s": "txc-gbm-v3",
+   "type": "measured-by",
+   "label": "basis",
+   "o": "macro-f1",
+   "quote": "macro-F1 0.83 on txc-oot-2026h1",
+   "line": 6
+  },
+  {
+   "s": "txc-gbm-v3",
+   "type": "evaluated-on",
+   "label": "on",
+   "o": "txc-oot-2026h1",
+   "quote": "macro-F1 0.83 on txc-oot-2026h1",
+   "line": 6
+  },
+  {
+   "s": "txc-gbm-v3",
+   "type": "measured-by",
+   "label": "shadow run",
+   "o": "other-share",
+   "quote": "'other' at 4.1% of spend in the shadow run",
+   "line": 6
+  },
+  {
+   "s": "fuzzy-fallback",
+   "type": "other",
+   "label": "stays on for",
+   "o": "long-tail-merchants",
+   "quote": "The fuzzy fallback (exp-107-txn-categorization rule) stays on for long-tail merchants.",
+   "line": 7
+  },
+  {
+   "s": "insights-tables",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "data-eng-cards",
+   "quote": "Owner for the insights tables is data-eng-cards",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "feat-txc-normalise-v2",
+  "exp-107-txn-categorization",
+  "fnd-txc-long-tail",
+  "fnd-txc-other-share",
+  "txc-gbm-v3",
+  "txc-gbm-v2"
+ ],
+ "built_on": [
+  {
+   "what": "fnd-txc-long-tail",
+   "quote": "fnd-txc-long-tail",
+   "line": 9,
+   "asked": true
+  },
+  {
+   "what": "fnd-txc-other-share",
+   "quote": "fnd-txc-other-share",
+   "line": 9,
+   "asked": true
+  },
+  {
+   "what": "txc-gbm-v3",
+   "quote": "txc-gbm-v3",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "work/dec-txc-ship-gbm-v3.md",
+ "sha": "762bbd4b6f4be7d7b66f8ea301b6bb4ba686a2f64f4e23e6bc14e428183410f0",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

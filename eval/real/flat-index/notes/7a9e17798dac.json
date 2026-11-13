@@ -1,0 +1,238 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-204-churn-small-business",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-204-churn-small-business"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "xgboost",
+   "type": "tool",
+   "label": "model library",
+   "as": [
+    "XGBoost"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "6-month-plus-subset",
+   "type": "segment",
+   "label": "holdout subset",
+   "as": [
+    "6-month-plus accounts",
+    "Holdout subset (n=7,930)"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.742"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.37"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "recall-at-10",
+   "type": "metric",
+   "label": "recall",
+   "as": [
+    "recall@10% 0.27"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-peak-merchant-accounts",
+   "type": "segment",
+   "label": "merchant accounts",
+   "as": [
+    "Dec-peak merchant accounts"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dec-2024-snapshot",
+   "type": "dataset",
+   "label": "snapshot",
+   "as": [
+    "Dec 2024 snapshot"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "deposit-volatility",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "deposit volatility"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-csb-spend-raw",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "spend-raw"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-csb-tenure-band",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "tenure band"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "employee-cards",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "employee cards"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-204-churn-small-business",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-csb-spend-raw",
+   "quote": "features spend-raw, tenure band, deposit volatility and employee cards",
+   "line": 5
+  },
+  {
+   "s": "exp-204-churn-small-business",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-csb-tenure-band",
+   "quote": "features spend-raw, tenure band, deposit volatility and employee cards",
+   "line": 5
+  },
+  {
+   "s": "exp-204-churn-small-business",
+   "type": "uses",
+   "label": "features",
+   "o": "deposit-volatility",
+   "quote": "features spend-raw, tenure band, deposit volatility and employee cards",
+   "line": 5
+  },
+  {
+   "s": "exp-204-churn-small-business",
+   "type": "uses",
+   "label": "features",
+   "o": "employee-cards",
+   "quote": "features spend-raw, tenure band, deposit volatility and employee cards",
+   "line": 5
+  },
+  {
+   "s": "exp-204-churn-small-business",
+   "type": "uses",
+   "label": "XGBoost model",
+   "o": "xgboost",
+   "quote": "XGBoost depth 4, 300 rounds",
+   "line": 5
+  },
+  {
+   "s": "exp-204-churn-small-business",
+   "type": "evaluated-on",
+   "label": "holdout subset",
+   "o": "6-month-plus-subset",
+   "quote": "Holdout subset (n=7,930): AUC 0.742",
+   "line": 6
+  },
+  {
+   "s": "exp-204-churn-small-business",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.742",
+   "line": 6
+  },
+  {
+   "s": "exp-204-churn-small-business",
+   "type": "measured-by",
+   "label": "KS",
+   "o": "ks",
+   "quote": "KS 0.37",
+   "line": 6
+  },
+  {
+   "s": "exp-204-churn-small-business",
+   "type": "measured-by",
+   "label": "recall",
+   "o": "recall-at-10",
+   "quote": "recall@10% 0.27",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "exp-203-churn-small-business",
+   "quote": "the experiment adding deposit volatility to logistic",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fnd-csb-seasonal-trap",
+   "quote": "the finding on december merchants scored safe",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-204-churn-small-business.md",
+ "sha": "7a9e17798daca5f830cb5355011b9c8c17beca3e779a6e049f4e31854a2cc02e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

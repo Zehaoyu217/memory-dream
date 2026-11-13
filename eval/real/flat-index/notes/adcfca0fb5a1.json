@@ -1,0 +1,158 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-202-tier-pilot",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-202"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "tier-a",
+   "type": "other",
+   "label": "pilot cell",
+   "as": [
+    "tier A"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "control",
+   "type": "other",
+   "label": "control cell",
+   "as": [
+    "control"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "spend",
+   "type": "metric",
+   "label": "spend",
+   "as": [
+    "Spend"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "effective-rewards-rate",
+   "type": "metric",
+   "label": "effective rewards rate",
+   "as": [
+    "Effective rewards rate"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "net-contribution",
+   "type": "metric",
+   "label": "net contribution",
+   "as": [
+    "Net contribution"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "flat-1.25",
+   "type": "other",
+   "label": "pilot cell",
+   "as": [
+    "flat 1.25%"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-201-flat-rate-pilot",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-201-flat-rate-pilot"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-cb-pilot-2025q4",
+   "type": "dataset",
+   "label": "pilot dataset",
+   "as": [
+    "2025 q4 cashback pilot dataset"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-202-tier-pilot",
+   "type": "measured-by",
+   "label": "measures",
+   "o": "spend",
+   "quote": "Spend +2.7%",
+   "line": 6
+  },
+  {
+   "s": "exp-202-tier-pilot",
+   "type": "measured-by",
+   "label": "measures",
+   "o": "effective-rewards-rate",
+   "quote": "Effective rewards rate +19% over control",
+   "line": 6
+  },
+  {
+   "s": "tier-a",
+   "type": "other",
+   "label": "compared with",
+   "o": "flat-1.25",
+   "quote": "against +$1.10 for flat 1.25% in exp-201",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-201-flat-rate-pilot"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cb-pilot-2025q4",
+   "quote": "the 2025 q4 cashback pilot dataset",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-201-flat-rate-pilot",
+   "quote": "exp-201-flat-rate-pilot",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-202-tier-pilot.md",
+ "sha": "adcfca0fb5a1208d2a0483b37ecfac7f23118eeb66123bc39141c39ed87f8890",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

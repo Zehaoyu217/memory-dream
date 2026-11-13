@@ -1,0 +1,94 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-fsm-util-ratio",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-fsm-util-ratio"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.limits_history",
+   "type": "dataset",
+   "label": "limits table",
+   "as": [
+    "cards.limits_history"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-fsm-legacy-features",
+   "type": "dataset",
+   "label": "legacy features",
+   "as": [
+    "ds-fsm-legacy-features"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "churn-v2",
+   "type": "model",
+   "label": "churn model",
+   "as": [
+    "churn v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-fsm-util-ratio",
+   "type": "uses",
+   "label": "reads from",
+   "o": "cards.limits_history",
+   "quote": "from cards.limits_history",
+   "line": 4
+  },
+  {
+   "s": "churn-v2",
+   "type": "uses",
+   "label": "reads",
+   "o": "feat-fsm-util-ratio",
+   "quote": "churn v2 reads it.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-107-feature-store-migration",
+  "fnd-parity-post-fix",
+  "ds-fsm-legacy-features"
+ ],
+ "built_on": [
+  {
+   "what": "ds-fsm-legacy-features",
+   "quote": "ds-fsm-legacy-features",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-107-feature-store-migration",
+   "quote": "the month-end utilization rule test",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-fsm-util-ratio.md",
+ "sha": "487bea6ca85670394fc64068a3fa19261480a1c347c0563c9f7510a2ebfc464a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

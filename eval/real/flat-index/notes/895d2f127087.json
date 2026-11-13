@@ -1,0 +1,65 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "churn-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "churn v2"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "rebuilt-labels",
+   "type": "other",
+   "label": "label set",
+   "as": [
+    "rebuilt labels"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    3
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-v2",
+   "type": "uses",
+   "label": "on",
+   "o": "rebuilt-labels",
+   "quote": "churn v2 on rebuilt labels",
+   "line": 3
+  },
+  {
+   "s": "churn-v2",
+   "type": "measured-by",
+   "label": "AUC 0.768 vs 0.751",
+   "o": "auc",
+   "quote": "churn v2 on rebuilt labels, AUC 0.768 vs 0.751",
+   "line": 3
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2026-05-28.md",
+ "sha": "895d2f1270875372654eecc5e305fe63239945f78d78a04109526edb2909f57e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

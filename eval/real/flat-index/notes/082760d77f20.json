@@ -1,0 +1,75 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "bureau-score",
+   "type": "feature",
+   "label": "bureau score",
+   "as": [
+    "the score is pulled monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bureau-scores-monthly",
+   "type": "dataset",
+   "label": "monthly table",
+   "as": [
+    "bureau.scores_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "credit-risk-models",
+   "type": "model",
+   "label": "credit-risk models",
+   "as": [
+    "credit-risk models built before 2025-06 use the application score"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bureau-score",
+   "type": "produces",
+   "label": "stored in",
+   "o": "bureau-scores-monthly",
+   "quote": "stored in `bureau.scores_monthly`",
+   "line": 5
+  },
+  {
+   "s": "credit-risk-models",
+   "type": "uses",
+   "label": "use application score",
+   "o": "bureau-score",
+   "quote": "credit-risk models built before 2025-06 use the application score",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "glossary/bureau-score"
+ ],
+ "replaces": [
+  {
+   "what": "glossary/bureau-score",
+   "quote": "glossary/bureau-score",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "corrections/bureau-score-monthly.md",
+ "sha": "082760d77f209ef4f6f90d75b13bf01e83b7eb2256fb260adb3a36d7da37b504",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

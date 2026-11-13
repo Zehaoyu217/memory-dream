@@ -1,0 +1,136 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-201-early-delinquency",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-201-early-delinquency"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "early-delinquency-holdout-2024q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "early-delinquency-holdout-2024q4"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.742"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Gini 0.484"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "KS 0.36"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "brier-score",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Brier 0.047"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-201-early-delinquency",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "early-delinquency-holdout-2024q4",
+   "quote": "Eval set early-delinquency-holdout-2024q4: n=402,000 current accounts",
+   "line": 5
+  },
+  {
+   "s": "exp-201-early-delinquency",
+   "type": "measured-by",
+   "label": "result",
+   "o": "auc",
+   "quote": "Result: AUC 0.742, Gini 0.484, KS 0.36, Brier 0.047.",
+   "line": 6
+  },
+  {
+   "s": "exp-201-early-delinquency",
+   "type": "measured-by",
+   "label": "result",
+   "o": "gini",
+   "quote": "Result: AUC 0.742, Gini 0.484, KS 0.36, Brier 0.047.",
+   "line": 6
+  },
+  {
+   "s": "exp-201-early-delinquency",
+   "type": "measured-by",
+   "label": "result",
+   "o": "ks",
+   "quote": "Result: AUC 0.742, Gini 0.484, KS 0.36, Brier 0.047.",
+   "line": 6
+  },
+  {
+   "s": "exp-201-early-delinquency",
+   "type": "measured-by",
+   "label": "result",
+   "o": "brier-score",
+   "quote": "Result: AUC 0.742, Gini 0.484, KS 0.36, Brier 0.047.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "early_delinquency/exp201_scorecard.ipynb"
+ ],
+ "built_on": [
+  {
+   "what": "ed-logit-v1",
+   "quote": "the champion logistic scorecard",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-201-early-delinquency.md",
+ "sha": "4fad5cf42ad44a8b9ea6bf6c6bf6af29018b6c4e8bd229ceb8bb50608ad60aed",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

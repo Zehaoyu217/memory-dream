@@ -1,0 +1,99 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "split-billing-codes",
+   "type": "term",
+   "label": "billing codes",
+   "as": [
+    "split billing codes"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-205-complaint-classification",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-205-complaint-classification"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "split-pair-macro-f1",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "split-pair macro F1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cc-ft-v2",
+   "type": "model",
+   "label": "basis",
+   "as": [
+    "cc-ft-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dec-cc-taxonomy-split",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-cc-taxonomy-split"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-205-complaint-classification",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "split-pair-macro-f1",
+   "quote": "split-pair macro F1 0.52 on the legacy-trained model, 0.71 after relabelling",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "exp-205-complaint-classification",
+   "quote": "exp-205-complaint-classification",
+   "line": 5,
+   "asked": true
+  },
+  {
+   "what": "exp-205-complaint-classification",
+   "quote": "the split-billing relabelling experiment",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "the split-billing relabelling experiment",
+   "quote": "Builds on the split-billing relabelling experiment.",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-cc-taxonomy-drift.md",
+ "sha": "8856f34a9696d3449cc4f759909f653becff581c21850c54a0c5cfc10b38630c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

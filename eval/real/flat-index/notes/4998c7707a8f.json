@@ -1,0 +1,116 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "utilisation",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "utilisation"
+   ],
+   "lines": [
+    4,
+    5,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "cli-test-2025q1",
+   "type": "dataset",
+   "label": "test sample",
+   "as": [
+    "cli-test-2025q1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "90-day-loss",
+   "type": "term",
+   "label": "target",
+   "as": [
+    "90-day loss"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.64"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "utilisation-led-targeting",
+   "type": "term",
+   "label": "targeting approach",
+   "as": [
+    "utilisation-led targeting"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "utilisation",
+   "type": "measured-by",
+   "label": "reached",
+   "o": "auc",
+   "quote": "utilisation alone reached AUC 0.64 for 90-day loss",
+   "line": 5
+  },
+  {
+   "s": "utilisation",
+   "type": "other",
+   "label": "predicts",
+   "o": "90-day-loss",
+   "quote": "utilisation at 90% or more is the best single predictor of 90-day loss",
+   "line": 4
+  },
+  {
+   "s": "utilisation",
+   "type": "other",
+   "label": "justified",
+   "o": "utilisation-led-targeting",
+   "quote": "This was used to justify utilisation-led targeting in early 2025 planning.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "find-cli-util-not-enough"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cli-eligible-pop",
+   "quote": "ds-cli-eligible-pop",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-101-credit-line-increase",
+   "quote": "the utilisation trigger versus logistic experiment",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/find-cli-util-best.md",
+ "sha": "4998c7707a8f52a71ac26e619ef1143d127a54c56304491f45820393a9445d40",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

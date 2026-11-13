@@ -1,0 +1,114 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-504-application-scorecard",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-504-application-scorecard"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "app-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "app-gbm-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "app-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "app-gbm-v2"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Gini"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-504-application-scorecard",
+   "type": "evaluated-on",
+   "label": "same holdout",
+   "o": "holdout-2025q1",
+   "quote": "on holdout-2025q1 (n=21,300)",
+   "line": 4
+  },
+  {
+   "s": "app-gbm-v2",
+   "type": "measured-by",
+   "label": "Gini",
+   "o": "gini",
+   "quote": "Gini 0.46 unconstrained against 0.44 constrained",
+   "line": 6
+  },
+  {
+   "s": "app-gbm-v2",
+   "type": "other",
+   "label": "kept as reference",
+   "o": "exp-504-application-scorecard",
+   "quote": "Basis for keeping app-gbm-v2 as the reference model.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "app-gbm-v1",
+  "app-gbm-v2"
+ ],
+ "built_on": [
+  {
+   "what": "app-gbm-v1",
+   "quote": "app-gbm-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "app-gbm-v2",
+   "quote": "app-gbm-v2",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-504-application-scorecard.md",
+ "sha": "851e8953faaea91886c5de05ac907ea09c2684f0bbffdac2525e95883a1e2733",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

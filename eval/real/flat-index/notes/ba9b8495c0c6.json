@@ -1,0 +1,182 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-velocity-v3",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Rebuild velocity as v3 from pre-observation days only"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "velocity-features",
+   "type": "feature",
+   "label": "velocity features",
+   "as": [
+    "The velocity features"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-velocity-v3",
+   "type": "feature",
+   "label": "velocity feature",
+   "as": [
+    "feat-velocity-v3"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "vel-columns",
+   "type": "feature",
+   "label": "vel columns",
+   "as": [
+    "`vel_` columns"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "observation-date",
+   "type": "term",
+   "label": "observation date",
+   "as": [
+    "observation date"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "churn-xgb-v2",
+   "type": "model",
+   "label": "churn model",
+   "as": [
+    "churn-xgb-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "churn-xgb-v3",
+   "type": "model",
+   "label": "churn model",
+   "as": [
+    "churn-xgb-v3"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Sam Lee"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "post-period-leak",
+   "type": "other",
+   "label": "leak",
+   "as": [
+    "post-period-leak"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "velocity-features",
+   "type": "other",
+   "label": "rebuilt as",
+   "o": "feat-velocity-v3",
+   "quote": "The velocity features are rebuilt as feat-velocity-v3",
+   "line": 5
+  },
+  {
+   "s": "vel-columns",
+   "type": "part-of",
+   "label": "same columns",
+   "o": "feat-velocity-v3",
+   "quote": "the same 6 `vel_` columns",
+   "line": 5
+  },
+  {
+   "s": "feat-velocity-v3",
+   "type": "other",
+   "label": "windows end on",
+   "o": "observation-date",
+   "quote": "every window ends on the observation date",
+   "line": 6
+  },
+  {
+   "s": "churn-xgb-v3",
+   "type": "uses",
+   "label": "retrained on",
+   "o": "feat-velocity-v3",
+   "quote": "churn-xgb-v2 is retrained on it as churn-xgb-v3",
+   "line": 6
+  },
+  {
+   "s": "dec-velocity-v3",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "sam-lee",
+   "quote": "Owner: Sam Lee.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "post-period-leak",
+  "feat-velocity-v3",
+  "churn-xgb-v2",
+  "churn-xgb-v3"
+ ],
+ "built_on": [
+  {
+   "what": "post-period-leak",
+   "quote": "post-period-leak",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-velocity-v2",
+   "quote": "retire v2",
+   "line": 4,
+   "asked": true
+  },
+  {
+   "what": "v2",
+   "quote": "retire v2",
+   "line": 4,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-velocity-v3.md",
+ "sha": "ba9b8495c0c62beb474ca13ed0721814064d8fd197f98b2d080c0c991310ddfe",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

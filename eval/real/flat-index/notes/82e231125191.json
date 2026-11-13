@@ -1,0 +1,115 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ae-push-open-v1",
+   "type": "feature",
+   "label": "push open rate",
+   "as": [
+    "Push open rate"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-ae-push-log",
+   "type": "dataset",
+   "label": "push log",
+   "as": [
+    "app.push_log"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ae-score-v1",
+   "type": "model",
+   "label": "engagement score",
+   "as": [
+    "ae-score-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ae-score-v2",
+   "type": "model",
+   "label": "engagement score",
+   "as": [
+    "ae-score-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "population-open-rate",
+   "type": "metric",
+   "label": "population open rate",
+   "as": [
+    "the population open rate"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ae-push-open-v1",
+   "type": "uses",
+   "label": "from",
+   "o": "ds-ae-push-log",
+   "quote": "from `app.push_log`",
+   "line": 4
+  },
+  {
+   "s": "ae-score-v1",
+   "type": "uses",
+   "label": "weighted term in",
+   "o": "feat-ae-push-open-v1",
+   "quote": "Carried as a weighted term in ae-score-v1",
+   "line": 6
+  },
+  {
+   "s": "feat-ae-push-open-v1",
+   "type": "other",
+   "label": "dropped in",
+   "o": "ae-score-v2",
+   "quote": "Dropped in ae-score-v2.",
+   "line": 6
+  },
+  {
+   "s": "feat-ae-push-open-v1",
+   "type": "other",
+   "label": "defaults to",
+   "o": "population-open-rate",
+   "quote": "Accounts with no sends get a neutral value of 0.19, the population open rate.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "ae-score-v1",
+  "ae-score-v2",
+  "ds-ae-push-log"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ae-push-log",
+   "quote": "ds-ae-push-log",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-ae-push-open-v1.md",
+ "sha": "82e231125191ece77468d3c0fc7a94d8018048584690a859a219845897d6bffb",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

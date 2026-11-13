@@ -1,0 +1,67 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-clv-gross-overstates",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Gross CLV overstates 36-month value by 22% on the 2021 H1 cohort"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-502-customer-lifetime-value",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-502-customer-lifetime-value"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dec-clv-include-losses",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-clv-include-losses"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fnd-clv-gross-overstates",
+   "type": "other",
+   "label": "leads to",
+   "o": "dec-clv-include-losses",
+   "quote": "Leads to dec-clv-include-losses.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-clv-include-losses"
+ ],
+ "built_on": [
+  {
+   "what": "exp-502-customer-lifetime-value",
+   "quote": "the netting expected losses experiment",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-clv-gross-overstates.md",
+ "sha": "2c280452bb02f45f0dff560934599bce220ddc6d13ffe164e20dc469e8a905b0",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,88 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "feat-pbs-timing-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-pbs-timing-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "seed-ari",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "seed ARI"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "minimum-payer-segment",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "minimum-payer segment"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-403-payment-behavior-segments",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-403-payment-behavior-segments"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-pbs-timing-v2",
+   "type": "measured-by",
+   "label": "raises",
+   "o": "seed-ari",
+   "quote": "Adding feat-pbs-timing-v2 raises seed ARI from 0.74 to 0.81",
+   "line": 5
+  },
+  {
+   "s": "feat-pbs-timing-v2",
+   "type": "other",
+   "label": "makes real group",
+   "o": "minimum-payer-segment",
+   "quote": "Timing is therefore the feature that makes the minimum-payer segment a real group.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-403-payment-behavior-segments",
+  "feat-pbs-timing-v2"
+ ],
+ "built_on": [
+  {
+   "what": "exp-403-payment-behavior-segments",
+   "quote": "exp-403-payment-behavior-segments",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-pbs-timing-matters.md",
+ "sha": "224f047bb45ae6b1b2455662d7041e3cffc6944f7f5c175006bbf7b7161ccd44",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

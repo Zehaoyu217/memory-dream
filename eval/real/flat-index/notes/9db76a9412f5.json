@@ -1,0 +1,143 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "long-tail-merchants",
+   "type": "segment",
+   "label": "merchant segment",
+   "as": [
+    "Long-tail merchants"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "transactions table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "txc-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "txc-gbm-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fuzzy-matching-vs-exact-rules-experiment",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "the fuzzy matching versus exact rules experiment"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "ds-txc-descriptor-sample",
+   "type": "dataset",
+   "label": "sample",
+   "as": [
+    "ds-txc-descriptor-sample"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "q-txc-unlabelled-share",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "q-txc-unlabelled-share"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "dec-txc-ship-gbm-v3",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-txc-ship-gbm-v3"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "long-tail-merchants",
+   "type": "part-of",
+   "label": "carry spend in",
+   "o": "cards.txn_daily",
+   "quote": "carry 11% of spend in `cards.txn_daily` (Q3-2025 sample)",
+   "line": 5
+  },
+  {
+   "s": "long-tail-merchants",
+   "type": "other",
+   "label": "hold rows in other under",
+   "o": "txc-gbm-v2",
+   "quote": "They account for 46% of the rows that end up in 'other' under txc-gbm-v2.",
+   "line": 6
+  },
+  {
+   "s": "q-txc-unlabelled-share",
+   "type": "uses",
+   "label": "fed by",
+   "o": "long-tail-merchants",
+   "quote": "Feeds q-txc-unlabelled-share and dec-txc-ship-gbm-v3.",
+   "line": 8
+  },
+  {
+   "s": "dec-txc-ship-gbm-v3",
+   "type": "uses",
+   "label": "fed by",
+   "o": "long-tail-merchants",
+   "quote": "Feeds q-txc-unlabelled-share and dec-txc-ship-gbm-v3.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "q-txc-unlabelled-share",
+  "dec-txc-ship-gbm-v3",
+  "ds-txc-descriptor-sample"
+ ],
+ "built_on": [
+  {
+   "what": "ds-txc-descriptor-sample",
+   "quote": "ds-txc-descriptor-sample",
+   "line": 9,
+   "asked": true
+  },
+  {
+   "what": "exp-107-txn-categorization",
+   "quote": "the fuzzy matching versus exact rules experiment",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-txc-long-tail.md",
+ "sha": "9db76a9412f5e9bea8a80d6074aee9f2952bc8b9e357972d3108ccdb3f4d8204",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

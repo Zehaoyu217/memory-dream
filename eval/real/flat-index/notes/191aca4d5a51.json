@@ -1,0 +1,116 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "bsm-cutoff-logit",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bsm-cutoff-logit",
+    "Logistic model"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "ds-bsm-v10-cohorts-2026",
+   "type": "dataset",
+   "label": "evaluation dataset",
+   "as": [
+    "ds-bsm-v10-cohorts-2026"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-bsm-cutover-2026q3",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-bsm-cutover-2026q3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-305-bureau-score-migration",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-305-bureau-score-migration"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-bsm-v10-band",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-bsm-v10-band",
+    "v10 bands"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bsm-cutoff-logit",
+   "type": "evaluated-on",
+   "label": "eval",
+   "o": "ds-bsm-v10-cohorts-2026",
+   "quote": "Eval: ds-bsm-v10-cohorts-2026, n=71,300",
+   "line": 6
+  },
+  {
+   "s": "bsm-cutoff-logit",
+   "type": "uses",
+   "label": "used for",
+   "o": "dec-bsm-cutover-2026q3",
+   "quote": "Used for the cutover decision in dec-bsm-cutover-2026q3.",
+   "line": 7
+  },
+  {
+   "s": "bsm-cutoff-logit",
+   "type": "uses",
+   "label": "maps bands",
+   "o": "feat-bsm-v10-band",
+   "quote": "Logistic model maps v10 bands to the v8 approval decision",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "dec-bsm-cutover-2026q3"
+ ],
+ "built_on": [
+  {
+   "what": "exp-305-bureau-score-migration",
+   "quote": "exp-305-bureau-score-migration",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-bsm-v10-band",
+   "quote": "feat-bsm-v10-band",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/bsm-cutoff-logit.md",
+ "sha": "191aca4d5a512062cf2cf4f1dc1b9e9213712fd092956b733aa6938277b2f762",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,154 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-506-merchant-risk",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-506-merchant-risk"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "mrisk-oot-2026h1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "mrisk-oot-2026h1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "acquirer-watchlist",
+   "type": "dataset",
+   "label": "recall reference",
+   "as": [
+    "acquirer watchlist"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "mrisk-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "precision",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "precision 0.31"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-mrisk-watchlist-07",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-mrisk-watchlist-07"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-mrisk-acq-watchlist",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-mrisk-acq-watchlist"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-505-merchant-risk",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-505-merchant-risk"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-506-merchant-risk",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "mrisk-oot-2026h1",
+   "quote": "Eval set: mrisk-oot-2026h1",
+   "line": 5
+  },
+  {
+   "s": "exp-506-merchant-risk",
+   "type": "uses",
+   "label": "recall reference",
+   "o": "acquirer-watchlist",
+   "quote": "with the acquirer watchlist as recall reference (1,140 merchants)",
+   "line": 5
+  },
+  {
+   "s": "exp-506-merchant-risk",
+   "type": "measured-by",
+   "label": "precision",
+   "o": "precision",
+   "quote": "precision 0.31",
+   "line": 6
+  },
+  {
+   "s": "exp-506-merchant-risk",
+   "type": "other",
+   "label": "basis for",
+   "o": "dec-mrisk-watchlist-07",
+   "quote": "Basis for dec-mrisk-watchlist-07.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-mrisk-watchlist-07",
+  "ds-mrisk-acq-watchlist",
+  "exp-505-merchant-risk"
+ ],
+ "built_on": [
+  {
+   "what": "ds-mrisk-acq-watchlist",
+   "quote": "ds-mrisk-acq-watchlist",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-505-merchant-risk",
+   "quote": "exp-505-merchant-risk",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-506-merchant-risk.md",
+ "sha": "101675d5d4a84b93ca7b1e45aef4e1569f18a943507bfefee8eabe49f787c655",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

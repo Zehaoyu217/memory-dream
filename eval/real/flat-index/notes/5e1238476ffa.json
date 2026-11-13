@@ -1,0 +1,126 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-101-feature-store-migration",
+   "type": "other",
+   "label": "parity run",
+   "as": [
+    "exp-101-feature-store-migration"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fsm_parity_sample_2025h2",
+   "type": "dataset",
+   "label": "parity sample",
+   "as": [
+    "fsm_parity_sample_2025h2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "legacy-features-dataset",
+   "type": "dataset",
+   "label": "legacy features",
+   "as": [
+    "the legacy features dataset"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-fsm-parity-sample",
+   "type": "dataset",
+   "label": "parity sample",
+   "as": [
+    "ds-fsm-parity-sample"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "q-fsm-parity-threshold",
+   "type": "other",
+   "label": "open question",
+   "as": [
+    "q-fsm-parity-threshold"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-101-feature-store-migration",
+   "type": "evaluated-on",
+   "label": "ran on",
+   "o": "fsm_parity_sample_2025h2",
+   "quote": "Ran the parity harness on fsm_parity_sample_2025h2",
+   "line": 5
+  },
+  {
+   "s": "exp-101-feature-store-migration",
+   "type": "uses",
+   "label": "built on",
+   "o": "legacy-features-dataset",
+   "quote": "Builds on the legacy features dataset",
+   "line": 8
+  },
+  {
+   "s": "exp-101-feature-store-migration",
+   "type": "uses",
+   "label": "built on",
+   "o": "ds-fsm-parity-sample",
+   "quote": "ds-fsm-parity-sample",
+   "line": 8
+  },
+  {
+   "s": "exp-101-feature-store-migration",
+   "type": "uses",
+   "label": "built on",
+   "o": "q-fsm-parity-threshold",
+   "quote": "q-fsm-parity-threshold",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-fsm-parity-sample",
+  "q-fsm-parity-threshold"
+ ],
+ "built_on": [
+  {
+   "what": "ds-fsm-legacy-features",
+   "quote": "the legacy features dataset",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-fsm-parity-sample",
+   "quote": "ds-fsm-parity-sample",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "q-fsm-parity-threshold",
+   "quote": "q-fsm-parity-threshold",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-101-feature-store-migration.md",
+ "sha": "5e1238476ffae16f0248476b60dd95ebf456de4341479af905dbf92a66723a65",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

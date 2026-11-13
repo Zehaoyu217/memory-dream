@@ -1,0 +1,99 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-rdm-activity-v2-lift",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "App sessions as activity add 0.2pp of uplift at the top 20%"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-305-reactivation-dormant",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-305-reactivation-dormant"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "app-sessions",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "App sessions"
+   ],
+   "lines": [
+    4,
+    8
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "uplift at the top 20%"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fnd-rdm-activity-v2-lift",
+   "type": "measured-by",
+   "label": "measured",
+   "o": "uplift-at-20",
+   "quote": "add 0.2pp of uplift at the top 20%",
+   "line": 4
+  },
+  {
+   "s": "fnd-rdm-activity-v2-lift",
+   "type": "other",
+   "label": "from",
+   "o": "exp-305-reactivation-dormant",
+   "quote": "(exp-305-reactivation-dormant)",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-305-reactivation-dormant"
+ ],
+ "built_on": [
+  {
+   "what": "exp-305-reactivation-dormant",
+   "quote": "the last-activity redefinition holdout test",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-rdm-last-activity-v2",
+   "quote": "the recency feature with app sessions",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "last-activity redefinition holdout test",
+   "quote": "Builds on the last-activity redefinition holdout test",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-rdm-activity-v2-lift.md",
+ "sha": "0a1dc064a5862e83065829b2e2a3d48e45058477e116dd2c99ebb491a81dbe7b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

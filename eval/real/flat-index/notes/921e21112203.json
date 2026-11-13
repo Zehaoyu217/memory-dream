@@ -1,0 +1,108 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "holdout",
+   "type": "term",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "all-book-holdout",
+   "type": "term",
+   "label": "holdout type",
+   "as": [
+    "all-book holdouts"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "oot-naming-format",
+   "type": "term",
+   "label": "naming format",
+   "as": [
+    "OOT naming format"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "q4-review",
+   "type": "document",
+   "label": "review",
+   "as": [
+    "Q4 review"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "models-without-oot-set",
+   "type": "segment",
+   "label": "model group",
+   "as": [
+    "every model without its own OOT set"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "models-with-own-oot-window",
+   "type": "segment",
+   "label": "model group",
+   "as": [
+    "Models that have their own OOT window"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "holdout",
+   "type": "other",
+   "label": "reused in",
+   "o": "q4-review",
+   "quote": "The name is reused in the Q4 review for every model without its own OOT set.",
+   "line": 6
+  },
+  {
+   "s": "models-with-own-oot-window",
+   "type": "uses",
+   "label": "use",
+   "o": "oot-naming-format",
+   "quote": "Models that have their own OOT window use the OOT naming format instead.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "howto/holdout-set-naming"
+ ],
+ "built_on": [
+  {
+   "what": "howto/holdout-set-naming",
+   "quote": "howto/holdout-set-naming",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/holdout-2025q4-name.md",
+ "sha": "921e2111220380f1ab63fac6907304fb1d2e16198e5449845bb3fdc515da3f4e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

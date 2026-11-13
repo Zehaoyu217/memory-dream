@@ -1,0 +1,139 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-bsm-app-dev-2024",
+   "type": "dataset",
+   "label": "dev set",
+   "as": [
+    "ds-bsm-app-dev-2024"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "outcome table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bsm-app-gbm-v8",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bsm-app-gbm-v8"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "application-scorecard",
+   "type": "model",
+   "label": "project",
+   "as": [
+    "application-scorecard project"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-nps-holdout",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dpd",
+   "type": "term",
+   "label": "delinquency measure",
+   "as": [
+    "90+ DPD"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bad-rate",
+   "type": "metric",
+   "label": "bad rate",
+   "as": [
+    "Bad rate"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "reject-inference",
+   "type": "term",
+   "label": "reject inference",
+   "as": [
+    "reject-inferred rows"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-bsm-app-dev-2024",
+   "type": "uses",
+   "label": "outcome from",
+   "o": "cards.accounts_monthly",
+   "quote": "outcome from `cards.accounts_monthly`",
+   "line": 5
+  },
+  {
+   "s": "bsm-app-gbm-v8",
+   "type": "trained-on",
+   "label": "dev set for",
+   "o": "ds-bsm-app-dev-2024",
+   "quote": "Dev set for bsm-app-gbm-v8; holdout is holdout-2025q4.",
+   "line": 7
+  },
+  {
+   "s": "application-scorecard",
+   "type": "other",
+   "label": "handles",
+   "o": "reject-inference",
+   "quote": "reject-inferred rows are excluded here and handled in the application-scorecard project.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-bsm-v8-history",
+  "bsm-app-gbm-v8"
+ ],
+ "built_on": [
+  {
+   "what": "ds-bsm-v8-history",
+   "quote": "ds-bsm-v8-history",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-bsm-app-dev-2024.md",
+ "sha": "a1a74cb18ad32f89970e625bbbc770cbdece1e5535d1b3168f5806934f833f85",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

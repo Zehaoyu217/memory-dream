@@ -1,0 +1,212 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "mm-collect-xgb-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "mm-collect-xgb-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "mm-oot-2024h2",
+   "type": "dataset",
+   "label": "evaluation set",
+   "as": [
+    "mm-oot-2024h2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.733"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.31"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mm-collect-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "mm-collect-xgb-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-mm-collections-labels",
+   "type": "dataset",
+   "label": "label source",
+   "as": [
+    "ds-mm-collections-labels"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-mm-reference-train",
+   "type": "dataset",
+   "label": "training reference",
+   "as": [
+    "ds-mm-reference-train"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-mm-days-past-due-3m",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mm-days-past-due-3m"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-mm-payment-ratio-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-mm-payment-ratio-v1"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mm-collect-xgb-v1",
+   "type": "measured-by",
+   "label": "evaluated with",
+   "o": "auc",
+   "quote": "AUC 0.733, KS 0.31",
+   "line": 6
+  },
+  {
+   "s": "mm-collect-xgb-v1",
+   "type": "measured-by",
+   "label": "evaluated with",
+   "o": "ks",
+   "quote": "KS 0.31",
+   "line": 6
+  },
+  {
+   "s": "mm-collect-xgb-v1",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "mm-oot-2024h2",
+   "quote": "Evaluated on mm-oot-2024h2",
+   "line": 6
+  },
+  {
+   "s": "mm-collect-xgb-v2",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "mm-collect-xgb-v1",
+   "quote": "Superseded by mm-collect-xgb-v2",
+   "line": 7
+  },
+  {
+   "s": "mm-collect-xgb-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-mm-collections-labels",
+   "quote": "Builds on ds-mm-collections-labels",
+   "line": 8
+  },
+  {
+   "s": "mm-collect-xgb-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-mm-reference-train",
+   "quote": "ds-mm-reference-train",
+   "line": 8
+  },
+  {
+   "s": "mm-collect-xgb-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-mm-days-past-due-3m",
+   "quote": "feat-mm-days-past-due-3m",
+   "line": 8
+  },
+  {
+   "s": "mm-collect-xgb-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-mm-payment-ratio-v1",
+   "quote": "feat-mm-payment-ratio-v1",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-mm-collections-labels",
+  "ds-mm-reference-train",
+  "feat-mm-days-past-due-3m",
+  "feat-mm-payment-ratio-v1",
+  "mm-collect-xgb-v2"
+ ],
+ "built_on": [
+  {
+   "what": "ds-mm-collections-labels",
+   "quote": "ds-mm-collections-labels",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-mm-reference-train",
+   "quote": "ds-mm-reference-train",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-mm-days-past-due-3m",
+   "quote": "feat-mm-days-past-due-3m",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-mm-payment-ratio-v1",
+   "quote": "feat-mm-payment-ratio-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/mm-collect-xgb-v1.md",
+ "sha": "6f0cbdeb1ca68b99a672d5490d87f47abf7dc6019ee432379a6806c08e8bb30e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

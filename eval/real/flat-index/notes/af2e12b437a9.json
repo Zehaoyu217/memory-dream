@@ -1,0 +1,77 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-ror-fatigue",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Retention uplift collapses after two offers in 12 months"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-402-retention-offers-roi",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-402-retention-offers-roi"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "dec-ror-fatigue-cap",
+   "type": "policy",
+   "label": "offer cap",
+   "as": [
+    "dec-ror-fatigue-cap"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fnd-ror-fatigue",
+   "type": "uses",
+   "label": "based on",
+   "o": "exp-402-retention-offers-roi",
+   "quote": "Basis: exp-402-retention-offers-roi.",
+   "line": 7
+  },
+  {
+   "s": "fnd-ror-fatigue",
+   "type": "other",
+   "label": "leads to",
+   "o": "dec-ror-fatigue-cap",
+   "quote": "Leads to dec-ror-fatigue-cap.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-402-retention-offers-roi",
+  "dec-ror-fatigue-cap"
+ ],
+ "built_on": [
+  {
+   "what": "exp-402-retention-offers-roi",
+   "quote": "exp-402-retention-offers-roi",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-ror-fatigue.md",
+ "sha": "af2e12b437a98526a33c403ee8feb214b5ce91aada4d08a1666a789acf907e31",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

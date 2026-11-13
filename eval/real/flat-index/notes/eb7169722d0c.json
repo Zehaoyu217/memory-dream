@@ -1,0 +1,107 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "fraud25-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fraud-2025"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "fraud26-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fraud26-gbm-v2"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "travel-alert-rule",
+   "type": "policy",
+   "label": "alert rule",
+   "as": [
+    "travel-specific alert rule"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "model-travel-flag",
+   "type": "flag",
+   "label": "flag",
+   "as": [
+    "a flag inside the model"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "uplift",
+   "type": "term",
+   "label": "uplift",
+   "as": [
+    "travel uplift"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "model-travel-flag",
+   "type": "part-of",
+   "label": "inside",
+   "o": "fraud25-gbm-v2",
+   "quote": "over-flagged travel because of a flag inside the model",
+   "line": 5
+  },
+  {
+   "s": "fraud26-gbm-v2",
+   "type": "other",
+   "label": "has no",
+   "o": "model-travel-flag",
+   "quote": "fraud26-gbm-v2 has no travel flag",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fraud25-find-travel-overflag",
+  "fraud26-gbm-v2",
+  "dec-f26-promote-v3"
+ ],
+ "built_on": [
+  {
+   "what": "fraud25-find-travel-overflag",
+   "quote": "fraud25-find-travel-overflag",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fraud26-gbm-v2",
+   "quote": "fraud26-gbm-v2",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/q-f26-travel-rule.md",
+ "sha": "eb7169722d0c3e314470bd599a3fad952e64ec66d7d80cfcf8e8be25ec940a87",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

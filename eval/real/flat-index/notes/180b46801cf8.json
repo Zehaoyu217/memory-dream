@@ -1,0 +1,125 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "fraud26-oot-2025q4",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "fraud26-oot-2025q4 (Oct-Dec 2025, 1,611,400 transactions, 3,705 fraud)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.889",
+    "AUC 0.889, KS 0.63"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.63"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fraud26-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fraud26-gbm-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-f26-labels-2026",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-f26-labels-2026"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-202-fraud-2026",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-202-fraud-2026"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud26-gbm-v1",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "fraud26-oot-2025q4",
+   "quote": "Eval set: fraud26-oot-2025q4",
+   "line": 5
+  },
+  {
+   "s": "fraud26-gbm-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.889, KS 0.63",
+   "line": 6
+  },
+  {
+   "s": "fraud26-gbm-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "ks",
+   "quote": "AUC 0.889, KS 0.63",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-f26-labels-2026",
+  "exp-202-fraud-2026"
+ ],
+ "built_on": [
+  {
+   "what": "ds-f26-labels-2026",
+   "quote": "ds-f26-labels-2026",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fraud26-gbm-v1",
+   "quote": "fraud26-gbm-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-201-fraud-2026.md",
+ "sha": "180b46801cf8543d5308d9116a0ad6ec82850ba56a0afe882d6cb061915b60da",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

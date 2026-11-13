@@ -1,0 +1,102 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "disp-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "disp-lgbm-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "disp-find-autoresolve-96",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "disp-find-autoresolve-96",
+    "96.1% in-sample figure"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "april-2026-labels",
+   "type": "dataset",
+   "label": "labels",
+   "as": [
+    "April 2026 two-analyst labels"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "precision-at-k",
+   "type": "metric",
+   "label": "precision",
+   "as": [
+    "92.7% precision",
+    "Precision at p>=0.90 is 92.7%"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "disp-lgbm-v2",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "april-2026-labels",
+   "quote": "Eval set: April 2026 two-analyst labels, n=1,040, scored by disp-lgbm-v2.",
+   "line": 5
+  },
+  {
+   "s": "disp-lgbm-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "precision-at-k",
+   "quote": "Precision at p>=0.90 is 92.7% with 30% coverage.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "disp-find-autoresolve-96"
+ ],
+ "built_on": [
+  {
+   "what": "disp-find-autoresolve-96",
+   "quote": "disp-find-autoresolve-96",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-304-dispute-triage",
+   "quote": "the out-of-time v2 evaluation experiment",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "the out-of-time v2 evaluation experiment",
+   "quote": "Builds on disp-find-autoresolve-96 and the out-of-time v2 evaluation experiment.",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-306-dispute-triage.md",
+ "sha": "438c1cfcab078184c71724c87ae87fbcd1378c2e14359e1a3987effa8aa0b39d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

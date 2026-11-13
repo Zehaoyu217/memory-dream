@@ -1,0 +1,95 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-hp-cure-tracking",
+   "type": "dataset",
+   "label": "cure tracking dataset",
+   "as": [
+    "Cure tracking: 12 months after plan end for 2024H1 enrolment cohorts, 9,870 enrolled accounts observed"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "hardship-programs",
+   "type": "other",
+   "label": "2024 hardship enrolment dataset",
+   "as": [
+    "the 2024 hardship enrolment dataset"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cure",
+   "type": "term",
+   "label": "cure definition",
+   "as": [
+    "Cure defined as 0 DPD at month 12 after plan end."
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dpd",
+   "type": "term",
+   "label": "delinquency measure",
+   "as": [
+    "0 DPD"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-hp-cure-tracking",
+   "type": "uses",
+   "label": "source",
+   "o": "cards.accounts_monthly",
+   "quote": "Source: `cards.accounts_monthly` for the 2024H1 enrolment cohorts",
+   "line": 5
+  },
+  {
+   "s": "ds-hp-cure-tracking",
+   "type": "uses",
+   "label": "builds on",
+   "o": "hardship-programs",
+   "quote": "Builds on the 2024 hardship enrolment dataset.",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-hp-enrolled",
+   "quote": "the 2024 hardship enrolment dataset",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-hp-cure-tracking.md",
+ "sha": "d9f3a041f04697d53e9748556010bb820b2c9270739dca39ed92f36743b2bc90",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

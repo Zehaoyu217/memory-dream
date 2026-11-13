@@ -1,0 +1,92 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cli-pay-behaviour",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cli-pay-behaviour"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards-payments-daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.payments_daily"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cli-logreg-baseline",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cli-logreg-baseline"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cli-eligible-population",
+   "type": "segment",
+   "label": "population",
+   "as": [
+    "cli-eligible population counts"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cli-pay-behaviour",
+   "type": "uses",
+   "label": "from",
+   "o": "cards-payments-daily",
+   "quote": "from cards.payments_daily",
+   "line": 4
+  },
+  {
+   "s": "cli-logreg-baseline",
+   "type": "uses",
+   "label": "included in",
+   "o": "feat-cli-pay-behaviour",
+   "quote": "Included in cli-logreg-baseline and every CLI model since v1.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "cli-logreg-baseline"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cli-eligible-pop",
+   "quote": "the cli-eligible population counts",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "cli-eligible population counts",
+   "quote": "Builds on the cli-eligible population counts.",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-cli-pay-behaviour.md",
+ "sha": "39e00e787e2bf20bf2052d899a51fb68a30cea38dcf3f9eadd2088ed1c2e0c64",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,93 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "benjamini-hochberg",
+   "type": "term",
+   "label": "correction",
+   "as": [
+    "Benjamini-Hochberg"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "holm-correction",
+   "type": "term",
+   "label": "correction",
+   "as": [
+    "Holm correction"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "test-family",
+   "type": "other",
+   "label": "test family",
+   "as": [
+    "Test families"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "campaign-test-2026-06",
+   "type": "other",
+   "label": "campaign test",
+   "as": [
+    "the 2026-06 campaign test"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "benjamini-hochberg",
+   "type": "other",
+   "label": "applies to",
+   "o": "test-family",
+   "quote": "Families of more than 10 segments use Benjamini-Hochberg at false-discovery rate 0.05.",
+   "line": 6
+  },
+  {
+   "s": "holm-correction",
+   "type": "other",
+   "label": "applies to",
+   "o": "test-family",
+   "quote": "Test families of up to 10 segments keep the Holm correction",
+   "line": 5
+  },
+  {
+   "s": "holm-correction",
+   "type": "other",
+   "label": "found nothing in",
+   "o": "campaign-test-2026-06",
+   "quote": "Holm on 40 segments in the 2026-06 campaign test found nothing",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "replaces": [
+  {
+   "what": "significance-holm-correction",
+   "quote": "significance-holm-correction",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/significance-bh-segments.md",
+ "sha": "2573d7faa7e954fecd1203138cdf7b9696a62c2ee57a4eb948a78b1611db3e80",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

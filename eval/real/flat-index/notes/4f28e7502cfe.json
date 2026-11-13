@@ -1,0 +1,219 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cu-resp-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cu-resp-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "feat-cu-dpd-roll-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-dpd-roll-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-cu-pay-behaviour",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-pay-behaviour"
+   ],
+   "lines": [
+    6,
+    9
+   ]
+  },
+  {
+   "id": "feat-cu-contact-hist-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-contact-hist-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.71"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "brier-score",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Brier 0.142"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-101-collections-uplift",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-101-collections-uplift"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-102-collections-uplift",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-102-collections-uplift"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cu-resp-v1",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q1",
+   "quote": "evaluated on holdout-2025q1",
+   "line": 5
+  },
+  {
+   "s": "cu-resp-v1",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-cu-dpd-roll-v1",
+   "quote": "Features: feat-cu-dpd-roll-v1, feat-cu-pay-behaviour, feat-cu-contact-hist-v2.",
+   "line": 6
+  },
+  {
+   "s": "cu-resp-v1",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-cu-pay-behaviour",
+   "quote": "Features: feat-cu-dpd-roll-v1, feat-cu-pay-behaviour, feat-cu-contact-hist-v2.",
+   "line": 6
+  },
+  {
+   "s": "cu-resp-v1",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-cu-contact-hist-v2",
+   "quote": "Features: feat-cu-dpd-roll-v1, feat-cu-pay-behaviour, feat-cu-contact-hist-v2.",
+   "line": 6
+  },
+  {
+   "s": "cu-resp-v1",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "auc",
+   "quote": "AUC 0.71, Brier 0.142 on holdout-2025q1",
+   "line": 7
+  },
+  {
+   "s": "cu-resp-v1",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "brier-score",
+   "quote": "AUC 0.71, Brier 0.142 on holdout-2025q1",
+   "line": 7
+  },
+  {
+   "s": "cu-resp-v1",
+   "type": "other",
+   "label": "ranking baseline in",
+   "o": "exp-101-collections-uplift",
+   "quote": "Used as the ranking baseline in exp-101-collections-uplift and exp-102-collections-uplift.",
+   "line": 7
+  },
+  {
+   "s": "cu-resp-v1",
+   "type": "other",
+   "label": "ranking baseline in",
+   "o": "exp-102-collections-uplift",
+   "quote": "Used as the ranking baseline in exp-101-collections-uplift and exp-102-collections-uplift.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-cu-dpd-roll-v1",
+  "feat-cu-pay-behaviour",
+  "feat-cu-contact-hist-v2",
+  "exp-101-collections-uplift",
+  "exp-102-collections-uplift"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cu-call-outcomes",
+   "quote": "the call outcomes promise-to-pay label source",
+   "line": 9,
+   "asked": true
+  },
+  {
+   "what": "feat-cu-contact-hist-v2",
+   "quote": "the 30-day contact history feature",
+   "line": 9,
+   "asked": true
+  },
+  {
+   "what": "feat-cu-dpd-roll-v1",
+   "quote": "the days-past-due roll pattern feature",
+   "line": 9,
+   "asked": true
+  },
+  {
+   "what": "feat-cu-pay-behaviour",
+   "quote": "feat-cu-pay-behaviour",
+   "line": 9,
+   "asked": true
+  },
+  {
+   "what": "the call outcomes promise-to-pay label source",
+   "quote": "Builds on the call outcomes promise-to-pay label source, the 30-day contact history feature, the days-past-due roll pattern feature and feat-cu-pay-behaviour.",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/cu-resp-v1.md",
+ "sha": "4f28e7502cfe389763af8ba750a1bcf02fbd4919bcf5b68ebea907aedab13778",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

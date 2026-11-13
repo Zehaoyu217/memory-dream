@@ -1,0 +1,120 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "feat-bsm-thin-file-flag",
+   "type": "feature",
+   "label": "thin-file flag",
+   "as": [
+    "Thin-file flag"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-bsm-v10-cohorts-2026",
+   "type": "dataset",
+   "label": "cohort",
+   "as": [
+    "ds-bsm-v10-cohorts-2026"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bsm-app-gbm-v10a",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bsm-app-gbm-v10a"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "thin-file-applicants",
+   "type": "segment",
+   "label": "applicants",
+   "as": [
+    "thin-file applicants"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "approval-rate",
+   "type": "metric",
+   "label": "approval rate",
+   "as": [
+    "Approval rate"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "bad-rate-60d",
+   "type": "metric",
+   "label": "bad rate",
+   "as": [
+    "bad rate at 60 days"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-bsm-thin-file-flag",
+   "type": "evaluated-on",
+   "label": "flag on",
+   "o": "ds-bsm-v10-cohorts-2026",
+   "quote": "Thin-file flag from feat-bsm-thin-file-flag on ds-bsm-v10-cohorts-2026",
+   "line": 5
+  },
+  {
+   "s": "thin-file-applicants",
+   "type": "measured-by",
+   "label": "approval rate",
+   "o": "approval-rate",
+   "quote": "Approval rate on flagged applicants is 22%",
+   "line": 7
+  },
+  {
+   "s": "thin-file-applicants",
+   "type": "measured-by",
+   "label": "bad rate",
+   "o": "bad-rate-60d",
+   "quote": "bad rate at 60 days 9.3%",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "bsm-app-gbm-v10a",
+   "quote": "bsm-app-gbm-v10a",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-bsm-thin-file-flag",
+   "quote": "feat-bsm-thin-file-flag",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-304-bureau-score-migration.md",
+ "sha": "8b52908a248668fd8dca0462cb079791ed7e4d8ea99bbed8cdc821c8ccef9d12",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

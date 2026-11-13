@@ -1,0 +1,143 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "pbs-segment-count",
+   "type": "term",
+   "label": "open question",
+   "as": [
+    "How many payment-behaviour segments are there"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "k-4-clustering",
+   "type": "term",
+   "label": "clustering option",
+   "as": [
+    "Silhouette favours four clusters"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "minimum-payers",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "minimum-payers"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dormant-accounts",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "dormant accounts"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "pbs-kmeans-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "pbs-kmeans-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fnd-pbs-five-segments",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-pbs-five-segments"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-pbs-frame-h1-2025",
+   "type": "dataset",
+   "label": "source dataset",
+   "as": [
+    "ds-pbs-frame-h1-2025"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-401-payment-behavior-segments",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-401-payment-behavior-segments"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "pbs-segment-count",
+   "type": "uses",
+   "label": "working answer from",
+   "o": "pbs-kmeans-v1",
+   "quote": "Working answer by Aug 2025: six, from the kmeans run (pbs-kmeans-v1).",
+   "line": 6
+  },
+  {
+   "s": "exp-401-payment-behavior-segments",
+   "type": "evaluated-on",
+   "label": "sweep done on",
+   "o": "ds-pbs-frame-h1-2025",
+   "quote": "Sweep done on the 200k-account sample of ds-pbs-frame-h1-2025",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-pbs-five-segments",
+  "exp-401-payment-behavior-segments"
+ ],
+ "built_on": [
+  {
+   "what": "pbs-kmeans-v1",
+   "quote": "the kmeans run",
+   "line": 6,
+   "asked": true
+  },
+  {
+   "what": "ds-pbs-frame-h1-2025",
+   "quote": "the 200k-account sample of ds-pbs-frame-h1-2025",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "exp-401-payment-behavior-segments",
+   "quote": "exp-401-payment-behavior-segments",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/q-pbs-segment-count.md",
+ "sha": "d78f3e4046f3914b25f482fb2d2b0c5e869c576215097f2f0ad5e38a55f3fc9b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

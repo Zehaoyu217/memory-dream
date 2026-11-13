@@ -1,0 +1,119 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "cards.churn_labels",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.churn_labels"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "churn-label",
+   "type": "term",
+   "label": "label",
+   "as": [
+    "Churn-2025 labels"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "label-window",
+   "type": "term",
+   "label": "window",
+   "as": [
+    "60-day window",
+    "90-day window"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "churn-rate",
+   "type": "metric",
+   "label": "churn rate",
+   "as": [
+    "4.3% churn",
+    "6.8% churn"
+   ],
+   "lines": [
+    4,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "build-churn-labels",
+   "type": "module",
+   "label": "function",
+   "as": [
+    "build_churn_labels(window=N)"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-label",
+   "type": "uses",
+   "label": "built on",
+   "o": "cards.churn_labels",
+   "quote": "built with `build_churn_labels(window=N)` on `cards.churn_labels`",
+   "line": 5
+  },
+  {
+   "s": "build-churn-labels",
+   "type": "produces",
+   "label": "builds",
+   "o": "churn-label",
+   "quote": "built with `build_churn_labels(window=N)`",
+   "line": 5
+  },
+  {
+   "s": "label-window",
+   "type": "measured-by",
+   "label": "churn rate",
+   "o": "churn-rate",
+   "quote": "60-day window: 4.3% churn on the training snapshots.",
+   "line": 6
+  },
+  {
+   "s": "label-window",
+   "type": "measured-by",
+   "label": "churn rate",
+   "o": "churn-rate",
+   "quote": "90-day window: 6.8% churn on the same snapshots.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-c25-accounts-snapshot"
+ ],
+ "built_on": [
+  {
+   "what": "ds-c25-accounts-snapshot",
+   "quote": "ds-c25-accounts-snapshot",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-c25-churn-labels.md",
+ "sha": "0b81dd1a75d790bd4a70089c0dcb6a25053ca0528cbed53b228b0e196aa7cbce",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

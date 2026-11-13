@@ -1,0 +1,142 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-207-churn-small-business",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-207-churn-small-business: calls feature rebuilt without duplicate call_ids adds 0.002 AUC on top of exp-206-churn-small-business"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-csb-calls-unresolved",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-csb-calls-unresolved"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.756 to 0.758"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "csb-oot-2025q1",
+   "type": "dataset",
+   "label": "subset",
+   "as": [
+    "csb-oot-2025q1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-206-churn-small-business",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-206-churn-small-business"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "exp-205-churn-small-business",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-205-churn-small-business"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-207-churn-small-business",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "csb-oot-2025q1",
+   "quote": "AUC 0.756 to 0.758 on the 6-month-plus subset of csb-oot-2025q1.",
+   "line": 6
+  },
+  {
+   "s": "exp-207-churn-small-business",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.756 to 0.758",
+   "line": 6
+  },
+  {
+   "s": "exp-207-churn-small-business",
+   "type": "uses",
+   "label": "adds",
+   "o": "feat-csb-calls-unresolved",
+   "quote": "feat-csb-calls-unresolved deduplicated on call_id, then added to the exp-206-churn-small-business model.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-206-churn-small-business",
+  "feat-csb-calls-unresolved",
+  "fnd-csb-calls-lift",
+  "exp-205-churn-small-business"
+ ],
+ "built_on": [
+  {
+   "what": "exp-206-churn-small-business",
+   "quote": "exp-206-churn-small-business",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-csb-calls-unresolved",
+   "quote": "feat-csb-calls-unresolved",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fnd-csb-calls-lift",
+   "quote": "fnd-csb-calls-lift",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "exp-205-churn-small-business",
+   "quote": "exp-205-churn-small-business",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-207-churn-small-business.md",
+ "sha": "3242739c1c2232cd45812a65fd4245aa087ebfadec0eca90f17ef716f41b66fe",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,85 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Sam Lee"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sam-lee-pipeline",
+   "type": "pipeline",
+   "label": "pipeline",
+   "as": [
+    "Sam Lee's pipeline"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "early-stop-split",
+   "type": "flag",
+   "label": "parameter",
+   "as": [
+    "early_stop_split"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "oot-set",
+   "type": "dataset",
+   "label": "oot set",
+   "as": [
+    "OOT set"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "sam-lee-pipeline",
+   "type": "owned-by",
+   "label": "enforced by",
+   "o": "sam-lee",
+   "quote": "Sam Lee's pipeline enforces this",
+   "line": 5
+  },
+  {
+   "s": "sam-lee-pipeline",
+   "type": "other",
+   "label": "enforces through",
+   "o": "early-stop-split",
+   "quote": "enforces this through the `early_stop_split` parameter",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "replaces": [
+  {
+   "what": "gbm-early-stopping-on-test",
+   "quote": "gbm-early-stopping-on-test",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/gbm-early-stopping-on-oot.md",
+ "sha": "34ad578b24fc75a80457eca07dd744e8c8f1c8c506d5b486e7d4d89985643dbe",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

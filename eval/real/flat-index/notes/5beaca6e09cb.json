@@ -1,0 +1,123 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "cr-lgbm-v1",
+   "type": "model",
+   "label": "router model",
+   "as": [
+    "cr-lgbm-v1"
+   ],
+   "lines": [
+    4,
+    9
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "cr-oot-2026h1",
+   "type": "dataset",
+   "label": "out-of-time set",
+   "as": [
+    "cr-oot-2026h1"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro f1",
+   "as": [
+    "Macro F1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "caller-history-v1",
+   "type": "feature",
+   "label": "caller history v1",
+   "as": [
+    "caller history v1"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cr-lgbm-v1",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "cr-oot-2026h1",
+   "quote": "First read of cr-oot-2026h1",
+   "line": 5
+  },
+  {
+   "s": "cr-lgbm-v1",
+   "type": "measured-by",
+   "label": "scores",
+   "o": "macro-f1",
+   "quote": "Macro F1 0.79 on holdout-2025q4 vs 0.72 on cr-oot-2026h1",
+   "line": 6
+  },
+  {
+   "s": "caller-history-v1",
+   "type": "other",
+   "label": "leaks post-call contacts",
+   "o": "cr-lgbm-v1",
+   "quote": "caller history v1 counts contacts that happen after the current call",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-cr-leak-corrected",
+  "fnd-cr-leak-v1",
+  "cr-lgbm-v1"
+ ],
+ "built_on": [
+  {
+   "what": "cr-lgbm-v1",
+   "quote": "cr-lgbm-v1",
+   "line": 9,
+   "asked": true
+  },
+  {
+   "what": "feat-cr-caller-history-v1",
+   "quote": "the old caller history feature",
+   "line": 9,
+   "asked": true
+  },
+  {
+   "what": "fnd-cr-leak-v1",
+   "quote": "fnd-cr-leak-v1",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-104-call-center-routing.md",
+ "sha": "5beaca6e09cb0e64261d319c62de1c03c75e7aa66934445fc59d421a41bff2c9",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,65 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ep.test_registry",
+   "type": "dataset",
+   "label": "registry",
+   "as": [
+    "ep.test_registry"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ab-tests",
+   "type": "test",
+   "label": "a/b tests",
+   "as": [
+    "A/B test"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "primary-metric",
+   "type": "metric",
+   "label": "primary metric",
+   "as": [
+    "pre-registered primary metric"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ab-tests",
+   "type": "part-of",
+   "label": "registry of",
+   "o": "ep.test_registry",
+   "quote": "Registry of every A/B test run on the platform since 2025-01.",
+   "line": 5
+  },
+  {
+   "s": "primary-metric",
+   "type": "part-of",
+   "label": "column",
+   "o": "ep.test_registry",
+   "quote": "Columns include the pre-registered primary metric",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-ep-test-registry.md",
+ "sha": "0e0a95fd41b3075508941ba3e326e4c62314c27bcb5da84d37e662d7e4c3e98f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

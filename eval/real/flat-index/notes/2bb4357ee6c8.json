@@ -1,0 +1,121 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cb-uplift-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cb-uplift-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Uplift@20%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-cb-pilot-2025q4",
+   "type": "dataset",
+   "label": "pilot data",
+   "as": [
+    "the tier pilot"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-cb-spend-base",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cb-spend-base"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cb-sim-v1",
+   "type": "tool",
+   "label": "simulator",
+   "as": [
+    "cb-sim-v1"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cb-uplift-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "uplift-at-20",
+   "quote": "Uplift@20% is 1.9x the average incremental spend on a 30% split of the pilot (n=16,200).",
+   "line": 6
+  },
+  {
+   "s": "cb-uplift-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-cb-pilot-2025q4",
+   "quote": "Builds on ds-cb-pilot-2025q4 and feat-cb-spend-base.",
+   "line": 7
+  },
+  {
+   "s": "cb-uplift-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-cb-spend-base",
+   "quote": "Builds on ds-cb-pilot-2025q4 and feat-cb-spend-base.",
+   "line": 7
+  },
+  {
+   "s": "cb-sim-v1",
+   "type": "uses",
+   "label": "ranks with",
+   "o": "cb-uplift-v1",
+   "quote": "Used to rank accounts for tier offers in cb-sim-v1.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "cb-sim-v1",
+  "ds-cb-pilot-2025q4",
+  "feat-cb-spend-base"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cb-pilot-2025q4",
+   "quote": "ds-cb-pilot-2025q4",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "feat-cb-spend-base",
+   "quote": "feat-cb-spend-base",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/cb-uplift-v1.md",
+ "sha": "2bb4357ee6c849e837821c54e18d533c675ce2d4ae2bbfabfef6ba0e1dceca14",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

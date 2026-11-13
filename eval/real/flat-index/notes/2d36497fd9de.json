@@ -1,0 +1,106 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-c25-payment-behaviour",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-c25-payment-behaviour"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.payments-daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.payments_daily"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  },
+  {
+   "id": "ds-c25-accounts-snapshot",
+   "type": "dataset",
+   "label": "population",
+   "as": [
+    "ds-c25-accounts-snapshot"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "payment-ratio",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "Payment ratio"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "late-count",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "Late count"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-c25-payment-behaviour",
+   "type": "uses",
+   "label": "source",
+   "o": "cards.payments-daily",
+   "quote": "Source `cards.payments_daily`",
+   "line": 7
+  },
+  {
+   "s": "feat-c25-payment-behaviour",
+   "type": "part-of",
+   "label": "includes",
+   "o": "payment-ratio",
+   "quote": "Payment ratio: mean of (amount paid / minimum due) over the last 6 statements.",
+   "line": 5
+  },
+  {
+   "s": "feat-c25-payment-behaviour",
+   "type": "part-of",
+   "label": "includes",
+   "o": "late-count",
+   "quote": "Late count: cycles paid 30 or more days after due",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-c25-accounts-snapshot",
+   "quote": "ds-c25-accounts-snapshot",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-c25-payment-behaviour.md",
+ "sha": "2d36497fd9de04c63778df151207a5ad80972bc728e8fcf1ae0b31c4d524dc8b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

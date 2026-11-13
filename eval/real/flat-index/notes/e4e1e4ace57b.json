@@ -1,0 +1,155 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "gbm",
+   "type": "model",
+   "label": "gbm",
+   "as": [
+    "GBM"
+   ],
+   "lines": [
+    4,
+    5,
+    6,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "scorecard",
+   "type": "model",
+   "label": "logistic scorecard",
+   "as": [
+    "scorecard"
+   ],
+   "lines": [
+    4,
+    5,
+    6,
+    7,
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "early-delinquency-holdout-2024q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "early-delinquency-holdout-2024q4"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "thin-file-segment",
+   "type": "segment",
+   "label": "thin-file segment",
+   "as": [
+    "thin-file segment"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "score-psi",
+   "type": "metric",
+   "label": "score psi",
+   "as": [
+    "score PSI"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-201-early-delinquency",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-201-early-delinquency"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "gbm",
+   "type": "measured-by",
+   "label": "scored",
+   "o": "auc",
+   "quote": "GBM AUC 0.781 against 0.742 for the scorecard",
+   "line": 5
+  },
+  {
+   "s": "gbm",
+   "type": "measured-by",
+   "label": "scored",
+   "o": "gini",
+   "quote": "(Gini 0.562 against 0.484)",
+   "line": 5
+  },
+  {
+   "s": "gbm",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "early-delinquency-holdout-2024q4",
+   "quote": "Overall on early-delinquency-holdout-2024q4",
+   "line": 5
+  },
+  {
+   "s": "gbm",
+   "type": "measured-by",
+   "label": "scored",
+   "o": "score-psi",
+   "quote": "the GBM score PSI between two consecutive months is 0.19",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-201-early-delinquency"
+ ],
+ "built_on": [
+  {
+   "what": "exp-201-early-delinquency",
+   "quote": "exp-201-early-delinquency",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/find-ed-gbm-vs-logit.md",
+ "sha": "e4e1e4ace57b8feeadc4dda60719b83995cffb89c4f7c9e25efb44ed05178918",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

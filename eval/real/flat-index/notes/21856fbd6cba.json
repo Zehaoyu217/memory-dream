@@ -1,0 +1,177 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-507-band-het",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-507"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "arm-b-12m",
+   "type": "segment",
+   "label": "promo arm",
+   "as": [
+    "arm B",
+    "12-month promo"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "band-640-699",
+   "type": "segment",
+   "label": "credit band",
+   "as": [
+    "640-699 band"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "band-under-640",
+   "type": "segment",
+   "label": "credit band",
+   "as": [
+    "under 640"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "band-700-plus",
+   "type": "segment",
+   "label": "credit band",
+   "as": [
+    "700 and over"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bt-inflow",
+   "type": "metric",
+   "label": "bt inflow",
+   "as": [
+    "BT inflow"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "feat-pa-credit-band",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-pa-credit-band"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-pa-bt-inflow-v1",
+   "type": "feature",
+   "label": "v1 bt basis",
+   "as": [
+    "v1 BT basis"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-501-readout-12m",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-501-readout-12m"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-507-band-het",
+   "type": "measured-by",
+   "label": "BT inflow",
+   "o": "bt-inflow",
+   "quote": "arm B BT inflow $2,300 per account in the 640-699 band",
+   "line": 5
+  },
+  {
+   "s": "exp-507-band-het",
+   "type": "uses",
+   "label": "by credit band",
+   "o": "feat-pa-credit-band",
+   "quote": "By credit band on the readout cohorts",
+   "line": 5
+  },
+  {
+   "s": "exp-507-band-het",
+   "type": "uses",
+   "label": "v1 BT basis",
+   "o": "feat-pa-bt-inflow-v1",
+   "quote": "v1 BT basis",
+   "line": 5
+  },
+  {
+   "s": "arm-b-12m",
+   "type": "other",
+   "label": "highest in",
+   "o": "band-640-699",
+   "quote": "response to the 12-month promo is highest in the 640-699 band",
+   "line": 4
+  },
+  {
+   "s": "band-under-640",
+   "type": "other",
+   "label": "similar to middle band",
+   "o": "band-640-699",
+   "quote": "Under 640 the BT inflow is similar to the middle band",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-501-readout-12m",
+  "pa-margin-v2"
+ ],
+ "built_on": [
+  {
+   "what": "exp-501-readout-12m",
+   "quote": "exp-501-readout-12m",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "feat-pa-credit-band",
+   "quote": "feat-pa-credit-band",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-507-band-het.md",
+ "sha": "21856fbd6cba554df8ca79a0ebad8cf7a3df56fa9f5194de9f80caa5a16f9f7b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

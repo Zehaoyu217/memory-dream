@@ -1,0 +1,118 @@
+{
+ "kind": "preference",
+ "entities": [
+  {
+   "id": "chloe-martin",
+   "type": "person",
+   "label": "person",
+   "as": [
+    "Chloe Martin"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "campaign-readout",
+   "type": "document",
+   "label": "readout",
+   "as": [
+    "Campaign readouts"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "confidence-interval",
+   "type": "term",
+   "label": "interval",
+   "as": [
+    "95% confidence interval"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "lift",
+   "type": "metric",
+   "label": "measure",
+   "as": [
+    "lift"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "p-value",
+   "type": "metric",
+   "label": "statistic",
+   "as": [
+    "P-values"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "cost-per-response",
+   "type": "metric",
+   "label": "cost",
+   "as": [
+    "Cost per response"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "campaign-readout",
+   "type": "measured-by",
+   "label": "shows lift",
+   "o": "lift",
+   "quote": "show lift as a point estimate",
+   "line": 5
+  },
+  {
+   "s": "lift",
+   "type": "other",
+   "label": "reported with",
+   "o": "confidence-interval",
+   "quote": "with its 95% confidence interval",
+   "line": 5
+  },
+  {
+   "s": "chloe-martin",
+   "type": "other",
+   "label": "does not show",
+   "o": "p-value",
+   "quote": "does not show p-values",
+   "line": 4
+  },
+  {
+   "s": "cost-per-response",
+   "type": "other",
+   "label": "sits beside",
+   "o": "lift",
+   "quote": "sits beside the lift in the same table",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "prefs/chloe-martin-campaign-readout.md",
+ "sha": "32edd38c8ee0f8efb4e93c49f71641f999d9c33df185b827494096ad168e8f47",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

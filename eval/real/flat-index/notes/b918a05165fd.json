@@ -1,0 +1,130 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-trv-funnel-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-trv-funnel-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "search-to-book-conversion",
+   "type": "feature",
+   "label": "conversion",
+   "as": [
+    "Search-to-book"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "quote-to-book-conversion",
+   "type": "feature",
+   "label": "conversion",
+   "as": [
+    "quote-to-book conversion"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "ds-trv-funnel-sessions",
+   "type": "dataset",
+   "label": "funnel",
+   "as": [
+    "ds-trv-funnel-sessions"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "trv-ridge-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "trv-ridge-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "trv-ridge-v2",
+   "type": "model",
+   "label": "ridge",
+   "as": [
+    "ridge"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "ridge MAPE"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-trv-funnel-v2",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-trv-funnel-sessions",
+   "quote": "Builds on ds-trv-funnel-sessions.",
+   "line": 8
+  },
+  {
+   "s": "trv-ridge-v3",
+   "type": "uses",
+   "label": "input",
+   "o": "feat-trv-funnel-v2",
+   "quote": "Input to trv-ridge-v3.",
+   "line": 7
+  },
+  {
+   "s": "trv-ridge-v2",
+   "type": "measured-by",
+   "label": "MAPE",
+   "o": "mape",
+   "quote": "ridge MAPE 5.2% to 4.3% on trv-bt-2025h2",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-505-travel-spend-recovery"
+ ],
+ "built_on": [
+  {
+   "what": "ds-trv-funnel-sessions",
+   "quote": "ds-trv-funnel-sessions",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-trv-funnel-v2.md",
+ "sha": "b918a05165fd863fbd921d5a1a14d9374bb66ac0cf3055c04ff8df33a588c7b0",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,73 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "complaints.labels_qa",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "complaints.labels_qa"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "complaints-ops",
+   "type": "team",
+   "label": "table owner",
+   "as": [
+    "complaints-ops"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fleiss-kappa",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Fleiss kappa 0.82"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "complaints.labels_qa",
+   "type": "owned-by",
+   "label": "table owner",
+   "o": "complaints-ops",
+   "quote": "Table owner complaints-ops",
+   "line": 5
+  },
+  {
+   "s": "complaints.labels_qa",
+   "type": "measured-by",
+   "label": "reports kappa",
+   "o": "fleiss-kappa",
+   "quote": "Fleiss kappa 0.82 across reviewers",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-cc-tickets-raw",
+   "quote": "the raw complaint ticket table",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-cc-qa-labels.md",
+ "sha": "ebc0d8d66fa09a7fe403e21f8eaf91db0d94fc7f9e965b062390d7d0f8d01287",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

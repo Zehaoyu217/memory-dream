@@ -1,0 +1,94 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-aml-structuring-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-aml-structuring-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cash-like-subset",
+   "type": "segment",
+   "label": "dataset",
+   "as": [
+    "cards cash-like transactions dataset"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "aml-xgb-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "aml-xgb-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "reporting-level",
+   "type": "term",
+   "label": "threshold",
+   "as": [
+    "10,000 reporting level"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "aml-xgb-v1",
+   "type": "uses",
+   "label": "first input",
+   "o": "feat-aml-structuring-v1",
+   "quote": "First input of aml-xgb-v1.",
+   "line": 7
+  },
+  {
+   "s": "feat-aml-structuring-v1",
+   "type": "uses",
+   "label": "built on",
+   "o": "cash-like-subset",
+   "quote": "Builds on the cards cash-like transactions dataset.",
+   "line": 8
+  },
+  {
+   "s": "feat-aml-structuring-v1",
+   "type": "other",
+   "label": "proxy for",
+   "o": "reporting-level",
+   "quote": "Proxy for amounts kept just under the 10,000 reporting level.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "aml-xgb-v1"
+ ],
+ "built_on": [
+  {
+   "what": "ds-aml-cash-txn",
+   "quote": "the cards cash-like transactions dataset",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-aml-structuring-v1.md",
+ "sha": "d29a6d43f3bcccd69040e2548f86ddd45075ea1dd579c41a7576525cf51e7e9d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

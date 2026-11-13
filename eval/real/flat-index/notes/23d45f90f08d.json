@@ -1,0 +1,103 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-app-bureau-v10-pull",
+   "type": "dataset",
+   "label": "bureau pull",
+   "as": [
+    "2024 and 2025 applications re-scored on the mapped v10 bureau score"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-app-applications-2024",
+   "type": "dataset",
+   "label": "applications",
+   "as": [
+    "ds-app-applications-2024"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "bureau-score-migration",
+   "type": "other",
+   "label": "migration map",
+   "as": [
+    "bureau-score-migration"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "feat-bsm-score-map-v2",
+   "type": "feature",
+   "label": "score map",
+   "as": [
+    "feat-bsm-score-map-v2"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-app-bureau-v10-pull",
+   "type": "uses",
+   "label": "re-scored from",
+   "o": "ds-app-applications-2024",
+   "quote": "Applications from ds-app-applications-2024 and the 2025 decision log re-scored",
+   "line": 5
+  },
+  {
+   "s": "ds-app-bureau-v10-pull",
+   "type": "uses",
+   "label": "re-scored on map from",
+   "o": "bureau-score-migration",
+   "quote": "re-scored on the isotonic v10 map from bureau-score-migration",
+   "line": 5
+  },
+  {
+   "s": "ds-app-bureau-v10-pull",
+   "type": "uses",
+   "label": "built on",
+   "o": "feat-bsm-score-map-v2",
+   "quote": "Builds on ds-app-applications-2024 and feat-bsm-score-map-v2.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-app-applications-2024",
+  "feat-bsm-score-map-v2"
+ ],
+ "built_on": [
+  {
+   "what": "ds-app-applications-2024",
+   "quote": "ds-app-applications-2024",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-bsm-score-map-v2",
+   "quote": "feat-bsm-score-map-v2",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-app-bureau-v10-pull.md",
+ "sha": "23d45f90f08dc72fe1764e851379c2bc86104d6be4b0c6e71944b5b8350f7565",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

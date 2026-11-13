@@ -1,0 +1,93 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "inc-gbm-v3",
+   "type": "model",
+   "label": "live estimate",
+   "as": [
+    "inc-gbm-v3 becomes the live income estimate"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "dec-inc-stated-override",
+   "type": "other",
+   "label": "rule",
+   "as": [
+    "stated income rule from dec-inc-stated-override"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "find-inc-self-employed-bias",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "the self-employed understatement finding"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "find-inc-log-target-gain",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-inc-log-target-gain"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "inc-gbm-v3",
+   "type": "other",
+   "label": "adopted with uplift",
+   "o": "find-inc-self-employed-bias",
+   "quote": "Adopted 2026-05-12 with the uplift from find-inc-self-employed-bias",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "find-inc-log-target-gain",
+  "find-inc-self-employed-bias",
+  "inc-gbm-v3",
+  "dec-inc-stated-override"
+ ],
+ "built_on": [
+  {
+   "what": "find-inc-log-target-gain",
+   "quote": "find-inc-log-target-gain",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "find-inc-self-employed-bias",
+   "quote": "the self-employed understatement finding",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "inc-gbm-v3",
+   "quote": "inc-gbm-v3",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-inc-estimate-live.md",
+ "sha": "7380610050df1d80a6776083a0ecabf5e82b564fbbafa162cbf72cd85afc322c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

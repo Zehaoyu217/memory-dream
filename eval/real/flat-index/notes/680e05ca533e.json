@@ -1,0 +1,107 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ed-cashadv-v1",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "feat-ed-cashadv-v1",
+    "cash advances as a share of total spend"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-ed-util-trend-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ed-util-trend-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ed-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ed-gbm-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-202-early-delinquency",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-202-early-delinquency"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ed-cashadv-v1",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "cards.txn_daily",
+   "quote": "Source: `cards.txn_daily` aggregated to account-month",
+   "line": 6
+  },
+  {
+   "s": "feat-ed-cashadv-v1",
+   "type": "other",
+   "label": "adds AUC to",
+   "o": "ed-gbm-v1",
+   "quote": "Adds about +0.02 AUC to ed-gbm-v1",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-ed-util-trend-v1",
+  "ed-gbm-v1",
+  "exp-202-early-delinquency"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ed-current-base",
+   "quote": "the current-account scoring population",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "the current-account scoring population",
+   "quote": "Builds on the current-account scoring population.",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-ed-cashadv-v1.md",
+ "sha": "680e05ca533eae9eff90ca9f0db1c2e7fe1ac69854213cd59b6e134d72766f9f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

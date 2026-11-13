@@ -1,0 +1,121 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "precision-at-k",
+   "type": "metric",
+   "label": "target precision",
+   "as": [
+    "Target precision"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-disp-analyst-labels",
+   "type": "dataset",
+   "label": "two-analyst labels",
+   "as": [
+    "two-analyst labels"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "coverage",
+   "type": "metric",
+   "label": "coverage",
+   "as": [
+    "coverage"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-disp-disputes",
+   "type": "dataset",
+   "label": "disputes dataset",
+   "as": [
+    "ds-disp-disputes"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "disp-find-precision-real",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "disp-find-precision-real"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dec-disp-autoresolve-090",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-disp-autoresolve-090"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dec-disp-autoresolve-095",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-disp-autoresolve-095"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "precision-at-k",
+   "type": "evaluated-on",
+   "label": "on labels",
+   "o": "ds-disp-analyst-labels",
+   "quote": "Target precision is 95% on two-analyst labels",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "disp-find-precision-real",
+  "dec-disp-autoresolve-090",
+  "dec-disp-autoresolve-095",
+  "ds-disp-analyst-labels",
+  "ds-disp-disputes"
+ ],
+ "built_on": [
+  {
+   "what": "ds-disp-analyst-labels",
+   "quote": "ds-disp-analyst-labels",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-disp-disputes",
+   "quote": "ds-disp-disputes",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "work/q-disp-autoresolve.md",
+ "sha": "ac611880e94dd5a4a1ed8f0542bcf30ad53b73b9c07a2904a8ac14aef6363bfc",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

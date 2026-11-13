@@ -1,0 +1,116 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ror-expected-revenue",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ror-expected-revenue"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-ror-retained-revenue",
+   "type": "dataset",
+   "label": "revenue build",
+   "as": [
+    "revenue build"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ror-roi-v1",
+   "type": "other",
+   "label": "roi ranking",
+   "as": [
+    "ror-roi-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ror-roi-v2",
+   "type": "other",
+   "label": "roi ranking",
+   "as": [
+    "ror-roi-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-ror-value-band-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "the value band"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ror-expected-revenue",
+   "type": "uses",
+   "label": "scaled from",
+   "o": "ds-ror-retained-revenue",
+   "quote": "180-day actual revenue scaled to 12 months with a segment-specific ratio from the revenue build.",
+   "line": 5
+  },
+  {
+   "s": "ror-roi-v1",
+   "type": "uses",
+   "label": "fed by",
+   "o": "feat-ror-expected-revenue",
+   "quote": "Feeds ror-roi-v1, ror-roi-v2 and the value band.",
+   "line": 6
+  },
+  {
+   "s": "ror-roi-v2",
+   "type": "uses",
+   "label": "fed by",
+   "o": "feat-ror-expected-revenue",
+   "quote": "Feeds ror-roi-v1, ror-roi-v2 and the value band.",
+   "line": 6
+  },
+  {
+   "s": "feat-ror-value-band-v2",
+   "type": "uses",
+   "label": "fed by",
+   "o": "feat-ror-expected-revenue",
+   "quote": "Feeds ror-roi-v1, ror-roi-v2 and the value band.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-ror-retained-revenue",
+  "ror-roi-v1",
+  "ror-roi-v2",
+  "feat-ror-value-band-v2"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ror-retained-revenue",
+   "quote": "ds-ror-retained-revenue",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-ror-expected-revenue.md",
+ "sha": "660bf26ea5cc6b99068c60233f8cca0c0be4841211b7b30d818bb5c303b213c6",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

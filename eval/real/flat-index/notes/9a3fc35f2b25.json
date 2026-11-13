@@ -1,0 +1,157 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-bt-util-trend-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-bt-util-trend-v2: six-month utilization slope plus the 3-month level"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-bt-util-3m",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-bt-util-3m"
+   ],
+   "lines": [
+    6,
+    9
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bt-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bt-xgb-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "bt-xgb-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bt-xgb-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "holdout AUC from 0.66 to 0.67"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-103-util-trend",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-103-util-trend"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-bt-util-trend-v2",
+   "type": "uses",
+   "label": "OLS on",
+   "o": "cards.accounts_monthly",
+   "quote": "OLS on `cards.accounts_monthly`",
+   "line": 5
+  },
+  {
+   "s": "bt-xgb-v2",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-bt-util-trend-v2",
+   "quote": "Used in bt-xgb-v2 and bt-xgb-v3.",
+   "line": 7
+  },
+  {
+   "s": "bt-xgb-v3",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-bt-util-trend-v2",
+   "quote": "Used in bt-xgb-v2 and bt-xgb-v3.",
+   "line": 7
+  },
+  {
+   "s": "feat-bt-util-trend-v2",
+   "type": "measured-by",
+   "label": "moved holdout AUC",
+   "o": "auc",
+   "quote": "Swapping it in for feat-bt-util-3m moved holdout AUC from 0.66 to 0.67 (exp-103).",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "feat-bt-util-3m",
+  "exp-103-util-trend"
+ ],
+ "built_on": [
+  {
+   "what": "exp-103-util-trend",
+   "quote": "exp-103-util-trend",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-bt-util-3m",
+   "quote": "the three-month utilization feature",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "three-month utilization feature",
+   "quote": "Builds on exp-103-util-trend and the three-month utilization feature.",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-bt-util-3m",
+   "quote": "feat-bt-util-3m",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-bt-util-trend-v2.md",
+ "sha": "9a3fc35f2b25d5c88f31f33c666e6cb719889e648faa897ff4ec048ad2fcc163",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

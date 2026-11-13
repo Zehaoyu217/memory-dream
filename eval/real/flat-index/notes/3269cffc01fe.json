@@ -1,0 +1,190 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cc-ft-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "Fine-tuned encoder v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "dispute-link-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "dispute link v2"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Macro F1 0.84"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "cc-ft-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cc-ft-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-cc-qa-labels",
+   "type": "dataset",
+   "label": "labels",
+   "as": [
+    "ds-cc-qa-labels"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-cc-taxonomy-v3",
+   "type": "term",
+   "label": "taxonomy",
+   "as": [
+    "ds-cc-taxonomy-v3"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fnd-cc-taxonomy-drift",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "the billing code confusion finding"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cc-ft-v2",
+   "type": "uses",
+   "label": "concatenates",
+   "o": "dispute-link-v2",
+   "quote": "The classifier head concatenates dispute link v2 (count and flag) to the pooled text vector.",
+   "line": 5
+  },
+  {
+   "s": "cc-ft-v2",
+   "type": "measured-by",
+   "label": "measured by",
+   "o": "macro-f1",
+   "quote": "Macro F1 0.84 on holdout-2025q4 (n = 1,800).",
+   "line": 6
+  },
+  {
+   "s": "cc-ft-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q4",
+   "quote": "Macro F1 0.84 on holdout-2025q4 (n = 1,800).",
+   "line": 6
+  },
+  {
+   "s": "cc-ft-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "cc-ft-v1",
+   "quote": "Replaces the fine-tuned encoder without dispute link.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "cc-ft-v1",
+  "ds-cc-qa-labels",
+  "ds-cc-taxonomy-v3",
+  "fnd-cc-taxonomy-drift"
+ ],
+ "built_on": [
+  {
+   "what": "cc-ft-v1",
+   "quote": "cc-ft-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-cc-qa-labels",
+   "quote": "ds-cc-qa-labels",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-cc-taxonomy-v3",
+   "quote": "ds-cc-taxonomy-v3",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-cc-dispute-link-v2",
+   "quote": "the 30-day prior dispute count",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fnd-cc-taxonomy-drift",
+   "quote": "the billing code confusion finding",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "the 30-day prior dispute count",
+   "quote": "Builds on cc-ft-v1, ds-cc-qa-labels, ds-cc-taxonomy-v3, the 30-day prior dispute count and the billing code confusion finding.",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "cc-ft-v1",
+   "quote": "the fine-tuned encoder without dispute link",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/cc-ft-v2.md",
+ "sha": "3269cffc01fee69f2007f0f44e1b220e02c51261b7bd736d3be8cdb8e9bf9b9b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

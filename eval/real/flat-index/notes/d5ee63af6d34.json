@@ -1,0 +1,106 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-dq-rowcount-z-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-dq-rowcount-z-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-dq-rowcount-z-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-dq-rowcount-z-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-304-data-quality-txn",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-304-data-quality-txn"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards daily transactions table"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "z-score",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "z-score"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-dq-rowcount-z-v1",
+   "type": "uses",
+   "label": "built on",
+   "o": "cards.txn_daily",
+   "quote": "Builds on the cards daily transactions table.",
+   "line": 8
+  },
+  {
+   "s": "feat-dq-rowcount-z-v1",
+   "type": "other",
+   "label": "causes false alarms in",
+   "o": "exp-304-data-quality-txn",
+   "quote": "which is the cause of the false alarms in exp-304-data-quality-txn",
+   "line": 6
+  },
+  {
+   "s": "feat-dq-rowcount-z-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "feat-dq-rowcount-z-v1",
+   "quote": "Superseded by feat-dq-rowcount-z-v2 on 2025-09-15.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-dq-rowcount-z-v2",
+  "exp-304-data-quality-txn"
+ ],
+ "built_on": [
+  {
+   "what": "ds-dq-txn-daily",
+   "quote": "the cards daily transactions table",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-dq-rowcount-z-v1.md",
+ "sha": "d5ee63af6d34d49f8878397aea4b471c65593022b31367a51533581ea8e191c4",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

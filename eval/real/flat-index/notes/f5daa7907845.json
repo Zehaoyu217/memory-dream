@@ -1,0 +1,114 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-bt-holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout set",
+   "as": [
+    "`bt-holdout-2025q1`"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "bt.offer_log",
+   "type": "dataset",
+   "label": "offer log",
+   "as": [
+    "`bt.offer_log`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "acceptance-rate",
+   "type": "metric",
+   "label": "acceptance",
+   "as": [
+    "acceptance 3.9%"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "exp-105-churn-2025",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-105"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-bt-oot-2026h1",
+   "type": "dataset",
+   "label": "out-of-time set",
+   "as": [
+    "ds-bt-oot-2026h1"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-bt-holdout-2025q1",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "bt.offer_log",
+   "quote": "Source: `bt.offer_log` where `holdout_flag = 1`.",
+   "line": 6
+  },
+  {
+   "s": "ds-bt-holdout-2025q1",
+   "type": "measured-by",
+   "label": "realized acceptance",
+   "o": "acceptance-rate",
+   "quote": "Realized acceptance 3.9%",
+   "line": 6
+  },
+  {
+   "s": "exp-105-churn-2025",
+   "type": "evaluated-on",
+   "label": "tuning stopped after",
+   "o": "ds-bt-holdout-2025q1",
+   "quote": "Tuning on this set stopped after exp-105.",
+   "line": 7
+  },
+  {
+   "s": "ds-bt-holdout-2025q1",
+   "type": "other",
+   "label": "is not",
+   "o": "ds-bt-oot-2026h1",
+   "quote": "It is not the out-of-time set",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-bt-oot-2026h1"
+ ],
+ "built_on": [
+  {
+   "what": "ds-bt-offer-log",
+   "quote": "the bt offer log dataset",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-bt-holdout-2025q1.md",
+ "sha": "f5daa7907845b71bd1a53b5390a4b67ee731a2dbaa246de85f1d9a79cf430601",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

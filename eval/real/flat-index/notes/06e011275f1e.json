@@ -1,0 +1,75 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ed-minpay-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ed-minpay-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.payments_daily`"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-ed-label-30p3m",
+   "type": "dataset",
+   "label": "label dataset",
+   "as": [
+    "ds-ed-label-30p3m"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ed-minpay-v2",
+   "type": "uses",
+   "label": "source",
+   "o": "cards.payments_daily",
+   "quote": "Source: `cards.payments_daily`.",
+   "line": 7
+  },
+  {
+   "s": "feat-ed-minpay-v2",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-ed-label-30p3m",
+   "quote": "Builds on ds-ed-label-30p3m.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-ed-label-30p3m"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ed-label-30p3m",
+   "quote": "ds-ed-label-30p3m",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-ed-minpay-v2.md",
+ "sha": "06e011275f1ece3da183ac4611398abe35d8ef15684dfeaa7fb2a58fcc853224",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

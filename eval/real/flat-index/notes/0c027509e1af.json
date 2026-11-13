@@ -1,0 +1,96 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ch-prior-contact-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ch-prior-contact-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`callcenter.calls`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "sms-delivery-log",
+   "type": "dataset",
+   "label": "source log",
+   "as": [
+    "the SMS delivery log"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "channel-choice-model",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "the channel-choice model"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ds-ch-contact-costs",
+   "type": "dataset",
+   "label": "source dataset",
+   "as": [
+    "ds-ch-contact-costs"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ch-prior-contact-v1",
+   "type": "built-from",
+   "label": "source",
+   "o": "callcenter.calls",
+   "quote": "Source: `callcenter.calls` and the SMS delivery log.",
+   "line": 6
+  },
+  {
+   "s": "feat-ch-prior-contact-v1",
+   "type": "used-by",
+   "label": "input to",
+   "o": "channel-choice-model",
+   "quote": "Used as an input to the channel-choice model only.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-ch-contact-costs",
+   "quote": "Builds on ds-ch-contact-costs.",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-ch-prior-contact-v1.md",
+ "sha": "0c027509e1afcc13082a7f6704ecf702109db5cfc44ef597018903bc143ee131",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,103 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-sfc-cpi-lag6",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-sfc-cpi-lag6: six-month lag of year-on-year CPI"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fnd-sfc-macro-weak",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-sfc-macro-weak"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "sfc-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "sfc-lgbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "sfc-hier-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "sfc-hier-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-sfc-macro-series",
+   "type": "dataset",
+   "label": "source series",
+   "as": [
+    "ds-sfc-macro-series"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "sfc-lgbm-v2",
+   "type": "uses",
+   "label": "used by",
+   "o": "feat-sfc-cpi-lag6",
+   "quote": "Used by sfc-lgbm-v2 and sfc-hier-v3.",
+   "line": 7
+  },
+  {
+   "s": "sfc-hier-v3",
+   "type": "uses",
+   "label": "used by",
+   "o": "feat-sfc-cpi-lag6",
+   "quote": "Used by sfc-lgbm-v2 and sfc-hier-v3.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-sfc-macro-weak"
+ ],
+ "built_on": [
+  {
+   "what": "ds-sfc-macro-series",
+   "quote": "ds-sfc-macro-series",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-204-spend-forecasting",
+   "quote": "the six-month cpi lag experiment",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-sfc-cpi-lag6.md",
+ "sha": "9d97ed7a0e902a283208c511397273b12b07d6af8689821336e05d29df9f1088",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

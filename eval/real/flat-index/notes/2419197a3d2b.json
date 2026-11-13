@@ -1,0 +1,144 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-trv-stop-bsts",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: stop the BSTS line"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "trv-bsts-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "BSTS line",
+    "trv-bsts-v1"
+   ],
+   "lines": [
+    4,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "trv-ridge-v2",
+   "type": "model",
+   "label": "ridge model",
+   "as": [
+    "keep ridge as the travel model"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "5.6% MAPE",
+    "5.2% for the ridge"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-504-travel-spend-recovery",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-504-travel-spend-recovery"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "fit-time",
+   "type": "metric",
+   "label": "fit time",
+   "as": [
+    "about three times as long to fit"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-trv-stop-bsts",
+   "type": "other",
+   "label": "stops",
+   "o": "trv-bsts-v1",
+   "quote": "Decision: stop trv-bsts-v1",
+   "line": 6
+  },
+  {
+   "s": "dec-trv-stop-bsts",
+   "type": "other",
+   "label": "keeps",
+   "o": "trv-ridge-v2",
+   "quote": "keep the ridge line for the travel model",
+   "line": 6
+  },
+  {
+   "s": "exp-504-travel-spend-recovery",
+   "type": "measured-by",
+   "label": "gave",
+   "o": "mape",
+   "quote": "BSTS gave 5.6% MAPE against 5.2% for the ridge",
+   "line": 5
+  },
+  {
+   "s": "trv-bsts-v1",
+   "type": "measured-by",
+   "label": "takes",
+   "o": "fit-time",
+   "quote": "takes about three times as long to fit",
+   "line": 5
+  },
+  {
+   "s": "dec-trv-stop-bsts",
+   "type": "other",
+   "label": "based on",
+   "o": "exp-504-travel-spend-recovery",
+   "quote": "(exp-504-travel-spend-recovery)",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-504-travel-spend-recovery",
+  "trv-bsts-v1"
+ ],
+ "built_on": [
+  {
+   "what": "exp-504-travel-spend-recovery",
+   "quote": "exp-504-travel-spend-recovery",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "trv-bsts-v1",
+   "quote": "trv-bsts-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-trv-stop-bsts.md",
+ "sha": "2419197a3d2be843fa0aa78fa8edd6746314cf3de18014d60838f41d751d4146",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

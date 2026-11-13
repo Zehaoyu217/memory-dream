@@ -1,0 +1,87 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-cli-exclude-revolvers",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: exclude revolvers (minimum-pay share above 0.5) from proactive CLI from H2 2025"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "revolvers",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "revolvers"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  },
+  {
+   "id": "credit-line-increase",
+   "type": "other",
+   "label": "workstream",
+   "as": [
+    "proactive CLI"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "find-cli-revolver-loss",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-cli-revolver-loss"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-cli-exclude-revolvers",
+   "type": "other",
+   "label": "adopted after",
+   "o": "find-cli-revolver-loss",
+   "quote": "Adopted on 2025-09-02 after find-cli-revolver-loss.",
+   "line": 5
+  },
+  {
+   "s": "dec-cli-exclude-revolvers",
+   "type": "other",
+   "label": "excludes",
+   "o": "revolvers",
+   "quote": "exclude revolvers (minimum-pay share above 0.5)",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "find-cli-revolver-loss"
+ ],
+ "built_on": [
+  {
+   "what": "find-cli-revolver-loss",
+   "quote": "the finding on revolver loss",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-cli-exclude-revolvers.md",
+ "sha": "d2feddfc8c96d4b90d9615b6a9b2dae78dec3bad9e34afd27eaa9c569194c721",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

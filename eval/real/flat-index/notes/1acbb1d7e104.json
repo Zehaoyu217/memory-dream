@@ -1,0 +1,65 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "alert-queue-capacity",
+   "type": "term",
+   "label": "ops queue capacity",
+   "as": [
+    "The fraud ops queue can work about 50 alerts a day"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "precision-at-50",
+   "type": "metric",
+   "label": "precision@50 target",
+   "as": [
+    "precision@50 target"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "daniel-okafor",
+   "type": "person",
+   "label": "capacity approver",
+   "as": [
+    "Daniel Okafor"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "alert-queue-capacity",
+   "type": "measured-by",
+   "label": "sets",
+   "o": "precision-at-50",
+   "quote": "which sets the precision@50 target",
+   "line": 4
+  },
+  {
+   "s": "alert-queue-capacity",
+   "type": "owned-by",
+   "label": "agreed with",
+   "o": "daniel-okafor",
+   "quote": "Capacity changes are agreed with Daniel Okafor before the threshold changes.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/alert-queue-capacity.md",
+ "sha": "1acbb1d7e104a5a5e2aea5a001cc719f9a3cfea1f4bc64f7907d743f638c3a03",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

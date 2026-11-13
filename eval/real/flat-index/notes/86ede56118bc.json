@@ -1,0 +1,76 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-nps-complaint",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Complaint in the last 90 days costs 1.1 NPS points"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-406-nps-drivers",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-406-nps-drivers"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "dec-nps-complaint-route",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-nps-complaint-route"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fnd-nps-complaint",
+   "type": "other",
+   "label": "from",
+   "o": "exp-406-nps-drivers",
+   "quote": "From exp-406-nps-drivers",
+   "line": 5
+  },
+  {
+   "s": "dec-nps-complaint-route",
+   "type": "other",
+   "label": "basis",
+   "o": "fnd-nps-complaint",
+   "quote": "Basis for dec-nps-complaint-route.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "dec-nps-complaint-route"
+ ],
+ "built_on": [
+  {
+   "what": "exp-406-nps-drivers",
+   "quote": "exp-406-nps-drivers",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-nps-complaint.md",
+ "sha": "86ede56118bc55a7a7d3953c154de0b9f09c64dd8e875ea8bb188925c24d1797",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

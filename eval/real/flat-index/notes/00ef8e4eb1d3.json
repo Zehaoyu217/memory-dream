@@ -1,0 +1,75 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "ae-score-v1",
+   "type": "model",
+   "label": "score",
+   "as": [
+    "Within ae-score-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "push-open-rate",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "push open rate"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "fnd-ae-push-null",
+   "type": "other",
+   "label": "overturning finding",
+   "as": [
+    "Overturned by fnd-ae-push-null"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ae-score-v1",
+   "type": "uses",
+   "label": "weights push open rate",
+   "o": "push-open-rate",
+   "quote": "push open rate carries weight 0.25",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "fnd-ae-push-null"
+ ],
+ "built_on": [
+  {
+   "what": "ae-score-v1",
+   "quote": "ae-score-v1",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "feat-ae-push-open-v1",
+   "quote": "the push open rate feature",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-ae-push-assoc.md",
+ "sha": "00ef8e4eb1d359173189c6707f91161c2d5cd6b00c617ed0d4ed229cff90a73f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

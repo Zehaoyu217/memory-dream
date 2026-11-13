@@ -1,0 +1,170 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "disp-lgbm-v3",
+   "type": "model",
+   "label": "classifier",
+   "as": [
+    "disp-lgbm-v3"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-disp-fraud-score",
+   "type": "feature",
+   "label": "fraud-2026 score feature",
+   "as": [
+    "feat-disp-fraud-score",
+    "the fraud-2026 score feature"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "disp-lgbm-v2",
+   "type": "model",
+   "label": "v2 classifier",
+   "as": [
+    "disp-lgbm-v2"
+   ],
+   "lines": [
+    8,
+    9
+   ]
+  },
+  {
+   "id": "disp-oot-2026h1",
+   "type": "dataset",
+   "label": "out-of-time set",
+   "as": [
+    "disp-oot-2026h1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "precision-at-k",
+   "type": "metric",
+   "label": "precision",
+   "as": [
+    "precision"
+   ],
+   "lines": [
+    4,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "exp-307-dispute-triage",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-307-dispute-triage"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-308-dispute-triage",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-308-dispute-triage"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "disp-lgbm-v3",
+   "type": "uses",
+   "label": "adds feature",
+   "o": "feat-disp-fraud-score",
+   "quote": "Adds feat-disp-fraud-score to the v2 feature set.",
+   "line": 5
+  },
+  {
+   "s": "disp-lgbm-v3",
+   "type": "measured-by",
+   "label": "precision",
+   "o": "precision-at-k",
+   "quote": "precision 95.3% at p>=0.95 with 29% coverage",
+   "line": 6
+  },
+  {
+   "s": "disp-lgbm-v3",
+   "type": "evaluated-on",
+   "label": "out-of-time on",
+   "o": "disp-oot-2026h1",
+   "quote": "Out-of-time on disp-oot-2026h1",
+   "line": 6
+  },
+  {
+   "s": "disp-lgbm-v3",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "disp-lgbm-v2",
+   "quote": "Replaces disp-lgbm-v2.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "dec-disp-fraud-score-in",
+  "disp-lgbm-v2",
+  "exp-307-dispute-triage",
+  "exp-308-dispute-triage",
+  "feat-disp-fraud-score"
+ ],
+ "built_on": [
+  {
+   "what": "dec-disp-fraud-score-in",
+   "quote": "dec-disp-fraud-score-in",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "disp-lgbm-v2",
+   "quote": "disp-lgbm-v2",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-307-dispute-triage",
+   "quote": "the fraud score lift experiment on v3",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-disp-fraud-score",
+   "quote": "the fraud-2026 score feature",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "disp-lgbm-v2",
+   "quote": "disp-lgbm-v2",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/disp-lgbm-v3.md",
+ "sha": "cc057803dd029f62b8e19e8bbf090ca585412a92d9e7ac9cdd925576a9dd85ba",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

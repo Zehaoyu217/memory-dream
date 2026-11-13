@@ -1,0 +1,121 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ror-oot-2025q3",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Holdout ror-oot-2025q3: 48,015 accounts from the August 2025 offer wave, 10% randomised control"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-404-retention-offers-roi",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-404-retention-offers-roi"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-406-retention-offers-roi",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-406-retention-offers-roi"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "retention-offer-outcomes-dataset",
+   "type": "dataset",
+   "label": "source dataset",
+   "as": [
+    "the retention offer outcomes dataset"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-ror-tier-matrix",
+   "type": "dataset",
+   "label": "tier matrix",
+   "as": [
+    "ds-ror-tier-matrix"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ror-oot-2025q3",
+   "type": "uses",
+   "label": "built on",
+   "o": "retention-offer-outcomes-dataset",
+   "quote": "Builds on the retention offer outcomes dataset",
+   "line": 8
+  },
+  {
+   "s": "ror-oot-2025q3",
+   "type": "uses",
+   "label": "built on",
+   "o": "ds-ror-tier-matrix",
+   "quote": "and ds-ror-tier-matrix.",
+   "line": 8
+  },
+  {
+   "s": "exp-404-retention-offers-roi",
+   "type": "evaluated-on",
+   "label": "test set for",
+   "o": "ror-oot-2025q3",
+   "quote": "Test set for ROI comparisons in exp-404-retention-offers-roi",
+   "line": 7
+  },
+  {
+   "s": "exp-406-retention-offers-roi",
+   "type": "evaluated-on",
+   "label": "test set for",
+   "o": "ror-oot-2025q3",
+   "quote": "and exp-406-retention-offers-roi.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-404-retention-offers-roi",
+  "exp-406-retention-offers-roi",
+  "ds-ror-tier-matrix"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ror-redemptions",
+   "quote": "the retention offer outcomes dataset",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-ror-tier-matrix",
+   "quote": "ds-ror-tier-matrix",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-ror-holdout-2025q3.md",
+ "sha": "cf17c828bb673501503a6ab608f8c4227ad5186b242e23634eb27eabe3a56cba",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

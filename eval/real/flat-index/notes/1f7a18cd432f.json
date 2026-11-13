@@ -1,0 +1,66 @@
+{
+ "kind": "metric",
+ "entities": [
+  {
+   "id": "retention",
+   "type": "metric",
+   "label": "retention",
+   "as": [
+    "Retention at M+12"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "charged-off-accounts",
+   "type": "term",
+   "label": "charged-off account",
+   "as": [
+    "charged-off accounts"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cohort-book-balance",
+   "type": "metric",
+   "label": "cohort book balance",
+   "as": [
+    "cohort book balance"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "retention",
+   "type": "uses",
+   "label": "measured on",
+   "o": "cohort-book-balance",
+   "quote": "retention is measured on cohort book balances",
+   "line": 4
+  }
+ ],
+ "refs": [],
+ "replaces": [
+  {
+   "what": "kpi-retention-definition",
+   "quote": "the month-12 retention definition",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "reporting/kpi-retention-definition-v2.md",
+ "sha": "1f7a18cd432f6b1b1882f17d22902a56b7ae59db20da9cbc61e802a0d069cc77",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

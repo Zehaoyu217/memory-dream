@@ -1,0 +1,171 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "clv-bgnbd-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "clv-bgnbd-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-clv-holdout-2021h1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "clv-oot-2021h1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE 22.6%"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "dec-clv-ship-ml-v1",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-clv-ship-ml-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "marketing",
+   "type": "team",
+   "label": "marketing",
+   "as": [
+    "marketing"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "finance",
+   "type": "team",
+   "label": "finance",
+   "as": [
+    "the finance figure"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "six-month-average-revenue",
+   "type": "feature",
+   "label": "six-month average revenue",
+   "as": [
+    "the six-month average revenue feature"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "months-on-book",
+   "type": "feature",
+   "label": "months on book",
+   "as": [
+    "the months on book feature"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-501-customer-lifetime-value",
+   "type": "other",
+   "label": "accuracy test",
+   "as": [
+    "the bg/nbd versus gbm accuracy test"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "clv-bgnbd-v1",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "ds-clv-holdout-2021h1",
+   "quote": "Holdout clv-oot-2021h1: MAPE 22.6%.",
+   "line": 6
+  },
+  {
+   "s": "clv-bgnbd-v1",
+   "type": "measured-by",
+   "label": "MAPE",
+   "o": "mape",
+   "quote": "Holdout clv-oot-2021h1: MAPE 22.6%.",
+   "line": 6
+  },
+  {
+   "s": "clv-bgnbd-v1",
+   "type": "other",
+   "label": "sanity check for",
+   "o": "marketing",
+   "quote": "kept as a sanity check for marketing",
+   "line": 7
+  },
+  {
+   "s": "clv-bgnbd-v1",
+   "type": "other",
+   "label": "no longer",
+   "o": "finance",
+   "quote": "No longer the finance figure",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-clv-ship-ml-v1",
+  "exp-501-customer-lifetime-value"
+ ],
+ "built_on": [
+  {
+   "what": "the bg/nbd versus gbm accuracy test",
+   "quote": "the bg/nbd versus gbm accuracy test",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-clv-arpu-v1",
+   "quote": "the six-month average revenue feature",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-clv-tenure",
+   "quote": "the months on book feature",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/clv-bgnbd-v1.md",
+ "sha": "b6c2184a7b5c56422eb2d7112e8640abcbde88ef1c5379a3cd659cfa45fcd3f2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

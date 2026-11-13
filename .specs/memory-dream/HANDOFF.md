@@ -387,3 +387,60 @@ Open, in the order I would take them:
 
 Spent on models on 2026-11-12: Haiku 5.5 about $9 (the readings, the pilots, the curator runs, the phrases, the
 arms); Opus 5.5 $20.67 for its arms, inside the $15 to $25 the owner set.
+
+### The base too large to read whole, under a 100,000-token window (2026-11-12, evening)
+
+The owner read the answers above and said: test the long one, with Haiku or Opus, with the context locked at
+100,000 tokens if that can be set; and yes to Opus beyond the $25. RESULTS S7 has it.
+
+- **The base**: `eval/hard/make_flat.py` pours the worn bank's forty project folders into one, 1,224 notes and
+  about 137,000 tokens, and keeps the 72 questions that need no project (`eval/questions/linkage-flat.jsonl`).
+- **The window**: `run_headless.py --window 100000` (`CLAUDE_CODE_AUTO_COMPACT_WINDOW`, with
+  `CLAUDE_CODE_DISABLE_1M_CONTEXT=1`, because Haiku 5.5 and Opus 5.5 otherwise run with a million tokens, as every
+  arm of S6 did). It is where compaction starts, not a wall; each session's largest request and its compactions are
+  recorded, and none passed 100,000.
+- **The memory in a folder it cannot list**: the second reading shows a keeper the notes near the lines of a call
+  (within four steps by a name written in a note, and apart from them the eight that share the line's rarest
+  words), and the first reading gives a thing it cannot name as an item with the note's words. `MEMORY_FOLDER`
+  moves the size at which a folder counts as too large (200). Built from scratch for $1.88: 99.2% of the `from`
+  links and 99.5% of the replacements, where the folders gave 99.5% and 99.5%. `eval/real/flat-index` and
+  `tests/retrieval_gate.py flat` (in CI) rebuild and score it with no model.
+
+| flat bank, 100,000-token window | exact answers | second count | $ a ten questions | sessions that filled the window |
+|---|---|---|---|---|
+| Opus with grep, one run | 71 of 72 (99%) | 99% | 0.656 | 1 of 8 |
+| Opus with the memory, one run | 70 of 72 (97%) | 99% | 0.376 | none |
+| Haiku with grep, three runs | 65% | 68% | 0.049 | 23 of 24 |
+| Haiku with grep, five questions a session | 80% | 81% | 0.054 | 16 of 45 |
+| Haiku with the memory, three runs | 89% | 92% | 0.014 | none |
+| Haiku with the memory, five questions a session | 91% | 93% | 0.016 | none |
+
+What it says: with a cheap reader grep does not survive the window (one session's summary lost the questions
+themselves), and the memory arm does not notice it; Opus with grep stays at 99%, and Opus with the memory matches it
+for 0.57 of the price. The memory's answers are still what its lineage holds: 66 of the 72 by the lineage alone.
+
+Verified at the end: `tests/acceptance.py` 40 of 40 on Python 3.9 and 3.13; `tests/e2e.py` 54 and 53 lines; five
+gates (bank 0.978, 0.978, 2,954; bank with the index 0.973, 0.978, 3,138, alias 0.811; software 1.0, 1.0; worn
+0.995, 0.995, 0.990, 93 answered, 84 named; flat 0.992, 0.995, 0.985, 66 of 72 answered); `eval/stability.py` all
+zeros; `tests/viz_check.js` 16 of 16; the bundle fresh.
+
+Open after this, in the order I would take them (the list above still stands but for its first item):
+
+1. **Questions across the whole memory, under a window.** The memory arm pulls the whole map for them
+   (`ask --list --all`), fills the window and is compacted: 2 of 8 right in that session on the folder bank, where
+   it had 5 or 6 with no window. The map of a kind wants a form that fits a small context: counts first, then the
+   lines of what was asked for.
+2. **A line that says one thing replaced another, in a note that is neither.** "pbs-gmm-v3 replaces the kmeans and
+   gmm-v2 tables", in a decision, was read as the decision replacing the model; no note of the model's kind claims
+   it, so the rule of S5 lets it through, and the note in force for that line is wrong.
+3. **The first reading still misses a whole line now and then** (aml-xgb-v3's "Builds on" line of three ids got no
+   item, and so was read by nobody twice). A second reading of the whole note in place of its lines would close
+   that by construction; it was not tried, because it reads every mention as a candidate for lineage.
+4. **A base whose notes seldom name each other**: four steps by written names held 95.5% of the phrase targets
+   here and the words alone under 90%.
+5. **The curator in a folder of a thousand notes** sees its 150 most named things and no more.
+6. The first reading costs a quarter more with the new sentence in its prompt ($1.57 against $1.28 for the same
+   notes): it writes the items it used to leave out.
+
+Spent on models for this part: Haiku 5.5 about $8.40 (four readings of the flat bank's lineage, of which two whole
+builds, $4.29; the arms $4); Opus 5.5 $7.43 (grep $4.72, the memory $2.71). Opus in all on 2026-11-12: $28.11.

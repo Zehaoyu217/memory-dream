@@ -1,0 +1,124 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "holdout-2025q2",
+   "type": "dataset",
+   "label": "gold holdout",
+   "as": [
+    "holdout-2025q2"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "txc-oot-2026h1",
+   "type": "dataset",
+   "label": "gold holdout",
+   "as": [
+    "txc-oot-2026h1"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "labelled-merchants-dataset",
+   "type": "dataset",
+   "label": "labelled set",
+   "as": [
+    "labelled merchants dataset"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "headline metric",
+   "as": [
+    "Macro-F1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "per-category-recall",
+   "type": "metric",
+   "label": "per-category recall",
+   "as": [
+    "per-category recall"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "travel-and-food-delivery",
+   "type": "segment",
+   "label": "categories",
+   "as": [
+    "'Travel' and 'Food delivery'"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "holdout-2025q2",
+   "type": "uses",
+   "label": "drawn from",
+   "o": "labelled-merchants-dataset",
+   "quote": "drawn from the labelled set after removing all training merchants",
+   "line": 5
+  },
+  {
+   "s": "holdout-2025q2",
+   "type": "measured-by",
+   "label": "headline metric",
+   "o": "macro-f1",
+   "quote": "Macro-F1 is the headline metric on both",
+   "line": 7
+  },
+  {
+   "s": "txc-oot-2026h1",
+   "type": "measured-by",
+   "label": "headline metric",
+   "o": "macro-f1",
+   "quote": "Macro-F1 is the headline metric on both",
+   "line": 7
+  },
+  {
+   "s": "per-category-recall",
+   "type": "other",
+   "label": "kept for",
+   "o": "travel-and-food-delivery",
+   "quote": "per-category recall is kept for 'Travel' and 'Food delivery'",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-txc-labelled-merchants",
+   "quote": "the labelled merchants dataset of 18,400",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-txc-gold-holdout.md",
+ "sha": "5aebd0c0ec895917c45709bd40ae944860da61065937454bf0161a94e1a48401",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

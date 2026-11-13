@@ -1,0 +1,105 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-507-customer-lifetime-value",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-507-customer-lifetime-value"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "clv-ml-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "clv-ml-v2"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "fnd-clv-cohort-drift",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-clv-cohort-drift"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "offer-netted-lightgbm-margin-model",
+   "type": "model",
+   "label": "margin model",
+   "as": [
+    "the offer-netted lightgbm margin model"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "clv-ml-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "mape",
+   "quote": "MAPE on the 2022 and 2023 cohorts falls from 19.8% to 16.4%",
+   "line": 6
+  },
+  {
+   "s": "exp-507-customer-lifetime-value",
+   "type": "other",
+   "label": "retrains",
+   "o": "clv-ml-v2",
+   "quote": "retraining clv-ml-v2 on the 2022 and 2023 cohorts",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "fnd-clv-cohort-drift"
+ ],
+ "built_on": [
+  {
+   "what": "clv-ml-v2",
+   "quote": "the offer-netted lightgbm margin model",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fnd-clv-cohort-drift",
+   "quote": "fnd-clv-cohort-drift",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-507-customer-lifetime-value.md",
+ "sha": "0ef223e97eb181ab1d555a15dbf1f704cddb663690a82bcb94855d89061942bc",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

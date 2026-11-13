@@ -1,0 +1,67 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-fsm-parity-sample",
+   "type": "dataset",
+   "label": "parity sample",
+   "as": [
+    "fsm_parity_sample_2025h2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-101-feature-store-migration",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-101-feature-store-migration"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "legacy-features-dataset",
+   "type": "dataset",
+   "label": "legacy features dataset",
+   "as": [
+    "the legacy features dataset"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-101-feature-store-migration",
+   "type": "evaluated-on",
+   "label": "parity runs on",
+   "o": "ds-fsm-parity-sample",
+   "quote": "every parity run from exp-101-feature-store-migration on uses this same table",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-101-feature-store-migration"
+ ],
+ "built_on": [
+  {
+   "what": "ds-fsm-legacy-features",
+   "quote": "the legacy features dataset",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-fsm-parity-sample.md",
+ "sha": "03e655e3b516c9fb09761c2aeb688e64a7c2b335602e9bf368bf513961d7a41b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

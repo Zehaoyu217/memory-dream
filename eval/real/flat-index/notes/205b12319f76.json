@@ -1,0 +1,96 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-rs-contact-attempts",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rs-contact-attempts"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`callcenter.calls`"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "sms-delivery-log",
+   "type": "dataset",
+   "label": "source log",
+   "as": [
+    "the SMS delivery log"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-rs-chargeoff-base",
+   "type": "dataset",
+   "label": "source dataset",
+   "as": [
+    "ds-rs-chargeoff-base"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "recovery-rate-ratio",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "recover at about 1.3 times the rate"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-rs-contact-attempts",
+   "type": "built-from",
+   "label": "source",
+   "o": "callcenter.calls",
+   "quote": "Source: `callcenter.calls` and the SMS delivery log.",
+   "line": 6
+  },
+  {
+   "s": "feat-rs-contact-attempts",
+   "type": "measured-by",
+   "label": "recovers at",
+   "o": "recovery-rate-ratio",
+   "quote": "Accounts with at least one successful contact recover at about 1.3 times the rate of those with none.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-rs-chargeoff-base",
+   "quote": "ds-rs-chargeoff-base",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-rs-contact-attempts.md",
+ "sha": "205b12319f7605e63145b884081d894de083f980187481d81fea5193fb3eff9c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

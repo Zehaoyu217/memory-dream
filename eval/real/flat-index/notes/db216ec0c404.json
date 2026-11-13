@@ -1,0 +1,176 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "sfc-prophet-v1",
+   "type": "model",
+   "label": "forecast model",
+   "as": [
+    "sfc-prophet-v1: Prophet with holidays gives 1-month MAPE 6.9%, rejected"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "prophet",
+   "type": "tool",
+   "label": "forecasting library",
+   "as": [
+    "Prophet per segment with the retail calendar as holidays."
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sfc-bt-2024",
+   "type": "dataset",
+   "label": "backtest dataset",
+   "as": [
+    "sfc-bt-2024"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-206-spend-forecasting",
+   "type": "document",
+   "label": "experiment",
+   "as": [
+    "exp-206-spend-forecasting"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "sfc-lgbm-v2",
+   "type": "model",
+   "label": "forecast model",
+   "as": [
+    "sfc-lgbm-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-sfc-drop-prophet",
+   "type": "document",
+   "label": "decision",
+   "as": [
+    "dec-sfc-drop-prophet"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-sfc-segment-monthly",
+   "type": "dataset",
+   "label": "segment dataset",
+   "as": [
+    "ds-sfc-segment-monthly"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-sfc-season-v2",
+   "type": "feature",
+   "label": "seasonality feature",
+   "as": [
+    "feat-sfc-season-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "error metric",
+   "as": [
+    "1-month MAPE 6.9%"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "sfc-prophet-v1",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "mape",
+   "quote": "1-month MAPE 6.9% on sfc-bt-2024",
+   "line": 6
+  },
+  {
+   "s": "sfc-prophet-v1",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "sfc-bt-2024",
+   "quote": "1-month MAPE 6.9% on sfc-bt-2024",
+   "line": 6
+  },
+  {
+   "s": "sfc-prophet-v1",
+   "type": "uses",
+   "label": "built on",
+   "o": "prophet",
+   "quote": "Prophet per segment with the retail calendar as holidays.",
+   "line": 5
+  },
+  {
+   "s": "sfc-prophet-v1",
+   "type": "uses",
+   "label": "built on",
+   "o": "ds-sfc-segment-monthly",
+   "quote": "Builds on ds-sfc-segment-monthly and feat-sfc-season-v2.",
+   "line": 8
+  },
+  {
+   "s": "sfc-prophet-v1",
+   "type": "uses",
+   "label": "built on",
+   "o": "feat-sfc-season-v2",
+   "quote": "Builds on ds-sfc-segment-monthly and feat-sfc-season-v2.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "dec-sfc-drop-prophet",
+  "exp-206-spend-forecasting",
+  "sfc-prophet-v1",
+  "ds-sfc-segment-monthly",
+  "feat-sfc-season-v2"
+ ],
+ "built_on": [
+  {
+   "what": "ds-sfc-segment-monthly",
+   "quote": "ds-sfc-segment-monthly",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-sfc-season-v2",
+   "quote": "feat-sfc-season-v2",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/sfc-prophet-v1.md",
+ "sha": "db216ec0c404bbb7bc06d78238fade8f76d0fe5f50860e3c6de2a154bec9d453",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

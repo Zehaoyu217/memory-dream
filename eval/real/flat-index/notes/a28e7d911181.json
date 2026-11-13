@@ -1,0 +1,97 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-406-label-pipeline-rebuild",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-406-label-pipeline-rebuild: legacy churn job duplicates 2.3 percent of 2025-H2 snapshot rows on rerun; the rebuilt job duplicates none"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.churn_labels",
+   "type": "dataset",
+   "label": "churn labels table",
+   "as": [
+    "the churn labels table"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-lbl-legacy-jobs",
+   "type": "other",
+   "label": "inventory",
+   "as": [
+    "ds-lbl-legacy-jobs"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "legacy-churn-job",
+   "type": "pipeline",
+   "label": "job",
+   "as": [
+    "legacy churn job"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "rebuilt-job",
+   "type": "pipeline",
+   "label": "job",
+   "as": [
+    "rebuilt job"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "legacy-churn-job",
+   "type": "produces",
+   "label": "appended rows",
+   "o": "cards.churn_labels",
+   "quote": "The rerun appended rows, and 2.3 percent of the table became duplicates of existing account-snapshots.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "ds-lbl-legacy-jobs"
+ ],
+ "built_on": [
+  {
+   "what": "ds-lbl-churn-labels",
+   "quote": "the churn labels table",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "ds-lbl-legacy-jobs",
+   "quote": "ds-lbl-legacy-jobs",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-406-label-pipeline-rebuild.md",
+ "sha": "a28e7d911181433faef4dc43dc89bfd51597135d8f4c580b61fb4d4f71a7ef90",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

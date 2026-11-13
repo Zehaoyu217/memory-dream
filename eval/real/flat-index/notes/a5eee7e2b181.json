@@ -1,0 +1,212 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "wave-2-channel-test",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "Wave-2 channel test"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "eight-29-dpd-accounts",
+   "type": "segment",
+   "label": "population",
+   "as": [
+    "8-29 DPD accounts"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "dpd",
+   "type": "term",
+   "label": "days past due",
+   "as": [
+    "DPD"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "sms",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "SMS-only"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "call",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "call-first"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "sms-then-call",
+   "type": "other",
+   "label": "arm",
+   "as": [
+    "SMS-then-call"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "control-arm",
+   "type": "other",
+   "label": "arm",
+   "as": [
+    "control"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "collections.cases",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "collections.cases"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "callcenter.calls"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "sms-log",
+   "type": "dataset",
+   "label": "log",
+   "as": [
+    "SMS log"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "wave-1-call-lift",
+   "type": "other",
+   "label": "effect",
+   "as": [
+    "wave-1 call lift"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "first-randomised-channel-test",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "first randomised channel test"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "find-ch-sms-matches-call",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-ch-sms-matches-call"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "wave-2-channel-test",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "collections.cases",
+   "quote": "Source: `collections.cases` joined to `callcenter.calls` and the SMS log.",
+   "line": 7
+  },
+  {
+   "s": "wave-2-channel-test",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "callcenter.calls",
+   "quote": "Source: `collections.cases` joined to `callcenter.calls` and the SMS log.",
+   "line": 7
+  },
+  {
+   "s": "wave-2-channel-test",
+   "type": "uses",
+   "label": "sourced from",
+   "o": "sms-log",
+   "quote": "Source: `collections.cases` joined to `callcenter.calls` and the SMS log.",
+   "line": 7
+  },
+  {
+   "s": "wave-2-channel-test",
+   "type": "other",
+   "label": "restricted to",
+   "o": "eight-29-dpd-accounts",
+   "quote": "Population restricted to 8-29 DPD because the wave-1 call lift is largest there.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "find-ch-sms-matches-call"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ch-ab-wave1",
+   "quote": "the first randomised channel test",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "find-ch-sms-matches-call",
+   "quote": "find-ch-sms-matches-call",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-ch-ab-wave2.md",
+ "sha": "a5eee7e2b1811d6cf8156f4e39959c8a1086e6f66edde3e7e17fd06d3a04e3f9",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

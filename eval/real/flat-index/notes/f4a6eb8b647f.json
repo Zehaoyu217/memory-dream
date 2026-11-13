@@ -1,0 +1,85 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-502-customer-lifetime-value",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-502-customer-lifetime-value"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "clv-oot-2021h1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "clv-oot-2021h1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fnd-clv-gross-overstates",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-clv-gross-overstates"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-502-customer-lifetime-value",
+   "type": "evaluated-on",
+   "label": "on",
+   "o": "clv-oot-2021h1",
+   "quote": "on clv-oot-2021h1",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "fnd-clv-gross-overstates"
+ ],
+ "built_on": [
+  {
+   "what": "ds-clv-loss-events",
+   "quote": "the charge-off loss events by cohort",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-clv-loss-rate",
+   "quote": "the segment loss rate feature",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "q-clv-loss-treatment",
+   "quote": "the question of netting credit losses",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "the charge-off loss events by cohort",
+   "quote": "Builds on the charge-off loss events by cohort, the segment loss rate feature and the question of netting credit losses.",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-502-customer-lifetime-value.md",
+ "sha": "f4a6eb8b647fd89f898d2a4ec0677be7540a9f6511682bde9b2db9a99d8f02fd",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

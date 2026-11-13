@@ -1,0 +1,66 @@
+{
+ "kind": "metric",
+ "entities": [
+  {
+   "id": "contact-rate",
+   "type": "metric",
+   "label": "rate",
+   "as": [
+    "Contact rate"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "callcenter.calls"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "call-centre",
+   "type": "other",
+   "label": "call centre",
+   "as": [
+    "call centre"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "contact-rate",
+   "type": "uses",
+   "label": "taken from",
+   "o": "callcenter.calls",
+   "quote": "taken from `callcenter.calls`",
+   "line": 5
+  },
+  {
+   "s": "contact-rate",
+   "type": "other",
+   "label": "workload measure for",
+   "o": "call-centre",
+   "quote": "It is the main workload measure for the call centre.",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "glossary/contact-rate.md",
+ "sha": "f2afea3951fbb64fc0fc881ac18d27b1aa67b388fc298e6ef24b1fe2c03b1323",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

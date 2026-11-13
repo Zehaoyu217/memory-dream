@@ -639,7 +639,7 @@ or to a fresh worker given the packet, at most twice. After that, it stops and r
 
 ## Appendix A — the contract surface, verbatim: `skills/memory-dream/SKILL.md` and the dreamer agent
 
-_Part 5 · copied at commit fbcad34. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
+_Part 5 · copied at commit 779a386. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
 
 ```markdown
 ---
@@ -785,7 +785,7 @@ Touch nothing else.
 
 ## Appendix B — the graph contract, verbatim: `.specs/memory-dream/CONTRACT.md`
 
-_Part 6 · copied at commit fbcad34. Schema 1; `memory.py check` validates against it (A38)._
+_Part 6 · copied at commit 779a386. Schema 1; `memory.py check` validates against it (A38)._
 
 ## memory-dream — the graph contract (schema 1)
 
@@ -948,7 +948,8 @@ relation is "current" when one of its evidence notes is live).
 - `notes/<sha12>.json` — one extraction per note content: `{kind, entities: [{id, type, label, as, lines}], relations:
   [{s, type, label, o, quote, line}], refs, built_on: [{what, quote, line[, asked]}], replaces: [the same], dropped:
   {entities, relations}, path, sha, model, indexed_at}`. `built_on` and `replaces` are what the note says of itself,
-  the document, kept only with words found in the note; a reading made before they existed has neither. `asked`: the
+  the document, kept only with words found in the note; a reading made before they existed has neither. `what` is
+  a note's file name, a thing's id, or, when a keeper could name neither, the note's own words for it. `asked`: the
   line the item stands on has been read a second time, alone and beside the folder's notes, and this item is one
   member of what that reading found there: `quote` is the member's own words in the line, `what` the file name of
   the note the keeper named for it (`folder/name` for a note of another folder), or the words again when it named
@@ -1075,7 +1076,7 @@ origin by adding the file. What changes for the notes under it, and nothing else
 
 ## Appendix C — the build guide, verbatim: `BUILD-GUIDE.md` §3–§10
 
-_Part 7 · copied at commit fbcad34. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
+_Part 7 · copied at commit 779a386. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
 
 ### 3. The design in one page
 
@@ -1318,9 +1319,26 @@ constants, each with the measurement that set it.
   member no note is named for stays, with its words, and is listed (C18). Nothing is lost by silence: an answer
   with no member for a line leaves the line as it was, and an item whose name is written in the line stays. On the
   worn bank, 1,462 lines in 50 calls for $0.18: `from` links held 94.3% → 99.5%, replacements 91.2% → 99.5%, the
-  questions its lineage answers exactly 83 → 91 of 98. Do not fold this into the first reading's prompt: the rule
+  questions its lineage answers exactly 83 → 93 of 98. Do not fold this into the first reading's prompt: the rule
   is already there ("a sentence that names three gives three items") and was not kept. What works is the line
   alone, with nothing else to do.
+- **A folder too large to list** (`FOLDER_SHOWN`, 200 notes; `$MEMORY_FOLDER`): a prompt cannot carry its notes by
+  name, and the first 200 by alphabet are no help. The second reading then shows the keeper the notes *near* the
+  lines of a call (`PLACE_NEAR`): those within four steps of a line's note by a name written in a note, either way
+  (`NEAR_STEPS`), and apart from them, under ELSEWHERE, the eight notes of the folder whose first line and file
+  name share the rarest words with the line (`NEAR_WORDS`). Lines of notes that name each other go into the same
+  call, and a call takes lines only while the notes to show for them fit in 120 (`NEAR_SHOWN`), so none is cut
+  for coming late in the alphabet. The script chooses what is shown and says how near it is; the keeper decides,
+  and no note is placed by its words. Three things were measured on the flat bank (`eval/hard/make_flat.py`, 1,224
+  notes in one folder; RESULTS S7) and should not be undone. Without a model, the note a phrase means is among
+  those shown for 99.5% of 750 phrases, 33 notes at the median; four steps alone hold 95.5%, the words alone under
+  90%, and a third rule on shared name tokens added nothing. The two kinds must be shown apart: as one list, a
+  look-alike from another project ("the logistic regression baseline", of which every project has one) made the
+  keeper answer that two notes could be meant, for 30 phrases whose note was near. And a shorter list does not
+  mend that: 70 notes a call in place of 200 left as many phrases unnamed and took five times the calls. The
+  first reading does less in such a folder: its `FOLDER` list holds only the notes its own notes name by file
+  name (`folder_lines(text=…)`), so it places ids, and a thing it cannot name it gives as an item with the note's
+  words, which is what puts the line before the second reading.
 - **What `ask` does with an item that is still not placed** (`loose_ends`): it prints the note's own words under
   the note (`? it builds on «…», in its own words`), says `not the whole chain` on a `⇡` line that runs through such
   a note, and carries the words on the note's line of the map. Do not drop these lines to save characters. `ask` is
@@ -1710,7 +1728,7 @@ preferences 0.95 when the task names them, 0.84 when it names only their meeting
 
 ## Appendix D — prompts, seeds and tuned tables, verbatim from `memory.py`
 
-_Part 8 · extracted at commit fbcad34 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
+_Part 8 · extracted at commit 779a386 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
 
 ### D.1 `EXTRACT` — the per-note prompt: fixed guidance, then `KINDS:`, `TYPES:`, `EDGES:` and `KNOWN:` from the registries (the static part is cached), then `NOTE`
 
@@ -1739,7 +1757,8 @@ after, itself replaces or retires ("Replaces X."); that one thing replaced anoth
 is neither) is a relation and not this, and what replaced this note ("Superseded by X", "Replaced by X") is the
 opposite of it: leave that out. `what` is the file name of the note meant, without .md, whenever FOLDER
 lists it, however the text words it ("the dispositions dataset" is the note about that dataset); else its id in
-KNOWN, or the id you gave it under entities.
+KNOWN, or the id you gave it under entities; and when none of these names it, the words the note uses for it. An
+item is never left out because the note it means cannot be named: a later reading places it.
 KINDS: {kinds}
 TYPES:
 {types}

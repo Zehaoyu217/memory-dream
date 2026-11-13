@@ -1,0 +1,115 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "other-share",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "'Other' share of monthly spend"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "txc-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "txc-gbm-v2"
+   ],
+   "lines": [
+    4,
+    5,
+    9
+   ]
+  },
+  {
+   "id": "txc-gbm-v3",
+   "type": "model",
+   "label": "shadow model",
+   "as": [
+    "txc-gbm-v3"
+   ],
+   "lines": [
+    4,
+    6,
+    9
+   ]
+  },
+  {
+   "id": "exp-107-txn-categorization",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-107-txn-categorization"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fuzzy-fallback",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "fuzzy fallback"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "txc-gbm-v2",
+   "type": "measured-by",
+   "label": "showed",
+   "o": "other-share",
+   "quote": "Q4-2025 monthly spend with txc-gbm-v2: 9.4% lands in 'other'.",
+   "line": 5
+  },
+  {
+   "s": "txc-gbm-v3",
+   "type": "measured-by",
+   "label": "showed",
+   "o": "other-share",
+   "quote": "Feb-2026 monthly spend, txc-gbm-v3 in shadow alongside production: 4.1%, under the 5% target.",
+   "line": 6
+  },
+  {
+   "s": "exp-107-txn-categorization",
+   "type": "uses",
+   "label": "combined rule",
+   "o": "fuzzy-fallback",
+   "quote": "The gap is mostly closed by normalisation and the fuzzy fallback (exp-107-txn-categorization combined rule).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-107-txn-categorization"
+ ],
+ "built_on": [
+  {
+   "what": "txc-gbm-v2",
+   "quote": "txc-gbm-v2",
+   "line": 9,
+   "asked": true
+  },
+  {
+   "what": "txc-gbm-v3",
+   "quote": "txc-gbm-v3",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-txc-other-share.md",
+ "sha": "aa5360060dd187de9e7c552044df15af9be5ab43939e9885eef7f8d5da1b2b52",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

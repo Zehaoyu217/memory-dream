@@ -1,0 +1,110 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "q-sfc-macro-horizon",
+   "type": "other",
+   "label": "open question",
+   "as": [
+    "Does macro data help the segment spend forecast at 3- and 6-month horizons?"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "spend-forecasting",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "spend-forecasting"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "exp-204-spend-forecasting",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-204-spend-forecasting"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "sfc-bt-2024",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "sfc-bt-2024"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "3-month MAPE"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fnd-sfc-macro-weak",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-sfc-macro-weak"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-204-spend-forecasting",
+   "type": "other",
+   "label": "answers",
+   "o": "q-sfc-macro-horizon",
+   "quote": "Answered by exp-204-spend-forecasting",
+   "line": 6
+  },
+  {
+   "s": "q-sfc-macro-horizon",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "sfc-bt-2024",
+   "quote": "Eval set is sfc-bt-2024",
+   "line": 7
+  },
+  {
+   "s": "exp-204-spend-forecasting",
+   "type": "measured-by",
+   "label": "MAPE",
+   "o": "mape",
+   "quote": "cuts 3-month MAPE from 6.8% to 6.4%",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fnd-sfc-macro-weak",
+  "exp-204-spend-forecasting"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/q-sfc-macro-horizon.md",
+ "sha": "bf8eb728ff0b94c1f821c8c609d7d994cccfa6f9fa2f3b68b6ae4f44b6bd8db5",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

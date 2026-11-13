@@ -1,0 +1,168 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cli-xgb-v1",
+   "type": "model",
+   "label": "loss model",
+   "as": [
+    "cli-xgb-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.71"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "KS 0.31"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cli-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cli-xgb-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-cli-spend-velocity",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cli-spend-velocity"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-cli-util-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cli-util-v1"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cli-xgb-v1",
+   "type": "evaluated-on",
+   "label": "eval on",
+   "o": "holdout-2025q4",
+   "quote": "Eval: holdout-2025q4, n=118,400",
+   "line": 6
+  },
+  {
+   "s": "cli-xgb-v1",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.71 and KS 0.31",
+   "line": 4
+  },
+  {
+   "s": "cli-xgb-v1",
+   "type": "measured-by",
+   "label": "KS",
+   "o": "ks",
+   "quote": "AUC 0.71 and KS 0.31",
+   "line": 4
+  },
+  {
+   "s": "cli-xgb-v2",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "cli-xgb-v1",
+   "quote": "Superseded by cli-xgb-v2 (2026-03-02).",
+   "line": 7
+  },
+  {
+   "s": "cli-xgb-v1",
+   "type": "uses",
+   "label": "built on",
+   "o": "feat-cli-spend-velocity",
+   "quote": "Builds on the 2025 q4 unexposed holdout set, the full-pay versus minimum-pay feature, feat-cli-spend-velocity and feat-cli-util-v1.",
+   "line": 8
+  },
+  {
+   "s": "cli-xgb-v1",
+   "type": "uses",
+   "label": "built on",
+   "o": "feat-cli-util-v1",
+   "quote": "Builds on the 2025 q4 unexposed holdout set, the full-pay versus minimum-pay feature, feat-cli-spend-velocity and feat-cli-util-v1.",
+   "line": 8
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-cli-holdout-2025q4",
+   "quote": "the 2025 q4 unexposed holdout set",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-cli-pay-behaviour",
+   "quote": "the full-pay versus minimum-pay feature",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-cli-spend-velocity",
+   "quote": "feat-cli-spend-velocity",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-cli-util-v1",
+   "quote": "feat-cli-util-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/cli-xgb-v1.md",
+ "sha": "496041f4fe3d6c33ab9d11c0cf7b4858a272ab6189fd602e51b43d70ff342687",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

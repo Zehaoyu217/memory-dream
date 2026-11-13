@@ -1,0 +1,162 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-103-util-trend",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-103"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-bt-util-trend-v2",
+   "type": "feature",
+   "label": "util trend feature",
+   "as": [
+    "util-trend-v2"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "feat-bt-util-3m",
+   "type": "feature",
+   "label": "util-3m",
+   "as": [
+    "util-3m"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.66 to 0.67"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bt-holdout-2025q1",
+   "type": "dataset",
+   "label": "eval holdout",
+   "as": [
+    "bt-holdout-2025q1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "bt-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bt-xgb-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-102-model",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "exp-102 model"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-bt-util-trend-v2",
+   "type": "replaces",
+   "label": "replaced",
+   "o": "feat-bt-util-3m",
+   "quote": "Replaced feat-bt-util-3m with feat-bt-util-trend-v2",
+   "line": 5
+  },
+  {
+   "s": "exp-103-util-trend",
+   "type": "uses",
+   "label": "in the model",
+   "o": "exp-102-model",
+   "quote": "in the exp-102 model",
+   "line": 5
+  },
+  {
+   "s": "exp-103-util-trend",
+   "type": "evaluated-on",
+   "label": "eval",
+   "o": "bt-holdout-2025q1",
+   "quote": "Eval: bt-holdout-2025q1, n=41,800",
+   "line": 6
+  },
+  {
+   "s": "exp-103-util-trend",
+   "type": "measured-by",
+   "label": "moves",
+   "o": "auc",
+   "quote": "AUC 0.66 to 0.67",
+   "line": 6
+  },
+  {
+   "s": "bt-xgb-v2",
+   "type": "measured-by",
+   "label": "reached",
+   "o": "auc",
+   "quote": "which reached 0.68",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "bt-xgb-v2",
+  "feat-bt-util-3m",
+  "feat-bt-util-trend-v2"
+ ],
+ "built_on": [
+  {
+   "what": "exp-102-txn-features",
+   "quote": "the transaction features experiment for bt",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-bt-util-3m",
+   "quote": "feat-bt-util-3m",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-bt-util-3m",
+   "quote": "feat-bt-util-3m",
+   "line": 5,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-103-util-trend.md",
+ "sha": "c01c125621fb159fa89ee1b4660ad81a2430b54d6e89f9b26ab8a4cd2d8e70a8",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

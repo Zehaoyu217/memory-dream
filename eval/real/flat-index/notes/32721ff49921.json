@@ -1,0 +1,125 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dispute-link-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "Dispute link v1"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "feat-cc-dispute-link-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "v2"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "cc-ft-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cc-ft-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cc-logreg-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cc-logreg-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fnd-cc-dispute-link-leak",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-cc-dispute-link-leak"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "aisha-khan",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Aisha Khan"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cc-dispute-link-v2",
+   "type": "uses",
+   "label": "used in",
+   "o": "cc-ft-v2",
+   "quote": "v2 is used in cc-ft-v2 and cc-logreg-v1 reruns.",
+   "line": 5
+  },
+  {
+   "s": "dispute-link-v1",
+   "type": "other",
+   "label": "leaked",
+   "o": "fnd-cc-dispute-link-leak",
+   "quote": "Reason: v1 gain was mostly leakage (fnd-cc-dispute-link-leak).",
+   "line": 6
+  },
+  {
+   "s": "dispute-link-v1",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "aisha-khan",
+   "quote": "Owner Aisha Khan (MLOps).",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fnd-cc-dispute-link-leak"
+ ],
+ "built_on": [
+  {
+   "what": "feat-cc-dispute-link-v2",
+   "quote": "feat-cc-dispute-link-v2",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "fnd-cc-dispute-link-leak",
+   "quote": "the dispute link leakage finding",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-cc-drop-dispute-v1.md",
+ "sha": "32721ff4992168794b7764de4277476971386baa49f4c52eb1b3be7575ae4c0c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

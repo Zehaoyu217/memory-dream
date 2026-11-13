@@ -1,0 +1,75 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-txn-2025q4",
+   "type": "dataset",
+   "label": "snapshot",
+   "as": [
+    "Q4-2025 snapshot of cards.txn_daily"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "raw table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "data-eng-cards",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "data-eng-cards"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-txn-2025q4",
+   "type": "uses",
+   "label": "snapshot of",
+   "o": "cards.txn_daily",
+   "quote": "Q4-2025 snapshot of cards.txn_daily",
+   "line": 4
+  },
+  {
+   "s": "ds-txn-2025q4",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "data-eng-cards",
+   "quote": "Owned by data-eng-cards.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "txn-backfill"
+ ],
+ "built_on": [
+  {
+   "what": "cards.txn_daily",
+   "quote": "Q4-2025 snapshot of cards.txn_daily, one row per account-day",
+   "line": 4,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-txn-2025q4.md",
+ "sha": "0067ae049a969fe3098ea0aa75ad090d8a512a61f7206550b8380f9d56ce85c1",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

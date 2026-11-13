@@ -1,0 +1,113 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "caller-history-v1",
+   "type": "feature",
+   "label": "caller history v1",
+   "as": [
+    "Caller history v1"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  },
+  {
+   "id": "caller-history-v2",
+   "type": "feature",
+   "label": "caller history v2",
+   "as": [
+    "v2"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cr-oot-2026h1",
+   "type": "dataset",
+   "label": "out-of-time set",
+   "as": [
+    "cr-oot-2026h1"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro f1",
+   "as": [
+    "+0.05"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "dec-cr-caller-v2",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-cr-caller-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-cr-caller-v2",
+   "type": "other",
+   "label": "records retirement of",
+   "o": "caller-history-v1",
+   "quote": "dec-cr-caller-v2 records the change",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-104-call-center-routing",
+  "exp-105-call-center-routing",
+  "dec-cr-caller-v2"
+ ],
+ "built_on": [
+  {
+   "what": "exp-104-call-center-routing",
+   "quote": "the out-of-time router check",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "fnd-cr-leak-v1",
+   "quote": "the caller history leak finding",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-cr-leak-corrected.md",
+ "sha": "19326363616196d883f97a203f511c7f4832b230da4ad5b4077261a3008e0d50",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

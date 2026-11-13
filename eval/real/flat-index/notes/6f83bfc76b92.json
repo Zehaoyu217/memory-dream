@@ -1,0 +1,76 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "cards.disputes",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.disputes"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fraud-ops",
+   "type": "team",
+   "label": "owner",
+   "as": [
+    "fraud-ops"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dispute-count",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "dispute count"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cards.disputes",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "fraud-ops",
+   "quote": "(owner fraud-ops)",
+   "line": 5
+  },
+  {
+   "s": "dispute-count",
+   "type": "uses",
+   "label": "joins",
+   "o": "cards.disputes",
+   "quote": "Joins the account key to `cards.disputes`",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "feat-cc-dispute-link-v2",
+  "fnd-cc-dispute-link-leak"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cc-tickets-raw",
+   "quote": "the raw complaint ticket table",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-cc-dispute-link-v1.md",
+ "sha": "6f83bfc76b9280b3403659ca6e7af1953c1afd45bcaeef0cbf80729170b59a8c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

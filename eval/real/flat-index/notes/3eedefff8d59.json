@@ -1,0 +1,125 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "inc-gbm-v3",
+   "type": "model",
+   "label": "estimate model",
+   "as": [
+    "inc-gbm-v3"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "inc-gbm-v2",
+   "type": "model",
+   "label": "prior model",
+   "as": [
+    "inc-gbm-v2"
+   ],
+   "lines": [
+    6,
+    9
+   ]
+  },
+  {
+   "id": "ds-inc-verified-2026",
+   "type": "dataset",
+   "label": "verified sample",
+   "as": [
+    "verified-2026 holdout"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "MAPE 19%"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "find-inc-self-employed-bias",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-inc-self-employed-bias"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "inc-gbm-v3",
+   "type": "trained-on",
+   "label": "eval on",
+   "o": "ds-inc-verified-2026",
+   "quote": "Eval: verified-2026 holdout (n=1,980 of ds-inc-verified-2026)",
+   "line": 6
+  },
+  {
+   "s": "inc-gbm-v3",
+   "type": "measured-by",
+   "label": "scored by",
+   "o": "mape",
+   "quote": "MAPE 19% against 31% for inc-gbm-v2",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "find-inc-self-employed-bias"
+ ],
+ "built_on": [
+  {
+   "what": "ds-inc-verified-2026",
+   "quote": "ds-inc-verified-2026",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "find-inc-log-target-gain",
+   "quote": "find-inc-log-target-gain",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "inc-gbm-v2",
+   "quote": "the cadence-stability income model",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "the cadence-stability income model",
+   "quote": "Builds on ds-inc-verified-2026, find-inc-log-target-gain and the cadence-stability income model.",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "inc-gbm-v2",
+   "quote": "inc-gbm-v2",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/inc-gbm-v3.md",
+ "sha": "3eedefff8d5974163d5e0c28ef61551483324c32aeb015f77203995fc15dfc72",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

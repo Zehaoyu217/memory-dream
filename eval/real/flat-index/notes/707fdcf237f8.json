@@ -1,0 +1,208 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cc-ft-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "Fine-tuned small encoder (6 layers, 22M parameters)"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "macro F1 0.80"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ds-cc-qa-labels",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "adjudicated labels",
+    "ds-cc-qa-labels"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "ds-cc-taxonomy-v3",
+   "type": "other",
+   "label": "taxonomy",
+   "as": [
+    "taxonomy v3",
+    "ds-cc-taxonomy-v3"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-cc-embed-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cc-embed-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "auto-code-threshold",
+   "type": "other",
+   "label": "threshold",
+   "as": [
+    "0.95 auto-code threshold"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-206-complaint-classification",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-206-complaint-classification"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cc-ft-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cc-ft-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cc-ft-v1",
+   "type": "measured-by",
+   "label": "gives macro F1",
+   "o": "macro-f1",
+   "quote": "gives macro F1 0.80 on holdout-2025q4",
+   "line": 4
+  },
+  {
+   "s": "cc-ft-v1",
+   "type": "evaluated-on",
+   "label": "gives macro F1 on",
+   "o": "holdout-2025q4",
+   "quote": "Macro F1 0.80 on holdout-2025q4 (n = 1,800).",
+   "line": 6
+  },
+  {
+   "s": "cc-ft-v1",
+   "type": "trained-on",
+   "label": "trained on",
+   "o": "ds-cc-qa-labels",
+   "quote": "Trained three epochs on adjudicated labels under taxonomy v3",
+   "line": 5
+  },
+  {
+   "s": "cc-ft-v1",
+   "type": "other",
+   "label": "output feeds",
+   "o": "auto-code-threshold",
+   "quote": "Its probability output feeds the 0.95 auto-code threshold",
+   "line": 6
+  },
+  {
+   "s": "auto-code-threshold",
+   "type": "other",
+   "label": "from",
+   "o": "exp-206-complaint-classification",
+   "quote": "(exp-206-complaint-classification)",
+   "line": 6
+  },
+  {
+   "s": "cc-ft-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-cc-embed-v1",
+   "quote": "Builds on ds-cc-qa-labels, ds-cc-taxonomy-v3 and feat-cc-embed-v1.",
+   "line": 8
+  },
+  {
+   "s": "cc-ft-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-cc-taxonomy-v3",
+   "quote": "Builds on ds-cc-qa-labels, ds-cc-taxonomy-v3 and feat-cc-embed-v1.",
+   "line": 8
+  },
+  {
+   "s": "cc-ft-v1",
+   "type": "other",
+   "label": "superseded by",
+   "o": "cc-ft-v2",
+   "quote": "Superseded by cc-ft-v2",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-206-complaint-classification",
+  "cc-ft-v2"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cc-qa-labels",
+   "quote": "ds-cc-qa-labels",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-cc-taxonomy-v3",
+   "quote": "ds-cc-taxonomy-v3",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-cc-embed-v1",
+   "quote": "feat-cc-embed-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/cc-ft-v1.md",
+ "sha": "707fdcf237f8caed1ebcdba3de914b6f820405d959fcef4f24a0c1e8567b1d9b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

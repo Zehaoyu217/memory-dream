@@ -1,0 +1,157 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-cu-uplift-for-calls",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: route early-collections calls by uplift rank"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "credit risk lead",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "raj-patel",
+   "type": "person",
+   "label": "collections lead",
+   "as": [
+    "Raj Patel"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cu-uplift-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cu-uplift-v2"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "cu-resp-v1",
+   "type": "model",
+   "label": "response model",
+   "as": [
+    "cu-resp-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "find-cu-response-misranks",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-cu-response-misranks"
+   ],
+   "lines": [
+    7,
+    9
+   ]
+  },
+  {
+   "id": "exp-105-collections-uplift",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-105-collections-uplift"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "dpd",
+   "type": "term",
+   "label": "dpd bucket",
+   "as": [
+    "1-29 DPD"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-cu-uplift-for-calls",
+   "type": "owned-by",
+   "label": "agreed by",
+   "o": "lena-fischer",
+   "quote": "Agreed 2025-12-15 by Lena Fischer (credit risk) and Raj Patel (collections).",
+   "line": 5
+  },
+  {
+   "s": "dec-cu-uplift-for-calls",
+   "type": "owned-by",
+   "label": "agreed by",
+   "o": "raj-patel",
+   "quote": "Agreed 2025-12-15 by Lena Fischer (credit risk) and Raj Patel (collections).",
+   "line": 5
+  },
+  {
+   "s": "dec-cu-uplift-for-calls",
+   "type": "uses",
+   "label": "routes by",
+   "o": "cu-uplift-v2",
+   "quote": "Calls go to the top 20% by cu-uplift-v2 score",
+   "line": 6
+  },
+  {
+   "s": "cu-resp-v1",
+   "type": "other",
+   "label": "explainability reference",
+   "o": "dec-cu-uplift-for-calls",
+   "quote": "cu-resp-v1 stays as an explainability reference only.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-105-collections-uplift",
+  "find-cu-response-misranks",
+  "cu-resp-v1",
+  "cu-uplift-v2"
+ ],
+ "built_on": [
+  {
+   "what": "exp-105-collections-uplift",
+   "quote": "exp-105-collections-uplift",
+   "line": 9,
+   "asked": true
+  },
+  {
+   "what": "find-cu-response-misranks",
+   "quote": "find-cu-response-misranks",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-cu-uplift-for-calls.md",
+ "sha": "78cf860767809baf3ba27fbd6717e933f0ab3c62a9ced866b4acea18ce572a55",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

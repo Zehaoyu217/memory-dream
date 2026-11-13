@@ -1,0 +1,166 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "feat-cr-ivr-path-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "IVR path tokens"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "macro F1"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "exp-103-call-center-routing",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-103-call-center-routing"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "card-replacement-calls",
+   "type": "other",
+   "label": "call type",
+   "as": [
+    "card replacement"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "dispute-calls",
+   "type": "other",
+   "label": "call type",
+   "as": [
+    "dispute calls"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "five-percent-resample",
+   "type": "dataset",
+   "label": "resample",
+   "as": [
+    "5 percent resample"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "menu-level-2",
+   "type": "other",
+   "label": "menu level",
+   "as": [
+    "menu level 2"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cr-ivr-path-v1",
+   "type": "measured-by",
+   "label": "adds",
+   "o": "macro-f1",
+   "quote": "IVR path tokens add +0.03 macro F1",
+   "line": 4
+  },
+  {
+   "s": "exp-103-call-center-routing",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "holdout-2025q4",
+   "quote": "+0.030 macro F1 on holdout-2025q4 (0.708 to 0.738)",
+   "line": 5
+  },
+  {
+   "s": "exp-103-call-center-routing",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "macro-f1",
+   "quote": "+0.030 macro F1 on holdout-2025q4 (0.708 to 0.738)",
+   "line": 5
+  },
+  {
+   "s": "feat-cr-ivr-path-v1",
+   "type": "evaluated-on",
+   "label": "confirmed on",
+   "o": "five-percent-resample",
+   "quote": "Confirmed on a 5 percent resample.",
+   "line": 7
+  },
+  {
+   "s": "card-replacement-calls",
+   "type": "other",
+   "label": "separated from",
+   "o": "dispute-calls",
+   "quote": "separating card replacement from disputes",
+   "line": 4
+  },
+  {
+   "s": "card-replacement-calls",
+   "type": "other",
+   "label": "diverge at",
+   "o": "menu-level-2",
+   "quote": "diverge at menu level 2",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "feat-cr-ivr-path-v1",
+  "exp-103-call-center-routing"
+ ],
+ "built_on": [
+  {
+   "what": "exp-103-call-center-routing",
+   "quote": "exp-103-call-center-routing",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-cr-ivr-helps.md",
+ "sha": "1e89197d1b533a3d23affdb0bc86ec685bdb608a3b27d73cb6cbca2473404ded",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,76 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "cards.disputes",
+   "type": "dataset",
+   "label": "dispute table",
+   "as": [
+    "cards.disputes"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fraud-ops",
+   "type": "team",
+   "label": "owning team",
+   "as": [
+    "fraud-ops"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "data-quality-txn",
+   "type": "other",
+   "label": "disputes join",
+   "as": [
+    "data-quality-txn"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "chargebacks",
+   "type": "term",
+   "label": "chargeback timing",
+   "as": [
+    "Chargebacks"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cards.disputes",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "fraud-ops",
+   "quote": "owned by fraud-ops",
+   "line": 4
+  },
+  {
+   "s": "cards.disputes",
+   "type": "~used-by",
+   "label": "join source",
+   "o": "data-quality-txn",
+   "quote": "the disputes join in data-quality-txn",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-lbl-disputes.md",
+ "sha": "2df1dcedbb9b25310e2facebe117a9f7305f1b79d360e042f2f8b68dda374b4d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

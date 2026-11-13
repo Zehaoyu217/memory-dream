@@ -1,0 +1,86 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ae-active-days-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "Active days in the last 28 days"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "app-sessions-daily",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "app.sessions_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ae-act28",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "ae_act28"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-501-app-engagement",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-501-app-engagement"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ae-active-days-v1",
+   "type": "uses",
+   "label": "counted from",
+   "o": "app-sessions-daily",
+   "quote": "Plain count from `app.sessions_daily`",
+   "line": 5
+  },
+  {
+   "s": "feat-ae-active-days-v1",
+   "type": "other",
+   "label": "baseline for",
+   "o": "exp-501-app-engagement",
+   "quote": "the baseline the score has to beat (exp-501-app-engagement)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-501-app-engagement"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ae-sessions-daily",
+   "quote": "ds-ae-sessions-daily",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-ae-active-days-v1.md",
+ "sha": "3969cd8c7fe088747807579248d53ccda6ca0658352c0348385f1065ac293b2c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

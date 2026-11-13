@@ -1,0 +1,103 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "credit risk",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "aisha-khan",
+   "type": "person",
+   "label": "mlops",
+   "as": [
+    "Aisha Khan"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ed-gbm-v2",
+   "type": "model",
+   "label": "watchlist model",
+   "as": [
+    "ed-gbm-v2"
+   ],
+   "lines": [
+    4,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "ed-logit-v1",
+   "type": "model",
+   "label": "scorecard challenger",
+   "as": [
+    "ed-logit-v1"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ed-gbm-v2",
+   "type": "owned-by",
+   "label": "agreed by",
+   "o": "lena-fischer",
+   "quote": "Agreed 2025-09-15 by Lena Fischer (credit risk)",
+   "line": 5
+  },
+  {
+   "s": "ed-gbm-v2",
+   "type": "owned-by",
+   "label": "agreed by",
+   "o": "aisha-khan",
+   "quote": "and Aisha Khan (MLOps)",
+   "line": 5
+  },
+  {
+   "s": "ed-logit-v1",
+   "type": "other",
+   "label": "challenger for",
+   "o": "ed-gbm-v2",
+   "quote": "ed-logit-v1 is kept as challenger for monthly comparison.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "find-ed-gbm-vs-logit"
+ ],
+ "built_on": [
+  {
+   "what": "ed-gbm-v2",
+   "quote": "ed-gbm-v2",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "find-ed-gbm-vs-logit",
+   "quote": "find-ed-gbm-vs-logit",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-ed-gbm-for-watchlist.md",
+ "sha": "89b4a9081ffb9040a3290caf242a1abe7dcdebef88a4dddaac9bb972c3a388b2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

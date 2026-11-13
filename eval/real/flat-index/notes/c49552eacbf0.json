@@ -1,0 +1,175 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-inc-verified-2026",
+   "type": "dataset",
+   "label": "verified income dataset",
+   "as": [
+    "ds-inc-verified-2026"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "verified-income",
+   "type": "feature",
+   "label": "verified income",
+   "as": [
+    "Verified income"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "stated-income",
+   "type": "feature",
+   "label": "stated income",
+   "as": [
+    "stated income"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "affordability-review",
+   "type": "other",
+   "label": "review",
+   "as": [
+    "affordability review"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "inc-gbm-v3",
+   "type": "model",
+   "label": "2026 retrain",
+   "as": [
+    "inc-gbm-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-405-income-estimation",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-405-income-estimation"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-406-income-estimation",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-406-income-estimation"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "recurring-ach-inflow-dataset",
+   "type": "dataset",
+   "label": "ach inflow dataset",
+   "as": [
+    "recurring ach inflow dataset"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "stated-income-applications-dataset",
+   "type": "dataset",
+   "label": "applications dataset",
+   "as": [
+    "stated-income applications dataset"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "inc-gbm-v3",
+   "type": "trained-on",
+   "label": "target",
+   "o": "ds-inc-verified-2026",
+   "quote": "Used as the target for the 2026 retrain (inc-gbm-v3)",
+   "line": 7
+  },
+  {
+   "s": "exp-405-income-estimation",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "ds-inc-verified-2026",
+   "quote": "the holdout for exp-405-income-estimation and exp-406-income-estimation",
+   "line": 7
+  },
+  {
+   "s": "exp-406-income-estimation",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "ds-inc-verified-2026",
+   "quote": "the holdout for exp-405-income-estimation and exp-406-income-estimation",
+   "line": 7
+  },
+  {
+   "s": "verified-income",
+   "type": "other",
+   "label": "below",
+   "o": "stated-income",
+   "quote": "Median verified income is 12% below stated income for the same accounts",
+   "line": 6
+  },
+  {
+   "s": "verified-income",
+   "type": "part-of",
+   "label": "column of",
+   "o": "ds-inc-verified-2026",
+   "quote": "Verified income from payslip and bank-verified statements collected in the affordability review, 9,850 accounts",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "inc-gbm-v3",
+  "exp-405-income-estimation",
+  "exp-406-income-estimation"
+ ],
+ "built_on": [
+  {
+   "what": "ds-inc-payroll-proxy",
+   "quote": "the recurring ach inflow dataset",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-inc-stated-income-2025",
+   "quote": "the stated-income applications dataset",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-inc-verified-2026.md",
+ "sha": "c49552eacbf090c54096fd4d2f960fc218ac4c25686e49f548632b5a325ab48b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

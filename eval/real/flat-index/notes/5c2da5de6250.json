@@ -1,0 +1,133 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "in-app",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "in-app"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "email",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "email"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "push",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "push"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "direct-mail",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "direct mail"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "mkt.channel_costs",
+   "type": "dataset",
+   "label": "channel costs",
+   "as": [
+    "mkt.channel_costs"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-mq3-q2-rct",
+   "type": "dataset",
+   "label": "q2 treatment",
+   "as": [
+    "Q2 treatment"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "incremental-dollars-per-dollar",
+   "type": "metric",
+   "label": "return per cost",
+   "as": [
+    "incremental dollars per dollar of cost"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "in-app",
+   "type": "measured-by",
+   "label": "returns",
+   "o": "incremental-dollars-per-dollar",
+   "quote": "in-app returns 14.2 incremental dollars per dollar of cost",
+   "line": 4
+  },
+  {
+   "s": "email",
+   "type": "measured-by",
+   "label": "returns",
+   "o": "incremental-dollars-per-dollar",
+   "quote": "In-app 14.2, email 9.4, push 6.1, direct mail 3.1.",
+   "line": 6
+  },
+  {
+   "s": "incremental-dollars-per-dollar",
+   "type": "uses",
+   "label": "divided by",
+   "o": "mkt.channel_costs",
+   "quote": "divided by channel cost from `mkt.channel_costs`",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "ds-mq3-q2-rct",
+  "mq3-channel-rct-v1",
+  "find-mq3-inapp-saturates"
+ ],
+ "built_on": [
+  {
+   "what": "ds-mq3-q2-rct",
+   "quote": "ds-mq3-q2-rct",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-304-channel-split.md",
+ "sha": "5c2da5de62503e9a3396bf65d8707d71eb94f1ecc5b137ca315a8174646c7d4f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

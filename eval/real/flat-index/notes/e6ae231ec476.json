@@ -1,0 +1,85 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "promo-roll-off",
+   "type": "other",
+   "label": "roll-off timing",
+   "as": [
+    "Promo cohorts roll off"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fin.rate_schedule",
+   "type": "dataset",
+   "label": "rate schedule",
+   "as": [
+    "fin.rate_schedule"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "apr-and-promo-rate-schedule",
+   "type": "dataset",
+   "label": "rate schedule",
+   "as": [
+    "apr and promo rate schedule"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-306-revenue-forecast-2026",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-306-revenue-forecast-2026"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "promo-roll-off",
+   "type": "other",
+   "label": "monitored against",
+   "o": "fin.rate_schedule",
+   "quote": "Monitored monthly against fin.rate_schedule",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-306-revenue-forecast-2026"
+ ],
+ "built_on": [
+  {
+   "what": "ds-rev26-rate-schedule",
+   "quote": "the apr and promo rate schedule",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-306-revenue-forecast-2026",
+   "quote": "exp-306-revenue-forecast-2026",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-rev26-promo-tail.md",
+ "sha": "e6ae231ec476cc079ae35a110ea082843c538ff4c309526ed837461aeb45c1f5",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

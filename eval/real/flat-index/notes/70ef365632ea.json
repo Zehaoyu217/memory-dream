@@ -1,0 +1,142 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-rdm-last-activity-v2",
+   "type": "feature",
+   "label": "last activity feature",
+   "as": [
+    "feat-rdm-last-activity-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "transaction table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "app-sessions-daily",
+   "type": "dataset",
+   "label": "sessions table",
+   "as": [
+    "app.sessions_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "rdm-uplift-v2",
+   "type": "model",
+   "label": "targeting model",
+   "as": [
+    "rdm-uplift-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-rdm-last-activity-v1",
+   "type": "feature",
+   "label": "last activity feature",
+   "as": [
+    "feat-rdm-last-activity-v1"
+   ],
+   "lines": [
+    7,
+    8,
+    9
+   ]
+  },
+  {
+   "id": "feat-rdm-app-installed",
+   "type": "feature",
+   "label": "app flag feature",
+   "as": [
+    "feat-rdm-app-installed"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-rdm-last-activity-v2",
+   "type": "uses",
+   "label": "takes last card transaction from",
+   "o": "cards.txn_daily",
+   "quote": "Takes the most recent of the last card transaction (`cards.txn_daily`)",
+   "line": 5
+  },
+  {
+   "s": "feat-rdm-last-activity-v2",
+   "type": "uses",
+   "label": "takes last app session from",
+   "o": "app-sessions-daily",
+   "quote": "the last app session (`app.sessions_daily`)",
+   "line": 5
+  },
+  {
+   "s": "feat-rdm-last-activity-v2",
+   "type": "~used-by",
+   "label": "used in",
+   "o": "rdm-uplift-v2",
+   "quote": "Replaces feat-rdm-last-activity-v1 in rdm-uplift-v2.",
+   "line": 7
+  },
+  {
+   "s": "feat-rdm-last-activity-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "feat-rdm-last-activity-v1",
+   "quote": "Replaces feat-rdm-last-activity-v1 in rdm-uplift-v2.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-rdm-app-installed",
+  "feat-rdm-last-activity-v1",
+  "rdm-uplift-v2"
+ ],
+ "built_on": [
+  {
+   "what": "feat-rdm-app-installed",
+   "quote": "feat-rdm-app-installed",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-rdm-last-activity-v1",
+   "quote": "feat-rdm-last-activity-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-rdm-last-activity-v1",
+   "quote": "feat-rdm-last-activity-v1",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-rdm-last-activity-v2.md",
+ "sha": "70ef365632ea5b0d7065ca49eddebb1c20bdcbffb31df8277e9d934440898538",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

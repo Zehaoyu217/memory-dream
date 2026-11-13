@@ -1,0 +1,124 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-rdm-prior-responder-trap",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Prior responders look best on raw response but show 0.2pp uplift"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "prior-responders",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "Prior responders"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "acceptance-rate",
+   "type": "metric",
+   "label": "response",
+   "as": [
+    "Raw response"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "uplift",
+   "type": "metric",
+   "label": "uplift",
+   "as": [
+    "0.2pp uplift"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-rdm-prior-response",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rdm-prior-response"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "reactivation-waves",
+   "type": "other",
+   "label": "campaign history",
+   "as": [
+    "the reactivation waves campaign history"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fnd-rdm-prior-responder-trap",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-rdm-prior-response",
+   "quote": "Builds on the reactivation waves campaign history and feat-rdm-prior-response.",
+   "line": 8
+  },
+  {
+   "s": "fnd-rdm-prior-responder-trap",
+   "type": "measured-by",
+   "label": "raw response",
+   "o": "acceptance-rate",
+   "quote": "Raw response of prior responders is 9.8%, against 2.7% for everyone else",
+   "line": 5
+  },
+  {
+   "s": "fnd-rdm-prior-responder-trap",
+   "type": "measured-by",
+   "label": "uplift vs control",
+   "o": "uplift",
+   "quote": "Their uplift against the 10% control is 0.2pp",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "feat-rdm-prior-response"
+ ],
+ "built_on": [
+  {
+   "what": "ds-rdm-campaign-history",
+   "quote": "the reactivation waves campaign history",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-rdm-prior-response",
+   "quote": "feat-rdm-prior-response",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-rdm-prior-responder-trap.md",
+ "sha": "a45398ecc6b3732e31efdaf2229473f30b089c4d0a3d951a5ae4799749bcde3b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,138 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-hp-smd-gate",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: no hardship effect is reported unless the max standardised mean difference after matching is below 0.1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "credit risk",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ben-carter",
+   "type": "person",
+   "label": "finance",
+   "as": [
+    "Ben Carter"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "hardship-programs",
+   "type": "other",
+   "label": "workstream",
+   "as": [
+    "hardship effect"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "exp-408-hardship-programs",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-408-hardship-programs"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "hp-psm-v2",
+   "type": "model",
+   "label": "matching model",
+   "as": [
+    "hp-psm-v2",
+    "the caliper-based hardship matching model"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "smd",
+   "type": "metric",
+   "label": "max standardised mean difference",
+   "as": [
+    "max standardised mean difference"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-hp-smd-gate",
+   "type": "owned-by",
+   "label": "agreed by",
+   "o": "lena-fischer",
+   "quote": "Agreed 2026-02-02 by Lena Fischer (credit risk) and Ben Carter (finance).",
+   "line": 5
+  },
+  {
+   "s": "dec-hp-smd-gate",
+   "type": "owned-by",
+   "label": "agreed by",
+   "o": "ben-carter",
+   "quote": "Agreed 2026-02-02 by Lena Fischer (credit risk) and Ben Carter (finance).",
+   "line": 5
+  },
+  {
+   "s": "exp-408-hardship-programs",
+   "type": "measured-by",
+   "label": "passes at",
+   "o": "smd",
+   "quote": "exp-408-hardship-programs passes at 0.08.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-408-hardship-programs",
+  "hp-psm-v2"
+ ],
+ "built_on": [
+  {
+   "what": "exp-408-hardship-programs",
+   "quote": "exp-408-hardship-programs",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "hp-psm-v2",
+   "quote": "the caliper-based hardship matching model",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-hp-smd-gate.md",
+ "sha": "eba5a1e320647286f6024b8f23a881871aff1e0961073a6824f048efc9eaa33f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

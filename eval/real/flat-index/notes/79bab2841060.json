@@ -1,0 +1,157 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "nps-gbm-v1",
+   "type": "model",
+   "label": "base model",
+   "as": [
+    "nps-gbm-v1 base",
+    "nps-gbm-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-nps-fee-shock-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "fee shock v2",
+    "feat-nps-fee-shock-v2"
+   ],
+   "lines": [
+    4,
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "spearman",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Spearman 0.49",
+    "0.49",
+    "0.46",
+    "0.47"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "nps-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "nps-gbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-nps-holdout",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-nps-holdout"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-nps-fee-shock-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-nps-fee-shock-v1"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "nps-gbm-v1",
+   "type": "evaluated-on",
+   "label": "base alone is",
+   "o": "holdout-2025q4",
+   "quote": "Base alone is 0.46 on holdout-2025q4",
+   "line": 5
+  },
+  {
+   "s": "feat-nps-fee-shock-v2",
+   "type": "evaluated-on",
+   "label": "with fee shock v2",
+   "o": "holdout-2025q4",
+   "quote": "With fee shock v2: 0.49 on holdout-2025q4",
+   "line": 6
+  },
+  {
+   "s": "feat-nps-fee-shock-v2",
+   "type": "measured-by",
+   "label": "gain on",
+   "o": "spearman",
+   "quote": "0.49 on holdout-2025q4 (+0.03), 0.47 on the 2026Q1 wave",
+   "line": 6
+  },
+  {
+   "s": "nps-gbm-v2",
+   "type": "uses",
+   "label": "basis for",
+   "o": "feat-nps-fee-shock-v2",
+   "quote": "Basis for feat-nps-fee-shock-v2 and nps-gbm-v2.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-nps-fee-shock-v2",
+  "nps-gbm-v2",
+  "feat-nps-fee-shock-v1"
+ ],
+ "built_on": [
+  {
+   "what": "ds-nps-holdout",
+   "quote": "ds-nps-holdout",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-nps-fee-shock-v1",
+   "quote": "feat-nps-fee-shock-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [
+   "exp-405-nps-drivers"
+  ],
+  "relations": 1
+ },
+ "path": "work/exp-405-nps-drivers.md",
+ "sha": "79bab2841060f3a1896f082653e34689dc1e65c6771feb5c78b407acbb49f3d9",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

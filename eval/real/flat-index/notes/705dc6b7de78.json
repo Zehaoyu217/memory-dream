@@ -1,0 +1,140 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-pbs-pay-ratio-v1",
+   "type": "feature",
+   "label": "pay ratio",
+   "as": [
+    "feat-pbs-pay-ratio-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "pbs-kmeans-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "pbs-kmeans-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-pbs-payments-12m",
+   "type": "dataset",
+   "label": "payments dataset",
+   "as": [
+    "the twelve-month payments dataset"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-pbs-statement-balances",
+   "type": "dataset",
+   "label": "statement balances dataset",
+   "as": [
+    "ds-pbs-statement-balances"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "transactors",
+   "type": "term",
+   "label": "transactors",
+   "as": [
+    "transactors"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "revolvers",
+   "type": "term",
+   "label": "revolvers",
+   "as": [
+    "revolvers"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "pbs-kmeans-v1",
+   "type": "uses",
+   "label": "input to",
+   "o": "feat-pbs-pay-ratio-v1",
+   "quote": "Input to every pbs model from pbs-kmeans-v1 onward.",
+   "line": 7
+  },
+  {
+   "s": "feat-pbs-pay-ratio-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-pbs-payments-12m",
+   "quote": "Builds on the twelve-month payments dataset and ds-pbs-statement-balances.",
+   "line": 8
+  },
+  {
+   "s": "feat-pbs-pay-ratio-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-pbs-statement-balances",
+   "quote": "Builds on the twelve-month payments dataset and ds-pbs-statement-balances.",
+   "line": 8
+  },
+  {
+   "s": "feat-pbs-pay-ratio-v1",
+   "type": "other",
+   "label": "separates",
+   "o": "transactors",
+   "quote": "The core axis separating transactors (ratio near 1) from revolvers (ratio well below 1).",
+   "line": 6
+  },
+  {
+   "s": "feat-pbs-pay-ratio-v1",
+   "type": "other",
+   "label": "separates",
+   "o": "revolvers",
+   "quote": "The core axis separating transactors (ratio near 1) from revolvers (ratio well below 1).",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "pbs-kmeans-v1",
+  "ds-pbs-payments-12m",
+  "ds-pbs-statement-balances"
+ ],
+ "built_on": [
+  {
+   "what": "ds-pbs-payments-12m",
+   "quote": "the twelve-month payments dataset",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-pbs-statement-balances",
+   "quote": "ds-pbs-statement-balances",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-pbs-pay-ratio-v1.md",
+ "sha": "705dc6b7de780319443f35bd1bcc864aa4df0fad7e02c75fc609548e4849b844",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

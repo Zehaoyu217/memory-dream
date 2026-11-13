@@ -1,0 +1,96 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-inc-merchant-mix",
+   "type": "feature",
+   "label": "merchant mix feature",
+   "as": [
+    "feat-inc-merchant-mix"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-inc-txn-categories",
+   "type": "dataset",
+   "label": "spend categories",
+   "as": [
+    "ds-inc-txn-categories"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-404-income-estimation",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-404-income-estimation"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "inc-gbm-v2",
+   "type": "model",
+   "label": "income model",
+   "as": [
+    "inc-gbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-inc-merchant-mix",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-inc-txn-categories",
+   "quote": "Builds on ds-inc-txn-categories.",
+   "line": 8
+  },
+  {
+   "s": "inc-gbm-v2",
+   "type": "uses",
+   "label": "includes",
+   "o": "feat-inc-merchant-mix",
+   "quote": "before inclusion in inc-gbm-v2",
+   "line": 7
+  },
+  {
+   "s": "feat-inc-merchant-mix",
+   "type": "other",
+   "label": "tested in",
+   "o": "exp-404-income-estimation",
+   "quote": "Tested in exp-404-income-estimation (2025-07-08)",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-inc-txn-categories",
+  "exp-404-income-estimation",
+  "inc-gbm-v2"
+ ],
+ "built_on": [
+  {
+   "what": "ds-inc-txn-categories",
+   "quote": "ds-inc-txn-categories",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-inc-merchant-mix.md",
+ "sha": "3061e0783c2192d18c3495f42dba8ffe7978d97c49b0189fc3f8dc48c1d2e905",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

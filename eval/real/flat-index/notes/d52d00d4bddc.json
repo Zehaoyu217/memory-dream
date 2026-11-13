@@ -1,0 +1,230 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "fsm-churn-xgb-v2",
+   "type": "model",
+   "label": "churn model",
+   "as": [
+    "fsm-churn-xgb-v2: churn model on 41 store features, holdout AUC 0.791"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-2025q2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Holdout-2025q2 (n=412,000 accounts)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "holdout AUC 0.791",
+    "AUC 0.791"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.43"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-fsm-payment-lag-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "payment lag v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-fsm-util-ratio",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "util ratio"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-fsm-spend-cv-30d",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-fsm-spend-cv-30d"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "exp-105-feature-store-migration",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-105-feature-store-migration"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "dec-fsm-cutover",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "the cutover in dec-fsm-cutover"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "legacy-churn-model",
+   "type": "model",
+   "label": "legacy churn model",
+   "as": [
+    "the legacy churn model"
+   ],
+   "lines": [
+    8,
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fsm-churn-xgb-v2",
+   "type": "measured-by",
+   "label": "holdout AUC",
+   "o": "auc",
+   "quote": "holdout AUC 0.791",
+   "line": 4
+  },
+  {
+   "s": "fsm-churn-xgb-v2",
+   "type": "measured-by",
+   "label": "KS",
+   "o": "ks",
+   "quote": "KS 0.43",
+   "line": 6
+  },
+  {
+   "s": "fsm-churn-xgb-v2",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "holdout-2025q2",
+   "quote": "Holdout-2025q2 (n=412,000 accounts): AUC 0.791",
+   "line": 6
+  },
+  {
+   "s": "fsm-churn-xgb-v2",
+   "type": "uses",
+   "label": "uses feature",
+   "o": "feat-fsm-spend-cv-30d",
+   "quote": "plus feat-fsm-spend-cv-30d",
+   "line": 5
+  },
+  {
+   "s": "fsm-churn-xgb-v2",
+   "type": "uses",
+   "label": "uses feature",
+   "o": "feat-fsm-payment-lag-v2",
+   "quote": "payment lag v2 and util ratio from the store",
+   "line": 5
+  },
+  {
+   "s": "fsm-churn-xgb-v2",
+   "type": "uses",
+   "label": "uses feature",
+   "o": "feat-fsm-util-ratio",
+   "quote": "payment lag v2 and util ratio from the store",
+   "line": 5
+  },
+  {
+   "s": "fsm-churn-xgb-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "legacy-churn-model",
+   "quote": "Replaces the legacy churn model.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "exp-105-feature-store-migration",
+  "dec-fsm-cutover"
+ ],
+ "built_on": [
+  {
+   "what": "exp-105-feature-store-migration",
+   "quote": "exp-105-feature-store-migration",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-fsm-payment-lag-v2",
+   "quote": "feat-fsm-payment-lag-v2",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-fsm-spend-cv-30d",
+   "quote": "feat-fsm-spend-cv-30d",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-fsm-util-ratio",
+   "quote": "feat-fsm-util-ratio",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fsm-churn-xgb-v1",
+   "quote": "the legacy churn model",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "fsm-churn-xgb-v1",
+   "quote": "the legacy churn model",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fsm-churn-xgb-v2.md",
+ "sha": "d52d00d4bddc4aaeee2f7eab9e25dfe29863007ccb8bfaf099d72aead976ea3f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,85 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "app.push_log",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "`app.push_log`"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "digital-analytics",
+   "type": "team",
+   "label": "owner",
+   "as": [
+    "digital-analytics"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sms",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "campaign_id"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "app-sessions-daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "daily sessions table"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "app.push_log",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "digital-analytics",
+   "quote": "Owner digital-analytics.",
+   "line": 5
+  },
+  {
+   "s": "app.push_log",
+   "type": "uses",
+   "label": "builds on",
+   "o": "app-sessions-daily",
+   "quote": "Builds on the daily sessions table.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-ae-sessions-daily",
+   "quote": "the daily sessions table",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-ae-push-log.md",
+ "sha": "4b78fd6a834ca8002163b342c024f367a6a71b29ffdf30d2a219a8437c101d15",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

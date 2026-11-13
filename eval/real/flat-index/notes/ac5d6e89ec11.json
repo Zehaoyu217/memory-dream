@@ -1,0 +1,120 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "bureau.scores_monthly"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "credit-data",
+   "type": "other",
+   "label": "database",
+   "as": [
+    "credit-data"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "coverage",
+   "type": "metric",
+   "label": "coverage",
+   "as": [
+    "Coverage 88%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "segment-median",
+   "type": "term",
+   "label": "imputation rule",
+   "as": [
+    "segment median"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "charge-off",
+   "type": "term",
+   "label": "event",
+   "as": [
+    "charge-off"
+   ],
+   "lines": [
+    4,
+    5,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "placement",
+   "type": "other",
+   "label": "placement time",
+   "as": [
+    "placement"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bureau.scores_monthly",
+   "type": "stored-in",
+   "label": "stored in",
+   "o": "credit-data",
+   "quote": "Join on account to `bureau.scores_monthly` (credit-data)",
+   "line": 5
+  },
+  {
+   "s": "bureau.scores_monthly",
+   "type": "measured-by",
+   "label": "coverage",
+   "o": "coverage",
+   "quote": "Coverage 88%.",
+   "line": 6
+  },
+  {
+   "s": "bureau.scores_monthly",
+   "type": "other",
+   "label": "usable at placement",
+   "o": "placement",
+   "quote": "Post-charge-off bureau scores are available at placement, so they can be used at placement time.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-rs-chargeoff-base"
+ ],
+ "built_on": [
+  {
+   "what": "ds-rs-chargeoff-base",
+   "quote": "ds-rs-chargeoff-base",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-rs-bureau-postco.md",
+ "sha": "ac5d6e89ec11adecffc73b3930911b9781f006aa27f3af7df6ddea61277eb7d5",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

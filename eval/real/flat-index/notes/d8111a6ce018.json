@@ -1,0 +1,70 @@
+{
+ "kind": "preference",
+ "entities": [
+  {
+   "id": "sam-lee",
+   "type": "person",
+   "label": "analyst",
+   "as": [
+    "Sam Lee"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "make-report",
+   "type": "pipeline",
+   "label": "make target",
+   "as": [
+    "make report"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "model-card",
+   "type": "document",
+   "label": "report",
+   "as": [
+    "model card"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "manifest",
+   "type": "document",
+   "label": "run manifest",
+   "as": [
+    "manifest"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "make-report",
+   "type": "produces",
+   "label": "produces figures",
+   "o": "model-card",
+   "quote": "Every number in a deck or model card is produced by `make report`",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "prefs/sam-lee-reproducibility.md",
+ "sha": "d8111a6ce018ba28f4a327ab2a67938a76fcc16dc0f7db142e78dae189396125",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

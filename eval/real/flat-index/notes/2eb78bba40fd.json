@@ -1,0 +1,214 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cli-logreg-baseline",
+   "type": "model",
+   "label": "logistic model",
+   "as": [
+    "cli-logreg-baseline"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-cli-util-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cli-util-v1"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-cli-spend-velocity",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cli-spend-velocity"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-cli-pay-behaviour",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cli-pay-behaviour"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cli-test-2025q1",
+   "type": "dataset",
+   "label": "test cohort",
+   "as": [
+    "cli-test-2025q1 cohort"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.66"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "KS 0.24"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-cli-cutoff-2025",
+   "type": "policy",
+   "label": "decision",
+   "as": [
+    "dec-cli-cutoff-2025"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-cli-pay-behaviour-minimum",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "the full-pay versus minimum-pay feature"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cli-logreg-baseline",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-cli-util-v1",
+   "quote": "Logistic regression on feat-cli-util-v1",
+   "line": 5
+  },
+  {
+   "s": "cli-logreg-baseline",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-cli-spend-velocity",
+   "quote": "feat-cli-spend-velocity and feat-cli-pay-behaviour",
+   "line": 5
+  },
+  {
+   "s": "cli-logreg-baseline",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-cli-pay-behaviour",
+   "quote": "feat-cli-spend-velocity and feat-cli-pay-behaviour",
+   "line": 5
+  },
+  {
+   "s": "cli-logreg-baseline",
+   "type": "evaluated-on",
+   "label": "eval cohort",
+   "o": "cli-test-2025q1",
+   "quote": "Eval: cli-test-2025q1 cohort, n=60,000",
+   "line": 6
+  },
+  {
+   "s": "cli-logreg-baseline",
+   "type": "measured-by",
+   "label": "scored AUC",
+   "o": "auc",
+   "quote": "AUC 0.66",
+   "line": 4
+  },
+  {
+   "s": "cli-logreg-baseline",
+   "type": "measured-by",
+   "label": "scored KS",
+   "o": "ks",
+   "quote": "KS 0.24",
+   "line": 6
+  },
+  {
+   "s": "cli-logreg-baseline",
+   "type": "uses",
+   "label": "cutoff set by",
+   "o": "dec-cli-cutoff-2025",
+   "quote": "with the cutoff set in dec-cli-cutoff-2025",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-cli-cutoff-2025"
+ ],
+ "built_on": [
+  {
+   "what": "feat-cli-util-v1",
+   "quote": "feat-cli-util-v1",
+   "line": 5,
+   "asked": true
+  },
+  {
+   "what": "feat-cli-spend-velocity",
+   "quote": "feat-cli-spend-velocity",
+   "line": 5,
+   "asked": true
+  },
+  {
+   "what": "feat-cli-pay-behaviour",
+   "quote": "feat-cli-pay-behaviour",
+   "line": 5,
+   "asked": true
+  },
+  {
+   "what": "feat-cli-pay-behaviour",
+   "quote": "the full-pay versus minimum-pay feature",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-cli-spend-velocity",
+   "quote": "feat-cli-spend-velocity",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-cli-util-v1",
+   "quote": "feat-cli-util-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/cli-logreg-baseline.md",
+ "sha": "2eb78bba40fd98f9d6f535186dc245c61a3a7a6e4fac53216f228a5267e192dc",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

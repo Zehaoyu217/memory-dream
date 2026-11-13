@@ -1,0 +1,112 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "churn-small-business",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "churn-small-business"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "label-window",
+   "type": "term",
+   "label": "labels",
+   "as": [
+    "90-day churn labels"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "Holdout AUC"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-201-churn-small-business",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-201-churn-small-business"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-small-business",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "lena-fischer",
+   "quote": "Owner: Lena Fischer (credit risk).",
+   "line": 7
+  },
+  {
+   "s": "churn-small-business",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "Holdout AUC 0.684 at 90 days against 0.671 at 60 days",
+   "line": 6
+  },
+  {
+   "s": "churn-small-business",
+   "type": "uses",
+   "label": "uses",
+   "o": "label-window",
+   "quote": "churn-small-business uses 90-day churn labels, not 60",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "exp-201-churn-small-business"
+ ],
+ "built_on": [
+  {
+   "what": "ds-csb-churn-labels",
+   "quote": "the smb churn labels dataset",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-201-churn-small-business",
+   "quote": "the experiment comparing 90-day and 60-day labels",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-csb-90d-window.md",
+ "sha": "ab46d70a507c674341b963d96c88c1d5a640fcc034cfe6f161469109cbd3b27f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,135 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "transcript-30s-window",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "30-second window"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "full-transcript",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "full transcript"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "0.708"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-102-call-center-routing",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-102-call-center-routing"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-cr-transcript-tfidf-v1",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "feat-cr-transcript-tfidf-v1"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "transcript-30s-window",
+   "type": "measured-by",
+   "label": "macro F1",
+   "o": "macro-f1",
+   "quote": "the 30-second window 0.708 on holdout-2025q4",
+   "line": 5
+  },
+  {
+   "s": "full-transcript",
+   "type": "measured-by",
+   "label": "macro F1",
+   "o": "macro-f1",
+   "quote": "Full transcript gives 0.712",
+   "line": 5
+  },
+  {
+   "s": "transcript-30s-window",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q4",
+   "quote": "the 30-second window 0.708 on holdout-2025q4",
+   "line": 5
+  },
+  {
+   "s": "exp-102-call-center-routing",
+   "type": "measured-by",
+   "label": "reports macro F1",
+   "o": "macro-f1",
+   "quote": "Full transcript gives 0.712 and the 30-second window 0.708 on holdout-2025q4 (exp-102-call-center-routing).",
+   "line": 5
+  },
+  {
+   "s": "feat-cr-transcript-tfidf-v1",
+   "type": "uses",
+   "label": "basis for window",
+   "o": "transcript-30s-window",
+   "quote": "Basis for the 30-second window in feat-cr-transcript-tfidf-v1.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-cr-transcript-tfidf-v1"
+ ],
+ "built_on": [
+  {
+   "what": "exp-102-call-center-routing",
+   "quote": "exp-102-call-center-routing",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-cr-transcript-30s.md",
+ "sha": "2186e8034a9284c1aadd8d2891b9f130fc72ade1f7371bdb3a1b95feb369c8f9",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

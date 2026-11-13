@@ -1,0 +1,111 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "fraud-training-sample",
+   "type": "dataset",
+   "label": "training sample",
+   "as": [
+    "fraud training sample"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "non-fraud-rows",
+   "type": "segment",
+   "label": "non-fraud rows",
+   "as": [
+    "non-fraud rows"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "sample-weight",
+   "type": "feature",
+   "label": "weight",
+   "as": [
+    "weight 20"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "base-rate",
+   "type": "term",
+   "label": "base rate",
+   "as": [
+    "base rate"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ben-carter",
+   "type": "person",
+   "label": "ben carter",
+   "as": [
+    "Ben Carter"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ben-carter-finance-team",
+   "type": "team",
+   "label": "finance team",
+   "as": [
+    "Ben Carter's finance team"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "run-manifest",
+   "type": "document",
+   "label": "run manifest",
+   "as": [
+    "run manifest"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ben-carter-finance-team",
+   "type": "uses",
+   "label": "reconciles using",
+   "o": "run-manifest",
+   "quote": "reconciles exposure using the stratum counts in the run manifest",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "howto/sampling-stratified-by-segment"
+ ],
+ "built_on": [
+  {
+   "what": "howto/sampling-stratified-by-segment",
+   "quote": "howto/sampling-stratified-by-segment",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/fraud-sample-weight-20.md",
+ "sha": "4c63fe4e739d21c5ba48f3bf1bced1ebf955f6777e476b7e7bcd0752dacd6630",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,145 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-f25-mcc-travel",
+   "type": "feature",
+   "label": "binary flag",
+   "as": [
+    "feat-f25-mcc-travel"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-f25-travel-tags",
+   "type": "dataset",
+   "label": "travel mcc list",
+   "as": [
+    "ds-f25-travel-tags"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fraud25-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fraud25-gbm-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-104-fraud-2025",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-104-fraud-2025"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC +0.009"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "travel-over-flagging",
+   "type": "other",
+   "label": "over-flagging",
+   "as": [
+    "travel over-flagging"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-f25-mcc-travel",
+   "type": "uses",
+   "label": "flag from",
+   "o": "ds-f25-travel-tags",
+   "quote": "Flag = 1 when the merchant MCC is in ds-f25-travel-tags.",
+   "line": 5
+  },
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "uses",
+   "label": "added in",
+   "o": "feat-f25-mcc-travel",
+   "quote": "Added in fraud25-gbm-v2",
+   "line": 6
+  },
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "measured-by",
+   "label": "gains",
+   "o": "auc",
+   "quote": "AUC +0.009 over v1 on holdout-2025q1",
+   "line": 6
+  },
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q1",
+   "quote": "AUC +0.009 over v1 on holdout-2025q1",
+   "line": 6
+  },
+  {
+   "s": "feat-f25-mcc-travel",
+   "type": "other",
+   "label": "source of",
+   "o": "travel-over-flagging",
+   "quote": "This flag is the source of the travel over-flagging",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-f25-travel-tags",
+  "fraud25-gbm-v2",
+  "exp-104-fraud-2025"
+ ],
+ "built_on": [
+  {
+   "what": "ds-f25-travel-tags",
+   "quote": "the travel merchant code list",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-f25-mcc-travel.md",
+ "sha": "ccf28caa906a9fc2427b576a55d81bcdd89b18baa5eb5f31485b54c2aa2a863a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

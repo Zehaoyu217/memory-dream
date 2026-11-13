@@ -1,0 +1,92 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-trv-travel-mcc-monthly",
+   "type": "dataset",
+   "label": "travel spend table",
+   "as": [
+    "Monthly travel spend by MCC group, 2023-01 to 2026-08"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "raw table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-trv-seasonality-adj",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-trv-seasonality-adj"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "trv-ridge-v2",
+   "type": "model",
+   "label": "ridge model",
+   "as": [
+    "ridge models"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-trv-travel-mcc-monthly",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards.txn_daily",
+   "quote": "Monthly travel spend from `cards.txn_daily`",
+   "line": 5
+  },
+  {
+   "s": "feat-trv-seasonality-adj",
+   "type": "uses",
+   "label": "source",
+   "o": "ds-trv-travel-mcc-monthly",
+   "quote": "Source for feat-trv-seasonality-adj and the STL and ridge models.",
+   "line": 7
+  },
+  {
+   "s": "trv-ridge-v2",
+   "type": "uses",
+   "label": "source",
+   "o": "ds-trv-travel-mcc-monthly",
+   "quote": "Source for feat-trv-seasonality-adj and the STL and ridge models.",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "cards.txn_daily",
+   "quote": "Monthly travel spend from `cards.txn_daily`",
+   "line": 5,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-trv-travel-mcc-monthly.md",
+ "sha": "2fe39fa5930bd84a5e897167f7fdb9c72e9ed953907bbc22ecb7b2e0bc27080b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,159 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-rs-drop-region",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: drop feat-rs-region-rate from all recovery-scoring models"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "approver",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "omar-haddad",
+   "type": "person",
+   "label": "approver",
+   "as": [
+    "Omar Haddad"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-rs-region-rate",
+   "type": "feature",
+   "label": "region feature",
+   "as": [
+    "feat-rs-region-rate"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "rs-xgb-v2",
+   "type": "model",
+   "label": "build",
+   "as": [
+    "rs-xgb-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "rs-xgb-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rs-xgb-v3"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-rs-drop-region",
+   "type": "owned-by",
+   "label": "agreed by",
+   "o": "lena-fischer",
+   "quote": "Agreed 2025-05-22 by Lena Fischer and Omar Haddad.",
+   "line": 5
+  },
+  {
+   "s": "dec-rs-drop-region",
+   "type": "owned-by",
+   "label": "agreed by",
+   "o": "omar-haddad",
+   "quote": "Agreed 2025-05-22 by Lena Fischer and Omar Haddad.",
+   "line": 5
+  },
+  {
+   "s": "dec-rs-drop-region",
+   "type": "other",
+   "label": "drops",
+   "o": "feat-rs-region-rate",
+   "quote": "drop feat-rs-region-rate from all recovery-scoring models",
+   "line": 4
+  },
+  {
+   "s": "feat-rs-region-rate",
+   "type": "other",
+   "label": "removed from",
+   "o": "rs-xgb-v2",
+   "quote": "Removed from the rs-xgb-v2 build",
+   "line": 6
+  },
+  {
+   "s": "feat-rs-region-rate",
+   "type": "other",
+   "label": "excluded from",
+   "o": "rs-xgb-v3",
+   "quote": "excluded from rs-xgb-v3",
+   "line": 6
+  },
+  {
+   "s": "dec-rs-drop-region",
+   "type": "measured-by",
+   "label": "accepts cost of",
+   "o": "gini",
+   "quote": "The Gini cost of 0.02 is accepted.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "rs-xgb-v2",
+  "rs-xgb-v3",
+  "find-rs-region-proxy"
+ ],
+ "built_on": [
+  {
+   "what": "exp-304-recovery-scoring",
+   "quote": "the region feature removal experiment",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "find-rs-region-proxy",
+   "quote": "find-rs-region-proxy",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-rs-drop-region.md",
+ "sha": "4255fe7965d92db31c66d567fa352830441be743859cebe4f8e0e3787774ee9a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

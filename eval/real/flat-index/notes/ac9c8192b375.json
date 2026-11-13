@@ -1,0 +1,112 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "find-cli-revolver-loss",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Finding: revolvers lose 1.9x as much as full-payers in 90 days (2.1% versus 1.1%)"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-105-credit-line-increase",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-105-credit-line-increase"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "cli-test-2025q1",
+   "type": "dataset",
+   "label": "test set",
+   "as": [
+    "cli-test-2025q1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "revolvers",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "Revolver"
+   ],
+   "lines": [
+    4,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "full-payers",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "full-payers"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "dec-cli-exclude-revolvers",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-cli-exclude-revolvers"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-105-credit-line-increase",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "cli-test-2025q1",
+   "quote": "on cli-test-2025q1 (n=60,000)",
+   "line": 5
+  },
+  {
+   "s": "find-cli-revolver-loss",
+   "type": "other",
+   "label": "basis for",
+   "o": "dec-cli-exclude-revolvers",
+   "quote": "Basis for dec-cli-exclude-revolvers.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-cli-exclude-revolvers",
+  "exp-105-credit-line-increase"
+ ],
+ "built_on": [
+  {
+   "what": "exp-105-credit-line-increase",
+   "quote": "exp-105-credit-line-increase",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/find-cli-revolver-loss.md",
+ "sha": "ac9c8192b37545f135269b9624805892881f247667dc6e021faaa51045424b4b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

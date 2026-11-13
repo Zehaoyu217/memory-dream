@@ -1,0 +1,98 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-csb-deposit-volatility",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-csb-deposit-volatility"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "weekly-merchant-deposits",
+   "type": "dataset",
+   "label": "deposits",
+   "as": [
+    "Weekly merchant deposits"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-csb-merchant-mix",
+   "type": "dataset",
+   "label": "merchant-mix build",
+   "as": [
+    "merchant-mix build"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "smb",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "SMB"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fnd-csb-volatility-lift",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-csb-volatility-lift"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-csb-deposit-volatility",
+   "type": "uses",
+   "label": "from",
+   "o": "weekly-merchant-deposits",
+   "quote": "Weekly merchant deposits from the merchant-mix build, 13 weeks, coefficient of variation.",
+   "line": 5
+  },
+  {
+   "s": "feat-csb-deposit-volatility",
+   "type": "other",
+   "label": "strongest lift for",
+   "o": "smb",
+   "quote": "it is the strongest lift found for SMB (fnd-csb-volatility-lift)",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-csb-merchant-mix",
+  "fnd-csb-volatility-lift"
+ ],
+ "built_on": [
+  {
+   "what": "ds-csb-merchant-mix",
+   "quote": "ds-csb-merchant-mix",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-csb-deposit-volatility.md",
+ "sha": "3d9ebfc81b039e923e8800b3efe51a3eadc13c93d1b50f360ae0522538c5c59e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

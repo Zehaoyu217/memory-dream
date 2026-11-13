@@ -1,0 +1,112 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-inc-spend-to-income",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-inc-spend-to-income"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-inc-txn-categories",
+   "type": "dataset",
+   "label": "source dataset",
+   "as": [
+    "ds-inc-txn-categories"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "payroll-cadence-feature",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "basic payroll cadence feature"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "inc-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "inc-gbm-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "booked-accounts",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "booked accounts"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-inc-spend-to-income",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-inc-txn-categories",
+   "quote": "Builds on ds-inc-txn-categories and the basic payroll cadence feature.",
+   "line": 8
+  },
+  {
+   "s": "feat-inc-spend-to-income",
+   "type": "uses",
+   "label": "builds on",
+   "o": "payroll-cadence-feature",
+   "quote": "Builds on ds-inc-txn-categories and the basic payroll cadence feature.",
+   "line": 8
+  },
+  {
+   "s": "feat-inc-spend-to-income",
+   "type": "~used-in",
+   "label": "included in",
+   "o": "inc-gbm-v1",
+   "quote": "Included in inc-gbm-v1 and every income model since.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-inc-txn-categories",
+  "inc-gbm-v1"
+ ],
+ "built_on": [
+  {
+   "what": "ds-inc-txn-categories",
+   "quote": "ds-inc-txn-categories",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-inc-payroll-cadence-v1",
+   "quote": "the basic payroll cadence feature",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-inc-spend-to-income.md",
+ "sha": "e63517d743e36ad17128c0fb28fa9b9d3b7727531c3178154bebe3ecf54b37ab",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

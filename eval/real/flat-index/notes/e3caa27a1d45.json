@@ -1,0 +1,113 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "csb-oot-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Holdout csb-oot-2025q1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "churn-small-business",
+   "type": "other",
+   "label": "churn project",
+   "as": [
+    "churn-small-business"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "tenure-floor-models",
+   "type": "model",
+   "label": "models",
+   "as": [
+    "tenure-floor models"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "smb-churn-labels-dataset",
+   "type": "dataset",
+   "label": "labels dataset",
+   "as": [
+    "smb churn labels dataset"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "label-window",
+   "type": "term",
+   "label": "label window",
+   "as": [
+    "90-day labels"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "csb-oot-2025q1",
+   "type": "uses",
+   "label": "labels maturing by",
+   "o": "label-window",
+   "quote": "90-day labels maturing by 2025-06-30",
+   "line": 5
+  },
+  {
+   "s": "csb-oot-2025q1",
+   "type": "other",
+   "label": "holdout for",
+   "o": "churn-small-business",
+   "quote": "Out-of-time holdout for churn-small-business",
+   "line": 5
+  },
+  {
+   "s": "tenure-floor-models",
+   "type": "evaluated-on",
+   "label": "scoring set for",
+   "o": "csb-oot-2025q1",
+   "quote": "that subset is the scoring set for the tenure-floor models",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-csb-biz-accounts",
+  "exp-201-churn-small-business"
+ ],
+ "built_on": [
+  {
+   "what": "ds-csb-biz-accounts",
+   "quote": "ds-csb-biz-accounts",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-csb-churn-labels",
+   "quote": "the smb churn labels dataset",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-csb-oot-2025q1.md",
+ "sha": "e3caa27a1d45fa67541cb3363f4c6773837ea8cfb835cbde0eaefbcaec9748aa",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

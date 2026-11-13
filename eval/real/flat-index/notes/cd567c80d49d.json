@@ -1,0 +1,101 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "txc-gbm-v2",
+   "type": "model",
+   "label": "classifier",
+   "as": [
+    "txc-gbm-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "other-bucket",
+   "type": "term",
+   "label": "spend bucket",
+   "as": [
+    "'other' bucket"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fnd-txc-long-tail",
+   "type": "document",
+   "label": "finding",
+   "as": [
+    "fnd-txc-long-tail"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "q-txc-fuzzy-vs-rules",
+   "type": "document",
+   "label": "open question",
+   "as": [
+    "q-txc-fuzzy-vs-rules"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "spend-share",
+   "type": "metric",
+   "label": "spend share",
+   "as": [
+    "9.4% of Q4-2025 monthly spend"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "txc-gbm-v2",
+   "type": "measured-by",
+   "label": "residue",
+   "o": "spend-share",
+   "quote": "9.4% of Q4-2025 monthly spend lands in the 'other' bucket.",
+   "line": 5
+  },
+  {
+   "s": "spend-share",
+   "type": "part-of",
+   "label": "measured on",
+   "o": "cards.txn_daily",
+   "quote": "Measured on `cards.txn_daily` joined to the category output, spend-weighted.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-txc-long-tail",
+  "q-txc-fuzzy-vs-rules"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/q-txc-unlabelled-share.md",
+ "sha": "cd567c80d49db0828a8769c28b91556e774a377c3039863d6ef9534ab51c2010",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

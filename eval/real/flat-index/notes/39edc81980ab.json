@@ -1,0 +1,121 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-302-recovery-scoring",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-302-recovery-scoring"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "rs-xgb-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rs-xgb-v1"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "recovery-scoring-holdout-2023h2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "recovery-scoring-holdout-2023h2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Gini"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-301-recovery-scoring",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-301-recovery-scoring"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rs-xgb-v1",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "recovery-scoring-holdout-2023h2",
+   "quote": "Same holdout as exp-301-recovery-scoring (n=6,120)",
+   "line": 5
+  },
+  {
+   "s": "rs-xgb-v1",
+   "type": "measured-by",
+   "label": "scores",
+   "o": "gini",
+   "quote": "rs-xgb-v1 with balance and payment history: Gini 0.41, KS 0.29.",
+   "line": 5
+  },
+  {
+   "s": "rs-xgb-v1",
+   "type": "measured-by",
+   "label": "scores",
+   "o": "ks",
+   "quote": "rs-xgb-v1 with balance and payment history: Gini 0.41, KS 0.29.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-301-recovery-scoring",
+  "rs-xgb-v1",
+  "recovery_scoring/exp302_xgb_v1.ipynb"
+ ],
+ "built_on": [
+  {
+   "what": "rs-xgb-v1",
+   "quote": "rs-xgb-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-302-recovery-scoring.md",
+ "sha": "39edc81980abdbaa1db4b63db3e1a0e038f9f8e4181977386140c3340284ca00",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

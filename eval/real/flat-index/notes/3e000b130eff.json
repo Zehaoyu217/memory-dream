@@ -1,0 +1,132 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-101-churn-2025",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-101-churn-2025"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "churn-lr-base-2025",
+   "type": "model",
+   "label": "baseline model",
+   "as": [
+    "Same LR baseline"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "c25-oot-2024h1",
+   "type": "dataset",
+   "label": "holdout set",
+   "as": [
+    "c25-oot-2024h1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "ds-c25-churn-labels",
+   "type": "dataset",
+   "label": "labels dataset",
+   "as": [
+    "ds-c25-churn-labels"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "q-c25-label-window",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "q-c25-label-window"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "fnd-c25-90d-feedback-lag",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-c25-90d-feedback-lag"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-101-churn-2025",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "c25-oot-2024h1",
+   "quote": "scored on c25-oot-2024h1",
+   "line": 5
+  },
+  {
+   "s": "exp-101-churn-2025",
+   "type": "measured-by",
+   "label": "AUC by window",
+   "o": "auc",
+   "quote": "AUC: 30d 0.661, 60d 0.693, 90d 0.704",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fnd-c25-90d-feedback-lag"
+ ],
+ "built_on": [
+  {
+   "what": "churn-lr-base-2025",
+   "quote": "churn-lr-base-2025",
+   "line": 9,
+   "asked": true
+  },
+  {
+   "what": "ds-c25-churn-labels",
+   "quote": "ds-c25-churn-labels",
+   "line": 9,
+   "asked": true
+  },
+  {
+   "what": "q-c25-label-window",
+   "quote": "q-c25-label-window",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-101-churn-2025.md",
+ "sha": "3e000b130eff40e27bb338a8ab8f498b2421945b6ee660d8c0e7372e7f262c75",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

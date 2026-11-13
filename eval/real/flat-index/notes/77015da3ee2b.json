@@ -1,0 +1,111 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "revolver",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "revolver"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "transactor",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "transactor"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "minimum-payer",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "minimum-payer"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "roll-rate",
+   "type": "metric",
+   "label": "roll rate",
+   "as": [
+    "Twelve-month roll rate"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-405-payment-behavior-segments",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-405-payment-behavior-segments"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "q-pbs-revolver-migration",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "q-pbs-revolver-migration"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "revolver",
+   "type": "measured-by",
+   "label": "roll rate",
+   "o": "roll-rate",
+   "quote": "Twelve-month roll rate from revolver to transactor is 14%",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-405-payment-behavior-segments",
+  "q-pbs-revolver-migration"
+ ],
+ "built_on": [
+  {
+   "what": "exp-405-payment-behavior-segments",
+   "quote": "the revolver-to-transactor migration experiment",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "q-pbs-revolver-migration",
+   "quote": "q-pbs-revolver-migration",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-pbs-revolver-migration.md",
+ "sha": "77015da3ee2badc9260b593c7d24d7462b3f79503c8ae10edf66b27d43fcf1f5",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

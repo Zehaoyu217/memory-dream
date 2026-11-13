@@ -1,0 +1,126 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "pbs-oot-2025h2",
+   "type": "dataset",
+   "label": "out-of-time outcomes",
+   "as": [
+    "Out-of-time outcomes for the frame, Jul to Dec 2025"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-pbs-frame-h1-2025",
+   "type": "dataset",
+   "label": "account frame",
+   "as": [
+    "ds-pbs-frame-h1-2025"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "churn labels",
+   "as": [
+    "cards.churn_labels"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "collections.cases",
+   "type": "dataset",
+   "label": "collections cases",
+   "as": [
+    "collections.cases"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-406-payment-behavior-segments",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-406-payment-behavior-segments"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-407-payment-behavior-segments",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-407-payment-behavior-segments"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "pbs-oot-2025h2",
+   "type": "uses",
+   "label": "takes outcomes from",
+   "o": "cards.accounts_monthly",
+   "quote": "12-month attrition from `cards.churn_labels`",
+   "line": 5
+  },
+  {
+   "s": "pbs-oot-2025h2",
+   "type": "uses",
+   "label": "takes outcomes from",
+   "o": "collections.cases",
+   "quote": "90+ days past due from `collections.cases`",
+   "line": 5
+  },
+  {
+   "s": "exp-406-payment-behavior-segments",
+   "type": "evaluated-on",
+   "label": "validation set",
+   "o": "pbs-oot-2025h2",
+   "quote": "Used as the validation set for the segment-as-predictor tests (exp-406-payment-behavior-segments",
+   "line": 6
+  },
+  {
+   "s": "exp-407-payment-behavior-segments",
+   "type": "evaluated-on",
+   "label": "validation set",
+   "o": "pbs-oot-2025h2",
+   "quote": "Used as the validation set for the segment-as-predictor tests (exp-406-payment-behavior-segments, exp-407-payment-behavior-segments).",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-pbs-frame-h1-2025",
+  "exp-406-payment-behavior-segments",
+  "exp-407-payment-behavior-segments"
+ ],
+ "built_on": [
+  {
+   "what": "ds-pbs-frame-h1-2025",
+   "quote": "ds-pbs-frame-h1-2025",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-pbs-oot-2025h2.md",
+ "sha": "76db93ee41578a63ff9060626357d0e2cc9aa2d3d8ea129de66081395630131d",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

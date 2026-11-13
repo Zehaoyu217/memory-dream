@@ -1,0 +1,146 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-305-revenue-forecast-2026",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-305-revenue-forecast-2026"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "sfc-hier-v3",
+   "type": "model",
+   "label": "forecast",
+   "as": [
+    "sfc-hier-v3"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "sfc-ets-v1",
+   "type": "model",
+   "label": "baseline",
+   "as": [
+    "sfc-ets-v1"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "interchange",
+   "type": "term",
+   "label": "quantity",
+   "as": [
+    "interchange"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "dec-sfc-ship-hier-v3",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-sfc-ship-hier-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-rev26-spend-volume",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-rev26-spend-volume"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "rev26-interchange-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rev26-interchange-v1"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-305-revenue-forecast-2026",
+   "type": "uses",
+   "label": "volume source",
+   "o": "sfc-hier-v3",
+   "quote": "using two volume sources: sfc-hier-v3 and the baseline sfc-ets-v1",
+   "line": 5
+  },
+  {
+   "s": "exp-305-revenue-forecast-2026",
+   "type": "uses",
+   "label": "baseline volume",
+   "o": "sfc-ets-v1",
+   "quote": "the baseline sfc-ets-v1",
+   "line": 5
+  },
+  {
+   "s": "sfc-hier-v3",
+   "type": "measured-by",
+   "label": "error",
+   "o": "interchange",
+   "quote": "Error 0.6% with sfc-hier-v3, 1.5% with sfc-ets-v1.",
+   "line": 6
+  },
+  {
+   "s": "exp-305-revenue-forecast-2026",
+   "type": "uses",
+   "label": "builds on",
+   "o": "rev26-interchange-v1",
+   "quote": "Builds on ds-rev26-spend-volume and rev26-interchange-v1.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "dec-sfc-ship-hier-v3"
+ ],
+ "built_on": [
+  {
+   "what": "ds-rev26-spend-volume",
+   "quote": "ds-rev26-spend-volume",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "rev26-interchange-v1",
+   "quote": "rev26-interchange-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-305-revenue-forecast-2026.md",
+ "sha": "78844df031d16a2d681622c972b875c4c73c46a9563a963c625da412a69ffe75",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

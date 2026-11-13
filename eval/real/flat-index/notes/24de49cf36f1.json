@@ -1,0 +1,59 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "churn-label-60d",
+   "type": "term",
+   "label": "retired label",
+   "as": [
+    "Churn meant no purchase or payment for 60 days after observation"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.churn_labels",
+   "type": "dataset",
+   "label": "label table",
+   "as": [
+    "`cards.churn_labels`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "churn-label-90d",
+   "type": "term",
+   "label": "replacement label",
+   "as": [
+    "`howto/churn-label-90d`"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-label-60d",
+   "type": "produces",
+   "label": "defined in",
+   "o": "cards.churn_labels",
+   "quote": "Churn in `cards.churn_labels` was defined as no purchase and no payment in the 60 days after the observation date",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "churn-label-90d"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/churn-label-60d.md",
+ "sha": "24de49cf36f1829e534242283fa03bfbec205f01d4e33024af0f8c8155f7d7bf",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

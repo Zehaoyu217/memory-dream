@@ -1,0 +1,106 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "channel-features",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "Channel features"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro f1",
+   "as": [
+    "macro F1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "term",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-203-complaint-classification",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-203-complaint-classification"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "regulator",
+   "type": "organisation",
+   "label": "regulator",
+   "as": [
+    "regulator"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "channel-features",
+   "type": "measured-by",
+   "label": "macro F1 gain",
+   "o": "macro-f1",
+   "quote": "Channel features add only 0.002 macro F1",
+   "line": 4
+  },
+  {
+   "s": "channel-features",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q4",
+   "quote": "Channel features add only 0.002 macro F1 on holdout-2025q4",
+   "line": 4
+  },
+  {
+   "s": "channel-features",
+   "type": "other",
+   "label": "helps cut by",
+   "o": "regulator",
+   "quote": "helps the regulator cut by channel",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-203-complaint-classification"
+ ],
+ "built_on": [
+  {
+   "what": "exp-203-complaint-classification",
+   "quote": "exp-203-complaint-classification",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-cc-channel-null.md",
+ "sha": "4d8ec97febf52c44c13eba44329a9f5d0aafdfecfaf7c13fdee337caf483e525",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

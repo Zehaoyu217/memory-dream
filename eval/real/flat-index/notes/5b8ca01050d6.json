@@ -1,0 +1,67 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-disp-txn-match",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-disp-txn-match: 1 when an auth record matches on auth_id and amount within 1%"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "disp-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "Shipped in disp-lgbm-v2 with amount band."
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-disp-disputes",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "Builds on ds-disp-disputes."
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-disp-txn-match",
+   "type": "used-by",
+   "label": "shipped in",
+   "o": "disp-lgbm-v2",
+   "quote": "Shipped in disp-lgbm-v2 with amount band.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-disp-disputes"
+ ],
+ "built_on": [
+  {
+   "what": "ds-disp-disputes",
+   "quote": "ds-disp-disputes",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-disp-txn-match.md",
+ "sha": "5b8ca01050d67af8c077554eb2ce8ddbea96de450e502da02bd01e5d086f9bb4",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

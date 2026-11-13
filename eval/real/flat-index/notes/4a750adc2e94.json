@@ -1,0 +1,111 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "rev26-interest-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rev26-interest-v2 adds the charge-off haircut"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "rev26-interest-v1",
+   "type": "model",
+   "label": "prior model",
+   "as": [
+    "Same structure as rev26-interest-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-rev26-charge-off-haircut",
+   "type": "feature",
+   "label": "haircut feature",
+   "as": [
+    "feat-rev26-charge-off-haircut applied to accrued interest"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dec-rev26-v2-for-board",
+   "type": "document",
+   "label": "board decision",
+   "as": [
+    "dec-rev26-v2-for-board"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rev26-interest-v2",
+   "type": "uses",
+   "label": "applies haircut",
+   "o": "feat-rev26-charge-off-haircut",
+   "quote": "with feat-rev26-charge-off-haircut applied to accrued interest",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-303-revenue-forecast-2026",
+  "dec-rev26-v2-for-board"
+ ],
+ "built_on": [
+  {
+   "what": "feat-rev26-charge-off-haircut",
+   "quote": "feat-rev26-charge-off-haircut",
+   "line": 5,
+   "asked": true
+  },
+  {
+   "what": "rev26-interest-v1",
+   "quote": "rev26-interest-v1",
+   "line": 5,
+   "asked": true
+  },
+  {
+   "what": "exp-303-revenue-forecast-2026",
+   "quote": "the charge-off haircut backtest experiment",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-rev26-charge-off-haircut",
+   "quote": "feat-rev26-charge-off-haircut",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "rev26-interest-v1",
+   "quote": "rev26-interest-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "rev26-interest-v1",
+   "quote": "rev26-interest-v1",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/rev26-interest-v2.md",
+ "sha": "4a750adc2e94ecde8bf7dff7fa873253a4d0c0bedd163c4e03bbf9feefa5524c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

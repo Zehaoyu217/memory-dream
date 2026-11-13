@@ -1,0 +1,109 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "roll-rate-60d",
+   "type": "metric",
+   "label": "roll rate",
+   "as": [
+    "60-day roll rate"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "2025-h1-reanalysis",
+   "type": "other",
+   "label": "reanalysis",
+   "as": [
+    "2025 H1 reanalysis"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "closed-in-full-cases",
+   "type": "segment",
+   "label": "cases",
+   "as": [
+    "closed-in-full cases"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "censoring",
+   "type": "term",
+   "label": "censoring",
+   "as": [
+    "censoring"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "raj-patel",
+   "type": "person",
+   "label": "raj patel",
+   "as": [
+    "Raj Patel"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "raj-patel-team",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "Raj Patel's team"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "raj-patel-team",
+   "type": "other",
+   "label": "reran",
+   "o": "2025-h1-reanalysis",
+   "quote": "Raj Patel's team reran the analysis",
+   "line": 5
+  },
+  {
+   "s": "censoring",
+   "type": "other",
+   "label": "corrects",
+   "o": "roll-rate-60d",
+   "quote": "censoring them at close corrects it",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "howto/collections-survival-censoring"
+ ],
+ "built_on": [
+  {
+   "what": "howto/collections-survival-censoring",
+   "quote": "howto/collections-survival-censoring",
+   "line": 6,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/collections-censor-rate.md",
+ "sha": "00ad149548bfc4d49e6d9bc4fa5b71ed60e8c3256c1d29796429de8e45ddeb3a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

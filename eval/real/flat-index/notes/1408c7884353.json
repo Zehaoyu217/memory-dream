@@ -1,0 +1,93 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-306-oot-q1-2026",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-306-oot-q1-2026"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-mq3-app-engagement",
+   "type": "other",
+   "label": "dataset note",
+   "as": [
+    "ds-mq3-app-engagement"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "app-sessions",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "app session counts"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "uplift-at-20",
+   "type": "measured-by",
+   "label": "falls to",
+   "o": "exp-306-oot-q1-2026",
+   "quote": "uplift@20% falls to 2.2 out of time",
+   "line": 4
+  },
+  {
+   "s": "app-sessions",
+   "type": "uses",
+   "label": "changed in",
+   "o": "exp-306-oot-q1-2026",
+   "quote": "app session counts changed in February 2026",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "ds-mq3-app-engagement",
+  "exp-306-oot-q1-2026"
+ ],
+ "built_on": [
+  {
+   "what": "ds-mq3-app-engagement",
+   "quote": "ds-mq3-app-engagement",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-306-oot-q1-2026",
+   "quote": "exp-306-oot-q1-2026",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/find-mq3-q1-drift.md",
+ "sha": "1408c7884353b6c36d63ba10aea46e0310bc5e8bf86dd397448432dd5906d27a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,152 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "pbs-gmm-v2",
+   "type": "model",
+   "label": "gaussian mixture",
+   "as": [
+    "pbs-gmm-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "pbs-gmm-v3",
+   "type": "model",
+   "label": "replacement model",
+   "as": [
+    "pbs-gmm-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-402-payment-behavior-segments",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-402-payment-behavior-segments"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-pbs-interest-paid",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-pbs-interest-paid"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "pbs-kmeans-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "pbs-kmeans-v1"
+   ],
+   "lines": [
+    8,
+    9
+   ]
+  },
+  {
+   "id": "silhouette",
+   "type": "metric",
+   "label": "silhouette",
+   "as": [
+    "Silhouette 0.39"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "seed-ari",
+   "type": "metric",
+   "label": "ari",
+   "as": [
+    "ARI between seeds 0.74"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "pbs-gmm-v2",
+   "type": "measured-by",
+   "label": "silhouette",
+   "o": "silhouette",
+   "quote": "Silhouette 0.39 on the 200k sample",
+   "line": 6
+  },
+  {
+   "s": "pbs-gmm-v2",
+   "type": "measured-by",
+   "label": "seed ARI",
+   "o": "seed-ari",
+   "quote": "ARI between seeds 0.74",
+   "line": 6
+  },
+  {
+   "s": "pbs-gmm-v3",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "pbs-gmm-v2",
+   "quote": "Replaced by pbs-gmm-v3",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "pbs-gmm-v3",
+  "exp-402-payment-behavior-segments",
+  "feat-pbs-interest-paid",
+  "pbs-kmeans-v1"
+ ],
+ "built_on": [
+  {
+   "what": "exp-402-payment-behavior-segments",
+   "quote": "exp-402-payment-behavior-segments",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-pbs-interest-paid",
+   "quote": "feat-pbs-interest-paid",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "pbs-kmeans-v1",
+   "quote": "pbs-kmeans-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "pbs-kmeans-v1",
+   "quote": "pbs-kmeans-v1",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/pbs-gmm-v2.md",
+ "sha": "3fb9df366cccf92392ded6ce984a15320c6429f9b12ff685b2af8172aa41d7cd",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

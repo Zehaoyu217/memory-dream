@@ -1,0 +1,151 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-203-fraud-2026",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-203-fraud-2026"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fraud26-oot-2025q4",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "fraud26-oot-2025q4"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "feat-f26-velocity-v2",
+   "type": "feature",
+   "label": "velocity-v2",
+   "as": [
+    "Velocity-v2 windows"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.94"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.78"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-204-fraud-2026",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-204-fraud-2026"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-f26-cnp-txn",
+   "type": "dataset",
+   "label": "transactions",
+   "as": [
+    "ds-f26-cnp-txn"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-203-fraud-2026",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "fraud26-oot-2025q4",
+   "quote": "Eval set: fraud26-oot-2025q4 (1,611,400 transactions, 3,705 fraud).",
+   "line": 5
+  },
+  {
+   "s": "exp-203-fraud-2026",
+   "type": "uses",
+   "label": "windows",
+   "o": "feat-f26-velocity-v2",
+   "quote": "Velocity-v2 windows that include days after the transaction: AUC 0.94, KS 0.78.",
+   "line": 6
+  },
+  {
+   "s": "exp-203-fraud-2026",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.94, KS 0.78",
+   "line": 6
+  },
+  {
+   "s": "exp-203-fraud-2026",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "ks",
+   "quote": "AUC 0.94, KS 0.78",
+   "line": 6
+  },
+  {
+   "s": "exp-203-fraud-2026",
+   "type": "other",
+   "label": "checked against",
+   "o": "exp-204-fraud-2026",
+   "quote": "checked against exp-204-fraud-2026",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-204-fraud-2026"
+ ],
+ "built_on": [
+  {
+   "what": "ds-f26-cnp-txn",
+   "quote": "ds-f26-cnp-txn",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-f26-velocity-v2",
+   "quote": "feat-f26-velocity-v2",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-203-fraud-2026.md",
+ "sha": "31cd3dd80a150964d4ea1a1f78c63b03c5e3d0862bb579a5c2a73e60c8353324",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

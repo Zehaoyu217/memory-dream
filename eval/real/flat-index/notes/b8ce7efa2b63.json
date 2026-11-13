@@ -1,0 +1,65 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "transactions table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "snapshot table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "recommender",
+   "as": [
+    "Tomás Rivera's team recommends"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cards.txn_daily",
+   "type": "uses",
+   "label": "joins to",
+   "o": "cards.accounts_monthly",
+   "quote": "Join `cards.txn_daily` to `cards.accounts_monthly`",
+   "line": 5
+  },
+  {
+   "s": "tomas-rivera",
+   "type": "other",
+   "label": "recommends",
+   "o": "cards.accounts_monthly",
+   "quote": "Keep the row with the max `load_ts`, as Tomás Rivera's team recommends",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/join-txn-to-accounts.md",
+ "sha": "b8ce7efa2b635742bd34f74206afc7e42f7b474ecb37034656189a2a0bd9b8d7",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

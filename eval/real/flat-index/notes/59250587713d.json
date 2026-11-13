@@ -1,0 +1,191 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cli-xgb-v2",
+   "type": "model",
+   "label": "loss model",
+   "as": [
+    "cli-xgb-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cli-xgb-v1",
+   "type": "model",
+   "label": "first xgboost loss model",
+   "as": [
+    "cli-xgb-v1",
+    "the first xgboost loss model"
+   ],
+   "lines": [
+    8,
+    9
+   ]
+  },
+  {
+   "id": "feat-cli-util-v2",
+   "type": "feature",
+   "label": "utilisation feature",
+   "as": [
+    "feat-cli-util-v2"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-cli-bureau-delta",
+   "type": "feature",
+   "label": "bureau delta feature",
+   "as": [
+    "feat-cli-bureau-delta"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.74"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.35"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "exp-106-credit-line-increase",
+   "type": "other",
+   "label": "oot experiment",
+   "as": [
+    "exp-106-credit-line-increase"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cli-xgb-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-cli-util-v2",
+   "quote": "plus feat-cli-util-v2 and feat-cli-bureau-delta",
+   "line": 5
+  },
+  {
+   "s": "cli-xgb-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-cli-bureau-delta",
+   "quote": "plus feat-cli-util-v2 and feat-cli-bureau-delta",
+   "line": 5
+  },
+  {
+   "s": "cli-xgb-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q4",
+   "quote": "Eval: holdout-2025q4, n=118,400",
+   "line": 6
+  },
+  {
+   "s": "cli-xgb-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.74",
+   "line": 4
+  },
+  {
+   "s": "cli-xgb-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "ks",
+   "quote": "KS 0.35",
+   "line": 4
+  },
+  {
+   "s": "cli-xgb-v2",
+   "type": "replaces",
+   "label": "replaces",
+   "o": "cli-xgb-v1",
+   "quote": "Replaces the first xgboost loss model.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "cli-xgb-v1",
+  "exp-106-credit-line-increase",
+  "feat-cli-util-v2",
+  "feat-cli-bureau-delta"
+ ],
+ "built_on": [
+  {
+   "what": "cli-xgb-v1",
+   "quote": "cli-xgb-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-cli-bureau-delta",
+   "quote": "the bureau score change feature",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-cli-util-v2",
+   "quote": "feat-cli-util-v2",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "cli-xgb-v1",
+   "quote": "the first xgboost loss model",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/cli-xgb-v2.md",
+ "sha": "59250587713d2eac6078445205b8094b920c8ce6ff9a267f7107954ebba250c2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

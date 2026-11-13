@@ -1,0 +1,106 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-rev26-interest-accrual",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "Monthly interest accrual by segment"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "apr",
+   "type": "term",
+   "label": "rate",
+   "as": [
+    "APR"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "finance-interest-ledger",
+   "type": "dataset",
+   "label": "ledger",
+   "as": [
+    "finance interest ledger"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "charge-off",
+   "type": "term",
+   "label": "term",
+   "as": [
+    "charge-offs"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-rev26-interest-accrual",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards.accounts_monthly",
+   "quote": "built from `cards.accounts_monthly` balances times APR",
+   "line": 5
+  },
+  {
+   "s": "ds-rev26-interest-accrual",
+   "type": "uses",
+   "label": "times",
+   "o": "apr",
+   "quote": "balances times APR",
+   "line": 5
+  },
+  {
+   "s": "ds-rev26-interest-accrual",
+   "type": "other",
+   "label": "reconciled to",
+   "o": "finance-interest-ledger",
+   "quote": "reconciled to the finance interest ledger",
+   "line": 5
+  },
+  {
+   "s": "ds-rev26-interest-accrual",
+   "type": "other",
+   "label": "gross of",
+   "o": "charge-off",
+   "quote": "Accrual is gross of charge-offs",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-rev26-charge-off-haircut"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-rev26-interest-accrual.md",
+ "sha": "171540edc009833560deb4b403cfff52c979d2f46396714a8bae5f0afeb28c48",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

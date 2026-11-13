@@ -1,0 +1,161 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "hp-psm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "hp-psm-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "hp-psm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "hp-psm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-hp-match-covars-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-hp-match-covars-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-hp-pre-dpd-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-hp-pre-dpd-v1"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "exp-402-hardship-programs",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-402-hardship-programs"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-405-hardship-programs",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-405-hardship-programs"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-hp-matched-controls",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-hp-matched-controls"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "hp-psm-v1",
+   "type": "uses",
+   "label": "built on",
+   "o": "feat-hp-match-covars-v1",
+   "quote": "Logistic propensity model on feat-hp-match-covars-v1 and feat-hp-pre-dpd-v1, 1:4 nearest neighbour, no caliper.",
+   "line": 5
+  },
+  {
+   "s": "hp-psm-v1",
+   "type": "uses",
+   "label": "built on",
+   "o": "feat-hp-pre-dpd-v1",
+   "quote": "Logistic propensity model on feat-hp-match-covars-v1 and feat-hp-pre-dpd-v1, 1:4 nearest neighbour, no caliper.",
+   "line": 5
+  },
+  {
+   "s": "exp-402-hardship-programs",
+   "type": "uses",
+   "label": "used for",
+   "o": "hp-psm-v1",
+   "quote": "Used for exp-402-hardship-programs (effect -6.1pp) and exp-405-hardship-programs (plan-length comparison).",
+   "line": 6
+  },
+  {
+   "s": "exp-405-hardship-programs",
+   "type": "uses",
+   "label": "used for",
+   "o": "hp-psm-v1",
+   "quote": "Used for exp-402-hardship-programs (effect -6.1pp) and exp-405-hardship-programs (plan-length comparison).",
+   "line": 6
+  },
+  {
+   "s": "hp-psm-v1",
+   "type": "superseded-by",
+   "label": "superseded by",
+   "o": "hp-psm-v2",
+   "quote": "Superseded by hp-psm-v2 (2026-01-20).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "hp-psm-v2",
+  "feat-hp-pre-dpd-v1",
+  "feat-hp-match-covars-v1",
+  "ds-hp-matched-controls",
+  "exp-402-hardship-programs",
+  "exp-405-hardship-programs"
+ ],
+ "built_on": [
+  {
+   "what": "ds-hp-matched-controls",
+   "quote": "ds-hp-matched-controls",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-hp-match-covars-v1",
+   "quote": "the six matching covariates for hardship",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-hp-pre-dpd-v1",
+   "quote": "feat-hp-pre-dpd-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/hp-psm-v1.md",
+ "sha": "63b44031e223cb1cbf9e1fa1cd8c86483684dc0686eaac4a8928c5d31b8557d3",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,220 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-sfc-ship-hier-v3",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: adopt sfc-hier-v3 as the segment volume forecast for finance"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "sfc-hier-v3",
+   "type": "model",
+   "label": "forecast model",
+   "as": [
+    "sfc-hier-v3"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "sfc-lgbm-v2",
+   "type": "model",
+   "label": "forecast model",
+   "as": [
+    "sfc-lgbm-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "error metric",
+   "as": [
+    "total MAPE 2.3%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "q4-bias",
+   "type": "metric",
+   "label": "bias",
+   "as": [
+    "Q4 bias"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "sfc-oot-2025h2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "sfc-oot-2025h2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "revenue-forecast-2026",
+   "type": "other",
+   "label": "downstream forecast",
+   "as": [
+    "revenue-forecast-2026"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "interchange",
+   "type": "term",
+   "label": "revenue line",
+   "as": [
+    "interchange"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "finance",
+   "type": "team",
+   "label": "business unit",
+   "as": [
+    "finance"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-207-spend-forecasting",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-207-spend-forecasting"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fnd-sfc-q4-reconciled",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-sfc-q4-reconciled"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-sfc-ship-hier-v3",
+   "type": "other",
+   "label": "adopts for",
+   "o": "finance",
+   "quote": "adopt sfc-hier-v3 as the segment volume forecast for finance",
+   "line": 4
+  },
+  {
+   "s": "sfc-hier-v3",
+   "type": "replaces",
+   "label": "in place of",
+   "o": "sfc-lgbm-v2",
+   "quote": "in place of sfc-lgbm-v2",
+   "line": 5
+  },
+  {
+   "s": "sfc-hier-v3",
+   "type": "measured-by",
+   "label": "basis",
+   "o": "mape",
+   "quote": "total MAPE 2.3% and Q4 bias -0.4% on sfc-oot-2025h2",
+   "line": 6
+  },
+  {
+   "s": "sfc-hier-v3",
+   "type": "measured-by",
+   "label": "basis",
+   "o": "q4-bias",
+   "quote": "total MAPE 2.3% and Q4 bias -0.4% on sfc-oot-2025h2",
+   "line": 6
+  },
+  {
+   "s": "sfc-hier-v3",
+   "type": "evaluated-on",
+   "label": "basis on",
+   "o": "sfc-oot-2025h2",
+   "quote": "total MAPE 2.3% and Q4 bias -0.4% on sfc-oot-2025h2",
+   "line": 6
+  },
+  {
+   "s": "revenue-forecast-2026",
+   "type": "uses",
+   "label": "uses as input",
+   "o": "sfc-hier-v3",
+   "quote": "revenue-forecast-2026 uses it as the spend volume input for interchange.",
+   "line": 7
+  },
+  {
+   "s": "sfc-hier-v3",
+   "type": "other",
+   "label": "input for",
+   "o": "interchange",
+   "quote": "the spend volume input for interchange",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "sfc-hier-v3",
+  "sfc-lgbm-v2",
+  "exp-207-spend-forecasting",
+  "fnd-sfc-q4-reconciled"
+ ],
+ "built_on": [
+  {
+   "what": "exp-207-spend-forecasting",
+   "quote": "exp-207-spend-forecasting",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fnd-sfc-q4-reconciled",
+   "quote": "fnd-sfc-q4-reconciled",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "sfc-hier-v3",
+   "quote": "sfc-hier-v3",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-sfc-ship-hier-v3.md",
+ "sha": "ffdb89ec918c9cc37531476f32303f90e16ac43d2b39ba62a3e2c8e441e2589b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

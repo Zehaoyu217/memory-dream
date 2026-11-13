@@ -1,0 +1,128 @@
+{
+ "kind": "risk",
+ "entities": [
+  {
+   "id": "leakage",
+   "type": "term",
+   "label": "risk",
+   "as": [
+    "leakage"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "0.81 AUC"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "velocity-features",
+   "type": "feature",
+   "label": "feature group",
+   "as": [
+    "velocity features"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "observation-date",
+   "type": "term",
+   "label": "date",
+   "as": [
+    "observation date"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "label-window",
+   "type": "term",
+   "label": "window",
+   "as": [
+    "label window"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-014",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-014"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-017",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-017"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "leakage",
+   "type": "other",
+   "label": "behind",
+   "o": "auc",
+   "quote": "Suspect leakage behind the 0.81 AUC",
+   "line": 4
+  },
+  {
+   "s": "velocity-features",
+   "type": "uses",
+   "label": "window around",
+   "o": "observation-date",
+   "quote": "a window \"around\" the observation date",
+   "line": 5
+  },
+  {
+   "s": "velocity-features",
+   "type": "other",
+   "label": "may include",
+   "o": "label-window",
+   "quote": "may include days after it, inside the label window",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-014",
+  "exp-017"
+ ],
+ "built_on": [
+  {
+   "what": "exp-014",
+   "quote": "exp-014",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/leak-hypothesis.md",
+ "sha": "96185ff18385675cc1407fc003a89dd8dac433309208b072d0952eb69e7da4d8",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

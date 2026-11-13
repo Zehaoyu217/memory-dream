@@ -1,0 +1,120 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-501",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-501: arm B (0% for 12 months)"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "bt-inflow",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "lifts BT inflow in months 1-3"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-pa-ab-assignments",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "Builds on ds-pa-ab-assignments"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "promo-balance-panel",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "the monthly balance panel by arm"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-pa-bt-inflow-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "the all-sources balance transfer inflow feature"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-503",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "Figures will move down once the intra-bank fix is applied (exp-503)."
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-501",
+   "type": "uses",
+   "label": "built on",
+   "o": "ds-pa-ab-assignments",
+   "quote": "Builds on ds-pa-ab-assignments",
+   "line": 8
+  },
+  {
+   "s": "exp-501",
+   "type": "uses",
+   "label": "built on",
+   "o": "feat-pa-bt-inflow-v1",
+   "quote": "the all-sources balance transfer inflow feature",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-503"
+ ],
+ "built_on": [
+  {
+   "what": "ds-pa-ab-assignments",
+   "quote": "ds-pa-ab-assignments",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-pa-balance-panel",
+   "quote": "the monthly balance panel by arm",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-pa-bt-inflow-v1",
+   "quote": "the all-sources balance transfer inflow feature",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-501-readout-12m.md",
+ "sha": "d1a35a3711af2c6791e0558f2d673c2ca5259ed05ac3a56725b9ca4c9d87dac3",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

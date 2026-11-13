@@ -1,0 +1,95 @@
+{
+ "kind": "plan",
+ "entities": [
+  {
+   "id": "chloe-martin",
+   "type": "person",
+   "label": "test owner",
+   "as": [
+    "Chloe Martin"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "rewards-value-messaging",
+   "type": "other",
+   "label": "messaging test",
+   "as": [
+    "rewards-value messaging"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "respondents-holdout",
+   "type": "segment",
+   "label": "10% holdout",
+   "as": [
+    "10 percent holdout of respondents"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "nps",
+   "type": "metric",
+   "label": "nps",
+   "as": [
+    "+1.0 NPS points"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rewards-value-messaging",
+   "type": "other",
+   "label": "tested by",
+   "o": "chloe-martin",
+   "quote": "Chloe Martin tests rewards-value messaging",
+   "line": 4
+  },
+  {
+   "s": "rewards-value-messaging",
+   "type": "evaluated-on",
+   "label": "tests on",
+   "o": "respondents-holdout",
+   "quote": "tests rewards-value messaging on a 10 percent holdout of respondents from April 2026",
+   "line": 4
+  },
+  {
+   "s": "rewards-value-messaging",
+   "type": "measured-by",
+   "label": "success",
+   "o": "nps",
+   "quote": "at least +1.0 NPS points against a 10 percent control",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fnd-nps-themes"
+ ],
+ "built_on": [
+  {
+   "what": "fnd-nps-themes",
+   "quote": "fnd-nps-themes",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-nps-rewards-test.md",
+ "sha": "b367c15b5a396544b7593a028e52b503a24a2988eee3baf3897e7d2cf724d5af",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

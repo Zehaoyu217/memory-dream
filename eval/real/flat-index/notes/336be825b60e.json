@@ -1,0 +1,136 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "bt-xgb-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bt-xgb-v3: same features as v2, trained on 12-month margin per account; AUC 0.69 on acceptance"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "bt-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "bt-xgb-v2",
+    "depth-5 xgboost bt model"
+   ],
+   "lines": [
+    5,
+    6,
+    8,
+    9
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.69"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "margin-capture-top30",
+   "type": "metric",
+   "label": "margin share",
+   "as": [
+    "The top 30% of scores capture 61% of 12-month margin",
+    "48% for bt-xgb-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-bt-margin-label",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-bt-margin-label"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-107-margin-label",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "margin-weighted label experiment"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bt-xgb-v3",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.69 against acceptance",
+   "line": 6
+  },
+  {
+   "s": "bt-xgb-v3",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "margin-capture-top30",
+   "quote": "The top 30% of scores capture 61% of 12-month margin",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "dec-bt-margin-label"
+ ],
+ "built_on": [
+  {
+   "what": "bt-xgb-v2",
+   "quote": "the depth-5 xgboost bt model",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "dec-bt-margin-label",
+   "quote": "dec-bt-margin-label",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-107-margin-label",
+   "quote": "the margin-weighted label experiment",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "bt-xgb-v2",
+   "quote": "the depth-5 xgboost bt model",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [
+   "bt-holdout-2025q1"
+  ],
+  "relations": 1
+ },
+ "path": "work/bt-xgb-v3.md",
+ "sha": "336be825b60e8db08aa14696bf571879b8f1251a841fc32f7da3d194dcc38774",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

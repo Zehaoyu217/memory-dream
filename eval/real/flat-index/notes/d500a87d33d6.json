@@ -1,0 +1,57 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-csb-biz-accounts",
+   "type": "dataset",
+   "label": "smb card accounts",
+   "as": [
+    "SMB card accounts: 41,207 accounts and 186,402 account-months, Sep 2024 to Sep 2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.accounts_monthly`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "smb",
+   "type": "segment",
+   "label": "smb segment",
+   "as": [
+    "filtered to segment SMB"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-csb-biz-accounts",
+   "type": "uses",
+   "label": "filtered from",
+   "o": "cards.accounts_monthly",
+   "quote": "Business-card accounts from `cards.accounts_monthly`, filtered to segment SMB",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-csb-biz-accounts.md",
+ "sha": "d500a87d33d6dbac29ee972fda7278874f0d76073b2d86b9fe24b240cdfdc606",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

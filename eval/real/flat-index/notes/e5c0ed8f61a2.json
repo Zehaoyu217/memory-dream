@@ -1,0 +1,150 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "payment-behavior-segments",
+   "type": "other",
+   "label": "segments",
+   "as": [
+    "Five payment-behaviour segments"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "gmm",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "GMM"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ari",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "ARI 0.81"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "silhouette",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "silhouette 0.42"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-402-payment-behavior-segments",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-402-payment-behavior-segments"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-403-payment-behavior-segments",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-403-payment-behavior-segments"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fnd-pbs-six-segments",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-pbs-six-segments"
+   ],
+   "lines": [
+    8,
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "payment-behavior-segments",
+   "type": "uses",
+   "label": "fit with",
+   "o": "gmm",
+   "quote": "With the GMM and timing features",
+   "line": 5
+  },
+  {
+   "s": "payment-behavior-segments",
+   "type": "measured-by",
+   "label": "stable on",
+   "o": "ari",
+   "quote": "With the GMM and timing features, five components are stable across seeds (ARI 0.81, silhouette 0.42).",
+   "line": 5
+  },
+  {
+   "s": "payment-behavior-segments",
+   "type": "measured-by",
+   "label": "stable on",
+   "o": "silhouette",
+   "quote": "With the GMM and timing features, five components are stable across seeds (ARI 0.81, silhouette 0.42).",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-402-payment-behavior-segments",
+  "exp-403-payment-behavior-segments",
+  "fnd-pbs-six-segments"
+ ],
+ "built_on": [
+  {
+   "what": "exp-402-payment-behavior-segments",
+   "quote": "exp-402-payment-behavior-segments",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-403-payment-behavior-segments",
+   "quote": "exp-403-payment-behavior-segments",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fnd-pbs-six-segments",
+   "quote": "fnd-pbs-six-segments",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "fnd-pbs-six-segments",
+   "quote": "fnd-pbs-six-segments",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-pbs-five-segments.md",
+ "sha": "e5c0ed8f61a2d0f4d0efef1672b908415afa196b6d404e467d7e97e88e266fe9",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

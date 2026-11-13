@@ -1,0 +1,178 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "spend-forecasting",
+   "type": "other",
+   "label": "workstream",
+   "as": [
+    "spend-forecasting"
+   ],
+   "lines": [
+    3,
+    5
+   ]
+  },
+  {
+   "id": "ets-baseline",
+   "type": "model",
+   "label": "baseline",
+   "as": [
+    "ETS baseline"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "sfc-bt-2024",
+   "type": "dataset",
+   "label": "backtest",
+   "as": [
+    "sfc-bt-2024"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "chatbot-deflection",
+   "type": "other",
+   "label": "workstream",
+   "as": [
+    "chatbot-deflection"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "containment-target",
+   "type": "metric",
+   "label": "target",
+   "as": [
+    "Containment target"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "yuki",
+   "type": "person",
+   "label": "person",
+   "as": [
+    "Yuki"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "agent-repeat-baseline",
+   "type": "metric",
+   "label": "baseline",
+   "as": [
+    "Agent repeat baseline"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "accounts_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "crm.contacts",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "crm.contacts"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "calendar-draft",
+   "type": "document",
+   "label": "calendar draft",
+   "as": [
+    "calendar draft"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ets-baseline",
+   "type": "measured-by",
+   "label": "sets the bar",
+   "o": "mape",
+   "quote": "ETS baseline 7.9% MAPE on sfc-bt-2024",
+   "line": 3
+  },
+  {
+   "s": "ets-baseline",
+   "type": "evaluated-on",
+   "label": "tested on",
+   "o": "sfc-bt-2024",
+   "quote": "ETS baseline 7.9% MAPE on sfc-bt-2024",
+   "line": 3
+  },
+  {
+   "s": "containment-target",
+   "type": "owned-by",
+   "label": "written down by",
+   "o": "yuki",
+   "quote": "Containment target 40 percent written down by Yuki",
+   "line": 4
+  },
+  {
+   "s": "spend-forecasting",
+   "type": "uses",
+   "label": "pulled from",
+   "o": "cards.accounts_monthly",
+   "quote": "segments pulled from accounts_monthly and crm.contacts",
+   "line": 5
+  },
+  {
+   "s": "spend-forecasting",
+   "type": "uses",
+   "label": "pulled from",
+   "o": "crm.contacts",
+   "quote": "segments pulled from accounts_monthly and crm.contacts",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2025-02-18.md",
+ "sha": "3e15e31c5310646801398f111cc6a5b113f0fe657fddc6244b70323c1d094a6e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

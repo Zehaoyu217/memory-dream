@@ -1,0 +1,177 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "nps-gbm-v2",
+   "type": "model",
+   "label": "driver model",
+   "as": [
+    "Gradient boosted driver model v2 with fee shock v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "nps-gbm-v1",
+   "type": "model",
+   "label": "driver model",
+   "as": [
+    "nps-gbm-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4 (n = 48,210)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "2026q1-wave",
+   "type": "dataset",
+   "label": "wave",
+   "as": [
+    "the 2026Q1 wave (n = 44,870)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "spearman",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Spearman 0.49",
+    "0.47"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "feat-nps-fee-shock-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "fee shock v2"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "feat-nps-txn-freq-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-nps-txn-freq-v1"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "nps-gbm-v2",
+   "type": "measured-by",
+   "label": "scores",
+   "o": "spearman",
+   "quote": "Spearman 0.49 on holdout-2025q4 (n = 48,210) and 0.47 on the 2026Q1 wave",
+   "line": 6
+  },
+  {
+   "s": "nps-gbm-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q4",
+   "quote": "Spearman 0.49 on holdout-2025q4 (n = 48,210)",
+   "line": 6
+  },
+  {
+   "s": "nps-gbm-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "2026q1-wave",
+   "quote": "0.47 on the 2026Q1 wave (n = 44,870)",
+   "line": 6
+  },
+  {
+   "s": "nps-gbm-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-nps-fee-shock-v2",
+   "quote": "Same inputs as v1 plus fee shock v2",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "nps-gbm-v1"
+ ],
+ "built_on": [
+  {
+   "what": "exp-405-nps-drivers",
+   "quote": "the fee shock v2 addition experiment",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "feat-nps-complaint-flag-v1",
+   "quote": "the complaint call flag feature",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "feat-nps-fee-shock-v2",
+   "quote": "feat-nps-fee-shock-v2",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "feat-nps-theme-share-v1",
+   "quote": "the theme share feature",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "feat-nps-txn-freq-v1",
+   "quote": "feat-nps-txn-freq-v1",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "nps-gbm-v1",
+   "quote": "the first gradient boosted driver model",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "nps-gbm-v1",
+   "quote": "nps-gbm-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/nps-gbm-v2.md",
+ "sha": "20ec269ba699d84781dc37462ecd3752f928589b4db63637e8174774cdead27a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

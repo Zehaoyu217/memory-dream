@@ -1,0 +1,198 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-504-travel-spend-recovery",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-504-travel-spend-recovery"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "bayesian-structural-time-series",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "Bayesian structural time series"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "trv-bt-2025h1",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "trv-bt-2025h1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holiday-effects",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "holiday effects"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "app-sessions",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "app sessions"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "mape",
+   "as": [
+    "MAPE 5.6%"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "trv-ridge-v2",
+   "type": "model",
+   "label": "ridge model",
+   "as": [
+    "5.2% ridge"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fit-time",
+   "type": "metric",
+   "label": "fit time",
+   "as": [
+    "fit time"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "exp-503-travel-spend-recovery",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-503-travel-spend-recovery"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "trv-bsts-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "trv-bsts-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "dec-trv-stop-bsts",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-trv-stop-bsts"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-504-travel-spend-recovery",
+   "type": "evaluated-on",
+   "label": "runs on",
+   "o": "trv-bt-2025h1",
+   "quote": "Bayesian structural time series on trv-bt-2025h1",
+   "line": 5
+  },
+  {
+   "s": "exp-504-travel-spend-recovery",
+   "type": "uses",
+   "label": "includes",
+   "o": "holiday-effects",
+   "quote": "holiday effects plus app sessions",
+   "line": 5
+  },
+  {
+   "s": "exp-504-travel-spend-recovery",
+   "type": "uses",
+   "label": "includes",
+   "o": "app-sessions",
+   "quote": "holiday effects plus app sessions",
+   "line": 5
+  },
+  {
+   "s": "exp-504-travel-spend-recovery",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "mape",
+   "quote": "MAPE 5.6%, worse than the 5.2% ridge",
+   "line": 6
+  },
+  {
+   "s": "exp-504-travel-spend-recovery",
+   "type": "other",
+   "label": "result passed to",
+   "o": "dec-trv-stop-bsts",
+   "quote": "Result passed to dec-trv-stop-bsts.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-503-travel-spend-recovery",
+  "trv-bsts-v1",
+  "dec-trv-stop-bsts"
+ ],
+ "built_on": [
+  {
+   "what": "exp-503-travel-spend-recovery",
+   "quote": "exp-503-travel-spend-recovery",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "trv-bsts-v1",
+   "quote": "trv-bsts-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "work/exp-504-travel-spend-recovery.md",
+ "sha": "b5dc09b78d061ac3d557e10041c914e9c4604b7d1019b8e0f38acb511f73ebab",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

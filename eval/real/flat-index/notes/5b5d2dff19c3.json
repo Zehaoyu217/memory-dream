@@ -1,0 +1,119 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "mrisk-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "mrisk-gbm-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-506-merchant-risk",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-506-merchant-risk"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "mrisk-oot-2026h1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "mrisk-oot-2026h1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "precision",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Precision at that cut is 0.31"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mrisk-find-watchlist-065",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "mrisk-find-watchlist-065"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mrisk-gbm-v2",
+   "type": "measured-by",
+   "label": "precision at cut",
+   "o": "precision",
+   "quote": "Precision at that cut is 0.31 on mrisk-oot-2026h1.",
+   "line": 6
+  },
+  {
+   "s": "mrisk-find-watchlist-065",
+   "type": "replaces",
+   "label": "overturns",
+   "o": "mrisk-gbm-v2",
+   "quote": "Overturned by mrisk-find-watchlist-065 once v3 was in place.",
+   "line": 7
+  },
+  {
+   "s": "mrisk-gbm-v2",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "mrisk-oot-2026h1",
+   "quote": "on mrisk-gbm-v2: 4.1% of merchants flagged",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-506-merchant-risk",
+  "mrisk-find-watchlist-065"
+ ],
+ "built_on": [
+  {
+   "what": "the first-half 2026 out-of-time check",
+   "quote": "the first-half 2026 out-of-time check",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-506-merchant-risk",
+   "quote": "exp-506-merchant-risk",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "first-half 2026 out-of-time check",
+   "quote": "Builds on the first-half 2026 out-of-time check and exp-506-merchant-risk.",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/mrisk-find-watchlist-07.md",
+ "sha": "5b5d2dff19c3324ffaebf02adde574c149de1ff54b0aa0344225f3271e327b3b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

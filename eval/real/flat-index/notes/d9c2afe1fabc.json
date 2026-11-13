@@ -1,0 +1,142 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cld-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cld-gbm-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cld-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cld-gbm-v1"
+   ],
+   "lines": [
+    8,
+    9
+   ]
+  },
+  {
+   "id": "feat-cld-risk-band-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cld-risk-band-v2"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "cld-test-2025q3",
+   "type": "dataset",
+   "label": "test set",
+   "as": [
+    "cld-test-2025q3"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Gini"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cld-gbm-v2",
+   "type": "uses",
+   "label": "uses bands",
+   "o": "feat-cld-risk-band-v2",
+   "quote": "feat-cld-risk-band-v2 replacing the v1 bands",
+   "line": 5
+  },
+  {
+   "s": "cld-gbm-v2",
+   "type": "evaluated-on",
+   "label": "eval on",
+   "o": "cld-test-2025q3",
+   "quote": "Eval: cld-test-2025q3, n=19,400, AUC 0.78, Gini 0.56.",
+   "line": 6
+  },
+  {
+   "s": "cld-gbm-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.78, Gini 0.56.",
+   "line": 6
+  },
+  {
+   "s": "cld-gbm-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "gini",
+   "quote": "Gini 0.56",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "cld-gbm-v3"
+ ],
+ "built_on": [
+  {
+   "what": "cld-gbm-v1",
+   "quote": "cld-gbm-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-cld-risk-band-v2",
+   "quote": "feat-cld-risk-band-v2",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "cld-gbm-v1",
+   "quote": "cld-gbm-v1",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/cld-gbm-v2.md",
+ "sha": "d9c2afe1fabc3781bd7fef17f54a577f08674bbc01110721528e7e5090c22ca1",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

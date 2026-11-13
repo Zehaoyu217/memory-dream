@@ -1,0 +1,136 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-clv-retention-kink",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Monthly retention hazard drops from 3.1% to 1.2% after month 18"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "monthly-retention-hazard",
+   "type": "metric",
+   "label": "hazard",
+   "as": [
+    "Monthly retention hazard"
+   ],
+   "lines": [
+    4,
+    8
+   ]
+  },
+  {
+   "id": "feat-clv-hazard",
+   "type": "feature",
+   "label": "hazard feature",
+   "as": [
+    "feat-clv-hazard"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "clv-ml-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "clv-ml-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-clv-cohort-panel",
+   "type": "dataset",
+   "label": "cohort panel",
+   "as": [
+    "ds-clv-cohort-panel"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "bureau-score",
+   "type": "feature",
+   "label": "bureau band",
+   "as": [
+    "bureau-band split"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "tenure-only-curve",
+   "type": "other",
+   "label": "curve",
+   "as": [
+    "tenure-only curve"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "monthly-retention-hazard",
+   "type": "uses",
+   "label": "built on",
+   "o": "ds-clv-cohort-panel",
+   "quote": "Builds on ds-clv-cohort-panel and the monthly retention hazard feature.",
+   "line": 8
+  },
+  {
+   "s": "feat-clv-hazard",
+   "type": "uses",
+   "label": "bureau-band split",
+   "o": "bureau-score",
+   "quote": "Basis for feat-clv-hazard: a tenure-only curve misses the bureau-band split after month 18.",
+   "line": 6
+  },
+  {
+   "s": "clv-ml-v2",
+   "type": "uses",
+   "label": "supported by",
+   "o": "feat-clv-hazard",
+   "quote": "Supports the hazard feature in clv-ml-v2.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "feat-clv-hazard",
+  "clv-ml-v2",
+  "ds-clv-cohort-panel"
+ ],
+ "built_on": [
+  {
+   "what": "ds-clv-cohort-panel",
+   "quote": "ds-clv-cohort-panel",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-clv-hazard",
+   "quote": "the monthly retention hazard feature",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-clv-retention-kink.md",
+ "sha": "6246937e8c5f7f191d74a8d61325a5516dd7106094c1ce4e6bb867eca81533fb",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

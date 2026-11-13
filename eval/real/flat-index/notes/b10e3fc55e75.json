@@ -1,0 +1,126 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "credit-line-increase",
+   "type": "other",
+   "label": "workstream",
+   "as": [
+    "credit-line-increase"
+   ],
+   "lines": [
+    3,
+    4
+   ]
+  },
+  {
+   "id": "cutoff-sweep",
+   "type": "term",
+   "label": "sweep",
+   "as": [
+    "sweep at cutoff 0.031"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "person",
+   "as": [
+    "Lena"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "net-benefit",
+   "type": "metric",
+   "label": "net benefit",
+   "as": [
+    "+$1.8M a year net"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "loss-rate",
+   "type": "metric",
+   "label": "loss",
+   "as": [
+    "1.4% loss"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "loss-cap",
+   "type": "policy",
+   "label": "loss cap",
+   "as": [
+    "loss cap at 1.5% of exposed book"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "book",
+   "type": "term",
+   "label": "book",
+   "as": [
+    "exposed book"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cutoff-sweep",
+   "type": "measured-by",
+   "label": "gives",
+   "o": "net-benefit",
+   "quote": "sweep at cutoff 0.031 gives +$1.8M a year net at 1.4% loss",
+   "line": 3
+  },
+  {
+   "s": "cutoff-sweep",
+   "type": "measured-by",
+   "label": "at",
+   "o": "loss-rate",
+   "quote": "at 1.4% loss",
+   "line": 3
+  },
+  {
+   "s": "cutoff-sweep",
+   "type": "owned-by",
+   "label": "pending",
+   "o": "lena-fischer",
+   "quote": "pending Lena",
+   "line": 3
+  },
+  {
+   "s": "loss-cap",
+   "type": "other",
+   "label": "caps",
+   "o": "book",
+   "quote": "loss cap at 1.5% of exposed book",
+   "line": 4
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2025-03-12.md",
+ "sha": "b10e3fc55e758eedb10efef20a696a39af83e1b34c7a3dd89dd40374cd0292f4",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

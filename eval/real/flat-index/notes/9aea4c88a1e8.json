@@ -1,0 +1,69 @@
+{
+ "kind": "term",
+ "entities": [
+  {
+   "id": "min-due",
+   "type": "term",
+   "label": "payment",
+   "as": [
+    "minimum payment"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "statement-balance",
+   "type": "term",
+   "label": "balance",
+   "as": [
+    "statement balance"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "statement",
+   "type": "document",
+   "label": "statement",
+   "as": [
+    "statement"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "min-due",
+   "type": "uses",
+   "label": "2% of",
+   "o": "statement-balance",
+   "quote": "2% of the statement balance",
+   "line": 5
+  },
+  {
+   "s": "min-due",
+   "type": "other",
+   "label": "printed on",
+   "o": "statement",
+   "quote": "It is printed on every statement.",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "glossary/min-due.md",
+ "sha": "9aea4c88a1e8d8dad02448e27436770f563d704aee8dca5d6a4604c5a0d67822",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

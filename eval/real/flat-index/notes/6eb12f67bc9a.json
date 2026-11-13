@@ -1,0 +1,97 @@
+{
+ "kind": "incident",
+ "entities": [
+  {
+   "id": "calibration-drift-alarm",
+   "type": "other",
+   "label": "alarm",
+   "as": [
+    "calibration drift alarm"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "retention-propensity-model",
+   "type": "model",
+   "label": "retention propensity model",
+   "as": [
+    "retention propensity model"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "limit-increase-campaign",
+   "type": "other",
+   "label": "campaign",
+   "as": [
+    "limit-increase campaign"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "isotonic-recalibration",
+   "type": "term",
+   "label": "recalibration",
+   "as": [
+    "Isotonic recalibration"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "training-split",
+   "type": "dataset",
+   "label": "training split",
+   "as": [
+    "training split"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "calibration-drift-alarm",
+   "type": "other",
+   "label": "fired on",
+   "o": "retention-propensity-model",
+   "quote": "August 2025, on the retention propensity model",
+   "line": 4
+  },
+  {
+   "s": "isotonic-recalibration",
+   "type": "uses",
+   "label": "on",
+   "o": "training-split",
+   "quote": "Isotonic recalibration on the training split",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "howto/brier-score-calibration"
+ ],
+ "built_on": [
+  {
+   "what": "howto/brier-score-calibration",
+   "quote": "howto/brier-score-calibration",
+   "line": 6,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/calibration-alarm-first-fire.md",
+ "sha": "6eb12f67bc9a020d6e70c2431b26748884cbb4adab71391a0d4de71fe1781309",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,75 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-inc-stated-override",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: stated income is used when it is within 20% of the estimate, otherwise the estimate"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "q-inc-stated-override",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "q-inc-stated-override"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "dec-inc-estimate-live",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-inc-estimate-live"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-inc-stated-override",
+   "type": "uses",
+   "label": "builds on",
+   "o": "q-inc-stated-override",
+   "quote": "Builds on the stated-income applications dataset and q-inc-stated-override.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "q-inc-stated-override",
+  "dec-inc-estimate-live"
+ ],
+ "built_on": [
+  {
+   "what": "ds-inc-stated-income-2025",
+   "quote": "the stated-income applications dataset",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "q-inc-stated-override",
+   "quote": "q-inc-stated-override",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-inc-stated-override.md",
+ "sha": "9b2eff9fde3f61bd2013ec438d97c6caf24158ce4e15038119891e0a2ac2e75e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

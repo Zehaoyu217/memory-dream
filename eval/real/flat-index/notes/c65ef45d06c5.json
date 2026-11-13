@@ -1,0 +1,143 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cc-channel-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "Channel one-hot"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "complaints.tickets_raw",
+   "type": "dataset",
+   "label": "ticket table",
+   "as": [
+    "complaints.tickets_raw"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "channel",
+   "type": "feature",
+   "label": "channel feature",
+   "as": [
+    "Channels"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "hour-of-day-bucket",
+   "type": "feature",
+   "label": "hour bucket",
+   "as": [
+    "hour-of-day bucket"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro f1",
+   "as": [
+    "macro F1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "logistic-model",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "logistic model"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fnd-cc-channel-null",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-cc-channel-null"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cc-channel-v1",
+   "type": "uses",
+   "label": "reads from",
+   "o": "complaints.tickets_raw",
+   "quote": "Channels from `complaints.tickets_raw`",
+   "line": 5
+  },
+  {
+   "s": "channel",
+   "type": "part-of",
+   "label": "part of",
+   "o": "feat-cc-channel-v1",
+   "quote": "Channel one-hot plus an hour-of-day bucket",
+   "line": 4
+  },
+  {
+   "s": "hour-of-day-bucket",
+   "type": "part-of",
+   "label": "part of",
+   "o": "feat-cc-channel-v1",
+   "quote": "Channel one-hot plus an hour-of-day bucket",
+   "line": 4
+  },
+  {
+   "s": "channel",
+   "type": "measured-by",
+   "label": "costs",
+   "o": "macro-f1",
+   "quote": "Dropping channel costs only 0.002 macro F1",
+   "line": 6
+  },
+  {
+   "s": "logistic-model",
+   "type": "uses",
+   "label": "stays in",
+   "o": "feat-cc-channel-v1",
+   "quote": "so it stays in the logistic model",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fnd-cc-channel-null"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cc-tickets-raw",
+   "quote": "the raw complaint ticket table",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-cc-channel-v1.md",
+ "sha": "c65ef45d06c548f86ff19c0ded5d9590ba7153d6811cefcfa6cdbb44ac3f6157",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,123 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-sfc-segment-monthly",
+   "type": "dataset",
+   "label": "extract",
+   "as": [
+    "Monthly spend per customer segment"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "crm.contacts",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "crm.contacts"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "customer-segments",
+   "type": "segment",
+   "label": "segments",
+   "as": [
+    "Six segments: Premier, Everyday, Student, Small business, Rewards, Secured"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "sfc-bt-2024",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "sfc-bt-2024"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "sfc-oot-2025h2",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "sfc-oot-2025h2"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  },
+  {
+   "id": "feat-sfc-active-accounts",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-sfc-active-accounts"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-sfc-segment-monthly",
+   "type": "uses",
+   "label": "from",
+   "o": "cards.accounts_monthly",
+   "quote": "Monthly spend per customer segment from `cards.accounts_monthly` joined to `crm.contacts` for the segment label.",
+   "line": 5
+  },
+  {
+   "s": "ds-sfc-segment-monthly",
+   "type": "uses",
+   "label": "joined to",
+   "o": "crm.contacts",
+   "quote": "Monthly spend per customer segment from `cards.accounts_monthly` joined to `crm.contacts` for the segment label.",
+   "line": 5
+  },
+  {
+   "s": "feat-sfc-active-accounts",
+   "type": "uses",
+   "label": "same table",
+   "o": "cards.accounts_monthly",
+   "quote": "Active account counts per segment come from the same table (feat-sfc-active-accounts).",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "sfc-bt-2024",
+  "sfc-oot-2025h2",
+  "feat-sfc-active-accounts"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-sfc-segment-monthly.md",
+ "sha": "41a9bb778574eaf6ac6ab6854e69dd1f05956552c6c5e112e5ac76eeeef5edb4",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

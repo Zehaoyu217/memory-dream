@@ -1,0 +1,184 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "lightgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "LightGBM v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "caller-history-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "caller history v2"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "cr-oot-2026h1",
+   "type": "dataset",
+   "label": "out-of-time set",
+   "as": [
+    "cr-oot-2026h1"
+   ],
+   "lines": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "macro F1 0.74",
+    "0.73"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "top-1-accuracy",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Top-1 accuracy 0.79"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cr-lgbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cr-lgbm-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-105-call-center-routing",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-105-call-center-routing"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "lightgbm-v2",
+   "type": "measured-by",
+   "label": "gives macro F1",
+   "o": "macro-f1",
+   "quote": "gives macro F1 0.74 on holdout-2025q4",
+   "line": 4
+  },
+  {
+   "s": "lightgbm-v2",
+   "type": "evaluated-on",
+   "label": "gives macro F1 on",
+   "o": "holdout-2025q4",
+   "quote": "Macro F1 0.74 on holdout-2025q4 (n = 380,000)",
+   "line": 5
+  },
+  {
+   "s": "lightgbm-v2",
+   "type": "evaluated-on",
+   "label": "gives macro F1 on",
+   "o": "cr-oot-2026h1",
+   "quote": "0.73 on cr-oot-2026h1 (n = 410,000)",
+   "line": 5
+  },
+  {
+   "s": "lightgbm-v2",
+   "type": "measured-by",
+   "label": "top-1 accuracy",
+   "o": "top-1-accuracy",
+   "quote": "Top-1 accuracy 0.79 on cr-oot-2026h1.",
+   "line": 6
+  },
+  {
+   "s": "cr-lgbm-v3",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "lightgbm-v2",
+   "quote": "Superseded by cr-lgbm-v3",
+   "line": 7
+  },
+  {
+   "s": "lightgbm-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "caller-history-v2",
+   "quote": "with caller history v2 in place of v1",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-105-call-center-routing",
+  "cr-lgbm-v3"
+ ],
+ "built_on": [
+  {
+   "what": "exp-105-call-center-routing",
+   "quote": "exp-105-call-center-routing",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-cr-caller-history-v2",
+   "quote": "the new caller history feature",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "cr-lgbm-v1",
+   "quote": "the first lightgbm router run",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/cr-lgbm-v2.md",
+ "sha": "9a8a3f962687e1e31f6bbb06e97bc277978aca2347826ea50ecf1313ae2b0e17",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

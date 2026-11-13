@@ -1,0 +1,106 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-cb-sessions",
+   "type": "dataset",
+   "label": "chat sessions",
+   "as": [
+    "Chat sessions"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "calls",
+   "as": [
+    "callcenter.calls"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "caller-key",
+   "type": "feature",
+   "label": "join key",
+   "as": [
+    "caller_key"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "cx-analytics",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "cx-analytics"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "contained-sessions",
+   "type": "segment",
+   "label": "sessions",
+   "as": [
+    "contained sessions"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-cb-sessions",
+   "type": "uses",
+   "label": "joined to",
+   "o": "callcenter.calls",
+   "quote": "Chat sessions joined to `callcenter.calls` on caller_key within 48 hours of session end",
+   "line": 4
+  },
+  {
+   "s": "ds-cb-sessions",
+   "type": "uses",
+   "label": "join key",
+   "o": "caller-key",
+   "quote": "The join uses caller_key, which is hashed",
+   "line": 6
+  },
+  {
+   "s": "contained-sessions",
+   "type": "other",
+   "label": "had a call",
+   "o": "callcenter.calls",
+   "quote": "22 percent had a call within 48 hours",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "ds-cb-sessions"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cb-sessions",
+   "quote": "ds-cb-sessions",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-cb-call-linkage.md",
+ "sha": "a4222f425dea306b2749f82a9c544ccd18204e5930550f4285ce79057282474b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

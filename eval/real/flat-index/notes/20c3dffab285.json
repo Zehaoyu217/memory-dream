@@ -1,0 +1,223 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-202-early-delinquency",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-202-early-delinquency"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-201-early-delinquency",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-201-early-delinquency"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "early-delinquency-holdout-2024q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "early-delinquency-holdout-2024q4"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ed-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ed-gbm-v1"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-ed-util-trend-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ed-util-trend-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-ed-cashadv-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ed-cashadv-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Gini"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "brier-score",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Brier"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "find-ed-gbm-vs-logit",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-ed-gbm-vs-logit"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-202-early-delinquency",
+   "type": "evaluated-on",
+   "label": "same holdout",
+   "o": "early-delinquency-holdout-2024q4",
+   "quote": "Same holdout as exp-201-early-delinquency (n=402,000).",
+   "line": 5
+  },
+  {
+   "s": "ed-gbm-v1",
+   "type": "uses",
+   "label": "uses feature",
+   "o": "feat-ed-util-trend-v1",
+   "quote": "ed-gbm-v1 with feat-ed-util-trend-v1 and feat-ed-cashadv-v1",
+   "line": 5
+  },
+  {
+   "s": "ed-gbm-v1",
+   "type": "uses",
+   "label": "uses feature",
+   "o": "feat-ed-cashadv-v1",
+   "quote": "ed-gbm-v1 with feat-ed-util-trend-v1 and feat-ed-cashadv-v1",
+   "line": 5
+  },
+  {
+   "s": "exp-202-early-delinquency",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.781",
+   "line": 5
+  },
+  {
+   "s": "exp-202-early-delinquency",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "gini",
+   "quote": "Gini 0.562",
+   "line": 5
+  },
+  {
+   "s": "exp-202-early-delinquency",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "ks",
+   "quote": "KS 0.42",
+   "line": 5
+  },
+  {
+   "s": "exp-202-early-delinquency",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "brier-score",
+   "quote": "Brier 0.045",
+   "line": 5
+  },
+  {
+   "s": "exp-202-early-delinquency",
+   "type": "uses",
+   "label": "segment check",
+   "o": "find-ed-gbm-vs-logit",
+   "quote": "see find-ed-gbm-vs-logit for the segment check",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-201-early-delinquency",
+  "find-ed-gbm-vs-logit",
+  "ed-gbm-v1"
+ ],
+ "built_on": [
+  {
+   "what": "ed-gbm-v1",
+   "quote": "ed-gbm-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-201-early-delinquency",
+   "quote": "exp-201-early-delinquency",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-202-early-delinquency.md",
+ "sha": "20c3dffab285d2dbc154e8235c356f101c76c2bd36c2cc61719ca483de3f681a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

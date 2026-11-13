@@ -1,0 +1,150 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "promo-apr-test",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "promo-apr-test"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "merchant-risk",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "merchant-risk"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "merchant-spine",
+   "type": "dataset",
+   "label": "spine",
+   "as": [
+    "merchant spine"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.merchants",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.merchants"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feature-store-migration",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "feature-store-migration"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "churn-retrain",
+   "type": "model",
+   "label": "retrain",
+   "as": [
+    "churn retrain"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "score",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "recovery-scoring",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "recovery-scoring"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "regression-head",
+   "type": "model",
+   "label": "model head",
+   "as": [
+    "regression head"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "error metric",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "merchant-spine",
+   "type": "uses",
+   "label": "pulled from",
+   "o": "cards.merchants",
+   "quote": "merchant spine pulled from cards.merchants",
+   "line": 4
+  },
+  {
+   "s": "churn-retrain",
+   "type": "measured-by",
+   "label": "gives",
+   "o": "auc",
+   "quote": "+0.009 AUC",
+   "line": 5
+  },
+  {
+   "s": "regression-head",
+   "type": "measured-by",
+   "label": "brings",
+   "o": "mape",
+   "quote": "brings MAPE to 14.2%",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2026-02-03.md",
+ "sha": "659cc6cca1cb8d35eabdc7bd01e095b09fb69a6478b8f3251a0561ddaa791711",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

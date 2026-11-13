@@ -1,0 +1,139 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "days-to-due",
+   "type": "feature",
+   "label": "days-to-due",
+   "as": [
+    "days-to-due"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "statement-close-date",
+   "type": "feature",
+   "label": "close date",
+   "as": [
+    "statement close date"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "statement-due-date",
+   "type": "feature",
+   "label": "due date",
+   "as": [
+    "statement due date"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-pay-days-to-due-last-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat_pay_days_to_due_last_v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "onboarding-model",
+   "type": "model",
+   "label": "onboarding model",
+   "as": [
+    "onboarding model"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "priya-nair",
+   "type": "person",
+   "label": "priya nair",
+   "as": [
+    "Priya Nair"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "priya-nair-onboarding-team",
+   "type": "team",
+   "label": "onboarding team",
+   "as": [
+    "Priya Nair's onboarding team"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-pay-days-to-due-last-v1",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "priya-nair-onboarding-team",
+   "quote": "Priya Nair's onboarding team owns",
+   "line": 5
+  },
+  {
+   "s": "onboarding-model",
+   "type": "measured-by",
+   "label": "lost AUC",
+   "o": "auc",
+   "quote": "lost 0.01 AUC on the onboarding model",
+   "line": 5
+  },
+  {
+   "s": "days-to-due",
+   "type": "uses",
+   "label": "measured to",
+   "o": "statement-due-date",
+   "quote": "From the last payment date to the statement due date",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "howto/payment-days-to-due"
+ ],
+ "built_on": [
+  {
+   "what": "howto/payment-days-to-due",
+   "quote": "howto/payment-days-to-due",
+   "line": 6,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/days-to-due-close-vs-due.md",
+ "sha": "5d2048ac2b2fbc2ea32024cc4aa78494634be3812277cbce4e7d96b38b40404b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

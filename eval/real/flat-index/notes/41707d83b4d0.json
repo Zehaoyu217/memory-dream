@@ -1,0 +1,85 @@
+{
+ "kind": "preference",
+ "entities": [
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Tomás Rivera"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "transaction table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "payments table",
+   "as": [
+    "cards.payments_daily"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cards.disputes",
+   "type": "dataset",
+   "label": "disputes table",
+   "as": [
+    "cards.disputes"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "tomas-rivera",
+   "type": "other",
+   "label": "expects load by",
+   "o": "cards.txn_daily",
+   "quote": "Tomás Rivera expects `cards.txn_daily` to land by 07:00 UTC, T+1",
+   "line": 4
+  },
+  {
+   "s": "cards.payments_daily",
+   "type": "other",
+   "label": "shares SLA with",
+   "o": "cards.txn_daily",
+   "quote": "`cards.payments_daily` shares the same SLA.",
+   "line": 6
+  },
+  {
+   "s": "cards.disputes",
+   "type": "other",
+   "label": "has T+2 SLA",
+   "o": "cards.txn_daily",
+   "quote": "`cards.disputes` is T+2 because of the bank partner feed.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "prefs/tomas-rivera-freshness-sla.md",
+ "sha": "41707d83b4d0a0724713f49600987e5a365468e7752d50d3c3eab08f3971f648",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

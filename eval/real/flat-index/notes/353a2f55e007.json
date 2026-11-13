@@ -1,0 +1,66 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "cards.merchants",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.merchants"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "fraud-2025-travel-flag",
+   "type": "feature",
+   "label": "flag",
+   "as": [
+    "fraud-2025 travel flag"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "travel-mcc-list",
+   "type": "dataset",
+   "label": "list",
+   "as": [
+    "Travel MCC list"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "travel-mcc-list",
+   "type": "uses",
+   "label": "taken from",
+   "o": "cards.merchants",
+   "quote": "Travel MCC list taken from cards.merchants",
+   "line": 4
+  },
+  {
+   "s": "fraud-2025-travel-flag",
+   "type": "uses",
+   "label": "taken from",
+   "o": "cards.merchants",
+   "quote": "Travel MCC list taken from cards.merchants for the fraud-2025 travel flag",
+   "line": 4
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-f25-travel-tags.md",
+ "sha": "353a2f55e007025a24b599a68ed8d06bc6d3d0e282fead5335df0e73ad00128e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,106 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "raiser",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "new-account-scorecard",
+   "type": "model",
+   "label": "scorecard",
+   "as": [
+    "rebuilt new-account scorecard"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "OOT Gini 0.42"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "oot-set",
+   "type": "dataset",
+   "label": "out-of-time set",
+   "as": [
+    "next out-of-time set"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2026q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "2026-Q1 holdout"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "new-account-scorecard",
+   "type": "measured-by",
+   "label": "targets",
+   "o": "gini",
+   "quote": "Target is 0.42 Gini on the next out-of-time set",
+   "line": 5
+  },
+  {
+   "s": "holdout-2026q1",
+   "type": "measured-by",
+   "label": "fell to 0.33",
+   "o": "gini",
+   "quote": "after the 2026-Q1 holdout Gini fell to 0.33",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-507-application-scorecard",
+  "dec-app-cutoff-v4",
+  "ds-app-applications-2024",
+  "find-app-gini-v3-drift"
+ ],
+ "built_on": [
+  {
+   "what": "ds-app-applications-2024",
+   "quote": "ds-app-applications-2024",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "find-app-gini-v3-drift",
+   "quote": "find-app-gini-v3-drift",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/q-app-gini-target.md",
+ "sha": "4c64b06672276d9edb5c053130f1ac3e9ed391179f89217e497a4cb1224ad79f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

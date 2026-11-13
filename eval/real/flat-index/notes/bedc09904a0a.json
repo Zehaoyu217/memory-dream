@@ -1,0 +1,119 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-lbl-churn-closure",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "churn is no approved transaction for 90 days, or an account closure within 120 days of the snapshot"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "churn",
+   "type": "term",
+   "label": "churn definition",
+   "as": [
+    "churn is no approved transaction for 90 days"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-lbl-churn-flag-closure",
+   "type": "feature",
+   "label": "churn flag",
+   "as": [
+    "feat-lbl-churn-flag-closure"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-407-label-pipeline-rebuild",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-407-label-pipeline-rebuild"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dec-lbl-churn-90d",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-lbl-churn-90d"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn",
+   "type": "other",
+   "label": "implemented as",
+   "o": "feat-lbl-churn-flag-closure",
+   "quote": "implemented as feat-lbl-churn-flag-closure in the rebuilt job",
+   "line": 6
+  },
+  {
+   "s": "exp-407-label-pipeline-rebuild",
+   "type": "other",
+   "label": "shows",
+   "o": "dec-lbl-churn-closure",
+   "quote": "exp-407-label-pipeline-rebuild shows the closure-inclusive label gives the better model",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "dec-lbl-churn-90d",
+  "feat-lbl-churn-flag-closure",
+  "exp-407-label-pipeline-rebuild"
+ ],
+ "built_on": [
+  {
+   "what": "dec-lbl-churn-90d",
+   "quote": "the 90-day no-transaction churn rule",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "exp-406-label-pipeline-rebuild",
+   "quote": "the churn job rerun duplication check",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "fnd-churn-rate-rebuilt",
+   "quote": "the churn rate after closures",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "dec-lbl-churn-90d",
+   "quote": "dec-lbl-churn-90d",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-lbl-churn-closure.md",
+ "sha": "bedc09904a0ae98069499e10f75eec81f9398f752085506502006d905d5617ef",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

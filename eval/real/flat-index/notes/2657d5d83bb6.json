@@ -1,0 +1,65 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-104-feature-store-migration",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-104-feature-store-migration"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "legacy-features-dataset",
+   "type": "dataset",
+   "label": "legacy features",
+   "as": [
+    "legacy features dataset"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "store-offline-table",
+   "type": "dataset",
+   "label": "offline table",
+   "as": [
+    "store's offline table"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-104-feature-store-migration",
+   "type": "produces",
+   "label": "backfilled into",
+   "o": "store-offline-table",
+   "quote": "Backfilled the 214 migrated features for 2024-07 to 2025-12 into the store's offline table.",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-fsm-legacy-features",
+   "quote": "the legacy features dataset",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-104-feature-store-migration.md",
+ "sha": "2657d5d83bb6610f86e71a684a5c7b4515d408500dcb88804fa52244942957ee",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

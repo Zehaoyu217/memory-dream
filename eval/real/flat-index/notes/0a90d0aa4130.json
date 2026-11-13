@@ -1,0 +1,137 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "pa-margin-v2",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "pa-margin-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "pa-margin-v1",
+   "type": "model",
+   "label": "model version",
+   "as": [
+    "pa-margin-v1"
+   ],
+   "lines": [
+    8,
+    9
+   ]
+  },
+  {
+   "id": "pa-churn-hazard-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "pa-churn-hazard-v1"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "pa-bal-forecast-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "pa-bal-forecast-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-pa-credit-band",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-pa-credit-band"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "external-only-bt-inflow",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "external-only balance transfer inflow feature"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "pa-margin-v2",
+   "type": "uses",
+   "label": "adds hazard",
+   "o": "pa-churn-hazard-v1",
+   "quote": "Adds the post-expiry churn hazard (pa-churn-hazard-v1)",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "pa-churn-hazard-v1",
+  "pa-margin-v1",
+  "pa-bal-forecast-v1",
+  "feat-pa-credit-band"
+ ],
+ "built_on": [
+  {
+   "what": "feat-pa-bt-inflow-v2",
+   "quote": "the external-only balance transfer inflow feature",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-pa-credit-band",
+   "quote": "feat-pa-credit-band",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "pa-bal-forecast-v1",
+   "quote": "pa-bal-forecast-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "pa-churn-hazard-v1",
+   "quote": "pa-churn-hazard-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "pa-margin-v1",
+   "quote": "pa-margin-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "pa-margin-v1",
+   "quote": "pa-margin-v1",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/pa-margin-v2.md",
+ "sha": "0a90d0aa4130f35b0744ff381d4b7f3a8a8b614a4a383eba2d2c954e083cb1d6",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

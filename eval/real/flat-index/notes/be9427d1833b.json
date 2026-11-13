@@ -1,0 +1,99 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "recovery-label",
+   "type": "term",
+   "label": "label",
+   "as": [
+    "Recovery label"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "collections-cases",
+   "type": "dataset",
+   "label": "recoveries ledger",
+   "as": [
+    "collections.cases"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "ds-rs-agency-placements",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "ds-rs-agency-placements"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-rs-chargeoff-base",
+   "type": "dataset",
+   "label": "base",
+   "as": [
+    "ds-rs-chargeoff-base"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "charge-off",
+   "type": "term",
+   "label": "event",
+   "as": [
+    "charge-off"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "recovery-label",
+   "type": "uses",
+   "label": "summed from",
+   "o": "collections-cases",
+   "quote": "Recoveries are summed from the `collections.cases` recoveries ledger",
+   "line": 5
+  },
+  {
+   "s": "recovery-label",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-rs-chargeoff-base",
+   "quote": "Builds on ds-rs-chargeoff-base.",
+   "line": 9
+  }
+ ],
+ "refs": [
+  "ds-rs-agency-placements",
+  "ds-rs-chargeoff-base"
+ ],
+ "built_on": [
+  {
+   "what": "ds-rs-chargeoff-base",
+   "quote": "ds-rs-chargeoff-base",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-rs-recovery-labels.md",
+ "sha": "be9427d1833b532ad383b56526a448601febc3cb53f46d2eca35858fb4182b51",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

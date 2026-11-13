@@ -1,0 +1,118 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "ae-score-v2",
+   "type": "model",
+   "label": "engagement score",
+   "as": [
+    "ae-score-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "retention-at-90-days",
+   "type": "metric",
+   "label": "retention",
+   "as": [
+    "retention at 90 days"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-506-app-engagement",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-506-app-engagement"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dec-ae-dashboard",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-ae-dashboard"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "weekly-dashboard",
+   "type": "dashboard",
+   "label": "dashboard",
+   "as": [
+    "weekly dashboard"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ae-score-v2",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "holdout-2025q4",
+   "quote": "scored on holdout-2025q4 (n = 610,000)",
+   "line": 5
+  },
+  {
+   "s": "ae-score-v2",
+   "type": "measured-by",
+   "label": "measures",
+   "o": "retention-at-90-days",
+   "quote": "retention at 90 days is 91 percent in the top quintile",
+   "line": 5
+  },
+  {
+   "s": "ae-score-v2",
+   "type": "other",
+   "label": "drives",
+   "o": "weekly-dashboard",
+   "quote": "The score separates risk clearly enough to drive the weekly dashboard",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ae-score-v2",
+  "exp-506-app-engagement",
+  "dec-ae-dashboard"
+ ],
+ "built_on": [
+  {
+   "what": "exp-506-app-engagement",
+   "quote": "the gradient boosted attrition model",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-ae-quintiles.md",
+ "sha": "4959655e63588ef0e0c59d0554a3534054ef09d9abedccff8e36f91e336c0f70",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,115 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "call log",
+   "as": [
+    "callcenter.calls"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "cx-analytics",
+   "type": "team",
+   "label": "analytics group",
+   "as": [
+    "cx-analytics"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "eligible-offer-log-table",
+   "type": "dataset",
+   "label": "offer log",
+   "as": [
+    "eligible offer log table"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "cardholders-in-log",
+   "type": "segment",
+   "label": "cardholders",
+   "as": [
+    "cardholders in the log"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "called-share",
+   "type": "metric",
+   "label": "called share",
+   "as": [
+    "14% of cardholders in the log had one"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "contact-window",
+   "type": "term",
+   "label": "90-day window",
+   "as": [
+    "90 days before offer open"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "callcenter.calls",
+   "type": "uses",
+   "label": "joined to",
+   "o": "eligible-offer-log-table",
+   "quote": "`callcenter.calls` joined to offers",
+   "line": 4
+  },
+  {
+   "s": "callcenter.calls",
+   "type": "owned-by",
+   "label": "source",
+   "o": "cx-analytics",
+   "quote": "Calls from `callcenter.calls` (cx-analytics)",
+   "line": 5
+  },
+  {
+   "s": "cardholders-in-log",
+   "type": "measured-by",
+   "label": "had one",
+   "o": "called-share",
+   "quote": "14% of cardholders in the log had one",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-xs-offer-log",
+   "quote": "the eligible offer log table",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-xs-callcentre.md",
+ "sha": "2211f59732a6aa4b8c446440ee24db2d293cd330537a593797d1de67408bedb6",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

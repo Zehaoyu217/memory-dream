@@ -1,0 +1,87 @@
+{
+ "kind": "correction",
+ "entities": [
+  {
+   "id": "response-rate",
+   "type": "metric",
+   "label": "response rate",
+   "as": [
+    "Response rate"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "cli-email",
+   "type": "term",
+   "label": "cli email",
+   "as": [
+    "Sept 2024 CLI email"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "campaign-responses",
+   "type": "dataset",
+   "label": "campaign responses",
+   "as": [
+    "marketing.campaign_responses"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "campaign-decks",
+   "type": "document",
+   "label": "campaign decks",
+   "as": [
+    "campaign decks from 2024 Q3 onward"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "response-rate",
+   "type": "uses",
+   "label": "using",
+   "o": "campaign-responses",
+   "quote": "using `marketing.campaign_responses`",
+   "line": 6
+  },
+  {
+   "s": "campaign-decks",
+   "type": "measured-by",
+   "label": "report",
+   "o": "response-rate",
+   "quote": "campaign decks from 2024 Q3 onward",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "glossary/response-rate"
+ ],
+ "replaces": [
+  {
+   "what": "glossary/response-rate",
+   "quote": "glossary/response-rate",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "corrections/response-rate-over-contacts.md",
+ "sha": "d16fadb4e868886832ff2078100c937f01d01983b357b8cedbc587633cb1a729",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

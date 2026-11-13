@@ -1,0 +1,112 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-rev26-volume-lag",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rev26-volume-lag"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-301-revenue-forecast-2026",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-301-revenue-forecast-2026"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "rev26-interchange-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rev26-interchange-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-rev26-spend-volume",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-rev26-spend-volume"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-rev26-volume-lag",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "mape",
+   "quote": "interchange MAPE on 2024-H2 is 3.4%; with it, 2.1%",
+   "line": 6
+  },
+  {
+   "s": "feat-rev26-volume-lag",
+   "type": "uses",
+   "label": "input to",
+   "o": "rev26-interchange-v1",
+   "quote": "Input to rev26-interchange-v1.",
+   "line": 7
+  },
+  {
+   "s": "feat-rev26-volume-lag",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-rev26-spend-volume",
+   "quote": "Builds on the monthly interchange ledger dataset and ds-rev26-spend-volume.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "exp-301-revenue-forecast-2026",
+  "ds-rev26-spend-volume"
+ ],
+ "built_on": [
+  {
+   "what": "ds-rev26-interchange-ledger",
+   "quote": "the monthly interchange ledger dataset",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-rev26-spend-volume",
+   "quote": "ds-rev26-spend-volume",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-rev26-volume-lag.md",
+ "sha": "6b8815150dce7d5dedd0734c3dcc79a6209b14cd3ae7279a7156d2620d8fa038",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

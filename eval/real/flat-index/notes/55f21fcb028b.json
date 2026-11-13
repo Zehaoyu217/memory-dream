@@ -1,0 +1,168 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "csb-lr-base",
+   "type": "model",
+   "label": "logistic baseline",
+   "as": [
+    "csb-lr-base"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-csb-churn-labels",
+   "type": "dataset",
+   "label": "labels",
+   "as": [
+    "ds-csb-churn-labels"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-csb-oot-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "csb-oot-2025q1"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "feat-csb-spend-raw",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-csb-spend-raw"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "tenure-bands",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "tenure bands feature"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.684"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.26"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "brier-score",
+   "type": "metric",
+   "label": "brier",
+   "as": [
+    "Brier 0.0612"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "csb-lr-base",
+   "type": "evaluated-on",
+   "label": "holdout",
+   "o": "ds-csb-oot-2025q1",
+   "quote": "Holdout csb-oot-2025q1 (n=8,914, all tenures)",
+   "line": 6
+  },
+  {
+   "s": "csb-lr-base",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.684",
+   "line": 4
+  },
+  {
+   "s": "csb-lr-base",
+   "type": "measured-by",
+   "label": "KS",
+   "o": "ks",
+   "quote": "KS 0.26",
+   "line": 6
+  },
+  {
+   "s": "csb-lr-base",
+   "type": "measured-by",
+   "label": "Brier",
+   "o": "brier-score",
+   "quote": "Brier 0.0612",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-csb-churn-labels",
+  "ds-csb-oot-2025q1",
+  "feat-csb-spend-raw"
+ ],
+ "built_on": [
+  {
+   "what": "ds-csb-churn-labels",
+   "quote": "ds-csb-churn-labels",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-csb-oot-2025q1",
+   "quote": "ds-csb-oot-2025q1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-csb-spend-raw",
+   "quote": "feat-csb-spend-raw",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-csb-tenure-band",
+   "quote": "the tenure bands feature",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/csb-lr-base.md",
+ "sha": "55f21fcb028be51d0e890a504ffe3d8152f637aa491a6430229b953e53c5b66f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

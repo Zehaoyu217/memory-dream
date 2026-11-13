@@ -1,0 +1,88 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dq-late-logit-v2",
+   "type": "model",
+   "label": "late model",
+   "as": [
+    "dq-late-logit-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "data-eng-channel",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "data-eng channel"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "upstream-job",
+   "type": "pipeline",
+   "label": "upstream job",
+   "as": [
+    "upstream job"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dq-late-logit-v2",
+   "type": "other",
+   "label": "sends pre-alert to",
+   "o": "data-eng-channel",
+   "quote": "Probability above 0.6 sends a pre-alert to the data-eng channel",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "dec-dq-late-alert-rule-v1",
+  "fnd-late-model-lift"
+ ],
+ "built_on": [
+  {
+   "what": "dec-dq-late-alert-rule-v1",
+   "quote": "dec-dq-late-alert-rule-v1",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "dq-late-logit-v2",
+   "quote": "the retry-flag late-partition model",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "fnd-late-model-lift",
+   "quote": "fnd-late-model-lift",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "dec-dq-late-alert-rule-v1",
+   "quote": "dec-dq-late-alert-rule-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-dq-late-alert-rule-v2.md",
+ "sha": "16e4df963d9716f1a29a09d99c1eed06710a9a4d1aa7f4a9c8d7cb9b23fdd522",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,65 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat_pay_days_to_due_last_v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat_pay_days_to_due_last_v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.payments_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "priya-nair",
+   "type": "person",
+   "label": "feature owner",
+   "as": [
+    "Priya Nair"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat_pay_days_to_due_last_v1",
+   "type": "uses",
+   "label": "measured from",
+   "o": "cards.payments_daily",
+   "quote": "the date of the last payment in `cards.payments_daily` before observation",
+   "line": 5
+  },
+  {
+   "s": "priya-nair",
+   "type": "owned-by",
+   "label": "owns",
+   "o": "feat_pay_days_to_due_last_v1",
+   "quote": "Priya Nair's onboarding team owns the feature",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/payment-days-to-due.md",
+ "sha": "2ec289bf8b77f8c1694dc6a292fea6923972923b71dd51a743bfdae6bc451e22",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

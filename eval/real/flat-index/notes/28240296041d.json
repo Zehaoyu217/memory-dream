@@ -1,0 +1,67 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "maya-ortiz",
+   "type": "person",
+   "label": "reader",
+   "as": [
+    "Maya Ortiz"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cohort-by-account-open",
+   "type": "segment",
+   "label": "replaced cohort",
+   "as": [
+    "the cohort by account open month"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cards.accounts_monthly",
+   "type": "uses",
+   "label": "source for cohorts",
+   "o": "cohort-by-account-open",
+   "quote": "from `cards.accounts_monthly` where `statement_count = 1`",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "cohort-by-account-open"
+ ],
+ "replaces": [
+  {
+   "what": "cohort-by-account-open",
+   "quote": "the cohort by account open month",
+   "line": 6,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/cohort-by-first-statement.md",
+ "sha": "28240296041d59f9d001e23fd4c2685fe907cad87946b94494ed0fb4d5a4b04e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

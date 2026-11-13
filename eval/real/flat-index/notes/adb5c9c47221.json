@@ -1,0 +1,115 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-506-balance-forecast",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-506: exponential-decay balance forecast"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "MAPE 11%"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "february-cohort",
+   "type": "segment",
+   "label": "cohort",
+   "as": [
+    "February cohort"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exponential-decay-forecast",
+   "type": "term",
+   "label": "forecast",
+   "as": [
+    "exponential-decay balance forecast"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "pa-bal-forecast-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "pa-bal-forecast-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-pa-balance-panel",
+   "type": "dataset",
+   "label": "balance panel",
+   "as": [
+    "ds-pa-balance-panel"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-506-balance-forecast",
+   "type": "evaluated-on",
+   "label": "holdout of",
+   "o": "february-cohort",
+   "quote": "Holdout of the February cohort",
+   "line": 5
+  },
+  {
+   "s": "exp-506-balance-forecast",
+   "type": "measured-by",
+   "label": "MAPE",
+   "o": "mape",
+   "quote": "MAPE 11% for the decay forecast",
+   "line": 6
+  },
+  {
+   "s": "pa-bal-forecast-v1",
+   "type": "uses",
+   "label": "uses decay path",
+   "o": "exponential-decay-forecast",
+   "quote": "The decay path is used in pa-bal-forecast-v1.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-pa-balance-panel",
+   "quote": "ds-pa-balance-panel",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-506-balance-forecast.md",
+ "sha": "adb5c9c472218e2cc1c460baa2266fac7408cfdec5e59730a8d9996d696cd64e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

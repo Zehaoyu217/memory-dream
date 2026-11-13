@@ -1,0 +1,148 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "cr-lgbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "LightGBM multiclass v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "macro F1 0.79"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4 (n = 380,000 calls)"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cr-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cr-lgbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-104-call-center-routing",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-104-call-center-routing"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-cr-caller-history-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "caller history v1"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cr-lgbm-v1",
+   "type": "measured-by",
+   "label": "scored",
+   "o": "macro-f1",
+   "quote": "Macro F1 0.79 and top-1 accuracy 0.84 on holdout-2025q4",
+   "line": 6
+  },
+  {
+   "s": "cr-lgbm-v1",
+   "type": "trained-on",
+   "label": "scored on",
+   "o": "holdout-2025q4",
+   "quote": "on holdout-2025q4 (n = 380,000 calls), scored 2026-01-30.",
+   "line": 6
+  },
+  {
+   "s": "cr-lgbm-v1",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-cr-caller-history-v1",
+   "quote": "with caller history v1",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "exp-101-call-center-routing",
+  "feat-cr-caller-history-v1",
+  "feat-cr-ivr-path-v1",
+  "feat-cr-tenure-v1",
+  "feat-cr-transcript-tfidf-v1",
+  "cr-lgbm-v2",
+  "exp-104-call-center-routing"
+ ],
+ "built_on": [
+  {
+   "what": "exp-101-call-center-routing",
+   "quote": "exp-101-call-center-routing",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-cr-caller-history-v1",
+   "quote": "feat-cr-caller-history-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-cr-ivr-path-v1",
+   "quote": "feat-cr-ivr-path-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-cr-tenure-v1",
+   "quote": "feat-cr-tenure-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-cr-transcript-tfidf-v1",
+   "quote": "feat-cr-transcript-tfidf-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/cr-lgbm-v1.md",
+ "sha": "a1693b213f03590b0dd6def4156bfa7715357785378a9e6894f3f4e044b23d8f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

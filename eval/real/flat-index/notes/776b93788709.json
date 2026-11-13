@@ -1,0 +1,105 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "mq3-response-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "mq3-response-gbm-v1"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "30-percent-split",
+   "type": "segment",
+   "label": "split",
+   "as": [
+    "30% split of the Q2 RCT"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-mq3-q2-rct",
+   "type": "dataset",
+   "label": "rct",
+   "as": [
+    "Q2 RCT"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "top-20-percent",
+   "type": "segment",
+   "label": "top 20%",
+   "as": [
+    "Top 20% by response score"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "incremental-spend-per-contact",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Incremental 14-day spend per contact"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mq3-response-gbm-v1",
+   "type": "evaluated-on",
+   "label": "on",
+   "o": "30-percent-split",
+   "quote": "on the 30% split of the Q2 RCT (n=330,000)",
+   "line": 5
+  },
+  {
+   "s": "mq3-response-gbm-v1",
+   "type": "measured-by",
+   "label": "incremental spend",
+   "o": "incremental-spend-per-contact",
+   "quote": "Incremental 14-day spend per contact in that top 20% is $0.90",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "q-mq3-uplift-vs-response",
+  "exp-302"
+ ],
+ "built_on": [
+  {
+   "what": "mq3-response-gbm-v1",
+   "quote": "mq3-response-gbm-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "q-mq3-uplift-vs-response",
+   "quote": "q-mq3-uplift-vs-response",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-301-response-only.md",
+ "sha": "776b937887090d032fe90c8dea6d38ae6a5bcc3480f6dcff5387c883ca1aadc1",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

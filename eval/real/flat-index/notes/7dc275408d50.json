@@ -1,0 +1,90 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-csb-calls-unresolved",
+   "type": "feature",
+   "label": "unresolved calls count",
+   "as": [
+    "feat-csb-calls-unresolved"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "calls table",
+   "as": [
+    "callcenter.calls"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "csb-xgb-v2",
+   "type": "model",
+   "label": "xgboost model",
+   "as": [
+    "csb-xgb-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-207-churn-small-business",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-207-churn-small-business"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "call-id",
+   "type": "feature",
+   "label": "call_id",
+   "as": [
+    "call_id"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-csb-calls-unresolved",
+   "type": "uses",
+   "label": "source",
+   "o": "callcenter.calls",
+   "quote": "Source `callcenter.calls`",
+   "line": 5
+  },
+  {
+   "s": "csb-xgb-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-csb-calls-unresolved",
+   "quote": "Used in csb-xgb-v2 only.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-207-churn-small-business",
+  "csb-xgb-v2"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-csb-calls-unresolved.md",
+ "sha": "7dc275408d506463933c5d5776101434637b6d68e9bc2a841a83ac3e666e6984",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

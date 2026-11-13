@@ -1,0 +1,131 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-204-early-delinquency",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-204-early-delinquency"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-ed-limit-change-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ed-limit-change-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "person",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.783"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Gini 0.566"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "find-ed-limit-gain",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "find-ed-limit-gain"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-204-early-delinquency",
+   "type": "measured-by",
+   "label": "AUC",
+   "o": "auc",
+   "quote": "AUC 0.783 against 0.781 without the feature",
+   "line": 6
+  },
+  {
+   "s": "exp-204-early-delinquency",
+   "type": "measured-by",
+   "label": "Gini",
+   "o": "gini",
+   "quote": "Gini 0.566",
+   "line": 6
+  },
+  {
+   "s": "exp-204-early-delinquency",
+   "type": "owned-by",
+   "label": "checked by",
+   "o": "lena-fischer",
+   "quote": "checked by Lena Fischer",
+   "line": 7
+  },
+  {
+   "s": "exp-204-early-delinquency",
+   "type": "uses",
+   "label": "recomputed",
+   "o": "feat-ed-limit-change-v1",
+   "quote": "The feature was recomputed with credit-limit cuts inside the 60 days before the snapshot excluded",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "feat-ed-limit-change-v1",
+  "find-ed-limit-gain"
+ ],
+ "built_on": [
+  {
+   "what": "feat-ed-limit-change-v1",
+   "quote": "feat-ed-limit-change-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "find-ed-limit-gain",
+   "quote": "find-ed-limit-gain",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-204-early-delinquency.md",
+ "sha": "c03aac8ebbeb63f2a24262bf8a624c26260aa71080186892230f69d54fa6a032",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,96 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "new-accounts",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "New accounts"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "priya-nair",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Priya Nair"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "onboarding-team",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "onboarding team"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "onboarding-flow",
+   "type": "other",
+   "label": "flow",
+   "as": [
+    "onboarding flow"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "churn-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "the v2 model"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "onboarding-flow",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "priya-nair",
+   "quote": "Owner of the onboarding flow: Priya Nair.",
+   "line": 7
+  },
+  {
+   "s": "new-accounts",
+   "type": "other",
+   "label": "route to",
+   "o": "onboarding-team",
+   "quote": "route new accounts to the onboarding team instead",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "exp-015-tenure",
+   "quote": "the tenure split of the v2 model",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/finding-new-accounts.md",
+ "sha": "876c34e89b028999d5992e7882fe89dc0f8ec7f590d53324e3961e9482c61fbe",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

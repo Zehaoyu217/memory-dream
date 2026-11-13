@@ -1,0 +1,93 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "disp-lgbm-v2",
+   "type": "model",
+   "label": "dispute model",
+   "as": [
+    "disp-lgbm-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "disp-lgbm-v3",
+   "type": "model",
+   "label": "dispute model",
+   "as": [
+    "disp-lgbm-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auto-resolve-threshold",
+   "type": "other",
+   "label": "threshold",
+   "as": [
+    "auto-resolve threshold"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "auto-resolve-threshold",
+   "type": "other",
+   "label": "carried to",
+   "o": "disp-lgbm-v3",
+   "quote": "The 0.95 threshold is carried to disp-lgbm-v3",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-disp-autoresolve-090",
+  "disp-find-precision-real",
+  "exp-305-dispute-triage",
+  "dec-disp-fraud-score-in",
+  "disp-lgbm-v2",
+  "disp-lgbm-v3"
+ ],
+ "built_on": [
+  {
+   "what": "dec-disp-autoresolve-090",
+   "quote": "dec-disp-autoresolve-090",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "disp-find-precision-real",
+   "quote": "disp-find-precision-real",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-305-dispute-triage",
+   "quote": "the v2 threshold raised to 0.92 experiment",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "dec-disp-autoresolve-090",
+   "quote": "the pilot auto-resolve at 0.90 threshold",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-disp-autoresolve-095.md",
+ "sha": "310d5c4048832fb6151027a1b16d945a5cc7987508462664927e4b9fc1037a2f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,186 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "lightgbm",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    4,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "logistic-regression-baseline",
+   "type": "model",
+   "label": "baseline",
+   "as": [
+    "Logistic regression",
+    "logistic regression baseline"
+   ],
+   "lines": [
+    4,
+    6,
+    9
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "term",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro f1",
+   "as": [
+    "macro F1"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "card-replacement",
+   "type": "other",
+   "label": "class",
+   "as": [
+    "card replacement"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "tf-idf-svd",
+   "type": "feature",
+   "label": "input",
+   "as": [
+    "TF-IDF SVD"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ivr-path",
+   "type": "feature",
+   "label": "input",
+   "as": [
+    "IVR path"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "account-tenure-features",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "account tenure features"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "dec-cr-lgbm",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-cr-lgbm"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "lightgbm",
+   "type": "measured-by",
+   "label": "macro F1",
+   "o": "macro-f1",
+   "quote": "LightGBM macro F1 0.738",
+   "line": 6
+  },
+  {
+   "s": "logistic-regression-baseline",
+   "type": "measured-by",
+   "label": "macro F1",
+   "o": "macro-f1",
+   "quote": "Logistic regression macro F1 0.61",
+   "line": 6
+  },
+  {
+   "s": "lightgbm",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q4",
+   "quote": "Logistic regression vs LightGBM on the same features: 0.61 vs 0.738 macro F1 on holdout-2025q4",
+   "line": 4
+  },
+  {
+   "s": "logistic-regression-baseline",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q4",
+   "quote": "Logistic regression vs LightGBM on the same features: 0.61 vs 0.738 macro F1 on holdout-2025q4",
+   "line": 4
+  },
+  {
+   "s": "lightgbm",
+   "type": "uses",
+   "label": "same features",
+   "o": "tf-idf-svd",
+   "quote": "Set-up: same TF-IDF SVD, IVR path and tenure inputs",
+   "line": 5
+  },
+  {
+   "s": "lightgbm",
+   "type": "uses",
+   "label": "same features",
+   "o": "ivr-path",
+   "quote": "Set-up: same TF-IDF SVD, IVR path and tenure inputs",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "dec-cr-lgbm"
+ ],
+ "built_on": [
+  {
+   "what": "cr-logreg-v1",
+   "quote": "the logistic regression baseline",
+   "line": 9,
+   "asked": true
+  },
+  {
+   "what": "feat-cr-tenure-v1",
+   "quote": "the account tenure features",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-101-call-center-routing.md",
+ "sha": "a2a78c269c5364285a00650c818f63dfa2affa7eef0a36f475626a0fe6513ab9",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

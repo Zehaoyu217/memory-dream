@@ -1,0 +1,86 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "uplift-at-20pct",
+   "type": "metric",
+   "label": "uplift metric",
+   "as": [
+    "uplift@20%"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "q3-2025-offer-test",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "Q3 2025 offer test"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "chloe-martin",
+   "type": "person",
+   "label": "team lead",
+   "as": [
+    "Chloe Martin"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "offer-test-arm",
+   "type": "segment",
+   "label": "arm",
+   "as": [
+    "each arm"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "uplift-at-20pct",
+   "type": "other",
+   "label": "measured in",
+   "o": "q3-2025-offer-test",
+   "quote": "with a 95% interval of 1.1 to 2.9 percentage points.",
+   "line": 4
+  },
+  {
+   "s": "q3-2025-offer-test",
+   "type": "owned-by",
+   "label": "recorded by",
+   "o": "chloe-martin",
+   "quote": "Chloe Martin's team recorded it in the offer test readout.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "howto/bootstrap-ci-for-uplift"
+ ],
+ "built_on": [
+  {
+   "what": "howto/bootstrap-ci-for-uplift",
+   "quote": "howto/bootstrap-ci-for-uplift",
+   "line": 6,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/offer-test-uplift-interval.md",
+ "sha": "d2b09665f4b7bd427bffd3ff28621d0931a37f7484784925cb227ab8392d450a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,93 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "rev26-interchange-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rev26-interchange-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "sfc-hier-v3",
+   "type": "model",
+   "label": "forecast",
+   "as": [
+    "sfc-hier-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-rev26-volume-lag",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rev26-volume-lag"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "rev26-interchange-v1",
+   "type": "measured-by",
+   "label": "MAPE 2.1%",
+   "o": "mape",
+   "quote": "volume times MCC-group bps gives 2.1% MAPE on 2024-H2",
+   "line": 4
+  },
+  {
+   "s": "rev26-interchange-v1",
+   "type": "uses",
+   "label": "volume source",
+   "o": "sfc-hier-v3",
+   "quote": "Volume source is sfc-hier-v3 from 2026.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "sfc-hier-v3"
+ ],
+ "built_on": [
+  {
+   "what": "feat-rev26-interchange-bps",
+   "quote": "the blended interchange bps feature",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-rev26-volume-lag",
+   "quote": "feat-rev26-volume-lag",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/rev26-interchange-v1.md",
+ "sha": "780ea51a848caa8b0dabd172613331b2706c0127ba6eafe561728981d3b11076",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

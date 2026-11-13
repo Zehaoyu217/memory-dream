@@ -1,0 +1,111 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "cli_outcome_90d",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cli_outcome_90d"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cli-rct-2025q3",
+   "type": "segment",
+   "label": "randomised cohort",
+   "as": [
+    "cli-rct-2025q3"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-cli-eligible-pop",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-cli-eligible-pop"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cli_outcome_90d",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards.txn_daily",
+   "quote": "Table `cli_outcome_90d` built from `cards.txn_daily`",
+   "line": 5
+  },
+  {
+   "s": "cli_outcome_90d",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards.accounts_monthly",
+   "quote": "and `cards.accounts_monthly` (charge-off flags)",
+   "line": 5
+  },
+  {
+   "s": "cli_outcome_90d",
+   "type": "uses",
+   "label": "includes",
+   "o": "cli-rct-2025q3",
+   "quote": "Includes the randomised cohort cli-rct-2025q3",
+   "line": 8
+  },
+  {
+   "s": "cli_outcome_90d",
+   "type": "uses",
+   "label": "built on",
+   "o": "ds-cli-eligible-pop",
+   "quote": "Builds on ds-cli-eligible-pop.",
+   "line": 9
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-cli-eligible-pop",
+   "quote": "ds-cli-eligible-pop",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-cli-outcome-90d.md",
+ "sha": "efb92ece989abd947f40f0bb1229736045c6099afd2591e9ff435600b4e8b72b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

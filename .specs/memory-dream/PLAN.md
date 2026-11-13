@@ -22,7 +22,14 @@ point 14 on that bank is in S6: the memory was the less accurate arm with either
 from what the memory holds and the keeper had read 94% of the links; with every line that states lineage read a
 second time on its own it holds 99.5%, and Haiku with the memory answers 96% of the questions exactly at
 $0.017 a ten questions, where Haiku with grep answers 90% at $0.080 and Opus with grep 99% at $0.70. Not built:
-the decomposing writer (item 11). Not shown: a base too large to read whole.
+the decomposing writer (item 11).
+
+**The base too large to read whole, the same day** (RESULTS S7), with every arm's context held to 100,000 tokens
+as the owner asked: the project folders poured into one of 1,224 notes. A keeper cannot be shown such a folder, so
+the second reading shows it the notes near the lines it reads; the memory holds 99.2% of the links. Opus with grep
+99%, Opus with the memory 97% (99% by the second count) at 0.57 of the price, Haiku with the memory 89% (92%) at a
+46th, Haiku with grep 65%, or 80% at five questions a session. Not shown: a base whose notes seldom name each
+other; identity in a folder that large.
 
 The contract field by field is `CONTRACT-2.md`. Every number has a command, all without a model:
 `python3 eval/contract_probe.py <bank-index world>` (drop, absorb, documents, sets), `python3 eval/agent/arms.py`
@@ -441,7 +448,8 @@ A dropped note must not bring back the note it replaced (`drop` and the tombston
     already exact (links no line states, one thing under two names, folders too large to read whole). On the bank
     as it is, grep answers 37 of 37 linkage questions on both models and no memory can do better. *Done for links
     no line states (RESULTS S6):* 98 questions scored exactly, no judge, three runs a Haiku row, the arms headless
-    with the CLI's own cost, $20.67 of Opus. Folders too large to read whole are the part not done.
+    with the CLI's own cost, $20.67 of Opus. *Folders too large to read whole (RESULTS S7):* 72 of the questions on
+    the bank in one folder, every arm with a 100,000-token window, $7.43 more of Opus, which the owner allowed.
 
 **Later**, when a base needs it: anything in §12.
 
@@ -466,7 +474,7 @@ step 1 adds its lines.
 | an absorbed base's preference notes | lose their kind (0 of 2 kept); after phase N 2 of 2 kept, served to a host task only with `trust: preferences`, a `me-` note never | keep their kind (2 of 2) and are never served as the host's own |
 | pointers checked | none; after phase O every pointer has a state, at each dream and each `ask`, and on 34 versions of one file none names a wrong line | every pointer has a state |
 | dream, 1,677 notes with their readings | 0.85 s | 1 s |
-| Haiku with the memory against Opus with grep (step 2) | 120 times cheaper, 8 times faster, 23 correct against 29; after phase L 107 times and 7.9 times, 25 against 29, and the same exact answers on 37 linkage questions at 35 to 46 times cheaper; on the worn bank after phase S 96% exact against 99%, 42 times cheaper and 2.3 times faster | as cheap; correct within the judge's own spread on 100 questions |
+| Haiku with the memory against Opus with grep (step 2) | 120 times cheaper, 8 times faster, 23 correct against 29; after phase L 107 times and 7.9 times, 25 against 29, and the same exact answers on 37 linkage questions at 35 to 46 times cheaper; on the worn bank after phase S 96% exact against 99%, 42 times cheaper and 2.3 times faster; in one folder under a 100,000-token window 89% against 99%, 46 times cheaper and 2.8 times faster, and Opus with the memory 97% for 0.57 of the price | as cheap; correct within the judge's own spread on 100 questions |
 | lineage a note states only in prose, held (the worn bank) | none: v0.4 reads lineage from frontmatter only; after phase S 99.5% of `from` and of `supersedes`, 99% of the edges in the key, and the lineage alone answers 93 of 98 set questions | the gate's floors: 0.98, 0.98, 0.98, 91 |
 | proposals that are the same thing (step 2) | 14 of 87 | half |
 

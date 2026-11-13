@@ -1,0 +1,104 @@
+{
+ "kind": "preference",
+ "entities": [
+  {
+   "id": "priya-nair",
+   "type": "person",
+   "label": "requester",
+   "as": [
+    "Priya Nair"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "onboarding-funnel",
+   "type": "dashboard",
+   "label": "funnel",
+   "as": [
+    "weekly onboarding funnel"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "weekly-deck",
+   "type": "document",
+   "label": "deck",
+   "as": [
+    "weekly deck"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "monthly-onboarding-review",
+   "type": "document",
+   "label": "review",
+   "as": [
+    "monthly onboarding review"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "card-activation-step",
+   "type": "other",
+   "label": "funnel step",
+   "as": [
+    "card-activation step"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "onboarding-funnel",
+   "type": "owned-by",
+   "label": "wants",
+   "o": "priya-nair",
+   "quote": "Priya Nair now wants the weekly onboarding funnel sorted by volume",
+   "line": 4
+  },
+  {
+   "s": "onboarding-funnel",
+   "type": "part-of",
+   "label": "shown in",
+   "o": "weekly-deck",
+   "quote": "the weekly deck's onboarding funnel bars",
+   "line": 5
+  },
+  {
+   "s": "monthly-onboarding-review",
+   "type": "other",
+   "label": "keeps step order",
+   "o": "onboarding-funnel",
+   "quote": "The monthly onboarding review keeps step order",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "replaces": [
+  {
+   "what": "priya-nair-funnel-order",
+   "quote": "priya-nair-funnel-order",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "prefs/priya-nair-funnel-order-v2.md",
+ "sha": "31a349661546edd9ab881913be057da4e0f5656900e35005a2618e6e004fc868",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

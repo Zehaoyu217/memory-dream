@@ -1,0 +1,219 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-401-retention-offers-roi",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-401-retention-offers-roi"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-ror-redemptions",
+   "type": "dataset",
+   "label": "offer outcomes dataset",
+   "as": [
+    "ds-ror-redemptions"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-ror-tier-matrix",
+   "type": "dataset",
+   "label": "tier matrix",
+   "as": [
+    "ds-ror-tier-matrix"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "roi",
+   "type": "metric",
+   "label": "roi",
+   "as": [
+    "ROI"
+   ],
+   "lines": [
+    4,
+    5,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "t1-fee-waiver",
+   "type": "other",
+   "label": "offer tier",
+   "as": [
+    "T1 fee waiver"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "t2-cashback",
+   "type": "other",
+   "label": "offer tier",
+   "as": [
+    "T2 cashback"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "t3-apr-cut",
+   "type": "other",
+   "label": "offer tier",
+   "as": [
+    "T3 APR cut"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "t4-statement-credit",
+   "type": "other",
+   "label": "offer tier",
+   "as": [
+    "T4 statement credit"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "control-group",
+   "type": "segment",
+   "label": "control",
+   "as": [
+    "10% control"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-401-retention-offers-roi",
+   "type": "measured-by",
+   "label": "ROI",
+   "o": "roi",
+   "quote": "ROI = 180-day retained revenue divided by offer cost",
+   "line": 5
+  },
+  {
+   "s": "exp-401-retention-offers-roi",
+   "type": "evaluated-on",
+   "label": "based on",
+   "o": "ds-ror-redemptions",
+   "quote": "Basis: ds-ror-redemptions July 2025 wave, matrix v3 costs.",
+   "line": 7
+  },
+  {
+   "s": "exp-401-retention-offers-roi",
+   "type": "uses",
+   "label": "costs from",
+   "o": "ds-ror-tier-matrix",
+   "quote": "matrix v3 costs",
+   "line": 7
+  },
+  {
+   "s": "exp-401-retention-offers-roi",
+   "type": "other",
+   "label": "compared against",
+   "o": "control-group",
+   "quote": "against the 10% control",
+   "line": 5
+  },
+  {
+   "s": "t1-fee-waiver",
+   "type": "measured-by",
+   "label": "ROI 1.12x",
+   "o": "roi",
+   "quote": "T1 fee waiver 1.12x",
+   "line": 6
+  },
+  {
+   "s": "t2-cashback",
+   "type": "measured-by",
+   "label": "ROI 1.41x",
+   "o": "roi",
+   "quote": "T2 cashback 1.41x",
+   "line": 4
+  },
+  {
+   "s": "t3-apr-cut",
+   "type": "measured-by",
+   "label": "ROI 0.82x",
+   "o": "roi",
+   "quote": "T3 APR cut 0.82x",
+   "line": 4
+  },
+  {
+   "s": "t4-statement-credit",
+   "type": "measured-by",
+   "label": "ROI 1.03x",
+   "o": "roi",
+   "quote": "T4 statement credit 1.03x",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-ror-redemptions",
+  "ds-ror-tier-matrix"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ror-redemptions",
+   "quote": "the retention offer outcomes dataset",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-ror-retained-revenue",
+   "quote": "the 180-day revenue per account dataset",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-ror-tier-matrix",
+   "quote": "ds-ror-tier-matrix",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "q-ror-matrix-roi",
+   "quote": "the question on best matrix offer roi",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "180-day revenue per account dataset",
+   "quote": "Builds on the retention offer outcomes dataset, the 180-day revenue per account dataset, ds-ror-tier-matrix and the question on best matrix offer roi.",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-401-retention-offers-roi.md",
+ "sha": "004221f98ba7560168b0c47370dbb2491447b1f7b6fbff13336709a9e50ee53c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

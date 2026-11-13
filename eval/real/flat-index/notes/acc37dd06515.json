@@ -1,0 +1,151 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-401-aml-alerts",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-401-aml-alerts"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "compliance.aml_alerts",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "compliance.aml_alerts"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "compliance.aml_dispositions",
+   "type": "dataset",
+   "label": "dispositions",
+   "as": [
+    "compliance.aml_dispositions"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "structuring-alerts",
+   "type": "segment",
+   "label": "alerts",
+   "as": [
+    "structuring alerts"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "false-positive-rate",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "94.1% false positives"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "sar-referred-rate",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "SAR-referred 5.9%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ranker",
+   "type": "model",
+   "label": "ranker",
+   "as": [
+    "ranker work"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "structuring-alerts",
+   "type": "uses",
+   "label": "drawn from",
+   "o": "compliance.aml_alerts",
+   "quote": "Eval set: 21,340 structuring alerts Jan-Aug 2025 from `compliance.aml_alerts`",
+   "line": 5
+  },
+  {
+   "s": "structuring-alerts",
+   "type": "uses",
+   "label": "dispositions from",
+   "o": "compliance.aml_dispositions",
+   "quote": "with dispositions from `compliance.aml_dispositions`",
+   "line": 5
+  },
+  {
+   "s": "structuring-alerts",
+   "type": "measured-by",
+   "label": "closed as false positive",
+   "o": "false-positive-rate",
+   "quote": "Closed as false positive 94.1%",
+   "line": 6
+  },
+  {
+   "s": "structuring-alerts",
+   "type": "measured-by",
+   "label": "SAR-referred",
+   "o": "sar-referred-rate",
+   "quote": "SAR-referred 5.9%",
+   "line": 6
+  },
+  {
+   "s": "exp-401-aml-alerts",
+   "type": "other",
+   "label": "baseline for",
+   "o": "ranker",
+   "quote": "Baseline for the ranker work",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "aml-find-fp-baseline",
+  "ds-aml-alerts"
+ ],
+ "built_on": [
+  {
+   "what": "ds-aml-alerts",
+   "quote": "ds-aml-alerts",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-aml-dispositions",
+   "quote": "the aml analyst dispositions dataset",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-401-aml-alerts.md",
+ "sha": "acc37dd065150a043bfa8a926f5d1987d6891cd86456e3f9deff5e43e8f46a54",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

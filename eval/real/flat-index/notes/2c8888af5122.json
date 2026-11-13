@@ -1,0 +1,173 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "bsm-app-gbm-v10a",
+   "type": "model",
+   "label": "application model",
+   "as": [
+    "bsm-app-gbm-v10a"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-bsm-v10-cohorts-2026",
+   "type": "dataset",
+   "label": "2026 cohorts",
+   "as": [
+    "ds-bsm-v10-cohorts-2026"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.78"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS 0.34"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "bsm-app-gbm-v10b",
+   "type": "model",
+   "label": "successor model",
+   "as": [
+    "bsm-app-gbm-v10b"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-bsm-score-map-v1",
+   "type": "feature",
+   "label": "score map",
+   "as": [
+    "feat-bsm-score-map-v1"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-bsm-score-missing-impute",
+   "type": "feature",
+   "label": "source flag",
+   "as": [
+    "feat-bsm-score-missing-impute"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "bsm-app-gbm-v8",
+   "type": "model",
+   "label": "v8 model",
+   "as": [
+    "bsm-app-gbm-v8"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bsm-app-gbm-v10a",
+   "type": "trained-on",
+   "label": "retrained on",
+   "o": "feat-bsm-score-map-v1",
+   "quote": "Retrained on v10 mapped by feat-bsm-score-map-v1",
+   "line": 5
+  },
+  {
+   "s": "bsm-app-gbm-v10a",
+   "type": "evaluated-on",
+   "label": "eval on",
+   "o": "ds-bsm-v10-cohorts-2026",
+   "quote": "Eval: ds-bsm-v10-cohorts-2026 (n=71,300)",
+   "line": 6
+  },
+  {
+   "s": "bsm-app-gbm-v10a",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "AUC 0.78",
+   "line": 6
+  },
+  {
+   "s": "bsm-app-gbm-v10a",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "ks",
+   "quote": "KS 0.34 at 60-day delinquency",
+   "line": 6
+  },
+  {
+   "s": "bsm-app-gbm-v10b",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "bsm-app-gbm-v10a",
+   "quote": "Superseded by bsm-app-gbm-v10b (2026-06-10) after the isotonic map.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ds-bsm-v10-cohorts-2026",
+  "bsm-app-gbm-v10b",
+  "feat-bsm-score-map-v1",
+  "feat-bsm-score-missing-impute",
+  "bsm-app-gbm-v8"
+ ],
+ "built_on": [
+  {
+   "what": "bsm-app-gbm-v8",
+   "quote": "bsm-app-gbm-v8",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-bsm-score-map-v1",
+   "quote": "feat-bsm-score-map-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-bsm-score-missing-impute",
+   "quote": "feat-bsm-score-missing-impute",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/bsm-app-gbm-v10a.md",
+ "sha": "2c8888af512223f1c595082dfe67131ec61a5b006cfdb849a2222f5f794b2c4b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

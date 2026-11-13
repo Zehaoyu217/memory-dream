@@ -1,0 +1,133 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-304-recovery-scoring",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-304-recovery-scoring"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "omar-haddad",
+   "type": "person",
+   "label": "reviewer",
+   "as": [
+    "Omar Haddad"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-rs-region-rate",
+   "type": "feature",
+   "label": "region feature",
+   "as": [
+    "region feature"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "exp-303-recovery-scoring",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-303-recovery-scoring"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-304-recovery-scoring",
+   "type": "other",
+   "label": "tests removal of",
+   "o": "feat-rs-region-rate",
+   "quote": "removing the region feature costs 0.02 Gini",
+   "line": 4
+  },
+  {
+   "s": "exp-304-recovery-scoring",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "gini",
+   "quote": "Without the region feature: Gini 0.42, KS 0.30.",
+   "line": 5
+  },
+  {
+   "s": "exp-304-recovery-scoring",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "ks",
+   "quote": "Without the region feature: Gini 0.42, KS 0.30.",
+   "line": 5
+  },
+  {
+   "s": "omar-haddad",
+   "type": "other",
+   "label": "flagged",
+   "o": "feat-rs-region-rate",
+   "quote": "the proxy pattern Omar Haddad flagged",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-303-recovery-scoring",
+  "feat-rs-region-rate"
+ ],
+ "built_on": [
+  {
+   "what": "exp-303-recovery-scoring",
+   "quote": "exp-303-recovery-scoring",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-rs-region-rate",
+   "quote": "feat-rs-region-rate",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-304-recovery-scoring.md",
+ "sha": "4077752153fd13f4ac59fa17cfe1060bf4db8006487e9248232533253bf3c043",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

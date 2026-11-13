@@ -1,0 +1,98 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "ds-pbs-frame-h1-2025",
+   "type": "dataset",
+   "label": "frame",
+   "as": [
+    "Active-account frame at 2025-06-30"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-pbs-payments-12m",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-pbs-payments-12m"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-pbs-statement-balances",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-pbs-statement-balances"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-405-payment-behavior-segments",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-405-payment-behavior-segments"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ds-pbs-frame-h1-2025",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-pbs-payments-12m",
+   "quote": "Builds on ds-pbs-payments-12m and ds-pbs-statement-balances.",
+   "line": 8
+  },
+  {
+   "s": "ds-pbs-frame-h1-2025",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-pbs-statement-balances",
+   "quote": "Builds on ds-pbs-payments-12m and ds-pbs-statement-balances.",
+   "line": 8
+  },
+  {
+   "s": "ds-pbs-frame-h1-2025",
+   "type": "uses",
+   "label": "used for",
+   "o": "exp-405-payment-behavior-segments",
+   "quote": "the full frame is used for the roll-rate tests (exp-405-payment-behavior-segments)",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-pbs-payments-12m",
+   "quote": "ds-pbs-payments-12m",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-pbs-statement-balances",
+   "quote": "ds-pbs-statement-balances",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-pbs-frame-h1-2025.md",
+ "sha": "c56185e81d792546e7eb70c4927c2c2dad76ff38968ce8bda0e95c8060f22e5b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

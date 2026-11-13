@@ -1,0 +1,216 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "pbs-kmeans-v1",
+   "type": "model",
+   "label": "kmeans clustering",
+   "as": [
+    "pbs-kmeans-v1: kmeans with six clusters"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-pbs-pay-ratio-v1",
+   "type": "feature",
+   "label": "pay ratio",
+   "as": [
+    "feat-pbs-pay-ratio-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-pbs-cash-share",
+   "type": "feature",
+   "label": "cash share",
+   "as": [
+    "cash share"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "minimum-payment-flag",
+   "type": "feature",
+   "label": "minimum-pay flag",
+   "as": [
+    "the minimum-payment flag feature"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "200k-account-sample",
+   "type": "dataset",
+   "label": "sample",
+   "as": [
+    "200k-account sample"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "silhouette",
+   "type": "metric",
+   "label": "silhouette",
+   "as": [
+    "Silhouette 0.36"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ari",
+   "type": "metric",
+   "label": "ari",
+   "as": [
+    "ARI between seeds 0.58"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "minimum-payer-group",
+   "type": "segment",
+   "label": "customer group",
+   "as": [
+    "minimum-payer group"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "pbs-gmm-v2",
+   "type": "model",
+   "label": "superseding model",
+   "as": [
+    "pbs-gmm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fnd-pbs-six-segments",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-pbs-six-segments"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "pbs-kmeans-v1",
+   "type": "uses",
+   "label": "on",
+   "o": "feat-pbs-pay-ratio-v1",
+   "quote": "on pay ratio, minimum-pay flag and cash share",
+   "line": 5
+  },
+  {
+   "s": "pbs-kmeans-v1",
+   "type": "uses",
+   "label": "on",
+   "o": "feat-pbs-cash-share",
+   "quote": "on pay ratio, minimum-pay flag and cash share",
+   "line": 5
+  },
+  {
+   "s": "pbs-kmeans-v1",
+   "type": "uses",
+   "label": "on",
+   "o": "minimum-payment-flag",
+   "quote": "on pay ratio, minimum-pay flag and cash share",
+   "line": 5
+  },
+  {
+   "s": "pbs-kmeans-v1",
+   "type": "uses",
+   "label": "run on",
+   "o": "200k-account-sample",
+   "quote": "on the 200k-account sample",
+   "line": 5
+  },
+  {
+   "s": "pbs-kmeans-v1",
+   "type": "measured-by",
+   "label": "silhouette",
+   "o": "silhouette",
+   "quote": "Silhouette 0.36",
+   "line": 4
+  },
+  {
+   "s": "pbs-kmeans-v1",
+   "type": "measured-by",
+   "label": "seed agreement",
+   "o": "ari",
+   "quote": "ARI between seeds 0.58",
+   "line": 6
+  },
+  {
+   "s": "pbs-kmeans-v1",
+   "type": "other",
+   "label": "splits",
+   "o": "minimum-payer-group",
+   "quote": "Splits the minimum-payer group in two",
+   "line": 7
+  },
+  {
+   "s": "pbs-gmm-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "pbs-kmeans-v1",
+   "quote": "Superseded by pbs-gmm-v2",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-pbs-six-segments",
+  "pbs-gmm-v2",
+  "feat-pbs-cash-share",
+  "feat-pbs-pay-ratio-v1"
+ ],
+ "built_on": [
+  {
+   "what": "feat-pbs-cash-share",
+   "quote": "feat-pbs-cash-share",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-pbs-minpay-flag",
+   "quote": "the minimum-payment flag feature",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-pbs-pay-ratio-v1",
+   "quote": "feat-pbs-pay-ratio-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/pbs-kmeans-v1.md",
+ "sha": "62ef1af20318dc03c1a3422eb55461599b9144735ec7feb6c30ab38dfb4dccfe",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

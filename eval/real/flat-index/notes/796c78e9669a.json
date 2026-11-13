@@ -1,0 +1,135 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "reviewer",
+   "as": [
+    "Tomas Rivera"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "daniel-okafor",
+   "type": "person",
+   "label": "reviewer",
+   "as": [
+    "Daniel Okafor"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dedupe-first-arrival",
+   "type": "term",
+   "label": "dedupe rule",
+   "as": [
+    "the consumer view keeps the first arrival of each txn_id and drops later duplicates"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "raw table",
+   "as": [
+    "The raw table"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-307-data-quality-txn",
+   "type": "document",
+   "label": "experiment",
+   "as": [
+    "exp-307-data-quality-txn"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fnd-dedupe-dispute-impact",
+   "type": "document",
+   "label": "finding",
+   "as": [
+    "fnd-dedupe-dispute-impact"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "q-dq-dedupe-policy",
+   "type": "document",
+   "label": "open question",
+   "as": [
+    "q-dq-dedupe-policy"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dedupe-first-arrival",
+   "type": "owned-by",
+   "label": "agreed at",
+   "o": "tomas-rivera",
+   "quote": "Agreed at the 2025-11-24 data review with Tomas Rivera and Daniel Okafor.",
+   "line": 5
+  },
+  {
+   "s": "dedupe-first-arrival",
+   "type": "owned-by",
+   "label": "agreed at",
+   "o": "daniel-okafor",
+   "quote": "Agreed at the 2025-11-24 data review with Tomas Rivera and Daniel Okafor.",
+   "line": 5
+  },
+  {
+   "s": "exp-307-data-quality-txn",
+   "type": "other",
+   "label": "validates",
+   "o": "dedupe-first-arrival",
+   "quote": "Validation of the dedupe on control totals is in exp-307-data-quality-txn.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-307-data-quality-txn",
+  "fnd-dedupe-dispute-impact",
+  "q-dq-dedupe-policy"
+ ],
+ "built_on": [
+  {
+   "what": "fnd-dedupe-dispute-impact",
+   "quote": "fnd-dedupe-dispute-impact",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "q-dq-dedupe-policy",
+   "quote": "q-dq-dedupe-policy",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-dq-dedupe-first-arrival.md",
+ "sha": "796c78e9669a0795c666aaf92c9b07478f399b32f2b6da82ad6261a542a94287",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

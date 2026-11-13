@@ -1,0 +1,165 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-206-early-delinquency",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-206-early-delinquency"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ed-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ed-gbm-v2"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ed-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ed-gbm-v1"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "early-delinquency-holdout-2024q4",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "early-delinquency-holdout-2025q1"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "brier-score",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Brier"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "feat-ed-minpay-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "min-pay ratio"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "util-trend",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "util-trend"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cash-advance",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "cash advance"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ed-gbm-v2",
+   "type": "measured-by",
+   "label": "reports Brier",
+   "o": "brier-score",
+   "quote": "improves Brier from 0.061 to 0.058",
+   "line": 4
+  },
+  {
+   "s": "ed-gbm-v2",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "early-delinquency-holdout-2024q4",
+   "quote": "on early-delinquency-holdout-2025q1",
+   "line": 4
+  },
+  {
+   "s": "ed-gbm-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "util-trend",
+   "quote": "util-trend, cash advance, min-pay ratio",
+   "line": 6
+  },
+  {
+   "s": "ed-gbm-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "cash-advance",
+   "quote": "cash advance, min-pay ratio",
+   "line": 6
+  },
+  {
+   "s": "ed-gbm-v2",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-ed-minpay-v2",
+   "quote": "min-pay ratio",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ed-gbm-v1",
+  "feat-ed-minpay-v2"
+ ],
+ "built_on": [
+  {
+   "what": "ed-gbm-v1",
+   "quote": "ed-gbm-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-ed-minpay-v2",
+   "quote": "feat-ed-minpay-v2",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-206-early-delinquency.md",
+ "sha": "714a02876066ec3fa39de553217f40d2bcd34efffc3fc02075beee5d8c5d2f79",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,88 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-rev26-revolve-balance",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-rev26-revolve-balance",
+    "average revolving balance per segment"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "rev26-interest-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rev26-interest-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-rev26-interest-accrual",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-rev26-interest-accrual"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-rev26-revolve-balance",
+   "type": "uses",
+   "label": "computed from",
+   "o": "cards.accounts_monthly",
+   "quote": "from `cards.accounts_monthly`, excluding accounts that paid in full",
+   "line": 5
+  },
+  {
+   "s": "rev26-interest-v1",
+   "type": "uses",
+   "label": "first input",
+   "o": "feat-rev26-revolve-balance",
+   "quote": "First input to rev26-interest-v1.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "rev26-interest-v1",
+  "ds-rev26-interest-accrual"
+ ],
+ "built_on": [
+  {
+   "what": "ds-rev26-interest-accrual",
+   "quote": "ds-rev26-interest-accrual",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-rev26-revolve-balance.md",
+ "sha": "c5ace424e4cf9583e7494568cdf2e6e4c2b2e752e8179b25b246b785aa4d2ac7",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,121 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "gradient-boosted-trees",
+   "type": "model",
+   "label": "model type",
+   "as": [
+    "gradient boosted trees"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-nps-txn-freq-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-nps-txn-freq-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "complaint-call-flag",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "complaint call flag feature"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "spearman",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Spearman 0.22"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "2025q2-held-out-wave",
+   "type": "dataset",
+   "label": "wave",
+   "as": [
+    "2025Q2 held-out wave"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "gradient-boosted-trees",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "spearman",
+   "quote": "Spearman 0.22 on the 2025Q2 held-out wave",
+   "line": 4
+  },
+  {
+   "s": "gradient-boosted-trees",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "2025q2-held-out-wave",
+   "quote": "scored on 2025Q2 (n = 46,120)",
+   "line": 5
+  },
+  {
+   "s": "gradient-boosted-trees",
+   "type": "uses",
+   "label": "builds on",
+   "o": "complaint-call-flag",
+   "quote": "Builds on the complaint call flag feature and feat-nps-txn-freq-v1.",
+   "line": 7
+  },
+  {
+   "s": "gradient-boosted-trees",
+   "type": "uses",
+   "label": "builds on",
+   "o": "feat-nps-txn-freq-v1",
+   "quote": "Builds on the complaint call flag feature and feat-nps-txn-freq-v1.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-nps-behaviour-lift",
+  "feat-nps-txn-freq-v1"
+ ],
+ "built_on": [
+  {
+   "what": "feat-nps-complaint-flag-v1",
+   "quote": "the complaint call flag feature",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "feat-nps-txn-freq-v1",
+   "quote": "feat-nps-txn-freq-v1",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-402-nps-drivers.md",
+ "sha": "84b7dc428565261bb01723baf9a96562048c1f42dc756d9d90ad4f0bfdd9feb9",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

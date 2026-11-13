@@ -1,0 +1,99 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "acquirer-watchlist-2026",
+   "type": "dataset",
+   "label": "watchlist",
+   "as": [
+    "Acquirer watchlist 2026: 1,140 merchants flagged by acquiring ops"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "acquiring-ops",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "flagged by acquiring ops"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "ds-mrisk-merchants",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "Builds on ds-mrisk-merchants."
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-506-merchant-risk",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-506-merchant-risk"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-508-merchant-risk",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-508-merchant-risk"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "acquirer-watchlist-2026",
+   "type": "other",
+   "label": "flagged by",
+   "o": "acquiring-ops",
+   "quote": "1,140 merchants flagged by acquiring ops",
+   "line": 4
+  },
+  {
+   "s": "acquirer-watchlist-2026",
+   "type": "evaluated-on",
+   "label": "recall reference in",
+   "o": "exp-506-merchant-risk",
+   "quote": "used only in exp-506-merchant-risk and exp-508-merchant-risk as a recall reference",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-506-merchant-risk",
+  "exp-508-merchant-risk"
+ ],
+ "built_on": [
+  {
+   "what": "ds-mrisk-merchants",
+   "quote": "ds-mrisk-merchants",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-mrisk-acq-watchlist.md",
+ "sha": "d3e332402cabcfb9f2a6ff72026fc7eef4985fed77e67c8fd5056cadba10de6a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

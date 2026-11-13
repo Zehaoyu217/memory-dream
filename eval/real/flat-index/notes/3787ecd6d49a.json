@@ -1,0 +1,116 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "finance-clv",
+   "type": "metric",
+   "label": "decision",
+   "as": [
+    "finance CLV is net of expected credit losses from August 2025"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-502-customer-lifetime-value",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-502-customer-lifetime-value"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "fnd-clv-gross-overstates",
+   "type": "document",
+   "label": "finding",
+   "as": [
+    "fnd-clv-gross-overstates"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "q-clv-loss-treatment",
+   "type": "document",
+   "label": "question",
+   "as": [
+    "q-clv-loss-treatment"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ben-carter",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Ben Carter (finance)"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ben-carter",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "finance-clv",
+   "quote": "Owner: Ben Carter (finance).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-502-customer-lifetime-value",
+  "fnd-clv-gross-overstates",
+  "q-clv-loss-treatment"
+ ],
+ "built_on": [
+  {
+   "what": "exp-502-customer-lifetime-value",
+   "quote": "exp-502-customer-lifetime-value",
+   "line": 5,
+   "asked": true
+  },
+  {
+   "what": "fnd-clv-gross-overstates",
+   "quote": "fnd-clv-gross-overstates",
+   "line": 5,
+   "asked": true
+  },
+  {
+   "what": "exp-502-customer-lifetime-value",
+   "quote": "exp-502-customer-lifetime-value",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fnd-clv-gross-overstates",
+   "quote": "the gross value overstatement finding",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "q-clv-loss-treatment",
+   "quote": "q-clv-loss-treatment",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-clv-include-losses.md",
+ "sha": "3787ecd6d49ad50d2e38f6ac9799ded2f2b43230a7e593a713fd85575a89582e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

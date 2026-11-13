@@ -1,0 +1,75 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "clv-oot-2021h1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Holdout clv-oot-2021h1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-clv-cohort-panel",
+   "type": "dataset",
+   "label": "cohort panel",
+   "as": [
+    "the origination cohort panel dataset"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-501-customer-lifetime-value",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-501-customer-lifetime-value"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "clv-oot-2021h1",
+   "type": "other",
+   "label": "test set for",
+   "o": "exp-501-customer-lifetime-value",
+   "quote": "Test set for every clv model",
+   "line": 5
+  },
+  {
+   "s": "clv-oot-2021h1",
+   "type": "uses",
+   "label": "built from",
+   "o": "ds-clv-cohort-panel",
+   "quote": "Built from the same cohort panel with the same cut-off rules as training.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-501-customer-lifetime-value"
+ ],
+ "built_on": [
+  {
+   "what": "ds-clv-cohort-panel",
+   "quote": "the origination cohort panel dataset",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-clv-holdout-2021h1.md",
+ "sha": "02395d0439b06f22252b422cc66d8786f6db1c4d492e1082188380921c0bfefc",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

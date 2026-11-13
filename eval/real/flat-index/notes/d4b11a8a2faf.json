@@ -1,0 +1,165 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-304-reactivation-dormant",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-304-reactivation-dormant"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "rdm-oot-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "rdm-oot-2025q1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "rdm-uplift-v1",
+   "type": "model",
+   "label": "targeting model",
+   "as": [
+    "rdm-uplift-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift at 20%",
+   "as": [
+    "At the top 20% of scores"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "sms",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "SMS"
+   ],
+   "lines": [
+    4,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "email",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "email"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "exp-302-reactivation-dormant",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-302-reactivation-dormant"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-304-reactivation-dormant",
+   "type": "uses",
+   "label": "applies",
+   "o": "rdm-uplift-v1",
+   "quote": "rdm-uplift-v1 scores applied to the holdout",
+   "line": 5
+  },
+  {
+   "s": "exp-304-reactivation-dormant",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "rdm-oot-2025q1",
+   "quote": "channel-stratified uplift on rdm-oot-2025q1",
+   "line": 4
+  },
+  {
+   "s": "exp-304-reactivation-dormant",
+   "type": "measured-by",
+   "label": "measures",
+   "o": "uplift-at-20",
+   "quote": "At the top 20% of scores: SMS uplift 3.4pp, email uplift 1.2pp.",
+   "line": 6
+  },
+  {
+   "s": "exp-304-reactivation-dormant",
+   "type": "other",
+   "label": "reports uplift for",
+   "o": "sms",
+   "quote": "SMS uplift 3.4pp",
+   "line": 6
+  },
+  {
+   "s": "exp-304-reactivation-dormant",
+   "type": "other",
+   "label": "reports uplift for",
+   "o": "email",
+   "quote": "email uplift 1.2pp",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-302-reactivation-dormant",
+  "exp-306-reactivation-dormant"
+ ],
+ "built_on": [
+  {
+   "what": "ds-rdm-holdout-2025q1",
+   "quote": "the february 2025 holdout control group",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-302-reactivation-dormant",
+   "quote": "exp-302-reactivation-dormant",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "rdm-uplift-v1",
+   "quote": "the t-learner targeting model",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "the february 2025 holdout control group",
+   "quote": "Builds on the february 2025 holdout control group, exp-302-reactivation-dormant and the t-learner targeting model.",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-304-reactivation-dormant.md",
+ "sha": "d4b11a8a2faf6d97f800aac69e7a9d179575e39aa563213229d0e2fe454cfd3e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

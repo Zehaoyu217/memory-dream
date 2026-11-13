@@ -1,0 +1,152 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-506-application-scorecard",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-506-application-scorecard"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "app-scorecard-v3",
+   "type": "model",
+   "label": "scorecard",
+   "as": [
+    "app-scorecard-v3"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-app-income-est",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-app-income-est"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini +0.01"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "thin-file-approval",
+   "type": "metric",
+   "label": "approval rate",
+   "as": [
+    "thin-file approval"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "bad-rate",
+   "type": "metric",
+   "label": "bad rate",
+   "as": [
+    "bad rate"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "app-scorecard-v3",
+   "type": "uses",
+   "label": "added",
+   "o": "feat-app-income-est",
+   "quote": "Added feat-app-income-est to app-scorecard-v3 form",
+   "line": 5
+  },
+  {
+   "s": "exp-506-application-scorecard",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "holdout-2025q1",
+   "quote": "scored on holdout-2025q1 (n=21,300)",
+   "line": 5
+  },
+  {
+   "s": "exp-506-application-scorecard",
+   "type": "measured-by",
+   "label": "Gini",
+   "o": "gini",
+   "quote": "Gini +0.01 overall",
+   "line": 6
+  },
+  {
+   "s": "exp-506-application-scorecard",
+   "type": "measured-by",
+   "label": "approval rises",
+   "o": "thin-file-approval",
+   "quote": "thin-file approval rises from 19% to 23%",
+   "line": 6
+  },
+  {
+   "s": "exp-506-application-scorecard",
+   "type": "measured-by",
+   "label": "same bad rate",
+   "o": "bad-rate",
+   "quote": "at the same bad rate",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "find-app-income-lift"
+ ],
+ "built_on": [
+  {
+   "what": "app-scorecard-v3",
+   "quote": "app-scorecard-v3",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-app-income-est",
+   "quote": "the live income estimate band feature",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-506-application-scorecard.md",
+ "sha": "dc5313884b97e2dd8c56729c8b37e10f7efcba4c260ed7b6e4a9669140820f13",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,155 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "recovery-scoring",
+   "type": "other",
+   "label": "workstream",
+   "as": [
+    "recovery-scoring"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "logit-baseline",
+   "type": "model",
+   "label": "baseline",
+   "as": [
+    "logit baseline"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "balance",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "balance"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "payment-history",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "payment history"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "gini",
+   "as": [
+    "Gini 0.33"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "holdout",
+   "type": "term",
+   "label": "holdout",
+   "as": [
+    "2023H2 holdout"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "income-estimation",
+   "type": "other",
+   "label": "workstream",
+   "as": [
+    "income-estimation"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cadence-coverage",
+   "type": "metric",
+   "label": "coverage",
+   "as": [
+    "cadence coverage 38%"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "booked-accounts",
+   "type": "account",
+   "label": "accounts",
+   "as": [
+    "booked accounts"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "logit-baseline",
+   "type": "uses",
+   "label": "on",
+   "o": "balance",
+   "quote": "logit baseline on balance and payment history",
+   "line": 3
+  },
+  {
+   "s": "logit-baseline",
+   "type": "uses",
+   "label": "on",
+   "o": "payment-history",
+   "quote": "logit baseline on balance and payment history",
+   "line": 3
+  },
+  {
+   "s": "logit-baseline",
+   "type": "measured-by",
+   "label": "gives",
+   "o": "gini",
+   "quote": "Gini 0.33 on the 2023H2 holdout",
+   "line": 3
+  },
+  {
+   "s": "logit-baseline",
+   "type": "evaluated-on",
+   "label": "on",
+   "o": "holdout",
+   "quote": "Gini 0.33 on the 2023H2 holdout",
+   "line": 3
+  },
+  {
+   "s": "income-estimation",
+   "type": "measured-by",
+   "label": "cadence coverage",
+   "o": "cadence-coverage",
+   "quote": "cadence coverage 38%",
+   "line": 4
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2025-03-27.md",
+ "sha": "e0bb737ad0f06b39399278dc9f6073f83a4190e5c9a6032b9f13c2c698911249",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

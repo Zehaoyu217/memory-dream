@@ -1,0 +1,99 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-hp-bureau-delta",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-hp-bureau-delta"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "bureau.scores_monthly"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "hardship-matched-control-sample",
+   "type": "segment",
+   "label": "matched control sample",
+   "as": [
+    "the matched control sample for hardship"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "bureau-score",
+   "type": "feature",
+   "label": "bureau score",
+   "as": [
+    "bureau score"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "hardship-enrolment",
+   "type": "other",
+   "label": "enrolment",
+   "as": [
+    "enrolment"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-hp-bureau-delta",
+   "type": "uses",
+   "label": "source",
+   "o": "bureau.scores_monthly",
+   "quote": "Source: `bureau.scores_monthly`, as of the index month.",
+   "line": 6
+  },
+  {
+   "s": "feat-hp-bureau-delta",
+   "type": "uses",
+   "label": "built on",
+   "o": "hardship-matched-control-sample",
+   "quote": "Builds on the matched control sample for hardship.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "bureau.scores_monthly"
+ ],
+ "built_on": [
+  {
+   "what": "ds-hp-matched-controls",
+   "quote": "the matched control sample for hardship",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-hp-bureau-delta.md",
+ "sha": "e136d07d748efff7e84aea5186cb957e38ada7ab4eb4e85aedf4357f9555eede",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

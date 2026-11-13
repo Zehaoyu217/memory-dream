@@ -1,0 +1,88 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "callcenter-calls",
+   "type": "dataset",
+   "label": "calls table",
+   "as": [
+    "`callcenter.calls`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "blind-transfer",
+   "type": "term",
+   "label": "blind transfer",
+   "as": [
+    "Blind transfers"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "dispute-queue-misroutes",
+   "type": "term",
+   "label": "dispute-queue misroutes",
+   "as": [
+    "Dispute-queue misroutes"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fcr",
+   "type": "metric",
+   "label": "fcr",
+   "as": [
+    "FCR"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dispute-queue-misroutes",
+   "type": "part-of",
+   "label": "largest share of",
+   "o": "blind-transfer",
+   "quote": "Dispute-queue misroutes are the largest single share of blind transfers",
+   "line": 7
+  },
+  {
+   "s": "blind-transfer",
+   "type": "uses",
+   "label": "counted in",
+   "o": "callcenter-calls",
+   "quote": "n = 1.02M inbound calls in `callcenter.calls`",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "fnd-cr-threshold",
+  "q-cr-intent-routing"
+ ],
+ "built_on": [
+  {
+   "what": "q-cr-intent-routing",
+   "quote": "q-cr-intent-routing",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/q-cr-blind-transfers.md",
+ "sha": "7ea19192a01327965ec73247f62da43b5027165917a6af4e0774269e8a4773f7",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

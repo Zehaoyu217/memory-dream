@@ -1,0 +1,77 @@
+{
+ "kind": "preference",
+ "entities": [
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "reviewer",
+   "as": [
+    "Tomás Rivera"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "shared-query-library",
+   "type": "other",
+   "label": "query library",
+   "as": [
+    "shared query library"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "select-star",
+   "type": "policy",
+   "label": "query ban",
+   "as": [
+    "SELECT *"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "cards.merchants",
+   "type": "dataset",
+   "label": "merchants table",
+   "as": [
+    "cards.merchants"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "tomas-rivera",
+   "type": "other",
+   "label": "bans in shared queries",
+   "o": "select-star",
+   "quote": "Tomás Rivera bans `SELECT *` in shared queries",
+   "line": 4
+  },
+  {
+   "s": "shared-query-library",
+   "type": "other",
+   "label": "lists columns explicitly",
+   "o": "select-star",
+   "quote": "Any query saved to the shared query library lists its columns explicitly.",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "prefs/tomas-rivera-no-select-star.md",
+ "sha": "7e5d039a6f9e22a7d8026820bbdd0e1c93378b816ed4c25ea262395cf46abfed",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

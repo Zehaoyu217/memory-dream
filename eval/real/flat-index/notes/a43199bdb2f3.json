@@ -1,0 +1,130 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-405-hardship-programs",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-405-hardship-programs"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "hp-psm-v1",
+   "type": "other",
+   "label": "method",
+   "as": [
+    "hp-psm-v1"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "dec-hp-6mo-default",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-hp-6mo-default"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-hp-plan-length-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-hp-plan-length-v1"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "q-hp-plan-length",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "q-hp-plan-length"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "roll-30-60",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "30-to-60 roll"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-405-hardship-programs",
+   "type": "measured-by",
+   "label": "measured",
+   "o": "roll-30-60",
+   "quote": "cut the 30-to-60 roll by 5.2pp",
+   "line": 4
+  },
+  {
+   "s": "dec-hp-6mo-default",
+   "type": "uses",
+   "label": "basis",
+   "o": "exp-405-hardship-programs",
+   "quote": "The 6-month effect is the basis for dec-hp-6mo-default.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "dec-hp-6mo-default",
+  "feat-hp-plan-length-v1",
+  "hp-psm-v1",
+  "q-hp-plan-length"
+ ],
+ "built_on": [
+  {
+   "what": "hp-psm-v1",
+   "quote": "hp-psm-v1",
+   "line": 5,
+   "asked": true
+  },
+  {
+   "what": "feat-hp-plan-length-v1",
+   "quote": "feat-hp-plan-length-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "hp-psm-v1",
+   "quote": "hp-psm-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "q-hp-plan-length",
+   "quote": "q-hp-plan-length",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-405-hardship-programs.md",
+ "sha": "a43199bdb2f3023faf2d9508045059577d7c6a3c6971c6734aca6601fbf561c6",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

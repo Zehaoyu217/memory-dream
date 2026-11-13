@@ -1,0 +1,118 @@
+{
+ "kind": "plan",
+ "entities": [
+  {
+   "id": "dec-cr-pilot",
+   "type": "other",
+   "label": "pilot",
+   "as": [
+    "Pilot the router on 10 percent of inbound calls from 2026-10-05"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cr-lgbm-v3",
+   "type": "model",
+   "label": "router",
+   "as": [
+    "the router"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "dec-cr-cost-matrix",
+   "type": "policy",
+   "label": "decision",
+   "as": [
+    "dec-cr-cost-matrix"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "q-cr-blind-transfers",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "q-cr-blind-transfers"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "blind-transfer-rate",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "blind-transfer rate at or below 15 percent"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fcr",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "FCR at or above 70.5 percent"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-cr-pilot",
+   "type": "measured-by",
+   "label": "success metric",
+   "o": "blind-transfer-rate",
+   "quote": "Success: blind-transfer rate at or below 15 percent (baseline 19.2 percent)",
+   "line": 6
+  },
+  {
+   "s": "dec-cr-pilot",
+   "type": "measured-by",
+   "label": "success metric",
+   "o": "fcr",
+   "quote": "FCR at or above 70.5 percent.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "cr-lgbm-v3",
+   "quote": "cr-lgbm-v3",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "dec-cr-cost-matrix",
+   "quote": "dec-cr-cost-matrix",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "q-cr-blind-transfers",
+   "quote": "q-cr-blind-transfers",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-cr-pilot.md",
+ "sha": "be06dc82f63f01a7689fc5de98b6855ffbc2c6df7849e2c3a4024c8180d08c36",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

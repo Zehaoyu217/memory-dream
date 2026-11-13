@@ -1,0 +1,158 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "maya-ortiz",
+   "type": "person",
+   "label": "retention",
+   "as": [
+    "Maya Ortiz"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "retention-roi",
+   "type": "metric",
+   "label": "roi",
+   "as": [
+    "retention ROI"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "180-day-revenue",
+   "type": "metric",
+   "label": "revenue",
+   "as": [
+    "180-day revenue"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "t0-no-offer",
+   "type": "other",
+   "label": "offer",
+   "as": [
+    "T0 no offer"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "t1-fee-waiver",
+   "type": "other",
+   "label": "offer",
+   "as": [
+    "T1 fee waiver"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "t2-cashback-boost",
+   "type": "other",
+   "label": "offer",
+   "as": [
+    "T2 cashback boost"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "t3-apr-cut",
+   "type": "other",
+   "label": "offer",
+   "as": [
+    "T3 APR cut"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "t4-statement-credit",
+   "type": "other",
+   "label": "offer",
+   "as": [
+    "T4 statement credit"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "maya-ortiz",
+   "type": "other",
+   "label": "asks",
+   "o": "retention-roi",
+   "quote": "asks which offer type earns the most 180-day revenue per dollar of offer cost",
+   "line": 5
+  },
+  {
+   "s": "retention-roi",
+   "type": "measured-by",
+   "label": "per offer dollar",
+   "o": "180-day-revenue",
+   "quote": "180-day revenue per dollar of offer cost",
+   "line": 5
+  },
+  {
+   "s": "t1-fee-waiver",
+   "type": "other",
+   "label": "compared against",
+   "o": "t0-no-offer",
+   "quote": "Compares T1 fee waiver, T2 cashback boost, T3 APR cut and T4 statement credit against T0 no offer.",
+   "line": 6
+  },
+  {
+   "s": "t2-cashback-boost",
+   "type": "other",
+   "label": "compared against",
+   "o": "t0-no-offer",
+   "quote": "Compares T1 fee waiver, T2 cashback boost, T3 APR cut and T4 statement credit against T0 no offer.",
+   "line": 6
+  },
+  {
+   "s": "t3-apr-cut",
+   "type": "other",
+   "label": "compared against",
+   "o": "t0-no-offer",
+   "quote": "Compares T1 fee waiver, T2 cashback boost, T3 APR cut and T4 statement credit against T0 no offer.",
+   "line": 6
+  },
+  {
+   "s": "t4-statement-credit",
+   "type": "other",
+   "label": "compared against",
+   "o": "t0-no-offer",
+   "quote": "Compares T1 fee waiver, T2 cashback boost, T3 APR cut and T4 statement credit against T0 no offer.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-401-retention-offers-roi",
+  "fnd-ror-t3-overspend",
+  "fnd-ror-cashback-roi",
+  "fnd-ror-cashback-roi-v2",
+  "dec-ror-reallocate-t3"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/q-ror-matrix-roi.md",
+ "sha": "985ba063a82f8ba8d842fbbfd27a1ff8ccf0fa8a3ba3d1306ee07a33919e0a1e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

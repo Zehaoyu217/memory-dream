@@ -1,0 +1,87 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "month-on-month-spend",
+   "type": "term",
+   "label": "appendix view",
+   "as": [
+    "month-on-month spend"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fiscal_month",
+   "type": "feature",
+   "label": "column",
+   "as": [
+    "fiscal_month"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "team-calendar",
+   "type": "dataset",
+   "label": "calendar",
+   "as": [
+    "team calendar"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ben-carter",
+   "type": "person",
+   "label": "finance lead",
+   "as": [
+    "Ben Carter"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ben-carter-finance-team",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "Ben Carter's finance team"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fiscal_month",
+   "type": "part-of",
+   "label": "column of",
+   "o": "team-calendar",
+   "quote": "using `fiscal_month` from the team calendar",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "howto/yoy-seasonality-adjust",
+   "quote": "howto/yoy-seasonality-adjust",
+   "line": 6,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/yoy-dip-spend.md",
+ "sha": "be3b4c2f1dccf3d4d620474499f3bf4ce904586f39f92a1e0dafc5067fe3db80",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

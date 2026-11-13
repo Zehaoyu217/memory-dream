@@ -1,0 +1,87 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cr-ivr-path-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "IVR path feature is the last three menu selections as tokens"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "callcenter.ivr_menu_paths",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`callcenter.ivr_menu_paths`"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "on holdout-2025q4"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro f1",
+   "as": [
+    "+0.03 macro F1"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cr-ivr-path-v1",
+   "type": "uses",
+   "label": "reads from",
+   "o": "callcenter.ivr_menu_paths",
+   "quote": "Tokens come from `callcenter.ivr_menu_paths`",
+   "line": 5
+  },
+  {
+   "s": "feat-cr-ivr-path-v1",
+   "type": "measured-by",
+   "label": "adds +0.03",
+   "o": "macro-f1",
+   "quote": "Adds +0.03 macro F1 on holdout-2025q4",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "fnd-cr-ivr-helps",
+  "ds-cr-ivr-paths"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cr-ivr-paths",
+   "quote": "ds-cr-ivr-paths",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-cr-ivr-path-v1.md",
+ "sha": "7f4fd2c74733c5118d2158d66ee8edcb001e9e62860e7c639ee3bca9075d35e8",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

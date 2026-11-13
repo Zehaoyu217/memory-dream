@@ -1,0 +1,87 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "cards.merchants",
+   "type": "dataset",
+   "label": "extract",
+   "as": [
+    "cards.merchants"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "txc-labels-2025q1",
+   "type": "dataset",
+   "label": "annotation sheet",
+   "as": [
+    "txc_labels_2025q1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-txc-gold-holdout",
+   "type": "dataset",
+   "label": "note",
+   "as": [
+    "ds-txc-gold-holdout"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "txc-labels-2025q1",
+   "type": "part-of",
+   "label": "labels",
+   "o": "cards.merchants",
+   "quote": "Labels live in the annotation sheet `txc_labels_2025q1`",
+   "line": 6
+  },
+  {
+   "s": "holdout-2025q2",
+   "type": "uses",
+   "label": "source",
+   "o": "cards.merchants",
+   "quote": "Source for every training set and for holdout-2025q2 (ds-txc-gold-holdout).",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "ds-txc-gold-holdout"
+ ],
+ "built_on": [
+  {
+   "what": "ds-txc-gold-holdout",
+   "quote": "holdout-2025q2 (ds-txc-gold-holdout)",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-txc-labelled-merchants.md",
+ "sha": "e8ffd5bf85eb09b3dea886bcd36641683876991add3f207fd79297ad337f32df",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

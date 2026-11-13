@@ -1,0 +1,93 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "top-two-deciles",
+   "type": "segment",
+   "label": "deciles",
+   "as": [
+    "top two deciles"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "xs-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "xs-gbm-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-405-top-decile",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-405-top-decile"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "open-rate",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Top decile opens at 7.8%"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "top-two-deciles",
+   "type": "uses",
+   "label": "of",
+   "o": "xs-gbm-v2",
+   "quote": "goes only to the top two deciles of xs-gbm-v2",
+   "line": 4
+  },
+  {
+   "s": "top-two-deciles",
+   "type": "measured-by",
+   "label": "opens at",
+   "o": "open-rate",
+   "quote": "Top decile opens at 7.8%",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-405-top-decile",
+  "xs-gbm-v2"
+ ],
+ "built_on": [
+  {
+   "what": "exp-405-top-decile",
+   "quote": "exp-405-top-decile",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "xs-gbm-v2",
+   "quote": "the boosting model with payroll",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-xs-top-decile-offer.md",
+ "sha": "fceb48e4180b76a8c07b6478f1de354339df4184cc133c87e687756e03b7dc41",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

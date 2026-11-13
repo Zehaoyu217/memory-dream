@@ -1,0 +1,89 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "cc-ft-v1",
+   "type": "model",
+   "label": "classifier",
+   "as": [
+    "cc-ft-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "omar-haddad",
+   "type": "person",
+   "label": "approver",
+   "as": [
+    "Omar Haddad"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "compliance-operations",
+   "type": "team",
+   "label": "compliance operations",
+   "as": [
+    "compliance operations"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fnd-cc-coverage",
+   "type": "finding",
+   "label": "coverage finding",
+   "as": [
+    "fnd-cc-coverage"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cc-ft-v1",
+   "type": "measured-by",
+   "label": "threshold on",
+   "o": "cc-ft-v1",
+   "quote": "Threshold 0.95 on the cc-ft-v1 probability.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "fnd-cc-coverage"
+ ],
+ "built_on": [
+  {
+   "what": "fnd-cc-coverage",
+   "quote": "fnd-cc-coverage",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "work/dec-cc-auto-threshold.md",
+ "sha": "05dc0fe5fe4496766f602e1534c2dcc648304ad59750b64ae5649acb4efd2995",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,195 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "txc-charcnn-v1",
+   "type": "model",
+   "label": "character cnn",
+   "as": [
+    "txc-charcnn-v1",
+    "A 1D character CNN"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "feat-txc-normalise-v2",
+   "type": "feature",
+   "label": "normalised descriptors",
+   "as": [
+    "normalised descriptors",
+    "feat-txc-normalise-v2"
+   ],
+   "lines": [
+    5,
+    9
+   ]
+  },
+  {
+   "id": "labelled-merchants",
+   "type": "dataset",
+   "label": "labelled merchants dataset",
+   "as": [
+    "labelled merchants dataset"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "holdout-2025q2",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-105-txn-categorization",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-105-txn-categorization"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "txc-gbm-v2",
+   "type": "model",
+   "label": "lightgbm model",
+   "as": [
+    "txc-gbm-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "macro-f1",
+   "as": [
+    "Macro-F1"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "lightgbm",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  },
+  {
+   "id": "p95-latency",
+   "type": "metric",
+   "label": "latency",
+   "as": [
+    "p95 latency"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "txc-charcnn-v1",
+   "type": "uses",
+   "label": "runs on",
+   "o": "feat-txc-normalise-v2",
+   "quote": "A 1D character CNN on normalised descriptors",
+   "line": 5
+  },
+  {
+   "s": "txc-charcnn-v1",
+   "type": "measured-by",
+   "label": "reached",
+   "o": "macro-f1",
+   "quote": "reached macro-F1 0.80",
+   "line": 4
+  },
+  {
+   "s": "txc-charcnn-v1",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "holdout-2025q2",
+   "quote": "Macro-F1 0.80 on holdout-2025q2",
+   "line": 6
+  },
+  {
+   "s": "txc-charcnn-v1",
+   "type": "measured-by",
+   "label": "latency",
+   "o": "p95-latency",
+   "quote": "p95 latency 210 ms per 1,000 merchants",
+   "line": 7
+  },
+  {
+   "s": "lightgbm",
+   "type": "measured-by",
+   "label": "latency",
+   "o": "p95-latency",
+   "quote": "against 9 ms for LightGBM",
+   "line": 7
+  },
+  {
+   "s": "txc-charcnn-v1",
+   "type": "other",
+   "label": "above",
+   "o": "txc-gbm-v2",
+   "quote": "0.02 above txc-gbm-v2",
+   "line": 6
+  },
+  {
+   "s": "txc-charcnn-v1",
+   "type": "other",
+   "label": "below",
+   "o": "lightgbm",
+   "quote": "0.01 below normalised LightGBM",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-105-txn-categorization",
+  "dec-txc-drop-charcnn",
+  "feat-txc-normalise-v2"
+ ],
+ "built_on": [
+  {
+   "what": "ds-txc-labelled-merchants",
+   "quote": "the labelled merchants dataset of 18,400",
+   "line": 9,
+   "asked": true
+  },
+  {
+   "what": "feat-txc-normalise-v2",
+   "quote": "feat-txc-normalise-v2",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/txc-charcnn-v1.md",
+ "sha": "5035d44a5d80a1f0c767810f3bbbfd35548d0c768eccefa7473982c2fd020d56",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

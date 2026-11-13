@@ -1,0 +1,86 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "exp-502-merchant-risk",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-502-merchant-risk"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC 0.85"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-mrisk-merchant-month",
+   "type": "dataset",
+   "label": "merchant-month panel",
+   "as": [
+    "the merchant-month panel"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-502-merchant-risk",
+   "type": "measured-by",
+   "label": "reports AUC",
+   "o": "auc",
+   "quote": "exp-502-merchant-risk (AUC 0.85)",
+   "line": 6
+  },
+  {
+   "s": "exp-502-merchant-risk",
+   "type": "evaluated-on",
+   "label": "run on",
+   "o": "ds-mrisk-merchant-month",
+   "quote": "exp-502-merchant-risk (AUC 0.85) on the merchant-month panel",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-mrisk-merchant-month",
+   "quote": "ds-mrisk-merchant-month",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-502-merchant-risk",
+   "quote": "the three-feature gbm experiment",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "q-mrisk-score-use",
+   "quote": "q-mrisk-score-use",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-mrisk-monthly-scoring.md",
+ "sha": "b3bc9dd2b9819102937268457509c41bf229ba0a20e973cb0e88248990020dd8",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

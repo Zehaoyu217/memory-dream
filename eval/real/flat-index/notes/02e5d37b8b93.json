@@ -1,0 +1,107 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cb-tier-eligibility",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cb-tier-eligibility"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-cb-spend-band-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cb-spend-band-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cb.spend_panel",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cb.spend_panel"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cb-sim-v1",
+   "type": "other",
+   "label": "simulator",
+   "as": [
+    "cb-sim-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "proposal-a",
+   "type": "other",
+   "label": "tier structure",
+   "as": [
+    "proposal A"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cb-tier-eligibility",
+   "type": "uses",
+   "label": "source",
+   "o": "cb.spend_panel",
+   "quote": "Source `cb.spend_panel`.",
+   "line": 6
+  },
+  {
+   "s": "cb-sim-v1",
+   "type": "uses",
+   "label": "eligibility input",
+   "o": "feat-cb-tier-eligibility",
+   "quote": "Used as the eligibility input of cb-sim-v1.",
+   "line": 7
+  },
+  {
+   "s": "feat-cb-tier-eligibility",
+   "type": "uses",
+   "label": "tier thresholds",
+   "o": "proposal-a",
+   "quote": "proposal A thresholds unless the sim says otherwise",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "cb-sim-v1",
+  "feat-cb-spend-band-v2"
+ ],
+ "built_on": [
+  {
+   "what": "feat-cb-spend-band-v2",
+   "quote": "feat-cb-spend-band-v2",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-cb-tier-eligibility.md",
+ "sha": "02e5d37b8b93d446bc5c233be4c0eb4ab21b53f705add2071d6eaeb2ef12b292",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

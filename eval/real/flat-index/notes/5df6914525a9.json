@@ -1,0 +1,178 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "ch-propensity-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ch-propensity-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-ch-send-window-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ch-send-window-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-ch-prior-contact-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ch-prior-contact-v1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-ch-prefer-channel-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ch-prefer-channel-v1",
+    "prefer-channel feature"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "uplift@20% 0.027"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ch-propensity-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "ch-propensity-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ch-bandit-v1",
+   "type": "model",
+   "label": "bandit",
+   "as": [
+    "ch-bandit-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-506-collections-channel-mix",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-506-collections-channel-mix"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ch-propensity-v2",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-ch-send-window-v1",
+   "quote": "Features: feat-ch-send-window-v1, feat-ch-prior-contact-v1, feat-ch-prefer-channel-v1.",
+   "line": 5
+  },
+  {
+   "s": "ch-propensity-v2",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-ch-prior-contact-v1",
+   "quote": "Features: feat-ch-send-window-v1, feat-ch-prior-contact-v1, feat-ch-prefer-channel-v1.",
+   "line": 5
+  },
+  {
+   "s": "ch-propensity-v2",
+   "type": "uses",
+   "label": "features",
+   "o": "feat-ch-prefer-channel-v1",
+   "quote": "Features: feat-ch-send-window-v1, feat-ch-prior-contact-v1, feat-ch-prefer-channel-v1.",
+   "line": 5
+  },
+  {
+   "s": "ch-propensity-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "uplift-at-20",
+   "quote": "uplift@20% 0.027 on the wave-1 holdout split (n=17,200)",
+   "line": 6
+  },
+  {
+   "s": "ch-propensity-v2",
+   "type": "measured-by",
+   "label": "compared against",
+   "o": "uplift-at-20",
+   "quote": "against 0.021 for ch-propensity-v1",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ch-bandit-v1"
+ ],
+ "built_on": [
+  {
+   "what": "ch-propensity-v1",
+   "quote": "the original sms-or-call propensity model",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-506-collections-channel-mix",
+   "quote": "exp-506-collections-channel-mix",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-ch-prefer-channel-v1",
+   "quote": "feat-ch-prefer-channel-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "ch-propensity-v1",
+   "quote": "the original sms-or-call propensity model",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ch-propensity-v2.md",
+ "sha": "5df6914525a9f8ffd461755296d7ec0f6e0e88641bb6a687555db0750752bc80",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

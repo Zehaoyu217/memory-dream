@@ -1,0 +1,104 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-306-revenue-forecast-2026",
+   "type": "experiment",
+   "label": "experiment",
+   "as": [
+    "exp-306-revenue-forecast-2026"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-rev26-rate-schedule",
+   "type": "dataset",
+   "label": "rate schedule",
+   "as": [
+    "ds-rev26-rate-schedule"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fnd-rev26-promo-tail",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-rev26-promo-tail"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "q-rev26-q1-interest-miss",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "q-rev26-q1-interest-miss"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "promo-roll-off",
+   "type": "term",
+   "label": "concept",
+   "as": [
+    "promo roll-off"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-306-revenue-forecast-2026",
+   "type": "uses",
+   "label": "sensitivity on",
+   "o": "ds-rev26-rate-schedule",
+   "quote": "Sensitivity on the promo cohorts",
+   "line": 5
+  },
+  {
+   "s": "exp-306-revenue-forecast-2026",
+   "type": "other",
+   "label": "explains",
+   "o": "q-rev26-q1-interest-miss",
+   "quote": "This is the working explanation for the Q1-2026 miss (q-rev26-q1-interest-miss).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "q-rev26-q1-interest-miss",
+  "fnd-rev26-promo-tail"
+ ],
+ "built_on": [
+  {
+   "what": "ds-rev26-rate-schedule",
+   "quote": "ds-rev26-rate-schedule",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fnd-rev26-promo-tail",
+   "quote": "fnd-rev26-promo-tail",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-306-revenue-forecast-2026.md",
+ "sha": "4dde8e0336a8680342bdb91d915ed04c445045b9d257d95126c4fcfea7c7f1d2",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

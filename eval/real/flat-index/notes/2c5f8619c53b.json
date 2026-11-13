@@ -1,0 +1,83 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "feat-f25-device-age",
+   "type": "feature",
+   "label": "device age",
+   "as": [
+    "feat-f25-device-age"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "term",
+   "label": "psi",
+   "as": [
+    "PSI"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "mobile-sdk-rollout",
+   "type": "other",
+   "label": "sdk rollout",
+   "as": [
+    "a new mobile SDK rollout in August 2025"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-f25-device-age",
+   "type": "measured-by",
+   "label": "PSI of",
+   "o": "psi",
+   "quote": "PSI of feat-f25-device-age between June and October 2025 is 0.19",
+   "line": 5
+  },
+  {
+   "s": "mobile-sdk-rollout",
+   "type": "other",
+   "label": "changed first-seen dates",
+   "o": "feat-f25-device-age",
+   "quote": "a new mobile SDK rollout in August 2025 changed device first-seen dates",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "feat-f25-device-age"
+ ],
+ "built_on": [
+  {
+   "what": "exp-102-fraud-2025",
+   "quote": "the device age ablation result",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-f25-device-age",
+   "quote": "feat-f25-device-age",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fraud25-find-device-drift.md",
+ "sha": "2c5f8619c53be51418383206703b754c37318c03b122c584d24b361286b1585c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

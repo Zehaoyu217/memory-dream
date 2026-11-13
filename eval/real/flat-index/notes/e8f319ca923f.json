@@ -1,0 +1,107 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-ae-new-user-inflation",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Depth v1 inflates the score for accounts under 90 days"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-504-app-engagement",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-504-app-engagement"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-ae-depth-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ae-depth-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-ae-tenure-norm",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-ae-tenure-norm"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fnd-ae-new-user-inflation",
+   "type": "evaluated-on",
+   "label": "from",
+   "o": "exp-504-app-engagement",
+   "quote": "From exp-504-app-engagement",
+   "line": 5
+  },
+  {
+   "s": "fnd-ae-new-user-inflation",
+   "type": "evaluated-on",
+   "label": "on",
+   "o": "holdout-2025q4",
+   "quote": "on holdout-2025q4",
+   "line": 5
+  },
+  {
+   "s": "feat-ae-depth-v2",
+   "type": "other",
+   "label": "basis for",
+   "o": "fnd-ae-new-user-inflation",
+   "quote": "Basis for feat-ae-depth-v2 and dec-ae-tenure-norm.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "feat-ae-depth-v2",
+  "dec-ae-tenure-norm"
+ ],
+ "built_on": [
+  {
+   "what": "exp-504-app-engagement",
+   "quote": "exp-504-app-engagement",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-ae-new-user-inflation.md",
+ "sha": "e8f319ca923fd0fd7001867b506e150a01bb22b0574974c1131a5b76dbef0b94",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

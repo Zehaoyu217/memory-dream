@@ -1,0 +1,136 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "collections-uplift-oot-2026h1",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "Eval set collections-uplift-oot-2026h1, n=28,450 with 860 control accounts."
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cu-uplift-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cu-uplift-v3"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cu-uplift-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cu-uplift-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "uplift@20% of 0.038"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-cu-bureau-delta",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cu-bureau-delta"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-cu-oot-2026h1",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-cu-oot-2026h1"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cu-uplift-v3",
+   "type": "uses",
+   "label": "plus",
+   "o": "feat-cu-bureau-delta",
+   "quote": "cu-uplift-v2 plus feat-cu-bureau-delta",
+   "line": 5
+  },
+  {
+   "s": "cu-uplift-v3",
+   "type": "measured-by",
+   "label": "scores",
+   "o": "uplift-at-20",
+   "quote": "uplift@20% 0.038 (CI 0.024-0.052)",
+   "line": 5
+  },
+  {
+   "s": "cu-uplift-v2",
+   "type": "measured-by",
+   "label": "scores",
+   "o": "uplift-at-20",
+   "quote": "cu-uplift-v2 on the same set: 0.033.",
+   "line": 5
+  },
+  {
+   "s": "cu-uplift-v3",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "collections-uplift-oot-2026h1",
+   "quote": "Eval set collections-uplift-oot-2026h1",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "ds-cu-oot-2026h1"
+ ],
+ "built_on": [
+  {
+   "what": "cu-uplift-v2",
+   "quote": "the calibrated uplift model used for routing",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-cu-oot-2026h1",
+   "quote": "ds-cu-oot-2026h1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-cu-bureau-delta",
+   "quote": "the bureau 3-month score change feature",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-106-collections-uplift.md",
+ "sha": "eab6aed94609d25511925637bf8518aba0f9a911e9863af4da06ef90a3cf29aa",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

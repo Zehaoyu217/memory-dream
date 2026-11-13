@@ -1,0 +1,144 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-ep-pre-spend-cov-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ep-pre-spend-cov-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-ep-assignments",
+   "type": "dataset",
+   "label": "assignments",
+   "as": [
+    "ds-ep-assignments"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-ep-pre-spend-cov-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-ep-pre-spend-cov-v1"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "exp-504-experiment-platform",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-504-experiment-platform"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "variance-reduction",
+   "type": "metric",
+   "label": "variance reduction",
+   "as": [
+    "larger variance reduction"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "assigned-at",
+   "type": "feature",
+   "label": "column",
+   "as": [
+    "assigned_at"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-ep-pre-spend-cov-v2",
+   "type": "uses",
+   "label": "from",
+   "o": "cards.txn_daily",
+   "quote": "from cards.txn_daily",
+   "line": 5
+  },
+  {
+   "s": "feat-ep-pre-spend-cov-v2",
+   "type": "measured-by",
+   "label": "variance reduction",
+   "o": "variance-reduction",
+   "quote": "Gives the larger variance reduction",
+   "line": 6
+  },
+  {
+   "s": "feat-ep-pre-spend-cov-v2",
+   "type": "other",
+   "label": "shown by",
+   "o": "exp-504-experiment-platform",
+   "quote": "Gives the larger variance reduction (exp-504-experiment-platform).",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "ds-ep-assignments",
+  "feat-ep-pre-spend-cov-v1",
+  "exp-504-experiment-platform"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ep-assignments",
+   "quote": "ds-ep-assignments",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "feat-ep-pre-spend-cov-v1",
+   "quote": "feat-ep-pre-spend-cov-v1",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "feat-ep-pre-spend-cov-v1",
+   "quote": "feat-ep-pre-spend-cov-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-ep-pre-spend-cov-v2.md",
+ "sha": "82f85b92bca20f5389fb890da70f0ff4504bd0a90c281107127eab787249744a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

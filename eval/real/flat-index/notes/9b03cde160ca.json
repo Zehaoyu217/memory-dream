@@ -1,0 +1,127 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-304-chatbot-deflection",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-304-chatbot-deflection"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-307-chatbot-deflection",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-307-chatbot-deflection"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fnd-cb-containment-high",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-cb-containment-high"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "repeat-contact",
+   "type": "metric",
+   "label": "repeat contact",
+   "as": [
+    "repeat contact"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "containment",
+   "type": "metric",
+   "label": "containment",
+   "as": [
+    "containment"
+   ],
+   "lines": [
+    4,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "same-intent-call-rebound",
+   "type": "metric",
+   "label": "rebound rate",
+   "as": [
+    "Same-intent call rebounds"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-304-chatbot-deflection",
+   "type": "measured-by",
+   "label": "repeat contact",
+   "o": "repeat-contact",
+   "quote": "v1 repeat contact 21 percent",
+   "line": 5
+  },
+  {
+   "s": "exp-307-chatbot-deflection",
+   "type": "measured-by",
+   "label": "rebound rate",
+   "o": "same-intent-call-rebound",
+   "quote": "Same-intent call rebounds after containment run at 9 percent (exp-307-chatbot-deflection).",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-304-chatbot-deflection",
+  "exp-307-chatbot-deflection",
+  "fnd-cb-containment-high"
+ ],
+ "built_on": [
+  {
+   "what": "exp-304-chatbot-deflection",
+   "quote": "the handoff rule v1 versus v2 replay",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "exp-307-chatbot-deflection",
+   "quote": "the same-intent repeat call check",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "fnd-cb-containment-high",
+   "quote": "fnd-cb-containment-high",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-cb-repeat-contact.md",
+ "sha": "9b03cde160ca2c3036672a667261333bc1cd431a1dc0f2767aed35cd6c3152c3",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

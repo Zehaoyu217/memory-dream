@@ -1,0 +1,99 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "app-sessions",
+   "type": "feature",
+   "label": "app sessions",
+   "as": [
+    "App-session lift",
+    "app sessions"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "util-v2",
+   "type": "feature",
+   "label": "corrected utilisation",
+   "as": [
+    "util-v2",
+    "corrected utilisation"
+   ],
+   "lines": [
+    4,
+    5,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "app-sessions",
+   "type": "measured-by",
+   "label": "lift falls to",
+   "o": "auc",
+   "quote": "App-session lift falls to +0.001 AUC once util-v2 is in",
+   "line": 4
+  },
+  {
+   "s": "util-v2",
+   "type": "other",
+   "label": "absorbed",
+   "o": "app-sessions",
+   "quote": "The earlier +0.006 was mostly absorbed by the corrected utilisation",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-104-churn-2025",
+  "exp-105-churn-2025",
+  "fnd-c25-app-lift",
+  "dec-c25-drop-app-sessions"
+ ],
+ "built_on": [
+  {
+   "what": "exp-105-churn-2025",
+   "quote": "the app sessions removal on util-v2",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fnd-c25-app-lift",
+   "quote": "fnd-c25-app-lift",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "fnd-c25-app-lift",
+   "quote": "fnd-c25-app-lift",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-c25-app-lift-v2.md",
+ "sha": "d38def47f5195aa1d43d4ab974198d569fca51d84c5508cd54b72f7ef7278ad7",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

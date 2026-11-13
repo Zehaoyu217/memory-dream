@@ -1,0 +1,196 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "q-dq-late-cause",
+   "type": "other",
+   "label": "open question",
+   "as": [
+    "Open: why do cards.txn_daily partitions land after 10:00 on D+1?"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "partitions",
+   "as": [
+    "cards.txn_daily"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Tomas Rivera"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "data-engineering",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "data engineering"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "velocity-features",
+   "type": "feature",
+   "label": "velocity features",
+   "as": [
+    "the velocity features"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feature-store-migration",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "feature-store-migration"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "upstream-batch-start-time",
+   "type": "other",
+   "label": "candidate cause",
+   "as": [
+    "the upstream batch start time"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "weekend-loads",
+   "type": "other",
+   "label": "candidate cause",
+   "as": [
+    "weekend loads that finish on Monday"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "partition-retries",
+   "type": "other",
+   "label": "candidate cause",
+   "as": [
+    "retries that reload a partition after the first load failed"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "flat-late-rate",
+   "type": "metric",
+   "label": "pattern",
+   "as": [
+    "flat late rate"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "monday-skew",
+   "type": "metric",
+   "label": "pattern",
+   "as": [
+    "Monday skew"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "reloaded-late-partitions",
+   "type": "metric",
+   "label": "pattern",
+   "as": [
+    "late partitions that were also reloaded"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "q-dq-late-cause",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "tomas-rivera",
+   "quote": "Owner: Tomas Rivera (data engineering).",
+   "line": 7
+  },
+  {
+   "s": "q-dq-late-cause",
+   "type": "other",
+   "label": "asks about",
+   "o": "cards.txn_daily",
+   "quote": "why do cards.txn_daily partitions land after 10:00 on D+1?",
+   "line": 4
+  },
+  {
+   "s": "upstream-batch-start-time",
+   "type": "other",
+   "label": "predicts",
+   "o": "flat-late-rate",
+   "quote": "Batch timing predicts a flat late rate",
+   "line": 6
+  },
+  {
+   "s": "weekend-loads",
+   "type": "other",
+   "label": "predicts",
+   "o": "monday-skew",
+   "quote": "weekends predict a Monday skew",
+   "line": 6
+  },
+  {
+   "s": "partition-retries",
+   "type": "other",
+   "label": "predicts",
+   "o": "reloaded-late-partitions",
+   "quote": "retries predict late partitions that were also reloaded",
+   "line": 6
+  },
+  {
+   "s": "velocity-features",
+   "type": "part-of",
+   "label": "in",
+   "o": "feature-store-migration",
+   "quote": "the velocity features in feature-store-migration",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/q-dq-late-cause.md",
+ "sha": "2fcee506989ad49a1f0f24b8a00a3940a88138fa4177153b342efc92fe496fa8",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,107 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "acquiring-watchlist",
+   "type": "other",
+   "label": "watchlist",
+   "as": [
+    "acquiring watchlist"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "mrisk-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "mrisk-gbm-v2"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-505-merchant-risk",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-505-merchant-risk"
+   ],
+   "lines": [
+    6,
+    8
+   ]
+  },
+  {
+   "id": "dec-mrisk-watchlist-07",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-mrisk-watchlist-07"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dec-mrisk-threshold-065",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-mrisk-threshold-065"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-mrisk-watchlist-07",
+   "type": "other",
+   "label": "resolves",
+   "o": "acquiring-watchlist",
+   "quote": "Resolved by dec-mrisk-watchlist-07",
+   "line": 7
+  },
+  {
+   "s": "dec-mrisk-threshold-065",
+   "type": "other",
+   "label": "resolves",
+   "o": "acquiring-watchlist",
+   "quote": "later dec-mrisk-threshold-065",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "exp-505-merchant-risk",
+  "mrisk-gbm-v2",
+  "dec-mrisk-watchlist-07",
+  "dec-mrisk-threshold-065"
+ ],
+ "built_on": [
+  {
+   "what": "exp-505-merchant-risk",
+   "quote": "exp-505-merchant-risk",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "mrisk-gbm-v2",
+   "quote": "mrisk-gbm-v2",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/q-mrisk-watchlist-cut.md",
+ "sha": "7bad5835b3ef021ce2379f36aae0604fc50f550dfd28455afa91f5f69e4a5a9b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

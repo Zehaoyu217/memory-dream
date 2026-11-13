@@ -1,0 +1,91 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "mrisk-gbm-v2",
+   "type": "model",
+   "label": "first mcc model",
+   "as": [
+    "v2 is the first version to carry the MCC feature"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-mrisk-mcc-base",
+   "type": "feature",
+   "label": "mcc base rate feature",
+   "as": [
+    "feat-mrisk-mcc-base"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "exp-503-merchant-risk",
+   "type": "experiment",
+   "label": "mcc experiment",
+   "as": [
+    "exp-503-merchant-risk"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "mrisk-oot-2025h2",
+   "type": "dataset",
+   "label": "eval set",
+   "as": [
+    "mrisk-oot-2025h2"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-503-merchant-risk",
+   "type": "evaluated-on",
+   "label": "evaluated on",
+   "o": "mrisk-oot-2025h2",
+   "quote": "AUC 0.85 to 0.87 with feat-mrisk-mcc-base on mrisk-oot-2025h2",
+   "line": 5
+  },
+  {
+   "s": "mrisk-gbm-v2",
+   "type": "uses",
+   "label": "carries",
+   "o": "feat-mrisk-mcc-base",
+   "quote": "v2 is the first version to carry the MCC feature",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "exp-503-merchant-risk",
+   "quote": "exp-503-merchant-risk",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-mrisk-mcc-base",
+   "quote": "the smoothed mcc fraud base rate",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/mrisk-find-mcc-base.md",
+ "sha": "3dd3099d74af3562cb574e31af6c09ee05d2a5e3b48a64f9259d72ab118d3567",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

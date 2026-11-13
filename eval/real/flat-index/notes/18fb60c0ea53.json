@@ -1,0 +1,84 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-xs-app-logins-90d",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-xs-app-logins-90d"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "app.sessions_daily",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "app.sessions_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "xs-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "xs-gbm-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ds-xs-offer-log",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-xs-offer-log"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-xs-app-logins-90d",
+   "type": "uses",
+   "label": "from",
+   "o": "app.sessions_daily",
+   "quote": "from `app.sessions_daily`",
+   "line": 5
+  },
+  {
+   "s": "xs-gbm-v2",
+   "type": "uses",
+   "label": "used in",
+   "o": "feat-xs-app-logins-90d",
+   "quote": "Used in xs-gbm-v2.",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-xs-offer-log",
+   "quote": "ds-xs-offer-log",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-xs-app-logins-90d.md",
+ "sha": "18fb60c0ea53f014e20b4cb72f37247fab599466d0c535fd8570f9bd5ba06119",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

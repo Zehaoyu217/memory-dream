@@ -1,0 +1,128 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "disp-lgbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "disp-lgbm-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-disp-reason-text",
+   "type": "feature",
+   "label": "reason-text feature",
+   "as": [
+    "feat-disp-reason-text"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-disp-analyst-labels",
+   "type": "dataset",
+   "label": "two-analyst labels",
+   "as": [
+    "ds-disp-analyst-labels"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "precision-at-k",
+   "type": "metric",
+   "label": "precision",
+   "as": [
+    "84.0% precision"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "disp-lgbm-v2",
+   "type": "model",
+   "label": "later model",
+   "as": [
+    "Superseded by disp-lgbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "disp-lgbm-v1",
+   "type": "uses",
+   "label": "uses",
+   "o": "feat-disp-reason-text",
+   "quote": "LightGBM on feat-disp-reason-text only",
+   "line": 5
+  },
+  {
+   "s": "disp-lgbm-v1",
+   "type": "trained-on",
+   "label": "trained on",
+   "o": "ds-disp-analyst-labels",
+   "quote": "trained on two-analyst labels from January-February 2026",
+   "line": 5
+  },
+  {
+   "s": "disp-lgbm-v1",
+   "type": "measured-by",
+   "label": "precision",
+   "o": "precision-at-k",
+   "quote": "Cross-validated precision at p>=0.90 is 84.0%",
+   "line": 6
+  },
+  {
+   "s": "disp-lgbm-v2",
+   "type": "replaces",
+   "label": "supersedes",
+   "o": "disp-lgbm-v1",
+   "quote": "Superseded by disp-lgbm-v2 on 2026-04-21.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "disp-lgbm-v2",
+  "exp-301-dispute-triage",
+  "ds-disp-analyst-labels",
+  "feat-disp-reason-text"
+ ],
+ "built_on": [
+  {
+   "what": "dec-disp-labels-two-analyst",
+   "quote": "the decision on two-analyst training labels",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-disp-analyst-labels",
+   "quote": "ds-disp-analyst-labels",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-disp-reason-text",
+   "quote": "the tf-idf dispute description feature",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/disp-lgbm-v1.md",
+ "sha": "637318e1abe9c7bf3b53d3e563720c22778145c0de628618847bbe73e1be27f5",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

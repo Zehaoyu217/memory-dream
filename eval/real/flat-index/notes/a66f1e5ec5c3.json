@@ -1,0 +1,199 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-cld-band-policy-2025",
+   "type": "policy",
+   "label": "decision",
+   "as": [
+    "decrease 25% for band C and 35% for band D"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "band-c",
+   "type": "other",
+   "label": "risk band",
+   "as": [
+    "band C"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "band-d",
+   "type": "other",
+   "label": "risk band",
+   "as": [
+    "band D"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "hardship-accounts",
+   "type": "segment",
+   "label": "excluded segment",
+   "as": [
+    "hardship accounts"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "score-floor-640",
+   "type": "other",
+   "label": "score floor",
+   "as": [
+    "score floor of 640"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "cld-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cld-gbm-v1"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "feat-cld-risk-band-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cld-risk-band-v1"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "exp-201-limit-decrease-policy",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-201-limit-decrease-policy"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-204-limit-decrease-policy",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-204-limit-decrease-policy"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-cld-band-policy-2025",
+   "type": "uses",
+   "label": "adopted on",
+   "o": "cld-gbm-v1",
+   "quote": "Adopted 2025-04-22 on feat-cld-risk-band-v1 and cld-gbm-v1 scores",
+   "line": 5
+  },
+  {
+   "s": "dec-cld-band-policy-2025",
+   "type": "uses",
+   "label": "adopted on",
+   "o": "feat-cld-risk-band-v1",
+   "quote": "Adopted 2025-04-22 on feat-cld-risk-band-v1 and cld-gbm-v1 scores",
+   "line": 5
+  },
+  {
+   "s": "dec-cld-band-policy-2025",
+   "type": "other",
+   "label": "excludes",
+   "o": "hardship-accounts",
+   "quote": "hardship accounts excluded per exp-204-limit-decrease-policy",
+   "line": 5
+  },
+  {
+   "s": "dec-cld-band-policy-2025",
+   "type": "other",
+   "label": "cuts band C by 25%",
+   "o": "band-c",
+   "quote": "Band D cuts are 35% and band C cuts are 25%",
+   "line": 6
+  },
+  {
+   "s": "dec-cld-band-policy-2025",
+   "type": "other",
+   "label": "cuts band D by 35%",
+   "o": "band-d",
+   "quote": "Band D cuts are 35% and band C cuts are 25%",
+   "line": 6
+  },
+  {
+   "s": "dec-cld-band-policy-2025",
+   "type": "other",
+   "label": "sets floor",
+   "o": "score-floor-640",
+   "quote": "with the v8 score floor of 640 for any decrease",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "dec-cld-band-policy-2026",
+  "exp-201-limit-decrease-policy",
+  "exp-204-limit-decrease-policy"
+ ],
+ "built_on": [
+  {
+   "what": "cld-gbm-v1",
+   "quote": "cld-gbm-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-201-limit-decrease-policy",
+   "quote": "exp-201-limit-decrease-policy",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-204-limit-decrease-policy",
+   "quote": "the hardship roll speed experiment",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-cld-risk-band-v1",
+   "quote": "feat-cld-risk-band-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 1
+ },
+ "path": "work/dec-cld-band-policy-2025.md",
+ "sha": "a66f1e5ec5c382c544f82958f266888a3ae353466f32892af8d9f84e4c811b6a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

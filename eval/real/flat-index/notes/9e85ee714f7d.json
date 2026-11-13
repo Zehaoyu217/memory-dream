@@ -1,0 +1,111 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-f25-amt-ratio",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-f25-amt-ratio"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-f25-txn-2024-2025",
+   "type": "dataset",
+   "label": "source dataset",
+   "as": [
+    "ds-f25-txn-2024-2025"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fraud25-gbm-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fraud25-gbm-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fraud25-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fraud25-gbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "v3"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-f25-amt-ratio",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-f25-txn-2024-2025",
+   "quote": "Builds on ds-f25-txn-2024-2025",
+   "line": 8
+  },
+  {
+   "s": "fraud25-gbm-v1",
+   "type": "uses",
+   "label": "shipped in",
+   "o": "feat-f25-amt-ratio",
+   "quote": "Shipped in fraud25-gbm-v1 and kept in v2 and v3",
+   "line": 7
+  },
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "uses",
+   "label": "kept in",
+   "o": "feat-f25-amt-ratio",
+   "quote": "kept in v2 and v3",
+   "line": 7
+  },
+  {
+   "s": "fraud25-gbm-v3",
+   "type": "uses",
+   "label": "kept in",
+   "o": "feat-f25-amt-ratio",
+   "quote": "kept in v2 and v3",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-f25-txn-2024-2025",
+   "quote": "ds-f25-txn-2024-2025",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-f25-amt-ratio.md",
+ "sha": "9e85ee714f7d9fb25338f0dc85d1388a99d58eba74544f713cf87a12d7666719",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,133 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "bt.offer_log",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "bt.offer_log"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "bt_build_log.sql",
+   "type": "module",
+   "label": "build script",
+   "as": [
+    "bt_build_log.sql"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "offers.tier_matrix",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "offers.tier_matrix"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "campaign-sends",
+   "type": "other",
+   "label": "campaign sends",
+   "as": [
+    "campaign sends"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "acceptance-rate",
+   "type": "metric",
+   "label": "acceptance",
+   "as": [
+    "acceptance 4.3%"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "maya-ortiz",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Maya Ortiz"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bt_build_log.sql",
+   "type": "produces",
+   "label": "built by",
+   "o": "bt.offer_log",
+   "quote": "Built by `bt_build_log.sql` from `offers.tier_matrix` joined to campaign sends.",
+   "line": 5
+  },
+  {
+   "s": "bt.offer_log",
+   "type": "uses",
+   "label": "built from",
+   "o": "offers.tier_matrix",
+   "quote": "Built by `bt_build_log.sql` from `offers.tier_matrix`",
+   "line": 5
+  },
+  {
+   "s": "bt.offer_log",
+   "type": "uses",
+   "label": "joined to",
+   "o": "campaign-sends",
+   "quote": "joined to campaign sends",
+   "line": 5
+  },
+  {
+   "s": "bt.offer_log",
+   "type": "measured-by",
+   "label": "acceptance",
+   "o": "acceptance-rate",
+   "quote": "`accepted` = BT booked within 45 days of offer open.",
+   "line": 6
+  },
+  {
+   "s": "bt.offer_log",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "maya-ortiz",
+   "quote": "Owner: retention (Maya Ortiz).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "q-bt-who-accepts"
+ ],
+ "built_on": [
+  {
+   "what": "q-bt-who-accepts",
+   "quote": "q-bt-who-accepts",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-bt-offer-log.md",
+ "sha": "b30b1ec909c7a3784bcdb3a7cab31afd5112d0446119428e86c44d19c7837f7a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

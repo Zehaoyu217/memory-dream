@@ -1,0 +1,164 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-101-collections-uplift",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-101-collections-uplift"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cu-resp-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cu-resp-v1"
+   ],
+   "lines": [
+    4,
+    5,
+    9
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "recall-at-20",
+   "type": "metric",
+   "label": "recall",
+   "as": [
+    "Recall@20%"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "precision-at-k",
+   "type": "metric",
+   "label": "precision",
+   "as": [
+    "Precision@20%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "base-rate",
+   "type": "metric",
+   "label": "base rate",
+   "as": [
+    "base rate"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "q-cu-who-to-call",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "q-cu-who-to-call"
+   ],
+   "lines": [
+    9
+   ]
+  },
+  {
+   "id": "exp-102-collections-uplift",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-102-collections-uplift"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cu-resp-v1",
+   "type": "evaluated-on",
+   "label": "ranked on",
+   "o": "holdout-2025q1",
+   "quote": "Ranking test on holdout-2025q1 (n=24,860 contacted accounts, 1-29 DPD).",
+   "line": 5
+  },
+  {
+   "s": "exp-101-collections-uplift",
+   "type": "evaluated-on",
+   "label": "ranked on",
+   "o": "holdout-2025q1",
+   "quote": "Ranking test on holdout-2025q1 (n=24,860 contacted accounts, 1-29 DPD).",
+   "line": 5
+  },
+  {
+   "s": "exp-101-collections-uplift",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "recall-at-20",
+   "quote": "Recall@20% of PTP events is 0.38 for cu-resp-v1 and 0.20 for random.",
+   "line": 5
+  },
+  {
+   "s": "exp-101-collections-uplift",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "precision-at-k",
+   "quote": "Precision@20% is 0.31 against a base rate of 0.186.",
+   "line": 6
+  },
+  {
+   "s": "exp-101-collections-uplift",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "base-rate",
+   "quote": "Precision@20% is 0.31 against a base rate of 0.186.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "cu-resp-v1",
+  "q-cu-who-to-call",
+  "exp-102-collections-uplift"
+ ],
+ "built_on": [
+  {
+   "what": "cu-resp-v1",
+   "quote": "cu-resp-v1",
+   "line": 9,
+   "asked": true
+  },
+  {
+   "what": "q-cu-who-to-call",
+   "quote": "q-cu-who-to-call",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-101-collections-uplift.md",
+ "sha": "4facbddeae3807b454951651d662c579b94e7babd9879928112f7752dff2e536",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

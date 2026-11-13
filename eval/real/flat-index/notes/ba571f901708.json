@@ -1,0 +1,203 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "ed-logit-v1",
+   "type": "model",
+   "label": "scorecard",
+   "as": [
+    "ed-logit-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "early-delinquency-holdout-2024q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "early-delinquency-holdout-2024q4"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.742"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "gini",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Gini 0.484"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "KS 0.36"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-ed-gbm-for-watchlist",
+   "type": "policy",
+   "label": "decision",
+   "as": [
+    "dec-ed-gbm-for-watchlist"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-ed-bureau-join",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-ed-bureau-join"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-ed-current-base",
+   "type": "segment",
+   "label": "population",
+   "as": [
+    "the current-account scoring population"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-ed-label-30p3m",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-ed-label-30p3m"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "ed-logit-v1",
+   "type": "measured-by",
+   "label": "baseline AUC",
+   "o": "auc",
+   "quote": "Baseline metrics on early-delinquency-holdout-2024q4: AUC 0.742",
+   "line": 6
+  },
+  {
+   "s": "ed-logit-v1",
+   "type": "measured-by",
+   "label": "baseline Gini",
+   "o": "gini",
+   "quote": "Gini 0.484",
+   "line": 6
+  },
+  {
+   "s": "ed-logit-v1",
+   "type": "measured-by",
+   "label": "baseline KS",
+   "o": "ks",
+   "quote": "KS 0.36",
+   "line": 6
+  },
+  {
+   "s": "ed-logit-v1",
+   "type": "evaluated-on",
+   "label": "baseline evaluation",
+   "o": "early-delinquency-holdout-2024q4",
+   "quote": "Baseline metrics on early-delinquency-holdout-2024q4",
+   "line": 6
+  },
+  {
+   "s": "ed-logit-v1",
+   "type": "uses",
+   "label": "built on",
+   "o": "ds-ed-bureau-join",
+   "quote": "Builds on ds-ed-bureau-join",
+   "line": 8
+  },
+  {
+   "s": "ed-logit-v1",
+   "type": "uses",
+   "label": "built on",
+   "o": "ds-ed-current-base",
+   "quote": "the current-account scoring population",
+   "line": 8
+  },
+  {
+   "s": "ed-logit-v1",
+   "type": "uses",
+   "label": "built on",
+   "o": "ds-ed-label-30p3m",
+   "quote": "ds-ed-label-30p3m",
+   "line": 8
+  },
+  {
+   "s": "ed-logit-v1",
+   "type": "other",
+   "label": "champion until change",
+   "o": "dec-ed-gbm-for-watchlist",
+   "quote": "It is the champion, not the challenger, until dec-ed-gbm-for-watchlist changes that.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-ed-gbm-for-watchlist",
+  "ds-ed-bureau-join",
+  "ds-ed-label-30p3m"
+ ],
+ "built_on": [
+  {
+   "what": "ds-ed-bureau-join",
+   "quote": "ds-ed-bureau-join",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-ed-current-base",
+   "quote": "the current-account scoring population",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "ds-ed-label-30p3m",
+   "quote": "ds-ed-label-30p3m",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ed-logit-v1.md",
+ "sha": "ba571f9017086f74f614525bf7e858f78f4c670b5c395005945cb90f759e4d65",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

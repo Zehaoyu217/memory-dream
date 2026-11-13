@@ -1,0 +1,109 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-sfc-active-accounts",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-sfc-active-accounts"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.accounts_monthly",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.accounts_monthly"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "everyday-segment",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "Everyday segment"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "sfc-hier-v3",
+   "type": "model",
+   "label": "forecast model",
+   "as": [
+    "sfc-hier-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-207-spend-forecasting",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-207-spend-forecasting"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "monthly-segment-spend-dataset",
+   "type": "dataset",
+   "label": "spend dataset",
+   "as": [
+    "the monthly segment spend dataset"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-sfc-active-accounts",
+   "type": "uses",
+   "label": "from",
+   "o": "cards.accounts_monthly",
+   "quote": "Count of active accounts per segment per month, from `cards.accounts_monthly`.",
+   "line": 5
+  },
+  {
+   "s": "sfc-hier-v3",
+   "type": "uses",
+   "label": "added as regressor",
+   "o": "feat-sfc-active-accounts",
+   "quote": "Added as a regressor in sfc-hier-v3 (exp-207-spend-forecasting).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "sfc-hier-v3",
+  "exp-207-spend-forecasting"
+ ],
+ "built_on": [
+  {
+   "what": "ds-sfc-segment-monthly",
+   "quote": "the monthly segment spend dataset",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-sfc-active-accounts.md",
+ "sha": "579df0ad8c485718c2b32be6890a648ed529ca05a7e596204869531274e78e10",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

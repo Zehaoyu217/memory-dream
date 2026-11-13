@@ -1,0 +1,141 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-506-customer-lifetime-value",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-506-customer-lifetime-value"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "reactivation-targeting",
+   "type": "other",
+   "label": "targeting",
+   "as": [
+    "value of reactivation targeting"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "rdm-uplift-v1",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "rdm-uplift-v1"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "clv-ml-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "clv-ml-v2"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift",
+   "as": [
+    "Uplift of 2.8pp"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "chloe-martin",
+   "type": "person",
+   "label": "person",
+   "as": [
+    "Chloe Martin"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "reactivation-dormant",
+   "type": "other",
+   "label": "workstream",
+   "as": [
+    "reactivation budget case"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-506-customer-lifetime-value",
+   "type": "uses",
+   "label": "builds on",
+   "o": "clv-ml-v2",
+   "quote": "Builds on clv-ml-v2 and rdm-uplift-v1.",
+   "line": 8
+  },
+  {
+   "s": "exp-506-customer-lifetime-value",
+   "type": "uses",
+   "label": "builds on",
+   "o": "rdm-uplift-v1",
+   "quote": "Builds on clv-ml-v2 and rdm-uplift-v1.",
+   "line": 8
+  },
+  {
+   "s": "rdm-uplift-v1",
+   "type": "measured-by",
+   "label": "uplift measured",
+   "o": "uplift-at-20",
+   "quote": "Uplift of 2.8pp from rdm-uplift-v1 on the wave 3 holdout",
+   "line": 5
+  },
+  {
+   "s": "exp-506-customer-lifetime-value",
+   "type": "other",
+   "label": "shared with",
+   "o": "chloe-martin",
+   "quote": "Shared with Chloe Martin (marketing)",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "clv-ml-v2",
+   "quote": "clv-ml-v2",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "rdm-uplift-v1",
+   "quote": "rdm-uplift-v1",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-506-customer-lifetime-value.md",
+ "sha": "fe781ddac7eb9873cf1c2365ad42e269604d510a9b31ea91f06bfcccbf790c94",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

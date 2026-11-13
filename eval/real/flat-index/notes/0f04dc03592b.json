@@ -1,0 +1,202 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "dec-ch-sms-first",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Decision: SMS first for 1-7 DPD accounts"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "raj-patel",
+   "type": "person",
+   "label": "person",
+   "as": [
+    "Raj Patel"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "lena-fischer",
+   "type": "person",
+   "label": "person",
+   "as": [
+    "Lena Fischer"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dpd",
+   "type": "term",
+   "label": "delinquency bucket",
+   "as": [
+    "1-7 DPD"
+   ],
+   "lines": [
+    4,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "sms",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "SMS"
+   ],
+   "lines": [
+    4,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "call",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "call"
+   ],
+   "lines": [
+    4,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "ch-propensity-v1",
+   "type": "model",
+   "label": "propensity model",
+   "as": [
+    "ch-propensity-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "feat-ch-optout-flag-v1",
+   "type": "feature",
+   "label": "opt-out flag",
+   "as": [
+    "feat-ch-optout-flag-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-cu-promote-v3",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-cu-promote-v3"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "dec-ch-sms-first",
+   "type": "agreed-by",
+   "label": "agreed by",
+   "o": "raj-patel",
+   "quote": "Agreed 2025-10-20 by Raj Patel and Lena Fischer",
+   "line": 5
+  },
+  {
+   "s": "dec-ch-sms-first",
+   "type": "agreed-by",
+   "label": "agreed by",
+   "o": "lena-fischer",
+   "quote": "Agreed 2025-10-20 by Raj Patel and Lena Fischer",
+   "line": 5
+  },
+  {
+   "s": "dec-ch-sms-first",
+   "type": "uses",
+   "label": "uses model",
+   "o": "ch-propensity-v1",
+   "quote": "A call follows only where ch-propensity-v1 scores the call higher",
+   "line": 6
+  },
+  {
+   "s": "ch-propensity-v1",
+   "type": "other",
+   "label": "scores",
+   "o": "call",
+   "quote": "ch-propensity-v1 scores the call higher",
+   "line": 6
+  },
+  {
+   "s": "dec-ch-sms-first",
+   "type": "uses",
+   "label": "excludes opt-outs",
+   "o": "feat-ch-optout-flag-v1",
+   "quote": "Opt-out accounts (feat-ch-optout-flag-v1) are excluded before choice.",
+   "line": 6
+  },
+  {
+   "s": "dec-ch-sms-first",
+   "type": "other",
+   "label": "applies to",
+   "o": "dpd",
+   "quote": "1-7 DPD accounts get SMS first",
+   "line": 6
+  },
+  {
+   "s": "dec-ch-sms-first",
+   "type": "other",
+   "label": "matches",
+   "o": "dec-cu-promote-v3",
+   "quote": "This matches the 1-7 DPD routing in collections-uplift dec-cu-promote-v3.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "ch-propensity-v1",
+  "feat-ch-optout-flag-v1",
+  "dec-cu-promote-v3",
+  "find-ch-sms-matches-call"
+ ],
+ "built_on": [
+  {
+   "what": "ch-propensity-v1",
+   "quote": "the original sms-or-call propensity model",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-ch-optout-flag-v1",
+   "quote": "the opt-out and do-not-contact flag",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "find-ch-sms-matches-call",
+   "quote": "find-ch-sms-matches-call",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-ch-sms-first.md",
+ "sha": "0f04dc03592b8088ba72f019e99eddba2b8627364fb872e2e709afe1e365f934",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

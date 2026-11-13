@@ -1,0 +1,133 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "risk-tier-cuts",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "Risk-tier cuts"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "maya-ortiz",
+   "type": "person",
+   "label": "retention owner",
+   "as": [
+    "Maya Ortiz"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "churn-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "churn-xgb-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "offers.tier_matrix",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "offers.tier_matrix"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "call",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "call"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "email",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "email"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "risk-tier-cuts",
+   "type": "uses",
+   "label": "applied to",
+   "o": "churn-xgb-v2",
+   "quote": "applied to churn-xgb-v2 scores",
+   "line": 6
+  },
+  {
+   "s": "risk-tier-cuts",
+   "type": "produces",
+   "label": "written to",
+   "o": "offers.tier_matrix",
+   "quote": "written to `offers.tier_matrix` each night",
+   "line": 7
+  },
+  {
+   "s": "risk-tier-cuts",
+   "type": "owned-by",
+   "label": "decided with",
+   "o": "maya-ortiz",
+   "quote": "with retention (Maya Ortiz)",
+   "line": 5
+  },
+  {
+   "s": "risk-tier-cuts",
+   "type": "other",
+   "label": "routes to",
+   "o": "call",
+   "quote": "Score ≥ 0.50 → call (3.8% of the book)",
+   "line": 5
+  },
+  {
+   "s": "risk-tier-cuts",
+   "type": "other",
+   "label": "routes to",
+   "o": "email",
+   "quote": "0.20–0.50 → email (11.6%)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "q-tier-cutoffs"
+ ],
+ "built_on": [
+  {
+   "what": "q-tier-cutoffs",
+   "quote": "q-tier-cutoffs",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-risk-tiers.md",
+ "sha": "577d9c4bb1452a442957735002ba649b7e0294420268908cf0afa0e1dde8c0a0",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

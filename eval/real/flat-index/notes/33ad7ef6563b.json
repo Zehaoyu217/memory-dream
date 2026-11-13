@@ -1,0 +1,94 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "feat-aml-kyc-band",
+   "type": "feature",
+   "label": "kyc band",
+   "as": [
+    "elevated KYC band"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "aml-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "aml-xgb-v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "aml-analyst-dispositions-dataset",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "aml analyst dispositions dataset"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "sar-referred-rate",
+   "type": "metric",
+   "label": "rate",
+   "as": [
+    "SAR-referred rate"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "aml-xgb-v2",
+   "type": "uses",
+   "label": "includes",
+   "o": "feat-aml-kyc-band",
+   "quote": "aml-xgb-v2 includes it",
+   "line": 6
+  },
+  {
+   "s": "feat-aml-kyc-band",
+   "type": "measured-by",
+   "label": "has rate",
+   "o": "sar-referred-rate",
+   "quote": "SAR-referred rate for alerts with the elevated KYC band is 11.3%",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "aml-xgb-v2",
+  "feat-aml-kyc-band"
+ ],
+ "built_on": [
+  {
+   "what": "ds-aml-dispositions",
+   "quote": "the aml analyst dispositions dataset",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-aml-kyc-band",
+   "quote": "feat-aml-kyc-band",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/aml-find-kyc-lift.md",
+ "sha": "33ad7ef6563b10eb246bad2b3bdcf68289dee4d701f7d6df0ef8d13094647ca4",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

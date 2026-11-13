@@ -1,0 +1,104 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "clv-ml-v1",
+   "type": "model",
+   "label": "clv model",
+   "as": [
+    "clv-ml-v1"
+   ],
+   "lines": [
+    4,
+    8
+   ]
+  },
+  {
+   "id": "bg-nbd",
+   "type": "model",
+   "label": "bg/nbd model",
+   "as": [
+    "BG/NBD"
+   ],
+   "lines": [
+    4,
+    6,
+    8
+   ]
+  },
+  {
+   "id": "exp-503-customer-lifetime-value",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-503-customer-lifetime-value"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "clv-ml-v2",
+   "type": "model",
+   "label": "successor model",
+   "as": [
+    "dec-clv-ship-ml-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "clv-ml-v1",
+   "type": "replaces",
+   "label": "retires",
+   "o": "bg-nbd",
+   "quote": "retiring BG/NBD as the finance figure",
+   "line": 4
+  },
+  {
+   "s": "clv-ml-v2",
+   "type": "replaces",
+   "label": "superseded by",
+   "o": "clv-ml-v1",
+   "quote": "Superseded by dec-clv-ship-ml-v2.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-clv-ship-ml-v2",
+  "exp-503-customer-lifetime-value",
+  "fnd-clv-bgnbd-bias",
+  "dec-clv-discount-rate"
+ ],
+ "built_on": [
+  {
+   "what": "clv-ml-v1",
+   "quote": "clv-ml-v1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "dec-clv-discount-rate",
+   "quote": "dec-clv-discount-rate",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "fnd-clv-bgnbd-bias",
+   "quote": "the bg/nbd top-decile overprediction finding",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/dec-clv-ship-ml-v1.md",
+ "sha": "36a855d33cf768561ff8f58e0137c0a07b2aef7185a148c6983aa68c42fa7b86",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,135 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "limit-utilisation-feature",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "limit-utilisation feature"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "v1-join",
+   "type": "other",
+   "label": "join",
+   "as": [
+    "v1 join"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "v2-join",
+   "type": "other",
+   "label": "join",
+   "as": [
+    "v2 join"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.limits_history",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.limits_history"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "effective_date",
+   "type": "feature",
+   "label": "column",
+   "as": [
+    "effective_date"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "credit-data",
+   "type": "team",
+   "label": "team",
+   "as": [
+    "Credit-data"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "v1-join",
+   "type": "uses",
+   "label": "used",
+   "o": "cards.limits_history",
+   "quote": "The v1 join used the latest row in `cards.limits_history`.",
+   "line": 5
+  },
+  {
+   "s": "v2-join",
+   "type": "uses",
+   "label": "uses",
+   "o": "cards.limits_history",
+   "quote": "The v2 join uses the row effective on the observation date.",
+   "line": 5
+  },
+  {
+   "s": "limit-utilisation-feature",
+   "type": "measured-by",
+   "label": "lost AUC",
+   "o": "auc",
+   "quote": "the limit-utilisation feature lose 0.03 AUC after the join fix",
+   "line": 4
+  },
+  {
+   "s": "effective_date",
+   "type": "owned-by",
+   "label": "confirmed by",
+   "o": "credit-data",
+   "quote": "Credit-data confirmed the `effective_date` semantics.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "howto/limits-history-as-of-join"
+ ],
+ "built_on": [
+  {
+   "what": "howto/limits-history-as-of-join",
+   "quote": "howto/limits-history-as-of-join",
+   "line": 6,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/limit-asof-join-fix.md",
+ "sha": "be09995686e0a8d18adaa989cebbb112fc6abae18017886d163bfaab924aee62",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

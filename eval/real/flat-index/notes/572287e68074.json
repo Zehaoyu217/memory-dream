@@ -1,0 +1,139 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-306-oot-q1-2026",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-306: X-learner uplift@20% drops to 2.2 on the Q1 2026 RCT (out of time)"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "mq3-uplift-xl-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "mq3-uplift-xl-v2 scored on mq3-oot-2026h1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "mq3-oot-2026h1",
+   "type": "dataset",
+   "label": "rct dataset",
+   "as": [
+    "mq3-oot-2026h1 (240,000 contacts, control 24,000)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "uplift-at-20",
+   "type": "metric",
+   "label": "uplift@20%",
+   "as": [
+    "Uplift@20% is 2.2, down from 2.6."
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feb-2026-app-redesign",
+   "type": "other",
+   "label": "app redesign",
+   "as": [
+    "the February 2026 app redesign"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "app-sessions",
+   "type": "feature",
+   "label": "app session counts",
+   "as": [
+    "app session counts shift for the in-app-heavy segment"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "find-mq3-q1-drift",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "see find-mq3-q1-drift"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "mq3-uplift-xl-v2",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "mq3-oot-2026h1",
+   "quote": "mq3-uplift-xl-v2 scored on mq3-oot-2026h1",
+   "line": 5
+  },
+  {
+   "s": "mq3-uplift-xl-v2",
+   "type": "measured-by",
+   "label": "drops to",
+   "o": "uplift-at-20",
+   "quote": "Uplift@20% is 2.2, down from 2.6.",
+   "line": 5
+  },
+  {
+   "s": "app-sessions",
+   "type": "other",
+   "label": "shifted by",
+   "o": "feb-2026-app-redesign",
+   "quote": "The drop is traced to the February 2026 app redesign: app session counts shift",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "find-mq3-q1-drift"
+ ],
+ "built_on": [
+  {
+   "what": "ds-mq3-oot-2026h1",
+   "quote": "ds-mq3-oot-2026h1",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "mq3-uplift-xl-v2",
+   "quote": "the x-learner uplift model",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "x-learner uplift model",
+   "quote": "Builds on ds-mq3-oot-2026h1 and the x-learner uplift model.",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-306-oot-q1-2026.md",
+ "sha": "572287e68074345d554ba43bc22ee5a7ad3c329c688d354712eee6a3c008d333",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

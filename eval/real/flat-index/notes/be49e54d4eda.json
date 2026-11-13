@@ -1,0 +1,124 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-f25-velocity-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-f25-velocity-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.txn_daily",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "`cards.txn_daily`"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fraud25-find-velocity-stable",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fraud25-find-velocity-stable"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "ds-f25-txn-2024-2025",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "ds-f25-txn-2024-2025"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-f25-velocity-v1",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards.txn_daily",
+   "quote": "Built from `cards.txn_daily`",
+   "line": 6
+  },
+  {
+   "s": "feat-f25-velocity-v1",
+   "type": "measured-by",
+   "label": "costs",
+   "o": "auc",
+   "quote": "Drop test on holdout-2025q1 costs 0.021 AUC",
+   "line": 7
+  },
+  {
+   "s": "feat-f25-velocity-v1",
+   "type": "evaluated-on",
+   "label": "drop test on",
+   "o": "holdout-2025q1",
+   "quote": "Drop test on holdout-2025q1 costs 0.021 AUC",
+   "line": 7
+  },
+  {
+   "s": "feat-f25-velocity-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-f25-txn-2024-2025",
+   "quote": "Builds on ds-f25-txn-2024-2025.",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "fraud25-find-velocity-stable"
+ ],
+ "built_on": [
+  {
+   "what": "ds-f25-txn-2024-2025",
+   "quote": "ds-f25-txn-2024-2025",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-f25-velocity-v1.md",
+ "sha": "be49e54d4eda1677767a1e6e390c480aba8a90005c5b1216c8261fba3389353e",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

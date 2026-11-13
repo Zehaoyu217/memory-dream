@@ -1,0 +1,191 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-403-payment-behavior-segments",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-403-payment-behavior-segments"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "pbs-gmm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "pbs-gmm-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "feat-pbs-timing-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "timing features",
+    "feat-pbs-timing-v2"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "pbs-sample",
+   "type": "dataset",
+   "label": "sample",
+   "as": [
+    "200k sample"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "seed-ari",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "seed ARI"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "silhouette",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "silhouette"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-402-payment-behavior-segments",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-402-payment-behavior-segments"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "pbs-gmm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "pbs-gmm-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fnd-pbs-five-segments",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-pbs-five-segments"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "gmm",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "GMM"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "pbs-gmm-v2",
+   "type": "uses",
+   "label": "plus",
+   "o": "feat-pbs-timing-v2",
+   "quote": "pbs-gmm-v2 plus feat-pbs-timing-v2, same 200k sample.",
+   "line": 5
+  },
+  {
+   "s": "pbs-gmm-v2",
+   "type": "other",
+   "label": "same sample",
+   "o": "pbs-sample",
+   "quote": "pbs-gmm-v2 plus feat-pbs-timing-v2, same 200k sample.",
+   "line": 5
+  },
+  {
+   "s": "pbs-gmm-v2",
+   "type": "measured-by",
+   "label": "seed ARI",
+   "o": "seed-ari",
+   "quote": "Seed-to-seed ARI 0.81; silhouette 0.42.",
+   "line": 6
+  },
+  {
+   "s": "pbs-gmm-v2",
+   "type": "measured-by",
+   "label": "silhouette",
+   "o": "silhouette",
+   "quote": "Seed-to-seed ARI 0.81; silhouette 0.42.",
+   "line": 6
+  },
+  {
+   "s": "feat-pbs-timing-v2",
+   "type": "other",
+   "label": "lifts",
+   "o": "seed-ari",
+   "quote": "adding timing features lifts GMM seed ARI from 0.74 to 0.81",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "pbs-gmm-v3",
+  "fnd-pbs-five-segments",
+  "exp-402-payment-behavior-segments",
+  "feat-pbs-timing-v2"
+ ],
+ "built_on": [
+  {
+   "what": "exp-402-payment-behavior-segments",
+   "quote": "exp-402-payment-behavior-segments",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-pbs-timing-v2",
+   "quote": "feat-pbs-timing-v2",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-403-payment-behavior-segments.md",
+ "sha": "99e29ffd6887aa0558d779b5e96b75a82a5705a0f43c20f4ccb0198854f2b2be",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,143 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-cli-bureau-delta",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-cli-bureau-delta"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "bureau.scores_monthly",
+   "type": "dataset",
+   "label": "source",
+   "as": [
+    "bureau.scores_monthly"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "bureau-score-v8",
+   "type": "feature",
+   "label": "score version",
+   "as": [
+    "v8 score"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "v10-cutover",
+   "type": "other",
+   "label": "event",
+   "as": [
+    "v10 cutover"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "eligible-accounts",
+   "type": "segment",
+   "label": "population",
+   "as": [
+    "eligible accounts"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "cli-eligible-population-counts",
+   "type": "dataset",
+   "label": "counts",
+   "as": [
+    "cli-eligible population counts"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "cli-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "cli-xgb-v2"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-cli-bureau-delta",
+   "type": "uses",
+   "label": "from",
+   "o": "bureau.scores_monthly",
+   "quote": "3-month change in bureau score from bureau.scores_monthly",
+   "line": 4
+  },
+  {
+   "s": "feat-cli-bureau-delta",
+   "type": "uses",
+   "label": "change in",
+   "o": "bureau-score-v8",
+   "quote": "Change in the v8 score over the last 3 month-ends",
+   "line": 5
+  },
+  {
+   "s": "feat-cli-bureau-delta",
+   "type": "other",
+   "label": "covers",
+   "o": "eligible-accounts",
+   "quote": "Covers 91% of eligible accounts",
+   "line": 6
+  },
+  {
+   "s": "bureau-score-v8",
+   "type": "other",
+   "label": "kept until",
+   "o": "v10-cutover",
+   "quote": "the 3 months before a v10 cutover are kept on the v8 scale.",
+   "line": 6
+  },
+  {
+   "s": "cli-xgb-v2",
+   "type": "uses",
+   "label": "first used",
+   "o": "feat-cli-bureau-delta",
+   "quote": "First used in cli-xgb-v2 (2026-03-02).",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "cli-xgb-v2"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cli-eligible-pop",
+   "quote": "the cli-eligible population counts",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-cli-bureau-delta.md",
+ "sha": "6c677b08bcea535b144af61dcd9bdfaffad34b3f323b72f31f16c2a67d76c5b0",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

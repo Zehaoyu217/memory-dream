@@ -1,0 +1,153 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-301-chatbot-deflection",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "Offline replay of handoff rule v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "handoff-rule-v1",
+   "type": "term",
+   "label": "handoff rule",
+   "as": [
+    "handoff rule v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "sessions-jul-oct-2025",
+   "type": "dataset",
+   "label": "session sample",
+   "as": [
+    "July to October 2025 sessions (n = 620,000)"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "containment",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Containment 34 percent"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "repeat-contact-48h",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Repeat contact within 48 hours 14 percent"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "agent-handled-chats",
+   "type": "segment",
+   "label": "segment",
+   "as": [
+    "agent-handled chats"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "first-intent-classifier",
+   "type": "model",
+   "label": "intent classifier",
+   "as": [
+    "the first intent classifier"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "fnd-cb-containment-high",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-cb-containment-high"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "handoff-rule-v1",
+   "type": "evaluated-on",
+   "label": "replayed on",
+   "o": "sessions-jul-oct-2025",
+   "quote": "Replay on July to October 2025 sessions (n = 620,000)",
+   "line": 5
+  },
+  {
+   "s": "handoff-rule-v1",
+   "type": "measured-by",
+   "label": "containment",
+   "o": "containment",
+   "quote": "Containment 34 percent.",
+   "line": 6
+  },
+  {
+   "s": "handoff-rule-v1",
+   "type": "measured-by",
+   "label": "repeat contact",
+   "o": "repeat-contact-48h",
+   "quote": "Repeat contact within 48 hours 14 percent, against 16 percent for agent-handled chats.",
+   "line": 6
+  },
+  {
+   "s": "exp-301-chatbot-deflection",
+   "type": "other",
+   "label": "result in",
+   "o": "fnd-cb-containment-high",
+   "quote": "Result in fnd-cb-containment-high.",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-cb-containment-high"
+ ],
+ "built_on": [
+  {
+   "what": "cb-intent-v1",
+   "quote": "the first intent classifier",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-cb-handoff-rule-v1",
+   "quote": "the handoff rule after two misses",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-301-chatbot-deflection.md",
+ "sha": "f39d09d233685cb3335ba3c097ff9bd830e837126ec1537d8756a06d69b86514",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

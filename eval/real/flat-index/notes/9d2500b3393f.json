@@ -1,0 +1,208 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-108",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-108"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fraud25-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fraud25-gbm-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fraud25_alerts_log",
+   "type": "dataset",
+   "label": "alerts log",
+   "as": [
+    "fraud25_alerts_log"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "threshold-0.70",
+   "type": "flag",
+   "label": "threshold",
+   "as": [
+    "threshold 0.70"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "alert-rate",
+   "type": "metric",
+   "label": "alert rate",
+   "as": [
+    "Alert rate"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "alert-precision",
+   "type": "metric",
+   "label": "alert precision",
+   "as": [
+    "alert precision 9.2%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "travel-share-of-alerts",
+   "type": "metric",
+   "label": "travel share",
+   "as": [
+    "travel share of alerts 27%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-f25-threshold-062",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-f25-threshold-062"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-107-fraud-2025",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-107-fraud-2025"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-103-fraud-2025",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-103-fraud-2025"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-108",
+   "type": "evaluated-on",
+   "label": "replays",
+   "o": "fraud25_alerts_log",
+   "quote": "Replay of Jul-Sep 2025 alerts (`fraud25_alerts_log`, 18,420 alerts)",
+   "line": 5
+  },
+  {
+   "s": "exp-108",
+   "type": "uses",
+   "label": "runs",
+   "o": "fraud25-gbm-v2",
+   "quote": "with fraud25-gbm-v2 at 0.70",
+   "line": 5
+  },
+  {
+   "s": "exp-108",
+   "type": "other",
+   "label": "sets",
+   "o": "threshold-0.70",
+   "quote": "raising v2 to threshold 0.70",
+   "line": 4
+  },
+  {
+   "s": "exp-108",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "alert-rate",
+   "quote": "Alert rate 0.5% of CNP volume",
+   "line": 6
+  },
+  {
+   "s": "exp-108",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "alert-precision",
+   "quote": "alert precision 9.2%",
+   "line": 6
+  },
+  {
+   "s": "exp-108",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "travel-share-of-alerts",
+   "quote": "travel share of alerts 27%",
+   "line": 6
+  },
+  {
+   "s": "travel-share-of-alerts",
+   "type": "other",
+   "label": "not fixed by",
+   "o": "threshold-0.70",
+   "quote": "the threshold alone does not fix it",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "dec-f25-threshold-062",
+  "exp-107-fraud-2025",
+  "exp-103-fraud-2025"
+ ],
+ "built_on": [
+  {
+   "what": "dec-f25-threshold-062",
+   "quote": "dec-f25-threshold-062",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-107-fraud-2025",
+   "quote": "exp-107-fraud-2025",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "replaces": [
+  {
+   "what": "exp-103-fraud-2025",
+   "quote": "exp-103-fraud-2025",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-108.md",
+ "sha": "9d2500b3393fbeda300cf88be4cb10e41bd4ef7d537f9cac6d54b9d3e0ddee04",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

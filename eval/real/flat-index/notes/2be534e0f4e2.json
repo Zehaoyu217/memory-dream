@@ -1,0 +1,109 @@
+{
+ "kind": "log",
+ "entities": [
+  {
+   "id": "churn-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "churn v2"
+   ],
+   "lines": [
+    3
+   ]
+  },
+  {
+   "id": "csb-xgb-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "csb-xgb-v2"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "log-target",
+   "type": "term",
+   "label": "target transform",
+   "as": [
+    "log target"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "mape",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "MAPE"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "proposal-a",
+   "type": "other",
+   "label": "proposal",
+   "as": [
+    "proposal A"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "break-even",
+   "type": "term",
+   "label": "break-even",
+   "as": [
+    "break-even"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "top-threshold",
+   "type": "flag",
+   "label": "threshold",
+   "as": [
+    "top threshold"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "log-target",
+   "type": "measured-by",
+   "label": "cuts MAPE",
+   "o": "mape",
+   "quote": "log target cuts verified-sample MAPE 31% to 19%",
+   "line": 5
+  },
+  {
+   "s": "proposal-a",
+   "type": "other",
+   "label": "compared to",
+   "o": "break-even",
+   "quote": "proposal A 2.4% lift vs 3.4% break-even",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "log/2026-03-02.md",
+ "sha": "2be534e0f4e2debc1133904877a4610011352519c7b0c5cb8d638bf1814400e0",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,118 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-txc-merchant-history-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-txc-merchant-history-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "merchant-id",
+   "type": "feature",
+   "label": "key",
+   "as": [
+    "merchant_id"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "exp-106-txn-categorization",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-106-txn-categorization"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "macro-f1",
+   "type": "metric",
+   "label": "score",
+   "as": [
+    "macro-F1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "txc-gbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "txc-gbm-v3"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "fnd-txc-history-leaks",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "fnd-txc-history-leaks"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "feat-txc-merchant-history-v1",
+   "type": "uses",
+   "label": "per merchant",
+   "o": "merchant-id",
+   "quote": "For each merchant_id, the 90-day distribution",
+   "line": 5
+  },
+  {
+   "s": "exp-106-txn-categorization",
+   "type": "other",
+   "label": "reports gain",
+   "o": "feat-txc-merchant-history-v1",
+   "quote": "Looks like a large gain under a random split",
+   "line": 6
+  },
+  {
+   "s": "txc-gbm-v3",
+   "type": "other",
+   "label": "does not use",
+   "o": "feat-txc-merchant-history-v1",
+   "quote": "Not used in txc-gbm-v3",
+   "line": 7
+  }
+ ],
+ "refs": [
+  "fnd-txc-history-leaks",
+  "exp-106-txn-categorization"
+ ],
+ "built_on": [
+  {
+   "what": "ds-txc-descriptor-sample",
+   "quote": "the sample of transaction descriptors",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-txc-merchant-history-v1.md",
+ "sha": "9eae46f14b4b024a3e3802e672a6378b7d072e2d8e62cb0cfe42beb3b263d994",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

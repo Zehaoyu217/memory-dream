@@ -1,0 +1,175 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-107-fraud-2025",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-107-fraud-2025"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "holdout-2025q1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q1"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    5,
+    6
+   ]
+  },
+  {
+   "id": "fraud25-gbm-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "fraud25-gbm-v3"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "fraud25-gbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "v2"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "recall-at-10",
+   "type": "metric",
+   "label": "recall",
+   "as": [
+    "recall"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "travel-alert-share",
+   "type": "metric",
+   "label": "alert share",
+   "as": [
+    "travel share of alerts"
+   ],
+   "lines": [
+    7,
+    8
+   ]
+  },
+  {
+   "id": "feat-f25-mcc-travel",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-f25-mcc-travel",
+    "travel flag"
+   ],
+   "lines": [
+    4,
+    6,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-107-fraud-2025",
+   "type": "evaluated-on",
+   "label": "eval set",
+   "o": "holdout-2025q1",
+   "quote": "Eval set: holdout-2025q1 for AUC",
+   "line": 5
+  },
+  {
+   "s": "fraud25-gbm-v3",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "fraud25-gbm-v3 (travel flag x0.5): AUC 0.909",
+   "line": 6
+  },
+  {
+   "s": "fraud25-gbm-v3",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "recall-at-10",
+   "quote": "recall at 0.62 is 0.57",
+   "line": 6
+  },
+  {
+   "s": "fraud25-gbm-v2",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "recall-at-10",
+   "quote": "(v2: 0.58)",
+   "line": 6
+  },
+  {
+   "s": "exp-107-fraud-2025",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "travel-alert-share",
+   "quote": "Travel share of alerts 17% (from 31%).",
+   "line": 7
+  },
+  {
+   "s": "fraud25-gbm-v3",
+   "type": "uses",
+   "label": "travel flag x0.5",
+   "o": "feat-f25-mcc-travel",
+   "quote": "fraud25-gbm-v3 (travel flag x0.5)",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "feat-f25-mcc-travel",
+  "fraud25-gbm-v3"
+ ],
+ "built_on": [
+  {
+   "what": "exp-106-fraud-2025",
+   "quote": "the travel share of alerts",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-f25-mcc-travel",
+   "quote": "feat-f25-mcc-travel",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-107-fraud-2025.md",
+ "sha": "b949cf972f29d855608761f3e7ce2114b2857eff3fffb62a2431e53ca87b3cf0",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

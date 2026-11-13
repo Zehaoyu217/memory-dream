@@ -1,0 +1,97 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "dpd",
+   "type": "term",
+   "label": "dpd",
+   "as": [
+    "30 DPD"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "30-plus-label",
+   "type": "term",
+   "label": "label",
+   "as": [
+    "30+ label"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "raj-patel",
+   "type": "person",
+   "label": "team lead",
+   "as": [
+    "Raj Patel"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "cards.payments_daily",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.payments_daily"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "30-59-bucket",
+   "type": "segment",
+   "label": "bucket",
+   "as": [
+    "30 to 59 bucket"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "30-plus-label",
+   "type": "owned-by",
+   "label": "confirmed by",
+   "o": "raj-patel",
+   "quote": "Raj Patel's team confirmed this against `cards.payments_daily`",
+   "line": 5
+  },
+  {
+   "s": "30-59-bucket",
+   "type": "other",
+   "label": "counts toward",
+   "o": "30-plus-label",
+   "quote": "counts toward 30+",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "howto/dpd-bucket-labelling"
+ ],
+ "built_on": [
+  {
+   "what": "howto/dpd-bucket-labelling",
+   "quote": "howto/dpd-bucket-labelling",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/dpd30-includes-exactly-30.md",
+ "sha": "5c591eadf6fc1aefe5e633398c8d1cd2776c3091218ab5f83aff4817de80cf81",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

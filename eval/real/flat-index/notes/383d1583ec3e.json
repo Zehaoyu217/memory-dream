@@ -1,0 +1,118 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "fnd-label-agreement",
+   "type": "other",
+   "label": "finding",
+   "as": [
+    "Legacy and rebuilt fraud labels agree at kappa 0.83"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-404-label-pipeline-rebuild",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-404-label-pipeline-rebuild"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "cohen-kappa",
+   "type": "metric",
+   "label": "agreement",
+   "as": [
+    "kappa 0.83"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "label-disagreements",
+   "type": "other",
+   "label": "disagreement",
+   "as": [
+    "disagreements"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "category-b-case",
+   "type": "term",
+   "label": "category b",
+   "as": [
+    "category B cases"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "set-a-labels",
+   "type": "feature",
+   "label": "set a labels",
+   "as": [
+    "set A labels"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fnd-label-agreement",
+   "type": "measured-by",
+   "label": "agree at",
+   "o": "cohen-kappa",
+   "quote": "agree at kappa 0.83",
+   "line": 4
+  },
+  {
+   "s": "label-disagreements",
+   "type": "other",
+   "label": "mostly",
+   "o": "category-b-case",
+   "quote": "nearly all of them category B cases",
+   "line": 5
+  },
+  {
+   "s": "exp-404-label-pipeline-rebuild",
+   "type": "other",
+   "label": "does not change",
+   "o": "set-a-labels",
+   "quote": "The rebuild does not change the set A labels.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-404-label-pipeline-rebuild"
+ ],
+ "built_on": [
+  {
+   "what": "exp-404-label-pipeline-rebuild",
+   "quote": "exp-404-label-pipeline-rebuild",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-label-agreement.md",
+ "sha": "383d1583ec3e146e01dcc1ea2ecdd9c7f1d3ad0358d813207ee03b1abf80776f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

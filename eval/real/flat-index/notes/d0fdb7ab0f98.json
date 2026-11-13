@@ -1,0 +1,194 @@
+{
+ "kind": "question",
+ "entities": [
+  {
+   "id": "bt-offer-question",
+   "type": "other",
+   "label": "question",
+   "as": [
+    "Which cardholders accept a balance-transfer offer"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "maya-ortiz",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Maya Ortiz"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "retention",
+   "type": "team",
+   "label": "retention",
+   "as": [
+    "retention"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "bt.offer_log",
+   "type": "dataset",
+   "label": "offer log",
+   "as": [
+    "bt.offer_log"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "acceptance",
+   "type": "term",
+   "label": "acceptance",
+   "as": [
+    "Acceptance"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "balance-transfer-offer",
+   "type": "instrument",
+   "label": "offer",
+   "as": [
+    "balance-transfer offer"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "acceptance-rate",
+   "type": "metric",
+   "label": "baseline",
+   "as": [
+    "4.3% of exposed accounts accept per wave"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "lift-at-top-30",
+   "type": "metric",
+   "label": "success criterion",
+   "as": [
+    "lift at top 30% of at least 1.8x"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "holdout",
+   "type": "term",
+   "label": "holdout",
+   "as": [
+    "a holdout"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "mailer",
+   "type": "other",
+   "label": "mailer",
+   "as": [
+    "The mailer"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "book",
+   "type": "term",
+   "label": "book",
+   "as": [
+    "the book"
+   ],
+   "lines": [
+    6,
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "bt-offer-question",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "maya-ortiz",
+   "quote": "Owner: Maya Ortiz (retention)",
+   "line": 5
+  },
+  {
+   "s": "maya-ortiz",
+   "type": "part-of",
+   "label": "retention",
+   "o": "retention",
+   "quote": "Owner: Maya Ortiz (retention)",
+   "line": 5
+  },
+  {
+   "s": "acceptance",
+   "type": "uses",
+   "label": "from",
+   "o": "bt.offer_log",
+   "quote": "from `bt.offer_log`",
+   "line": 5
+  },
+  {
+   "s": "bt-offer-question",
+   "type": "measured-by",
+   "label": "baseline",
+   "o": "acceptance-rate",
+   "quote": "Baseline: 4.3% of exposed accounts accept per wave",
+   "line": 6
+  },
+  {
+   "s": "bt-offer-question",
+   "type": "measured-by",
+   "label": "success criterion",
+   "o": "lift-at-top-30",
+   "quote": "Success criterion agreed with Maya: lift at top 30% of at least 1.8x on a holdout.",
+   "line": 8
+  },
+  {
+   "s": "lift-at-top-30",
+   "type": "evaluated-on",
+   "label": "on a holdout",
+   "o": "holdout",
+   "quote": "lift at top 30% of at least 1.8x on a holdout",
+   "line": 8
+  },
+  {
+   "s": "mailer",
+   "type": "other",
+   "label": "reaches",
+   "o": "book",
+   "quote": "The mailer reaches 30% of the book per wave",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/q-bt-who-accepts.md",
+ "sha": "d0fdb7ab0f98854bf0264af22340cbb82ca6576514eaa8a0e5d45e5130dccdd9",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

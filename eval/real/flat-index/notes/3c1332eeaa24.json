@@ -1,0 +1,66 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "shap",
+   "type": "term",
+   "label": "method",
+   "as": [
+    "SHAP"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "shap-sample",
+   "type": "segment",
+   "label": "sample",
+   "as": [
+    "5,000 accounts"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "oot-set",
+   "type": "dataset",
+   "label": "oot set",
+   "as": [
+    "full OOT set"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "shap-sample",
+   "type": "subset-of",
+   "label": "sample of",
+   "o": "oot-set",
+   "quote": "5,000 accounts instead of the full OOT set",
+   "line": 4
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "howto/shap-sample-size",
+   "quote": "howto/shap-sample-size",
+   "line": 6,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/shap-sample-why.md",
+ "sha": "3c1332eeaa24870ec35fd767181310ef0c96ae9a95eaca0adae6d2c3a151ee98",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

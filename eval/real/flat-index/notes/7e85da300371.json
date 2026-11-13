@@ -1,0 +1,67 @@
+{
+ "kind": "bug",
+ "entities": [
+  {
+   "id": "fraud-dashboard",
+   "type": "dashboard",
+   "label": "fraud dashboard",
+   "as": [
+    "fraud dashboard"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.disputes",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.disputes"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "dispute-case-id",
+   "type": "feature",
+   "label": "case id",
+   "as": [
+    "dispute_case_id"
+   ],
+   "lines": [
+    4
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "fraud-dashboard",
+   "type": "uses",
+   "label": "counted rows in",
+   "o": "cards.disputes",
+   "quote": "It counted rows in cards.disputes",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "howto/dedupe-disputes-by-case"
+ ],
+ "built_on": [
+  {
+   "what": "howto/dedupe-disputes-by-case",
+   "quote": "howto/dedupe-disputes-by-case",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/dispute-rows-vs-cases.md",
+ "sha": "7e85da300371e904f32d3b8a8ca0d5ef382f92f01b2e9fb9187d4551f7a086bb",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

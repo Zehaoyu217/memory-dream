@@ -1,0 +1,103 @@
+{
+ "kind": "feature",
+ "entities": [
+  {
+   "id": "feat-sfc-lags-v1",
+   "type": "feature",
+   "label": "feature set",
+   "as": [
+    "feat-sfc-lags-v1"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "sfc-lgbm-v2",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "sfc-lgbm-v2"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "exp-202-spend-forecasting",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-202-spend-forecasting"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "sfc-hier-v3",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "sfc-hier-v3"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "ds-sfc-segment-monthly",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "monthly segment spend dataset"
+   ],
+   "lines": [
+    9
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "sfc-lgbm-v2",
+   "type": "uses",
+   "label": "first feature set for",
+   "o": "feat-sfc-lags-v1",
+   "quote": "First feature set for sfc-lgbm-v2",
+   "line": 7
+  },
+  {
+   "s": "sfc-hier-v3",
+   "type": "uses",
+   "label": "still an input to",
+   "o": "feat-sfc-lags-v1",
+   "quote": "Still an input to sfc-hier-v3.",
+   "line": 8
+  },
+  {
+   "s": "feat-sfc-lags-v1",
+   "type": "uses",
+   "label": "builds on",
+   "o": "ds-sfc-segment-monthly",
+   "quote": "Builds on the monthly segment spend dataset.",
+   "line": 9
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-sfc-segment-monthly",
+   "quote": "the monthly segment spend dataset",
+   "line": 9,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/feat-sfc-lags-v1.md",
+ "sha": "7e1bfdbf60383854a03b306d70c9e87151b304140e7ab9288388e60abfdb2e8a",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

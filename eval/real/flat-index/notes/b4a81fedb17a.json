@@ -1,0 +1,139 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "retry-flag",
+   "type": "feature",
+   "label": "retry flag",
+   "as": [
+    "retry flag"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "dq-late-logit-v2",
+   "type": "model",
+   "label": "late-partition model",
+   "as": [
+    "dq-late-logit-v2"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "dq-late-logit-v1",
+   "type": "model",
+   "label": "late-partition model",
+   "as": [
+    "dq-late-logit-v1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "auc",
+   "as": [
+    "AUC",
+    "late-partition AUC"
+   ],
+   "lines": [
+    4,
+    7
+   ]
+  },
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Q4 2025 holdout"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "exp-303-data-quality-txn",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-303-data-quality-txn"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "exp-302-data-quality-txn",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-302-data-quality-txn"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "retry-flag",
+   "type": "other",
+   "label": "main source of the gain",
+   "o": "dq-late-logit-v2",
+   "quote": "the retry flag is the main source of the gain in dq-late-logit-v2",
+   "line": 5
+  },
+  {
+   "s": "dq-late-logit-v2",
+   "type": "measured-by",
+   "label": "lifts AUC",
+   "o": "auc",
+   "quote": "lifts late-partition AUC from 0.72 to 0.79",
+   "line": 4
+  },
+  {
+   "s": "dq-late-logit-v2",
+   "type": "evaluated-on",
+   "label": "measured on",
+   "o": "holdout-2025q4",
+   "quote": "on the Q4 2025 holdout",
+   "line": 4
+  }
+ ],
+ "refs": [
+  "exp-306-data-quality-txn",
+  "exp-303-data-quality-txn",
+  "exp-302-data-quality-txn"
+ ],
+ "built_on": [
+  {
+   "what": "dq-late-logit-v1",
+   "quote": "the first late-partition logistic model",
+   "line": 7,
+   "asked": true
+  },
+  {
+   "what": "exp-306-data-quality-txn",
+   "quote": "the retry flag auc lift experiment",
+   "line": 7,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-late-model-lift.md",
+ "sha": "b4a81fedb17a6c7cb1b26847cbd69aae5b7e096a9d4a24053e624e497259b258",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

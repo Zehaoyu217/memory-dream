@@ -1,0 +1,193 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-104-churn-2025",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-104-churn-2025"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "churn-gbm-2025",
+   "type": "model",
+   "label": "model",
+   "as": [
+    "churn-gbm-2025"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "feat-c25-util-v2",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "feat-c25-util-v2"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "c25-oot-2024h1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Holdout c25-oot-2024h1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC 0.758"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "KS 0.38"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "recall-at-10",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "recall@10% 0.31"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "app-sessions",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "App sessions"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "tool",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-104-churn-2025",
+   "type": "other",
+   "label": "same as",
+   "o": "churn-gbm-2025",
+   "quote": "Same LightGBM as churn-gbm-2025 with feat-c25-util-v2 in place of util-v1.",
+   "line": 5
+  },
+  {
+   "s": "exp-104-churn-2025",
+   "type": "uses",
+   "label": "uses",
+   "o": "lightgbm",
+   "quote": "Same LightGBM as churn-gbm-2025 with feat-c25-util-v2 in place of util-v1.",
+   "line": 5
+  },
+  {
+   "s": "exp-104-churn-2025",
+   "type": "uses",
+   "label": "swaps in",
+   "o": "feat-c25-util-v2",
+   "quote": "with feat-c25-util-v2 in place of util-v1.",
+   "line": 5
+  },
+  {
+   "s": "exp-104-churn-2025",
+   "type": "evaluated-on",
+   "label": "tested on",
+   "o": "c25-oot-2024h1",
+   "quote": "Holdout c25-oot-2024h1: AUC 0.758, KS 0.38, recall@10% 0.31.",
+   "line": 6
+  },
+  {
+   "s": "exp-104-churn-2025",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "auc",
+   "quote": "Holdout c25-oot-2024h1: AUC 0.758, KS 0.38, recall@10% 0.31.",
+   "line": 6
+  },
+  {
+   "s": "exp-104-churn-2025",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "ks",
+   "quote": "Holdout c25-oot-2024h1: AUC 0.758, KS 0.38, recall@10% 0.31.",
+   "line": 6
+  },
+  {
+   "s": "exp-104-churn-2025",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "recall-at-10",
+   "quote": "Holdout c25-oot-2024h1: AUC 0.758, KS 0.38, recall@10% 0.31.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "churn-gbm-2025",
+  "feat-c25-util-v2"
+ ],
+ "built_on": [
+  {
+   "what": "churn-gbm-2025",
+   "quote": "the v1 lightgbm churn model",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-c25-util-v2",
+   "quote": "feat-c25-util-v2",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-104-churn-2025.md",
+ "sha": "c4c4214398ad670fd9c281c1cd96638f4192909f803b4574ad82ca6f2ef7027c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

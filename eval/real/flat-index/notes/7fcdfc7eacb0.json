@@ -1,0 +1,294 @@
+{
+ "kind": "model",
+ "entities": [
+  {
+   "id": "churn-gbm-2025",
+   "type": "model",
+   "label": "churn model",
+   "as": [
+    "churn-gbm-2025 (v1)"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "lightgbm",
+   "type": "tool",
+   "label": "framework",
+   "as": [
+    "LightGBM"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "util-v1",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "util-v1"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "app-sessions",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "app sessions"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "c25-oot-2024h1",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "Holdout c25-oot-2024h1"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "auc",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "AUC"
+   ],
+   "lines": [
+    4,
+    6,
+    7
+   ]
+  },
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "KS"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "recall-at-10",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "recall@10%"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "brier-score",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "Brier"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "churn-lr-base-2025",
+   "type": "model",
+   "label": "baseline",
+   "as": [
+    "churn-lr-base-2025"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dec-c25-ship-gbm-v1",
+   "type": "policy",
+   "label": "decision",
+   "as": [
+    "dec-c25-ship-gbm-v1"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "dec-c25-label-60d",
+   "type": "policy",
+   "label": "decision",
+   "as": [
+    "dec-c25-label-60d"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "exp-lightgbm-all-features",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "the all-features lightgbm experiment"
+   ],
+   "lines": [
+    8
+   ]
+  },
+  {
+   "id": "feat-month-end-over-limit",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "the month-end over-limit utilisation feature"
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "churn-gbm-2025",
+   "type": "uses",
+   "label": "uses",
+   "o": "lightgbm",
+   "quote": "LightGBM on 14 features",
+   "line": 5
+  },
+  {
+   "s": "churn-gbm-2025",
+   "type": "uses",
+   "label": "uses",
+   "o": "util-v1",
+   "quote": "14 features including util-v1",
+   "line": 5
+  },
+  {
+   "s": "churn-gbm-2025",
+   "type": "uses",
+   "label": "uses",
+   "o": "app-sessions",
+   "quote": "14 features including util-v1 and app sessions",
+   "line": 5
+  },
+  {
+   "s": "churn-gbm-2025",
+   "type": "evaluated-on",
+   "label": "holdout evaluation",
+   "o": "c25-oot-2024h1",
+   "quote": "Holdout c25-oot-2024h1 (n=312,470)",
+   "line": 6
+  },
+  {
+   "s": "churn-gbm-2025",
+   "type": "measured-by",
+   "label": "scored AUC",
+   "o": "auc",
+   "quote": "AUC 0.741",
+   "line": 4
+  },
+  {
+   "s": "churn-gbm-2025",
+   "type": "measured-by",
+   "label": "scored KS",
+   "o": "ks",
+   "quote": "KS 0.36",
+   "line": 6
+  },
+  {
+   "s": "churn-gbm-2025",
+   "type": "measured-by",
+   "label": "scored recall",
+   "o": "recall-at-10",
+   "quote": "recall@10% 0.29",
+   "line": 6
+  },
+  {
+   "s": "churn-gbm-2025",
+   "type": "measured-by",
+   "label": "scored Brier",
+   "o": "brier-score",
+   "quote": "Brier 0.0352",
+   "line": 6
+  },
+  {
+   "s": "churn-gbm-2025",
+   "type": "measured-by",
+   "label": "beats baseline",
+   "o": "auc",
+   "quote": "Beats churn-lr-base-2025 by 0.048 AUC",
+   "line": 7
+  },
+  {
+   "s": "churn-gbm-2025",
+   "type": "other",
+   "label": "piloted under",
+   "o": "dec-c25-ship-gbm-v1",
+   "quote": "Piloted from April 2025 under dec-c25-ship-gbm-v1",
+   "line": 7
+  },
+  {
+   "s": "churn-gbm-2025",
+   "type": "uses",
+   "label": "built on",
+   "o": "dec-c25-label-60d",
+   "quote": "Builds on dec-c25-label-60d",
+   "line": 8
+  }
+ ],
+ "refs": [
+  "churn-lr-base-2025",
+  "dec-c25-ship-gbm-v1",
+  "dec-c25-label-60d"
+ ],
+ "built_on": [
+  {
+   "what": "dec-c25-label-60d",
+   "quote": "dec-c25-label-60d",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-102-churn-2025",
+   "quote": "the all-features lightgbm experiment",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-103-churn-2025",
+   "quote": "the run without app sessions",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-c25-util-v1",
+   "quote": "the month-end over-limit utilisation feature",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/churn-gbm-2025.md",
+ "sha": "7fcdfc7eacb05b55b03d376b5a836a042a4bd87c1b291fd4098c3d7f4054aecd",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

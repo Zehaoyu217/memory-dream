@@ -1,0 +1,137 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "exp-303-bureau-score-migration",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-303-bureau-score-migration"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feat-bsm-score-map-v2",
+   "type": "feature",
+   "label": "isotonic map",
+   "as": [
+    "feat-bsm-score-map-v2"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "ds-bsm-v10-cohorts-2026",
+   "type": "dataset",
+   "label": "2026 cohorts",
+   "as": [
+    "ds-bsm-v10-cohorts-2026"
+   ],
+   "lines": [
+    5,
+    8
+   ]
+  },
+  {
+   "id": "exp-301-bureau-score-migration",
+   "type": "other",
+   "label": "experiment",
+   "as": [
+    "exp-301-bureau-score-migration"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "dec-bsm-isotonic-map",
+   "type": "other",
+   "label": "decision",
+   "as": [
+    "dec-bsm-isotonic-map"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "feat-bsm-v10-band",
+   "type": "feature",
+   "label": "band cut points",
+   "as": [
+    "feat-bsm-v10-band"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "psi",
+   "type": "metric",
+   "label": "psi",
+   "as": [
+    "PSI 0.06"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-303-bureau-score-migration",
+   "type": "uses",
+   "label": "built on",
+   "o": "feat-bsm-score-map-v2",
+   "quote": "Isotonic map from feat-bsm-score-map-v2",
+   "line": 5
+  },
+  {
+   "s": "exp-303-bureau-score-migration",
+   "type": "evaluated-on",
+   "label": "compared on",
+   "o": "ds-bsm-v10-cohorts-2026",
+   "quote": "compared with the v8 distribution on ds-bsm-v10-cohorts-2026",
+   "line": 5
+  },
+  {
+   "s": "exp-303-bureau-score-migration",
+   "type": "measured-by",
+   "label": "PSI",
+   "o": "psi",
+   "quote": "PSI 0.06 against 0.12 for the linear map",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "exp-301-bureau-score-migration",
+  "dec-bsm-isotonic-map",
+  "feat-bsm-v10-band"
+ ],
+ "built_on": [
+  {
+   "what": "ds-bsm-v10-cohorts-2026",
+   "quote": "ds-bsm-v10-cohorts-2026",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "feat-bsm-score-map-v2",
+   "quote": "feat-bsm-score-map-v2",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-303-bureau-score-migration.md",
+ "sha": "7a2980e51118787bbe9ed936e06182c3970ee648e84cd53078583259b8ea66c9",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

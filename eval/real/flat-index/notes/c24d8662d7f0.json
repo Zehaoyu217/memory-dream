@@ -1,0 +1,92 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "exp-302-chatbot-deflection",
+   "type": "other",
+   "label": "a/b experiment",
+   "as": [
+    "exp-302-chatbot-deflection"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "calls-per-1000-eligible-sessions",
+   "type": "metric",
+   "label": "calls per session",
+   "as": [
+    "calls per 1,000 eligible sessions"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "ds-cb-call-linkage",
+   "type": "dataset",
+   "label": "chat-to-call linkage",
+   "as": [
+    "ds-cb-call-linkage"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "call-within-48h",
+   "type": "metric",
+   "label": "share with a call",
+   "as": [
+    "22 percent had a call within 48 hours"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "exp-302-chatbot-deflection",
+   "type": "measured-by",
+   "label": "measures",
+   "o": "calls-per-1000-eligible-sessions",
+   "quote": "calls per 1,000 eligible sessions fell 6.1 percent in the treatment arm",
+   "line": 5
+  },
+  {
+   "s": "ds-cb-call-linkage",
+   "type": "measured-by",
+   "label": "reports",
+   "o": "call-within-48h",
+   "quote": "22 percent had a call within 48 hours",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "dec-cb-rollout-60"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cb-call-linkage",
+   "quote": "the chat-to-call linkage on caller key",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-302-chatbot-deflection",
+   "quote": "the randomised call-volume a/b test",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/fnd-cb-volume-shift.md",
+ "sha": "c24d8662d7f0025df4f617b0acfc340b646ff39b7adb2e69ee98e36ce5cb7192",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

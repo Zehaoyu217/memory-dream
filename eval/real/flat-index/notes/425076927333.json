@@ -1,0 +1,66 @@
+{
+ "kind": "rule",
+ "entities": [
+  {
+   "id": "cards.limits_history",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.limits_history"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "credit-data",
+   "type": "team",
+   "label": "table owner",
+   "as": [
+    "Credit-data owns the table"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "limit-utilisation",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "limit-utilisation feature"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "credit-data",
+   "type": "owned-by",
+   "label": "owns",
+   "o": "cards.limits_history",
+   "quote": "Credit-data owns the table",
+   "line": 6
+  },
+  {
+   "s": "limit-utilisation",
+   "type": "uses",
+   "label": "leaked via",
+   "o": "cards.limits_history",
+   "quote": "that leak was worth about 0.03 AUC on the limit-utilisation feature",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "howto/limits-history-as-of-join.md",
+ "sha": "425076927333cab652e6e7ad4bdb56d41050879410386b57d8d78e0bceadf1d7",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

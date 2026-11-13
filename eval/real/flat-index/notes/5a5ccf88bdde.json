@@ -1,0 +1,158 @@
+{
+ "kind": "experiment",
+ "entities": [
+  {
+   "id": "ks",
+   "type": "metric",
+   "label": "ks statistic",
+   "as": [
+    "KS 0.31"
+   ],
+   "lines": [
+    4,
+    6
+   ]
+  },
+  {
+   "id": "dpd",
+   "type": "term",
+   "label": "delinquency band",
+   "as": [
+    "90+ days past due"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "ds-pbs-oot-2025h2",
+   "type": "dataset",
+   "label": "out-of-time outcomes",
+   "as": [
+    "ds-pbs-oot-2025h2"
+   ],
+   "lines": [
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "segment-label",
+   "type": "feature",
+   "label": "segment label",
+   "as": [
+    "Segment label alone"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "collections.cases",
+   "type": "dataset",
+   "label": "collections table",
+   "as": [
+    "collections.cases"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "raj-patel",
+   "type": "person",
+   "label": "person",
+   "as": [
+    "Raj Patel"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "prioritisation-queue",
+   "type": "other",
+   "label": "prioritisation queue",
+   "as": [
+    "prioritisation queue"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "segment-label",
+   "type": "other",
+   "label": "scores for",
+   "o": "dpd",
+   "quote": "Segment label alone as a score for 90+ DPD",
+   "line": 5
+  },
+  {
+   "s": "segment-label",
+   "type": "evaluated-on",
+   "label": "scored on",
+   "o": "ds-pbs-oot-2025h2",
+   "quote": "Segment label alone as a score for 90+ DPD in the next six months, ds-pbs-oot-2025h2.",
+   "line": 5
+  },
+  {
+   "s": "segment-label",
+   "type": "measured-by",
+   "label": "gives",
+   "o": "ks",
+   "quote": "KS 0.31; the Revolver and Minimum-payer groups carry most of the bad rate.",
+   "line": 6
+  },
+  {
+   "s": "segment-label",
+   "type": "uses",
+   "label": "labels from",
+   "o": "collections.cases",
+   "quote": "Labels from collections.cases",
+   "line": 7
+  },
+  {
+   "s": "prioritisation-queue",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "raj-patel",
+   "quote": "Raj Patel's prioritisation queue",
+   "line": 7
+  },
+  {
+   "s": "prioritisation-queue",
+   "type": "uses",
+   "label": "used as test",
+   "o": "segment-label",
+   "quote": "used by Raj Patel's prioritisation queue as a test",
+   "line": 7
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "ds-pbs-oot-2025h2",
+   "quote": "ds-pbs-oot-2025h2",
+   "line": 8,
+   "asked": true
+  },
+  {
+   "what": "exp-406-payment-behavior-segments",
+   "quote": "the segment's attrition lift experiment",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/exp-407-payment-behavior-segments.md",
+ "sha": "5a5ccf88bdde10bcf166d93195adfb3ef3b86c7ecbe5741a4cafa45652f6f805",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

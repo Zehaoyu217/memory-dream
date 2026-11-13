@@ -1,0 +1,97 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "cards.fraud_labels",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.fraud_labels"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "fraud-ops",
+   "type": "team",
+   "label": "owner",
+   "as": [
+    "fraud-ops"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cards.disputes",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "cards.disputes"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "fraud-a-legacy-job",
+   "type": "pipeline",
+   "label": "legacy job",
+   "as": [
+    "labels/legacy/fraud_a.sql"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "reason-code-set-a",
+   "type": "term",
+   "label": "reason-code set",
+   "as": [
+    "reason-code set A"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "cards.fraud_labels",
+   "type": "owned-by",
+   "label": "owned by",
+   "o": "fraud-ops",
+   "quote": "owned by fraud-ops",
+   "line": 4
+  },
+  {
+   "s": "cards.fraud_labels",
+   "type": "uses",
+   "label": "built from",
+   "o": "cards.disputes",
+   "quote": "Built from `cards.disputes`",
+   "line": 5
+  },
+  {
+   "s": "fraud-a-legacy-job",
+   "type": "produces",
+   "label": "built by",
+   "o": "cards.fraud_labels",
+   "quote": "by the legacy job `labels/legacy/fraud_a.sql`",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "exp-402-label-pipeline-rebuild"
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-lbl-fraud-labels.md",
+ "sha": "b9249cdccddbd09584adde977e96ddc15eff4a60aded5d9a1e3722e849c7feb4",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,113 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "structuring-rule",
+   "type": "other",
+   "label": "rule",
+   "as": [
+    "structuring rule"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "structuring-alerts",
+   "type": "segment",
+   "label": "alerts",
+   "as": [
+    "Structuring alerts Jan-Aug 2025"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "false-positive-rate",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "94.1% closed as false positives"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "sar-referred-rate",
+   "type": "metric",
+   "label": "metric",
+   "as": [
+    "5.9% SAR-referred"
+   ],
+   "lines": [
+    5
+   ]
+  },
+  {
+   "id": "aml-queue",
+   "type": "other",
+   "label": "queue",
+   "as": [
+    "AML queue"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "structuring-alerts",
+   "type": "measured-by",
+   "label": "closed as false positives",
+   "o": "false-positive-rate",
+   "quote": "94.1% closed as false positives",
+   "line": 5
+  },
+  {
+   "s": "structuring-alerts",
+   "type": "measured-by",
+   "label": "SAR-referred",
+   "o": "sar-referred-rate",
+   "quote": "5.9% SAR-referred",
+   "line": 5
+  },
+  {
+   "s": "structuring-rule",
+   "type": "measured-by",
+   "label": "closes",
+   "o": "false-positive-rate",
+   "quote": "The structuring rule closes 94.1% of its alerts as false positives",
+   "line": 4
+  },
+  {
+   "s": "structuring-rule",
+   "type": "other",
+   "label": "takes most analyst time",
+   "o": "aml-queue",
+   "quote": "Most of the analyst time on the AML queue goes to this rule.",
+   "line": 6
+  }
+ ],
+ "refs": [
+  "dec-aml-queue-only"
+ ],
+ "built_on": [
+  {
+   "what": "exp-401-aml-alerts",
+   "quote": "the experiment on structuring alert false positives",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/aml-find-fp-baseline.md",
+ "sha": "23a0c8bede056031a3ece0b96110ec07f25cb5585c8a884c3907e994cfb9f97c",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

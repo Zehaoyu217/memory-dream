@@ -1,0 +1,87 @@
+{
+ "kind": "term",
+ "entities": [
+  {
+   "id": "label-window",
+   "type": "term",
+   "label": "definition",
+   "as": [
+    "label window"
+   ],
+   "lines": [
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "id": "observation-date",
+   "type": "term",
+   "label": "concept",
+   "as": [
+    "observation date"
+   ],
+   "lines": [
+    5,
+    7
+   ]
+  },
+  {
+   "id": "cards.churn_labels",
+   "type": "dataset",
+   "label": "table",
+   "as": [
+    "cards.churn_labels"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "credit-data-notebook",
+   "type": "document",
+   "label": "notebook",
+   "as": [
+    "the credit-data notebook"
+   ],
+   "lines": [
+    6
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "label-window",
+   "type": "uses",
+   "label": "starts from",
+   "o": "observation-date",
+   "quote": "The label window is the period after the observation date",
+   "line": 5
+  },
+  {
+   "s": "cards.churn_labels",
+   "type": "other",
+   "label": "stores churn labels",
+   "o": "label-window",
+   "quote": "Churn labels live in `cards.churn_labels`",
+   "line": 6
+  },
+  {
+   "s": "credit-data-notebook",
+   "type": "produces",
+   "label": "builds default labels",
+   "o": "label-window",
+   "quote": "default labels are built in the credit-data notebook",
+   "line": 6
+  }
+ ],
+ "refs": [],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "glossary/label-window.md",
+ "sha": "33918c049e01b4e38414a862c2a3bfe16aa36cf012a6685d7744d7ed4673860f",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

@@ -1,0 +1,121 @@
+{
+ "kind": "finding",
+ "entities": [
+  {
+   "id": "sms",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "SMS"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "call",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "call"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "email",
+   "type": "other",
+   "label": "channel",
+   "as": [
+    "email"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "callcenter-calls",
+   "type": "dataset",
+   "label": "dataset",
+   "as": [
+    "`callcenter.calls`"
+   ],
+   "lines": [
+    4,
+    5
+   ]
+  },
+  {
+   "id": "collections-uplift",
+   "type": "other",
+   "label": "project",
+   "as": [
+    "collections-uplift"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "raj-patel",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Raj Patel"
+   ],
+   "lines": [
+    7
+   ]
+  },
+  {
+   "id": "tomas-rivera",
+   "type": "person",
+   "label": "owner",
+   "as": [
+    "Tomas Rivera"
+   ],
+   "lines": [
+    7
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "raj-patel",
+   "type": "owned-by",
+   "label": "owner",
+   "o": "tomas-rivera",
+   "quote": "Owner: Raj Patel (collections), with Tomas Rivera (data engineering) for the cost fields.",
+   "line": 7
+  },
+  {
+   "s": "call",
+   "type": "uses",
+   "label": "cost fields from",
+   "o": "callcenter-calls",
+   "quote": "from `callcenter.calls` cost fields",
+   "line": 4
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "callcenter.calls",
+   "quote": "from `callcenter.calls` cost fields",
+   "line": 4,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-ch-contact-costs.md",
+ "sha": "0441bce43f9ab5c1ee737a007d4a9cdf683f4619154a7001ec3f13ef349938f6",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

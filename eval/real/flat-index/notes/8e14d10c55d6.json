@@ -1,0 +1,73 @@
+{
+ "kind": "decision",
+ "entities": [
+  {
+   "id": "transaction-amount",
+   "type": "feature",
+   "label": "feature",
+   "as": [
+    "transaction amount feature"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "training-split",
+   "type": "dataset",
+   "label": "training split",
+   "as": [
+    "training split"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "feature-registry",
+   "type": "tool",
+   "label": "registry",
+   "as": [
+    "feature registry"
+   ],
+   "lines": [
+    5
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "transaction-amount",
+   "type": "uses",
+   "label": "fitted on",
+   "o": "training-split",
+   "quote": "fitted on the training split only",
+   "line": 4
+  },
+  {
+   "s": "transaction-amount",
+   "type": "part-of",
+   "label": "stored in",
+   "o": "feature-registry",
+   "quote": "Cap values are stored in the feature registry.",
+   "line": 5
+  }
+ ],
+ "refs": [],
+ "built_on": [
+  {
+   "what": "howto/outlier-capping-p999",
+   "quote": "howto/outlier-capping-p999",
+   "line": 6,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "qa/outlier-cap-p995.md",
+ "sha": "8e14d10c55d6b110ce268f45ca97dce4cf177586298676b9563e29c7d714c1ff",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}

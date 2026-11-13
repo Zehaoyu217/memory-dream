@@ -1,0 +1,67 @@
+{
+ "kind": "dataset",
+ "entities": [
+  {
+   "id": "holdout-2025q4",
+   "type": "dataset",
+   "label": "holdout",
+   "as": [
+    "holdout-2025q4 is 380,000 calls from Oct to Dec 2025"
+   ],
+   "lines": [
+    4
+   ]
+  },
+  {
+   "id": "cr-oot-2026h1",
+   "type": "dataset",
+   "label": "reserved holdout",
+   "as": [
+    "cr-oot-2026h1 is 410,000 calls from Jan to Jun 2026"
+   ],
+   "lines": [
+    6
+   ]
+  },
+  {
+   "id": "callcenter.calls",
+   "type": "dataset",
+   "label": "source table",
+   "as": [
+    "Builds on ds-cr-calls."
+   ],
+   "lines": [
+    8
+   ]
+  }
+ ],
+ "relations": [
+  {
+   "s": "holdout-2025q4",
+   "type": "part-of",
+   "label": "stratified by queue",
+   "o": "callcenter.calls",
+   "quote": "Stratified by queue_initial so small queues (disputes, fraud referral) keep at least 2,000 calls each.",
+   "line": 5
+  }
+ ],
+ "refs": [
+  "ds-cr-calls"
+ ],
+ "built_on": [
+  {
+   "what": "ds-cr-calls",
+   "quote": "ds-cr-calls",
+   "line": 8,
+   "asked": true
+  }
+ ],
+ "dropped": {
+  "entities": [],
+  "relations": 0
+ },
+ "path": "work/ds-cr-holdout.md",
+ "sha": "6ba2028aee69ce068bb3f9938693da329b8b306a3e680547fffd96f9272a6a3b",
+ "model": "python3 tests/haiku_cmd.py",
+ "indexed_at": "2026-11-12T21:11:00"
+}
