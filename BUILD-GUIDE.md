@@ -297,7 +297,9 @@ Kind words and tag words go through the same gate and the same review, and one f
 (`apply_terms`): a keeper's `other: <word>` for a note no kind fits is kept in its reading as `kind_word` (the note
 counts as `note` until KINDS.md has the kind or an alias, `aka:`, and then counts as that kind with no re-read; a kind
 given a family takes its family's role); tags come from notes' `tags:` lines and from the keepers' `tags` (at most
-three a note, given from the TAGS section of their prompt), both resolved through TAGS.md at every merge. `KINDS.md`
+three a note, given from the TAGS section of their prompt), both resolved through TAGS.md at every merge. The TAGS
+section, its rule and the reply's `tags` key (last) are in the prompt only once TAGS.md lists a tag (`tag_fill`):
+asked first in the reply, tags cost a third of the links on the fixture (RESULTS phase T). `KINDS.md`
 takes `promote` (5/5/2), `budget: 40` and `probation`, and `TAGS.md` `promote: 3 uses, 3 notes, 1 area`, `budget: 30`
 and `probation`; the review answers `kinds` and `tags` as it answers `etypes`; `kvocab`/`proposed_kinds` and
 `gvocab`/`proposed_tags` mirror `vocab`/`proposed`. In every file a `label` answer is remembered on a `keep:` line

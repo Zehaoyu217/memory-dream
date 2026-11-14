@@ -52,12 +52,22 @@ def report(root):
     for c in costs:
         by[c["kind"] + "_calls"] += 1
         by[c["kind"] + "_usd"] += c["cost"] or 0
+    # the vocabulary loop for tags and kinds: what the keepers read, what was offered, what the files became
+    xs = [json.loads(p.read_text()) for p in (root / "_dream/notes").glob("*.json")]
+    read_tags = Counter(t for x in xs for t in x.get("tags") or [])
+    kind_words = Counter(x["kind_word"] for x in xs if x.get("kind_word"))
+    vocab = {"read_tags": dict(read_tags.most_common()), "notes_with_tags": sum(bool(x.get("tags")) for x in xs),
+             "kind_words": dict(kind_words), "tags": {t: len(ps) for t, ps in (g.get("tags") or {}).items()},
+             "proposed_tags": [(p["type"], p["uses"]) for p in g.get("proposed_tags", [])],
+             "proposed_kinds": [(p["type"], p["uses"]) for p in g.get("proposed_kinds", [])],
+             "tags_md": (root / "TAGS.md").read_text() if (root / "TAGS.md").exists() else None,
+             "kinds_md_added": [ln for ln in (root / "KINDS.md").read_text().splitlines() if "(proposed" in ln or ln.startswith("keep:")]}
     return {"notes": len(g["notes"]), "indexed": sum(n["indexed"] for n in g["notes"]),
             "entities": len(g["entities"]), "relations": len(g["relations"]),
             "proposed": [(p["type"], p["uses"]) for p in g["proposed"]], "checks": dict(Counter(c["code"] for c in g["checks"])),
             "c4": [c["msg"] for c in g["checks"] if c["code"] == "C4"][:12],
             "convergence_one_pass": before, "convergence_after_review": after,
-            "cost": {k: round(v, 4) if isinstance(v, float) else v for k, v in by.items()},
+            "cost": {k: round(v, 4) if isinstance(v, float) else v for k, v in by.items()}, "vocab": vocab,
             "edges_md": (root / "EDGES.md").read_text(), "aliases_md": (root / "ALIASES.md").read_text()}
 
 

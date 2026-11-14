@@ -1072,14 +1072,22 @@ LEAK = ("leak-hypothesis", "exp-017-leak-check", "post-period-leak")
 def A44():
     """Tags ride the one vocabulary loop: words the keepers read for notes (other: <word>) are counted; over the bar
     the review is asked; its new tag is written to TAGS.md marked proposed; the notes carry it at once with no new
-    reading; the next reading's prompt lists it; ask finds the notes by it."""
+    reading; the next reading's prompt lists it; ask finds the notes by it. Keepers are asked for tags only once
+    TAGS.md lists one: an empty list costs the readings nothing."""
+    w0 = World()
+    w0.env["FAKE_SAVE"] = str(w0.dir / "prompts")
+    w0.run("dream")
+    first = sorted((w0.dir / "prompts").glob("*-extract.txt"))[0].read_text()
+    assert "TAGS:" not in first and '"tags"' not in first and "Last, tags" not in first, first[:600]
     w = World()
     w.env["FAKE_SAVE"] = str(w.dir / "prompts")
+    (w.root / "TAGS.md").write_text(mem.TAGS_HEAD + "- regulation: a rule a regulator sets, and what the work must do to meet it\n")
     extra(w, {s: {"tags": ["other: leakage"]} for s in LEAK})
     rv = w.dir / "review.json"
     rv.write_text(json.dumps({"tags": {"leakage": "new: a feature that carries information from after the moment it is used"}}))
-    w.run("dream", env={"FAKE_REVIEW": str(rv)})
+    out = w.run("dream", env={"FAKE_REVIEW": str(rv)})
     assert re.search(r"^- leakage \(proposed \d{4}-\d\d-\d\d\): a feature that carries", w.text("TAGS.md"), re.M), w.text("TAGS.md")
+    assert "1 new tag" in out and "new type" not in out, out
     g = w.graph()
     assert sorted(g["tags"].get("leakage", [])) == sorted(P + s + ".md" for s in LEAK), g["tags"]
     assert not g["proposed_tags"], g["proposed_tags"]
@@ -1089,9 +1097,11 @@ def A44():
     assert reads(w) == n + 1, (reads(w), n)
     last = sorted((w.dir / "prompts").glob("*-extract.txt"))[-1].read_text()
     assert "leak-followup" in last and "- leakage (proposed" in last.split("TAGS:", 1)[1].split("KNOWN:", 1)[0], last[:400]
+    assert '"tags": []' in last and "Last, tags" in last, last[:600]
     out = w.run("ask", "--list", "--tag", "leakage")
     assert all(s in out for s in LEAK), out
-    return "3 notes read other: leakage → over the tag bar 3/3/1 → review new → TAGS.md line (proposed), the 3 notes carry it with 0 re-reads; the next reading's prompt lists it; ask --tag finds them"
+    return ("no tag in TAGS.md: the reading prompt says nothing of tags; with one: 3 notes read other: leakage → over the tag bar "
+            "3/3/1 → review new → TAGS.md line (proposed), the 3 notes carry it with 0 re-reads; the next reading's prompt lists it; ask --tag finds them")
 
 
 def A45():
@@ -1125,7 +1135,8 @@ def A46():
     rv = w.dir / "review.json"
     rv.write_text(json.dumps({"tags": {"target-leak": "alias leakage"}}))
     n = reads(w)
-    w.run("dream", env={"FAKE_REVIEW": str(rv)})
+    out = w.run("dream", env={"FAKE_REVIEW": str(rv)})
+    assert "1 tag mapped" in out, out
     assert re.search(r"^- leakage: .*\| aka: target-leak", w.text("TAGS.md"), re.M), w.text("TAGS.md")
     g = w.graph()
     assert sorted(g["tags"].get("leakage", [])) == sorted(P + s + ".md" for s in LEAK) and "target-leak" not in g["tags"], g["tags"]
@@ -1148,7 +1159,8 @@ def A47():
     extra(w, {s: {"kind": "other: postmortem"} for s in ("leak-hypothesis", "post-period-leak")})
     rv = w.dir / "review.json"
     rv.write_text(json.dumps({"kinds": {"postmortem": "new: an account of what went wrong and what was learned | family: finding"}}))
-    w.run("dream", env={"FAKE_REVIEW": str(rv)})
+    out = w.run("dream", env={"FAKE_REVIEW": str(rv)})
+    assert "1 new kind" in out, out
     assert re.search(r"^- postmortem \(proposed \d{4}-\d\d-\d\d\): an account .*\| family: finding", w.text("KINDS.md"), re.M), w.text("KINDS.md")
     g = w.graph()
     kinds = {n["path"]: n["kind"] for n in g["notes"]}

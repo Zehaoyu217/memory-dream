@@ -144,8 +144,8 @@ complete or it says that it is not:
 - **The map.** `memory.py ask --list [-p folder] [--kind model] [--tag risk]` prints one line per note: what it was
   built on (marked when that note was replaced), what it replaced, what replaced it, where else it is used. A tag is
   a word of `memory/TAGS.md`, which gives each tag its definition and its other spellings; a note carries tags on
-  the `tags:` line of its frontmatter, and the keepers read up to three for each note from the same list. A word
-  TAGS.md lacks is counted and offered to the review once it is common, like a word for a type. A question whose
+  the `tags:` line of its frontmatter, and once the list has a tag the keepers read up to three for each note from
+  it. A word TAGS.md lacks is counted and offered to the review once it is common, like a word for a type. A question whose
   answer is a set or a relationship is read off these lines; `ask` does not guess a list from a question's wording.
 - **Not the whole, said so.** A question that names a folder which is not printed whole gets one line: its section
   holds the best matches among the folder's notes, not all of them, and the command that maps the folder. The same

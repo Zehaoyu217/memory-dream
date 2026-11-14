@@ -70,7 +70,7 @@ truth; everything else is derived and disposable. `memory.py` = `python3 <this s
 ## The vocabulary is files you may edit, never the code
 `memory/KINDS.md` (kinds of note: prefixes, areas, roles), `memory/TYPES.md` (types of thing), `memory/EDGES.md`
 (types of link, each with the question words that make `ask` follow it: `walk:`) and `memory/TAGS.md` (themes that
-notes in different folders share) all follow one rule. Keepers use what a list says. A word that fits nothing is
+notes in different folders share) all follow one rule. Keepers use what a list says (tags once TAGS.md lists one). A word that fits nothing is
 kept as the keeper gave it and counted at every dream. Once it is common (`promote:`, within `budget:`), one review
 call answers it by meaning: alias, new (a line marked proposed, which goes back after its probation if it stays
 rare), label (kept as a word, asked again only when its uses double) or drop. Readings are resolved through the lists

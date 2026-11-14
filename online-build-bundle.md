@@ -162,7 +162,8 @@ under the bar is demoted to a label), `pack: software | research | ops` (`PACKS`
 other two files). `KINDS.md` takes the same settings (5/5/2, `budget: 40`) and `aka:`; a keeper's `other: <word>` for
 a note no kind fits is kept as `kind_word` and the note counts as `note` until the file has the kind. `TAGS.md`:
 `- tag: definition | aka: | family:`, `promote: 3 uses, 3 notes, 1 area`, `budget: 30`; tags come from notes' `tags:`
-lines and from the keepers' readings (up to three a note, from the TAGS section of the prompt). One gate
+lines and from the keepers' readings (up to three a note, from the TAGS section of the prompt, which with the
+reply's `tags` key, last, is there only once TAGS.md lists a tag). One gate
 (`vocab_gate`) and one admission (`apply_terms`) serve relation labels, type words, kind words and tag words; a
 `label` answer is written on the file's `keep:` line (`word ×uses (date)`) and the word is offered again only once
 its uses double. The review answers `alias T`, `alias ~T`, `new: <definition>`, `label` or `drop` for labels, the
@@ -649,7 +650,7 @@ or to a fresh worker given the packet, at most twice. After that, it stops and r
 
 ## Appendix A — the contract surface, verbatim: `skills/memory-dream/SKILL.md` and the dreamer agent
 
-_Part 5 · copied at commit 342daa3. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
+_Part 5 · copied at commit a1ba80c. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
 
 ```markdown
 ---
@@ -724,7 +725,7 @@ truth; everything else is derived and disposable. `memory.py` = `python3 <this s
 ## The vocabulary is files you may edit, never the code
 `memory/KINDS.md` (kinds of note: prefixes, areas, roles), `memory/TYPES.md` (types of thing), `memory/EDGES.md`
 (types of link, each with the question words that make `ask` follow it: `walk:`) and `memory/TAGS.md` (themes that
-notes in different folders share) all follow one rule. Keepers use what a list says. A word that fits nothing is
+notes in different folders share) all follow one rule. Keepers use what a list says (tags once TAGS.md lists one). A word that fits nothing is
 kept as the keeper gave it and counted at every dream. Once it is common (`promote:`, within `budget:`), one review
 call answers it by meaning: alias, new (a line marked proposed, which goes back after its probation if it stays
 rare), label (kept as a word, asked again only when its uses double) or drop. Readings are resolved through the lists
@@ -831,6 +832,8 @@ record decisions about particular things. All six are yours to edit, and editing
 ## The rule
 1. **Constrained open.** A keeper (the cheap model that reads notes) is shown every list in its prompt and uses it.
    What fits nothing is never forced onto a line and never lost: the keeper's own word stays in its reading.
+   Tags are asked for only once TAGS.md lists a tag (asked with an empty list, keepers gave one-off words); until
+   then tags come from the `tags:` lines writers give, and those words go through the same gate.
 2. **Counted, for nothing.** Every merge (each `dream`, no model) counts each word outside a list: its uses, the
    notes and the areas they are in, and three examples.
 3. **The bar and the budget.** A word is offered once it is over `promote:` and its list has room under `budget:`.
@@ -916,7 +919,9 @@ same rule (guides/vocabulary.md); what changes is where the lists start. Start s
 the keeper's word and offered once it is common, while a line you add needlessly is one more choice in every reading.
 
 For each scenario: **folders** (areas), **lists** (what to add to the seeds), **tags** (themes worth a line from the
-start, if any) and **prove** (the kind of question SETUP.md's five should ask).
+start, if any) and **prove** (the kind of question SETUP.md's five should ask). Tags cost nothing until TAGS.md
+lists one: from then on the keepers tag each note they read from the list, so give it its first line when a theme
+is plain, and leave it empty when none is.
 
 ## Analytics and data science (the seeds)
 - folders: one per project or study; `prefs/` per stakeholder; `glossary/` for metrics defined once.
@@ -1039,7 +1044,7 @@ it, when, and whether that note was replaced.
 
 ## Appendix B — the graph contract, verbatim: `.specs/memory-dream/CONTRACT.md`
 
-_Part 6 · copied at commit 342daa3. Schema 1; `memory.py check` validates against it (A38)._
+_Part 6 · copied at commit a1ba80c. Schema 1; `memory.py check` validates against it (A38)._
 
 ## memory-dream — the graph contract (schema 1)
 
@@ -1316,8 +1321,8 @@ link read the other way, as in "what uses X") and `hops: 2` (the links chain: an
 `ask` goes two steps) · `drop: a, b`. A type line without `walk:` or `hops:` takes the seed's line of the same name,
 so a file written before the fields existed answers as it did; a type the seed does not have is followed only once
 its line says by which words. `TAGS.md` (tags): `- tag: what it means | aka: other spellings | family: parent` (the
-tree the graph page shows the tag column in). It has no seed: a tag belongs to one base. Writers pick from it and
-keepers are shown it; both may give a word it lacks. `ALIASES.md`: `- canonical = other, … [| why: … | by: …]`
+tree the graph page shows the tag column in). It has no seed: a tag belongs to one base. Writers pick from it, and
+once it lists a tag keepers are shown it and asked for tags; both may give a word it lacks. `ALIASES.md`: `- canonical = other, … [| why: … | by: …]`
 (what follows the first ` | ` is for people: the reason and who decided; the curator signs its lines `by: curator
 <date>`, and a line without `by:` is a person's) ·
 `not: a / b`. `CONFLICTS.md`: `- a > b` (a supersedes b) · `compatible: a / b` · `- a ? b` (unsure) · `dropped:
@@ -1367,7 +1372,7 @@ origin by adding the file. What changes for the notes under it, and nothing else
 
 ## Appendix C — the build guide, verbatim: `BUILD-GUIDE.md` §3–§10
 
-_Part 7 · copied at commit 342daa3. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
+_Part 7 · copied at commit a1ba80c. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
 
 ### 3. The design in one page
 
@@ -1584,7 +1589,9 @@ Kind words and tag words go through the same gate and the same review, and one f
 (`apply_terms`): a keeper's `other: <word>` for a note no kind fits is kept in its reading as `kind_word` (the note
 counts as `note` until KINDS.md has the kind or an alias, `aka:`, and then counts as that kind with no re-read; a kind
 given a family takes its family's role); tags come from notes' `tags:` lines and from the keepers' `tags` (at most
-three a note, given from the TAGS section of their prompt), both resolved through TAGS.md at every merge. `KINDS.md`
+three a note, given from the TAGS section of their prompt), both resolved through TAGS.md at every merge. The TAGS
+section, its rule and the reply's `tags` key (last) are in the prompt only once TAGS.md lists a tag (`tag_fill`):
+asked first in the reply, tags cost a third of the links on the fixture (RESULTS phase T). `KINDS.md`
 takes `promote` (5/5/2), `budget: 40` and `probation`, and `TAGS.md` `promote: 3 uses, 3 notes, 1 area`, `budget: 30`
 and `probation`; the review answers `kinds` and `tags` as it answers `etypes`; `kvocab`/`proposed_kinds` and
 `gvocab`/`proposed_tags` mirror `vocab`/`proposed`. In every file a `label` answer is remembered on a `keep:` line
@@ -2179,21 +2186,20 @@ preferences 0.95 when the task names them, 0.84 when it names only their meeting
 
 ## Appendix D — prompts, seeds and tuned tables, verbatim from `memory.py`
 
-_Part 8 · extracted at commit 342daa3 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
+_Part 8 · extracted at commit a1ba80c by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
 
 ### D.1 `EXTRACT` — the per-note prompt: fixed guidance, then `KINDS:`, `TYPES:`, `EDGES:` and `KNOWN:` from the registries (the static part is cached), then `NOTE`
 
 ```
 Index this memory note for retrieval. Reply with JSON only:
-{"kind": "one of KINDS, or other: <word> for a kind of note none of them is",
- "tags": ["a TAGS tag or one of its aliases; other: <word> for a theme no tag covers"],
+{"kind": "one of KINDS",
  "entities": [{"id": "...", "type": "a TYPES type or alias, or other", "label": "the note's own word for what it is, 1-2 words",
                "as": ["text copied verbatim from the note"]}],
  "relations": [{"s": "entity id", "type": "an EDGES type or alias, or other", "label": "the note's own verb, 1-3 words",
                 "o": "entity id", "quote": "short text copied verbatim from the note that states it"}],
  "refs": ["ids or paths of other notes the text explicitly points to"],
  "built_on": [{"what": "its id", "quote": "words copied verbatim from the note that say so"}],
- "replaces": [{"what": "its id", "quote": "words copied verbatim from the note that say so"}]}
+ "replaces": [{"what": "its id", "quote": "words copied verbatim from the note that say so"}]{tags_key}}
 Entities are things someone would look up across notes; TYPES says which. Not numbers, dates, files,
 notebooks or note ids (those go in refs). Type each with a TYPES type or one of its aliases; if none fits
 a real thing, type is other and the label says what it is (a word that becomes common is offered as a type).
@@ -2211,18 +2217,13 @@ opposite of it: leave that out. `what` is the file name of the note meant, witho
 lists it, however the text words it ("the dispositions dataset" is the note about that dataset); else its id in
 KNOWN, or the id you gave it under entities; and when none of these names it, the words the note uses for it. An
 item is never left out because the note it means cannot be named: a later reading places it.
-Tags: at most 3 themes the note is about that its folder, its kind and its things do not already say (a regulation, a
-risk, a recurring process). Use a TAGS tag or one of its aliases; give other: <word> only for a theme other notes would
-share (a word that becomes common is offered as a tag); [] when none fits. Kind: one of KINDS; when the note is a kind
-of note none of them is, other: <word> (the word is kept, and offered as a kind once it is common).
+{tags_rule}A note no kind fits: other: <word>.
 KINDS: {kinds}
 TYPES:
 {types}
 EDGES:
 {edges}
-TAGS:
-{tags}
-KNOWN:
+{tags}KNOWN:
 {known}
 FOLDER (the notes of this folder, file name: first line):
 {folder}
@@ -2237,7 +2238,7 @@ You keep the vocabulary of a memory of work notes.
 RELATION TYPES, read "X <type> Y" ({n} of {budget} slots used):
 {edges}
 LABELS the indexer used that fit no type, each over the bar of {u} uses in {nn} notes across {a} areas
-(uses, notes, areas; up to 3 examples "X — Y: quote"):
+(uses, notes, areas and which; up to 3 examples "X — Y: quote"):
 {proposals}
 ENTITY PAIRS that may name the same thing (each side: id, type, how the notes write it, what its own note says it is,
 what it is linked to, a line that mentions it; then what the two are both linked to):
@@ -2246,15 +2247,16 @@ LIVE NOTES of one kind in one area that may disagree (path · "title" «first li
 {conflicts}
 THING TYPES, read "X is a <type>" ({tn} of {tbudget} slots used):
 {types}
-TYPE WORDS the indexer used for things that fit no type, each over the bar (uses, notes, areas; up to 3 examples "id: as written"):
+TYPE WORDS the indexer used for things that fit no type, each over the bar (uses, notes, areas and which; up to 3 examples "id: as written"):
 {etypes}
 NOTE KINDS, what a note is ({kn} of {kbudget} slots used):
 {kinds}
-KIND WORDS the indexer gave notes that fit no kind, each over the bar (uses, notes, areas; up to 3 example notes):
+KIND WORDS the indexer gave notes that fit no kind, each over the bar (uses, notes, areas and which; up to 3 example notes):
 {kwords}
 TAGS, themes that notes share ({gn} of {gbudget} slots used):
 {tags}
-TAG WORDS that notes or their indexer used and no tag covers, each over the bar (uses, notes, areas; up to 3 example notes):
+TAG WORDS that notes or their indexer used and no tag covers, each over the bar (uses, notes, areas and which; up to 3
+example notes):
 {gwords}
 Reply with JSON only:
 {"types": {"<label>": "alias T" | "alias ~T" | "new: <one line: what the link means and how it differs from the closest type>" | "label" | "drop"},
@@ -2275,7 +2277,8 @@ A kind word: "alias K" when such notes are K notes; "new: …" only for a kind o
 "label" to keep the word; "drop" for what is not a kind of note (a topic, a status).
 A tag word: "alias T" when it names the theme T names; "new: …" only for a theme that notes across the memory share
 and that their folders, kinds and things do not already say; "label" to keep the word; "drop" for what is not a
-theme (a status, a date, a person, the name of one project).
+theme (a status, a date, a person) or what the areas it is used in are about (a word for the subject of the one
+folder it is used in says what the folder says).
 Two entities are the same only when the evidence agrees: the same kind of thing, described alike, linked to the same
 things by the same relations; a shared word in their names is not evidence. If unsure, answer different. Versions (v2,
 v3) are different.

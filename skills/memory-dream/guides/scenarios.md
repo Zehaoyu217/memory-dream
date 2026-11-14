@@ -5,7 +5,9 @@ same rule (guides/vocabulary.md); what changes is where the lists start. Start s
 the keeper's word and offered once it is common, while a line you add needlessly is one more choice in every reading.
 
 For each scenario: **folders** (areas), **lists** (what to add to the seeds), **tags** (themes worth a line from the
-start, if any) and **prove** (the kind of question SETUP.md's five should ask).
+start, if any) and **prove** (the kind of question SETUP.md's five should ask). Tags cost nothing until TAGS.md
+lists one: from then on the keepers tag each note they read from the list, so give it its first line when a theme
+is plain, and leave it empty when none is.
 
 ## Analytics and data science (the seeds)
 - folders: one per project or study; `prefs/` per stakeholder; `glossary/` for metrics defined once.

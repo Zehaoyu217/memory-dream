@@ -17,6 +17,8 @@ record decisions about particular things. All six are yours to edit, and editing
 ## The rule
 1. **Constrained open.** A keeper (the cheap model that reads notes) is shown every list in its prompt and uses it.
    What fits nothing is never forced onto a line and never lost: the keeper's own word stays in its reading.
+   Tags are asked for only once TAGS.md lists a tag (asked with an empty list, keepers gave one-off words); until
+   then tags come from the `tags:` lines writers give, and those words go through the same gate.
 2. **Counted, for nothing.** Every merge (each `dream`, no model) counts each word outside a list: its uses, the
    notes and the areas they are in, and three examples.
 3. **The bar and the budget.** A word is offered once it is over `promote:` and its list has room under `budget:`.

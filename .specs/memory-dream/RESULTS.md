@@ -1,6 +1,32 @@
 # memory-dream v0.4 — results
 
-2026-10-30 (round 4: 2026-10-31; phase I: 2026-11-02; phases J to N: 2026-11-11; phase O on: 2026-11-12) · built from the "Memory" email spec (`build-spec.md`) · macOS, Python 3.9.6, Claude Code 2.1.314.
+2026-10-30 (round 4: 2026-10-31; phase I: 2026-11-02; phases J to N: 2026-11-11; phase O on: 2026-11-12; phase T: 2026-11-14) · built from the "Memory" email spec (`build-spec.md`) · macOS, Python 3.9.6, Claude Code 2.1.314.
+
+# Phase T (2026-11-14) — one rule for every vocabulary, tags read by the keepers, identity by evidence
+
+What changed: kinds, types, links and tags follow one rule (counted, offered over a bar within a budget, one review,
+admitted by code, `keep:` for a word kept as a word, probation), tags and a kind word come in the keepers' readings,
+and the curator and the review judge identity from one card per thing (what its note says it is, what it is linked
+to) with two things a note links never joined. Tested with the fake keeper (A44–A49, 46/46) and with Haiku on the
+fixture (30 notes; `tests/real_model.py a3`, effort low, one run a row, $0.02–0.05 a run, $0.28 in all):
+
+| reading prompt | things read | links read | dropped (C4) | true things found | tags |
+|---|---|---|---|---|---|
+| before (23e9cae), run 1 | 150 | 104 | 0 | 15 of 20 | — |
+| before, run 2 | 149 | 102 | 6 | 15 | — |
+| tags asked second in the reply, run 1 | 121 | 66 | 5 | 16 | 25 notes; the review admitted `churn`, the subject of the only folder |
+| the same, "[] for most notes", the review shown the areas by name | 117 | 74 | 9 | 15 | 4 notes; one tag, `leakage` |
+| tags asked last, short rule, run 1 | 136 | 91 | 15 | 14 | 12 notes, one-off words, none over the bar |
+| the same, run 2 | 142 | 99 | 4 | 14 | 12 notes, one-off words (one of them the folder's name) |
+| no tag in TAGS.md: not asked (one sentence from before) | 144 | 89 | 8 | 16 | — |
+
+Asked second, tags cost a third of the links, in both runs. Asked last, the loss is within what one prompt varies by
+from run to run (89 to 104 links). With nothing listed the keepers gave scattered words that never reach a bar. So a
+memory whose TAGS.md lists no tag is not asked for tags at all; its tags start from the `tags:` lines writers give,
+which the gate counts and offers like any word, and once TAGS.md has a line the keepers are shown the list and asked
+last. Shown which areas a word is used in, the review dropped the folder's subject (`churn` in `churn-2026`) and kept
+`leakage` with a definition that says how it differs. Things merged as well as before: ratio 1.0, no split, in every
+run.
 
 # Phase S (2026-11-12) — step 2: what a cheap reader costs, a bank that grep cannot read exactly, the arms on it, and the same in one folder under a 100K window
 

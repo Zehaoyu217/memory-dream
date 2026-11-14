@@ -273,8 +273,8 @@ link read the other way, as in "what uses X") and `hops: 2` (the links chain: an
 `ask` goes two steps) · `drop: a, b`. A type line without `walk:` or `hops:` takes the seed's line of the same name,
 so a file written before the fields existed answers as it did; a type the seed does not have is followed only once
 its line says by which words. `TAGS.md` (tags): `- tag: what it means | aka: other spellings | family: parent` (the
-tree the graph page shows the tag column in). It has no seed: a tag belongs to one base. Writers pick from it and
-keepers are shown it; both may give a word it lacks. `ALIASES.md`: `- canonical = other, … [| why: … | by: …]`
+tree the graph page shows the tag column in). It has no seed: a tag belongs to one base. Writers pick from it, and
+once it lists a tag keepers are shown it and asked for tags; both may give a word it lacks. `ALIASES.md`: `- canonical = other, … [| why: … | by: …]`
 (what follows the first ` | ` is for people: the reason and who decided; the curator signs its lines `by: curator
 <date>`, and a line without `by:` is a person's) ·
 `not: a / b`. `CONFLICTS.md`: `- a > b` (a supersedes b) · `compatible: a / b` · `- a ? b` (unsure) · `dropped:
