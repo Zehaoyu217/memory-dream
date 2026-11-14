@@ -5,7 +5,7 @@ on:
 jobs:
   acceptance:
     name: 40 checks (python ${{ matrix.python }})
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04   # ubuntu-latest is 26.04 since 2026-11, which has no Python 3.9 build
     strategy:
       matrix:
         python: ["3.9", "3.13"]
