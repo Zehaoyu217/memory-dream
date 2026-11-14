@@ -251,9 +251,10 @@ several projects share in the middle; when the folders do not part the things, a
 the islands are the communities of the links instead, each named for its most linked thing. The colours are the
 memory's own type families (TYPES.md `family:`). A thing picked shows what it uses and what uses it, each link with the
 line of the note that says so; the tour flies through the most linked things. It opens offline (d3 7.9.0, ISC, is
-inside the file) in one of three looks, kept side by side: paper; a star map at night (`viz --theme star`); and a
-gala, a purple show at night with starlight, lotto wheels round the islands and confetti when a thing is picked
-(`viz --theme gala`). A switch in its header picks among them. Any other graph makes the same page:
+inside the file) in one of four looks, kept side by side: paper; a star map at night (`viz --theme star`); a gala,
+a purple show at night with starlight and lotto wheels round the islands (`viz --theme gala`); and moonlit, pale
+lilac and silver under a great moon, with sparkles, drifting ribbons, pearl rings and confetti when a thing is
+picked (`viz --theme moon`). A switch in its header picks among them. Any other graph makes the same page:
 `python3 demo/knowledge-graph/build.py graph.json out.html` takes nodes and links as JSON (the file's head says which
 fields it reads).
 
@@ -262,6 +263,8 @@ fields it reads).
 ![The same page in the star-map look](docs/knowledge-graph-star.jpg)
 
 ![The same page in the gala look](docs/knowledge-graph-gala.jpg)
+
+![The same page in the moonlit look](docs/knowledge-graph-moonlit.jpg)
 
 ## Operations
 

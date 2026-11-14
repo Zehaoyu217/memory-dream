@@ -19,7 +19,7 @@
     --edge2-rgb:25,29,34; --isle:rgba(25,29,34,.52); --on-accent:#ffffff; --ring:rgba(47,95,208,.25); --accent-soft:rgba(47,95,208,.07);
     --accent-soft-2:rgba(47,95,208,.13); --in-soft:rgba(208,122,42,.12); --label:var(--muted); --figure:var(--ink); --display-weight:500;
     --row:var(--paper); --row-hover:var(--tint); --corner:none; --mark:none; --blur:none; --corner-c:transparent; --panel-radius:20px;
-    --display-style:normal;
+    --display-style:normal; --zig:transparent;
   }
   /* the star map: the same page at night; a look, not a game's: no names, marks or art from one */
   :root[data-theme="star"] {
@@ -71,6 +71,26 @@
   .float::before { top:-1px; left:-1px; border-width:1.5px 0 0 1.5px; }
   .float::after { bottom:-1px; right:-1px; border-width:0 1.5px 1.5px 0; }
   :root[data-theme="star"] .float, :root[data-theme="gala"] .float { position:relative; }
+  /* moonlit: a stage in moonlight, after a lilac-and-plum outfit with roses: pale lilac and silver, plum and rose for
+     accents, a great moon, sparkles and ribbons; a look, not a game's: no names, marks or art from one */
+  :root[data-theme="moon"] {
+    --paper:#efe9f9; --sheet:rgba(255,255,255,.66); --tint:rgba(91,63,134,.07); --ink:#2a1838; --muted:#655478; --faint:#9a8cae;
+    --accent:#c93f7a; --out:#6a4bd6; --in:#d6457f; --edge-rgb:74,44,112; --edge2-rgb:201,63,122; --halo:rgba(244,240,252,.92);
+    --isle:rgba(78,52,120,.8); --on-accent:#ffffff; --ring:rgba(201,63,122,.30); --accent-soft:rgba(201,63,122,.09);
+    --accent-soft-2:rgba(201,63,122,.16); --in-soft:rgba(214,69,127,.12); --label:#8a4fc4; --figure:#3b2152; --display-weight:400;
+    --display-style:italic; --radius:16px; --panel-radius:20px;
+    --font:"Avenir Next","Avenir","Segoe UI","Helvetica Neue",Arial,sans-serif;
+    --serif:"Bodoni 72","Didot","Bodoni MT","Playfair Display",Georgia,serif;
+    --shadow:0 1px 2px rgba(74,44,112,.08),0 12px 36px rgba(110,80,170,.18);
+    --row:rgba(255,255,255,.55); --row-hover:rgba(255,255,255,.88); --corner:none; --mark:"♦"; --blur:blur(14px) saturate(1.2);
+    --corner-c:transparent; --zig:#3b2152;
+  }
+  :root[data-theme="moon"] body { background:
+      radial-gradient(circle 150px at 79% 47%, rgba(255,255,255,.96) 0 68%, rgba(255,255,255,0) 100%),
+      radial-gradient(circle 470px at 79% 47%, rgba(255,255,255,.62) 0%, rgba(255,255,255,0) 72%),
+      radial-gradient(1000px 640px at 8% 106%, rgba(150,160,240,.45) 0%, rgba(150,160,240,0) 62%),
+      radial-gradient(900px 520px at 42% -12%, rgba(214,186,255,.55) 0%, rgba(214,186,255,0) 60%),
+      linear-gradient(160deg, #f4effb 0%, #e4daf6 55%, #d7cdf3 100%); }
   :focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
 </style>
 <script id="lib">
@@ -79,13 +99,15 @@ const DP = {
   esc: s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]),
   num: n => Number(n).toLocaleString('en-US'),
   still: () => matchMedia('(prefers-reduced-motion: reduce)').matches,
-  look: () => document.documentElement.dataset.theme || 'paper',   // paper, star (a star map at night) or gala (a purple show)
+  look: () => document.documentElement.dataset.theme || 'paper',   // paper, star (a star map), gala (a purple show), moon (moonlit)
   tone: (c, groups) => {             // a group's colour for the look in use: the star map lifts it so it glows on the dark;
     const look = DP.look();          // the gala gives each group a colour of its show, by its place among `groups` (the legend's order)
     if (look === 'paper') return c;
-    if (look === 'gala') {
-      const i = (groups || []).findIndex(g => g.color === c);
-      return i >= 0 && groups[i].g !== 'other' ? ['#ff6fcf', '#b48bff', '#62d4ff', '#ffd36e', '#7fe3b8', '#ff9478', '#e3bdff', '#8fa8ff'][i % 8] : '#cfc6e4';
+    if (look === 'gala' || look === 'moon') {        // moonlit: plum, violet, rose, periwinkle, gold, teal, lilac, pink
+      const i = (groups || []).findIndex(g => g.color === c), pal = look === 'gala'
+        ? ['#ff6fcf', '#b48bff', '#62d4ff', '#ffd36e', '#7fe3b8', '#ff9478', '#e3bdff', '#8fa8ff']
+        : ['#4b2a6b', '#7b5cd6', '#d6457f', '#5f7ee0', '#d4a24c', '#3fae9a', '#a98be6', '#e07a9e'];
+      return i >= 0 && groups[i].g !== 'other' ? pal[i % 8] : (look === 'gala' ? '#cfc6e4' : '#a49cb8');
     }
     const h = d3.hsl(c); h.l = Math.min(0.8, Math.max(0.64, h.l + 0.26)); h.s = Math.min(0.92, h.s * 1.3 + 0.08); return h.formatHex();
   },
@@ -119,7 +141,7 @@ const DP = {
     <p>@@LEDE@@</p>
   </div>
   <dl>@@STATS@@</dl>
-  <div class="looks" role="group" aria-label="The look of the page"><button data-look="paper">Paper</button><button data-look="star">Star map</button><button data-look="gala">Gala</button></div>
+  <div class="looks" role="group" aria-label="The look of the page"><button data-look="paper">Paper</button><button data-look="star">Star map</button><button data-look="gala">Gala</button><button data-look="moon">Moonlit</button></div>
   <script>
   (() => {
     const looks = document.querySelector('#masthead .looks');
@@ -193,11 +215,12 @@ const DP = {
     const tip = root.querySelector('.tip'), hint = root.querySelector('.hint'), tourBtn = root.querySelector('.tour');
     const css = getComputedStyle(document.documentElement), tok = n => css.getPropertyValue(n).trim();
     const PANEL = parseFloat(tok('--panel')) + 48, still = DP.still();
-    let INK, MUTED, OUT, IN, HALO, EDGE, EDGE2, PAPER, ISLE, FONT, SERIF, NIGHT, GALA, colour;
+    let INK, MUTED, OUT, IN, HALO, EDGE, EDGE2, PAPER, ISLE, FONT, SERIF, NIGHT, GALA, MOON, colour;
     function paint() {                                    // the look's tokens, read again whenever the look changes
       INK = tok('--ink'); MUTED = tok('--muted'); OUT = tok('--out'); IN = tok('--in'); HALO = tok('--halo'); EDGE = tok('--edge-rgb');
       EDGE2 = tok('--edge2-rgb'); PAPER = tok('--paper'); ISLE = tok('--isle'); FONT = tok('--font'); SERIF = tok('--serif');
-      NIGHT = DP.look() !== 'paper'; GALA = DP.look() === 'gala';   // the star map and the gala share the night; the gala adds its show
+      NIGHT = DP.look() === 'star' || DP.look() === 'gala'; GALA = DP.look() === 'gala';   // the star map and the gala share the night
+      MOON = DP.look() === 'moon';                        // moonlit is a light look of its own: a great moon, sparkles, ribbons, pearls
       colour = Object.fromEntries(groups.map(g => [g.g, DP.tone(g.color, groups)]));
     }
     paint();
@@ -408,9 +431,29 @@ const DP = {
       });
       ctx.globalAlpha = 1;
     }
+    // moonlit's sky: the brighter stars as four-point glints in white, lilac and gold that swell and fade, and ribbons
+    // drifting down and across, turning, like the ones thrown on a stage (the moon itself is the page's background)
+    const ribbons = d3.range(16).map(() => ({ x: skyRand(), y: skyRand(), s: 5 + skyRand() * 7, v: 0.6 + skyRand() * 0.9, w: 0.6 + skyRand(),
+      ph: skyRand() * 6.283, c: ['#e2457e', '#c22e66', '#ff8fb3', '#b79cf0'][Math.floor(skyRand() * 4)] }));
+    function moonSky(now) {
+      const s = now / 1000;
+      [['#ffffff', 0], ['#c4a6ff', 1], ['#f0c062', 2]].forEach(([c, m]) => {
+        ctx.fillStyle = c; ctx.globalAlpha = 0.9; ctx.beginPath();
+        sky.forEach((q, i) => { if (i % 3 !== m || q.r < 0.9) return; const a = still ? 0.8 : 0.5 + 0.5 * Math.sin(s * q.w + q.ph); spark(q.x * W, q.y * H, q.r * 4.4 * a); });
+        ctx.fill();
+      });
+      if (!still) ribbons.forEach(p => {
+        const x = ((p.x * W + s * 14 * p.v + Math.sin(s * p.w + p.ph) * 30) % (W + 40) + W + 40) % (W + 40) - 20;
+        const y = ((p.y * H + s * 22 * p.v) % (H + 40) + H + 40) % (H + 40) - 20;
+        ctx.save(); ctx.translate(x, y); ctx.rotate(s * p.w + p.ph); ctx.scale(1, 0.45 + 0.35 * Math.sin(s * p.w * 1.7 + p.ph));
+        ctx.globalAlpha = 0.5; ctx.fillStyle = p.c; ctx.beginPath(); ctx.ellipse(0, 0, p.s, p.s * 0.42, 0, 0, 7); ctx.fill(); ctx.restore();
+      });
+      ctx.globalAlpha = 1;
+    }
     function draw(now) {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
       if (NIGHT) stars(now);
+      if (MOON) moonSky(now);
       ctx.save(); ctx.translate(t.x, t.y); ctx.scale(t.k, t.k);
       const k = t.k, sk = Math.sqrt(k), quiet = chosen || peek;
       const wx0 = t.invertX(0), wx1 = t.invertX(W), wy0 = t.invertY(0), wy1 = t.invertY(H);
@@ -432,6 +475,13 @@ const DP = {
             ctx.strokeStyle = `rgba(255,214,120,${Math.min(1, ringA * 1.4)})`; ctx.beginPath(); ctx.arc(p.x, p.y, R * 0.93, 0, 7); ctx.stroke();
           }
           ctx.setLineDash([]);
+        } else if (MOON) {   // a pool of moonlight, ringed with gold pearls that turn slowly
+          const a = (p.h === '' ? 0.66 : 0.52) * (quiet ? 0.6 : 1) * (1 + 0.4 * p.hot), ringA = (0.5 + 0.4 * p.hot) * (quiet ? 0.45 : 1);
+          const gr = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, R);
+          gr.addColorStop(0, `rgba(255,255,255,${a})`); gr.addColorStop(0.7, `rgba(238,229,252,${a * 0.6})`); gr.addColorStop(1, 'rgba(214,200,246,0)');
+          ctx.fillStyle = gr; ctx.beginPath(); ctx.arc(p.x, p.y, R, 0, 7); ctx.fill();
+          ctx.setLineDash([0.01, 8 / k]); ctx.lineDashOffset = -(now / 1000) * 5 / k; ctx.lineCap = 'round'; ctx.lineWidth = 2.2 / k;
+          ctx.strokeStyle = `rgba(212,162,76,${ringA})`; ctx.beginPath(); ctx.arc(p.x, p.y, R, 0, 7); ctx.stroke(); ctx.setLineDash([]);
         } else {
           const a = (p.h === '' ? 0.042 : 0.032) * (quiet ? 0.55 : 1) * (1 + 1.3 * p.hot);
           ctx.fillStyle = `rgba(${EDGE},${a})`; ctx.beginPath(); ctx.arc(p.x, p.y, R, 0, 7); ctx.fill();
@@ -440,7 +490,7 @@ const DP = {
       const on = n => prog[n.i] * seen[n.i];
       // links: inside an island straight, between islands a soft curve; a hub's spokes only when it is pointed at.
       // On the star map light adds up ('lighter'), so where links cross they glow
-      const lineA = chosen ? 0.03 : peek ? 0.04 : (NIGHT ? 0.12 : 0.1);
+      const lineA = chosen ? 0.03 : peek ? 0.04 : (NIGHT || MOON ? 0.12 : 0.1);
       ctx.lineCap = 'round';
       if (NIGHT) ctx.globalCompositeOperation = 'lighter';
       [[false, 0.75 / sk, lineA, EDGE], [true, 0.6 / sk, lineA * (NIGHT ? 0.6 : 0.55), EDGE2]].forEach(([cross, w, a, rgb]) => {
@@ -452,7 +502,7 @@ const DP = {
         });
         ctx.stroke();
       });
-      const tail = NIGHT ? 9 : 6;
+      const tail = NIGHT || MOON ? 9 : 6;
       pulses.forEach(q => {                              // a pulse: the link lights, a bead with a tail runs along it (a comet at night)
         const u = Math.min(1, (now - q.t) / q.d), e = inOut(u), f = Math.sin(Math.PI * u), a = q.l.source, b = q.l.target;
         ctx.globalAlpha = 1; ctx.strokeStyle = `rgba(${EDGE2},${(NIGHT ? 0.22 : 0.16) * f})`; ctx.lineWidth = 1 / k; ctx.beginPath(); curve(a, b, 0.12); ctx.stroke();
@@ -497,11 +547,12 @@ const DP = {
       const vx0 = t.invertX(-30), vx1 = t.invertX(W + 30), vy0 = t.invertY(-30), vy1 = t.invertY(H + 30);   // what the camera sees
       const order = (quiet ? nodes.slice().sort((a, b) => lit[a.i] - lit[b.i]) : nodes).filter(n => n.x > vx0 && n.x < vx1 && n.y > vy0 && n.y < vy1);
       const ring = 0.9 / k, size = n => n.r * grow[n.i] * big[n.i] * (0.55 + 0.45 * lit[n.i]) * (0.35 + 0.65 * seen[n.i]);
-      if (NIGHT) {
-        ctx.globalCompositeOperation = 'lighter';
+      if (NIGHT || MOON) {   // a glow under each: light that adds up at night, a soft lilac shadow in moonlight
+        ctx.globalCompositeOperation = NIGHT ? 'lighter' : 'source-over';
         order.forEach(n => {
           const a = on(n), r = size(n); if (a < 0.02 || r <= 0) return;
-          ctx.globalAlpha = a * (0.03 + 0.08 * lit[n.i]); ctx.fillStyle = colour[n.g]; ctx.beginPath(); ctx.arc(n.x, n.y, r * 2.1, 0, 7); ctx.fill();
+          ctx.globalAlpha = a * (NIGHT ? 0.03 + 0.08 * lit[n.i] : 0.05 + 0.1 * lit[n.i]); ctx.fillStyle = colour[n.g];
+          ctx.beginPath(); ctx.arc(n.x, n.y, r * (NIGHT ? 2.1 : 1.7), 0, 7); ctx.fill();
         });
         ctx.globalCompositeOperation = 'source-over';
       }
@@ -510,18 +561,24 @@ const DP = {
         ctx.globalAlpha = a * (0.14 + 0.86 * lit[n.i]);
         ctx.fillStyle = colour[n.g]; ctx.beginPath(); ctx.arc(n.x, n.y, r, 0, 7); ctx.fill();
         if (NIGHT) { if (r * k > 3.4) { ctx.globalAlpha *= 0.8; ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.arc(n.x, n.y, r * 0.3, 0, 7); ctx.fill(); } }
-        else if (r * k > 3) { ctx.lineWidth = ring; ctx.strokeStyle = PAPER; ctx.stroke(); }
+        else if (r * k > 3) {
+          ctx.lineWidth = ring; ctx.strokeStyle = MOON ? '#ffffff' : PAPER; ctx.stroke();
+          if (MOON) { ctx.globalAlpha *= 0.75; ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.arc(n.x - r * 0.32, n.y - r * 0.34, r * 0.26, 0, 7); ctx.fill(); }   // a pearl's gleam
+        }
         if (n === chosen || n === hover) { ctx.globalAlpha = a; ctx.lineWidth = 1.5 / k; ctx.strokeStyle = INK; ctx.beginPath(); ctx.arc(n.x, n.y, r + 3 / k, 0, 7); ctx.stroke(); }
       });
       ctx.globalAlpha = 1;
-      if (NIGHT && chosen && seen[chosen.i] > 0.5) {      // a reticle turns round the chosen thing; the gala's is a wheel with four gems
-        const n = chosen, R = n.r + 9 / k, turn = (now / 1000) * 1.1;
+      if ((NIGHT || MOON) && chosen && seen[chosen.i] > 0.5) {   // a reticle turns round the chosen thing; the gala's has four gems,
+        const n = chosen, R = n.r + 9 / k, turn = (now / 1000) * 1.1;   // moonlit's four plum diamonds
         ctx.setLineDash([5 / k, 4 / k]); ctx.lineDashOffset = -(now / 1000) * 12 / k; ctx.lineWidth = 1.2 / k;
-        ctx.strokeStyle = GALA ? 'rgba(255,150,225,.95)' : 'rgba(232,198,128,.9)';
+        ctx.strokeStyle = GALA ? 'rgba(255,150,225,.95)' : MOON ? 'rgba(201,63,122,.85)' : 'rgba(232,198,128,.9)';
         ctx.beginPath(); ctx.arc(n.x, n.y, R, 0, 7); ctx.stroke(); ctx.setLineDash([]);
-        if (GALA) {
-          ctx.fillStyle = '#ffd36e'; ctx.beginPath();
-          for (let q = 0; q < 4; q++) { const a = turn + q * Math.PI / 2; spark(n.x + Math.cos(a) * R, n.y + Math.sin(a) * R, 4.5 / k); }
+        if (GALA || MOON) {
+          ctx.fillStyle = GALA ? '#ffd36e' : '#3b2152'; ctx.beginPath();
+          for (let q = 0; q < 4; q++) {
+            const a = turn + q * Math.PI / 2, x = n.x + Math.cos(a) * R, y = n.y + Math.sin(a) * R, d = 4.5 / k;
+            if (GALA) spark(x, y, d); else { ctx.moveTo(x, y - d); ctx.lineTo(x + d * 0.62, y); ctx.lineTo(x, y + d); ctx.lineTo(x - d * 0.62, y); ctx.closePath(); }
+          }
           ctx.fill();
         }
       }
@@ -619,7 +676,8 @@ const DP = {
     };
     const isleAt = (px, py) => { const x = t.invertX(px), y = t.invertY(py); return isles.find(p => Math.hypot(x - p.x, y - p.y) <= p.D) || null; };
     function burst(n) {                                  // 64 bits of confetti, in the show's colours, flung out at screen-size speeds
-      const t0 = performance.now(), k = t.k, cs = ['#ff6fcf', '#ffd36e', '#62d4ff', '#b48bff', '#7fe3b8', '#ff9478'];
+      const t0 = performance.now(), k = t.k, cs = MOON ? ['#d6457f', '#7b5cd6', '#ffffff', '#f0c062', '#c4a6ff', '#ff8fb3']
+                                                        : ['#ff6fcf', '#ffd36e', '#62d4ff', '#b48bff', '#7fe3b8', '#ff9478'];
       for (let j = 0; j < 64; j++) {
         const a = rand() * 6.283, v = (0.08 + rand() * 0.14) / k;
         confetti.push({ x: n.x, y: n.y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 0.07 / k, g: 0.00016 / k, t: t0, life: 1100 + rand() * 800,
@@ -629,7 +687,7 @@ const DP = {
     function choose(n, tell) {
       chosen = n || null; near.clear(); pointed = null;
       if (chosen) { near.add(chosen.i); around[chosen.i].forEach(l => { near.add(l.source.i); near.add(l.target.i); }); ripple = { n: chosen, t: performance.now() }; hoverIsle = null; }
-      if (chosen && GALA && !still) burst(chosen);
+      if (chosen && (GALA || MOON) && !still) burst(chosen);
       panelOpen = !!chosen; root.classList.toggle('panel', panelOpen);
       if (tell) document.dispatchEvent(new CustomEvent('dp:select', { detail: { id: chosen ? chosen.id : null } }));
       need();
@@ -855,7 +913,9 @@ const DP = {
 <aside id="detail" aria-live="polite">
   <style>
     #detail { position:fixed; top:calc(var(--head) + 14px); right:24px; bottom:24px; width:var(--panel); z-index:6; overflow:auto;
-              background:linear-gradient(var(--corner-c), var(--corner-c)) left top / 14px 1.5px no-repeat,
+              background:linear-gradient(135deg, var(--zig) 25%, transparent 25%) left top / 14px 7px repeat-x,
+                         linear-gradient(225deg, var(--zig) 25%, transparent 25%) left top / 14px 7px repeat-x,
+                         linear-gradient(var(--corner-c), var(--corner-c)) left top / 14px 1.5px no-repeat,
                          linear-gradient(var(--corner-c), var(--corner-c)) left top / 1.5px 14px no-repeat,
                          linear-gradient(var(--corner-c), var(--corner-c)) right bottom / 14px 1.5px no-repeat,
                          linear-gradient(var(--corner-c), var(--corner-c)) right bottom / 1.5px 14px no-repeat, var(--sheet);
