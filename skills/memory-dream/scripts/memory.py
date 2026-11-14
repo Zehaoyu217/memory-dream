@@ -5218,13 +5218,14 @@ def kg_islands(home, links, labels, general=frozenset(), middle="shared by sever
 
 def kg_page(title, headline, lede, stats, meta, groups, things, links, notes, eyebrow="Knowledge graph", theme="paper"):
     """The page itself: assets/knowledge-graph.html with its data islands and masthead filled, d3 (ISC) pasted in.
-    theme: the look it opens in, paper or star (a star map at night); a switch in its header flips between them."""
+    theme: the look it opens in: paper, star (a star map at night) or gala (a purple show at night); a switch in its
+    header picks among them."""
     def island(rows):  # one record per line, and nothing in it that closes a script
         return ("[\n" + ",\n".join("  " + json.dumps(r, ensure_ascii=False, separators=(",", ":")) for r in rows)
                 + "\n]").replace("</", "<\\/")
     assets = Path(__file__).resolve().parent.parent / "assets"
     page = read(assets / "knowledge-graph.html")
-    fill = {"@@THEME@@": theme if theme in ("paper", "star") else "paper",
+    fill = {"@@THEME@@": theme if theme in ("paper", "star", "gala") else "paper",
             "@@TITLE@@": html.escape(title), "@@EYEBROW@@": html.escape(eyebrow), "@@HEADLINE@@": html.escape(headline),
             "@@LEDE@@": html.escape(lede),
             "@@STATS@@": "".join(f"<div><dt>{html.escape(a)}</dt><dd>{b:,}</dd></div>" for a, b in stats),
@@ -5348,8 +5349,8 @@ def main(argv=None):
     a.add_argument("--all", action="store_true", help="with --list: every line, however many (pipe it through grep)")
     vz = sp.add_parser("viz", parents=[common], help="write the HTML viewer (dream refreshes it too)")
     vz.add_argument("--out", help="output file (default memory/_dream/graph.html)")
-    vz.add_argument("--theme", choices=["paper", "star"], default="paper",
-                    help="the look _dream/knowledge-graph.html opens in (a switch in it flips to the other)")
+    vz.add_argument("--theme", choices=["paper", "star", "gala"], default="paper",
+                    help="the look _dream/knowledge-graph.html opens in (a switch in it picks among the three)")
     sp.add_parser("check", parents=[common], help="warnings in full")
     ab = sp.add_parser("absorb", parents=[common], help="take another base in as an origin: prints what it would take, acts with --yes")
     ab.add_argument("folder", help="a folder of notes: .md files, with its readings or a relations.jsonl if it has them")

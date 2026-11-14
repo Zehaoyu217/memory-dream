@@ -21,10 +21,12 @@ const path = require('path');
   const panel = await page.evaluate(() => ({ open: document.getElementById('detail').classList.contains('open'),
                                              name: (document.querySelector('#detail h2') || {}).textContent || '', rows: document.querySelectorAll('#detail li').length }));
   out('search picks a thing; the panel shows its links', panel.open && panel.rows > 0, panel);
-  const before = await page.evaluate(() => document.documentElement.dataset.theme);
-  await page.locator('#masthead .swap').click(); await page.waitForTimeout(700);
-  const after = await page.evaluate(() => document.documentElement.dataset.theme);
-  out('the look switches', before !== after && ['paper', 'star'].includes(after), { before, after });
+  const looks = [];
+  for (const look of ['star', 'gala', 'paper']) {           // each look, picked in the header, with a thing chosen
+    await page.locator(`#masthead .looks button[data-look="${look}"]`).click(); await page.waitForTimeout(700);
+    looks.push(await page.evaluate(() => document.documentElement.dataset.theme));
+  }
+  out('the three looks switch', looks.join() === 'star,gala,paper', { looks });
   await page.keyboard.press('Escape'); await page.waitForTimeout(300);
   out('no page errors', errors.length === 0, { errors });
   await browser.close();

@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """The knowledge-graph page for any graph, as one HTML file that opens offline.
 
-  python3 demo/knowledge-graph/build.py <graph.json | memory folder> <out.html> [--title "…"] [--theme paper|star]
+  python3 demo/knowledge-graph/build.py <graph.json | memory folder> <out.html> [--title "…"] [--theme paper|star|gala]
 
---theme: the look the page opens in, paper (the default) or star (a star map at night); a switch in its header flips
-between the two.
+--theme: the look the page opens in: paper (the default), star (a star map at night) or gala (a purple show at night,
+starlight and lotto wheels, confetti when a thing is picked); a switch in its header picks among the three.
 
 A memory: the same page `memory.py viz` and every dream write to memory/_dream/knowledge-graph.html (it needs a memory
 dreamed with a model command: the things and their links are what its keepers read).

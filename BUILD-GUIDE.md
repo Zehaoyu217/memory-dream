@@ -626,12 +626,14 @@ it; the page and d3 7.9.0 (ISC) sit in `assets/`, and it opens offline.
    Nuij), its links flowing blue for what it uses and orange for what uses it, beside a panel of each link and the
    line of the note that says it; the legend lights a group, a panel row makes its thing beat, an island click flies
    to it, the tour visits the most linked things. Names never cover one another. `prefers-reduced-motion` stills it.
-4. **Two looks, one page.** Paper, and a star map at night (deep sky and twinkling stars, a nebula and a turning
-   orbit under each island, glowing things, faint gold lines between islands, glass panels with gold corners). Both
-   are tokens on `<html data-theme>` plus a few canvas branches; a switch in the header flips them and the canvas
-   fades across; `viz --theme star` opens in the night look. Measured on the 1,677-note bank: 1,082 things, 2,740
-   links, 49 islands, 1.3 MB; 60 frames a second while it flows on a laptop's GPU; 0 page errors headless
-   (`tests/kg_check.js`).
+4. **Three looks, one page, kept side by side.** Paper; a star map at night (deep sky and twinkling stars, a nebula
+   and a turning orbit under each island, glowing things, faint gold lines between islands, glass panels with gold
+   corners); and a gala, a purple show at night (stage-lit purple sky with a small moon, four-point sparkles, a
+   pink wheel and a counter-turning ring of gold beads round each island, candy colours by legend order, a theatrical
+   italic serif, confetti flung out of a thing when it is picked). Each is tokens on `<html data-theme>` plus a few
+   canvas branches; a three-way switch in the header picks one and the canvas fades across; `viz --theme
+   star|gala` opens in a night look. Measured on the 1,677-note bank: 1,082 things, 2,740 links, 49 islands, 1.4 MB;
+   60 frames a second in every look on a laptop's GPU; 0 page errors headless (`tests/kg_check.js`).
 
 ---
 
