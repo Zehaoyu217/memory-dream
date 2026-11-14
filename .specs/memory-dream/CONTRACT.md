@@ -183,7 +183,7 @@ relation is "current" when one of its evidence notes is live).
   `psig` (§1). A dream with nothing changed in any of these, nor in a file a note points at, stops after the scan.
 - `knowledge-graph.html` — the entities that have a relation and those relations alone, one offline page to show
   people (`assets/knowledge-graph.html` filled by `write_kg`, d3 7.9.0 inside), rewritten by every dream and by `viz`
-  (`--theme paper|star|gala|moon|fanfare`: the look it opens in), removed when no two entities are related. One relation per `(s, type,
+  (`--theme paper|star|gala|moon|fanfare|noir`: the look it opens in), removed when no two entities are related. One relation per `(s, type,
   o)`, with the line its first evidence names. Islands: the area holding at least 60% of an entity's project mentions,
   the general area naming it most when no project does, else the middle; when the areas do not part the entities (one
   holds over half, or fewer than three hold three) the communities of the relations (Louvain) instead. Colours: the

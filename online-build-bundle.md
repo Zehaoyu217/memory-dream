@@ -639,7 +639,7 @@ or to a fresh worker given the packet, at most twice. After that, it stops and r
 
 ## Appendix A — the contract surface, verbatim: `skills/memory-dream/SKILL.md` and the dreamer agent
 
-_Part 5 · copied at commit 83b5144. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
+_Part 5 · copied at commit 5284900. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
 
 ```markdown
 ---
@@ -699,7 +699,7 @@ truth; everything else is derived and disposable. `memory.py` = `python3 <this s
 3. **Dream at the end.** `memory.py dream` (background is fine) refreshes `_dream/graph.html` — the map, what is worth
    checking, the review queue — the digest `memory/DIGEST.md` and the index. With `$MEMORY_LLM` set (e.g. `claude -p
    --model haiku --tools ""`) a cheap model also names the things each note mentions and the typed links between them,
-   and `_dream/knowledge-graph.html` shows those alone, a page to show people (`viz --theme star|gala|moon|fanfare` for another look);
+   and `_dream/knowledge-graph.html` shows those alone, a page to show people (`viz --theme star|gala|moon|fanfare|noir` for another look);
    without a model nothing is missing for answering. Many notes to read: `memory.py dream --dry-run --packets` says
    how many calls and about how much, and `dream --packets` reads about a dozen short notes a call, which is cheaper
    and reads the links between a folder's notes better than one call a note; with no command it
@@ -789,7 +789,7 @@ Touch nothing else.
 
 ## Appendix B — the graph contract, verbatim: `.specs/memory-dream/CONTRACT.md`
 
-_Part 6 · copied at commit 83b5144. Schema 1; `memory.py check` validates against it (A38)._
+_Part 6 · copied at commit 5284900. Schema 1; `memory.py check` validates against it (A38)._
 
 ## memory-dream — the graph contract (schema 1)
 
@@ -976,7 +976,7 @@ relation is "current" when one of its evidence notes is live).
   `psig` (§1). A dream with nothing changed in any of these, nor in a file a note points at, stops after the scan.
 - `knowledge-graph.html` — the entities that have a relation and those relations alone, one offline page to show
   people (`assets/knowledge-graph.html` filled by `write_kg`, d3 7.9.0 inside), rewritten by every dream and by `viz`
-  (`--theme paper|star|gala|moon|fanfare`: the look it opens in), removed when no two entities are related. One relation per `(s, type,
+  (`--theme paper|star|gala|moon|fanfare|noir`: the look it opens in), removed when no two entities are related. One relation per `(s, type,
   o)`, with the line its first evidence names. Islands: the area holding at least 60% of an entity's project mentions,
   the general area naming it most when no project does, else the middle; when the areas do not part the entities (one
   holds over half, or fewer than three hold three) the communities of the relations (Louvain) instead. Colours: the
@@ -1091,7 +1091,7 @@ origin by adding the file. What changes for the notes under it, and nothing else
 
 ## Appendix C — the build guide, verbatim: `BUILD-GUIDE.md` §3–§10
 
-_Part 7 · copied at commit 83b5144. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
+_Part 7 · copied at commit 5284900. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
 
 ### 3. The design in one page
 
@@ -1637,7 +1637,7 @@ it; the page and d3 7.9.0 (ISC) sit in `assets/`, and it opens offline.
    Nuij), its links flowing blue for what it uses and orange for what uses it, beside a panel of each link and the
    line of the note that says it; the legend lights a group, a panel row makes its thing beat, an island click flies
    to it, the tour visits the most linked things. Names never cover one another. `prefers-reduced-motion` stills it.
-4. **Five looks, one page, kept side by side.** Paper; a star map at night (deep sky and twinkling stars, a nebula
+4. **Six looks, one page, kept side by side.** Paper; a star map at night (deep sky and twinkling stars, a nebula
    and a turning orbit under each island, glowing things, faint gold lines between islands, glass panels with gold
    corners); a gala, a purple show at night (stage-lit purple sky with a small moon, four-point sparkles, a pink
    wheel and a counter-turning ring of gold beads round each island, candy colours by legend order, a theatrical
@@ -1647,10 +1647,13 @@ it; the page and d3 7.9.0 (ISC) sit in `assets/`, and it opens offline.
    panel, plum diamonds turning round a picked thing); and fanfare, a show after a violet-and-gold stage outfit (a
    violet stage with no black, gold, pink and cyan spotlights sweeping from above, a checkered floor running back to
    the horizon, bunting along the top, each island a round stage ringed with chasing marquee bulbs, candy-bright
-   lotto balls, white cards with speech-bubble rows, a ✦ after the title). The gala, moonlit and fanfare fling
-   confetti out of a thing when it is picked. Each look is tokens on `<html data-theme>` (names on the page read
-   `--page-ink`, names on a card `--ink`) plus a few canvas branches; a switch in the header picks one and the
-   canvas fades across; `viz --theme star|gala|moon|fanfare` opens in another. Measured on the 1,677-note bank:
+   lotto balls, white cards with speech-bubble rows, a ✦ after the title); and noir, black and white after a
+   black-and-white outfit with purple tulle (a black stage, one warm spotlight, a black-and-white checkered floor,
+   white and silver things, warm-white marquee bulbs, the four card suits turning round a picked thing, purple only
+   as an accent). The gala, moonlit, fanfare and noir fling confetti out of a thing when it is picked (noir's a
+   quarter card suits). Each look is tokens on `<html data-theme>` (names on the page read `--page-ink`, names on a
+   card `--ink`) plus a few canvas branches; a switch in the header picks one and the canvas fades across;
+   `viz --theme star|gala|moon|fanfare|noir` opens in another. Measured on the 1,677-note bank:
    1,082 things, 2,740 links, 49 islands, 1.4 MB; 60 frames a second in every look on a laptop's GPU; 0 page errors
    and no stray black in any look, headless (`tests/kg_check.js`).
 
@@ -1836,7 +1839,7 @@ preferences 0.95 when the task names them, 0.84 when it names only their meeting
 
 ## Appendix D — prompts, seeds and tuned tables, verbatim from `memory.py`
 
-_Part 8 · extracted at commit 83b5144 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
+_Part 8 · extracted at commit 5284900 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
 
 ### D.1 `EXTRACT` — the per-note prompt: fixed guidance, then `KINDS:`, `TYPES:`, `EDGES:` and `KNOWN:` from the registries (the static part is cached), then `NOTE`
 

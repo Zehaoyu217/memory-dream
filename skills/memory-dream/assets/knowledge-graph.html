@@ -113,6 +113,25 @@
       radial-gradient(60% 55% at 52% 16%, rgba(255,236,170,.50) 0%, rgba(255,236,170,0) 70%),
       radial-gradient(900px 600px at 50% 122%, rgba(255,160,230,.38) 0%, rgba(255,160,230,0) 60%),
       radial-gradient(1300px 860px at 50% 38%, #8c5ef2 0%, #6a3be0 45%, #4a24b8 100%); }
+  /* noir: black and white, after a black-and-white outfit with purple tulle on a checkered stage: a black stage, one
+     warm spotlight, a checkered floor, white and silver things, marquee bulbs, playing-card suits; purple only as an
+     accent; a look, not a game's: no names, marks or art from one */
+  :root[data-theme="noir"] {
+    color-scheme:dark;
+    --paper:#09080c; --sheet:rgba(18,17,24,.86); --tint:rgba(255,255,255,.07); --ink:#f4f2f8; --muted:#aaa5b6; --faint:#6f6b7a;
+    --accent:#a67cff; --out:#b9a2ff; --in:#e2c27a; --edge-rgb:235,232,245; --edge2-rgb:226,194,122; --halo:rgba(9,8,12,.9);
+    --isle:rgba(236,233,244,.82); --on-accent:#0b0a0f; --ring:rgba(166,124,255,.40); --accent-soft:rgba(166,124,255,.12);
+    --accent-soft-2:rgba(166,124,255,.22); --in-soft:rgba(226,194,122,.14); --label:#b9a2ff; --figure:#ffffff; --display-weight:400;
+    --display-style:normal; --radius:10px; --panel-radius:12px;
+    --font:"Avenir Next","Avenir","Segoe UI","Helvetica Neue",Arial,sans-serif;
+    --serif:"Didot","Bodoni 72","Bodoni MT","Playfair Display",Georgia,serif;
+    --shadow:0 0 0 1px rgba(255,255,255,.10),0 18px 50px rgba(0,0,0,.6);
+    --row:rgba(255,255,255,.05); --row-hover:rgba(255,255,255,.10); --corner:""; --corner-c:rgba(166,124,255,.85); --mark:"♠";
+    --blur:blur(14px); --tail:""; --title-mark:"✦"; --card-label:#b9a2ff; --card-figure:#ffffff; --hint-ink:rgba(255,255,255,.6);
+  }
+  :root[data-theme="noir"] body { background:radial-gradient(70% 60% at 50% 6%, rgba(255,240,205,.11) 0%, rgba(255,240,205,0) 70%),
+                                  radial-gradient(1200px 800px at 50% 50%, #17151d 0%, #0b0a0f 60%, #050407 100%); }
+  :root[data-theme="noir"] .float { position:relative; }
   :focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
 </style>
 <script id="lib">
@@ -125,12 +144,13 @@ const DP = {
   tone: (c, groups) => {             // a group's colour for the look in use: the star map lifts it so it glows on the dark;
     const look = DP.look();          // the gala gives each group a colour of its show, by its place among `groups` (the legend's order)
     if (look === 'paper') return c;
-    if (look === 'gala' || look === 'moon' || look === 'fanfare') {   // each show look has its own eight, in the legend's order
+    if (look === 'gala' || look === 'moon' || look === 'fanfare' || look === 'noir') {   // each show look has its own eight, in the legend's order
       const i = (groups || []).findIndex(g => g.color === c), pal = {
         gala: ['#ff6fcf', '#b48bff', '#62d4ff', '#ffd36e', '#7fe3b8', '#ff9478', '#e3bdff', '#8fa8ff'],
         moon: ['#4b2a6b', '#7b5cd6', '#d6457f', '#5f7ee0', '#d4a24c', '#3fae9a', '#a98be6', '#e07a9e'],
-        fanfare: ['#ffd35c', '#7ee7ff', '#ff8fd8', '#ffffff', '#c9a8ff', '#8ff0b8', '#ffb37a', '#a8b8ff'] }[look];
-      return i >= 0 && groups[i].g !== 'other' ? pal[i % 8] : { gala: '#cfc6e4', moon: '#a49cb8', fanfare: '#ddd3f5' }[look];
+        fanfare: ['#ffd35c', '#7ee7ff', '#ff8fd8', '#ffffff', '#c9a8ff', '#8ff0b8', '#ffb37a', '#a8b8ff'],
+        noir: ['#f4f2f8', '#b9b6c4', '#a67cff', '#e2c27a', '#d9c8ff', '#e889c9', '#a9dcef', '#8a8696'] }[look];   // white and silver first
+      return i >= 0 && groups[i].g !== 'other' ? pal[i % 8] : { gala: '#cfc6e4', moon: '#a49cb8', fanfare: '#ddd3f5', noir: '#5e5a69' }[look];
     }
     const h = d3.hsl(c); h.l = Math.min(0.8, Math.max(0.64, h.l + 0.26)); h.s = Math.min(0.92, h.s * 1.3 + 0.08); return h.formatHex();
   },
@@ -165,7 +185,7 @@ const DP = {
     <p>@@LEDE@@</p>
   </div>
   <dl>@@STATS@@</dl>
-  <div class="looks" role="group" aria-label="The look of the page"><button data-look="paper">Paper</button><button data-look="star">Star map</button><button data-look="gala">Gala</button><button data-look="moon">Moonlit</button><button data-look="fanfare">Fanfare</button></div>
+  <div class="looks" role="group" aria-label="The look of the page"><button data-look="paper">Paper</button><button data-look="star">Star map</button><button data-look="gala">Gala</button><button data-look="moon">Moonlit</button><button data-look="fanfare">Fanfare</button><button data-look="noir">Noir</button></div>
   <script>
   (() => {
     const looks = document.querySelector('#masthead .looks');
@@ -239,12 +259,13 @@ const DP = {
     const tip = root.querySelector('.tip'), hint = root.querySelector('.hint'), tourBtn = root.querySelector('.tour');
     const css = getComputedStyle(document.documentElement), tok = n => css.getPropertyValue(n).trim();
     const PANEL = parseFloat(tok('--panel')) + 48, still = DP.still();
-    let INK, MUTED, OUT, IN, HALO, EDGE, EDGE2, PAPER, ISLE, FONT, SERIF, NIGHT, GALA, MOON, FAN, colour;
+    let INK, MUTED, OUT, IN, HALO, EDGE, EDGE2, PAPER, ISLE, FONT, SERIF, NIGHT, GALA, MOON, FAN, NOIR, colour;
     function paint() {                                    // the look's tokens, read again whenever the look changes
       INK = tok('--page-ink'); MUTED = tok('--page-muted');   // names sit on the page, not on a card
       OUT = tok('--out'); IN = tok('--in'); HALO = tok('--halo'); EDGE = tok('--edge-rgb');
       EDGE2 = tok('--edge2-rgb'); PAPER = tok('--paper'); ISLE = tok('--isle'); FONT = tok('--font'); SERIF = tok('--serif');
-      NIGHT = DP.look() === 'star' || DP.look() === 'gala'; GALA = DP.look() === 'gala';   // the star map and the gala share the night
+      NOIR = DP.look() === 'noir';                        // noir: black and white on a checkered stage, one spotlight, card suits
+      NIGHT = DP.look() === 'star' || DP.look() === 'gala' || NOIR; GALA = DP.look() === 'gala';   // the dark looks share the night
       MOON = DP.look() === 'moon';                        // moonlit is a light look of its own: a great moon, sparkles, ribbons, pearls
       FAN = DP.look() === 'fanfare';                      // fanfare: a show, spotlights, a checkered floor, bunting, marquee bulbs
       colour = Object.fromEntries(groups.map(g => [g.g, DP.tone(g.color, groups)]));
@@ -477,14 +498,14 @@ const DP = {
       ctx.globalAlpha = 1;
     }
     // fanfare's stage, behind the graph: three spotlights (gold, pink, cyan) sweeping slowly from above, a checkered floor
-    // running back to the horizon, bunting swaying along the top, and sparkles
+    // running back to the horizon, bunting swaying along the top, and sparkles. Noir's: one warm spotlight and the floor
     function stage(now) {
       const s = still ? 0 : now / 1000;
       ctx.globalCompositeOperation = 'lighter';
-      [[0.27, '255,224,140', 0], [0.56, '255,150,220', 2.1], [0.83, '140,230,255', 4.2]].forEach(([fx, c, ph]) => {
-        const x0 = fx * W, y0 = -90, ang = Math.PI / 2 + 0.24 * Math.sin(s * 0.33 + ph), spread = 0.15, L = H * 1.6;
+      (NOIR ? [[0.5, '255,236,200', 0]] : [[0.27, '255,224,140', 0], [0.56, '255,150,220', 2.1], [0.83, '140,230,255', 4.2]]).forEach(([fx, c, ph]) => {
+        const x0 = fx * W, y0 = -90, ang = Math.PI / 2 + (NOIR ? 0.12 : 0.24) * Math.sin(s * 0.33 + ph), spread = NOIR ? 0.24 : 0.15, L = H * 1.6;
         const gr = ctx.createLinearGradient(x0, y0, x0 + Math.cos(ang) * L, y0 + Math.sin(ang) * L);
-        gr.addColorStop(0, `rgba(${c},.30)`); gr.addColorStop(0.5, `rgba(${c},.09)`); gr.addColorStop(1, `rgba(${c},0)`);
+        gr.addColorStop(0, `rgba(${c},${NOIR ? 0.2 : 0.3})`); gr.addColorStop(0.5, `rgba(${c},${NOIR ? 0.07 : 0.09})`); gr.addColorStop(1, `rgba(${c},0)`);
         ctx.fillStyle = gr; ctx.beginPath(); ctx.moveTo(x0, y0);
         ctx.lineTo(x0 + Math.cos(ang - spread) * L, y0 + Math.sin(ang - spread) * L); ctx.lineTo(x0 + Math.cos(ang + spread) * L, y0 + Math.sin(ang + spread) * L);
         ctx.closePath(); ctx.fill();
@@ -494,10 +515,11 @@ const DP = {
       const yAt = r => hz + (H - hz) * (r / rows) ** 1.7, xAt = (c, y) => vx + (c - cols / 2) * (W / cols * 1.7) * (y - vy) / (H - vy);
       for (let r = 0; r < rows; r++) {
         const y0 = yAt(r), y1 = yAt(r + 1);
-        ctx.fillStyle = `rgba(255,255,255,${0.025 + 0.085 * r / rows})`; ctx.beginPath();
+        ctx.fillStyle = `rgba(255,255,255,${(NOIR ? 0.035 : 0.025) + (NOIR ? 0.11 : 0.085) * r / rows})`; ctx.beginPath();
         for (let c = r % 2; c < cols; c += 2) { ctx.moveTo(xAt(c, y0), y0); ctx.lineTo(xAt(c + 1, y0), y0); ctx.lineTo(xAt(c + 1, y1), y1); ctx.lineTo(xAt(c, y1), y1); ctx.closePath(); }
         ctx.fill();
       }
+      if (NOIR) return;                                   // noir keeps to the spotlight, the floor and the night's stars
       const nb = Math.max(12, Math.round(W / 44)), cs = ['#ffd35c', '#ffffff', '#ff8fd8', '#7ee7ff', '#c9a8ff'];
       for (let i = 0; i < nb; i++) {                     // bunting: pennants on a sagging string, swaying a little
         const u = (i + 0.5) / nb, x = u * W, y = 6 + 104 * u * (1 - u);
@@ -512,7 +534,7 @@ const DP = {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
       if (NIGHT) stars(now);
       if (MOON) moonSky(now);
-      if (FAN) stage(now);
+      if (FAN || NOIR) stage(now);
       ctx.save(); ctx.translate(t.x, t.y); ctx.scale(t.k, t.k);
       const k = t.k, sk = Math.sqrt(k), quiet = chosen || peek;
       const wx0 = t.invertX(0), wx1 = t.invertX(W), wy0 = t.invertY(0), wy1 = t.invertY(H);
@@ -520,7 +542,7 @@ const DP = {
         if (p.grow <= 0) return;
         const R = p.D * Math.max(0, p.grow);
         if (p.x + R < wx0 || p.x - R > wx1 || p.y + R < wy0 || p.y - R > wy1) return;
-        if (NIGHT) {
+        if (NIGHT && !NOIR) {
           const tint = GALA ? (p.h === '' ? '255,207,92' : p.folder ? '255,110,200' : '160,96,255') : (p.h === '' ? '232,198,128' : p.folder ? '176,146,255' : '118,146,255');
           const a = (p.h === '' ? 0.14 : 0.1) * (GALA ? 1.25 : 1) * (quiet ? 0.5 : 1) * (1 + 1.2 * p.hot), ringA = (0.17 + 0.35 * p.hot) * (quiet ? 0.45 : 1);
           const gr = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, R);
@@ -541,14 +563,14 @@ const DP = {
           ctx.fillStyle = gr; ctx.beginPath(); ctx.arc(p.x, p.y, R, 0, 7); ctx.fill();
           ctx.setLineDash([0.01, 8 / k]); ctx.lineDashOffset = -(now / 1000) * 5 / k; ctx.lineCap = 'round'; ctx.lineWidth = 2.2 / k;
           ctx.strokeStyle = `rgba(212,162,76,${ringA})`; ctx.beginPath(); ctx.arc(p.x, p.y, R, 0, 7); ctx.stroke(); ctx.setLineDash([]);
-        } else if (FAN) {    // a round stage in a soft spot of light, ringed with marquee bulbs that chase round it
-          const a = (p.h === '' ? 0.18 : 0.12) * (quiet ? 0.6 : 1) * (1 + 0.6 * p.hot);
+        } else if (FAN || NOIR) {   // a round stage in a soft spot of light, ringed with marquee bulbs that chase round it
+          const a = (p.h === '' ? 0.18 : 0.12) * (NOIR ? 0.45 : 1) * (quiet ? 0.6 : 1) * (1 + 0.6 * p.hot);
           const gr = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, R);
           gr.addColorStop(0, `rgba(255,244,214,${a})`); gr.addColorStop(1, 'rgba(255,244,214,0)');
           ctx.fillStyle = gr; ctx.beginPath(); ctx.arc(p.x, p.y, R, 0, 7); ctx.fill();
           const nB = Math.max(12, Math.min(90, Math.round(2 * Math.PI * R * k / 13))), step = Math.floor((still ? 0 : now) / 150), br = 1.8 / k;
           [[true, quiet ? 0.5 : 1], [false, quiet ? 0.18 : 0.36]].forEach(([lit3, al]) => {
-            ctx.fillStyle = `rgba(255,236,160,${al * (1 + 0.3 * p.hot)})`; ctx.beginPath();
+            ctx.fillStyle = `rgba(${NOIR ? '255,246,226' : '255,236,160'},${al * (NOIR ? 0.8 : 1) * (1 + 0.3 * p.hot)})`; ctx.beginPath();
             for (let b = 0; b < nB; b++) {
               if (((b + step) % 3 === 0) !== lit3) continue;
               const an = b / nB * 6.2832, x = p.x + Math.cos(an) * R, y = p.y + Math.sin(an) * R; ctx.moveTo(x + br, y); ctx.arc(x, y, br, 0, 7);
@@ -644,8 +666,15 @@ const DP = {
       if ((NIGHT || MOON || FAN) && chosen && seen[chosen.i] > 0.5) {   // a reticle turns round the chosen thing: the gala's with
         const n = chosen, R = n.r + 9 / k, turn = (now / 1000) * 1.1;          // four gems, moonlit's four plum diamonds, fanfare's sparkles
         ctx.setLineDash([5 / k, 4 / k]); ctx.lineDashOffset = -(now / 1000) * 12 / k; ctx.lineWidth = (FAN ? 1.6 : 1.2) / k;
-        ctx.strokeStyle = GALA ? 'rgba(255,150,225,.95)' : MOON ? 'rgba(201,63,122,.85)' : FAN ? 'rgba(255,214,92,.98)' : 'rgba(232,198,128,.9)';
+        ctx.strokeStyle = GALA ? 'rgba(255,150,225,.95)' : MOON ? 'rgba(201,63,122,.85)' : FAN ? 'rgba(255,214,92,.98)' : NOIR ? 'rgba(255,255,255,.9)' : 'rgba(232,198,128,.9)';
         ctx.beginPath(); ctx.arc(n.x, n.y, R, 0, 7); ctx.stroke(); ctx.setLineDash([]);
+        if (NOIR) {          // noir's: the four suits of a deck of cards turn round it, the red two in the accent
+          ctx.font = `${18 / k}px ${SERIF}`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+          ['♠', '♥', '♣', '♦'].forEach((g, q) => {
+            const a = turn + q * Math.PI / 2; ctx.fillStyle = q % 2 ? '#b9a2ff' : '#ffffff';
+            ctx.fillText(g, n.x + Math.cos(a) * (R + 11 / k), n.y + Math.sin(a) * (R + 11 / k));
+          });
+        }
         if (GALA || MOON || FAN) {
           ctx.fillStyle = GALA ? '#ffd36e' : MOON ? '#3b2152' : '#ffffff'; ctx.beginPath();
           for (let q = 0; q < 4; q++) {
@@ -662,6 +691,7 @@ const DP = {
           ctx.save(); ctx.translate(q.x + q.vx * u, q.y + q.vy * u + 0.5 * q.g * u * u); ctx.rotate(q.r0 + q.vr * u);
           ctx.globalAlpha = Math.max(0, f); ctx.fillStyle = q.c;
           if (q.shape === 0) ctx.fillRect(-q.s / 2, -q.s / 4, q.s, q.s / 2);
+          else if (q.shape === 3) { ctx.font = `${q.s * 1.6}px ${SERIF}`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(q.suit, 0, 0); }   // a card suit
           else { ctx.beginPath(); if (q.shape === 1) spark(0, 0, q.s * 0.8); else ctx.arc(0, 0, q.s / 3, 0, 7); ctx.fill(); }
           ctx.restore();
         });
@@ -750,17 +780,19 @@ const DP = {
     const isleAt = (px, py) => { const x = t.invertX(px), y = t.invertY(py); return isles.find(p => Math.hypot(x - p.x, y - p.y) <= p.D) || null; };
     function burst(n) {                                  // 64 bits of confetti, in the show's colours, flung out at screen-size speeds
       const t0 = performance.now(), k = t.k, cs = MOON ? ['#d6457f', '#7b5cd6', '#ffffff', '#f0c062', '#c4a6ff', '#ff8fb3']
-        : FAN ? ['#ffd35c', '#ffffff', '#ff8fd8', '#7ee7ff', '#c9a8ff', '#8ff0b8'] : ['#ff6fcf', '#ffd36e', '#62d4ff', '#b48bff', '#7fe3b8', '#ff9478'];
-      for (let j = 0; j < 64; j++) {
+        : FAN ? ['#ffd35c', '#ffffff', '#ff8fd8', '#7ee7ff', '#c9a8ff', '#8ff0b8'] : NOIR ? ['#ffffff', '#c9c6d4', '#ffffff', '#e2c27a', '#b9a2ff', '#ffffff']
+        : ['#ff6fcf', '#ffd36e', '#62d4ff', '#b48bff', '#7fe3b8', '#ff9478'];
+      for (let j = 0; j < 64; j++) {                     // noir's bits are a quarter card suits
         const a = rand() * 6.283, v = (0.08 + rand() * 0.14) / k;
         confetti.push({ x: n.x, y: n.y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 0.07 / k, g: 0.00016 / k, t: t0, life: 1100 + rand() * 800,
-                        s: (3.6 + rand() * 3.6) / k, r0: rand() * 6.283, vr: (rand() - 0.5) * 0.024, c: cs[j % cs.length], shape: j % 3 });
+                        s: (3.6 + rand() * 3.6) / k, r0: rand() * 6.283, vr: (rand() - 0.5) * 0.024, c: cs[j % cs.length],
+                        shape: NOIR ? j % 4 : j % 3, suit: '♠♥♣♦'[j % 4] });
       }
     }
     function choose(n, tell) {
       chosen = n || null; near.clear(); pointed = null;
       if (chosen) { near.add(chosen.i); around[chosen.i].forEach(l => { near.add(l.source.i); near.add(l.target.i); }); ripple = { n: chosen, t: performance.now() }; hoverIsle = null; }
-      if (chosen && (GALA || MOON || FAN) && !still) burst(chosen);
+      if (chosen && (GALA || MOON || FAN || NOIR) && !still) burst(chosen);
       panelOpen = !!chosen; root.classList.toggle('panel', panelOpen);
       if (tell) document.dispatchEvent(new CustomEvent('dp:select', { detail: { id: chosen ? chosen.id : null } }));
       need();
