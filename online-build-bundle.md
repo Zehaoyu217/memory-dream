@@ -639,7 +639,7 @@ or to a fresh worker given the packet, at most twice. After that, it stops and r
 
 ## Appendix A — the contract surface, verbatim: `skills/memory-dream/SKILL.md` and the dreamer agent
 
-_Part 5 · copied at commit 19403d5. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
+_Part 5 · copied at commit fcd35b3. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
 
 ```markdown
 ---
@@ -789,7 +789,7 @@ Touch nothing else.
 
 ## Appendix B — the graph contract, verbatim: `.specs/memory-dream/CONTRACT.md`
 
-_Part 6 · copied at commit 19403d5. Schema 1; `memory.py check` validates against it (A38)._
+_Part 6 · copied at commit fcd35b3. Schema 1; `memory.py check` validates against it (A38)._
 
 ## memory-dream — the graph contract (schema 1)
 
@@ -979,8 +979,10 @@ relation is "current" when one of its evidence notes is live).
   (`--theme paper|star|gala|moon|fanfare|noir`: the look it opens in), removed when no two entities are related. One relation per `(s, type,
   o)`, with the line its first evidence names. Islands: the area holding at least 60% of an entity's project mentions,
   the general area naming it most when no project does, else the middle; when the areas do not part the entities (one
-  holds over half, or fewer than three hold three) the communities of the relations (Louvain) instead. Colours: the
-  TYPES.md families with the most entities, at most seven, the rest one grey.
+  holds over half, or fewer than three hold three) the communities of the relations (Louvain) instead. Tags: each
+  entity's type under its TYPES.md family (`family/type`), the project areas whose notes name it (most first) and
+  those notes' TAGS.md tags, each a column the page can colour by: the top-level values with the most entities, at
+  most seven, a colour each, the rest one grey; the legend opens each value into the levels under it.
 - `pending/` — what a helper agent is asked, each answered by a file of the same name ending in `.json`; `TODO.md`
   lists them. `dream --prompts` writes `<sha12>.prompt.md`, one note each; `dream --packets` writes
   `packet-<8 hex>.prompt.md`, many notes each under `NOTE <sha12> <path>:` lines and named by the notes it holds, so
@@ -1091,7 +1093,7 @@ origin by adding the file. What changes for the notes under it, and nothing else
 
 ## Appendix C — the build guide, verbatim: `BUILD-GUIDE.md` §3–§10
 
-_Part 7 · copied at commit 19403d5. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
+_Part 7 · copied at commit fcd35b3. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
 
 ### 3. The design in one page
 
@@ -1636,8 +1638,19 @@ it; the page and d3 7.9.0 (ISC) sit in `assets/`, and it opens offline.
    (120 ms at once, then before each frame 22 ms, or one and a half times what the last frame cost to draw where
    drawing is slow, as without a GPU), so the page answers at once and an island blooms when it has settled; a
    dragged thing settles its own island again, not the graph.
-2. **Colours** are the memory's own type families (TYPES.md `family:`): the seven largest get a colour each, the
-   same hue for the same family in every memory, the rest one grey.
+2. **Tags and colours.** A thing carries tags: in each tag column a value or several, each a path whose levels are
+   split by `/` (`dataset/table/daily`). A memory's columns are its type under its family (TYPES.md `family:`, so
+   `segment` is `dataset/segment`), the projects whose notes name it, and the tags of those notes (TAGS.md); any
+   other graph's are every column of its nodes but id, label, group and size, with a `columns` entry to put flat
+   values under parents, name them or give them hues (`demo/knowledge-graph/build.py`, JSON or two CSV tables).
+   The page colours by one column, chosen in the legend: the seven top-level values with the most things (each with
+   2% of them) a colour each, the same hue for the same family in every memory, the rest one grey, "Everything
+   else". The legend is a tree: › opens a value into the level under it (and "Other …" for those that stop at it),
+   Everything else into the values without a colour and the things with none; pointing at any row lights its
+   things, clicking hides them. Search finds the values too, every level, and lights them until Esc; the panel
+   lists a thing's tags, each a way to light its kind. With 56 types in a long tail (`model/uplift`,
+   `question/open`, …) the colours fall on 7 of their 15 families and 23% of 20,000 things are grey (each still one
+   row to open, light, hide or find); taken flat, 7 types got colours and 60% were grey.
 3. **Motion with a reason.** It blooms in on a clockwise sweep with the camera easing out; while nothing is chosen,
    pulses run along links between islands; a chosen thing flies into view on the smooth zoom path (van Wijk and
    Nuij), its links flowing blue for what it uses and orange for what uses it, beside a panel of each link and the
@@ -1682,6 +1695,7 @@ it; the page and d3 7.9.0 (ISC) sit in `assets/`, and it opens offline.
 python3 tests/acceptance.py            # 40 checks, A1–A20, A24, A25–A43, with the fake dreamer, about 30 s
 python3 tests/e2e.py                   # one run on both read paths: dream, ask, a file gone by hand, drop a note, the end of a line, a folder, absorb a base
 python3 tests/retrieval_gate.py bank   # the model-free numbers with floors (README Results); `software` for the second fixture
+python3 tests/kg_tags.py               # the knowledge graph's tag columns through build.py: CSV, JSON, parents, --colour
 MEMORY_STORE_URL=postgresql://… python3 tests/store_parity.py postgres --bank   # needs psycopg: the PostgreSQL store (ADR-001)
 python3 tests/acceptance.py A6 A24     # some
 python3 tests/real_model.py            # Haiku on the fixture vs tests/truth.py (costs a few cents)
@@ -1856,7 +1870,7 @@ preferences 0.95 when the task names them, 0.84 when it names only their meeting
 
 ## Appendix D — prompts, seeds and tuned tables, verbatim from `memory.py`
 
-_Part 8 · extracted at commit 19403d5 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
+_Part 8 · extracted at commit fcd35b3 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
 
 ### D.1 `EXTRACT` — the per-note prompt: fixed guidance, then `KINDS:`, `TYPES:`, `EDGES:` and `KNOWN:` from the registries (the static part is cached), then `NOTE`
 

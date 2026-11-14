@@ -5080,15 +5080,16 @@ def write_viz_big(root, g, dd, force=False):
 
 # ---- the knowledge-graph page (_dream/knowledge-graph.html): the things and their links alone, to show a memory to
 # people. assets/knowledge-graph.html is the page (it moves, lays out and draws); these functions only fill its data.
-# Nothing in them knows a domain: colours follow the memory's own type families (TYPES.md `family:`), islands its
-# folders or, when the folders do not part the things, the communities of its links; demo/knowledge-graph/build.py
-# feeds them any other graph.
-KG_COLOURS = {  # one muted hue per common family, the same in every memory; any other family takes KG_SPARE in turn
+# Nothing in them knows a domain. A thing carries tags, one value (or several) in each tag column, and a value is a
+# path whose levels are split by '/' (dataset/table/daily); the page colours by any column, the seven top-level
+# values with the most things a colour each, and its legend opens each value into the levels under it. A memory's
+# columns are its type (family/type, from TYPES.md `family:`), the projects whose notes name a thing, and the tags of
+# those notes; islands are its folders or, when the folders do not part the things, the communities of its links.
+# demo/knowledge-graph/build.py feeds them any other graph, every column of its nodes a tag column.
+KG_COLOURS = {  # one muted hue per common family, the same in every memory; the page gives any other value a spare one
     "model": "#2a55a3", "dataset": "#2b8073", "feature": "#62904a", "metric": "#6b7a90", "document": "#b0874a",
     "decision": "#7c5ea6", "finding": "#8c6bb8", "term": "#b5677d", "system": "#a2574f", "party": "#8a939d",
     "experiment": "#4a9fc8", "question": "#9a83c2", "rule": "#8a6d3b", "project": "#7f8c8d"}
-KG_SPARE = ["#3d8fa8", "#c08457", "#7d8b4a", "#a46a9a", "#5a6fb0", "#9c7a54", "#5e9c8f"]
-KG_GREY = "#b9bec5"
 
 
 def kg_plural(f):
@@ -5100,22 +5101,41 @@ def kg_plural(f):
     return w[:1].upper() + w[1:]
 
 
-def kg_groups(fam, most=7):
-    """Colour groups: the families with the most things (at most `most`, each with 2% of them) get a colour each, the
-    rest share a grey. fam: {thing: family} -> (groups [{g, name, color}], {thing: group})."""
-    count = Counter(fam.values())
-    keep = [f for f, n in sorted(count.items(), key=lambda z: (-z[1], z[0]))
-            if f != "other" and n >= max(2, 0.02 * len(fam))][:most]
-    used, groups = set(), []
-    for f in keep:
-        c = KG_COLOURS.get(f)
-        if not c or c in used:
-            c = next((s for s in KG_SPARE if s not in used), KG_GREY)
-        used.add(c)
-        groups.append({"g": f, "name": kg_plural(f), "color": c})
-    if any(f not in keep for f in fam.values()):
-        groups.append({"g": "other", "name": "Everything else", "color": KG_GREY})
-    return groups, {t: (f if f in keep else "other") for t, f in fam.items()}
+def kg_path(v, parents=None):
+    """A tag value as the page reads it: a path, its levels split by '/'. A value whose head has a parent in `parents`
+    ({value: parent}, a hierarchy given beside flat values) is put under it, and under that one's parent, and so on:
+    with {"table": "dataset"}, 'table/daily' -> 'dataset/table/daily'."""
+    p = "/".join(s.strip() for s in str(v).split("/") if s.strip())
+    seen = {p.split("/")[0]}
+    while p and parents and parents.get(p.split("/")[0]) not in (None, "") and str(parents[p.split("/")[0]]) not in seen:
+        up = "/".join(s.strip() for s in str(parents[p.split("/")[0]]).split("/") if s.strip())
+        seen.add(up)
+        p = up + "/" + p if up else p
+    return p
+
+
+def kg_cell(v, parents=None):
+    """One thing's value in one tag column: a path, a list of them (several values), or None (no value). A list, or
+    text with ';' between values, gives several; numbers and yes/no are their text; anything nested is left out."""
+    vs = v if isinstance(v, (list, tuple)) else str(v).split(";") if isinstance(v, str) and ";" in v else [v]
+    out = []
+    for x in vs:
+        if x is None or isinstance(x, (dict, list, tuple)):
+            continue
+        p = kg_path("yes" if x is True else "no" if x is False else x, parents)
+        if p and p not in out:
+            out.append(p)
+    return None if not out else out[0] if len(out) == 1 else out
+
+
+def kg_names(paths, name=kg_plural):
+    """The legend's name for every level of the given paths ({path: name}), each level named by `name`."""
+    out = {}
+    for p in paths:
+        seg = p.split("/")
+        for d in range(1, len(seg) + 1):
+            out.setdefault("/".join(seg[:d]), name(seg[d - 1]))
+    return out
 
 
 def kg_louvain(n, edges, levels=3):
@@ -5216,8 +5236,10 @@ def kg_islands(home, links, labels, general=frozenset(), middle="shared by sever
     return out, isles
 
 
-def kg_page(title, headline, lede, stats, meta, groups, things, links, notes, eyebrow="Knowledge graph", theme="paper"):
+def kg_page(title, headline, lede, stats, meta, columns, things, links, notes, eyebrow="Knowledge graph", theme="paper"):
     """The page itself: assets/knowledge-graph.html with its data islands and masthead filled, d3 (ISC) pasted in.
+    columns: the tag columns, the first the one it colours by at first ([{key, name, names?: {path: name},
+    colours?: {value: hex}}]); each thing's tags: {key: path or [paths]}.
     theme: the look it opens in: paper, star (a star map at night), gala (a purple show at night), moon (moonlit: pale
     lilac and silver under a great moon), fanfare (a violet stage under sweeping spotlights) or noir (black and white
     on a checkered stage, purple only as an accent); a switch in its header picks among them."""
@@ -5230,7 +5252,7 @@ def kg_page(title, headline, lede, stats, meta, groups, things, links, notes, ey
             "@@TITLE@@": html.escape(title), "@@EYEBROW@@": html.escape(eyebrow), "@@HEADLINE@@": html.escape(headline),
             "@@LEDE@@": html.escape(lede),
             "@@STATS@@": "".join(f"<div><dt>{html.escape(a)}</dt><dd>{b:,}</dd></div>" for a, b in stats),
-            "@@META@@": json.dumps(meta, ensure_ascii=False).replace("</", "<\\/"), "@@GROUPS@@": island(groups),
+            "@@META@@": json.dumps(meta, ensure_ascii=False).replace("</", "<\\/"), "@@COLUMNS@@": island(columns),
             "@@THINGS@@": island(things), "@@LINKS@@": island(links), "@@NOTES@@": island(notes)}
     for k, v in fill.items():
         assert page.count(k) == 1, k
@@ -5284,15 +5306,38 @@ def kg_data(root, g):
         by_area[p.split("/")[0] if "/" in p else ""].append(p)
     general = general_areas(by_area, lambda p: notes[p].get("kind") or "note")
     home, isles = kg_islands(kg_folder_homes(paths, general), [(l["s"], l["t"]) for l in links], labels, general)
-    fam = {}
+    # the tag columns: the type under its family (segment -> dataset/segment), the projects whose notes name a thing
+    # (most mentions first), and the tags of those notes
+    kind = {}
     for i in kept:
-        base = ents[i]["type"].split("/")[0]
-        fam[i] = "other" if base == "other" else TYPE_PARENT.get(base, base)
-    groups, group = kg_groups(fam)
+        base, _, rest = ents[i]["type"].partition("/")
+        fam = "other" if base == "other" else TYPE_PARENT.get(base, base)
+        kind[i] = "/".join([fam] + ([base] if base != fam else []) + ([rest] if rest else []))
+    def area(p):
+        return p.split("/")[0] if "/" in p else ""
+    proj = {i: [a for a, _ in Counter(area(p) for p in paths[i] if area(p) and area(p) not in general).most_common()] for i in kept}
+    tag_of = defaultdict(list)
+    for t, ps in sorted((g.get("tags") or {}).items()):
+        for p in ps:
+            tag_of[p].append(t)
+    tagged = {i: [t for t, _ in Counter(t for p in paths[i] for t in tag_of.get(p, ())).most_common()] for i in kept}
+    names = kg_names(kind.values())
+    names["other"] = "Other kinds"
+    columns = [{"key": "type", "name": "Type", "names": names, "colours": KG_COLOURS}]
+    if any(proj.values()):
+        columns.append({"key": "project", "name": "Project"})
+    if any(tagged.values()):
+        columns.append({"key": "tag", "name": "Tag"})
+    def tags(i):
+        out = {"type": kind[i]}
+        for key, vs in (("project", proj[i]), ("tag", tagged[i])):
+            if vs:
+                out[key] = vs[0] if len(vs) == 1 else vs
+        return out
     note_list = sorted({p for i in kept for p in paths[i]} | {l["note"] for l in links if l["note"]})
     note_at = {p: k for k, p in enumerate(note_list)}
     index = {i: k for k, i in enumerate(kept)}
-    things = [{"id": i, "label": labels[i], "type": ents[i]["type"], "g": group[i], "n": len(paths[i]), "home": home[i],
+    things = [{"id": i, "label": labels[i], "n": len(paths[i]), "home": home[i], "tags": tags(i),
                "names": [x["name"].strip("`") for x in (ents[i].get("names") or [])[:6]], "notes": [note_at[p] for p in paths[i]]}
               for i in kept]
     for l in links:
@@ -5308,7 +5353,7 @@ def kg_data(root, g):
             "lede": lede, "stats": [("things", len(things)), ("links", len(links)), ("clusters" if clusters else "projects", count),
                                     ("notes", len(g["notes"]))],
             "meta": {"notes": len(g["notes"]), "isles": isles, "inverse": kg_inverse(vocab_texts(root)[0])},
-            "groups": groups, "things": things, "links": links, "notes": rows}
+            "columns": columns, "things": things, "links": links, "notes": rows}
 
 
 def write_kg(root, g, out, theme="paper"):

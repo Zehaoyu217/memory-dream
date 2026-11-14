@@ -154,6 +154,33 @@ const DP = {
     }
     const h = d3.hsl(c); h.l = Math.min(0.8, Math.max(0.64, h.l + 0.26)); h.s = Math.min(0.92, h.s * 1.3 + 0.08); return h.formatHex();
   },
+  // tags: a thing holds in each tag column a value or several, each a path whose levels are split by '/'
+  // (dataset/table/daily). A facet is a column as colours: the seven top-level values with the most things (each with
+  // 2% of them) a colour each, the column's own hue for a value when it has one, else a spare; the rest one grey
+  spare: ['#3d8fa8', '#c08457', '#7d8b4a', '#a46a9a', '#5a6fb0', '#9c7a54', '#5e9c8f'],
+  grey: '#b9bec5',
+  vals: (t, key) => { const v = (t.tags || {})[key]; return v == null || v === '' ? [] : Array.isArray(v) ? v : [v]; },
+  name: (col, path) => (col.names || {})[path]
+    || (path ? path.split('/').pop().replace(/[-_]+/g, ' ').replace(/^./, c => c.toUpperCase()) : `No ${col.name.toLowerCase()}`),
+  trail: (col, path) => path.split('/').map((s, d, a) => DP.name(col, a.slice(0, d + 1).join('/'))).join(' › '),   // Datasets › Tables
+  holds: (vals, sel) => sel.none ? !vals.length : sel.exact ? vals.includes(sel.path)                               // a legend row's
+    : vals.some(v => v === sel.path || v.startsWith(sel.path + '/')),                                               // things
+  facet: (things, col) => {
+    const N = things.length, count = new Map();
+    const tops = things.map(t => [...new Set(DP.vals(t, col.key).map(v => v.split('/')[0]))]);
+    tops.forEach(ts => ts.forEach(v => count.set(v, (count.get(v) || 0) + 1)));
+    const keep = [...count].filter(([v, n]) => v !== 'other' && n >= Math.max(2, 0.02 * N))
+      .sort((a, b) => b[1] - a[1] || (a[0] < b[0] ? -1 : 1)).slice(0, 7).map(([v]) => v);
+    const used = new Set(), rows = keep.map(v => {
+      let c = (col.colours || {})[v]; if (!c || used.has(c)) c = DP.spare.find(s => !used.has(s)) || DP.grey; used.add(c);
+      return { g: v, path: v, name: DP.name(col, v), color: c, n: count.get(v) };
+    });
+    const at = new Map(keep.map((v, k) => [v, k]));
+    const top = Int16Array.from(tops, ts => { for (const v of ts) if (at.has(v)) return at.get(v); return -1; });
+    const rest = top.reduce((s, x) => s + (x < 0 ? 1 : 0), 0);
+    if (rest) rows.push({ g: 'other', rest: true, name: 'Everything else', color: DP.grey, n: rest });
+    return { col, rows, top };
+  },
 };
 </script>
 </head>
@@ -208,8 +235,8 @@ const DP = {
 <script type="application/json" id="data-meta">
 @@META@@
 </script>
-<script type="application/json" id="data-groups">
-@@GROUPS@@
+<script type="application/json" id="data-columns">
+@@COLUMNS@@
 </script>
 <script type="application/json" id="data-things">
 @@THINGS@@
@@ -254,8 +281,9 @@ const DP = {
   <div class="hint">scroll to zoom · drag to move · click a thing or an island · / to search</div>
   <script>
   (() => {
-    const groups = DP.read('data-groups'), things = DP.read('data-things'), raw = DP.read('data-links'), meta = DP.read('data-meta');
+    const columns = DP.read('data-columns'), things = DP.read('data-things'), raw = DP.read('data-links'), meta = DP.read('data-meta');
     const root = document.getElementById('graph'), canvas = root.querySelector('canvas'), ctx = canvas.getContext('2d');
+    let col = columns[0], facet = DP.facet(things, col), tones = [], grey = DP.grey;   // the column the colours come from
     const tip = root.querySelector('.tip'), hint = root.querySelector('.hint'), tourBtn = root.querySelector('.tour');
     const css = getComputedStyle(document.documentElement), tok = n => css.getPropertyValue(n).trim();
     const PANEL = parseFloat(tok('--panel')) + 48, still = DP.still();
@@ -267,8 +295,8 @@ const DP = {
       const lose = g.getExtension('WEBGL_lose_context'); if (lose) lose.loseContext();
       return /swiftshader|llvmpipe|softpipe|software|basic render/i.test(name);
     } catch (e) { return false; } })();
-    let INK, MUTED, OUT, IN, HALO, EDGE, EDGE2, PAPER, ISLE, FONT, SERIF, NIGHT, GALA, MOON, FAN, NOIR, colour;
-    function paint() {                                    // the look's tokens, read again whenever the look changes
+    let INK, MUTED, OUT, IN, HALO, EDGE, EDGE2, PAPER, ISLE, FONT, SERIF, NIGHT, GALA, MOON, FAN, NOIR;
+    function paint() {                                    // the look's tokens, read again whenever the look or the colours change
       INK = tok('--page-ink'); MUTED = tok('--page-muted');   // names sit on the page, not on a card
       OUT = tok('--out'); IN = tok('--in'); HALO = tok('--halo'); EDGE = tok('--edge-rgb');
       EDGE2 = tok('--edge2-rgb'); PAPER = tok('--paper'); ISLE = tok('--isle'); FONT = tok('--font'); SERIF = tok('--serif');
@@ -276,17 +304,27 @@ const DP = {
       NIGHT = DP.look() === 'star' || DP.look() === 'gala' || NOIR; GALA = DP.look() === 'gala';   // the dark looks share the night
       MOON = DP.look() === 'moon';                        // moonlit is a light look of its own: a great moon, sparkles, ribbons, pearls
       FAN = DP.look() === 'fanfare';                      // fanfare: a show, spotlights, a checkered floor, bunting, marquee bulbs
-      colour = Object.fromEntries(groups.map(g => [g.g, DP.tone(g.color, groups)]));
+      tones = facet.rows.map(r => DP.tone(r.color, facet.rows)); grey = DP.tone(DP.grey, facet.rows);
     }
     paint();
+    const hue = () => nodes.forEach(n => { const k = facet.top[n.i]; n.c = k >= 0 ? tones[k] : grey; });   // each thing's colour
     const rng = seed => () => ((seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296);   // the same layout every time
     const rand = rng(7), backOut = d3.easeBackOut.overshoot(1.6), cubicOut = d3.easeCubicOut, inOut = d3.easeCubicInOut;
     let raf = 0, last = performance.now(), drawn = 0, cost = 0, dirty = true, lastInput = performance.now(), haze = null;
 
     // ---- the things, their links, and the few hubs that link to nearly everything
     const cut = (s, n) => s.length > n ? s.slice(0, n - 2).trimEnd() + '…' : s;
-    const nodes = things.map((t, i) => ({ ...t, i, r: 2.3 + 1.2 * Math.sqrt(t.n), x: 0, y: 0, short: cut(t.label, 30), long: cut(t.label, 46) }));
+    const nodes = things.map((t, i) => ({ ...t, i, r: 2.3 + 1.2 * Math.sqrt(t.n), x: 0, y: 0, short: cut(t.label, 30), long: cut(t.label, 46),
+                                          tv: columns.map(c => DP.vals(t, c.key)) }));   // its values in each tag column
+    hue();
     const byId = new Map(nodes.map(n => [n.id, n]));
+    const leaf = n => { const v = n.tv[columns.indexOf(col)] || []; return v.length ? v[0].split('/').pop().replace(/[-_]+/g, ' ') + (v.length > 1 ? ` +${v.length - 1}` : '') : ''; };
+    const mask = sel => {                                 // which things a legend row (or a tag found in search) holds
+      const m = new Uint8Array(nodes.length), k = columns.findIndex(c => c.key === sel.key);
+      if (sel.rest) { if (sel.key === col.key) nodes.forEach(n => { m[n.i] = facet.top[n.i] < 0 ? 1 : 0; }); }
+      else if (k >= 0) nodes.forEach(n => { m[n.i] = DP.holds(n.tv[k], sel) ? 1 : 0; });
+      return m;
+    };
     const links = raw.map((l, k) => ({ k, source: nodes[l.s], target: nodes[l.t], type: l.type }));
     const deg = nodes.map(() => 0), around = nodes.map(() => []);
     links.forEach(l => { deg[l.source.i]++; deg[l.target.i]++; around[l.source.i].push(l); around[l.target.i].push(l); });
@@ -453,7 +491,8 @@ const DP = {
 
     // ---- what is shown eases toward what is wanted, so nothing jumps
     const seen = nodes.map(() => 1), lit = nodes.map(() => 1), big = nodes.map(() => 1), grow = nodes.map(() => 1), prog = nodes.map(() => 1);
-    let hidden = new Set(), chosen = null, hover = null, hoverIsle = null, pointed = null, peek = null, ripple = null, dragging = false, version = 0, live = null;
+    let hideM = new Uint8Array(nodes.length), peekM = null, lightM = null;   // hidden, lit by the pointer, lit from search
+    let chosen = null, hover = null, hoverIsle = null, pointed = null, ripple = null, dragging = false, version = 0, live = null;
     let confetti = [];
     const near = new Set();
     const ease = (v, to, dt, ms) => v + (to - v) * (1 - Math.exp(-dt / ms));
@@ -528,8 +567,9 @@ const DP = {
       }
       const nt = entering ? 0 : 1; namesIn = ease(namesIn, nt, dt, 320); if (Math.abs(namesIn - nt) > 0.004) busy = true;
       isles.forEach(p => { const h = p === hoverIsle && !chosen ? 1 : 0; p.hot = ease(p.hot, h, dt, 140); if (Math.abs(p.hot - h) > 0.004) busy = true; });
+      const P = peekM || lightM;                          // the things a legend row or a tag lights
       nodes.forEach(n => {
-        const a = hidden.has(n.g) ? 0 : 1, b = chosen ? (near.has(n.i) ? 1 : 0) : peek ? (n.g === peek ? 1 : 0) : 1, c = n === hover ? 1.35 : 1;
+        const a = hideM[n.i] ? 0 : 1, b = chosen ? (near.has(n.i) ? 1 : 0) : P ? P[n.i] : 1, c = n === hover ? 1.35 : 1;
         seen[n.i] = ease(seen[n.i], a, dt, 120); lit[n.i] = ease(lit[n.i], b, dt, 150); big[n.i] = ease(big[n.i], c, dt, 90);
         if (Math.abs(seen[n.i] - a) > 0.004 || Math.abs(lit[n.i] - b) > 0.004 || Math.abs(big[n.i] - c) > 0.004) busy = true;
       });
@@ -551,7 +591,8 @@ const DP = {
       pulses = pulses.filter(q => now - q.t < q.d);
       if (now > nextPulse && pulses.length < 8) {
         const l = lively[Math.floor(rand() * lively.length)];
-        if (seen[l.source.i] > 0.5 && seen[l.target.i] > 0.5 && (!peek || l.source.g === peek || l.target.g === peek)) pulses.push({ l, t: now, d: 1600 + rand() * 1000 });
+        const P = peekM || lightM;
+        if (seen[l.source.i] > 0.5 && seen[l.target.i] > 0.5 && (!P || P[l.source.i] || P[l.target.i])) pulses.push({ l, t: now, d: 1600 + rand() * 1000 });
         nextPulse = now + 220 + rand() * 340;
       }
       return true;
@@ -651,7 +692,7 @@ const DP = {
       if (MOON) moonSky(now);
       if (FAN || NOIR) stage(now);
       ctx.save(); ctx.translate(t.x, t.y); ctx.scale(t.k, t.k);
-      const k = t.k, sk = Math.sqrt(k), quiet = chosen || peek;
+      const k = t.k, sk = Math.sqrt(k), quiet = chosen || peekM || lightM;
       const wx0 = t.invertX(0), wx1 = t.invertX(W), wy0 = t.invertY(0), wy1 = t.invertY(H);
       isles.forEach(p => {                               // under each island a soft ground; on the star map a nebula and its orbit
         if (p.grow <= 0) return;
@@ -701,7 +742,7 @@ const DP = {
       // links: inside an island straight, between islands a soft curve; a hub's spokes only when it is pointed at;
       // none wholly off the screen. At night light adds up ('lighter'); past a few thousand links they are laid
       // plainly, which on a dark page looks the same and costs a canvas without a GPU half the time
-      const lineA = chosen ? 0.03 : peek ? 0.04 : (NIGHT || MOON || FAN ? 0.12 : 0.1);
+      const lineA = chosen ? 0.03 : peekM || lightM ? 0.04 : (NIGHT || MOON || FAN ? 0.12 : 0.1);
       ctx.lineCap = 'round';
       if ((NIGHT || FAN) && links.length <= 6000) ctx.globalCompositeOperation = 'lighter';
       const thin = w => soft ? Math.min(w, 0.9 / (k * dpr)) : w;
@@ -721,7 +762,7 @@ const DP = {
       pulses.forEach(q => {                              // a pulse: the link lights, a bead with a tail runs along it (a comet at night)
         const u = Math.min(1, (now - q.t) / q.d), e = inOut(u), f = Math.sin(Math.PI * u), a = q.l.source, b = q.l.target;
         ctx.globalAlpha = 1; ctx.strokeStyle = `rgba(${EDGE2},${(NIGHT ? 0.22 : 0.16) * f})`; ctx.lineWidth = 1 / k; ctx.beginPath(); curve(a, b, 0.12); ctx.stroke();
-        ctx.fillStyle = colour[a.g];
+        ctx.fillStyle = a.c;
         for (let j = 0; j < tail; j++) {
           const v = e - j * 0.016; if (v < 0) break;
           const [x, y] = along(a, b, 0.12, v);
@@ -766,7 +807,7 @@ const DP = {
         ctx.globalCompositeOperation = NIGHT ? 'lighter' : 'source-over';
         order.forEach(n => {
           const a = on(n), r = size(n); if (a < 0.02 || r <= 0) return;
-          ctx.globalAlpha = a * (NIGHT ? 0.03 + 0.08 * lit[n.i] : 0.05 + 0.1 * lit[n.i]); ctx.fillStyle = colour[n.g];
+          ctx.globalAlpha = a * (NIGHT ? 0.03 + 0.08 * lit[n.i] : 0.05 + 0.1 * lit[n.i]); ctx.fillStyle = n.c;
           ctx.beginPath(); ctx.arc(n.x, n.y, r * (NIGHT ? 2.1 : 1.7), 0, 7); ctx.fill();
         });
         ctx.globalCompositeOperation = 'source-over';
@@ -774,7 +815,7 @@ const DP = {
       order.forEach(n => {
         const a = on(n), r = size(n); if (a < 0.02 || r <= 0) return;
         ctx.globalAlpha = a * (0.14 + 0.86 * lit[n.i]);
-        ctx.fillStyle = colour[n.g]; ctx.beginPath(); ctx.arc(n.x, n.y, r, 0, 7); ctx.fill();
+        ctx.fillStyle = n.c; ctx.beginPath(); ctx.arc(n.x, n.y, r, 0, 7); ctx.fill();
         if (NIGHT) { if (r * k > 3.4) { ctx.globalAlpha *= 0.8; ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.arc(n.x, n.y, r * 0.3, 0, 7); ctx.fill(); } }
         else if (r * k > 3) {
           ctx.lineWidth = ring; ctx.strokeStyle = MOON || FAN ? '#ffffff' : PAPER; ctx.stroke();
@@ -819,14 +860,14 @@ const DP = {
       }
       if (pointed && seen[pointed.i] > 0.5) {            // the thing pointed at in the panel beats
         const n = pointed, q = (now % 1100) / 1100;
-        ctx.strokeStyle = colour[n.g]; ctx.lineWidth = 2 / k; ctx.globalAlpha = 0.8 * (1 - q);
+        ctx.strokeStyle = n.c; ctx.lineWidth = 2 / k; ctx.globalAlpha = 0.8 * (1 - q);
         ctx.beginPath(); ctx.arc(n.x, n.y, n.r + (3 + 18 * cubicOut(q)) / k, 0, 7); ctx.stroke();
         ctx.globalAlpha = 1; ctx.lineWidth = 1.5 / k; ctx.strokeStyle = INK; ctx.beginPath(); ctx.arc(n.x, n.y, n.r + 3 / k, 0, 7); ctx.stroke();
       }
       if (ripple) {
         const q = (now - ripple.t) / 1000, n = ripple.n;
         [0, 0.22].forEach(off => { const u = Math.max(0, Math.min(1, (q - off) / 0.78)); if (u <= 0 || u >= 1) return;
-          ctx.strokeStyle = colour[n.g]; ctx.lineWidth = 2 / k; ctx.globalAlpha = (1 - u) * 0.65;
+          ctx.strokeStyle = n.c; ctx.lineWidth = 2 / k; ctx.globalAlpha = (1 - u) * 0.65;
           ctx.beginPath(); ctx.arc(n.x, n.y, n.r + (4 + 30 * cubicOut(u)) / k, 0, 7); ctx.stroke(); });
         ctx.globalAlpha = 1;
       }
@@ -845,7 +886,7 @@ const DP = {
       const fade = namesIn * Math.max(0, Math.min(1, (1.75 - k) / 0.6));
       ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic'; ctx.lineJoin = 'round';
       isles.slice().sort((a, b) => b.hot - a.hot || (a.h !== '') - (b.h !== '') || b.ns.length - a.ns.length).forEach(p => {
-        const a = Math.max(fade * (chosen || peek ? 0.3 : 1), p.hot) * Math.min(1, Math.max(0, p.grow));
+        const a = Math.max(fade * (chosen || peekM || lightM ? 0.3 : 1), p.hot) * Math.min(1, Math.max(0, p.grow));
         if (a < 0.02) return;
         ctx.font = p.folder ? `italic 500 13px ${SERIF}` : `600 9.5px ${FONT}`;
         const lh = p.folder ? 15 : 12.5, w = Math.max(...p.lines.map(s => ctx.measureText(s).width)), hgt = p.lines.length * lh;
@@ -866,7 +907,7 @@ const DP = {
     }
     function nodeNames(k, boxes) {
       if (namesIn < 0.02) return;
-      const cand = [];
+      const cand = [], P = peekM || lightM;
       if (hover) cand.push(hover);
       if (pointed) cand.push(pointed);
       if (chosen) cand.push(chosen, ...around[chosen.i].map(l => other(l, chosen)).sort((a, b) => b.r - a.r));
@@ -876,7 +917,7 @@ const DP = {
       cand.forEach(n => {
         if (done.has(n.i) || seen[n.i] < 0.5 || prog[n.i] < 1) return; done.add(n.i);
         const must = n === chosen || n === hover || n === pointed;
-        if (!must && ((chosen && !near.has(n.i)) || (peek && n.g !== peek))) return;
+        if (!must && ((chosen && !near.has(n.i)) || (P && !P[n.i]))) return;
         const text = must ? n.long : n.short, w = ctx.measureText(text).width, rr = n.r * big[n.i] * k;
         const sx = t.applyX(n.x), y = t.applyY(n.y), right = W - (panelOpen ? PANEL : 0) - 6;
         const x = sx + rr + 5 + w > right && sx - rr - 5 - w > 0 ? sx - rr - 5 - w : sx + rr + 5;   // flips left at the panel's edge
@@ -919,8 +960,9 @@ const DP = {
     }
     function place(px, py) { const w = tip.offsetWidth, h = tip.offsetHeight; tip.style.left = Math.min(W - w - 16, px + 18) + 'px'; tip.style.top = Math.min(H - h - 16, py + 16) + 'px'; tip.classList.add('on'); }
     function showTip(n, px, py) {
-      const where = n.home ? ' · ' + DP.esc(isleOf.get(n.home).name) : '', many = meta.notes ? ` · ${DP.num(n.n)} note${n.n === 1 ? '' : 's'}` : '';
-      tip.innerHTML = `<b>${DP.esc(n.label)}</b><span>${DP.esc(n.type)}${where} · ${DP.num(deg[n.i])} link${deg[n.i] === 1 ? '' : 's'}${many}</span>`;
+      const what = [leaf(n), n.home ? isleOf.get(n.home).name : ''].filter(Boolean).map(DP.esc).join(' · ');
+      const many = meta.notes ? ` · ${DP.num(n.n)} note${n.n === 1 ? '' : 's'}` : '';
+      tip.innerHTML = `<b>${DP.esc(n.label)}</b><span>${what ? what + ' · ' : ''}${DP.num(deg[n.i])} link${deg[n.i] === 1 ? '' : 's'}${many}</span>`;
       place(px, py);
     }
     function showIsleTip(p, px, py) {
@@ -983,15 +1025,22 @@ const DP = {
     });
     document.addEventListener('dp:focus', e => {
       const n = byId.get(e.detail.id); if (!n) return;
-      if (hidden.has(n.g)) { hidden.delete(n.g); version++; document.dispatchEvent(new CustomEvent('dp:shown', { detail: { g: n.g } })); }
+      if (hideM[n.i]) document.dispatchEvent(new CustomEvent('dp:reveal', { detail: { id: n.id } }));   // the legend shows its group again
       choose(n, true); frameOn(n);
     });
     document.addEventListener('dp:clear', () => release());
-    document.addEventListener('dp:filter', e => { hidden = new Set(e.detail.hidden); if (chosen && hidden.has(chosen.g)) choose(null, true); version++; need(); });
-    document.addEventListener('dp:peek', e => { peek = e.detail.g || null; need(); });
-    document.addEventListener('dp:theme', () => {        // the canvas fades out, takes the new look's tokens, fades back in
-      root.classList.add('switching');
-      setTimeout(() => { paint(); nebula(); need(); root.classList.remove('switching'); }, still ? 0 : 280);
+    document.addEventListener('dp:filter', e => {        // hide what the legend's rows hold, each row {key, path} (or the rest)
+      const m = new Uint8Array(nodes.length);
+      (e.detail.hidden || []).forEach(s => mask(s).forEach((v, i) => { if (v) m[i] = 1; }));
+      hideM = m; if (chosen && hideM[chosen.i]) choose(null, true); version++; need();
+    });
+    document.addEventListener('dp:peek', e => { peekM = e.detail.sel ? mask(e.detail.sel) : null; need(); });
+    document.addEventListener('dp:light', e => { lightM = e.detail.sel ? mask(e.detail.sel) : null; need(); });
+    const swap = then => { root.classList.add('switching'); setTimeout(() => { then(); need(); root.classList.remove('switching'); }, still ? 0 : 280); };
+    document.addEventListener('dp:theme', () => swap(() => { paint(); hue(); nebula(); }));   // fade out, the new look, fade in
+    document.addEventListener('dp:colour', e => {        // colours from another tag column
+      const c = columns.find(x => x.key === e.detail.key); if (!c || c === col) return;
+      swap(() => { col = c; facet = DP.facet(things, col); paint(); hue(); });
     });
     document.addEventListener('dp:point', e => { pointed = (e.detail.id && byId.get(e.detail.id)) || null; need(); });
 
@@ -1005,7 +1054,7 @@ const DP = {
     function step(k) {
       if (k >= stops.length) { stopTour(); choose(null, true); fly(fitAll(), 1400); return; }
       const n = stops[k];
-      if (hidden.has(n.g)) { hidden.delete(n.g); version++; document.dispatchEvent(new CustomEvent('dp:shown', { detail: { g: n.g } })); }
+      if (hideM[n.i]) document.dispatchEvent(new CustomEvent('dp:reveal', { detail: { id: n.id } }));
       tourText.textContent = `Stop the tour · ${k + 1} of ${stops.length}`;
       choose(n, true); frameOn(n);
       touring = setTimeout(() => step(k + 1), 5600);
@@ -1050,45 +1099,80 @@ const DP = {
     #search li .name { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
     #search li .kind { font-size:12px; color:var(--muted); white-space:nowrap; }
     #search mark { background:none; color:var(--accent); font-weight:600; }
+    #search .box.lit { box-shadow:0 0 0 1.5px var(--accent-soft-2), var(--shadow); }
+    #search .box.lit input { color:var(--accent); }
+    #search .ring { background:none; box-shadow:inset 0 0 0 1.5px currentColor; }
     @keyframes search-in { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:none; } }
     @keyframes search-li { from { opacity:0; transform:translateY(-4px); } to { opacity:1; transform:none; } }
     @media (prefers-reduced-motion: reduce) { #search, #search ul.fresh li { animation:none; } }
   </style>
   <div class="box float">
     <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-    <input type="search" placeholder="Find a thing" aria-label="Find a thing" autocomplete="off" spellcheck="false">
+    <input type="search" placeholder="Find a thing or a tag" aria-label="Find a thing or a tag" autocomplete="off" spellcheck="false">
     <kbd>/</kbd>
   </div>
   <ul class="float" role="listbox"></ul>
   <script>
   (() => {
-    const meta = DP.read('data-meta'), groups = DP.read('data-groups'), things = DP.read('data-things');
-    const colour = Object.fromEntries(groups.map(g => [g.g, g.color]));
-    const root = document.getElementById('search'), input = root.querySelector('input'), list = root.querySelector('ul');
-    const index = things.map(t => ({ t, keys: [t.label, ...(t.names || []), t.id].map(s => String(s).toLowerCase()) }));
+    const meta = DP.read('data-meta'), columns = DP.read('data-columns'), things = DP.read('data-things');
+    const root = document.getElementById('search'), box = root.querySelector('.box'), input = root.querySelector('input'), list = root.querySelector('ul'), kbd = root.querySelector('kbd');
+    let col = columns[0], facet = DP.facet(things, col), lit = null;
+    const norm = s => String(s).toLowerCase().replace(/[-_]+/g, ' ');
+    const index = things.map((t, i) => ({ t, i, n: t.n, keys: [t.label, ...(t.names || []), t.id].map(s => String(s).toLowerCase()) }));
+    const tags = [];                                     // every level of every value of every tag column, and how many hold it
+    columns.forEach(c => {
+      const n = new Map();
+      things.forEach(t => { const seen = new Set(); DP.vals(t, c.key).forEach(v => { const seg = v.split('/'); for (let d = 1; d <= seg.length; d++) seen.add(seg.slice(0, d).join('/')); });
+        seen.forEach(p => n.set(p, (n.get(p) || 0) + 1)); });
+      n.forEach((k, p) => tags.push({ tag: true, c, key: c.key, path: p, n: k, name: DP.name(c, p), trail: DP.trail(c, p), keys: [DP.name(c, p), p, p.split('/').pop()].map(norm) }));
+    });
+    const leaf = i => { const v = DP.vals(things[i], col.key); return v.length ? v[0].split('/').pop().replace(/[-_]+/g, ' ') : ''; };
+    const dot = (top, ring) => { const c = top >= 0 ? facet.rows[top].color : DP.grey; return `<span class="dot${ring ? ' ring' : ''}" data-c="${c}"></span>`; };
+    const tone = () => list.querySelectorAll('.dot').forEach(d => { const c = DP.tone(d.dataset.c, facet.rows); if (d.classList.contains('ring')) d.style.color = c; else d.style.background = c; });
     let hits = [], at = 0, q = '';
-    const mark = s => { const k = s.toLowerCase().indexOf(q); return k < 0 ? DP.esc(s) : DP.esc(s.slice(0, k)) + '<mark>' + DP.esc(s.slice(k, k + q.length)) + '</mark>' + DP.esc(s.slice(k + q.length)); };
+    const mark = s => { const k = norm(s).indexOf(norm(q)); return k < 0 || !q ? DP.esc(s) : DP.esc(s.slice(0, k)) + '<mark>' + DP.esc(s.slice(k, k + q.length)) + '</mark>' + DP.esc(s.slice(k + q.length)); };
     const render = fresh => {
       list.classList.toggle('fresh', !!fresh);
-      list.innerHTML = hits.map((t, k) => `<li><button class="${k === at ? 'on' : ''}" data-id="${DP.esc(t.id)}"><span class="dot" data-c="${colour[t.g]}"></span><span class="name">${mark(t.label)}</span><span class="kind">${DP.esc(t.type)}${meta.notes ? ` · ${DP.num(t.n)} note${t.n === 1 ? '' : 's'}` : ''}</span></button></li>`).join('');
-      list.querySelectorAll('.dot').forEach(d => { d.style.background = DP.tone(d.dataset.c, groups); });
+      list.innerHTML = hits.map((h, k) => h.tag
+        ? `<li><button class="${k === at ? 'on' : ''}" data-k="${k}">${dot(h.key === col.key ? facet.rows.findIndex(r => !r.rest && r.path === h.path.split('/')[0]) : -1, true)}<span class="name">${mark(h.trail)}</span><span class="kind">${DP.esc(h.c.name)} · ${DP.num(h.n)} thing${h.n === 1 ? '' : 's'}</span></button></li>`
+        : `<li><button class="${k === at ? 'on' : ''}" data-k="${k}">${dot(facet.top[h.i])}<span class="name">${mark(h.t.label)}</span><span class="kind">${DP.esc(leaf(h.i))}${meta.notes ? ` · ${DP.num(h.t.n)} note${h.t.n === 1 ? '' : 's'}` : ''}</span></button></li>`).join('');
+      tone();
     };
-    document.addEventListener('dp:theme', () => list.querySelectorAll('.dot').forEach(d => { d.style.background = DP.tone(d.dataset.c, groups); }));
-    const find = () => {
+    const find = () => {                                 // the best first; a tag before a thing that scores the same
       if (!q) return [];
-      const score = x => x.keys.some(k => k === q) ? 3 : x.keys.some(k => k.startsWith(q)) ? 2 : x.keys.some(k => k.includes(q)) ? 1 : 0;
-      return index.map(x => [score(x), x.t]).filter(s => s[0]).sort((a, b) => b[0] - a[0] || b[1].n - a[1].n).slice(0, 8).map(s => s[1]);
+      const score = (keys, w) => keys.some(k => k === w) ? 3 : keys.some(k => k.startsWith(w)) ? 2 : keys.some(k => k.includes(w)) ? 1 : 0;
+      const a = index.map(x => [score(x.keys, q), 0, x.n, x]), b = tags.map(x => [score(x.keys, norm(q)), 1, x.n, x]);
+      return a.concat(b).filter(s => s[0]).sort((u, v) => v[0] - u[0] || v[1] - u[1] || v[2] - u[2]).slice(0, 8).map(s => s[3]);
     };
-    const go = id => { if (!id) return; document.dispatchEvent(new CustomEvent('dp:focus', { detail: { id } })); hits = []; render(); input.blur(); };
-    input.addEventListener('input', () => { const was = hits.length; q = input.value.trim().toLowerCase(); hits = find(); at = 0; render(!was); });
+    const light = h => {                                 // a tag lights its things, and stays lit until Esc
+      lit = h; box.classList.toggle('lit', !!h); kbd.textContent = h ? 'esc' : '/';
+      if (h) input.value = h.name;
+      document.dispatchEvent(new CustomEvent('dp:light', { detail: { sel: h ? { key: h.key, path: h.path } : null, name: h ? h.name : '' } }));
+    };
+    const go = h => {
+      if (!h) return;
+      hits = []; render(); input.blur();
+      if (h.tag) light(h); else document.dispatchEvent(new CustomEvent('dp:focus', { detail: { id: h.t.id } }));
+    };
+    input.addEventListener('input', () => { if (lit) light(null); const was = hits.length; q = input.value.trim().toLowerCase(); hits = find(); at = 0; render(!was); });
     input.addEventListener('keydown', e => {
       if (e.key === 'ArrowDown') { at = Math.min(hits.length - 1, at + 1); render(); e.preventDefault(); }
       else if (e.key === 'ArrowUp') { at = Math.max(0, at - 1); render(); e.preventDefault(); }
-      else if (e.key === 'Enter') go(hits[at] && hits[at].id);
-      else if (e.key === 'Escape') { input.value = ''; q = ''; hits = []; render(); input.blur(); document.dispatchEvent(new CustomEvent('dp:clear', { detail: {} })); }
+      else if (e.key === 'Enter') go(hits[at]);
+      else if (e.key === 'Escape') { input.value = ''; q = ''; hits = []; render(); input.blur(); if (lit) light(null); document.dispatchEvent(new CustomEvent('dp:clear', { detail: {} })); }
     });
-    list.addEventListener('click', e => { const b = e.target.closest('button'); if (b) go(b.dataset.id); });
-    document.addEventListener('keydown', e => { if (e.key === '/' && document.activeElement !== input) { e.preventDefault(); input.focus(); input.select(); } });
+    list.addEventListener('click', e => { const b = e.target.closest('button'); if (b) go(hits[+b.dataset.k]); });
+    document.addEventListener('keydown', e => {
+      if (e.key === '/' && document.activeElement !== input) { e.preventDefault(); input.focus(); input.select(); }
+      else if (e.key === 'Escape' && lit && document.activeElement !== input) { input.value = ''; light(null); }
+    });
+    document.addEventListener('dp:light', e => {        // lit from elsewhere (a tag in the panel): the box says what is lit
+      if (!e.detail.sel || (lit && lit.key === e.detail.sel.key && lit.path === e.detail.sel.path)) return;
+      lit = tags.find(x => x.key === e.detail.sel.key && x.path === e.detail.sel.path) || null;
+      box.classList.toggle('lit', !!lit); kbd.textContent = lit ? 'esc' : '/'; if (lit) input.value = lit.name;
+    });
+    document.addEventListener('dp:colour', e => { col = columns.find(c => c.key === e.detail.key) || col; facet = DP.facet(things, col); render(); });
+    document.addEventListener('dp:theme', tone);
   })();
   </script>
 </section>
@@ -1096,11 +1180,29 @@ const DP = {
   <style>
     #legend { position:fixed; left:28px; bottom:26px; z-index:4; width:272px; padding:16px 10px 12px; animation:legend-in .8s .5s cubic-bezier(.2,.8,.2,1) both; }
     #legend .eyebrow { padding:0 10px 8px; color:var(--card-label); }
-    #legend button { display:flex; align-items:center; gap:10px; width:100%; padding:6px 10px; border-radius:10px; font-size:13px; text-align:left; transition:background .15s, opacity .2s; }
-    #legend button:hover { background:var(--tint); }
-    #legend button[aria-pressed="false"] { opacity:.36; }
-    #legend button .name { flex:1; }
-    #legend button .n { color:var(--muted); font-variant-numeric:tabular-nums; font-size:12px; }
+    #legend .cols { display:flex; flex-wrap:wrap; gap:4px; padding:0 8px 10px; }
+    #legend .cols:empty { display:none; }
+    #legend .cols button { height:24px; padding:0 10px; border-radius:999px; font-size:11.5px; color:var(--muted); background:var(--tint); transition:color .2s, background .2s; }
+    #legend .cols button:hover { color:var(--ink); }
+    #legend .cols button[aria-pressed="true"] { background:var(--accent-soft-2); color:var(--ink); }
+    #legend .rows { max-height:calc(100vh - var(--head) - 300px); overflow:auto; overscroll-behavior:contain; scrollbar-width:thin; }
+    #legend .row { display:flex; align-items:center; border-radius:10px; transition:background .15s, opacity .2s; }
+    #legend .row:hover { background:var(--tint); }
+    #legend .row[data-off] { opacity:.36; }
+    #legend .row[data-depth="1"] { margin-left:14px; } #legend .row[data-depth="2"] { margin-left:26px; }
+    #legend .row[data-depth="3"] { margin-left:38px; } #legend .row[data-depth="4"] { margin-left:50px; }
+    #legend .tag { display:flex; align-items:center; gap:10px; flex:1; min-width:0; padding:6px 2px 6px 10px; font-size:13px; text-align:left; }
+    #legend .tag:disabled { cursor:default; }
+    #legend .tag .name { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    #legend .tag .n { color:var(--muted); font-variant-numeric:tabular-nums; font-size:12px; }
+    #legend .row.sub .tag { padding-top:4px; padding-bottom:4px; font-size:12.5px; }
+    #legend .row.sub .dot { width:6px; height:6px; margin:0 1.5px; }
+    #legend .open { flex:none; width:24px; height:26px; color:var(--faint); font-size:14px; transition:transform .2s, color .15s; }
+    #legend .open:hover { color:var(--ink); }
+    #legend .open[aria-expanded="true"] { transform:rotate(90deg); color:var(--muted); }
+    #legend .open.none { visibility:hidden; }
+    #legend .more { display:block; margin:2px 0 4px 36px; padding:3px 8px; border-radius:8px; font-size:12px; color:var(--accent); }
+    #legend .more:hover { background:var(--accent-soft); }
     #legend .key { display:flex; gap:16px; padding:12px 10px 0; font-size:12px; color:var(--muted); }
     #legend .key b { font-weight:600; margin-right:3px; }
     #legend .key .out { color:var(--out); }
@@ -1111,31 +1213,101 @@ const DP = {
     @media (prefers-reduced-motion: reduce) { #legend { animation:none; } }
   </style>
   <div class="eyebrow">Things</div>
-  <div class="rows"></div>
+  <div class="cols" role="group" aria-label="Colour the things by"></div>
+  <div class="rows" role="tree"></div>
   <div class="key"><span><b class="out">→</b>what it uses</span><span><b class="in">←</b>what uses it</span></div>
-  <div class="help">Point to light a group; click to hide it.</div>
+  <div class="help">Point to light, click to hide, › to open.</div>
   <script>
   (() => {
-    const groups = DP.read('data-groups'), things = DP.read('data-things');
-    const root = document.getElementById('legend'), rows = root.querySelector('.rows');
-    const count = g => things.filter(t => t.g === g).length;
-    rows.innerHTML = groups.filter(g => count(g.g)).map(g => `<button aria-pressed="true" data-g="${g.g}"><span class="dot" data-c="${g.color}"></span><span class="name">${DP.esc(g.name)}</span><span class="n">${DP.num(count(g.g))}</span></button>`).join('');
-    const tone = () => rows.querySelectorAll('.dot').forEach(d => { d.style.background = DP.tone(d.dataset.c, groups); });
-    tone();
-    document.addEventListener('dp:theme', tone);
-    const hidden = new Set();
-    let peeked = null;
-    const peek = g => { if (g !== peeked) { peeked = g; document.dispatchEvent(new CustomEvent('dp:peek', { detail: { g } })); } };
-    rows.addEventListener('mouseover', e => { const b = e.target.closest('button'); peek(b && !hidden.has(b.dataset.g) ? b.dataset.g : null); });
+    const columns = DP.read('data-columns'), things = DP.read('data-things');
+    const root = document.getElementById('legend'), eyebrow = root.querySelector('.eyebrow'), cols = root.querySelector('.cols'), rows = root.querySelector('.rows');
+    const byId = new Map(things.map((t, i) => [t.id, i]));
+    let col = columns[0], facet = DP.facet(things, col), tree = null, hidden = [], sels = [], peeked = '';
+    const open = new Set(), shown = new Map();
+    const id = s => `${s.key}|${s.rest ? '*' : s.none ? '-' : (s.exact ? '=' : '') + s.path}`;
+    const strip = s => Object.assign({ key: s.key, path: s.path }, s.rest ? { rest: true } : {}, s.none ? { none: true } : {}, s.exact ? { exact: true } : {});
+    const grow = () => {                                 // every path of the column and its levels: how many things lie under it,
+      const T = new Map(), at = p => { let x = T.get(p); if (!x) T.set(p, x = { n: 0, self: 0, kids: new Set(), seen: -1, own: -1 }); return x; };
+      things.forEach((t, i) => DP.vals(t, col.key).forEach(v => {   // how many hold it and nothing under it, which lie just below
+        const seg = v.split('/');
+        for (let d = 1; d <= seg.length; d++) {
+          const p = seg.slice(0, d).join('/'), x = at(p);
+          if (x.seen !== i) { x.n++; x.seen = i; }
+          if (d > 1) at(seg.slice(0, d - 1).join('/')).kids.add(p);
+          if (d === seg.length && x.own !== i) { x.self++; x.own = i; }
+        }
+      }));
+      return T;
+    };
+    const below = s => {                                 // the rows a row opens into
+      if (s.rest) {                                      // the top-level values without a colour, then the things with no value
+        const n = new Map(); let none = 0;
+        things.forEach((t, i) => { if (facet.top[i] >= 0) return; const vs = DP.vals(t, col.key); if (!vs.length) { none++; return; }
+          new Set(vs.map(v => v.split('/')[0])).forEach(v => n.set(v, (n.get(v) || 0) + 1)); });
+        return [...n].sort((a, b) => b[1] - a[1] || (a[0] < b[0] ? -1 : 1)).map(([v, k]) => ({ key: col.key, path: v, n: k }))
+          .concat(none ? [{ key: col.key, path: '', none: true, n: none }] : []);
+      }
+      const x = tree.get(s.path); if (!x || s.exact || s.none) return [];
+      const out = [...x.kids].map(p => ({ key: col.key, path: p, n: tree.get(p).n })).sort((a, b) => b.n - a.n || (a.path < b.path ? -1 : 1));
+      return x.self && out.length ? out.concat([{ key: col.key, path: s.path, exact: true, n: x.self }]) : out;
+    };
+    const opens = s => s.rest || (!s.exact && !s.none && (tree.get(s.path) || { kids: new Set() }).kids.size > 0);
+    const ups = s => {                                   // a row and those above it: hiding any of them hides it
+      const out = [id(s)]; if (s.rest) return out;
+      if (s.none) return out.concat([id({ key: col.key, rest: true })]);
+      const seg = s.path.split('/');
+      for (let d = seg.length - (s.exact ? 0 : 1); d >= 1; d--) out.push(id({ key: col.key, path: seg.slice(0, d).join('/') }));
+      if (!facet.rows.some(r => !r.rest && r.path === seg[0])) out.push(id({ key: col.key, rest: true }));
+      return out;
+    };
+    const naming = s => s.rest ? 'Everything else' : s.none ? DP.name(col, '') : s.exact ? 'Other ' + DP.name(col, s.path).toLowerCase() : DP.name(col, s.path);
+    const tone = () => rows.querySelectorAll('.dot').forEach(d => { d.style.background = DP.tone(d.dataset.c, facet.rows); });
+    function draw() {
+      eyebrow.textContent = columns.length > 1 ? 'Things by' : 'Things';
+      cols.innerHTML = columns.length > 1 ? columns.map(c => `<button aria-pressed="${c === col}" data-key="${DP.esc(c.key)}">${DP.esc(c.name)}</button>`).join('') : '';
+      const hid = new Set(hidden.map(id)), out = []; sels = [];
+      const row = (s, depth, color) => {
+        const k = id(s), up = ups(s), own = hid.has(k), off = up.some(u => hid.has(u)), has = opens(s), isOpen = has && open.has(k), name = naming(s);
+        sels.push(s); const j = sels.length - 1;
+        out.push(`<div class="row${depth ? ' sub' : ''}" data-depth="${Math.min(depth, 4)}" role="treeitem"${off ? ' data-off=""' : ''}${has ? ` aria-expanded="${isOpen}"` : ''}>`
+          + `<button class="tag" data-j="${j}" aria-pressed="${!own}"${off && !own ? ' disabled' : ''}><span class="dot" data-c="${color}"></span>`
+          + `<span class="name">${DP.esc(name)}</span><span class="n">${DP.num(s.n)}</span></button>`
+          + `<button class="open${has ? '' : ' none'}" data-j="${j}" aria-label="Open ${DP.esc(name)}" aria-expanded="${isOpen}"${has ? '' : ' tabindex="-1"'}>›</button></div>`);
+        if (!isOpen) return;
+        const kids = below(s), cap = shown.get(k) || 24;
+        kids.slice(0, cap).forEach(c => row(c, depth + 1, color));
+        if (kids.length > cap) out.push(`<button class="more" data-more="${DP.esc(k)}">Show ${DP.num(kids.length - cap)} more</button>`);
+      };
+      facet.rows.forEach(r => row(r.rest ? { key: col.key, rest: true, n: r.n } : { key: col.key, path: r.path, n: r.n }, 0, r.color));
+      rows.innerHTML = out.join('');
+      tone();
+    }
+    const peek = s => { const k = s ? id(s) : ''; if (k !== peeked) { peeked = k; document.dispatchEvent(new CustomEvent('dp:peek', { detail: { sel: s ? strip(s) : null } })); } };
+    const tell = () => document.dispatchEvent(new CustomEvent('dp:filter', { detail: { hidden: hidden.slice() } }));
+    rows.addEventListener('mouseover', e => { const b = e.target.closest('.tag'); peek(b && !b.disabled && b.getAttribute('aria-pressed') === 'true' ? sels[+b.dataset.j] : null); });
     rows.addEventListener('mouseleave', () => peek(null));
     root.addEventListener('click', e => {
-      const b = e.target.closest('button'); if (!b) return;
-      const g = b.dataset.g; if (hidden.has(g)) hidden.delete(g); else hidden.add(g);
-      b.setAttribute('aria-pressed', hidden.has(g) ? 'false' : 'true');
-      peek(hidden.has(g) ? null : g);
-      document.dispatchEvent(new CustomEvent('dp:filter', { detail: { hidden: [...hidden] } }));
+      const c = e.target.closest('.cols button');
+      if (c) {                                           // colour by another column: it starts with nothing hidden or open
+        const next = columns.find(x => x.key === c.dataset.key); if (!next || next === col) return;
+        col = next; facet = DP.facet(things, col); tree = grow(); open.clear(); shown.clear();
+        if (hidden.length) { hidden = []; tell(); }
+        peek(null); document.dispatchEvent(new CustomEvent('dp:colour', { detail: { key: col.key } })); draw(); return;
+      }
+      const m = e.target.closest('.more'); if (m) { shown.set(m.dataset.more, (shown.get(m.dataset.more) || 24) + 48); draw(); return; }
+      const o = e.target.closest('.open'); if (o) { const k = id(sels[+o.dataset.j]); if (open.has(k)) open.delete(k); else open.add(k); draw(); return; }
+      const b = e.target.closest('.tag'); if (!b || b.disabled) return;
+      const s = sels[+b.dataset.j], k = id(s), at = hidden.findIndex(h => id(h) === k);
+      if (at >= 0) hidden.splice(at, 1); else hidden.push(strip(s));
+      tell(); draw(); peek(at >= 0 ? s : null);
     });
-    document.addEventListener('dp:shown', e => { hidden.delete(e.detail.g); const b = rows.querySelector(`button[data-g="${e.detail.g}"]`); if (b) b.setAttribute('aria-pressed', 'true'); });
+    document.addEventListener('dp:reveal', e => {        // a hidden thing was picked: whatever hides it shows again
+      const i = byId.get(e.detail.id); if (i === undefined) return;
+      const left = hidden.filter(s => !(s.rest ? facet.top[i] < 0 : DP.holds(DP.vals(things[i], s.key), s)));
+      if (left.length !== hidden.length) { hidden = left; tell(); draw(); }
+    });
+    document.addEventListener('dp:theme', tone);
+    tree = grow(); draw();
   })();
   </script>
 </section>
@@ -1160,6 +1332,13 @@ const DP = {
     #detail .facts div { display:flex; flex-direction:column-reverse; }
     #detail .facts dt { font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); }
     #detail .facts dd { margin:0; font:var(--display-weight) 22px/1.1 var(--serif); font-variant-numeric:tabular-nums; color:var(--card-figure); }
+    #detail .tags { display:grid; grid-template-columns:auto 1fr; gap:7px 14px; margin:18px 0 0; align-items:baseline; }
+    #detail .tags div { display:contents; }
+    #detail .tags dt { font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); }
+    #detail .tags dd { display:flex; flex-wrap:wrap; gap:4px; margin:0; }
+    #detail .chip { padding:2px 9px; border-radius:999px; background:var(--tint); font-size:12px; color:var(--ink); transition:background .15s, color .15s; }
+    #detail .chip:hover { background:var(--accent-soft); color:var(--accent); }
+    #detail .tags em { font-style:normal; font-size:12px; color:var(--faint); padding:2px 4px; }
     #detail h3 { display:flex; align-items:baseline; gap:8px; margin:28px 0 10px; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); font-weight:600; }
     #detail h3 em { font-style:normal; color:var(--faint); font-weight:500; }
     #detail h3 .arrow { font-size:12px; letter-spacing:0; }
@@ -1188,8 +1367,11 @@ const DP = {
   <div class="body"></div>
   <script>
   (() => {
-    const meta = DP.read('data-meta'), groups = DP.read('data-groups'), things = DP.read('data-things'), links = DP.read('data-links'), notes = DP.read('data-notes');
-    const colour = Object.fromEntries(groups.map(g => [g.g, g.color])), named = meta.isles || {}, back = meta.inverse || {};
+    const meta = DP.read('data-meta'), columns = DP.read('data-columns'), things = DP.read('data-things'), links = DP.read('data-links'), notes = DP.read('data-notes');
+    const named = meta.isles || {}, back = meta.inverse || {};
+    let col = columns[0], facet = DP.facet(things, col), at = -1;
+    const hueOf = i => { const k = facet.top[i]; return k >= 0 ? facet.rows[k].color : DP.grey; };
+    const tone = () => body.querySelectorAll('.dot[data-c]').forEach(d => { d.style.background = DP.tone(d.dataset.c, facet.rows); });
     const root = document.getElementById('detail'), body = root.querySelector('.body');
     const byId = new Map(things.map((t, i) => [t.id, i]));
     const OUT = { 'uses': 'Uses', 'measured-by': 'Measured by', 'evaluated-on': 'Evaluated on', 'owned-by': 'Owned by', 'replaces': 'Replaces',
@@ -1208,7 +1390,7 @@ const DP = {
       const blocks = [...sets.values()].sort((a, b) => b.out - a.out || b.rows.length - a.rows.length).map(s => {
         const rows = s.rows.map(l => {
           const o = things[s.out ? l.t : l.s], n = notes[l.note];
-          return `<li><button class="to" data-id="${DP.esc(o.id)}"><span class="dot" data-c="${colour[o.g]}"></span>${DP.esc(o.label)}</button>`
+          return `<li><button class="to" data-id="${DP.esc(o.id)}"><span class="dot" data-c="${hueOf(s.out ? l.t : l.s)}"></span>${DP.esc(o.label)}</button>`
             + (l.q ? `<q>“${DP.esc(l.q)}”</q>` : '') + (n ? `<span class="src">${DP.esc(n.p.replace(/\.md$/, ''))}</span>` : '') + '</li>';
         });
         return `<h3><span class="arrow ${s.out ? 'out' : 'in'}">${s.out ? '→' : '←'}</span>${DP.esc(say(s.type, s.out))} <em>${DP.num(s.rows.length)}</em></h3><ul>${rows.slice(0, SHOW).join('')}</ul>${more(rows)}`;
@@ -1216,21 +1398,30 @@ const DP = {
       const ns = (t.notes || []).map(k => notes[k]).filter(Boolean).sort((a, b) => (b.d || '').localeCompare(a.d || ''));
       const noteRows = ns.map(n => `<li class="note"><b>${DP.esc(n.t)}</b><span>${DP.esc(n.a || 'top level')} · ${DP.esc(n.d || '')} · ${DP.esc(n.k)}</span>${n.old ? '<span class="old">replaced</span>' : ''}</li>`);
       const where = (named[t.home] || {}).name || t.home || 'shared by several projects';
-      body.innerHTML = `<div class="kind"><span class="dot" data-c="${colour[t.g]}"></span>${DP.esc(t.type)} · ${DP.esc(where)}</div>`
+      const kind = (DP.vals(t, col.key)[0] || '').split('/').pop().replace(/[-_]+/g, ' ');
+      const tagRows = columns.map(c => { const vs = DP.vals(t, c.key); if (!vs.length) return '';   // its tags, each a way to light its kind
+        return `<div><dt>${DP.esc(c.name)}</dt><dd>${vs.slice(0, 6).map(v => `<button class="chip" data-key="${DP.esc(c.key)}" data-path="${DP.esc(v)}" title="Light every thing with it">${DP.esc(DP.trail(c, v))}</button>`).join('')}${vs.length > 6 ? `<em>+${DP.num(vs.length - 6)}</em>` : ''}</dd></div>`; }).join('');
+      body.innerHTML = `<div class="kind"><span class="dot" data-c="${hueOf(i)}"></span>${kind ? DP.esc(kind) + ' · ' : ''}${DP.esc(where)}</div>`
         + `<h2${t.label.length > 44 ? ' class="long"' : ''}>${DP.esc(t.label)}</h2>`
         + `<dl class="facts">${meta.notes ? `<div><dt>notes</dt><dd>${DP.num(t.n)}</dd></div>` : ''}<div><dt>links</dt><dd>${DP.num(mine.length)}</dd></div></dl>`
+        + (tagRows ? `<dl class="tags">${tagRows}</dl>` : '')
         + blocks + (ns.length ? `<h3>Notes that name it <em>${DP.num(ns.length)}</em></h3><ul>${noteRows.slice(0, SHOW).join('')}</ul>${more(noteRows)}` : '');
-      body.querySelectorAll('.dot[data-c]').forEach(d => { d.style.background = DP.tone(d.dataset.c, groups); });
+      tone(); at = i;
       pointedId = null; root.scrollTop = 0; root.classList.add('open');
     };
     document.addEventListener('dp:select', e => { const i = e.detail.id == null ? undefined : byId.get(e.detail.id); if (i === undefined) root.classList.remove('open'); else render(i); });
-    document.addEventListener('dp:theme', () => body.querySelectorAll('.dot[data-c]').forEach(d => { d.style.background = DP.tone(d.dataset.c, groups); }));
+    document.addEventListener('dp:theme', tone);
+    document.addEventListener('dp:colour', e => { col = columns.find(c => c.key === e.detail.key) || col; facet = DP.facet(things, col);
+      if (at >= 0 && root.classList.contains('open')) render(at); });
     root.addEventListener('mouseover', e => { const li = e.target.closest('li'), to = li && li.querySelector('.to'); point(to ? to.dataset.id : null); });
     root.addEventListener('mouseleave', () => point(null));
     root.addEventListener('click', e => {
       const to = e.target.closest('.to'); if (to) { document.dispatchEvent(new CustomEvent('dp:focus', { detail: { id: to.dataset.id } })); return; }
+      const chip = e.target.closest('.chip');
+      if (chip) { const c = columns.find(x => x.key === chip.dataset.key);
+        document.dispatchEvent(new CustomEvent('dp:light', { detail: { sel: { key: chip.dataset.key, path: chip.dataset.path }, name: c ? DP.name(c, chip.dataset.path) : chip.dataset.path } })); return; }
       const m = e.target.closest('.more');
-      if (m) { const ul = m.previousElementSibling; ul.insertAdjacentHTML('beforeend', decodeURIComponent(m.dataset.rest)); ul.querySelectorAll('.dot[data-c]').forEach(d => { d.style.background = DP.tone(d.dataset.c, groups); }); m.remove(); return; }
+      if (m) { const ul = m.previousElementSibling; ul.insertAdjacentHTML('beforeend', decodeURIComponent(m.dataset.rest)); tone(); m.remove(); return; }
       if (e.target.closest('.close')) document.dispatchEvent(new CustomEvent('dp:clear', { detail: {} }));
     });
   })();

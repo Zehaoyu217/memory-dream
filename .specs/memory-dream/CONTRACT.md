@@ -186,8 +186,10 @@ relation is "current" when one of its evidence notes is live).
   (`--theme paper|star|gala|moon|fanfare|noir`: the look it opens in), removed when no two entities are related. One relation per `(s, type,
   o)`, with the line its first evidence names. Islands: the area holding at least 60% of an entity's project mentions,
   the general area naming it most when no project does, else the middle; when the areas do not part the entities (one
-  holds over half, or fewer than three hold three) the communities of the relations (Louvain) instead. Colours: the
-  TYPES.md families with the most entities, at most seven, the rest one grey.
+  holds over half, or fewer than three hold three) the communities of the relations (Louvain) instead. Tags: each
+  entity's type under its TYPES.md family (`family/type`), the project areas whose notes name it (most first) and
+  those notes' TAGS.md tags, each a column the page can colour by: the top-level values with the most entities, at
+  most seven, a colour each, the rest one grey; the legend opens each value into the levels under it.
 - `pending/` — what a helper agent is asked, each answered by a file of the same name ending in `.json`; `TODO.md`
   lists them. `dream --prompts` writes `<sha12>.prompt.md`, one note each; `dream --packets` writes
   `packet-<8 hex>.prompt.md`, many notes each under `NOTE <sha12> <path>:` lines and named by the notes it holds, so

@@ -51,6 +51,27 @@ const path = require('path');
     moved = !before.equals(await shot());
   }
   out('a thing can be dragged', !!at && moved, { at, moved });
+  // tags: the legend colours by each column in turn, opens a value into the level under it, and search lights a value
+  await page.mouse.move(700, 880);
+  const chips = page.locator('#legend .cols button'), n = await chips.count(), cols = [];
+  const before = await page.evaluate(() => window.__long.length);
+  for (let c = 0; c < n; c++) {
+    await chips.nth(c).click(); await page.waitForTimeout(700);
+    cols.push(await page.evaluate(() => [...document.querySelectorAll('#legend .row .name')].slice(0, 2).map(e => e.textContent).join(', ')));
+  }
+  const switchMs = await page.evaluate(b => Math.max(0, ...window.__long.slice(b)), before);
+  out('the legend colours by each tag column', n > 1 && new Set(cols).size === n && switchMs < 1500, { columns: n, firstRows: cols, longestTaskMs: switchMs });
+  await chips.nth(0).click(); await page.waitForTimeout(700);
+  await page.locator('#legend .row .open:not(.none)').first().click(); await page.waitForTimeout(300);
+  const sub = await page.evaluate(() => [...document.querySelectorAll('#legend .row.sub .name')].map(e => e.textContent));
+  if (sub.length) { await page.locator('#legend .row.sub .tag').first().hover(); await page.waitForTimeout(400); await page.mouse.move(700, 880); }
+  out('a legend value opens into the level under it', sub.length > 0, { under: sub.slice(0, 4) });
+  await page.keyboard.press('/'); await page.keyboard.type(sub[0] || 'a'); await page.waitForTimeout(300);
+  const hit = await page.evaluate(() => { const li = document.querySelector('#search li'); return li ? { tag: !!li.querySelector('.ring'), text: li.textContent } : null; });
+  await page.keyboard.press('Enter'); await page.waitForTimeout(600);
+  const lit = await page.evaluate(() => document.querySelector('#search .box').classList.contains('lit'));
+  out('search finds a tag value and lights its things', !!hit && hit.tag && lit, { hit, lit });
+  await page.keyboard.press('Escape');
   out('no page errors', errors.length === 0, { errors });
   await browser.close();
   process.exit(ok ? 0 : 1);

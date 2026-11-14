@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """A large graph to test the knowledge-graph page at scale, shaped like a big memory: projects of very different sizes,
 a shared middle, ten families of things, links mostly inside a project with a few hubs, and some between projects.
+Each node carries three tag columns: type, a path of family and kind with a long tail of kinds (dataset/table,
+feature/window, …), team (one or two of fourteen, a list when two) and status (live, draft, retired).
 
   python3 demo/knowledge-graph/make_big.py out.json [--things 20000] [--links 45000] [--seed 7] [--no-groups]
 
@@ -14,6 +16,13 @@ import sys
 FAMILIES = [("dataset", 18), ("feature", 17), ("model", 13), ("metric", 8), ("document", 9), ("decision", 8),
             ("term", 6), ("person", 5), ("team", 3), ("system", 13)]
 EDGES = ["uses", "uses", "uses", "measured-by", "evaluated-on", "produces", "part-of", "owned-by", "replaces", "trained-on"]
+KINDS = {"dataset": ["table", "view", "extract", "segment", "snapshot", "stream"], "feature": ["raw", "derived", "ratio", "flag", "window", "embedding"],
+         "model": ["gbm", "logistic", "scorecard", "nn", "rules", "uplift"], "metric": ["kpi", "rate", "loss", "count"],
+         "document": ["memo", "deck", "runbook", "spec", "dashboard"], "decision": ["policy", "threshold", "launch"],
+         "term": ["definition", "acronym"], "person": ["analyst", "engineer", "owner"], "team": ["squad", "vendor"],
+         "system": ["pipeline", "service", "job", "api", "repo", "cluster"]}
+TEAMS = ["fraud", "risk", "growth", "pricing", "collections", "platform", "data-eng", "ml-ops", "marketing", "finance",
+         "servicing", "compliance", "research", "design"]
 WORDS = ["churn", "fraud", "limit", "spend", "credit", "collections", "retention", "dispute", "merchant", "cashback",
          "nps", "chatbot", "aml", "bureau", "hardship", "travel", "promo", "income", "label", "routing", "segment",
          "velocity", "balance", "payment", "recovery", "uplift", "engagement", "forecast", "monitoring", "pricing"]
@@ -42,19 +51,28 @@ def main(argv):
         seen.add(nm)
         names.append(nm)
     fam_names, fam_w = zip(*FAMILIES)
+    team_w = [1 / (k + 1) ** 0.6 for k in range(len(TEAMS))]
+
+    def tagged(n, f):                                     # its tag columns: type as family/kind, one team or two, a status
+        ks = KINDS.get(f, [])
+        n["type"] = f if not ks or rnd.random() < 0.25 else f"{f}/{rnd.choices(ks, [1 / (k + 1) ** 0.8 for k in range(len(ks))])[0]}"
+        ts = list(dict.fromkeys(rnd.choices(TEAMS, team_w, k=2 if rnd.random() < 0.3 else 1)))
+        n["team"] = ts if len(ts) > 1 else ts[0]
+        n["status"] = rnd.choices(["live", "draft", "retired"], [70, 20, 10])[0]
+        return n
     nodes, members = [], []
     for p, s in enumerate(sizes):
         ids = []
         for j in range(s):
             f = rnd.choices(fam_names, fam_w)[0]
             nid = f"{f[:2]}-{names[p]}-{j}"
-            nodes.append({"id": nid, "label": nid, "type": f, "group": names[p] if groups else ""})
+            nodes.append(tagged({"id": nid, "label": nid, "group": names[p] if groups else ""}, f))
             ids.append(len(nodes) - 1)
         members.append(ids)
     middle = []
     for j in range(shared):
         f = rnd.choices(fam_names, fam_w)[0]
-        nodes.append({"id": f"{f[:2]}-shared-{j}", "label": f"{f}-shared-{j}", "type": f, "group": ""})
+        nodes.append(tagged({"id": f"{f[:2]}-shared-{j}", "label": f"{f}-shared-{j}", "group": ""}, f))
         middle.append(len(nodes) - 1)
 
     links, have = [], set()

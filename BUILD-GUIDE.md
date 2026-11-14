@@ -625,8 +625,19 @@ it; the page and d3 7.9.0 (ISC) sit in `assets/`, and it opens offline.
    (120 ms at once, then before each frame 22 ms, or one and a half times what the last frame cost to draw where
    drawing is slow, as without a GPU), so the page answers at once and an island blooms when it has settled; a
    dragged thing settles its own island again, not the graph.
-2. **Colours** are the memory's own type families (TYPES.md `family:`): the seven largest get a colour each, the
-   same hue for the same family in every memory, the rest one grey.
+2. **Tags and colours.** A thing carries tags: in each tag column a value or several, each a path whose levels are
+   split by `/` (`dataset/table/daily`). A memory's columns are its type under its family (TYPES.md `family:`, so
+   `segment` is `dataset/segment`), the projects whose notes name it, and the tags of those notes (TAGS.md); any
+   other graph's are every column of its nodes but id, label, group and size, with a `columns` entry to put flat
+   values under parents, name them or give them hues (`demo/knowledge-graph/build.py`, JSON or two CSV tables).
+   The page colours by one column, chosen in the legend: the seven top-level values with the most things (each with
+   2% of them) a colour each, the same hue for the same family in every memory, the rest one grey, "Everything
+   else". The legend is a tree: › opens a value into the level under it (and "Other …" for those that stop at it),
+   Everything else into the values without a colour and the things with none; pointing at any row lights its
+   things, clicking hides them. Search finds the values too, every level, and lights them until Esc; the panel
+   lists a thing's tags, each a way to light its kind. With 56 types in a long tail (`model/uplift`,
+   `question/open`, …) the colours fall on 7 of their 15 families and 23% of 20,000 things are grey (each still one
+   row to open, light, hide or find); taken flat, 7 types got colours and 60% were grey.
 3. **Motion with a reason.** It blooms in on a clockwise sweep with the camera easing out; while nothing is chosen,
    pulses run along links between islands; a chosen thing flies into view on the smooth zoom path (van Wijk and
    Nuij), its links flowing blue for what it uses and orange for what uses it, beside a panel of each link and the
@@ -671,6 +682,7 @@ it; the page and d3 7.9.0 (ISC) sit in `assets/`, and it opens offline.
 python3 tests/acceptance.py            # 40 checks, A1–A20, A24, A25–A43, with the fake dreamer, about 30 s
 python3 tests/e2e.py                   # one run on both read paths: dream, ask, a file gone by hand, drop a note, the end of a line, a folder, absorb a base
 python3 tests/retrieval_gate.py bank   # the model-free numbers with floors (README Results); `software` for the second fixture
+python3 tests/kg_tags.py               # the knowledge graph's tag columns through build.py: CSV, JSON, parents, --colour
 MEMORY_STORE_URL=postgresql://… python3 tests/store_parity.py postgres --bank   # needs psycopg: the PostgreSQL store (ADR-001)
 python3 tests/acceptance.py A6 A24     # some
 python3 tests/real_model.py            # Haiku on the fixture vs tests/truth.py (costs a few cents)
