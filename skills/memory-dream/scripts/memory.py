@@ -5114,18 +5114,33 @@ def kg_path(v, parents=None):
     return p
 
 
-def kg_cell(v, parents=None):
+def kg_cell(v, parents=None, text=False):
     """One thing's value in one tag column: a path, a list of them (several values), or None (no value). A list, or
-    text with ';' between values, gives several; numbers and yes/no are their text; anything nested is left out."""
-    vs = v if isinstance(v, (list, tuple)) else str(v).split(";") if isinstance(v, str) and ";" in v else [v]
+    text with ';' between values, gives several; numbers and yes/no are their text; anything nested is left out.
+    In a text column (a definition, a description) a value is kept as it is: no levels, no ';'."""
+    vs = v if isinstance(v, (list, tuple)) else str(v).split(";") if isinstance(v, str) and ";" in v and not text else [v]
     out = []
     for x in vs:
         if x is None or isinstance(x, (dict, list, tuple)):
             continue
-        p = kg_path("yes" if x is True else "no" if x is False else x, parents)
+        x = "yes" if x is True else "no" if x is False else x
+        p = " ".join(str(x).split()) if text else kg_path(x, parents)
         if p and p not in out:
             out.append(p)
     return None if not out else out[0] if len(out) == 1 else out
+
+
+def kg_is_text(cells):
+    """Whether a tag column holds text (a definition, a description, a link) rather than categories: its values long
+    (over 40 characters on average) or mostly their own (more distinct than half the things holding one, and over 12).
+    A text column is shown and searched with each thing; categories are what the page colours by and lists."""
+    vals = [str(x).strip() for c in cells for x in (c if isinstance(c, (list, tuple)) else [c])
+            if x is not None and not isinstance(x, (dict, list, tuple)) and str(x).strip()]
+    if not vals:
+        return False
+    held = sum(1 for c in cells if c not in (None, "", [], ()))
+    distinct = len(set(vals))
+    return sum(len(v) for v in vals) / len(vals) > 40 or (distinct > 12 and distinct > 0.5 * held)
 
 
 def kg_names(paths, name=kg_plural):
@@ -5239,7 +5254,8 @@ def kg_islands(home, links, labels, general=frozenset(), middle="shared by sever
 def kg_page(title, headline, lede, stats, meta, columns, things, links, notes, eyebrow="Knowledge graph", theme="paper"):
     """The page itself: assets/knowledge-graph.html with its data islands and masthead filled, d3 (ISC) pasted in.
     columns: the tag columns, the first the one it colours by at first ([{key, name, names?: {path: name},
-    colours?: {value: hex}}]); each thing's tags: {key: path or [paths]}.
+    colours?: {value: hex}, text?: true}]); each thing's tags: {key: path or [paths]}, or text in a text column.
+    meta may name the link types: forward ({type: name}) and inverse ({type: how it reads backwards}).
     theme: the look it opens in: paper, star (a star map at night), gala (a purple show at night), moon (moonlit: pale
     lilac and silver under a great moon), fanfare (a violet stage under sweeping spotlights) or noir (black and white
     on a checkered stage, purple only as an accent); a switch in its header picks among them."""
@@ -5323,16 +5339,26 @@ def kg_data(root, g):
     tagged = {i: [t for t, _ in Counter(t for p in paths[i] for t in tag_of.get(p, ())).most_common()] for i in kept}
     names = kg_names(kind.values())
     names["other"] = "Other kinds"
+    # and a text tag, what it is: the key line of the note that best says so (its headline note)
+    about = {}
+    for i in kept:
+        h = ents[i].get("headline")
+        n = notes.get(h) if h else None
+        about[i] = quote(h, str(n.get("line") or "")) if n else ""
     columns = [{"key": "type", "name": "Type", "names": names, "colours": KG_COLOURS}]
     if any(proj.values()):
         columns.append({"key": "project", "name": "Project"})
     if any(tagged.values()):
         columns.append({"key": "tag", "name": "Tag"})
+    if any(about.values()):
+        columns.append({"key": "about", "name": "About", "text": True})
     def tags(i):
         out = {"type": kind[i]}
         for key, vs in (("project", proj[i]), ("tag", tagged[i])):
             if vs:
                 out[key] = vs[0] if len(vs) == 1 else vs
+        if about[i]:
+            out["about"] = about[i]
         return out
     note_list = sorted({p for i in kept for p in paths[i]} | {l["note"] for l in links if l["note"]})
     note_at = {p: k for k, p in enumerate(note_list)}

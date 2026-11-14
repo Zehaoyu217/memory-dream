@@ -250,8 +250,9 @@ every link a note states between two of them. An island is a project (or a share
 several projects share in the middle; when the folders do not part the things, as in a memory kept in one folder,
 the islands are the communities of the links instead, each named for its most linked thing. Each thing carries tags:
 its type under the memory's own family (TYPES.md `family:`, so a segment is Datasets › Segments), the projects whose
-notes name it, and those notes' tags. The legend colours by any of them and opens each value into the levels under
-it: point at a row to light its things, click to hide them; search finds the values too. A thing picked shows what
+notes name it, those notes' tags, and About, the line of the note that best says what it is. The legend colours by
+any category and opens each value into the levels under it: point at a row to light its things, click to hide them;
+search finds the values too, and finds a thing by its About. A thing picked shows what
 it uses and what uses it, each link with the line of the note that says so; the tour flies through the most linked
 things. It opens offline (d3 7.9.0, ISC, is
 inside the file) in one of six looks, kept side by side: paper; a star map at night (`viz --theme star`); a gala,
@@ -262,10 +263,13 @@ candy-bright lotto balls (`viz --theme fanfare`); and noir, black and white on a
 spotlight, with silver and white things, card suits turning round a picked thing and purple only as an accent (`viz
 --theme noir`). The last four fling confetti when a thing is picked. A switch in its header picks among them. Any
 other graph makes the same page: `python3 demo/knowledge-graph/build.py graph.json out.html` takes nodes and links as
-JSON, or `build.py nodes.csv links.csv out.html` as two tables. Every column of a node but its id, label, group (the
-island) and size is a tag column (type, team, status, owner, …); a value is text, a path whose levels are split by
-`/` (`dataset/table/daily`), or several (a list, or `;` between them), and a `columns` entry can put flat values
-under parents, name them and give them hues (the file's head says how). It holds up at scale: at 20,000 things and 45,000 links it answers
+JSON, or `build.py nodes.csv links.csv out.html` as two tables. The data model is three parts: things (an id, a
+label, a group for the island, a size), links (source to target, a type, the line that says so) and tags, every
+other column of a node (type, team, status, owner, definition, …). A category tag is a value, a path whose levels
+are split by `/` (`dataset/table/daily`), or several (a list, or `;` between them); a text tag (a definition, a
+description) is kept whole, shown and searched with its thing. A `columns` entry can put flat values under parents,
+name them, give them hues or say which columns are text, and `link_types` names a link type both ways (`feeds` /
+`fed by`); the file's head says how. It holds up at scale: at 20,000 things and 45,000 links it answers
 in under half a second, settles island by island in under two, and runs at 60 frames a second in every look
 (`demo/knowledge-graph/make_big.py` makes such a graph; CI checks it with `tests/kg_scale.js`).
 

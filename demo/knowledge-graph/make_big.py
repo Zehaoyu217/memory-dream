@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """A large graph to test the knowledge-graph page at scale, shaped like a big memory: projects of very different sizes,
 a shared middle, ten families of things, links mostly inside a project with a few hubs, and some between projects.
-Each node carries three tag columns: type, a path of family and kind with a long tail of kinds (dataset/table,
-feature/window, …), team (one or two of fourteen, a list when two) and status (live, draft, retired).
+Each node carries three category columns: type, a path of family and kind with a long tail of kinds (dataset/table,
+feature/window, …), team (one or two of fourteen, a list when two) and status (live, draft, retired); and a text
+column, definition, a sentence of its own.
 
   python3 demo/knowledge-graph/make_big.py out.json [--things 20000] [--links 45000] [--seed 7] [--no-groups]
 
@@ -21,6 +22,9 @@ KINDS = {"dataset": ["table", "view", "extract", "segment", "snapshot", "stream"
          "document": ["memo", "deck", "runbook", "spec", "dashboard"], "decision": ["policy", "threshold", "launch"],
          "term": ["definition", "acronym"], "person": ["analyst", "engineer", "owner"], "team": ["squad", "vendor"],
          "system": ["pipeline", "service", "job", "api", "repo", "cluster"]}
+WHAT = {"dataset": "A table of {t} records", "feature": "A {t} signal built from account history", "model": "A model that scores {t}",
+        "metric": "How {t} is measured", "document": "A write-up on {t}", "decision": "What was decided about {t}",
+        "term": "What {t} means here", "person": "Who looks after {t}", "team": "The team behind {t}", "system": "The job that moves {t} data"}
 TEAMS = ["fraud", "risk", "growth", "pricing", "collections", "platform", "data-eng", "ml-ops", "marketing", "finance",
          "servicing", "compliance", "research", "design"]
 WORDS = ["churn", "fraud", "limit", "spend", "credit", "collections", "retention", "dispute", "merchant", "cashback",
@@ -59,6 +63,10 @@ def main(argv):
         ts = list(dict.fromkeys(rnd.choices(TEAMS, team_w, k=2 if rnd.random() < 0.3 else 1)))
         n["team"] = ts if len(ts) > 1 else ts[0]
         n["status"] = rnd.choices(["live", "draft", "retired"], [70, 20, 10])[0]
+        topic = f"{rnd.choice(WORDS)} {rnd.choice(WORDS)}"
+        n["definition"] = WHAT[f].format(t=topic) + ", " + rnd.choice([          # a text tag: shown and searched, not coloured
+            f"about {rnd.randint(2, 900) * 1000:,} rows a day", f"kept since {rnd.randint(2018, 2026)}", f"reviewed every {rnd.choice(['month', 'quarter', 'year'])}",
+            f"owned by the {ts[0]} team", f"used by {rnd.randint(2, 40)} models", f"last checked in {rnd.choice(['March', 'June', 'October'])} {rnd.randint(2024, 2026)}"])
         return n
     nodes, members = [], []
     for p, s in enumerate(sizes):

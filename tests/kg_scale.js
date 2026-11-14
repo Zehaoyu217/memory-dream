@@ -71,7 +71,21 @@ const path = require('path');
   await page.keyboard.press('Enter'); await page.waitForTimeout(600);
   const lit = await page.evaluate(() => document.querySelector('#search .box').classList.contains('lit'));
   out('search finds a tag value and lights its things', !!hit && hit.tag && lit, { hit, lit });
-  await page.keyboard.press('Escape');
+  await page.keyboard.press('Escape'); await page.waitForTimeout(300);
+  // a text tag (a definition): no colour chip of its own; search finds a thing by its words; the panel shows them
+  const text = await page.evaluate(() => {
+    const cols = JSON.parse(document.getElementById('data-columns').textContent), c = cols.find(x => x.text); if (!c) return null;
+    const things = JSON.parse(document.getElementById('data-things').textContent), t = things.find(x => x.tags && x.tags[c.key]);
+    return { key: c.key, name: c.name, label: t.label, words: String(t.tags[c.key]).split(' ').slice(-4).join(' '), chip: [...document.querySelectorAll('#legend .cols button')].some(b => b.textContent === c.name) };
+  });
+  if (text) {
+    await page.keyboard.press('/'); await page.keyboard.type(text.words); await page.waitForTimeout(400);
+    const first = await page.evaluate(() => { const li = document.querySelector('#search li'); return li ? { tag: !!li.querySelector('.ring'), name: li.querySelector('.name').textContent } : null; });
+    await page.keyboard.press('Enter'); await page.waitForTimeout(1500);
+    const shown = await page.evaluate(() => [...document.querySelectorAll('#detail .texts p')].map(p => p.textContent));
+    out('a text tag is searched with its thing and shown in its panel', !text.chip && !!first && !first.tag && shown.some(p => p.includes(text.words)), { column: text.name, search: text.words, first, shown: shown.slice(0, 1) });
+    await page.keyboard.press('Escape');
+  } else out('a text tag is searched with its thing and shown in its panel', false, { error: 'no text column in the page' });
   out('no page errors', errors.length === 0, { errors });
   await browser.close();
   process.exit(ok ? 0 : 1);

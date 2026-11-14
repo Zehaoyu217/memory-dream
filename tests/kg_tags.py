@@ -68,6 +68,26 @@ with tempfile.TemporaryDirectory() as d:
     check("the column's name, legend names and hues", kind.get("name") == "Kind" and kind.get("names", {}).get("data") == "All data"
           and kind.get("colours", {}).get("data") == "#123456", kind)
     check("yes/no is text", by["x"]["tags"].get("flag") == "yes", by["x"])
+    # text tags: a definition is a tag too, kept whole (no levels, no ';'), never the colours; the rule can be overridden
+    defs = [f"A daily table of card spend; region {k}/{k + 1}, about {k * 37} rows" for k in range(16)]
+    doc = {"nodes": [{"id": f"n{k}", "type": "dataset" if k % 2 else "model", "definition": defs[k], "sku": f"S-{k}", "code": "ab"[k % 2]}
+                     for k in range(16)],
+           "links": [{"source": f"n{k}", "target": f"n{k + 1}", "type": "feeds"} for k in range(15)],
+           "columns": {"code": {"text": True}, "sku": {"text": False}},
+           "link_types": {"feeds": {"name": "Feeds", "inverse": "Fed by"}}}
+    (T / "t.json").write_text(json.dumps(doc))
+    built, log = run(T / "t.json", T / "t.html", "--colour", "definition")
+    check("text JSON builds", built, log)
+    cols, by = islands(T / "t.html")
+    kinds = {c["key"]: bool(c.get("text")) for c in cols}
+    check("a long or mostly-unique column is text", kinds.get("definition") is True, cols)
+    check("a text value is kept whole", by["n3"]["tags"]["definition"] == defs[3], by["n3"])
+    check("a text column never opens the colours, even asked", cols[0]["key"] == "type", [c["key"] for c in cols])
+    check("'text': true and false override the rule", kinds.get("code") is True and kinds.get("sku") is False, kinds)
+    s = (T / "t.html").read_text()
+    a = s.index('id="data-meta">'); a = s.index("\n", a) + 1
+    meta = json.loads(s[a:s.index("</script>", a)])
+    check("link_types name a link type both ways", meta.get("forward", {}).get("feeds") == "Feeds" and meta.get("inverse", {}).get("feeds") == "Fed by", meta)
     # no tag column at all: one, so the legend still counts the things
     (T / "bare.json").write_text(json.dumps({"nodes": [{"id": "p"}, {"id": "q"}], "links": [{"source": "p", "target": "q"}]}))
     built, log = run(T / "bare.json", T / "bare.html")

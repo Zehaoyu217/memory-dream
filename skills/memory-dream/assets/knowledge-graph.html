@@ -283,7 +283,8 @@ const DP = {
   (() => {
     const columns = DP.read('data-columns'), things = DP.read('data-things'), raw = DP.read('data-links'), meta = DP.read('data-meta');
     const root = document.getElementById('graph'), canvas = root.querySelector('canvas'), ctx = canvas.getContext('2d');
-    let col = columns[0], facet = DP.facet(things, col), tones = [], grey = DP.grey;   // the column the colours come from
+    const cats = columns.filter(c => !c.text), texts = columns.filter(c => c.text);   // categories colour; text is read
+    let col = cats[0] || columns[0], facet = DP.facet(things, col), tones = [], grey = DP.grey;   // the column the colours come from
     const tip = root.querySelector('.tip'), hint = root.querySelector('.hint'), tourBtn = root.querySelector('.tour');
     const css = getComputedStyle(document.documentElement), tok = n => css.getPropertyValue(n).trim();
     const PANEL = parseFloat(tok('--panel')) + 48, still = DP.still();
@@ -961,8 +962,9 @@ const DP = {
     function place(px, py) { const w = tip.offsetWidth, h = tip.offsetHeight; tip.style.left = Math.min(W - w - 16, px + 18) + 'px'; tip.style.top = Math.min(H - h - 16, py + 16) + 'px'; tip.classList.add('on'); }
     function showTip(n, px, py) {
       const what = [leaf(n), n.home ? isleOf.get(n.home).name : ''].filter(Boolean).map(DP.esc).join(' · ');
+      const about = texts.map(c => DP.vals(n, c.key)[0]).find(Boolean);
       const many = meta.notes ? ` · ${DP.num(n.n)} note${n.n === 1 ? '' : 's'}` : '';
-      tip.innerHTML = `<b>${DP.esc(n.label)}</b><span>${what ? what + ' · ' : ''}${DP.num(deg[n.i])} link${deg[n.i] === 1 ? '' : 's'}${many}</span>`;
+      tip.innerHTML = `<b>${DP.esc(n.label)}</b><span>${what ? what + ' · ' : ''}${DP.num(deg[n.i])} link${deg[n.i] === 1 ? '' : 's'}${many}</span>${about ? `<em>${DP.esc(about.length > 150 ? about.slice(0, 148) + '…' : about)}</em>` : ''}`;
       place(px, py);
     }
     function showIsleTip(p, px, py) {
@@ -1116,11 +1118,12 @@ const DP = {
   (() => {
     const meta = DP.read('data-meta'), columns = DP.read('data-columns'), things = DP.read('data-things');
     const root = document.getElementById('search'), box = root.querySelector('.box'), input = root.querySelector('input'), list = root.querySelector('ul'), kbd = root.querySelector('kbd');
-    let col = columns[0], facet = DP.facet(things, col), lit = null;
+    const cats = columns.filter(c => !c.text), texts = columns.filter(c => c.text);
+    let col = cats[0] || columns[0], facet = DP.facet(things, col), lit = null;
     const norm = s => String(s).toLowerCase().replace(/[-_]+/g, ' ');
-    const index = things.map((t, i) => ({ t, i, n: t.n, keys: [t.label, ...(t.names || []), t.id].map(s => String(s).toLowerCase()) }));
+    const index = things.map((t, i) => ({ t, i, n: t.n, keys: [t.label, ...(t.names || []), t.id, ...texts.flatMap(c => DP.vals(t, c.key))].map(s => String(s).toLowerCase()) }));
     const tags = [];                                     // every level of every value of every tag column, and how many hold it
-    columns.forEach(c => {
+    cats.forEach(c => {
       const n = new Map();
       things.forEach(t => { const seen = new Set(); DP.vals(t, c.key).forEach(v => { const seg = v.split('/'); for (let d = 1; d <= seg.length; d++) seen.add(seg.slice(0, d).join('/')); });
         seen.forEach(p => n.set(p, (n.get(p) || 0) + 1)); });
@@ -1222,7 +1225,8 @@ const DP = {
     const columns = DP.read('data-columns'), things = DP.read('data-things');
     const root = document.getElementById('legend'), eyebrow = root.querySelector('.eyebrow'), cols = root.querySelector('.cols'), rows = root.querySelector('.rows');
     const byId = new Map(things.map((t, i) => [t.id, i]));
-    let col = columns[0], facet = DP.facet(things, col), tree = null, hidden = [], sels = [], peeked = '';
+    const cats = columns.filter(c => !c.text);           // a text tag (a definition) is read in the panel, not listed
+    let col = cats[0] || columns[0], facet = DP.facet(things, col), tree = null, hidden = [], sels = [], peeked = '';
     const open = new Set(), shown = new Map();
     const id = s => `${s.key}|${s.rest ? '*' : s.none ? '-' : (s.exact ? '=' : '') + s.path}`;
     const strip = s => Object.assign({ key: s.key, path: s.path }, s.rest ? { rest: true } : {}, s.none ? { none: true } : {}, s.exact ? { exact: true } : {});
@@ -1263,8 +1267,8 @@ const DP = {
     const naming = s => s.rest ? 'Everything else' : s.none ? DP.name(col, '') : s.exact ? 'Other ' + DP.name(col, s.path).toLowerCase() : DP.name(col, s.path);
     const tone = () => rows.querySelectorAll('.dot').forEach(d => { d.style.background = DP.tone(d.dataset.c, facet.rows); });
     function draw() {
-      eyebrow.textContent = columns.length > 1 ? 'Things by' : 'Things';
-      cols.innerHTML = columns.length > 1 ? columns.map(c => `<button aria-pressed="${c === col}" data-key="${DP.esc(c.key)}">${DP.esc(c.name)}</button>`).join('') : '';
+      eyebrow.textContent = cats.length > 1 ? 'Things by' : 'Things';
+      cols.innerHTML = cats.length > 1 ? cats.map(c => `<button aria-pressed="${c === col}" data-key="${DP.esc(c.key)}">${DP.esc(c.name)}</button>`).join('') : '';
       const hid = new Set(hidden.map(id)), out = []; sels = [];
       const row = (s, depth, color) => {
         const k = id(s), up = ups(s), own = hid.has(k), off = up.some(u => hid.has(u)), has = opens(s), isOpen = has && open.has(k), name = naming(s);
@@ -1334,6 +1338,10 @@ const DP = {
     #detail .facts dd { margin:0; font:var(--display-weight) 22px/1.1 var(--serif); font-variant-numeric:tabular-nums; color:var(--card-figure); }
     #detail .tags { display:grid; grid-template-columns:auto 1fr; gap:7px 14px; margin:18px 0 0; align-items:baseline; }
     #detail .tags div { display:contents; }
+    #detail .texts { margin:16px 0 0; }
+    #detail .texts dt { font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); }
+    #detail .texts dd { margin:4px 0 10px; }
+    #detail .texts p { margin:0 0 4px; font-size:13.5px; line-height:1.5; color:var(--ink); }
     #detail .tags dt { font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); }
     #detail .tags dd { display:flex; flex-wrap:wrap; gap:4px; margin:0; }
     #detail .chip { padding:2px 9px; border-radius:999px; background:var(--tint); font-size:12px; color:var(--ink); transition:background .15s, color .15s; }
@@ -1368,8 +1376,9 @@ const DP = {
   <script>
   (() => {
     const meta = DP.read('data-meta'), columns = DP.read('data-columns'), things = DP.read('data-things'), links = DP.read('data-links'), notes = DP.read('data-notes');
-    const named = meta.isles || {}, back = meta.inverse || {};
-    let col = columns[0], facet = DP.facet(things, col), at = -1;
+    const named = meta.isles || {}, back = meta.inverse || {}, fwd = meta.forward || {};
+    const cats = columns.filter(c => !c.text), texts = columns.filter(c => c.text);
+    let col = cats[0] || columns[0], facet = DP.facet(things, col), at = -1;
     const hueOf = i => { const k = facet.top[i]; return k >= 0 ? facet.rows[k].color : DP.grey; };
     const tone = () => body.querySelectorAll('.dot[data-c]').forEach(d => { d.style.background = DP.tone(d.dataset.c, facet.rows); });
     const root = document.getElementById('detail'), body = root.querySelector('.body');
@@ -1378,7 +1387,7 @@ const DP = {
                   'part-of': 'Part of', 'trained-on': 'Trained on', 'produces': 'Produces', 'shows': 'Shows', 'compared-with': 'Compared with' };
     const IN = { 'uses': 'Used by', 'measured-by': 'Measures', 'evaluated-on': 'Evaluation set for', 'owned-by': 'Owns', 'replaces': 'Replaced by',
                  'part-of': 'Has as a part', 'trained-on': 'Training data for', 'produces': 'Produced by', 'shows': 'Shown in', 'compared-with': 'Compared with' };
-    const say = (ty, out) => (out ? OUT[ty] : IN[ty] || back[ty])                     // the memory's own EDGES.md reads it backwards
+    const say = (ty, out) => (out ? fwd[ty] || OUT[ty] : back[ty] || IN[ty])         // the graph's own words first (EDGES.md, link_types)
       || (ty.replace(/^other\//, '').replace(/-/g, ' ').replace(/^./, c => c.toUpperCase()) + (out ? '' : ', from'));
     const SHOW = 5;
     const more = rows => rows.length > SHOW ? `<button class="more" data-rest="${DP.esc(encodeURIComponent(rows.slice(SHOW).join('')))}">Show ${DP.num(rows.length - SHOW)} more</button>` : '';
@@ -1399,12 +1408,13 @@ const DP = {
       const noteRows = ns.map(n => `<li class="note"><b>${DP.esc(n.t)}</b><span>${DP.esc(n.a || 'top level')} · ${DP.esc(n.d || '')} · ${DP.esc(n.k)}</span>${n.old ? '<span class="old">replaced</span>' : ''}</li>`);
       const where = (named[t.home] || {}).name || t.home || 'shared by several projects';
       const kind = (DP.vals(t, col.key)[0] || '').split('/').pop().replace(/[-_]+/g, ' ');
-      const tagRows = columns.map(c => { const vs = DP.vals(t, c.key); if (!vs.length) return '';   // its tags, each a way to light its kind
+      const textRows = texts.map(c => { const vs = DP.vals(t, c.key); return vs.length ? `<div><dt>${DP.esc(c.name)}</dt><dd>${vs.map(v => `<p>${DP.esc(v)}</p>`).join('')}</dd></div>` : ''; }).join('');
+      const tagRows = cats.map(c => { const vs = DP.vals(t, c.key); if (!vs.length) return '';   // its tags, each a way to light its kind
         return `<div><dt>${DP.esc(c.name)}</dt><dd>${vs.slice(0, 6).map(v => `<button class="chip" data-key="${DP.esc(c.key)}" data-path="${DP.esc(v)}" title="Light every thing with it">${DP.esc(DP.trail(c, v))}</button>`).join('')}${vs.length > 6 ? `<em>+${DP.num(vs.length - 6)}</em>` : ''}</dd></div>`; }).join('');
       body.innerHTML = `<div class="kind"><span class="dot" data-c="${hueOf(i)}"></span>${kind ? DP.esc(kind) + ' · ' : ''}${DP.esc(where)}</div>`
         + `<h2${t.label.length > 44 ? ' class="long"' : ''}>${DP.esc(t.label)}</h2>`
         + `<dl class="facts">${meta.notes ? `<div><dt>notes</dt><dd>${DP.num(t.n)}</dd></div>` : ''}<div><dt>links</dt><dd>${DP.num(mine.length)}</dd></div></dl>`
-        + (tagRows ? `<dl class="tags">${tagRows}</dl>` : '')
+        + (textRows ? `<dl class="texts">${textRows}</dl>` : '') + (tagRows ? `<dl class="tags">${tagRows}</dl>` : '')
         + blocks + (ns.length ? `<h3>Notes that name it <em>${DP.num(ns.length)}</em></h3><ul>${noteRows.slice(0, SHOW).join('')}</ul>${more(noteRows)}` : '');
       tone(); at = i;
       pointedId = null; root.scrollTop = 0; root.classList.add('open');

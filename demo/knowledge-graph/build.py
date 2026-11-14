@@ -13,22 +13,35 @@ and silver things, card suits round a picked thing, purple only as an accent); t
 thing is picked. A switch in its header picks among the six.
 
 A memory: the same page `memory.py viz` and every dream write to memory/_dream/knowledge-graph.html (it needs a memory
-dreamed with a model command: the things and their links are what its keepers read). Its tag columns are the type
-(family/type), the projects whose notes name a thing and the tags of those notes.
+dreamed with a model command: the things and their links are what its keepers read). Its tags are the type
+(family/type), the projects whose notes name a thing, the tags of those notes, and About, the line of the note that
+best says what the thing is (a text tag).
 
-Any other graph, as JSON: {"nodes": [{"id": …}], "links": [{"source": …, "target": …}]} ("edges" works for "links").
-A node's "label" names it, "group" puts it on an island (without groups, or when one group holds more than half the
-nodes, the islands are the communities of the links) and "size" sizes its dot (the number of links when absent).
-Every other field of a node is a tag column: type, team, status, owner, whatever the data has. A value is text, or a
-path whose levels are split by "/" (dataset/table/daily: the legend opens Datasets into Tables into Daily), or a list
-of them (a thing with several), or text with ";" between values. The page colours by any column (a switch in its
-legend), the first by default ("type" if there is one, or --colour): the seven top-level values with the most things
-a colour each, the rest one grey, "Everything else"; pointing at any level lights its things, clicking hides them,
-and search finds the values too. An optional "columns" entry beside "nodes" says more about a column:
+Any other graph, as JSON: {"nodes": [...], "links": [...]} ("edges" works for "links"). The data model has three parts:
+
+  Things, the nodes. "id" (required, unique) and "label" (the name shown; the id when absent); "group" puts it on an
+  island (without groups, or when one group holds more than half the nodes, the islands are the communities of the
+  links) and "size" sizes its dot (its number of links when absent). Every other field is a tag. A node with no link
+  is left out.
+  Links. "source" and "target" (ids, required; a link reads source to target: what it uses, what uses it), "type"
+  (the link type; links-to when absent) and "text" (the line shown with it, at most 220 characters). One link per
+  source, target and type.
+  Tags, each a column of the nodes: type, team, status, owner, definition, whatever the data has. Two sorts, told by
+  their values. A category repeats (type, team, status): the page colours by one (a switch in its legend; the first,
+  "type" if there is one, or --colour), the seven top-level values with the most things a colour each and the rest
+  one grey, "Everything else"; its legend opens each value into the levels under it, pointing at a row lights its
+  things and clicking hides them, and search finds its values. A value is text, a path whose levels are split by "/"
+  (dataset/table/daily), or several (a list, or ";" between them). A text tag is long or mostly its own (a
+  definition, a description, a link): kept whole, shown with its thing and in its panel, and searched with it.
+
+Two optional entries beside them hold the vocabulary:
   "columns": {"type": {"name": "Kind", "parents": {"table": "dataset", "view": "dataset"},
-                       "names": {"dataset": "Datasets"}, "colours": {"dataset": "#2b8073"}}}
+                       "names": {"dataset": "Datasets"}, "colours": {"dataset": "#2b8073"}},
+              "definition": {"text": true}}
+  "link_types": {"feeds": {"name": "Feeds", "inverse": "Fed by"}}
 parents puts flat values under others (a hierarchy over a column), names and colours (hex) set the legend's words
-and hues. A link may add "type" and "text" (the line shown with it). Nodes with no link are left out.
+and hues, and "text": true or false settles which sort a column is. link_types says how a link type reads forwards
+and back in a thing's panel (common ones such as uses / used by, measured-by / measures read well already).
 
 Or as two CSV files, a table each: nodes (an id column, and label, group, size and tag columns as above) and links
 (source, target, and type and text). A cell with ";" in it holds several values.
@@ -80,25 +93,31 @@ def from_json(doc, title, colour=None):
     keys = []
     for i in kept:
         keys += [k for k, v in nodes[i].items() if k not in RESERVED and k not in keys and not isinstance(v, dict)]
-    tags = {i: {} for i in kept}
+    tags, text = {i: {} for i in kept}, set()
     for k in keys:
-        parents = (about.get(k) or {}).get("parents")
+        a = about.get(k) or {}
+        if a.get("text") is True or (a.get("text") is not False and M.kg_is_text([nodes[i].get(k) for i in kept])):
+            text.add(k)                                    # a definition, a description: shown and searched, not coloured
+        parents = a.get("parents")
         for i in kept:
-            c = M.kg_cell(nodes[i].get(k), parents if isinstance(parents, dict) else None)
+            c = M.kg_cell(nodes[i].get(k), parents if isinstance(parents, dict) else None, k in text)
             if c is not None:
                 tags[i][k] = c
     keys = [k for k in keys if any(k in t for t in tags.values())]
-    if not keys:                                           # no column at all: one, so the legend still counts them
-        keys = ["type"]
+    if not [k for k in keys if k not in text]:             # no category at all: one, so the legend still counts them
+        k0 = "type" if "type" not in keys else "kind"
+        keys.insert(0, k0)
         for i in kept:
-            tags[i]["type"] = "thing"
-    first = colour if colour in keys else "type" if "type" in keys else keys[0]
-    keys.remove(first)
-    keys.insert(0, first)
+            tags[i][k0] = "thing"
+    cats = [k for k in keys if k not in text]
+    first = colour if colour in cats else "type" if "type" in cats else cats[0]
+    keys = [first] + [k for k in cats if k != first] + [k for k in keys if k in text]
     columns = []
     for k in keys:
         a = about.get(k) or {}
         col = {"key": k, "name": str(a.get("name") or k.replace("_", " ").replace("-", " ").capitalize())}
+        if k in text:
+            col["text"] = True
         if isinstance(a.get("names"), dict):
             col["names"] = {M.kg_path(p): str(n) for p, n in a["names"].items()}
         given = a.get("colours") or a.get("colors")
@@ -113,11 +132,15 @@ def from_json(doc, title, colour=None):
     for x in links:
         x["s"], x["t"] = index[x["s"]], index[x["t"]]
     clusters = any(v["kind"] == "cluster" for v in isles.values())
+    named = doc.get("link_types") if isinstance(doc.get("link_types"), dict) else {}   # how each link type reads, both ways
+    forward = {str(t): str(d["name"]) for t, d in named.items() if isinstance(d, dict) and d.get("name")}
+    inverse = {str(t): str(d["inverse"]) for t, d in named.items() if isinstance(d, dict) and d.get("inverse")}
     return {"title": title or "Knowledge graph", "headline": title or f"{len(things):,} things, {len(links):,} links",
             "lede": "Every thing in the graph and every link between two of them. "
                     + ("An island is a group of things that link mostly to each other." if clusters else "An island is a group."),
             "stats": [("things", len(things)), ("links", len(links)), ("islands", len(isles))],
-            "meta": {"notes": 0, "isles": isles, "inverse": {}}, "columns": columns, "things": things, "links": links, "notes": []}
+            "meta": {"notes": 0, "isles": isles, "inverse": inverse, "forward": forward}, "columns": columns, "things": things,
+            "links": links, "notes": []}
 
 
 def from_csv(nodes_csv, links_csv):
