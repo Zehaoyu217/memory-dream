@@ -488,3 +488,33 @@ Open, in the order I would take them:
 
 Spent on models for this part: Haiku 5.5 $1.93 (the rebuilds and third readings $0.56, the arms $1.36); Opus 5.5
 $2.31. Opus in all on 2026-11-12: $30.42.
+
+### One rule for every vocabulary, and the graph page for any data (2026-11-13 and 14)
+
+Asked for: the knowledge-graph page in a finished look that holds a large graph; a data model in which a type, a
+definition, a weight or a time is just a tag; and then one system for every vocabulary (kinds, types, links, tags),
+maintained by the agents, with dedup by evidence rather than by names. Commits, all on `production-readiness`, CI green:
+
+- 19403d5 … 23e9cae, the page: the Noir look; 20,000 things and 45,000 links (`tests/kg_scale.js` in CI); every
+  column a tag of one of four sorts (category with `/` levels, time, number, text) on things and on links; a link's
+  direction (`->`, `<-`, `o-o`) and weight; only a thing's id and a link's two ends are required.
+- 342daa3: one gate (`vocab_gate`) and one admission (`apply_terms`) for EDGES, TYPES, KINDS and TAGS; a word answered
+  `label` goes on a `keep:` line and comes back only when its uses double; a keeper's `other: <word>` for a kind
+  (`kind_word`) and its tags are kept as read and resolved at every merge. Identity by evidence: one card per thing
+  (`thing_cards`: type, written forms, what its note says it is, what it links to, a line) for the curator and the
+  review, and what a pair is both linked to (`shared_links`). Two things a note links are never joined (`read_links`
+  in the merge; the curator and the review refused; a person's line reported as C19). A44–A49.
+- a1ba80c: `skills/memory-dream/guides/` (vocabulary.md, scenarios.md, knowledge-graph.md); the graph builder moved
+  into the skill (`scripts/graph_page.py`); a tag's `family:` makes a tree on the page.
+- 095a48e: Haiku on the fixture, seven runs, $0.28 (RESULTS phase T). Asked second in the reply, tags cost a third of
+  the links; now they are asked last, and only once TAGS.md lists a tag. The review is shown the areas a word is used
+  in, by name, and drops a folder's subject. The dream's summary reports each list on its own.
+- 486435e: the CI job named by what it runs.
+
+Open, in the order I would take them:
+1. Tags with a populated TAGS.md on a base of many folders (the bank): what asking costs a reading there, and whether
+   `ask --tag` answers set questions better. The fixture has one project, so it cannot say.
+2. The curator's cards are longer now (`is:`, `links:`): its cost on the bank's 47 folders, and its joins against the
+   32 joins and 48 refusals the README reports for the bank.
+3. C19 on the bank: how many ALIASES.md lines join names that a note links.
+4. Kind words on a base whose files carry no prefixes (on the fixture the prefixes decide, and one note gave `data`).
