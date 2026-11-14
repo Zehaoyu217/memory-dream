@@ -639,7 +639,7 @@ or to a fresh worker given the packet, at most twice. After that, it stops and r
 
 ## Appendix A — the contract surface, verbatim: `skills/memory-dream/SKILL.md` and the dreamer agent
 
-_Part 5 · copied at commit 0d75ece. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
+_Part 5 · copied at commit 54b494e. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
 
 ```markdown
 ---
@@ -698,7 +698,8 @@ truth; everything else is derived and disposable. `memory.py` = `python3 <this s
    made from it alone go with it.
 3. **Dream at the end.** `memory.py dream` (background is fine) refreshes `_dream/graph.html` — the map, what is worth
    checking, the review queue — the digest `memory/DIGEST.md` and the index. With `$MEMORY_LLM` set (e.g. `claude -p
-   --model haiku --tools ""`) a cheap model also names the things each note mentions and the typed links between them;
+   --model haiku --tools ""`) a cheap model also names the things each note mentions and the typed links between them,
+   and `_dream/knowledge-graph.html` shows those alone, a page to show people (`viz --theme star` for its night look);
    without a model nothing is missing for answering. Many notes to read: `memory.py dream --dry-run --packets` says
    how many calls and about how much, and `dream --packets` reads about a dozen short notes a call, which is cheaper
    and reads the links between a folder's notes better than one call a note; with no command it
@@ -788,7 +789,7 @@ Touch nothing else.
 
 ## Appendix B — the graph contract, verbatim: `.specs/memory-dream/CONTRACT.md`
 
-_Part 6 · copied at commit 0d75ece. Schema 1; `memory.py check` validates against it (A38)._
+_Part 6 · copied at commit 54b494e. Schema 1; `memory.py check` validates against it (A38)._
 
 ## memory-dream — the graph contract (schema 1)
 
@@ -973,6 +974,13 @@ relation is "current" when one of its evidence notes is live).
   it}`, `gone {path: {seen, replaced, replaced_by, built_on_by}}` (notes that left without a `drop`,
   with where they stood at the dream that noticed: C15, and what `drop` needs to record them later), `pointers` and
   `psig` (§1). A dream with nothing changed in any of these, nor in a file a note points at, stops after the scan.
+- `knowledge-graph.html` — the entities that have a relation and those relations alone, one offline page to show
+  people (`assets/knowledge-graph.html` filled by `write_kg`, d3 7.9.0 inside), rewritten by every dream and by `viz`
+  (`--theme paper|star`: the look it opens in), removed when no two entities are related. One relation per `(s, type,
+  o)`, with the line its first evidence names. Islands: the area holding at least 60% of an entity's project mentions,
+  the general area naming it most when no project does, else the middle; when the areas do not part the entities (one
+  holds over half, or fewer than three hold three) the communities of the relations (Louvain) instead. Colours: the
+  TYPES.md families with the most entities, at most seven, the rest one grey.
 - `pending/` — what a helper agent is asked, each answered by a file of the same name ending in `.json`; `TODO.md`
   lists them. `dream --prompts` writes `<sha12>.prompt.md`, one note each; `dream --packets` writes
   `packet-<8 hex>.prompt.md`, many notes each under `NOTE <sha12> <path>:` lines and named by the notes it holds, so
@@ -1083,7 +1091,7 @@ origin by adding the file. What changes for the notes under it, and nothing else
 
 ## Appendix C — the build guide, verbatim: `BUILD-GUIDE.md` §3–§10
 
-_Part 7 · copied at commit 0d75ece. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
+_Part 7 · copied at commit 54b494e. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
 
 ### 3. The design in one page
 
@@ -1149,6 +1157,7 @@ skills/memory-dream/
   scripts/memory.py            ask · dream · viz · check · log  (stdlib, ~3,200 lines)
   scripts/stores.py           optional hosted stores (PostgreSQL, Neo4j) and the CSV export; imported only when MEMORY_STORE is set
   assets/viz.html              viewer template (html-lite habits; normal, overview and area modes)
+  assets/knowledge-graph.html  the page to show a memory, with d3.v7.9.0.min.js and its LICENSE-d3 (§5.10)
   agents/memory-dreamer.md     Haiku subagent for file mode
 .specs/memory-dream/           build-spec.md (v0.4 spec), RUNBOOK.md, RESULTS.md (rounds 1–4)
 tests/
@@ -1607,6 +1616,34 @@ when the page opens (tab order Timeline · Map · Connections; `#view=map` and `
   1,524 notes and 3,680 links drawn; its graph view lays out 400 entities and 1,355 current relations in 1.3 s;
   0 console errors on the bank and the fixture, headless (Playwright: `tests/viz_check.js`).
 
+#### 5.10 The knowledge-graph page (`assets/knowledge-graph.html`)
+
+The viewer is for working in a memory; this page is for showing one. It holds the things that have a link and the
+links alone, and nothing in it knows a domain, so the same page serves any memory and any graph given as nodes and
+links (`demo/knowledge-graph/build.py`). `write_kg` fills it after every dream that read links, and `viz` rewrites
+it; the page and d3 7.9.0 (ISC) sit in `assets/`, and it opens offline.
+
+1. **Islands.** A thing lives on the project holding at least 60% of the notes that name it among projects; a thing
+   no project names, on the shared folder naming it most; a thing several projects share, in the middle. When the
+   folders do not part the things (one island holds over half of them, or fewer than three hold three: a memory kept
+   in one folder), the islands are the communities of the links instead (Louvain, deterministic), each named for its
+   most linked thing. Islands are packed as circles (`d3.packSiblings`, the middle first, each island after those it
+   shares most links with), then settle into an ellipse the shape of the screen (pull to the centre weaker across
+   than down); things lay out inside their island with a short-range push, so they fill it instead of lining its rim.
+2. **Colours** are the memory's own type families (TYPES.md `family:`): the seven largest get a colour each, the
+   same hue for the same family in every memory, the rest one grey.
+3. **Motion with a reason.** It blooms in on a clockwise sweep with the camera easing out; while nothing is chosen,
+   pulses run along links between islands; a chosen thing flies into view on the smooth zoom path (van Wijk and
+   Nuij), its links flowing blue for what it uses and orange for what uses it, beside a panel of each link and the
+   line of the note that says it; the legend lights a group, a panel row makes its thing beat, an island click flies
+   to it, the tour visits the most linked things. Names never cover one another. `prefers-reduced-motion` stills it.
+4. **Two looks, one page.** Paper, and a star map at night (deep sky and twinkling stars, a nebula and a turning
+   orbit under each island, glowing things, faint gold lines between islands, glass panels with gold corners). Both
+   are tokens on `<html data-theme>` plus a few canvas branches; a switch in the header flips them and the canvas
+   fades across; `viz --theme star` opens in the night look. Measured on the 1,677-note bank: 1,082 things, 2,740
+   links, 49 islands, 1.3 MB; 60 frames a second while it flows on a laptop's GPU; 0 page errors headless
+   (`tests/kg_check.js`).
+
 ---
 
 ### 6. Tests
@@ -1789,7 +1826,7 @@ preferences 0.95 when the task names them, 0.84 when it names only their meeting
 
 ## Appendix D — prompts, seeds and tuned tables, verbatim from `memory.py`
 
-_Part 8 · extracted at commit 0d75ece by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
+_Part 8 · extracted at commit 54b494e by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
 
 ### D.1 `EXTRACT` — the per-note prompt: fixed guidance, then `KINDS:`, `TYPES:`, `EDGES:` and `KNOWN:` from the registries (the static part is cached), then `NOTE`
 

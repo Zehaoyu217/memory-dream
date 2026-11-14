@@ -54,7 +54,8 @@ truth; everything else is derived and disposable. `memory.py` = `python3 <this s
    made from it alone go with it.
 3. **Dream at the end.** `memory.py dream` (background is fine) refreshes `_dream/graph.html` — the map, what is worth
    checking, the review queue — the digest `memory/DIGEST.md` and the index. With `$MEMORY_LLM` set (e.g. `claude -p
-   --model haiku --tools ""`) a cheap model also names the things each note mentions and the typed links between them;
+   --model haiku --tools ""`) a cheap model also names the things each note mentions and the typed links between them,
+   and `_dream/knowledge-graph.html` shows those alone, a page to show people (`viz --theme star` for its night look);
    without a model nothing is missing for answering. Many notes to read: `memory.py dream --dry-run --packets` says
    how many calls and about how much, and `dream --packets` reads about a dozen short notes a call, which is cheaper
    and reads the links between a folder's notes better than one call a note; with no command it

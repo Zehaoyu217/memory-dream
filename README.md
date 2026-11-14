@@ -244,14 +244,20 @@ The list is loose on purpose: on the 1,677-note bank the detector offers 67 pair
 (6%), ordered most-shared first. With a model the review clears 20 pairs for about $0.005 and records the verdicts;
 without one, a person meets the likely pairs first.
 
-To show a memory to people rather than work in it, `python3 demo/knowledge-graph/build.py <memory> <out.html>` makes
-one page of the graph alone: every thing the notes name and every link a note states between two of them, as one
-island per project (and one per shared folder, in italics) with what several projects share in the middle. A thing
-picked shows what it uses and what uses it, each link with the line of the note that says so; the tour flies through
-the most linked things one after another. It needs a memory dreamed with a model, and opens offline (d3 7.9.0, ISC,
-is inside the file).
+To show a memory to people rather than work in it, every dream that read links with a model also writes
+`memory/_dream/knowledge-graph.html` (`memory.py viz` rewrites it): the graph alone, every thing the notes name and
+every link a note states between two of them. An island is a project (or a shared folder, in italics), with what
+several projects share in the middle; when the folders do not part the things, as in a memory kept in one folder,
+the islands are the communities of the links instead, each named for its most linked thing. The colours are the
+memory's own type families (TYPES.md `family:`). A thing picked shows what it uses and what uses it, each link with the
+line of the note that says so; the tour flies through the most linked things. It opens offline (d3 7.9.0, ISC, is
+inside the file) in one of two looks, paper or a star map at night (`viz --theme star`), and a switch in its header
+flips between them. Any other graph makes the same page: `python3 demo/knowledge-graph/build.py graph.json out.html`
+takes nodes and links as JSON (the file's head says which fields it reads).
 
 ![The knowledge graph of the 1,677-note bank: 1,082 things on 49 islands](docs/knowledge-graph.png)
+
+![The same page in the star-map look](docs/knowledge-graph-star.jpg)
 
 ## Operations
 

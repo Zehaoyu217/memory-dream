@@ -146,6 +146,7 @@ skills/memory-dream/
   scripts/memory.py            ask · dream · viz · check · log  (stdlib, ~3,200 lines)
   scripts/stores.py           optional hosted stores (PostgreSQL, Neo4j) and the CSV export; imported only when MEMORY_STORE is set
   assets/viz.html              viewer template (html-lite habits; normal, overview and area modes)
+  assets/knowledge-graph.html  the page to show a memory, with d3.v7.9.0.min.js and its LICENSE-d3 (§5.10)
   agents/memory-dreamer.md     Haiku subagent for file mode
 .specs/memory-dream/           build-spec.md (v0.4 spec), RUNBOOK.md, RESULTS.md (rounds 1–4)
 tests/
@@ -603,6 +604,34 @@ when the page opens (tab order Timeline · Map · Connections; `#view=map` and `
   area with a kind bar, linking to its page). Measured: the 1,677-note bank renders in 0.9 s from a 2.6 MB page with
   1,524 notes and 3,680 links drawn; its graph view lays out 400 entities and 1,355 current relations in 1.3 s;
   0 console errors on the bank and the fixture, headless (Playwright: `tests/viz_check.js`).
+
+### 5.10 The knowledge-graph page (`assets/knowledge-graph.html`)
+
+The viewer is for working in a memory; this page is for showing one. It holds the things that have a link and the
+links alone, and nothing in it knows a domain, so the same page serves any memory and any graph given as nodes and
+links (`demo/knowledge-graph/build.py`). `write_kg` fills it after every dream that read links, and `viz` rewrites
+it; the page and d3 7.9.0 (ISC) sit in `assets/`, and it opens offline.
+
+1. **Islands.** A thing lives on the project holding at least 60% of the notes that name it among projects; a thing
+   no project names, on the shared folder naming it most; a thing several projects share, in the middle. When the
+   folders do not part the things (one island holds over half of them, or fewer than three hold three: a memory kept
+   in one folder), the islands are the communities of the links instead (Louvain, deterministic), each named for its
+   most linked thing. Islands are packed as circles (`d3.packSiblings`, the middle first, each island after those it
+   shares most links with), then settle into an ellipse the shape of the screen (pull to the centre weaker across
+   than down); things lay out inside their island with a short-range push, so they fill it instead of lining its rim.
+2. **Colours** are the memory's own type families (TYPES.md `family:`): the seven largest get a colour each, the
+   same hue for the same family in every memory, the rest one grey.
+3. **Motion with a reason.** It blooms in on a clockwise sweep with the camera easing out; while nothing is chosen,
+   pulses run along links between islands; a chosen thing flies into view on the smooth zoom path (van Wijk and
+   Nuij), its links flowing blue for what it uses and orange for what uses it, beside a panel of each link and the
+   line of the note that says it; the legend lights a group, a panel row makes its thing beat, an island click flies
+   to it, the tour visits the most linked things. Names never cover one another. `prefers-reduced-motion` stills it.
+4. **Two looks, one page.** Paper, and a star map at night (deep sky and twinkling stars, a nebula and a turning
+   orbit under each island, glowing things, faint gold lines between islands, glass panels with gold corners). Both
+   are tokens on `<html data-theme>` plus a few canvas branches; a switch in the header flips them and the canvas
+   fades across; `viz --theme star` opens in the night look. Measured on the 1,677-note bank: 1,082 things, 2,740
+   links, 49 islands, 1.3 MB; 60 frames a second while it flows on a laptop's GPU; 0 page errors headless
+   (`tests/kg_check.js`).
 
 ---
 

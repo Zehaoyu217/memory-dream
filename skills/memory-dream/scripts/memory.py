@@ -19,6 +19,7 @@ import contextlib
 import datetime as dt
 import functools
 import hashlib
+import html
 import io
 import json
 import math
@@ -3263,6 +3264,7 @@ class Dream:
         else:
             wr(dd / "graph.json", g)
             write_viz(root, g, dd / "graph.html")
+        write_kg(root, g, dd / "knowledge-graph.html")
         write_index(dd, g)
         self.published = store_publish(root, g)  # MEMORY_STORE: the hosted store, as a diff (stores.py)
         write_digest(root, g, now)
@@ -4936,16 +4938,21 @@ def export(args, root):
 
 
 def viz(args, root):
-    """Write the HTML viewer (default memory/_dream/graph.html; `dream` refreshes it too)."""
+    """Write the HTML viewer (default memory/_dream/graph.html; `dream` refreshes it too) and the knowledge-graph page."""
     g, _ = load(root)
     if len(g["notes"]) > WIDE and not args.out:
         n = write_viz_big(root, g, root / "_dream", force=True)
         print(f"{root / '_dream' / 'graph.html'}: overview of {len(g['notes'])} notes; {n} area pages in "
               f"{root / '_dream' / 'viz'} — open it in a browser")
+    else:
+        out = Path(args.out).expanduser() if args.out else root / "_dream" / "graph.html"
+        write_viz(root, g, out)
+        print(f"{out}: {len(g['notes'])} notes, {len(g['entities'])} entities — open it in a browser")
+    if args.out:
         return
-    out = Path(args.out).expanduser() if args.out else root / "_dream" / "graph.html"
-    write_viz(root, g, out)
-    print(f"{out}: {len(g['notes'])} notes, {len(g['entities'])} entities — open it in a browser")
+    kg = root / "_dream" / "knowledge-graph.html"
+    print(f"{kg}: the things and their links alone, to show people" if write_kg(root, g, kg, args.theme)
+          else "no knowledge-graph page: no two things are linked yet (a dream with a model command reads the links)")
 
 
 def viz_template():
@@ -5071,6 +5078,247 @@ def write_viz_big(root, g, dd, force=False):
     return wrote
 
 
+# ---- the knowledge-graph page (_dream/knowledge-graph.html): the things and their links alone, to show a memory to
+# people. assets/knowledge-graph.html is the page (it moves, lays out and draws); these functions only fill its data.
+# Nothing in them knows a domain: colours follow the memory's own type families (TYPES.md `family:`), islands its
+# folders or, when the folders do not part the things, the communities of its links; demo/knowledge-graph/build.py
+# feeds them any other graph.
+KG_COLOURS = {  # one muted hue per common family, the same in every memory; any other family takes KG_SPARE in turn
+    "model": "#2a55a3", "dataset": "#2b8073", "feature": "#62904a", "metric": "#6b7a90", "document": "#b0874a",
+    "decision": "#7c5ea6", "finding": "#8c6bb8", "term": "#b5677d", "system": "#a2574f", "party": "#8a939d",
+    "experiment": "#4a9fc8", "question": "#9a83c2", "rule": "#8a6d3b", "project": "#7f8c8d"}
+KG_SPARE = ["#3d8fa8", "#c08457", "#7d8b4a", "#a46a9a", "#5a6fb0", "#9c7a54", "#5e9c8f"]
+KG_GREY = "#b9bec5"
+
+
+def kg_plural(f):
+    """A family as the legend names it: 'model' -> 'Models', 'party' -> 'People and organisations'."""
+    if f == "party":
+        return "People and organisations"
+    w = f.replace("-", " ").replace("_", " ")
+    w = w if w.endswith("s") else w[:-1] + "ies" if w.endswith("y") and w[-2:-1] not in "aeiou" else w + "s"
+    return w[:1].upper() + w[1:]
+
+
+def kg_groups(fam, most=7):
+    """Colour groups: the families with the most things (at most `most`, each with 2% of them) get a colour each, the
+    rest share a grey. fam: {thing: family} -> (groups [{g, name, color}], {thing: group})."""
+    count = Counter(fam.values())
+    keep = [f for f, n in sorted(count.items(), key=lambda z: (-z[1], z[0]))
+            if f != "other" and n >= max(2, 0.02 * len(fam))][:most]
+    used, groups = set(), []
+    for f in keep:
+        c = KG_COLOURS.get(f)
+        if not c or c in used:
+            c = next((s for s in KG_SPARE if s not in used), KG_GREY)
+        used.add(c)
+        groups.append({"g": f, "name": kg_plural(f), "color": c})
+    if any(f not in keep for f in fam.values()):
+        groups.append({"g": "other", "name": "Everything else", "color": KG_GREY})
+    return groups, {t: (f if f in keep else "other") for t, f in fam.items()}
+
+
+def kg_louvain(n, edges, levels=3):
+    """Communities of a weighted undirected graph (nodes 0..n-1, edges [(a, b, w)]): Louvain's local moves, then the
+    same on the communities found, `levels` times. Deterministic: nodes in order, ties to the first. -> community per node."""
+    member, cur, es = list(range(n)), n, edges
+    for _ in range(levels):
+        adj, deg, m2 = [defaultdict(float) for _ in range(cur)], [0.0] * cur, 0.0
+        for a, b, w in es:
+            adj[a][b] += w
+            adj[b][a] += w
+            deg[a] += w
+            deg[b] += w
+            m2 += 2 * w
+        if not m2:
+            break
+        com, tot = list(range(cur)), deg[:]
+        for _sweep in range(30):
+            moved = False
+            for i in range(cur):
+                ci, ki, near = com[i], deg[i], defaultdict(float)
+                for j, w in adj[i].items():
+                    if j != i:
+                        near[com[j]] += w
+                tot[ci] -= ki
+                best, gain = ci, near.get(ci, 0.0) - tot[ci] * ki / m2
+                for cj in sorted(near):
+                    if near[cj] - tot[cj] * ki / m2 > gain + 1e-12:
+                        best, gain = cj, near[cj] - tot[cj] * ki / m2
+                tot[best] += ki
+                if best != ci:
+                    com[i], moved = best, True
+            if not moved:
+                break
+        ids = {c: k for k, c in enumerate(sorted(set(com)))}
+        if len(ids) == cur:
+            break
+        member = [ids[com[m]] for m in member]
+        agg = defaultdict(float)
+        for a, b, w in es:
+            x, y = ids[com[a]], ids[com[b]]
+            agg[(min(x, y), max(x, y))] += w
+        es, cur = [(a, b, w) for (a, b), w in sorted(agg.items())], len(ids)
+    return member
+
+
+def kg_folder_homes(paths, general):
+    """Each thing's folder island from the notes that name it ({thing: [paths]}): the project holding at least 60% of
+    its project mentions; a thing no project names, the shared folder naming it most; one several projects share, the
+    middle ("")."""
+    def area(p):
+        return p.split("/")[0] if "/" in p else ""
+    home = {}
+    for t, ps in paths.items():
+        proj = Counter(area(p) for p in ps if area(p) and area(p) not in general)
+        if proj:
+            top, n = min(proj.items(), key=lambda z: (-z[1], z[0]))
+            home[t] = top if n / sum(proj.values()) >= 0.6 else ""
+        else:
+            fs = Counter(area(p) for p in ps)
+            home[t] = min(fs, key=lambda a: (-fs[a], a)) if fs else ""
+    return home
+
+
+def kg_islands(home, links, labels, general=frozenset(), middle="shared by several projects", kind="project"):
+    """Islands: the folder homes ({thing: folder or ""}) when they part the things (no island holds more than half of
+    them, three hold three or more); else the communities of the links, each named for its most linked thing, and the
+    things of communities under three on one island. -> ({thing: island}, {island: {name, kind}}), kind one of
+    `kind` (project, or group for another graph), folder, shared (the middle, named `middle`), cluster."""
+    size = Counter(h for h in home.values() if h)
+    if size and max(size.values()) <= len(home) / 2 and sum(n >= 3 for n in size.values()) >= 3:
+        return home, {h: {"name": h.replace("-", " ") if h else middle,
+                          "kind": "shared" if not h else "folder" if h in general else kind} for h in set(home.values())}
+    things = sorted(home)
+    idx = {t: i for i, t in enumerate(things)}
+    w = Counter()
+    for a, b in links:
+        if a in idx and b in idx and a != b:
+            w[(min(idx[a], idx[b]), max(idx[a], idx[b]))] += 1
+    com = kg_louvain(len(things), [(a, b, x) for (a, b), x in sorted(w.items())])
+    deg = Counter()
+    for (a, b), x in w.items():
+        deg[a] += x
+        deg[b] += x
+    members = defaultdict(list)
+    for i, c in enumerate(com):
+        members[c].append(i)
+    out, isles = {}, {}
+    for c, ms in sorted(members.items()):
+        h = f"c{c}" if len(ms) >= 3 else "small"
+        if h not in isles:
+            lead = things[min(ms, key=lambda i: (-deg[i], things[i]))]
+            name = labels.get(lead, lead)
+            isles[h] = {"name": "around " + (name if len(name) <= 26 else name[:25].rstrip() + "…") if h != "small" else "small groups",
+                        "kind": "cluster"}
+        for i in ms:
+            out[things[i]] = h
+    return out, isles
+
+
+def kg_page(title, headline, lede, stats, meta, groups, things, links, notes, eyebrow="Knowledge graph", theme="paper"):
+    """The page itself: assets/knowledge-graph.html with its data islands and masthead filled, d3 (ISC) pasted in.
+    theme: the look it opens in, paper or star (a star map at night); a switch in its header flips between them."""
+    def island(rows):  # one record per line, and nothing in it that closes a script
+        return ("[\n" + ",\n".join("  " + json.dumps(r, ensure_ascii=False, separators=(",", ":")) for r in rows)
+                + "\n]").replace("</", "<\\/")
+    assets = Path(__file__).resolve().parent.parent / "assets"
+    page = read(assets / "knowledge-graph.html")
+    fill = {"@@THEME@@": theme if theme in ("paper", "star") else "paper",
+            "@@TITLE@@": html.escape(title), "@@EYEBROW@@": html.escape(eyebrow), "@@HEADLINE@@": html.escape(headline),
+            "@@LEDE@@": html.escape(lede),
+            "@@STATS@@": "".join(f"<div><dt>{html.escape(a)}</dt><dd>{b:,}</dd></div>" for a, b in stats),
+            "@@META@@": json.dumps(meta, ensure_ascii=False).replace("</", "<\\/"), "@@GROUPS@@": island(groups),
+            "@@THINGS@@": island(things), "@@LINKS@@": island(links), "@@NOTES@@": island(notes)}
+    for k, v in fill.items():
+        assert page.count(k) == 1, k
+        page = page.replace(k, v)
+    return page.replace("@@D3@@", read(assets / "d3.v7.9.0.min.js"))  # last: the library's text is never searched
+
+
+def kg_inverse(edges_text):
+    """How each relation type reads backwards, from EDGES.md: its first `~` alias ("calls" -> "Called by")."""
+    out = {}
+    for t, d in parse_edges(edges_text)[0].items():
+        back = next((a[1:] for a in d["aka"] if a.startswith("~")), None)
+        if back:
+            out[t] = back.replace("-", " ")[:1].upper() + back.replace("-", " ")[1:]
+    return out
+
+
+def kg_data(root, g):
+    """The page's data from a memory's graph: every thing with a link, every relation between two of them once with
+    the line of the note that states it. -> kg_page's arguments, or None when no two things are linked."""
+    notes = {n["path"]: n for n in g["notes"]}
+    ents = {e["id"]: e for e in g["entities"]}
+    lines, seen, links = {}, set(), []
+
+    def quote(path, line):
+        if path not in lines:
+            try:
+                lines[path] = read(root / path).split("\n")
+            except OSError:
+                lines[path] = []
+        ls = lines[path]
+        if not line.isdigit() or not 0 < int(line) <= len(ls):
+            return ""
+        q = re.sub(r"^\s*(#+|[-*])\s*", "", ls[int(line) - 1]).strip()
+        return q if len(q) <= 220 else q[:217].rstrip() + "…"
+    for r in g["relations"]:
+        s, o = r["s"], r["o"]
+        if s == o or s not in ents or o not in ents or (s, o, r["type"]) in seen:
+            continue
+        seen.add((s, o, r["type"]))
+        path, _, line = ((r.get("evidence") or [""])[0]).rpartition(":")
+        links.append({"s": s, "t": o, "type": r["type"], "q": quote(path, line) if path else "", "note": path if path in notes else None})
+    if not links:
+        return None
+    linked = {x for l in links for x in (l["s"], l["t"])}
+    kept = sorted(linked, key=lambda i: (-len({m["path"] for m in ents[i]["mentions"]}), i))
+    paths = {i: sorted({m["path"] for m in ents[i]["mentions"]}) for i in kept}
+    labels = {i: ((ents[i].get("names") or [{"name": i}])[0]["name"]).strip("`") for i in kept}
+    by_area = defaultdict(list)
+    for p in notes:
+        by_area[p.split("/")[0] if "/" in p else ""].append(p)
+    general = general_areas(by_area, lambda p: notes[p].get("kind") or "note")
+    home, isles = kg_islands(kg_folder_homes(paths, general), [(l["s"], l["t"]) for l in links], labels, general)
+    fam = {}
+    for i in kept:
+        base = ents[i]["type"].split("/")[0]
+        fam[i] = "other" if base == "other" else TYPE_PARENT.get(base, base)
+    groups, group = kg_groups(fam)
+    note_list = sorted({p for i in kept for p in paths[i]} | {l["note"] for l in links if l["note"]})
+    note_at = {p: k for k, p in enumerate(note_list)}
+    index = {i: k for k, i in enumerate(kept)}
+    things = [{"id": i, "label": labels[i], "type": ents[i]["type"], "g": group[i], "n": len(paths[i]), "home": home[i],
+               "names": [x["name"].strip("`") for x in (ents[i].get("names") or [])[:6]], "notes": [note_at[p] for p in paths[i]]}
+              for i in kept]
+    for l in links:
+        l["s"], l["t"], l["note"] = index[l["s"]], index[l["t"]], note_at.get(l["note"]) if l["note"] else None
+    rows = [{"p": p, "t": notes[p]["title"], "k": notes[p]["kind"], "d": notes[p].get("updated") or "",
+             "a": p.split("/")[0] if "/" in p else "", "old": 1 if notes[p].get("superseded_by") else 0} for p in note_list]
+    clusters = any(v["kind"] == "cluster" for v in isles.values())
+    count = sum(v["kind"] == ("cluster" if clusters else "project") for v in isles.values())
+    lede = ("Every thing the notes name and every link a note states between two of them, each with the line that says "
+            "so. " + ("An island is a group of things that link mostly to each other." if clusters
+                      else "An island is a project; the middle holds what several projects share."))
+    return {"title": "Knowledge graph", "eyebrow": "Memory · knowledge graph", "headline": f"What {len(g['notes']):,} notes know",
+            "lede": lede, "stats": [("things", len(things)), ("links", len(links)), ("clusters" if clusters else "projects", count),
+                                    ("notes", len(g["notes"]))],
+            "meta": {"notes": len(g["notes"]), "isles": isles, "inverse": kg_inverse(vocab_texts(root)[0])},
+            "groups": groups, "things": things, "links": links, "notes": rows}
+
+
+def write_kg(root, g, out, theme="paper"):
+    """Write _dream/knowledge-graph.html when the memory has links between things (a dream with a model command). -> bool"""
+    data = kg_data(root, g)
+    if data:
+        wr(out, kg_page(**data, theme=theme))
+    elif out.exists():
+        out.unlink()  # its things or links went away: no page that shows a graph no longer there
+    return bool(data)
+
+
 def main(argv=None):
     try:
         sys.stdout.reconfigure(encoding="utf-8")
@@ -5100,6 +5348,8 @@ def main(argv=None):
     a.add_argument("--all", action="store_true", help="with --list: every line, however many (pipe it through grep)")
     vz = sp.add_parser("viz", parents=[common], help="write the HTML viewer (dream refreshes it too)")
     vz.add_argument("--out", help="output file (default memory/_dream/graph.html)")
+    vz.add_argument("--theme", choices=["paper", "star"], default="paper",
+                    help="the look _dream/knowledge-graph.html opens in (a switch in it flips to the other)")
     sp.add_parser("check", parents=[common], help="warnings in full")
     ab = sp.add_parser("absorb", parents=[common], help="take another base in as an origin: prints what it would take, acts with --yes")
     ab.add_argument("folder", help="a folder of notes: .md files, with its readings or a relations.jsonl if it has them")

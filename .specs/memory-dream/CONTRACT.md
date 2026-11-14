@@ -181,6 +181,13 @@ relation is "current" when one of its evidence notes is live).
   it}`, `gone {path: {seen, replaced, replaced_by, built_on_by}}` (notes that left without a `drop`,
   with where they stood at the dream that noticed: C15, and what `drop` needs to record them later), `pointers` and
   `psig` (§1). A dream with nothing changed in any of these, nor in a file a note points at, stops after the scan.
+- `knowledge-graph.html` — the entities that have a relation and those relations alone, one offline page to show
+  people (`assets/knowledge-graph.html` filled by `write_kg`, d3 7.9.0 inside), rewritten by every dream and by `viz`
+  (`--theme paper|star`: the look it opens in), removed when no two entities are related. One relation per `(s, type,
+  o)`, with the line its first evidence names. Islands: the area holding at least 60% of an entity's project mentions,
+  the general area naming it most when no project does, else the middle; when the areas do not part the entities (one
+  holds over half, or fewer than three hold three) the communities of the relations (Louvain) instead. Colours: the
+  TYPES.md families with the most entities, at most seven, the rest one grey.
 - `pending/` — what a helper agent is asked, each answered by a file of the same name ending in `.json`; `TODO.md`
   lists them. `dream --prompts` writes `<sha12>.prompt.md`, one note each; `dream --packets` writes
   `packet-<8 hex>.prompt.md`, many notes each under `NOTE <sha12> <path>:` lines and named by the notes it holds, so

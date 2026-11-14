@@ -44,6 +44,7 @@ jobs:
       - run: |
           cp -R tests/fixture/memory /tmp/w && MEMORY_LLM="python3 $PWD/tests/fake_dreamer.py" python3 skills/memory-dream/scripts/memory.py --root /tmp/w dream
           node tests/viz_check.js /tmp/w/_dream/graph.html
+          node tests/kg_check.js /tmp/w/_dream/knowledge-graph.html
   bundle:
     name: build bundle is fresh
     runs-on: ubuntu-latest
