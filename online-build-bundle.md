@@ -639,7 +639,7 @@ or to a fresh worker given the packet, at most twice. After that, it stops and r
 
 ## Appendix A — the contract surface, verbatim: `skills/memory-dream/SKILL.md` and the dreamer agent
 
-_Part 5 · copied at commit bb2dad9. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
+_Part 5 · copied at commit 19403d5. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
 
 ```markdown
 ---
@@ -789,7 +789,7 @@ Touch nothing else.
 
 ## Appendix B — the graph contract, verbatim: `.specs/memory-dream/CONTRACT.md`
 
-_Part 6 · copied at commit bb2dad9. Schema 1; `memory.py check` validates against it (A38)._
+_Part 6 · copied at commit 19403d5. Schema 1; `memory.py check` validates against it (A38)._
 
 ## memory-dream — the graph contract (schema 1)
 
@@ -1091,7 +1091,7 @@ origin by adding the file. What changes for the notes under it, and nothing else
 
 ## Appendix C — the build guide, verbatim: `BUILD-GUIDE.md` §3–§10
 
-_Part 7 · copied at commit bb2dad9. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
+_Part 7 · copied at commit 19403d5. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
 
 ### 3. The design in one page
 
@@ -1633,8 +1633,9 @@ it; the page and d3 7.9.0 (ISC) sit in `assets/`, and it opens offline.
    Those are d3's forces (links, a many-body push within 34, a pull to the island's heart, its rim, a collide) ticked
    by hand one island at a time over a grid of typed arrays: things on two islands never meet, and a grid finds the
    neighbours within 34 at a small part of a quadtree's cost. The layout runs in slices along the entrance sweep
-   (120 ms at once, then about 22 ms before each frame), so the page answers at once and an island blooms when it
-   has settled; a dragged thing settles its own island again, not the graph.
+   (120 ms at once, then before each frame 22 ms, or one and a half times what the last frame cost to draw where
+   drawing is slow, as without a GPU), so the page answers at once and an island blooms when it has settled; a
+   dragged thing settles its own island again, not the graph.
 2. **Colours** are the memory's own type families (TYPES.md `family:`): the seven largest get a colour each, the
    same hue for the same family in every memory, the rest one grey.
 3. **Motion with a reason.** It blooms in on a clockwise sweep with the camera easing out; while nothing is chosen,
@@ -1855,7 +1856,7 @@ preferences 0.95 when the task names them, 0.84 when it names only their meeting
 
 ## Appendix D — prompts, seeds and tuned tables, verbatim from `memory.py`
 
-_Part 8 · extracted at commit bb2dad9 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
+_Part 8 · extracted at commit 19403d5 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
 
 ### D.1 `EXTRACT` — the per-note prompt: fixed guidance, then `KINDS:`, `TYPES:`, `EDGES:` and `KNOWN:` from the registries (the static part is cached), then `NOTE`
 

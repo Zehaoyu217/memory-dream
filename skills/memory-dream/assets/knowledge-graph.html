@@ -281,7 +281,7 @@ const DP = {
     paint();
     const rng = seed => () => ((seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296);   // the same layout every time
     const rand = rng(7), backOut = d3.easeBackOut.overshoot(1.6), cubicOut = d3.easeCubicOut, inOut = d3.easeCubicInOut;
-    let raf = 0, last = performance.now(), drawn = 0, dirty = true, lastInput = performance.now(), haze = null;
+    let raf = 0, last = performance.now(), drawn = 0, cost = 0, dirty = true, lastInput = performance.now(), haze = null;
 
     // ---- the things, their links, and the few hubs that link to nearly everything
     const cut = (s, n) => s.length > n ? s.slice(0, n - 2).trimEnd() + '…' : s;
@@ -511,7 +511,8 @@ const DP = {
     function need() { dirty = true; if (!raf) raf = requestAnimationFrame(frame); }
     function frame(now) {
       raf = 0; const dt = Math.min(64, now - last); last = now; let busy = false;
-      if (queue.length) { settle(entering ? 22 : 30); busy = true; }
+      if (queue.length) { settle(Math.max(entering ? 22 : 30, Math.min(200, 1.5 * cost))); busy = true; }   // where a frame costs much
+                                                          // to draw (no GPU), the layout gets a slice in step with it
       if (entering) {
         let done = !queue.length;
         isles.forEach(p => {
@@ -537,7 +538,7 @@ const DP = {
       if (confetti.length) busy = true;
       if (live) { live.tick(); live.save(); version++; busy = true; if (!dragging && live.alpha < 0.001) live = null; }
       const ambient = alive(now);
-      if (busy || dirty || (ambient && now - drawn > 31)) { draw(now); drawn = now; dirty = false; }
+      if (busy || dirty || (ambient && now - drawn > 31)) { const d0 = performance.now(); draw(now); cost = performance.now() - d0; drawn = now; dirty = false; }
       if ((busy || ambient) && !raf) raf = requestAnimationFrame(frame);
     }
 

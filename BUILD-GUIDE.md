@@ -622,8 +622,9 @@ it; the page and d3 7.9.0 (ISC) sit in `assets/`, and it opens offline.
    Those are d3's forces (links, a many-body push within 34, a pull to the island's heart, its rim, a collide) ticked
    by hand one island at a time over a grid of typed arrays: things on two islands never meet, and a grid finds the
    neighbours within 34 at a small part of a quadtree's cost. The layout runs in slices along the entrance sweep
-   (120 ms at once, then about 22 ms before each frame), so the page answers at once and an island blooms when it
-   has settled; a dragged thing settles its own island again, not the graph.
+   (120 ms at once, then before each frame 22 ms, or one and a half times what the last frame cost to draw where
+   drawing is slow, as without a GPU), so the page answers at once and an island blooms when it has settled; a
+   dragged thing settles its own island again, not the graph.
 2. **Colours** are the memory's own type families (TYPES.md `family:`): the seven largest get a colour each, the
    same hue for the same family in every memory, the rest one grey.
 3. **Motion with a reason.** It blooms in on a clockwise sweep with the camera easing out; while nothing is chosen,
