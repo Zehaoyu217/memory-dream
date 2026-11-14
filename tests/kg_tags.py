@@ -45,11 +45,12 @@ with tempfile.TemporaryDirectory() as d:
     built, log = run(T / "nodes.csv", T / "links.csv", T / "csv.html")
     check("CSV builds", built, log)
     cols, by = islands(T / "csv.html")
-    check("every other column a tag column, type first", [c["key"] for c in cols] == ["type", "owner", "stage"], cols)
+    check("every other column a tag column: categories (type first), then numbers", [c["key"] for c in cols] == ["type", "owner", "stage", "size"], cols)
     check("a cell with ';' holds several values", by["a"]["tags"].get("owner") == ["ana", "bo"], by["a"])
     check("a '/' path keeps its levels", by["d"]["tags"]["type"] == "model/gbm", by["d"])
     check("an empty cell is no value", "stage" not in by["b"]["tags"], by["b"])
-    check("size sizes the dot; label and group are not tags", by["a"]["n"] == 3.0 and not {"label", "group", "size"} & set(by["a"]["tags"]), by["a"])
+    check("size is a number tag and sizes the dot; label and group are not tags", by["a"]["n"] == 3 and by["a"]["tags"].get("size") == 3
+          and next(c for c in cols if c["key"] == "size").get("number") and not {"label", "group"} & set(by["a"]["tags"]), by["a"])
     # JSON: flat values put under parents, the column's name, legend names and hues, the colour column chosen
     doc = {"nodes": [{"id": "t1", "kind": "table", "team": "risk"}, {"id": "t2", "kind": "view", "team": ["risk", "fraud"]},
                      {"id": "m1", "kind": "gbm", "team": "fraud"}, {"id": "x", "kind": "daily/table", "team": "ops", "flag": True}],
@@ -88,6 +89,55 @@ with tempfile.TemporaryDirectory() as d:
     a = s.index('id="data-meta">'); a = s.index("\n", a) + 1
     meta = json.loads(s[a:s.index("</script>", a)])
     check("link_types name a link type both ways", meta.get("forward", {}).get("feeds") == "Feeds" and meta.get("inverse", {}).get("feeds") == "Fed by", meta)
+    # four sorts: time (ISO dates: year/month/day, read as dates) and number beside category and text; a link's own
+    # direction (-> <- o-o, or its type's), weight and tags; another number column as the size or the weight
+    doc = {"nodes": [{"id": f"m{k}", "type": "model", "created": f"2025-{k % 12 + 1:02d}-0{k % 9 + 1}", "rows": k * 100, "auc": 0.5 + k / 100}
+                     for k in range(14)],
+           "links": [{"source": "m0", "target": "m1", "type": "feeds", "weight": 4, "seen": "2026-01-05", "via": "scan"},
+                     {"source": "m2", "target": "m3", "type": "feeds", "direction": "<-", "via": "manual"},
+                     {"source": "m4", "target": "m5", "type": "same-as"},
+                     {"source": "m5", "target": "m4", "type": "same-as"},
+                     {"source": "m6", "target": "m7", "type": "rhymes", "direction": "o-o", "score": 0.9},
+                     {"source": "m8", "target": "m9", "type": "twin"}, {"source": "m9", "target": "m10", "type": "uses", "score": 0.2},
+                     {"source": "m10", "target": "m11", "type": "uses"}, {"source": "m12", "target": "m13", "type": "uses"}],
+           "columns": {"auc": {"use": "size"}}, "link_columns": {"score": {"use": "weight"}},
+           "link_types": {"twin": {"direction": "o-o", "name": "Twin of"}}}
+    (T / "s.json").write_text(json.dumps(doc))
+    built, log = run(T / "s.json", T / "s.html")
+    check("sorts JSON builds", built, log)
+    cols, by = islands(T / "s.html")
+    sort = {c["key"]: next((k for k in ("time", "number", "text") if c.get(k)), "category") for c in cols}
+    check("ISO dates are a time tag, a path year/month/day", sort.get("created") == "time" and by["m3"]["tags"]["created"] == "2025/04/04", (sort, by["m3"]))
+    created = next(c for c in cols if c["key"] == "created")
+    check("a time reads as a date", created.get("names", {}).get("2025/04/04") == "4 Apr 2025" and created["names"].get("2025/04") == "Apr 2025", created.get("names"))
+    check("numbers are a number tag", sort.get("rows") == "number" and by["m3"]["tags"]["rows"] == 300, (sort, by["m3"]))
+    check("'use': 'size' sizes the dot by another number", by["m3"]["n"] == 0.53, by["m3"])
+    s = (T / "s.html").read_text()
+    a = s.index('id="data-meta">'); a = s.index("\n", a) + 1
+    meta = json.loads(s[a:s.index("</script>", a)])
+    a = s.index('id="data-links">'); a = s.index("\n", a) + 1
+    raw = json.loads(s[a:s.index("</script>", a)])
+    ids = [t["id"] for t in json.loads(s[s.index("\n", s.index('id="data-things">')) + 1:s.index("</script>", s.index('id="data-things">'))])]
+    ln = {(ids[l["s"]], ids[l["t"]], l["type"]): l for l in raw}
+    check("<- turns a link round", ("m3", "m2", "feeds") in ln and ("m2", "m3", "feeds") not in ln, list(ln))
+    check("o-o: no direction, one link however it is written", [k for k in ln if k[2] == "same-as"] in ([("m4", "m5", "same-as")], [("m5", "m4", "same-as")])
+          and all(l.get("dir") == 0 for k, l in ln.items() if k[2] in ("same-as", "rhymes", "twin")), list(ln))
+    check("a link type's own direction (link_types)", ln.get(("m8", "m9", "twin"), {}).get("dir") == 0 and meta["forward"].get("twin") == "Twin of", meta.get("forward"))
+    check("a link's tags: category, time, number", ln[("m0", "m1", "feeds")].get("tags") == {"weight": 4, "seen": "2026/01/05", "via": "scan"}, ln[("m0", "m1", "feeds")])
+    lsort = {c["key"]: next((k for k in ("time", "number", "text") if c.get(k)), "category") for c in meta["link_columns"]}
+    check("link columns told by their values", lsort == {"weight": "number", "seen": "time", "via": "category", "score": "number"}, lsort)
+    check("'use': 'weight' weighs links by another number", ln[("m6", "m7", "rhymes")].get("w") == 0.9 and "w" not in ln[("m0", "m1", "feeds")], (ln[("m6", "m7", "rhymes")], ln[("m0", "m1", "feeds")]))
+    check("search's link values, every level", meta["link_values"].get("via") == {"scan": 1, "manual": 1} and meta["link_values"]["seen"].get("2026") == 1, meta["link_values"])
+    check("links with no direction counted", meta.get("both") == 3, meta.get("both"))
+    # a link's tags and direction from a CSV table too
+    (T / "l.csv").write_text("source,target,type,direction,weight,since\na,b,uses,->,2,2024-03\nc,b,uses,<-,,\nc,d,same-as,,,\n")
+    built, log = run(T / "nodes.csv", T / "l.csv", T / "lc.html")
+    check("CSV links build", built, log)
+    s = (T / "lc.html").read_text()
+    a = s.index('id="data-links">'); a = s.index("\n", a) + 1
+    raw = json.loads(s[a:s.index("</script>", a)])
+    check("CSV: a link's weight, time and direction", any(l.get("w") == 2 and (l.get("tags") or {}).get("since") == "2024/03" for l in raw)
+          and sum(1 for l in raw if l.get("dir") == 0) == 1, raw)
     # no tag column at all: one, so the legend still counts the things
     (T / "bare.json").write_text(json.dumps({"nodes": [{"id": "p"}, {"id": "q"}], "links": [{"source": "p", "target": "q"}]}))
     built, log = run(T / "bare.json", T / "bare.html")

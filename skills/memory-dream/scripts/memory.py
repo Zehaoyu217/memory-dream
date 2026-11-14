@@ -5114,20 +5114,100 @@ def kg_path(v, parents=None):
     return p
 
 
-def kg_cell(v, parents=None, text=False):
-    """One thing's value in one tag column: a path, a list of them (several values), or None (no value). A list, or
-    text with ';' between values, gives several; numbers and yes/no are their text; anything nested is left out.
-    In a text column (a definition, a description) a value is kept as it is: no levels, no ';'."""
-    vs = v if isinstance(v, (list, tuple)) else str(v).split(";") if isinstance(v, str) and ";" in v and not text else [v]
+KG_NUMBER = re.compile(r"^-?\d+(\.\d+)?$")
+KG_TIME = re.compile(r"^(\d{4})-(\d{2})(?:-(\d{2}))?(?:[T ][0-9:.]+(?:Z|[+-]\d{2}:?\d{2})?)?$")
+KG_MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+
+
+def kg_time(v):
+    """A date or a moment (ISO 8601: 2025-11, 2025-11-03, 2025-11-03T10:22Z) as a path: year/month[/day]."""
+    m = KG_TIME.match(str(v).strip())
+    if not m or not 1 <= int(m.group(2)) <= 12:
+        return None
+    return "/".join(g for g in m.groups() if g)
+
+
+def kg_time_names(paths):
+    """How a time tag's levels read: 2025, Nov 2025, 3 Nov 2025."""
+    out = {}
+    for p in paths:
+        seg = p.split("/")
+        out.setdefault(seg[0], seg[0])
+        if len(seg) > 1:
+            out.setdefault("/".join(seg[:2]), f"{KG_MONTHS[int(seg[1]) - 1]} {seg[0]}")
+        if len(seg) > 2:
+            out.setdefault(p, f"{int(seg[2])} {KG_MONTHS[int(seg[1]) - 1]} {seg[0]}")
+    return out
+
+
+def kg_cell(v, parents=None, sort="category"):
+    """One value in one tag column: a path, a list of them (several values), or None (no value). A list, or text with
+    ';' between values, gives several; yes/no are text; anything nested is left out. By the column's sort: a category
+    is a path (its levels split by '/'); text is kept as it is (no levels, no ';'); a number is a number; a time is a
+    path year/month/day."""
+    if sort is True:                                       # kg_cell(v, parents, True): a text column, as before
+        sort = "text"
+    vs = v if isinstance(v, (list, tuple)) else str(v).split(";") if isinstance(v, str) and ";" in v and sort != "text" else [v]
     out = []
     for x in vs:
         if x is None or isinstance(x, (dict, list, tuple)):
             continue
         x = "yes" if x is True else "no" if x is False else x
-        p = " ".join(str(x).split()) if text else kg_path(x, parents)
-        if p and p not in out:
+        if sort == "number":
+            try:
+                f = float(x)
+            except (TypeError, ValueError):
+                continue
+            p = int(f) if f == int(f) and abs(f) < 1e15 else round(f, 6)
+        elif sort == "time":
+            p = kg_time(x)
+        elif sort == "text":
+            p = " ".join(str(x).split())
+        else:
+            p = kg_path(x, parents)
+        if p not in (None, "") and p not in out:
             out.append(p)
     return None if not out else out[0] if len(out) == 1 else out
+
+
+def kg_vals(c):
+    """A cell's values as a list: none, one, or several."""
+    return [] if c is None or c == "" else list(c) if isinstance(c, (list, tuple)) else [c]
+
+
+KG_BOTH = {"same-as", "related-to", "similar-to", "equivalent-to", "compared-with"}   # link types with no direction
+
+
+def kg_counts(rows, cols):
+    """How many rows (things or links) hold each value of each category or time column, at every level: what search
+    offers. rows: [tags]; cols: the columns -> {key: {path: n}}."""
+    out = {}
+    for c in cols:
+        if c.get("text") or c.get("number"):
+            continue
+        n = Counter()
+        for t in rows:
+            seen = set()
+            for v in kg_vals(t.get(c["key"])):
+                seg = str(v).split("/")
+                seen.update("/".join(seg[:d]) for d in range(1, len(seg) + 1))
+            n.update(seen)
+        out[c["key"]] = dict(n)
+    return out
+
+
+def kg_sort(cells):
+    """A tag column's sort, told by its values: number when every value is one, time when every value is an ISO date,
+    text when they are long or mostly their own (kg_is_text), else category."""
+    vals = [x for c in cells for x in (c if isinstance(c, (list, tuple)) else [c])
+            if x is not None and not isinstance(x, (dict, list, tuple)) and str(x).strip()]
+    if not vals:
+        return "category"
+    if all(not isinstance(x, bool) and (isinstance(x, (int, float)) or KG_NUMBER.match(str(x).strip())) for x in vals):
+        return "number"
+    if all(isinstance(x, str) and kg_time(x) for x in vals):
+        return "time"
+    return "text" if kg_is_text(cells) else "category"
 
 
 def kg_is_text(cells):
@@ -5304,13 +5384,31 @@ def kg_data(root, g):
             return ""
         q = re.sub(r"^\s*(#+|[-*])\s*", "", ls[int(line) - 1]).strip()
         return q if len(q) <= 220 else q[:217].rstrip() + "…"
+    # a link's direction: none when its type reads the same both ways (EDGES.md's ~ alias is the type itself, or a
+    # type such as compared-with); its tags, from the note that states it: its kind, when, whether it was replaced
+    inverse = kg_inverse(vocab_texts(root)[0])
+    both = KG_BOTH | {t for t, b in inverse.items() if fold(b) == fold(t)}
     for r in g["relations"]:
         s, o = r["s"], r["o"]
-        if s == o or s not in ents or o not in ents or (s, o, r["type"]) in seen:
+        d = 0 if r["type"] in both else 1
+        key = (s, o, r["type"], d) if d else (min(s, o), max(s, o), r["type"], d)
+        if s == o or s not in ents or o not in ents or key in seen:
             continue
-        seen.add((s, o, r["type"]))
+        seen.add(key)
         path, _, line = ((r.get("evidence") or [""])[0]).rpartition(":")
-        links.append({"s": s, "t": o, "type": r["type"], "q": quote(path, line) if path else "", "note": path if path in notes else None})
+        link = {"s": s, "t": o, "type": r["type"], "q": quote(path, line) if path else "", "note": path if path in notes else None}
+        n = notes.get(path)
+        if n:
+            tags = {"kind": n.get("kind") or "note"}
+            when = kg_time(n.get("updated") or "")
+            if when:
+                tags["stated"] = when
+            if n.get("superseded_by"):
+                tags["replaced"] = "replaced"
+            link["tags"] = tags
+        if not d:
+            link["dir"] = 0
+        links.append(link)
     if not links:
         return None
     linked = {x for l in links for x in (l["s"], l["t"])}
@@ -5350,6 +5448,9 @@ def kg_data(root, g):
         columns.append({"key": "project", "name": "Project"})
     if any(tagged.values()):
         columns.append({"key": "tag", "name": "Tag"})
+    noted = {i: max((kg_time(notes[p].get("updated") or "") or "" for p in paths[i] if p in notes), default="") for i in kept}
+    if any(noted.values()):                                # a time tag: when a note last named it
+        columns.append({"key": "noted", "name": "Last noted", "time": True, "names": kg_time_names(v for v in noted.values() if v)})
     if any(about.values()):
         columns.append({"key": "about", "name": "About", "text": True})
     def tags(i):
@@ -5357,6 +5458,8 @@ def kg_data(root, g):
         for key, vs in (("project", proj[i]), ("tag", tagged[i])):
             if vs:
                 out[key] = vs[0] if len(vs) == 1 else vs
+        if noted[i]:
+            out["noted"] = noted[i]
         if about[i]:
             out["about"] = about[i]
         return out
@@ -5370,6 +5473,12 @@ def kg_data(root, g):
         l["s"], l["t"], l["note"] = index[l["s"]], index[l["t"]], note_at.get(l["note"]) if l["note"] else None
     rows = [{"p": p, "t": notes[p]["title"], "k": notes[p]["kind"], "d": notes[p].get("updated") or "",
              "a": p.split("/")[0] if "/" in p else "", "old": 1 if notes[p].get("superseded_by") else 0} for p in note_list]
+    stated = [l["tags"]["stated"] for l in links if (l.get("tags") or {}).get("stated")]
+    link_cols = [{"key": "kind", "name": "Note kind"}] if any(l.get("tags") for l in links) else []
+    if stated:
+        link_cols.append({"key": "stated", "name": "Stated", "time": True, "names": kg_time_names(stated)})
+    if any((l.get("tags") or {}).get("replaced") for l in links):
+        link_cols.append({"key": "replaced", "name": "Replaced"})
     clusters = any(v["kind"] == "cluster" for v in isles.values())
     count = sum(v["kind"] == ("cluster" if clusters else "project") for v in isles.values())
     lede = ("Every thing the notes name and every link a note states between two of them, each with the line that says "
@@ -5378,7 +5487,8 @@ def kg_data(root, g):
     return {"title": "Knowledge graph", "eyebrow": "Memory · knowledge graph", "headline": f"What {len(g['notes']):,} notes know",
             "lede": lede, "stats": [("things", len(things)), ("links", len(links)), ("clusters" if clusters else "projects", count),
                                     ("notes", len(g["notes"]))],
-            "meta": {"notes": len(g["notes"]), "isles": isles, "inverse": kg_inverse(vocab_texts(root)[0])},
+            "meta": {"notes": len(g["notes"]), "isles": isles, "inverse": inverse, "link_columns": link_cols,
+                     "link_values": kg_counts([l.get("tags") or {} for l in links], link_cols), "both": sum(1 for l in links if l.get("dir") == 0)},
             "columns": columns, "things": things, "links": links, "notes": rows}
 
 

@@ -250,9 +250,12 @@ every link a note states between two of them. An island is a project (or a share
 several projects share in the middle; when the folders do not part the things, as in a memory kept in one folder,
 the islands are the communities of the links instead, each named for its most linked thing. Each thing carries tags:
 its type under the memory's own family (TYPES.md `family:`, so a segment is Datasets › Segments), the projects whose
-notes name it, those notes' tags, and About, the line of the note that best says what it is. The legend colours by
-any category and opens each value into the levels under it: point at a row to light its things, click to hide them;
-search finds the values too, and finds a thing by its About. A thing picked shows what
+notes name it, those notes' tags, when a note last named it, and About, the line of the note that best says what it
+is; each link carries the kind of note that states it, when, and whether that note was replaced, and a relation that
+reads the same both ways (compared with) has no direction. The legend colours by any category or time and opens each
+value into the levels under it: point at a row to light its things, click to hide them; search finds the values too
+(a link's as well, lighting those links: "Replaced" shows every link stated by a replaced note), and finds a thing by
+its About. A thing picked shows what
 it uses and what uses it, each link with the line of the note that says so; the tour flies through the most linked
 things. It opens offline (d3 7.9.0, ISC, is
 inside the file) in one of six looks, kept side by side: paper; a star map at night (`viz --theme star`); a gala,
@@ -263,13 +266,16 @@ candy-bright lotto balls (`viz --theme fanfare`); and noir, black and white on a
 spotlight, with silver and white things, card suits turning round a picked thing and purple only as an accent (`viz
 --theme noir`). The last four fling confetti when a thing is picked. A switch in its header picks among them. Any
 other graph makes the same page: `python3 demo/knowledge-graph/build.py graph.json out.html` takes nodes and links as
-JSON, or `build.py nodes.csv links.csv out.html` as two tables. The data model is three parts: things (an id, a
-label, a group for the island, a size), links (source to target, a type, the line that says so) and tags, every
-other column of a node (type, team, status, owner, definition, …). A category tag is a value, a path whose levels
-are split by `/` (`dataset/table/daily`), or several (a list, or `;` between them); a text tag (a definition, a
-description) is kept whole, shown and searched with its thing. A `columns` entry can put flat values under parents,
-name them, give them hues or say which columns are text, and `link_types` names a link type both ways (`feeds` /
-`fed by`); the file's head says how. It holds up at scale: at 20,000 things and 45,000 links it answers
+JSON, or `build.py nodes.csv links.csv out.html` as two tables. The data model: a thing is an id, a label and a
+group (its island); a link is source to target, a type, a direction (`->`, `<-`, or `o-o` for none: equal, related,
+the same either way) and the line that says so; every other column of either is a tag. A tag is one of four sorts,
+told by its values: a category (type, team, status: a value, a path whose levels are split by `/` such as
+`dataset/table/daily`, or several), a time (ISO dates, read as year › month › day), a number (a thing's `size` sizes
+its dot, a link's `weight` its line and pull) or a text (a definition, a citation: kept whole, shown and searched
+with its owner). Weight, time and provenance are tags like any other. `columns` and `link_columns` entries can put
+flat values under parents, name them, give them hues, set a column's sort or make another number the size or the
+weight, and `link_types` names a link type both ways (`feeds` / `fed by`) and gives its direction; the file's head
+says how. It holds up at scale: at 20,000 things and 45,000 links it answers
 in under half a second, settles island by island in under two, and runs at 60 frames a second in every look
 (`demo/knowledge-graph/make_big.py` makes such a graph; CI checks it with `tests/kg_scale.js`).
 

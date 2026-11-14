@@ -163,6 +163,7 @@ const DP = {
   name: (col, path) => (col.names || {})[path]
     || (path ? path.split('/').pop().replace(/[-_]+/g, ' ').replace(/^./, c => c.toUpperCase()) : `No ${col.name.toLowerCase()}`),
   trail: (col, path) => path.split('/').map((s, d, a) => DP.name(col, a.slice(0, d + 1).join('/'))).join(' › '),   // Datasets › Tables
+  show: (col, v) => col.number ? DP.num(v) : col.text ? String(v) : col.time ? DP.name(col, v) : DP.trail(col, v),   // a value as read
   holds: (vals, sel) => sel.none ? !vals.length : sel.exact ? vals.includes(sel.path)                               // a legend row's
     : vals.some(v => v === sel.path || v.startsWith(sel.path + '/')),                                               // things
   facet: (things, col) => {
@@ -171,6 +172,7 @@ const DP = {
     tops.forEach(ts => ts.forEach(v => count.set(v, (count.get(v) || 0) + 1)));
     const keep = [...count].filter(([v, n]) => v !== 'other' && n >= Math.max(2, 0.02 * N))
       .sort((a, b) => b[1] - a[1] || (a[0] < b[0] ? -1 : 1)).slice(0, 7).map(([v]) => v);
+    if (col.time) keep.sort();                           // years in the order of time, not of size
     const used = new Set(), rows = keep.map(v => {
       let c = (col.colours || {})[v]; if (!c || used.has(c)) c = DP.spare.find(s => !used.has(s)) || DP.grey; used.add(c);
       return { g: v, path: v, name: DP.name(col, v), color: c, n: count.get(v) };
@@ -283,7 +285,8 @@ const DP = {
   (() => {
     const columns = DP.read('data-columns'), things = DP.read('data-things'), raw = DP.read('data-links'), meta = DP.read('data-meta');
     const root = document.getElementById('graph'), canvas = root.querySelector('canvas'), ctx = canvas.getContext('2d');
-    const cats = columns.filter(c => !c.text), texts = columns.filter(c => c.text);   // categories colour; text is read
+    const cats = columns.filter(c => !c.text && !c.number), texts = columns.filter(c => c.text);   // categories (and times) colour
+    const linkCols = meta.link_columns || [];
     let col = cats[0] || columns[0], facet = DP.facet(things, col), tones = [], grey = DP.grey;   // the column the colours come from
     const tip = root.querySelector('.tip'), hint = root.querySelector('.hint'), tourBtn = root.querySelector('.tour');
     const css = getComputedStyle(document.documentElement), tok = n => css.getPropertyValue(n).trim();
@@ -296,10 +299,10 @@ const DP = {
       const lose = g.getExtension('WEBGL_lose_context'); if (lose) lose.loseContext();
       return /swiftshader|llvmpipe|softpipe|software|basic render/i.test(name);
     } catch (e) { return false; } })();
-    let INK, MUTED, OUT, IN, HALO, EDGE, EDGE2, PAPER, ISLE, FONT, SERIF, NIGHT, GALA, MOON, FAN, NOIR;
+    let INK, MUTED, OUT, IN, BOTH, HALO, EDGE, EDGE2, PAPER, ISLE, FONT, SERIF, NIGHT, GALA, MOON, FAN, NOIR;
     function paint() {                                    // the look's tokens, read again whenever the look or the colours change
       INK = tok('--page-ink'); MUTED = tok('--page-muted');   // names sit on the page, not on a card
-      OUT = tok('--out'); IN = tok('--in'); HALO = tok('--halo'); EDGE = tok('--edge-rgb');
+      OUT = tok('--out'); IN = tok('--in'); BOTH = tok('--accent'); HALO = tok('--halo'); EDGE = tok('--edge-rgb');
       EDGE2 = tok('--edge2-rgb'); PAPER = tok('--paper'); ISLE = tok('--isle'); FONT = tok('--font'); SERIF = tok('--serif');
       NOIR = DP.look() === 'noir';                        // noir: black and white on a checkered stage, one spotlight, card suits
       NIGHT = DP.look() === 'star' || DP.look() === 'gala' || NOIR; GALA = DP.look() === 'gala';   // the dark looks share the night
@@ -326,7 +329,9 @@ const DP = {
       else if (k >= 0) nodes.forEach(n => { m[n.i] = DP.holds(n.tv[k], sel) ? 1 : 0; });
       return m;
     };
-    const links = raw.map((l, k) => ({ k, source: nodes[l.s], target: nodes[l.t], type: l.type }));
+    const links = raw.map((l, k) => ({ k, source: nodes[l.s], target: nodes[l.t], type: l.type, dir: l.dir === 0 ? 0 : 1, w: l.w || 1, tags: l.tags || {} }));
+    const wMean = d3.mean(links, l => l.w) || 1, weighed = links.some(l => l.w !== 1), FAT = [0.7, 1, 1.6, 2.4];   // a link's weight:
+    links.forEach(l => { l.wn = Math.max(0.25, Math.min(4, l.w / wMean)); l.b = l.wn < 0.75 ? 0 : l.wn < 1.5 ? 1 : l.wn < 3 ? 2 : 3; });   // its pull, its line
     const deg = nodes.map(() => 0), around = nodes.map(() => []);
     links.forEach(l => { deg[l.source.i]++; deg[l.target.i]++; around[l.source.i].push(l); around[l.target.i].push(l); });
     const HUB = Math.max(36, d3.quantile(deg.slice().sort(d3.ascending), 0.995));
@@ -356,7 +361,7 @@ const DP = {
     links.forEach(l => { if (l.cross) { isleOf.get(l.source.home).out++; isleOf.get(l.target.home).out++; } else isleOf.get(l.source.home).inside++; });
     const share = new Map(isles.map(p => [p.h, new Map()]));   // island by island, how many links (not a hub's) go to each other
     links.forEach(l => { if (l.cross && !l.spoke) { const a = share.get(l.source.home), b = share.get(l.target.home);
-      a.set(l.target.home, (a.get(l.target.home) || 0) + 1); b.set(l.source.home, (b.get(l.source.home) || 0) + 1); } });
+      a.set(l.target.home, (a.get(l.target.home) || 0) + l.wn); b.set(l.source.home, (b.get(l.source.home) || 0) + l.wn); } });
     const tie = (a, b) => share.get(a).get(b) || 0;
     const left = isles.slice().sort((a, b) => (a.h === '') - (b.h === '') || a.ns.length - b.ns.length);
     const order = [left.pop()];   // the middle first (or, with none, the largest island), then each island after the ones it shares most with
@@ -407,7 +412,7 @@ const DP = {
       const A = new I(L), B = new I(L), LD = new F(L), LS = new F(L), LB = new F(L);
       ns.forEach((n, j) => { X[j] = n.x; Y[j] = n.y; VX[j] = n.vx || 0; VY[j] = n.vy || 0; RC[j] = n.r + 1.7; S[j] = -3 - 0.6 * n.r * n.r; LIM[j] = p.R - n.r - 2; });
       p.links.forEach((l, k) => { const a = l.source, b = l.target, da = innerDeg[a.i], db = innerDeg[b.i];
-        A[k] = a.j; B[k] = b.j; LD[k] = 6 + 1.3 * (a.r + b.r); LS[k] = 0.45 / Math.min(da, db); LB[k] = da / (da + db); });
+        A[k] = a.j; B[k] = b.j; LD[k] = 6 + 1.3 * (a.r + b.r); LS[k] = 0.45 / Math.min(da, db) * l.wn; LB[k] = da / (da + db); });
       // the push reaches 34 whatever a thing's size, so its grid is 34; a collide reaches two radii, so its grid is
       // twice the usual radius, and the few far larger things (the hubs) are kept off it and met on their own
       const mid = F.from(RC).sort()[m >> 1], big = [], small = [];
@@ -602,7 +607,10 @@ const DP = {
     // ---- drawing
     const curve = (a, b, bend) => { const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2, dx = b.x - a.x, dy = b.y - a.y; ctx.moveTo(a.x, a.y); ctx.quadraticCurveTo(mx - dy * bend, my + dx * bend, b.x, b.y); };
     const along = (a, b, bend, u) => { const cx = (a.x + b.x) / 2 - (b.y - a.y) * bend, cy = (a.y + b.y) / 2 + (b.x - a.x) * bend, v = 1 - u; return [v * v * a.x + 2 * v * u * cx + u * u * b.x, v * v * a.y + 2 * v * u * cy + u * u * b.y]; };
-    const path = l => { if (l.cross) curve(l.source, l.target, 0.12); else { ctx.moveTo(l.source.x, l.source.y); ctx.lineTo(l.target.x, l.target.y); } };
+    const path = (l, p = ctx) => {                    // a link: straight inside an island, a soft curve between two
+      const a = l.source, b = l.target; p.moveTo(a.x, a.y);
+      if (l.cross) p.quadraticCurveTo((a.x + b.x) / 2 - (b.y - a.y) * 0.12, (a.y + b.y) / 2 + (b.x - a.x) * 0.12, b.x, b.y); else p.lineTo(b.x, b.y);
+    };
     // the star map's sky: the nebulae are the page's own background (the browser keeps it, no cost per frame); here a
     // field of stars that twinkle and drift a little with the camera (parallax), drawn in four brightnesses at once
     const skyRand = rng(99), sky = d3.range(320).map(() => ({ x: skyRand(), y: skyRand(), r: 0.35 + skyRand() ** 3 * 1.4,
@@ -747,17 +755,23 @@ const DP = {
       ctx.lineCap = 'round';
       if ((NIGHT || FAN) && links.length <= 6000) ctx.globalCompositeOperation = 'lighter';
       const thin = w => soft ? Math.min(w, 0.9 / (k * dpr)) : w;
-      [[false, thin(0.75 / sk), lineA, EDGE], [true, thin(0.6 / sk), lineA * (NIGHT ? 0.6 : 0.55), EDGE2]].forEach(([cross, w, a, rgb]) => {
-        ctx.lineWidth = w; ctx.strokeStyle = `rgba(${rgb},${a})`; ctx.beginPath();
+      [[false, 0.75 / sk, lineA, EDGE], [true, 0.6 / sk, lineA * (NIGHT ? 0.6 : 0.55), EDGE2]].forEach(([cross, w, a, rgb]) => {
+        ctx.lineWidth = thin(w); ctx.strokeStyle = `rgba(${rgb},${a})`; ctx.beginPath();
+        const ps = weighed ? FAT.map(() => new Path2D()) : null;   // heavier links, wider lines
         links.forEach(l => {
           if (l.cross !== cross || l.spoke || Math.min(on(l.source), on(l.target)) < 0.6) return;
           if (chosen && (l.source === chosen || l.target === chosen)) return;
           const s = l.source, e = l.target, bow = cross ? 0.06 * (Math.abs(e.x - s.x) + Math.abs(e.y - s.y)) : 0;   // a curve bows out
           if (Math.max(s.x, e.x) + bow < wx0 || Math.min(s.x, e.x) - bow > wx1 || Math.max(s.y, e.y) + bow < wy0 || Math.min(s.y, e.y) - bow > wy1) return;
-          path(l);
+          if (ps) path(l, ps[l.b]); else path(l);
         });
-        ctx.stroke();
+        if (ps) ps.forEach((p, b) => { ctx.lineWidth = thin(w * FAT[b]); ctx.stroke(p); }); else ctx.stroke();
       });
+      if (lightL) {                                     // the links a tag found in search holds, over the rest
+        ctx.strokeStyle = BOTH; ctx.globalAlpha = 0.75; ctx.lineWidth = thin(1.3 / sk); ctx.beginPath();
+        links.forEach(l => { if (lightL[l.k] && Math.min(on(l.source), on(l.target)) >= 0.6) path(l); });
+        ctx.stroke(); ctx.globalAlpha = 1;
+      }
       if (NIGHT || FAN) ctx.globalCompositeOperation = 'lighter';   // the pulses and the chosen thing's links glow
       const tail = NIGHT || MOON || FAN ? 9 : 6;
       pulses.forEach(q => {                              // a pulse: the link lights, a bead with a tail runs along it (a comet at night)
@@ -775,19 +789,19 @@ const DP = {
       const focus = chosen || hover;
       if (focus && (!chosen || focus === chosen)) {
         const mine = around[focus.i].filter(l => seen[l.source.i] > 0.5 && seen[l.target.i] > 0.5), f = chosen ? lit[focus.i] : 1;
-        [[OUT, l => l.source === focus], [IN, l => l.target === focus]].forEach(([c, out]) => {
-          ctx.strokeStyle = c; ctx.globalAlpha = (chosen ? 0.5 : 0.34) * f; ctx.lineWidth = (chosen ? 1.35 : 1) / sk; ctx.beginPath();
-          mine.filter(out).forEach(path);
-          ctx.stroke();
+        [[OUT, l => l.dir && l.source === focus], [IN, l => l.dir && l.target === focus], [BOTH, l => !l.dir]].forEach(([c, which]) => {
+          ctx.strokeStyle = c; ctx.globalAlpha = (chosen ? 0.5 : 0.34) * f; const w = (chosen ? 1.35 : 1) / sk;
+          if (!weighed) { ctx.lineWidth = w; ctx.beginPath(); mine.filter(which).forEach(l => path(l)); ctx.stroke(); }
+          else mine.filter(which).forEach(l => { ctx.lineWidth = w * FAT[l.b]; ctx.beginPath(); path(l); ctx.stroke(); });
         });
         if (chosen && pointed) {                         // the link to the row the pointer is on in the panel
           ctx.globalAlpha = 0.95; ctx.lineWidth = 2.6 / sk;
-          mine.filter(l => other(l, chosen) === pointed).forEach(l => { ctx.strokeStyle = l.source === chosen ? OUT : IN; ctx.beginPath(); path(l); ctx.stroke(); });
+          mine.filter(l => other(l, chosen) === pointed).forEach(l => { ctx.strokeStyle = !l.dir ? BOTH : l.source === chosen ? OUT : IN; ctx.beginPath(); path(l); ctx.stroke(); });
         }
         ctx.globalAlpha = 1;
         if (chosen && !still) {   // the flow: out of it in blue along what it uses, into it in orange from what uses it
           const s = now / 1000;
-          mine.slice(0, 180).forEach(l => {
+          mine.filter(l => l.dir).slice(0, 180).forEach(l => {   // nothing flows along a link with no direction
             const a = l.source, b = l.target, len = Math.hypot(b.x - a.x, b.y - a.y), per = Math.max(1, Math.min(3, Math.round(len / 70)));
             ctx.fillStyle = a === chosen ? OUT : IN;
             for (let q = 0; q < per; q++) {
@@ -1037,7 +1051,16 @@ const DP = {
       hideM = m; if (chosen && hideM[chosen.i]) choose(null, true); version++; need();
     });
     document.addEventListener('dp:peek', e => { peekM = e.detail.sel ? mask(e.detail.sel) : null; need(); });
-    document.addEventListener('dp:light', e => { lightM = e.detail.sel ? mask(e.detail.sel) : null; need(); });
+    let lightL = null;
+    document.addEventListener('dp:light', e => {
+      const sel = e.detail.sel; lightL = null;
+      if (sel && sel.links) {                           // a link's tag: those links, and the things at their ends
+        const m = new Uint8Array(nodes.length); lightL = new Uint8Array(links.length);
+        links.forEach(l => { if (DP.holds(DP.vals(l, sel.key), sel)) { lightL[l.k] = 1; m[l.source.i] = m[l.target.i] = 1; } });
+        lightM = m;
+      } else lightM = sel ? mask(sel) : null;
+      need();
+    });
     const swap = then => { root.classList.add('switching'); setTimeout(() => { then(); need(); root.classList.remove('switching'); }, still ? 0 : 280); };
     document.addEventListener('dp:theme', () => swap(() => { paint(); hue(); nebula(); }));   // fade out, the new look, fade in
     document.addEventListener('dp:colour', e => {        // colours from another tag column
@@ -1118,7 +1141,7 @@ const DP = {
   (() => {
     const meta = DP.read('data-meta'), columns = DP.read('data-columns'), things = DP.read('data-things');
     const root = document.getElementById('search'), box = root.querySelector('.box'), input = root.querySelector('input'), list = root.querySelector('ul'), kbd = root.querySelector('kbd');
-    const cats = columns.filter(c => !c.text), texts = columns.filter(c => c.text);
+    const cats = columns.filter(c => !c.text && !c.number), texts = columns.filter(c => c.text);
     let col = cats[0] || columns[0], facet = DP.facet(things, col), lit = null;
     const norm = s => String(s).toLowerCase().replace(/[-_]+/g, ' ');
     const index = things.map((t, i) => ({ t, i, n: t.n, keys: [t.label, ...(t.names || []), t.id, ...texts.flatMap(c => DP.vals(t, c.key))].map(s => String(s).toLowerCase()) }));
@@ -1127,8 +1150,11 @@ const DP = {
       const n = new Map();
       things.forEach(t => { const seen = new Set(); DP.vals(t, c.key).forEach(v => { const seg = v.split('/'); for (let d = 1; d <= seg.length; d++) seen.add(seg.slice(0, d).join('/')); });
         seen.forEach(p => n.set(p, (n.get(p) || 0) + 1)); });
-      n.forEach((k, p) => tags.push({ tag: true, c, key: c.key, path: p, n: k, name: DP.name(c, p), trail: DP.trail(c, p), keys: [DP.name(c, p), p, p.split('/').pop()].map(norm) }));
+      n.forEach((k, p) => tags.push({ tag: true, c, key: c.key, path: p, n: k, name: DP.name(c, p), trail: c.time ? DP.name(c, p) : DP.trail(c, p), keys: [DP.name(c, p), p, p.split('/').pop()].map(norm) }));
     });
+    (meta.link_columns || []).filter(c => !c.text && !c.number).forEach(c => Object.entries((meta.link_values || {})[c.key] || {})   // a link's tags
+      .forEach(([p, k]) => tags.push({ tag: true, link: true, c, key: c.key, path: p, n: k, name: DP.name(c, p),
+        trail: c.time ? DP.name(c, p) : DP.trail(c, p), keys: [DP.name(c, p), p, p.split('/').pop()].map(norm) })));
     const leaf = i => { const v = DP.vals(things[i], col.key); return v.length ? v[0].split('/').pop().replace(/[-_]+/g, ' ') : ''; };
     const dot = (top, ring) => { const c = top >= 0 ? facet.rows[top].color : DP.grey; return `<span class="dot${ring ? ' ring' : ''}" data-c="${c}"></span>`; };
     const tone = () => list.querySelectorAll('.dot').forEach(d => { const c = DP.tone(d.dataset.c, facet.rows); if (d.classList.contains('ring')) d.style.color = c; else d.style.background = c; });
@@ -1137,7 +1163,7 @@ const DP = {
     const render = fresh => {
       list.classList.toggle('fresh', !!fresh);
       list.innerHTML = hits.map((h, k) => h.tag
-        ? `<li><button class="${k === at ? 'on' : ''}" data-k="${k}">${dot(h.key === col.key ? facet.rows.findIndex(r => !r.rest && r.path === h.path.split('/')[0]) : -1, true)}<span class="name">${mark(h.trail)}</span><span class="kind">${DP.esc(h.c.name)} · ${DP.num(h.n)} thing${h.n === 1 ? '' : 's'}</span></button></li>`
+        ? `<li><button class="${k === at ? 'on' : ''}" data-k="${k}">${dot(h.key === col.key ? facet.rows.findIndex(r => !r.rest && r.path === h.path.split('/')[0]) : -1, true)}<span class="name">${mark(h.trail)}</span><span class="kind">${DP.esc(h.c.name)} · ${DP.num(h.n)} ${h.link ? 'link' : 'thing'}${h.n === 1 ? '' : 's'}</span></button></li>`
         : `<li><button class="${k === at ? 'on' : ''}" data-k="${k}">${dot(facet.top[h.i])}<span class="name">${mark(h.t.label)}</span><span class="kind">${DP.esc(leaf(h.i))}${meta.notes ? ` · ${DP.num(h.t.n)} note${h.t.n === 1 ? '' : 's'}` : ''}</span></button></li>`).join('');
       tone();
     };
@@ -1150,7 +1176,7 @@ const DP = {
     const light = h => {                                 // a tag lights its things, and stays lit until Esc
       lit = h; box.classList.toggle('lit', !!h); kbd.textContent = h ? 'esc' : '/';
       if (h) input.value = h.name;
-      document.dispatchEvent(new CustomEvent('dp:light', { detail: { sel: h ? { key: h.key, path: h.path } : null, name: h ? h.name : '' } }));
+      document.dispatchEvent(new CustomEvent('dp:light', { detail: { sel: h ? Object.assign({ key: h.key, path: h.path }, h.link ? { links: true } : {}) : null, name: h ? h.name : '' } }));
     };
     const go = h => {
       if (!h) return;
@@ -1170,8 +1196,9 @@ const DP = {
       else if (e.key === 'Escape' && lit && document.activeElement !== input) { input.value = ''; light(null); }
     });
     document.addEventListener('dp:light', e => {        // lit from elsewhere (a tag in the panel): the box says what is lit
-      if (!e.detail.sel || (lit && lit.key === e.detail.sel.key && lit.path === e.detail.sel.path)) return;
-      lit = tags.find(x => x.key === e.detail.sel.key && x.path === e.detail.sel.path) || null;
+      const sel = e.detail.sel, same = x => x.key === sel.key && x.path === sel.path && !!x.link === !!sel.links;
+      if (!sel || (lit && same(lit))) return;
+      lit = tags.find(same) || null;
       box.classList.toggle('lit', !!lit); kbd.textContent = lit ? 'esc' : '/'; if (lit) input.value = lit.name;
     });
     document.addEventListener('dp:colour', e => { col = columns.find(c => c.key === e.detail.key) || col; facet = DP.facet(things, col); render(); });
@@ -1206,10 +1233,12 @@ const DP = {
     #legend .open.none { visibility:hidden; }
     #legend .more { display:block; margin:2px 0 4px 36px; padding:3px 8px; border-radius:8px; font-size:12px; color:var(--accent); }
     #legend .more:hover { background:var(--accent-soft); }
-    #legend .key { display:flex; gap:16px; padding:12px 10px 0; font-size:12px; color:var(--muted); }
+    #legend .key { display:flex; flex-wrap:wrap; gap:4px 16px; padding:12px 10px 0; font-size:12px; color:var(--muted); }
+    #legend .key span { white-space:nowrap; }
     #legend .key b { font-weight:600; margin-right:3px; }
     #legend .key .out { color:var(--out); }
     #legend .key .in { color:var(--in); }
+    #legend .key .both { color:var(--accent); }
     #legend .help { padding:5px 10px 0; font-size:11.5px; color:var(--faint); }
     @keyframes legend-in { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:none; } }
     @media (max-height:760px) { #legend .help { display:none; } }
@@ -1218,14 +1247,14 @@ const DP = {
   <div class="eyebrow">Things</div>
   <div class="cols" role="group" aria-label="Colour the things by"></div>
   <div class="rows" role="tree"></div>
-  <div class="key"><span><b class="out">→</b>what it uses</span><span><b class="in">←</b>what uses it</span></div>
+  <div class="key"><span><b class="out">→</b>what it uses</span><span><b class="in">←</b>what uses it</span><span class="either" hidden><b class="both">↔</b>either way</span></div>
   <div class="help">Point to light, click to hide, › to open.</div>
   <script>
   (() => {
-    const columns = DP.read('data-columns'), things = DP.read('data-things');
+    const meta = DP.read('data-meta'), columns = DP.read('data-columns'), things = DP.read('data-things');
     const root = document.getElementById('legend'), eyebrow = root.querySelector('.eyebrow'), cols = root.querySelector('.cols'), rows = root.querySelector('.rows');
     const byId = new Map(things.map((t, i) => [t.id, i]));
-    const cats = columns.filter(c => !c.text);           // a text tag (a definition) is read in the panel, not listed
+    const cats = columns.filter(c => !c.text && !c.number);   // text and numbers are read in the panel, not listed
     let col = cats[0] || columns[0], facet = DP.facet(things, col), tree = null, hidden = [], sels = [], peeked = '';
     const open = new Set(), shown = new Map();
     const id = s => `${s.key}|${s.rest ? '*' : s.none ? '-' : (s.exact ? '=' : '') + s.path}`;
@@ -1248,11 +1277,12 @@ const DP = {
         const n = new Map(); let none = 0;
         things.forEach((t, i) => { if (facet.top[i] >= 0) return; const vs = DP.vals(t, col.key); if (!vs.length) { none++; return; }
           new Set(vs.map(v => v.split('/')[0])).forEach(v => n.set(v, (n.get(v) || 0) + 1)); });
-        return [...n].sort((a, b) => b[1] - a[1] || (a[0] < b[0] ? -1 : 1)).map(([v, k]) => ({ key: col.key, path: v, n: k }))
+        return [...n].sort((a, b) => col.time ? (a[0] < b[0] ? -1 : 1) : b[1] - a[1] || (a[0] < b[0] ? -1 : 1)).map(([v, k]) => ({ key: col.key, path: v, n: k }))
           .concat(none ? [{ key: col.key, path: '', none: true, n: none }] : []);
       }
       const x = tree.get(s.path); if (!x || s.exact || s.none) return [];
-      const out = [...x.kids].map(p => ({ key: col.key, path: p, n: tree.get(p).n })).sort((a, b) => b.n - a.n || (a.path < b.path ? -1 : 1));
+      const out = [...x.kids].map(p => ({ key: col.key, path: p, n: tree.get(p).n }))   // the largest first; times in their order
+        .sort((a, b) => col.time ? (a.path < b.path ? -1 : 1) : b.n - a.n || (a.path < b.path ? -1 : 1));
       return x.self && out.length ? out.concat([{ key: col.key, path: s.path, exact: true, n: x.self }]) : out;
     };
     const opens = s => s.rest || (!s.exact && !s.none && (tree.get(s.path) || { kids: new Set() }).kids.size > 0);
@@ -1311,6 +1341,7 @@ const DP = {
       if (left.length !== hidden.length) { hidden = left; tell(); draw(); }
     });
     document.addEventListener('dp:theme', tone);
+    root.querySelector('.key .either').hidden = !meta.both;   // a link with no direction: the key says how it is drawn
     tree = grow(); draw();
   })();
   </script>
@@ -1361,6 +1392,9 @@ const DP = {
     #detail .to:hover { color:var(--accent); }
     #detail .arrow.out { color:var(--out); }
     #detail .arrow.in { color:var(--in); }
+    #detail .arrow.both { color:var(--accent); }
+    #detail .ltags { display:block; margin-top:4px; color:var(--muted); font-size:11.5px; }
+    #detail .tags .num { font-size:13px; font-variant-numeric:tabular-nums; color:var(--ink); }
     #detail q { display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; margin-top:5px; color:var(--muted); font-size:12.5px; quotes:none; }
     #detail .src { display:block; margin-top:4px; color:var(--faint); font-size:11.5px; }
     #detail .note b { display:block; font-weight:500; }
@@ -1377,7 +1411,10 @@ const DP = {
   (() => {
     const meta = DP.read('data-meta'), columns = DP.read('data-columns'), things = DP.read('data-things'), links = DP.read('data-links'), notes = DP.read('data-notes');
     const named = meta.isles || {}, back = meta.inverse || {}, fwd = meta.forward || {};
-    const cats = columns.filter(c => !c.text), texts = columns.filter(c => c.text);
+    const cats = columns.filter(c => !c.text && !c.number), texts = columns.filter(c => c.text), nums = columns.filter(c => c.number);
+    const lcols = meta.link_columns || [];
+    const ltags = l => lcols.map(c => DP.vals(l, c.key).map(v => c.number ? `${c.name.toLowerCase()} ${DP.num(v)}`   // a link's own tags
+      : c.text ? (String(v).length > 120 ? String(v).slice(0, 118) + '…' : v) : DP.show(c, v)).join(', ')).filter(Boolean).join(' · ');
     let col = cats[0] || columns[0], facet = DP.facet(things, col), at = -1;
     const hueOf = i => { const k = facet.top[i]; return k >= 0 ? facet.rows[k].color : DP.grey; };
     const tone = () => body.querySelectorAll('.dot[data-c]').forEach(d => { d.style.background = DP.tone(d.dataset.c, facet.rows); });
@@ -1395,14 +1432,16 @@ const DP = {
     const point = id => { if (id !== pointedId) { pointedId = id; document.dispatchEvent(new CustomEvent('dp:point', { detail: { id } })); } };
     const render = i => {
       const t = things[i], mine = links.filter(l => l.s === i || l.t === i), sets = new Map();
-      mine.forEach(l => { const out = l.s === i, key = (out ? 'o:' : 'i:') + l.type; if (!sets.has(key)) sets.set(key, { out, type: l.type, rows: [] }); sets.get(key).rows.push(l); });
-      const blocks = [...sets.values()].sort((a, b) => b.out - a.out || b.rows.length - a.rows.length).map(s => {
+      mine.forEach(l => { const dir = l.dir === 0 ? 'u' : l.s === i ? 'o' : 'i', key = dir + ':' + l.type;   // out, either way, in
+        if (!sets.has(key)) sets.set(key, { dir, out: dir !== 'i', type: l.type, rows: [] }); sets.get(key).rows.push(l); });
+      const rank = { o: 0, u: 1, i: 2 };
+      const blocks = [...sets.values()].sort((a, b) => rank[a.dir] - rank[b.dir] || b.rows.length - a.rows.length).map(s => {
         const rows = s.rows.map(l => {
-          const o = things[s.out ? l.t : l.s], n = notes[l.note];
-          return `<li><button class="to" data-id="${DP.esc(o.id)}"><span class="dot" data-c="${hueOf(s.out ? l.t : l.s)}"></span>${DP.esc(o.label)}</button>`
-            + (l.q ? `<q>“${DP.esc(l.q)}”</q>` : '') + (n ? `<span class="src">${DP.esc(n.p.replace(/\.md$/, ''))}</span>` : '') + '</li>';
+          const j = l.s === i ? l.t : l.s, o = things[j], n = notes[l.note], lt = ltags(l);
+          return `<li><button class="to" data-id="${DP.esc(o.id)}"><span class="dot" data-c="${hueOf(j)}"></span>${DP.esc(o.label)}</button>`
+            + (l.q ? `<q>“${DP.esc(l.q)}”</q>` : '') + (lt ? `<span class="ltags">${DP.esc(lt)}</span>` : '') + (n ? `<span class="src">${DP.esc(n.p.replace(/\.md$/, ''))}</span>` : '') + '</li>';
         });
-        return `<h3><span class="arrow ${s.out ? 'out' : 'in'}">${s.out ? '→' : '←'}</span>${DP.esc(say(s.type, s.out))} <em>${DP.num(s.rows.length)}</em></h3><ul>${rows.slice(0, SHOW).join('')}</ul>${more(rows)}`;
+        return `<h3><span class="arrow ${{ o: 'out', i: 'in', u: 'both' }[s.dir]}">${{ o: '→', i: '←', u: '↔' }[s.dir]}</span>${DP.esc(say(s.type, s.out))} <em>${DP.num(s.rows.length)}</em></h3><ul>${rows.slice(0, SHOW).join('')}</ul>${more(rows)}`;
       }).join('');
       const ns = (t.notes || []).map(k => notes[k]).filter(Boolean).sort((a, b) => (b.d || '').localeCompare(a.d || ''));
       const noteRows = ns.map(n => `<li class="note"><b>${DP.esc(n.t)}</b><span>${DP.esc(n.a || 'top level')} · ${DP.esc(n.d || '')} · ${DP.esc(n.k)}</span>${n.old ? '<span class="old">replaced</span>' : ''}</li>`);
@@ -1410,11 +1449,12 @@ const DP = {
       const kind = (DP.vals(t, col.key)[0] || '').split('/').pop().replace(/[-_]+/g, ' ');
       const textRows = texts.map(c => { const vs = DP.vals(t, c.key); return vs.length ? `<div><dt>${DP.esc(c.name)}</dt><dd>${vs.map(v => `<p>${DP.esc(v)}</p>`).join('')}</dd></div>` : ''; }).join('');
       const tagRows = cats.map(c => { const vs = DP.vals(t, c.key); if (!vs.length) return '';   // its tags, each a way to light its kind
-        return `<div><dt>${DP.esc(c.name)}</dt><dd>${vs.slice(0, 6).map(v => `<button class="chip" data-key="${DP.esc(c.key)}" data-path="${DP.esc(v)}" title="Light every thing with it">${DP.esc(DP.trail(c, v))}</button>`).join('')}${vs.length > 6 ? `<em>+${DP.num(vs.length - 6)}</em>` : ''}</dd></div>`; }).join('');
+        return `<div><dt>${DP.esc(c.name)}</dt><dd>${vs.slice(0, 6).map(v => `<button class="chip" data-key="${DP.esc(c.key)}" data-path="${DP.esc(v)}" title="Light every thing with it">${DP.esc(DP.show(c, v))}</button>`).join('')}${vs.length > 6 ? `<em>+${DP.num(vs.length - 6)}</em>` : ''}</dd></div>`; }).join('');
+      const numRows = nums.map(c => { const vs = DP.vals(t, c.key); return vs.length ? `<div><dt>${DP.esc(c.name)}</dt><dd><span class="num">${vs.map(v => DP.num(v)).join(', ')}</span></dd></div>` : ''; }).join('');
       body.innerHTML = `<div class="kind"><span class="dot" data-c="${hueOf(i)}"></span>${kind ? DP.esc(kind) + ' · ' : ''}${DP.esc(where)}</div>`
         + `<h2${t.label.length > 44 ? ' class="long"' : ''}>${DP.esc(t.label)}</h2>`
         + `<dl class="facts">${meta.notes ? `<div><dt>notes</dt><dd>${DP.num(t.n)}</dd></div>` : ''}<div><dt>links</dt><dd>${DP.num(mine.length)}</dd></div></dl>`
-        + (textRows ? `<dl class="texts">${textRows}</dl>` : '') + (tagRows ? `<dl class="tags">${tagRows}</dl>` : '')
+        + (textRows ? `<dl class="texts">${textRows}</dl>` : '') + (tagRows || numRows ? `<dl class="tags">${tagRows}${numRows}</dl>` : '')
         + blocks + (ns.length ? `<h3>Notes that name it <em>${DP.num(ns.length)}</em></h3><ul>${noteRows.slice(0, SHOW).join('')}</ul>${more(noteRows)}` : '');
       tone(); at = i;
       pointedId = null; root.scrollTop = 0; root.classList.add('open');

@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """A large graph to test the knowledge-graph page at scale, shaped like a big memory: projects of very different sizes,
 a shared middle, ten families of things, links mostly inside a project with a few hubs, and some between projects.
-Each node carries three category columns: type, a path of family and kind with a long tail of kinds (dataset/table,
-feature/window, …), team (one or two of fourteen, a list when two) and status (live, draft, retired); and a text
-column, definition, a sentence of its own.
+Each node carries tags of every sort: categories (type, a path of family and kind with a long tail of kinds,
+dataset/table, feature/window, …; team, one or two of fourteen, a list when two; status), a time (created), a number
+for datasets and features (rows) and a text (definition, a sentence of its own). Each link carries tags too: status
+(confirmed or proposed) and source_system (categories), observed (a time) and weight (a number); one in twenty is
+related-to, a link with no direction.
 
   python3 demo/knowledge-graph/make_big.py out.json [--things 20000] [--links 45000] [--seed 7] [--no-groups]
 
@@ -63,6 +65,9 @@ def main(argv):
         ts = list(dict.fromkeys(rnd.choices(TEAMS, team_w, k=2 if rnd.random() < 0.3 else 1)))
         n["team"] = ts if len(ts) > 1 else ts[0]
         n["status"] = rnd.choices(["live", "draft", "retired"], [70, 20, 10])[0]
+        n["created"] = f"{rnd.randint(2019, 2026)}-{rnd.randint(1, 12):02d}-{rnd.randint(1, 28):02d}"   # a time tag
+        if f in ("dataset", "feature"):
+            n["rows"] = rnd.randint(1, 900) * 1000                                            # a number tag, for some
         topic = f"{rnd.choice(WORDS)} {rnd.choice(WORDS)}"
         n["definition"] = WHAT[f].format(t=topic) + ", " + rnd.choice([          # a text tag: shown and searched, not coloured
             f"about {rnd.randint(2, 900) * 1000:,} rows a day", f"kept since {rnd.randint(2018, 2026)}", f"reviewed every {rnd.choice(['month', 'quarter', 'year'])}",
@@ -89,9 +94,13 @@ def main(argv):
         if a == b or (a, b) in have:
             return False
         have.add((a, b))
-        ty = rnd.choice(EDGES)
+        ty = rnd.choice(EDGES) if rnd.random() > 0.05 else "related-to"   # related-to: a link with no direction
         links.append({"source": nodes[a]["id"], "target": nodes[b]["id"], "type": ty,
-                      "text": f"{nodes[a]['label']} {ty.replace('-', ' ')} {nodes[b]['label']}, as note {rnd.randint(1, 9999)} says."})
+                      "text": f"{nodes[a]['label']} {ty.replace('-', ' ')} {nodes[b]['label']}, as note {rnd.randint(1, 9999)} says.",
+                      "status": rnd.choices(["confirmed", "proposed"], [80, 20])[0],          # the link's tags: a category,
+                      "source_system": rnd.choices(["lineage-scan", "catalog", "manual", "model"], [50, 25, 15, 10])[0],   # where it came from,
+                      "observed": f"{rnd.randint(2024, 2026)}-{rnd.randint(1, 12):02d}-{rnd.randint(1, 28):02d}",          # when (a time),
+                      "weight": min(8, int(rnd.paretovariate(1.6)))})                            # and how strong (a number)
         return True
 
     # inside each project: preferential attachment, so a few things in each are linked to most of the rest; each

@@ -86,6 +86,38 @@ const path = require('path');
     out('a text tag is searched with its thing and shown in its panel', !text.chip && !!first && !first.tag && shown.some(p => p.includes(text.words)), { column: text.name, search: text.words, first, shown: shown.slice(0, 1) });
     await page.keyboard.press('Escape');
   } else out('a text tag is searched with its thing and shown in its panel', false, { error: 'no text column in the page' });
+  // a time tag: its chip colours by year, the years in the order of time
+  await page.waitForTimeout(400);
+  const timeChip = await page.evaluate(() => { const cols = JSON.parse(document.getElementById('data-columns').textContent), c = cols.find(x => x.time); return c ? c.name : null; });
+  if (timeChip) {
+    await page.locator('#legend .cols button').filter({ hasText: timeChip }).click(); await page.waitForTimeout(800);
+    const years = await page.evaluate(() => [...document.querySelectorAll('#legend .row:not(.sub) .name')].map(e => e.textContent).filter(t => /^\d{4}$/.test(t)));
+    out('a time tag reads in the order of time', years.length > 1 && years.join() === years.slice().sort().join(), { column: timeChip, years });
+    await page.locator('#legend .cols button').first().click(); await page.waitForTimeout(700);
+  } else out('a time tag reads in the order of time', false, { error: 'no time column in the page' });
+  // a link's tags: found in search, its links lit; shown on each link row; a link with no direction in its own group
+  const lt = await page.evaluate(() => { const m = JSON.parse(document.getElementById('data-meta').textContent), c = (m.link_columns || []).find(x => !x.text && !x.number && !x.time);
+    if (!c) return null; const v = Object.entries(m.link_values[c.key]).sort((a, b) => a[1] - b[1])[0]; return { name: c.name, value: v[0], n: v[1] }; });
+  if (lt) {
+    await page.keyboard.press('/'); await page.keyboard.type(lt.value); await page.waitForTimeout(400);
+    const linkHit = page.locator('#search li button').filter({ hasText: / links?$/ }).first(), found = await linkHit.count();
+    if (found) { await linkHit.click(); await page.waitForTimeout(700); }
+    const litLinks = await page.evaluate(() => document.querySelector('#search .box').classList.contains('lit'));
+    out('a link tag found in search lights its links', found > 0 && litLinks, { column: lt.name, value: lt.value, links: lt.n });
+    await page.keyboard.press('Escape'); await page.mouse.click(700, 880); await page.keyboard.press('Escape'); await page.waitForTimeout(400);
+  } else out('a link tag found in search lights its links', false, { error: 'no link tag in the page' });
+  const both = await page.evaluate(() => { const ts = JSON.parse(document.getElementById('data-things').textContent), ls = JSON.parse(document.getElementById('data-links').textContent);
+    const l = ls.find(x => x.dir === 0); return l ? ts[l.s].label : null; });
+  if (both) {
+    await page.keyboard.press('/'); await page.keyboard.type(both); await page.waitForTimeout(400);
+    const row = page.locator('#search li button').filter({ hasNot: page.locator('.ring') }).first();
+    if (await row.count()) await row.click(); else await page.keyboard.press('Enter');
+    await page.waitForTimeout(1500);
+    const p = await page.evaluate(() => ({ groups: [...document.querySelectorAll('#detail h3')].map(h => h.textContent.trim()), tags: [...document.querySelectorAll('#detail .ltags')].map(e => e.textContent) }));
+    out('a link with no direction sits in its own ↔ group', p.groups.some(g => g.startsWith('↔')), { thing: both, groups: p.groups.slice(0, 4) });
+    out("a link's tags show on its row", p.tags.length > 0 && p.tags.every(t => t.length > 0), { first: p.tags.slice(0, 2) });
+    await page.keyboard.press('Escape');
+  } else out('a link with no direction sits in its own ↔ group', false, { error: 'no link without a direction' });
   out('no page errors', errors.length === 0, { errors });
   await browser.close();
   process.exit(ok ? 0 : 1);

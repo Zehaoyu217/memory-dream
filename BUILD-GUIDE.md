@@ -625,16 +625,21 @@ it; the page and d3 7.9.0 (ISC) sit in `assets/`, and it opens offline.
    (120 ms at once, then before each frame 22 ms, or one and a half times what the last frame cost to draw where
    drawing is slow, as without a GPU), so the page answers at once and an island blooms when it has settled; a
    dragged thing settles its own island again, not the graph.
-2. **Things, links, tags.** The data model has three parts. A thing: an id and a label, an island (`group`) and a
-   size, and tags. A link: source to target, a type (named both ways: common ones built in, a memory's from
-   EDGES.md, another graph's from `link_types`) and the line that says so. A tag: a column, in each a value or
-   several. A category's values repeat, each a path whose levels are split by `/` (`dataset/table/daily`); a text
-   tag's are long or mostly their own (a definition, a description), kept whole, shown and searched with their
-   thing, never coloured; `"text": true|false` settles it. A memory's tags are its type under its family (TYPES.md
-   `family:`, so `segment` is `dataset/segment`), the projects whose notes name it, the tags of those notes
-   (TAGS.md), and About, the key line of the note that best says what it is; any other graph's are every column of
-   its nodes but id, label, group and size, with a `columns` entry to put flat values under parents, name them or
-   give them hues (`demo/knowledge-graph/build.py`, JSON or two CSV tables).
+2. **Things, links, tags.** A thing: an id, a label, an island (`group`), and tags. A link: source to target, a
+   type (named both ways: common ones built in, a memory's from EDGES.md, another graph's from `link_types`), a
+   direction (`->`; `<-`, turned round; `o-o`, none: one link however it is written, drawn in the accent, no flow
+   along it, its own ↔ group in the panel), the line that says so, and tags. A tag: a column, in each row a value or
+   several, of four sorts told by its values (`"sort"` settles it): a category repeats, each value a path whose
+   levels are split by `/` (`dataset/table/daily`); a time is an ISO date, a category of year/month/day read as
+   dates and in their order; a number (a thing's `size` sizes its dot, a link's `weight` its line and how hard it
+   pulls, or another number by `"use"`); a text is long or mostly its own (a definition, a citation), kept whole,
+   shown and searched with its owner, never coloured. Weight, time and provenance are tags like any other. A
+   memory's things carry their type under its family (TYPES.md `family:`, so `segment` is `dataset/segment`), the
+   projects whose notes name them, those notes' TAGS.md tags, Last noted (a time) and About (the key line of the
+   note that best says what each is); its links carry the stating note's kind, Stated (a time) and Replaced, and a
+   relation whose EDGES.md backward name is itself has no direction. Any other graph's tags are every column of its
+   nodes and links but the fields above, with `columns`, `link_columns` and `link_types` entries for the vocabulary
+   (`demo/knowledge-graph/build.py`, JSON or two CSV tables).
    The page colours by one column, chosen in the legend: the seven top-level values with the most things (each with
    2% of them) a colour each, the same hue for the same family in every memory, the rest one grey, "Everything
    else". The legend is a tree: › opens a value into the level under it (and "Other …" for those that stop at it),
