@@ -259,6 +259,14 @@ const DP = {
     const tip = root.querySelector('.tip'), hint = root.querySelector('.hint'), tourBtn = root.querySelector('.tour');
     const css = getComputedStyle(document.documentElement), tok = n => css.getPropertyValue(n).trim();
     const PANEL = parseFloat(tok('--panel')) + 48, still = DP.still();
+    // without a GPU (a remote desktop, a virtual machine) the canvas is drawn on the CPU, where a line over one device
+    // pixel wide costs many times a thinner one: there the plain links stay hairlines (WebGL names the renderer)
+    const soft = (() => { try {
+      const g = document.createElement('canvas').getContext('webgl'); if (!g) return true;
+      const x = g.getExtension('WEBGL_debug_renderer_info'), name = x ? String(g.getParameter(x.UNMASKED_RENDERER_WEBGL)) : '';
+      const lose = g.getExtension('WEBGL_lose_context'); if (lose) lose.loseContext();
+      return /swiftshader|llvmpipe|softpipe|software|basic render/i.test(name);
+    } catch (e) { return false; } })();
     let INK, MUTED, OUT, IN, HALO, EDGE, EDGE2, PAPER, ISLE, FONT, SERIF, NIGHT, GALA, MOON, FAN, NOIR, colour;
     function paint() {                                    // the look's tokens, read again whenever the look changes
       INK = tok('--page-ink'); MUTED = tok('--page-muted');   // names sit on the page, not on a card
@@ -307,14 +315,19 @@ const DP = {
       p.ns.slice().sort((a, b) => deg[b.i] - deg[a.i] || b.n - a.n).slice(0, 3).forEach((n, r) => { n.key = r + 1; });
     });
     links.forEach(l => { if (l.cross) { isleOf.get(l.source.home).out++; isleOf.get(l.target.home).out++; } else isleOf.get(l.source.home).inside++; });
-    const share = new Map(), pair = (a, b) => a < b ? a + '|' + b : b + '|' + a;
-    links.forEach(l => { if (l.cross && !l.spoke) { const k = pair(l.source.home, l.target.home); share.set(k, (share.get(k) || 0) + 1); } });
-    const tie = (a, b) => share.get(pair(a, b)) || 0;
+    const share = new Map(isles.map(p => [p.h, new Map()]));   // island by island, how many links (not a hub's) go to each other
+    links.forEach(l => { if (l.cross && !l.spoke) { const a = share.get(l.source.home), b = share.get(l.target.home);
+      a.set(l.target.home, (a.get(l.target.home) || 0) + 1); b.set(l.source.home, (b.get(l.source.home) || 0) + 1); } });
+    const tie = (a, b) => share.get(a).get(b) || 0;
     const left = isles.slice().sort((a, b) => (a.h === '') - (b.h === '') || a.ns.length - b.ns.length);
     const order = [left.pop()];   // the middle first (or, with none, the largest island), then each island after the ones it shares most with
+    const owed = new Map(isles.map(p => [p.h, 0]));      // each island's links to those already placed, kept as each is placed
+    const placed = p => share.get(p.h).forEach((w, h) => owed.set(h, owed.get(h) + w));
+    placed(order[0]);
     while (left.length) {
-      left.sort((a, b) => d3.sum(order, p => tie(p.h, a.h)) - d3.sum(order, p => tie(p.h, b.h)) || a.ns.length - b.ns.length || (a.h < b.h ? 1 : -1));
-      order.push(left.pop());
+      let at = 0;                                        // the most links to those placed, then the larger, then the first by name
+      for (let i = 1; i < left.length; i++) { const a = left[i], b = left[at]; if ((owed.get(a.h) - owed.get(b.h) || a.ns.length - b.ns.length || (a.h < b.h ? 1 : -1)) > 0) at = i; }
+      const p = left[at]; left[at] = left[left.length - 1]; left.pop(); order.push(p); placed(p);
     }
     // packed as circles (d3.packSiblings: none overlaps, none strays), then left to settle into the shape of the room:
     // the pull to the middle is weaker across than down, so the islands spread into an ellipse as wide as the screen,
@@ -327,8 +340,8 @@ const DP = {
     const ox = cs[0].x, oy = cs[0].y;
     cs.forEach(c => { c.x = (c.x - ox) * Math.sqrt(aspect); c.y = (c.y - oy) / Math.sqrt(aspect); });
     cs[0].fx = 0; cs[0].fy = 0;
-    const ties = [];
-    cs.forEach((a, i) => { for (let j = i + 1; j < cs.length; j++) { const w = a.p.h && cs[j].p.h ? tie(a.p.h, cs[j].p.h) : 0; if (w) ties.push({ source: a, target: cs[j], w }); } });
+    const ties = [], csAt = new Map(cs.map((c, i) => [c.p.h, i]));
+    cs.forEach((a, i) => { if (a.p.h) [...share.get(a.p.h)].map(([h, w]) => [csAt.get(h), w]).filter(([j]) => j > i && cs[j].p.h).sort((u, v) => u[0] - v[0]).forEach(([j, w]) => ties.push({ source: a, target: cs[j], w })); });
     const isim = d3.forceSimulation(cs).randomSource(rng(11)).velocityDecay(0.3)
       .force('x', d3.forceX(0).strength(0.02))
       .force('y', d3.forceY(0).strength(0.03 * aspect * aspect))
@@ -339,29 +352,108 @@ const DP = {
     cs.forEach(c => { c.p.x = c.x; c.p.y = c.y; });
 
     // ---- each thing finds its place on its island: the most linked in the middle, links inside the island pulling,
-    // a short-range push spreading them evenly (a long-range one would crowd them onto the rim)
-    nodes.forEach(n => { const p = isleOf.get(n.home), d = p.R * 0.9 * Math.sqrt((n.j + 0.5) / p.ns.length), a = n.j * 2.399963; n.x = p.x + d * Math.cos(a); n.y = p.y + d * Math.sin(a); });
+    // a short-range push spreading them evenly (a long-range one would crowd them onto the rim), none over another.
+    // d3's forces (a link, a many-body push within 34, a pull to the island's heart, its rim, a collide), ticked one
+    // island at a time over a grid of typed arrays: things on two islands never meet, and a grid answers "who is
+    // within 34" at a small part of a quadtree's cost, so twenty thousand things settle in about a second, not twenty
+    nodes.forEach(n => { const p = isleOf.get(n.home), d = p.R * 0.9 * Math.sqrt((n.j + 0.5) / p.ns.length), a = n.j * 2.399963; n.x = p.x + d * Math.cos(a); n.y = p.y + d * Math.sin(a); n.vx = n.vy = 0; });
     const inner = links.filter(l => !l.cross), innerDeg = nodes.map(() => 0);
     inner.forEach(l => { innerDeg[l.source.i]++; innerDeg[l.target.i]++; });
-    const keep = () => nodes.forEach(n => {
-      const p = isleOf.get(n.home), dx = n.x - p.x, dy = n.y - p.y, d = Math.hypot(dx, dy) || 1, lim = p.R - n.r - 2;
-      if (d > lim) { const k = (d - lim) / d * 0.4; n.vx -= dx * k; n.vy -= dy * k; }
-    });
-    const sim = d3.forceSimulation(nodes).randomSource(rng(42))
-      .force('link', d3.forceLink(inner).distance(l => 6 + 1.3 * (l.source.r + l.target.r)).strength(l => 0.45 / Math.min(innerDeg[l.source.i], innerDeg[l.target.i])))
-      .force('charge', d3.forceManyBody().strength(n => -3 - 0.6 * n.r * n.r).distanceMax(34))
-      .force('x', d3.forceX(n => isleOf.get(n.home).x).strength(0.025))
-      .force('y', d3.forceY(n => isleOf.get(n.home).y).strength(0.025))
-      .force('keep', keep)
-      .force('collide', d3.forceCollide(n => n.r + 1.7).iterations(2))
-      .alphaDecay(0.025).stop();
-    for (let k = 0; k < 260; k++) sim.tick();
-    nodes.forEach(n => { n.tx = n.x; n.ty = n.y; n.vx = n.vy = 0; });
-    isles.forEach(p => { p.D = d3.max(p.ns, n => Math.hypot(n.tx - p.x, n.ty - p.y) + n.r) + 14; });
+    isles.forEach(p => { p.links = []; });
+    inner.forEach(l => isleOf.get(l.source.home).links.push(l));
+    const jig = rng(42), jiggle = () => (jig() - 0.5) * 1e-6;
+    function settler(p, alpha) {                         // one island's simulation; tick() is one d3 tick, save() writes it back
+      const ns = p.ns, m = ns.length, L = p.links.length, F = Float64Array, I = Int32Array;
+      const X = new F(m), Y = new F(m), VX = new F(m), VY = new F(m), RC = new F(m), S = new F(m), LIM = new F(m), next = new I(m);
+      const A = new I(L), B = new I(L), LD = new F(L), LS = new F(L), LB = new F(L);
+      ns.forEach((n, j) => { X[j] = n.x; Y[j] = n.y; VX[j] = n.vx || 0; VY[j] = n.vy || 0; RC[j] = n.r + 1.7; S[j] = -3 - 0.6 * n.r * n.r; LIM[j] = p.R - n.r - 2; });
+      p.links.forEach((l, k) => { const a = l.source, b = l.target, da = innerDeg[a.i], db = innerDeg[b.i];
+        A[k] = a.j; B[k] = b.j; LD[k] = 6 + 1.3 * (a.r + b.r); LS[k] = 0.45 / Math.min(da, db); LB[k] = da / (da + db); });
+      // the push reaches 34 whatever a thing's size, so its grid is 34; a collide reaches two radii, so its grid is
+      // twice the usual radius, and the few far larger things (the hubs) are kept off it and met on their own
+      const mid = F.from(RC).sort()[m >> 1], big = [], small = [];
+      for (let j = 0; j < m; j++) (RC[j] > 2 * mid ? big : small).push(j);
+      const SM = I.from(small), BG = I.from(big);
+      let rs = 0; for (const j of small) rs = Math.max(rs, RC[j]);
+      const grid = c => { const o = p.R + 2 * c, g = Math.max(1, Math.ceil(2 * o / c)); return { c, x0: p.x - o, y0: p.y - o, g, head: new I(g * g) }; };
+      const G1 = grid(34), G2 = grid(Math.max(4, 2 * rs));
+      const at = (G, v, o) => { const c = Math.floor((v - o) / G.c); return c < 0 ? 0 : c >= G.g ? G.g - 1 : c; };
+      const bin = (G, list, pred) => {
+        G.head.fill(-1);
+        for (let k = 0; k < list.length; k++) { const j = list[k], c = at(G, pred ? Y[j] + VY[j] : Y[j], G.y0) * G.g + at(G, pred ? X[j] + VX[j] : X[j], G.x0); next[j] = G.head[c]; G.head[c] = j; }
+      };
+      const push = alpha => {                            // d3's forceManyBody within 34, exactly: each pair once
+        const g = G1.g, head = G1.head; bin(G1, SM, false); for (let k = 0; k < BG.length; k++) { const j = BG[k], c = at(G1, Y[j], G1.y0) * g + at(G1, X[j], G1.x0); next[j] = head[c]; head[c] = j; }
+        for (let gy = 0; gy < g; gy++) for (let gx = 0; gx < g; gx++) for (let i = head[gy * g + gx]; i >= 0; i = next[i]) {
+          const xi = X[i], yi = Y[i], si = S[i] * alpha; let dx = 0, dy = 0;
+          for (let q = 0; q < 5; q++) {                  // its own cell (those after it), then four neighbours
+            const nx = q && q < 4 ? gx + 1 : gx, ny = q === 0 ? gy : q === 4 ? gy + 1 : gy + q - 2;
+            if (nx >= g || ny < 0 || ny >= g) continue;
+            for (let j = q ? head[ny * g + nx] : next[i]; j >= 0; j = next[j]) {
+              let x = X[j] - xi, y = Y[j] - yi, l = x * x + y * y;
+              if (l >= 1156) continue;
+              if (x === 0) { x = jiggle(); l += x * x; } if (y === 0) { y = jiggle(); l += y * y; }
+              if (l < 1) l = Math.sqrt(l);
+              const wi = S[j] * alpha / l, wj = si / l;
+              dx += x * wi; dy += y * wi; VX[j] -= x * wj; VY[j] -= y * wj;
+            }
+          }
+          VX[i] += dx; VY[i] += dy;
+        }
+      };
+      const meet = (i, j, xi, yi, ri) => {               // d3's forceCollide for one pair: apart, by the share of the other's area
+        let x = xi - X[j] - VX[j], y = yi - Y[j] - VY[j], l = x * x + y * y; const r = ri + RC[j];
+        if (l >= r * r) return;
+        if (x === 0) { x = jiggle(); l += x * x; } if (y === 0) { y = jiggle(); l += y * y; }
+        const d = Math.sqrt(l), k = (r - d) / d, rj2 = RC[j] * RC[j], w = rj2 / (ri * ri + rj2);
+        x *= k; y *= k; VX[i] += x * w; VY[i] += y * w; VX[j] -= x * (1 - w); VY[j] -= y * (1 - w);
+      };
+      const collide = () => {
+        const g = G2.g, head = G2.head; bin(G2, SM, true);
+        for (let gy = 0; gy < g; gy++) for (let gx = 0; gx < g; gx++) for (let i = head[gy * g + gx]; i >= 0; i = next[i]) {
+          const xi = X[i] + VX[i], yi = Y[i] + VY[i], ri = RC[i];
+          for (let q = 0; q < 5; q++) {
+            const nx = q && q < 4 ? gx + 1 : gx, ny = q === 0 ? gy : q === 4 ? gy + 1 : gy + q - 2;
+            if (nx >= g || ny < 0 || ny >= g) continue;
+            for (let j = q ? head[ny * g + nx] : next[i]; j >= 0; j = next[j]) meet(i, j, xi, yi, ri);
+          }
+        }
+        for (let b = 0; b < BG.length; b++) {           // a hub, with every thing within its reach, then with the hubs after it
+          const i = BG[b], xi = X[i] + VX[i], yi = Y[i] + VY[i], ri = RC[i], reach = ri + rs;
+          const x0 = at(G2, xi - reach, G2.x0), x1 = at(G2, xi + reach, G2.x0), y0 = at(G2, yi - reach, G2.y0), y1 = at(G2, yi + reach, G2.y0);
+          for (let cy = y0; cy <= y1; cy++) for (let cx = x0; cx <= x1; cx++) for (let j = head[cy * g + cx]; j >= 0; j = next[j]) meet(i, j, xi, yi, ri);
+          for (let c = b + 1; c < BG.length; c++) meet(i, BG[c], xi, yi, ri);
+        }
+      };
+      const e = { p, alpha, target: 0, pin: null };
+      e.tick = () => {
+        const alpha = e.alpha += (e.target - e.alpha) * 0.025;
+        for (let k = 0; k < L; k++) {                    // d3's forceLink, one iteration
+          const a = A[k], b = B[k];
+          let x = X[b] + VX[b] - X[a] - VX[a] || jiggle(), y = Y[b] + VY[b] - Y[a] - VY[a] || jiggle(), l = Math.sqrt(x * x + y * y);
+          l = (l - LD[k]) / l * alpha * LS[k]; x *= l; y *= l;
+          VX[b] -= x * LB[k]; VY[b] -= y * LB[k]; VX[a] += x * (1 - LB[k]); VY[a] += y * (1 - LB[k]);
+        }
+        push(alpha);
+        const pull = 0.025 * alpha;
+        for (let j = 0; j < m; j++) {                    // the pull to the island's heart (forceX, forceY), and its rim
+          const dx = X[j] - p.x, dy = Y[j] - p.y, d = Math.sqrt(dx * dx + dy * dy) || 1;
+          VX[j] -= dx * pull; VY[j] -= dy * pull;
+          if (d > LIM[j]) { const k = (d - LIM[j]) / d * 0.4; VX[j] -= dx * k; VY[j] -= dy * k; }
+        }
+        collide(); collide();
+        for (let j = 0; j < m; j++) { VX[j] *= 0.6; VY[j] *= 0.6; X[j] += VX[j]; Y[j] += VY[j]; }
+        if (e.pin) { const j = e.pin.j; X[j] = e.pin.x; Y[j] = e.pin.y; VX[j] = VY[j] = 0; }
+      };
+      e.save = () => ns.forEach((n, j) => { n.x = X[j]; n.y = Y[j]; });
+      return e;
+    }
+    nodes.forEach(n => { n.tx = n.x; n.ty = n.y; n.lag = 0; });   // where each is wanted: the sunflower, until its island settles
+    isles.forEach(p => { p.D = p.R + 12; p.start = Infinity; });  // and how far its island reaches, near enough until then
 
     // ---- what is shown eases toward what is wanted, so nothing jumps
     const seen = nodes.map(() => 1), lit = nodes.map(() => 1), big = nodes.map(() => 1), grow = nodes.map(() => 1), prog = nodes.map(() => 1);
-    let hidden = new Set(), chosen = null, hover = null, hoverIsle = null, pointed = null, peek = null, ripple = null, dragging = false, version = 0;
+    let hidden = new Set(), chosen = null, hover = null, hoverIsle = null, pointed = null, peek = null, ripple = null, dragging = false, version = 0, live = null;
     let confetti = [];
     const near = new Set();
     const ease = (v, to, dt, ms) => v + (to - v) * (1 - Math.exp(-dt / ms));
@@ -385,28 +477,50 @@ const DP = {
     };
     new ResizeObserver(resize).observe(root); resize();
 
-    // ---- the entrance: the middle first, then the islands in a sweep round it, each thing out of its island's heart
+    // ---- the entrance: the middle first, then the islands in a sweep round it, each thing out of its island's heart.
+    // The layout runs in slices along the same sweep: as much as fits in 120 ms now (for a graph of a few thousand
+    // things, all of it), then a slice before each frame; an island blooms once it has settled, never before
     const T0 = performance.now() + 150;
     const turn = p => ((Math.atan2(p.y, p.x / aspect) + Math.PI * 2.5) % (Math.PI * 2)) / (Math.PI * 2);
-    isles.forEach(p => { p.delay = still || p.h === '' ? 0 : 300 + 1300 * turn(p); p.grow = still ? 1 : 0; });
-    nodes.forEach(n => {
-      const p = isleOf.get(n.home);
-      n.delay = p.delay + (still ? 0 : 340 * Math.hypot(n.tx - p.x, n.ty - p.y) / p.D);
-      n.x = still ? n.tx : p.x; n.y = still ? n.ty : p.y;
-      if (!still) { grow[n.i] = 0; prog[n.i] = 0; }
-    });
+    isles.forEach(p => { p.delay = still || p.h === '' ? 0 : 300 + 1300 * turn(p); p.grow = 0; p.ns.forEach(n => { n.x = p.x; n.y = p.y; grow[n.i] = 0; prog[n.i] = 0; }); });
+    const queue = isles.slice().sort((a, b) => a.delay - b.delay);
+    let cur = null;
+    function settled(p, now) {                          // where its things go, how far it reaches, and when it blooms
+      p.ns.forEach(n => { n.tx = n.x; n.ty = n.y; });
+      p.D = d3.max(p.ns, n => Math.hypot(n.tx - p.x, n.ty - p.y) + n.r) + 14;
+      p.start = still ? now : Math.max(T0 + p.delay, now);
+      p.ns.forEach(n => { n.lag = still ? 0 : 340 * Math.hypot(n.tx - p.x, n.ty - p.y) / p.D; if (still) prog[n.i] = grow[n.i] = 1; else { n.x = p.x; n.y = p.y; } });
+      if (still) p.grow = 1;
+      version++;
+    }
+    function settle(ms) {
+      const until = performance.now() + ms;
+      while (queue.length && performance.now() < until) {
+        if (!cur) { cur = settler(queue[0], 1); cur.k = 0; }
+        cur.tick();
+        if (++cur.k >= 260) { cur.save(); settled(queue.shift(), performance.now()); cur = null; }
+      }
+      if (!queue.length && !root.dataset.settled) {      // every island in its place: said once, for whoever waits on it
+        root.dataset.settled = Math.round(performance.now());
+        document.dispatchEvent(new CustomEvent('dp:settled', { detail: { things: nodes.length, links: links.length } }));
+      }
+    }
+    settle(120);
     let entering = !still, namesIn = still ? 1 : 0;
 
     function need() { dirty = true; if (!raf) raf = requestAnimationFrame(frame); }
     function frame(now) {
       raf = 0; const dt = Math.min(64, now - last); last = now; let busy = false;
+      if (queue.length) { settle(entering ? 22 : 30); busy = true; }
       if (entering) {
-        let done = true;
-        isles.forEach(p => { const q = Math.max(0, Math.min(1, (now - T0 - p.delay) / 700)); p.grow = backOut(q); if (q < 1) done = false; });
-        nodes.forEach(n => {
-          const p = isleOf.get(n.home), q = Math.max(0, Math.min(1, (now - T0 - n.delay) / 1000)), e = cubicOut(q);
-          prog[n.i] = q; grow[n.i] = backOut(q); n.x = p.x + (n.tx - p.x) * e; n.y = p.y + (n.ty - p.y) * e;
-          if (q < 1) done = false;
+        let done = !queue.length;
+        isles.forEach(p => {
+          const g = Math.max(0, Math.min(1, (now - p.start) / 700)); p.grow = backOut(g); if (g < 1) done = false;
+          p.ns.forEach(n => {
+            const q = Math.max(0, Math.min(1, (now - p.start - n.lag) / 1000)), e = cubicOut(q);
+            prog[n.i] = q; grow[n.i] = backOut(q); n.x = p.x + (n.tx - p.x) * e; n.y = p.y + (n.ty - p.y) * e;
+            if (q < 1) done = false;
+          });
         });
         if (done) { entering = false; nodes.forEach(n => { n.x = n.tx; n.y = n.ty; grow[n.i] = 1; prog[n.i] = 1; }); version++; }
         busy = true;
@@ -421,7 +535,7 @@ const DP = {
       if (!still && (chosen || pointed)) busy = true;     // the flow along the chosen thing's links, the beat on the pointed one
       if (ripple && now - ripple.t < 1000) busy = true; else ripple = null;
       if (confetti.length) busy = true;
-      if (dragging || sim.alpha() > sim.alphaMin() + 0.002) busy = true;
+      if (live) { live.tick(); live.save(); version++; busy = true; if (!dragging && live.alpha < 0.001) live = null; }
       const ambient = alive(now);
       if (busy || dirty || (ambient && now - drawn > 31)) { draw(now); drawn = now; dirty = false; }
       if ((busy || ambient) && !raf) raf = requestAnimationFrame(frame);
@@ -583,20 +697,25 @@ const DP = {
         }
       });
       const on = n => prog[n.i] * seen[n.i];
-      // links: inside an island straight, between islands a soft curve; a hub's spokes only when it is pointed at.
-      // On the star map light adds up ('lighter'), so where links cross they glow
+      // links: inside an island straight, between islands a soft curve; a hub's spokes only when it is pointed at;
+      // none wholly off the screen. At night light adds up ('lighter'); past a few thousand links they are laid
+      // plainly, which on a dark page looks the same and costs a canvas without a GPU half the time
       const lineA = chosen ? 0.03 : peek ? 0.04 : (NIGHT || MOON || FAN ? 0.12 : 0.1);
       ctx.lineCap = 'round';
-      if (NIGHT || FAN) ctx.globalCompositeOperation = 'lighter';
-      [[false, 0.75 / sk, lineA, EDGE], [true, 0.6 / sk, lineA * (NIGHT ? 0.6 : 0.55), EDGE2]].forEach(([cross, w, a, rgb]) => {
+      if ((NIGHT || FAN) && links.length <= 6000) ctx.globalCompositeOperation = 'lighter';
+      const thin = w => soft ? Math.min(w, 0.9 / (k * dpr)) : w;
+      [[false, thin(0.75 / sk), lineA, EDGE], [true, thin(0.6 / sk), lineA * (NIGHT ? 0.6 : 0.55), EDGE2]].forEach(([cross, w, a, rgb]) => {
         ctx.lineWidth = w; ctx.strokeStyle = `rgba(${rgb},${a})`; ctx.beginPath();
         links.forEach(l => {
           if (l.cross !== cross || l.spoke || Math.min(on(l.source), on(l.target)) < 0.6) return;
           if (chosen && (l.source === chosen || l.target === chosen)) return;
+          const s = l.source, e = l.target, bow = cross ? 0.06 * (Math.abs(e.x - s.x) + Math.abs(e.y - s.y)) : 0;   // a curve bows out
+          if (Math.max(s.x, e.x) + bow < wx0 || Math.min(s.x, e.x) - bow > wx1 || Math.max(s.y, e.y) + bow < wy0 || Math.min(s.y, e.y) - bow > wy1) return;
           path(l);
         });
         ctx.stroke();
       });
+      if (NIGHT || FAN) ctx.globalCompositeOperation = 'lighter';   // the pulses and the chosen thing's links glow
       const tail = NIGHT || MOON || FAN ? 9 : 6;
       pulses.forEach(q => {                              // a pulse: the link lights, a bead with a tail runs along it (a comet at night)
         const u = Math.min(1, (now - q.t) / q.d), e = inOut(u), f = Math.sin(Math.PI * u), a = q.l.source, b = q.l.target;
@@ -810,12 +929,16 @@ const DP = {
       place(px, py);
     }
     function hideTip() { tip.classList.remove('on'); }
-    const drag = d3.drag()
-      .subject(e => { const n = entering ? null : pick(e.x, e.y); return n ? { x: t.applyX(n.x), y: t.applyY(n.y), n } : null; })
-      .on('start', e => { stopTour(); dragging = true; canvas.classList.add('held'); hideTip(); e.subject.n.fx = e.subject.n.x; e.subject.n.fy = e.subject.n.y; sim.alphaTarget(0.2).restart(); need(); })
-      .on('drag', e => { e.subject.n.fx = t.invertX(e.x); e.subject.n.fy = t.invertY(e.y); })
-      .on('end', e => { dragging = false; canvas.classList.remove('held'); e.subject.n.fx = e.subject.n.fy = null; sim.alphaTarget(0); });
-    sim.on('tick', () => { version++; need(); });
+    const drag = d3.drag()                               // only the island of the thing in hand settles again, so a drag costs
+      .subject(e => { const n = entering ? null : pick(e.x, e.y); return n ? { x: t.applyX(n.x), y: t.applyY(n.y), n } : null; })   // the same at any size
+      .on('start', e => {
+        stopTour(); dragging = true; canvas.classList.add('held'); hideTip();
+        const n = e.subject.n, p = isleOf.get(n.home);
+        if (!live || live.p !== p) live = settler(p, 0.001);
+        live.target = 0.2; live.pin = { j: n.j, x: n.x, y: n.y }; need();
+      })
+      .on('drag', e => { live.pin.x = t.invertX(e.x); live.pin.y = t.invertY(e.y); })
+      .on('end', () => { dragging = false; canvas.classList.remove('held'); live.pin = null; live.target = 0; });
     sel.call(drag).call(zoom).on('dblclick.zoom', null);
     canvas.addEventListener('mousemove', e => {
       const was = lastInput; lastInput = performance.now(); if (lastInput - was > 90000) need();

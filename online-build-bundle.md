@@ -639,7 +639,7 @@ or to a fresh worker given the packet, at most twice. After that, it stops and r
 
 ## Appendix A — the contract surface, verbatim: `skills/memory-dream/SKILL.md` and the dreamer agent
 
-_Part 5 · copied at commit 5284900. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
+_Part 5 · copied at commit bb2dad9. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
 
 ```markdown
 ---
@@ -789,7 +789,7 @@ Touch nothing else.
 
 ## Appendix B — the graph contract, verbatim: `.specs/memory-dream/CONTRACT.md`
 
-_Part 6 · copied at commit 5284900. Schema 1; `memory.py check` validates against it (A38)._
+_Part 6 · copied at commit bb2dad9. Schema 1; `memory.py check` validates against it (A38)._
 
 ## memory-dream — the graph contract (schema 1)
 
@@ -1091,7 +1091,7 @@ origin by adding the file. What changes for the notes under it, and nothing else
 
 ## Appendix C — the build guide, verbatim: `BUILD-GUIDE.md` §3–§10
 
-_Part 7 · copied at commit 5284900. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
+_Part 7 · copied at commit bb2dad9. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
 
 ### 3. The design in one page
 
@@ -1630,6 +1630,11 @@ it; the page and d3 7.9.0 (ISC) sit in `assets/`, and it opens offline.
    most linked thing. Islands are packed as circles (`d3.packSiblings`, the middle first, each island after those it
    shares most links with), then settle into an ellipse the shape of the screen (pull to the centre weaker across
    than down); things lay out inside their island with a short-range push, so they fill it instead of lining its rim.
+   Those are d3's forces (links, a many-body push within 34, a pull to the island's heart, its rim, a collide) ticked
+   by hand one island at a time over a grid of typed arrays: things on two islands never meet, and a grid finds the
+   neighbours within 34 at a small part of a quadtree's cost. The layout runs in slices along the entrance sweep
+   (120 ms at once, then about 22 ms before each frame), so the page answers at once and an island blooms when it
+   has settled; a dragged thing settles its own island again, not the graph.
 2. **Colours** are the memory's own type families (TYPES.md `family:`): the seven largest get a colour each, the
    same hue for the same family in every memory, the rest one grey.
 3. **Motion with a reason.** It blooms in on a clockwise sweep with the camera easing out; while nothing is chosen,
@@ -1656,6 +1661,17 @@ it; the page and d3 7.9.0 (ISC) sit in `assets/`, and it opens offline.
    `viz --theme star|gala|moon|fanfare|noir` opens in another. Measured on the 1,677-note bank:
    1,082 things, 2,740 links, 49 islands, 1.4 MB; 60 frames a second in every look on a laptop's GPU; 0 page errors
    and no stray black in any look, headless (`tests/kg_check.js`).
+5. **Scale.** `demo/knowledge-graph/make_big.py` makes a graph shaped like a big memory (projects of every size, a
+   shared middle with hubs, ten families). At 20,000 things and 45,000 links (9.6 MB) the page answers in 0.44 s
+   (its longest task 0.28 s), every island has settled by 1.8 s and bloomed by 3.2 s, and it holds 60 frames a second
+   in every look on a laptop's GPU: at rest, zooming, zoomed deep among the names, dragging, with the most linked
+   thing (431 links) chosen. 31,700 and 60,000 links settle by 1.7 and 2.0 s; without groups, Louvain finds 80
+   islands in 1 s of Python. One d3 simulation of every thing took 23 s with the page frozen; the 1,082-thing bank
+   now opens in 133 ms instead of 768. Without a GPU (a remote desktop) the canvas is drawn on the CPU: past 6,000
+   links they are laid plainly instead of adding light (the same on a dark page), and wherever WebGL names a software
+   renderer they stay hairlines, as a line over one device pixel wide stalls a CPU canvas for most of a second;
+   there it runs at about 40 frames a second at a pixel ratio of 1. CI builds the 20,000-thing graph and checks that
+   it answers, settles, finds, drags and errs nowhere (`tests/kg_scale.js`).
 
 ---
 
@@ -1839,7 +1855,7 @@ preferences 0.95 when the task names them, 0.84 when it names only their meeting
 
 ## Appendix D — prompts, seeds and tuned tables, verbatim from `memory.py`
 
-_Part 8 · extracted at commit 5284900 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
+_Part 8 · extracted at commit bb2dad9 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
 
 ### D.1 `EXTRACT` — the per-note prompt: fixed guidance, then `KINDS:`, `TYPES:`, `EDGES:` and `KNOWN:` from the registries (the static part is cached), then `NOTE`
 

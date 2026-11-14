@@ -619,6 +619,11 @@ it; the page and d3 7.9.0 (ISC) sit in `assets/`, and it opens offline.
    most linked thing. Islands are packed as circles (`d3.packSiblings`, the middle first, each island after those it
    shares most links with), then settle into an ellipse the shape of the screen (pull to the centre weaker across
    than down); things lay out inside their island with a short-range push, so they fill it instead of lining its rim.
+   Those are d3's forces (links, a many-body push within 34, a pull to the island's heart, its rim, a collide) ticked
+   by hand one island at a time over a grid of typed arrays: things on two islands never meet, and a grid finds the
+   neighbours within 34 at a small part of a quadtree's cost. The layout runs in slices along the entrance sweep
+   (120 ms at once, then about 22 ms before each frame), so the page answers at once and an island blooms when it
+   has settled; a dragged thing settles its own island again, not the graph.
 2. **Colours** are the memory's own type families (TYPES.md `family:`): the seven largest get a colour each, the
    same hue for the same family in every memory, the rest one grey.
 3. **Motion with a reason.** It blooms in on a clockwise sweep with the camera easing out; while nothing is chosen,
@@ -645,6 +650,17 @@ it; the page and d3 7.9.0 (ISC) sit in `assets/`, and it opens offline.
    `viz --theme star|gala|moon|fanfare|noir` opens in another. Measured on the 1,677-note bank:
    1,082 things, 2,740 links, 49 islands, 1.4 MB; 60 frames a second in every look on a laptop's GPU; 0 page errors
    and no stray black in any look, headless (`tests/kg_check.js`).
+5. **Scale.** `demo/knowledge-graph/make_big.py` makes a graph shaped like a big memory (projects of every size, a
+   shared middle with hubs, ten families). At 20,000 things and 45,000 links (9.6 MB) the page answers in 0.44 s
+   (its longest task 0.28 s), every island has settled by 1.8 s and bloomed by 3.2 s, and it holds 60 frames a second
+   in every look on a laptop's GPU: at rest, zooming, zoomed deep among the names, dragging, with the most linked
+   thing (431 links) chosen. 31,700 and 60,000 links settle by 1.7 and 2.0 s; without groups, Louvain finds 80
+   islands in 1 s of Python. One d3 simulation of every thing took 23 s with the page frozen; the 1,082-thing bank
+   now opens in 133 ms instead of 768. Without a GPU (a remote desktop) the canvas is drawn on the CPU: past 6,000
+   links they are laid plainly instead of adding light (the same on a dark page), and wherever WebGL names a software
+   renderer they stay hairlines, as a line over one device pixel wide stalls a CPU canvas for most of a second;
+   there it runs at about 40 frames a second at a pixel ratio of 1. CI builds the 20,000-thing graph and checks that
+   it answers, settles, finds, drags and errs nowhere (`tests/kg_scale.js`).
 
 ---
 

@@ -45,6 +45,10 @@ jobs:
           cp -R tests/fixture/memory /tmp/w && MEMORY_LLM="python3 $PWD/tests/fake_dreamer.py" python3 skills/memory-dream/scripts/memory.py --root /tmp/w dream
           node tests/viz_check.js /tmp/w/_dream/graph.html
           node tests/kg_check.js /tmp/w/_dream/knowledge-graph.html
+      - name: the knowledge graph at 20,000 things and 45,000 links
+        run: |
+          python3 demo/knowledge-graph/make_big.py /tmp/big.json && python3 demo/knowledge-graph/build.py /tmp/big.json /tmp/big.html --theme noir
+          node tests/kg_scale.js /tmp/big.html
   bundle:
     name: build bundle is fresh
     runs-on: ubuntu-latest

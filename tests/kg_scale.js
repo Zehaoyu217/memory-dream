@@ -1,0 +1,57 @@
+#!/usr/bin/env node
+// Headless check of the knowledge-graph page at scale: node tests/kg_scale.js <page.html>, for a page built from
+// demo/knowledge-graph/make_big.py (20,000 things, 45,000 links). The page must answer at once and settle in the
+// background: no task holds the main thread long, every island settles, search finds the most linked thing and its
+// panel opens, a thing can be dragged, nothing errs. Needs Playwright with Chromium; one JSON line per check; exits 1
+// on any failure. The budgets are loose (a CI runner draws on the CPU): they catch a layout that blocks the page again.
+const { chromium } = require('playwright');
+const path = require('path');
+(async () => {
+  const file = path.resolve(process.argv[2] || 'big.html');
+  const browser = await chromium.launch();
+  const page = await (await browser.newContext({ viewport: { width: 1440, height: 900 } })).newPage(); const errors = [];
+  page.on('pageerror', e => errors.push(String(e))); page.on('console', m => { if (m.type() === 'error') errors.push('console: ' + m.text()); });
+  await page.addInitScript(() => {                     // the longest the main thread is held, from the first script on
+    window.__long = [];
+    new PerformanceObserver(l => l.getEntries().forEach(e => window.__long.push(Math.round(e.duration)))).observe({ type: 'longtask', buffered: true });
+  });
+  let ok = true; const out = (name, pass, extra) => { ok = ok && pass; console.log(JSON.stringify({ check: name, pass, ...extra })); };
+  await page.goto('file://' + file, { timeout: 120000 });
+  const data = await page.evaluate(() => {
+    const things = JSON.parse(document.getElementById('data-things').textContent), links = JSON.parse(document.getElementById('data-links').textContent);
+    const deg = things.map(() => 0); links.forEach(l => { deg[l.s]++; deg[l.t]++; });
+    const top = deg.indexOf(Math.max(...deg));
+    return { things: things.length, links: links.length, hub: things[top].label, hubLinks: deg[top] };
+  });
+  const settled = await page.waitForSelector('#graph[data-settled]', { state: 'attached', timeout: 60000 }).then(() => true, () => false);
+  const settledMs = settled ? await page.evaluate(() => +document.getElementById('graph').dataset.settled) : null;
+  const longest = await page.evaluate(() => Math.max(0, ...window.__long));
+  out('the page answers while it settles', longest < 2500, { things: data.things, links: data.links, longestTaskMs: longest });
+  out('every island settles', settled && settledMs < 20000, { settledMs });
+  if (!settled) { out('no page errors', errors.length === 0, { errors }); await browser.close(); process.exit(1); }
+  await page.waitForTimeout(2500);                     // the last islands bloom
+  await page.keyboard.press('/'); await page.keyboard.type(data.hub); await page.waitForTimeout(300);
+  await page.keyboard.press('Enter'); await page.waitForTimeout(1500);
+  const panel = await page.evaluate(() => ({ open: document.getElementById('detail').classList.contains('open'),
+                                             name: (document.querySelector('#detail h2') || {}).textContent || '', rows: document.querySelectorAll('#detail li').length }));
+  out('search finds the most linked thing; its panel opens', panel.open && panel.name === data.hub && panel.rows > 0, { ...panel, links: data.hubLinks });
+  await page.keyboard.press('Escape'); await page.waitForTimeout(1600);
+  let at = null;                                       // a thing under the pointer (its tooltip names it), near the middle
+  for (let r = 0; r < 260 && !at; r += 9) for (let a = 0; a < 6.28 && !at; a += 0.5) {
+    const x = Math.round(880 + r * Math.cos(a)), y = Math.round(470 + r * Math.sin(a));
+    await page.mouse.move(x, y);
+    if (await page.evaluate(() => !!document.querySelector('#graph .tip.on b'))) at = [x, y];
+  }
+  let moved = false;
+  if (at) {
+    const shot = () => page.screenshot({ clip: { x: at[0] - 90, y: at[1] - 90, width: 180, height: 180 } });
+    const before = await shot();
+    await page.mouse.down(); for (let s = 1; s <= 12; s++) await page.mouse.move(at[0] + 6 * s, at[1] + 3 * s); await page.mouse.up();
+    await page.waitForTimeout(600);
+    moved = !before.equals(await shot());
+  }
+  out('a thing can be dragged', !!at && moved, { at, moved });
+  out('no page errors', errors.length === 0, { errors });
+  await browser.close();
+  process.exit(ok ? 0 : 1);
+})();
