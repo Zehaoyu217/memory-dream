@@ -65,9 +65,9 @@ Layer 1 is the only state that matters. Layers 2 to 4 live under `memory/_dream/
 | what is worth a note and what it claims | which named things a note mentions, and their types | lineage from the front matter, which always wins |
 | which notes it was built on, which it replaces | which links between things the note states, each with a quote | where what a keeper read is placed: a path or an id, a note of the same family, never a newer note |
 | numbers, dates, sources | what a note says in its own sentences that it builds on or replaces, in three readings: the note, each such line, and the words still not placed, beside the notes they could mean | which note is current (following `supersedes` to the end) |
-| preferences and house rules | synonyms: whether two names are the same thing (the curator, a folder at a time) | kinds, dates, which things are kept, the relation vocabulary's limits |
+| preferences and house rules | synonyms: whether two names are the same thing (the curator, a folder at a time), from what each is and what it is linked to | kinds, dates, which things are kept, every vocabulary's limits, that two things a note links are never joined |
 | the final word on anything the model marks unsure | conflicts: whether one of two notes supersedes the other | which notes the model is shown; which pairs of notes to flag as possibly conflicting |
-| | | search, scoring, the eighteen checks, the digest, the page |
+| | | search, scoring, the nineteen checks, the digest, the page |
 
 The right column is rules anyone can read in `memory.py`. The middle column always leaves a quote behind, and the
 script keeps it only when that quote is in the note. Only the left column is judgement. What each model step
@@ -144,7 +144,8 @@ complete or it says that it is not:
 - **The map.** `memory.py ask --list [-p folder] [--kind model] [--tag risk]` prints one line per note: what it was
   built on (marked when that note was replaced), what it replaced, what replaced it, where else it is used. A tag is
   a word of `memory/TAGS.md`, which gives each tag its definition and its other spellings; a note carries tags on
-  the `tags:` line of its frontmatter. A question whose
+  the `tags:` line of its frontmatter, and the keepers read up to three for each note from the same list. A word
+  TAGS.md lacks is counted and offered to the review once it is common, like a word for a type. A question whose
   answer is a set or a relationship is read off these lines; `ask` does not guess a list from a question's wording.
 - **Not the whole, said so.** A question that names a folder which is not printed whole gets one line: its section
   holds the best matches among the folder's notes, not all of them, and the command that maps the folder. The same
@@ -265,7 +266,7 @@ violet stage under sweeping spotlights, with a checkered floor, bunting, marquee
 candy-bright lotto balls (`viz --theme fanfare`); and noir, black and white on a checkered stage under one warm
 spotlight, with silver and white things, card suits turning round a picked thing and purple only as an accent (`viz
 --theme noir`). The last four fling confetti when a thing is picked. A switch in its header picks among them. Any
-other graph makes the same page: `python3 demo/knowledge-graph/build.py graph.json out.html` takes nodes and links as
+other graph makes the same page: `python3 skills/memory-dream/scripts/graph_page.py graph.json out.html` takes nodes and links as
 JSON, or `build.py nodes.csv links.csv out.html` as two tables. The data model asks only for what a graph needs, a
 thing's id and a link's two ends (by the names other tools use too: from/to, name, a `data` wrapper); everything
 else is optional and nothing is declared. A thing may have a label and a group (its island); a link a type, a
@@ -454,8 +455,8 @@ its 7 stale questions the successor is listed above the old note and the old one
 
 - No embedding model and no vector index. Notes written under the contract are short, carry their ids and numbers
   in the text, and are found by exact text match plus lineage. Nothing drifts, nothing has to be re-embedded.
-- No ontology designed up front. The relation vocabulary starts at eight types and grows only from usage, under a
-  budget.
+- No ontology designed up front. Kinds, types, links and tags start small (eight link types, no tags) and grow only
+  from usage, under one rule and a budget for each list.
 - No entity-resolution model. Identity is a folding rule, one merge rule, a short list of hand aliases, and a
   yes-or-no question to the cheap model for the remaining look-alikes.
 - No update problem. Notes are append-only. "Current" is derived by following `supersedes` links, so there is no
@@ -474,13 +475,16 @@ its 7 stale questions the successor is listed above the old note and the old one
 - An entity is kept only if it has a note of its own, is mentioned in two or more notes, or is named in
   `ALIASES.md`. File names, notebooks and columns are dropped; grep finds those.
 - Two unlike names for one thing are found by reading, never by how they are spelled. A curator, the cheap model,
-  is shown everything a folder's notes name, each with its written forms and a line that mentions it, and says which
-  are one thing, with a reason; the join is a line of `ALIASES.md`. The script refuses a join between two versions,
-  against a `not:` line, of a name that other folders use too, of a thing whose note is in another folder, or one
-  that would make two things with notes of their own into one. On the bank, from scratch: 47 folders, $0.12, 32
+  is shown everything a folder's notes name, one card each: its type, its written forms, what its own note says it
+  is, what the notes link it to, and a line that mentions it. It says which are one thing, with a reason; the join
+  is a line of `ALIASES.md`. The script refuses a join between two versions, against a `not:` line, of a name that
+  other folders use too, of a thing whose note is in another folder, of two things a note links to each other, or
+  one that would make two things with notes of their own into one. On the bank, from scratch: 47 folders, $0.12, 32
   joins such as `feat-aml-structuring-v1 = structuring-v1`, 48 refused by those rules. The string ratio it replaces
   had offered 46 pairs, 5 of them one thing. Two things that some note writes with the same words are still asked of
-  the review, once.
+  the review, once, with the same cards and what the two are both linked to.
+- Two things a note links are two things: the merge rule does not join them, and a person's line that does is
+  reported (C19).
 
 On the 1,677-note bank with the index kept in `eval/real/bank-index/` (`memory.py check` after `restore.py` and a
 model-free dream): 8,382 mentions, 3,216 ids as written, 3,190 after folding, 3,175 after the alias file, 2,972 after the
@@ -512,17 +516,19 @@ about 1,450 tokens on 1,677 notes and about 1,600 on 168,141.
 - Above 10,000 notes, changed notes are patched into the last graph instead of a rebuild, the index lives in
   SQLite, and `ask` greps only the areas a question points at. At 168,141 notes a batch of ten questions takes 2.3 seconds on average (1.8 to 5).
 
-### The registries: the domain lives in three files, not in the code
+### The registries: the domain lives in four files, not in the code
 
 The extraction prompt has two parts. The fixed part is guidance: answer in JSON, copy spellings and quotes verbatim,
-reuse known ids. The variable part is three lists, filled in from files at the memory root that anyone may edit:
+reuse known ids. The variable part is four lists, filled in from files at the memory root that anyone may edit:
 
 - `KINDS.md`: the kinds of note, with the filename prefix and folder that imply each, the class tree, and the role each
   kind plays (which kinds head the digest, which are compared for disagreement, which answer a question).
 - `TYPES.md`: the types of thing, each with a definition, what it is not, its aliases and its family.
 - `EDGES.md`: the types of link, each with its aliases and the usual shape of its two ends.
+- `TAGS.md`: the themes that notes in different folders share, each with its definition, aliases and family. It has
+  no seed: a tag belongs to one base.
 
-All three are seeded for data, analytics, software and finance work (for software: component, design, bug and release
+The first three are seeded for data, analytics, software and finance work (for software: component, design, bug and release
 notes; flag, test, issue, service, module, release and environment as things), with packs for research and operations. Nothing
 about any domain is in the script. The lists grow in two ways: a person adds a line, or the review admits a word the
 model kept using for things that fit no type, under the bar, budget and probation described below. Two rules protect
@@ -533,10 +539,11 @@ not deleting: a deleted line is reported, and its things fall back to `other/<wo
 ### Keeping the vocabulary from growing without bound
 
 The first reviewer, asked about 178 common labels, answered "new type" to all of them, and the vocabulary grew from
-7 types to 185. The present rules came from that:
+7 types to 185. The present rules came from that, and they are the same for all four lists (the skill's
+`guides/vocabulary.md`):
 
-- Entity types and note kinds are registries (`TYPES.md`, `KINDS.md`); the model can use what they list, and a
-  word outside them is kept as `other/<word>` until the same gate admits it.
+- Entity types, note kinds and tags are registries (`TYPES.md`, `KINDS.md`, `TAGS.md`); the model can use what they
+  list, and a word outside them is kept as the model gave it (`other/<word>`) until the same gate admits it.
 - Relation types start at eight. A link that fits none keeps its own label and is shown as `other/<label>`; it is
   stored and searchable but it is not a type.
 - A label is offered to the review only after 5 uses in 5 notes across 2 areas. The review may alias it onto an
@@ -544,6 +551,9 @@ The first reviewer, asked about 178 common labels, answered "new type" to all of
   admitted only while the budget of 24 types has room.
 - A proposed type is on probation for 60 days and falls back to a label if it is still under the bar.
 - Verbs that link notes rather than things (`answers`, `led-to`, `basis-for`) are on a drop list.
+- A word the review keeps as a plain word is written on the file's `keep:` line with its uses, and offered again
+  only once its uses double. A tag's bar is lower (3 uses, 3 notes, 1 area; a budget of 30): a theme is shared by
+  fewer notes.
 - The review is asked once per item and at most 20 conflict pairs per pass. Hand-written lines are permanent.
 
 ### Living with an unreliable model
@@ -551,7 +561,8 @@ The first reviewer, asked about 178 common labels, answered "new type" to all of
 - A spelling the model reports must occur in the note and a quote must be found in it, or the item is dropped and
   counted (C4). The model can name things; it cannot invent facts that survive.
 - An answer that cannot be parsed is retried once; after that the note stays grep-searchable and is flagged (C3).
-- The model never writes to a note. Its verdicts are plain lines in three files that a person can edit or delete.
+- The model never writes to a note. Its verdicts are plain lines in the vocabulary files, `ALIASES.md` and
+  `CONFLICTS.md`, which a person can edit or delete.
 - One indexing run at a time, guarded by a lock file.
 
 ## Limits
@@ -626,10 +637,10 @@ cp -R skills/memory-dream <project>/.claude/skills/memory-dream           # the 
 cp skills/memory-dream/agents/memory-dreamer.md <project>/.claude/agents/  # optional: the file-mode dreamer subagent
 mkdir -p <project>/memory
 export MEMORY_LLM='claude -p --model haiku --tools ""'                     # optional: the index; without it no model is called
-python3 tests/acceptance.py        # from this repository: 40 checks on the fixture, about 30 s, no model
+python3 tests/acceptance.py        # from this repository: 46 checks on the fixture, about 30 s, no model
 ```
 
-MIT licence (`LICENSE`). Continuous integration (`.github/workflows/ci.yml`) runs the 40 checks on Python 3.9 and
+MIT licence (`LICENSE`). Continuous integration (`.github/workflows/ci.yml`) runs the 46 checks on Python 3.9 and
 3.13, the headless viewer check, the model-free retrieval gates on the analytics bank (without and with the restored
 index) and the software fixture, the build-bundle freshness check and the PostgreSQL store parity test.
 

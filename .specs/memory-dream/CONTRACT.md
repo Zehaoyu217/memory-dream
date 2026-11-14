@@ -31,12 +31,16 @@ Produced by `build()`, written as `_dream/graph.json` (≤ `MEMORY_WIDE` notes) 
 | `vocab` | object | `{types, budget, promote: [uses, notes, areas], probation, labels, below, demote: [type]}` — the relation vocabulary (EDGES.md) |
 | `proposed_types` | list of label | type words (things typed outside TYPES.md) over the `promote` bar of TYPES.md, offered to the review |
 | `tvocab` | object | the same shape as `vocab`, for TYPES.md |
+| `proposed_kinds` | list of label | kind words (a keeper's `other: <word>` for a note no kind of KINDS.md fits) over the `promote` bar of KINDS.md, offered to the review |
+| `kvocab` | object | the same shape as `vocab`, for KINDS.md |
+| `proposed_tags` | list of label | tag words (on notes' `tags:` lines or in their readings, outside TAGS.md) over the `promote` bar of TAGS.md, offered to the review |
+| `gvocab` | object | the same shape as `vocab`, for TAGS.md |
 | `dedup` | object | counters from entity merging (`mentions`, `ids_as_written`, `after_folding`, …) |
-| `checks` | list of `{code, msg}` | warnings, sorted by code; codes `C1`–`C18` (§5) |
+| `checks` | list of `{code, msg}` | warnings, sorted by code; codes `C1`–`C19` (§5) |
 | `dropped` | list, optional | what `drop` recorded: `{path, date, replaced, built_on_by, left_newest}` (below) |
 | `pointers` | object, optional | `{note path: [pointer]}`: what the notes point at in the project's files (below) |
 | `unplaced` | list, optional | lineage a reading states that no note answers to (C18): `{note, field, i, what, quote, asked}`, `field` being `built_on` or `replaces` and `i` its place in the reading's list; `asked` once the line it stands on has been through the second reading |
-| `tags` | object, optional | `{tag: [note paths]}`, from the `tags:` line of each note's frontmatter read through `TAGS.md` (§6): a listed tag under its name whatever spelling the note used, a word that is not listed under its own folded spelling (C17). In `manifest.json` too |
+| `tags` | object, optional | `{tag: [note paths]}`, from the `tags:` line of each note's frontmatter and the `tags` of its reading (§4), both read through `TAGS.md` (§6): a listed tag under its name whatever spelling the note used, a word that is not listed under its own folded spelling (C17). In `manifest.json` too |
 
 **pointer** — `{to, path, line, quote, symbol, text, state, now, of, form}`. A note's text points into a file as
 `path#symbol`, `path:line "quoted words"` or `path:line`; `to` is the path as written and `path` the file it is,
@@ -72,8 +76,9 @@ a memory too large for `graph.json`.
   the area's last part), else the kind whose prefix is the first or second part of the filename (`exp-014`,
   `aml-find-kyc-lift`; the prefixes are the `prefix:` fields of `KINDS.md`, seeded `exp- feat- ds- dec- fnd- find-
   finding- q- metric- model- pref- rule- term- plan- req- risk- inc- rpt- report- svc- mod- lib- sys- adr- design- bug-
-  fix- rel- release-`), else `model` for a name ending `…-vN`, else the dreamer's kind unless it is `note` (and only a
-  kind `KINDS.md` lists), else `note`. The folder and the name its writer gave a note come before a dreamer's reading
+  fix- rel- release-`), else `model` for a name ending `…-vN`, else the dreamer's kind unless it is `note` (a kind
+  `KINDS.md` lists or an alias of one, its `aka:`; a reading's `kind_word` counts as the kind it names once KINDS.md
+  has it), else `note`. The folder and the name its writer gave a note come before a dreamer's reading
   of it (RESULTS phase L; until 2026-11-11 the dreamer's kind came second), and a folder that has a kind before a
   first word (phase N: `howto/model-card-required-fields` is a rule, not a model).
 - `updated`: frontmatter `updated:` or `modified:` (first 10 chars), else a `log/YYYY-MM-DD` filename, else mtime.
@@ -156,9 +161,11 @@ relation is "current" when one of its evidence notes is live).
 
 ## 4. Caches and the manifest (`_dream/`)
 
-- `notes/<sha12>.json` — one extraction per note content: `{kind, entities: [{id, type, label, as, lines}], relations:
+- `notes/<sha12>.json` — one extraction per note content: `{kind[, kind_word][, tags], entities: [{id, type, label, as, lines}], relations:
   [{s, type, label, o, quote, line}], refs, built_on: [{what, quote, line[, asked]}], replaces: [the same], dropped:
-  {entities, relations}, path, sha, model, indexed_at}`. `built_on` and `replaces` are what the note says of itself,
+  {entities, relations}, path, sha, model, indexed_at}`. `kind_word` is the keeper's own word for a note no kind fitted
+  (`other: <word>`) and `tags` its themes as given (at most 5): both are kept as read and resolved through KINDS.md and
+  TAGS.md at every merge. `built_on` and `replaces` are what the note says of itself,
   the document, kept only with words found in the note; a reading made before they existed has neither. `what` is
   a note's file name, a thing's id, or, when a keeper could name neither, the note's own words for it. `asked`: the
   line the item stands on has been read a second time, alone and beside the folder's notes, and this item is one
@@ -219,15 +226,26 @@ note, or a note whose replacement was dropped and which is the newest left of it
 without a `drop`: nothing is written or deleted for it; `memory.py drop <path> --yes` records it, or the file comes
 back · `C16` a note points at a file that is gone, or at a symbol or words that are no longer in it: the note is
 stale, not wrong, and stays · `C17` a word on a note's `tags:` line that `TAGS.md` does not list, once a word with
-the number of notes: it still filters, and it is not a tag until it has a line with its definition · `C18` a note
+the number of notes: it still filters, and it is not a tag until it has a line with its definition (it is counted with the
+words keepers read, and offered to the review over the bar of TAGS.md) · `C18` a note
 says in its own words that it builds on or replaces something, a keeper read it, and no note answers to the name,
 neither as written nor by a path or id in the words themselves: the link is not in the lineage until a second
-or third reading or a line of frontmatter names the note.
+or third reading or a line of frontmatter names the note · `C19` a note links two names that a line of `ALIASES.md`
+joins (the link is dropped, as a thing is not linked to itself): two things a note links are two things, so take one
+name off the line and write `not: a / b`, unless the note is wrong. No rule of the merge, no curator and no review
+joins two names that a note links; only a person's line can, and this is the report of it. `C7` covers kind words and
+tag words as it covers relation labels and type words.
 
 ## 6. The user-owned files
 
-The domain is three registries, seeded by the first dream (`KINDS_SEED`, `TYPES_SEED`, `EDGES_SEED` in `memory.py`) and
-read by `load_domain()` before every command. A line is `- name[ (proposed YYYY-MM-DD)]: definition | field: value | …`,
+The domain is four vocabularies under one rule (`skills/memory-dream/guides/vocabulary.md`): `KINDS.md`, `TYPES.md`
+and `EDGES.md`, seeded by the first dream (`KINDS_SEED`, `TYPES_SEED`, `EDGES_SEED` in `memory.py`) and read by
+`load_domain()` before every command, and `TAGS.md`, which has no seed. Each takes `promote: U uses, N notes, A areas`,
+`budget: B` and `probation: D days` (defaults: KINDS 5/5/2, 40; TYPES 5/5/2, 40; EDGES 5/5/2, 24; TAGS 3/3/1, 30; 60
+days each), `drop: a, b` and `keep: word ×uses (YYYY-MM-DD), …`: a word the review answered `label` for, offered again
+only once its uses are twice that. A word outside a file is counted at every merge and offered to the review over
+the bar while the budget has room; the review's alias goes on the line's `aka:`, its new line is marked proposed, and a
+proposed line still under the bar after the probation goes back to a word. A line is `- name[ (proposed YYYY-MM-DD)]: definition | field: value | …`,
 the fields after the definition in any order; `#` lines are comments; a hand-written line is permanent. Editing any of
 them re-derives the graph from the cached readings at the next dream, with no model call and no note re-read (the
 readings keep the dreamer's raw words; the registries decide what they mean).
@@ -237,7 +255,8 @@ readings keep the dreamer's raw words; the registries decide what they mean).
 tree), `role: question|evidence|state|rule|reference|log` (project work = question, evidence, state), `digest: current`
 (heads the digest), `conflicts: yes` (compared for disagreement; a child kind counts as its family), `answers: yes` (a
 note of this kind built on a question answers it), `replaces: a, b` (kinds or families outside its own that a note of
-this kind may replace when a keeper reads it so: the seed gives `correction` `replaces: term`), `not: …`.
+this kind may replace when a keeper reads it so: the seed gives `correction` `replaces: term`), `aka: a, b` (a keeper's
+words read as this kind), `not: …`. A kind with a `family:` and no `role:` takes its family's role.
 
 `TYPES.md` (types of thing): `promote: U uses, N notes, A areas` · `budget: B` · `probation: D days` · `pack: research,
 ops` · type lines with `aka: a, b` (the dreamer's words read as this type), `family: parent`, `not: …` · `drop: a, b`
@@ -253,8 +272,9 @@ question that make `ask` follow this type from a thing the question names; `*` a
 link read the other way, as in "what uses X") and `hops: 2` (the links chain: an input of an input is an input, and
 `ask` goes two steps) · `drop: a, b`. A type line without `walk:` or `hops:` takes the seed's line of the same name,
 so a file written before the fields existed answers as it did; a type the seed does not have is followed only once
-its line says by which words. `TAGS.md` (tags): `- tag: what it means | aka: other spellings`. It has no seed: a tag
-belongs to one base, and a writer picks from this list. `ALIASES.md`: `- canonical = other, … [| why: … | by: …]`
+its line says by which words. `TAGS.md` (tags): `- tag: what it means | aka: other spellings | family: parent` (the
+tree the graph page shows the tag column in). It has no seed: a tag belongs to one base. Writers pick from it and
+keepers are shown it; both may give a word it lacks. `ALIASES.md`: `- canonical = other, … [| why: … | by: …]`
 (what follows the first ` | ` is for people: the reason and who decided; the curator signs its lines `by: curator
 <date>`, and a line without `by:` is a person's) ·
 `not: a / b`. `CONFLICTS.md`: `- a > b` (a supersedes b) · `compatible: a / b` · `- a ? b` (unsure) · `dropped:

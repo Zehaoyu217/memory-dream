@@ -1131,7 +1131,12 @@ def A46():
     assert sorted(g["tags"].get("leakage", [])) == sorted(P + s + ".md" for s in LEAK) and "target-leak" not in g["tags"], g["tags"]
     assert not any(c["code"] == "C17" for c in g["checks"]), [c["msg"] for c in g["checks"] if c["code"] == "C17"]
     assert reads(w) == n + len(LEAK), (reads(w), n)          # the three edited notes only
-    return "target-leak written on 3 notes, not in TAGS.md → review alias leakage (by meaning) → aka written, notes under leakage, C17 gone"
+    t = w.text("TAGS.md").replace("| aka: target-leak", "| aka: target-leak | family: data-quality")
+    (w.root / "TAGS.md").write_text(t + "- data-quality: whether the data can be trusted for what it is used for\n")
+    kg = mem.kg_data(w.root, w.graph())
+    vals = {v for th in kg["things"] for v in ([th["tags"].get("tag")] if isinstance(th["tags"].get("tag"), str) else th["tags"].get("tag") or [])}
+    assert "data-quality/leakage" in vals, vals
+    return "target-leak written on 3 notes, not in TAGS.md → review alias leakage (by meaning) → aka written, notes under leakage, C17 gone; family: puts it under data-quality on the graph"
 
 
 def A47():

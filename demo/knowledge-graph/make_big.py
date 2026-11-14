@@ -9,7 +9,7 @@ related-to, a link with no direction.
 
   python3 demo/knowledge-graph/make_big.py out.json [--things 20000] [--links 45000] [--seed 7] [--no-groups]
 
-Writes {"nodes": [...], "links": [...]} for demo/knowledge-graph/build.py. Deterministic for a seed. --no-groups leaves
+Writes {"nodes": [...], "links": [...]} for skills/memory-dream/scripts/graph_page.py. Deterministic for a seed. --no-groups leaves
 the nodes without a project, so the page must find its islands in the links (the communities path).
 """
 import json

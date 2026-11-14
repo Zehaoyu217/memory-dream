@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """The knowledge-graph page for any graph, as one HTML file that opens offline.
 
-  python3 demo/knowledge-graph/build.py <graph.json | memory folder> <out.html> [options]
-  python3 demo/knowledge-graph/build.py <nodes.csv> <links.csv> <out.html> [options]
+  python3 <the skill>/scripts/graph_page.py <graph.json | memory folder> <out.html> [options]
+  python3 <the skill>/scripts/graph_page.py <nodes.csv> <links.csv> <out.html> [options]
   options: --title "…"  --theme paper|star|gala|moon|fanfare|noir  --colour COLUMN
 
 --theme: the look the page opens in: paper (the default), star (a star map at night), gala (a purple show at night,
@@ -70,7 +70,7 @@ import sys
 from collections import Counter
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "skills" / "memory-dream" / "scripts"))
+sys.path.insert(0, str(Path(__file__).resolve().parent))  # memory.py, beside it in the skill
 import memory as M  # noqa: E402
 
 NODE_RESERVED = ("id", "label", "group")

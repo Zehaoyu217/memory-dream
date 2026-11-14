@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""The knowledge-graph page's tag columns, end to end through demo/knowledge-graph/build.py, no browser needed:
+"""The knowledge-graph page's tag columns, end to end through the skill's scripts/graph_page.py, no browser needed:
 CSV with a ';' list, '/' paths, empty cells and size; JSON with a parents hierarchy, names, colours and --colour;
 a graph with no tag column at all. Prints PASS/FAIL per check; exits 1 on any failure.  python3 tests/kg_tags.py"""
 import json
@@ -9,7 +9,7 @@ import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-BUILD = [sys.executable, str(ROOT / "demo" / "knowledge-graph" / "build.py")]
+BUILD = [sys.executable, str(ROOT / "skills" / "memory-dream" / "scripts" / "graph_page.py")]
 ok = True
 
 

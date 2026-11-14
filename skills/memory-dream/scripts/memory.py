@@ -196,8 +196,11 @@ KINDS_SEED = """# KINDS — kinds of note. A note's kind is its frontmatter `typ
 # work is question, evidence and state. `answers: yes` kinds answer a question they are built on; `digest: current` kinds
 # head the digest; `conflicts: yes` kinds are compared for disagreement (a child kind counts as its family). A note that
 # a keeper reads as replacing another replaces one of its own family, or of a kind (or family) named after `replaces:`.
-# `general:` names the areas that span projects.
-# Edit freely: a hand-written line is permanent (0 model calls); `pack: research, ops` adds a domain's kinds.
+# `general:` names the areas that span projects. Constrained open, like EDGES.md: a keeper gives one of these kinds or
+# an alias (`aka:`); a note that is none of them counts as note and keeps the keeper's word, and once the word is over
+# the bar (`promote:`, by default 5 uses, 5 notes, 2 areas; `budget: 40`) the review may make it a kind, marked
+# (proposed <date>), which takes its family's role. Edit freely: a hand-written line is permanent (0 model calls);
+# `pack: research, ops` adds a domain's kinds.
 # The seed covers data, analytics, software and finance work.
 general: prefs, reporting, glossary, corrections, howto, qa, people, log
 - question: something asked and not yet settled | prefix: q | role: question
@@ -5325,7 +5328,7 @@ def write_viz_big(root, g, dd, force=False):
 # values with the most things a colour each, and its legend opens each value into the levels under it. A memory's
 # columns are its type (family/type, from TYPES.md `family:`), the projects whose notes name a thing, and the tags of
 # those notes; islands are its folders or, when the folders do not part the things, the communities of its links.
-# demo/knowledge-graph/build.py feeds them any other graph, every column of its nodes a tag column.
+# scripts/graph_page.py feeds them any other graph, every column of its nodes a tag column.
 KG_COLOURS = {  # one muted hue per common family, the same in every memory; the page gives any other value a spare one
     "model": "#2a55a3", "dataset": "#2b8073", "feature": "#62904a", "metric": "#6b7a90", "document": "#b0874a",
     "decision": "#7c5ea6", "finding": "#8c6bb8", "term": "#b5677d", "system": "#a2574f", "party": "#8a939d",
@@ -5675,9 +5678,10 @@ def kg_data(root, g):
         return p.split("/")[0] if "/" in p else ""
     proj = {i: [a for a, _ in Counter(area(p) for p in paths[i] if area(p) and area(p) not in general).most_common()] for i in kept}
     tag_of = defaultdict(list)
-    for t, ps in sorted((g.get("tags") or {}).items()):
+    tfam = {t: f for t, f in parse_edges(tags_text(root), {})[5]["family"].items() if f != t}  # TAGS.md `family:`: a tree,
+    for t, ps in sorted((g.get("tags") or {}).items()):                                        # as a type sits under its own
         for p in ps:
-            tag_of[p].append(t)
+            tag_of[p].append(kg_path(t, tfam))
     tagged = {i: [t for t, _ in Counter(t for p in paths[i] for t in tag_of.get(p, ())).most_common()] for i in kept}
     names = kg_names(kind.values())
     names["other"] = "Other kinds"

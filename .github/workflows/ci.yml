@@ -48,7 +48,7 @@ jobs:
           node tests/kg_check.js /tmp/w/_dream/knowledge-graph.html
       - name: the knowledge graph at 20,000 things and 45,000 links
         run: |
-          python3 demo/knowledge-graph/make_big.py /tmp/big.json && python3 demo/knowledge-graph/build.py /tmp/big.json /tmp/big.html --theme noir
+          python3 demo/knowledge-graph/make_big.py /tmp/big.json && python3 skills/memory-dream/scripts/graph_page.py /tmp/big.json /tmp/big.html --theme noir
           node tests/kg_scale.js /tmp/big.html
   bundle:
     name: build bundle is fresh

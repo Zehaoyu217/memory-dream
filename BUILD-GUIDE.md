@@ -142,8 +142,11 @@ frontmatter says. How an agent sets a memory up and has it read is the skill's s
 
 ```
 skills/memory-dream/
-  SKILL.md                     what the agent reads (51 lines): read, write, end of session
+  SKILL.md                     what the agent reads: read, write, end of session, the vocabulary, setting up
+  guides/                      optional: vocabulary.md (the one rule), scenarios.md (where the lists start),
+                               knowledge-graph.md (the graph page for any data)
   scripts/memory.py            ask · dream · viz · check · log  (stdlib, ~3,200 lines)
+  scripts/graph_page.py        the knowledge-graph page for any graph (JSON, or two CSV tables), through memory.py
   scripts/stores.py           optional hosted stores (PostgreSQL, Neo4j) and the CSV export; imported only when MEMORY_STORE is set
   assets/viz.html              viewer template (html-lite habits; normal, overview and area modes)
   assets/knowledge-graph.html  the page to show a memory, with d3.v7.9.0.min.js and its LICENSE-d3 (§5.10)
@@ -151,7 +154,8 @@ skills/memory-dream/
 .specs/memory-dream/           build-spec.md (v0.4 spec), RUNBOOK.md, RESULTS.md (rounds 1–4)
 tests/
   fixture/memory/              churn-2026: 25 notes + 5 log days (hand-written ground truth)
-  acceptance.py                40 checks: A1–A20 (spec), A24 (big memories), A25–A43 (phases A–J), fake dreamer, ~30 s
+  acceptance.py                46 checks: A1–A20 (spec), A24 (big memories), A25–A43 (phases A–J), A44–A49 (one
+                               vocabulary rule, identity by evidence), fake dreamer, ~30 s
   retrieval_gate.py            CI floors for the model-free retrieval numbers: bank (326 questions) and software fixture
   store_parity.py              a hosted store (MEMORY_STORE=postgres) gives identical ask output and the same graph
   fixture-software/memory/     a software project (payments-api: services, modules, ADRs, bugs, releases, an incident)
@@ -257,7 +261,8 @@ history, and that version put 12 of 209 symbols on the line of a call or of a lo
   C6 no `# ` line, C7 review pending (labels, budget), C8 bad EDGES/ALIASES/CONFLICTS line, C9 NUL bytes in a note
   (binary-looking), C10 conflict pending, C11 a note over 40 lines, C14 built on a dropped note or left the newest of
   its line by a drop, C15 gone without a drop, C16 a pointer into a file that no longer holds, C17 a tag that
-  TAGS.md does not list, C18 lineage a note states in prose that no note answers to. `check` also runs the memory's own proof (`proof`): each `- question? -> note` line of
+  TAGS.md does not list, C18 lineage a note states in prose that no note answers to, C19 a note links two names that a
+  line of ALIASES.md joins. `check` also runs the memory's own proof (`proof`): each `- question? -> note` line of
   `memory/SETUP.md` is put to `ask` alone, and the line counts when a section of the answer is headed by that note.
 
 ### 5.5 The graph, vocabulary half (`build`, `merge_entities`)
@@ -265,7 +270,8 @@ history, and that version put 12 of 209 symbols on the line of a call or of a lo
 Entities, from every note's extraction:
 1. Key = `fold(id)`: lowercase, runs of space `_` `.` `-` → `-` (`cards.txn_daily` = `cards-txn-daily`).
 2. Union-find: every ALIASES.md line merges its ids (forced); `not: a / b` lines and version pairs (ids differing
-   only in digits) are never merged.
+   only in digits) are never merged, and no rule merges two ids that a reading links to each other (`read_links`:
+   two things a note links are two things; a person's line that joins them is reported, C19).
 3. Surface rule: if exactly one other entity writes this id as a surface form (and ≤ 3 users), merge.
 4. Keep an entity only if it has a home note (a note whose filename is its id), is mentioned in ≥ 2 notes, or is
    named in ALIASES.md; drop a name that the `drop-names:` line of `TYPES.md` matches, as written or folded (the
@@ -287,6 +293,16 @@ Type words go through the same gate (`vocab_gate`, shared): `TYPES.md` has its o
 `probation`; the review's `etypes` answers alias a word onto a type, admit `new: <definition> | family: <F>`, keep the
 word, or drop it; `tvocab` and `proposed_types` in the graph mirror `vocab` and `proposed`. A type line removed by hand
 from either file while readings still use its word is reported (C13); the readings show as `other/<word>`.
+Kind words and tag words go through the same gate and the same review, and one function admits every answer
+(`apply_terms`): a keeper's `other: <word>` for a note no kind fits is kept in its reading as `kind_word` (the note
+counts as `note` until KINDS.md has the kind or an alias, `aka:`, and then counts as that kind with no re-read; a kind
+given a family takes its family's role); tags come from notes' `tags:` lines and from the keepers' `tags` (at most
+three a note, given from the TAGS section of their prompt), both resolved through TAGS.md at every merge. `KINDS.md`
+takes `promote` (5/5/2), `budget: 40` and `probation`, and `TAGS.md` `promote: 3 uses, 3 notes, 1 area`, `budget: 30`
+and `probation`; the review answers `kinds` and `tags` as it answers `etypes`; `kvocab`/`proposed_kinds` and
+`gvocab`/`proposed_tags` mirror `vocab`/`proposed`. In every file a `label` answer is remembered on a `keep:` line
+(`word ×uses (date)`) and the word is offered again only once its uses double, so a word the review kept is not asked
+about on every run. The rule as an agent reads it: `skills/memory-dream/guides/vocabulary.md`.
 Conflicts: two live `…-vN` siblings in one area, two live notes with the same title, or live notes of one kind
 (decision, model, finding) in one area, unlinked, sharing an id-like title token or two rare words, are queued (C10,
 20 per review); verdicts persist in `memory/CONFLICTS.md` (`- a > b` becomes lineage, `compatible: a / b`, `- a ? b`);
@@ -294,25 +310,30 @@ notes are never edited.
 
 The seed vocabulary (8 types): `uses`, `produces`, `part-of`, `trained-on`, `evaluated-on`, `measured-by`,
 `replaces`, `owned-by` (full alias lists and `shape:` fields in `EDGES_SEED`; a file written before shapes existed keeps
-the seed's shapes). The seed thing types (24, `TYPES_SEED`): person, team, organisation, term, metric, tool, document;
+the seed's shapes). The seed thing types (27, `TYPES_SEED`): person, team, organisation, term, metric, tool, document;
 dataset, segment, feature, model, pipeline, dashboard; service, module, environment, release; instrument, portfolio,
-account, counterparty, policy, scenario, desk — each with aliases, a family where it has one, and `not:` on the most
-confusable. The seed kinds (19, `KINDS_SEED`): question, experiment, finding, incident, decision, plan, requirement,
-risk, dataset, feature, model, metric, report, term, preference, rule, correction, log, note, with prefixes, areas,
+account, counterparty, policy, scenario, desk; flag, test, issue — each with aliases, a family where it has one, and `not:` on the most
+confusable. The seed kinds (23, `KINDS_SEED`): question, experiment, finding, incident, decision, plan, requirement,
+risk, dataset, feature, model, metric, report, component, design, bug, release, term, preference, rule, correction,
+log, note, with prefixes, areas,
 families, roles and the `digest`, `conflicts` and `answers` flags. Evidence: 81% of 5,196 extracted links fit them and 365 of
 366 questions need lineage, a single note, or one of the 8 (`eval/type_coverage.py`, `eval/question_relations.py`);
 with Haiku on 70 notes the two-tier prompt gives 81% typed, 19% labels, 0 invented types (RESULTS "Phase C").
 
 Review candidates (`candidates`): new entities of the same type that some note writes with the same words; pairs with
-two different home notes are never queued. Nothing is proposed from how two names look. Do not bring a string
+two different home notes, or that a note links to each other, are never queued. Each side of a pair is shown by its
+card, the curator's (`thing_cards`, below), and the pair by what the two are both linked to (`shared_links`). Nothing is proposed from how two names look. Do not bring a string
 distance back: on the bank the ratio that used to do it (0.85) offered 46 pairs, 5 of them one thing (all plurals)
 and 41 siblings such as aml-oot-2026h1 / cli-oot-2026h1.
 
 The curator (`CURATE`, `Dream.cards`, `Dream.run_curate`): identity by reading. For each folder whose things changed
-since it was last read, one prompt lists them, each with its type, its written forms, the number of notes and one
-line that mentions it; the answer names the ones that are one thing under two names, each with a reason. A join is a
-line of `ALIASES.md`, `- a = b | why: … | by: curator <date>`. The script holds five rules whatever the answer says:
-both are on the folder's list; never two versions; never against a `not:` line; the name joined to another is used
+since it was last read, one prompt lists them, one card each (`thing_cards`): its type, its written forms, the number
+of notes, what its own note says it is (`is:`, that note's title), what the notes link it to (`links:`, the three best
+attested, → from it and ← to it) and a line that mentions it, from another note than its own; the answer names the
+ones that are one thing under two names, each with a reason. Identity is read from what a thing is and what it is
+linked to, never from a name alone. A join is a
+line of `ALIASES.md`, `- a = b | why: … | by: curator <date>`. The script holds six rules whatever the answer says:
+both are on the folder's list; never two versions; never against a `not:` line; never two things a note links; the name joined to another is used
 in this folder alone, and a thing whose note is in another folder is not renamed here; no line may come to join two
 things that each have a note. The folder's signature after the joins is kept in the manifest (`curated`), so the
 same things are not read twice; at most 60 folders a dream. With a command it runs before the review, `-j` folders
@@ -494,7 +515,7 @@ Per question:
 ### 5.8b The graph contract
 
 `.specs/memory-dream/CONTRACT.md` is the authority on every shape `memory.py` writes and reads: the graph (`graph.json`,
-`index.db`), the viewer's data island, the extraction cache, `store.db`, the manifest, the warning codes C1–C18 and the
+`index.db`), the viewer's data island, the extraction cache, `store.db`, the manifest, the warning codes C1–C19 and the
 grammar of EDGES.md, ALIASES.md, CONFLICTS.md and DIGEST.md. Every graph carries `schema: 1`; `validate()` checks a
 graph against the contract, `memory.py check` prints the result first, and A38 enforces it on the fixture (graph,
 `index.db` round trip, island). Build the viewer against the contract, never against the code.
@@ -609,7 +630,7 @@ when the page opens (tab order Timeline · Map · Connections; `#view=map` and `
 
 The viewer is for working in a memory; this page is for showing one. It holds the things that have a link and the
 links alone, and nothing in it knows a domain, so the same page serves any memory and any graph given as nodes and
-links (`demo/knowledge-graph/build.py`). `write_kg` fills it after every dream that read links, and `viz` rewrites
+links (`scripts/graph_page.py`). `write_kg` fills it after every dream that read links, and `viz` rewrites
 it; the page and d3 7.9.0 (ISC) sit in `assets/`, and it opens offline.
 
 1. **Islands.** A thing lives on the project holding at least 60% of the notes that name it among projects; a thing
@@ -642,7 +663,7 @@ it; the page and d3 7.9.0 (ISC) sit in `assets/`, and it opens offline.
    note that best says what each is); its links carry the stating note's kind, Stated (a time) and Replaced, and a
    relation whose EDGES.md backward name is itself has no direction. Any other graph's tags are every column of its
    nodes and links but the fields above, with `columns`, `link_columns` and `link_types` entries for the vocabulary
-   (`demo/knowledge-graph/build.py`, JSON or two CSV tables).
+   (`scripts/graph_page.py`, JSON or two CSV tables).
    The page colours by one column, chosen in the legend: the seven top-level values with the most things (each with
    2% of them) a colour each, the same hue for the same family in every memory, the rest one grey, "Everything
    else". The legend is a tree: › opens a value into the level under it (and "Other …" for those that stop at it),
@@ -693,10 +714,10 @@ it; the page and d3 7.9.0 (ISC) sit in `assets/`, and it opens offline.
 ## 6. Tests
 
 ```bash
-python3 tests/acceptance.py            # 40 checks, A1–A20, A24, A25–A43, with the fake dreamer, about 30 s
+python3 tests/acceptance.py            # 46 checks, A1–A20, A24, A25–A49, with the fake dreamer, about 30 s
 python3 tests/e2e.py                   # one run on both read paths: dream, ask, a file gone by hand, drop a note, the end of a line, a folder, absorb a base
 python3 tests/retrieval_gate.py bank   # the model-free numbers with floors (README Results); `software` for the second fixture
-python3 tests/kg_tags.py               # the knowledge graph's tag columns through build.py: CSV, JSON, parents, --colour
+python3 tests/kg_tags.py               # the knowledge graph's tag columns through graph_page.py: CSV, JSON, parents, --colour
 MEMORY_STORE_URL=postgresql://… python3 tests/store_parity.py postgres --bank   # needs psycopg: the PostgreSQL store (ADR-001)
 python3 tests/acceptance.py A6 A24     # some
 python3 tests/real_model.py            # Haiku on the fixture vs tests/truth.py (costs a few cents)

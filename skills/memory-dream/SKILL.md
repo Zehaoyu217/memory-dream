@@ -39,7 +39,8 @@ truth; everything else is derived and disposable. `memory.py` = `python3 <this s
    `memory/KINDS.md` says what kind of note it is (`exp- fnd- dec- plan- risk- inc- ds- feat- q- …`; a thing's own note
    is named after the thing, `churn-xgb-v3`). The `# ` line is the claim; the first paragraph is what is true now.
    Frontmatter `from: [notes built on]`, `supersedes: [notes overturned]`, `updated: YYYY-MM-DD`, and `tags: [a, b]`
-   when `memory/TAGS.md` lists tags (pick from it; a new tag is a new line there with its definition): never rewrite
+   for themes that notes in other folders share (pick from `memory/TAGS.md`; a word it lacks is reported, C17, and
+   offered to the review once it is common, or give it a line there with its definition): never rewrite
    an old conclusion, write a new note that supersedes it. Numbers carry their unit or metric, their basis (the data, the
    period, the sample), and the date; sources (tables, documents, queries, tickets) in backticks. ≤ 40 lines, plain
    markdown, nothing about the memory system. Taste is said once, in passing ("no pie charts", "round to one decimal
@@ -66,18 +67,22 @@ truth; everything else is derived and disposable. `memory.py` = `python3 <this s
    is what makes the map whole (one call a folder). The frontmatter stays the sure way to say it. `memory.py check` lists warnings. Scratch lines: `memory.py log "…" -p
    <project>`.
 
-## The domain is three files you may edit, never the code
-`memory/KINDS.md` (kinds of note: prefixes, areas, roles), `memory/TYPES.md` (types of thing: what each is and is not,
-its aliases, its family) and `memory/EDGES.md` (types of link between things, and on each line the question words
-that make `ask` follow it: `walk:`). All three are seeded for data,
-analytics, software and finance work; `pack: research` or `pack: ops` adds a domain's lines. The model is only ever
-asked to use what these files list; a word that fits nothing is kept as `other/<word>`, and becomes a type through the
-review once it is common. A hand-written line is permanent and costs no model calls: the graph is re-derived from the
-cached readings. Add types freely; to retire one, merge it (add it to another type's `aka`) rather than delete it, so
-nothing already read is lost. `ALIASES.md` (`- canonical = other-id`, `not: a / b`; a line the curator wrote ends
-with `| why: … | by: curator <date>`: delete it and write `not:` when it is wrong) and `CONFLICTS.md` (`- a > b`
-makes a supersede b without touching either note; `dropped: …` lines are written by `drop`, leave them) are the other
-two files at the root that are yours.
+## The vocabulary is files you may edit, never the code
+`memory/KINDS.md` (kinds of note: prefixes, areas, roles), `memory/TYPES.md` (types of thing), `memory/EDGES.md`
+(types of link, each with the question words that make `ask` follow it: `walk:`) and `memory/TAGS.md` (themes that
+notes in different folders share) all follow one rule. Keepers use what a list says. A word that fits nothing is
+kept as the keeper gave it and counted at every dream. Once it is common (`promote:`, within `budget:`), one review
+call answers it by meaning: alias, new (a line marked proposed, which goes back after its probation if it stays
+rare), label (kept as a word, asked again only when its uses double) or drop. Readings are resolved through the lists
+as they stand, so an edit relabels every note at the next merge and no note is read again. A hand-written line is
+permanent and costs no model calls. To retire a line, add it to another line's `aka:` rather than delete it. The
+seeds cover data, analytics, software and finance work; `pack: software|research|ops` adds a domain's lines.
+`ALIASES.md` (`- canonical = other-id`, `not: a / b`; a line the curator wrote ends with `| why: … | by: curator
+<date>`: delete it and write `not:` when it is wrong) and `CONFLICTS.md` (`- a > b` makes a supersede b without
+touching either note; `dropped: …` lines are written by `drop`, leave them) record decisions about particular things.
+Whether two names are one thing is decided by evidence, never by the names alone: what each thing is and what it is
+linked to. Two things a note links are always two things. The full rule, and which list a word belongs in:
+`guides/vocabulary.md`.
 
 ## Setting a memory up (once, for a new body of work or material)
 If `memory/SETUP.md` exists, read it before anything else: it says what this memory is for, what a note is here and
@@ -95,7 +100,8 @@ helpers read.
 4. **Start the vocabulary from what you saw, and keep it small.** `KINDS.md`: the kinds these notes have, with the
    prefixes and folders that mark them. `TYPES.md`: the things people will look up. `EDGES.md`: the links that
    matter, each with the question words that follow it (`walk:`). `TAGS.md`: the tags in use, each with its
-   definition. Leave out a line you are unsure of: a word that fits nothing is kept and offered again later.
+   definition. Leave out a line you are unsure of: a word that fits nothing is kept and offered again later. Where
+   the lists start for your kind of work: `guides/scenarios.md`.
 5. **Take the material in.** Notes as they are into `memory/<area>/`; another base with `memory.py absorb`; what
    cannot be a note (a transcript, a log, code) stays where it is and notes point at it. In git, ignore
    `memory/_dream/*` and keep `!memory/_dream/notes/`: what a keeper read is paid for once.
@@ -122,3 +128,11 @@ CLAUDE.md holds standing instructions people wrote; auto memory holds what you l
 hold the work itself, with lineage, and travel with the repository. `ask` also reads your auto-memory topic files in
 the same call and never writes there. To keep the digest in context every session, add one line to CLAUDE.md:
 `@memory/DIGEST.md`. Never the same thing in two places: if CLAUDE.md already says it, write no note.
+
+## Guides, read when the work calls for them
+- `guides/vocabulary.md`: the one rule every list follows, its settings and defaults, which list a word belongs in,
+  and how names of one thing are joined (and when they never are).
+- `guides/scenarios.md`: where the lists start for analytics, software, finance, research, operations, a personal
+  memory, another base taken in, and a corpus of thousands of notes.
+- `guides/knowledge-graph.md`: the graph page for a memory or for any graph (`scripts/graph_page.py`): the least data
+  it works with, and the fewest fields for what people want to see.

@@ -147,8 +147,9 @@ enforces it. Build P6–P8 against the contract, and bump `SCHEMA` when a field 
 
 ### 2.5 Vocabularies (constrained open), the registries and conflicts
 
-The domain is three registries at the memory root, seeded by the first dream and read before every command; the
-extraction prompt is fixed guidance filled from them. `KINDS.md`: kinds of note with prefix, area, family, role and the
+The domain is four vocabularies at the memory root under one rule (the skill's `guides/vocabulary.md`): three seeded
+by the first dream and read before every command, and `TAGS.md`, which has no seed. The extraction prompt is fixed
+guidance filled from all four. `KINDS.md`: kinds of note with prefix, area, family, role and the
 digest, conflicts and answers flags. `TYPES.md`: types of thing with aliases, family, `not:` and a `drop:` line; its own
 `promote`, `budget: 40`, `probation`. `EDGES.md`: eight seed relation types `uses produces part-of trained-on
 evaluated-on measured-by replaces owned-by`, each with `aka:` aliases (`~` = read in reverse) and a `shape:` (the usual
@@ -158,8 +159,14 @@ Every extracted entity carries a `type` and a `label` likewise; a thing that fit
 (`canon_occ`), a word on `drop:` is not a thing. EDGES.md settings: `promote: 5 uses, 5 notes, 2 areas` (a label is
 offered to the review only over this bar), `budget: 24` (types), `probation: 60 days` (a `(proposed <date>)` type still
 under the bar is demoted to a label), `pack: software | research | ops` (`PACKS`; `KIND_PACKS` and `TYPE_PACKS` for the
-other two files). One gate (`vocab_gate`) serves relation labels and type words. The review answers `alias T`,
-`alias ~T`, `new: <definition>`, `label` or `drop` for labels, the same for type words under `etypes` (a new type with
+other two files). `KINDS.md` takes the same settings (5/5/2, `budget: 40`) and `aka:`; a keeper's `other: <word>` for
+a note no kind fits is kept as `kind_word` and the note counts as `note` until the file has the kind. `TAGS.md`:
+`- tag: definition | aka: | family:`, `promote: 3 uses, 3 notes, 1 area`, `budget: 30`; tags come from notes' `tags:`
+lines and from the keepers' readings (up to three a note, from the TAGS section of the prompt). One gate
+(`vocab_gate`) and one admission (`apply_terms`) serve relation labels, type words, kind words and tag words; a
+`label` answer is written on the file's `keep:` line (`word ×uses (date)`) and the word is offered again only once
+its uses double. The review answers `alias T`, `alias ~T`, `new: <definition>`, `label` or `drop` for labels, the
+same for type words under `etypes`, kind words under `kinds` and tag words under `tags` (a new line with
 `| family: <F>`), `same` / `different` for entity pairs, and `<a> supersedes <b>` / `compatible` / `unsure` for
 conflicts; the code admits `new` only within the budget and records conflict verdicts in `CONFLICTS.md`. A registry
 edit re-derives the graph from the cached readings (0 calls, no note re-read); a type line removed while readings use
@@ -270,7 +277,7 @@ _Part 2 of 9 · online-build-bundle.md — phases P0–P5_
 - **Do:**
   - Fold ids: lowercase, and turn runs of space `_` `.` `-` into `-`.
   - Run union-find: ALIASES lines force merges; `not:` pairs and version pairs (ids that differ only in digits)
-    never merge.
+    never merge, and no rule merges two ids that a reading links to each other (a forced line that does is C19).
   - Apply the surface rule: when exactly one other entity writes this id as a surface form, and it has ≤ 3 users,
     merge them.
   - Keep an entity when it has a home note, is mentioned in ≥ 2 notes, or is named in ALIASES. Drop file-like ids.
@@ -280,8 +287,9 @@ _Part 2 of 9 · online-build-bundle.md — phases P0–P5_
     is kept as `other/<label>` with evidence `path:line`; labels are counted by uses, notes and areas; those over the
     `promote` bar are offered to the review unless the budget is full (then C7 names them); the rest are summarised
     in one C7 line. Types marked `(proposed <date>)` still under the bar after the probation are listed for demotion.
-  - Review candidates for entities: same type, a shared rare surface form, or difflib ≥ 0.85. Never queue a pair with
-    two different home notes.
+  - Review candidates for entities: same type and a shared rare surface form; no string distance. Never queue a pair
+    with two different home notes, or one that a note links. The review and the curator read one card per thing
+    (type, written forms, what its own note says it is, what it is linked to, a line), and a pair what both link to.
   - Conflict candidates: two live `…-vN` siblings in one area (`shared: ["version"]`), two live notes with the same
     title (`["same title"]`), or live notes of one kind (decision, model, finding) in one area, not linked, sharing an
     id-like title token or two rare title words; pairs decided in CONFLICTS.md are not offered again; `- a > b`
@@ -293,6 +301,8 @@ _Part 2 of 9 · online-build-bundle.md — phases P0–P5_
   - [ ] `python3 tests/acceptance.py A19` passes: 1,000 notes, merge < 1 s, review candidates < 2 s.
   - [ ] `python3 tests/acceptance.py A34 A35 A36 A37` passes once P5's review exists (promotion gate and packs,
         probation, budget, conflicts).
+  - [ ] `python3 tests/acceptance.py A44 A45 A46 A47 A48 A49` passes once P5's review and curator exist (tags and
+        kinds through the same loop, `keep:` lines, a tag's family on the graph, identity by evidence, C19).
 
 ### P5 — The dreamer: prompts, grounding, modes, review, cache
 
@@ -639,7 +649,7 @@ or to a fresh worker given the packet, at most twice. After that, it stops and r
 
 ## Appendix A — the contract surface, verbatim: `skills/memory-dream/SKILL.md` and the dreamer agent
 
-_Part 5 · copied at commit 5de6ac4. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
+_Part 5 · copied at commit 342daa3. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
 
 ```markdown
 ---
@@ -683,7 +693,8 @@ truth; everything else is derived and disposable. `memory.py` = `python3 <this s
    `memory/KINDS.md` says what kind of note it is (`exp- fnd- dec- plan- risk- inc- ds- feat- q- …`; a thing's own note
    is named after the thing, `churn-xgb-v3`). The `# ` line is the claim; the first paragraph is what is true now.
    Frontmatter `from: [notes built on]`, `supersedes: [notes overturned]`, `updated: YYYY-MM-DD`, and `tags: [a, b]`
-   when `memory/TAGS.md` lists tags (pick from it; a new tag is a new line there with its definition): never rewrite
+   for themes that notes in other folders share (pick from `memory/TAGS.md`; a word it lacks is reported, C17, and
+   offered to the review once it is common, or give it a line there with its definition): never rewrite
    an old conclusion, write a new note that supersedes it. Numbers carry their unit or metric, their basis (the data, the
    period, the sample), and the date; sources (tables, documents, queries, tickets) in backticks. ≤ 40 lines, plain
    markdown, nothing about the memory system. Taste is said once, in passing ("no pie charts", "round to one decimal
@@ -710,18 +721,22 @@ truth; everything else is derived and disposable. `memory.py` = `python3 <this s
    is what makes the map whole (one call a folder). The frontmatter stays the sure way to say it. `memory.py check` lists warnings. Scratch lines: `memory.py log "…" -p
    <project>`.
 
-## The domain is three files you may edit, never the code
-`memory/KINDS.md` (kinds of note: prefixes, areas, roles), `memory/TYPES.md` (types of thing: what each is and is not,
-its aliases, its family) and `memory/EDGES.md` (types of link between things, and on each line the question words
-that make `ask` follow it: `walk:`). All three are seeded for data,
-analytics, software and finance work; `pack: research` or `pack: ops` adds a domain's lines. The model is only ever
-asked to use what these files list; a word that fits nothing is kept as `other/<word>`, and becomes a type through the
-review once it is common. A hand-written line is permanent and costs no model calls: the graph is re-derived from the
-cached readings. Add types freely; to retire one, merge it (add it to another type's `aka`) rather than delete it, so
-nothing already read is lost. `ALIASES.md` (`- canonical = other-id`, `not: a / b`; a line the curator wrote ends
-with `| why: … | by: curator <date>`: delete it and write `not:` when it is wrong) and `CONFLICTS.md` (`- a > b`
-makes a supersede b without touching either note; `dropped: …` lines are written by `drop`, leave them) are the other
-two files at the root that are yours.
+## The vocabulary is files you may edit, never the code
+`memory/KINDS.md` (kinds of note: prefixes, areas, roles), `memory/TYPES.md` (types of thing), `memory/EDGES.md`
+(types of link, each with the question words that make `ask` follow it: `walk:`) and `memory/TAGS.md` (themes that
+notes in different folders share) all follow one rule. Keepers use what a list says. A word that fits nothing is
+kept as the keeper gave it and counted at every dream. Once it is common (`promote:`, within `budget:`), one review
+call answers it by meaning: alias, new (a line marked proposed, which goes back after its probation if it stays
+rare), label (kept as a word, asked again only when its uses double) or drop. Readings are resolved through the lists
+as they stand, so an edit relabels every note at the next merge and no note is read again. A hand-written line is
+permanent and costs no model calls. To retire a line, add it to another line's `aka:` rather than delete it. The
+seeds cover data, analytics, software and finance work; `pack: software|research|ops` adds a domain's lines.
+`ALIASES.md` (`- canonical = other-id`, `not: a / b`; a line the curator wrote ends with `| why: … | by: curator
+<date>`: delete it and write `not:` when it is wrong) and `CONFLICTS.md` (`- a > b` makes a supersede b without
+touching either note; `dropped: …` lines are written by `drop`, leave them) record decisions about particular things.
+Whether two names are one thing is decided by evidence, never by the names alone: what each thing is and what it is
+linked to. Two things a note links are always two things. The full rule, and which list a word belongs in:
+`guides/vocabulary.md`.
 
 ## Setting a memory up (once, for a new body of work or material)
 If `memory/SETUP.md` exists, read it before anything else: it says what this memory is for, what a note is here and
@@ -739,7 +754,8 @@ helpers read.
 4. **Start the vocabulary from what you saw, and keep it small.** `KINDS.md`: the kinds these notes have, with the
    prefixes and folders that mark them. `TYPES.md`: the things people will look up. `EDGES.md`: the links that
    matter, each with the question words that follow it (`walk:`). `TAGS.md`: the tags in use, each with its
-   definition. Leave out a line you are unsure of: a word that fits nothing is kept and offered again later.
+   definition. Leave out a line you are unsure of: a word that fits nothing is kept and offered again later. Where
+   the lists start for your kind of work: `guides/scenarios.md`.
 5. **Take the material in.** Notes as they are into `memory/<area>/`; another base with `memory.py absorb`; what
    cannot be a note (a transcript, a log, code) stays where it is and notes point at it. In git, ignore
    `memory/_dream/*` and keep `!memory/_dream/notes/`: what a keeper read is paid for once.
@@ -766,6 +782,14 @@ CLAUDE.md holds standing instructions people wrote; auto memory holds what you l
 hold the work itself, with lineage, and travel with the repository. `ask` also reads your auto-memory topic files in
 the same call and never writes there. To keep the digest in context every session, add one line to CLAUDE.md:
 `@memory/DIGEST.md`. Never the same thing in two places: if CLAUDE.md already says it, write no note.
+
+## Guides, read when the work calls for them
+- `guides/vocabulary.md`: the one rule every list follows, its settings and defaults, which list a word belongs in,
+  and how names of one thing are joined (and when they never are).
+- `guides/scenarios.md`: where the lists start for analytics, software, finance, research, operations, a personal
+  memory, another base taken in, and a corpus of thousands of notes.
+- `guides/knowledge-graph.md`: the graph page for a memory or for any graph (`scripts/graph_page.py`): the least data
+  it works with, and the fewest fields for what people want to see.
 ```
 
 `skills/memory-dream/agents/memory-dreamer.md` (the helper agent for the no-API-key path):
@@ -785,11 +809,237 @@ note of the packet, in the order given. Copy quoted text from the note it belong
 Touch nothing else.
 ```
 
+`skills/memory-dream/guides/vocabulary.md` (an optional guide SKILL.md points to):
+
+```markdown
+# Vocabulary: one rule for every list
+
+Read this when you set a memory up, edit one of its lists, or need to know why a word was offered, kept or refused.
+
+Six files at the root of `memory/` hold what the notes may be called. Four are vocabularies, run by one rule; two
+record decisions about particular things. All six are yours to edit, and editing them costs no model calls.
+
+| file | holds | a line | a keeper's own word, when nothing fits |
+|---|---|---|---|
+| `KINDS.md` | kinds of note: a decision, a finding, a dataset's card | `- kind: what it is \| prefix: \| area: \| family: \| role: \| aka:` | `other: <word>`: the note counts as `note`, the word is kept |
+| `TYPES.md` | types of thing: a model, a dataset, a person | `- type: what it is \| aka: \| family: \| not:` | kept as `other/<word>` |
+| `EDGES.md` | types of link, read "X <type> Y" | `- type: what it means \| aka: a, ~b \| walk: \| hops: \| shape:` | kept as `other/<label>` |
+| `TAGS.md` | themes that notes in different folders share | `- tag: what it means \| aka: \| family:` | `other: <word>`, kept as a word |
+| `ALIASES.md` | which names are one thing | `- a = b \| why: … \| by: …` and `not: a / b` | |
+| `CONFLICTS.md` | which of two live notes is current | `- a > b`, `compatible: a / b`, `- a ? b` | |
+
+## The rule
+1. **Constrained open.** A keeper (the cheap model that reads notes) is shown every list in its prompt and uses it.
+   What fits nothing is never forced onto a line and never lost: the keeper's own word stays in its reading.
+2. **Counted, for nothing.** Every merge (each `dream`, no model) counts each word outside a list: its uses, the
+   notes and the areas they are in, and three examples.
+3. **The bar and the budget.** A word is offered once it is over `promote:` and its list has room under `budget:`.
+   A full list offers nothing and says so (C7).
+4. **One review for every list.** One call answers each offered word by what it means and how the examples use it,
+   never by how it is spelled: `alias X` (another word for X), `new: <what it means, and how it differs from the
+   closest line>`, `label` (keep it a plain word) or `drop` (not a word of this list).
+5. **Code admits the answer.** alias: the word joins X's `aka:`. new: a line marked `(proposed <date>)`, if the
+   budget has room. label: `keep: word ×uses (date)`, and the word is not offered again until its uses double.
+   drop: the word goes on the `drop:` line. An answer about a word that was not offered is ignored.
+6. **Applied at every merge, read once.** A reading is kept as the keeper gave it and resolved through the lists
+   as they stand at each merge: a new alias or line relabels every note at once, and no note is read again.
+7. **The next reading sees it.** Each keeper's prompt is built from the files at the start of a run.
+8. **Probation.** A `(proposed …)` line still under the bar after `probation:` days goes back to being a word (0
+   calls). Take the mark off to keep a line for good.
+9. **A person's line is permanent.** Write, merge or retire lines by hand; the next merge applies them. To retire
+   a line, add it to another line's `aka:` rather than delete it, so nothing already read is lost.
+
+Every list takes the same settings: `promote: U uses, N notes, A areas`, `budget: N`, `probation: D days`,
+`pack: name` (a domain's seed lines), `drop: a, b`, and the `keep:` line that the review writes.
+
+| list | promote | budget | probation | seeded with |
+|---|---|---|---|---|
+| KINDS | 5 uses, 5 notes, 2 areas | 40 | 60 days | 23 kinds; `pack: research, ops` |
+| TYPES | 5 uses, 5 notes, 2 areas | 40 | 60 days | 27 types; `pack: research, ops` |
+| EDGES | 5 uses, 5 notes, 2 areas | 24 | 60 days | 8 types; `pack: software, research, ops` |
+| TAGS | 3 uses, 3 notes, 1 area | 30 | 60 days | none: a tag belongs to one base |
+
+A tag's bar is lower because a theme is shared by fewer notes, and it may live in one area.
+
+## Which list a word belongs in
+- What a note **is** goes in KINDS. Keep kinds few, a dozen to two dozen: a kind decides what heads the digest, what
+  is compared for disagreement, and what answers a question.
+- What a **thing** is goes in TYPES: the things people will look up by name.
+- How two things **relate** goes in EDGES, with the question words that follow the link (`walk:`). A link nobody
+  will ask along stays a label.
+- What notes **are about** across folders goes in TAGS: a regulation, a risk theme, a recurring process. A tag never
+  repeats what the folder (the project), the kind (a decision) or the things (a model's name) already say.
+- None of these: a project or area is a folder; a status or a date is frontmatter (`updated:`, `supersedes:`); a
+  person is a thing of type `person`, and their taste is a note in `prefs/`; a number, a file or a date is never a
+  thing (`drop:`).
+
+Use as few as serve. Start from what you saw (SKILL.md, setting up, step 4) and leave out any line you are unsure of:
+the loop adds what proves common, and a proposed line nobody uses goes back after its probation.
+
+## Who is the same: identity by evidence
+Names of things are joined in five ways: the same id once folded (case, spaces, `_`, `.` and `-` do not count), the
+surface rule (an id that exactly one other thing writes as one of its names), the curator (one call per folder whose
+things changed: which of them are one thing under two names), the review (pairs that some note writes in the same
+words), and a person (a line of ALIASES.md).
+
+The curator and the review read the same card for each thing: its type, how the notes write it, how many notes name
+it, what its own note says it is, what the notes link it to, and a line that mentions it. A pair also shows what the
+two are both linked to. One thing under two names is the same kind of thing, described alike and linked to the same
+things by the same relations. A shared word in two names is not evidence.
+
+The script holds these, whatever an answer says:
+- two versions (v2, v3) are two things;
+- `not: a / b` stands until a person removes it;
+- two things that each have a note of their own are two things;
+- a folder's curator joins only names that are used in that folder alone;
+- two things a note links to each other are two things: no rule joins them, the curator's or the review's join is
+  refused, and a person's join is reported (C19).
+
+To undo a wrong join, delete its line in ALIASES.md and write `not: a / b`. The same goes for words in a list:
+whether `fit-on` means `trained-on` is the review's `alias` answer, decided from the definitions and the examples.
+
+## What to watch
+`memory.py check` lists the warnings. C7: a list is full (raise its budget or merge lines). C12: a link does not fit
+its type's shape. C13: a type was removed by hand, and its things keep the word. C17: a tag written in notes that
+TAGS.md does not list; it is counted and offered like any other word. C19: a line of ALIASES.md joins two names that
+a note links. `dream --review` asks the review now. Without a model command its prompt waits in
+`_dream/pending/review.prompt.md`, and the answer (`review.json` beside it) is taken at the next dream.
+```
+
+`skills/memory-dream/guides/scenarios.md` (an optional guide SKILL.md points to):
+
+```markdown
+# Scenarios: starting the lists for a kind of work
+
+Read this at step 4 of setting a memory up (SKILL.md), after you have looked at the material. Every scenario uses the
+same rule (guides/vocabulary.md); what changes is where the lists start. Start small: a line you leave out is kept as
+the keeper's word and offered once it is common, while a line you add needlessly is one more choice in every reading.
+
+For each scenario: **folders** (areas), **lists** (what to add to the seeds), **tags** (themes worth a line from the
+start, if any) and **prove** (the kind of question SETUP.md's five should ask).
+
+## Analytics and data science (the seeds)
+- folders: one per project or study; `prefs/` per stakeholder; `glossary/` for metrics defined once.
+- lists: nothing to add. The seeded kinds (`exp- fnd- dec- q- ds- feat- model metric`), types (dataset, segment,
+  feature, model, metric) and links (uses, trained-on, evaluated-on, measured-by, replaces) cover it.
+- tags: none at first. Later a theme that runs across projects: a regulation, a data-quality issue, a programme.
+- prove: what came of an experiment; which model is current and what it was trained on; what uses a table.
+
+## Software
+- folders: one per service or repository area; `howto/` for procedures; `corrections/` for mistakes not to repeat.
+- lists: `pack: software` in EDGES.md (calls, implements, deployed-to, configures, tested-by, blocked-by). Kinds
+  (component, design, bug, release) and types (service, module, environment, release, test, issue) are seeded.
+- notes point into code with `path#symbol`, never a bare `path:line`; `ask` marks a note STALE when its symbol is gone.
+- tags: cross-cutting concerns that no folder holds: security, performance, a migration in progress.
+- prove: why a design was chosen; what calls a service; which bug a release fixed.
+
+## Finance and risk
+- folders: one per desk, model or portfolio; `reporting/` for the rules of recurring reports.
+- lists: the seeds cover it: types (instrument, portfolio, account, counterparty, policy, scenario, desk), kinds
+  (risk, incident, model, decision, requirement, report). Add a type only for what people look up by name.
+- tags: the regulations and controls a note bears on. These cut across desks, so they are tags, not folders.
+- prove: which limit or decision is current (two live decisions on one thing are compared: CONFLICTS.md); what a
+  model was validated on; who owns a risk.
+
+## Research and literature
+- folders: one per question or line of work; a paper's note sits with the question it serves.
+- lists: `pack: research` in KINDS.md (hypothesis `hyp-`, paper `paper-`), TYPES.md (paper, method) and EDGES.md
+  (cites, extends, contradicts, reproduces).
+- tags: methods or datasets shared across questions, when they are not things people look up by name.
+- prove: what a paper claims and what contradicts it; which hypotheses are still open.
+
+## Operations
+- folders: one per system or service; `runbooks/` for procedures (the ops pack makes its notes runbooks).
+- lists: `pack: ops` in KINDS.md (runbook `rb-`, change `chg-`), TYPES.md (monitor, queue) and EDGES.md (alerts-on,
+  runs-after, escalates-to, rolled-back-to).
+- tags: failure themes that recur across systems: capacity, a dependency, a vendor.
+- prove: what to do when an alert fires; what changed before an incident; what a job runs after.
+
+## A personal or assistant memory
+- folders: `prefs/` (`prefs/me-<topic>.md`, `prefs/<first>-<last>-<topic>.md`), `corrections/`, `howto/`, and a folder
+  per piece of work as it comes.
+- lists: the seeds; no model is needed, since kinds come from folders and prefixes. Beside Claude Code's own memory,
+  add `@memory/DIGEST.md` to CLAUDE.md.
+- tags: none, unless the person tags their own notes.
+- prove: how this person wants a chart, a report or a reply; the mistake not to make again.
+
+## Someone else's base, taken in
+- `memory.py absorb <folder> --as <name>` makes it an origin in `memory/<name>/`. Its own ALIASES.md speaks of its
+  own things; a name both sides use is two things until you write one line: `- auc = <name>:auc`.
+- lists: leave yours as they are. Its words are counted like any keeper's and offered when they are common.
+- prove: one question it answers that your notes do not, asked with `-p <name>`.
+
+## A large corpus (thousands of notes)
+- cost first: `memory.py dream --dry-run --packets` says how many calls and about how much. Tell the user before
+  spending. Then `dream --packets` on a cheap model, or helper agents (`memory-dreamer`) on the packets in parallel.
+- lists: raise each bar with the size of the corpus (for example `promote: 10 uses, 10 notes, 3 areas`) so the review
+  sees only what is common, and keep each budget small enough for a person to read the list in a minute.
+- the curator reads up to 60 folders a dream; the rest wait for the next one. Only folders whose things changed are
+  read again.
+- tags: start with none and let the loop propose them; with many folders, `promote: 5 uses, 5 notes, 2 areas` in
+  TAGS.md keeps tags to themes that cross folders.
+- prove: five questions across folders, plus one that needs a set (`ask --list`), not a search.
+```
+
+`skills/memory-dream/guides/knowledge-graph.md` (an optional guide SKILL.md points to):
+
+```markdown
+# The knowledge-graph page, for a memory or for any graph
+
+Read this when someone wants to see the things and links of a memory, or of any other data, as one page that
+opens offline.
+
+- A memory: `memory.py viz` writes `memory/_dream/knowledge-graph.html`, and every dream that read links refreshes it.
+  It needs a memory dreamed with a model command, because the things and links are what its keepers read.
+  `--theme paper|star|gala|moon|fanfare|noir` picks the look it opens in; a switch in its header changes it.
+- Any other graph: `python3 <this skill>/scripts/graph_page.py graph.json out.html [--title "…"] [--theme …]
+  [--colour COLUMN]`, or `graph_page.py nodes.csv links.csv out.html`. The script's own help states the whole contract.
+  The page holds 20,000 things and 45,000 links.
+
+## The contract: the least it works with
+- A **thing** needs an `id`. `label` is the name shown (the id when absent); `group` puts it on an island (without
+  groups, the islands are the link communities).
+- A **link** needs a `source` and a `target`. `type` says what it is (links-to when absent); `direction` is `->`
+  (the default), `<-`, or `o-o` (none: equal, related, the same either way); `text` is the line that says so.
+- **Every other field is a tag**, and nothing is declared. A tag is one column, and a row has a value, several (a
+  list, or `;` between them) or none (absent, empty, n/a, none, unknown). The values tell its sort:
+  - **category**: values that repeat (type, team, status), or paths whose levels are split by `/` (dataset/table).
+  - **time**: ISO dates or moments, read as year / month / day.
+  - **number**: every value a number. A thing's `size` sizes its dot, and a link's `weight` its line and how hard
+    it pulls its ends together.
+  - **text**: long or mostly unique values (a definition, a citation), shown whole and searched.
+- Weight, time and provenance are tags like any other. Provenance is whichever tags say where a link comes from: a
+  category (the system that found it), a time (when), a text (the citation).
+- Optional entries only rename or overrule what the values say: `columns` (`name`, `parents` for a hierarchy over
+  flat values, `names`, `colours`, `sort`, `use`), `link_columns`, and `link_types` (how a type reads forwards and
+  back, and its direction).
+
+## The fewest fields for the goal
+Add a column only for a question people will ask of the picture.
+
+| they want to see | give |
+|---|---|
+| what is linked to what | ids, and links with their two ends: nothing more |
+| what kind of link each is | the link's `type`; `direction` only where it is not source to target |
+| which things belong together | `group`, or nothing (the communities of the links) |
+| things coloured by one property | one category column (`--colour` picks it; `type` is first by default) |
+| a hierarchy | values written as paths (`dataset/table/daily`), or `parents` in `columns` |
+| when | one ISO time column |
+| how much, or how sure | one number column; `size` for things, `weight` for links |
+| why a link is there | the link's `text`, plus a tag for its source |
+| what a thing is | one text column (a definition) |
+
+Leave out ids written again as tags, columns with one value everywhere (the legend shows no chip for them), and
+anything a reader cannot act on. A memory's page already carries type (family/type), project, tag (TAGS.md, its
+`family:` as levels), when last noted and About for each thing, and for each link the kind of the note that states
+it, when, and whether that note was replaced.
+```
+
 <--->
 
 ## Appendix B — the graph contract, verbatim: `.specs/memory-dream/CONTRACT.md`
 
-_Part 6 · copied at commit 5de6ac4. Schema 1; `memory.py check` validates against it (A38)._
+_Part 6 · copied at commit 342daa3. Schema 1; `memory.py check` validates against it (A38)._
 
 ## memory-dream — the graph contract (schema 1)
 
@@ -824,12 +1074,16 @@ Produced by `build()`, written as `_dream/graph.json` (≤ `MEMORY_WIDE` notes) 
 | `vocab` | object | `{types, budget, promote: [uses, notes, areas], probation, labels, below, demote: [type]}` — the relation vocabulary (EDGES.md) |
 | `proposed_types` | list of label | type words (things typed outside TYPES.md) over the `promote` bar of TYPES.md, offered to the review |
 | `tvocab` | object | the same shape as `vocab`, for TYPES.md |
+| `proposed_kinds` | list of label | kind words (a keeper's `other: <word>` for a note no kind of KINDS.md fits) over the `promote` bar of KINDS.md, offered to the review |
+| `kvocab` | object | the same shape as `vocab`, for KINDS.md |
+| `proposed_tags` | list of label | tag words (on notes' `tags:` lines or in their readings, outside TAGS.md) over the `promote` bar of TAGS.md, offered to the review |
+| `gvocab` | object | the same shape as `vocab`, for TAGS.md |
 | `dedup` | object | counters from entity merging (`mentions`, `ids_as_written`, `after_folding`, …) |
-| `checks` | list of `{code, msg}` | warnings, sorted by code; codes `C1`–`C18` (§5) |
+| `checks` | list of `{code, msg}` | warnings, sorted by code; codes `C1`–`C19` (§5) |
 | `dropped` | list, optional | what `drop` recorded: `{path, date, replaced, built_on_by, left_newest}` (below) |
 | `pointers` | object, optional | `{note path: [pointer]}`: what the notes point at in the project's files (below) |
 | `unplaced` | list, optional | lineage a reading states that no note answers to (C18): `{note, field, i, what, quote, asked}`, `field` being `built_on` or `replaces` and `i` its place in the reading's list; `asked` once the line it stands on has been through the second reading |
-| `tags` | object, optional | `{tag: [note paths]}`, from the `tags:` line of each note's frontmatter read through `TAGS.md` (§6): a listed tag under its name whatever spelling the note used, a word that is not listed under its own folded spelling (C17). In `manifest.json` too |
+| `tags` | object, optional | `{tag: [note paths]}`, from the `tags:` line of each note's frontmatter and the `tags` of its reading (§4), both read through `TAGS.md` (§6): a listed tag under its name whatever spelling the note used, a word that is not listed under its own folded spelling (C17). In `manifest.json` too |
 
 **pointer** — `{to, path, line, quote, symbol, text, state, now, of, form}`. A note's text points into a file as
 `path#symbol`, `path:line "quoted words"` or `path:line`; `to` is the path as written and `path` the file it is,
@@ -865,8 +1119,9 @@ a memory too large for `graph.json`.
   the area's last part), else the kind whose prefix is the first or second part of the filename (`exp-014`,
   `aml-find-kyc-lift`; the prefixes are the `prefix:` fields of `KINDS.md`, seeded `exp- feat- ds- dec- fnd- find-
   finding- q- metric- model- pref- rule- term- plan- req- risk- inc- rpt- report- svc- mod- lib- sys- adr- design- bug-
-  fix- rel- release-`), else `model` for a name ending `…-vN`, else the dreamer's kind unless it is `note` (and only a
-  kind `KINDS.md` lists), else `note`. The folder and the name its writer gave a note come before a dreamer's reading
+  fix- rel- release-`), else `model` for a name ending `…-vN`, else the dreamer's kind unless it is `note` (a kind
+  `KINDS.md` lists or an alias of one, its `aka:`; a reading's `kind_word` counts as the kind it names once KINDS.md
+  has it), else `note`. The folder and the name its writer gave a note come before a dreamer's reading
   of it (RESULTS phase L; until 2026-11-11 the dreamer's kind came second), and a folder that has a kind before a
   first word (phase N: `howto/model-card-required-fields` is a rule, not a model).
 - `updated`: frontmatter `updated:` or `modified:` (first 10 chars), else a `log/YYYY-MM-DD` filename, else mtime.
@@ -949,9 +1204,11 @@ relation is "current" when one of its evidence notes is live).
 
 ### 4. Caches and the manifest (`_dream/`)
 
-- `notes/<sha12>.json` — one extraction per note content: `{kind, entities: [{id, type, label, as, lines}], relations:
+- `notes/<sha12>.json` — one extraction per note content: `{kind[, kind_word][, tags], entities: [{id, type, label, as, lines}], relations:
   [{s, type, label, o, quote, line}], refs, built_on: [{what, quote, line[, asked]}], replaces: [the same], dropped:
-  {entities, relations}, path, sha, model, indexed_at}`. `built_on` and `replaces` are what the note says of itself,
+  {entities, relations}, path, sha, model, indexed_at}`. `kind_word` is the keeper's own word for a note no kind fitted
+  (`other: <word>`) and `tags` its themes as given (at most 5): both are kept as read and resolved through KINDS.md and
+  TAGS.md at every merge. `built_on` and `replaces` are what the note says of itself,
   the document, kept only with words found in the note; a reading made before they existed has neither. `what` is
   a note's file name, a thing's id, or, when a keeper could name neither, the note's own words for it. `asked`: the
   line the item stands on has been read a second time, alone and beside the folder's notes, and this item is one
@@ -1012,15 +1269,26 @@ note, or a note whose replacement was dropped and which is the newest left of it
 without a `drop`: nothing is written or deleted for it; `memory.py drop <path> --yes` records it, or the file comes
 back · `C16` a note points at a file that is gone, or at a symbol or words that are no longer in it: the note is
 stale, not wrong, and stays · `C17` a word on a note's `tags:` line that `TAGS.md` does not list, once a word with
-the number of notes: it still filters, and it is not a tag until it has a line with its definition · `C18` a note
+the number of notes: it still filters, and it is not a tag until it has a line with its definition (it is counted with the
+words keepers read, and offered to the review over the bar of TAGS.md) · `C18` a note
 says in its own words that it builds on or replaces something, a keeper read it, and no note answers to the name,
 neither as written nor by a path or id in the words themselves: the link is not in the lineage until a second
-or third reading or a line of frontmatter names the note.
+or third reading or a line of frontmatter names the note · `C19` a note links two names that a line of `ALIASES.md`
+joins (the link is dropped, as a thing is not linked to itself): two things a note links are two things, so take one
+name off the line and write `not: a / b`, unless the note is wrong. No rule of the merge, no curator and no review
+joins two names that a note links; only a person's line can, and this is the report of it. `C7` covers kind words and
+tag words as it covers relation labels and type words.
 
 ### 6. The user-owned files
 
-The domain is three registries, seeded by the first dream (`KINDS_SEED`, `TYPES_SEED`, `EDGES_SEED` in `memory.py`) and
-read by `load_domain()` before every command. A line is `- name[ (proposed YYYY-MM-DD)]: definition | field: value | …`,
+The domain is four vocabularies under one rule (`skills/memory-dream/guides/vocabulary.md`): `KINDS.md`, `TYPES.md`
+and `EDGES.md`, seeded by the first dream (`KINDS_SEED`, `TYPES_SEED`, `EDGES_SEED` in `memory.py`) and read by
+`load_domain()` before every command, and `TAGS.md`, which has no seed. Each takes `promote: U uses, N notes, A areas`,
+`budget: B` and `probation: D days` (defaults: KINDS 5/5/2, 40; TYPES 5/5/2, 40; EDGES 5/5/2, 24; TAGS 3/3/1, 30; 60
+days each), `drop: a, b` and `keep: word ×uses (YYYY-MM-DD), …`: a word the review answered `label` for, offered again
+only once its uses are twice that. A word outside a file is counted at every merge and offered to the review over
+the bar while the budget has room; the review's alias goes on the line's `aka:`, its new line is marked proposed, and a
+proposed line still under the bar after the probation goes back to a word. A line is `- name[ (proposed YYYY-MM-DD)]: definition | field: value | …`,
 the fields after the definition in any order; `#` lines are comments; a hand-written line is permanent. Editing any of
 them re-derives the graph from the cached readings at the next dream, with no model call and no note re-read (the
 readings keep the dreamer's raw words; the registries decide what they mean).
@@ -1030,7 +1298,8 @@ readings keep the dreamer's raw words; the registries decide what they mean).
 tree), `role: question|evidence|state|rule|reference|log` (project work = question, evidence, state), `digest: current`
 (heads the digest), `conflicts: yes` (compared for disagreement; a child kind counts as its family), `answers: yes` (a
 note of this kind built on a question answers it), `replaces: a, b` (kinds or families outside its own that a note of
-this kind may replace when a keeper reads it so: the seed gives `correction` `replaces: term`), `not: …`.
+this kind may replace when a keeper reads it so: the seed gives `correction` `replaces: term`), `aka: a, b` (a keeper's
+words read as this kind), `not: …`. A kind with a `family:` and no `role:` takes its family's role.
 
 `TYPES.md` (types of thing): `promote: U uses, N notes, A areas` · `budget: B` · `probation: D days` · `pack: research,
 ops` · type lines with `aka: a, b` (the dreamer's words read as this type), `family: parent`, `not: …` · `drop: a, b`
@@ -1046,8 +1315,9 @@ question that make `ask` follow this type from a thing the question names; `*` a
 link read the other way, as in "what uses X") and `hops: 2` (the links chain: an input of an input is an input, and
 `ask` goes two steps) · `drop: a, b`. A type line without `walk:` or `hops:` takes the seed's line of the same name,
 so a file written before the fields existed answers as it did; a type the seed does not have is followed only once
-its line says by which words. `TAGS.md` (tags): `- tag: what it means | aka: other spellings`. It has no seed: a tag
-belongs to one base, and a writer picks from this list. `ALIASES.md`: `- canonical = other, … [| why: … | by: …]`
+its line says by which words. `TAGS.md` (tags): `- tag: what it means | aka: other spellings | family: parent` (the
+tree the graph page shows the tag column in). It has no seed: a tag belongs to one base. Writers pick from it and
+keepers are shown it; both may give a word it lacks. `ALIASES.md`: `- canonical = other, … [| why: … | by: …]`
 (what follows the first ` | ` is for people: the reason and who decided; the curator signs its lines `by: curator
 <date>`, and a line without `by:` is a person's) ·
 `not: a / b`. `CONFLICTS.md`: `- a > b` (a supersedes b) · `compatible: a / b` · `- a ? b` (unsure) · `dropped:
@@ -1097,7 +1367,7 @@ origin by adding the file. What changes for the notes under it, and nothing else
 
 ## Appendix C — the build guide, verbatim: `BUILD-GUIDE.md` §3–§10
 
-_Part 7 · copied at commit 5de6ac4. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
+_Part 7 · copied at commit 342daa3. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
 
 ### 3. The design in one page
 
@@ -1159,8 +1429,11 @@ frontmatter says. How an agent sets a memory up and has it read is the skill's s
 
 ```
 skills/memory-dream/
-  SKILL.md                     what the agent reads (51 lines): read, write, end of session
+  SKILL.md                     what the agent reads: read, write, end of session, the vocabulary, setting up
+  guides/                      optional: vocabulary.md (the one rule), scenarios.md (where the lists start),
+                               knowledge-graph.md (the graph page for any data)
   scripts/memory.py            ask · dream · viz · check · log  (stdlib, ~3,200 lines)
+  scripts/graph_page.py        the knowledge-graph page for any graph (JSON, or two CSV tables), through memory.py
   scripts/stores.py           optional hosted stores (PostgreSQL, Neo4j) and the CSV export; imported only when MEMORY_STORE is set
   assets/viz.html              viewer template (html-lite habits; normal, overview and area modes)
   assets/knowledge-graph.html  the page to show a memory, with d3.v7.9.0.min.js and its LICENSE-d3 (§5.10)
@@ -1168,7 +1441,8 @@ skills/memory-dream/
 .specs/memory-dream/           build-spec.md (v0.4 spec), RUNBOOK.md, RESULTS.md (rounds 1–4)
 tests/
   fixture/memory/              churn-2026: 25 notes + 5 log days (hand-written ground truth)
-  acceptance.py                40 checks: A1–A20 (spec), A24 (big memories), A25–A43 (phases A–J), fake dreamer, ~30 s
+  acceptance.py                46 checks: A1–A20 (spec), A24 (big memories), A25–A43 (phases A–J), A44–A49 (one
+                               vocabulary rule, identity by evidence), fake dreamer, ~30 s
   retrieval_gate.py            CI floors for the model-free retrieval numbers: bank (326 questions) and software fixture
   store_parity.py              a hosted store (MEMORY_STORE=postgres) gives identical ask output and the same graph
   fixture-software/memory/     a software project (payments-api: services, modules, ADRs, bugs, releases, an incident)
@@ -1274,7 +1548,8 @@ history, and that version put 12 of 209 symbols on the line of a call or of a lo
   C6 no `# ` line, C7 review pending (labels, budget), C8 bad EDGES/ALIASES/CONFLICTS line, C9 NUL bytes in a note
   (binary-looking), C10 conflict pending, C11 a note over 40 lines, C14 built on a dropped note or left the newest of
   its line by a drop, C15 gone without a drop, C16 a pointer into a file that no longer holds, C17 a tag that
-  TAGS.md does not list, C18 lineage a note states in prose that no note answers to. `check` also runs the memory's own proof (`proof`): each `- question? -> note` line of
+  TAGS.md does not list, C18 lineage a note states in prose that no note answers to, C19 a note links two names that a
+  line of ALIASES.md joins. `check` also runs the memory's own proof (`proof`): each `- question? -> note` line of
   `memory/SETUP.md` is put to `ask` alone, and the line counts when a section of the answer is headed by that note.
 
 #### 5.5 The graph, vocabulary half (`build`, `merge_entities`)
@@ -1282,7 +1557,8 @@ history, and that version put 12 of 209 symbols on the line of a call or of a lo
 Entities, from every note's extraction:
 1. Key = `fold(id)`: lowercase, runs of space `_` `.` `-` → `-` (`cards.txn_daily` = `cards-txn-daily`).
 2. Union-find: every ALIASES.md line merges its ids (forced); `not: a / b` lines and version pairs (ids differing
-   only in digits) are never merged.
+   only in digits) are never merged, and no rule merges two ids that a reading links to each other (`read_links`:
+   two things a note links are two things; a person's line that joins them is reported, C19).
 3. Surface rule: if exactly one other entity writes this id as a surface form (and ≤ 3 users), merge.
 4. Keep an entity only if it has a home note (a note whose filename is its id), is mentioned in ≥ 2 notes, or is
    named in ALIASES.md; drop a name that the `drop-names:` line of `TYPES.md` matches, as written or folded (the
@@ -1304,6 +1580,16 @@ Type words go through the same gate (`vocab_gate`, shared): `TYPES.md` has its o
 `probation`; the review's `etypes` answers alias a word onto a type, admit `new: <definition> | family: <F>`, keep the
 word, or drop it; `tvocab` and `proposed_types` in the graph mirror `vocab` and `proposed`. A type line removed by hand
 from either file while readings still use its word is reported (C13); the readings show as `other/<word>`.
+Kind words and tag words go through the same gate and the same review, and one function admits every answer
+(`apply_terms`): a keeper's `other: <word>` for a note no kind fits is kept in its reading as `kind_word` (the note
+counts as `note` until KINDS.md has the kind or an alias, `aka:`, and then counts as that kind with no re-read; a kind
+given a family takes its family's role); tags come from notes' `tags:` lines and from the keepers' `tags` (at most
+three a note, given from the TAGS section of their prompt), both resolved through TAGS.md at every merge. `KINDS.md`
+takes `promote` (5/5/2), `budget: 40` and `probation`, and `TAGS.md` `promote: 3 uses, 3 notes, 1 area`, `budget: 30`
+and `probation`; the review answers `kinds` and `tags` as it answers `etypes`; `kvocab`/`proposed_kinds` and
+`gvocab`/`proposed_tags` mirror `vocab`/`proposed`. In every file a `label` answer is remembered on a `keep:` line
+(`word ×uses (date)`) and the word is offered again only once its uses double, so a word the review kept is not asked
+about on every run. The rule as an agent reads it: `skills/memory-dream/guides/vocabulary.md`.
 Conflicts: two live `…-vN` siblings in one area, two live notes with the same title, or live notes of one kind
 (decision, model, finding) in one area, unlinked, sharing an id-like title token or two rare words, are queued (C10,
 20 per review); verdicts persist in `memory/CONFLICTS.md` (`- a > b` becomes lineage, `compatible: a / b`, `- a ? b`);
@@ -1311,25 +1597,30 @@ notes are never edited.
 
 The seed vocabulary (8 types): `uses`, `produces`, `part-of`, `trained-on`, `evaluated-on`, `measured-by`,
 `replaces`, `owned-by` (full alias lists and `shape:` fields in `EDGES_SEED`; a file written before shapes existed keeps
-the seed's shapes). The seed thing types (24, `TYPES_SEED`): person, team, organisation, term, metric, tool, document;
+the seed's shapes). The seed thing types (27, `TYPES_SEED`): person, team, organisation, term, metric, tool, document;
 dataset, segment, feature, model, pipeline, dashboard; service, module, environment, release; instrument, portfolio,
-account, counterparty, policy, scenario, desk — each with aliases, a family where it has one, and `not:` on the most
-confusable. The seed kinds (19, `KINDS_SEED`): question, experiment, finding, incident, decision, plan, requirement,
-risk, dataset, feature, model, metric, report, term, preference, rule, correction, log, note, with prefixes, areas,
+account, counterparty, policy, scenario, desk; flag, test, issue — each with aliases, a family where it has one, and `not:` on the most
+confusable. The seed kinds (23, `KINDS_SEED`): question, experiment, finding, incident, decision, plan, requirement,
+risk, dataset, feature, model, metric, report, component, design, bug, release, term, preference, rule, correction,
+log, note, with prefixes, areas,
 families, roles and the `digest`, `conflicts` and `answers` flags. Evidence: 81% of 5,196 extracted links fit them and 365 of
 366 questions need lineage, a single note, or one of the 8 (`eval/type_coverage.py`, `eval/question_relations.py`);
 with Haiku on 70 notes the two-tier prompt gives 81% typed, 19% labels, 0 invented types (RESULTS "Phase C").
 
 Review candidates (`candidates`): new entities of the same type that some note writes with the same words; pairs with
-two different home notes are never queued. Nothing is proposed from how two names look. Do not bring a string
+two different home notes, or that a note links to each other, are never queued. Each side of a pair is shown by its
+card, the curator's (`thing_cards`, below), and the pair by what the two are both linked to (`shared_links`). Nothing is proposed from how two names look. Do not bring a string
 distance back: on the bank the ratio that used to do it (0.85) offered 46 pairs, 5 of them one thing (all plurals)
 and 41 siblings such as aml-oot-2026h1 / cli-oot-2026h1.
 
 The curator (`CURATE`, `Dream.cards`, `Dream.run_curate`): identity by reading. For each folder whose things changed
-since it was last read, one prompt lists them, each with its type, its written forms, the number of notes and one
-line that mentions it; the answer names the ones that are one thing under two names, each with a reason. A join is a
-line of `ALIASES.md`, `- a = b | why: … | by: curator <date>`. The script holds five rules whatever the answer says:
-both are on the folder's list; never two versions; never against a `not:` line; the name joined to another is used
+since it was last read, one prompt lists them, one card each (`thing_cards`): its type, its written forms, the number
+of notes, what its own note says it is (`is:`, that note's title), what the notes link it to (`links:`, the three best
+attested, → from it and ← to it) and a line that mentions it, from another note than its own; the answer names the
+ones that are one thing under two names, each with a reason. Identity is read from what a thing is and what it is
+linked to, never from a name alone. A join is a
+line of `ALIASES.md`, `- a = b | why: … | by: curator <date>`. The script holds six rules whatever the answer says:
+both are on the folder's list; never two versions; never against a `not:` line; never two things a note links; the name joined to another is used
 in this folder alone, and a thing whose note is in another folder is not renamed here; no line may come to join two
 things that each have a note. The folder's signature after the joins is kept in the manifest (`curated`), so the
 same things are not read twice; at most 60 folders a dream. With a command it runs before the review, `-j` folders
@@ -1511,7 +1802,7 @@ Per question:
 #### 5.8b The graph contract
 
 `.specs/memory-dream/CONTRACT.md` is the authority on every shape `memory.py` writes and reads: the graph (`graph.json`,
-`index.db`), the viewer's data island, the extraction cache, `store.db`, the manifest, the warning codes C1–C18 and the
+`index.db`), the viewer's data island, the extraction cache, `store.db`, the manifest, the warning codes C1–C19 and the
 grammar of EDGES.md, ALIASES.md, CONFLICTS.md and DIGEST.md. Every graph carries `schema: 1`; `validate()` checks a
 graph against the contract, `memory.py check` prints the result first, and A38 enforces it on the fixture (graph,
 `index.db` round trip, island). Build the viewer against the contract, never against the code.
@@ -1626,7 +1917,7 @@ when the page opens (tab order Timeline · Map · Connections; `#view=map` and `
 
 The viewer is for working in a memory; this page is for showing one. It holds the things that have a link and the
 links alone, and nothing in it knows a domain, so the same page serves any memory and any graph given as nodes and
-links (`demo/knowledge-graph/build.py`). `write_kg` fills it after every dream that read links, and `viz` rewrites
+links (`scripts/graph_page.py`). `write_kg` fills it after every dream that read links, and `viz` rewrites
 it; the page and d3 7.9.0 (ISC) sit in `assets/`, and it opens offline.
 
 1. **Islands.** A thing lives on the project holding at least 60% of the notes that name it among projects; a thing
@@ -1659,7 +1950,7 @@ it; the page and d3 7.9.0 (ISC) sit in `assets/`, and it opens offline.
    note that best says what each is); its links carry the stating note's kind, Stated (a time) and Replaced, and a
    relation whose EDGES.md backward name is itself has no direction. Any other graph's tags are every column of its
    nodes and links but the fields above, with `columns`, `link_columns` and `link_types` entries for the vocabulary
-   (`demo/knowledge-graph/build.py`, JSON or two CSV tables).
+   (`scripts/graph_page.py`, JSON or two CSV tables).
    The page colours by one column, chosen in the legend: the seven top-level values with the most things (each with
    2% of them) a colour each, the same hue for the same family in every memory, the rest one grey, "Everything
    else". The legend is a tree: › opens a value into the level under it (and "Other …" for those that stop at it),
@@ -1710,10 +2001,10 @@ it; the page and d3 7.9.0 (ISC) sit in `assets/`, and it opens offline.
 ### 6. Tests
 
 ```bash
-python3 tests/acceptance.py            # 40 checks, A1–A20, A24, A25–A43, with the fake dreamer, about 30 s
+python3 tests/acceptance.py            # 46 checks, A1–A20, A24, A25–A49, with the fake dreamer, about 30 s
 python3 tests/e2e.py                   # one run on both read paths: dream, ask, a file gone by hand, drop a note, the end of a line, a folder, absorb a base
 python3 tests/retrieval_gate.py bank   # the model-free numbers with floors (README Results); `software` for the second fixture
-python3 tests/kg_tags.py               # the knowledge graph's tag columns through build.py: CSV, JSON, parents, --colour
+python3 tests/kg_tags.py               # the knowledge graph's tag columns through graph_page.py: CSV, JSON, parents, --colour
 MEMORY_STORE_URL=postgresql://… python3 tests/store_parity.py postgres --bank   # needs psycopg: the PostgreSQL store (ADR-001)
 python3 tests/acceptance.py A6 A24     # some
 python3 tests/real_model.py            # Haiku on the fixture vs tests/truth.py (costs a few cents)
@@ -1888,13 +2179,14 @@ preferences 0.95 when the task names them, 0.84 when it names only their meeting
 
 ## Appendix D — prompts, seeds and tuned tables, verbatim from `memory.py`
 
-_Part 8 · extracted at commit 5de6ac4 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
+_Part 8 · extracted at commit 342daa3 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
 
 ### D.1 `EXTRACT` — the per-note prompt: fixed guidance, then `KINDS:`, `TYPES:`, `EDGES:` and `KNOWN:` from the registries (the static part is cached), then `NOTE`
 
 ```
 Index this memory note for retrieval. Reply with JSON only:
-{"kind": "one of KINDS",
+{"kind": "one of KINDS, or other: <word> for a kind of note none of them is",
+ "tags": ["a TAGS tag or one of its aliases; other: <word> for a theme no tag covers"],
  "entities": [{"id": "...", "type": "a TYPES type or alias, or other", "label": "the note's own word for what it is, 1-2 words",
                "as": ["text copied verbatim from the note"]}],
  "relations": [{"s": "entity id", "type": "an EDGES type or alias, or other", "label": "the note's own verb, 1-3 words",
@@ -1919,11 +2211,17 @@ opposite of it: leave that out. `what` is the file name of the note meant, witho
 lists it, however the text words it ("the dispositions dataset" is the note about that dataset); else its id in
 KNOWN, or the id you gave it under entities; and when none of these names it, the words the note uses for it. An
 item is never left out because the note it means cannot be named: a later reading places it.
+Tags: at most 3 themes the note is about that its folder, its kind and its things do not already say (a regulation, a
+risk, a recurring process). Use a TAGS tag or one of its aliases; give other: <word> only for a theme other notes would
+share (a word that becomes common is offered as a tag); [] when none fits. Kind: one of KINDS; when the note is a kind
+of note none of them is, other: <word> (the word is kept, and offered as a kind once it is common).
 KINDS: {kinds}
 TYPES:
 {types}
 EDGES:
 {edges}
+TAGS:
+{tags}
 KNOWN:
 {known}
 FOLDER (the notes of this folder, file name: first line):
@@ -1941,7 +2239,8 @@ RELATION TYPES, read "X <type> Y" ({n} of {budget} slots used):
 LABELS the indexer used that fit no type, each over the bar of {u} uses in {nn} notes across {a} areas
 (uses, notes, areas; up to 3 examples "X — Y: quote"):
 {proposals}
-ENTITY PAIRS that may name the same thing (id, type, surface forms, one context line each):
+ENTITY PAIRS that may name the same thing (each side: id, type, how the notes write it, what its own note says it is,
+what it is linked to, a line that mentions it; then what the two are both linked to):
 {pairs}
 LIVE NOTES of one kind in one area that may disagree (path · "title" «first line»; neither supersedes the other):
 {conflicts}
@@ -1949,11 +2248,22 @@ THING TYPES, read "X is a <type>" ({tn} of {tbudget} slots used):
 {types}
 TYPE WORDS the indexer used for things that fit no type, each over the bar (uses, notes, areas; up to 3 examples "id: as written"):
 {etypes}
+NOTE KINDS, what a note is ({kn} of {kbudget} slots used):
+{kinds}
+KIND WORDS the indexer gave notes that fit no kind, each over the bar (uses, notes, areas; up to 3 example notes):
+{kwords}
+TAGS, themes that notes share ({gn} of {gbudget} slots used):
+{tags}
+TAG WORDS that notes or their indexer used and no tag covers, each over the bar (uses, notes, areas; up to 3 example notes):
+{gwords}
 Reply with JSON only:
 {"types": {"<label>": "alias T" | "alias ~T" | "new: <one line: what the link means and how it differs from the closest type>" | "label" | "drop"},
  "entities": {"<a> / <b>": "same" | "different"},
  "conflicts": {"<a> / <b>": "<a> supersedes <b>" | "<b> supersedes <a>" | "compatible" | "unsure"},
- "etypes": {"<word>": "alias T" | "new: <one line: what the thing is and how it differs from the closest type> | family: <a listed family or the word itself>" | "label" | "drop"}}
+ "etypes": {"<word>": "alias T" | "new: <one line: what the thing is and how it differs from the closest type> | family: <a listed family or the word itself>" | "label" | "drop"},
+ "kinds": {"<word>": "alias K" | "new: <one line: what such a note is and how it differs from the closest kind> | family: <a listed kind or the word itself>" | "label" | "drop"},
+ "tags": {"<word>": "alias T" | "new: <one line: the theme, and how it differs from the closest tag> | family: <a listed tag or the word itself>" | "label" | "drop"}}
+Every word, in every list, by the same rule: decide by what it means and how the examples use it, never by how it is spelled.
 Map a label onto T when it names the same link as T, as a synonym ("alias T") or read in reverse
 ("alias ~T"). Answer "new: …" only for a link between two things that no listed type expresses and that
 the notes will keep using; name the closest type and the difference. Answer "label" to keep it as a plain
@@ -1961,7 +2271,14 @@ label. Drop only what links notes rather than things (answers, led-to, basis-for
 (asked-by, raised-by). When unsure between alias and new, alias; when unsure between new and drop, label.
 A type word: "alias T" when it is a kind of T; "new: …" only for a kind of thing people will keep looking up
 across notes; "label" to keep the word; "drop" for what is not a thing (a number, a file, a date).
-If unsure whether two entities are the same thing, answer different. Versions (v2, v3) are different.
+A kind word: "alias K" when such notes are K notes; "new: …" only for a kind of note people will keep writing;
+"label" to keep the word; "drop" for what is not a kind of note (a topic, a status).
+A tag word: "alias T" when it names the theme T names; "new: …" only for a theme that notes across the memory share
+and that their folders, kinds and things do not already say; "label" to keep the word; "drop" for what is not a
+theme (a status, a date, a person, the name of one project).
+Two entities are the same only when the evidence agrees: the same kind of thing, described alike, linked to the same
+things by the same relations; a shared word in their names is not evidence. If unsure, answer different. Versions (v2,
+v3) are different.
 Two notes: the newer one supersedes the older when it decides or states the same thing differently (a new
 threshold, a newer version as the current one); they are compatible when they are about different things or
 one builds on the other; otherwise unsure. Never invent paths: copy them from the pair.
@@ -2003,8 +2320,11 @@ drop: related-to, associated-with, about, mentions, relates-to, answers, answere
 # work is question, evidence and state. `answers: yes` kinds answer a question they are built on; `digest: current` kinds
 # head the digest; `conflicts: yes` kinds are compared for disagreement (a child kind counts as its family). A note that
 # a keeper reads as replacing another replaces one of its own family, or of a kind (or family) named after `replaces:`.
-# `general:` names the areas that span projects.
-# Edit freely: a hand-written line is permanent (0 model calls); `pack: research, ops` adds a domain's kinds.
+# `general:` names the areas that span projects. Constrained open, like EDGES.md: a keeper gives one of these kinds or
+# an alias (`aka:`); a note that is none of them counts as note and keeps the keeper's word, and once the word is over
+# the bar (`promote:`, by default 5 uses, 5 notes, 2 areas; `budget: 40`) the review may make it a kind, marked
+# (proposed <date>), which takes its family's role. Edit freely: a hand-written line is permanent (0 model calls);
+# `pack: research, ops` adds a domain's kinds.
 # The seed covers data, analytics, software and finance work.
 general: prefs, reporting, glossary, corrections, howto, qa, people, log
 - question: something asked and not yet settled | prefix: q | role: question

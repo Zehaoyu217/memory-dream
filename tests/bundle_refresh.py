@@ -74,7 +74,10 @@ def main():
                  f" every agent reads, so its wording is part of the contract (achievement per word)._\n\n"
                  + fenced((ROOT / "skills/memory-dream/SKILL.md").read_text(), "markdown")
                  + "\n`skills/memory-dream/agents/memory-dreamer.md` (the helper agent for the no-API-key path):\n\n"
-                 + fenced((ROOT / "skills/memory-dream/agents/memory-dreamer.md").read_text(), "markdown"))
+                 + fenced((ROOT / "skills/memory-dream/agents/memory-dreamer.md").read_text(), "markdown")
+                 + "".join(f"\n`skills/memory-dream/guides/{g}` (an optional guide SKILL.md points to):\n\n"
+                           + fenced((ROOT / "skills/memory-dream/guides" / g).read_text(), "markdown")
+                           for g in ("vocabulary.md", "scenarios.md", "knowledge-graph.md")))
     parts.append(f"\n{SPLIT}\n\n## Appendix B — the graph contract, verbatim: `.specs/memory-dream/CONTRACT.md`\n\n"
                  f"_Part 6 · copied at commit {sha}. Schema {tables.get('SCHEMA')}; `memory.py check` validates against it (A38)._\n\n"
                  + shift_headings((ROOT / ".specs/memory-dream/CONTRACT.md").read_text(), 1) + "\n")
