@@ -1047,8 +1047,154 @@ def A43():
     return f"check ({sizes['check']} bytes, flushed at exit) and ask ({sizes['ask']} bytes, flushed mid-way) into a closed pipe: exit 0, stderr empty"
 
 
+def extra(w, answers):
+    """What the fake keeper is to read for some notes: {stem: {"tags": [...], "kind": "other: …"}}."""
+    p = w.dir / "extra.json"
+    p.write_text(json.dumps(answers))
+    w.env["FAKE_EXTRA"] = str(p)
+
+
+def tag_notes(w, stems, *tags):
+    """Write tags into notes' frontmatter, as a person would."""
+    for s in stems:
+        t = w.text(P + s + ".md")
+        (w.root / P / f"{s}.md").write_text(t.replace("---\n", f"---\ntags: [{', '.join(tags)}]\n", 1) if t.startswith("---\n")
+                                            else f"---\ntags: [{', '.join(tags)}]\n---\n" + t)
+
+
+def reads(w):
+    return len(w.calls("extract")) + len(w.calls("packet"))
+
+
+LEAK = ("leak-hypothesis", "exp-017-leak-check", "post-period-leak")
+
+
+def A44():
+    """Tags ride the one vocabulary loop: words the keepers read for notes (other: <word>) are counted; over the bar
+    the review is asked; its new tag is written to TAGS.md marked proposed; the notes carry it at once with no new
+    reading; the next reading's prompt lists it; ask finds the notes by it."""
+    w = World()
+    w.env["FAKE_SAVE"] = str(w.dir / "prompts")
+    extra(w, {s: {"tags": ["other: leakage"]} for s in LEAK})
+    rv = w.dir / "review.json"
+    rv.write_text(json.dumps({"tags": {"leakage": "new: a feature that carries information from after the moment it is used"}}))
+    w.run("dream", env={"FAKE_REVIEW": str(rv)})
+    assert re.search(r"^- leakage \(proposed \d{4}-\d\d-\d\d\): a feature that carries", w.text("TAGS.md"), re.M), w.text("TAGS.md")
+    g = w.graph()
+    assert sorted(g["tags"].get("leakage", [])) == sorted(P + s + ".md" for s in LEAK), g["tags"]
+    assert not g["proposed_tags"], g["proposed_tags"]
+    n = reads(w)
+    (w.root / P / "leak-followup.md").write_text("# Leak follow-up\nThe post-period window is gone from velocity v3.\n")
+    w.run("dream")
+    assert reads(w) == n + 1, (reads(w), n)
+    last = sorted((w.dir / "prompts").glob("*-extract.txt"))[-1].read_text()
+    assert "leak-followup" in last and "- leakage (proposed" in last.split("TAGS:", 1)[1].split("KNOWN:", 1)[0], last[:400]
+    out = w.run("ask", "--list", "--tag", "leakage")
+    assert all(s in out for s in LEAK), out
+    return "3 notes read other: leakage → over the tag bar 3/3/1 → review new → TAGS.md line (proposed), the 3 notes carry it with 0 re-reads; the next reading's prompt lists it; ask --tag finds them"
+
+
+def A45():
+    """A word the review keeps as a plain word is remembered (keep: word ×uses) and not asked again while it is no more
+    common than it was; once its uses double it is offered again. The same for every vocabulary."""
+    w = World()
+    first = ("ds-churn-labels", "exp-011-baseline", "churn-xgb-v2")
+    extra(w, {s: {"tags": ["other: churn-labels"]} for s in first})
+    w.run("dream")
+    assert re.search(r"^keep: .*churn-labels ×3 \(\d{4}-\d\d-\d\d\)", w.text("TAGS.md"), re.M), w.text("TAGS.md")
+    asked = len(w.calls("review"))
+    (w.root / P / "q-churn-drivers.md").write_text(w.text(P + "q-churn-drivers.md") + "\nStill open after the backfill.\n")
+    w.run("dream")
+    assert len(w.calls("review")) == asked, "a kept word was asked again at the same uses"
+    more = ("churn-xgb-v3", "dec-retrain-cadence", "exp-019-recall")
+    extra(w, {s: {"tags": ["other: churn-labels"]} for s in first + more})
+    for s in more:                                           # read again, now with the word
+        (w.root / P / f"{s}.md").write_text(w.text(P + s + ".md") + "\n")
+    w.run("dream")
+    assert len(w.calls("review")) == asked + 1, "uses doubled: offered again"
+    return "churn-labels ×3 answered label → `keep: churn-labels ×3`; a rerun at 3 uses asks nothing; at 6 uses it is offered again"
+
+
+def A46():
+    """A tag written in notes but missing from TAGS.md goes through the same gate; the review maps it by meaning onto
+    the tag it means: the notes count under that tag, the report (C17) goes, and nothing is read again."""
+    w = World()
+    (w.root / "TAGS.md").write_text(mem.TAGS_HEAD + "- leakage: a feature that carries information from after the moment it is used\n")
+    w.run("dream")
+    tag_notes(w, LEAK, "target-leak")
+    rv = w.dir / "review.json"
+    rv.write_text(json.dumps({"tags": {"target-leak": "alias leakage"}}))
+    n = reads(w)
+    w.run("dream", env={"FAKE_REVIEW": str(rv)})
+    assert re.search(r"^- leakage: .*\| aka: target-leak", w.text("TAGS.md"), re.M), w.text("TAGS.md")
+    g = w.graph()
+    assert sorted(g["tags"].get("leakage", [])) == sorted(P + s + ".md" for s in LEAK) and "target-leak" not in g["tags"], g["tags"]
+    assert not any(c["code"] == "C17" for c in g["checks"]), [c["msg"] for c in g["checks"] if c["code"] == "C17"]
+    assert reads(w) == n + len(LEAK), (reads(w), n)          # the three edited notes only
+    return "target-leak written on 3 notes, not in TAGS.md → review alias leakage (by meaning) → aka written, notes under leakage, C17 gone"
+
+
+def A47():
+    """Kinds ride the same loop: a kind word the keepers give notes (other: postmortem) is counted and offered over the
+    bar; the review's new kind, with its family, takes those notes with no new reading, and its role comes from the
+    family's."""
+    w = World()
+    (w.root / "KINDS.md").write_text(mem.KINDS_SEED.replace("\ngeneral: ", "\npromote: 2 uses, 2 notes, 1 area\ngeneral: ", 1))
+    extra(w, {s: {"kind": "other: postmortem"} for s in ("leak-hypothesis", "post-period-leak")})
+    rv = w.dir / "review.json"
+    rv.write_text(json.dumps({"kinds": {"postmortem": "new: an account of what went wrong and what was learned | family: finding"}}))
+    w.run("dream", env={"FAKE_REVIEW": str(rv)})
+    assert re.search(r"^- postmortem \(proposed \d{4}-\d\d-\d\d\): an account .*\| family: finding", w.text("KINDS.md"), re.M), w.text("KINDS.md")
+    g = w.graph()
+    kinds = {n["path"]: n["kind"] for n in g["notes"]}
+    assert kinds[P + "leak-hypothesis.md"] == kinds[P + "post-period-leak.md"] == "postmortem", kinds
+    role = mem.parse_kinds(w.text("KINDS.md"))["kinds"]["postmortem"]["role"]
+    assert role == "evidence", role
+    return "2 notes read other: postmortem → review new (family finding) → KINDS.md line (proposed), both notes kinded postmortem with 0 re-reads, role evidence from finding"
+
+
+def A48():
+    """Who is the same is decided by evidence, never by a name alone: the curator's card of a thing says what its own
+    note says it is and what the notes link it to; a join of two things a note links is refused, whatever the
+    answer says, and both stay things."""
+    w = World()
+    w.env["FAKE_SAVE"] = str(w.dir / "prompts")
+    cur = w.dir / "curate.json"
+    cur.write_text(json.dumps([{"ids": ["cards.churn_labels", "cards.txn_daily"], "why": "both are the cards tables"}]))
+    w.run("dream", env={"FAKE_CURATE": str(cur)})
+    cp = [p.read_text() for p in sorted((w.dir / "prompts").glob("*-curate.txt"))]
+    assert cp, "no curator prompt"
+    card = {m.group(1): m.group(0) for m in re.finditer(r"^- (\S+) \(.*$", cp[0], re.M)}
+    assert 'is: "churn-xgb-v2: XGBoost' in card["churn-xgb-v2"] and "links: evaluated-on → holdout-2025q4" in card["churn-xgb-v2"], card["churn-xgb-v2"]
+    assert "← churn-xgb-v2" in card["cards.churn_labels"] and card["cards.churn_labels"].count("; ") >= 2, card["cards.churn_labels"]
+    assert "cards.txn_daily" not in w.text("ALIASES.md"), w.text("ALIASES.md")
+    E = ents(w.graph())
+    assert "cards.churn_labels" in E and "cards.txn_daily" in E
+    return "cards carry is: (the thing's own note) and links: (→ from it, ← to it); the curator's join of cards.churn_labels and cards.txn_daily, which a note links (uses), refused"
+
+
+def A49():
+    """Two things a note links are two things, for every way names are joined: the merge's surface-form rule does not
+    join them; a person's line of ALIASES.md does, and the link is then reported (C19) with what undoes it."""
+    occ = [("a.md", {"id": "velocity-features", "type": "feature", "as": ["velocity features", "feat-velocity-v3"], "lines": [3]}),
+           ("c.md", {"id": "velocity-features", "type": "feature", "as": ["velocity features"], "lines": [2]}),
+           ("b.md", {"id": "feat-velocity-v3", "type": "feature", "as": ["feat-velocity-v3"], "lines": [2]}),
+           ("d.md", {"id": "feat-velocity-v3", "type": "feature", "as": ["feat-velocity-v3"], "lines": [4]})]
+    joined = mem.merge_entities(occ, [], set())[0]
+    st = Counter()
+    apart = mem.merge_entities(occ, [], set(), stats=st, linked=mem.read_links([("velocity-features", "feat-velocity-v3")]))[0]
+    assert len(joined) == 1 and len(apart) == 2 and st["refused_linked"] == 1, (list(joined), list(apart), st)
+    w = World()
+    w.run("dream")
+    (w.root / "ALIASES.md").write_text(w.text("ALIASES.md").rstrip("\n") + "\n- cards.churn_labels = cards.txn_daily | why: one cards table\n")
+    c19 = [c["msg"] for c in w.graph()["checks"] if c["code"] == "C19"]
+    assert len(c19) == 1 and "'cards.churn_labels' and 'cards.txn_daily'" in c19[0] and "not: cards.churn_labels / cards.txn_daily" in c19[0], c19
+    return f"surface rule: 1 thing without the link, 2 with it (refused_linked 1); a person's join of two linked tables → C19: {c19[0][:110]}…"
+
+
 TESTS = [A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A24,
-         A25, A26, A27, A28, A29, A30, A31, A32, A33, A34, A35, A36, A37, A38, A39, A40, A41, A42, A43]
+         A25, A26, A27, A28, A29, A30, A31, A32, A33, A34, A35, A36, A37, A38, A39, A40, A41, A42, A43,
+         A44, A45, A46, A47, A48, A49]
 
 
 def main():

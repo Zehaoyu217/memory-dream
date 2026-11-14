@@ -5,7 +5,9 @@ Prompt on stdin, JSON on stdout, like `claude -p`. Answers extraction and review
 from a hand-written oracle. Knobs (env):
   FAKE_LOG     append one line per call: "<kind> <note path or ->"
   FAKE_INJECT  JSON file {note stem: raw answer text} returned verbatim instead of the oracle
-  FAKE_REVIEW  JSON file {"types": {...}, "entities": {...}, "conflicts": {...}, "etypes": {...}} overriding review answers
+  FAKE_REVIEW  JSON file {"types": {...}, "entities": {...}, "conflicts": {...}, "etypes": {...}, "kinds": {...},
+               "tags": {...}} overriding review answers (every word not named is answered "label")
+  FAKE_EXTRA   JSON file {note stem: {field: value}} merged into that note's reading (tags, a kind word)
   FAKE_SAVE    directory: save every prompt there (NNN-<kind>.txt)
   FAKE_CURATE  JSON file with the curator's `same` list, returned in place of the oracle's
   FAKE_SKIP    packets only: note stems, comma-separated, whose line is left out of the answer
@@ -121,8 +123,11 @@ def extraction(path, text):
         if len(r) > 4:
             d["def"] = r[4]
         rels.append(d)
-    return {"kind": o["kind"], "summary": o.get("summary", title), "entities": list(ents.values()),
-            "relations": rels, "refs": o.get("refs", [])}
+    ans = {"kind": o["kind"], "summary": o.get("summary", title), "entities": list(ents.values()),
+           "relations": rels, "refs": o.get("refs", [])}
+    extra = json.load(open(os.environ["FAKE_EXTRA"])) if os.environ.get("FAKE_EXTRA") else {}
+    ans.update(extra.get(stem, {}))  # FAKE_EXTRA {stem: {"tags": [...], "kind": "other: …"}}: what a test wants read
+    return ans
 
 
 def review(prompt):
@@ -135,13 +140,19 @@ def review(prompt):
         ents[f"{a} / {b}"] = "same" if frozenset((a, b)) in SAME else "different"
     conf_only = conf_sec.split("THING TYPES", 1)[0]
     conflicts = {f"{a} / {b}": "unsure" for a, b in re.findall(r"^- (\S+) / (\S+):", conf_only, re.M)}
-    words_sec = (prompt.split("TYPE WORDS the indexer used", 1) + [""])[1].split("Reply with JSON", 1)[0]
+    words_sec = (prompt.split("TYPE WORDS the indexer used", 1) + [""])[1].split("NOTE KINDS", 1)[0].split("Reply with JSON", 1)[0]
     etypes = {m: "label" for m in re.findall(r"^- ([\w.-]+): ", words_sec, re.M)}
+    kinds_sec = (prompt.split("KIND WORDS the indexer gave", 1) + [""])[1].split("TAGS, themes", 1)[0]
+    kinds = {m: "label" for m in re.findall(r"^- ([\w.-]+): ", kinds_sec, re.M)}
+    tags_sec = (prompt.split("TAG WORDS that notes", 1) + [""])[1].split("Reply with JSON", 1)[0]
+    tags = {m: "label" for m in re.findall(r"^- ([\w.-]+): ", tags_sec, re.M)}
     types.update(over.get("types", {}))
     ents.update(over.get("entities", {}))
     conflicts.update(over.get("conflicts", {}))
     etypes.update(over.get("etypes", {}))
-    return {"types": types, "entities": ents, "conflicts": conflicts, "etypes": etypes}
+    kinds.update(over.get("kinds", {}))
+    tags.update(over.get("tags", {}))
+    return {"types": types, "entities": ents, "conflicts": conflicts, "etypes": etypes, "kinds": kinds, "tags": tags}
 
 
 def main():

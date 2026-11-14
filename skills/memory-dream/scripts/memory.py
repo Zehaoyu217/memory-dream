@@ -280,32 +280,39 @@ TYPE_PACKS = {
 
 
 def parse_kinds(text):
-    """KINDS.md -> {order, kinds: {kind: {def, prefix, area, family, role, digest, conflicts, answers, replaces}}, general, bad}."""
-    out = {"order": [], "kinds": {}, "general": set(), "bad": []}
+    """KINDS.md -> {order, kinds: {kind: {def, aka, prefix, area, family, role, digest, conflicts, answers, replaces}},
+    general, drop, bad}. The vocabulary grammar every vocabulary file shares (aka, family, the settings, `drop:`,
+    `keep:`, a line marked (proposed <date>)); a kind given a family and no role takes its family's."""
+    out = {"order": [], "kinds": {}, "general": set(), "drop": set(), "bad": []}
+    roled = set()
     for i, ln in enumerate(expand_packs(text, KIND_PACKS).split("\n"), 1):
         s = ln.strip()
         if not s or s.startswith("#"):
             continue
         g = re.match(r"general\s*:(.*)$", s, re.I)
+        dr = re.match(r"drop\s*:(.*)$", s, re.I)
         m = re.match(r"-\s*([^:|]+?)\s*:\s*(.*)$", s)
         if g:
             out["general"] |= {a.strip().lower() for a in g.group(1).split(",") if a.strip()}
-        elif re.match(r"pack\s*:", s, re.I):
+        elif dr:
+            out["drop"] |= {fold(x) for x in dr.group(1).split(",") if x.strip()}
+        elif re.match(r"(pack|promote|budget|probation|keep)\s*:", s, re.I):
             continue
         elif m:
-            k = fold(m.group(1))
+            k = fold(PROPOSED_RX.sub("", m.group(1)))
             segs = [x.strip() for x in m.group(2).split("|")]
-            d = {"def": segs[0], "prefix": [], "area": [], "family": k, "role": "reference", "digest": False, "conflicts": False, "answers": False,
-                 "replaces": [], "not": ""}
+            d = {"def": segs[0], "aka": [], "prefix": [], "area": [], "family": k, "role": "reference", "digest": False, "conflicts": False,
+                 "answers": False, "replaces": [], "not": ""}
             for seg in segs[1:]:
                 key, _, val = seg.partition(":")
                 key, val = key.strip().lower(), val.strip()
-                if key in ("prefix", "area", "replaces"):
+                if key in ("prefix", "area", "replaces", "aka"):
                     d[key] = [fold(x) for x in val.split(",") if x.strip()]
                 elif key == "family":
                     d["family"] = fold(val)
                 elif key == "role":
                     d["role"] = fold(val)
+                    roled.add(k)
                 elif key == "digest":
                     d["digest"] = val.lower() in ("current", "yes", "true")
                 elif key == "conflicts":
@@ -318,6 +325,9 @@ def parse_kinds(text):
             out["order"].append(k)
         else:
             out["bad"].append((i, s))
+    for k, d in out["kinds"].items():                    # a kind the review added: its family's role
+        if k not in roled and d["family"] != k and d["family"] in out["kinds"]:
+            d["role"] = out["kinds"][d["family"]]["role"]
     return out
 
 
@@ -370,6 +380,7 @@ def domain_from(kt, tt, et):
     return {"PREFIX_KIND": {p: k for k, d in ks.items() for p in d["prefix"]},
             "AREA_KIND": {a: k for k, d in ks.items() for a in d["area"]},
             "KINDS": set(ks), "KIND_ORDER": kc["order"],
+            "KIND_ALIAS": {a: k for k, d in ks.items() for a in d.get("aka", [])}, "KIND_DROP": kc["drop"],
             "KIND_PARENT": {k: d["family"] for k, d in ks.items() if d["family"] != k},
             "GENERAL": kc["general"],
             "WORK": {k for k, d in ks.items() if d["role"] in ("question", "evidence", "state")},
@@ -390,7 +401,8 @@ def load_domain(root):
 
 
 EXTRACT = """Index this memory note for retrieval. Reply with JSON only:
-{"kind": "one of KINDS",
+{"kind": "one of KINDS, or other: <word> for a kind of note none of them is",
+ "tags": ["a TAGS tag or one of its aliases; other: <word> for a theme no tag covers"],
  "entities": [{"id": "...", "type": "a TYPES type or alias, or other", "label": "the note's own word for what it is, 1-2 words",
                "as": ["text copied verbatim from the note"]}],
  "relations": [{"s": "entity id", "type": "an EDGES type or alias, or other", "label": "the note's own verb, 1-3 words",
@@ -415,11 +427,17 @@ opposite of it: leave that out. `what` is the file name of the note meant, witho
 lists it, however the text words it ("the dispositions dataset" is the note about that dataset); else its id in
 KNOWN, or the id you gave it under entities; and when none of these names it, the words the note uses for it. An
 item is never left out because the note it means cannot be named: a later reading places it.
+Tags: at most 3 themes the note is about that its folder, its kind and its things do not already say (a regulation, a
+risk, a recurring process). Use a TAGS tag or one of its aliases; give other: <word> only for a theme other notes would
+share (a word that becomes common is offered as a tag); [] when none fits. Kind: one of KINDS; when the note is a kind
+of note none of them is, other: <word> (the word is kept, and offered as a kind once it is common).
 KINDS: {kinds}
 TYPES:
 {types}
 EDGES:
 {edges}
+TAGS:
+{tags}
 KNOWN:
 {known}
 FOLDER (the notes of this folder, file name: first line):
@@ -433,7 +451,8 @@ RELATION TYPES, read "X <type> Y" ({n} of {budget} slots used):
 LABELS the indexer used that fit no type, each over the bar of {u} uses in {nn} notes across {a} areas
 (uses, notes, areas; up to 3 examples "X — Y: quote"):
 {proposals}
-ENTITY PAIRS that may name the same thing (id, type, surface forms, one context line each):
+ENTITY PAIRS that may name the same thing (each side: id, type, how the notes write it, what its own note says it is,
+what it is linked to, a line that mentions it; then what the two are both linked to):
 {pairs}
 LIVE NOTES of one kind in one area that may disagree (path · "title" «first line»; neither supersedes the other):
 {conflicts}
@@ -441,11 +460,22 @@ THING TYPES, read "X is a <type>" ({tn} of {tbudget} slots used):
 {types}
 TYPE WORDS the indexer used for things that fit no type, each over the bar (uses, notes, areas; up to 3 examples "id: as written"):
 {etypes}
+NOTE KINDS, what a note is ({kn} of {kbudget} slots used):
+{kinds}
+KIND WORDS the indexer gave notes that fit no kind, each over the bar (uses, notes, areas; up to 3 example notes):
+{kwords}
+TAGS, themes that notes share ({gn} of {gbudget} slots used):
+{tags}
+TAG WORDS that notes or their indexer used and no tag covers, each over the bar (uses, notes, areas; up to 3 example notes):
+{gwords}
 Reply with JSON only:
 {"types": {"<label>": "alias T" | "alias ~T" | "new: <one line: what the link means and how it differs from the closest type>" | "label" | "drop"},
  "entities": {"<a> / <b>": "same" | "different"},
  "conflicts": {"<a> / <b>": "<a> supersedes <b>" | "<b> supersedes <a>" | "compatible" | "unsure"},
- "etypes": {"<word>": "alias T" | "new: <one line: what the thing is and how it differs from the closest type> | family: <a listed family or the word itself>" | "label" | "drop"}}
+ "etypes": {"<word>": "alias T" | "new: <one line: what the thing is and how it differs from the closest type> | family: <a listed family or the word itself>" | "label" | "drop"},
+ "kinds": {"<word>": "alias K" | "new: <one line: what such a note is and how it differs from the closest kind> | family: <a listed kind or the word itself>" | "label" | "drop"},
+ "tags": {"<word>": "alias T" | "new: <one line: the theme, and how it differs from the closest tag> | family: <a listed tag or the word itself>" | "label" | "drop"}}
+Every word, in every list, by the same rule: decide by what it means and how the examples use it, never by how it is spelled.
 Map a label onto T when it names the same link as T, as a synonym ("alias T") or read in reverse
 ("alias ~T"). Answer "new: …" only for a link between two things that no listed type expresses and that
 the notes will keep using; name the closest type and the difference. Answer "label" to keep it as a plain
@@ -453,7 +483,14 @@ label. Drop only what links notes rather than things (answers, led-to, basis-for
 (asked-by, raised-by). When unsure between alias and new, alias; when unsure between new and drop, label.
 A type word: "alias T" when it is a kind of T; "new: …" only for a kind of thing people will keep looking up
 across notes; "label" to keep the word; "drop" for what is not a thing (a number, a file, a date).
-If unsure whether two entities are the same thing, answer different. Versions (v2, v3) are different.
+A kind word: "alias K" when such notes are K notes; "new: …" only for a kind of note people will keep writing;
+"label" to keep the word; "drop" for what is not a kind of note (a topic, a status).
+A tag word: "alias T" when it names the theme T names; "new: …" only for a theme that notes across the memory share
+and that their folders, kinds and things do not already say; "label" to keep the word; "drop" for what is not a
+theme (a status, a date, a person, the name of one project).
+Two entities are the same only when the evidence agrees: the same kind of thing, described alike, linked to the same
+things by the same relations; a shared word in their names is not evidence. If unsure, answer different. Versions (v2,
+v3) are different.
 Two notes: the newer one supersedes the older when it decides or states the same thing differently (a new
 threshold, a newer version as the current one); they are compatible when they are about different things or
 one builds on the other; otherwise unsure. Never invent paths: copy them from the pair.
@@ -462,8 +499,11 @@ one builds on the other; otherwise unsure. Never invent paths: copy them from th
 # The curator (PLAN §7): identity by reading. It sees every thing a folder's notes name, each with how it is written
 # and a line that mentions it, and says which are one thing under two names. Nothing here compares strings.
 CURATE = """You keep the names of things in a memory of work notes. Below are the things that the notes of one folder name,
-one per line: its id, what kind of thing it is, how the notes write it, in how many notes, and one line that mentions it.
-Some may be one thing written two ways: a short name and a full one, a plural, an abbreviation, a nickname. Find those.
+one per line: its id, what kind of thing it is, how the notes write it, in how many notes, what its own note says it is
+(is:, when it has one), what the notes link it to (links:, → from it, ← to it), and one line that mentions it.
+Some may be one thing written two ways: a short name and a full one, a plural, an abbreviation, a nickname. Find those
+by the evidence, not by the names: one thing under two names is the same kind of thing, is described alike, and is
+linked to the same things by the same relations. Two things whose links name each other are two things.
 Not the same thing: two versions (v2 and v3), two periods or samples (2025 and 2026, h1 and h2), a thing and a part of
 it, siblings that only share a pattern of name, a thing and a note or a person that describes it. When unsure, leave it out.
 Reply with JSON only: {"same": [{"ids": ["<id>", "<id>"], "why": "<one short sentence: the words above that show it>"}]}
@@ -532,7 +572,7 @@ assert PLACE_NEAR != PLACE
 # A packet (PLAN §4): the same reading asked for many notes in one call. The rules are EXTRACT's own, cut from it, so
 # the two prompts cannot drift apart; a note is named by the first twelve characters of the hash of its text.
 PACKET = """Index each memory note below for retrieval. Reply with one line of JSON per note, in the order given, and nothing else:
-{"note": "the 12-character id on its NOTE line", "kind": "one of KINDS", "entities": [{"id": "...", "type": "a TYPES type or alias, or other", "label": "the note's own word for what it is, 1-2 words", "as": ["text copied verbatim from the note"]}], "relations": [{"s": "entity id", "type": "an EDGES type or alias, or other", "label": "the note's own verb, 1-3 words", "o": "entity id", "quote": "short text copied verbatim from the note that states it"}], "refs": ["ids or paths of other notes the text explicitly points to"], "built_on": [{"what": "its id", "quote": "words copied verbatim from the note that say so"}], "replaces": [{"what": "its id", "quote": "words copied verbatim from the note that say so"}]}
+{"note": "the 12-character id on its NOTE line", "kind": "one of KINDS, or other: <word>", "tags": ["a TAGS tag or alias; other: <word>"], "entities": [{"id": "...", "type": "a TYPES type or alias, or other", "label": "the note's own word for what it is, 1-2 words", "as": ["text copied verbatim from the note"]}], "relations": [{"s": "entity id", "type": "an EDGES type or alias, or other", "label": "the note's own verb, 1-3 words", "o": "entity id", "quote": "short text copied verbatim from the note that states it"}], "refs": ["ids or paths of other notes the text explicitly points to"], "built_on": [{"what": "its id", "quote": "words copied verbatim from the note that say so"}], "replaces": [{"what": "its id", "quote": "words copied verbatim from the note that say so"}]}
 Read each note alone: its entities, its relations and every copied text come from that note's own lines, even when
 another note here says more. Skip no note: one with nothing to index gets its line with empty lists. Index each note
 as fully as if it were the only one: every dataset, table, feature, model, metric, experiment, decision and person
@@ -608,6 +648,17 @@ def wr(p, obj):
 
 def mmdd(d):
     return d[5:10] if d else "--"
+
+
+def read_kind(x):
+    """The kind a keeper read, through KINDS.md as it stands now: a word it gave that fitted no kind then counts as the
+    kind a later alias or a new kind makes of it, with no new reading (the vocabulary resolves, the reading stays)."""
+    if not x:
+        return None
+    k, w = x.get("kind"), fold(x.get("kind_word") or "")
+    if k in (None, "", "note") and w:
+        return w if w in KINDS else KIND_ALIAS.get(w, k)
+    return k
 
 
 def kind_of(rel, fm_type=None, x_kind=None):
@@ -994,8 +1045,14 @@ def ground(ans, text):
                 w = posixpath.basename(what[:-3] if what.endswith(".md") else what)
                 if len(w) >= 3:
                     recheck |= {(field, line_at(text, mm.start())) for mm in re.finditer(r"(?<![\w/.-])" + re.escape(w) + r"(?![\w-])", text, re.I)}
-    kind = str(ans.get("kind") or "").strip().lower()
-    return {"kind": kind if kind in KINDS else "note", "entities": ents,
+    word = re.sub(r"^other\s*[:/]\s*", "", str(ans.get("kind") or "").strip().lower()).strip()
+    kind = fold(word) if fold(word) in KINDS else KIND_ALIAS.get(fold(word), "note")
+    tags = []                                            # tags as read: words kept as given, resolved at every merge
+    for t in ans.get("tags") or []:
+        if isinstance(t, str) and t.strip() and t.strip() not in tags and len(tags) < 5:
+            tags.append(t.strip())
+    return {"kind": kind, **({"kind_word": word} if kind == "note" and word and fold(word) not in ("note", "other") else {}),
+            **({"tags": tags} if tags else {}), "entities": ents,
             "relations": rels, "refs": [str(x) for x in (ans.get("refs") or []) if isinstance(x, str)],
             **{k: v for k, v in said.items() if v}, **({"recheck": [{"field": f, "line": n} for f, n in sorted(recheck)]} if recheck else {}),
             "dropped": dropped}
@@ -1025,12 +1082,19 @@ def parse_shape(v):
     return tuple(None if p.strip() in ("*", "") else fold(p) for p in parts)
 
 
-def edges_cfg(text):
-    """The vocabulary's constraints from EDGES.md: promote (uses, notes, areas), budget, probation days, the proposed
-    types with their dates, the packs named."""
-    cfg = {"promote": PROMOTE, "budget": BUDGET, "probation": PROBATION_DAYS, "proposed": {}, "packs": []}
+def edges_cfg(text, defaults=None):
+    """A vocabulary's constraints from its file (EDGES.md, TYPES.md, KINDS.md, TAGS.md: one grammar): promote (uses,
+    notes, areas), budget, probation days, the proposed terms with their dates, the packs named, and the words the
+    review chose to keep as plain words (`keep: word ×uses (date)`), each with how many uses it had then. `defaults`
+    gives a vocabulary its own bar and budget when its file sets none."""
+    cfg = {"promote": PROMOTE, "budget": BUDGET, "probation": PROBATION_DAYS, "proposed": {}, "packs": [], "kept": {},
+           **(defaults or {})}
     for ln in text.split("\n"):
         s = ln.strip()
+        m = re.match(r"keep\s*:(.*)$", s, re.I)
+        if m:
+            for w, u in re.findall(r"([^\s,×]+)\s*×\s*(\d+)", m.group(1)):
+                cfg["kept"][fold(w)] = int(u)
         m = re.match(r"promote\s*:\s*(\d+)\D+(\d+)\D+(\d+)", s, re.I)
         if m:
             cfg["promote"] = tuple(int(x) for x in m.groups())
@@ -1061,7 +1125,7 @@ def parse_edges(text, packs=None):
             continue
         m = re.match(r"-\s*([^:|]+?)\s*:\s*(.*)$", s)
         d = re.match(r"drop\s*:(.*)$", s, re.I)
-        if re.match(r"(mode|promote|budget|probation|pack|general|drop-names)\s*:", s, re.I):  # settings: edges_cfg and name_drop read them
+        if re.match(r"(mode|promote|budget|probation|pack|general|drop-names|keep)\s*:", s, re.I):  # settings: edges_cfg and name_drop read them
             continue
         if m:
             t = fold(PROPOSED_RX.sub("", m.group(1)))
@@ -1120,8 +1184,20 @@ def parse_aliases(text):
 
 
 def edit_edges(text, op, t, arg="", date=None):
-    """Edits to EDGES.md: alias (t onto arg's aka), drop (t onto the drop line), new (a type line for t with the
-    definition arg, marked proposed on date), demote (remove t's type line)."""
+    """Edits to a vocabulary file (EDGES.md, TYPES.md, KINDS.md, TAGS.md): alias (t onto arg's aka), drop (t onto the
+    drop line), new (a line for t with the definition arg, marked proposed on date), demote (remove t's line), keep
+    (t onto the keep line with arg, its uses now: the review kept it a plain word, and it is not asked again until its
+    uses double)."""
+    if op == "keep":
+        lines = text.rstrip("\n").split("\n")
+        k = next((i for i, ln in enumerate(lines) if re.match(r"\s*keep\s*:", ln, re.I)), -1)
+        entry = f"{t} ×{arg} ({date})"
+        if k < 0:
+            lines.append(f"keep: {entry}")
+        else:
+            rest = [e.strip() for e in lines[k].split(":", 1)[1].split(",") if e.strip() and fold(e.split("×")[0]) != fold(t)]
+            lines[k] = "keep: " + ", ".join(rest + [entry])
+        return "\n".join(lines) + "\n"
     lines = text.rstrip("\n").split("\n")
 
     def find(T):
@@ -1302,8 +1378,20 @@ def lead_aliases(text, lead):
 
 # ---------- merge ----------
 
-def merge_entities(occ, alines, nots, homes=None, stats=None):
-    """Entity groups as one union-find: ALIASES lines, folded-id equality, the surface-form rule.
+def read_links(ends):
+    """Pairs of ids that readings link, folded: two things, which no rule of the merge joins."""
+    return {frozenset((fold(a), fold(b))) for a, b in ends if fold(a) != fold(b)}
+
+
+def linked_pairs(g):
+    """Pairs of things the graph links: every join is held to it (two things a note links are two things)."""
+    return {frozenset((r["s"], r["o"])) for r in g["relations"]}
+
+
+def merge_entities(occ, alines, nots, homes=None, stats=None, linked=frozenset()):
+    """Entity groups as one union-find: ALIASES lines, folded-id equality, the surface-form rule. The rules never
+    join two ids that a reading links to each other (`linked`, from read_links): a note that links two names says
+    they are two things. Only a line of ALIASES.md can, and C19 reports it when a note links its names.
     An entity is kept when it has a home (a note whose slug is its id), is mentioned in >= 2 notes, or is
     named in ALIASES.md; a name on the `drop-names:` line of TYPES.md is not an entity (files and notebooks: grep finds them)."""
     homes, st = homes or {}, stats if stats is not None else Counter()
@@ -1325,8 +1413,8 @@ def merge_entities(occ, alines, nots, homes=None, stats=None):
             for x in mem[ra]:
                 for y in mem[rb]:
                     p = frozenset((x, y))
-                    if p in nots or (versions(x, y) and p not in explicit):
-                        st["refused_" + ("not_line" if p in nots else "versions")] += 1
+                    if p in nots or p in linked or (versions(x, y) and p not in explicit):
+                        st["refused_" + ("not_line" if p in nots else "linked" if p in linked else "versions")] += 1
                         return
         par[rb] = ra
         mem[ra] |= mem.pop(rb)
@@ -1409,7 +1497,7 @@ def merge_entities(occ, alines, nots, homes=None, stats=None):
     return ents, cmap, gkeys
 
 
-def candidates(ents, new, gkeys, nots):
+def candidates(ents, new, gkeys, nots, linked=frozenset()):
     """Pairs for the review: two things of one type that some note writes with the same words. Nothing is proposed
     from how two names look: on the bank the string ratio that used to do it offered 46 pairs, 5 of them the same
     thing (all plurals) and 41 siblings such as aml-oot-2026h1 / cli-oot-2026h1 (RESULTS phase S). Two unlike names
@@ -1428,11 +1516,56 @@ def candidates(ents, new, gkeys, nots):
                 continue
             pair = tuple(sorted((a, b), key=fold))
             ha, hb = ents[a].get("home"), ents[b].get("home")
-            if pair in out or (ha and hb and ha != hb) or decided(a, b, gkeys, nots):  # two home notes: two things
-                continue
+            if pair in out or (ha and hb and ha != hb) or frozenset(pair) in linked or decided(a, b, gkeys, nots):
+                continue  # two home notes, or a note that links the two: two things
             if mine & sfs[b]:
                 out.add(pair)
     return out
+
+
+def thing_cards(g, root, ids, area=None):
+    """What a thing is judged by, one card each -> {id: card}: its id and type, how the notes write it, in how many
+    notes, what its own note says it is (is:), what the notes link it to (links:, the best attested first; → from it,
+    ← to it), and a line that mentions it (in `area` when given). The curator reads a folder's cards, the review a
+    pair's: who is the same is decided by what a thing is and what it is linked to, never by a name alone."""
+    want = set(ids)
+    ents = {e["id"]: e for e in g["entities"] if e["id"] in want}
+    nmap = {n["path"]: n for n in g["notes"]}
+    nb, texts, out = defaultdict(list), {}, {}
+    for r in g["relations"]:
+        if r["s"] in want:
+            nb[r["s"]].append((-len(r["evidence"]), f"{r['type']} → {r['o']}"))
+        if r["o"] in want:
+            nb[r["o"]].append((-len(r["evidence"]), f"{r['type']} ← {r['s']}"))
+
+    def line(m):
+        if m["path"] not in texts:
+            try:
+                texts[m["path"]] = read(root / m["path"]).split("\n")
+            except OSError:
+                texts[m["path"]] = []
+        ls, k = texts[m["path"]], (m["lines"] or [0])[0]
+        return ls[k - 1].strip()[:140] if 0 < k <= len(ls) else ""
+    for i in ids:
+        e = ents.get(i)
+        if not e:
+            continue
+        ms = [m for m in e["mentions"] if area is None or area_of(m["path"]) == area] or e["mentions"]
+        ms = sorted(ms, key=lambda m: m["path"] == e.get("home"))  # its own note says what it is; the line is another's
+        home = nmap.get(e.get("home") or "") or {}
+        links = [x for _, x in sorted(nb[i])[:3]]
+        out[i] = (f"{i} ({e['type']}) · written: " + "; ".join(f'"{x["name"]}"' for x in e["names"][:4]) + f" · in {len(e['mentions'])} notes"
+                  + (f' · is: "{home["title"][:100]}"' if home.get("title") else "") + (f" · links: {'; '.join(links)}" if links else "")
+                  + f" · «{line(ms[0]) if ms else ''}»")
+    return out
+
+
+def shared_links(g, a, b):
+    """What two things are both linked to, by the same relation in the same direction: two names of one thing are
+    linked alike; two things with nothing in common are likelier two."""
+    def ends(i):
+        return {(r["type"], "→", r["o"]) for r in g["relations"] if r["s"] == i} | {(r["type"], "←", r["s"]) for r in g["relations"] if r["o"] == i}
+    return sorted(f"{t} {d} {x}" for t, d, x in ends(a) & ends(b))
 
 
 def decided(a, b, gkeys, nots):
@@ -1455,7 +1588,7 @@ def notes_part(root, man, cur, former, xs=None, facts=None):
             dt.date.fromtimestamp(cur[rel]["mtime"] / 1e9).isoformat()
         proj = area_of(rel)
         notes[rel] = {"path": rel, "id": posixpath.basename(rel)[:-3], "project": proj, "title": title,
-                      "line": tline, "kind": kind_of(rel, fm.get("type"), (x or {}).get("kind")),
+                      "line": tline, "kind": kind_of(rel, fm.get("type"), read_kind(x)),
                       "superseded_by": [], "updated": up, "sha": h[:12], "indexed": bool(x)}
         aux[rel] = {"fm": fm, "links": links, "x": x, "ids": set(f["ids"]), "pointers": f.get("pointers") or []}
         by_stem[notes[rel]["id"]].append(rel)
@@ -1618,13 +1751,16 @@ def canon_occ(occ, talias, tdrop):
 
 
 def vocab_gate(props, cfg, n_types, usage, now, noun, shown):
-    """The constrained-open gate shared by relation labels and type words: -> (proposed over the bar while the budget
-    has room, below the bar, proposed types to demote after their probation, C7 checks)."""
+    """The constrained-open gate, one for every vocabulary (relation labels, type words, kind words, tag words): ->
+    (proposed over the bar while the budget has room, below the bar, proposed terms to demote after their probation,
+    C7 checks). A word the review kept as a plain word is offered again only once its uses have doubled."""
     U, Nn, A = cfg["promote"]
     for p in props.values():
         if not isinstance(p["notes"], int):
             p["notes"], p["areas"] = len(p["notes"]), len(p["areas"])
-    over = [p for p in props.values() if p["uses"] >= U and p["notes"] >= Nn and p["areas"] >= A]
+    kept = cfg.get("kept") or {}
+    over = [p for p in props.values() if p["uses"] >= U and p["notes"] >= Nn and p["areas"] >= A
+            and p["uses"] >= 2 * kept.get(fold(p["type"]), 0)]
     below = sorted((p for p in props.values() if p not in over), key=lambda p: (-p["uses"], p["type"]))
     over.sort(key=lambda p: (-p["uses"], p["type"]))
     full = n_types >= cfg["budget"]
@@ -1646,6 +1782,43 @@ def vocab_gate(props, cfg, n_types, usage, now, noun, shown):
         if age >= cfg["probation"] and not (u["uses"] >= U and len(u["notes"]) >= Nn and len(u["areas"]) >= A):
             demote.append(T)
     return proposed, below, demote, checks
+
+
+def apply_terms(text, answers, offered, now, packs=None, reverse=False, stats=None):
+    """A review's answers about one vocabulary's offered words, as the code admits them, the same for every
+    vocabulary: `alias T` (or `alias ~T` where a link may read the other way) onto a known term; `new: <what it means,
+    and how it differs from the closest term> | family: F` for a word that is not a term yet, within the budget,
+    marked (proposed <date>); `label` keeps it a plain word, remembered with its uses so that it is not asked again
+    until they double; `drop` for a word that is never a term. An answer about a word that was not offered changes
+    nothing. -> the file's new text."""
+    terms, alias_all = parse_edges(text, packs)[:2]
+    budget = edges_cfg(text)["budget"]
+    offered = {fold(p["type"]): p for p in offered}
+    stats = stats if stats is not None else Counter()
+    for w, v in (answers or {}).items():
+        w, v = fold(w), str(v).strip()
+        low, day = v.lower(), now.date().isoformat()
+        if w not in offered:
+            continue
+        tgt = v[5:].strip() if low.startswith("alias") else ""
+        if tgt and fold(tgt.lstrip("~")) in terms:
+            text = edit_edges(text, "alias", ("~" if reverse and tgt.startswith("~") else "") + w, fold(tgt.lstrip("~")))
+            stats["mapped"] += 1
+        elif low == "drop":
+            text = edit_edges(text, "drop", w)
+            stats["mapped"] += 1
+        elif low.startswith("new"):                       # the code decides: a definition, not a known term, room
+            definition = v.split(":", 1)[1].strip() if ":" in v else ""
+            if definition and w not in terms and w not in alias_all and len(terms) < budget:
+                text = edit_edges(text, "new", w, definition, date=day)
+                terms[w] = {"def": definition, "aka": []}
+                stats["new"] += 1
+            else:
+                stats["refused"] += 1
+        elif low.startswith("label"):
+            text = edit_edges(text, "keep", w, str(offered[w]["uses"]), date=day)
+            stats["kept"] += 1
+    return text
 
 
 def lineage_as_read(root, notes, aux, edges, ents, cmap, own):
@@ -1790,8 +1963,10 @@ def build(root, man, cur, former, et, at, xs=None, now=None, facts=None, base=No
         ol, on, _ = parse_aliases(read(af)) if af.exists() else ([], set(), [])
         alines = alines + [[f"{o}:{i}" for i in ids] for ids in ol]
         nots = nots | {frozenset(fold(f"{o}:{x}") for x in pair) for pair in on}
+    linked = read_links((own(rel, r["s"]), own(rel, r["o"])) for rel in notes if aux[rel]["x"]
+                        for r in aux[rel]["x"].get("relations", []))
     dedup = Counter()
-    ents, cmap, gkeys = merge_entities(occ, alines, nots, homes, dedup)
+    ents, cmap, gkeys = merge_entities(occ, alines, nots, homes, dedup, linked)
     notes, edges, read_stats, unplaced = lineage_as_read(root, notes, aux, edges, ents, cmap, own)
     dedup.update(read_stats)
     checks += [("C18", f"{u['note']}: says it {'builds on' if u['field'] == 'built_on' else 'replaces'} {u['what']!r} («{u['quote'][:70]}») and no "
@@ -1807,7 +1982,7 @@ def build(root, man, cur, former, et, at, xs=None, now=None, facts=None, base=No
     checks += tchecks
     cfg = edges_cfg(et)
     U, Nn, A = cfg["promote"]
-    rels, props = {}, {}
+    rels, props, selfl = {}, {}, defaultdict(dict)
     for rel in notes:
         for r in (aux[rel]["x"] or {}).get("relations", []):
             s, o = cmap.get(fold(own(rel, r["s"]))), cmap.get(fold(own(rel, r["o"])))
@@ -1830,6 +2005,8 @@ def build(root, man, cur, former, et, at, xs=None, now=None, facts=None, base=No
                     p["examples"].append(f"{s} — {o}: {r['quote']}")
             s, o = (o, s) if rev else (s, o)
             if s == o:
+                if frozenset((fold(own(rel, r["s"])), fold(own(rel, r["o"])))) in linked:  # two names one line joins
+                    selfl[s].setdefault(tuple(sorted((r["s"], r["o"]), key=fold)), []).append(f"{rel}:{r['line']}")
                 continue
             rec = rels.setdefault((s, T, o), {"s": s, "type": T, "o": o, "evidence": []})
             ev = f"{rel}:{r['line']}"
@@ -1847,11 +2024,17 @@ def build(root, man, cur, former, et, at, xs=None, now=None, facts=None, base=No
             if best is None or key > best[0] or (key == best[0] and m["path"] < best[1]):
                 best = (key, m["path"])
         e["headline"] = best[1] if best else None
+    for c, prs in sorted(selfl.items()):
+        for (a, b), evs in sorted(prs.items()):
+            checks.append(("C19", f"{evs[0]}{f' (+{len(evs) - 1})' if len(evs) > 1 else ''}: links {a!r} and {b!r}, which ALIASES.md "
+                           f"joins as {c}; two things a note links are two things: if they are, take {b if fold(b) != fold(c) else a} "
+                           f"off that line and add `not: {a} / {b}`"))
+    clinked = {frozenset((s_, o_)) for s_, _, o_ in rels}
     seen = set(man.get("seen", []))
-    pairs = candidates(ents, [c for c in ents if fold(c) not in seen], gkeys, nots)
+    pairs = candidates(ents, [c for c in ents if fold(c) not in seen], gkeys, nots, clinked)
     for a, b in man.get("queue", []):
         a, b = cmap.get(fold(a)), cmap.get(fold(b))
-        if a and b and a != b and not decided(a, b, gkeys, nots):
+        if a and b and a != b and frozenset((a, b)) not in clinked and not decided(a, b, gkeys, nots):
             pairs.add(tuple(sorted((a, b), key=fold)))
     pairs = sorted(pairs, key=lambda p: (fold(p[0]), fold(p[1])))
     usage = {}  # probation: a proposed type still under the bar after its probation is demoted to a label (0 calls)
@@ -1878,8 +2061,30 @@ def build(root, man, cur, former, et, at, xs=None, now=None, facts=None, base=No
     wanted = {rel: aux[rel]["pointers"] for rel in notes if aux[rel].get("pointers")}  # pointers into the project's files
     ptr, pchecks = pointer_states(root, wanted, man.get("pointers") or {}) if wanted else ({}, [])
     checks += pchecks
-    tags, tchecks = note_tags(aux, root)
+    # tags and kinds through the same gate as relation labels and type words: one rule for every vocabulary
+    tags, tchecks, gwords, gusage = note_tags(aux, root, notes)
     checks += tchecks
+    gtext = tags_text(root)
+    gcfg = edges_cfg(gtext, TAG_DEFAULTS)
+    proposed_g, gbelow, gdemote, gchecks = vocab_gate(gwords, gcfg, len(parse_edges(gtext, {})[0]), gusage, now, "tag word", "a word")
+    checks += gchecks
+    kwords, kusage = {}, {}
+    for rel, n in notes.items():
+        u = kusage.setdefault(n["kind"], {"uses": 0, "notes": set(), "areas": set()})
+        u["uses"] += 1
+        u["notes"].add(rel)
+        u["areas"].add(area_of(rel))
+        w = fold((aux[rel]["x"] or {}).get("kind_word") or "")
+        if n["kind"] == "note" and w and w not in KINDS and w not in KIND_ALIAS and w not in KIND_DROP:
+            p = kwords.setdefault(w, {"type": w, "uses": 0, "notes": set(), "areas": set(), "examples": []})
+            p["uses"] += 1
+            p["notes"].add(rel)
+            p["areas"].add(area_of(rel))
+            if len(p["examples"]) < 3:
+                p["examples"].append(f"{n['id']}: {(n['title'] or '')[:90]}")
+    kcfg = edges_cfg(kt, KIND_DEFAULTS)
+    proposed_k, kbelow, kdemote, kchecks = vocab_gate(kwords, kcfg, len(KINDS), kusage, now, "kind word", "note")
+    checks += kchecks
     checks += [("C10", f"conflict pending: {c['a']} / {c['b']} — both live, share: {', '.join(c['shared'][:3])}"
                 + (" · reviewer unsure, a person decides" if c["unsure"] else "")) for c in conflicts]
     return {"schema": SCHEMA, "v": V, "built": now.strftime("%Y-%m-%dT%H:%M"),
@@ -1892,6 +2097,12 @@ def build(root, man, cur, former, et, at, xs=None, now=None, facts=None, base=No
             "proposed_types": proposed_t,
             "tvocab": {"types": len(ttypes), "budget": tcfg["budget"], "promote": list(tcfg["promote"]), "probation": tcfg["probation"],
                        "labels": len(tprops), "below": len(tbelow), "demote": sorted(tdemote)},
+            "proposed_kinds": proposed_k,
+            "kvocab": {"types": len(KINDS), "budget": kcfg["budget"], "promote": list(kcfg["promote"]), "probation": kcfg["probation"],
+                       "labels": len(kwords), "below": len(kbelow), "demote": sorted(kdemote)},
+            "proposed_tags": proposed_g,
+            "gvocab": {"types": len(parse_edges(gtext, {})[0]), "budget": gcfg["budget"], "promote": list(gcfg["promote"]),
+                       "probation": gcfg["probation"], "labels": len(gwords), "below": len(gbelow), "demote": sorted(gdemote)},
             "dedup": dict(dedup), "dropped": base.get("dropped", []), "pointers": ptr, "tags": tags, "unplaced": unplaced,
             "checks": [{"code": c, "msg": m} for c, m in sorted(checks, key=lambda z: z[0])]}
 
@@ -1976,6 +2187,25 @@ def conflicts_text(root):
     return read(cf) if cf.exists() else ""
 
 
+TAGS_HEAD = """# TAGS — themes that notes across the memory share and that their folder, kind and things do not already say. One
+# line per tag: `- tag: what it means | aka: other words | family: parent`. Constrained open, like EDGES.md: a note's
+# `tags:` and its keeper's reading use these tags or their aliases; any other word is kept as a word, and once it is
+# over the bar the review answers alias, new (marked proposed: demoted after the probation if still under the bar),
+# label (kept a word, asked again only once its uses double) or drop. Edit freely: a hand-written line is permanent.
+promote: 3 uses, 3 notes, 1 area
+budget: 30
+probation: 60 days
+"""
+TAG_DEFAULTS = {"promote": (3, 3, 1), "budget": 30, "probation": 60}    # a tag is a theme: fewer notes, any one area
+KIND_DEFAULTS = {"promote": (5, 5, 2), "budget": 40, "probation": 60}
+
+
+def tags_text(root):
+    """TAGS.md as it stands, or its head alone when the memory has none yet (no seed: a tag belongs to one base)."""
+    f = Path(root) / "TAGS.md"
+    return read(f) if f.exists() else TAGS_HEAD
+
+
 def tags_registry(root):
     """TAGS.md: `- tag: what it means | aka: other spellings` -> ({tag: definition}, {folded spelling: tag}). A tag is
     a word of this file; there is no seed, because a tag belongs to one base."""
@@ -1984,22 +2214,42 @@ def tags_registry(root):
     return {t: d["def"] for t, d in types.items()}, {k: v[0] for k, v in alias.items()}
 
 
-def note_tags(aux, root):
-    """The notes of each tag, from the `tags:` line of their frontmatter read through TAGS.md -> ({tag: [paths]}, C17
-    checks). A word that TAGS.md does not list is kept under its own spelling and reported: it is not a tag until
-    someone gives it a line with its definition."""
-    defs, alias = tags_registry(root)
-    out, unlisted = defaultdict(list), defaultdict(list)
+def note_tags(aux, root, notes=None):
+    """The notes of each tag -> ({tag: [paths]}, C17 checks, {word: its uses, for the gate}, {tag: its uses, for the
+    probation}). Tags come two ways, both read through TAGS.md as it stands: written (a note's `tags:` line) and read
+    (its keeper's reading). A written word that TAGS.md does not list is kept under its own spelling and reported
+    (C17); every word outside TAGS.md, written or read, is counted, and the gate offers it to the review once it is
+    common (the same gate as every vocabulary's)."""
+    terms, alias, drop = parse_edges(tags_text(root), {})[:3]
+    out, unlisted, words, usage = defaultdict(set), defaultdict(set), {}, {}
     for rel in sorted(aux):
-        for w in fm_list(aux[rel]["fm"].get("tags")):
-            k = fold(w.lstrip("#"))
-            if not k:
+        written = [fold(str(w).lstrip("#")) for w in fm_list(aux[rel]["fm"].get("tags"))]
+        read_ = [fold(re.sub(r"^other\s*[:/]\s*", "", str(w)).lstrip("#")) for w in ((aux[rel]["x"] or {}).get("tags") or [])]
+        for k, how in [(k, "written") for k in written] + [(k, "read") for k in read_]:
+            if not k or k in drop:
                 continue
-            t = alias.get(k)
-            (out[t] if t else unlisted[k]).append(rel)
-    checks = [("C17", f"tag `{k}` on {len(ps)} note{'s' * (len(ps) != 1)} ({posixpath.basename(ps[0])[:-3]}{', …' if len(ps) > 1 else ''}) "
+            t = alias.get(k, (None,))[0]
+            if t:
+                out[t].add(rel)
+                u = usage.setdefault(t, {"uses": 0, "notes": set(), "areas": set()})
+                if rel not in u["notes"]:
+                    u["uses"] += 1
+                    u["notes"].add(rel)
+                    u["areas"].add(area_of(rel))
+                continue
+            if how == "written":
+                unlisted[k].add(rel)
+            p = words.setdefault(k, {"type": k, "uses": 0, "notes": set(), "areas": set(), "examples": []})
+            if rel not in p["notes"]:
+                p["uses"] += 1
+                p["notes"].add(rel)
+                p["areas"].add(area_of(rel))
+                if len(p["examples"]) < 3:
+                    title = ((notes or {}).get(rel) or {}).get("title") or posixpath.basename(rel)[:-3]
+                    p["examples"].append(f"{posixpath.basename(rel)[:-3]}: {title[:90]}")
+    checks = [("C17", f"tag `{k}` on {len(ps)} note{'s' * (len(ps) != 1)} ({posixpath.basename(sorted(ps)[0])[:-3]}{', …' if len(ps) > 1 else ''}) "
                f"is not in TAGS.md: add `- {k}: what it means`, or name the tag it is another spelling of") for k, ps in sorted(unlisted.items())]
-    return {t: sorted(set(ps)) for t, ps in sorted({**unlisted, **out}.items())}, checks
+    return {t: sorted(ps) for t, ps in sorted({**unlisted, **out}.items())}, checks, words, usage
 
 
 def shape_text(root):
@@ -2397,7 +2647,7 @@ class Dream:
         self.cmd = args.cmd or os.environ.get("MEMORY_LLM")
         self.st = Counter()
         self.review = {"pairs": 0, "types": 0, "calls": 0, "aliases": 0, "mapped": 0, "new": 0, "refused": 0,
-                       "demoted": 0, "conflicts": 0, "decided": 0}
+                       "kept": 0, "demoted": 0, "conflicts": 0, "decided": 0}
         self.curate = {"folders": 0, "calls": 0, "joined": 0, "refused": 0, "left": 0}
         self.placing = {"lines": 0, "members": 0, "links": 0, "calls": 0, "left": 0}
         self.choosing = {"items": 0, "placed": 0, "calls": 0}
@@ -2449,6 +2699,7 @@ class Dream:
         self.tlines = parse_edges(et)[3]
         self.ty_lines = parse_edges(tt, TYPE_PACKS)[3]
         self.kind_names = ", ".join(parse_kinds(kt)["order"])
+        self.tag_lines = "\n".join(parse_edges(tags_text(root), {})[3]) or "(none yet: give other: <word> for a theme notes share)"
         self.alines, self.nots, _ = parse_aliases(at)
         self.homes = defaultdict(list)
         for rel in cur:
@@ -2475,7 +2726,9 @@ class Dream:
         xs, cur = self.xs, self.cur
         _, talias, tdrop, _, _, _ = parse_edges(domain_texts(self.root)[1], TYPE_PACKS)
         occ, _ = canon_occ(((rel, e) for rel in cur if cur[rel]["sha"][:12] in xs for e in xs[cur[rel]["sha"][:12]]["entities"]), talias, tdrop)
-        return merge_entities(occ, self.alines, self.nots, self.homes)[0]
+        linked = read_links((r["s"], r["o"]) for rel in cur if cur[rel]["sha"][:12] in xs
+                            for r in xs[cur[rel]["sha"][:12]].get("relations", []))
+        return merge_entities(occ, self.alines, self.nots, self.homes, linked=linked)[0]
 
     def prompt_for(self, h, ents):
         """-> (prompt, static_len). The static part — template, EDGES, KNOWN — comes first and is byte-identical for
@@ -2484,7 +2737,7 @@ class Dream:
         text = read(self.root / rel)
         if len(text) > NOTE_CAP:
             text = text[:NOTE_CAP] + f"\n… [{len(text) - NOTE_CAP} more characters cut: the note is far over the 40-line rule]"
-        pr = fill(EXTRACT, kinds=self.kind_names, types="\n".join(self.ty_lines), edges="\n".join(self.tlines),
+        pr = fill(EXTRACT, kinds=self.kind_names, types="\n".join(self.ty_lines), edges="\n".join(self.tlines), tags=self.tag_lines,
                   known=known_lines(ents, area_of(rel)), folder=self.folder_lines([area_of(rel)], text=text), path=rel, text=text)
         return pr, pr.index("\nNOTE ") + 1
 
@@ -2559,7 +2812,7 @@ class Dream:
         """The notes to read as packets, in their order (one project after another): [[note id, …]]. A packet closes
         when the next note would take its notes past PACKET_TEXT characters or its prompt past PACKET_TOKENS."""
         tokens, text = env_numbers("MEMORY_PACKET", (PACKET_TOKENS, PACKET_TEXT))
-        head = len(fill(PACKET, kinds=self.kind_names, types="\n".join(self.ty_lines), edges="\n".join(self.tlines), known="", folder="")) + KNOWN_ROOM
+        head = len(fill(PACKET, kinds=self.kind_names, types="\n".join(self.ty_lines), edges="\n".join(self.tlines), tags=self.tag_lines, known="", folder="")) + KNOWN_ROOM
         out, size = [], 0
         for h in todo:
             n = min(self.cur[self.by_sha[h]]["size"], NOTE_CAP) + 80
@@ -2582,7 +2835,7 @@ class Dream:
             if len(text) > NOTE_CAP:
                 text = text[:NOTE_CAP] + f"\n… [{len(text) - NOTE_CAP} more characters cut: the note is far over the 40-line rule]"
             body += f"NOTE {h} {rel}:\n{text.rstrip()}\n"
-        pr = fill(PACKET, kinds=self.kind_names, types="\n".join(self.ty_lines), edges="\n".join(self.tlines), known="\n".join(known),
+        pr = fill(PACKET, kinds=self.kind_names, types="\n".join(self.ty_lines), edges="\n".join(self.tlines), tags=self.tag_lines, known="\n".join(known),
                   folder=self.folder_lines(areas, text=body))
         return pr + body, len(pr)
 
@@ -2699,20 +2952,23 @@ class Dream:
         return g
 
     def demote(self, g):
-        """Probation over and still under the bar: the type goes back to a label (EDGES.md) or a word (TYPES.md), 0 calls."""
-        if not g["vocab"]["demote"] and not g["tvocab"]["demote"]:
+        """Probation over and still under the bar: the term goes back to a word, in whichever vocabulary (a label in
+        EDGES.md, a word in TYPES.md, KINDS.md or TAGS.md), 0 calls."""
+        root, done = self.root, 0
+        for key, name, text_of in (("vocab", "EDGES.md", lambda: vocab_texts(root)[0]), ("tvocab", "TYPES.md", lambda: domain_texts(root)[1]),
+                                   ("kvocab", "KINDS.md", lambda: domain_texts(root)[0]), ("gvocab", "TAGS.md", lambda: tags_text(root))):
+            gone = (g.get(key) or {}).get("demote") or []
+            if gone:
+                text = text_of()
+                for T in gone:
+                    text = edit_edges(text, "demote", T)
+                wr(root / name, text)
+                done += len(gone)
+                if name == "KINDS.md":
+                    self.base.clear()
+        if not done:
             return g
-        if g["vocab"]["demote"]:
-            e2 = vocab_texts(self.root)[0]
-            for T in g["vocab"]["demote"]:
-                e2 = edit_edges(e2, "demote", T)
-            wr(self.root / "EDGES.md", e2)
-        if g["tvocab"]["demote"]:
-            t2 = domain_texts(self.root)[1]
-            for T in g["tvocab"]["demote"]:
-                t2 = edit_edges(t2, "demote", T)
-            wr(self.root / "TYPES.md", t2)
-        self.review["demoted"] = len(g["vocab"]["demote"]) + len(g["tvocab"]["demote"])
+        self.review["demoted"] = done
         return self.graph()
 
     def run_place(self, g):
@@ -2978,23 +3234,20 @@ class Dream:
             self.store.put(h, self.xs[h])
         return self.graph() if changed else g
 
-    def cards(self, g, area, cap=150):
-        """The things a folder's notes name, for the curator: -> (ids, one line each). Most mentioned first."""
+    def cards(self, g, area, cap=150, lines=True):
+        """The things a folder's notes name, for the curator: -> (ids, one card each, from thing_cards). Most mentioned
+        first. lines=False: the ids alone, which are what the folder's signature is made of."""
         rows = []
         for e in g["entities"]:
-            ms = [m for m in e["mentions"] if area_of(m["path"]) == area]
-            if ms:
-                rows.append((-len(ms), fold(e["id"]), e, ms[0]))
-        rows.sort(key=lambda r: r[:2])
-        out = []
-        for _, _, e, m in rows[:cap]:
-            try:
-                line = read(self.root / m["path"]).split("\n")[m["lines"][0] - 1].strip()[:140]
-            except (OSError, IndexError):
-                line = ""
-            out.append(f"- {e['id']} ({e['type']}) · written: " + "; ".join(f'"{x["name"]}"' for x in e["names"][:4])
-                       + f" · in {len(e['mentions'])} notes · «{line}»")
-        return [r[2]["id"] for r in rows[:cap]], out
+            n = sum(area_of(m["path"]) == area for m in e["mentions"])
+            if n:
+                rows.append((-n, fold(e["id"]), e["id"]))
+        rows.sort()
+        ids = [r[2] for r in rows[:cap]]
+        if not lines:
+            return ids, []
+        cs = thing_cards(g, self.root, ids, area)
+        return ids, [f"- {cs[i]}" for i in ids if i in cs]
 
     def run_curate(self, g):
         """Identity by reading (PLAN §7). For each folder whose things changed since the curator last read it: one
@@ -3014,9 +3267,9 @@ class Dream:
         areas = sorted({area_of(m["path"]) for e in g["entities"] for m in e["mentions"]} - {"log", ""})
         todo = []
         for a in areas:
-            ids, lines = self.cards(g, a)
+            ids = self.cards(g, a, lines=False)[0]
             if len(ids) >= 2 and self.curated.get(a) != sig(ids):
-                todo.append((a, ids, lines))
+                todo.append((a, ids, self.cards(g, a)[1]))
         self.curate["left"] = max(0, len(todo) - CURATE_MAX)
         todo = todo[:CURATE_MAX]
         answers = {}
@@ -3030,6 +3283,7 @@ class Dream:
                 answers[pj.name[len("curate-"):-5].replace("--", "/")] = parse_json(read(pj))
                 pj.unlink()
         ents = {e["id"]: e for e in g["entities"]}
+        links = linked_pairs(g)
         a2 = vocab_texts(self.root)[1]
         nots = parse_aliases(a2)[1]
         stamp = f" | by: curator {self.now.date().isoformat()}"
@@ -3060,6 +3314,9 @@ class Dream:
                     if not local(other, a) or any(home(i) and area_of(home(i)) != a for i in (lead, other)):
                         self.curate["refused"] += 1  # a name other folders use too, or a thing that is another folder's
                         continue
+                    if frozenset((lead, other)) in links:
+                        self.curate["refused"] += 1  # two things a note links are two things
+                        continue
                     line = line_of(a2, lead) | line_of(a2, other)  # what the line would hold, with what is joined already
                     wide = sorted(i for i in line if i in ents and not local(i, a))
                     if len({home(i) for i in line if home(i)}) > 1 or len(wide) > 1:
@@ -3073,7 +3330,7 @@ class Dream:
             wr(self.root / "ALIASES.md", a2)
             g = self.graph()
         for a in read_now:  # what the folder holds after the joins: the same things are not read twice
-            self.curated[a] = sig(self.cards(g, a)[0])
+            self.curated[a] = sig(self.cards(g, a, lines=False)[0])
             if (pend / f"{slug(a)}.prompt.md").exists():
                 (pend / f"{slug(a)}.prompt.md").unlink()
         if ask_files:
@@ -3082,16 +3339,28 @@ class Dream:
                     wr(pend / f"{slug(a)}.prompt.md", fill(CURATE, area=a, cards="\n".join(lines)))
         return g
 
+    def word_sections(self, g, kprops, gprops):
+        """The review's kind and tag sections, in the shape of the type sections: the vocabulary with its definitions,
+        then each word over the bar with its counts and example notes."""
+        kinds = parse_kinds(domain_texts(self.root)[0])["kinds"]
+        words = lambda ps: "\n".join(f"- {p['type']}: {p['uses']} uses, {p['notes']} notes, {p['areas']} areas; "  # noqa: E731
+                                     + "; ".join(f'"{x}"' for x in p["examples"]) for p in ps) or "none"
+        kv, gv = g.get("kvocab") or {}, g.get("gvocab") or {}
+        return {"kinds": "\n".join(f"- {k}: {d['def']}" + (f" | family: {d['family']}" if d["family"] != k else "") for k, d in kinds.items()),
+                "kn": kv.get("types", len(kinds)), "kbudget": kv.get("budget", KIND_DEFAULTS["budget"]), "kwords": words(kprops),
+                "tags": "\n".join(parse_edges(tags_text(self.root), {})[3]) or "none yet",
+                "gn": gv.get("types", 0), "gbudget": gv.get("budget", TAG_DEFAULTS["budget"]), "gwords": words(gprops)}
+
     def review_prompt(self, g):
         """-> (prompt or None, labels offered, entity pairs offered, conflicts offered)."""
         root = self.root
         props = g["proposed"][:40]
         tprops = g.get("proposed_types", [])[:40]
+        kprops, gprops = g.get("proposed_kinds", [])[:40], g.get("proposed_tags", [])[:40]
         pairs = [(r["a"], r["b"]) for r in g["review"]][:30]
         conflicts = [c for c in g["conflicts"] if not c["unsure"]][:CONFLICT_MAX]
-        if not props and not pairs and not conflicts and not tprops:
+        if not props and not pairs and not conflicts and not tprops and not kprops and not gprops:
             return None, props, pairs, conflicts
-        ents = {e["id"]: e for e in g["entities"]}
         nmap = {n["path"]: n for n in g["notes"]}
 
         def first_line(p):
@@ -3099,13 +3368,11 @@ class Dream:
             ls = [x.strip() for x in read(root / p).split("\n")[(n["line"] or 1):] if x.strip() and not x.startswith("#")]
             return (ls[0] if ls else "")[:160]
 
-        def ctx(e):
-            m = e["mentions"][0]
-            return read(root / m["path"]).split("\n")[m["lines"][0] - 1].strip()[:160]
+        pc = thing_cards(g, root, sorted({x for p in pairs for x in p}))  # the curator's cards: one evidence for both
 
-        def desc(c):
-            e = ents[c]
-            return f"{c} ({e['type']}; " + "; ".join(f'"{n["name"]}"' for n in e["names"][:3]) + f") «{ctx(e)}»"
+        def pair_line(a, b):
+            both = shared_links(g, a, b)
+            return f"- {a} / {b}: {pc.get(a, a)} | {pc.get(b, b)} · both: {'; '.join(both[:4]) if both else 'no link in common'}"
         vc, tv = g["vocab"], g["tvocab"]
         pr = fill(REVIEW, edges="\n".join(parse_edges(vocab_texts(root)[0])[3]), n=vc["types"], budget=vc["budget"],
                   u=vc["promote"][0], nn=vc["promote"][1], a=vc["promote"][2],
@@ -3114,9 +3381,10 @@ class Dream:
                                     + "; ".join(f'"{x}"' for x in p["examples"]) for p in tprops) or "none",
                   proposals="\n".join(f"- {p['type']}: {p['uses']} uses, {p['notes']} notes, {p['areas']} areas; "
                                       + "; ".join(f'"{x}"' for x in p["examples"]) for p in props) or "none",
-                  pairs="\n".join(f"- {a} / {b}: {desc(a)} | {desc(b)}" for a, b in pairs) or "none",
+                  pairs="\n".join(pair_line(a, b) for a, b in pairs) or "none",
                   conflicts="\n".join(f"- {c['a']} / {c['b']}: \"{nmap[c['a']]['title']}\" «{first_line(c['a'])}» | "
-                                      f"\"{nmap[c['b']]['title']}\" «{first_line(c['b'])}»" for c in conflicts) or "none")
+                                      f"\"{nmap[c['b']]['title']}\" «{first_line(c['b'])}»" for c in conflicts) or "none",
+                  **self.word_sections(g, kprops, gprops))
         return pr, props, pairs, conflicts
 
     def apply_review(self, g, ans, props, pairs, conflicts=()):
@@ -3151,28 +3419,11 @@ class Dream:
         if conflicts and c2 != (read(cf) if cf.exists() else CONFLICTS_HEAD):
             wr(cf, c2)
             self.base.clear()  # a supersession changes the note half: rebuild it, not only the vocabulary half
-        types, alias_all = parse_edges(e2)[0], parse_edges(e2)[1]
-        budget = edges_cfg(e2)["budget"]
         mentions = {e["id"]: len(e["mentions"]) for e in g["entities"]}
-        pmap = {fold(p["type"]): p for p in props}
-        for t, v in (ans.get("types") or {}).items():  # alias onto a type, promote with a definition, keep, or drop
-            t, v = fold(t), str(v).strip()
-            low = v.lower()
-            tgt = v[5:].strip() if low.startswith("alias") else ""
-            definition = v.split(":", 1)[1].strip() if low.startswith("new") and ":" in v else ""
-            if t in pmap and tgt and fold(tgt.lstrip("~")) in types:
-                e2 = edit_edges(e2, "alias", ("~" if tgt.startswith("~") else "") + t, fold(tgt.lstrip("~")))
-                review["mapped"] += 1
-            elif t in pmap and low == "drop":
-                e2 = edit_edges(e2, "drop", t)
-                review["mapped"] += 1
-            elif t in pmap and low.startswith("new"):  # the code decides: definition, not a known type, room
-                if definition and t not in types and t not in alias_all and len(types) < budget:
-                    e2 = edit_edges(e2, "new", t, definition, date=now.date().isoformat())
-                    types[t] = {"def": definition, "aka": []}
-                    review["new"] += 1
-                else:
-                    review["refused"] += 1
+        links = linked_pairs(g)
+        # every vocabulary by the same rule (apply_terms): relation labels into EDGES.md here, type words, kind words and
+        # tag words into their files below
+        e2 = apply_terms(e2, ans.get("types"), props, now, reverse=True, stats=review)
         asked = {frozenset((fold(a), fold(b))): (a, b) for a, b in pairs}
         for k, v in (ans.get("entities") or {}).items():
             a, b = split_pair(str(k))
@@ -3180,6 +3431,8 @@ class Dream:
             v = str(v).strip().lower()
             if ab and v in ("same", "different"):
                 a, b = ab
+                if v == "same" and frozenset((a, b)) in links:
+                    continue  # two things a note links are two things, whatever the answer
                 lead = a if mentions.get(a, 0) >= mentions.get(b, 0) else b
                 a2 = edit_aliases(a2, a, b, v == "same", lead, note=f" | by: review {now.date().isoformat()}")
                 review["aliases"] += v == "same"
@@ -3187,37 +3440,24 @@ class Dream:
             wr(root / "EDGES.md", e2)
         if a2 != vocab_texts(root)[1]:
             wr(root / "ALIASES.md", a2)
-        t2 = domain_texts(root)[1]  # type words: alias onto a type, a new type with its family, keep the word, or drop it
-        ttypes, talias_all = parse_edges(t2, TYPE_PACKS)[0], parse_edges(t2, TYPE_PACKS)[1]
-        tbudget = edges_cfg(t2)["budget"]
-        tmap = {fold(p["type"]): p for p in g.get("proposed_types", [])}
-        for t, v in (ans.get("etypes") or {}).items():
-            t, v = fold(t), str(v).strip()
-            low = v.lower()
-            tgt = v[5:].strip() if low.startswith("alias") else ""
-            definition = v.split(":", 1)[1].strip() if low.startswith("new") and ":" in v else ""
-            if t in tmap and tgt and fold(tgt.lstrip("~")) in ttypes:
-                t2 = edit_edges(t2, "alias", t, fold(tgt))
-                review["mapped"] += 1
-            elif t in tmap and low == "drop":
-                t2 = edit_edges(t2, "drop", t)
-                review["mapped"] += 1
-            elif t in tmap and low.startswith("new"):
-                if definition and t not in ttypes and t not in talias_all and len(ttypes) < tbudget:
-                    t2 = edit_edges(t2, "new", t, definition, date=now.date().isoformat())
-                    ttypes[t] = {"def": definition, "aka": []}
-                    review["new"] += 1
-                else:
-                    review["refused"] += 1
-        if t2 != domain_texts(root)[1]:
-            wr(root / "TYPES.md", t2)
+        for key, name, now_text, packs, offered in (("etypes", "TYPES.md", lambda: domain_texts(root)[1], TYPE_PACKS, g.get("proposed_types", [])),
+                                                     ("kinds", "KINDS.md", lambda: domain_texts(root)[0], KIND_PACKS, g.get("proposed_kinds", [])),
+                                                     ("tags", "TAGS.md", lambda: tags_text(root), None, g.get("proposed_tags", []))):
+            was = now_text()
+            text = apply_terms(was, ans.get(key), offered, now, packs, stats=review)
+            if text != was:
+                wr(root / name, text)
+                if name == "KINDS.md":
+                    self.base.clear()                     # a note's kind is in the note half: rebuild it
 
     def run_review(self, g):
         """Command mode: one call when something is due. File mode: ingest review.json if the helper agent left one,
         then write review.prompt.md for what is still due."""
         pend, cmd, args = self.pend, self.cmd, self.args
         open_ = lambda g_: [c for c in g_["conflicts"] if not c["unsure"]]  # noqa: E731
-        if cmd and (args.review or g["proposed"] or g.get("proposed_types") or g["review"] or open_(g)):
+        due = lambda g_: (g_["proposed"] or g_.get("proposed_types") or g_.get("proposed_kinds") or g_.get("proposed_tags")  # noqa: E731
+                          or g_["review"] or open_(g_))   # anything over a bar, a pair, a conflict: the same review for all
+        if cmd and (args.review or due(g)):
             pr, props, pairs, conflicts = self.review_prompt(g)
             if pr:
                 obj, n = call_model(cmd, pr)
@@ -3236,7 +3476,7 @@ class Dream:
                     g = self.graph()
                 rj.unlink()
                 (pend / "review.prompt.md").unlink() if (pend / "review.prompt.md").exists() else None
-            pr = self.review_prompt(g)[0] if (args.prompts or args.packets) and (args.review or g["proposed"] or g.get("proposed_types") or g["review"] or open_(g)) else None
+            pr = self.review_prompt(g)[0] if (args.prompts or args.packets) and (args.review or due(g)) else None
             if pr:
                 wr(pend / "review.prompt.md", pr)
             elif (pend / "review.prompt.md").exists():
