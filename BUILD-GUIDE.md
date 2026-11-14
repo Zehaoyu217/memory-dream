@@ -693,10 +693,16 @@ it; the page and d3 7.9.0 (ISC) sit in `assets/`, and it opens offline.
    lotto balls, white cards with speech-bubble rows, a ✦ after the title); and noir, black and white after a
    black-and-white outfit with purple tulle (a black stage, one warm spotlight, a black-and-white checkered floor,
    white and silver things, warm-white marquee bulbs, the four card suits turning round a picked thing, purple only
-   as an accent). The gala, moonlit, fanfare and noir fling confetti out of a thing when it is picked (noir's a
-   quarter card suits). Each look is tokens on `<html data-theme>` (names on the page read `--page-ink`, names on a
+   as an accent); and aeon, the god look (`heaven`: noir's black first under the sky of a god, one great eye in a
+   band of sky the fit keeps above the islands (`eyeSky`, a quarter of the canvas), its pupil a white star with
+   long rays that turns to the thing picked, else the one pointed at, else looks about, with a faint beam down to
+   the thing picked; its light in one soft cone with shafts; a glory of fine rays and a turning halo of beads,
+   crescents and stars, all kept inside the band; a blink every nine seconds, a falling star every ten; each
+   island a small heaven ringed with star-beads; crescents and stars turning round a picked thing). The gala,
+   moonlit, fanfare, noir and aeon fling confetti out of a thing when it is picked (noir's a quarter card suits,
+   aeon's stars, dots and crescents). Each look is tokens on `<html data-theme>` (names on the page read `--page-ink`, names on a
    card `--ink`) plus a few canvas branches; a switch in the header picks one and the canvas fades across;
-   `viz --theme star|gala|moon|fanfare|noir` opens in another. Measured on the 1,677-note bank:
+   `viz --theme star|gala|moon|fanfare|noir|aeon` opens in another. Measured on the 1,677-note bank:
    1,082 things, 2,740 links, 49 islands, 1.4 MB; 60 frames a second in every look on a laptop's GPU; 0 page errors
    and no stray black in any look, headless (`tests/kg_check.js`).
 5. **Scale.** `demo/knowledge-graph/make_big.py` makes a graph shaped like a big memory (projects of every size, a

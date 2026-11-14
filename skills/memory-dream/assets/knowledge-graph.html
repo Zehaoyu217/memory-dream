@@ -132,6 +132,31 @@
   :root[data-theme="noir"] body { background:radial-gradient(70% 60% at 50% 6%, rgba(255,240,205,.11) 0%, rgba(255,240,205,0) 70%),
                                   radial-gradient(1200px 800px at 50% 50%, #17151d 0%, #0b0a0f 60%, #050407 100%); }
   :root[data-theme="noir"] .float { position:relative; }
+  /* aeon, the god look: black first, as noir, under the sky of a god: one great eye high above the islands, watching,
+     that turns to what is picked; its light falling in soft rays; a glory of fine rays and a halo of crescents and
+     stars round it; stars, now and then a falling one; a bank of cloud below; purple only as an accent; a look, not a
+     game's: no names, marks or art from one */
+  :root[data-theme="aeon"] {
+    color-scheme:dark;
+    --paper:#08070e; --sheet:rgba(17,14,30,.84); --tint:rgba(255,255,255,.07); --ink:#f5f2fc; --muted:#aca5c0; --faint:#716a86;
+    --accent:#a67cff; --out:#bba6ff; --in:#e7cf8e; --edge-rgb:232,226,250; --edge2-rgb:231,207,142; --halo:rgba(9,7,17,.9);
+    --isle:rgba(238,232,252,.84); --on-accent:#0b0a12; --ring:rgba(166,124,255,.40); --accent-soft:rgba(166,124,255,.12);
+    --accent-soft-2:rgba(166,124,255,.22); --in-soft:rgba(231,207,142,.14); --label:#bba6ff; --figure:#ffffff; --display-weight:400;
+    --display-style:normal; --radius:10px; --panel-radius:12px;
+    --font:"Avenir Next","Avenir","Segoe UI","Helvetica Neue",Arial,sans-serif;
+    --serif:"Didot","Bodoni 72","Bodoni MT","Playfair Display",Georgia,serif;
+    --shadow:0 0 0 1px rgba(255,255,255,.10),0 18px 50px rgba(0,0,0,.6);
+    --row:rgba(255,255,255,.05); --row-hover:rgba(255,255,255,.10); --corner:""; --corner-c:rgba(166,124,255,.85); --mark:"☾";
+    --blur:blur(14px); --tail:""; --title-mark:"✦"; --card-label:#bba6ff; --card-figure:#ffffff; --hint-ink:rgba(255,255,255,.6);
+  }
+  :root[data-theme="aeon"] body { background:
+      radial-gradient(900px 380px at 12% 30%, rgba(86,58,170,.16) 0%, rgba(86,58,170,0) 66%),
+      radial-gradient(820px 360px at 89% 25%, rgba(120,70,190,.13) 0%, rgba(120,70,190,0) 64%),
+      radial-gradient(60% 20% at 16% 104%, rgba(160,146,200,.21) 0%, rgba(160,146,200,0) 72%),
+      radial-gradient(55% 18% at 80% 106%, rgba(160,146,200,.15) 0%, rgba(160,146,200,0) 72%),
+      radial-gradient(100% 24% at 50% 113%, rgba(200,186,236,.13) 0%, rgba(200,186,236,0) 70%),
+      linear-gradient(180deg, #0f0b21 0%, #0a0815 48%, #07060b 100%); }
+  :root[data-theme="aeon"] .float { position:relative; }
   :focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
 </style>
 <script id="lib">
@@ -140,17 +165,18 @@ const DP = {
   esc: s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]),
   num: n => Number(n).toLocaleString('en-US'),
   still: () => matchMedia('(prefers-reduced-motion: reduce)').matches,
-  look: () => document.documentElement.dataset.theme || 'paper',   // paper, star (a star map), gala (a purple show), moon (moonlit)
+  look: () => document.documentElement.dataset.theme || 'paper',   // paper, star (a star map), gala, moon, fanfare, noir, aeon (the god look)
   tone: (c, groups) => {             // a group's colour for the look in use: the star map lifts it so it glows on the dark;
     const look = DP.look();          // the gala gives each group a colour of its show, by its place among `groups` (the legend's order)
     if (look === 'paper') return c;
-    if (look === 'gala' || look === 'moon' || look === 'fanfare' || look === 'noir') {   // each show look has its own eight, in the legend's order
+    if (look === 'gala' || look === 'moon' || look === 'fanfare' || look === 'noir' || look === 'aeon') {   // each show look has its own eight, in the legend's order
       const i = (groups || []).findIndex(g => g.color === c), pal = {
         gala: ['#ff6fcf', '#b48bff', '#62d4ff', '#ffd36e', '#7fe3b8', '#ff9478', '#e3bdff', '#8fa8ff'],
         moon: ['#4b2a6b', '#7b5cd6', '#d6457f', '#5f7ee0', '#d4a24c', '#3fae9a', '#a98be6', '#e07a9e'],
         fanfare: ['#ffd35c', '#7ee7ff', '#ff8fd8', '#ffffff', '#c9a8ff', '#8ff0b8', '#ffb37a', '#a8b8ff'],
-        noir: ['#f4f2f8', '#b9b6c4', '#a67cff', '#e2c27a', '#d9c8ff', '#e889c9', '#a9dcef', '#8a8696'] }[look];   // white and silver first
-      return i >= 0 && groups[i].g !== 'other' ? pal[i % 8] : { gala: '#cfc6e4', moon: '#a49cb8', fanfare: '#ddd3f5', noir: '#5e5a69' }[look];
+        noir: ['#f4f2f8', '#b9b6c4', '#a67cff', '#e2c27a', '#d9c8ff', '#e889c9', '#a9dcef', '#8a8696'],   // white and silver first
+        aeon: ['#f6f3ff', '#c8bfe6', '#a67cff', '#e7cf8e', '#9fd0ff', '#e3a6d8', '#d9c8ff', '#8f8aa3'] }[look];   // starlight first
+      return i >= 0 && groups[i].g !== 'other' ? pal[i % 8] : { gala: '#cfc6e4', moon: '#a49cb8', fanfare: '#ddd3f5', noir: '#5e5a69', aeon: '#5f5a72' }[look];
     }
     const h = d3.hsl(c); h.l = Math.min(0.8, Math.max(0.64, h.l + 0.26)); h.s = Math.min(0.92, h.s * 1.3 + 0.08); return h.formatHex();
   },
@@ -201,11 +227,14 @@ const DP = {
     #masthead dd { margin:0; font:var(--display-weight) 28px/1 var(--serif); font-variant-numeric:tabular-nums; color:var(--figure); }
     #masthead .looks { position:absolute; top:18px; right:40px; display:flex; gap:2px; padding:3px; border-radius:999px; background:var(--tint);
                        animation-delay:.3s; transition:background .5s; }
-    #masthead .looks button { height:26px; padding:0 12px; border-radius:999px; font-size:12px; color:var(--page-muted); transition:color .2s, background .3s, box-shadow .3s; }
+    #masthead .looks button { height:26px; padding:0 12px; border-radius:999px; font-size:12px; color:var(--page-muted); white-space:nowrap; flex:none;
+                              transition:color .2s, background .3s, box-shadow .3s; }
     #masthead .looks button:hover { color:var(--page-ink); }
     #masthead .looks button[aria-pressed="true"] { background:var(--sheet); color:var(--ink); box-shadow:0 0 0 1px var(--accent-soft-2); }
     @keyframes masthead-up { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:none; } }
     @media (max-width:980px) { #masthead dl { display:none; } }
+    @media (max-width:800px) { #masthead { padding:60px 16px 16px; }   /* the switch gets a row of its own, and scrolls when the looks are wider */
+                               #masthead .looks { top:14px; left:16px; right:auto; max-width:calc(100% - 32px); overflow-x:auto; scrollbar-width:none; } }
     @media (prefers-reduced-motion: reduce) { #masthead > * { animation:none; } }
   </style>
   <div>
@@ -214,11 +243,19 @@ const DP = {
     <p>@@LEDE@@</p>
   </div>
   <dl>@@STATS@@</dl>
-  <div class="looks" role="group" aria-label="The look of the page"><button data-look="paper">Paper</button><button data-look="star">Star map</button><button data-look="gala">Gala</button><button data-look="moon">Moonlit</button><button data-look="fanfare">Fanfare</button><button data-look="noir">Noir</button></div>
+  <div class="looks" role="group" aria-label="The look of the page"><button data-look="paper">Paper</button><button data-look="star">Star map</button><button data-look="gala">Gala</button><button data-look="moon">Moonlit</button><button data-look="fanfare">Fanfare</button><button data-look="noir">Noir</button><button data-look="aeon">Aeon</button></div>
   <script>
   (() => {
     const looks = document.querySelector('#masthead .looks');
-    const show = () => looks.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.look === DP.look() ? 'true' : 'false'));
+    const show = () => {
+      looks.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.look === DP.look() ? 'true' : 'false'));
+      const on = looks.querySelector('[aria-pressed="true"]');   // where the switch scrolls (a phone), the look in use is in view
+      if (on && looks.scrollWidth > looks.clientWidth) looks.scrollLeft = on.offsetLeft - (looks.clientWidth - on.offsetWidth) / 2;
+    };
+    const head = document.getElementById('masthead');   // what sits under the masthead (search, panel) sits under it as tall as it is
+    const fit = () => document.documentElement.style.setProperty('--head', Math.max(156, Math.ceil(head.getBoundingClientRect().height)) + 'px');
+    if (window.ResizeObserver) new ResizeObserver(fit).observe(head);
+    fit();
     looks.addEventListener('click', e => {             // the look is a view, like a tab: one attribute on the page, then word to the rest
       const b = e.target.closest('button'); if (!b || b.dataset.look === DP.look()) return;
       document.documentElement.dataset.theme = b.dataset.look; show();
@@ -299,13 +336,14 @@ const DP = {
       const lose = g.getExtension('WEBGL_lose_context'); if (lose) lose.loseContext();
       return /swiftshader|llvmpipe|softpipe|software|basic render/i.test(name);
     } catch (e) { return false; } })();
-    let INK, MUTED, OUT, IN, BOTH, HALO, EDGE, EDGE2, PAPER, ISLE, FONT, SERIF, NIGHT, GALA, MOON, FAN, NOIR;
+    let INK, MUTED, OUT, IN, BOTH, HALO, EDGE, EDGE2, PAPER, ISLE, FONT, SERIF, NIGHT, GALA, MOON, FAN, NOIR, AEON;
     function paint() {                                    // the look's tokens, read again whenever the look or the colours change
       INK = tok('--page-ink'); MUTED = tok('--page-muted');   // names sit on the page, not on a card
       OUT = tok('--out'); IN = tok('--in'); BOTH = tok('--accent'); HALO = tok('--halo'); EDGE = tok('--edge-rgb');
       EDGE2 = tok('--edge2-rgb'); PAPER = tok('--paper'); ISLE = tok('--isle'); FONT = tok('--font'); SERIF = tok('--serif');
       NOIR = DP.look() === 'noir';                        // noir: black and white on a checkered stage, one spotlight, card suits
-      NIGHT = DP.look() === 'star' || DP.look() === 'gala' || NOIR; GALA = DP.look() === 'gala';   // the dark looks share the night
+      AEON = DP.look() === 'aeon';                        // aeon, the god look: an eye in the sky, its light, a halo, crescents
+      NIGHT = DP.look() === 'star' || DP.look() === 'gala' || NOIR || AEON; GALA = DP.look() === 'gala';   // the dark looks share the night
       MOON = DP.look() === 'moon';                        // moonlit is a light look of its own: a great moon, sparkles, ribbons, pearls
       FAN = DP.look() === 'fanfare';                      // fanfare: a show, spotlights, a checkered floor, bunting, marquee bulbs
       tones = facet.rows.map(r => DP.tone(r.color, facet.rows)); grey = DP.tone(DP.grey, facet.rows);
@@ -507,7 +545,16 @@ const DP = {
     let W = 0, H = 0, dpr = 1, t = d3.zoomIdentity, panelOpen = false, moved = false, auto = false, ready = false, sizeW = 0, sizeH = 0;
     const zoom = d3.zoom().scaleExtent([0.08, 10]).on('zoom', e => { t = e.transform; if (e.sourceEvent) { moved = true; auto = false; lastInput = performance.now(); } hideTip(); need(); });
     const sel = d3.select(canvas);
-    const inset = () => W > 1000 ? { l: 330, r: 26 + (panelOpen ? PANEL : 0), t: 8, b: 46 } : { l: 16, r: 16, t: 70, b: 46 };
+    const eyeSky = () => {                                // the god look's eye: the band of sky it keeps above the islands, its place
+      const top = W > 1000 ? 0 : 62, band = W > 600 ? Math.max(120, Math.min(H * 0.26, 240)) : Math.max(92, Math.min(H * 0.2, 140));
+      const b = Math.min(band * 0.3, W * 0.065);           // and its size in it; on a narrow screen the band starts under the search
+      return { top, band, cy: top + band * 0.47, b, a: b / 0.42 };
+    };
+    const inset = () => {
+      const s = W > 1000 ? { l: 330, r: 26 + (panelOpen ? PANEL : 0), t: 8, b: 46 } : { l: 16, r: 16, t: 70, b: 46 };
+      if (AEON) { const e = eyeSky(); s.t = Math.max(s.t, e.top + e.band); }         // the islands are fitted under the eye, not behind it
+      return s;
+    };
     const frameBox = (x0, y0, x1, y1, max) => {
       const s = inset(), vw = Math.max(160, W - s.l - s.r), vh = Math.max(160, H - s.t - s.b), pad = 24;
       const k = Math.min(max, (vw - 2 * pad) / Math.max(1, x1 - x0), (vh - 2 * pad) / Math.max(1, y1 - y0));
@@ -625,8 +672,8 @@ const DP = {
       bins.forEach((bin, j) => {
         if (!bin.length) return;
         ctx.globalAlpha = (j + 0.5) / 4;
-        if (GALA) {      // the gala's sky: the brightest are four-point sparkles in starlight, pink and moonlight, the rest dust
-          [['#fff6e0', 0], ['#ffd6f4', 1], ['#d9c8ff', 2]].forEach(([c, m]) => {
+        if (GALA || AEON) {   // the gala's sky: the brightest are four-point sparkles in starlight, pink and moonlight, the rest
+          (GALA ? [['#fff6e0', 0], ['#ffd6f4', 1], ['#d9c8ff', 2]] : [['#ffffff', 0], ['#e4d8ff', 1], ['#f3e2b4', 2]]).forEach(([c, m]) => {   // dust; aeon's in starlight, lilac, gold
             ctx.fillStyle = c; ctx.beginPath();
             bin.forEach((q, i) => {
               if (i % 3 !== m) return;
@@ -695,9 +742,118 @@ const DP = {
       sky.forEach((q, i) => { if (i % 2 || q.r < 1) return; const a = still ? 0.8 : 0.5 + 0.5 * Math.sin(s * q.w + q.ph); spark(q.x * W, 40 + q.y * H * 0.62, q.r * 4 * a); });
       ctx.fill(); ctx.globalAlpha = 1;
     }
+    // aeon's sky, the god look: one great eye high in the sky, watching. Its pupil is a white star that turns to what is
+    // picked (else to what is pointed at, else it looks about); its light falls on the islands in soft rays; a glory of
+    // fine rays and a halo of crescents and stars turn round it; now and then it blinks, and a star falls. All in the
+    // screen's space, so it keeps its place in the sky while the graph moves under it
+    const eye = { x: 0, y: 0.3, cx: 0, t: 0 };
+    const crescent = (x, y, R, ang) => {                // a crescent moon whose horns point at `ang`
+      const th = 1.15, d = R * 0.52, ox = x + Math.cos(ang) * d, oy = y + Math.sin(ang) * d;
+      const h1x = x + Math.cos(ang + th) * R, h1y = y + Math.sin(ang + th) * R, h2x = x + Math.cos(ang - th) * R, h2y = y + Math.sin(ang - th) * R;
+      ctx.moveTo(h1x, h1y); ctx.arc(x, y, R, ang + th, ang - th + 2 * Math.PI);
+      ctx.arc(ox, oy, Math.hypot(h1x - ox, h1y - oy), Math.atan2(h2y - oy, h2x - ox), Math.atan2(h1y - oy, h1x - ox), true); ctx.closePath();
+    };
+    const almond = (x, y, a, b) => { ctx.moveTo(x - a, y); ctx.quadraticCurveTo(x, y - 2 * b, x + a, y); ctx.quadraticCurveTo(x, y + 2 * b, x - a, y); };
+    const ray = (x, y, L, w, ang, al) => {                // a long thin ray of light, brightest at the middle
+      const c = Math.cos(ang), sn = Math.sin(ang), gr = ctx.createLinearGradient(x - c * L, y - sn * L, x + c * L, y + sn * L);
+      gr.addColorStop(0, 'rgba(255,255,255,0)'); gr.addColorStop(0.5, `rgba(255,255,255,${al})`); gr.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.fillStyle = gr; ctx.beginPath(); ctx.moveTo(x - c * L, y - sn * L); ctx.lineTo(x - sn * w, y + c * w); ctx.lineTo(x + c * L, y + sn * L);
+      ctx.lineTo(x + sn * w, y - c * w); ctx.closePath(); ctx.fill();
+    };
+    function heaven(now) {
+      const s = still ? 0 : now / 1000, dt = eye.t ? Math.min(250, now - eye.t) : 1e9, e = 1 - Math.exp(-dt / 280); eye.t = now;
+      const s0 = inset(), sk0 = eyeSky(), cxT = s0.l + (W - s0.l - s0.r) / 2;   // over the graph (not the legend or the panel), in its band
+      eye.cx = eye.cx ? eye.cx + (cxT - eye.cx) * e : cxT;
+      const cx = eye.cx, cy = sk0.cy, a = sk0.a, b = sk0.b, room = cy - sk0.top;   // room: from the eye up to its band's top
+      const n = chosen || hover;
+      let gx = 0, gy = 0.3;                               // where it looks, -1..1 across and down its iris's room
+      if (n && seen[n.i] > 0.3) {
+        const dx = t.applyX(n.x) - cx, dy = t.applyY(n.y) - cy, d = Math.hypot(dx, dy) || 1, m = Math.min(1, d / (a * 2.2));
+        gx = dx / d * m; gy = dy / d * m;
+      } else if (!still) { gx = 0.6 * Math.sin(s * 0.17); gy = 0.3 + 0.28 * Math.sin(s * 0.11 + 1.3); }
+      eye.x += (gx - eye.x) * e; eye.y += (gy - eye.y) * e;
+      const blink = still ? 0 : Math.max(0, 1 - Math.abs(((s + 2.4) % 9.3) - 0.2) / 0.2), bb = b * (1 - 0.94 * blink);
+      const ix = cx + eye.x * a * 0.42, iy = cy + eye.y * b * 0.42, ri = b * 0.95;
+      ctx.save();
+      const AR = a * 2.5, ky = Math.min(1, (cy - 6) / AR), au = ctx.createRadialGradient(0, 0, 0, 0, 0, AR);   // its aura: violet,
+      au.addColorStop(0, 'rgba(196,160,255,.22)'); au.addColorStop(0.18, 'rgba(170,130,255,.14)'); au.addColorStop(0.5, 'rgba(140,100,235,.06)');   // flattened
+      au.addColorStop(1, 'rgba(140,100,235,0)');          // so that it is gone before the canvas's top edge
+      ctx.translate(cx, cy); ctx.scale(1, ky); ctx.fillStyle = au; ctx.fillRect(-AR, -AR, AR * 2, AR * 2); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.globalCompositeOperation = 'lighter';
+      for (let i = 0; i < 5; i++) {                       // its light: one soft cone, and four faint shafts in it that sway
+        const an = Math.PI / 2 + (i ? (i - 2.5) * 0.13 + 0.04 * Math.sin(s * 0.27 + i * 1.7) : 0), L = H * 1.25, sp = i ? 0.014 + 0.006 * (i % 2) : 0.3;
+        const al = (i ? 0.05 + 0.02 * Math.sin(s * 0.6 + i * 2.1) : 0.075) * (1 - 0.6 * blink);
+        const gr = ctx.createLinearGradient(cx, cy, cx + Math.cos(an) * L, cy + Math.sin(an) * L);
+        gr.addColorStop(0, `rgba(222,206,255,${al})`); gr.addColorStop(0.55, `rgba(222,206,255,${al * 0.35})`); gr.addColorStop(1, 'rgba(222,206,255,0)');
+        ctx.fillStyle = gr; ctx.beginPath(); ctx.moveTo(cx, cy);
+        ctx.lineTo(cx + Math.cos(an - sp) * L, cy + Math.sin(an - sp) * L); ctx.lineTo(cx + Math.cos(an + sp) * L, cy + Math.sin(an + sp) * L);
+        ctx.closePath(); ctx.fill();
+      }
+      if (chosen && seen[chosen.i] > 0.5) {               // its gaze on the thing picked: a faint beam from the pupil
+        const sx = t.applyX(chosen.x), sy = t.applyY(chosen.y), d = Math.hypot(sx - ix, sy - iy) || 1, nx = -(sy - iy) / d, ny = (sx - ix) / d;
+        const w = 8 + chosen.r * t.k, gr = ctx.createLinearGradient(ix, iy, sx, sy);
+        gr.addColorStop(0, 'rgba(236,228,255,.18)'); gr.addColorStop(1, 'rgba(236,228,255,.04)');
+        ctx.fillStyle = gr; ctx.beginPath(); ctx.moveTo(ix + nx * 1.5, iy + ny * 1.5); ctx.lineTo(sx + nx * w, sy + ny * w);
+        ctx.lineTo(sx - nx * w, sy - ny * w); ctx.lineTo(ix - nx * 1.5, iy - ny * 1.5); ctx.closePath(); ctx.fill();
+      }
+      ctx.globalCompositeOperation = 'source-over';
+      const turn = s * 0.03;
+      ctx.strokeStyle = 'rgba(231,207,142,.22)'; ctx.lineWidth = 1; ctx.beginPath();   // a glory: fine rays from round the eye
+      for (let i = 0; i < 96; i++) {
+        const an = i / 96 * 6.2832, c = Math.cos(an), sn = Math.sin(an), f = i % 2 ? 1.12 : i % 8 === 0 ? 1.5 : 1.27;
+        const y0 = Math.min(b * 1.5, room - 4), y1 = Math.min(b * 1.5 * f * 1.2, room - 2);   // inside its band of sky
+        ctx.moveTo(cx + c * a * 1.06, cy + sn * y0); ctx.lineTo(cx + c * a * 1.06 * f, cy + sn * y1);
+      }
+      ctx.stroke();
+      const RH = a * 1.42;                                // the halo: a ring and a turning ring of beads, crescents and stars on it
+      const ry1 = Math.min(RH * 0.5, room - 10), ry2 = Math.min(RH * 0.54, room - 6);
+      ctx.strokeStyle = 'rgba(220,206,255,.22)'; ctx.lineWidth = 0.8; ctx.beginPath(); ctx.ellipse(cx, cy, RH, ry1, 0, 0, 7); ctx.stroke();
+      ctx.setLineDash([0.01, 7]); ctx.lineCap = 'round'; ctx.lineDashOffset = -s * 3; ctx.strokeStyle = 'rgba(232,222,255,.5)'; ctx.lineWidth = 1.8;
+      ctx.beginPath(); ctx.ellipse(cx, cy, RH * 1.07, ry2, 0, 0, 7); ctx.stroke(); ctx.setLineDash([]);
+      ctx.fillStyle = 'rgba(242,236,255,.82)'; ctx.beginPath();
+      for (let q = 0; q < 12; q++) {
+        const an = turn + q * Math.PI / 6, x = cx + Math.cos(an) * RH * 1.07, y = cy + Math.sin(an) * ry2;
+        if (q % 2) spark(x, y, 5.5); else crescent(x, y, 5.2, an + Math.PI);
+      }
+      ctx.fill();
+      ctx.save(); ctx.beginPath(); almond(cx, cy, a, bb); ctx.clip();   // inside the eye: a violet deep, the iris, its threads
+      const sc = ctx.createRadialGradient(cx, cy, 0, cx, cy, a);
+      sc.addColorStop(0, 'rgba(70,50,140,.5)'); sc.addColorStop(1, 'rgba(22,15,46,.62)');
+      ctx.fillStyle = sc; ctx.fillRect(cx - a, cy - b * 2, a * 2, b * 4);
+      const ir = ctx.createRadialGradient(ix, iy, 0, ix, iy, ri);
+      ir.addColorStop(0, 'rgba(255,255,255,.95)'); ir.addColorStop(0.16, 'rgba(232,222,255,.85)'); ir.addColorStop(0.36, 'rgba(176,136,255,.64)');
+      ir.addColorStop(0.72, 'rgba(100,68,204,.52)'); ir.addColorStop(1, 'rgba(46,30,110,.6)');
+      ctx.fillStyle = ir; ctx.beginPath(); ctx.arc(ix, iy, ri, 0, 7); ctx.fill();
+      ctx.strokeStyle = 'rgba(244,236,255,.16)'; ctx.lineWidth = 1; ctx.beginPath();
+      for (let i = 0; i < 44; i++) { const an = i / 44 * 6.2832; ctx.moveTo(ix + Math.cos(an) * ri * 0.3, iy + Math.sin(an) * ri * 0.3); ctx.lineTo(ix + Math.cos(an) * ri * 0.9, iy + Math.sin(an) * ri * 0.9); }
+      ctx.stroke();
+      ctx.strokeStyle = 'rgba(231,207,142,.6)'; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.arc(ix, iy, ri, 0, 7); ctx.stroke();
+      ctx.restore();
+      ctx.strokeStyle = 'rgba(242,236,255,.72)'; ctx.lineWidth = 1.6; ctx.beginPath(); almond(cx, cy, a, bb); ctx.stroke();   // the lids
+      ctx.strokeStyle = 'rgba(220,206,255,.22)'; ctx.lineWidth = 1; ctx.beginPath();
+      ctx.moveTo(cx - a * 0.8, cy - b * 0.32); ctx.quadraticCurveTo(cx, cy - b * 2.45, cx + a * 0.8, cy - b * 0.32); ctx.stroke();
+      ctx.globalCompositeOperation = 'lighter';           // the pupil: a white star, with long rays across and up and down
+      const fl = (1 - blink) * (0.86 + 0.14 * Math.sin(s * 1.3)), g2 = ctx.createRadialGradient(ix, iy, 0, ix, iy, ri * 0.72);
+      g2.addColorStop(0, `rgba(255,255,255,${0.92 * fl})`); g2.addColorStop(0.22, `rgba(240,230,255,${0.42 * fl})`); g2.addColorStop(1, 'rgba(200,180,255,0)');
+      ctx.fillStyle = g2; ctx.beginPath(); ctx.arc(ix, iy, ri * 0.72, 0, 7); ctx.fill();
+      ray(ix, iy, a * 1.05 * fl, 2.2, 0, 0.9 * fl); ray(ix, iy, a * 0.62 * fl, 1.8, Math.PI / 2, 0.8 * fl);
+      ray(ix, iy, a * 0.26 * fl, 1.2, Math.PI / 4, 0.5 * fl); ray(ix, iy, a * 0.26 * fl, 1.2, -Math.PI / 4, 0.5 * fl);
+      if (!still) {                                       // now and then a star falls
+        const P = 10.5, k0 = Math.floor(s / P), u = (s - k0 * P) / 0.9;
+        if (u < 1) {
+          const h = ((k0 * 2654435761) >>> 0) / 4294967296, side = h > 0.5 ? 1 : -1, x0 = W * (0.12 + 0.76 * h), y0 = H * (0.05 + 0.16 * ((h * 7.3) % 1));
+          const dx = -side * W * 0.16, dy = H * 0.1, hx = x0 + dx * u, hy = y0 + dy * u, tx = hx - dx * 0.4, ty = hy - dy * 0.4;
+          const gr = ctx.createLinearGradient(tx, ty, hx, hy);
+          gr.addColorStop(0, 'rgba(255,255,255,0)'); gr.addColorStop(1, `rgba(255,255,255,${0.85 * Math.sin(Math.PI * u)})`);
+          ctx.strokeStyle = gr; ctx.lineWidth = 1.4; ctx.beginPath(); ctx.moveTo(tx, ty); ctx.lineTo(hx, hy); ctx.stroke();
+        }
+      }
+      ctx.restore();
+    }
     function draw(now) {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
       if (NIGHT) stars(now);
+      if (AEON) heaven(now);
       if (MOON) moonSky(now);
       if (FAN || NOIR) stage(now);
       ctx.save(); ctx.translate(t.x, t.y); ctx.scale(t.k, t.k);
@@ -708,17 +864,20 @@ const DP = {
         const R = p.D * Math.max(0, p.grow);
         if (p.x + R < wx0 || p.x - R > wx1 || p.y + R < wy0 || p.y - R > wy1) return;
         if (NIGHT && !NOIR) {
-          const tint = GALA ? (p.h === '' ? '255,207,92' : p.folder ? '255,110,200' : '160,96,255') : (p.h === '' ? '232,198,128' : p.folder ? '176,146,255' : '118,146,255');
+          const tint = GALA ? (p.h === '' ? '255,207,92' : p.folder ? '255,110,200' : '160,96,255')
+            : AEON ? (p.h === '' ? '236,214,160' : p.folder ? '196,170,255' : '164,142,250')   // aeon's: a small heaven, ringed with star-beads
+            : (p.h === '' ? '232,198,128' : p.folder ? '176,146,255' : '118,146,255');
           const a = (p.h === '' ? 0.14 : 0.1) * (GALA ? 1.25 : 1) * (quiet ? 0.5 : 1) * (1 + 1.2 * p.hot), ringA = (0.17 + 0.35 * p.hot) * (quiet ? 0.45 : 1);
           const gr = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, R);
           gr.addColorStop(0, `rgba(${tint},${a})`); gr.addColorStop(0.62, `rgba(${tint},${a * 0.42})`); gr.addColorStop(1, `rgba(${tint},0)`);
           ctx.fillStyle = gr; ctx.beginPath(); ctx.arc(p.x, p.y, R, 0, 7); ctx.fill();
           ctx.setLineDash([2.5 / k, 6.5 / k]); ctx.lineDashOffset = -(now / 1000) * (GALA ? 9 : 4) / k;
-          ctx.strokeStyle = GALA ? `rgba(255,150,225,${Math.min(1, ringA * 1.1)})` : `rgba(232,198,128,${ringA})`; ctx.lineWidth = 0.8 / k;
+          ctx.strokeStyle = GALA ? `rgba(255,150,225,${Math.min(1, ringA * 1.1)})` : AEON ? `rgba(214,200,255,${ringA})` : `rgba(232,198,128,${ringA})`; ctx.lineWidth = 0.8 / k;
           ctx.beginPath(); ctx.arc(p.x, p.y, R, 0, 7); ctx.stroke();
-          if (GALA) {    // the lotto wheel: a ring of gold beads turning the other way just inside the first
-            ctx.setLineDash([0.01, 9 / k]); ctx.lineDashOffset = (now / 1000) * 6 / k; ctx.lineCap = 'round'; ctx.lineWidth = 2 / k;
-            ctx.strokeStyle = `rgba(255,214,120,${Math.min(1, ringA * 1.4)})`; ctx.beginPath(); ctx.arc(p.x, p.y, R * 0.93, 0, 7); ctx.stroke();
+          if (GALA || AEON) {    // the lotto wheel (aeon: an orbit of star-beads): beads turning the other way inside the first
+            ctx.setLineDash([0.01, 9 / k]); ctx.lineDashOffset = (now / 1000) * 6 / k; ctx.lineCap = 'round'; ctx.lineWidth = (AEON ? 1.6 : 2) / k;
+            ctx.strokeStyle = AEON ? `rgba(240,232,255,${Math.min(1, ringA * 1.25)})` : `rgba(255,214,120,${Math.min(1, ringA * 1.4)})`;
+            ctx.beginPath(); ctx.arc(p.x, p.y, R * 0.93, 0, 7); ctx.stroke();
           }
           ctx.setLineDash([]);
         } else if (MOON) {   // a pool of moonlight, ringed with gold pearls that turn slowly
@@ -842,7 +1001,8 @@ const DP = {
       if ((NIGHT || MOON || FAN) && chosen && seen[chosen.i] > 0.5) {   // a reticle turns round the chosen thing: the gala's with
         const n = chosen, R = n.r + 9 / k, turn = (now / 1000) * 1.1;          // four gems, moonlit's four plum diamonds, fanfare's sparkles
         ctx.setLineDash([5 / k, 4 / k]); ctx.lineDashOffset = -(now / 1000) * 12 / k; ctx.lineWidth = (FAN ? 1.6 : 1.2) / k;
-        ctx.strokeStyle = GALA ? 'rgba(255,150,225,.95)' : MOON ? 'rgba(201,63,122,.85)' : FAN ? 'rgba(255,214,92,.98)' : NOIR ? 'rgba(255,255,255,.9)' : 'rgba(232,198,128,.9)';
+        ctx.strokeStyle = GALA ? 'rgba(255,150,225,.95)' : MOON ? 'rgba(201,63,122,.85)' : FAN ? 'rgba(255,214,92,.98)' : NOIR ? 'rgba(255,255,255,.9)'
+          : AEON ? 'rgba(240,234,255,.92)' : 'rgba(232,198,128,.9)';
         ctx.beginPath(); ctx.arc(n.x, n.y, R, 0, 7); ctx.stroke(); ctx.setLineDash([]);
         if (NOIR) {          // noir's: the four suits of a deck of cards turn round it, the red two in the accent
           ctx.font = `${18 / k}px ${SERIF}`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
@@ -850,6 +1010,14 @@ const DP = {
             const a = turn + q * Math.PI / 2; ctx.fillStyle = q % 2 ? '#b9a2ff' : '#ffffff';
             ctx.fillText(g, n.x + Math.cos(a) * (R + 11 / k), n.y + Math.sin(a) * (R + 11 / k));
           });
+        }
+        if (AEON) {          // aeon's: a halo of crescents and stars turns round it, as round the eye
+          ctx.fillStyle = '#f2ecff'; ctx.beginPath();
+          for (let q = 0; q < 8; q++) {
+            const a = turn * 0.8 + q * Math.PI / 4, x = n.x + Math.cos(a) * (R + 9 / k), y = n.y + Math.sin(a) * (R + 9 / k), d = 4.6 / k;
+            if (q % 2) spark(x, y, d * 1.15); else crescent(x, y, d, a + Math.PI);
+          }
+          ctx.fill();
         }
         if (GALA || MOON || FAN) {
           ctx.fillStyle = GALA ? '#ffd36e' : MOON ? '#3b2152' : '#ffffff'; ctx.beginPath();
@@ -868,7 +1036,7 @@ const DP = {
           ctx.globalAlpha = Math.max(0, f); ctx.fillStyle = q.c;
           if (q.shape === 0) ctx.fillRect(-q.s / 2, -q.s / 4, q.s, q.s / 2);
           else if (q.shape === 3) { ctx.font = `${q.s * 1.6}px ${SERIF}`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(q.suit, 0, 0); }   // a card suit
-          else { ctx.beginPath(); if (q.shape === 1) spark(0, 0, q.s * 0.8); else ctx.arc(0, 0, q.s / 3, 0, 7); ctx.fill(); }
+          else { ctx.beginPath(); if (q.shape === 1) spark(0, 0, q.s * 0.8); else if (q.shape === 4) crescent(0, 0, q.s * 0.62, 0); else ctx.arc(0, 0, q.s / 3, 0, 7); ctx.fill(); }
           ctx.restore();
         });
         ctx.globalAlpha = 1;
@@ -957,18 +1125,19 @@ const DP = {
     function burst(n) {                                  // 64 bits of confetti, in the show's colours, flung out at screen-size speeds
       const t0 = performance.now(), k = t.k, cs = MOON ? ['#d6457f', '#7b5cd6', '#ffffff', '#f0c062', '#c4a6ff', '#ff8fb3']
         : FAN ? ['#ffd35c', '#ffffff', '#ff8fd8', '#7ee7ff', '#c9a8ff', '#8ff0b8'] : NOIR ? ['#ffffff', '#c9c6d4', '#ffffff', '#e2c27a', '#b9a2ff', '#ffffff']
+        : AEON ? ['#ffffff', '#e7cf8e', '#d9c8ff', '#ffffff', '#bba6ff', '#f6f3ff']
         : ['#ff6fcf', '#ffd36e', '#62d4ff', '#b48bff', '#7fe3b8', '#ff9478'];
       for (let j = 0; j < 64; j++) {                     // noir's bits are a quarter card suits
         const a = rand() * 6.283, v = (0.08 + rand() * 0.14) / k;
         confetti.push({ x: n.x, y: n.y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 0.07 / k, g: 0.00016 / k, t: t0, life: 1100 + rand() * 800,
                         s: (3.6 + rand() * 3.6) / k, r0: rand() * 6.283, vr: (rand() - 0.5) * 0.024, c: cs[j % cs.length],
-                        shape: NOIR ? j % 4 : j % 3, suit: '♠♥♣♦'[j % 4] });
+                        shape: NOIR ? j % 4 : AEON ? [1, 2, 4][j % 3] : j % 3, suit: '♠♥♣♦'[j % 4] });   // aeon's: stars, dots, crescents
       }
     }
     function choose(n, tell) {
       chosen = n || null; near.clear(); pointed = null;
       if (chosen) { near.add(chosen.i); around[chosen.i].forEach(l => { near.add(l.source.i); near.add(l.target.i); }); ripple = { n: chosen, t: performance.now() }; hoverIsle = null; }
-      if (chosen && (GALA || MOON || FAN || NOIR) && !still) burst(chosen);
+      if (chosen && (GALA || MOON || FAN || NOIR || AEON) && !still) burst(chosen);
       panelOpen = !!chosen; root.classList.toggle('panel', panelOpen);
       if (tell) document.dispatchEvent(new CustomEvent('dp:select', { detail: { id: chosen ? chosen.id : null } }));
       need();
@@ -1062,7 +1231,10 @@ const DP = {
       need();
     });
     const swap = then => { root.classList.add('switching'); setTimeout(() => { then(); need(); root.classList.remove('switching'); }, still ? 0 : 280); };
-    document.addEventListener('dp:theme', () => swap(() => { paint(); hue(); nebula(); }));   // fade out, the new look, fade in
+    document.addEventListener('dp:theme', () => swap(() => {   // fade out, the new look, fade in
+      const was = AEON; paint(); hue(); nebula();
+      if (was !== AEON && ready && !moved && !chosen) sel.call(zoom.transform, fitAll());   // the god look keeps its band of sky
+    }));
     document.addEventListener('dp:colour', e => {        // colours from another tag column
       const c = columns.find(x => x.key === e.detail.key); if (!c || c === col) return;
       swap(() => { col = c; facet = DP.facet(things, col); paint(); hue(); });

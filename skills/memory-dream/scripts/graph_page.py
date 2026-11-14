@@ -3,14 +3,16 @@
 
   python3 <the skill>/scripts/graph_page.py <graph.json | memory folder> <out.html> [options]
   python3 <the skill>/scripts/graph_page.py <nodes.csv> <links.csv> <out.html> [options]
-  options: --title "…"  --theme paper|star|gala|moon|fanfare|noir  --colour COLUMN
+  options: --title "…"  --theme paper|star|gala|moon|fanfare|noir|aeon  --colour COLUMN
 
 --theme: the look the page opens in: paper (the default), star (a star map at night), gala (a purple show at night,
 starlight and lotto wheels), moon (moonlit: pale lilac and silver under a great moon, sparkles and drifting ribbons,
 pearl rings), fanfare (a violet stage under sweeping spotlights, a checkered floor, bunting, marquee bulbs round
 each island, candy-bright lotto balls) or noir (black and white on a checkered stage under one warm spotlight, white
-and silver things, card suits round a picked thing, purple only as an accent); the last four fling confetti when a
-thing is picked. A switch in its header picks among the six.
+and silver things, card suits round a picked thing, purple only as an accent) or aeon (the god look: black first,
+one great eye in the sky that watches and turns to what is picked, its light falling in soft rays, a glory and a halo
+of crescents and stars round it, a falling star now and then, a bank of cloud below); the last five fling confetti when
+a thing is picked. A switch in its header picks among the seven.
 
 A memory: the same page `memory.py viz` and every dream write to memory/_dream/knowledge-graph.html (it needs a memory
 dreamed with a model command: the things and their links are what its keepers read). Its things' tags are the type

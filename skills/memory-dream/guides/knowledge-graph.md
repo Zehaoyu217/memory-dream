@@ -5,7 +5,7 @@ opens offline.
 
 - A memory: `memory.py viz` writes `memory/_dream/knowledge-graph.html`, and every dream that read links refreshes it.
   It needs a memory dreamed with a model command, because the things and links are what its keepers read.
-  `--theme paper|star|gala|moon|fanfare|noir` picks the look it opens in; a switch in its header changes it.
+  `--theme paper|star|gala|moon|fanfare|noir|aeon` picks the look it opens in; a switch in its header changes it.
 - Any other graph: `python3 <this skill>/scripts/graph_page.py graph.json out.html [--title "…"] [--theme …]
   [--colour COLUMN]`, or `graph_page.py nodes.csv links.csv out.html`. The script's own help states the whole contract.
   The page holds 20,000 things and 45,000 links.

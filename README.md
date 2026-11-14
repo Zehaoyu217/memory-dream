@@ -259,13 +259,17 @@ value into the levels under it: point at a row to light its things, click to hid
 its About. A thing picked shows what
 it uses and what uses it, each link with the line of the note that says so; the tour flies through the most linked
 things. It opens offline (d3 7.9.0, ISC, is
-inside the file) in one of six looks, kept side by side: paper; a star map at night (`viz --theme star`); a gala,
+inside the file) in one of seven looks, kept side by side: paper; a star map at night (`viz --theme star`); a gala,
 a purple show at night with starlight and lotto wheels round the islands (`viz --theme gala`); moonlit, pale lilac
 and silver under a great moon, with sparkles, drifting ribbons and pearl rings (`viz --theme moon`); and fanfare, a
 violet stage under sweeping spotlights, with a checkered floor, bunting, marquee bulbs round each island and
 candy-bright lotto balls (`viz --theme fanfare`); and noir, black and white on a checkered stage under one warm
 spotlight, with silver and white things, card suits turning round a picked thing and purple only as an accent (`viz
---theme noir`). The last four fling confetti when a thing is picked. A switch in its header picks among them. Any
+--theme noir`); and aeon, the god look, black first as noir under the sky of a god: one great eye in a band of sky
+above the islands, its pupil a white star that turns to what is picked and looks at it down a beam, its light
+falling in rays, a glory and a turning halo of crescents and stars round it, stars, a falling one now and then, and
+a halo of crescents and stars round a picked thing (`viz --theme aeon`). The last five fling confetti when a thing
+is picked. A switch in its header picks among them. Any
 other graph makes the same page: `python3 skills/memory-dream/scripts/graph_page.py graph.json out.html` takes nodes and links as
 JSON, or `build.py nodes.csv links.csv out.html` as two tables. The data model asks only for what a graph needs, a
 thing's id and a link's two ends (by the names other tools use too: from/to, name, a `data` wrapper); everything
@@ -293,6 +297,8 @@ in under half a second, settles island by island in under two, and runs at 60 fr
 ![The same page in the fanfare look](docs/knowledge-graph-fanfare.jpg)
 
 ![The same page in the noir look](docs/knowledge-graph-noir.jpg)
+
+![The same page in the aeon look: an eye in the sky above the islands](docs/knowledge-graph-aeon.jpg)
 
 ## Operations
 
