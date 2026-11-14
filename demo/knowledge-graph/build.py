@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """The knowledge-graph page for any graph, as one HTML file that opens offline.
 
-  python3 demo/knowledge-graph/build.py <graph.json | memory folder> <out.html> [--title "…"] [--theme paper|star|gala|moon]
+  python3 demo/knowledge-graph/build.py <graph.json | memory folder> <out.html> [--title "…"] [--theme paper|star|gala|moon|fanfare]
 
 --theme: the look the page opens in: paper (the default), star (a star map at night), gala (a purple show at night,
-starlight and lotto wheels) or moon (moonlit: pale lilac and silver under a great moon, sparkles and drifting ribbons,
-pearl rings, confetti when a thing is picked); a switch in its header picks among the four.
+starlight and lotto wheels), moon (moonlit: pale lilac and silver under a great moon, sparkles and drifting ribbons,
+pearl rings) or fanfare (a violet stage under sweeping spotlights, a checkered floor, bunting, marquee bulbs round
+each island, candy-bright lotto balls); the last three fling confetti when a thing is picked. A switch in its header
+picks among the five.
 
 A memory: the same page `memory.py viz` and every dream write to memory/_dream/knowledge-graph.html (it needs a memory
 dreamed with a model command: the things and their links are what its keepers read).

@@ -21,12 +21,17 @@ const path = require('path');
   const panel = await page.evaluate(() => ({ open: document.getElementById('detail').classList.contains('open'),
                                              name: (document.querySelector('#detail h2') || {}).textContent || '', rows: document.querySelectorAll('#detail li').length }));
   out('search picks a thing; the panel shows its links', panel.open && panel.rows > 0, panel);
-  const looks = [];
-  for (const look of ['star', 'gala', 'moon', 'paper']) {   // each look, picked in the header, with a thing chosen
+  const looks = [], black = {};
+  for (const look of ['star', 'gala', 'moon', 'fanfare', 'paper']) {   // each look, picked in the header, with a thing chosen
     await page.locator(`#masthead .looks button[data-look="${look}"]`).click(); await page.waitForTimeout(700);
     looks.push(await page.evaluate(() => document.documentElement.dataset.theme));
+    black[look] = await page.evaluate(() => {   // a stroke or fill left without its colour draws pure black: no look has any
+      const c = document.querySelector('#graph canvas'), d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data;
+      let n = 0; for (let i = 0; i < d.length; i += 16) if (d[i + 3] > 200 && d[i] + d[i + 1] + d[i + 2] < 30) n++; return n;
+    });
   }
-  out('the four looks switch', looks.join() === 'star,gala,moon,paper', { looks });
+  out('the five looks switch', looks.join() === 'star,gala,moon,fanfare,paper', { looks });
+  out('no look draws stray black', Object.values(black).every(n => n < 20), { black });
   await page.keyboard.press('Escape'); await page.waitForTimeout(300);
   out('no page errors', errors.length === 0, { errors });
   await browser.close();

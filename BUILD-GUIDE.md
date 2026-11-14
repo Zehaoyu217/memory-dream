@@ -626,18 +626,22 @@ it; the page and d3 7.9.0 (ISC) sit in `assets/`, and it opens offline.
    Nuij), its links flowing blue for what it uses and orange for what uses it, beside a panel of each link and the
    line of the note that says it; the legend lights a group, a panel row makes its thing beat, an island click flies
    to it, the tour visits the most linked things. Names never cover one another. `prefers-reduced-motion` stills it.
-4. **Four looks, one page, kept side by side.** Paper; a star map at night (deep sky and twinkling stars, a nebula
+4. **Five looks, one page, kept side by side.** Paper; a star map at night (deep sky and twinkling stars, a nebula
    and a turning orbit under each island, glowing things, faint gold lines between islands, glass panels with gold
    corners); a gala, a purple show at night (stage-lit purple sky with a small moon, four-point sparkles, a pink
    wheel and a counter-turning ring of gold beads round each island, candy colours by legend order, a theatrical
    italic serif); and moonlit, a light look after a lilac-and-plum outfit with roses (a pale lilac stage under a
    great moon, sparkles in white, lilac and gold, ribbons drifting across, a moonlight pool ringed with turning gold
    pearls under each island, glossy pearl things in plum, violet, rose and periwinkle, a plum zig-zag hem on the
-   panel, plum diamonds turning round a picked thing). The gala and moonlit fling confetti out of a thing when it
-   is picked. Each look is tokens on `<html data-theme>` plus a few canvas branches; a four-way switch in the
-   header picks one and the canvas fades across; `viz --theme star|gala|moon` opens in another. Measured on the
-   1,677-note bank: 1,082 things, 2,740 links, 49 islands, 1.4 MB; 60 frames a second in every look on a laptop's
-   GPU; 0 page errors headless (`tests/kg_check.js`).
+   panel, plum diamonds turning round a picked thing); and fanfare, a show after a violet-and-gold stage outfit (a
+   violet stage with no black, gold, pink and cyan spotlights sweeping from above, a checkered floor running back to
+   the horizon, bunting along the top, each island a round stage ringed with chasing marquee bulbs, candy-bright
+   lotto balls, white cards with speech-bubble rows, a ✦ after the title). The gala, moonlit and fanfare fling
+   confetti out of a thing when it is picked. Each look is tokens on `<html data-theme>` (names on the page read
+   `--page-ink`, names on a card `--ink`) plus a few canvas branches; a switch in the header picks one and the
+   canvas fades across; `viz --theme star|gala|moon|fanfare` opens in another. Measured on the 1,677-note bank:
+   1,082 things, 2,740 links, 49 islands, 1.4 MB; 60 frames a second in every look on a laptop's GPU; 0 page errors
+   and no stray black in any look, headless (`tests/kg_check.js`).
 
 ---
 
