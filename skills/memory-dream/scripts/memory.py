@@ -5196,11 +5196,15 @@ def kg_counts(rows, cols):
     return out
 
 
+KG_NULLS = {"", "n/a", "na", "null", "none", "nil", "-", "—", "?", "unknown", "nan"}   # a value that says there is none
+
+
 def kg_sort(cells):
-    """A tag column's sort, told by its values: number when every value is one, time when every value is an ISO date,
-    text when they are long or mostly their own (kg_is_text), else category."""
+    """A tag column's sort, told by its values: number when every value is one, time when every value is an ISO date
+    (a value such as n/a, none or unknown says there is none, and does not count), text when they are long or mostly
+    their own (kg_is_text), else category."""
     vals = [x for c in cells for x in (c if isinstance(c, (list, tuple)) else [c])
-            if x is not None and not isinstance(x, (dict, list, tuple)) and str(x).strip()]
+            if x is not None and not isinstance(x, (dict, list, tuple)) and str(x).strip().lower() not in KG_NULLS]
     if not vals:
         return "category"
     if all(not isinstance(x, bool) and (isinstance(x, (int, float)) or KG_NUMBER.match(str(x).strip())) for x in vals):

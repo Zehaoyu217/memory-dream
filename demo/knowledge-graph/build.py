@@ -18,15 +18,20 @@ dreamed with a model command: the things and their links are what its keepers re
 line of the note that best says what it is; its links' tags are the kind of note that states each, when, and whether
 that note was replaced.
 
-Any other graph, as JSON: {"nodes": [...], "links": [...]} ("edges" works for "links"). The data model:
+Any other graph, as JSON: {"nodes": [...], "links": [...]} ("edges" works for "links"). The data model asks for the
+least it can work with, a thing's id and a link's two ends; everything else is optional, and nothing is declared:
 
-  A thing (a node): "id" (required, unique), "label" (the name shown; the id when absent) and "group" (its island;
-  without groups, or when one group holds more than half the nodes, the islands are the communities of the links).
-  Every other field is a tag. A node with no link is left out.
-  A link: "source" and "target" (ids, required), "type" (links-to when absent), "direction" (-> from source to target,
-  the default; <- from target to source; o-o none: equal, related, the same either way) and "text" (the line that
-  says so, at most 220 characters). Every other field is a tag. One link per ends, type and direction.
-  A tag: a column, in each row a value or several (a list, or ";" between them). Four sorts, told by the values:
+  A thing (a node): "id" (required, unique; or key, uid, uuid), "label" (the name shown; or name, title; the id when
+  absent) and "group" (its island; without groups, or when one group holds more than half the nodes, the islands are
+  the communities of the links). Every other field is a tag. A node with no link is left out.
+  A link: "source" and "target" (ids, required; or from/to, src/dst, start/end), "type" (links-to when absent),
+  "direction" (-> from source to target, the default; <- from target to source; o-o none: equal, related, the same
+  either way) and "text" (the line that says so, at most 220 characters). Every other field is a tag. One link per
+  ends, type and direction.
+  A row may have fields the others have not; a {"data": {...}} wrapper (Cytoscape.js) is read through, and a nested
+  object is spread into its fields ({"properties": {"tier": 2}} is the tag properties.tier, named Tier).
+  A tag: a column, in each row a value or several (a list, or ";" between them), or none (absent, empty, or a value
+  such as n/a, none or unknown). Four sorts, told by the values, never declared:
     category  values that repeat (type, team, status); a value may be a path whose levels are split by "/"
               (dataset/table/daily). The page colours by one category (a switch in its legend; "type" first, or
               --colour): the seven top-level values with the most things a colour each, the rest one grey; the
@@ -40,7 +45,9 @@ Any other graph, as JSON: {"nodes": [...], "links": [...]} ("edges" works for "l
   Weight, time and provenance are tags like any other: provenance is whichever tags say where a link comes from (a
   category such as the system that found it, a time such as when, a text such as the citation).
 
-Three optional entries beside them hold the vocabulary:
+The legend offers a chip for each category or time column whose values differ (six, then a +N for the rest).
+
+Three entries beside them hold a vocabulary, all optional, only to rename, rearrange or overrule what the values say:
   "columns":      {"type": {"name": "Kind", "parents": {"table": "dataset"}, "names": {"dataset": "Datasets"},
                             "colours": {"dataset": "#2b8073"}},
                    "definition": {"sort": "text"}, "rows": {"use": "size"}}
@@ -68,6 +75,34 @@ import memory as M  # noqa: E402
 
 NODE_RESERVED = ("id", "label", "group")
 LINK_RESERVED = ("source", "target", "type", "direction", "text", "id")
+# the few required parts, by the names other tools give them: the first one a row has is the one read
+ID_KEYS = ("id", "key", "uid", "uuid")
+LABEL_KEYS = ("label", "name", "title")
+SOURCE_KEYS = ("source", "from", "src", "start", "start.id", "startNode", "start_node", "head")
+TARGET_KEYS = ("target", "to", "dst", "end", "end.id", "endNode", "end_node", "tail")
+
+
+def flat(r, pre=""):
+    """A row with its nested objects spread out: {"properties": {"tier": 2}} -> {"properties.tier": 2}."""
+    out = {}
+    for k, v in r.items():
+        if isinstance(v, dict) and pre.count(".") < 3:
+            out.update(flat(v, f"{pre}{k}."))
+        else:
+            out[f"{pre}{k}"] = v
+    return out
+
+
+def row(r, keys):
+    """A node or a link as read: out of a {"data": {...}} wrapper (Cytoscape.js), its nested objects spread out."""
+    if isinstance(r.get("data"), dict) and not any(k in r for k in keys):
+        r = {**{k: v for k, v in r.items() if k != "data"}, **r["data"]}
+    return flat(r)
+
+
+def first(r, keys):
+    """The first of these fields the row has, and its value."""
+    return next(((k, r[k]) for k in keys if r.get(k) not in (None, "")), (None, None))
 SORTS = ("category", "time", "number", "text")
 BOTH = {"same-as", "related-to", "similar-to", "equivalent-to", "compared-with"}   # no direction unless told
 ARROWS = {"->": 1, "→": 1, "out": 1, "forward": 1, "<-": -1, "←": -1, "in": -1, "back": -1, "backward": -1,
@@ -107,7 +142,7 @@ def tag_columns(rows, about, reserved):
 
 def column(k, a, sort, tags):
     """A tag column as the page reads it: its key, name and sort, the legend's names and hues, what it is used for."""
-    col = {"key": k, "name": str(a.get("name") or k.replace("_", " ").replace("-", " ").capitalize())}
+    col = {"key": k, "name": str(a.get("name") or k.split(".")[-1].replace("_", " ").replace("-", " ").capitalize())}
     if sort != "category":
         col[sort] = True                                   # time, number or text
     names = {M.kg_path(p): str(n) for p, n in a["names"].items()} if isinstance(a.get("names"), dict) else {}
@@ -125,8 +160,37 @@ def column(k, a, sort, tags):
     return col
 
 
+def named(cols, about):
+    """A nested field is named by its last part (properties.tier: Tier), unless two would read the same."""
+    seen = Counter(c["name"] for c in cols)
+    for c in cols:
+        if seen[c["name"]] > 1 and "." in c["key"] and not (about.get(c["key"]) or {}).get("name"):
+            c["name"] = c["key"].replace(".", " ").replace("_", " ").replace("-", " ").capitalize()
+    return cols
+
+
+def required(rows, need, extra=()):
+    """Each row with its required parts under their own names (the first alias it has of each), the rest as given;
+    rows without them are left out. need: [(canonical, aliases)]."""
+    out = []
+    for r in rows:
+        if not isinstance(r, dict):
+            continue
+        r = row(r, [a for _, al in need for a in al])
+        got = [(c, *first(r, al)) for c, al in need]
+        if any(v is None for c, k, v in got if c not in extra):
+            continue
+        used = {k for _, k, _ in got if k}
+        heads = {k.split(".")[0] + "." for k in used if "." in k}   # {"start": {"id": …, …}}: the rest of it too
+        rest = {k: v for k, v in r.items() if k not in used and not any(k.startswith(h) for h in heads)}
+        out.append({**rest, **{c: v for c, k, v in got if v is not None}})
+    return out
+
+
 def from_json(doc, title, colour=None):
-    nodes = {str(n["id"]): n for n in doc.get("nodes", [])}
+    # the required parts, and only those: a thing's id, a link's two ends; a label read as other tools name it
+    nodes = {str(n["id"]): n for n in required(doc.get("nodes", []), [("id", ID_KEYS), ("label", LABEL_KEYS)], extra=("label",))}
+    doc = {**doc, "links": required(doc.get("links", doc.get("edges", [])), [("source", SOURCE_KEYS), ("target", TARGET_KEYS)])}
     kinds = doc.get("link_types") if isinstance(doc.get("link_types"), dict) else {}
 
     def arrow(x, ty):                                      # 1: source to target, 0: none; <- is turned round below
@@ -167,12 +231,12 @@ def from_json(doc, title, colour=None):
             tags[i][k0] = "thing"
     first = colour if colour in cats else "type" if "type" in cats else cats[0]
     keys = [first] + [k for k in cats if k != first] + [k for k in keys if sorts[k] == "number"] + [k for k in keys if sorts[k] == "text"]
-    columns = [column(k, about.get(k) or {}, sorts[k], [tags[i] for i in kept]) for k in keys]
+    columns = named([column(k, about.get(k) or {}, sorts[k], [tags[i] for i in kept]) for k in keys], about)
     size = next((c["key"] for c in columns if c.get("use") == "size"), "size" if sorts.get("size") == "number" else None)
     # the links' tags: every field but source, target, type, direction, text and id
     link_about = doc.get("link_columns") if isinstance(doc.get("link_columns"), dict) else {}
     lkeys, lsorts, ltags = tag_columns(given, link_about, LINK_RESERVED)
-    link_columns = [column(k, link_about.get(k) or {}, lsorts[k], ltags) for k in lkeys]
+    link_columns = named([column(k, link_about.get(k) or {}, lsorts[k], ltags) for k in lkeys], link_about)
     weight = next((c["key"] for c in link_columns if c.get("use") == "weight"), "weight" if lsorts.get("weight") == "number" else None)
     for l, t in zip(links, ltags):
         if t:

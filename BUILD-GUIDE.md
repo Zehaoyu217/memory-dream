@@ -625,7 +625,10 @@ it; the page and d3 7.9.0 (ISC) sit in `assets/`, and it opens offline.
    (120 ms at once, then before each frame 22 ms, or one and a half times what the last frame cost to draw where
    drawing is slow, as without a GPU), so the page answers at once and an island blooms when it has settled; a
    dragged thing settles its own island again, not the graph.
-2. **Things, links, tags.** A thing: an id, a label, an island (`group`), and tags. A link: source to target, a
+2. **Things, links, tags.** Only a thing's id and a link's two ends are required (read by the names other tools give
+   them too: key, name, title, from/to, src/dst, start/end, a Cytoscape `data` wrapper); everything else is optional
+   and undeclared: a row may have fields others lack, a nested object is spread into its fields, and n/a, none or
+   unknown count as no value. A thing: an id, a label, an island (`group`), and tags. A link: source to target, a
    type (named both ways: common ones built in, a memory's from EDGES.md, another graph's from `link_types`), a
    direction (`->`; `<-`, turned round; `o-o`, none: one link however it is written, drawn in the accent, no flow
    along it, its own ↔ group in the panel), the line that says so, and tags. A tag: a column, in each row a value or

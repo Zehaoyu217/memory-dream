@@ -639,7 +639,7 @@ or to a fresh worker given the packet, at most twice. After that, it stops and r
 
 ## Appendix A — the contract surface, verbatim: `skills/memory-dream/SKILL.md` and the dreamer agent
 
-_Part 5 · copied at commit 1efb210. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
+_Part 5 · copied at commit 5de6ac4. Mode B workers write these files; Mode R workers check them. The skill text is what every agent reads, so its wording is part of the contract (achievement per word)._
 
 ```markdown
 ---
@@ -789,7 +789,7 @@ Touch nothing else.
 
 ## Appendix B — the graph contract, verbatim: `.specs/memory-dream/CONTRACT.md`
 
-_Part 6 · copied at commit 1efb210. Schema 1; `memory.py check` validates against it (A38)._
+_Part 6 · copied at commit 5de6ac4. Schema 1; `memory.py check` validates against it (A38)._
 
 ## memory-dream — the graph contract (schema 1)
 
@@ -1097,7 +1097,7 @@ origin by adding the file. What changes for the notes under it, and nothing else
 
 ## Appendix C — the build guide, verbatim: `BUILD-GUIDE.md` §3–§10
 
-_Part 7 · copied at commit 1efb210. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
+_Part 7 · copied at commit 5de6ac4. The design in one page, the repository layout, every module's algorithm (§5: notes and SKILL.md, scan, note facts, the graph's two halves, the dreamer, answering, big memories, the contract, the viewer), the tests, how to reproduce the evaluations, the numbers to expect, the pitfalls and the known limits. Phase briefs point here as "Appendix C §n"._
 
 ### 3. The design in one page
 
@@ -1642,7 +1642,10 @@ it; the page and d3 7.9.0 (ISC) sit in `assets/`, and it opens offline.
    (120 ms at once, then before each frame 22 ms, or one and a half times what the last frame cost to draw where
    drawing is slow, as without a GPU), so the page answers at once and an island blooms when it has settled; a
    dragged thing settles its own island again, not the graph.
-2. **Things, links, tags.** A thing: an id, a label, an island (`group`), and tags. A link: source to target, a
+2. **Things, links, tags.** Only a thing's id and a link's two ends are required (read by the names other tools give
+   them too: key, name, title, from/to, src/dst, start/end, a Cytoscape `data` wrapper); everything else is optional
+   and undeclared: a row may have fields others lack, a nested object is spread into its fields, and n/a, none or
+   unknown count as no value. A thing: an id, a label, an island (`group`), and tags. A link: source to target, a
    type (named both ways: common ones built in, a memory's from EDGES.md, another graph's from `link_types`), a
    direction (`->`; `<-`, turned round; `o-o`, none: one link however it is written, drawn in the accent, no flow
    along it, its own ↔ group in the panel), the line that says so, and tags. A tag: a column, in each row a value or
@@ -1885,7 +1888,7 @@ preferences 0.95 when the task names them, 0.84 when it names only their meeting
 
 ## Appendix D — prompts, seeds and tuned tables, verbatim from `memory.py`
 
-_Part 8 · extracted at commit 1efb210 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
+_Part 8 · extracted at commit 5de6ac4 by importing the script. The dreamer's two prompts, the seed vocabulary (`EDGES.md`), the packs for other domains, the headers of the user-owned files, and every tuned number with its name. A rebuild reproduces these exactly; the measurements in RESULTS.md set them._
 
 ### D.1 `EXTRACT` — the per-note prompt: fixed guidance, then `KINDS:`, `TYPES:`, `EDGES:` and `KNOWN:` from the registries (the static part is cached), then `NOTE`
 

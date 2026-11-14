@@ -266,9 +266,11 @@ candy-bright lotto balls (`viz --theme fanfare`); and noir, black and white on a
 spotlight, with silver and white things, card suits turning round a picked thing and purple only as an accent (`viz
 --theme noir`). The last four fling confetti when a thing is picked. A switch in its header picks among them. Any
 other graph makes the same page: `python3 demo/knowledge-graph/build.py graph.json out.html` takes nodes and links as
-JSON, or `build.py nodes.csv links.csv out.html` as two tables. The data model: a thing is an id, a label and a
-group (its island); a link is source to target, a type, a direction (`->`, `<-`, or `o-o` for none: equal, related,
-the same either way) and the line that says so; every other column of either is a tag. A tag is one of four sorts,
+JSON, or `build.py nodes.csv links.csv out.html` as two tables. The data model asks only for what a graph needs, a
+thing's id and a link's two ends (by the names other tools use too: from/to, name, a `data` wrapper); everything
+else is optional and nothing is declared. A thing may have a label and a group (its island); a link a type, a
+direction (`->`, `<-`, or `o-o` for none: equal, related, the same either way) and the line that says so; every
+other field of either is a tag, nested ones spread out, a row free to have fields the others lack. A tag is one of four sorts,
 told by its values: a category (type, team, status: a value, a path whose levels are split by `/` such as
 `dataset/table/daily`, or several), a time (ISO dates, read as year › month › day), a number (a thing's `size` sizes
 its dot, a link's `weight` its line and pull) or a text (a definition, a citation: kept whole, shown and searched

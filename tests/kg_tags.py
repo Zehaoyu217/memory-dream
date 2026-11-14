@@ -138,6 +138,30 @@ with tempfile.TemporaryDirectory() as d:
     raw = json.loads(s[a:s.index("</script>", a)])
     check("CSV: a link's weight, time and direction", any(l.get("w") == 2 and (l.get("tags") or {}).get("since") == "2024/03" for l in raw)
           and sum(1 for l in raw if l.get("dir") == 0) == 1, raw)
+    # nothing declared, nothing tidy: nested objects spread out, n/a and blanks as no value, required parts by other names
+    doc = {"nodes": [{"data": {"id": "a", "name": "Alpha", "score": 0.4, "properties": {"tier": 1, "region": "eu"}}},
+                     {"data": {"id": "b", "name": "Beta", "score": "n/a", "properties": {"tier": 2, "region": "us"}}},
+                     {"key": "c", "title": "Gamma", "score": 0.9, "properties": {"region": "eu"}, "when": ""}],
+           "links": [{"data": {"source": "a", "target": "b", "properties": {"since": "2024-05", "confidence": "unknown"}}},
+                     {"from": "b", "to": "c", "properties": {"since": "2025-01", "confidence": 0.7}},
+                     {"start": {"id": "c", "labels": ["X"]}, "end": {"id": "a"}, "type": "uses"}]}
+    (T / "messy.json").write_text(json.dumps(doc))
+    built, log = run(T / "messy.json", T / "messy.html")
+    check("messy, undeclared data builds", built, log)
+    cols, by = islands(T / "messy.html")
+    sort = {c["key"]: (c["name"], next((k for k in ("time", "number", "text") if c.get(k)), "category")) for c in cols}
+    check("required parts by other names: data wrapper, key, name, title", set(by) == {"a", "b", "c"} and by["a"]["label"] == "Alpha" and by["c"]["label"] == "Gamma", by)
+    check("nested objects spread out, named by their last part", sort.get("properties.region") == ("Region", "category") and sort.get("properties.tier") == ("Tier", "number"), sort)
+    check("n/a is no value: the column stays a number", sort.get("score") == ("Score", "number") and "score" not in by["b"]["tags"], (sort, by["b"]))
+    s = (T / "messy.html").read_text()
+    a = s.index('id="data-meta">'); a = s.index("\n", a) + 1
+    meta = json.loads(s[a:s.index("</script>", a)])
+    lsort = {c["key"]: next((k for k in ("time", "number", "text") if c.get(k)), "category") for c in meta["link_columns"]}
+    a = s.index('id="data-links">'); a = s.index("\n", a) + 1
+    raw = json.loads(s[a:s.index("</script>", a)])
+    check("a link's ends by other names: from/to, start/end, a data wrapper", len(raw) == 3, raw)
+    check("a link's nested tags: unknown is no value", lsort == {"properties.since": "time", "properties.confidence": "number"}, lsort)
+    check("the rest of a nested end is not a tag", not any("start" in k or "end" in k for l in raw for k in (l.get("tags") or {})), raw)
     # no tag column at all: one, so the legend still counts the things
     (T / "bare.json").write_text(json.dumps({"nodes": [{"id": "p"}, {"id": "q"}], "links": [{"source": "p", "target": "q"}]}))
     built, log = run(T / "bare.json", T / "bare.html")

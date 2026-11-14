@@ -1255,6 +1255,8 @@ const DP = {
     const root = document.getElementById('legend'), eyebrow = root.querySelector('.eyebrow'), cols = root.querySelector('.cols'), rows = root.querySelector('.rows');
     const byId = new Map(things.map((t, i) => [t.id, i]));
     const cats = columns.filter(c => !c.text && !c.number);   // text and numbers are read in the panel, not listed
+    const varied = cats.filter((c, k) => !k || new Set(things.flatMap(t => DP.vals(t, c.key).map(v => String(v).split('/')[0]))).size > 1);   // a column
+    let allChips = false;                                // that never changes colours nothing: no chip; past six, a +N for the rest
     let col = cats[0] || columns[0], facet = DP.facet(things, col), tree = null, hidden = [], sels = [], peeked = '';
     const open = new Set(), shown = new Map();
     const id = s => `${s.key}|${s.rest ? '*' : s.none ? '-' : (s.exact ? '=' : '') + s.path}`;
@@ -1297,8 +1299,10 @@ const DP = {
     const naming = s => s.rest ? 'Everything else' : s.none ? DP.name(col, '') : s.exact ? 'Other ' + DP.name(col, s.path).toLowerCase() : DP.name(col, s.path);
     const tone = () => rows.querySelectorAll('.dot').forEach(d => { d.style.background = DP.tone(d.dataset.c, facet.rows); });
     function draw() {
-      eyebrow.textContent = cats.length > 1 ? 'Things by' : 'Things';
-      cols.innerHTML = cats.length > 1 ? cats.map(c => `<button aria-pressed="${c === col}" data-key="${DP.esc(c.key)}">${DP.esc(c.name)}</button>`).join('') : '';
+      const show = allChips || varied.length <= 6 ? varied : varied.slice(0, 5).concat(varied.indexOf(col) >= 5 ? [col] : []);
+      eyebrow.textContent = varied.length > 1 ? 'Things by' : 'Things';
+      cols.innerHTML = varied.length > 1 ? show.map(c => `<button aria-pressed="${c === col}" data-key="${DP.esc(c.key)}">${DP.esc(c.name)}</button>`).join('')
+        + (show.length < varied.length ? `<button class="all" title="Every column">+${varied.length - show.length}</button>` : '') : '';
       const hid = new Set(hidden.map(id)), out = []; sels = [];
       const row = (s, depth, color) => {
         const k = id(s), up = ups(s), own = hid.has(k), off = up.some(u => hid.has(u)), has = opens(s), isOpen = has && open.has(k), name = naming(s);
@@ -1321,6 +1325,7 @@ const DP = {
     rows.addEventListener('mouseover', e => { const b = e.target.closest('.tag'); peek(b && !b.disabled && b.getAttribute('aria-pressed') === 'true' ? sels[+b.dataset.j] : null); });
     rows.addEventListener('mouseleave', () => peek(null));
     root.addEventListener('click', e => {
+      if (e.target.closest('.cols .all')) { allChips = true; draw(); return; }
       const c = e.target.closest('.cols button');
       if (c) {                                           // colour by another column: it starts with nothing hidden or open
         const next = columns.find(x => x.key === c.dataset.key); if (!next || next === col) return;
