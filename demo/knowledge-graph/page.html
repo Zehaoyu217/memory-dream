@@ -1,0 +1,759 @@
+<!doctype html>
+<!-- what: a memory's knowledge graph: every thing its notes name and every link a note states between two of them | for: showing what a memory knows, offline, in one file (built by demo/knowledge-graph/build.py) -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>@@TITLE@@</title>
+<script id="pkg-d3">
+@@D3@@
+</script>
+<style id="base">
+  :root {
+    --paper:#f6f6f3; --sheet:#ffffff; --tint:#efefeb; --ink:#191d22; --muted:#5d6670; --faint:#9aa1a9;
+    --accent:#2f5fd0; --out:#2f5fd0; --in:#d07a2a; --edge-rgb:25,29,34; --halo:rgba(246,246,243,.94);
+    --head:156px; --panel:400px; --radius:16px;
+    --font:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    --serif:"Iowan Old Style","Charter","Source Serif Pro",Georgia,serif;
+    --shadow:0 1px 2px rgba(25,29,34,.05),0 10px 32px rgba(25,29,34,.09);
+  }
+  * { box-sizing:border-box; }
+  html, body { height:100%; }
+  body { margin:0; background:var(--paper); color:var(--ink); font:14px/1.45 var(--font); -webkit-font-smoothing:antialiased;
+         display:grid; grid-template-columns:1fr; grid-template-rows:minmax(var(--head), auto) 1fr; overflow:hidden; }
+  body > [data-span="full"] { grid-column:1 / -1; }
+  button { font:inherit; color:inherit; background:none; border:0; padding:0; cursor:pointer; }
+  input { font:inherit; color:inherit; }
+  .dot { display:inline-block; width:9px; height:9px; border-radius:50%; flex:none; }
+  .eyebrow { font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); }
+  .float { background:var(--sheet); border-radius:var(--radius); box-shadow:var(--shadow); }
+  :focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+</style>
+<script id="lib">
+const DP = {
+  read: id => JSON.parse(document.getElementById(id).textContent),
+  esc: s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]),
+  num: n => Number(n).toLocaleString('en-US'),
+  still: () => matchMedia('(prefers-reduced-motion: reduce)').matches,
+};
+</script>
+</head>
+<body>
+<header id="masthead" data-span="full">
+  <style>
+    #masthead { display:flex; align-items:flex-end; justify-content:space-between; gap:40px; padding:26px 40px 20px; }
+    #masthead > * { animation:masthead-up .9s cubic-bezier(.2,.8,.2,1) both; }
+    #masthead dl { animation-delay:.18s; }
+    #masthead h1 { margin:8px 0 6px; font:500 32px/1.08 var(--serif); letter-spacing:-.012em; }
+    #masthead p { margin:0; color:var(--muted); max-width:820px; }
+    #masthead dl { display:flex; gap:40px; margin:0 0 2px; }
+    #masthead dl div { display:flex; flex-direction:column-reverse; gap:3px; }
+    #masthead dt { font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); }
+    #masthead dd { margin:0; font:500 28px/1 var(--serif); font-variant-numeric:tabular-nums; }
+    @keyframes masthead-up { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:none; } }
+    @media (max-width:980px) { #masthead dl { display:none; } }
+    @media (prefers-reduced-motion: reduce) { #masthead > * { animation:none; } }
+  </style>
+  <div>
+    <div class="eyebrow">@@EYEBROW@@</div>
+    <h1>@@HEADLINE@@</h1>
+    <p>@@LEDE@@</p>
+  </div>
+  <dl>@@STATS@@</dl>
+  <script>
+  (() => {
+    if (DP.still()) return;
+    document.querySelectorAll('#masthead dd').forEach((dd, k) => {   // the numbers count up as the graph blooms
+      const to = Number(dd.textContent.replace(/[^0-9]/g, '')), t0 = performance.now() + 220 + 90 * k;
+      const step = now => { const p = Math.max(0, Math.min(1, (now - t0) / 1500)); dd.textContent = DP.num(Math.round(to * d3.easeCubicOut(p))); if (p < 1) requestAnimationFrame(step); };
+      dd.textContent = '0'; requestAnimationFrame(step);
+    });
+  })();
+  </script>
+</header>
+<script type="application/json" id="data-meta">
+@@META@@
+</script>
+<script type="application/json" id="data-groups">
+@@GROUPS@@
+</script>
+<script type="application/json" id="data-things">
+@@THINGS@@
+</script>
+<script type="application/json" id="data-links">
+@@LINKS@@
+</script>
+<script type="application/json" id="data-notes">
+@@NOTES@@
+</script>
+<section id="graph" data-span="full">
+  <style>
+    #graph { position:relative; min-height:0; }
+    #graph canvas { position:absolute; inset:0; width:100%; height:100%; display:block; cursor:grab; touch-action:none; }
+    #graph canvas.over { cursor:pointer; }
+    #graph canvas.held { cursor:grabbing; }
+    #graph .tools { position:absolute; right:24px; bottom:24px; display:flex; align-items:flex-end; gap:10px; transition:right .45s cubic-bezier(.2,.8,.2,1); animation:graph-rise .8s .6s cubic-bezier(.2,.8,.2,1) both; }
+    #graph.panel .tools { right:calc(var(--panel) + 44px); }
+    #graph .zoom { display:flex; flex-direction:column; padding:4px; }
+    #graph .zoom button { width:38px; height:38px; border-radius:11px; font-size:18px; color:var(--muted); transition:background .15s, color .15s; }
+    #graph .zoom button:hover { background:var(--tint); color:var(--ink); }
+    #graph .tour { display:flex; align-items:center; gap:9px; height:46px; padding:0 18px 0 13px; font-weight:500; white-space:nowrap; transition:transform .2s; }
+    #graph .tour:hover { transform:translateY(-1px); }
+    #graph .tour i { width:22px; height:22px; border-radius:50%; background:var(--accent); display:grid; place-items:center; font-style:normal; color:#fff; font-size:9px; }
+    #graph .tour.on i { background:var(--in); }
+    #graph .tip { position:absolute; left:0; top:0; pointer-events:none; padding:9px 12px; border-radius:11px; font-size:12.5px; max-width:340px;
+                  opacity:0; transform:translateY(4px); transition:opacity .14s, transform .14s; }
+    #graph .tip.on { opacity:1; transform:none; }
+    #graph .tip b { font-weight:600; display:block; }
+    #graph .tip span { color:var(--muted); }
+    #graph .tip em { display:block; margin-top:3px; font-style:normal; font-size:11.5px; color:var(--faint); }
+    #graph .hint { position:absolute; left:50%; bottom:24px; transform:translateX(-50%); padding:6px 14px; border-radius:999px; background:var(--halo);
+                   font-size:12px; color:var(--faint); white-space:nowrap; pointer-events:none; transition:opacity .8s; }
+    #graph .hint.gone { opacity:0; }
+    @keyframes graph-rise { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:none; } }
+    @media (prefers-reduced-motion: reduce) { #graph .tools { animation:none; transition:none; } }
+  </style>
+  <canvas aria-label="A graph of the things the notes name and the links between them"></canvas>
+  <div class="tools"><button class="tour float" title="Fly through the main things, one after another"><i>▶</i><span>Take the tour</span></button><div class="zoom float"><button data-z="in" title="Zoom in">+</button><button data-z="out" title="Zoom out">−</button><button data-z="fit" title="Show everything">⤢</button></div></div>
+  <div class="tip float"></div>
+  <div class="hint">scroll to zoom · drag to move · click a thing or an island · / to search</div>
+  <script>
+  (() => {
+    const groups = DP.read('data-groups'), things = DP.read('data-things'), raw = DP.read('data-links'), meta = DP.read('data-meta');
+    const root = document.getElementById('graph'), canvas = root.querySelector('canvas'), ctx = canvas.getContext('2d');
+    const tip = root.querySelector('.tip'), hint = root.querySelector('.hint'), tourBtn = root.querySelector('.tour');
+    const css = getComputedStyle(document.documentElement), tok = n => css.getPropertyValue(n).trim();
+    const INK = tok('--ink'), MUTED = tok('--muted'), OUT = tok('--out'), IN = tok('--in'), HALO = tok('--halo'), EDGE = tok('--edge-rgb'), PAPER = tok('--paper');
+    const FONT = tok('--font'), SERIF = tok('--serif'), PANEL = parseFloat(tok('--panel')) + 48;
+    const still = DP.still();
+    const colour = Object.fromEntries(groups.map(g => [g.g, g.color]));
+    const rng = seed => () => ((seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296);   // the same layout every time
+    const rand = rng(7), backOut = d3.easeBackOut.overshoot(1.6), cubicOut = d3.easeCubicOut, inOut = d3.easeCubicInOut;
+    let raf = 0, last = performance.now(), drawn = 0, dirty = true, lastInput = performance.now();
+
+    // ---- the things, their links, and the few hubs that link to nearly everything
+    const cut = (s, n) => s.length > n ? s.slice(0, n - 2).trimEnd() + '…' : s;
+    const nodes = things.map((t, i) => ({ ...t, i, r: 2.3 + 1.2 * Math.sqrt(t.n), x: 0, y: 0, short: cut(t.label, 30), long: cut(t.label, 46) }));
+    const byId = new Map(nodes.map(n => [n.id, n]));
+    const links = raw.map((l, k) => ({ k, source: nodes[l.s], target: nodes[l.t], type: l.type }));
+    const deg = nodes.map(() => 0), around = nodes.map(() => []);
+    links.forEach(l => { deg[l.source.i]++; deg[l.target.i]++; around[l.source.i].push(l); around[l.target.i].push(l); });
+    const HUB = Math.max(36, d3.quantile(deg.slice().sort(d3.ascending), 0.995));
+    nodes.forEach(n => { n.hub = deg[n.i] >= HUB; });
+    links.forEach(l => { l.spoke = l.source.hub || l.target.hub; l.cross = l.source.home !== l.target.home; });
+    const other = (l, n) => l.source === n ? l.target : l.source;
+
+    // ---- islands: one per project, one per shared folder, and in the middle what several projects share
+    const wrap = s => {
+      if (s.length <= 16 || !s.includes(' ')) return [s];
+      let at = -1;
+      for (let i = 0; i < s.length; i++) if (s[i] === ' ' && (at < 0 || Math.abs(i - s.length / 2) < Math.abs(at - s.length / 2))) at = i;
+      return [s.slice(0, at), s.slice(at + 1)];
+    };
+    const spaced = s => s.split('').join(String.fromCharCode(8202));
+    const folders = new Set(meta.folders || []);
+    const isles = d3.groups(nodes, n => n.home).map(([h, ns]) => ({ h, ns, R: Math.sqrt(d3.sum(ns, n => (n.r + 3.6) ** 2) / 0.5), inside: 0, out: 0, hot: 0, grow: 1 }));
+    const isleOf = new Map(isles.map(p => [p.h, p]));
+    isles.forEach(p => {
+      p.folder = folders.has(p.h);
+      p.name = p.h ? p.h.replace(/-/g, ' ') : 'shared by several projects';
+      p.lines = p.folder ? [p.name] : wrap(p.name.toUpperCase()).map(spaced);
+      p.ns.forEach((n, j) => { n.j = j; });
+      p.ns.slice().sort((a, b) => deg[b.i] - deg[a.i] || b.n - a.n).slice(0, 3).forEach((n, r) => { n.key = r + 1; });
+    });
+    links.forEach(l => { if (l.cross) { isleOf.get(l.source.home).out++; isleOf.get(l.target.home).out++; } else isleOf.get(l.source.home).inside++; });
+    const share = new Map(), pair = (a, b) => a < b ? a + '|' + b : b + '|' + a;
+    links.forEach(l => { if (l.cross && !l.spoke) { const k = pair(l.source.home, l.target.home); share.set(k, (share.get(k) || 0) + 1); } });
+    const tie = (a, b) => share.get(pair(a, b)) || 0;
+    const left = isles.slice().sort((a, b) => (a.h === '') - (b.h === '') || a.ns.length - b.ns.length);
+    const order = [left.pop()];   // the middle first (or, with none, the largest island), then each island after the ones it shares most with
+    while (left.length) {
+      left.sort((a, b) => d3.sum(order, p => tie(p.h, a.h)) - d3.sum(order, p => tie(p.h, b.h)) || a.ns.length - b.ns.length || (a.h < b.h ? 1 : -1));
+      order.push(left.pop());
+    }
+    // packed as circles (d3.packSiblings: none overlaps, none strays), then left to settle into the shape of the room:
+    // the pull to the middle is weaker across than down, so the islands spread into an ellipse as wide as the screen,
+    // and two projects that share links pull together (ties to the middle are left out: nearly every island has
+    // them, and they would draw the islands into a ring round it)
+    const room = root.getBoundingClientRect();
+    const aspect = Math.max(1.1, Math.min(2.2, (room.width - 380) / Math.max(320, room.height - 70)));
+    const cs = order.map(p => ({ p, r: p.R + 40 }));
+    d3.packSiblings(cs);
+    const ox = cs[0].x, oy = cs[0].y;
+    cs.forEach(c => { c.x = (c.x - ox) * Math.sqrt(aspect); c.y = (c.y - oy) / Math.sqrt(aspect); });
+    cs[0].fx = 0; cs[0].fy = 0;
+    const ties = [];
+    cs.forEach((a, i) => { for (let j = i + 1; j < cs.length; j++) { const w = a.p.h && cs[j].p.h ? tie(a.p.h, cs[j].p.h) : 0; if (w) ties.push({ source: a, target: cs[j], w }); } });
+    const isim = d3.forceSimulation(cs).randomSource(rng(11)).velocityDecay(0.3)
+      .force('x', d3.forceX(0).strength(0.02))
+      .force('y', d3.forceY(0).strength(0.03 * aspect * aspect))
+      .force('tie', d3.forceLink(ties).distance(l => l.source.r + l.target.r).strength(l => Math.min(0.06, 0.006 * l.w)))
+      .force('collide', d3.forceCollide(c => c.r).iterations(4))
+      .stop();
+    for (let k = 0; k < 420; k++) isim.tick();
+    cs.forEach(c => { c.p.x = c.x; c.p.y = c.y; });
+
+    // ---- each thing finds its place on its island: the most linked in the middle, links inside the island pulling,
+    // a short-range push spreading them evenly (a long-range one would crowd them onto the rim)
+    nodes.forEach(n => { const p = isleOf.get(n.home), d = p.R * 0.9 * Math.sqrt((n.j + 0.5) / p.ns.length), a = n.j * 2.399963; n.x = p.x + d * Math.cos(a); n.y = p.y + d * Math.sin(a); });
+    const inner = links.filter(l => !l.cross), innerDeg = nodes.map(() => 0);
+    inner.forEach(l => { innerDeg[l.source.i]++; innerDeg[l.target.i]++; });
+    const keep = () => nodes.forEach(n => {
+      const p = isleOf.get(n.home), dx = n.x - p.x, dy = n.y - p.y, d = Math.hypot(dx, dy) || 1, lim = p.R - n.r - 2;
+      if (d > lim) { const k = (d - lim) / d * 0.4; n.vx -= dx * k; n.vy -= dy * k; }
+    });
+    const sim = d3.forceSimulation(nodes).randomSource(rng(42))
+      .force('link', d3.forceLink(inner).distance(l => 6 + 1.3 * (l.source.r + l.target.r)).strength(l => 0.45 / Math.min(innerDeg[l.source.i], innerDeg[l.target.i])))
+      .force('charge', d3.forceManyBody().strength(n => -3 - 0.6 * n.r * n.r).distanceMax(34))
+      .force('x', d3.forceX(n => isleOf.get(n.home).x).strength(0.025))
+      .force('y', d3.forceY(n => isleOf.get(n.home).y).strength(0.025))
+      .force('keep', keep)
+      .force('collide', d3.forceCollide(n => n.r + 1.7).iterations(2))
+      .alphaDecay(0.025).stop();
+    for (let k = 0; k < 260; k++) sim.tick();
+    nodes.forEach(n => { n.tx = n.x; n.ty = n.y; n.vx = n.vy = 0; });
+    isles.forEach(p => { p.D = d3.max(p.ns, n => Math.hypot(n.tx - p.x, n.ty - p.y) + n.r) + 14; });
+
+    // ---- what is shown eases toward what is wanted, so nothing jumps
+    const seen = nodes.map(() => 1), lit = nodes.map(() => 1), big = nodes.map(() => 1), grow = nodes.map(() => 1), prog = nodes.map(() => 1);
+    let hidden = new Set(), chosen = null, hover = null, hoverIsle = null, pointed = null, peek = null, ripple = null, dragging = false, version = 0;
+    const near = new Set();
+    const ease = (v, to, dt, ms) => v + (to - v) * (1 - Math.exp(-dt / ms));
+
+    // ---- the camera; the overview keeps clear of the search and the legend on the left, and of the panel when open
+    let W = 0, H = 0, dpr = 1, t = d3.zoomIdentity, panelOpen = false, moved = false, auto = false, ready = false, sizeW = 0, sizeH = 0;
+    const zoom = d3.zoom().scaleExtent([0.08, 10]).on('zoom', e => { t = e.transform; if (e.sourceEvent) { moved = true; auto = false; lastInput = performance.now(); } hideTip(); need(); });
+    const sel = d3.select(canvas);
+    const inset = () => W > 1000 ? { l: 330, r: 26 + (panelOpen ? PANEL : 0), t: 8, b: 46 } : { l: 16, r: 16, t: 70, b: 46 };
+    const frameBox = (x0, y0, x1, y1, max) => {
+      const s = inset(), vw = Math.max(160, W - s.l - s.r), vh = Math.max(160, H - s.t - s.b), pad = 24;
+      const k = Math.min(max, (vw - 2 * pad) / Math.max(1, x1 - x0), (vh - 2 * pad) / Math.max(1, y1 - y0));
+      return d3.zoomIdentity.translate(s.l + vw / 2, s.t + vh / 2).scale(k).translate(-(x0 + x1) / 2, -(y0 + y1) / 2);
+    };
+    const fitAll = () => frameBox(d3.min(isles, p => p.x - p.D), d3.min(isles, p => p.y - p.D) - 34, d3.max(isles, p => p.x + p.D), d3.max(isles, p => p.y + p.D) + 8, 3);
+    const resize = () => {
+      const b = root.getBoundingClientRect(); W = b.width; H = b.height; dpr = window.devicePixelRatio || 1;
+      canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+      if (ready && !moved && !chosen && (W !== sizeW || H !== sizeH)) sel.call(zoom.transform, fitAll());
+      sizeW = W; sizeH = H; need();
+    };
+    new ResizeObserver(resize).observe(root); resize();
+
+    // ---- the entrance: the middle first, then the islands in a sweep round it, each thing out of its island's heart
+    const T0 = performance.now() + 150;
+    const turn = p => ((Math.atan2(p.y, p.x / aspect) + Math.PI * 2.5) % (Math.PI * 2)) / (Math.PI * 2);
+    isles.forEach(p => { p.delay = still || p.h === '' ? 0 : 300 + 1300 * turn(p); p.grow = still ? 1 : 0; });
+    nodes.forEach(n => {
+      const p = isleOf.get(n.home);
+      n.delay = p.delay + (still ? 0 : 340 * Math.hypot(n.tx - p.x, n.ty - p.y) / p.D);
+      n.x = still ? n.tx : p.x; n.y = still ? n.ty : p.y;
+      if (!still) { grow[n.i] = 0; prog[n.i] = 0; }
+    });
+    let entering = !still, namesIn = still ? 1 : 0;
+
+    function need() { dirty = true; if (!raf) raf = requestAnimationFrame(frame); }
+    function frame(now) {
+      raf = 0; const dt = Math.min(64, now - last); last = now; let busy = false;
+      if (entering) {
+        let done = true;
+        isles.forEach(p => { const q = Math.max(0, Math.min(1, (now - T0 - p.delay) / 700)); p.grow = backOut(q); if (q < 1) done = false; });
+        nodes.forEach(n => {
+          const p = isleOf.get(n.home), q = Math.max(0, Math.min(1, (now - T0 - n.delay) / 1000)), e = cubicOut(q);
+          prog[n.i] = q; grow[n.i] = backOut(q); n.x = p.x + (n.tx - p.x) * e; n.y = p.y + (n.ty - p.y) * e;
+          if (q < 1) done = false;
+        });
+        if (done) { entering = false; nodes.forEach(n => { n.x = n.tx; n.y = n.ty; grow[n.i] = 1; prog[n.i] = 1; }); version++; }
+        busy = true;
+      }
+      const nt = entering ? 0 : 1; namesIn = ease(namesIn, nt, dt, 320); if (Math.abs(namesIn - nt) > 0.004) busy = true;
+      isles.forEach(p => { const h = p === hoverIsle && !chosen ? 1 : 0; p.hot = ease(p.hot, h, dt, 140); if (Math.abs(p.hot - h) > 0.004) busy = true; });
+      nodes.forEach(n => {
+        const a = hidden.has(n.g) ? 0 : 1, b = chosen ? (near.has(n.i) ? 1 : 0) : peek ? (n.g === peek ? 1 : 0) : 1, c = n === hover ? 1.35 : 1;
+        seen[n.i] = ease(seen[n.i], a, dt, 120); lit[n.i] = ease(lit[n.i], b, dt, 150); big[n.i] = ease(big[n.i], c, dt, 90);
+        if (Math.abs(seen[n.i] - a) > 0.004 || Math.abs(lit[n.i] - b) > 0.004 || Math.abs(big[n.i] - c) > 0.004) busy = true;
+      });
+      if (!still && (chosen || pointed)) busy = true;     // the flow along the chosen thing's links, the beat on the pointed one
+      if (ripple && now - ripple.t < 1000) busy = true; else ripple = null;
+      if (dragging || sim.alpha() > sim.alphaMin() + 0.002) busy = true;
+      const ambient = alive(now);
+      if (busy || dirty || (ambient && now - drawn > 31)) { draw(now); drawn = now; dirty = false; }
+      if ((busy || ambient) && !raf) raf = requestAnimationFrame(frame);
+    }
+
+    // ---- while nothing is chosen, now and then a pulse runs along a link between two islands: what one project
+    // learns, another uses. It rests after a minute and a half without a hand on the page
+    const lively = links.filter(l => l.cross && !l.spoke);
+    let pulses = [], nextPulse = 0;
+    function alive(now) {
+      if (still || chosen || entering || document.hidden || now - lastInput > 90000 || !lively.length) { if (pulses.length) { pulses = []; dirty = true; } return false; }
+      pulses = pulses.filter(q => now - q.t < q.d);
+      if (now > nextPulse && pulses.length < 8) {
+        const l = lively[Math.floor(rand() * lively.length)];
+        if (seen[l.source.i] > 0.5 && seen[l.target.i] > 0.5 && (!peek || l.source.g === peek || l.target.g === peek)) pulses.push({ l, t: now, d: 1600 + rand() * 1000 });
+        nextPulse = now + 220 + rand() * 340;
+      }
+      return true;
+    }
+
+    // ---- drawing
+    const curve = (a, b, bend) => { const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2, dx = b.x - a.x, dy = b.y - a.y; ctx.moveTo(a.x, a.y); ctx.quadraticCurveTo(mx - dy * bend, my + dx * bend, b.x, b.y); };
+    const along = (a, b, bend, u) => { const cx = (a.x + b.x) / 2 - (b.y - a.y) * bend, cy = (a.y + b.y) / 2 + (b.x - a.x) * bend, v = 1 - u; return [v * v * a.x + 2 * v * u * cx + u * u * b.x, v * v * a.y + 2 * v * u * cy + u * u * b.y]; };
+    const path = l => { if (l.cross) curve(l.source, l.target, 0.12); else { ctx.moveTo(l.source.x, l.source.y); ctx.lineTo(l.target.x, l.target.y); } };
+    function draw(now) {
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
+      ctx.save(); ctx.translate(t.x, t.y); ctx.scale(t.k, t.k);
+      const k = t.k, sk = Math.sqrt(k), quiet = chosen || peek;
+      isles.forEach(p => {                               // a soft ground under each island
+        if (p.grow <= 0) return;
+        const a = (p.h === '' ? 0.042 : 0.032) * (quiet ? 0.55 : 1) * (1 + 1.3 * p.hot);
+        ctx.fillStyle = `rgba(${EDGE},${a})`; ctx.beginPath(); ctx.arc(p.x, p.y, p.D * Math.max(0, p.grow), 0, 7); ctx.fill();
+      });
+      const on = n => prog[n.i] * seen[n.i];
+      // links: inside an island straight, between islands a soft curve; a hub's spokes only when it is pointed at
+      const lineA = chosen ? 0.03 : peek ? 0.04 : 0.1;
+      ctx.lineCap = 'round';
+      [[false, 0.75 / sk, lineA], [true, 0.6 / sk, lineA * 0.55]].forEach(([cross, w, a]) => {
+        ctx.lineWidth = w; ctx.strokeStyle = `rgba(${EDGE},${a})`; ctx.beginPath();
+        links.forEach(l => {
+          if (l.cross !== cross || l.spoke || Math.min(on(l.source), on(l.target)) < 0.6) return;
+          if (chosen && (l.source === chosen || l.target === chosen)) return;
+          path(l);
+        });
+        ctx.stroke();
+      });
+      pulses.forEach(q => {                              // a pulse: the link lights, a bead with a short tail runs along it
+        const u = Math.min(1, (now - q.t) / q.d), e = inOut(u), f = Math.sin(Math.PI * u), a = q.l.source, b = q.l.target;
+        ctx.globalAlpha = 1; ctx.strokeStyle = `rgba(${EDGE},${0.16 * f})`; ctx.lineWidth = 1 / k; ctx.beginPath(); curve(a, b, 0.12); ctx.stroke();
+        ctx.fillStyle = colour[a.g];
+        for (let j = 0; j < 6; j++) {
+          const v = e - j * 0.016; if (v < 0) break;
+          const [x, y] = along(a, b, 0.12, v);
+          ctx.globalAlpha = f * (1 - j / 6) * 0.95; ctx.beginPath(); ctx.arc(x, y, (2.6 - j * 0.3) / k, 0, 7); ctx.fill();
+        }
+      });
+      ctx.globalAlpha = 1;
+      // the chosen thing (or the one under the pointer): its links in colour, out of it blue, into it orange
+      const focus = chosen || hover;
+      if (focus && (!chosen || focus === chosen)) {
+        const mine = around[focus.i].filter(l => seen[l.source.i] > 0.5 && seen[l.target.i] > 0.5), f = chosen ? lit[focus.i] : 1;
+        [[OUT, l => l.source === focus], [IN, l => l.target === focus]].forEach(([c, out]) => {
+          ctx.strokeStyle = c; ctx.globalAlpha = (chosen ? 0.5 : 0.34) * f; ctx.lineWidth = (chosen ? 1.35 : 1) / sk; ctx.beginPath();
+          mine.filter(out).forEach(path);
+          ctx.stroke();
+        });
+        if (chosen && pointed) {                         // the link to the row the pointer is on in the panel
+          ctx.globalAlpha = 0.95; ctx.lineWidth = 2.6 / sk;
+          mine.filter(l => other(l, chosen) === pointed).forEach(l => { ctx.strokeStyle = l.source === chosen ? OUT : IN; ctx.beginPath(); path(l); ctx.stroke(); });
+        }
+        ctx.globalAlpha = 1;
+        if (chosen && !still) {   // the flow: out of it in blue along what it uses, into it in orange from what uses it
+          const s = now / 1000;
+          mine.slice(0, 180).forEach(l => {
+            const a = l.source, b = l.target, len = Math.hypot(b.x - a.x, b.y - a.y), per = Math.max(1, Math.min(3, Math.round(len / 70)));
+            ctx.fillStyle = a === chosen ? OUT : IN;
+            for (let q = 0; q < per; q++) {
+              const u = (s * 34 / Math.max(30, len) + q / per + l.k * 0.137) % 1, [x, y] = along(a, b, l.cross ? 0.12 : 0, u);
+              ctx.globalAlpha = Math.sin(Math.PI * u) * lit[chosen.i]; ctx.beginPath(); ctx.arc(x, y, 2.1 / sk, 0, 7); ctx.fill();
+            }
+          });
+          ctx.globalAlpha = 1;
+        }
+      }
+      // things: the faded ones first, the lit ones over them
+      const order = quiet ? nodes.slice().sort((a, b) => lit[a.i] - lit[b.i]) : nodes;
+      const ring = 0.9 / k;
+      order.forEach(n => {
+        const a = on(n); if (a < 0.02) return;
+        const r = n.r * grow[n.i] * big[n.i] * (0.55 + 0.45 * lit[n.i]) * (0.35 + 0.65 * seen[n.i]);
+        if (r <= 0) return;
+        ctx.globalAlpha = a * (0.14 + 0.86 * lit[n.i]);
+        ctx.fillStyle = colour[n.g]; ctx.beginPath(); ctx.arc(n.x, n.y, r, 0, 7); ctx.fill();
+        if (r * k > 3) { ctx.lineWidth = ring; ctx.strokeStyle = PAPER; ctx.stroke(); }
+        if (n === chosen || n === hover) { ctx.globalAlpha = a; ctx.lineWidth = 1.5 / k; ctx.strokeStyle = INK; ctx.beginPath(); ctx.arc(n.x, n.y, r + 3 / k, 0, 7); ctx.stroke(); }
+      });
+      ctx.globalAlpha = 1;
+      if (pointed && seen[pointed.i] > 0.5) {            // the thing pointed at in the panel beats
+        const n = pointed, q = (now % 1100) / 1100;
+        ctx.strokeStyle = colour[n.g]; ctx.lineWidth = 2 / k; ctx.globalAlpha = 0.8 * (1 - q);
+        ctx.beginPath(); ctx.arc(n.x, n.y, n.r + (3 + 18 * cubicOut(q)) / k, 0, 7); ctx.stroke();
+        ctx.globalAlpha = 1; ctx.lineWidth = 1.5 / k; ctx.strokeStyle = INK; ctx.beginPath(); ctx.arc(n.x, n.y, n.r + 3 / k, 0, 7); ctx.stroke();
+      }
+      if (ripple) {
+        const q = (now - ripple.t) / 1000, n = ripple.n;
+        [0, 0.22].forEach(off => { const u = Math.max(0, Math.min(1, (q - off) / 0.78)); if (u <= 0 || u >= 1) return;
+          ctx.strokeStyle = colour[n.g]; ctx.lineWidth = 2 / k; ctx.globalAlpha = (1 - u) * 0.65;
+          ctx.beginPath(); ctx.arc(n.x, n.y, n.r + (4 + 30 * cubicOut(u)) / k, 0, 7); ctx.stroke(); });
+        ctx.globalAlpha = 1;
+      }
+      ctx.restore();
+      // names, in screen space, none over another: with a thing chosen its neighbours' first, otherwise the islands'
+      const boxes = [];
+      if (chosen) { nodeNames(k, boxes); isleNames(k, boxes); } else { isleNames(k, boxes); nodeNames(k, boxes); }
+    }
+    const overlaps = (b, boxes) => boxes.some(o => b[0] < o[2] && b[2] > o[0] && b[1] < o[3] && b[3] > o[1]);
+    const hitsDisc = (b, q, k) => {                      // a name may lie on a neighbour's rim, not over its heart
+      const cx = t.applyX(q.x), cy = t.applyY(q.y), r = 0.72 * q.D * k * Math.max(0, q.grow);
+      const x = Math.max(b[0], Math.min(cx, b[2])), y = Math.max(b[1], Math.min(cy, b[3]));
+      return (x - cx) ** 2 + (y - cy) ** 2 < r * r;
+    };
+    function isleNames(k, boxes) {
+      const fade = namesIn * Math.max(0, Math.min(1, (1.75 - k) / 0.6));
+      ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic'; ctx.lineJoin = 'round';
+      isles.slice().sort((a, b) => b.hot - a.hot || (a.h !== '') - (b.h !== '') || b.ns.length - a.ns.length).forEach(p => {
+        const a = Math.max(fade * (chosen || peek ? 0.3 : 1), p.hot) * Math.min(1, Math.max(0, p.grow));
+        if (a < 0.02) return;
+        ctx.font = p.folder ? `italic 500 13px ${SERIF}` : `600 9.5px ${FONT}`;
+        const lh = p.folder ? 15 : 12.5, w = Math.max(...p.lines.map(s => ctx.measureText(s).width)), hgt = p.lines.length * lh;
+        const sx = t.applyX(p.x), top = t.applyY(p.y - p.D * p.grow) - 6, bottom = t.applyY(p.y + p.D * p.grow) + 6;
+        const above = [sx - w / 2 - 3, top - hgt, sx + w / 2 + 3, top], below = [sx - w / 2 - 3, bottom, sx + w / 2 + 3, bottom + hgt];
+        const free = b => !overlaps(b, boxes) && (p.h === '' || !isles.some(q => q !== p && hitsDisc(b, q, k)));
+        const b = free(above) ? above : free(below) ? below : p.hot > 0.02 ? above : null;
+        if (!b) return;
+        boxes.push(b);
+        ctx.globalAlpha = a;
+        p.lines.forEach((s, j) => {
+          const y = b[1] + lh * (j + 1) - (p.folder ? 4 : 3);
+          ctx.lineWidth = 3; ctx.strokeStyle = HALO; ctx.strokeText(s, sx, y);
+          ctx.fillStyle = p.hot > 0.5 ? INK : `rgba(${EDGE},0.52)`; ctx.fillText(s, sx, y);
+        });
+      });
+      ctx.globalAlpha = 1;
+    }
+    function nodeNames(k, boxes) {
+      if (namesIn < 0.02) return;
+      const cand = [];
+      if (hover) cand.push(hover);
+      if (pointed) cand.push(pointed);
+      if (chosen) cand.push(chosen, ...around[chosen.i].map(l => other(l, chosen)).sort((a, b) => b.r - a.r));
+      nodes.forEach(n => { if (n.r * k >= 6.5 || (n.hub && k > 0.3) || (n.key === 1 && k > 0.85) || (n.key && k > 1.5)) cand.push(n); });
+      ctx.font = `500 11.5px ${FONT}`; ctx.textAlign = 'left'; ctx.textBaseline = 'middle'; ctx.lineJoin = 'round';
+      const done = new Set();
+      cand.forEach(n => {
+        if (done.has(n.i) || seen[n.i] < 0.5 || prog[n.i] < 1) return; done.add(n.i);
+        const must = n === chosen || n === hover || n === pointed;
+        if (!must && ((chosen && !near.has(n.i)) || (peek && n.g !== peek))) return;
+        const text = must ? n.long : n.short, w = ctx.measureText(text).width, rr = n.r * big[n.i] * k;
+        const sx = t.applyX(n.x), y = t.applyY(n.y), right = W - (panelOpen ? PANEL : 0) - 6;
+        const x = sx + rr + 5 + w > right && sx - rr - 5 - w > 0 ? sx - rr - 5 - w : sx + rr + 5;   // flips left at the panel's edge
+        const box = [x - 3, y - 8, x + w + 3, y + 8];
+        if (!must && (box[2] < 0 || box[0] > right || box[3] < 0 || box[1] > H || overlaps(box, boxes))) return;
+        boxes.push(box);
+        ctx.globalAlpha = namesIn * (0.3 + 0.7 * lit[n.i]);
+        ctx.lineWidth = 3.4; ctx.strokeStyle = HALO; ctx.strokeText(text, x, y);
+        ctx.fillStyle = must || chosen ? INK : MUTED; ctx.fillText(text, x, y);
+      });
+      ctx.globalAlpha = 1;
+    }
+
+    // ---- pointing, choosing, dragging
+    let tree = null, treeV = -1, pend = 0;
+    const pick = (px, py) => {
+      if (treeV !== version) { tree = d3.quadtree(nodes.filter(n => seen[n.i] > 0.5), n => n.x, n => n.y); treeV = version; }
+      const x = t.invertX(px), y = t.invertY(py), n = tree.find(x, y, 26 / t.k);
+      return n && Math.hypot(n.x - x, n.y - y) <= n.r + 7 / t.k ? n : null;
+    };
+    const isleAt = (px, py) => { const x = t.invertX(px), y = t.invertY(py); return isles.find(p => Math.hypot(x - p.x, y - p.y) <= p.D) || null; };
+    function choose(n, tell) {
+      chosen = n || null; near.clear(); pointed = null;
+      if (chosen) { near.add(chosen.i); around[chosen.i].forEach(l => { near.add(l.source.i); near.add(l.target.i); }); ripple = { n: chosen, t: performance.now() }; hoverIsle = null; }
+      panelOpen = !!chosen; root.classList.toggle('panel', panelOpen);
+      if (tell) document.dispatchEvent(new CustomEvent('dp:select', { detail: { id: chosen ? chosen.id : null } }));
+      need();
+    }
+    function place(px, py) { const w = tip.offsetWidth, h = tip.offsetHeight; tip.style.left = Math.min(W - w - 16, px + 18) + 'px'; tip.style.top = Math.min(H - h - 16, py + 16) + 'px'; tip.classList.add('on'); }
+    function showTip(n, px, py) {
+      tip.innerHTML = `<b>${DP.esc(n.label)}</b><span>${DP.esc(n.type)}${n.home ? ' · ' + DP.esc(n.home) : ''} · ${DP.num(deg[n.i])} link${deg[n.i] === 1 ? '' : 's'} · ${DP.num(n.n)} note${n.n === 1 ? '' : 's'}</span>`;
+      place(px, py);
+    }
+    function showIsleTip(p, px, py) {
+      const what = p.folder ? 'a shared folder' : p.h ? 'a project' : 'what no one project holds';
+      tip.innerHTML = `<b>${DP.esc(p.name.replace(/^./, c => c.toUpperCase()))}</b><span>${what} · ${DP.num(p.ns.length)} things · ${DP.num(p.inside)} links inside · ${DP.num(p.out)} to other islands</span><em>click to go there</em>`;
+      place(px, py);
+    }
+    function hideTip() { tip.classList.remove('on'); }
+    const drag = d3.drag()
+      .subject(e => { const n = entering ? null : pick(e.x, e.y); return n ? { x: t.applyX(n.x), y: t.applyY(n.y), n } : null; })
+      .on('start', e => { stopTour(); dragging = true; canvas.classList.add('held'); hideTip(); e.subject.n.fx = e.subject.n.x; e.subject.n.fy = e.subject.n.y; sim.alphaTarget(0.2).restart(); need(); })
+      .on('drag', e => { e.subject.n.fx = t.invertX(e.x); e.subject.n.fy = t.invertY(e.y); })
+      .on('end', e => { dragging = false; canvas.classList.remove('held'); e.subject.n.fx = e.subject.n.fy = null; sim.alphaTarget(0); });
+    sim.on('tick', () => { version++; need(); });
+    sel.call(drag).call(zoom).on('dblclick.zoom', null);
+    canvas.addEventListener('mousemove', e => {
+      const was = lastInput; lastInput = performance.now(); if (lastInput - was > 90000) need();
+      if (dragging) return;
+      const n = entering ? null : pick(e.offsetX, e.offsetY), p = n || entering || chosen ? null : isleAt(e.offsetX, e.offsetY);
+      if (n !== hover || p !== hoverIsle) { hover = n; hoverIsle = p; canvas.classList.toggle('over', !!(n || p)); need(); }
+      if (n) showTip(n, e.offsetX, e.offsetY); else if (p) showIsleTip(p, e.offsetX, e.offsetY); else hideTip();
+    });
+    canvas.addEventListener('mouseleave', () => { hover = null; hoverIsle = null; hideTip(); need(); });
+    canvas.addEventListener('click', e => {
+      lastInput = performance.now();
+      if (entering) return; stopTour();
+      const n = pick(e.offsetX, e.offsetY);
+      if (n) { if (n !== chosen) { choose(n, true); frameOn(n); } return; }
+      const p = isleAt(e.offsetX, e.offsetY);
+      if (chosen) choose(null, true);
+      clearTimeout(pend);
+      if (p) pend = setTimeout(() => { hideTip(); fly(frameBox(p.x - p.D, p.y - p.D - 40, p.x + p.D, p.y + p.D, 3.4), 1100); }, 230);
+    });
+    canvas.addEventListener('dblclick', () => { clearTimeout(pend); stopTour(); if (chosen) choose(null, true); fly(fitAll(), 1100); });
+    canvas.addEventListener('wheel', () => stopTour(), { passive: true });
+    document.addEventListener('keydown', e => { lastInput = performance.now(); if (e.key === 'Escape') { if (chosen) release(); else stopTour(); } });
+
+    // ---- the camera travels the smooth zoom-and-pan path (van Wijk and Nuij; d3's zoom transitions follow it)
+    function fly(to, ms) { sel.transition().duration(still ? 0 : ms).ease(inOut).call(zoom.transform, to); }
+    function frameOn(n) {
+      const X = m => entering ? m.tx : m.x, Y = m => entering ? m.ty : m.y;
+      const ring = [n, ...around[n.i].map(l => other(l, n)).filter(m => seen[m.i] > 0.5)].slice(0, 90);
+      const to = frameBox(d3.min(ring, m => X(m) - m.r) - 30, d3.min(ring, m => Y(m) - m.r) - 48, d3.max(ring, m => X(m) + m.r) + 110, d3.max(ring, m => Y(m) + m.r) + 30, 2.8);
+      const a = [(W / 2 - t.x) / t.k, (H / 2 - t.y) / t.k, W / t.k], b = [(W / 2 - to.x) / to.k, (H / 2 - to.y) / to.k, W / to.k];
+      fly(to, Math.max(700, Math.min(1800, d3.interpolateZoom(a, b).duration * 0.9)));
+      auto = true;
+    }
+    function release() {                                 // let go of the chosen thing; if the camera went there by itself, it comes back
+      const back = auto && chosen; stopTour(); choose(null, true);
+      if (back) { auto = false; fly(fitAll(), 1000); }
+    }
+    root.querySelector('.zoom').addEventListener('click', e => {
+      const z = e.target.closest('button'); if (!z) return; stopTour(); lastInput = performance.now();
+      if (z.dataset.z === 'fit') fly(fitAll(), 1000); else sel.transition().duration(340).call(zoom.scaleBy, z.dataset.z === 'in' ? 1.6 : 1 / 1.6);
+    });
+    document.addEventListener('dp:focus', e => {
+      const n = byId.get(e.detail.id); if (!n) return;
+      if (hidden.has(n.g)) { hidden.delete(n.g); version++; document.dispatchEvent(new CustomEvent('dp:shown', { detail: { g: n.g } })); }
+      choose(n, true); frameOn(n);
+    });
+    document.addEventListener('dp:clear', () => release());
+    document.addEventListener('dp:filter', e => { hidden = new Set(e.detail.hidden); if (chosen && hidden.has(chosen.g)) choose(null, true); version++; need(); });
+    document.addEventListener('dp:peek', e => { peek = e.detail.g || null; need(); });
+    document.addEventListener('dp:point', e => { pointed = (e.detail.id && byId.get(e.detail.id)) || null; need(); });
+
+    // ---- the tour: the most linked thing of the middle, then of the largest projects, one after another
+    const stops = [];
+    const best = ns => ns.filter(n => n.g !== 'metrics').sort((a, b) => deg[b.i] - deg[a.i] || b.n - a.n)[0];
+    [isleOf.get(''), ...isles.filter(p => p.h && !p.folder).sort((a, b) => b.ns.length - a.ns.length).slice(0, 7)].forEach(p => { const n = p && best(p.ns); if (n) stops.push(n); });
+    const tourText = tourBtn.querySelector('span'), tourIcon = tourBtn.querySelector('i');
+    let touring = 0;
+    function stopTour() { if (!touring) return; clearTimeout(touring); touring = 0; tourBtn.classList.remove('on'); tourText.textContent = 'Take the tour'; tourIcon.textContent = '▶'; }
+    function step(k) {
+      if (k >= stops.length) { stopTour(); choose(null, true); fly(fitAll(), 1400); return; }
+      const n = stops[k];
+      if (hidden.has(n.g)) { hidden.delete(n.g); version++; document.dispatchEvent(new CustomEvent('dp:shown', { detail: { g: n.g } })); }
+      tourText.textContent = `Stop the tour · ${k + 1} of ${stops.length}`;
+      choose(n, true); frameOn(n);
+      touring = setTimeout(() => step(k + 1), 5600);
+    }
+    tourBtn.addEventListener('click', () => {
+      lastInput = performance.now();
+      if (touring) { stopTour(); return; }
+      tourBtn.classList.add('on'); tourIcon.textContent = '■';
+      touring = setTimeout(() => step(0), 10);
+    });
+
+    // ---- start: a little closer than the whole, then the camera eases out as the islands bloom
+    ready = true;
+    const whole = fitAll();
+    sel.call(zoom.transform, whole);
+    if (!still) {
+      const s = inset();
+      sel.call(zoom.scaleBy, 1.22, [s.l + (W - s.l - s.r) / 2, s.t + (H - s.t - s.b) / 2]);
+      sel.transition().delay(120).duration(2800).ease(cubicOut).call(zoom.transform, whole);
+    }
+    setTimeout(() => hint.classList.add('gone'), 10000);
+    need();
+  })();
+  </script>
+</section>
+<section id="search">
+  <style>
+    #search { position:fixed; left:28px; top:calc(var(--head) + 14px); width:380px; z-index:5; animation:search-in .7s .35s cubic-bezier(.2,.8,.2,1) both; }
+    #search .box { display:flex; align-items:center; gap:11px; padding:0 15px; height:48px; border-radius:var(--radius); transition:box-shadow .2s; }
+    #search .box:focus-within { box-shadow:0 0 0 2px rgba(47,95,208,.25), var(--shadow); }
+    #search svg { flex:none; color:var(--faint); }
+    #search input { flex:1; border:0; outline:0; background:none; font-size:14.5px; min-width:0; }
+    #search input::-webkit-search-cancel-button { display:none; }
+    #search kbd { font:11px var(--font); color:var(--muted); background:var(--tint); border-radius:6px; padding:2px 7px; }
+    #search ul { list-style:none; margin:8px 0 0; padding:6px; max-height:380px; overflow:auto; border-radius:var(--radius); }
+    #search ul:empty { display:none; }
+    #search ul.fresh li { animation:search-li .3s cubic-bezier(.2,.8,.2,1) both; }
+    #search ul.fresh li:nth-child(2) { animation-delay:.03s; } #search ul.fresh li:nth-child(3) { animation-delay:.06s; } #search ul.fresh li:nth-child(4) { animation-delay:.09s; }
+    #search ul.fresh li:nth-child(n+5) { animation-delay:.12s; }
+    #search li button { display:flex; align-items:center; gap:10px; width:100%; text-align:left; padding:9px 10px; border-radius:11px; }
+    #search li button.on, #search li button:hover { background:var(--tint); }
+    #search li .name { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    #search li .kind { font-size:12px; color:var(--muted); white-space:nowrap; }
+    #search mark { background:none; color:var(--accent); font-weight:600; }
+    @keyframes search-in { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:none; } }
+    @keyframes search-li { from { opacity:0; transform:translateY(-4px); } to { opacity:1; transform:none; } }
+    @media (prefers-reduced-motion: reduce) { #search, #search ul.fresh li { animation:none; } }
+  </style>
+  <div class="box float">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <input type="search" placeholder="Find a thing" aria-label="Find a thing" autocomplete="off" spellcheck="false">
+    <kbd>/</kbd>
+  </div>
+  <ul class="float" role="listbox"></ul>
+  <script>
+  (() => {
+    const groups = DP.read('data-groups'), things = DP.read('data-things');
+    const colour = Object.fromEntries(groups.map(g => [g.g, g.color]));
+    const root = document.getElementById('search'), input = root.querySelector('input'), list = root.querySelector('ul');
+    const index = things.map(t => ({ t, keys: [t.label, ...(t.names || []), t.id].map(s => String(s).toLowerCase()) }));
+    let hits = [], at = 0, q = '';
+    const mark = s => { const k = s.toLowerCase().indexOf(q); return k < 0 ? DP.esc(s) : DP.esc(s.slice(0, k)) + '<mark>' + DP.esc(s.slice(k, k + q.length)) + '</mark>' + DP.esc(s.slice(k + q.length)); };
+    const render = fresh => {
+      list.classList.toggle('fresh', !!fresh);
+      list.innerHTML = hits.map((t, k) => `<li><button class="${k === at ? 'on' : ''}" data-id="${DP.esc(t.id)}"><span class="dot" data-c="${colour[t.g]}"></span><span class="name">${mark(t.label)}</span><span class="kind">${DP.esc(t.type)} · ${DP.num(t.n)} note${t.n === 1 ? '' : 's'}</span></button></li>`).join('');
+      list.querySelectorAll('.dot').forEach(d => { d.style.background = d.dataset.c; });
+    };
+    const find = () => {
+      if (!q) return [];
+      const score = x => x.keys.some(k => k === q) ? 3 : x.keys.some(k => k.startsWith(q)) ? 2 : x.keys.some(k => k.includes(q)) ? 1 : 0;
+      return index.map(x => [score(x), x.t]).filter(s => s[0]).sort((a, b) => b[0] - a[0] || b[1].n - a[1].n).slice(0, 8).map(s => s[1]);
+    };
+    const go = id => { if (!id) return; document.dispatchEvent(new CustomEvent('dp:focus', { detail: { id } })); hits = []; render(); input.blur(); };
+    input.addEventListener('input', () => { const was = hits.length; q = input.value.trim().toLowerCase(); hits = find(); at = 0; render(!was); });
+    input.addEventListener('keydown', e => {
+      if (e.key === 'ArrowDown') { at = Math.min(hits.length - 1, at + 1); render(); e.preventDefault(); }
+      else if (e.key === 'ArrowUp') { at = Math.max(0, at - 1); render(); e.preventDefault(); }
+      else if (e.key === 'Enter') go(hits[at] && hits[at].id);
+      else if (e.key === 'Escape') { input.value = ''; q = ''; hits = []; render(); input.blur(); document.dispatchEvent(new CustomEvent('dp:clear', { detail: {} })); }
+    });
+    list.addEventListener('click', e => { const b = e.target.closest('button'); if (b) go(b.dataset.id); });
+    document.addEventListener('keydown', e => { if (e.key === '/' && document.activeElement !== input) { e.preventDefault(); input.focus(); input.select(); } });
+  })();
+  </script>
+</section>
+<section id="legend" class="float">
+  <style>
+    #legend { position:fixed; left:28px; bottom:26px; z-index:4; width:272px; padding:16px 10px 12px; animation:legend-in .8s .5s cubic-bezier(.2,.8,.2,1) both; }
+    #legend .eyebrow { padding:0 10px 8px; }
+    #legend button { display:flex; align-items:center; gap:10px; width:100%; padding:6px 10px; border-radius:10px; font-size:13px; text-align:left; transition:background .15s, opacity .2s; }
+    #legend button:hover { background:var(--tint); }
+    #legend button[aria-pressed="false"] { opacity:.36; }
+    #legend button .name { flex:1; }
+    #legend button .n { color:var(--muted); font-variant-numeric:tabular-nums; font-size:12px; }
+    #legend .key { display:flex; gap:16px; padding:12px 10px 0; font-size:12px; color:var(--muted); }
+    #legend .key b { font-weight:600; margin-right:3px; }
+    #legend .key .out { color:var(--out); }
+    #legend .key .in { color:var(--in); }
+    #legend .help { padding:5px 10px 0; font-size:11.5px; color:var(--faint); }
+    @keyframes legend-in { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:none; } }
+    @media (max-height:760px) { #legend .help { display:none; } }
+    @media (prefers-reduced-motion: reduce) { #legend { animation:none; } }
+  </style>
+  <div class="eyebrow">Things</div>
+  <div class="rows"></div>
+  <div class="key"><span><b class="out">→</b>what it uses</span><span><b class="in">←</b>what uses it</span></div>
+  <div class="help">Point to light a group; click to hide it.</div>
+  <script>
+  (() => {
+    const groups = DP.read('data-groups'), things = DP.read('data-things');
+    const root = document.getElementById('legend'), rows = root.querySelector('.rows');
+    const count = g => things.filter(t => t.g === g).length;
+    rows.innerHTML = groups.filter(g => count(g.g)).map(g => `<button aria-pressed="true" data-g="${g.g}"><span class="dot" data-c="${g.color}"></span><span class="name">${DP.esc(g.name)}</span><span class="n">${DP.num(count(g.g))}</span></button>`).join('');
+    rows.querySelectorAll('.dot').forEach(d => { d.style.background = d.dataset.c; });
+    const hidden = new Set();
+    let peeked = null;
+    const peek = g => { if (g !== peeked) { peeked = g; document.dispatchEvent(new CustomEvent('dp:peek', { detail: { g } })); } };
+    rows.addEventListener('mouseover', e => { const b = e.target.closest('button'); peek(b && !hidden.has(b.dataset.g) ? b.dataset.g : null); });
+    rows.addEventListener('mouseleave', () => peek(null));
+    root.addEventListener('click', e => {
+      const b = e.target.closest('button'); if (!b) return;
+      const g = b.dataset.g; if (hidden.has(g)) hidden.delete(g); else hidden.add(g);
+      b.setAttribute('aria-pressed', hidden.has(g) ? 'false' : 'true');
+      peek(hidden.has(g) ? null : g);
+      document.dispatchEvent(new CustomEvent('dp:filter', { detail: { hidden: [...hidden] } }));
+    });
+    document.addEventListener('dp:shown', e => { hidden.delete(e.detail.g); const b = rows.querySelector(`button[data-g="${e.detail.g}"]`); if (b) b.setAttribute('aria-pressed', 'true'); });
+  })();
+  </script>
+</section>
+<aside id="detail" aria-live="polite">
+  <style>
+    #detail { position:fixed; top:calc(var(--head) + 14px); right:24px; bottom:24px; width:var(--panel); z-index:6; overflow:auto;
+              background:var(--sheet); border-radius:20px; box-shadow:var(--shadow); padding:28px 26px 30px;
+              opacity:0; transform:translateX(28px) scale(.985); pointer-events:none; transition:opacity .24s ease, transform .4s cubic-bezier(.2,.8,.2,1); }
+    #detail.open { opacity:1; transform:none; pointer-events:auto; }
+    #detail .close { position:absolute; right:14px; top:14px; width:34px; height:34px; border-radius:10px; color:var(--muted); font-size:19px; }
+    #detail .close:hover { background:var(--tint); color:var(--ink); }
+    #detail .kind { display:flex; align-items:center; gap:8px; font-size:11.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); }
+    #detail h2 { margin:12px 34px 8px 0; font:500 27px/1.12 var(--serif); letter-spacing:-.012em; overflow-wrap:anywhere; }
+    #detail h2.long { font-size:20px; line-height:1.25; }
+    #detail .facts { display:flex; gap:22px; margin:14px 0 0; }
+    #detail .facts div { display:flex; flex-direction:column-reverse; }
+    #detail .facts dt { font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); }
+    #detail .facts dd { margin:0; font:500 22px/1.1 var(--serif); font-variant-numeric:tabular-nums; }
+    #detail h3 { display:flex; align-items:baseline; gap:8px; margin:28px 0 10px; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); font-weight:600; }
+    #detail h3 em { font-style:normal; color:var(--faint); font-weight:500; }
+    #detail h3 .arrow { font-size:12px; letter-spacing:0; }
+    #detail ul { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:6px; }
+    #detail li { background:var(--paper); border-radius:12px; padding:10px 13px; animation:detail-in .42s cubic-bezier(.2,.8,.2,1) both; transition:background .15s; }
+    #detail li:hover { background:var(--tint); }
+    #detail li:nth-child(2) { animation-delay:.035s; } #detail li:nth-child(3) { animation-delay:.07s; } #detail li:nth-child(4) { animation-delay:.105s; }
+    #detail li:nth-child(5) { animation-delay:.14s; } #detail li:nth-child(n+6) { animation-delay:.175s; }
+    #detail .to { display:flex; align-items:center; gap:9px; font-weight:500; text-align:left; transition:color .15s; }
+    #detail .to:hover { color:var(--accent); }
+    #detail .arrow.out { color:var(--out); }
+    #detail .arrow.in { color:var(--in); }
+    #detail q { display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; margin-top:5px; color:var(--muted); font-size:12.5px; quotes:none; }
+    #detail .src { display:block; margin-top:4px; color:var(--faint); font-size:11.5px; }
+    #detail .note b { display:block; font-weight:500; }
+    #detail .note span { color:var(--muted); font-size:12px; }
+    #detail .old { display:inline-block; margin-left:6px; padding:1px 7px; border-radius:999px; background:rgba(208,122,42,.12); color:var(--in); font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; }
+    #detail .more { margin-top:10px; padding:7px 12px; border-radius:10px; color:var(--accent); font-size:12.5px; font-weight:500; background:rgba(47,95,208,.07); }
+    #detail .more:hover { background:rgba(47,95,208,.13); }
+    @keyframes detail-in { from { opacity:0; transform:translateY(7px); } to { opacity:1; transform:none; } }
+    @media (prefers-reduced-motion: reduce) { #detail, #detail li { transition:none; animation:none; } }
+  </style>
+  <button class="close" title="Close (Esc)">×</button>
+  <div class="body"></div>
+  <script>
+  (() => {
+    const groups = DP.read('data-groups'), things = DP.read('data-things'), links = DP.read('data-links'), notes = DP.read('data-notes');
+    const colour = Object.fromEntries(groups.map(g => [g.g, g.color]));
+    const root = document.getElementById('detail'), body = root.querySelector('.body');
+    const byId = new Map(things.map((t, i) => [t.id, i]));
+    const OUT = { 'uses': 'Uses', 'measured-by': 'Measured by', 'evaluated-on': 'Evaluated on', 'owned-by': 'Owned by', 'replaces': 'Replaces',
+                  'part-of': 'Part of', 'trained-on': 'Trained on', 'produces': 'Produces', 'shows': 'Shows', 'compared-with': 'Compared with' };
+    const IN = { 'uses': 'Used by', 'measured-by': 'Measures', 'evaluated-on': 'Evaluation set for', 'owned-by': 'Owns', 'replaces': 'Replaced by',
+                 'part-of': 'Has as a part', 'trained-on': 'Training data for', 'produces': 'Produced by', 'shows': 'Shown in', 'compared-with': 'Compared with' };
+    const say = (ty, out) => (out ? OUT : IN)[ty] || (ty.replace(/^other\//, '').replace(/-/g, ' ').replace(/^./, c => c.toUpperCase()) + (out ? '' : ', from'));
+    const SHOW = 5;
+    const more = rows => rows.length > SHOW ? `<button class="more" data-rest="${DP.esc(encodeURIComponent(rows.slice(SHOW).join('')))}">Show ${DP.num(rows.length - SHOW)} more</button>` : '';
+    let pointedId = null;
+    const point = id => { if (id !== pointedId) { pointedId = id; document.dispatchEvent(new CustomEvent('dp:point', { detail: { id } })); } };
+    const render = i => {
+      const t = things[i], mine = links.filter(l => l.s === i || l.t === i), sets = new Map();
+      mine.forEach(l => { const out = l.s === i, key = (out ? 'o:' : 'i:') + l.type; if (!sets.has(key)) sets.set(key, { out, type: l.type, rows: [] }); sets.get(key).rows.push(l); });
+      const blocks = [...sets.values()].sort((a, b) => b.out - a.out || b.rows.length - a.rows.length).map(s => {
+        const rows = s.rows.map(l => {
+          const o = things[s.out ? l.t : l.s], n = notes[l.note];
+          return `<li><button class="to" data-id="${DP.esc(o.id)}"><span class="dot" data-c="${colour[o.g]}"></span>${DP.esc(o.label)}</button>`
+            + (l.q ? `<q>“${DP.esc(l.q)}”</q>` : '') + (n ? `<span class="src">${DP.esc(n.p.replace(/\.md$/, ''))}</span>` : '') + '</li>';
+        });
+        return `<h3><span class="arrow ${s.out ? 'out' : 'in'}">${s.out ? '→' : '←'}</span>${DP.esc(say(s.type, s.out))} <em>${DP.num(s.rows.length)}</em></h3><ul>${rows.slice(0, SHOW).join('')}</ul>${more(rows)}`;
+      }).join('');
+      const ns = (t.notes || []).map(k => notes[k]).filter(Boolean).sort((a, b) => (b.d || '').localeCompare(a.d || ''));
+      const noteRows = ns.map(n => `<li class="note"><b>${DP.esc(n.t)}</b><span>${DP.esc(n.a || 'top level')} · ${DP.esc(n.d || '')} · ${DP.esc(n.k)}</span>${n.old ? '<span class="old">replaced</span>' : ''}</li>`);
+      body.innerHTML = `<div class="kind"><span class="dot" data-c="${colour[t.g]}"></span>${DP.esc(t.type)} · ${DP.esc(t.home || 'shared by several projects')}</div>`
+        + `<h2${t.label.length > 44 ? ' class="long"' : ''}>${DP.esc(t.label)}</h2>`
+        + `<dl class="facts"><div><dt>notes</dt><dd>${DP.num(t.n)}</dd></div><div><dt>links</dt><dd>${DP.num(mine.length)}</dd></div></dl>`
+        + blocks + `<h3>Notes that name it <em>${DP.num(ns.length)}</em></h3><ul>${noteRows.slice(0, SHOW).join('')}</ul>${more(noteRows)}`;
+      body.querySelectorAll('.dot[data-c]').forEach(d => { d.style.background = d.dataset.c; });
+      pointedId = null; root.scrollTop = 0; root.classList.add('open');
+    };
+    document.addEventListener('dp:select', e => { const i = e.detail.id == null ? undefined : byId.get(e.detail.id); if (i === undefined) root.classList.remove('open'); else render(i); });
+    root.addEventListener('mouseover', e => { const li = e.target.closest('li'), to = li && li.querySelector('.to'); point(to ? to.dataset.id : null); });
+    root.addEventListener('mouseleave', () => point(null));
+    root.addEventListener('click', e => {
+      const to = e.target.closest('.to'); if (to) { document.dispatchEvent(new CustomEvent('dp:focus', { detail: { id: to.dataset.id } })); return; }
+      const m = e.target.closest('.more');
+      if (m) { const ul = m.previousElementSibling; ul.insertAdjacentHTML('beforeend', decodeURIComponent(m.dataset.rest)); ul.querySelectorAll('.dot[data-c]').forEach(d => { d.style.background = d.dataset.c; }); m.remove(); return; }
+      if (e.target.closest('.close')) document.dispatchEvent(new CustomEvent('dp:clear', { detail: {} }));
+    });
+  })();
+  </script>
+</aside>
+</body>
+</html>
